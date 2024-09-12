@@ -570,24 +570,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        //[HttpPost("VehicleFltMasterSave")]
-        //public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
-        //{
-        //    if (vehicleFltMasterModel == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
-
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
         [HttpPost("VehicleFltMasterSave")]
         public async Task<IActionResult> VehicleFltMasterSave()
         {

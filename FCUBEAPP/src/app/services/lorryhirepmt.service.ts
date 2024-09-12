@@ -49,11 +49,18 @@ export class LorryhirepmtService {
 
   getChallanLorryhireDetails(request: Reportmodel): Observable<Lorryhiremastermodel> {
     return this.httpClient.post<Lorryhiremastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanLorryhireDetails', request, this.httpOptions);
+  } 
+  
+  checkChallanNoExists(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanNoExists', request, this.httpOptions);
   }
 
   lorryhiremasterDelete(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDelete', request, this.httpOptions);
   }
 
+  getLhpmPmtNo(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePmtNo', request, this.httpOptions);
+  }
   
 }

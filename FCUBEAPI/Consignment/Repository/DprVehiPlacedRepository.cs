@@ -412,15 +412,18 @@ namespace Consignment.Repository
                             new SqlParameter("@PlacementStatus"         , dprVehi.PlacementStatus),
                             new SqlParameter("@PlacementStatusRemarks"  , dprVehi.PlacementStatusRemarks),
                             new SqlParameter("@LoggedInUser"            , dprVehi.LoggedInUser),
-
-
                         };
+
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiclePlacedSave", param);
                    
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status==false && responseModel.Message.Contains("UNIQUE"))
+                        {
+                            responseModel.Message = "Record Saved. Click Save Button only once";
+                        }
                       
                         if (responseModel.Status)
                         {

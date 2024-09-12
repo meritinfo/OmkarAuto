@@ -76,7 +76,7 @@ namespace FinTrans.Repository
                                 Flt_TyreSalesAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_TyreSalesAc"]),
                                 Flt_SparesStockAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_SparesStockAc"]),
                                 Flt_LubesStockAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_LubesStockAc"]),
-                                Flt_VehMa = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_VehMa"]),
+                               // Flt_VehMa = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_VehMa"]),
                                 Flt_TripDrAdvanceAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_TripDrAdvanceAc"]),
                                 Flt_TripFrtIncomeAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_TripFrtIncomeAc"]),
                                 Flt_FltFrtReceivableAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_FltFrtReceivableAc"]),
@@ -123,8 +123,80 @@ namespace FinTrans.Repository
             return custWizardList;
         }
 
-    
-    public async Task<ResponseModel> CustWizardSave(CustWizardModel custWizardModel)
+        public async Task<CustWizardModel> GetCustWizardDetail()
+        {
+            CustWizardModel custWizardModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetCustWizardDetail");
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        custWizardModel.CustwizId = Convert.ToString(userData.Tables[0].Rows[0]["CustwizId"]);
+                        custWizardModel.CashAc = Convert.ToString(userData.Tables[0].Rows[0]["CashAc"]);
+                        custWizardModel.FrtIncomeAc = Convert.ToString(userData.Tables[0].Rows[0]["FrtIncomeAc"]);
+                        custWizardModel.SgstOutputAc = Convert.ToString(userData.Tables[0].Rows[0]["SgstOutputAc"]);
+                        custWizardModel.CgstOutputAc = Convert.ToString(userData.Tables[0].Rows[0]["CgstOutputAc"]);
+                        custWizardModel.IgstOutputAc = Convert.ToString(userData.Tables[0].Rows[0]["IgstOutputAc"]);
+                        custWizardModel.SgstInputAc = Convert.ToString(userData.Tables[0].Rows[0]["SgstInputAc"]);
+                        custWizardModel.CgstInputAc = Convert.ToString(userData.Tables[0].Rows[0]["CgstInputAc"]);
+                        custWizardModel.IgstInputAc = Convert.ToString(userData.Tables[0].Rows[0]["IgstInputAc"]);
+                        custWizardModel.LH_LorryHireAc = Convert.ToString(userData.Tables[0].Rows[0]["LH_LorryHireAc"]);
+                        custWizardModel.LH_LorryHirePayableAc = Convert.ToString(userData.Tables[0].Rows[0]["LH_LorryHirePayableAc"]);
+                        custWizardModel.LH_TdsOnLorryHireAc = Convert.ToString(userData.Tables[0].Rows[0]["LH_TdsOnLorryHireAc"]);
+                        custWizardModel.LHP_HamaliAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_HamaliAc"]);
+                        custWizardModel.LHP_DetentionAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_DetentionAc"]);
+                        custWizardModel.LHP_OtherChargesAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_OtherChargesAc"]);
+                        custWizardModel.LHP_LhpmAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_LhpmAc"]);
+                        custWizardModel.LHP_RecoveryAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_RecoveryAc"]);
+                        custWizardModel.LHP_OthDedAc = Convert.ToString(userData.Tables[0].Rows[0]["LHP_OthDedAc"]);
+                        custWizardModel.MR_FrtDeductionAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_FrtDeductionAc"]);
+                        custWizardModel.MR_ClaimsByPartyAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_ClaimsByPartyAc"]);
+                        custWizardModel.MR_BadDebtsAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_BadDebtsAc"]);
+                        custWizardModel.MR_MiscDedAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_MiscDedAc"]);
+                        custWizardModel.MR_BankChargesAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_BankChargesAc"]);
+                        custWizardModel.MR_CashDiscAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_CashDiscAc"]);
+                        custWizardModel.MR_ExcessRecdAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_ExcessRecdAc"]);
+                        custWizardModel.MR_TdsDedAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_TdsDedAc"]);
+                        custWizardModel.MR_OthDedAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_OthDedAc"]);
+                        custWizardModel.Flt_TyreStockAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TyreStockAc"]);
+                        custWizardModel.Flt_TyreExpAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TyreExpAc"]);
+                        custWizardModel.Flt_TyreSalesAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TyreSalesAc"]);
+                        custWizardModel.Flt_SparesStockAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_SparesStockAc"]);
+                        custWizardModel.Flt_LubesStockAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_LubesStockAc"]);
+                        custWizardModel.Flt_VehMaintExpAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_VehMaintExpAc"]);
+                        // Flt_VehMa =  Convert.ToString(userData.Tables[0].Rows[0]["Flt_VehMa"]);
+                        custWizardModel.Flt_TripDrAdvanceAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripDrAdvanceAc"]);
+                        custWizardModel.Flt_TripFrtIncomeAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripFrtIncomeAc"]);
+                        custWizardModel.Flt_FltFrtReceivableAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_FltFrtReceivableAc"]);
+                        custWizardModel.Flt_TripExpensesAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripExpensesAc"]);
+                        custWizardModel.Flt_DslPetroCardAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_DslPetroCardAc"]);
+                        custWizardModel.Flt_HappayCardAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_HappayCardAc"]);
+                        custWizardModel.Flt_TripDslExpAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripDslExpAc"]);
+                        custWizardModel.Flt_TripAdblueExpAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripAdblueExpAc"]);
+                        custWizardModel.Flt_DriverSalaryAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_DriverSalaryAc"]);
+                        custWizardModel.Flt_TripSuspenseAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripSuspenseAc"]);
+                        custWizardModel.Flt_ExtraChargesAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_ExtraChargesAc"]);
+                        custWizardModel.Flt_FrtDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_FrtDedAc"]);
+                        custWizardModel.Flt_TdsDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TdsDedAc"]);
+                        custWizardModel.Flt_OthDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_OthDedAc"]);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return custWizardModel;
+        }
+        public async Task<ResponseModel> CustWizardSave(CustWizardModel custWizardModel)
         {
             ResponseModel responseModel = new();
             try
@@ -161,11 +233,11 @@ namespace FinTrans.Repository
                  new SqlParameter("@MR_TdsDedAc" , custWizardModel.MR_TdsDedAc ),
                  new SqlParameter("@MR_OthDedAc" , custWizardModel.MR_OthDedAc ),
                  new SqlParameter("@Flt_TyreStockAc" , custWizardModel.Flt_TyreStockAc ),
-                 new SqlParameter("@Flt_TyreExpAc" , custWizardModel.Flt_TyreExpAc ),
+                 new SqlParameter("@Flt_TyreExpAc" , custWizardModel.Flt_TyreExpAc),
                  new SqlParameter("@Flt_TyreSalesAc" , custWizardModel.Flt_TyreSalesAc ),
                  new SqlParameter("@Flt_SparesStockAc" , custWizardModel.Flt_SparesStockAc ),
                  new SqlParameter("@Flt_LubesStockAc" , custWizardModel.Flt_LubesStockAc ),
-                 new SqlParameter("@Flt_VehMa" , custWizardModel.Flt_VehMa ),
+                 new SqlParameter("@Flt_VehMaintExpAc" , custWizardModel.Flt_VehMaintExpAc ),
                  new SqlParameter("@Flt_TripDrAdvanceAc" , custWizardModel.Flt_TripDrAdvanceAc ),
                  new SqlParameter("@Flt_TripFrtIncomeAc" , custWizardModel.Flt_TripFrtIncomeAc ),
                  new SqlParameter("@Flt_FltFrtReceivableAc" , custWizardModel.Flt_FltFrtReceivableAc ),

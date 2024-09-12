@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Challan Entry</h4>
+                        <h4 class="mb-sm-0 font-size-18">Lorry Hire Challan</h4>
                     </div>
                 </div>
             </div>           
@@ -47,7 +47,7 @@
                                     <label for="formrow-inputState">Challan No. : </label>
                                     <span style="color: red">*</span>
                                     <input type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="challanNo" maxlength="15" 
+                                        formControlName="challanNo" maxlength="15" numbersonly
                                         (change)="chkChallanDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                 </div>
@@ -143,7 +143,16 @@
                                     <input type="text" numbersonly maxlength="8" class="form-control" 
                                         formControlName="distanceKms">
                                 </div>
-                            </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Exp Arrival Date : </label><span
+                                        style="color: red">*</span>
+                                    <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                        formControlName="expArrivalDate" min="{{minDate}}"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['expArrivalDate'].invalid) }">
+                                </div>
+                            </div>  
                         </div>  
                         <div class="row">
                             <div class="col-lg-2">   
@@ -286,6 +295,7 @@
                                                     </td>                                                  
                                                     <td class="col-lg-1">
                                                         <input uppercaseonly type="text" class="form-control" 
+                                                        numbersonly maxlength="15" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
                                                         <input type="hidden" class="form-control" 
                                                         formControlName="consignmentId">
@@ -700,7 +710,7 @@
                                         formControlName="cashAdvance" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-2" *ngIf="false">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Card Advance</label>
                                     <input type="text" decimalonly class="form-control" 
@@ -756,8 +766,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Declaration Doc</label>                          
-                                    <input #photo1Input class="form-control" type="file" id="formPhoto1"
-                                    accept="image/*">
+                                    <input #photo1Input class="form-control" type="file" id="formPhoto1">
                                     <a *ngIf="selectedChallanDetails.photo1" target="_blank"
                                                 href={{photo1}}>Download</a>
                                 </div>
@@ -765,8 +774,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Photo2</label>                          
-                                    <input #photo2Input class="form-control" type="file" id="formPhoto2"
-                                    accept="image/*">
+                                    <input #photo2Input class="form-control" type="file" id="formPhoto2">
                                     <a *ngIf="selectedChallanDetails.photo2" target="_blank"
                                                 href={{photo2}}>Download</a>
                                 </div>
@@ -774,8 +782,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Photo3</label>                          
-                                    <input #photo3Input class="form-control" type="file" id="formPhoto3"
-                                    accept="image/*">
+                                    <input #photo3Input class="form-control" type="file" id="formPhoto3">
                                     <a *ngIf="selectedChallanDetails.photo3" target="_blank"
                                                 href={{photo3}}>Download</a>
                                 </div>
@@ -783,8 +790,8 @@
                             <div class="col-lg-3">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Truck Driver Image</label>                          
-                                    <input #truckDriverImageInput class="form-control" type="file" id="formtruckDriverImage"
-                                    accept="image/*">
+                                    <input #truckDriverImageInput class="form-control" type="file" 
+                                        id="formtruckDriverImage">
                                     <a *ngIf="selectedChallanDetails.truckDriverImage" target="_blank"
                                                 href={{truckDriverImage}}>Download</a>
                                 </div>

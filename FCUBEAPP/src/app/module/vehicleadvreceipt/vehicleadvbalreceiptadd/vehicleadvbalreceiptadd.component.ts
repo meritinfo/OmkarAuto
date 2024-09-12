@@ -147,7 +147,7 @@ export class VehicleadvbalreceiptaddComponent {
   
    this.getBranchList();
    this.getVehicleIdList();
-  
+   this.getCreditAcList('');
   this.formUser.controls["amtRecd"].disable();
    this.formUser.controls["amtDed"].disable();
     this.formUser.controls["amtExtras"].disable();
@@ -305,6 +305,12 @@ getVehicleIdList(): void {
     this.vehicleList = res;
   });
 }
+getCreditAcList(pmttp:string): void {
+  this.requestmodel.strRequest= pmttp;
+  this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.creditAcList = res;      
+  });
+}
 onAmtChange(){
   var totalItemAmt = 0;
   var totalreceived = 0;
@@ -345,7 +351,7 @@ onAmtChange(){
         extras= parseFloat(selectedDate.arrayList[i].extras) ;
         // this.formAdvanceArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
        
-        totalextras = extras+extras;
+        totalextras = totalextras+extras;
       }
       if(selectedDate.arrayList[i].tds!="") {
         tds= parseFloat(selectedDate.arrayList[i].tds) ;
@@ -371,7 +377,7 @@ onAmtChange(){
    amtRecd: totalreceived.toFixed(2),
    amtDed: totaldeduction.toFixed(2),
    amtTDS: totaltds.toFixed(2),
-   totalextras: totalextras.toFixed(2),
+   amtExtras: totalextras.toFixed(2),
   
    totalAmtRecd: totItemNetAmount.toFixed(2),
   });
@@ -459,6 +465,7 @@ getVehicleadvbalreceiptInnerGridList(): void {
   this.vehicleadvbalreceiptModel.neftYN= selectedDataValue.neftYN;
   this.vehicleadvbalreceiptModel.chequeNo= selectedDataValue.chequeNo;
   this.vehicleadvbalreceiptModel.chequeDate= selectedDataValue.chequeDate;
+  this.vehicleadvbalreceiptModel.debitAc= selectedDataValue.debitAc;
 
   
   this.vehicleadvbalreceiptModel.yearId= this.year;

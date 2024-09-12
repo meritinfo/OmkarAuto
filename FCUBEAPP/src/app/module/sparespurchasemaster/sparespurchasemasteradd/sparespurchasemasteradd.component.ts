@@ -31,7 +31,7 @@ export class SparespurchasemasteraddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  formSubmitted = false;
+  userSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -113,12 +113,12 @@ export class SparespurchasemasteraddComponent {
       transDate : new FormControl(this.loginDate,[Validators.required]),
       nonVendor : new FormControl('',),  
       vendorId : new FormControl('',),
-      vendorInvDt : new FormControl('',),
+      vendorInvDt : new FormControl(this.loginDate,),
       vendorInvNo : new FormControl('',),
       vendorName : new FormControl('',),
       vendorAddress : new FormControl('',[Validators.required]),
       vendorState : new FormControl('',[Validators.required]),
-      vendorGstNo : new FormControl('',[Validators.required]),
+      vendorGstNo : new FormControl('',),
       gstType : new FormControl('NA',),
       totItemAmount : new FormControl('',[Validators.required]),
       totSgstAmt : new FormControl('',),
@@ -137,7 +137,7 @@ export class SparespurchasemasteraddComponent {
       // auditedYN : new FormControl('',),
       // auditDate : new FormControl('',),
       refDocAttachedImage : new FormControl('',),
-      branchCode : new FormControl('',),   
+      //branchCode : new FormControl('',),   
 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
     }); 
@@ -147,7 +147,7 @@ export class SparespurchasemasteraddComponent {
     this.getBranchList();
     this.getStateList();
     this.getSparesList();
-    this.getCreditAcList('M');
+    this.getCreditAcList('');
 
     this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
     this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -234,6 +234,17 @@ export class SparespurchasemasteraddComponent {
       this.stateList = res;
     });
   }
+  changePmtType(e: any) {
+    console.log(e.target.value);
+    var selectedValue = e.target.value;
+    this.formUser.patchValue({
+      neftPmt : "",
+      chequeNo: "",
+      chequeDate: this.loginDate,
+    });
+    
+    this.getCreditAcList(selectedValue);
+  }
   getBrandList(): void {
     this.commonService.getSparesBrandList().subscribe((res) => {
       this.brandList = res;
@@ -277,11 +288,9 @@ export class SparespurchasemasteraddComponent {
   getCreditAcList(pmttp:string): void {
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditAcList = res;
-      this.formUser.patchValue({
-        creditAc: this.creditAcList[0].dataId ,
-      });
+      this.creditAcList = res;      
     });
+    
     if (pmttp == 'B'){
       this.formUser.controls['chequeDate'].enable();
     }
@@ -433,17 +442,23 @@ export class SparespurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.enable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }    
       else if (gsttype == "S" || gsttype == "C")  {      
         this.formTyreArray.controls[i].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }
       else{              
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-        this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+        this.formUser.controls['vendorGstNo'].clearValidators();  
+       
+
       } 
+      this.formUser.controls['vendorGstNo'].updateValueAndValidity(); 
     }    
     this.onPctChange()
   }
@@ -559,9 +574,9 @@ export class SparespurchasemasteraddComponent {
   this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
   this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
   this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
-  this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress;
+  this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase(),
   this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
-  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo;
+  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
   this.sparespurchasemastermodel.gstType= selectedDataValue.gstType;
   this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount.toString();;
   this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();;
@@ -576,7 +591,9 @@ export class SparespurchasemasteraddComponent {
   this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
   this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
   this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
-  this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
+  //
+  //this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
+  this.sparespurchasemastermodel.branchCode= this.branch ;
   this.sparespurchasemastermodel.yearID= this.year;
   this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
 
@@ -587,8 +604,8 @@ export class SparespurchasemasteraddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
-        this.toastrService.warning("Please Enter Details Properly");
+      if (selectedDataValue.arrayList[i].spareLubId == "" || selectedDataValue.arrayList[i].brandId=="" ) {
+        this.toastrService.warning("Please Enter Spare And Brand In Detail");
         return;
       } 
       else{
@@ -619,7 +636,7 @@ export class SparespurchasemasteraddComponent {
     }
 
     let formData = new FormData();
-    this.formSubmitted = true;
+    this.userSubmitted = true;
     formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.sparespurchasemastermodel));  
 

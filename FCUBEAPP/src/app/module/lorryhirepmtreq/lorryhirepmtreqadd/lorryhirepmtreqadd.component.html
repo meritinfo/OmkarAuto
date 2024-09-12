@@ -69,6 +69,7 @@
                                                 <label for="formrow-inputZip">Challan No</label><span style="color: red">*</span>    
                                                 <input autoclose="false" (change)="getChallanDetails()"
                                                 formControlName="challanNo" class="form-control"
+                                                maxlength="15" numbersonly
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                             </div>
                                         </div>   
@@ -126,7 +127,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Attach </label>                          
                                                 <input #attachPathInput class="form-control" type="file" id="formAttach1File"
-                                                accept="image/*">
+                                                 >
                                                 <a *ngIf="selectedLorryhirereqDetails.attachPath" target="_blank"
                                                             href={{attachPath}}>Download</a>
                                             </div>

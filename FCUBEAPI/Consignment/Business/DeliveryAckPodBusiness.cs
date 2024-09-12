@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,14 @@ namespace Consignment.Business
         {
             return await deliveryAckPodRepository.GetDeliveryCnDetails(request);
         }
-
+        public async Task<ResponseModel> GetAckSlNo(RequestModel requestModel)
+        {
+            return await deliveryAckPodRepository.GetAckSlNo(requestModel);
+        }
+        public async Task<ResponseModel> CheckDeliveryAckDoneForLrNo(RequestModel requestModel)
+        {
+            return await deliveryAckPodRepository.CheckDeliveryAckDoneForLrNo(requestModel);
+        }
 
     }
 }

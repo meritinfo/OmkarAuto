@@ -43,7 +43,7 @@ namespace FinTrans.Models
         public string? Flt_SparesStockAc { get; set; }
         public string? Flt_LubesStockAc { get; set; }
 
-        public string? Flt_VehMa { get; set; }
+        public string? Flt_VehMaintExpAc { get; set; }
         public string? Flt_TripDrAdvanceAc { get; set; }
         public string? Flt_TripFrtIncomeAc { get; set; }
         public string? Flt_FltFrtReceivableAc { get; set; }

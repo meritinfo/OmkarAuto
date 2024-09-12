@@ -108,7 +108,7 @@ export class LorryhirepmtaddComponent {
     }   
     
     this.formUser = this.formBuilder.group({
-      pmtStation: new FormControl('', [Validators.required]),
+      pmtStation: new FormControl(this.branch, [Validators.required]),
       pmtNo: new FormControl('', [Validators.required]),
       pmtDate : new FormControl(this.loginDate, [Validators.required]),
       pmtType: new FormControl('', [Validators.required]),
@@ -145,6 +145,8 @@ export class LorryhirepmtaddComponent {
     this.getPaymentCreditAcList("M");
     this.selectedLorryhiremaster = this.lorryhirepmtService.getLorryhiremasterDetails(); 
 
+    this.formUser.controls['pmtStation'].disable();
+    this.formUser.controls['pmtNo'].disable();
     this.formUser.controls['onAcBranch'].disable();
     this.formUser.controls['neftPmt'].disable();
     this.formUser.controls['totalHireAmt'].disable();
@@ -162,27 +164,40 @@ export class LorryhirepmtaddComponent {
     this.formUser.controls['modifyRemarks'].disable();
 
     this.formArray.controls[0].get("challanId")?.disable();
-    this.formArray.controls[0].get("hamaliAmt")?.disable();
-    this.formArray.controls[0].get("detenAmt")?.disable();
-    this.formArray.controls[0].get("otherAmt")?.disable();
-    this.formArray.controls[0].get("other2Amt")?.disable();
-    this.formArray.controls[0].get("other3Amt")?.disable();
+    this.formArray.controls[0].get("dueAmt")?.disable();
     this.formArray.controls[0].get("netAmt")?.disable();
-    this.formArray.controls[0].get("extraRemarks")?.disable();
+
+    if (this.selectedLorryhiremaster.masterId != '') {  
+      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);
+    }
 
     setTimeout(() => {
       if (this.selectedLorryhiremaster.masterId != '') {    
         this.formUser.patchValue(this.selectedLorryhiremaster);
+        var onAcBranchYN = this.selectedLorryhiremaster.onAcBranchYN=="Y"?"Y":"";
+        var neftPmt = this.selectedLorryhiremaster.neftPmt=="Y"?"Y":"";
         this.formUser.patchValue({
           pmtDate: this.commonService.formatDate(this.selectedLorryhiremaster.pmtDate),
           chequeDt: this.commonService.formatDate(this.selectedLorryhiremaster.chequeDt), 
+          onAcBranchYN:onAcBranchYN,
+          neftPmt:neftPmt,
         });
+        if(this.selectedLorryhiremaster.pmtType=="B" && this.selectedLorryhiremaster.neftPmt=="N"){
+          this.formUser.controls['chequeNo'].enable();
+          this.formUser.controls['chequeDt'].enable();
+        }
+        else{
+          this.formUser.controls['chequeNo'].disable();
+          this.formUser.controls['chequeDt'].disable();
+        }
         this.editMode = true;
-        this.formUser.controls['pmtStation'].disable();
-        this.formUser.controls['pmtNo'].disable();
         this.formUser.controls['pmtDate'].disable();
+        this.formUser.controls['pmtType'].disable();
         this.formUser.controls['modifyRemarks'].enable();
         this.getLorryHirePmtInnerGridList();        
+      }
+      else{
+        this.getPmtNo();
       }
     }, 2000);
     this.sharedService.loading=false;
@@ -208,6 +223,7 @@ export class LorryhirepmtaddComponent {
       othDedAmt : ['', []],
       oth2DedAmt :  ['', []],
       tdsAmt :  ['', []],
+      totPaid:  ['0', []],
       extraRemarks :  ['', []],
       deductRemarks:  ['', []],
     });
@@ -225,7 +241,8 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("challanBranch")?.setValue(res.lhpmDetails[i].challanBranch);
         this.formArray.controls[i].get("challanNo")?.setValue(res.lhpmDetails[i].challanNo);
         this.formArray.controls[i].get("challanId")?.setValue(res.lhpmDetails[i].challanId);
-        this.formArray.controls[i].get("abType")?.setValue(res.lhpmDetails[i].abType);       
+        this.formArray.controls[i].get("abType")?.setValue(res.lhpmDetails[i].abType);  
+        this.formArray.controls[i].get("dueAmt")?.setValue(res.lhpmDetails[i].dueAmt); 
         this.formArray.controls[i].get("hireAmt")?.setValue(res.lhpmDetails[i].hireAmt);
         this.formArray.controls[i].get("hamaliAmt")?.setValue(res.lhpmDetails[i].hamaliAmt);
         this.formArray.controls[i].get("detenAmt")?.setValue(res.lhpmDetails[i].detenAmt);
@@ -238,22 +255,28 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("othDedAmt")?.setValue(res.lhpmDetails[i].othDedAmt);
         this.formArray.controls[i].get("oth2DedAmt")?.setValue(res.lhpmDetails[i].oth2DedAmt);
         this.formArray.controls[i].get("tdsAmt")?.setValue(res.lhpmDetails[i].tdsAmt);
+        this.formArray.controls[i].get("totPaid")?.setValue(res.lhpmDetails[i].totPaid);
         this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[i].extraRemarks); 
         this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[i].deductRemarks);
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
+        this.formArray.controls[i].get("abType")?.disable();
         this.formArray.controls[i].get("challanNo")?.disable();
         this.formArray.controls[i].get("challanId")?.disable();
-        this.formArray.controls[i].get("abType")?.disable(); 
-        this.formArray.controls[i].get("hireAmt")?.disable();
-        this.formArray.controls[i].get("hamaliAmt")?.disable();
-        this.formArray.controls[i].get("detenAmt")?.disable();
-        this.formArray.controls[i].get("otherAmt")?.disable();
-        this.formArray.controls[i].get("other2Amt")?.disable();
-        this.formArray.controls[i].get("other3Amt")?.disable();
+        this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
-        this.formArray.controls[i].get("extraRemarks")?.disable();
+
+        if(res.lhpmDetails[i].abType=='O'){
+          this.formArray.controls[i].get("totPaid")?.disable();
+          this.formArray.controls[i].get("dueAmt")?.disable();
+          this.formArray.controls[i].get("hireAmt")?.disable();
+          this.formArray.controls[i].get("recoveryAmt")?.disable();
+          this.formArray.controls[i].get("lhpmAmt")?.disable();
+          this.formArray.controls[i].get("othDedAmt")?.disable();
+          this.formArray.controls[i].get("oth2DedAmt")?.disable();
+          this.formArray.controls[i].get("tdsAmt")?.disable();
+        }
       }
     });
   }
@@ -271,9 +294,6 @@ export class LorryhirepmtaddComponent {
     this.requestmodel.strRequest= e.toString();
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
-      this.formUser.patchValue({
-        creditAc: this.creditacList[0].dataId ,
-      });
     });
   }
  
@@ -283,6 +303,19 @@ export class LorryhirepmtaddComponent {
     });
   }  
 
+
+  getPmtNo(): void {    
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = this.year; 
+    this.lorryhirepmtService.getLhpmPmtNo(this.requestmodel).subscribe((res:Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.formUser.patchValue({
+          pmtNo: this.responseDetails.message
+        });
+      }
+    });
+  }  
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
@@ -310,7 +343,10 @@ export class LorryhirepmtaddComponent {
   addItem(i: number): void {
     var selectedDataVal= this.formUser.getRawValue()
     if(selectedDataVal.arrayList[i].challanId!='' && selectedDataVal.arrayList[i].hireAmt !=''){
-      this.formArray.push(this.createInitialArray());      
+      this.formArray.push(this.createInitialArray());   
+      this.formArray.controls[i+1].get("challanId")?.disable();
+      this.formArray.controls[i+1].get("dueAmt")?.disable();
+      this.formArray.controls[i+1].get("netAmt")?.disable();
     }      
     else {
       this.toasterService.warning("Please select Required Fields ");
@@ -406,44 +442,108 @@ export class LorryhirepmtaddComponent {
     this.challanInputDtls.filterStr2 = selectedData.arrayList[i].challanBranch ;
     this.challanInputDtls.filterStr3 = selectedData.arrayList[i].challanNo ;
 
-    this.formUser.patchValue({
-      challanNo: '' ,       
+    this.requestmodel.strRequest = selectedData.arrayList[i].challanNo
+
+    this.lorryhirepmtService.checkChallanNoExists(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formArray.controls[i].get("challanNo")?.setValue("");
+        return;
+      }
     });
+    
     this.lorryhirepmtService.getChallanLorryhireDetails(this.challanInputDtls).subscribe((res) => {
       this.lorryhiremaster = res;
-      this.formArray.controls[i].get("challanNo")?.setValue(res.lhpmDetails[0].challanNo);
-      this.formArray.controls[i].get("challanId")?.setValue(res.lhpmDetails[0].challanId);
-      this.formArray.controls[i].get("dueAmt")?.setValue(res.lhpmDetails[0].dueAmt);
-      this.formArray.controls[i].get("hireAmt")?.setValue(res.lhpmDetails[0].hireAmt);
-      this.formArray.controls[i].get("hamaliAmt")?.setValue(res.lhpmDetails[0].hamaliAmt);
-      this.formArray.controls[i].get("detenAmt")?.setValue(res.lhpmDetails[0].detenAmt);
-      this.formArray.controls[i].get("otherAmt")?.setValue(res.lhpmDetails[0].otherAmt);
-      this.formArray.controls[i].get("other2Amt")?.setValue(res.lhpmDetails[0].other2Amt);
-      this.formArray.controls[i].get("other3Amt")?.setValue(res.lhpmDetails[0].other3Amt);
-      this.formArray.controls[i].get("netAmt")?.setValue(res.lhpmDetails[0].netAmt);
-      this.formArray.controls[i].get("recoveryAmt")?.setValue(res.lhpmDetails[0].recoveryAmt);
-      this.formArray.controls[i].get("lhpmAmt")?.setValue(res.lhpmDetails[0].lhpmAmt);
-      this.formArray.controls[i].get("othDedAmt")?.setValue(res.lhpmDetails[0].othDedAmt);
-      this.formArray.controls[i].get("oth2DedAmt")?.setValue(res.lhpmDetails[0].oth2DedAmt);
-      this.formArray.controls[i].get("tdsAmt")?.setValue(res.lhpmDetails[0].tdsAmt);
-      this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[0].extraRemarks); 
-      this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[0].deductRemarks);
+      var chln = res.lhpmDetails.length>0?res.lhpmDetails[0].challanId:'';
+      if (typeof chln === 'undefined' || chln === null || chln === '') {
+        this.toasterService.warning("No Due Amount For this challan");
+        this.formArray.controls[i].get("challanNo")?.setValue("");
+        return;
+      }
+      else{
+        this.formArray.controls[i].get("challanNo")?.setValue(res.lhpmDetails[0].challanNo);
+        this.formArray.controls[i].get("challanId")?.setValue(res.lhpmDetails[0].challanId);
+        this.formArray.controls[i].get("dueAmt")?.setValue(res.lhpmDetails[0].dueAmt);
+        this.formArray.controls[i].get("hireAmt")?.setValue(res.lhpmDetails[0].hireAmt);
+        this.formArray.controls[i].get("hamaliAmt")?.setValue(res.lhpmDetails[0].hamaliAmt);
+        this.formArray.controls[i].get("detenAmt")?.setValue(res.lhpmDetails[0].detenAmt);
+        this.formArray.controls[i].get("otherAmt")?.setValue(res.lhpmDetails[0].otherAmt);
+        this.formArray.controls[i].get("other2Amt")?.setValue(res.lhpmDetails[0].other2Amt);
+        this.formArray.controls[i].get("other3Amt")?.setValue(res.lhpmDetails[0].other3Amt);
+        this.formArray.controls[i].get("netAmt")?.setValue(res.lhpmDetails[0].netAmt);
+        this.formArray.controls[i].get("recoveryAmt")?.setValue(res.lhpmDetails[0].recoveryAmt);
+        this.formArray.controls[i].get("lhpmAmt")?.setValue(res.lhpmDetails[0].lhpmAmt);
+        this.formArray.controls[i].get("othDedAmt")?.setValue(res.lhpmDetails[0].othDedAmt);
+        this.formArray.controls[i].get("oth2DedAmt")?.setValue(res.lhpmDetails[0].oth2DedAmt);
+        this.formArray.controls[i].get("tdsAmt")?.setValue(res.lhpmDetails[0].tdsAmt);
+        this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[0].extraRemarks); 
+        this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[0].deductRemarks);
 
-      this.formArray.controls[i].get("chYear")?.disable();
-      this.formArray.controls[i].get("challanBranch")?.disable();
-      this.formArray.controls[i].get("challanNo")?.disable();
-      this.formArray.controls[i].get("challanId")?.disable();
-      this.formArray.controls[i].get("dueAmt")?.disable();
-      this.formArray.controls[i].get("netAmt")?.disable();
-      this.formArray.controls[i].get("extraRemarks")?.disable();
+        this.formArray.controls[i].get("chYear")?.disable();
+        this.formArray.controls[i].get("challanBranch")?.disable();
+        this.formArray.controls[i].get("abType")?.disable();
+        this.formArray.controls[i].get("challanNo")?.disable();
+        this.formArray.controls[i].get("challanId")?.disable();
+        this.formArray.controls[i].get("dueAmt")?.disable();
+        this.formArray.controls[i].get("netAmt")?.disable();
+
+        if(selectedData.arrayList[i].abType=='O'){
+          this.formArray.controls[i].get("totPaid")?.disable();
+          this.formArray.controls[i].get("dueAmt")?.disable();
+          this.formArray.controls[i].get("hireAmt")?.disable();
+          this.formArray.controls[i].get("recoveryAmt")?.disable();
+          this.formArray.controls[i].get("lhpmAmt")?.disable();
+          this.formArray.controls[i].get("othDedAmt")?.disable();
+          this.formArray.controls[i].get("oth2DedAmt")?.disable();
+          this.formArray.controls[i].get("tdsAmt")?.disable();
+        }
+      }
     });
+
   }
 
-  calTotal(){
+  calTotal(j:number,clmn: string){
     var selectedDataVal = this.formUser.getRawValue();
-    var tot = 0, totHire = 0, tothamali = 0, totdeten = 0, 
+    var due = 0,totPaid = 0,
+        tot = 0, totHire = 0, tothamali = 0, totdeten = 0, 
         totother = 0, totother2 = 0, totother3 = 0, 
         totlhpm = 0, totrec = 0, totothded = 0, totothded2 = 0, tottds = 0
+   
+    
+    if(selectedDataVal.arrayList[j].dueAmt!=''){
+      due = due + parseFloat(selectedDataVal.arrayList[j].dueAmt);
+    }    
+    if(selectedDataVal.arrayList[j].totPaid!=''){
+      due = due + parseFloat(selectedDataVal.arrayList[j].totPaid);
+    }   
+    if(selectedDataVal.arrayList[j].hireAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].hireAmt);
+    }    
+    if(selectedDataVal.arrayList[j].tdsAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].tdsAmt);
+    } 
+    if(selectedDataVal.arrayList[j].recoveryAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].recoveryAmt);
+    }
+    if(selectedDataVal.arrayList[j].lhpmAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].lhpmAmt);
+    }
+    if(selectedDataVal.arrayList[j].othDedAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].othDedAmt);
+    }
+    if(selectedDataVal.arrayList[j].oth2DedAmt!=''){
+      totPaid = totPaid + parseFloat(selectedDataVal.arrayList[j].oth2DedAmt);
+    }
+    
+    if(totPaid>due){
+      this.toasterService.warning("Total Paid Amount should not be greater than Due Amount");
+      this.formArray.controls[j].get(clmn)?.setValue('0');   
+      return;
+    }
     
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       var netTot = 0;
@@ -559,9 +659,7 @@ export class LorryhirepmtaddComponent {
     this.lorryhiremastermodel.pmtType= selectedDataVal.pmtType;
     this.lorryhiremastermodel.onAcBranchYN= selectedDataVal.onAcBranchYN?'Y':'N';
     this.lorryhiremastermodel.onAcBranch= selectedDataVal.onAcBranch;
-    //this.lorryhiremastermodel.cardId= selectedDataVal.cardId;
     this.lorryhiremastermodel.chequePayeeName= selectedDataVal.chequePayeeName.toString().toUpperCase();
-    //this.lorryhiremastermodel.benId = selectedDataVal.benId;
     this.lorryhiremastermodel.totalHireAmt = selectedDataVal.totalHireAmt.toString();
     this.lorryhiremastermodel.totalHamaliAmt= selectedDataVal.totalHamaliAmt.toString();
     this.lorryhiremastermodel.totalDetenAmt= selectedDataVal.totalDetenAmt.toString();
@@ -584,14 +682,65 @@ export class LorryhirepmtaddComponent {
     this.lorryhiremastermodel.loggedInUserID = this.loggedInUserID; 
 
     this.lorryhiremastermodel.lhpmDetails = [];
-    if(selectedDataVal.arrayList.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
-      this.sharedService.loading=false;
-      return;
-    }
-
+   
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].challanId!='' || selectedDataVal.arrayList[i].hireAmt !=''){
+      if(selectedDataVal.arrayList[i].challanId!=''){
+        if(selectedDataVal.arrayList[i].abType == "O"){
+          var totExtra = 0;
+          if(selectedDataVal.arrayList[i].hamaliAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].hamaliAmt);
+          }    
+          if(selectedDataVal.arrayList[i].detenAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].detenAmt);
+          } 
+          if(selectedDataVal.arrayList[i].otherAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].otherAmt);
+          }
+          if(selectedDataVal.arrayList[i].other2Amt!=''){
+            totPaid = totExtra + parseFloat(selectedDataVal.arrayList[i].other2Amt);
+          }
+          if(selectedDataVal.arrayList[i].other3Amt!=''){
+            totPaid = totExtra + parseFloat(selectedDataVal.arrayList[i].other3Amt);
+          }
+          if(totExtra>0){
+            //ignore
+          }
+          else{
+            this.toasterService.warning("Extra Amt Should not be Zero");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        else{
+          var totPaid = 0;
+          if(selectedDataVal.arrayList[i].hireAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].hireAmt);
+          }    
+          if(selectedDataVal.arrayList[i].tdsAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].tdsAmt);
+          } 
+          if(selectedDataVal.arrayList[i].recoveryAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].recoveryAmt);
+          }
+          if(selectedDataVal.arrayList[i].lhpmAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].lhpmAmt);
+          }
+          if(selectedDataVal.arrayList[i].othDedAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].othDedAmt);
+          }
+          if(selectedDataVal.arrayList[i].oth2DedAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].oth2DedAmt);
+          }
+          if(totPaid>0){
+            //ignore
+          }
+          else{
+            this.toasterService.warning("Paid Amt Should not be Zero");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        
         this.lorryhiremastermodel.lhpmDetails.push({
           'masterId': '',
           'pmtDate': '',
@@ -613,10 +762,23 @@ export class LorryhirepmtaddComponent {
           'othDedAmt': selectedDataVal.arrayList[i].othDedAmt.toString(),
           'oth2DedAmt': selectedDataVal.arrayList[i].oth2DedAmt.toString(),
           'tdsAmt': selectedDataVal.arrayList[i].tdsAmt.toString(),
+          'totPaid':'0',
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
         });
       }
+    }
+
+    if(this.lorryhiremastermodel.lhpmDetails.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
+    }
+
+    if(this.lorryhiremastermodel.lhpmDetails.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
     }
 
     this.formSubmitted = true;

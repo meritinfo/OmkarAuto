@@ -48,8 +48,6 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Payment Type</label>
@@ -60,13 +58,15 @@
                                                     <option selected="">Choose...</option>
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
-                                                    <option value="P">Card</option>
+                                                    <!-- <option value="P">Card</option> -->
                                                     <option value="H">Happay</option>
                                                     <option value="D">Vendor</option>
                                                     <option value="A">Adjust</option>                                                        
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="form-check">
                                                 <input type="checkbox" formControlName="onAcBranchYN" 
@@ -96,20 +96,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Credit Account</label>
-                                                <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="creditAc" 
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                                    <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
-                                                        {{ac.dataName}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>     
-                                        <div class="col-lg-3">
+                                    <div class="row"> 
+                                        <div class="col-lg-2">
                                             <div class="form-check">
                                                 <input type="checkbox" formControlName="neftPmt" 
                                                 class="form-check-input" value="Y" 
@@ -120,12 +108,25 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
+                                                <label for="formrow-inputZip">Credit Account</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="creditAc" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                    <option selected="">Choose...</option>
+                                                    <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
+                                                        {{ac.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Cheque No</label>
                                                 <input type="text" class="form-control" formControlName="chequeNo"
                                                     id="basicpill-phoneno-input">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="basicpill-email-input">Cheque Date </label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -175,7 +176,7 @@
                                     <th><label for="formrow-inputZip">Extra Remarks</label></th>
                                     <th><label for="formrow-inputZip">Deduction Remarks</label></th>
                                     <th><label for="formrow-inputZip"></label></th>
-                             </tr>
+                                </tr>
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                     <div [formGroupName]="i" class="grid-table">
@@ -197,41 +198,45 @@
                                             <select class="form-control" formControlName="abType">
                                                 <option value="A">Advance</option>
                                                 <option value="F">Final</option>
+                                                <option value="O">Other</option>
                                             </select>
                                         </td>                                            
                                         <td>
-                                            <input autoclose="false" class="form-control" (change)="getChallanDtls(i)"
+                                            <input autoclose="false" numbersonly class="form-control" 
+                                                (change)="getChallanDtls(i)" maxlength="15" 
                                                 formControlName="challanNo">
                                             <input autoclose="false" class="form-control" type="hidden"
                                                 formControlName="challanId">
                                         </td>                                           
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="dueAmt">
+                                                formControlName="dueAmt">                                                
+                                            <input autoclose="false" class="form-control" type="hidden"
+                                            formControlName="totPaid">
                                         </td>                                            
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="hireAmt" (change)="calTotal()">
+                                                formControlName="hireAmt" (change)="calTotal(i,'hireAmt')">
                                         </td>                                          
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="hamaliAmt" (change)="calTotal()">
+                                                formControlName="hamaliAmt" (change)="calTotal(i,'hamaliAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="detenAmt" (change)="calTotal()">
+                                                formControlName="detenAmt" (change)="calTotal(i,'detenAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="otherAmt" (change)="calTotal()">
+                                                formControlName="otherAmt" (change)="calTotal(i,'otherAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="other2Amt" (change)="calTotal()">
+                                                formControlName="other2Amt" (change)="calTotal(i,'other2Amt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="other3Amt" (change)="calTotal()">
+                                                formControlName="other3Amt" (change)="calTotal(i,'other3Amt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
@@ -239,23 +244,23 @@
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="recoveryAmt" (change)="calTotal()">
+                                                formControlName="recoveryAmt" (change)="calTotal(i,'recoveryAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="lhpmAmt" (change)="calTotal()">
+                                                formControlName="lhpmAmt" (change)="calTotal(i,'lhpmAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="othDedAmt" (change)="calTotal()">
+                                                formControlName="othDedAmt" (change)="calTotal(i,'othDedAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="oth2DedAmt" (change)="calTotal()">
+                                                formControlName="oth2DedAmt" (change)="calTotal(i,'oth2DedAmt')">
                                         </td>                                       
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="tdsAmt" (change)="calTotal()">
+                                                formControlName="tdsAmt" (change)="calTotal(i,'tdsAmt')">
                                         </td>                                       
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 

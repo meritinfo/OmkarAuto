@@ -30,10 +30,13 @@ namespace Consignment.Models
 		public string? ShExPkgs { get; set; }
 		public string? ShExpActWt { get; set; }
 		public string? ExpectedRptdate { get; set; }
-		public string? ReportingDate { get; set; }
-		public string? DelayDays { get; set; }
+        public string? ExpectedRptTime { get; set; }
+        public string? ReportingDate { get; set; }
+        public string? ReportingTime { get; set; }        
+        public string? DelayDays { get; set; }
 		public string? DeliveryDate { get; set; }
-		public string? DetnDays { get; set; }
+        public string? DeliveryTime { get; set; }        
+        public string? DetnDays { get; set; }
 		public string? PodRecdYN { get; set; }
 		public string? PodRecdDate { get; set; }
 		public string? PodAttach1 { get; set; }

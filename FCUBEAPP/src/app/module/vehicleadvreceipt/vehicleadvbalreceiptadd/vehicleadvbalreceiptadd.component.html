@@ -114,7 +114,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
@@ -315,6 +315,18 @@
                                 formControlName="totalAmtRecd">
                             </div>
                         </div> 
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="formrow-inputCity">Dedit Ac</label><span style="color: red"> * </span>
+                                <select class="form-control" 
+                                    formControlName="debitAc"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
+                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
+                                        {{ac.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>        
                         
                         
                          

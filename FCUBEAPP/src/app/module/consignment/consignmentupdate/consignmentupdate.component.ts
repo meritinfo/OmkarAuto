@@ -106,6 +106,7 @@ export class ConsignmentupdateComponent {
     this.getBranchList();
     this.getRateList();
     this.getLocationList();
+    this.formSubmitted = false;
 
     this.sharedService.loading = false;
     
@@ -178,6 +179,7 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['party'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
+      
   }
 
   get f() { return this.formUser.controls; }  
@@ -259,6 +261,9 @@ export class ConsignmentupdateComponent {
         var cn = this.lrmodel.fromPlace;
         if (typeof cn === 'undefined' || cn === null || cn === '') {
           this.toastrService.warning("LR No Doesn't Exists ");
+          this.formUser.patchValue({
+            gcNoteNo : "",
+          });    
           return;
         }
         else{
@@ -495,7 +500,6 @@ export class ConsignmentupdateComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
-    this.formSubmitted = true;
     this.sharedService.loading = true;
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
@@ -553,6 +557,10 @@ export class ConsignmentupdateComponent {
       else {
         this.toastrService.warning(this.responseDetails.message);
       }
+      
+      this.formUser.patchValue({
+        bookingPlace : this.branch,
+      });   
     });
 
     this.sharedService.loading = false;
