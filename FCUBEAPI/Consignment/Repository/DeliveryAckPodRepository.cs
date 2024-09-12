@@ -288,7 +288,7 @@ namespace Consignment.Repository
                             new SqlParameter("@YearID", requestModel.strRequest1),
                             
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DeliveryAckPodSlNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryAckPodSlNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
