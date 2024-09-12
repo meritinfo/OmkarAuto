@@ -49,9 +49,10 @@
                                     </div> 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">CN No</label>
+                                            <label for="formrow-inputZip">LR No</label>
                                             <span style="color: red">*</span>
-                                            <input autoclose="false" class="form-control"
+                                            <input autoclose="false" class="form-control" 
+                                            numbersonly maxlength="15" 
                                                 formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
@@ -169,7 +170,14 @@
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
                                                 formControlName="expectedRptdate" >
                                         </div>
-                                    </div>  
+                                    </div>                                      
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Expected Rpt Time</label>
+                                            <input type="time" autoclose="false" placeholder=""
+                                                formControlName="expectedRptTime" class="form-control">
+                                        </div>
+                                    </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Reporting Date</label>
@@ -178,7 +186,15 @@
                                                 formControlName="reportingDate" (change)="onRptDateChange($event)" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['reportingDate'].invalid) }">
                                         </div>
-                                    </div>  
+                                    </div>                                     
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Reporting Time</label>
+                                            <input type="time" autoclose="false" 
+                                                formControlName="reportingTime" class="form-control"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['reportingDate'].invalid) }">
+                                        </div>
+                                    </div> 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delay Days</label>
@@ -186,6 +202,8 @@
                                                 formControlName="delayDays" >
                                         </div>
                                     </div>  
+                                </div> 
+                                <div class="row"> 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivery Date</label>
@@ -194,7 +212,15 @@
                                                 formControlName="deliveryDate" (change)="onDlyDateChange($event)" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['deliveryDate'].invalid) }">
                                         </div>
-                                    </div>  
+                                    </div>                                      
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Delivery Time</label>
+                                            <input type="time" autoclose="false" placeholder=""
+                                                formControlName="deliveryTime" class="form-control"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['deliveryDate'].invalid) }">
+                                        </div>
+                                    </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Detn Days</label>
@@ -277,37 +303,7 @@
                                         </div>
                                     </div>  
                                 </div> 
-                                <div class="row"> 
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Late Rpt Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
-                                            autoclose="false" class="form-control" formControlName="lateRptDed" >
-                                        </div>
-                                    </div>  
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Late Pod Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
-                                            autoclose="false" class="form-control" formControlName="latePodDed" >
-                                        </div>
-                                    </div>  
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Other Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
-                                            autoclose="false" class="form-control" formControlName="othDed" >
-                                        </div>
-                                    </div>  
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Net Payable</label>
-                                            <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="netPayable" >
-                                        </div>
-                                    </div>  
-                                </div> 
-                                <div class="row"> 
+                                <div class="row">                                    
                                     <div class="col-lg-2">                                            
                                         <div class="form-check">
                                             <input type="checkbox" formControlName="podRecdYN" 
@@ -324,6 +320,38 @@
                                                 formControlName="podRecdDate" >
                                         </div>
                                     </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Late Rpt Ded</label>
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="lateRptDed" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Late Pod Ded</label>
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="latePodDed" >
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Other Ded</label>
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="othDed" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Net Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="netPayable" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row"> 
                                     <div class="col-lg-4">
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">POD Attach1 </label>                          

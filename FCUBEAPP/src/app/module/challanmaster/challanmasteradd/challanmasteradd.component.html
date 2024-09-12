@@ -47,7 +47,7 @@
                                     <label for="formrow-inputState">Challan No. : </label>
                                     <span style="color: red">*</span>
                                     <input type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="challanNo" maxlength="15" 
+                                        formControlName="challanNo" maxlength="15" numbersonly
                                         (change)="chkChallanDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                 </div>
@@ -295,6 +295,7 @@
                                                     </td>                                                  
                                                     <td class="col-lg-1">
                                                         <input uppercaseonly type="text" class="form-control" 
+                                                        numbersonly maxlength="15" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
                                                         <input type="hidden" class="form-control" 
                                                         formControlName="consignmentId">

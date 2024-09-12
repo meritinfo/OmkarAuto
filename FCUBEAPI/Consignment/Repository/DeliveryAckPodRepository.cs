@@ -1,5 +1,7 @@
 ﻿
 using Consignment.Models;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing;
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
@@ -48,10 +50,10 @@ namespace Consignment.Repository
                             new SqlParameter("@DelActWt", deleveryAckPodModel.DelActWt),
                             new SqlParameter("@ShExPkgs", deleveryAckPodModel.ShExPkgs),
                             new SqlParameter("@ShExpActWt", deleveryAckPodModel.ShExpActWt),
-                            new SqlParameter("@ExpectedRptdate", deleveryAckPodModel.ExpectedRptdate),
-                            new SqlParameter("@ReportingDate", deleveryAckPodModel.ReportingDate),
+                            new SqlParameter("@ExpectedRptdate", deleveryAckPodModel.ExpectedRptdate + " " + deleveryAckPodModel.ExpectedRptTime ),
+                            new SqlParameter("@ReportingDate", deleveryAckPodModel.ReportingDate+ " " + deleveryAckPodModel.ReportingTime ),
                             new SqlParameter("@DelayDays", deleveryAckPodModel.LoggedInUser),
-                            new SqlParameter("@DeliveryDate", deleveryAckPodModel.DeliveryDate),
+                            new SqlParameter("@DeliveryDate", deleveryAckPodModel.DeliveryDate + " " + deleveryAckPodModel.DeliveryTime),
                             new SqlParameter("@DetnDays", deleveryAckPodModel.DetnDays),
                             new SqlParameter("@PodRecdYN", deleveryAckPodModel.PodRecdYN),
                             new SqlParameter("@PodRecdDate", deleveryAckPodModel.PodRecdDate),
@@ -145,9 +147,12 @@ namespace Consignment.Repository
                                 ShExPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExPkgs"]),
                                 ShExpActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExpActWt"]),
                                 ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedRptdate"]),
+                                ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedRptTime"]),
                                 ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDate"]),
+                                ReportingTime = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingTime"]),
                                 DelayDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayDays"]),
                                 DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
+                                DeliveryTime = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryTime"]),
                                 DetnDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetnDays"]),
                                 PodRecdYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdYN"]),
                                 PodRecdDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdDate"]),
@@ -213,6 +218,7 @@ namespace Consignment.Repository
                         deleveryAck.CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["CnPkgs"]);
                         deleveryAck.CnActWt = Convert.ToString(dataSet.Tables[0].Rows[0]["CnActWt"]);
                         deleveryAck.ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptdate"]);
+                        deleveryAck.ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptTime"]);
                         deleveryAck.BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayable"]);
                         deleveryAck.HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingPayable"]);
                         deleveryAck.DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["DetiontionPayable"]);
@@ -268,6 +274,73 @@ namespace Consignment.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> GetAckSlNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@YearID", requestModel.strRequest1),
+                            
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DeliveryAckPodSlNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);                        
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDeliveryAckDoneForLrNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GcNoteNo", requestModel.strRequest),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDeliveryAckDoneForLrNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
 
     }
 

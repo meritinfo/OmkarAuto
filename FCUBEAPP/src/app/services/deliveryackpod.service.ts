@@ -55,4 +55,10 @@ export class DeliveryackpodService {
   getConsignmentDetails(request: Requestmodel):Observable<Deliveryackpodmodel> {
     return this.httpClient.post<Deliveryackpodmodel>(Constants.API_ENDPOINT + 'Consignment/GetDeliveryCnDetails', request, this.httpOptions);
   }
+  getAckSlNo(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetAckSlNo', request, this.httpOptions);
+  }  
+  checkDeliveryAckDoneForLrNo(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDeliveryAckDoneForLrNo', request, this.httpOptions);
+  }
 }

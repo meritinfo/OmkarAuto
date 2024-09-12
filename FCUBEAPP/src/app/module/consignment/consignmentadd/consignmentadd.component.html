@@ -47,7 +47,8 @@
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="gcNoteNo" maxlength="15" (change)="chkLrDuplicate()"
+                                        numbersonly maxlength="15" 
+                                        formControlName="gcNoteNo" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
