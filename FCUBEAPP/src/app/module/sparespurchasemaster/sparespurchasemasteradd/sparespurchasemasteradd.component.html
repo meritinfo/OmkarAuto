@@ -436,6 +436,7 @@
                                 <select class="form-control" 
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                    <option value="">Choose</option> 
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>
