@@ -119,7 +119,7 @@ export class TyrepurchasemasteraddComponent {
       vendorAddress : new FormControl('',),
       vendorGstNo : new FormControl('',[Validators.required]),
       vendorInvNo : new FormControl('',[Validators.required]),
-      vendorInvDt : new FormControl('',[Validators.required]),
+      vendorInvDt : new FormControl(this.loginDate,[Validators.required]),
       tyreSacCode : new FormControl('',[Validators.required]),
       gstType : new FormControl('NA',),
       totalTyresAmt : new FormControl('',[Validators.required]),
@@ -160,7 +160,10 @@ export class TyrepurchasemasteraddComponent {
     this.formUser.controls["totalAmt"].disable();
     this.formUser.controls["netAmount"].disable();
     this.formUser.controls['vendorName'].disable(); 
-    this.formUser.controls["branchCode"].disable();
+    this.formUser.controls["branchCode"].disable();  
+
+    this.formUser.controls['vendorGstNo'].clearValidators(); 
+    this.formUser.controls['vendorGstNo'].updateValueAndValidity();
 
     if (this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '') {
       setTimeout(() => {
@@ -175,6 +178,14 @@ export class TyrepurchasemasteraddComponent {
         this.formUser.patchValue({
           neftPmt: "",
         })
+        if (this.selectedTyrePurchaseMasterDetail.gstType == 'NA'){
+          this.formUser.controls['vendorGstNo'].clearValidators(); 
+        }
+        else{          
+          this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
+        }
+        this.formUser.controls['vendorGstNo'].updateValueAndValidity();
+
         if (this.selectedTyrePurchaseMasterDetail.pmtType == 'B'){
           this.formUser.controls['neftPmt'].enable();
           if (this.selectedTyrePurchaseMasterDetail.neftPmt=='N'){
@@ -186,8 +197,7 @@ export class TyrepurchasemasteraddComponent {
           else {
             this.formUser.controls['chequeNo'].clearValidators();      
             this.formUser.controls['chequeDate'].clearValidators(); 
-            this.formUser.controls['chequeNo'].disable();      
-          //  this.formUser.controls['chequeDate'].disable(); 
+            this.formUser.controls['chequeNo'].disable();    
             this.formUser.patchValue({
               neftPmt: "Y",
             })
@@ -196,7 +206,6 @@ export class TyrepurchasemasteraddComponent {
         else {
           this.formUser.controls['neftPmt'].disable();
           this.formUser.controls['chequeNo'].disable();
-         // this.formUser.controls['chequeDate'].disable();
           this.formUser.controls['chequeNo'].clearValidators();      
           this.formUser.controls['chequeDate'].clearValidators(); 
         }               
@@ -253,7 +262,7 @@ export class TyrepurchasemasteraddComponent {
     return this.formBuilder.group({
       brandID: [''],
       tyreNo: [''],
-      tyrePattern: [''],
+      // tyrePattern: [''],
       tyreModel: [''],
       tyreAmount: [''],
       sgstPct: [''],
@@ -363,7 +372,7 @@ export class TyrepurchasemasteraddComponent {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseDtlList[i].brandID);
         this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseDtlList[i].tyreNo);  
-        this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseDtlList[i].tyrePattern); 
+        //this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseDtlList[i].tyrePattern); 
         this.formTyreArray.controls[i].get("tyreModel")?.setValue(res.tyrePurchaseDtlList[i].tyreModel);  
         this.formTyreArray.controls[i].get("tyreAmount")?.setValue(res.tyrePurchaseDtlList[i].tyreAmount);   
         this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.tyrePurchaseDtlList[i].sgstPct);  
@@ -414,17 +423,21 @@ export class TyrepurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.enable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }    
       else if (gsttype == "SC")  {      
         this.formTyreArray.controls[i].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }
       else{              
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formUser.controls['vendorGstNo'].clearValidators(); 
       } 
+      this.formUser.controls['vendorGstNo'].updateValueAndValidity();      
     }    
     this.onPctChange()
   }
@@ -648,7 +661,7 @@ export class TyrepurchasemasteraddComponent {
           'purchaseDate': selectedDataValue.purchaseDate,
           'brandID': selectedDataValue.arrayList[i].brandID,
           'tyreNo': selectedDataValue.arrayList[i].tyreNo,
-          'tyrePattern': selectedDataValue.arrayList[i].tyrePattern,
+          'tyrePattern': "",
           'tyreModel': selectedDataValue.arrayList[i].tyreModel,
           'tyreAmount': selectedDataValue.arrayList[i].tyreAmount.toString(),
           'sgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
