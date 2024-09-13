@@ -22,6 +22,7 @@ namespace FleetTrans.Models
         public string? VendorInvDt { get; set; }
         public string? TyreSacCode { get; set; }
         public string? GstType { get; set; }
+        public string? GstInputTaken { get; set; }        
         public string? TotalTyresAmt { get; set; }
         public string? TotalSgstAmt { get; set; }
         public string? TotalCgstAmt { get; set; }
