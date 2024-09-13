@@ -32,6 +32,7 @@ export class VehiclemasteraddComponent {
   keywordLocation = 'dataName';
   vehicleList: Dropdownmodel[] = [];
   vehicleGrpList: Dropdownmodel[] = [];
+  vehicleFltGrpList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
   vehicleMfrList: Dropdownmodel[] = [];
   vehicleLedgerAcList: Dropdownmodel[] = [];
@@ -90,6 +91,7 @@ export class VehiclemasteraddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getVehicleGrpList();
+    this.getVehicleFltGrpList();
     this.getVehicleTypeList();
     this.getVehicleMfrList();
     this.getVehicleLedgerList();
@@ -276,6 +278,11 @@ export class VehiclemasteraddComponent {
   getVehicleGrpList(): void {
     this.commonService.getVehicleTypeGroupList().subscribe((res) => {
       this.vehicleGrpList = res;
+    });
+  }
+  getVehicleFltGrpList(): void {
+    this.commonService.getVehicleTypeFltGroupList().subscribe((res) => {
+      this.vehicleFltGrpList = res;
     });
   }
   getVehicleTypeList(): void {

@@ -69,6 +69,9 @@ export class CommonService {
   getVehicleTypeGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeGroupList', null, this.httpOptions);
   } 
+  getVehicleTypeFltGroupList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeFltGroupList', null, this.httpOptions);
+  } 
  
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
