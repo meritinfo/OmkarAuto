@@ -336,6 +336,7 @@
                                                 <select class="form-control" formControlName="creditAc"
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }"> 
+                                                <option value="">Choose</option> 
                                                     <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
                                                         {{crd.dataName}}
                                                     </option>
