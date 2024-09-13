@@ -243,6 +243,17 @@ export class TyrepurchasemasteraddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+    this.formUser.patchValue({
+      vendorName: item.dataName
+    })
+    this.requestmodel.strRequest = item.dataId;
+    this.tyrePurchaseMasterService.getVendorDetails(this.requestmodel).subscribe((res) => {
+      this.formUser.patchValue({
+        vendorAddress: res.strRequest,
+        vendorGstNo: res.strRequest1,
+      })
+    });  
+
   }
 
   onChangeSearch(search: string) {
@@ -644,16 +655,25 @@ export class TyrepurchasemasteraddComponent {
     this.tyrepurchasemastermodel.loggedInUser = this.loggedInUserID;
     this.tyrepurchasemastermodel.tyrePurchaseDtlList = [];
 
-    if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
-      this.toastrService.warning("Total Net Amount should not be zero");
-      return;
-    }
-      
+       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
-        this.toastrService.warning("Please Enter Details Properly");
+      if (selectedDataValue.arrayList[i].netTyreAmount == "" || parseFloat(selectedDataValue.arrayList[i].netTyreAmount)==0 ) {
+        if(selectedDataValue.purchaseType == 'N' ||  selectedDataValue.purchaseType == 'R')
+        this.toastrService.warning("Please Enter Amount");
         return;
       } 
+      if (selectedDataValue.arrayList[i].tyreNo =="" ) {
+        this.toastrService.warning("Please Enter Tyre No");
+        return;
+      } 
+      else if (selectedDataValue.arrayList[i].brandID == "" ) {
+        this.toastrService.warning("Please Select Brand");
+        return;
+      } 
+      else if (selectedDataValue.arrayList[i].tyreModel == "" ) {
+        this.toastrService.warning("Please Select Tyre Model");
+        return;
+      }       
       else{
         this.tyrepurchasemastermodel.tyrePurchaseDtlList.push({
           'tyreId': "",

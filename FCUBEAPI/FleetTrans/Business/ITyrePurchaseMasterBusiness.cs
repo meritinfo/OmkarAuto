@@ -18,5 +18,6 @@ namespace FleetTrans.Business
         Task<List<DropDownListModel>> GetTyreBrandList();
         Task<List<DropDownListModel>> GetModelList();
         Task<List<DropDownListModel>> GetVendorList();
+        Task<RequestModel> GetVendorDetails(RequestModel request);
     }
 }

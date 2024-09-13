@@ -417,16 +417,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return BrandList;
         }
@@ -456,19 +447,36 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return BrandList;
         }
-      
+        public async Task<RequestModel> GetVendorDetails(RequestModel request)
+        {
+            RequestModel req = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AccountID", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVendorDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        req.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["VendorAddress"]);
+                        req.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["VendorGstNo"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return req;
+        }
+
+        
+
     }
 }
