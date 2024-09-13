@@ -13,6 +13,7 @@ export class Tyrepurchasemastermodel {
     vendorInvDt : string ="";   
     tyreSacCode : string ="";
     gstType : string ="";
+    gstInputTaken: string ="";
     totalTyresAmt : string ="";
     totalSgstAmt : string ="";
     totalCgstAmt : string ="";

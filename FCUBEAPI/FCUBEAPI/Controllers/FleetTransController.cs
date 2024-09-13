@@ -1363,6 +1363,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetVendorDetails")]
+        public async Task<IActionResult> GetVendorDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetVendorDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("GetDailyLoadingRptList")]

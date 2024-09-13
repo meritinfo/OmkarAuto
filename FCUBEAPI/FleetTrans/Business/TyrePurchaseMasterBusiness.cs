@@ -50,6 +50,10 @@ namespace FleetTrans.Business
         {
             return await tyrePurchaseRepository.GetVendorList();
         }
+        public async Task<RequestModel> GetVendorDetails(RequestModel request)
+        {
+            return await tyrePurchaseRepository.GetVendorDetails(request);
+        }
 
     }
 }

@@ -55,4 +55,7 @@ export class TyrePurchaseMasterService {
   getTyrePurchaseMasterList(filter: Filtermodel): Observable<Tyrepurchasemasterlistmodel> {
     return this.httpClient.post<Tyrepurchasemasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterList', filter, this.httpOptions);
   }  
+  getVendorDetails(filter: Requestmodel): Observable<Requestmodel> {
+    return this.httpClient.post<Requestmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorDetails', filter, this.httpOptions);
+  }  
 }
