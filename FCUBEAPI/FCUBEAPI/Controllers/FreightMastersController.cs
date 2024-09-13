@@ -58,8 +58,9 @@ namespace FCUBEAPI.Controllers
             ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
             IBookingRegisterRptBusiness _bookingRegisterRptBusiness,
             ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness,
-              IChallanRegisterRptBusiness _challanRegisterRptBusiness,
-            IUnBilledRptBusiness _unBilledRptBusiness)
+            IUnBilledRptBusiness _unBilledRptBusiness,
+            IChallanRegisterRptBusiness _challanRegisterRptBusiness)
+           
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -1603,6 +1604,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
+
         [HttpPost("GetChallanRegisterRptList")]
         public async Task<IActionResult> GetChallanRegisterRptList(ReportRequestModel request)
         {
@@ -1640,6 +1643,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
 
 
         //[HttpPost("GetBillsMasterList")]

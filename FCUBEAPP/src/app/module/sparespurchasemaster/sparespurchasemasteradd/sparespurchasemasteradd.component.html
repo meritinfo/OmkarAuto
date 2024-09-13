@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Spares Purchase Master</h4>
+                        <h4 class="mb-sm-0 font-size-18">Spares Purchase Entry</h4>
                     </div>
                 </div>
             </div>
@@ -154,14 +154,6 @@
                                              </select>
                                         </div>
                                     </div>  
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Vendor GstNo: </label><span style="color: red">*</span> 
-                                            <input uppercaseonly type="text" class="form-control" 
-                                            formControlName="vendorGstNo"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGstNo'].invalid) }">
-                                        </div>
-                                    </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-2">
                                             <label>Gst Type </label><span style="color: red">*</span>                                           
@@ -175,6 +167,15 @@
                                             </select>
                                         </div>
                                     </div>   
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Vendor GstNo: </label><span style="color: red">*</span> 
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="vendorGstNo"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGstNo'].invalid) }">
+                                        </div>
+                                    </div> 
+                                   
                                 </div>             
                             </div>                  
                             <!-- end card body -->
@@ -193,7 +194,7 @@
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>SpareLubId </h6>
+                                                        <h6>Spare/Lube </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
