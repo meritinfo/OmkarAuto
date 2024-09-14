@@ -249,6 +249,7 @@ export class TripsheetaddComponent {
       remarks: [''],
     });
   }
+  
 
   getDetails(){
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -537,9 +538,14 @@ export class TripsheetaddComponent {
         })
       }
     }
+    //var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
+   // var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
 
     for (var i = 0; i < selectedDataValue.routeList.length; i++) {
+
       if(selectedDataValue.routeList[i].pmtId!=''){
+        var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
+        var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
         this.tripsheetmodel.routeList.push({
           'loadId': selectedDataValue.routeList[i].loadId,
           'loadBranch': selectedDataValue.routeList[i].loadBranch,
@@ -547,9 +553,9 @@ export class TripsheetaddComponent {
           'loadType':  selectedDataValue.routeList[i].loadType,
           'loadFor': selectedDataValue.routeList[i].loadFor,
           'loadMemoNo':  selectedDataValue.routeList[i].loadMemoNo,
-          'loadingFrom':  selectedDataValue.routeList[i].loadingFrom,
+          'loadingFrom': loadingfrom?loadingfrom.dataId:"" ,
           'consignorName':  selectedDataValue.routeList[i].consignorName,
-          'loadingTo':  selectedDataValue.routeList[i].loadingTo,
+          'loadingTo':  loadingto?loadingto.dataId:"" ,
           'consigneeName':  selectedDataValue.routeList[i].consigneeName,
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
           'advAmt':  selectedDataValue.routeList[i].advAmt,

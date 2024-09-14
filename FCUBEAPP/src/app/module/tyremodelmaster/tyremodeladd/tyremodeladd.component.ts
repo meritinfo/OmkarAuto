@@ -69,7 +69,7 @@ export class TyremodeladdComponent {
     this.selectedTyreModelMasterDetails = this.tyreModelMasterService.getTyreModelMasterDetails();
     this.formSparesMaster = this.formBuilder.group({   
       modelDesc: new FormControl('',[Validators.required]),  
-      activeYN: new FormControl('',[Validators.required]),  
+      activeYN: new FormControl('Y',[Validators.required]),  
     });
 
     if (this.selectedTyreModelMasterDetails.tyreModID != '') {

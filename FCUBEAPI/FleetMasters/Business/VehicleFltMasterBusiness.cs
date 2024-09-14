@@ -56,5 +56,9 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetVehicleFltInnerGridList(req);
         }
+        public async Task<List<DropDownListModel>> GetVehicalTypeFltGroupList()
+        {
+            return await vehicleFltMasterRepository.GetVehicalTypeFltGroupList();
+        }
     }
 }
