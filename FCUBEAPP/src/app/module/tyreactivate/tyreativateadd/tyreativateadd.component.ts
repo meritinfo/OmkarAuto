@@ -103,6 +103,8 @@ export class TyreativateaddComponent {
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
  
     this.selectedTyreactivateDetail = this.tyreactivateService.getTyreactivateMasterDetails();
+
+
     this.formUser = this.formBuilder.group({
       branchCode : new FormControl(this.branch,[Validators.required]),
       activateDate : new FormControl(this.loginDate,[Validators.required]),
@@ -131,14 +133,25 @@ export class TyreativateaddComponent {
 
     if (this.selectedTyreactivateDetail.activateMasterID  != '') {
       setTimeout(() => {
+        this.requestmodel.strRequest = ""; 
+        this.requestmodel.strRequest1 = ""; 
+        this.tyreactivateService.getBrandTyreNoList(this.requestmodel).subscribe((res) => {
+          this.tyreList = res;
+        });
+      }, 1500);  
+    }
+
+    if (this.selectedTyreactivateDetail.activateMasterID  != '') {
+      setTimeout(() => {
         this.formUser.patchValue(this.selectedTyreactivateDetail);
         this.formUser.patchValue({
           activateDate: this.commonService.formatDate(this.selectedTyreactivateDetail.activateDate),
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedTyreactivateDetail.vehicleMasterid),
-        })      
+        }) 
+   
         this.getTyreActivateInnerGridList();
         this.editMode =true;
-      }, 2000);  
+      }, 3000);  
     }
   }
 
@@ -219,9 +232,9 @@ export class TyreativateaddComponent {
       this.formTyreArray.clear();
       this.tyreactivate = res;
       for (var i = 0; i < res.tyreActivateDtlList.length; i++) {
-        this.formTyreArray.push(this.createTyreArray());
+        this.formTyreArray.push(this.createTyreArray());        
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreActivateDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreActivateDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreActivateDtlList[i].tyreId));  
         this.formTyreArray.controls[i].get("tyrePosID")?.setValue(res.tyreActivateDtlList[i].tyrePosID); 
         this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.tyreActivateDtlList[i].tyreCostAmt);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreActivateDtlList[i].remarks);  
@@ -265,6 +278,7 @@ export class TyreativateaddComponent {
   
   removeItem(index: number) {
     this.formTyreArray.removeAt(index);  
+    this.onAmtChange();
   }  
 
   getTyreNo(j: number,e: any){   
