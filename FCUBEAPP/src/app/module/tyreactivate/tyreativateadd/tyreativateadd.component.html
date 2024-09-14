@@ -161,7 +161,7 @@
                                                         <div class="ng-autocomplete">
                                                             <ng-autocomplete [data]="tyreList"
                                                                 [searchKeyword]="keywordLocation" placeholder=""
-                                                                (selected)='selectEvent($event)'
+                                                                (selected)='selectTyreEvent(i,$event)'
                                                                 (inputChanged)='onChangeSearch($event)'
                                                                 (inputFocused)='onFocused($event)'
                                                                 [itemTemplate]="itemTemplate"

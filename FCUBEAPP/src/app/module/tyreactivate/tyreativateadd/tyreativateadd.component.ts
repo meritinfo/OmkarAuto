@@ -152,6 +152,21 @@ export class TyreativateaddComponent {
     // do something with selected item
   }
 
+  selectTyreEvent(i: number, item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId; 
+    this.tyreactivateService.getTyreNoCostAmt(this.requestmodel).subscribe((res) => {
+      this.responseDetails = res;
+      if(res.status){       
+        this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.message);  
+      } 
+      else{
+        this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue("");  
+      }   
+      this.onAmtChange();
+    });
+  }
+
   onChangeSearch(search: string) {
     // fetch remote data from here
   }
@@ -314,7 +329,7 @@ export class TyreativateaddComponent {
     this.tyreactivate.inspectedBy  = selectedDataValue.inspectedBy.toString().toUpperCase();
     this.tyreactivate.fittedBy = selectedDataValue.fittedBy.toString().toUpperCase();
     this.tyreactivate.tyreAmt  = selectedDataValue.tyreAmt.toString();
-    this.tyreactivate.othAmt  = selectedDataValue.othAmt.toString();
+    this.tyreactivate.othAmt  = selectedDataValue.othAmt?selectedDataValue.othAmt.toString():"";
     this.tyreactivate.netAmt  = selectedDataValue.netAmt.toString();
     this.tyreactivate.remarks  = selectedDataValue.remarks.toString().toUpperCase();    
     this.tyreactivate.yearID = this.year;
@@ -343,7 +358,7 @@ export class TyreativateaddComponent {
           'activateDate': "",
           'vehicleMasterid': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId.dataId,
           'tyrePosID': selectedDataValue.arrayList[i].tyrePosID,
           'tyreCostAmt': selectedDataValue.arrayList[i].tyreCostAmt.toString(),
           'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),

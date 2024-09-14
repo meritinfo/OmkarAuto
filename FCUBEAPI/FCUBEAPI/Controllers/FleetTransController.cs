@@ -1658,6 +1658,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetTyreNoCostAmt")]
+        public async Task<IActionResult> GetTyreNoCostAmt(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetTyreNoCostAmt(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("TyreDeActivateMasterSave")]
         public async Task<IActionResult> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel)
         {
