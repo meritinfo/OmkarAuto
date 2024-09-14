@@ -41,6 +41,10 @@ namespace FleetTrans.Business
         {
             return await tyreActivateRepository.GetBrandTyreNoList(request);
         }
+        public async Task<ResponseModel> GetTyreNoCostAmt(RequestModel request)
+        {
+            return await tyreActivateRepository.GetTyreNoCostAmt(request);
+        }
     }
 
 

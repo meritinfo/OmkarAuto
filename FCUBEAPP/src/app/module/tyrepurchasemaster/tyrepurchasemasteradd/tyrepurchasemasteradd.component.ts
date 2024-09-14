@@ -133,7 +133,7 @@ export class TyrepurchasemasteraddComponent {
       remarks : new FormControl('',),
       pmtType : new FormControl('M',[Validators.required]),
       neftPmt : new FormControl('',[Validators.required]),
-      creditAc : new FormControl('',),
+      creditAc : new FormControl('',[Validators.required]),
       chequeNo : new FormControl('',),
       chequeDate : new FormControl('',),
 
@@ -190,9 +190,12 @@ export class TyrepurchasemasteraddComponent {
           this.formUser.controls["gstInputTaken"].enable();  
         }
         this.formUser.controls['vendorGstNo'].updateValueAndValidity();
-        if(this.selectedTyrePurchaseMasterDetail.gstInputTaken=="N"){
+        this.formUser.patchValue({
+          gstInputTaken: "",
+        })
+        if(this.selectedTyrePurchaseMasterDetail.gstInputTaken=="Y"){
           this.formUser.patchValue({
-            gstInputTaken: "",
+            gstInputTaken: "Y",
           })
         }
         if (this.selectedTyrePurchaseMasterDetail.pmtType == 'B'){
