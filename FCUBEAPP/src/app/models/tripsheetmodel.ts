@@ -52,6 +52,7 @@ export class Tripsheetmodel {
     driverList: DriverDetails[] = [];
     routeList: RouteDetails[] = [];
     dieselList: DieselDetails[] = [];
+    expList: TripDrExpDetails[] = [];
 }
 
 export class DriverDetails {
@@ -89,3 +90,10 @@ export class DieselDetails {
     amount : string = "";
     remarks: string = "";
 }
+export class TripDrExpDetails {
+    tripDtlId: string = "";
+    tripId: string = "";
+    expId: string = "";
+    expParticulars: string = "";
+    expAmt: string = "";
+  }

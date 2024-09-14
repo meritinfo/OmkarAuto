@@ -393,6 +393,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetExpList")]
+        public async Task<IActionResult> GetExpList()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetExpList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
@@ -412,6 +426,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("TripMasterDelete")]
         public async Task<IActionResult> TripMasterDelete(RequestModel req)
