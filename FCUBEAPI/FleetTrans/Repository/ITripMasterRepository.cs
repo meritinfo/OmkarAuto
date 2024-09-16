@@ -13,6 +13,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
         Task<TripSheetList> GetTripSheetList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetDriverList();
+        Task<List<DropDownListModel>> GetExpList();
         Task<ResponseModel> TripMasterDelete(RequestModel requestModel);
         Task<ResponseModel> GetNextTripNo(RequestModel request);
         Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request);

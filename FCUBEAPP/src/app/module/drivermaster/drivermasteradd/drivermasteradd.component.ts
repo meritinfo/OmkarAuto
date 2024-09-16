@@ -171,7 +171,7 @@ export class DrivermasteraddComponent {
     this.formDriverMaster.controls['age'].disable(); 
 
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
-      this.formDriverMaster.controls['driverName'].enable(); 
+   
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
       this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;

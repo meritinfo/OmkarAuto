@@ -47,5 +47,9 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetTripSheetInnerGridList(request);
         }
+        public async Task<List<DropDownListModel>> GetExpList()
+         {
+            return await tripMasterRepository.GetExpList();
     }
+}
 }
