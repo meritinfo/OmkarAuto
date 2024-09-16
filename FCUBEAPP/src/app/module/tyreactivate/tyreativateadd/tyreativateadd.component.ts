@@ -362,7 +362,7 @@ export class TyreativateaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyreactivate.tyreActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyreactivate.tyreActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;

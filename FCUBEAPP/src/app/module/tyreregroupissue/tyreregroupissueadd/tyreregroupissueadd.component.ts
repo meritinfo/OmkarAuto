@@ -188,7 +188,7 @@ export class TyreregroupissueaddComponent {
       for (var i = 0; i < res.tyreRegroupIssueDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupIssueDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreRegroupIssueDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreRegroupIssueDtlList [i].tyreId));
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreRegroupIssueDtlList[i].remarks);  
       }     
     });
@@ -276,7 +276,7 @@ export class TyreregroupissueaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyreregroupissue.tyreRegroupIssueDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyreregroupissue.tyreRegroupIssueDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
@@ -285,7 +285,7 @@ export class TyreregroupissueaddComponent {
           'regroupIssMasterID': "",
           'regroupIssDate': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'remarks':selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
           'branchCode':selectedDataValue.branchCode.toString(),
           'yearID':this.year,

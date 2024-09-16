@@ -49,7 +49,7 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="customerList"
                                                     [searchKeyword]="keywordLocation" placeholder=""
-                                                    (selected)='selectEvent($event)'
+                                                    (selected)='selectCustEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)'
                                                     [itemTemplate]="itemTemplate"
@@ -137,19 +137,35 @@
                                                 *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2"> 
-                                                   
-                                                        <select class="form-control" formControlName="brandId"   
-                                                            class="form-control form-select ng-pristine ng-touched"   
-                                                            (change)="getTyreNo(i,$event)">
-                                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
-                                                               {{vehi.dataName}}
-                                                            </option>
-                                                         </select>   
-                                                </td>
-
+                                                    <select class="form-control" formControlName="brandId"   
+                                                        class="form-control form-select ng-pristine ng-touched"   
+                                                        (change)="getBrandTyreNo(i,$event)">
+                                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                            {{vehi.dataName}}
+                                                        </option>
+                                                    </select>   
+                                                </td> 
                                                 <td class="col-lg-2"> 
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="tyreId"> 
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="tyreList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="tyreId" >
+                                                        </ng-autocomplete>
+        
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+        
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                 </td>
                                                 <td class="col-lg-2"> 
                                                     <input decimalonly autoclose="false" class="form-control"
@@ -188,7 +204,7 @@
                                 <select id="formrow-inputState" 
                                 class="form-control form-select ng-pristine ng-touched"
                                     formControlName="gstType" (change)="changeGstType($event)">
-                                    <option value="NA">NA</option>
+                                    <option value="N">NA</option>
                                     <option value="C">CGST</option>
                                     <option value="S">SGST</option>  
                                     <option value="I">IGST</option>                                                                                            

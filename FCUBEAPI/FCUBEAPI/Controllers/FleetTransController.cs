@@ -1733,6 +1733,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTyredeactivateVehicleTyreList")]
+        public async Task<IActionResult> GetTyredeactivateVehicleTyreList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreDeActivateMasterBusiness.GetTyredeactivateVehicleTyreList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetTyreDeActivateMasterInnerGridList")]
         public async Task<IActionResult> GetTyreDeActivateMasterInnerGridList(RequestModel request)
@@ -1897,7 +1915,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetRegroupRecdMasterInnerGridList")]
+        [HttpPost("GetTyreRegroupRecdMasterInnerGridList")]
+        
         public async Task<IActionResult> GetTyreRegroupRecdMasterInnerGridList(RequestModel request)
         {
             if (request == null)

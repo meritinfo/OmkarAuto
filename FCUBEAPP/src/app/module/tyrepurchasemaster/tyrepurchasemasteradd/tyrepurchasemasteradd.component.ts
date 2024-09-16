@@ -680,6 +680,11 @@ export class TyrepurchasemasteraddComponent {
         this.toastrService.warning("Please Enter Amount");
         return;
       } 
+      var dupl = this.tyrepurchasemastermodel.tyrePurchaseDtlList.find(e=> e.tyreNo == selectedDataValue.arrayList[i].tyreNo) 
+      if(dupl){
+        this.toastrService.warning("Duplicate Tyre No Entered");
+        return;
+      }
       if (selectedDataValue.arrayList[i].tyreNo =="" ) {
         this.toastrService.warning("Please Enter Tyre No");
         return;

@@ -99,9 +99,9 @@
                                 <div class="card-body" >
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip"></label>
                                                 </td>
                                                 <td class="col-lg-2">
@@ -133,19 +133,41 @@
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2"> 
+                                                    <td class="col-lg-1"> 
                                                         <input type="checkbox"  class="form-check-input" 
                                                             formControlName="selected" (change)="onCheked(i,$event)" >  
                                                         <input type="hidden" autoclose="false" class="form-control"
                                                             formControlName="regroupIssueDtlId">                                                   
                                                     </td>
                                                     <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                            formControlName="brandId"> 
+                                                        <select class="form-control" formControlName="brandId"   
+                                                            class="form-control form-select ng-pristine ng-touched" >
+                                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                         </select>  
                                                     </td>
                                                     <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                            formControlName="tyreId"> 
+                                                        <div class="ng-autocomplete">
+                                                            <ng-autocomplete [data]="tyreList"
+                                                                [searchKeyword]="keywordLocation" placeholder=""
+                                                                (selected)='selectEvent($event)'
+                                                                (inputChanged)='onChangeSearch($event)'
+                                                                (inputFocused)='onFocused($event)'
+                                                                [itemTemplate]="itemTemplate"
+                                                                [notFoundTemplate]="notFoundTemplate"
+                                                                [customFilter]="startWithFilter"
+                                                                formControlName="tyreId" >
+                                                            </ng-autocomplete>
+            
+                                                            <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item.dataName"></a>
+                                                            </ng-template>
+            
+                                                            <ng-template #notFoundTemplate let-notFound>
+                                                                <div [innerHTML]="notFound"></div>
+                                                            </ng-template>
+                                                        </div>
                                                     </td>
                                                     <td class="col-lg-2">                                                          
                                                         <select class="form-control" formControlName="regroupDoneYN">
@@ -264,9 +286,9 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" 
-                                    formControlName="creditAc"
+                                <select class="form-control" formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                    <option value="">Choose...</option>      
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>

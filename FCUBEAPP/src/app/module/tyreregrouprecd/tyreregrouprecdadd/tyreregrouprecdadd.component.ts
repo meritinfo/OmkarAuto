@@ -38,6 +38,7 @@ export class TyreregrouprecdaddComponent {
   brandList: Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
+  tyreList: Dropdownmodel[] = [];
   tyreregrouprecdmodel = new Tyreregrouprecdmastermodel();
   attatchFile: string = "";
 
@@ -123,7 +124,7 @@ export class TyreregrouprecdaddComponent {
       roundOffAmt : new FormControl('',),
       netBillAmt : new FormControl('',[Validators.required]),
       remarks : new FormControl('',),
-      pmtType : new FormControl('M',[Validators.required]),
+      pmtType : new FormControl('',[Validators.required]),
       creditAc : new FormControl('',),
       chequeNo : new FormControl('',),
       chequeDt : new FormControl('',),
@@ -134,7 +135,7 @@ export class TyreregrouprecdaddComponent {
     this.getBrandList();
     this.getVendorList();
     this.getBranchList();
-    this.getCreditAcList('M');
+    this.getTyreNo();
 
     this.formUser.controls["totalAmt"].disable();
     this.formUser.controls["sgstAmt"].disable();   
@@ -143,6 +144,9 @@ export class TyreregrouprecdaddComponent {
     this.formUser.controls["netBillAmt"]?.disable();  
     this.formUser.controls["branchCode"].disable();
 
+    if (this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID  != '') {
+      this.getCreditAcList(this.selectedTyreregrouprecdMasterDetail.pmtType);
+    }
     if (this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID  != '') {
       setTimeout(() => {
         this.attachmentInput = Constants.UploadFolderPath + 'tyreRegroupRecd/attatchFile/' + this.selectedTyreregrouprecdMasterDetail.attatchFile;
@@ -155,6 +159,9 @@ export class TyreregrouprecdaddComponent {
         })        
        
         this.getTyreRegroupRecdInnerGridList();
+        this.formUser.controls["vendorId"]?.disable();  
+        this.formUser.controls["vendorBillNo"].disable();
+        this.formUser.controls["vendorBillDt"].disable();
         this.editMode =true;
       }, 2000);  
     }
@@ -207,6 +214,16 @@ export class TyreregrouprecdaddComponent {
     });
   }  
 
+  
+  getTyreNo(){   
+    this.requestmodel.strRequest = ""; 
+    this.requestmodel.strRequest1 = "" ; 
+    this.tyreregrouprecdService.getIssuedTyreNoList(this.requestmodel).subscribe((res) => {
+      this.tyreList = res;
+    });
+  }
+  
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -227,9 +244,6 @@ export class TyreregrouprecdaddComponent {
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
-      this.formUser.patchValue({
-        creditAc: this.creditAcList[0].dataId ,
-      });
     });    
   }
     
@@ -239,14 +253,21 @@ export class TyreregrouprecdaddComponent {
       this.formTyreArray.clear();
       this.tyreregrouprecdmodel = res;
       for (var i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
+        this.showGrid = true;
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("regroupIssueDtlId")?.setValue(res.tyreRegroupRecdDtlList[i].regroupIssueDtlId);
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupRecdDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreRegroupRecdDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreRegroupRecdDtlList[i].tyreId));
         this.formTyreArray.controls[i].get("regroupDoneYN")?.setValue(res.tyreRegroupRecdDtlList[i].regroupDoneYN); 
         this.formTyreArray.controls[i].get("regroupAmount")?.setValue(res.tyreRegroupRecdDtlList[i].regroupAmount);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreRegroupRecdDtlList[i].remarks); 
         this.formTyreArray.controls[i].get("selected")?.setValue('Y'); 
+        
+        this.formTyreArray.controls[i].get("brandId")?.disable();
+        this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+        this.formTyreArray.controls[i].get("regroupDoneYN")?.disable(); 
+        this.formTyreArray.controls[i].get("regroupAmount")?.disable(); 
+        this.formTyreArray.controls[i].get("remarks")?.disable(); 
       }     
     });
   }
@@ -268,20 +289,34 @@ export class TyreregrouprecdaddComponent {
           this.formTyreArray.push(this.createTyreArray());
           this.formTyreArray.controls[i].get("regroupIssueDtlId")?.setValue(res.tyreRegroupRecdDtlList[i].regroupIssueDtlId);
           this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupRecdDtlList[i].brandId);
-          this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreRegroupRecdDtlList[i].tyreId);  
+          this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreRegroupRecdDtlList[i].tyreId));
           this.formTyreArray.controls[i].get("regroupAmount")?.setValue("0");  
+          
+          this.formTyreArray.controls[i].get("brandId")?.disable();
+          this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+          this.formTyreArray.controls[i].get("regroupDoneYN")?.disable(); 
+          this.formTyreArray.controls[i].get("regroupAmount")?.disable(); 
+          this.formTyreArray.controls[i].get("remarks")?.disable(); 
         }     
       });
     } 
   }
-
+  
   onCheked(i:number,e:any){
     if(e.target.checked){
-      this.formTyreArray.controls[i].get("regroupAmount")?.enable();
+      if(this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID==""){ 
+        this.formTyreArray.controls[i].get("regroupDoneYN")?.enable(); 
+        this.formTyreArray.controls[i].get("regroupAmount")?.enable();
+        this.formTyreArray.controls[i].get("remarks")?.enable(); 
+      }
     }
-    else{
-      this.formTyreArray.controls[i].get("regroupAmount")?.disable();
-    }
+    else{         
+      this.formTyreArray.controls[i].get("brandId")?.disable();
+      this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+      this.formTyreArray.controls[i].get("regroupDoneYN")?.disable(); 
+      this.formTyreArray.controls[i].get("regroupAmount")?.disable(); 
+      this.formTyreArray.controls[i].get("remarks")?.disable(); 
+    } 
   }
 
   onRegroupAmt(){ 
@@ -346,7 +381,7 @@ export class TyreregrouprecdaddComponent {
             if (this.responseDetails.status) {
               this.toastrService.success(this.responseDetails.message);
               this.formUser.reset();
-              this.route.navigate(['/tyrepurchaselist']);
+              this.route.navigate(['/tyrerethreadrecvlist']);
             }
             else {
               this.toastrService.warning(this.responseDetails.message);
@@ -357,7 +392,7 @@ export class TyreregrouprecdaddComponent {
   }
     
   exit(): void {
-    this.route.navigate(['/tyrepurchaselist']);
+    this.route.navigate(['/tyrerethreadrecvlist']);
   }   
     
   submitTyreMasterForm(): void {
@@ -384,7 +419,7 @@ export class TyreregrouprecdaddComponent {
 
     this.tyreregrouprecdmodel.regroupRecdMasterID = this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID ;
     this.tyreregrouprecdmodel.branchCode= selectedDataValue.branchCode.toString();
-    this.tyreregrouprecdmodel.recdDate = selectedDataValue.purchaseDate;
+    this.tyreregrouprecdmodel.recdDate = selectedDataValue.recdDate;
     this.tyreregrouprecdmodel.vendorId = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
     this.tyreregrouprecdmodel.vendorBillNo = selectedDataValue.vendorBillNo.toString().toUpperCase();
     this.tyreregrouprecdmodel.vendorBillDt = selectedDataValue.vendorBillDt;  
@@ -417,7 +452,7 @@ export class TyreregrouprecdaddComponent {
         this.tyreregrouprecdmodel.tyreRegroupRecdDtlList.push({
           'regroupRecdMasterID': "",
           'brandId':  selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'regroupDoneYN':selectedDataValue.arrayList[i].regroupDoneYN,
           'regroupAmount': selectedDataValue.arrayList[i].regroupAmount.toString(),
           'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
@@ -441,7 +476,7 @@ export class TyreregrouprecdaddComponent {
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/tyrepurchaselist']);
+        this.route.navigate(['/tyrerethreadrecvlist']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

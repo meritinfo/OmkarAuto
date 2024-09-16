@@ -114,6 +114,7 @@
                                     <div class="overflow-x">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
+                                                <td class="col-lg-1"></td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>Brand</h6>
@@ -139,19 +140,18 @@
                                                         <h6>Narration </h6>
                                                     </label>
                                                 </td>   
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Action</h6>
-                                                    </label>
-                                                </td>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-1"> 
+                                                        <input type="checkbox" class="form-check-input mt-10"
+                                                        formControlName="selected" 
+                                                        (change)="selectedData(i, $event)" >                                               
+                                                    </td>
                                                     <td class="col-lg-2"> 
                                                         <select class="form-control" formControlName="brandId"   
-                                                            class="form-control form-select ng-pristine ng-touched"   
-                                                            (change)="getTyreNo(i,$event)">
+                                                            class="form-control form-select ng-pristine ng-touched" >
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
                                                             </option>
@@ -161,7 +161,7 @@
                                                         <div class="ng-autocomplete">
                                                             <ng-autocomplete [data]="tyreList"
                                                                 [searchKeyword]="keywordLocation" placeholder=""
-                                                                (selected)='selectEvent($event)'
+                                                                (selected)='selectTyreEvent($event)'
                                                                 (inputChanged)='onChangeSearch($event)'
                                                                 (inputFocused)='onFocused($event)'
                                                                 [itemTemplate]="itemTemplate"
@@ -183,7 +183,7 @@
                                                         <select class="form-control" formControlName="removeStatus"   
                                                             class="form-control form-select ng-pristine ng-touched">
                                                             <option value="DAC">Normal</option>
-                                                            <option value="RGI">Regroup</option>
+                                                            <option value="RGP">Regroup</option>
                                                             <option value="SCR">Scarp</option>
                                                         </select>   
                                                     </td>
@@ -194,14 +194,6 @@
                                                     <td class="col-lg-3"> 
                                                         <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="remarks">    
-                                                    </td>
-                                                    <td class="col-lg-2">
-                                                        <div class="col-lg-2 details-button">
-                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
-                                                                class="btn btn-add" (click)="addItem(i)"></button>
-                                                            <button *ngIf="formTyreArray.controls.length > 1"
-                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                        </div>   
                                                     </td>
                                                 </div>
                                             </tr>

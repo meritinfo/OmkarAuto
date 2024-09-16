@@ -120,7 +120,8 @@ export class TyredeativateaddComponent {
     this.getBrandList();
     this.getBranchList();
     this.getVehicleNoList();
-
+    this.getTyreList();
+    
     this.formUser.controls["usableTyreAmt"].disable();
     this.formUser.controls["branchCode"].disable();
 
@@ -132,6 +133,7 @@ export class TyredeativateaddComponent {
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedTyredeactivateDetail.vehicleMasterid),
         })      
         this.getTyreDeActivateInnerGridList();
+        this.formUser.controls["vehicleMasterid"].disable();
         this.editMode =true;
       }, 2000);  
     }
@@ -142,9 +144,54 @@ export class TyredeativateaddComponent {
   get formTyreArray() {
     return this.formUser.get("arrayList") as FormArray;    
   }
+  
+  selectedData(i:number, e:any){
+    if(e.target.checked){
+      if(this.selectedTyredeactivateDetail.deActivateMasterID==""){  
+        this.formTyreArray.controls[i].get("removeStatus")?.enable(); 
+        this.formTyreArray.controls[i].get("usableAmount")?.enable(); 
+        this.formTyreArray.controls[i].get("remarks")?.enable(); 
+      }
+    }
+    else{         
+      this.formTyreArray.controls[i].get("brandId")?.disable();
+      this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+      this.formTyreArray.controls[i].get("removeStatus")?.disable(); 
+      this.formTyreArray.controls[i].get("usableAmount")?.disable(); 
+      this.formTyreArray.controls[i].get("remarks")?.disable(); 
+    }   
+  }
 
   selectEvent(item: any) {
     // do something with selected item
+    this.requestmodel.strRequest = item.dataId;
+    this.tyredeactivateService.getTyredeactivateVehicleTyreList(this.requestmodel).subscribe((res) => {
+      this.formTyreArray.clear();
+      this.tyredeactivate = res;
+      if(res.tyreDeActivateDtlList.length==0){
+        this.toastrService.warning("No Active Tyres for this Vehicle")
+        this.formUser.patchValue({
+          vehicleMasterid : "",
+        });
+        return;
+      }
+      else{
+        for (var i = 0; i < res.tyreDeActivateDtlList.length; i++) {
+          this.formTyreArray.push(this.createTyreArray());
+          this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreDeActivateDtlList[i].brandId);
+          this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreDeActivateDtlList[i].tyreId));
+          
+          this.formTyreArray.controls[i].get("brandId")?.disable();
+          this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+          this.formTyreArray.controls[i].get("removeStatus")?.disable(); 
+          this.formTyreArray.controls[i].get("usableAmount")?.disable(); 
+          this.formTyreArray.controls[i].get("remarks")?.disable(); 
+        }   
+      }        
+    });
+  }
+  selectTyreEvent(item: any) {
+
   }
 
   onChangeSearch(search: string) {
@@ -161,6 +208,7 @@ export class TyredeativateaddComponent {
 
   createTyreArray() {
     return this.formBuilder.group({
+      selected: [''],
       brandId: [''],
       tyreId: [''],
       removeStatus: ['DAC'],
@@ -178,6 +226,14 @@ export class TyredeativateaddComponent {
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
+    });
+  }
+
+  getTyreList():void {
+    this.requestmodel.strRequest = ""; 
+    this.requestmodel.strRequest1 = ""; 
+    this.tyredeactivateService.getBrandActTyreNoList(this.requestmodel).subscribe((res) => {
+      this.tyreList = res;
     });
   }
 
@@ -201,61 +257,37 @@ export class TyredeativateaddComponent {
       for (var i = 0; i < res.tyreDeActivateDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreDeActivateDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreDeActivateDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreDeActivateDtlList[i].tyreId));  
         this.formTyreArray.controls[i].get("removeStatus")?.setValue(res.tyreDeActivateDtlList[i].removeStatus); 
         this.formTyreArray.controls[i].get("usableAmount")?.setValue(res.tyreDeActivateDtlList[i].usableAmount);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreDeActivateDtlList[i].remarks);  
+        
+        this.formTyreArray.controls[i].get("selected")?.setValue("Y"); 
+        this.formTyreArray.controls[i].get("brandId")?.disable();
+        this.formTyreArray.controls[i].get("tyreId")?.disable(); 
+        this.formTyreArray.controls[i].get("removeStatus")?.disable(); 
+        this.formTyreArray.controls[i].get("usableAmount")?.disable(); 
+        this.formTyreArray.controls[i].get("remarks")?.disable(); 
       }     
     });
   }
 
   onAmtChange(){
-    var totalTyresAmt = 0;
+    var usableTyreAmt = 0;
     
     var selectedDate = this.formUser.getRawValue();
 
     for (var i = 0; i < this.formTyreArray.controls.length; i++) {
-      if (selectedDate.arrayList[i].tyreCostAmt!="") {
-        totalTyresAmt = totalTyresAmt + parseFloat(selectedDate.arrayList[i].usableAmount);   
+      if (selectedDate.arrayList[i].usableAmount?selectedDate.arrayList[i].usableAmount:""!="") {
+        usableTyreAmt = usableTyreAmt + parseFloat(selectedDate.arrayList[i].usableAmount);   
       }
     }  
    
     this.formUser.patchValue({
-      usableTyreAmt : totalTyresAmt.toFixed(2),
+      usableTyreAmt : usableTyreAmt.toFixed(2),
     });
   }  
-
-  addItem(i: number): void {    
-    if (this.formTyreArray.value[i].brandId != "" && this.formTyreArray.value[i].tyreId!="" ) {
-      this.formTyreArray.push(this.createTyreArray());       
-    } 
-    else {
-      this.toastrService.warning("Please Enter Tyre De-Activate Details");
-    }
-  }
-  
-  removeItem(index: number) {
-    this.formTyreArray.removeAt(index);  
-  }  
-
-  getTyreNo(j: number,e: any){   
-    var selectedDataValue = this.formUser.getRawValue();
-
-    if (selectedDataValue.vehicleMasterid.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" Invalid Vehicle");
-      return;
-    }
-
-    this.requestmodel.strRequest = e.target.value; 
-    this.requestmodel.strRequest1 = selectedDataValue.vehicleMasterid.dataId ; 
-    this.tyredeactivateService.getBrandActTyreNoList(this.requestmodel).subscribe((res) => {
-      this.tyreList = res;
-    });
-  }
-  
+ 
   tyreDeActivateDelete(): void {
     if(this.selectedTyredeactivateDetail.deActivateMasterID  != '' ){
      this.requestmodel.strRequest = this.selectedTyredeactivateDetail.deActivateMasterID; 
@@ -321,23 +353,13 @@ export class TyredeativateaddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ) {
-        this.toastrService.warning("Please Enter Details Properly");
-        return;
-      } 
-      else{
-        var dupl = this.tyredeactivate.tyreDeActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
-        if(dupl){
-          this.toastrService.warning("Duplicate Tyre No Entered");
-          return;
-        }
-        
+      if (selectedDataValue.arrayList[i].selected) {   
         this.tyredeactivate.tyreDeActivateDtlList.push({
           'deActivateMasterID': "",
           'deActivateDate': selectedDataValue.deActivateDate,
           'vehicleMasterid':selectedDataValue.vehicleMasterid?selectedDataValue.vehicleMasterid.dataId:"",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'removeStatus': selectedDataValue.arrayList[i].removeStatus,
           'usableAmount': selectedDataValue.arrayList[i].usableAmount.toString(),
           'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
@@ -346,7 +368,7 @@ export class TyredeativateaddComponent {
     }   
 
     if(this.tyredeactivate.tyreDeActivateDtlList.length==0){
-      this.toastrService.warning("Please enter atleast one Record in Details");
+      this.toastrService.warning("Please Select atleast one Record in Details");
       return;
     }
           
