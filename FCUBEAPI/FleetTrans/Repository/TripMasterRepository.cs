@@ -422,6 +422,7 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
+                ExpList = new List<TripDrExpDetails>(),
             };
             try
             {
@@ -475,17 +476,17 @@ namespace FleetTrans.Repository
                         }
                     }
                     //Driver Exp Details
-                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
                         {
                             tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
                             {
-                                TripDtlId = Convert.ToString(resultData.Tables[1].Rows[i]["TripDtlId"]),
-                                TripId = Convert.ToString(resultData.Tables[1].Rows[i]["TripId"]),
-                                ExpId = Convert.ToString(resultData.Tables[1].Rows[i]["ExpId"]),
-                                ExpParticulars = Convert.ToString(resultData.Tables[1].Rows[i]["ExpParticulars"]),
-                                ExpAmt = Convert.ToString(resultData.Tables[1].Rows[i]["ExpAmt"]),
+                                //TripDtlId = Convert.ToString(resultData.Tables[3].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
+                                ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[3].Rows[i]["ExpAmt"]),
                          
                             });
                         }

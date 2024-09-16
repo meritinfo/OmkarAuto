@@ -89,7 +89,7 @@
                                             <div class="mb-4">
                                                 <label for="formrow-inputState">Driver</label><span style="color: red">*</span>    
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="driverList"
+                                                    <ng-autocomplete [data]="driverLists"
                                                         [searchKeyword]="keywordLocation" 
                                                         formControlName="driverMasterID"
                                                         (selected)='selectEvent($event)'
@@ -129,13 +129,13 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Closing KMR</label>
-                                                <input class="form-control" decimalonly formControlName="closingKMR">
+                                                <input class="form-control" decimalonly formControlName="closingKMR"  (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Opening KMR</label>
-                                                <input class="form-control" decimalonly formControlName="openingKMR">
+                                                <input class="form-control" decimalonly formControlName="openingKMR" (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -354,12 +354,12 @@
                                             <th><label for="formrow-inputCity">Exp Id</label></th>
                                             <th><label for="formrow-inputCity">Exp Particulars</label></th>
                                             <th><label for="formrow-inputZip">Exp Amt</label></th>
+                                            <th><label for="formrow-inputZip">Action</label></th>
                                         </tr>
                                         <tr formArrayName="expList"
                                             *ngFor="let drv of formExpTypeArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
                                                 <td>
-                                                   
                                                    
                                                     <select class="form-control" formControlName="expId" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['expId'].invalid) }" >
@@ -377,7 +377,14 @@
                                                     <input type="text" class="form-control" 
                                                     formControlName="expAmt">
                                                 </td>
-                                               
+                                                <td class="col-lg-2">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="k === formExpTypeArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(k)"></button>
+                                                        <button *ngIf="formExpTypeArray.controls.length > 1"
+                                                            (click)="removeItem(k)" class="btn btn-delete"></button>
+                                                    </div>                                        
+                                                </td>
                                               
                                             </div>
                                         </tr>
