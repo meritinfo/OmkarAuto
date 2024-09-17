@@ -29,7 +29,7 @@ export class TyreregroupissueaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -162,7 +162,7 @@ export class TyreregroupissueaddComponent {
   }
 
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
@@ -188,7 +188,7 @@ export class TyreregroupissueaddComponent {
       for (var i = 0; i < res.tyreRegroupIssueDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupIssueDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreRegroupIssueDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreRegroupIssueDtlList [i].tyreId));
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreRegroupIssueDtlList[i].remarks);  
       }     
     });
@@ -239,7 +239,6 @@ export class TyreregroupissueaddComponent {
   }   
     
   submitRegroupIssueForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -277,7 +276,7 @@ export class TyreregroupissueaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyreregroupissue.tyreRegroupIssueDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyreregroupissue.tyreRegroupIssueDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
@@ -286,7 +285,7 @@ export class TyreregroupissueaddComponent {
           'regroupIssMasterID': "",
           'regroupIssDate': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'remarks':selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
           'branchCode':selectedDataValue.branchCode.toString(),
           'yearID':this.year,
@@ -299,6 +298,7 @@ export class TyreregroupissueaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyreregroupissueService.tyreregroupissueMasterSubmitted(this.tyreregroupissue).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

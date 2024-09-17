@@ -6,7 +6,6 @@ import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Constants } from '../common/constants';
 import { Observable } from 'rxjs';
-import { Driverdetailmodel } from '../models/driverdetailmodel';
 import { Drivermasterlistrequestmodel } from '../models/drivermasterlistrequestmodel.model';
 
 @Injectable({
@@ -38,6 +37,9 @@ export class DrivermasterService {
   }
   getDriverMasterList(filter: Drivermasterlistrequestmodel): Observable<Drivermasterlistmodel> {
     return this.httpClient.post<Drivermasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetDriverMasterList', filter, this.httpOptions);
+  }
+  chkDriverDupli(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkDriverDuplicate', req, this.httpOptions);
   }
 
   driverMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {

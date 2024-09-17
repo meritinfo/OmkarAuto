@@ -50,9 +50,16 @@ export class GeneratetempgclistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false;
-  userSubmitted = false;
+  formSubmitted = false;
   loggedInUserID: string = '';
-  
+
+  gcfromDate: string = '';
+  gctoDate: string = '';
+  gcpayParty: string = '';
+  gcorigin: string = '';
+  gcdestination: string = '';
+  gcvehicleNo: string = '';
+  gcmainLr: string = '';  
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -106,9 +113,47 @@ export class GeneratetempgclistComponent {
     else{
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
+
+    var gcfromDate = sessionStorage.getItem('gcfromDate')?.toString();
+    if (typeof gcfromDate !== 'undefined' && gcfromDate !== null && gcfromDate !== '') {
+      this.gcfromDate = gcfromDate;
+    }
+    else{
+      this.gcfromDate = this.fromDate;
+    }
+    var gctoDate = sessionStorage.getItem('gctoDate')?.toString();
+    if (typeof gctoDate !== 'undefined' && gctoDate !== null && gctoDate !== '') {
+      this.gctoDate = gctoDate;
+    }
+    else{
+      this.gctoDate = this.loginDate;
+    }
+    var gcpayParty = sessionStorage.getItem('gcpayParty')?.toString();
+    if (typeof gcpayParty !== 'undefined' && gcpayParty !== null && gcpayParty !== '') {
+      this.gcpayParty = gcpayParty;
+    }
+    var gcvehicleNo = sessionStorage.getItem('gcvehicleNo')?.toString();
+    if (typeof gcvehicleNo !== 'undefined' && gcvehicleNo !== null && gcvehicleNo !== '') {
+      this.gcvehicleNo = gcvehicleNo;
+    }
+    var gcorigin = sessionStorage.getItem('gcorigin')?.toString();
+    if (typeof gcorigin !== 'undefined' && gcorigin !== null && gcorigin !== '') {
+      this.gcorigin = gcorigin;
+    }
+    var gcdestination = sessionStorage.getItem('gcdestination')?.toString();
+    if (typeof gcdestination !== 'undefined' && gcdestination !== null && gcdestination !== '') {
+      this.gcdestination = gcdestination;
+    }
+    var gcmainLr = sessionStorage.getItem('gcmainLr')?.toString();
+    if (typeof gcmainLr !== 'undefined' && gcmainLr !== null && gcmainLr !== '') {
+      this.gcmainLr = gcmainLr;
+    }
     
     this.generatetempgcService.clearTempgcDetails();
     
+    this.getPartyList();
+    this.getLocationList();
+
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
@@ -119,18 +164,29 @@ export class GeneratetempgclistComponent {
       mainLr:new FormControl('',),
     });
     
-    this.getPartyList();
-    this.getLocationList();
     this.sharedService.loading=true;
-    this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.search = this.loggedInUserID;
-    this.filter.filterStr = "";
-    this.filter.filterStr1 =  "";
-    this.filter.filterStr2 =  "";
-    this.filter.filterStr3 =  "";
-    this.filter.sortColumn =  "";
 
+    setTimeout(() => {      
+      this.formFilter.patchValue({
+        fromDate: this.gcfromDate,
+        toDate: this.gctoDate,
+        payParty:this.partyList.find(e => e.dataId == this.gcpayParty),   
+        vehicleNo :this.gcvehicleNo,
+        origin: this.locationList.find(e => e.dataId == this.gcorigin),
+        destination: this.locationList.find(e => e.dataId == this.gcdestination),    
+        mainLr:this.gcmainLr,
+      })
+    }, 2000);
+    
+    this.filter.fromDate = this.gcfromDate;
+    this.filter.toDate = this.gctoDate;
+    this.filter.search = this.loggedInUserID;
+    this.filter.filterStr = this.gcpayParty;
+    this.filter.filterStr1 = this.gcorigin;
+    this.filter.filterStr2 = this.gcdestination;
+    this.filter.filterStr3 = this.gcvehicleNo;
+    this.filter.sortColumn =  this.gcmainLr;
+    
     this.tempgcList();    
     this.sharedService.loading=false;
   }
@@ -145,7 +201,11 @@ export class GeneratetempgclistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.generatetempgcService.getTempgcList(this.filter).subscribe(resp => {
           this.alltempgclist = resp;
             callback({
@@ -255,6 +315,16 @@ export class GeneratetempgclistComponent {
   };
 
   gettempgcDetails(tempgc: Tempgcmodel): void {
+            
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("gcfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("gctoDate", selecteddata.toDate);
+    sessionStorage.setItem("gcpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("gcorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("gcdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("gcvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("gcmainLr", selecteddata.mainLr);
+
     this.generatetempgcService.setTempgcDetails(tempgc);
     if(tempgc.tempGcId ==''|| tempgc.tempGcId =='0'){
       this.route.navigate(['/dprtempgcadd']);
@@ -266,6 +336,25 @@ export class GeneratetempgclistComponent {
   
   
   genMainLrDetails(tempgc: Tempgcmodel): void {
+      
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("gcfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("gctoDate", selecteddata.toDate);
+    sessionStorage.setItem("gcpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("gcorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("gcdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("gcvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("gcmainLr", selecteddata.mainLr);
+
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    this.filter.search = this.loggedInUserID;
+    this.filter.filterStr = selecteddata.payParty?selecteddata.payParty.dataId:"";
+    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
+    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
+    this.filter.filterStr3 = selecteddata.vehicleNo;
+    this.filter.sortColumn =  selecteddata.mainLr;
+    
     this.lrmodel.consignmentID = "0";
     this.lrmodel.bookingPlace = tempgc.bookingPlace;
     this.lrmodel.gcNoteNo = tempgc.gcNoteNo;
@@ -282,11 +371,11 @@ export class GeneratetempgclistComponent {
     this.lrmodel.fromPlace = tempgc.fromPlace;
     this.lrmodel.toPlace = tempgc.toPlace;
     this.lrmodel.kms = "0";
-    this.lrmodel.ownTruck = "N";
+    this.lrmodel.ownTruck = "";
     this.lrmodel.truckNo = tempgc.vehicleNo;
     this.lrmodel.billingParty = tempgc.payParty;
     this.lrmodel.billingBranch = tempgc.payStn
-    this.lrmodel.businessBy = tempgc.businessby
+    this.lrmodel.businessBy = tempgc.businessby;
     this.lrmodel.businessBranch = tempgc.bookingPlace;
     this.lrmodel.cnorName = tempgc.cnorName;
     this.lrmodel.cnorAdd1 = tempgc.cnorAdd1;
@@ -312,37 +401,37 @@ export class GeneratetempgclistComponent {
     this.lrmodel.hsnSac = "";
     this.lrmodel.noPackages = tempgc.noPackages;
     this.lrmodel.looseFlag = "N";
-    this.lrmodel.weightType = "";
+    this.lrmodel.weightType = "MT";
     this.lrmodel.actualWt = tempgc.actualWt;
     this.lrmodel.senderWt = tempgc.actualWt;
     this.lrmodel.chargewt = tempgc.chargewt;
     this.lrmodel.wtDesc = "";  
-    this.lrmodel.vehicleTypeId = "";
+    this.lrmodel.vehicleTypeId = tempgc.vehicleTypeId;
     this.lrmodel.privateMark = "";  
     this.lrmodel.bulkYN = "N";
     this.lrmodel.loadLength = "";
     this.lrmodel.loadWidth = "";
     this.lrmodel.loadHeight = "";
     this.lrmodel.loadCFT = "";
-    this.lrmodel.rateType = "";
+    this.lrmodel.rateType = tempgc.rateType;
     this.lrmodel.rateDesc = "";  
     this.lrmodel.gstBy = tempgc.gstBy;
-    this.lrmodel.rateRs = "";
-    this.lrmodel.freightRs =  "";
+    this.lrmodel.rateRs = tempgc.rateRs;
+    this.lrmodel.freightRs = tempgc.freightRs;
     this.lrmodel.statisticalRs =  "";
     this.lrmodel.fovRs=  "";
     this.lrmodel.doorCollRs =  "";
-    this.lrmodel.handlingRs =  "";
-    this.lrmodel.loadingDetnRs=  "";
+    this.lrmodel.handlingRs = tempgc.hamaliAmt;
+    this.lrmodel.loadingDetnRs=  tempgc.ldDetenAmt;
     this.lrmodel.enrouteRs =  "";
     this.lrmodel.miscRs =  "";
     this.lrmodel.doorDelRs =  "";
     this.lrmodel.unLoadingRs =  "";
     this.lrmodel.unLoadingDetnRs =  "";
-    this.lrmodel.extrasRS =  "";
-    this.lrmodel.othersRs =  "";
-    this.lrmodel.subTotalRs =  "";
-    this.lrmodel.gstType =  "";
+    this.lrmodel.extrasRS =  tempgc.extraAmt;
+    this.lrmodel.othersRs =  tempgc.otherAmt;
+    this.lrmodel.subTotalRs =  tempgc.totFreightAmt;
+    this.lrmodel.gstType =  "N";
     this.lrmodel.sgstPct  =  "";
     this.lrmodel.sgstAmt  =  "";
     this.lrmodel.cgstPct  =  "";
@@ -354,7 +443,7 @@ export class GeneratetempgclistComponent {
     this.lrmodel.nonGstAmt2  =  "";
     this.lrmodel.nonGstAmt2Desc  =  "";
     this.lrmodel.generalRemarks =  "";
-    this.lrmodel.gtotalRs =  "";
+    this.lrmodel.gtotalRs =  tempgc.totFreightAmt;
     this.lrmodel.yearId =  "";
     this.lrmodel.loggedInUser =  "";
 
@@ -365,7 +454,7 @@ export class GeneratetempgclistComponent {
   get f() { return this.formFilter.controls; }
 
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formFilter.controls;
@@ -386,7 +475,6 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3 = selecteddata.vehicleNo;
     this.filter.sortColumn =  selecteddata.mainLr;
-
 
     this.sharedService.loading=true;
     this.tempgcList();    

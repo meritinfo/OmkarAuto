@@ -28,7 +28,7 @@ export class AdddocrenewalentryComponent {
     minDate: string = '';
     maxDate: string = '';
     loginDate: string = '';
-    userSubmitted = false;
+    formSubmitted = false;
     editMode = false;
     createStatus = false;
     editStatus = false;
@@ -203,8 +203,8 @@ export class AdddocrenewalentryComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedDocRenewalEntryDetails.vehicleMasterID),
         });  
         
-        if(this.selectedDocRenewalEntryDetails.findocid!="0"){
-          this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid);
+        if(this.selectedDocRenewalEntryDetails.findocid1!="0"){
+          this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid1);
         }  
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();
@@ -483,9 +483,9 @@ export class AdddocrenewalentryComponent {
     this.requestmodel.strRequest= e.toString();
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
-      this.formDocEntry.patchValue({
-        creditAc: this.creditacList[0].dataId ,
-      });
+      // this.formDocEntry.patchValue({
+      //   creditAc: this.creditacList[0].dataId ,
+      // });
     });
   }
  
@@ -515,7 +515,6 @@ export class AdddocrenewalentryComponent {
 
   //Submit user form details //
   submitDocRenewalEntryForm(): void {
-    this.userSubmitted = true;
     if (this.formDocEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formDocEntry.controls;
@@ -606,6 +605,7 @@ export class AdddocrenewalentryComponent {
     }
    
     let formData = new FormData();
+    this.formSubmitted = true;
     formData.append('attach1', this.attach1Input.nativeElement.files[0]);
     formData.append('attach2', this.attach2Input.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.docRenewalentryModel));

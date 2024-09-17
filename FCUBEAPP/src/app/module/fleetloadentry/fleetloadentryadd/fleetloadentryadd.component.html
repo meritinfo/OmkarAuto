@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formFleetLoad">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFleetLoad">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -28,7 +28,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Branch</label><span style="color: red"> * </span>
                                                 <select class="form-control" formControlName="loadBranch"                             
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['loadBranch'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['loadBranch'].invalid) }">
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
@@ -40,7 +40,7 @@
                                                 <label for="formrow-inputState">Load Date</label><span style="color: red"> * </span>
                                                 <input type="date" class="form-control" formControlName="loadDate"
                                                                          
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['loadDate'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['loadDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -56,7 +56,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterId'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -87,7 +87,7 @@
                                                 <label for="formrow-inputState">Load Type</label><span style="color: red"> * </span>
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="loadType" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['loadType'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['loadType'].invalid) }">
                                                  
                                                     <option value="O">Own</option>
                                                     <option value="M">Market</option>
@@ -101,7 +101,7 @@
                                                 formControlName="loadFor"> -->
                                                 <select class="form-control" 
                                                 formControlName="loadFor"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['loadFor'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['loadFor'].invalid) }">
                                                 <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                                     {{ac.dataName}}
                                                 </option>
@@ -147,7 +147,7 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"  
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['loadingFrom'].invalid) }"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['loadingFrom'].invalid) }"
                                                        >
                                                     </ng-autocomplete>
 
@@ -172,7 +172,7 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"  
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['loadingTo'].invalid) }"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['loadingTo'].invalid) }"
                                                         >
                                                     </ng-autocomplete>
 
@@ -191,7 +191,7 @@
                                                 <label for="formrow-inputState">Product</label>
                                                
                                                     <select class="form-control" formControlName="productId"                             
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tripBranch'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
                                                         <option *ngFor="let branch of productList" value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>
@@ -254,20 +254,20 @@
                                                 <input class="form-control" placeholder="" formControlName="advAmt" numbersonly>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <!-- <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">TripAdjYN</label>
                                               
                                                     <select id="formrow-inputState" class="form-control"
                                                     formControlName="tripAdjYN" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tripAdjYN'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tripAdjYN'].invalid) }">
                                                     
                                                     <option value="Y">Yes</option>
                                                     <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
-                                       
+                                        -->
                                     </div> 
                                     <div class="row">   
                                         
@@ -278,7 +278,9 @@
                                                 <!-- <input class="form-control" placeholder=""
                                                     formControlName="attachMemocopy"> -->
                                                     <input #attachmentInput class="form-control" type="file"
-                                                    id="formAttFile" accept="image/*">
+                                                    id="formAttFile"  >
+                                                    <a *ngIf="selectedFleetLoadEntryDetails.attachMemocopy" target="_blank"
+                                                            href={{uploadedAttach}}>Download</a>
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
@@ -297,7 +299,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitFleetLoadEntryForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteFleetLoadEntryForm()">Delete</button>&nbsp;

@@ -25,7 +25,7 @@ export class GeneratetempgcaddComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -44,6 +44,8 @@ export class GeneratetempgcaddComponent {
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   uploadedVehRcDoc: string = "";
   uploadedVehPanDoc: string = "";
@@ -270,7 +272,9 @@ export class GeneratetempgcaddComponent {
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
           this.getTempGcInnerGridList();
-          this.editMode = true;          
+          this.editMode = true;     
+          this.createdBy = this.selectedTempgcDetails.createdBy + " " + this.selectedTempgcDetails.createdDate;
+          this.modifiedBy = this.selectedTempgcDetails.modifiedBy + " " + this.selectedTempgcDetails.modifiedDate;     
           this.formUser.controls['ewayBillNo'].disable(); 
           this.formUser.controls['gcNoteNo'].disable(); 
           this.searchEnable=false;
@@ -640,7 +644,7 @@ export class GeneratetempgcaddComponent {
 
     this.sharedService.loading=true;
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);
     formData.append('vehPanDoc', this.vehPanDocInput.nativeElement.files[0]);

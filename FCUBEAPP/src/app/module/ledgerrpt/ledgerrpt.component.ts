@@ -50,7 +50,7 @@ export class LedgerrptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -184,6 +184,11 @@ export class LedgerrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.ledgerrptService.getLedgerrptList(this.filter).subscribe(resp => {
              this.allLedgerrptlist = resp;
               callback({
@@ -218,7 +223,7 @@ export class LedgerrptComponent {
       };
     }
     exportPdf(): void {      
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -261,7 +266,7 @@ export class LedgerrptComponent {
     }
       
     exportExcel(): void {      
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -304,7 +309,7 @@ export class LedgerrptComponent {
     }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

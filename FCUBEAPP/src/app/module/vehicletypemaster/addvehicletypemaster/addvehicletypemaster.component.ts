@@ -23,7 +23,7 @@ export class AddvehicletypemasterComponent {
   branch: string = '';
   formUser!: FormGroup;
   vehicleTypeList: Dropdownmodel[] = [];
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   editMode = false;
   createStatus = false;
@@ -148,11 +148,18 @@ vehicleTypeMasterDelete(): void {
 
 //Submit user form details //
 submitVehicleTypeMasterForm(): void {
-  this.userSubmitted = true;
   if (this.formUser.invalid) {
+    this.toasterService.warning("Please Enter Mandatory Fields ");   
+    const controls = this.formUser.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    }
     return;
   }
-  this.vehicletypemastermodel.vehicleTypeID = this.selectedVehicleTypeMasterDetails.vehicleTypeID != '' ? this.selectedVehicleTypeMasterDetails.vehicleTypeID : '';
+  this.formSubmitted = true;
+  this.vehicletypemastermodel.vehicleTypeID = this.selectedVehicleTypeMasterDetails.vehicleTypeID;
   this.vehicletypemastermodel.vehicleTypeDesc= this.formUser.value.vehicleTypeDesc;
   this.vehicletypemastermodel.vehicleTypeGroupId = this.formUser.value.vehicleTypeGroupId;
   this.vehicletypemastermodel.tonCap = this.formUser.value.tonCap;

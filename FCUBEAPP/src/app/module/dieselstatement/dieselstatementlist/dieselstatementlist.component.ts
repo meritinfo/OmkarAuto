@@ -19,7 +19,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class DieselstatementlistComponent {
 
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;

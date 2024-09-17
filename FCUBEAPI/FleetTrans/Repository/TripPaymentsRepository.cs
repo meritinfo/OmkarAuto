@@ -347,7 +347,7 @@ namespace FleetTrans.Repository
                 {
 
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcListForload_Select2", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -398,7 +398,7 @@ namespace FleetTrans.Repository
             }
             return creditacList;
         }
-        public async Task<List<DropDownListModel>> GetCreditAcList2(AcModel request)
+        public async Task<List<DropDownListModel>> GetCreditAcList2(RequestModel request)
         {
             List<DropDownListModel> creditacList = new();
           
@@ -408,7 +408,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                     {
-                        new SqlParameter("@PType", request.PType),                    
+                        new SqlParameter("@PType", request.strRequest),                    
                     };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select2", param);

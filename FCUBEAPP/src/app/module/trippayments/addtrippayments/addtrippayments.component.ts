@@ -10,7 +10,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import { Opbalmodel } from 'src/app/models/opbalmodel';
 
 @Component({
   selector: 'app-addtrippayments',
@@ -28,7 +27,7 @@ export class AddtrippaymentsComponent {
   ptype: string = '';
   trip: string = '';
   formTripPayment!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   editMode = false;
   createStatus = false;
@@ -39,7 +38,6 @@ export class AddtrippaymentsComponent {
   seriesDoc: string = "";
 
   responseDetails = new Responsemodel();
-  OpbalDetails = new Opbalmodel();
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -212,11 +210,9 @@ export class AddtrippaymentsComponent {
     });
   }
   getCreditAcList2(e: any){
-    this.ptype = e;
-    var data = {
-      'pType' : this.ptype
-    }
-    this.commonService.getCreditAcList2(data).subscribe((res) => {
+    this.requestmodel.strRequest = e;
+
+    this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
       this.creditacList = res;   
       this.formTripPayment.patchValue({
         //creditAc:this.creditacList[0].dataId
@@ -373,7 +369,6 @@ export class AddtrippaymentsComponent {
   }
    
   submitTripPaymentsForm(): void {  
-    this.userSubmitted = true;
     if (this.formTripPayment.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formTripPayment.controls;
@@ -416,12 +411,14 @@ export class AddtrippaymentsComponent {
     if (selectedDataValue.pmtType=="B"){
       chqDt = selectedDataValue.chequeDate == '' ? this.loginDate:selectedDataValue.chequeDate;
     }
+    
+    this.formSubmitted = true; 
     this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId ;
     this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
-    this.trippaymentsmodel.remarks = selectedDataValue.remarks;
+    this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";

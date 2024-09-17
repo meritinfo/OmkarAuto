@@ -19,7 +19,7 @@
             <!-- end page title -->
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
@@ -27,7 +27,7 @@
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -36,7 +36,7 @@
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>    
                             <div class="col-md-3">
@@ -71,7 +71,7 @@
                                         <select id="formrow-inputState" class="form-control" 
                                         class="form-control form-select ng-pristine ng-touched"
                                         formControlName="accountID"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['accountID'].invalid) }"> 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }"> 
                                            <option *ngFor="let doc of creditacList" value={{doc.dataId}}>
                                               {{doc.dataName}}
                                            </option>

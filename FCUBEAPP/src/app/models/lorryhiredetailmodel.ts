@@ -19,6 +19,7 @@ export class Lorryhiredetailmodel {
     othDedAmt : string = "";
     oth2DedAmt : string = "";
     tdsAmt : string = "";
+    totPaid: string = "";
     extraRemarks : string = "";
     deductRemarks: string = "";        
 }

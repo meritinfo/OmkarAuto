@@ -21,7 +21,7 @@ export class DrpmasteraddComponent {
   loggedInUserID: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -39,6 +39,9 @@ export class DrpmasteraddComponent {
   locationList: Dropdownmodel[] = [];
   vehicalTypeList: Dropdownmodel[] = [];
   rateTypeList: Dropdownmodel[] = [];
+  businessByList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -116,6 +119,7 @@ export class DrpmasteraddComponent {
     this.getLocationList();
     this.getVehicalTypeList();
     this.getRateTypeList();
+    this.getBusiByList();
 
     this.selectedDprDetails = this.dprService.getDprDetails();
 
@@ -124,9 +128,10 @@ export class DrpmasteraddComponent {
       dprDate  : new FormControl(this.loginDate,[Validators.required]),
       payParty : new FormControl('',[Validators.required]),
       bookStatus : new FormControl('TBB',[Validators.required]),
+      businessBy: new FormControl('',[Validators.required]),
       origin  : new FormControl('',[Validators.required]),
       destination : new FormControl('',[Validators.required]),
-      vehcileTypeId : new FormControl('',[Validators.required]),
+      vehicleTypeId : new FormControl('',[Validators.required]),
       actualWt  : new FormControl('',),
       chargeWt : new FormControl('',),
       odcDimensions  : new FormControl('',), 
@@ -165,10 +170,13 @@ export class DrpmasteraddComponent {
           dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
           payParty: this.partyList.find(e => e.dataId == this.selectedDprDetails.payParty),
           origin: this.locationList.find(e => e.dataId == this.selectedDprDetails.origin),
-          destination: this.locationList.find(e => e.dataId == this.selectedDprDetails.destination),
+          destination: this.locationList.find(e => e.dataId == this.selectedDprDetails.destination),  
+          businessBy : this.businessByList.find(e => e.dataId == this.selectedDprDetails.businessBy),  
         });            
         this.getDprInnerGridList();
         this.editMode = true;
+        this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+        this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
       }    
     }, 2000);
 
@@ -197,16 +205,70 @@ export class DrpmasteraddComponent {
     });
   }
   
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // do something with selected item
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
   
-  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
+    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));    
   };
+
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
 
   get formArray() {
     return this.formUser.get("arrayList") as FormArray;
+  }
+
+  calcFrt(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargeWt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargeWt!=""){
+      chargeWt = parseFloat(selectedDataVal.chargeWt);
+    }
+    if(selectedDataVal.rateRs!=""){
+      rateRs = parseFloat(selectedDataVal.rateRs);
+    }
+    freightRs = chargeWt * rateRs;
+
+    this.formUser.patchValue({
+      freightRs: freightRs.toFixed(2),
+    });  
+    
+    this.calcTotal();
+  }
+
+  calcRate(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargeWt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargeWt!=""){
+      chargeWt = parseFloat(selectedDataVal.chargeWt);
+    }
+    if(selectedDataVal.freightRs!=""){
+      freightRs = parseFloat(selectedDataVal.freightRs);
+    }
+    if (chargeWt>0){
+      rateRs = freightRs / chargeWt;
+    }    
+
+    this.formUser.patchValue({
+      rateRs: rateRs.toFixed(2),
+    });   
+
+    this.calcTotal();
   }
 
   calcTotal(){    
@@ -305,6 +367,12 @@ export class DrpmasteraddComponent {
       this.partyList = res;
     });
   }
+  
+  getBusiByList(): void {
+    this.commonService.getEmpList().subscribe((res) => {
+      this.businessByList = res;
+    });
+  }
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
@@ -388,15 +456,24 @@ export class DrpmasteraddComponent {
       this.toasterService.warning(" Party is Invalid");
       return;
     }
+
+    if (selectedDataVal.businessBy.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Business By is Invalid");
+      return;
+    }
     
     this.dprmodel.dprId = this.selectedDprDetails.dprId ;
     this.dprmodel.dprBranch = selectedDataVal.dprBranch;
     this.dprmodel.dprDate = selectedDataVal.dprDate;
     this.dprmodel.payParty = selectedDataVal.payParty?selectedDataVal.payParty.dataId:"";
     this.dprmodel.bookStatus  = selectedDataVal.bookStatus;
+    this.dprmodel.businessBy = selectedDataVal.businessBy?selectedDataVal.businessBy.dataId:"";
     this.dprmodel.origin   = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.dprmodel.destination  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-    this.dprmodel.vehcileTypeId  = selectedDataVal.vehcileTypeId;
+    this.dprmodel.vehicleTypeId  = selectedDataVal.vehicleTypeId;
     this.dprmodel.actualWt   = selectedDataVal.actualWt;
     this.dprmodel.chargeWt  = selectedDataVal.chargeWt;
     this.dprmodel.odcDimensions  = selectedDataVal.odcDimensions.toString().toUpperCase();
@@ -468,7 +545,7 @@ export class DrpmasteraddComponent {
       return;
     }   
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);

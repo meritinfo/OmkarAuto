@@ -49,7 +49,7 @@ export class ExptruckarrivalreportComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -191,7 +191,12 @@ export class ExptruckarrivalreportComponent {
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = 'ExpectedReportingDt';
           this.filter.sortOrder = 'asc';
-          this.filter.search = '';
+          this.filter.search = ''; 
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.exptruckarrivalService.getExptruckarrivalList(this.filter).subscribe(resp => {
              this.allExptruckarrivallist = resp;
               callback({
@@ -259,7 +264,7 @@ export class ExptruckarrivalreportComponent {
 
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formFilter.controls;

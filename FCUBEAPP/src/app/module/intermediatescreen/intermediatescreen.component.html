@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <form [formGroup]="formLogin"> 
+                                <form (keydown.enter)="$event.preventDefault()"[formGroup]="formLogin"> 
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Select Year</label>
                                         <select class="form-control" formControlName="yearID" [ngClass]="{ 'is-invalid': formSubmitted && (f['yearID'].invalid) }" >
@@ -103,7 +103,7 @@
                         <p class="lead">Login to your account</p>
                     </div>
                     <div class="body">
-                        <form class="form-auth-small" [formGroup]="formLogin">
+                        <form (keydown.enter)="$event.preventDefault()"class="form-auth-small" [formGroup]="formLogin">
                             <div class="form-group">
                                 <label for="userName" class="control-label sr-only">Email</label>
                                 <input type="text" class="form-control" formControlName="userName"

@@ -76,8 +76,7 @@ billsTypeMasterList(){
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
       // this.filter.search = '';
-      this.billsTypeService.getBillsTypeList(this.filter)
-        .subscribe(resp => {
+      this.billsTypeService.getBillsTypeList(this.filter).subscribe(resp => {
           this.allBillsTypeMaster = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,

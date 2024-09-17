@@ -275,7 +275,6 @@ export class FinopenbalanceaddComponent {
 
   //Submit form details //
   submitOpeningBalanceForm(): void {
-    this.formSubmitted = true;
     if (this.formFinOpenBal.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formFinOpenBal.controls;
@@ -333,6 +332,7 @@ export class FinopenbalanceaddComponent {
 
     this.sharedService.loading=true;
     
+    this.formSubmitted = true;
     this.finopenbalanceservice.OpeningbalanceSubmitted(this.openbalancemodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

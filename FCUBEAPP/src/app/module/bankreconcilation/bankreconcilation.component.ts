@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 export class BankreconcilationComponent {
   loggedInUserID: string = '';
   formBankRecEntry!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branchCode: string = '';
   year: string = '';
   loginDate: string = '';
@@ -137,7 +137,7 @@ export class BankreconcilationComponent {
   }
 
   getBankrecData(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formBankRecEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formBankRecEntry.controls;
@@ -241,7 +241,6 @@ export class BankreconcilationComponent {
 
   //Submit user form details //
   submitBankreconcilationForm(): void {
-    this.userSubmitted = true;
     if (this.formBankRecEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formBankRecEntry.controls;
@@ -283,6 +282,7 @@ export class BankreconcilationComponent {
       return;
     }
 
+    this.formSubmitted = true;
     this.bankreconcilationService.bankreconcilationSubmitted(this.bankreclist).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

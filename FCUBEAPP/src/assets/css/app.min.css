@@ -5904,3 +5904,11 @@ background-color: #fbff00 !important
 .half-width tr td {
     width: 175px;
 }
+
+
+.full-tyre-width{
+    width: 2500px !important;
+}
+.full-tyre-width tr td {
+    width: fit-content;
+}

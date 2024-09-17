@@ -14,5 +14,7 @@ namespace Consignment.Repository
         Task<DeliveryAckListModel> GetDeliveryAckPodList(ReportRequestModel request);
         Task<ResponseModel> DeliveryAckPodDelete(RequestModel requestModel);
         Task<DeliveryAckPodModel> GetDeliveryCnDetails(RequestModel request);
+        Task<ResponseModel> GetAckSlNo(RequestModel requestModel);
+        Task<ResponseModel> CheckDeliveryAckDoneForLrNo(RequestModel requestModel);
     }
 }

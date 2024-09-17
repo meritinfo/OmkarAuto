@@ -84,6 +84,11 @@ namespace Consignment.Repository
                                 BalanceAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceAmt"]),
                                 AssignToStaff       = Convert.ToString(dataSet.Tables[0].Rows[i]["AssignToStaff"]),
                                 VehicleEngagedBy    = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleEngagedBy"]),
+                                NoofLr              = Convert.ToString(dataSet.Tables[0].Rows[i]["NoofLr"]),
+                                CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
                             });
                         }
@@ -150,7 +155,11 @@ namespace Consignment.Repository
                         dprVehi.BalanceAmt          = Convert.ToString(dataSet.Tables[0].Rows[0]["BalanceAmt"]);
                         dprVehi.AssignToStaff       = Convert.ToString(dataSet.Tables[0].Rows[0]["AssignToStaff"]);
                         dprVehi.VehicleEngagedBy    = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleEngagedBy"]);
-                                             
+                        dprVehi.CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["CreatedBy"]);
+                        dprVehi.CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[0]["CreatedDate"]);
+                        dprVehi.ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
+                        dprVehi.ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedDate"]);
+
                     }
                 }
             }
@@ -403,15 +412,18 @@ namespace Consignment.Repository
                             new SqlParameter("@PlacementStatus"         , dprVehi.PlacementStatus),
                             new SqlParameter("@PlacementStatusRemarks"  , dprVehi.PlacementStatusRemarks),
                             new SqlParameter("@LoggedInUser"            , dprVehi.LoggedInUser),
-
-
                         };
+
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiclePlacedSave", param);
                    
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status==false && responseModel.Message.Contains("UNIQUE"))
+                        {
+                            responseModel.Message = "Record Saved. Click Save Button only once";
+                        }
                       
                         if (responseModel.Status)
                         {

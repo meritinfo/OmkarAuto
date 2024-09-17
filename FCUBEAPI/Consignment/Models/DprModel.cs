@@ -13,7 +13,8 @@
         public string? FromPlace { get; set; }
         public string? Destination { get; set; }
         public string? ToPlace { get; set; }
-        public string? VehcileTypeId { get; set; }
+        public string? VehicleTypeId { get; set; }
+        public string? VehTypeDesc { get; set; }
         public string? ActualWt { get; set; }
         public string? ChargeWt { get; set; }
         public string? OdcDimensions { get; set; }
@@ -36,7 +37,13 @@
         public string? BrokerName { get; set; }
         public string? DriverName { get; set; }
         public string? DriverMob { get; set; }
+        public string? NoofLr { get; set; }
+        public string? BusinessBy { get; set; }
         public string? LoggedInUserID { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public List<DprDtlModel> DprDtls { get; set; }
 
     }

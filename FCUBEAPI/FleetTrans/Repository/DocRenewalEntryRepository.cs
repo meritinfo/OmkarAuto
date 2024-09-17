@@ -172,7 +172,7 @@ namespace FleetTrans.Repository
                                 VehicleNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 DocumentRefNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["DocumentRefNo"]),
                                 RenewalCompany      = Convert.ToString(dataSet.Tables[0].Rows[i]["RenewalCompany"]),
-                                Findocid            = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                Findocid1           = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid1"]),
                                 ValidFromDt         = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFromDt"]),
                                 ValidToDt           = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidToDt"]),
                                 BasicAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["BasicAmt"]),
@@ -211,7 +211,7 @@ namespace FleetTrans.Repository
                             });
                         }
 
-                        docRenewalEntryList.docRenewalList = docRenewalList;
+                        docRenewalEntryList.DocRenewalList = docRenewalList;
 
                         docRenewalEntryList.PageMetaData = new PaginationMetaData
                         {

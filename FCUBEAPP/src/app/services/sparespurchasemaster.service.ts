@@ -41,7 +41,7 @@ export class SparesPurchaseMasterService {
     this.selectedSparesPurchaseMaster = new Sparespurchasemastermodel();
   }
   SparesPurchaseMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SalesPurchaseMasterDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SparesPurchaseMasterDelete', req, this.httpOptions);
   }
   chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);

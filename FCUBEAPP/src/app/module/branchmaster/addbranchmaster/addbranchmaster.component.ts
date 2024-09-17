@@ -18,7 +18,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddbranchmasterComponent {
   loggedInUserID: string = '';
   formBranchMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -216,7 +216,7 @@ export class AddbranchmasterComponent {
     this.sharedService.loading = true;
 
     var selectedDataVal = this.formBranchMaster.getRawValue();
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.branchModel.centreid = this.selectedBranchMasterDetails.centreid ;
     this.branchModel.code             = selectedDataVal.code.toString().toUpperCase();
     this.branchModel.centreName       = selectedDataVal.userBranch.toString().toUpperCase();

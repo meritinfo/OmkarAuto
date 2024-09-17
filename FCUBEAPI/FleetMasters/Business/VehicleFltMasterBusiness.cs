@@ -32,10 +32,6 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetVehicalTypeList();
         }
-        public async Task<List<DropDownListModel>> GetVehicalTypes()
-        {
-            return await vehicleFltMasterRepository.GetVehicalTypes();
-        }
         public async Task<List<DropDownListModel>> GetVehicalTypeGroupList()
         {
             return await vehicleFltMasterRepository.GetVehicalTypeGroupList();
@@ -59,6 +55,10 @@ namespace FleetMasters.Business
         public async Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(RequestModel req)
         {
             return await vehicleFltMasterRepository.GetVehicleFltInnerGridList(req);
+        }
+        public async Task<List<DropDownListModel>> GetVehicalTypeFltGroupList()
+        {
+            return await vehicleFltMasterRepository.GetVehicalTypeFltGroupList();
         }
     }
 }

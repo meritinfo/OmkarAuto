@@ -55,6 +55,6 @@ export class TyreregrouprecdService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyreRegroupRecdMasterDelete', req, this.httpOptions);
   }
   getIssuedTyreNoList(req:Requestmodel): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetIssuedTyreNoList', req, this.httpOptions);
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandTyreNoList', req, this.httpOptions);
   }
 }

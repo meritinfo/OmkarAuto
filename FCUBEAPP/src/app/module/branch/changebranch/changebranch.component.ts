@@ -15,7 +15,7 @@ import { CommonService } from 'src/app/services/common.service';
 export class ChangebranchComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branchList: Dropdownmodel[] = [];
   createStatus = false;
   editStatus = false;
@@ -75,7 +75,7 @@ export class ChangebranchComponent {
   }
   
   submitUserBranch(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
      return;

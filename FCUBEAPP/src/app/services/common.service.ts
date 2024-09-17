@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
+import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
@@ -29,8 +30,11 @@ export class CommonService {
   getScopeBranchList(req:Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetScopeBranchList', req, this.httpOptions);
   }  
-  getBrandList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandList', null, this.httpOptions);
+  getTyreBrandList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreBrandList', null, this.httpOptions);
+  }
+  getSparesBrandList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesBrandList', null, this.httpOptions);
   }
   getSparesList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesList', null, this.httpOptions);
@@ -47,6 +51,9 @@ export class CommonService {
   getCustomerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetCustomerList', null, this.httpOptions);
   }  
+  getCustomerDetails(req: Requestmodel): Observable<Tyresalesmastermodel> {
+    return this.httpClient.post<Tyresalesmastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetCustomerDetailList', req, this.httpOptions);
+  }
   getYearList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetYearList', null, this.httpOptions);
   }
@@ -62,9 +69,10 @@ export class CommonService {
   getVehicleTypeGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeGroupList', null, this.httpOptions);
   } 
-  getVehicleTypes(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypes', null, this.httpOptions);
+  getVehicleTypeFltGroupList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeFltGroupList', null, this.httpOptions);
   } 
+ 
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
   }
@@ -122,6 +130,9 @@ export class CommonService {
   }
   getDriverList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverList', null, this.httpOptions);
+  }
+  getExpList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetExpList', null, this.httpOptions);
   }
   getCardledgerAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetCardledgerAcList', null, this.httpOptions);
@@ -199,6 +210,7 @@ export class CommonService {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetCreditAcList2', payload, this.httpOptions);
   }
   
+  
 
   getTripKms2(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetTripKms2', payload, this.httpOptions);
@@ -208,6 +220,9 @@ export class CommonService {
   }
   getCompanyDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FreightMasters/GetCompanyDetail', payload, this.httpOptions);
+  }
+  getCustWizardDetails(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FinTrans/GetCustWizardDetail', payload, this.httpOptions);
   }
   getTripFromAndToDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripFromAndToDetail', payload, this.httpOptions);

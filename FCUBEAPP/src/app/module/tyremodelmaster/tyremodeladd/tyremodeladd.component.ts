@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class TyremodeladdComponent {
   loggedInUserID: string = '';
   formSparesMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -69,7 +69,7 @@ export class TyremodeladdComponent {
     this.selectedTyreModelMasterDetails = this.tyreModelMasterService.getTyreModelMasterDetails();
     this.formSparesMaster = this.formBuilder.group({   
       modelDesc: new FormControl('',[Validators.required]),  
-      activeYN: new FormControl('',[Validators.required]),  
+      activeYN: new FormControl('Y',[Validators.required]),  
     });
 
     if (this.selectedTyreModelMasterDetails.tyreModID != '') {
@@ -138,6 +138,7 @@ export class TyremodeladdComponent {
     }
       
     this.sharedService.loading = true;
+    this.formSubmitted = true;
 
     var selectedDataVal = this.formSparesMaster.getRawValue();
     this.tyremodelMasterModel.tyreModID = this.selectedTyreModelMasterDetails.tyreModID ;

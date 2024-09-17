@@ -206,10 +206,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TyreId",             tyreActivateDtlListmodel.TyreId),
                             new SqlParameter("@TyrePosID",          tyreActivateDtlListmodel.TyrePosID),
                             new SqlParameter("@TyreCostAmt",        tyreActivateDtlListmodel.TyreCostAmt),
-                         
+                            new SqlParameter("@Remarks",            tyreActivateDtlListmodel.Remarks),
+
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreMasterDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreActivateDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -326,7 +327,30 @@ namespace FleetTrans.Repository
             }
             return BrandList;
         }
+        public async Task<ResponseModel> GetTyreNoCostAmt(RequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TyreId", request.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreNoCostAmt", param);
 
-
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        response.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return response;
+        }
     }
 }

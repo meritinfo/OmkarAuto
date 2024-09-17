@@ -10,7 +10,7 @@
             </div>
          </div>
          <!-- end page title -->
-         <form [formGroup]="formUser">
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
             <div class="row">
                <div class="col-lg-12">
                   <div class="card">
@@ -22,21 +22,21 @@
                                     class="col-form-label"> Truck No </label><span style="color: red">*</span>                                       
                                  <input type="text" uppercaseonly  autofocus="autofocus" 
                                     class="form-control" formControlName="truckNo"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['truckNo'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">
                               </div>                                      
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input" 
                                     class="col-form-label">Regn Date </label><span style="color: red">*</span>                                          
                                  <input type="date"  autofocus="autofocus" class="form-control"
                                     formControlName="regnDate"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['regnDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['regnDate'].invalid) }">
                               </div>
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input" 
                                     class="col-form-label"> Owner Name</label><span style="color: red">*</span> 
                                  <input type="text"  uppercaseonly autofocus="autofocus" 
                                     class="form-control" formControlName="ownerName"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['ownerName'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['ownerName'].invalid) }">
                               </div>
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input" 
@@ -71,7 +71,7 @@
                                     class="col-form-label"> Aadhar No </label><span style="color: red">*</span>                              
                                  <input type="text" numbersonly autofocus="autofocus" 
                                     class="form-control" formControlName="aadharNo"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['aadharNo'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['aadharNo'].invalid) }">
                               </div>                        
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input" 
@@ -247,12 +247,12 @@
                               <div class="col-sm-4">
                                  <label for="formDLFile" class="col-form-label">Rc Upload</label>
                                  <input #attachmentInput class="form-control" type="file"
-                                    id="formAttFile" accept="image/*">
+                                    id="formAttFile"  >
                               </div>
                               <div class="col-sm-4">
                                  <label for="otherUpload" class="col-form-label">Other Upload</label>
                                  <input #attachmentInput1 class="form-control" type="file"
-                                 id="formAttFile" accept="image/*">
+                                 id="formAttFile"  >
                               </div>
                            </div>
                            <div class="row">

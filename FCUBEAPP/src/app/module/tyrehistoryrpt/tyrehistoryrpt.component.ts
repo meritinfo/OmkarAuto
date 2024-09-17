@@ -33,7 +33,7 @@ export class TyrehistoryrptComponent {
   allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
   request: Requestmodel = new Requestmodel();
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -112,7 +112,7 @@ export class TyrehistoryrptComponent {
   }
   
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
@@ -126,7 +126,12 @@ export class TyrehistoryrptComponent {
         serverSide: true,
         processing: true,
         searching:false,
-        ajax: (dataTablesParameters: any, callback) => {          
+        ajax: (dataTablesParameters: any, callback) => {    
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });      
           this.tyremgntrptService.getTyreHistoryRptList(this.request).subscribe(resp => {
              this.allTyremgntRptlist = resp;
               callback({
@@ -163,7 +168,7 @@ export class TyrehistoryrptComponent {
     
   //Open user details screen
   exportExcel(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -190,7 +195,7 @@ export class TyrehistoryrptComponent {
   }
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

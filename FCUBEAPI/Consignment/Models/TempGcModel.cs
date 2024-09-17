@@ -5,6 +5,7 @@
         public string? TempGcId { get; set; }
         public string? DprId { get; set; }
         public string? DprDtlId { get; set; }
+        public string? VehicleTypeId { get; set; }
         public string? VehiclePlacedId { get; set; }
         public string? BookingPlace  { get; set; }
         public string? GcNoteNo  { get; set; }
@@ -67,14 +68,27 @@
         public string? GstBy { get; set; }
         public string? Remarks { get; set; }
         public string? VehRcDoc { get; set; }
-        public string?  VehPanDoc { get; set; }
-        public string?  VehDecDoc { get; set; }
-        public string?  PartyInvDoc { get; set; }
-        public string?  LoadingSlipDoc { get; set; }
-        public string?  VehPhoto1Doc { get; set; }
-        public string?  VehPhoto2Doc { get; set; }
+        public string? VehPanDoc { get; set; }
+        public string? VehDecDoc { get; set; }
+        public string? PartyInvDoc { get; set; }
+        public string? LoadingSlipDoc { get; set; }
+        public string? VehPhoto1Doc { get; set; }
+        public string? VehPhoto2Doc { get; set; }
         public string? VehPhoto3Doc { get; set; }
+        public string? RateType { get; set; }
+        public string? RateRs { get; set; }
+        public string? FreightRs { get; set; }
+        public string? HamaliAmt { get; set; }
+        public string? LdDetenAmt { get; set; }
+        public string? ExtraAmt { get; set; }
+        public string? OtherAmt { get; set; }
+        public string? TotFreightAmt { get; set; }
+        public string? MainCn { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
 
         public List<TempGcInvModel> InvList { get; set; }
         public List<TempGcSealModel> SealList { get; set; }

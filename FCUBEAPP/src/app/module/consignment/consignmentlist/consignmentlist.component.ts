@@ -47,6 +47,13 @@ export class ConsignmentlistComponent implements OnInit  {
   deleteStatus = false;
   viewStatus = false;
 
+  lrfromDate: string = '';
+  lrtoDate: string = '';
+  lrpayParty: string = '';
+  lrorigin: string = '';
+  lrdestination: string = '';
+  lrvehicleNo: string = '';
+
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
@@ -101,30 +108,72 @@ export class ConsignmentlistComponent implements OnInit  {
     }
     else{
       this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
+    }  
+    
+    
+    var lrfromDate = sessionStorage.getItem('lrfromDate')?.toString();
+    if (typeof lrfromDate !== 'undefined' && lrfromDate !== null && lrfromDate !== '') {
+      this.lrfromDate = lrfromDate;
+    }
+    else{
+      this.lrfromDate = this.fromDate;
+    }
+    var lrtoDate = sessionStorage.getItem('lrtoDate')?.toString();
+    if (typeof lrtoDate !== 'undefined' && lrtoDate !== null && lrtoDate !== '') {
+      this.lrtoDate = lrtoDate;
+    }
+    else{
+      this.lrtoDate = this.loginDate;
+    }
+    var lrpayParty = sessionStorage.getItem('lrpayParty')?.toString();
+    if (typeof lrpayParty !== 'undefined' && lrpayParty !== null && lrpayParty !== '') {
+      this.lrpayParty = lrpayParty;
+    }
+    var lrvehicleNo = sessionStorage.getItem('lrvehicleNo')?.toString();
+    if (typeof lrvehicleNo !== 'undefined' && lrvehicleNo !== null && lrvehicleNo !== '') {
+      this.lrvehicleNo = lrvehicleNo;
+    }
+    var lrorigin = sessionStorage.getItem('lrorigin')?.toString();
+    if (typeof lrorigin !== 'undefined' && lrorigin !== null && lrorigin !== '') {
+      this.lrorigin = lrorigin;
+    }
+    var lrdestination = sessionStorage.getItem('lrdestination')?.toString();
+    if (typeof lrdestination !== 'undefined' && lrdestination !== null && lrdestination !== '') {
+      this.lrdestination = lrdestination;
+    }
 
     this.consignmentService.clearConsignmentDetails();
+
+    this.getBranchList();
+    this.getPartyList();
+    this.getLocationList();
 
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      vehicle: new FormControl('',),
+      vehicleNo: new FormControl('',),
       payParty: new FormControl('',),
       origin: new FormControl('',),
       destination: new FormControl('',),
     });
     
-    this.getBranchList();
-    this.getPartyList();
-    this.getLocationList();
+    setTimeout(() => {      
+      this.formFilter.patchValue({
+        fromDate: this.lrfromDate,
+        toDate: this.lrtoDate,
+        payParty: this.partyList.find(e => e.dataId == this.lrpayParty),   
+        vehicleNo: this.lrvehicleNo,
+        origin: this.locationList.find(e => e.dataId == this.lrorigin),   
+        destination: this.locationList.find(e => e.dataId == this.lrdestination),     
+      })
+    }, 2000);
 
-    var selectedDataVal = this.formFilter.getRawValue();
-    this.filter.fromDate = selectedDataVal.fromDate;
-    this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = "";
-    this.filter.filterStr1 =  "";
-    this.filter.filterStr2 =  "";
-    this.filter.filterStr3 =  "";
+    this.filter.fromDate = this.lrfromDate,
+    this.filter.toDate = this.lrtoDate,
+    this.filter.filterStr = this.lrpayParty;
+    this.filter.filterStr1 = this.lrorigin;
+    this.filter.filterStr2 = this.lrdestination; 
+    this.filter.filterStr3 = this.lrvehicleNo,   
     
     this.getConsignmentList();
   }
@@ -141,7 +190,11 @@ export class ConsignmentlistComponent implements OnInit  {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.consignmentService.getConsignmentList(this.filter).subscribe(resp => {
          this.allConsignment = resp;
           callback({
@@ -218,11 +271,27 @@ export class ConsignmentlistComponent implements OnInit  {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
   
-  consignmentAdd(): void {
+  consignmentAdd(): void { 
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("lrfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("lrtoDate", selecteddata.toDate);
+    sessionStorage.setItem("lrpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("lrorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("lrdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("lrvehicleNo", selecteddata.vehicleNo);
+
     this.route.navigate(['/consignmentadd']);
   }
 
-  getConsignmentDetails(Consignment: Consignmentmodel): void {
+  getConsignmentDetails(Consignment: Consignmentmodel): void { 
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("lrfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("lrtoDate", selecteddata.toDate);
+    sessionStorage.setItem("lrpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("lrorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("lrdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("lrvehicleNo", selecteddata.vehicleNo);
+
     this.consignmentService.setConsignmentDetails(Consignment);
     this.route.navigate(['/consignmentedit']);
   }

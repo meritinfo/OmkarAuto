@@ -24,7 +24,7 @@ export class DprvehiplacedaddComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -40,6 +40,8 @@ export class DprvehiplacedaddComponent {
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -177,6 +179,8 @@ export class DprvehiplacedaddComponent {
         this.getDprInnerGridList();
         this.formUser.controls["vehicleNo"].disable();
         this.editMode = true;
+        this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+        this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
       }    
     }, 2000);
 
@@ -282,6 +286,11 @@ export class DprvehiplacedaddComponent {
         var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
         var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
         var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        
+        vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
+        vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
+        vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
+
         if(vehInsValidDate!=""){
           vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
         }
@@ -483,7 +492,11 @@ export class DprvehiplacedaddComponent {
     var chkDuplicate = true;
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
-      if((selectedDataVal.arrayList[i].gcNoteNo?selectedDataVal.arrayList[i].gcNoteNo:"")==''){
+      if(!selectedDataVal.arrayList[i].gcNoteNo){
+        this.toasterService.warning("GcNote No Should Not be Empty");
+        return;
+      }
+      if(selectedDataVal.arrayList[i].gcNoteNo==''){
         this.toasterService.warning("GcNote No Should Not be Empty");
         return;
       }
@@ -518,7 +531,7 @@ export class DprvehiplacedaddComponent {
       });
     }
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     setTimeout(() => {     
       if(chkDuplicate){

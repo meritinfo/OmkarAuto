@@ -114,8 +114,8 @@ export class FinaccountmastergstComponent {
           this.formArray.controls[i].get("city")?.setValue(res.finAccountsGstDetail[i].city);
           this.formArray.controls[i].get("stateCode")?.setValue(res.finAccountsGstDetail[i].stateCode);
           this.formArray.controls[i].get("pinCode")?.setValue(res.finAccountsGstDetail[i].pinCode);
-          this.formArray.controls[i].get("mobileNo")?.setValue(res.finAccountsGstDetail[i].pinCode);
-          this.formArray.controls[i].get("email")?.setValue(res.finAccountsGstDetail[i].pinCode);
+          this.formArray.controls[i].get("mobileNo")?.setValue(res.finAccountsGstDetail[i].mobileNo);
+          this.formArray.controls[i].get("email")?.setValue(res.finAccountsGstDetail[i].email);
         }
       }  
     });
@@ -213,7 +213,6 @@ export class FinaccountmastergstComponent {
   
   //Submit user form details //
   submitFinAccountMasterForm(): void {
-    this.formSubmitted = true;
     if (this.formAccountMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formAccountMaster.controls;
@@ -227,6 +226,7 @@ export class FinaccountmastergstComponent {
     var selectedDataValue = this.formAccountMaster.getRawValue();
    
     this.sharedService.loading = true;
+    this.formSubmitted = true;
     
     this.finaccountmodel.accountId          = selectedDataValue.accountId? selectedDataValue.accountId.dataId : '';
     this.finaccountmodel.finAccountsGstDetail = [];

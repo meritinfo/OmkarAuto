@@ -16,7 +16,7 @@
             </div>
          </div>
           <!-- end page title -->
-         <form [formGroup]="formFinGroup">
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFinGroup">
             <div class="row">
                <div class="col-lg-12">
                   <div class="card">
@@ -106,7 +106,8 @@
             <div class="row text-right">
                <div class="col-lg-12">
                   <div class="tex">
-                     <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                     <button class="btn btn-primary w-md" 
+                     *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                         (click)="submitFinGroupMasterForm()">Save</button>&nbsp;
                      <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                         (click)="deleteFinGroupMasterForm()">Delete</button>&nbsp;

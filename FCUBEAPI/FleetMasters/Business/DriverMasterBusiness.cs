@@ -29,6 +29,10 @@ namespace FleetMasters.Business
         {
             return await driverMasterRepository.DriverMasterDetailsDelete(req);
         }
+        public async Task<ResponseModel> ChkDriverDuplicate(RequestModel req)
+        {
+            return await driverMasterRepository.ChkDriverDuplicate(req);
+        }
 
     }
 }

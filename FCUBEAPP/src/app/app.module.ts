@@ -126,8 +126,6 @@ import { Billstypemodel } from './models/billstypemastermodel';
 import { Requestmodel } from './models/requestmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
-import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
-import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
@@ -215,7 +213,7 @@ import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsal
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
 import { Custwizardlistmodel } from './models/custwizardlistmodel';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
-import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
+
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
@@ -340,8 +338,14 @@ import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregro
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
+import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
+import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
 import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
+import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
+import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
+ import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 
 
 @NgModule({
@@ -382,7 +386,6 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     DriversalarystatementaddComponent,DriversalarystatementlistComponent,
     FingroupaddComponent,FingrouplistComponent,
     FinaccountsmasterlistComponent,FinaccountsmasteraddComponent,
-    AddothertripopenComponent,OthertripopenlistComponent,
     FinopenbalancelistComponent,FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,FleetcardmasterlistComponent,
     BankreconcilationComponent,
@@ -407,7 +410,7 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     HappaystatementlistComponent,  HappaystatementaddComponent,
     EmppaygenerationlistComponent, EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
-    CustwizardaddComponent,  CustwizardlistComponent,
+    CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     HappaystatementrptComponent,
@@ -443,12 +446,7 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     DieselstmtlistComponent, DieselstmtaddComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
-    LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
-    TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
     BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
     CnenquiryComponent,
@@ -458,7 +456,9 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
-    DprplacevehicleComponent, GeneratetempgceditComponent
+    VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
+    DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent,
+    ChallanregisterrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -513,7 +513,9 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel,VehiclerepmaintMaster
+    Finaccountsmastergstmodel,TripexptypemasterModel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Challanregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })

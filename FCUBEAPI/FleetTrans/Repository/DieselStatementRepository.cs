@@ -716,7 +716,7 @@ namespace FleetTrans.Repository
                                 DfMasterID      = Convert.ToString(dataSet.Tables[0].Rows[i]["DfMasterID"]),
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
                                 VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TransDateTime   = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDateTime"]),
+                                TransDateTime   = Convert.ToDateTime(dataSet.Tables[0].Rows[i]["TransDateTime"]).ToString("dd-MM-yyyy hh:mm:ss"),
                                 DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["DslQty"]),
                                 DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["DslRate"]),
                                 Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["Amount"]),

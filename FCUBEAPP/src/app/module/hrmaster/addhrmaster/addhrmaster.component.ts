@@ -19,7 +19,7 @@ export class AddhrmasterComponent {
   loggedInUserID: string = '';
   formHrMaster!: FormGroup;
   hrList: Dropdownmodel[] = [];
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   editMode = false;
   createmode  = true;
@@ -129,7 +129,6 @@ export class AddhrmasterComponent {
 
 //Submit user form details //
   submitHrMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formHrMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formHrMaster.controls;
@@ -141,6 +140,7 @@ export class AddhrmasterComponent {
       return;
     }
     var selectedDataVal = this.formHrMaster.getRawValue();
+    this.formSubmitted = true;
     this.hrmastermodel.hrId         = this.selectedHrMasterDetails.hrId;
     this.hrmastermodel.hrCode       = selectedDataVal.hrCode;
     this.hrmastermodel.description  = selectedDataVal.description;

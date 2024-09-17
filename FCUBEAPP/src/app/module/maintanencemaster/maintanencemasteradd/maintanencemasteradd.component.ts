@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class MaintanencemasteraddComponent {
   loggedInUserID: string = '';
   formMaintanenceMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -150,7 +150,7 @@ submitMaintanenceMasterForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formMaintanenceMaster.getRawValue();
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   this.maintanenceMasterModel.maintId = this.selectedMaintanenceMasterDetails.maintId ;
   this.maintanenceMasterModel.maintenanceDesc  = selectedDataVal.maintenanceDesc.toString().toUpperCase();
   this.maintanenceMasterModel.isActive = selectedDataVal.isActive;

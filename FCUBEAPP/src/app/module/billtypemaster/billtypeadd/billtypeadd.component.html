@@ -11,7 +11,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formBillTypeMaster">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBillTypeMaster">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -24,7 +24,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control" placeholder=" "
                                                 formControlName="billTypeDesc"   (change)="chkBillTypeDuplicate()"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['billTypeDesc'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billTypeDesc'].invalid) }">
                                             </div>
                                         </div>
                                         
@@ -35,7 +35,7 @@
                                                 <label for="formrow-inputZip">Main Ac</label>
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="mainAc"  
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['mainAc'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mainAc'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -47,7 +47,7 @@
                                                 
                                                 
                                                 <select class="form-control" formControlName="otherAc"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -59,7 +59,7 @@
                                              
                                                 
                                                 <select class="form-control" formControlName="otherAc2"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc2'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc2'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -71,7 +71,7 @@
                                                
                                                 
                                                 <select class="form-control" formControlName="otherAc3"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc3'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc3'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -83,7 +83,7 @@
                                               
                                                 <input uppercaseonly type="text" class="form-control" placeholder=" "
                                                 formControlName="sacCode"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['sacCode'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['sacCode'].invalid) }">
                                             </div>
                                             
                                         </div> 
@@ -96,7 +96,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                             (click)="submitBillTypeMasterForm()" >Save</button> &nbsp;  
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteBillTypeMasterForm()">Delete</button> &nbsp;

@@ -51,7 +51,7 @@ export class DieselstatementrptComponent {
 
   }
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -190,6 +190,11 @@ export class DieselstatementrptComponent {
           this.filter.sortColumn = 'branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.dieselStatementRptService.getDieselStatementRptList(this.filter).subscribe(resp => {
              this.allDieselStatementRptlist = resp;
               callback({
@@ -259,7 +264,7 @@ export class DieselstatementrptComponent {
   }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

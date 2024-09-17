@@ -1,11 +1,8 @@
-﻿
-
-using FreightMasters.Models;
+﻿using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using System.Transactions;
 
 namespace FreightMasters.Repository
 {
@@ -173,6 +170,8 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status    = false;
+                responseModel.Message   = ex.Message;
             }
             return responseModel;
         }
@@ -288,6 +287,8 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status    = false;
+                responseModel.Message   = ex.Message;
             }
             return responseModel;
         }
@@ -436,6 +437,51 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status    = false;
+                responseModel.Message   = ex.Message;
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> DistanceMasterTripReplicate(DistanceMasterTripModel distanceMasterTripModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterID",       distanceMasterTripModel.MasterID),
+                            new SqlParameter("@ValidFrom",      distanceMasterTripModel.ValidFrom),
+                            new SqlParameter("@ValidUpto",      distanceMasterTripModel.ValidUpto),
+                            new SqlParameter("@LoggedInUser",   distanceMasterTripModel.LoggedInUser)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DistanceMasterTripSave", param);
+                   
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status    = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message   = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]); 
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        responseModel.Status    = false;
+                        transaction.Rollback();
+                    }                   
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback(); 
+                responseModel.Status    = false;
+                responseModel.Message   = ex.Message;
             }
             return responseModel;
         }

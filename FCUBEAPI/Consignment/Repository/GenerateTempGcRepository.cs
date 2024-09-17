@@ -3,14 +3,8 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.VisualBasic;
-using System.Runtime.InteropServices;
-using DocumentFormat.OpenXml.Office2016.Excel;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.Numerics;
 
 namespace Consignment.Repository
 {
@@ -59,6 +53,7 @@ namespace Consignment.Repository
                                 DprId               = Convert.ToString(dataSet.Tables[0].Rows[i]["DprId"]),
                                 DprDtlId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DprDtlId"]),
                                 VehiclePlacedId     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehiclePlacedId"]),
+                                VehicleTypeId       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
                                 BookingPlace        = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),  
                                 GcNoteNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),  
                                 BookingDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),  
@@ -126,7 +121,18 @@ namespace Consignment.Repository
                                 VehPhoto1Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto1Doc"]),
                                 VehPhoto2Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto2Doc"]),
                                 VehPhoto3Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto3Doc"]),
-                                Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]), 
+                                Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                FreightRs           = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                HamaliAmt           = Convert.ToString(dataSet.Tables[0].Rows[i]["HamaliAmt"]),
+                                LdDetenAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["LDDetenAmt"]),
+                                ExtraAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraAmt"]),
+                                OtherAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAmt"]),
+                                TotFreightAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
+                                MainCn              = Convert.ToString(dataSet.Tables[0].Rows[i]["MainCn"]),
+                                CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 
@@ -439,7 +445,7 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "http://103.73.189.186/lrprintnccapi/api/Mail/";
+                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Mail/";
                 string UrlParam = "?MasterId=" + request.FilterStr + "&BranchId=" + request.FilterStr1;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
@@ -478,7 +484,7 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "http://103.73.189.186/lrprintnccapi/api/LR/";
+                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/LR/";
                 string UrlParam = "?MasterId=" + request.FilterStr ;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

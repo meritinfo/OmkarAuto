@@ -12,7 +12,7 @@
             <!-- end page title -->
             <div class="row top-controls">
                 <div class="col-sm-8 col-md-8">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>

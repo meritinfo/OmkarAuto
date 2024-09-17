@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class LhpmslabmasteraddComponent {
   loggedInUserID: string = '';
   formLhpmMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -144,7 +144,7 @@ export class LhpmslabmasteraddComponent {
     this.sharedService.loading = true;
 
     var selectedDataVal = this.formLhpmMaster.getRawValue();
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.lhpmslabModel.lhpmSlabID = this.selectedLhpmSlabMasterDetails.lhpmSlabID ;
     this.lhpmslabModel.vehCode  = selectedDataVal.vehCode;
     this.lhpmslabModel.fromDt = selectedDataVal.fromDt;

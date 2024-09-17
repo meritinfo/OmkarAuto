@@ -20,7 +20,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddbankcashcontraComponent {
   loggedInUserID: string = '';
   formBankContra!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branchname: string = '';
   year: string = '';
   loginDate: string = '';
@@ -289,6 +289,8 @@ export class AddbankcashcontraComponent {
       this.toasterService.warning("Modification Remarks should be atleast 10 characters");   
       return;
     }
+
+    this.formSubmitted = true;
 
     this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID;
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;

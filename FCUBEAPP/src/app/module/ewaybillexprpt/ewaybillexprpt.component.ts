@@ -47,7 +47,7 @@ export class EwaybillexprptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   toDate: string = '';
@@ -179,8 +179,12 @@ export class EwaybillexprptComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = '';      
-        this.ewaybillextService.getEWayBillExtRptList(this.filter)
-          .subscribe(resp => {
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.ewaybillextService.getEWayBillExtRptList(this.filter).subscribe(resp => {
             this.allEwayBillExtlist = resp;  
             callback({
               recordsTotal: resp.pageMetaData.totalCount,

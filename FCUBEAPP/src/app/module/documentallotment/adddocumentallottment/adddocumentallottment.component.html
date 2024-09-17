@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            <form [formGroup]="formUser">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-3">
@@ -17,7 +17,7 @@
                                 <label for="formrow-inputZip">Branch</label><span style="color: red">*</span>  
                                 <select class="form-control" formControlName="branchCode"
                                     (change)="getDocNumCode()"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }"> 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }"> 
                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                     {{br.dataName}}
                                     </option>
@@ -30,7 +30,7 @@
                                 <select id="formrow-inputState" class="form-control" 
                                         formControlName="docType"  (change)="checkDocumentRange()"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['docType'].invalid) }"> 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['docType'].invalid) }"> 
                                         <option value="CN">Consignment</option>
                                         <option value="CH">Challan</option>
                                         <option value="BL">Bill</option>                                      
@@ -45,7 +45,7 @@
                                 <span style="color: red">*</span>
                                 <input numbersonly type="text" class="form-control" placeholder=" "
                                 formControlName="docNumCode" 
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['docNumCode'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['docNumCode'].invalid) }">
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -54,7 +54,7 @@
                                     <input bsdatepicker="" type="date" autoclose="false" 
                                     min="{{minDate}}" max="{{maxDate}}"
                                     formControlName="allotDate" class="form-control"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['allotDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['allotDate'].invalid) }">
                             </div>
                         </div>
                     </div> 
@@ -66,7 +66,7 @@
                                 <input numbersonly type="text" class="form-control"
                                  formControlName="rangeFrom" maxlength="12"     
                                 (change)="checkDocumentRange()"
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['rangeFrom'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeFrom'].invalid) }">
                             </div>
                         </div>  
                         <div class="col-lg-3">
@@ -76,7 +76,7 @@
                                 <input numbersonly type="text" class="form-control"
                                 formControlName="rangeTo" maxlength="12"    
                                 (change)="checkDocumentRange()"    
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['rangeTo'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['rangeTo'].invalid) }">
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                                 <span style="color: red">*</span>
                                 <input numbersonly autoclose="false" class="form-control" placeholder="" 
                                 formControlName="docCount" maxlength="5"      
-                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['docCount'].invalid) }">
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['docCount'].invalid) }">
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -97,7 +97,7 @@
                                 <select id="formrow-inputState" class="form-control" 
                                     formControlName="docStatus" (change)="onStatusChange($event)" 
                                     class="form-control form-select ng-pristine ng-touched"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['docStatus'].invalid) }"> 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['docStatus'].invalid) }"> 
                                     <option value="O">Open</option>
                                     <option value="C">Close</option>                                  
                                 </select>     
@@ -117,7 +117,8 @@
                     <div class="row text-right">
                         <div class="col-lg-12">
                             <div class="tex">
-                                <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                <button class="btn btn-primary w-md" 
+                                *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                     (click)="submitDocumentallotmentForm()" >Save</button> &nbsp;  
                                 <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                     (click)="deleteDocumentAllotmentForm()">Delete</button> &nbsp;

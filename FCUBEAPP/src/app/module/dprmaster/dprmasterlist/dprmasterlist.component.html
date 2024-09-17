@@ -18,14 +18,14 @@
             </div>
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -33,7 +33,7 @@
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -64,7 +64,7 @@
                                     <select id="scope" class="form-select" 
                                             formControlName="type"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['type'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['type'].invalid) }">
                                         <option value="">All</option>
                                         <option value="P">Veh Placed</option>
                                         <option value="N">Veh Not Placed</option>
@@ -140,9 +140,12 @@
                                 <th>fromPlace </th>
                                 <th>toPlace</th>  
                                 <th>partyName</th>   
+                                <th>partyName</th>   
                                 <th>actualWt </th>   
                                 <th>chargeWt </th>   
                                 <th>vehicleNo </th>  
+                                <th>driverMob </th>   
+                                <th>driverMob </th>   
                                 <th>driverMob </th>   
                                 <th>driverMob </th>                               
                                 <th>Action</th>                              
@@ -155,11 +158,15 @@
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
                                 <td>{{ dpr.partyName }}</td>                         
+                                <td>{{ dpr.noofLr }}</td>                         
                                 <td>{{ dpr.actualWt }}</td>                          
                                 <td>{{ dpr.chargeWt }}</td>                          
                                 <td>{{ dpr.vehicleNo }}</td>  
                                 <td>{{ dpr.brokerName  }}</td>                      
-                                <td>{{ dpr.driverMob }}</td>
+                                <td>{{ dpr.driverMob }}</td>                     
+                                <td>{{ dpr.vehTypeDesc }}</td>                  
+                                <td>{{ dpr.freightRs }}</td>
+                                
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprDetails(dpr)"></button>                               

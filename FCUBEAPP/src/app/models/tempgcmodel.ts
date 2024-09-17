@@ -5,6 +5,7 @@ export class Tempgcmodel {
     tempGcId  : string = "";
     dprId  : string = "";
     dprDtlId  : string = ""; 
+    vehicleTypeId : string = ""; 
     vehiclePlacedId :string = "";       
     bookingPlace  : string = "";
     gcNoteNo : string = "";
@@ -74,7 +75,20 @@ export class Tempgcmodel {
     vehPhoto1Doc:  string = "";
     vehPhoto2Doc:  string = "";
     vehPhoto3Doc:  string = "";
+    rateType:  string = "";
+    rateRs :  string = "";
+    freightRs :  string = "";    
+    hamaliAmt   :  string = "";  
+    ldDetenAmt  :  string = "";  
+    extraAmt   :  string = "";   
+    otherAmt   :  string = "";   
+    totFreightAmt  :  string = "";
+    mainCn :  string = "";
     loggedInUser:  string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     
     invList: Tempgcinvmodel[] = [];
     sealList: Tempgcsealmodel[] = [];

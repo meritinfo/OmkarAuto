@@ -5,6 +5,7 @@ import { Spareslubesmasterlistmodel } from 'src/app/models/spareslubesmasterlist
 import { Spareslubesmastermodel } from 'src/app/models/sparelubesmastermodel';
 import { SparesLubesMasterService } from 'src/app/services/spareslubesmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Constants } from 'src/app/common/constants';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -22,12 +23,18 @@ import { Fleetloadentrymodel } from 'src/app/models/fleetloadentrymodel';
 export class FleetloadentryaddComponent {
   loggedInUserID: string = '';
   formFleetLoad!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  branch: string = '';
+  uploadedAttach: string = "";
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -69,8 +76,8 @@ ngOnInit(): void {
     }
   }
   
+ 
   var userData = sessionStorage.getItem('uid')?.toString();
-  
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }
@@ -80,7 +87,34 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
+  var userData = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.branch = userData;
+  }
+  else {
+    this.route.navigate(['/']);
+  }
+  
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
 
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  today.setMonth(month - 10);
+  
+  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  
+  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+    this.fromDate = this.minDate ;
+  }
+  else{
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+  }   
+  
   this.sharedService.loading = true;   
   this.getLocationList();
   this.getBranchList();
@@ -89,9 +123,9 @@ ngOnInit(): void {
   this.getCreditAcList();
   this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
   this.formFleetLoad = this.formBuilder.group({   
-    loadBranch: new FormControl('',[Validators.required]),
-    loadDate: new FormControl('',[Validators.required]),
-    loadType: new FormControl('',[Validators.required]),
+    loadBranch: new FormControl(this.branch,[Validators.required]),
+    loadDate: new FormControl(this.loginDate,[Validators.required]),
+    loadType: new FormControl('',),
     vehicleMasterId: new FormControl('',[Validators.required]),
     loadFor: new FormControl('',),
     loadMemoNo: new FormControl('',),
@@ -109,18 +143,20 @@ ngOnInit(): void {
     advAmt: new FormControl('',),
     remarks: new FormControl('',),
     attachMemocopy: new FormControl('',),
-    tripAdjYN: new FormControl('',),
-    tripId: new FormControl('',),
+   // tripAdjYN: new FormControl('',),
+  //  tripId: new FormControl('',),
   });
   setTimeout(() => {
   if (this.selectedFleetLoadEntryDetails.loadId != '') {
     this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
-   
+    this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
     this.formFleetLoad.patchValue({
+    
     loadDate: this.commonService.formatDate(this.selectedFleetLoadEntryDetails.loadDate),
     loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
     loadingTo: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingTo),
     vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.vehicleMasterId),
+    //loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
   });
   this.editMode = true;
 }    
@@ -154,8 +190,8 @@ get f() { return this.formFleetLoad.controls; }
     
 // }
 getCreditAcList(): void {
-  //this.requestmodel.strRequest= pmttp;
-  this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
+  //this.requestmodel.strRequest= 'B';
+  this.commonService.getCreditAcList().subscribe((res) => {
     this.creditAcList = res;
     // this.formUser.patchValue({
     //   creditAc: this.creditAcList[0].dataId ,
@@ -242,7 +278,7 @@ submitFleetLoadEntryForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formFleetLoad.getRawValue();
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   this.fleetLoadEntryModel.loadId = this.selectedFleetLoadEntryDetails.loadId ;
   //this.fleetLoadEntryModel.spareLubName  = selectedDataVal.spareLubName.toString().toUpperCase();
   this.fleetLoadEntryModel.loadBranch = selectedDataVal.loadBranch;
@@ -265,8 +301,8 @@ submitFleetLoadEntryForm(): void {
   this.fleetLoadEntryModel.advAmt = selectedDataVal.advAmt;
   this.fleetLoadEntryModel.remarks = selectedDataVal.remarks;
   this.fleetLoadEntryModel.attachMemocopy = selectedDataVal.attachMemocopy;
-  this.fleetLoadEntryModel.tripAdjYN = selectedDataVal.tripAdjYN;
-  this.fleetLoadEntryModel.tripId = selectedDataVal.tripId;
+ // this.fleetLoadEntryModel.tripAdjYN = selectedDataVal.tripAdjYN;
+ // this.fleetLoadEntryModel.tripId = selectedDataVal.tripId;
   this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
   let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);

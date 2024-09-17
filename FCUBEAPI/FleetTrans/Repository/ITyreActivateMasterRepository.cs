@@ -16,5 +16,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TyreActivateMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetTyrePositionList();
         Task<List<DropDownListModel>> GetBrandTyreNoList(RequestModel request);
+        Task<ResponseModel> GetTyreNoCostAmt(RequestModel request);
     }
 }

@@ -51,7 +51,7 @@ export class DocrenewalrptComponent {
 }
 
 formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -188,6 +188,11 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'RenewalDocName';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
             this.docRenewalRptService.getDocRenewalRptList(this.filter).subscribe(resp => {
                this.allDocRenewalRptlist = resp;
                 callback({
@@ -246,7 +251,7 @@ formFilter!: FormGroup;
     }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

@@ -51,6 +51,8 @@ export class ConsignmentaddComponent implements OnInit {
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
   attach1: string = "";
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   step1Active = true;
   step2Active = false;
@@ -124,6 +126,7 @@ export class ConsignmentaddComponent implements OnInit {
     }   
 
     this.sharedService.loading = true;
+    
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -164,15 +167,15 @@ export class ConsignmentaddComponent implements OnInit {
       cnorAdd2 : new FormControl('',),    
       cnorAdd3 : new FormControl('',),    
       cnorPin : new FormControl('',),    
-      cnorGst : new FormControl('', [Validators.required]),
+      cnorGst : new FormControl('', ),
       cnorMobile : new FormControl('',),    
       cnorEmail : new FormControl('',),    
-      cneeName : new FormControl('', [Validators.required]),
+      cneeName : new FormControl('', ),
       cneeAdd1 : new FormControl('',),    
       cneeAdd2 : new FormControl('',),    
       cneeAdd3 : new FormControl('',),    
       cneePin : new FormControl('',),    
-      cneeGst : new FormControl('', [Validators.required]),
+      cneeGst : new FormControl('',),
       cneeMobile : new FormControl('', [Validators.required]),
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    
@@ -240,9 +243,7 @@ export class ConsignmentaddComponent implements OnInit {
     });
 
     this.formUser.controls["bookingPlace"].disable();
-
-    this.formUser.controls['ewayBillExpDate'].disable();
-    
+    this.formUser.controls['ewayBillExpDate'].disable();    
     this.formUser.controls['sgstPct'].disable();
     this.formUser.controls['cgstPct'].disable();  
     this.formUser.controls['igstPct'].disable();  
@@ -250,35 +251,62 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls['cgstAmt'].disable();  
     this.formUser.controls['igstAmt'].disable();   
 
-    if (this.selectedLrDetails.consignmentID != '') {
-      this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
-      this.formUser.patchValue(this.selectedLrDetails);
-      this.formUser.patchValue({
-        bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
-        ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
-        ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
-        invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
-        shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
-        fromPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.fromPlace),
-        toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
-        billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
-        businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
-      })      
-      
-      this.formUser.controls['gcNoteNo'].disable();     
-      if (this.selectedLrDetails.consignmentID != '0') {
-        this.getLrInnerGridList();   
-        this.editMode = true;
+    setTimeout(() => {
+      if (this.selectedLrDetails.consignmentID != '') {
+        this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
+        this.formUser.patchValue(this.selectedLrDetails);
+        this.formUser.patchValue({
+          bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
+          ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
+          ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
+          invoiceDate : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
+          shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
+          fromPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.fromPlace),
+          toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
+          billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
+          businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
+        })      
+        
+        if(this.selectedLrDetails.ownTruck=='Y'){
+          this.formUser.patchValue({
+            ownTruck: 'Y'             
+          })      
+        }
+        else{
+          this.formUser.patchValue({
+            ownTruck: ''             
+          })  
+        }
+        
+        this.formUser.controls['gcNoteNo'].disable();     
+        if (this.selectedLrDetails.consignmentID != '0') {
+          this.getLrInnerGridList();   
+          this.editMode = true;  
+          this.createdBy = this.selectedLrDetails.createdBy + " " + this.selectedLrDetails.createdDate;
+          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;      
+        }
+        else{    
+          this.formArray.clear();
+          this.formArray.push(this.createInitialArray());
+          this.formArray.controls[0].get("ewayBillNo")?.setValue(this.selectedLrDetails.ewayBillNo);
+          this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillDate));
+          this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.selectedLrDetails.ewayBillExpDate);
+          this.formArray.controls[0].get("invNo")?.setValue(this.selectedLrDetails.invoiceNo);
+          this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.invoiceDate));
+          this.formArray.controls[0].get("invValue")?.setValue(this.selectedLrDetails.invoiceValue);
+          this.formArray.controls[0].get("ewayBillNo")?.disable();
+          this.formArray.controls[0].get("ewayBillDate")?.disable();
+          this.formArray.controls[0].get("ewayBillExpDate")?.disable();
+          this.formArray.controls[0].get("invNo")?.disable();
+          this.formArray.controls[0].get("invDate")?.disable();
+          this.formArray.controls[0].get("invValue")?.disable();     
+        }
+        
+        this.changeEWay(this.selectedLrDetails.ewayBillEntryType);
       }
-      else{    
-        this.formArray.clear();
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[0].get("ewayBillNo")?.setValue(this.selectedLrDetails.ewayBillNo);
-        this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillDate));
-        this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.selectedLrDetails.ewayBillExpDate);
-        this.formArray.controls[0].get("invNo")?.setValue(this.selectedLrDetails.invoiceNo);
-        this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.invoiceDate));
-        this.formArray.controls[0].get("invValue")?.setValue(this.selectedLrDetails.invoiceValue);
+      else{
+        this.changeEWay('A');
+        this.onBranchChange();
         this.formArray.controls[0].get("ewayBillNo")?.disable();
         this.formArray.controls[0].get("ewayBillDate")?.disable();
         this.formArray.controls[0].get("ewayBillExpDate")?.disable();
@@ -286,17 +314,8 @@ export class ConsignmentaddComponent implements OnInit {
         this.formArray.controls[0].get("invDate")?.disable();
         this.formArray.controls[0].get("invValue")?.disable();     
       }
-    }
-    else{
-      this.changeEWay('A');
-      this.onBranchChange();
-      this.formArray.controls[0].get("ewayBillNo")?.disable();
-      this.formArray.controls[0].get("ewayBillDate")?.disable();
-      this.formArray.controls[0].get("ewayBillExpDate")?.disable();
-      this.formArray.controls[0].get("invNo")?.disable();
-      this.formArray.controls[0].get("invDate")?.disable();
-      this.formArray.controls[0].get("invValue")?.disable();     
-    }
+    }, 2000);
+    
     this.sharedService.loading = false;
   }
 
@@ -338,8 +357,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formArray.controls[i].get("invNo")?.disable();
         this.formArray.controls[i].get("invDate")?.disable();
         this.formArray.controls[i].get("invValue")?.disable();     
-      }      
-      this.formArray.push(this.createInitialArray());      
+      }        
     });
   }
 
@@ -515,6 +533,48 @@ export class ConsignmentaddComponent implements OnInit {
     this.calculateTotalAmount()
   }
 
+  calcFrt(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargewt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargewt!=""){
+      chargewt = parseFloat(selectedDataVal.chargewt);
+    }
+    if(selectedDataVal.rateRs!=""){
+      rateRs = parseFloat(selectedDataVal.rateRs);
+    }
+    freightRs = chargewt * rateRs;
+
+    this.formUser.patchValue({
+      freightRs: freightRs.toFixed(2),
+    });  
+    
+    this.calculateTotalAmount();
+  }
+
+  calcRate(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargewt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargeWt!=""){
+      chargewt = parseFloat(selectedDataVal.chargewt);
+    }
+    if(selectedDataVal.freightRs!=""){
+      freightRs = parseFloat(selectedDataVal.freightRs);
+    }
+    if (chargewt>0){
+      rateRs = freightRs / chargewt;
+    }    
+
+    this.formUser.patchValue({
+      rateRs: rateRs.toFixed(2),
+    });   
+    
+    this.calculateTotalAmount();
+  }
+
   calculateTotalAmount(){
     var subTotalRs = 0;
     var gtotalRs = 0;
@@ -612,7 +672,7 @@ export class ConsignmentaddComponent implements OnInit {
               this.formUser.patchValue({
                 ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
                 ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-                invoiceDt: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+                invoiceDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
                 invoiceNo: this.eWayBillDetails.result.message.document_number,
                 goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
                
@@ -643,10 +703,9 @@ export class ConsignmentaddComponent implements OnInit {
               this.formUser.patchValue({
                 ewayBillDate: "",
                 ewayBillExpDate:  "",
-                invoiceDt: "",
+                invoiceDate: "",
                 invoiceNo:  "",
-                goodsValue:  "",
-               
+                goodsValue:  "",               
                 cnorName:  "",
                 cneeName:  "",
                 cneeAdd1:  "",
@@ -673,10 +732,10 @@ export class ConsignmentaddComponent implements OnInit {
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
-    this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
-    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
+    this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
+    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
     this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
-    this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
+    this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
@@ -727,7 +786,6 @@ export class ConsignmentaddComponent implements OnInit {
       this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
       this.formUser.controls['rateType'].clearValidators();
-     
     }
     if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);

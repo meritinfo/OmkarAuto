@@ -17,7 +17,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class DrivermasteraddComponent {
   loggedInUserID: string = '';
   formDriverMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -154,12 +154,12 @@ export class DrivermasteraddComponent {
       attachDrTempAddProof: new FormControl('',),
       attachDrPermAddProof: new FormControl('',),
       attachDrBankPassBook: new FormControl('',),
-      bankName: new FormControl('', [Validators.required]),
-      drBankAccountName: new FormControl('', [Validators.required]),
-      bankAcNo: new FormControl('', [Validators.required]),
-      bankBranch: new FormControl('', [Validators.required]),
-      bankIfsCode: new FormControl('', [Validators.required]),
-      bankAccountStatus: new FormControl('S', [Validators.required]),
+      bankName: new FormControl('', ),
+      drBankAccountName: new FormControl('', ),
+      bankAcNo: new FormControl('', ),
+      bankBranch: new FormControl('', ),
+      bankIfsCode: new FormControl('', ),
+      bankAccountStatus: new FormControl('S', ),
       createdBy: new FormControl('',),
       createdDate: new FormControl('',),
       modifiedBy: new FormControl('',),
@@ -168,9 +168,10 @@ export class DrivermasteraddComponent {
       deleteFlag: new FormControl('',)
     });
 
-    this.formDriverMaster.controls['age'].disable();
+    this.formDriverMaster.controls['age'].disable(); 
 
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
+   
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
       this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
@@ -189,6 +190,7 @@ export class DrivermasteraddComponent {
         inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
         removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
       })
+     // this.formDriverMaster.controls['driverName'].disable();
       this.editMode = true;
     }
   }
@@ -207,6 +209,23 @@ export class DrivermasteraddComponent {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], { type: mime });
+  }
+
+  
+  chkDriverDupli(e: any) { 
+    if (this.selectedDriverMasterDetails.driverMasterID == "")
+    {      
+      this.requestmodel.strRequest = e.target.value; 
+      this.drivermasterService.chkDriverDupli(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formDriverMaster.patchValue({
+            driverName: ''
+          });
+        }
+      });
+    }
   }
 
   onDOBChange(e: any) {
@@ -319,7 +338,6 @@ export class DrivermasteraddComponent {
   }
 
   submitDriverMasterForm() {
-    this.userSubmitted = true;
     if (this.formDriverMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formDriverMaster.controls;
@@ -330,13 +348,14 @@ export class DrivermasteraddComponent {
       }
       return;
     }
+    this.formSubmitted = true;
     var selectedDataVal = this.formDriverMaster.getRawValue()
     this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID;
-    this.driverModel.driverName = selectedDataVal.driverName;
-    this.driverModel.fatherName = selectedDataVal.fatherName;
+    this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();;
+    this.driverModel.fatherName = selectedDataVal.fatherName.toString().toUpperCase();;
     this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
     this.driverModel.age = selectedDataVal.age.toString();
-    this.driverModel.introBy = selectedDataVal.introBy;
+    this.driverModel.introBy = selectedDataVal.introBy.toString().toUpperCase();
     this.driverModel.introByMobileNo = selectedDataVal.introByMobileNo;
     this.driverModel.dateOfAppoint = selectedDataVal.dateOfAppoint;
     this.driverModel.licenseNo = selectedDataVal.licenseNo;

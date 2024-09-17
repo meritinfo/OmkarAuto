@@ -16,14 +16,14 @@
                         <div class="card-body">
                             <div id="basic-example">
                                 <section>
-                                    <form [formGroup]="formTripPayment">
+                                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formTripPayment">
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Payment Branch</label>
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                      formControlName="pmtBranch"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtBranch'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtBranch'].invalid) }">
                                                         <option *ngFor="let branch of branchList"
                                                             value={{branch.dataId}}>
                                                             {{branch.dataName}}
@@ -36,7 +36,7 @@
                                                     <label for="basicpill-lastname-input">Payment Date</label>
                                                     <input type="date" autoclose="false"  max="{{maxDate}}"
                                                         placeholder="yyyy-mm-dd" formControlName="pmtDate"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtDate'].invalid) }" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }" 
                                                         class="form-control">
                                                 </div>
                                             </div>
@@ -51,7 +51,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -71,7 +71,7 @@
                                                         <label for="formrow-inputState">From</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                          formControlName="from"
-                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['from'].invalid) }">
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['from'].invalid) }">
                                                             <option *ngFor="let branch of locationList"
                                                                 value={{branch.dataId}}>
                                                                 {{branch.dataName}}
@@ -83,7 +83,7 @@
                                                     <div class="mb-3"><label for="formrow-inputZip">To</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                          formControlName="to"
-                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['to'].invalid) }">
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['to'].invalid) }">
                                                             <option *ngFor="let branch of locationList"
                                                                 value={{branch.dataId}}>
                                                                 {{branch.dataName}}
@@ -110,7 +110,7 @@
                                                     <label for="basicpill-phoneno-input">Trans Type</label>
                                                     <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="transType"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['transType'].invalid) }"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
                                                         <option value="DA"> Driver Adv</option>
                                                         <option value="DL"> Diesel </option>
@@ -130,7 +130,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Qty Ltrs</label>
                                                     <input type="text" class="form-control" decimalonly formControlName="qtyLtrs" 
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['qtyLtrs'].invalid) } "
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyLtrs'].invalid) } "
                                                         id="basicpill-email-input" (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
@@ -138,7 +138,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Rate Per Ltr</label>
                                                     <input type="text" class="form-control" decimalonly formControlName="ratePerLtr"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['ratePerLtr'].invalid) }"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['ratePerLtr'].invalid) }"
                                                         id="basicpill-email-input" (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
@@ -147,7 +147,7 @@
                                                     <label for="basicpill-email-input">Amount</label>
                                                     <input type="text" class="form-control" decimalonly
                                                         formControlName="amountPaid" id="basicpill-email-input"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['amountPaid'].invalid) }" >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['amountPaid'].invalid) }" >
                                                 </div>
                                             </div>
                                         </div>
@@ -157,7 +157,7 @@
                                                     <label for="basicpill-phoneno-input">Payment Type</label>
                                                     <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="pmtType"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"  
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"  
                                                          (change)="changePmtType($event)">
                                                         <option value="C"> Cash</option>
                                                         <option value="B"> Bank</option>
@@ -173,7 +173,7 @@
                                                     <label for="basicpill-phoneno-input">Credit Ac </label>          
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="creditAc"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                                     <option value ="">Choose...</option>
                                                     <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
@@ -204,7 +204,7 @@
                                                     <label for="basicpill-phoneno-input">Cheque No</label>
                                                     <input type="text" class="form-control" formControlName="chequeNo"
                                                         id="basicpill-phoneno-input"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid)}"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid)}"
                                                         placeholder="">
                                                 </div>
                                             </div>
@@ -214,14 +214,15 @@
                                                     <input bsdatepicker="" type="date" autoclose="false"
                                                         placeholder="yyyy-mm-dd" formControlName="chequeDate"
                                                         class="form-control"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDate'].invalid)}"  max="{{maxDate}}">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid)}"  max="{{maxDate}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row text-right">
                                             <div class="col-lg-12">
                                                 <div class="tex">
-                                                    <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                                    <button class="btn btn-primary w-md" 
+                                                    *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                                         (click)="submitTripPaymentsForm()">Save</button>
                                                     <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                                         (click)="tripPaymentsDelete()">Delete</button>

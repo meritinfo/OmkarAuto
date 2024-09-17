@@ -15,5 +15,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> SparesPurchaseMasterSave(SparesPurchaseMasterModel sparesPurchaseMasterModel);
         Task<ResponseModel> SparesPurchaseMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetSparesList();
+        Task<List<DropDownListModel>> GetSparesBrandList();
     }
 }

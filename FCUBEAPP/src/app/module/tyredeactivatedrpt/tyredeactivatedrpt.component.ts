@@ -46,7 +46,7 @@ export class TyredeactivatedrptComponent {
 }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -141,6 +141,11 @@ export class TyredeactivatedrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.tyremgntrptService.getTyreDeActivatedRptList(this.filter).subscribe(resp => {
              this.allTyremgntRptlist = resp;
               callback({
@@ -173,7 +178,7 @@ export class TyredeactivatedrptComponent {
     
   //Open user details screen
   exportExcel(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -202,7 +207,7 @@ export class TyredeactivatedrptComponent {
   }
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

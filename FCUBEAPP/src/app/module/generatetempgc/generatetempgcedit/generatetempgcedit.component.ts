@@ -25,7 +25,7 @@ export class GeneratetempgceditComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -44,6 +44,8 @@ export class GeneratetempgceditComponent {
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   uploadedVehRcDoc: string = "";
   uploadedVehPanDoc: string = "";
@@ -226,7 +228,7 @@ export class GeneratetempgceditComponent {
       payStn : new FormControl('',[Validators.required]),
       payParty : new FormControl('',[Validators.required]),
       businessby: new FormControl('',[Validators.required]),
-      gstBy: new FormControl('',[Validators.required]),
+      gstBy: new FormControl('E',[Validators.required]),
 
       remarks:new FormControl('',),
 
@@ -273,7 +275,9 @@ export class GeneratetempgceditComponent {
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
           this.getTempGcInnerGridList();
-          this.editMode = true;          
+          this.editMode = true;    
+          this.createdBy = this.selectedTempgcDetails.createdBy + " " + this.selectedTempgcDetails.createdDate;
+          this.modifiedBy = this.selectedTempgcDetails.modifiedBy + " " + this.selectedTempgcDetails.modifiedDate;      
           this.searchEnable=false;
         }
     }, 2000);
@@ -641,7 +645,7 @@ export class GeneratetempgceditComponent {
 
     this.sharedService.loading=true;
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);

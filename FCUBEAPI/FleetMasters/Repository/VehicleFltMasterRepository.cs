@@ -110,7 +110,7 @@ namespace FleetMasters.Repository
                         {
                             vehicleFltMasterModel.VehiclefltDetailList[i].Index = i.ToString();
                             vehicleFltMasterModel.VehiclefltDetailList[i].VehicleMasterID=VehiMasterID.ToString();
-                            responseModel = await VehicleFltDtlsSave(vehicleFltMasterModel.VehiclefltDetailList[i]);
+                            responseModel = await VehicleFltDtlsSave( transaction, vehicleFltMasterModel.VehiclefltDetailList[i]);
                             if (!responseModel.Status) 
                             { 
                                 transaction.Rollback();
@@ -135,7 +135,7 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> VehicleFltDtlsSave(VehicleFltDtlsModel vehicleFltDtlsModel)
+        public async Task<ResponseModel> VehicleFltDtlsSave(SqlTransaction transaction, VehicleFltDtlsModel vehicleFltDtlsModel)
         {
             ResponseModel responseModel = new();
             try
@@ -144,7 +144,7 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DetailID", vehicleFltDtlsModel.DetailID),
+                           // new SqlParameter("@DetailID", vehicleFltDtlsModel.DetailID),
                             new SqlParameter("@VehicleMasterID", vehicleFltDtlsModel.VehicleMasterID),
                             new SqlParameter("@ValidFrom", vehicleFltDtlsModel.ValidFrom),
                             new SqlParameter("@ValidTo", vehicleFltDtlsModel.ValidTo),
@@ -153,7 +153,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@AdBlue", vehicleFltDtlsModel.AdBlue),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_VehicleFltDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -200,7 +200,7 @@ namespace FleetMasters.Repository
                         {
                            new SqlParameter("@VehicleMasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltDetailsDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltMasterDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -373,44 +373,6 @@ namespace FleetMasters.Repository
             }
             return VehicalTypeList;
         }
-        public async Task<List<DropDownListModel>> GetVehicalTypes()
-        {
-            List<DropDownListModel> VehicalTypeList = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param = { };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleTypes", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
-                        {
-                            VehicalTypeList.Add(new DropDownListModel
-                            {
-                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
-                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
-            return VehicalTypeList;
-        }
 
         public async Task<List<DropDownListModel>> GetVehicalTypeGroupList()
         {
@@ -450,6 +412,45 @@ namespace FleetMasters.Repository
             }
             return VehicalTypeList;
         }
+        public async Task<List<DropDownListModel>> GetVehicalTypeFltGroupList()
+        {
+            List<DropDownListModel> VehicalTypeGrpList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleFltGroupTypes", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            VehicalTypeGrpList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return VehicalTypeGrpList;
+        }
+
 
         /// <summary>
         /// Service method for get Vehical Ledger Account List
@@ -646,7 +647,7 @@ namespace FleetMasters.Repository
                         {
                             vehicleFltMasterModel.VehiclefltDetailList.Add(new VehicleFltDtlsModel
                             {
-                                DetailID        = Convert.ToString(resultData.Tables[0].Rows[i]["DetailID"]),
+                               // DetailID        = Convert.ToString(resultData.Tables[0].Rows[i]["DetailID"]),
                                 VehicleMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleMasterID"]),
                                 ValidFrom       = Convert.ToString(resultData.Tables[0].Rows[i]["ValidFrom"]),
                                 ValidTo         = Convert.ToString(resultData.Tables[0].Rows[i]["ValidTo"]),

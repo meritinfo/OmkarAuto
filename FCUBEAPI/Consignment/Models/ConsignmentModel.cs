@@ -139,6 +139,10 @@ namespace Consignment.Models
         public string? BusinessBy               { get; set; }
         public string? Attachedfile             { get; set; }
         public string? YearId                   { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser             { get; set; }
         public List<ConsignmentInvModel> InvList { get; set; }
         public List<ConsignmentChlnModel> ChlnList { get; set; }

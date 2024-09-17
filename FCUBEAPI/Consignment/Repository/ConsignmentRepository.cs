@@ -93,11 +93,14 @@ namespace Consignment.Repository
                                 ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentDt"]),
                                 ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
                                 ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
+                                ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
                                 ActualWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 Chargewt = Convert.ToString(dataSet.Tables[0].Rows[i]["Chargewt"]),
+                                VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
                                 RateType = Convert.ToString(dataSet.Tables[0].Rows[i]["RateType"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
+                                GstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["GstBy"]),
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
                                 StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
                                 FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
@@ -127,7 +130,11 @@ namespace Consignment.Repository
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
-                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),                            
+                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
                             });
                         }
@@ -717,38 +724,6 @@ namespace Consignment.Repository
                             new SqlParameter("@VehicleNo",     request.strRequest),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckVehicleNo", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> GetKms(KmsModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@TransDate", request.TransDate),
-                            new SqlParameter("@FromLocation", request.FromLocation),
-                            new SqlParameter("@ToLocation", request.ToLocation)
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetFrtKms", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

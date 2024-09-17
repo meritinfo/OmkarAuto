@@ -50,7 +50,7 @@ export class DriverlicrptComponent {
 
 }
 formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -189,6 +189,11 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'driverName';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
             this.driverLicRptService.getDriverLicRptList(this.filter).subscribe(resp => {
                this.allDriverLicRptlist = resp;
                 callback({
@@ -301,7 +306,7 @@ formFilter!: FormGroup;
       
     //Open user details screen
     exportExcel(): void {
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -325,7 +330,7 @@ formFilter!: FormGroup;
       });
     }
     search(): void {
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;

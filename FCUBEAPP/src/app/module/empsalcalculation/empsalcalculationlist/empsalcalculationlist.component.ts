@@ -109,6 +109,11 @@ export class EmpsalcalculationlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         // this.filter.search = dataTablesParameters.search.value;
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.emppaycalculateService.getEmpPayCalMstList(this.filter).subscribe(resp => {
             this.allEmpsalaryMaster = resp;
             callback({

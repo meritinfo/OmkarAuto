@@ -96,7 +96,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyreDeActivateMasterInnerGridList_Select", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivateMasterInnerGridList", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
@@ -112,6 +112,43 @@ namespace FleetTrans.Repository
                                 RemoveStatus = Convert.ToString(resultData.Tables[0].Rows[i]["RemoveStatus"]),
                                 UsableAmount = Convert.ToString(resultData.Tables[0].Rows[i]["UsableAmount"]),
                                 Remarks = Convert.ToString(resultData.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tyreDeActivateMasterInnerGridList;
+        }
+        public async Task<TyreDeActivateMasterModel> GetTyredeactivateVehicleTyreList(RequestModel request)
+        {
+            TyreDeActivateMasterModel tyreDeActivateMasterInnerGridList = new()
+            {
+                TyreDeActivateDtlList = new List<TyreDeActivateDtlListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterid", request.strRequest),
+
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivateVehicleTyreList", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tyreDeActivateMasterInnerGridList.TyreDeActivateDtlList.Add(new TyreDeActivateDtlListmodel
+                            {
+                                BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
+                                TyreId = Convert.ToString(resultData.Tables[0].Rows[i]["TyreId"]),
                             });
                         }
                     }
@@ -211,7 +248,7 @@ namespace FleetTrans.Repository
 
                 };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreDeActivationMasterDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreDeActivateDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -268,6 +305,8 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+
+        
 
     }
 }

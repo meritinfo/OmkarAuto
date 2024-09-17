@@ -51,7 +51,7 @@ export class LrwithoutchallanrptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -195,6 +195,11 @@ export class LrwithoutchallanrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.lrwithoutchallanrptService.getLrwithoutchallanrptList(this.filter).subscribe(resp => {
             this.allLrwithoutchallanrptlist = resp; 
               callback({
@@ -264,7 +269,7 @@ export class LrwithoutchallanrptComponent {
     }
       
     exportExcel(): void {      
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -297,7 +302,7 @@ export class LrwithoutchallanrptComponent {
     }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

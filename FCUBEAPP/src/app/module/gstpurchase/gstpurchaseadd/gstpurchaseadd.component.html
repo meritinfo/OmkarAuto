@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formGSTPurchase">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formGSTPurchase">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -30,7 +30,7 @@
                                                 <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="branchCode"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -43,7 +43,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false" 
                                                 min="{{minDate}}" max="{{maxDate}}"   
                                                 formControlName="transDate" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                             </div>
                                         </div>            
                                         <div class="col-lg-2">
@@ -68,7 +68,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         formControlName="vendorId" 
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -87,14 +87,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vender Name</label><span style="color: red">*</span> 
                                                 <input uppercaseonly class="form-control" formControlName="vendorName" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorName'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vender Address</label><span style="color: red">*</span> 
                                                 <input uppercaseonly class="form-control" formControlName="vendorAddress" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorAddress'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorAddress'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -102,7 +102,7 @@
                                                 <label for="formrow-inputZip">State</label>
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="vendorState"      
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorState'].invalid) }">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                        {{state.dataName}}
                                                     </option>
@@ -113,7 +113,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vender GST</label><span style="color: red">*</span> 
                                                 <input uppercaseonly maxlength="15" class="form-control" formControlName="vendorGST" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGST'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorGST'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                                 <select id="formrow-inputState" class="form-control" 
                                                     formControlName="gstType" (change)="changeGstType($event)"
                                                     class="form-control form-select ng-pristine ng-touched"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['gstType'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }"> 
                                                         <option value="NA">NA</option>      
                                                         <option value="SC">S/CGST</option> 
                                                         <option value="IG">IGST</option>                                      
@@ -136,7 +136,7 @@
                                                 <label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span> 
                                                 <input uppercaseonly class="form-control" 
                                                 formControlName="vendorInvNo" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -144,7 +144,7 @@
                                             <input bsdatepicker="" type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy" max="{{maxDate}}"   
                                                 formControlName="vendorInvDt" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
                                         <!-- <div class="col-lg-2">
                                             <div class="form-check mt-4">
@@ -331,7 +331,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Amount</label>
                                                 <input class="form-control" formControlName="totalItemAmt"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['totalItemAmt'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalItemAmt'].invalid) }"> 
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -356,7 +356,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Total Amount</label>
                                                 <input class="form-control" formControlName="totalAmount"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['totalAmount'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalAmount'].invalid) }"> 
                                             </div>
                                         </div>
                                     </div>
@@ -373,7 +373,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Net Amount</label>
                                                 <input class="form-control" formControlName="netAmount"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['netAmount'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['netAmount'].invalid) }"> 
                                             </div>
                                         </div>                                        
                                         <div class="col-lg-2">
@@ -389,7 +389,7 @@
                                                 <label for="formrow-inputZip">TDS Account </label>
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="tdsAc"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tdsAc'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tdsAc'].invalid) }"> 
                                                     <option *ngFor="let br of tdsAcList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -404,7 +404,7 @@
                                                 <select id="formrow-inputState" 
                                                 formControlName="pmtType" (change)="changePmtType($event)"
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"> 
                                                     <!-- <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
@@ -421,7 +421,7 @@
                                             <div class="mb-3"><label for="formrow-inputCity">Credit Account</label>
                                                 <select class="form-control" formControlName="creditAc"
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }"> 
                                                     <option value="">SELECT</option>
                                                     <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
                                                         {{crd.dataName}}
@@ -450,7 +450,7 @@
                                                 <label for="formrow-inputZip">Cheque No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                 formControlName="chequeNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }"> 
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -459,7 +459,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false"
                                                     placeholder="dd-mm-yyyy" class="form-control"
                                                     formControlName="chequeDate"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDate'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid) }"> 
                                             </div>
                                         </div>
                                     </div>
@@ -468,7 +468,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Attach1 </label>                          
                                                 <input #attach1Input class="form-control" type="file" id="formAttach1File"
-                                                accept="image/*">
+                                                 >
                                                 <a *ngIf="selectedGstpurchaseDetails.attatchFile1" target="_blank"
                                                             href={{attach1}}>Download</a>
                                             </div>
@@ -477,7 +477,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Attach2 </label>                            
                                                 <input #attach2Input class="form-control" type="file" id="formAttach2File"
-                                                accept="image/*">
+                                                 >
                                                 <a *ngIf="selectedGstpurchaseDetails.attatchFile1" target="_blank"
                                                             href={{attach2}}>Download</a>
                                             </div>
@@ -500,7 +500,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md"  
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitGstPurchageForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteGstPurchageForm()">Delete</button>&nbsp;

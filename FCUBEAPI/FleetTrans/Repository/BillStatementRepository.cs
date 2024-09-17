@@ -66,16 +66,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return billStatementSearchList;
         }
@@ -152,16 +143,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return billStatementList;
         }
@@ -244,24 +226,11 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return billStatementSearchList;
         }
 
-        /// <summary>
-        /// Service method for save Bill Statement details
-        /// </summary>
-        /// <returns>ResponseModel</returns>
         public async Task<ResponseModel> SaveBillStatementDetails(BillStatementModel request)
         {
             ResponseModel responseModel = new();
@@ -312,7 +281,7 @@ namespace FleetTrans.Repository
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         // statement list insert
                         if (responseModel.Status)

@@ -29,7 +29,7 @@ export class TyreativateaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -103,6 +103,8 @@ export class TyreativateaddComponent {
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
  
     this.selectedTyreactivateDetail = this.tyreactivateService.getTyreactivateMasterDetails();
+
+
     this.formUser = this.formBuilder.group({
       branchCode : new FormControl(this.branch,[Validators.required]),
       activateDate : new FormControl(this.loginDate,[Validators.required]),
@@ -122,6 +124,7 @@ export class TyreativateaddComponent {
     this.getBrandList();
     this.getBranchList();
     this.getVehicleNoList();
+    //this.getTyreNo();
     this.getTyrePositionList();
 
     this.formUser.controls["tyreAmt"].disable();
@@ -130,14 +133,25 @@ export class TyreativateaddComponent {
 
     if (this.selectedTyreactivateDetail.activateMasterID  != '') {
       setTimeout(() => {
+        this.requestmodel.strRequest = ""; 
+        this.requestmodel.strRequest1 = ""; 
+        this.tyreactivateService.getBrandTyreNoList(this.requestmodel).subscribe((res) => {
+          this.tyreList = res;
+        });
+      }, 1500);  
+    }
+
+    if (this.selectedTyreactivateDetail.activateMasterID  != '') {
+      setTimeout(() => {
         this.formUser.patchValue(this.selectedTyreactivateDetail);
         this.formUser.patchValue({
           activateDate: this.commonService.formatDate(this.selectedTyreactivateDetail.activateDate),
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedTyreactivateDetail.vehicleMasterid),
-        })      
+        }) 
+   
         this.getTyreActivateInnerGridList();
         this.editMode =true;
-      }, 2000);  
+      }, 3000);  
     }
   }
 
@@ -149,6 +163,21 @@ export class TyreativateaddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+  }
+
+  selectTyreEvent(i: number, item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId; 
+    this.tyreactivateService.getTyreNoCostAmt(this.requestmodel).subscribe((res) => {
+      this.responseDetails = res;
+      if(res.status){       
+        this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.message);  
+      } 
+      else{
+        this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue("");  
+      }   
+      this.onAmtChange();
+    });
   }
 
   onChangeSearch(search: string) {
@@ -174,7 +203,7 @@ export class TyreativateaddComponent {
   }
 
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
@@ -203,9 +232,9 @@ export class TyreativateaddComponent {
       this.formTyreArray.clear();
       this.tyreactivate = res;
       for (var i = 0; i < res.tyreActivateDtlList.length; i++) {
-        this.formTyreArray.push(this.createTyreArray());
+        this.formTyreArray.push(this.createTyreArray());        
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreActivateDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreActivateDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreActivateDtlList[i].tyreId));  
         this.formTyreArray.controls[i].get("tyrePosID")?.setValue(res.tyreActivateDtlList[i].tyrePosID); 
         this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.tyreActivateDtlList[i].tyreCostAmt);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreActivateDtlList[i].remarks);  
@@ -249,6 +278,7 @@ export class TyreativateaddComponent {
   
   removeItem(index: number) {
     this.formTyreArray.removeAt(index);  
+    this.onAmtChange();
   }  
 
   getTyreNo(j: number,e: any){   
@@ -283,7 +313,6 @@ export class TyreativateaddComponent {
   }   
     
   submitTyreActivateForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -314,7 +343,7 @@ export class TyreativateaddComponent {
     this.tyreactivate.inspectedBy  = selectedDataValue.inspectedBy.toString().toUpperCase();
     this.tyreactivate.fittedBy = selectedDataValue.fittedBy.toString().toUpperCase();
     this.tyreactivate.tyreAmt  = selectedDataValue.tyreAmt.toString();
-    this.tyreactivate.othAmt  = selectedDataValue.othAmt.toString();
+    this.tyreactivate.othAmt  = selectedDataValue.othAmt?selectedDataValue.othAmt.toString():"";
     this.tyreactivate.netAmt  = selectedDataValue.netAmt.toString();
     this.tyreactivate.remarks  = selectedDataValue.remarks.toString().toUpperCase();    
     this.tyreactivate.yearID = this.year;
@@ -333,7 +362,7 @@ export class TyreativateaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyreactivate.tyreActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyreactivate.tyreActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
@@ -343,7 +372,7 @@ export class TyreativateaddComponent {
           'activateDate': "",
           'vehicleMasterid': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId.dataId,
           'tyrePosID': selectedDataValue.arrayList[i].tyrePosID,
           'tyreCostAmt': selectedDataValue.arrayList[i].tyreCostAmt.toString(),
           'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
@@ -355,6 +384,7 @@ export class TyreativateaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyreactivateService.tyreactivateMasterSubmitted(this.tyreactivate).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

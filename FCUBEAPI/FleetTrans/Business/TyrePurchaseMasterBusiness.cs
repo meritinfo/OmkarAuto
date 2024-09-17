@@ -38,9 +38,9 @@ namespace FleetTrans.Business
         {
             return await tyrePurchaseRepository.GetTyrePurchaseMasterInnerGridList(request);
         }
-        public async Task<List<DropDownListModel>> GetBrandList()
+        public async Task<List<DropDownListModel>> GetTyreBrandList()
         {
-            return await tyrePurchaseRepository.GetBrandList();
+            return await tyrePurchaseRepository.GetTyreBrandList();
         }
         public async Task<List<DropDownListModel>> GetModelList()
         {
@@ -49,6 +49,10 @@ namespace FleetTrans.Business
         public async Task<List<DropDownListModel>> GetVendorList()
         {
             return await tyrePurchaseRepository.GetVendorList();
+        }
+        public async Task<RequestModel> GetVendorDetails(RequestModel request)
+        {
+            return await tyrePurchaseRepository.GetVendorDetails(request);
         }
 
     }

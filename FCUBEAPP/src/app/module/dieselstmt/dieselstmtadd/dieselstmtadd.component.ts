@@ -227,7 +227,7 @@ export class DieselstmtaddComponent {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStmtDtlsList[i].vehicleNo);
-        this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
+        this.formArray.controls[i].get("transDateTime")?.setValue(res.dieselStmtDtlsList[i].transDateTime);
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
         this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
@@ -355,7 +355,6 @@ export class DieselstmtaddComponent {
 
  
   saveStatementDetails(): void {
-    this.formSubmitted = true;
     if (this.formDieselStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDieselStatement.controls;
@@ -369,7 +368,8 @@ export class DieselstmtaddComponent {
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
 
-    this.sharedService.loading=true;
+    this.sharedService.loading = true;
+    this.formSubmitted = true;
     this.dieselStatementmodel.dfMasterID      = this.selectedDieselStmtDetails.dfMasterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
     this.dieselStatementmodel.stmtDate        = selectedDataVal.stmtDate;

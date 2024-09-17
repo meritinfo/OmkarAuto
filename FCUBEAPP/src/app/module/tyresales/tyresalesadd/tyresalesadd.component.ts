@@ -8,6 +8,7 @@ import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { TyresalesService } from 'src/app/services/tyresales.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
+
 import { Constants } from 'src/app/common/constants';
 
 @Component({
@@ -24,13 +25,14 @@ export class TyresalesaddComponent {
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
+  customerid = '';
   minDate: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -108,7 +110,7 @@ export class TyresalesaddComponent {
       customerAdd : new FormControl('',),  
       customerGstNo: new FormControl('',),  
       pmtType: new FormControl('',),  
-      gstType : new FormControl('',),  
+      gstType : new FormControl('N',),  
       tyreAmount: new FormControl('',[Validators.required]),
       sgstPct : new FormControl('',),  
       sgstAmt : new FormControl('',),  
@@ -129,6 +131,9 @@ export class TyresalesaddComponent {
     this.getCustomerList();
 
     this.formUser.controls["tyreAmount"].disable();
+    this.formUser.controls['sgstPct'].disable();  
+    this.formUser.controls['cgstPct'].disable(); 
+    this.formUser.controls['igstPct'].disable();   
     this.formUser.controls["sgstAmt"].disable();   
     this.formUser.controls["cgstAmt"].disable();  
     this.formUser.controls["igstAmt"].disable();  
@@ -138,6 +143,7 @@ export class TyresalesaddComponent {
     this.formUser.controls['customerName'].disable(); 
 
     if (this.selectedTyresalesDetail.masterID  != '') {
+      this.getTyreNo();
       setTimeout(() => {
         this.formUser.patchValue(this.selectedTyresalesDetail);
         this.formUser.patchValue({
@@ -162,9 +168,12 @@ export class TyresalesaddComponent {
     return this.formUser.get("arrayList") as FormArray;    
   }
 
+  selectCustEvent(item: any) {
+    this.getCustomerDetails(item.dataId);
+  } 
+
   selectEvent(item: any) {
-    // do something with selected item
-  }
+  } 
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -188,7 +197,7 @@ export class TyresalesaddComponent {
   }
 
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
@@ -202,6 +211,21 @@ export class TyresalesaddComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+  getCustomerDetails(e: any): void {
+   
+
+    this.requestmodel.strRequest = e;
+
+    this.commonService.getCustomerDetails( this.requestmodel).subscribe((res) => {
+      this.tyresalesmastermodel = res;
+      this.formUser.patchValue({
+       // customerId: "",
+        customerName: this.tyresalesmastermodel.customerName,
+        customerAdd: this.tyresalesmastermodel.customerAdd,
+       // customerGstNo:""
+      })
     });
   }
 
@@ -310,7 +334,7 @@ export class TyresalesaddComponent {
       for (var i = 0; i < res.tyreSalesDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreSalesDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreSalesDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreSalesDtlList[i].tyreId));
         this.formTyreArray.controls[i].get("tyreAmt")?.setValue(res.tyreSalesDtlList[i].tyreAmt);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreSalesDtlList[i].remarks);  
       }     
@@ -330,7 +354,15 @@ export class TyresalesaddComponent {
     this.formTyreArray.removeAt(index);  
   }  
 
-  getTyreNo(j: number,e: any){   
+  getTyreNo(){   
+    this.requestmodel.strRequest = ""; 
+    this.requestmodel.strRequest1 = "" ; 
+    this.tyresalesService.getScrapTyreNoList(this.requestmodel).subscribe((res) => {
+      this.tyreList = res;
+    });
+  }
+
+  getBrandTyreNo(j: number,e: any){   
     this.requestmodel.strRequest = e.target.value; 
     this.requestmodel.strRequest1 = "S" ; 
     this.tyresalesService.getScrapTyreNoList(this.requestmodel).subscribe((res) => {
@@ -362,7 +394,6 @@ export class TyresalesaddComponent {
   }   
     
   submitsaleForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -392,9 +423,9 @@ export class TyresalesaddComponent {
       }
     }
 
-    this.tyresalesmastermodel.masterID = this.selectedTyresalesDetail.masterID ;
+    this.tyresalesmastermodel.masterID = this.selectedTyresalesDetail.masterID;
     this.tyresalesmastermodel.branchCode= selectedDataValue.branchCode.toString();
-    this.tyresalesmastermodel.transDate = selectedDataValue.purchaseDate;
+    this.tyresalesmastermodel.transDate = selectedDataValue.transDate;
     this.tyresalesmastermodel.saleIncharge = selectedDataValue.saleIncharge;
     this.tyresalesmastermodel.nonCustomer = selectedDataValue.nonCustomer?"Y":"N";    
     this.tyresalesmastermodel.customerId = selectedDataValue.customerId?selectedDataValue.customerId.dataId:"";
@@ -424,7 +455,7 @@ export class TyresalesaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyresalesmastermodel.tyreSalesDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyresalesmastermodel.tyreSalesDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
@@ -433,7 +464,7 @@ export class TyresalesaddComponent {
           'masterID': "",
           'transDate': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'tyreAmt': selectedDataValue.arrayList[i].tyreAmt.toString(),
           'remarks':selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
           'branchCode':selectedDataValue.branchCode.toString(),
@@ -447,6 +478,7 @@ export class TyresalesaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyresalesService.tyresalesMasterSubmitted(this.tyresalesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

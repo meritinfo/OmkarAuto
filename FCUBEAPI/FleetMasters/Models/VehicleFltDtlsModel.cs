@@ -8,7 +8,7 @@ namespace FleetMasters.Models
 {
     public class VehicleFltDtlsModel
     {
-        public string? DetailID { get; set; }
+     //   public string? DetailID { get; set; }
         public string? VehicleMasterID { get; set; }
         public string? ValidFrom { get; set; }
         public string? ValidTo { get; set; }

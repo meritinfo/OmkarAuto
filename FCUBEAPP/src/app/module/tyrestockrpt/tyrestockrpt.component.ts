@@ -46,7 +46,7 @@ export class TyrestockrptComponent {
 }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -131,7 +131,7 @@ export class TyrestockrptComponent {
   }
   
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
@@ -170,6 +170,11 @@ export class TyrestockrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.tyremgntrptService.getTyreStockRptList(this.filter).subscribe(resp => {
              this.allTyremgntRptlist = resp;
               callback({
@@ -194,7 +199,7 @@ export class TyrestockrptComponent {
     
   //Open user details screen
   exportExcel(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -222,7 +227,7 @@ export class TyrestockrptComponent {
   }
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

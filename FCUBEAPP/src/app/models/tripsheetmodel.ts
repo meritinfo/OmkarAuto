@@ -1,113 +1,99 @@
-import { Tripsheetinnergridmodel } from "./tripsheetinnergridmodel";
-
 export class Tripsheetmodel {
     tripId: string = "";
     tripBranch: string = "";
     yearId: string = "";
     vehicleMasterID: string = "";
     tripNo: string = "";
-    lastTripCloseDate: string = "";
-    newTripDate: string = "";
-    tripTime: string = "";
-    openThrough: string = "";
-    tripOpenBy: string = "";
-    tripOpenDate: string = "";
+    deptDate: string = "";
+    endDate: string = "";
+    stmtDate: string = "";
     tripStatus: string = "";
     driverMasterID: string = "";
-    consignorPayParty: string = "";
-    compNonCompStatus: string = "";
-    challanNo: string = "";
-    loadingFrom: string = "";
-    destination: string = "";
-    destination2: string = "";
-    destination3: string = "";
-    distanceTripKM_1: string = "";
-    contents: string = "";
-    loadEmptyType: string = "";
-    expectedReportingDt: string = "";
-    expectedReportingDays: string = "";
-    ltsDslToBe_1: string = "";
-    ltsAdblueToBe_1: string = "";
-    advPayable_1: string = "";
-    reportingDt_1: string = "";
-    advanceDays_1: string = "";
-    delayedDays_1: string = "";
-    graceDays_1: string = "";
-    deliveryDate: string = "";
-    detentionDays: string = "";
-    nextReportingBranch: string = "";
-    distanceTripKM_2: string = "";
-    nextExpectedReportingDt: string = "";
-    nextExpectedReportingDays: string = "";
-    ltsDslToBe_2: string = "";
-    ltsAdblueToBe_2: string = "";
-    advPayable_2: string = "";
-    reportingDt_2: string = "";
-    advanceDays_2: string = "";
-    delayedDays_2: string = "";
-    graceDays_2: string = "";
-    opBalDriver: string = "";
+    definedMileage: string = "";
+    closingKMR: string = "";
+    openingKMR: string = "";
+    distanceTripKM: string = "";
+    ltsDslToBe: string = "";
     opBalDsl: string = "";
-    opBalAdblue: string = "";
+    issuedDslLtrs: string = "";
+    issuedDslAmt: string = "";
+    dieselPassedLtrs: string = "";
+    dieselPassedAmt: string = "";
+    dieselVarianceAmt: string = "";
+    clBalDsl: string = "";
+    opBalDriver: string = "";
     paidDriverAdvance: string = "";
     freightCollByDriver: string = "";
-    issuedDslLtrs: string = "";
-    issuedAdblueLtrs: string = "";
-    repairsByDriver: string = "";
-    challanByDriver: string = "";
-    parkingByDriver: string = "";
-    accidentByDriver: string = "";
-    weighmentByDriver: string = "";
-    otherExpByDriver: string = "";
-    tollExpByDriver: string = "";
-    cashDslPlace: string = "";
-    cashDslLtrs: string = "";
-    cashDslAmt: string = "";
+    expensesByDriver: string = "";
     totalBhattaDays: string = "";
     bhattaRate: string = "";
-    allowedBhatta: string = "";
+    bhattaAmt: string = "";
     onTimeIncentiveAmt: string = "";
     multiDelIncentiveAmt: string = "";
     penaltyChargedToDr: string = "";
-    poolAcAmt: string = "";
+    penaltyRemarks: string = "";
     totalDriverAc: string = "";
     tripBalance: string = "";
     recdFromDriver: string = "";
     netTripBalance: string = "";
-    clBalDsl: string = "";
-    clBalAdBlue: string = "";
-    ticlStatus: string = "";
-    ticlRemarks: string = "";
+    fastagAmount: string = "";
+    tripTotalFreight: string = "";
+    tripTotalAdvance: string = "";
     tripCloseBy: string = "";
     tripCloseDt: string = "";
     tripCloseUpdateDt: string = "";
     tripLinkYN: string = "";
-    tripSalDoneYN: string = "";
     findocid: string = "";
-    tripBrName: string = "";
+    tripBr: string = "";
     vehicleNo: string = "";
-    drName: string = "";
-    frPlace: string = "";
-    tPlace: string = "";
-    vehicleTypeGroupId : string = "";
-    actualDays_1: string = "";
-    actualDays_2: string = "";
-    idleDays: string = "";
-    penaltyExtra: string = "";
+    drName: string = "";        
     loggedInUser: string = "";
-   tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
-    miscList: MiscListmodel[] = [];
-    adblueList: AdblueListmodel[] = [];
+
+    driverList: DriverDetails[] = [];
+    routeList: RouteDetails[] = [];
+    dieselList: DieselDetails[] = [];
+    expList: TripDrExpDetails[] = [];
 }
 
-export class MiscListmodel {
-    expType: string = "";
-    miscAmount: string = "";
-    narration: string = "";
+export class DriverDetails {
+    pmtId: string = "";
+    pmtBranch : string = "";
+    pmtDate : string = "";
+    transType : string = "";
+    amountPaid: string = "";
+    remarks : string = "";
+    pmtType : string = "";
 }
 
-export class AdblueListmodel {
-    adbluefillingStation: string = "";
-    adbluedieselLiter: string = "";
-   // adbluedieselAmount: string = "";
+export class RouteDetails {
+    loadId : string = "";
+    loadBranch : string = "";
+    loadDate : string = "";
+    loadType : string = "";
+    loadFor : string = "";
+    loadMemoNo: string = "";
+    loadingFrom : string = "";
+    consignorName: string = "";
+    loadingTo : string = "";
+    consigneeName: string = "";
+    hireAmt : string = "";
+    advAmt : string = "";
+    remarks : string = "";        
 }
+
+export class DieselDetails {
+    detailID: string = "";
+    accountName: string = "";
+    transDate: string = "";
+    dslQty: string = "";
+    dslRate: string = "";
+    amount : string = "";
+    remarks: string = "";
+}
+export class TripDrExpDetails {
+    tripDtlId: string = "";
+    tripId: string = "";
+    expId: string = "";
+    expParticulars: string = "";
+    expAmt: string = "";
+  }

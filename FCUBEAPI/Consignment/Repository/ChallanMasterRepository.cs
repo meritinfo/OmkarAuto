@@ -28,7 +28,7 @@ namespace Consignment.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> ChallanMasterSave(ChallanMasterModel challanModel)
+        public async Task<ResponseModel> ChallanMasterSave(ChallanMasterModel challan)
         {
             ResponseModel responseModel = new();
 
@@ -42,80 +42,79 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ChallanId",              challanModel.ChallanId),
-                            new SqlParameter("@ChallanBranch",          challanModel.ChallanBranch),
-                            new SqlParameter("@ChallanNo",            challanModel.ChallanNo),
-                            new SqlParameter("@ChallanDateTime",           challanModel.ChallanDateTime),
-                            new SqlParameter("@ChStatus",         challanModel.ChStatus),
-                            new SqlParameter("@ChSuppYN",             challanModel.ChSuppYN),
-                            new SqlParameter("@ChallanFromStn",        challanModel.ChallanFromStn),
-                            new SqlParameter("@ChallanToStn",      challanModel.ChallanToStn),
-                            new SqlParameter("@DistanceKms",           challanModel.DistanceKms),
-                            new SqlParameter("@ExpArrivalDate",           challanModel.ExpArrivalDate),
-                            new SqlParameter("@MainChallanBranch",      challanModel.MainChallanBranch),
-                            new SqlParameter("@MainChallanNo",           challanModel.MainChallanNo),
-                            new SqlParameter("@BrokerId",             challanModel.BrokerId),
-                            new SqlParameter("@BrokerMblNo",          challanModel.BrokerMblNo),
-                            new SqlParameter("@OwnTruckYN",          challanModel.OwnTruckYN),
-                            new SqlParameter("@TruckNo",         challanModel.TruckNo),
-                            new SqlParameter("@VehicleType",         challanModel.VehicleType),
-                            new SqlParameter("@VehicleMake",        challanModel.VehicleMake),
-                            new SqlParameter("@VehicleModel",           challanModel.VehicleModel),
-                            new SqlParameter("@EngineNo",          challanModel.EngineNo),
-                            new SqlParameter("@ChassisNo",           challanModel.ChassisNo),
-                            new SqlParameter("@VehicleOwnerName",          challanModel.VehicleOwnerName),
-                            new SqlParameter("@VehicleOwnerAdd1",      challanModel.VehicleOwnerAdd1),
-                            new SqlParameter("@VehicleOwnerAdd2",   challanModel.VehicleOwnerAdd2),
-                            new SqlParameter("@VehicleOwnerPanNo",       challanModel.VehicleOwnerPanNo),
-                            new SqlParameter("@PanValid",       challanModel.PanValid),
-                            new SqlParameter("@AadharLinked",       challanModel.AadharLinked),
-                            new SqlParameter("@ItFiled",       challanModel.ItFiled),
-                            new SqlParameter("@VehicleOwnerMblNo",       challanModel.VehicleOwnerMblNo),
-                            new SqlParameter("@VehicleInsDetails",       challanModel.VehicleInsDetails),
-                            new SqlParameter("@PermitValid",       challanModel.PermitValid),
-                            new SqlParameter("@DriverName",       challanModel.DriverName),
-                            new SqlParameter("@DriverAddress",       challanModel.DriverAddress),
-                            new SqlParameter("@DriverLicNo",       challanModel.DriverLicNo),
-                            new SqlParameter("@DriverLicIssuedAt",       challanModel.DriverLicIssuedAt),
-                            new SqlParameter("@DriverLicValid",       challanModel.DriverLicValid),
-                            new SqlParameter("@DriverMblNo",       challanModel.DriverMblNo),
-                            new SqlParameter("@EngagedBy",       challanModel.EngagedBy),
-                            new SqlParameter("@LoadedBy",       challanModel.LoadedBy),
-                            new SqlParameter("@UnLoadingBy",       challanModel.UnLoadingBy),
-                            new SqlParameter("@DeclarationYN",       challanModel.DeclarationYN),
-                            new SqlParameter("@DeclarationRecdBy",       challanModel.DeclarationRecdBy),
-                            new SqlParameter("@OdcLength",       challanModel.OdcLength),
-                            new SqlParameter("@OdcWidth",       challanModel.OdcWidth),
-                            new SqlParameter("@OdcHeight",       challanModel.OdcHeight),
-                            new SqlParameter("@OdcCFT",       challanModel.OdcCFT),
-                            new SqlParameter("@TotPkgs",       challanModel.TotPkgs),
-                            new SqlParameter("@TotActWt",       challanModel.TotActWt),
-                            new SqlParameter("@TotChrgWt",       challanModel.TotChrgWt),
-                            new SqlParameter("@RatePerTon",       challanModel.RatePerTon),
-                            new SqlParameter("@LorryHire",       challanModel.LorryHire),
-                            new SqlParameter("@ExtraHire1",       challanModel.ExtraHire1),
-                            new SqlParameter("@ExtraHire2",       challanModel.ExtraHire2),
-                            new SqlParameter("@ExtraHire3",       challanModel.ExtraHire3),
-                            new SqlParameter("@Deduction1",       challanModel.Deduction1),
-                            new SqlParameter("@Deduction2",       challanModel.Deduction2),
-                            new SqlParameter("@SubTotal",       challanModel.SubTotal),
-                            new SqlParameter("@TdsPct",       challanModel.TdsPct),
-                            new SqlParameter("@TdsAmt",       challanModel.TdsAmt),
-                            new SqlParameter("@TotalHire",       challanModel.TotalHire),
-                            new SqlParameter("@CashAdvance",       challanModel.CashAdvance),
-                            new SqlParameter("@CardAdvance",       challanModel.CardAdvance),
-                            new SqlParameter("@TotalAdvance",       challanModel.TotalAdvance),
-                            new SqlParameter("@Balance",       challanModel.Balance),
-                            new SqlParameter("@BalancePayAt",       challanModel.BalancePayAt),    
-                            new SqlParameter("@GeneralRemarks",       challanModel.GeneralRemarks),
-                            new SqlParameter("@Photo1",       challanModel.Photo1),
-                            new SqlParameter("@Photo2",       challanModel.Photo2),
-                            new SqlParameter("@Photo3",       challanModel.Photo3),
-                            new SqlParameter("@TruckDriverImage",       challanModel.TruckDriverImage),
-                            new SqlParameter("@Ftmid",       challanModel.Ftmid),
-                            new SqlParameter("@YearId",       challanModel.YearId),
-                            new SqlParameter("@ModifyRemarks",       challanModel.ModifyRemarks),
-                            new SqlParameter("@LoggedInUser",       challanModel.LoggedInUser)
+                            new SqlParameter("@ChallanId",              challan.ChallanId),
+                            new SqlParameter("@ChallanBranch",          challan.ChallanBranch),
+                            new SqlParameter("@ChallanNo",              challan.ChallanNo),
+                            new SqlParameter("@ChallanDateTime",        challan.ChallanDateTime),
+                            new SqlParameter("@ChStatus",               challan.ChStatus),
+                            new SqlParameter("@ChSuppYN",               challan.ChSuppYN),
+                            new SqlParameter("@ChallanFromStn",         challan.ChallanFromStn),
+                            new SqlParameter("@ChallanToStn",           challan.ChallanToStn),
+                            new SqlParameter("@DistanceKms",            challan.DistanceKms),
+                            new SqlParameter("@ExpArrivalDate",         challan.ExpArrivalDate),
+                            new SqlParameter("@MainChallanBranch",      challan.MainChallanBranch),
+                            new SqlParameter("@MainChallanNo",          challan.MainChallanNo),
+                            new SqlParameter("@BrokerId",               challan.BrokerId),
+                            new SqlParameter("@BrokerMblNo",            challan.BrokerMblNo),
+                            new SqlParameter("@OwnTruckYN",             challan.OwnTruckYN),
+                            new SqlParameter("@TruckNo",                challan.TruckNo),
+                            new SqlParameter("@VehicleType",            challan.VehicleType),
+                            new SqlParameter("@VehicleMake",            challan.VehicleMake),
+                            new SqlParameter("@VehicleModel",           challan.VehicleModel),
+                            new SqlParameter("@EngineNo",               challan.EngineNo),
+                            new SqlParameter("@ChassisNo",              challan.ChassisNo),
+                            new SqlParameter("@VehicleOwnerName",       challan.VehicleOwnerName),
+                            new SqlParameter("@VehicleOwnerAdd1",       challan.VehicleOwnerAdd1),
+                            new SqlParameter("@VehicleOwnerAdd2",       challan.VehicleOwnerAdd2),
+                            new SqlParameter("@VehicleOwnerPanNo",      challan.VehicleOwnerPanNo),
+                            new SqlParameter("@PanValid",               challan.PanValid),
+                            new SqlParameter("@AadharLinked",           challan.AadharLinked),
+                            new SqlParameter("@ItFiled",                challan.ItFiled),
+                            new SqlParameter("@VehicleOwnerMblNo",      challan.VehicleOwnerMblNo),
+                            new SqlParameter("@VehicleInsDetails",      challan.VehicleInsDetails),
+                            new SqlParameter("@PermitValid",            challan.PermitValid),
+                            new SqlParameter("@DriverName",             challan.DriverName),
+                            new SqlParameter("@DriverAddress",          challan.DriverAddress),
+                            new SqlParameter("@DriverLicNo",            challan.DriverLicNo),
+                            new SqlParameter("@DriverLicIssuedAt",      challan.DriverLicIssuedAt),
+                            new SqlParameter("@DriverLicValid",         challan.DriverLicValid),
+                            new SqlParameter("@DriverMblNo",            challan.DriverMblNo),
+                            new SqlParameter("@EngagedBy",              challan.EngagedBy),
+                            new SqlParameter("@LoadedBy",               challan.LoadedBy),
+                            new SqlParameter("@UnLoadingBy",            challan.UnLoadingBy),
+                            new SqlParameter("@DeclarationYN",          challan.DeclarationYN),
+                            new SqlParameter("@DeclarationRecdBy",      challan.DeclarationRecdBy),
+                            new SqlParameter("@OdcLength",              challan.OdcLength),
+                            new SqlParameter("@OdcWidth",               challan.OdcWidth),
+                            new SqlParameter("@OdcHeight",              challan.OdcHeight),
+                            new SqlParameter("@OdcCFT",                 challan.OdcCFT),
+                            new SqlParameter("@TotPkgs",                challan.TotPkgs),
+                            new SqlParameter("@TotActWt",               challan.TotActWt),
+                            new SqlParameter("@TotChrgWt",              challan.TotChrgWt),
+                            new SqlParameter("@RatePerTon",             challan.RatePerTon),
+                            new SqlParameter("@LorryHire",              challan.LorryHire),
+                            new SqlParameter("@ExtraHire1",             challan.ExtraHire1),
+                            new SqlParameter("@ExtraHire2",             challan.ExtraHire2),
+                            new SqlParameter("@ExtraHire3",             challan.ExtraHire3),
+                            new SqlParameter("@Deduction1",             challan.Deduction1),
+                            new SqlParameter("@Deduction2",             challan.Deduction2),
+                            new SqlParameter("@SubTotal",               challan.SubTotal),
+                            new SqlParameter("@TdsPct",                 challan.TdsPct),
+                            new SqlParameter("@TdsAmt",                 challan.TdsAmt),
+                            new SqlParameter("@TotalHire",              challan.TotalHire),
+                            new SqlParameter("@CashAdvance",            challan.CashAdvance),
+                            new SqlParameter("@CardAdvance",            challan.CardAdvance),
+                            new SqlParameter("@TotalAdvance",           challan.TotalAdvance),
+                            new SqlParameter("@Balance",                challan.Balance),
+                            new SqlParameter("@BalancePayAt",           challan.BalancePayAt),    
+                            new SqlParameter("@GeneralRemarks",         challan.GeneralRemarks),
+                            new SqlParameter("@Photo1",                 challan.Photo1),
+                            new SqlParameter("@Photo2",                 challan.Photo2),
+                            new SqlParameter("@Photo3",                 challan.Photo3),
+                            new SqlParameter("@TruckDriverImage",       challan.TruckDriverImage),
+                            new SqlParameter("@YearId",                 challan.YearId),
+                            new SqlParameter("@ModifyRemarks",          challan.ModifyRemarks),
+                            new SqlParameter("@LoggedInUser",           challan.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSave", param);
                     var ChallanId = "0";
@@ -128,14 +127,14 @@ namespace Consignment.Repository
 
                         if (responseModel.Status)
                         {
-                            for (int i = 0; i < challanModel.ChallanDtls.Count; i++)
+                            for (int i = 0; i < challan.ChallanDtls.Count; i++)
                             {
-                                challanModel.ChallanDtls[i].ChallanId = ChallanId.ToString();
-                                responseModel = await ChallanMasterDtlSave(transaction, challanModel.ChallanDtls[i]);
+                                challan.ChallanDtls[i].ChallanId = ChallanId.ToString();
+                                responseModel = await ChallanMasterDtlSave(transaction, challan.ChallanDtls[i]);
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
-                                    i = challanModel.ChallanDtls.Count;
+                                    i = challan.ChallanDtls.Count;
                                 }
                             }
                         }
@@ -259,7 +258,8 @@ namespace Consignment.Repository
                                 VehicleOwnerAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd1"]),
                                 VehicleOwnerAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd2"]),
                                 VehicleOwnerPanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerPanNo"]),
-                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
+                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["PanValid"]),
+                                AadharLinked = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
                                 ItFiled = Convert.ToString(dataSet.Tables[0].Rows[i]["ItFiled"]),
                                 VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerMblNo"]),
                                 VehicleInsDetails = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleInsDetails"]),
@@ -509,7 +509,7 @@ namespace Consignment.Repository
                     {
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {
-                            ChallanId = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanId"]),
+                            ChallanId ="",
                             GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
                             GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
                             GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
@@ -549,27 +549,34 @@ namespace Consignment.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        challanModel.ChallanFromStn    = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
-                        challanModel.ChallanToStn      = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
-                        challanModel.DistanceKms       = Convert.ToString(dataSet.Tables[0].Rows[0]["DistanceKms"]);
-                        challanModel.BrokerId          = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
-                        challanModel.OwnTruckYN        = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruckYN"]);
-                        challanModel.TruckNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
-                        challanModel.VehicleType       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleType"]);
-                        challanModel.VehicleOwnerName  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerName"]);
-                        challanModel.VehicleOwnerAdd1  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd1"]);
-                        challanModel.VehicleOwnerAdd2  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd2"]);
-                        challanModel.VehicleOwnerPanNo = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
-                        challanModel.VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerMblNo"]);
-                        challanModel.DriverLicNo       = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicNo"]);
-                        challanModel.DriverLicValid    = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicValid"]);
-                        challanModel.DriverMblNo       = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverMblNo"]);
-                        challanModel.OdcCFT            = Convert.ToString(dataSet.Tables[0].Rows[0]["OdcCFT"]);
-                        challanModel.TotPkgs           = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]);
-                        challanModel.TotActWt          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]);
-                        challanModel.RatePerTon        = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
-                        challanModel.LorryHire         = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
-                        challanModel.SubTotal          = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
+                        challanModel.ChallanFromStn     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
+                        challanModel.ChallanToStn       = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
+                        challanModel.DistanceKms        = Convert.ToString(dataSet.Tables[0].Rows[0]["DistanceKms"]);
+                        challanModel.BrokerId           = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
+                        challanModel.OwnTruckYN         = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruckYN"]);
+                        challanModel.TruckNo            = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        challanModel.VehicleType        = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleType"]);
+                        challanModel.VehicleOwnerName   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerName"]);
+                        challanModel.VehicleOwnerAdd1   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd1"]);
+                        challanModel.VehicleOwnerAdd2   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd2"]);
+                        challanModel.VehicleOwnerPanNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
+                        challanModel.VehicleOwnerMblNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerMblNo"]);
+                        challanModel.DriverLicNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicNo"]);
+                        challanModel.DriverLicValid     = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicValid"]);
+                        challanModel.DriverMblNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverMblNo"]);
+                        challanModel.OdcCFT             = Convert.ToString(dataSet.Tables[0].Rows[0]["OdcCFT"]);
+                        challanModel.TotPkgs            = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]);
+                        challanModel.TotActWt           = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]);
+                        challanModel.RatePerTon         = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
+                        challanModel.LorryHire          = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
+                        challanModel.SubTotal           = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
+                        challanModel.CashAdvance        = Convert.ToString(dataSet.Tables[0].Rows[0]["cashAdvance"]);
+                        challanModel.Balance            = Convert.ToString(dataSet.Tables[0].Rows[0]["Balance"]);
+                        challanModel.VehicleModel       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleModel"]);
+                        challanModel.EngineNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
+                        challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
+                        challanModel.EngagedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
+                        challanModel.LoadedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
 
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {
@@ -716,7 +723,46 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-       
+        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                           new SqlParameter("@GCNoteNo",   request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        
+
 
 
 

@@ -23,7 +23,7 @@ export class DprplacevehicleComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -39,6 +39,8 @@ export class DprplacevehicleComponent {
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -178,6 +180,8 @@ export class DprplacevehicleComponent {
             brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
           });            
           this.getDprInnerGridList();
+          this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+          this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
         });
       }        
     }, 2000);
@@ -283,6 +287,11 @@ export class DprplacevehicleComponent {
         var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
         var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
         var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        
+        vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
+        vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
+        vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
+        
         if(vehInsValidDate!=""){
           vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
         }
@@ -464,7 +473,11 @@ export class DprplacevehicleComponent {
     var chkDuplicate = true;
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
-      if((selectedDataVal.arrayList[i].gcNoteNo?selectedDataVal.arrayList[i].gcNoteNo:"")==''){
+      if(!selectedDataVal.arrayList[i].gcNoteNo){
+        this.toasterService.warning("GcNote No Should Not be Empty");
+        return;
+      }
+      if(selectedDataVal.arrayList[i].gcNoteNo==''){
         this.toasterService.warning("GcNote No Should Not be Empty");
         return;
       }
@@ -502,7 +515,7 @@ export class DprplacevehicleComponent {
     this.sharedService.loading=true;
     setTimeout(() => {     
       if(chkDuplicate){        
-        this.userSubmitted = true;
+        this.formSubmitted = true;
         this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if(this.responseDetails.status){

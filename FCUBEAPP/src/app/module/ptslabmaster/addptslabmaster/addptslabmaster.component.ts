@@ -28,7 +28,7 @@ import { PtSlabMasterService } from 'src/app/services/ptslabmaster.service';
 export class AddptslabmasterComponent {
   loggedInUserID: string = '';
   formRoleType!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   stateList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   editMode = false;
@@ -122,11 +122,17 @@ get f() { return this.formRoleType.controls; }
 
 //Submit user form details //
 ptSlabMasterSubmitted(): void {
-  this.userSubmitted = true;
   if (this.formRoleType.invalid) {
-    this.toasterService.warning("Mandatory fields is required");
+    this.toasterService.warning("Please Enter Mandatory Fields ");
+    const controls = this.formRoleType.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    } 
     return;
   }
+  this.formSubmitted = true;
   this.ptslabmastermodel.ptId = this.selectedPtSlabMasterDetails.ptId != '' ? this.selectedPtSlabMasterDetails.ptId : '';
   this.ptslabmastermodel.stateCode= this.formRoleType.value.stateCode;
   this.ptslabmastermodel.rangeFrom = this.formRoleType.value.rangeFrom;

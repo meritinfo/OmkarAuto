@@ -283,7 +283,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-      
+        [HttpPost("ChkDriverDuplicate")]
+        public async Task<IActionResult> ChkDriverDuplicate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverMasterBusiness.ChkDriverDuplicate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
 
         /// <summary>
         /// Controller method for vehicle type master
@@ -551,24 +570,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        //[HttpPost("VehicleFltMasterSave")]
-        //public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
-        //{
-        //    if (vehicleFltMasterModel == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
-
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
         [HttpPost("VehicleFltMasterSave")]
         public async Task<IActionResult> VehicleFltMasterSave()
         {
@@ -712,12 +713,12 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetVehicalTypes")]
-        public async Task<IActionResult> GetVehicalTypes()
+        [HttpPost("GetVehicalTypeFltGroupList")]
+        public async Task<IActionResult> GetVehicalTypeFltGroupList()
         {
             try
             {
-                var result = await vehicleFltMasterBusiness.GetVehicalTypes();
+                var result = await vehicleFltMasterBusiness.GetVehicalTypeFltGroupList();
 
                 return Ok(result);
             }

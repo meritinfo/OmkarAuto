@@ -13,6 +13,8 @@ namespace Consignment.Business
         Task<ResponseModel> LorryHireMasterSave(LorryHireMasterModel lorryHire);
         Task<ResponseModel> LorryHireMasterDelete(RequestModel requestModel);
         Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request);
+        Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel);
+        Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel);
     }
 
 }

@@ -6,11 +6,11 @@ export class Challanmastermodel {
     challanNo : string = "";
     challanDateTime : string = "";
     chStatus : string = "";
-        chSuppYN : string = "";
+    chSuppYN : string = "";
     challanFromStn : string = "";
     challanToStn : string = ""; 
     distanceKms: string = "";
-        expArrivalDate : string = "";
+    expArrivalDate : string = "";
     mainChallanBranch : string = "";
     mainChallanNo : string = "";
     brokerId : string = "";

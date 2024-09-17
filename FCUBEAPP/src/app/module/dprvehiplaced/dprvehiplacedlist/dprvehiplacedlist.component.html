@@ -7,25 +7,19 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">DPR Vehicle Placement</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -33,7 +27,7 @@
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>                             
                             <div class="col-lg-3">
@@ -117,17 +111,18 @@
                 </div>
             <!-- end page title -->            
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div class="overflow-x">
-                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                    
-                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                <div class="overflow-x">                  
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                        <thead>
                             <tr>
                                 <th>dprDate </th>                          
                                 <th>fromPlace </th>
                                 <th>toPlace</th>  
                                 <th>partyName</th> 
+                                <th>partyName</th> 
                                 <th>vehicleNo </th>   
-                                <th>brokerName</th>                               
+                                <th>brokerName</th>    
+                                <th>lorryHire</th>                              
                                 <th>Action</th>   
                             </tr>
                         </thead>
@@ -136,9 +131,11 @@
                                 <td>{{ dpr.dprDate }}</td>  
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
-                                <td>{{ dpr.partyName }}</td>                       
+                                <td>{{ dpr.partyName }}</td>                         
+                                <td>{{ dpr.noofLr }}</td> 
                                 <td>{{ dpr.vehicleNo }}</td>                          
-                                <td>{{ dpr.brokerName }}</td> 
+                                <td>{{ dpr.brokerName }}</td>                         
+                                <td>{{ dpr.lorryHire }}</td> 
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprVehiDetails(dpr)"></button>                               
@@ -153,7 +150,6 @@
                     </table> 
                 </div>
             </div>
-        </div>
         </div>
         <!-- container-fluid -->
     </div>

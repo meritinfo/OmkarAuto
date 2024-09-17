@@ -91,7 +91,7 @@ export class VehicleinstscheduleaddComponent {
       totalPrincipal  : new FormControl('', [Validators.required]),
       totalInterest   : new FormControl('', [Validators.required]),
       totalLoanAmt    : new FormControl('', [Validators.required]),  
-      remarks         : new FormControl('', [Validators.required]), 
+      remarks         : new FormControl('', ), 
       arrayList: this.formBuilder.array([this.createInitialArray()])  
     });
 
@@ -106,7 +106,8 @@ export class VehicleinstscheduleaddComponent {
         this.formUser.patchValue(this.selectedVehicleinsts);
         this.formUser.patchValue({
           startDate: this.commonService.formatDate(this.selectedVehicleinsts.startDate),
-          endDate: this.commonService.formatDate(this.selectedVehicleinsts.endDate), 
+          endDate: this.commonService.formatDate(this.selectedVehicleinsts.endDate),
+          vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedVehicleinsts.vehicleMasterId), 
         });
         this.editMode = true;
         this.formUser.controls['vehicleMasterId'].disable();
@@ -427,7 +428,6 @@ export class VehicleinstscheduleaddComponent {
   }
 
   submitVehicleinstscheduleForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -479,7 +479,7 @@ export class VehicleinstscheduleaddComponent {
         this.vehicleinstschedulemodel.instScheduleDtls.push({
           'masterID': '',
           'vehicleMasterId': '',
-          'instNo': selectedDataVal.arrayList[i].instNo,         
+          'instNo': selectedDataVal.arrayList[i].instNo.toString(),          
           'instDate': selectedDataVal.arrayList[i].instDate,       
           'pri_InstAmt': selectedDataVal.arrayList[i].pri_InstAmt.toString(),    
           'int_InstAmt': selectedDataVal.arrayList[i].int_InstAmt.toString(),    
@@ -504,6 +504,7 @@ export class VehicleinstscheduleaddComponent {
     }
     
     this.sharedService.loading=true;
+    this.formSubmitted = true;
     this.vehicleinstscheduleService.vehicleinstschedulemstSubmitted(this.vehicleinstschedulemodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

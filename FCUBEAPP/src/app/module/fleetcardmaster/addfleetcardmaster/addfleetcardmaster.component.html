@@ -17,7 +17,7 @@
              </div>
           </div>
           <!-- end page title -->
-          <form [formGroup]="formUser">
+          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
              <div class="row">
                 <div class="col-lg-12">
                    <div class="card">
@@ -33,7 +33,7 @@
                                                 <label for="basicpill-phoneno-input">Card Type</label>
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="cardType"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['cardType'].invalid) }"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cardType'].invalid) }"  
                                                     >
                                                   
                                                     <option value="HP"> Happay</option>
@@ -45,8 +45,8 @@
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Card Code</label>
                                                 <input type="text" class="form-control"
-                                                placeholder=" " formControlName="cardCode"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
+                                                placeholder=" " formControlName="cardCode" uppercaseonly
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
                                                 
                                             </div>
                                         </div>
@@ -56,8 +56,8 @@
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Card No</label>
                                                 <input type="text" class="form-control"
-                                                placeholder=" " formControlName="cardNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardNo'].invalid) }"  (change)="checkDuplicateCardNo()">
+                                                placeholder=" " formControlName="cardNo"  uppercaseonly
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardNo'].invalid) }"  (change)="checkDuplicateCardNo()">
                                                 
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                 <label for="basicpill-phoneno-input">Card Pin</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardPin"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardPin'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardPin'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">CardLedger Ac</label>
                                                 <select class="form-control" formControlName="cardLedgerAc"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardLedgerAc'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardLedgerAc'].invalid) }">
 
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
 
@@ -122,7 +122,7 @@
                                                 <label for="basicpill-phoneno-input">MobileNo</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="mobileNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['mobileNo'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -157,8 +157,8 @@
              <div class="row text-right">
                 <div class="col-lg-12">
                    <div class="tex">
-                      <button class="btn btn-primary w-md"
-                         (click)="submitFleetCardMasterForm()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
+                      <button class="btn btn-primary w-md"  *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                         (click)="submitFleetCardMasterForm()" >Save</button>
                           <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="fleetCardMasterDelete()">Delete</button>
                                 <button  class="btn btn-secondary w-md m-2" 

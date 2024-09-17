@@ -156,8 +156,12 @@ getTripMaster(){
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
-        this.tripSheetService.getTripSheetList(this.filter)
-          .subscribe(resp => {
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.tripSheetService.getTripSheetList(this.filter).subscribe(resp => {
             this.allTripSheetTypes = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -169,30 +173,29 @@ getTripMaster(){
       // Set column title and data field
       columns: [
         {
+          title: 'Trip Branch',
+          data: 'tripBr',
+        },
+        {
           title: 'Vehicle No',
           data: 'vehicleNo',
         },
 
         {
-          title: 'Trip Date',
-          data: 'newTripDate',
+          title: 'Stmt Date',
+          data: 'stmtDate',
         },
         {
           title: 'Trip No',
           data: 'tripNo',
         },
         {
-          title: 'From',
-          data: 'frPlace',
-        },
-
-        {
-          title: 'To',
-          data: 'tPlace',
+          title: 'Dept Date',
+          data: 'deptDate',
         },
         {
-          title: 'Expected UL. Dt.',
-          data: 'expectedReportingDt',
+          title: 'End Date',
+          data: 'endDate',
         },
         {
           title: 'Driver',
@@ -203,7 +206,7 @@ getTripMaster(){
           data: 'tripCloseDt',
         },
         {
-          title: 'LinkYN',
+          title: 'Link YN',
           data: 'tripLinkYN',
         },
         {
@@ -214,12 +217,12 @@ getTripMaster(){
     };
     this.sharedService.loading = false;
   }
-  //Open new gst purchase add screen
+  
   tripsheetAdd(): void {
     this.route.navigate(['/tripsheetadd']);
   }
 
-  //Open user details screen
+  
   gettripSheetDetails(tripsheet: Tripsheetmodel): void {
     this.tripSheetService.setTripSheetDetails(tripsheet);
 

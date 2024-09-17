@@ -24,7 +24,7 @@
                         title="Step 3">Freight</a>
                 </li>
             </ul>
-            <form role="form" [formGroup]="formUser" (keydown.enter)="$event.preventDefault()">
+            <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser" (keydown.enter)="$event.preventDefault()">
                 <div class="tab-content">
                     <div class="tab-pane mt-4" [ngClass]="{'active' : step1Active}" role="tabpanel" id="step1">
                         <div class="row">
@@ -47,7 +47,8 @@
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="gcNoteNo" maxlength="15" (change)="chkLrDuplicate()"
+                                        numbersonly maxlength="15" 
+                                        formControlName="gcNoteNo" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
@@ -320,7 +321,24 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>        
+                        <div class="row">                    
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>                   
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>                
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">
@@ -345,16 +363,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Cnor Gst</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cnorGst"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGst'].invalid) }">
+                                        placeholder="" formControlName="cnorGst">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Mobile</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Cnor Mobile</label>
                                     <input numbersonly class="form-control" formControlName="cnorMobile"
-                                    maxlength="10"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorMobile'].invalid) }">
+                                    maxlength="10">
                                 </div>
                             </div>                            
                             <div class="col-lg-3">
@@ -403,8 +419,7 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cnee gst</label>
-                                    <input uppercaseonly class="form-control" formControlName="cneeGst"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeGst'].invalid) }">
+                                    <input uppercaseonly class="form-control" formControlName="cneeGst">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -569,7 +584,24 @@
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                 </div>
                             </div>
-                        </div>
+                        </div>        
+                        <div class="row">                    
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>                   
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>                
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">
@@ -615,14 +647,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
-                                        formControlName="rateRs">
+                                        formControlName="rateRs" (change)="calcFrt()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Freight</label>
                                     <input type="text" decimalonly class="form-control" placeholder=""
-                                        formControlName="freightRs" (change)="calculateTotalAmount()">
+                                        formControlName="freightRs" (change)="calcRate()" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -908,13 +940,29 @@
                             <div class="col-lg-4">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Attach File </label>                          
-                                    <input #attachInput class="form-control" type="file" id="formAttach1File"
-                                    accept="image/*">
+                                    <input #attachInput class="form-control" type="file" id="formAttach1File">
                                     <a *ngIf="selectedLrDetails.attachedfile" target="_blank"
                                                 href={{attach1}}>Download</a>
                                 </div>
                             </div> 
-                        </div> 
+                        </div>         
+                        <div class="row">                    
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>                   
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label style="color: blue"> 
+                                        <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                    </label>                                                 
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>                
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">

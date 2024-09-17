@@ -15,8 +15,9 @@ namespace FleetTrans.Business
         Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req);
         Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request);
         Task<TyrePurchaseMasterModel> GetTyrePurchaseMasterInnerGridList(RequestModel request);
-        Task<List<DropDownListModel>> GetBrandList();
+        Task<List<DropDownListModel>> GetTyreBrandList();
         Task<List<DropDownListModel>> GetModelList();
         Task<List<DropDownListModel>> GetVendorList();
+        Task<RequestModel> GetVendorDetails(RequestModel request);
     }
 }

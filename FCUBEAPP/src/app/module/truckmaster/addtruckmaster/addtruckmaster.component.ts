@@ -19,7 +19,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class AddtruckmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = []; 
   createStatus = false;
@@ -156,7 +156,7 @@ export class AddtruckmasterComponent {
   }
 
   submitTruckMasterForm(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
