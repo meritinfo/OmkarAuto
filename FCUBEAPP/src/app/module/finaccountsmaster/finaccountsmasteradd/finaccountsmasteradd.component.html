@@ -24,7 +24,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input" class="form-label">Account Name:</label><span style="color:red">*</span>
                                                     <input uppercaseonly type="text" class="form-control" 
-                                                        (change)="chkAccountNameExits($event)" uppercaseonly
+                                                        (change)="chkAccountNameExits($event)" 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountName'].invalid) }"
                                                         placeholder="Enter Account Name" formControlName="accountName">
                                                 </div>
