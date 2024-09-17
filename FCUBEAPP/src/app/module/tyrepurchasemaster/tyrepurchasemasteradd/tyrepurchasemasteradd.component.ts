@@ -259,7 +259,7 @@ export class TyrepurchasemasteraddComponent {
       vendorName: item.dataName
     })
     this.requestmodel.strRequest = item.dataId;
-    this.tyrePurchaseMasterService.getVendorDetails(this.requestmodel).subscribe((res) => {
+    this.commonService.getVendorDetails(this.requestmodel).subscribe((res) => {
       this.formUser.patchValue({
         vendorAddress: res.strRequest,
         vendorGstNo: res.strRequest1,

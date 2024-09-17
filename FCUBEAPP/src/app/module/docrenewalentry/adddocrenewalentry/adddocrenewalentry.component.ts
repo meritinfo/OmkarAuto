@@ -209,6 +209,7 @@ export class AdddocrenewalentryComponent {
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();
         this.formDocEntry.controls['vehicleMasterID'].disable();
+        this.formDocEntry.controls['pmtType'].disable();        
 
         if (this.selectedDocRenewalEntryDetails.pmtType == 'B'){
           this.formDocEntry.controls['neftPmt'].enable();
