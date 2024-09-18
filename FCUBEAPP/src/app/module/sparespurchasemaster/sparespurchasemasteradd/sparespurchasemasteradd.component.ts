@@ -117,7 +117,7 @@ export class SparespurchasemasteraddComponent {
       vendorInvNo : new FormControl('',),
       vendorName : new FormControl('',),
       vendorAddress : new FormControl('',[Validators.required]),
-      vendorState : new FormControl('',[Validators.required]),
+      vendorState : new FormControl('',),
       vendorGstNo : new FormControl('',),
       gstType : new FormControl('NA',),
       totItemAmount : new FormControl('',[Validators.required]),
@@ -147,7 +147,7 @@ export class SparespurchasemasteraddComponent {
     this.getBranchList();
     this.getStateList();
     this.getSparesList();
-    this.getCreditAcList('');
+    //this.getCreditAcList('');
 
     this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
     this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -214,6 +214,17 @@ export class SparespurchasemasteraddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+     this.formUser.patchValue({
+      vendorName: item.dataName
+    })
+    this.requestmodel.strRequest = item.dataId;
+    this.commonService.getVendorDetails(this.requestmodel).subscribe((res) => {
+      this.formUser.patchValue({
+        vendorAddress: res.strRequest,
+        vendorGstNo: res.strRequest1,
+      })
+    });  
+
   }
 
   onChangeSearch(search: string) {

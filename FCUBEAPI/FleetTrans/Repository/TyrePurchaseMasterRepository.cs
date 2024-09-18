@@ -62,6 +62,7 @@ namespace FleetTrans.Repository
                                 VendorInvDt = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
                                 TyreSacCode = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreSacCode"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                GstInputTaken = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 TotalTyresAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalTyresAmt"]),
                                 TotalSgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSgstAmt"]),
                                 TotalCgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCgstAmt"]),
@@ -177,6 +178,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VendorInvDt",        tyrePurchaseMasterModel.VendorInvDt),
                             new SqlParameter("@TyreSacCode",        tyrePurchaseMasterModel.TyreSacCode),
                             new SqlParameter("@GstType",            tyrePurchaseMasterModel.GstType),
+                            new SqlParameter("@GstInputTaken",      tyrePurchaseMasterModel.GstInputTaken),                            
                             new SqlParameter("@TotalTyresAmt",      tyrePurchaseMasterModel.TotalTyresAmt ),
                             new SqlParameter("@TotalSgstAmt",       tyrePurchaseMasterModel.TotalSgstAmt ),
                             new SqlParameter("@TotalCgstAmt",       tyrePurchaseMasterModel.TotalCgstAmt ),
@@ -417,16 +419,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return BrandList;
         }
@@ -456,19 +449,36 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return BrandList;
         }
-      
+        public async Task<RequestModel> GetVendorDetails(RequestModel request)
+        {
+            RequestModel req = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AccountID", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVendorDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        req.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["VendorAddress"]);
+                        req.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["VendorGstNo"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return req;
+        }
+
+        
+
     }
 }

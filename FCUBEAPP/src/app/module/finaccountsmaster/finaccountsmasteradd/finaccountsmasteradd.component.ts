@@ -82,7 +82,7 @@ export class FinaccountsmasteraddComponent {
       accountType: new FormControl('',[Validators.required]),
       subAccountType: new FormControl('',[Validators.required]),
       accountGroupFlag: new FormControl('',),
-      accountLedgerType: new FormControl('O',),
+      accountLedgerType: new FormControl('',[Validators.required]),
       groupSortId: new FormControl('',),
       // schID: new FormControl('',[Validators.required]),
       schDesc: new FormControl('',),

@@ -34,6 +34,9 @@ namespace FleetTrans.Business
         {
             return await tyreDeActivateRepository.TyreDeActivateMasterDelete(req);
         }
-
+        public async Task<TyreDeActivateMasterModel> GetTyredeactivateVehicleTyreList(RequestModel request)
+        {
+            return await tyreDeActivateRepository.GetTyredeactivateVehicleTyreList(request);
+        }
     }
 }

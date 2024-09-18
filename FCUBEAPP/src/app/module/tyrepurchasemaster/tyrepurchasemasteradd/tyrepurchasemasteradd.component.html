@@ -47,6 +47,16 @@
                                             </select>
                                         </div>
                                     </div>  
+                                    <div class="col-sm-2">                                    
+                                        <div class="mb-3">      
+                                            <input type="checkbox" formControlName="gstInputTaken" 
+                                            class="form-check-input" value="Y" >
+                                            <label for="gstInputTaken" class="form-check-label" >GST Input Taken
+                                            </label>  
+                                        </div>                                    
+                                    </div>  
+                                </div> 
+                                <div class="row"> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Purchase Type</label>
@@ -61,9 +71,7 @@
                                         </select>
                                         </div>
                                     </div>   
-                                </div> 
-                                <div class="row"> 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-5">
                                         <div class="mb-3">
                                             <label>Vendor</label> <span style="color: red">*</span>                                       
                                             <div class="ng-autocomplete">
@@ -93,7 +101,7 @@
                                         <div class="mb-3">      
                                             <input type="checkbox" formControlName="noVendor" 
                                             class="form-check-input" (change)="onNoVendor($event)" value="Y" >
-                                            <label for="noVendor" class="form-check-label" > NoVendor
+                                            <label for="noVendor" class="form-check-label" >NoVendor
                                             </label>  
                                         </div>                                    
                                     </div>  
@@ -165,7 +173,7 @@
                                             <tr>
                                                 <th><label for="formrow-inputZip">Tyre No</label></th>
                                                 <th><label for="formrow-inputZip">Brand</label></th>
-                                                <th><label for="formrow-inputZip">Tyre Pattern</label></th>
+                                                <!-- <th><label for="formrow-inputZip">Tyre Pattern</label></th> -->
                                                 <th><label for="formrow-inputZip">Tyre Model</label></th>
                                                 <th><label for="formrow-inputZip">Tyre Amt</label></th>
                                                 <th><label for="formrow-inputZip">SGST Pct</label></th>
@@ -183,8 +191,7 @@
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td> 
                                                         <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)">                                                     
-                                                    
+                                                        formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)">  
                                                     </td>
                                                     <td> 
                                                         <select class="form-control" formControlName="brandID"   
@@ -195,10 +202,10 @@
                                                             </option>
                                                          </select>  
                                                     </td>
-                                                    <td> 
+                                                    <!-- <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tyrePattern"> 
-                                                    </td>
+                                                    </td> -->
                                                     <td> 
                                                         <select class="form-control" formControlName="tyreModel"   
                                                             class="form-control form-select ng-pristine ng-touched">

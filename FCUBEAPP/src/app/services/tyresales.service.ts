@@ -46,6 +46,6 @@ export class TyresalesService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyreSalesMasterDelete', req, this.httpOptions);
   }
   getScrapTyreNoList(req:Requestmodel): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetIssuedTyreNoList', req, this.httpOptions);
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandTyreNoList', req, this.httpOptions);
   }
 }

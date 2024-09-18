@@ -110,7 +110,7 @@ export class TyresalesaddComponent {
       customerAdd : new FormControl('',),  
       customerGstNo: new FormControl('',),  
       pmtType: new FormControl('',),  
-      gstType : new FormControl('',),  
+      gstType : new FormControl('N',),  
       tyreAmount: new FormControl('',[Validators.required]),
       sgstPct : new FormControl('',),  
       sgstAmt : new FormControl('',),  
@@ -131,6 +131,9 @@ export class TyresalesaddComponent {
     this.getCustomerList();
 
     this.formUser.controls["tyreAmount"].disable();
+    this.formUser.controls['sgstPct'].disable();  
+    this.formUser.controls['cgstPct'].disable(); 
+    this.formUser.controls['igstPct'].disable();   
     this.formUser.controls["sgstAmt"].disable();   
     this.formUser.controls["cgstAmt"].disable();  
     this.formUser.controls["igstAmt"].disable();  
@@ -140,6 +143,7 @@ export class TyresalesaddComponent {
     this.formUser.controls['customerName'].disable(); 
 
     if (this.selectedTyresalesDetail.masterID  != '') {
+      this.getTyreNo();
       setTimeout(() => {
         this.formUser.patchValue(this.selectedTyresalesDetail);
         this.formUser.patchValue({
@@ -164,12 +168,12 @@ export class TyresalesaddComponent {
     return this.formUser.get("arrayList") as FormArray;    
   }
 
-  selectEvent(item: any) {
+  selectCustEvent(item: any) {
     this.getCustomerDetails(item.dataId);
-//this.customerid =item.dataId;
-//this.getCustomerDetails();
-    // do something with selected item
-  }
+  } 
+
+  selectEvent(item: any) {
+  } 
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -330,7 +334,7 @@ export class TyresalesaddComponent {
       for (var i = 0; i < res.tyreSalesDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreSalesDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreSalesDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreSalesDtlList[i].tyreId));
         this.formTyreArray.controls[i].get("tyreAmt")?.setValue(res.tyreSalesDtlList[i].tyreAmt);  
         this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreSalesDtlList[i].remarks);  
       }     
@@ -350,7 +354,15 @@ export class TyresalesaddComponent {
     this.formTyreArray.removeAt(index);  
   }  
 
-  getTyreNo(j: number,e: any){   
+  getTyreNo(){   
+    this.requestmodel.strRequest = ""; 
+    this.requestmodel.strRequest1 = "" ; 
+    this.tyresalesService.getScrapTyreNoList(this.requestmodel).subscribe((res) => {
+      this.tyreList = res;
+    });
+  }
+
+  getBrandTyreNo(j: number,e: any){   
     this.requestmodel.strRequest = e.target.value; 
     this.requestmodel.strRequest1 = "S" ; 
     this.tyresalesService.getScrapTyreNoList(this.requestmodel).subscribe((res) => {
@@ -443,7 +455,7 @@ export class TyresalesaddComponent {
         return;
       } 
       else{
-        var dupl = this.tyresalesmastermodel.tyreSalesDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyresalesmastermodel.tyreSalesDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId.dataId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
@@ -452,7 +464,7 @@ export class TyresalesaddComponent {
           'masterID': "",
           'transDate': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
-          'tyreId': selectedDataValue.arrayList[i].tyreId,
+          'tyreId': selectedDataValue.arrayList[i].tyreId?selectedDataValue.arrayList[i].tyreId.dataId:"",
           'tyreAmt': selectedDataValue.arrayList[i].tyreAmt.toString(),
           'remarks':selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
           'branchCode':selectedDataValue.branchCode.toString(),

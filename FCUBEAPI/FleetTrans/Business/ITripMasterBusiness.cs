@@ -12,5 +12,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetNextTripNo(RequestModel request);
         Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request);
         Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetExpList();
     }
 }

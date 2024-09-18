@@ -59,7 +59,8 @@ namespace FleetTrans.Models
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
-        public List<DieselDetails> DieselList { get; set; }        
+        public List<DieselDetails> DieselList { get; set; }
+        public List<TripDrExpDetails> ExpList { get; set; }
     }
 
     public class DriverDetails
@@ -97,5 +98,14 @@ namespace FleetTrans.Models
         public string? DslRate { get; set; }
         public string? Amount { get; set; }
         public string? Remarks { get; set; }
+    }
+    public class TripDrExpDetails
+    {
+        public string? TripDtlId { get; set; }
+        public string? TripId { get; set; }
+        public string? ExpId { get; set; }
+        public string? ExpParticulars { get; set; }
+        public string? ExpAmt { get; set; }
+     
     }
 }

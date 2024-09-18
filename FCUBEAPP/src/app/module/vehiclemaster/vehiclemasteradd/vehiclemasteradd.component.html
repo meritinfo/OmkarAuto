@@ -73,7 +73,7 @@
                                                 <select class="form-control" formControlName="vehicleTypeGroupId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeGroupId'].invalid) }">
-                                                    <option *ngFor="let vehi of vehicleTypeList" value={{vehi.dataId}}>
+                                                    <option *ngFor="let vehi of vehicleFltGrpList" value={{vehi.dataId}}>
                                                        {{vehi.dataName}}
                                                     </option>
                                                  </select>

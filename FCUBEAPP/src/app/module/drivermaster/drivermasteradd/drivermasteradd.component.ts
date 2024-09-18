@@ -154,12 +154,12 @@ export class DrivermasteraddComponent {
       attachDrTempAddProof: new FormControl('',),
       attachDrPermAddProof: new FormControl('',),
       attachDrBankPassBook: new FormControl('',),
-      bankName: new FormControl('', [Validators.required]),
-      drBankAccountName: new FormControl('', [Validators.required]),
-      bankAcNo: new FormControl('', [Validators.required]),
-      bankBranch: new FormControl('', [Validators.required]),
-      bankIfsCode: new FormControl('', [Validators.required]),
-      bankAccountStatus: new FormControl('S', [Validators.required]),
+      bankName: new FormControl('', ),
+      drBankAccountName: new FormControl('', ),
+      bankAcNo: new FormControl('', ),
+      bankBranch: new FormControl('', ),
+      bankIfsCode: new FormControl('', ),
+      bankAccountStatus: new FormControl('S', ),
       createdBy: new FormControl('',),
       createdDate: new FormControl('',),
       modifiedBy: new FormControl('',),
@@ -171,6 +171,7 @@ export class DrivermasteraddComponent {
     this.formDriverMaster.controls['age'].disable(); 
 
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
+   
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
       this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
@@ -189,7 +190,7 @@ export class DrivermasteraddComponent {
         inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
         removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
       })
-      this.formDriverMaster.controls['driverName'].disable();
+     // this.formDriverMaster.controls['driverName'].disable();
       this.editMode = true;
     }
   }

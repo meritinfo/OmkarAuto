@@ -393,6 +393,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetExpList")]
+        public async Task<IActionResult> GetExpList()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetExpList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
@@ -412,6 +426,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("TripMasterDelete")]
         public async Task<IActionResult> TripMasterDelete(RequestModel req)
@@ -1363,6 +1378,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetVendorDetails")]
+        public async Task<IActionResult> GetVendorDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetVendorDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("GetDailyLoadingRptList")]
@@ -1640,6 +1673,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetTyreNoCostAmt")]
+        public async Task<IActionResult> GetTyreNoCostAmt(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetTyreNoCostAmt(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("TyreDeActivateMasterSave")]
         public async Task<IActionResult> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel)
         {
@@ -1688,6 +1740,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreDeActivateMasterBusiness.TyreDeActivateMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyredeactivateVehicleTyreList")]
+        public async Task<IActionResult> GetTyredeactivateVehicleTyreList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreDeActivateMasterBusiness.GetTyredeactivateVehicleTyreList(req);
 
                 return Ok(result);
             }
@@ -1860,7 +1930,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetRegroupRecdMasterInnerGridList")]
+        [HttpPost("GetTyreRegroupRecdMasterInnerGridList")]
+        
         public async Task<IActionResult> GetTyreRegroupRecdMasterInnerGridList(RequestModel request)
         {
             if (request == null)

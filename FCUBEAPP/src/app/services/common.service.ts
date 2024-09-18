@@ -69,6 +69,9 @@ export class CommonService {
   getVehicleTypeGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeGroupList', null, this.httpOptions);
   } 
+  getVehicleTypeFltGroupList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeFltGroupList', null, this.httpOptions);
+  } 
  
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
@@ -127,6 +130,9 @@ export class CommonService {
   }
   getDriverList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverList', null, this.httpOptions);
+  }
+  getExpList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetExpList', null, this.httpOptions);
   }
   getCardledgerAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetCardledgerAcList', null, this.httpOptions);
@@ -256,6 +262,11 @@ export class CommonService {
   getTyrePositionList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePositionList', null, this.httpOptions);
   }
+
+  
+  getVendorDetails(filter: Requestmodel): Observable<Requestmodel> {
+    return this.httpClient.post<Requestmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorDetails', filter, this.httpOptions);
+  }  
 
   formatDate(date: string) {
     if(date == ''){

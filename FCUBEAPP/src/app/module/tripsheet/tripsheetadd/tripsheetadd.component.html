@@ -50,6 +50,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
@@ -88,7 +89,7 @@
                                             <div class="mb-4">
                                                 <label for="formrow-inputState">Driver</label><span style="color: red">*</span>    
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="driverList"
+                                                    <ng-autocomplete [data]="driverLists"
                                                         [searchKeyword]="keywordLocation" 
                                                         formControlName="driverMasterID"
                                                         (selected)='selectEvent($event)'
@@ -118,11 +119,131 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Defined Mileage</label>
+                                                <input class="form-control" decimalonly formControlName="definedMileage">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Closing KMR</label>
+                                                <input class="form-control" decimalonly formControlName="closingKMR"  (change)="onKmrChange()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Opening KMR</label>
+                                                <input class="form-control" decimalonly formControlName="openingKMR" (change)="onKmrChange()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Distance Trip KM</label>
+                                                <input class="form-control" decimalonly formControlName="distanceTripKM">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity"> Lts Dsl To Be</label>
+                                                <input class="form-control" decimalonly formControlName="ltsDslToBe">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Open Bal Dsl</label>
+                                                <input class="form-control" decimalonly formControlName="opBalDsl">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="color: red;">Route Details</h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
+                                        <tr>
+                                            <th><label for="formrow-inputZip">Load Branch</label></th>
+                                            <th><label for="formrow-inputZip">Load Date</label></th>
+                                            <th><label for="formrow-inputZip">Load Type</label></th>
+                                            <th><label for="formrow-inputZip">Load For</label></th>
+                                            <th><label for="formrow-inputZip">Load Memo No</label></th>
+                                            <th><label for="formrow-inputZip">Loading From</label></th>
+                                            <th><label for="formrow-inputZip">Consignor Name</label></th>
+                                            <th><label for="formrow-inputZip">Loading To</label></th>
+                                            <th><label for="formrow-inputZip">Consignee Name</label></th>
+                                            <th><label for="formrow-inputZip">Hire Amt</label></th>
+                                            <th><label for="formrow-inputZip">Adv Amt</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                        </tr>
+                                        <tr formArrayName="routeList"
+                                            *ngFor="let drv of formRouteArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadBranch">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="loadId">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="loadDate">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadType">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadFor">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadMemoNo">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadingFrom">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="consignorName">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadingTo">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="consigneeName">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="hireAmt">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="advAmt">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="remarks">
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -227,75 +348,44 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">Route Details</h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
+                                    <h4 class="card-title mb-4" style="color: red;">Driver Exp Details</h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputZip">Load Branch</label></th>
-                                            <th><label for="formrow-inputZip">Load Date</label></th>
-                                            <th><label for="formrow-inputZip">Load Type</label></th>
-                                            <th><label for="formrow-inputZip">Load For</label></th>
-                                            <th><label for="formrow-inputZip">Load Memo No</label></th>
-                                            <th><label for="formrow-inputZip">Loading From</label></th>
-                                            <th><label for="formrow-inputZip">Consignor Name</label></th>
-                                            <th><label for="formrow-inputZip">Loading To</label></th>
-                                            <th><label for="formrow-inputZip">Consignee Name</label></th>
-                                            <th><label for="formrow-inputZip">Hire Amt</label></th>
-                                            <th><label for="formrow-inputZip">Adv Amt</label></th>
-                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                            <th><label for="formrow-inputCity">Exp Id</label></th>
+                                            <th><label for="formrow-inputCity">Exp Particulars</label></th>
+                                            <th><label for="formrow-inputZip">Exp Amt</label></th>
+                                            <th><label for="formrow-inputZip">Action</label></th>
                                         </tr>
-                                        <tr formArrayName="routeList"
-                                            *ngFor="let drv of formRouteArray.controls; let k = index">
+                                        <tr formArrayName="expList"
+                                            *ngFor="let drv of formExpTypeArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
                                                 <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="loadBranch">
-                                                    <input type="hidden" class="form-control" 
-                                                    formControlName="loadId">
-                                                </td>
-                                                <td>
-                                                    <input type="date" class="form-control" 
-                                                    formControlName="loadDate">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="loadType">
+                                                   
+                                                    <select class="form-control" formControlName="expId" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['expId'].invalid) }" >
+                                                    <option *ngFor="let branch of expList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 
-                                                    formControlName="loadFor">
+                                                    formControlName="expParticulars">
+                                                   
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 
-                                                    formControlName="loadMemoNo">
+                                                    formControlName="expAmt">
                                                 </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="loadingFrom">
+                                                <td class="col-lg-2">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="k === formExpTypeArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(k)"></button>
+                                                        <button *ngIf="formExpTypeArray.controls.length > 1"
+                                                            (click)="removeItem(k)" class="btn btn-delete"></button>
+                                                    </div>                                        
                                                 </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="consignorName">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="loadingTo">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="consigneeName">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="hireAmt">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="advAmt">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="remarks">
-                                                </td>
+                                              
                                             </div>
                                         </tr>
                                     </table>
@@ -303,48 +393,11 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>   
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Defined Mileage</label>
-                                        <input class="form-control" decimalonly formControlName="definedMileage">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Closing KMR</label>
-                                        <input class="form-control" decimalonly formControlName="closingKMR">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Opening KMR</label>
-                                        <input class="form-control" decimalonly formControlName="openingKMR">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Distance Trip KM</label>
-                                        <input class="form-control" decimalonly formControlName="distanceTripKM">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity"> Lts Dsl To Be</label>
-                                        <input class="form-control" decimalonly formControlName="ltsDslToBe">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Open Bal Dsl</label>
-                                        <input class="form-control" decimalonly formControlName="opBalDsl">
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">

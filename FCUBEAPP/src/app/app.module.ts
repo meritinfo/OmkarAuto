@@ -343,7 +343,7 @@ import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/ve
 import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
 import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
-//import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
+import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
  import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
  import { Challanregisterrptmodel } from './models/challanregisterrptmodel';

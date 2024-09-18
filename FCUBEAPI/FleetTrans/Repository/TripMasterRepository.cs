@@ -143,6 +143,32 @@ namespace FleetTrans.Repository
                         }
                         if (responseModel.Status)
                         {
+                            for (int i = 0; i < tripMasterModel.ExpList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId",     MasterID),
+                                    new SqlParameter("@ExpId",  tripMasterModel.ExpList[i].ExpId),
+                                    new SqlParameter("@ExpParticulars",  tripMasterModel.ExpList[i].ExpParticulars),
+                                    new SqlParameter("@ExpAmt",  tripMasterModel.ExpList[i].ExpAmt),
+                                
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrExpDetailsSave", paramdr);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.ExpList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
                             for (int i = 0; i < tripMasterModel.DieselList.Count; i++)
                             {
                                 SqlParameter[] paramdr =
@@ -365,6 +391,22 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+                    //Trip DrExp Details
+                    //if (resultData != null && resultData.Tables[2].Rows.Count > 0)
+                    //{
+                    //    for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
+                    //    {
+                    //        tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
+                    //        {
+                    //            TripDtlId = Convert.ToString(resultData.Tables[2].Rows[i]["TripDtlId"]),
+                    //            TripId = Convert.ToString(resultData.Tables[2].Rows[i]["TripId"]),
+                    //            ExpId = Convert.ToString(resultData.Tables[2].Rows[i]["ExpId"]),
+                    //            ExpParticulars = Convert.ToString(resultData.Tables[2].Rows[i]["ExpParticulars"]),
+                    //            ExpAmt = Convert.ToString(resultData.Tables[2].Rows[i]["ExpAmt"])
+                             
+                    //        });
+                    //    }
+                    //}
                 }
             }
             catch (Exception ex)
@@ -380,6 +422,7 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
+                ExpList = new List<TripDrExpDetails>(),
             };
             try
             {
@@ -429,6 +472,22 @@ namespace FleetTrans.Repository
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 AdvAmt = Convert.ToString(resultData.Tables[1].Rows[i]["AdvAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+                    //Driver Exp Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
+                            {
+                                //TripDtlId = Convert.ToString(resultData.Tables[3].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
+                                ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[3].Rows[i]["ExpAmt"]),
+                         
                             });
                         }
                     }
@@ -527,8 +586,39 @@ namespace FleetTrans.Repository
             }
             return driverList;
         }
+        public async Task<List<DropDownListModel>> GetExpList()
+        {
+            List<DropDownListModel> expList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
 
-    
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDrExpList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            expList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return expList;
+        }
+
+
+
         public async Task<ResponseModel> GetNextTripNo(RequestModel request)
         {
             ResponseModel responseModel = new();
