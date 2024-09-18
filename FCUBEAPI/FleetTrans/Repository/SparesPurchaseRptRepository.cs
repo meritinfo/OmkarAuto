@@ -93,7 +93,7 @@ namespace FleetTrans.Repository
                             
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementRptExcel", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesPurchaseRptExcel", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

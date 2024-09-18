@@ -37,6 +37,7 @@ namespace FCUBEAPI.Controllers
         readonly ILRWithOutChallanRptBusiness lRWithOutChallanRptBusiness;
         readonly IUnBilledRptBusiness unBilledRptBusiness;
         readonly IChallanRegisterRptBusiness challanRegisterRptBusiness;
+        readonly ILhPayableStatusRptBusiness lhPayableStatusRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -59,7 +60,8 @@ namespace FCUBEAPI.Controllers
             IBookingRegisterRptBusiness _bookingRegisterRptBusiness,
             ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness,
             IUnBilledRptBusiness _unBilledRptBusiness,
-            IChallanRegisterRptBusiness _challanRegisterRptBusiness)
+            IChallanRegisterRptBusiness _challanRegisterRptBusiness,
+            ILhPayableStatusRptBusiness _lhPayableStatusRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -86,6 +88,7 @@ namespace FCUBEAPI.Controllers
             lRWithOutChallanRptBusiness = _lRWithOutChallanRptBusiness;
             unBilledRptBusiness = _unBilledRptBusiness;
             challanRegisterRptBusiness = _challanRegisterRptBusiness;
+            lhPayableStatusRptBusiness = _lhPayableStatusRptBusiness;
         }
 
         /// <summary>
@@ -1643,7 +1646,46 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+
+        [HttpPost("GetLhPayableStatusRptList")]
+        public async Task<IActionResult> GetLhPayableStatusRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lhPayableStatusRptBusiness.GetLhPayableStatusRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLhPayableStatusRptExcel")]
+        public async Task<IActionResult> GetLhPayableStatusRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lhPayableStatusRptBusiness.GetLhPayableStatusRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         //[HttpPost("GetBillsMasterList")]
