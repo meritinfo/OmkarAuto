@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Spares Purchase Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Lorry Hire Payable</h4>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,9 @@
                                     <select id="formrow-inputState" 
                                         formControlName="rptType" 
                                         class="form-control form-select ng-pristine ng-touched">
-                                        <option value="S"> Summary</option>
-                                        <option value="D"> Detail </option>
+                                        <option value="C"> Consolidated</option>
+                                        <option value="A"> Advance </option>
+                                        <option value="F"> Final </option>
                                     </select>
                                 </div>
                             </div>
@@ -157,29 +158,43 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
                             <tr>
-                                <th>branchName</th>
-                                <th>transDate </th>   
-                                <th>vendorName</th>
-                                <th>vendorInvNo </th>   
-                                <th>vendorGstNo</th>
-                                <th>gstType </th>  
-                                <th>itemAmount </th>
-                                <th>totBillAmt</th>                                                              
+                                <th>chStnName</th>
+                                <th>challanNo </th>   
+                                <th>challanDateTime</th>
+                                <th>chFromPlace </th>   
+                                 <th>chToPlace</th>
+                                <th>balPayAt </th>  
+                                <th>brokerName </th>
+                                <th>brokerMblNo</th>
+                                <th>truckNo</th>
+                                <th>hireAmt </th>   
+                                <th>hirePaid</th>
+                                <th>totDed</th>
+                                <th>extHamali</th>
+                                <th>extDeten</th>
+                                <th>extOth</th>                                                                
                             </tr>
                         </thead>
-                        <tbody *ngIf="allSparespurchaserptlist.sparesPurchaseRptList?.length != 0">
-                            <tr *ngFor="let eta of allSparespurchaserptlist.sparesPurchaseRptList">
-                                <td>{{ eta.branchName }}</td>
-                                <td>{{ eta.transDate }}</td> 
-                                <td>{{ eta.vendorName }}</td> 
-                                <td>{{ eta.vendorInvNo }}</td> 
-                                <td>{{ eta.vendorGstNo }}</td> 
-                                <td>{{ eta.gstType }}</td>
-                                <td>{{ eta.itemAmount }}</td>
-                                <td>{{ eta.totBillAmt }}</td>                                                                                 
+                        <tbody *ngIf="allLhpayablestatusrptlist.lhPayableStatusRptList?.length != 0">
+                            <tr *ngFor="let eta of allLhpayablestatusrptlist.lhPayableStatusRptList">
+                                <td>{{ eta.chStnName }}</td>
+                                <td>{{ eta.challanNo }}</td> 
+                                <td>{{ eta.challanDateTime }}</td> 
+                                <td>{{ eta.chFromPlace }}</td> 
+                                <td>{{ eta.chToPlace }}</td> 
+                                <td>{{ eta.balPayAt }}</td>
+                                <td>{{ eta.brokerName }}</td>
+                                <td>{{ eta.brokerMblNo }}</td>  
+                                <td>{{ eta.truckNo }}</td> 
+                                <td>{{ eta.hireAmt }}</td> 
+                                <td>{{ eta.hirePaid }}</td>
+                                <td>{{ eta.totDed }}</td>  
+                                <td>{{ eta.extHamali }}</td>    
+                                <td>{{ eta.extDeten }}</td>  
+                                <td>{{ eta.extOth }}</td>                                                  
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allSparespurchaserptlist.sparesPurchaseRptList?.length == 0">
+                        <tbody *ngIf="allLhpayablestatusrptlist.lhPayableStatusRptList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>

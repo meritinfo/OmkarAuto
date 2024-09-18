@@ -202,6 +202,7 @@ import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/veh
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
+import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 
 
 
@@ -483,10 +484,10 @@ const routes: Routes = [
   { path: 'vehicleadvbalreceiptadd', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },
-  { path: 'challanreg	', component: ChallanregisterrptComponent },  
-   
-   
-  
+  { path: 'challanreg', component: ChallanregisterrptComponent },  
+  { path: 'lhpayablerpt', component: LhpayablestatusrptComponent },  
+  { path: 'sparepurchrpt', component: SparespurchaserptComponent },  
+    
 ];
 
 @NgModule({

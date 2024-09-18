@@ -346,6 +346,8 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
  import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
+import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
+import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
 
 
 @NgModule({
@@ -457,7 +459,8 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
-    DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent,
+    DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
+    LhpayablestatusrptComponent,
     ChallanregisterrptComponent,
   ],
   imports: [
@@ -515,6 +518,7 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
   ],
   bootstrap: [AppComponent]

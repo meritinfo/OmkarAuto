@@ -1,6 +1,6 @@
- <div class="main-content">
+<div class="main-content">
     <div class="page-content">
-        <div class="container-fluid"> 
+        <div class="container-fluid">
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -30,43 +30,7 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Branch </label>
-                                    <select class="form-control" formControlName="branch">
-                                        
-                                            <option value="">All</option>
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
-                                </div>
-                            </div>  -->
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Party </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="partyList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="party" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>  -->
+                           
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -83,11 +47,9 @@
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter">
                                         </ng-autocomplete>
-
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>
                                         </ng-template>
-
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
@@ -108,11 +70,9 @@
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter">
                                         </ng-autocomplete>
-
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>
                                         </ng-template>
-
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
@@ -185,7 +145,6 @@
                     </table>
                 </div>
             </div>
-        </div>
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
