@@ -345,7 +345,6 @@ import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
- import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
  import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
