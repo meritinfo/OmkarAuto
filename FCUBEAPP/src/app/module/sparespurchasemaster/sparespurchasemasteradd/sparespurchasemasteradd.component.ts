@@ -214,14 +214,17 @@ export class SparespurchasemasteraddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
-     this.formUser.patchValue({
-      vendorName: item.dataName
+    this.formUser.patchValue({
+      vendorId:"",
+      vendorName: ""
     })
     this.requestmodel.strRequest = item.dataId;
     this.commonService.getVendorDetails(this.requestmodel).subscribe((res) => {
       this.formUser.patchValue({
         vendorAddress: res.strRequest,
         vendorGstNo: res.strRequest1,
+        vendorId:item,
+        vendorName: item.dataName
       })
     });  
 
@@ -318,7 +321,7 @@ export class SparespurchasemasteraddComponent {
       transDate: [''],
       spareLubId: [''],
       brandId: [''],
-      itemQty: [''],
+      itemQty: ['',],
       itemRate: [''],
       itemAmount: [''],
       sgstPct: [''],
@@ -576,6 +579,13 @@ export class SparespurchasemasteraddComponent {
         this.toastrService.warning(" Invalid Vendor");
         return;
       }
+    }
+    if (selectedDataValue.vehicleMasterId.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Invalid Vehicle");
+      return;
     }
     
   this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;

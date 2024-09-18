@@ -125,19 +125,19 @@ export class VehiclerepmaintaddComponent {
   this.formUser = this.formBuilder.group({
     transDate : new FormControl(this.loginDate,[Validators.required]),
     stockType : new FormControl('',),  
-    maintID : new FormControl('',),
-    vehicleMasterId : new FormControl('',),
+    maintID : new FormControl('',[Validators.required]),
+    vehicleMasterId : new FormControl('',[Validators.required]),
     maintType : new FormControl('',),
     kmReading : new FormControl('',),
     nonVendor : new FormControl('',),
     vendorId : new FormControl('',[Validators.required]),
-    vendorInvDt : new FormControl('',[Validators.required]),
+    vendorInvDt : new FormControl(this.loginDate,[Validators.required]),
     vendorInvNo : new FormControl('',),
     vendorName : new FormControl('',[Validators.required]),
     vendorAddress : new FormControl('',),
     vendorState : new FormControl('',),
     vendorGstNo : new FormControl('',),
-    gstType : new FormControl('',[Validators.required]),
+    gstType : new FormControl('NA',[Validators.required]),
     totItemAmount : new FormControl('',),
     totSgstAmt : new FormControl('',),
     totCgstAmt : new FormControl('',),
@@ -232,8 +232,20 @@ get f() { return this.formUser.controls; }
 get formTyreArray() {
 return this.formUser.get("arrayList") as FormArray;    
 }
+
 selectEvent(item: any) {
   // do something with selected item
+  this.formUser.patchValue({
+    vendorName: item.dataName
+  })
+  this.requestmodel.strRequest = item.dataId;
+  this.commonService.getVendorDetails(this.requestmodel).subscribe((res) => {
+    this.formUser.patchValue({
+      vendorAddress: res.strRequest,
+      vendorGstNo: res.strRequest1,
+    })
+  });  
+
 }
 
 onChangeSearch(search: string) {
@@ -285,6 +297,45 @@ changePmtType(e: any) {
   
   this.getCreditAcList(selectedValue);
 }
+changeStockType(e: any) {
+  console.log(e.target.value);
+  var stocktyp = e.target.value;   
+ 
+
+    if (stocktyp == "S") {   
+      this.formUser.controls['nonVendor'].disable();
+      this.formUser.controls['vendorId'].disable();
+      this.formUser.controls['vendorInvDt'].disable();
+      this.formUser.controls['vendorInvNo'].disable();
+      this.formUser.controls['vendorAddress'].disable();
+      this.formUser.controls['vendorState'].disable();
+      this.formUser.controls['vendorGstNo'].disable();
+      this.formUser.controls['vendorName'].disable();
+
+    }    
+    else   {
+      this.formUser.controls['nonVendor'].enable();
+      this.formUser.controls['vendorId'].enable();
+      this.formUser.controls['vendorInvDt'].enable();
+      this.formUser.controls['vendorInvNo'].enable();
+      this.formUser.controls['vendorAddress'].enable();
+      this.formUser.controls['vendorState'].enable();
+      this.formUser.controls['vendorGstNo'].enable();
+      this.formUser.controls['vendorName'].enable();
+      this.formUser.controls['vendorId'].clearValidators(); 
+      this.formUser.controls['vendorName'].clearValidators(); 
+      this.formUser.controls['vendorAddress'].clearValidators(); 
+      this.formUser.controls['vendorState'].clearValidators(); 
+      this.formUser.controls['vendorGstNo'].clearValidators(); 
+     
+    }
+    this.formUser.controls['vendorGstNo'].updateValueAndValidity();     
+    this.formUser.controls['vendorId'].updateValueAndValidity();   
+    this.formUser.controls['vendorName'].updateValueAndValidity();  
+     
+ 
+}
+
 onNoVendor(e: any) {
   if (e.target.checked){     
     this.formUser.controls['vendorId'].disable(); 
@@ -462,12 +513,13 @@ changeGstType(e: any) {
     this.formTyreArray.controls[i].get("igstAmt")?.setValue("0"); 
     this.formTyreArray.controls[i].get("itemAmt")?.setValue("0"); 
 
-    if (gsttype == "I") {   
+    if (gsttype == "IG") {   
       this.formTyreArray.controls[i].get("sgstPct")?.disable();   
       this.formTyreArray.controls[i].get("cgstPct")?.disable();  
       this.formTyreArray.controls[i].get("igstPct")?.enable();  
     }    
-    else if (gsttype == "S" || gsttype == "C")  {      
+   // else if (gsttype == "S" || gsttype == "C")  {      
+    else if (gsttype == "SC" )  {   
       this.formTyreArray.controls[i].get("sgstPct")?.enable();   
       this.formTyreArray.controls[i].get("cgstPct")?.enable();  
       this.formTyreArray.controls[i].get("igstPct")?.disable();  
@@ -480,6 +532,23 @@ changeGstType(e: any) {
   }    
   this.onPctChange()
 }
+onNeftChk(e:any){
+  if(e.target.checked){
+    this.formUser.controls['chequeNo'].clearValidators();      
+    this.formUser.controls['chequeDate'].clearValidators(); 
+    this.formUser.controls['chequeNo'].disable();      
+    this.formUser.controls['chequeDate'].disable(); 
+  }
+  else{      
+    this.formUser.controls['chequeNo'].setValidators([Validators.required]);
+    this.formUser.controls['chequeDate'].setValidators([Validators.required]);  
+    this.formUser.controls['chequeNo'].enable();      
+    this.formUser.controls['chequeDate'].enable(); 
+  }
+  this.formUser.controls['chequeNo'].updateValueAndValidity();
+  this.formUser.controls['chequeDt'].updateValueAndValidity();    
+}
+  
 getVehicleIdList(): void {
   this.commonService.getVehicleIdList().subscribe((res) => {
     this.vehicleList = res;
@@ -576,7 +645,7 @@ submitVehicleRepMaintMasterForm(): void {
     }
   }
   else{
-    if (selectedDataValue.vendorId.dataId) {
+    if (selectedDataValue.vendorId.dataId || selectedDataValue.stockType=='S') {
       //ignore
     }
     else{
@@ -584,11 +653,20 @@ submitVehicleRepMaintMasterForm(): void {
       return;
     }
   }
+  if (selectedDataValue.vehicleMasterId.dataId) {
+    //ignore
+  }
+  else{
+    this.toastrService.warning("Invalid Vehicle");
+    return;
+  }
+  
   
 this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
 this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
 this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
-this.vehiclerepmaintMaster.maintType= selectedDataValue.maintType;
+//this.vehiclerepmaintMaster.maintType= selectedDataValue.maintType;
+this.vehiclerepmaintMaster.maintID= selectedDataValue.maintID;
 //this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId;
 this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
 this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading;
@@ -611,6 +689,8 @@ this.vehiclerepmaintMaster.roundOff= selectedDataValue.roundOff.toString();
 this.vehiclerepmaintMaster.netAmount= selectedDataValue.netAmount.toString();;
 this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks;
 this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
+this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
+this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
 this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
 this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
 this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;

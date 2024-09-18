@@ -965,6 +965,21 @@ export class MraddComponent {
     }          
     
     var selectedDataVal=this.formUser.getRawValue();
+    if (selectedDataVal.partyCode.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Invalid Party Code");
+      return;
+    }
+    
+    if (selectedDataVal.mrDebitAc.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Invalid Account");
+      return;
+    }
 
     this.mrmodel.mrMasterId       = this.selectedMrDetails.mrMasterId ;
     this.mrmodel.mrStation        = selectedDataVal.mrStation ; 

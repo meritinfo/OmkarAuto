@@ -31,7 +31,7 @@
                                            
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="stockType">
+                                                formControlName="stockType"  (change)="changeStockType($event)">
                                                 <!-- <option value="NA">NA</option> -->
                                                 <option value="D">Direct </option>
                                                 <option value="S">Stock</option>  
@@ -41,9 +41,9 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Maint Type </label><span style="color: red">*</span> 
+                                            <label>Maint Desc </label><span style="color: red">*</span> 
                                            
-                                            <select class="form-control" formControlName="maintType"      
+                                            <select class="form-control" formControlName="maintID"      
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['maintType'].invalid) }">
                                                 <option *ngFor="let state of maintList" value={{state.dataId}}>
                                                    {{state.dataName}}
@@ -55,7 +55,7 @@
                                         <div class="mb-3">      
                                             <input type="checkbox" formControlName="nonVendor"  (change)="onNoVendor($event)"
                                             class="form-check-input"  >
-                                            <label for="nonVendor" class="form-check-label" > NonVendor
+                                            <label for="nonVendor" class="form-check-label" > Non Vendor
                                             </label>  
                                         </div>                                    
                                     </div>  
@@ -67,8 +67,8 @@
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="gstType">
                                                 <option value="NA">NA</option>
-                                                <option value="C">CGST</option>
-                                                <option value="S">SGST</option>  
+                                                <option value="C">CGST/Sgst</option>
+                                       
                                                 <option value="I">IGST</option>                                                                                            
                                             </select>
                                         </div>
@@ -109,7 +109,7 @@
                                    
                                     <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label>VendorId </label>
+                                            <label>Vendor</label>
                                           
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vendorList"
@@ -144,7 +144,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Vendor Inv Dt: </label><span style="color: red">*</span> 
+                                            <label>Vendor Inv Date: </label><span style="color: red">*</span> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             formControlName="vendorInvDt"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvDt'].invalid) }">
@@ -173,7 +173,7 @@
                                     </div>  
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>VendorState: </label><span style="color: red">*</span> 
+                                            <label>Vendor State: </label><span style="color: red">*</span> 
                                             <select class="form-control" formControlName="vendorState"      
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorState'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
@@ -185,7 +185,7 @@
                                     
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor GstNo: </label><span style="color: red">*</span> 
+                                            <label>Vendor Gst No: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vendorGstNo"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorGstNo'].invalid) }">
@@ -198,15 +198,15 @@
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="gstType" (change)="changeGstType($event)">
                                                 <option value="NA">NA</option>
-                                                <option value="C">CGST</option>
-                                                <option value="S">SGST</option>  
-                                                <option value="I">IGST</option>                                                                                            
+                                                <option value="SC">S/CGST</option>
+                                          
+                                                <option value="IG">IGST</option>                                                                                            
                                             </select>
                                         </div>
                                     </div> 
                                     <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">Vehicle</label>
+                                            <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>
                                            
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vehicleList"
@@ -248,7 +248,7 @@
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>SpareLubId </h6>
+                                                        <h6>Spare/Lube </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
@@ -467,7 +467,16 @@
                         </div> 
                       
                     </div>  
-                    <div class="row">                                                                        
+                    <div class="row">   
+                        <div class="col-lg-1">
+                            <div class="form-check">
+                                <input type="checkbox" formControlName="neftPmt" id="neft"
+                                    (change)="onNeftChk($event)"
+                                    name="neft"  class="form-check-input" value="Y" >
+                                <label for="neft" class="form-check-label" 
+                                style="color: green;"> Neft</label>
+                            </div>
+                        </div>                                                                       
                         <div class="col-lg-2">
                             <div class="mb-2">
                                 <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
@@ -490,6 +499,7 @@
                                 <select class="form-control" 
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                    <option value="">Choose</option>
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>
@@ -497,14 +507,21 @@
                             </div>
                         </div>        
                        
-                       
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Cheque No </label>
+                                <input  uppercaseonly type="text" class="form-control"
+                                formControlName="chequeNo">
+                            </div>
+                        </div> 
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label >Cheque Date </label>
                                 <input type="date"  autofocus="autofocus" class="form-control"
                                 formControlName="chequeDate">
                             </div>
-                        </div>   
+                        </div>  
+
                     </div> 
                     <div class="row">                                                               
                         <div class="col-sm-6">

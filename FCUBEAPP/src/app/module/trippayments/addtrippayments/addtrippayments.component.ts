@@ -380,6 +380,7 @@ export class AddtrippaymentsComponent {
       return;
     }
     var selectedDataValue = this.formTripPayment.getRawValue();
+    
     if (selectedDataValue.transType == "DA") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore

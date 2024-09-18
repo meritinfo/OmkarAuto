@@ -526,8 +526,16 @@ export class AdddocrenewalentryComponent {
       }
       return;
     }
+    
     this.sharedService.loading=true;
     var selectedDataVal=this.formDocEntry.getRawValue();
+    if (selectedDataVal.vehicleMasterId.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Invalid Vehicle");
+      return;
+    }
     var chqDt = this.loginDate;
     if (selectedDataVal.pmtType=="B"){
       chqDt = selectedDataVal.chequeDt == '' ? this.loginDate:selectedDataVal.chequeDt;
