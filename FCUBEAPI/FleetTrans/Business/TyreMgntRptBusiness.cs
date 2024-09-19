@@ -16,7 +16,7 @@ namespace FleetTrans.Business
         {
             tyreMgntRptRepository = _tyreMgntRptRepository;
         }
-        public async Task<TyrePurchaseMasterList> GetTyrePurchaseRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyrePurchaseRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyrePurchaseRptList(request);
         }
@@ -24,7 +24,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyrePurchaseRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreStockRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreStockRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreStockRptList(request);
         }
@@ -32,7 +32,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreStockRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreHistoryRptList(RequestModel request)
+        public async Task<TyreMgntReportList> GetTyreHistoryRptList(RequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreHistoryRptList(request);
         }
@@ -40,7 +40,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreHistoryRptExcel(request);
         }
-        public async Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetActiveTyreRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetActiveTyreRptList(request);
         }
@@ -48,7 +48,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetActiveTyreRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreActivatedRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreActivatedRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreActivatedRptList(request);
         }
@@ -56,7 +56,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreActivatedRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreDeActivatedRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreDeActivatedRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreDeActivatedRptList(request);
         }
@@ -64,7 +64,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreDeActivatedRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreReGroupIssRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreReGroupIssRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreReGroupIssRptList(request);
         }
@@ -72,7 +72,7 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreReGroupIssRptExcel(request);
         }
-        public async Task<TyreMasterList> GetTyreReGroupRcvdRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreReGroupRcvdRptList(ReportRequestModel request)
         {
             return await tyreMgntRptRepository.GetTyreReGroupRcvdRptList(request);
         }

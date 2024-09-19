@@ -24,10 +24,10 @@ namespace FleetTrans.Repository
             dbconnection = _dbconnection;
             sharedRepository = _sharedRepository;
         }
-        public async Task<TyrePurchaseMasterList> GetTyrePurchaseRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyrePurchaseRptList(ReportRequestModel request)
         {
-            TyrePurchaseMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseMasterModel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -42,7 +42,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@VendorId",           request.FilterStr),
-                            new SqlParameter("@RptType" ,           request.FilterStr1),                         
+                            new SqlParameter("@RptType" ,           request.FilterStr1),  
+                            new SqlParameter("@GstInputTaken" ,     request.FilterStr2),
+                            new SqlParameter("@BrandID" ,           request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseRptList", param);
                     int totalRecords = 0;
@@ -51,12 +53,19 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseMasterModel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                VendorName  = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
-                                VendorInvDt = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
-                                VendorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvNo"]),
-                                NetAmount   = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),                           
+                                BranchName      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
+                                PurchaseDate    = Convert.ToString(dataSet.Tables[0].Rows[i]["PurchaseDate"]),
+                                PurchaseType    = Convert.ToString(dataSet.Tables[0].Rows[i]["PurchaseType"]),
+                                VendorName      = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                VendorInvDt     = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
+                                VendorInvNo     = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvNo"]),
+                                TotalTyresAmt   = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalTyresAmt"]),
+                                TotalSgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSgstAmt"]),
+                                TotalCgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCgstAmt"]),
+                                TotalIgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalIgstAmt"]),
+                                NetAmount       = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),                           
                             });
                         }
 
@@ -85,12 +94,19 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
+                            new SqlParameter("@PageNumber",         request.PageNumber),
+                            new SqlParameter("@PageSize",           1000),
+                            new SqlParameter("@SortColumn",         request.SortColumn),
+                            new SqlParameter("@SortOrder",          request.SortOrder),
+                            new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@VendorId",           request.FilterStr),
                             new SqlParameter("@RptType" ,           request.FilterStr1),
+                            new SqlParameter("@GstInputTaken" ,     request.FilterStr2),
+                            new SqlParameter("@BrandID" ,           request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseRptExcel", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -100,7 +116,15 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = dt.Columns.Count-1;
+                            int colcnt = 0;
+                            if (request.FilterStr1=="S")
+                            {
+                                colcnt = 10;
+                            }
+                            else
+                            {
+                                colcnt = 12;
+                            }
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -134,17 +158,31 @@ namespace FleetTrans.Repository
 
                             if (request.FilterStr1=="S")
                             {
-                                ws.Cell(5, 1).Value = "Date";
-                                ws.Cell(5, 2).Value = "Invoice No";
-                                ws.Cell(5, 3).Value = "Amount";
+                                ws.Cell(5, 1).Value = "Branch";
+                                ws.Cell(5, 2).Value = "Purchase Date";
+                                ws.Cell(5, 3).Value = "Purchase Type";
+                                ws.Cell(5, 4).Value = "Invoice No";
+                                ws.Cell(5, 5).Value = "Invoice Date";
+                                ws.Cell(5, 6).Value = "Total Tyres Amt";
+                                ws.Cell(5, 7).Value = "Total Sgst Amt";
+                                ws.Cell(5, 8).Value = "Total Cgst Amt";
+                                ws.Cell(5, 9).Value = "Total Igst Amt";
+                                ws.Cell(5, 10).Value = "Net Amount";
                             }
                             else
                             {
-                                ws.Cell(5, 1).Value = "Date";
-                                ws.Cell(5, 2).Value = "Invoice No";
-                                ws.Cell(5, 3).Value = "Tyre No";
-                                ws.Cell(5, 4).Value = "Brand";
-                                ws.Cell(5, 5).Value = "Amount";
+                                ws.Cell(5, 1).Value = "Branch";
+                                ws.Cell(5, 2).Value = "Purchase Date";
+                                ws.Cell(5, 3).Value = "Purchase Type";
+                                ws.Cell(5, 4).Value = "Invoice No";
+                                ws.Cell(5, 5).Value = "Invoice Date";
+                                ws.Cell(5, 6).Value = "Tyre No";
+                                ws.Cell(5, 7).Value = "Brand Name";
+                                ws.Cell(5, 8).Value = "Tyres Amt";
+                                ws.Cell(5, 9).Value = "Sgst Amt";
+                                ws.Cell(5, 10).Value = "Cgst Amt";
+                                ws.Cell(5, 11).Value = "Igst Amt";
+                                ws.Cell(5, 12).Value = "Net Amount";
                             }
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
@@ -168,17 +206,32 @@ namespace FleetTrans.Repository
                                 }
                                 if (request.FilterStr1=="S")
                                 {
-                                    ws.Cell(row, 1).Value = dt.Rows[j]["VendorInvDt"].ToString();
-                                    ws.Cell(row, 2).Value = dt.Rows[j]["VendorInvNo"].ToString();
-                                    ws.Cell(row, 3).Value = dt.Rows[j]["NetAmount"].ToString();
+                                    ws.Cell(row, 1).Value = dt.Rows[j]["BranchName"].ToString();
+                                    ws.Cell(row, 2).Value = dt.Rows[j]["PurchaseDate"].ToString();
+                                    ws.Cell(row, 3).Value = dt.Rows[j]["purchaseType"].ToString();
+                                    ws.Cell(row, 4).Value = dt.Rows[j]["VendorInvNo"].ToString();
+                                    ws.Cell(row, 5).Value = dt.Rows[j]["VendorInvDt"].ToString();
+                                    ws.Cell(row, 6).Value = dt.Rows[j]["TotalTyresAmt"].ToString();
+                                    ws.Cell(row, 7).Value = dt.Rows[j]["TotalSgstAmt"].ToString();
+                                    ws.Cell(row, 8).Value = dt.Rows[j]["TotalCgstAmt"].ToString();
+                                    ws.Cell(row, 9).Value = dt.Rows[j]["TotalIgstAmt"].ToString();
+                                    ws.Cell(row, 10).Value = dt.Rows[j]["NetAmount"].ToString();
                                 }
                                 else
                                 {
-                                    ws.Cell(row, 1).Value = dt.Rows[j]["VendorInvDt"].ToString();
-                                    ws.Cell(row, 2).Value = dt.Rows[j]["VendorInvNo"].ToString();
-                                    ws.Cell(row, 3).Value = dt.Rows[j]["TyreNo"].ToString();
-                                    ws.Cell(row, 4).Value = dt.Rows[j]["Brand"].ToString();
-                                    ws.Cell(row, 5).Value = dt.Rows[j]["NetAmount"].ToString();
+
+                                    ws.Cell(row, 1).Value = dt.Rows[j]["BranchName"].ToString();
+                                    ws.Cell(row, 2).Value = dt.Rows[j]["PurchaseDate"].ToString();
+                                    ws.Cell(row, 3).Value = dt.Rows[j]["purchaseType"].ToString();
+                                    ws.Cell(row, 4).Value = dt.Rows[j]["VendorInvNo"].ToString();
+                                    ws.Cell(row, 5).Value = dt.Rows[j]["VendorInvDt"].ToString();
+                                    ws.Cell(row, 6).Value = dt.Rows[j]["TyreNo"].ToString();
+                                    ws.Cell(row, 7).Value = dt.Rows[j]["BrandName"].ToString();
+                                    ws.Cell(row, 8).Value = dt.Rows[j]["TotalTyresAmt"].ToString();
+                                    ws.Cell(row, 9).Value = dt.Rows[j]["TotalSgstAmt"].ToString();
+                                    ws.Cell(row, 10).Value = dt.Rows[j]["TotalCgstAmt"].ToString();
+                                    ws.Cell(row, 11).Value = dt.Rows[j]["TotalIgstAmt"].ToString();
+                                    ws.Cell(row, 12).Value = dt.Rows[j]["NetAmount"].ToString();
                                 }
                                 row++;
                             }
@@ -212,7 +265,13 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -221,10 +280,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreStockRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreStockRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -246,10 +305,10 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
                             });
                         }
 
@@ -394,6 +453,11 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -403,10 +467,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreHistoryRptList(RequestModel request)
+        public async Task<TyreMgntReportList> GetTyreHistoryRptList(RequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -422,14 +486,14 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
-                                TyrePattern = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreStatus"]),
-                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
-                                EstLifeKM = Convert.ToString(dataSet.Tables[0].Rows[i]["KM"]),
+                                TyreStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreStatus"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["KM"]),
                             });
                         }
 
@@ -551,7 +615,13 @@ namespace FleetTrans.Repository
 
                             response.Status = true;
                             response.Message = filename;
+
                         }
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -562,10 +632,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetActiveTyreRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -586,12 +656,12 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentVehicleNo"]),
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentStatusDate"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
                             });
                         }
 
@@ -727,6 +797,11 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -736,10 +811,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreActivatedRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreActivatedRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -753,6 +828,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreActivationRptList", param);
                     int totalRecords = 0;
@@ -761,12 +838,20 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ActivateDate"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                TyrePosition = Convert.ToString(dataSet.Tables[0].Rows[i]["TyrePosition"]),
+                                FittedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["FittedBy"]),
+                                InspectedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["InspectedBy"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["Kmr"]),
+                                NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmt"]),
+                                TotalTyresAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreCostAmt"]),
                             });
                         }
 
@@ -802,6 +887,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreActivationRptList", param);
 
@@ -813,7 +900,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = 4;
+                            int colcnt = 12;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -844,10 +931,18 @@ namespace FleetTrans.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            ws.Cell(5, 1).Value = "Tyre No";
-                            ws.Cell(5, 2).Value = "Activated Date";
-                            ws.Cell(5, 3).Value = "Vehicle No";
-                            ws.Cell(5, 4).Value = "Brand";
+                            ws.Cell(5, 1).Value = "Branch";
+                            ws.Cell(5, 2).Value = "Activate Date";
+                            ws.Cell(5, 3).Value = "Ref No";
+                            ws.Cell(5, 4).Value = "Vehicle No";
+                            ws.Cell(5, 5).Value = "Tyre No";
+                            ws.Cell(5, 6).Value = "Brand";
+                            ws.Cell(5, 7).Value = "Tyre Position";
+                            ws.Cell(5, 8).Value = "Fitted By";
+                            ws.Cell(5, 9).Value = "Inspected By";
+                            ws.Cell(5, 10).Value = "KMR";
+                            ws.Cell(5, 11).Value = "Net Amt";
+                            ws.Cell(5, 12).Value = "Tyres Amt";
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -855,14 +950,21 @@ namespace FleetTrans.Repository
 
                             int j = 0;
                             int row = 6;
-                            var VehicleNo = "";
 
                             for (j = 0; j < dt.Rows.Count; j++)
                             {
-                                ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["ActivateDate"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["VehicleNo"].ToString();
-                                ws.Cell(row, 4).Value = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 1).Value  = dt.Rows[j]["BranchName"].ToString();
+                                ws.Cell(row, 2).Value  = dt.Rows[j]["ActivateDate"].ToString();
+                                ws.Cell(row, 3).Value  = dt.Rows[j]["RefNo"].ToString();
+                                ws.Cell(row, 4).Value  = dt.Rows[j]["VehicleNo"].ToString();
+                                ws.Cell(row, 5).Value  = dt.Rows[j]["TyreNo"].ToString();
+                                ws.Cell(row, 6).Value  = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 7).Value  = dt.Rows[j]["TyrePosition"].ToString();
+                                ws.Cell(row, 8).Value  = dt.Rows[j]["FittedBy"].ToString();
+                                ws.Cell(row, 9).Value  = dt.Rows[j]["InspectedBy"].ToString();
+                                ws.Cell(row, 10).Value = dt.Rows[j]["Kmr"].ToString();
+                                ws.Cell(row, 11).Value = dt.Rows[j]["NetAmt"].ToString();
+                                ws.Cell(row, 12).Value = dt.Rows[j]["TyreCostAmt"].ToString();
 
                                 row++;
                             }
@@ -896,6 +998,11 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -905,10 +1012,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreDeActivatedRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreDeActivatedRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -922,6 +1029,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivationRptList", param);
                     int totalRecords = 0;
@@ -930,12 +1039,20 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeActivateDate"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                RemovedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["RemovedBy"]),
+                                InspectedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["InspectedBy"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["Kmr"]),
+                                UsableAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["UsableAmount"]),
+                                RemoveStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["RemoveStatus"]),
+                                Remarks= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
@@ -971,6 +1088,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivationRptList", param);
 
@@ -1013,10 +1132,18 @@ namespace FleetTrans.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            ws.Cell(5, 1).Value = "Tyre No";
-                            ws.Cell(5, 2).Value = "DeActivated Date";
-                            ws.Cell(5, 3).Value = "Vehicle No";
-                            ws.Cell(5, 4).Value = "Brand";
+                            ws.Cell(5, 1).Value = "Branch";
+                            ws.Cell(5, 2).Value = "Deactivate Date";
+                            ws.Cell(5, 3).Value = "Ref No";
+                            ws.Cell(5, 4).Value = "Vehicle No";
+                            ws.Cell(5, 5).Value = "Tyre No";
+                            ws.Cell(5, 6).Value = "Brand";
+                            ws.Cell(5, 7).Value = "Removed By";
+                            ws.Cell(5, 8).Value = "Inspected By";
+                            ws.Cell(5, 9).Value = "KMR";
+                            ws.Cell(5, 10).Value = "Usable Amt";
+                            ws.Cell(5, 11).Value = "Remove Status";
+                            ws.Cell(5, 12).Value = "Remarks";
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -1024,14 +1151,21 @@ namespace FleetTrans.Repository
 
                             int j = 0;
                             int row = 6;
-                            var VehicleNo = "";
 
                             for (j = 0; j < dt.Rows.Count; j++)
                             {
-                                ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["DeActivateDate"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["VehicleNo"].ToString();
-                                ws.Cell(row, 4).Value = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 1).Value  = dt.Rows[j]["BranchName"].ToString();
+                                ws.Cell(row, 2).Value  = dt.Rows[j]["DeActivateDate"].ToString();
+                                ws.Cell(row, 3).Value  = dt.Rows[j]["RefNo"].ToString();
+                                ws.Cell(row, 4).Value  = dt.Rows[j]["VehicleNo"].ToString();
+                                ws.Cell(row, 5).Value  = dt.Rows[j]["TyreNo"].ToString();
+                                ws.Cell(row, 6).Value  = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 7).Value  = dt.Rows[j]["RemovedBy"].ToString();
+                                ws.Cell(row, 8).Value  = dt.Rows[j]["InspectedBy"].ToString();
+                                ws.Cell(row, 9).Value  = dt.Rows[j]["Kmr"].ToString();
+                                ws.Cell(row, 10).Value = dt.Rows[j]["UsableAmount"].ToString();
+                                ws.Cell(row, 11).Value = dt.Rows[j]["RemoveStatus"].ToString();
+                                ws.Cell(row, 12).Value = dt.Rows[j]["Remarks"].ToString();
 
                                 row++;
                             }
@@ -1065,6 +1199,11 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -1074,10 +1213,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreReGroupIssRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreReGroupIssRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -1099,11 +1238,11 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssDate"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
                             });
                         }
 
@@ -1231,6 +1370,11 @@ namespace FleetTrans.Repository
 
                         }
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -1240,10 +1384,10 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        public async Task<TyreMasterList> GetTyreReGroupRcvdRptList(ReportRequestModel request)
+        public async Task<TyreMgntReportList> GetTyreReGroupRcvdRptList(ReportRequestModel request)
         {
-            TyreMasterList tyrePurchaseMasterList = new();
-            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            TyreMgntReportList tyrePurchaseMasterList = new();
+            List<TyreMgntReportModel> tyrePurchaseslist = new();
             try
             {
                 if (dbconnection != null)
@@ -1265,13 +1409,13 @@ namespace FleetTrans.Repository
                         totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdDate"]),
                                 TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupDoneYN"]),
-                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
-                                TyreAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupAmount"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                RegroupAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupAmount"]),
                             });
                         }
 
@@ -1402,6 +1546,11 @@ namespace FleetTrans.Repository
                             response.Message = filename;
 
                         }
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }

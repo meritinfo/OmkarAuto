@@ -10,21 +10,21 @@ namespace FleetTrans.Repository
 {
     public interface ITyreMgntRptRepository
     {
-        Task<TyrePurchaseMasterList> GetTyrePurchaseRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyrePurchaseRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyrePurchaseRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreStockRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyreStockRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreStockRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreHistoryRptList(RequestModel request);
+        Task<TyreMgntReportList> GetTyreHistoryRptList(RequestModel request);
         Task<ResponseModel> GetTyreHistoryRptExcel(RequestModel request);
-        Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetActiveTyreRptList(ReportRequestModel request);
         Task<ResponseModel> GetActiveTyreRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreActivatedRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyreActivatedRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreActivatedRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreDeActivatedRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyreDeActivatedRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreDeActivatedRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreReGroupIssRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyreReGroupIssRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreReGroupIssRptExcel(ReportRequestModel request);
-        Task<TyreMasterList> GetTyreReGroupRcvdRptList(ReportRequestModel request);
+        Task<TyreMgntReportList> GetTyreReGroupRcvdRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreReGroupRcvdRptExcel(ReportRequestModel request);
     }
 }

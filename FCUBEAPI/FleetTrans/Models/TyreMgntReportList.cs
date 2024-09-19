@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Models
 {
-    public class TyreMasterList
+    public class TyreMgntReportList
     {
-        public List<TyrePurchaseDtlListmodel> TyreList { get; set; }
+        public List<TyreMgntReportModel> TyreList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

@@ -14,7 +14,7 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
@@ -33,8 +33,7 @@
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                
+                            <div class="col-md-3">                                
                                 <div class="mb-3">
                                     <label>Vendor</label> <span style="color: red">*</span>                                       
                                     <div class="ng-autocomplete">
@@ -59,15 +58,38 @@
                                     </div>
                                 </div>
                             </div>
-                                 <div class="col-lg-2">
+                        </div>
+                        <div class="row">                            
+                            <div class="col-sm-2">                                    
+                                <div class="mb-3">  
+                                    <label for="basicpill-phoneno-input">GST Input Taken</label>
+                                    <select id="formrow-inputState" formControlName="gstInputTaken"
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="Y"> Yes</option>
+                                        <option value="N"> No </option>
+                                    </select>
+                                </div>                                    
+                            </div>  
+                            <div class="col-lg-2">
                                 <div class="mb-2">
                                     <label for="basicpill-phoneno-input">Report Type</label>
-                                    <select id="formrow-inputState" 
-                                        formControlName="rptType" 
+                                    <select id="formrow-inputState" formControlName="rptType" 
+                                        (change)="rptChange($event)" 
                                         class="form-control form-select ng-pristine ng-touched">
                                         <option value="S"> Summary</option>
                                         <option value="D"> Detail </option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2" *ngIf="rptType">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Tyre Brand</label>
+                                    <select class="form-control" formControlName="brandID"   
+                                        class="form-control form-select ng-pristine ng-touched"  >
+                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                {{vehi.dataName}}
+                                        </option>
+                                    </select>  
                                 </div>
                             </div>
                             <div class="col-lg-1">
@@ -79,7 +101,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
@@ -87,21 +109,36 @@
                     </div>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">               
+                <div class="overflow-x">
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
+                            <th>branchCode</th>
+                            <th>purchaseDate</th>
+                            <th>purchaseType</th>
                             <th>vendorName</th>
                             <th>vendorInvDt</th>
                             <th>vendorInvNo </th>  
+                            <th>totalTyresAmt </th>  
+                            <th>totalSgstAmt </th>  
+                            <th>totalCgstAmt </th>  
+                            <th>totalIgstAmt </th> 
                             <th>netAmount </th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
+                            <td>{{ eta.branchName }}</td>
+                            <td>{{ eta.purchaseDate }}</td>
+                            <td>{{ eta.purchaseType }}</td>
                             <td>{{ eta.vendorName }}</td>
                             <td>{{ eta.vendorInvDt }}</td> 
                             <td>{{ eta.vendorInvNo }}</td>
+                            <td>{{ eta.totalTyresAmt }}</td>
+                            <td>{{ eta.totalSgstAmt }}</td>
+                            <td>{{ eta.totalCgstAmt }}</td>
+                            <td>{{ eta.totalIgstAmt }}</td>
                             <td>{{ eta.netAmount }}</td>
                         </tr>
                     </tbody>
@@ -111,6 +148,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
         <!-- container-fluid -->

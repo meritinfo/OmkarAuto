@@ -11,7 +11,7 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
@@ -31,6 +31,44 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Tyre Brand</label>
+                                    <select class="form-control" formControlName="brandID"   
+                                        class="form-control form-select ng-pristine ng-touched"  >
+                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                {{vehi.dataName}}
+                                        </option>
+                                    </select>  
+                                </div>
+                            </div>
+                        </div>                            
+                        <div class="row">                                                                 
+                            <div class="col-lg-3">
+                                <div class="mb-2">
+                                    <label for="formrow-inputCity">Vehicle No.</label>                                                
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation" 
+                                            formControlName="vehicleMasterID" 
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" 
                                     (click)="search()"><span>Search</span></button>
@@ -39,7 +77,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
@@ -59,10 +97,18 @@
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
-                            <td>{{ eta.tyreModel }}</td>
-                            <td>{{ eta.tyreNo }}</td> 
+                            <td>{{ eta.branchName }}</td>
                             <td>{{ eta.purchaseDate }}</td>
-                            <td>{{ eta.brandID }}</td>
+                            <td>{{ eta.refNo }}</td>
+                            <td>{{ eta.vehicleNo }}</td>
+                            <td>{{ eta.tyreNo }}</td>
+                            <td>{{ eta.brandName }}</td> 
+                            <td>{{ eta.removedBy }}</td>
+                            <td>{{ eta.inspectedBy }}</td>
+                            <td>{{ eta.kmr }}</td>
+                            <td>{{ eta.usableAmount }}</td>
+                            <td>{{ eta.removeStatus }}</td>
+                            <td>{{ eta.remarks }}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">
