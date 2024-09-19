@@ -52,10 +52,10 @@
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
                             <td>{{ eta.purchaseDate }}</td>
-                            <td>{{ eta.tyrePattern }}</td> 
-                            <td>{{ eta.tyreModel }}</td> 
-                            <td>{{ eta.brandID }}</td> 
-                            <td>{{ eta.estLifeKM }}</td> 
+                            <td>{{ eta.tyreStatus }}</td> 
+                            <td>{{ eta.vehicleNo }}</td> 
+                            <td>{{ eta.brandName }}</td> 
+                            <td>{{ eta.kmr }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">

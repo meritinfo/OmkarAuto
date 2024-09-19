@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Tyrepurchasemasterlistmodel } from 'src/app/models/tyrepurchasemastermodellist';
+import { Tyremgntreportlist } from 'src/app/models/tyremgntreportlist';
 import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -25,6 +25,7 @@ export class TyrepurchaserptComponent {
   viewStatus = false; 
   vendorList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  brandList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -33,7 +34,7 @@ export class TyrepurchaserptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTyremgntRptlist: Tyrepurchasemasterlistmodel = new Tyrepurchasemasterlistmodel();
+  allTyremgntRptlist: Tyremgntreportlist = new Tyremgntreportlist();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -46,10 +47,11 @@ export class TyrepurchaserptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-}
+  }
 
   formFilter!: FormGroup;
   formSubmitted = false;
+  rptType= false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -122,18 +124,37 @@ export class TyrepurchaserptComponent {
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         vendorId: new FormControl('',),  
+        gstInputTaken: new FormControl('',),  
+        brandID: new FormControl('',),  
         rptType: new FormControl('S',), 
       });
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "S";
+      this.filter.filterStr2  = "";
+      this.filter.filterStr3  = "";
       this.getVendorList();
+      this.getBrandList();
 
       this.getTyreStatus();
       this.sharedService.loading=false;
     }
     
+    rptChange(e:any){      
+      if (e.target.value =="D"){
+        this.rptType = true;        
+      }
+      else{
+        this.rptType = false;     
+      }
+    }
+
+    getBrandList(): void {
+      this.commonService.getTyreBrandList().subscribe((res) => {
+        this.brandList = res;
+      });
+    }
     getVendorList(): void {
       this.commonService.getVendorList().subscribe((res) => {
         this.vendorList = res;
@@ -188,7 +209,19 @@ export class TyrepurchaserptComponent {
                 });
               });
           }, 
-          columns: [ 
+        columns: [ 
+          {
+            title: 'Branch',
+            data: 'branchName',
+          },  
+          {
+            title: 'Purchase Date',
+            data: 'purchaseDate',
+          },  
+          {
+            title: 'Purchase Type',
+            data: 'purchaseType',
+          },  
           {
             title: 'Vendor Name ',
             data: 'vendorName',
@@ -201,6 +234,22 @@ export class TyrepurchaserptComponent {
             title: 'Vendor Inv No',
             data: 'vendorInvNo',
           },
+          {
+            title: 'Tyres Amt ',
+            data: 'totalTyresAmt',
+          },  
+          {
+            title: 'Sgst Amt ',
+            data: 'totalSgstAmt',
+          },  
+          {
+            title: 'Cgst Amt ',
+            data: 'totalCgstAmt',
+          },  
+          {
+            title: 'Igst Amt ',
+            data: 'totalIgstAmt',
+          },  
           {
             title: 'Amount ',
             data: 'netAmount',
@@ -227,6 +276,8 @@ export class TyrepurchaserptComponent {
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.filterStr   = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
       this.filter.filterStr1  = selectedDataVal.rptType;
+      this.filter.filterStr2  = selectedDataVal.gstInputTaken;
+      this.filter.filterStr3  = selectedDataVal.rptType=="D"?selectedDataVal.brandID:"";
 
       this.tyremgntrptService.getTyrePurchaseRptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
@@ -258,6 +309,8 @@ export class TyrepurchaserptComponent {
     this.filter.toDate      = selectedDataVal.toDate;   
     this.filter.filterStr   = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
     this.filter.filterStr1  = selectedDataVal.rptType;
+    this.filter.filterStr2  = selectedDataVal.gstInputTaken;
+    this.filter.filterStr3  = selectedDataVal.rptType=="D"?selectedDataVal.brandID:"";
 
     this.sharedService.loading=true;
     this.getTyreStatus();

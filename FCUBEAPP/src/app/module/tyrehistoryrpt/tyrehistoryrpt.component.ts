@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Tyremasterlistmodel } from 'src/app/models/tyremasterlistmodel';
+import { Tyremgntreportlist } from 'src/app/models/tyremgntreportlist';
 import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -30,7 +30,7 @@ export class TyrehistoryrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
+  allTyremgntRptlist: Tyremgntreportlist = new Tyremgntreportlist();
   request: Requestmodel = new Requestmodel();
   formFilter!: FormGroup;
   formSubmitted = false;
@@ -148,19 +148,19 @@ export class TyrehistoryrptComponent {
         },  
         {
           title: 'Tyre Status',
-          data: 'tyrePattern',
+          data: 'tyreStatus',
         }, 
         {
           title: 'Vehicle No',
-          data: 'tyreModel',
+          data: 'vehicleNo',
         }, 
         {
           title: 'Brand Name',
-          data: 'brandID',
+          data: 'brandName',
         }, 
         {
           title: 'KM',
-          data: 'estLifeKM',
+          data: 'kmr',
         }, 
       ],
     };
