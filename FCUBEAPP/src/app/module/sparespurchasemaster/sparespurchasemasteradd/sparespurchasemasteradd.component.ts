@@ -137,6 +137,7 @@ export class SparespurchasemasteraddComponent {
       // auditedYN : new FormControl('',),
       // auditDate : new FormControl('',),
       refDocAttachedImage : new FormControl('',),
+      gstInputTaken : new FormControl('',),
       //branchCode : new FormControl('',),   
 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
@@ -580,13 +581,13 @@ export class SparespurchasemasteraddComponent {
         return;
       }
     }
-    if (selectedDataValue.vehicleMasterId.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning("Invalid Vehicle");
-      return;
-    }
+    // if (selectedDataValue.vehicleMasterId.dataId) {
+    //   //ignore
+    // }
+    // else{
+    //   this.toastrService.warning("Invalid Vehicle");
+    //   return;
+    // }
     
   this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
   this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
@@ -611,6 +612,7 @@ export class SparespurchasemasteraddComponent {
   this.sparespurchasemastermodel.pmtType= selectedDataValue.pmtType;
   this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
   this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
+  this.sparespurchasemastermodel.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
   this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
   //
   //this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;

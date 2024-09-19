@@ -50,6 +50,7 @@ namespace FleetTrans.Models
         public string? Stype { get; set; }
         public string? Mtype { get; set; }
         public string? Vehicle { get; set; }
+        public string? GstInputTaken { get; set; }
         public List<VehicleRepMaintDtlListmodel>? VehicleRepMaintDtlList { get; set; }
 
     }

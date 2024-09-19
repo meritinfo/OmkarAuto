@@ -78,12 +78,12 @@ ngOnInit(): void {
       
 
         {
-          title: 'Vehicle TypeDesc',
+          title: 'Vehicle Type Desc',
           data: 'vehicleTypeDesc',
         },
 
        {
-        title: 'VehicleTypeGroupId',
+        title: 'Vehicle Type Group',
         data: 'vehicleTypeGroupId',
       },
      

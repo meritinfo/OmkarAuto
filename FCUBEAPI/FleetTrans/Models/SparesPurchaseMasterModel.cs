@@ -40,6 +40,8 @@ namespace FleetTrans.Models
         public string? RefDocAttachedImage { get; set; }
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
+        public string? GstInputTaken { get; set; }
+        
         public string? LoggedInUser { get; set; }
    
         public List<SparesPurchaseDtlListmodel>? SparesPurchaseDtlList { get; set; }
