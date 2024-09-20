@@ -137,20 +137,20 @@ vehicleAdvanceBalList() {
       },
      
       {
-        title: 'TripsUptoDate',
+        title: 'Trips Upto Date',
         data: 'tripsUptoDate',
       }, 
       {
-        title: 'Vehicle',
+        title: 'Vehicle No',
         data: 'vehicleNo',
       }, 
       {
-        title: 'Cheq CashAmt',
+        title: 'Cheq Cash Amt',
         data: 'cheqCashAmt',
       },
      
       {
-        title: 'AmtRecd',
+        title: 'Amt Recd',
         data: 'amtRecd',
       },
       {
@@ -163,7 +163,7 @@ vehicleAdvanceBalList() {
         data: 'amtExtras',
       },
       {
-        title: 'Total AmtRecd',
+        title: 'Total Amt Recd',
         data: 'totalAmtRecd',
       },
      

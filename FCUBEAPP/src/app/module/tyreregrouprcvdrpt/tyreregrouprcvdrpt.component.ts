@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Tyremasterlistmodel } from 'src/app/models/tyremasterlistmodel';
+import { Tyremgntreportlist } from 'src/app/models/tyremgntreportlist';
 import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -30,7 +30,7 @@ export class TyreregrouprcvdrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
+  allTyremgntRptlist: Tyremgntreportlist = new Tyremgntreportlist();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -170,11 +170,11 @@ export class TyreregrouprcvdrptComponent {
         }, 
         {
           title: 'Brand',
-          data: 'brandID',
+          data: 'brandName',
         }, 
         {
           title: 'Regroup Amount',
-          data: 'tyreAmount',
+          data: 'regroupAmount',
         }, 
       ],
     };

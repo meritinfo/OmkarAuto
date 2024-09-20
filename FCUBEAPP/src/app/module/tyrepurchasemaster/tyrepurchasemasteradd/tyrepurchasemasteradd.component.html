@@ -18,7 +18,7 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Branch Code: </label>
+                                            <label>Branch : </label>
                                             <select class="form-control" formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
@@ -341,6 +341,7 @@
                                 <select class="form-control" 
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                    <option value="">Choose</option>
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>

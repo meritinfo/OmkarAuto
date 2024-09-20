@@ -278,6 +278,13 @@ submitFleetLoadEntryForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formFleetLoad.getRawValue();
+  if (selectedDataVal.vehicleMasterId.dataId) {
+    //ignore
+  }
+  else{
+    this.toasterService.warning("Invalid Vehicle");
+    return;
+  }
   this.formSubmitted = true;
   this.fleetLoadEntryModel.loadId = this.selectedFleetLoadEntryDetails.loadId ;
   //this.fleetLoadEntryModel.spareLubName  = selectedDataVal.spareLubName.toString().toUpperCase();

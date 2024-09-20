@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Tyremasterlistmodel } from 'src/app/models/tyremasterlistmodel';
+import { Tyremgntreportlist } from 'src/app/models/tyremgntreportlist';
 import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -24,13 +24,14 @@ export class TyredeactivatedrptComponent {
   deleteStatus = false;
   viewStatus = false; 
   brandList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
+  allTyremgntRptlist: Tyremgntreportlist = new Tyremgntreportlist();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -116,9 +117,17 @@ export class TyredeactivatedrptComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
+      brandID: new FormControl('',),
+      vehicleMasterID: new FormControl('',),
     });
     this.filter.fromDate = this.minDate;
     this.filter.toDate = this.loginDate;
+    this.filter.filterStr = "";
+    this.filter.filterStr1 = "";
+
+    this.getVehicleNoList();
+    this.getBrandList();
+
 
     this.sharedService.loading=true;
     this.getTyreStatus();
@@ -126,6 +135,39 @@ export class TyredeactivatedrptComponent {
   }
   
   get f() { return this.formFilter.controls; }
+
+  
+
+  getBrandList(): void {
+    this.commonService.getTyreBrandList().subscribe((res) => {
+      this.brandList = res;
+    });
+  }
+
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   getTyreStatus(){
     this.dtOptions = {
@@ -155,22 +197,54 @@ export class TyredeactivatedrptComponent {
               });
             });
         }, 
-      columns: [ 
+      columns: [  
+        {
+          title: 'Branch',
+          data: 'branchName',
+        },  
+        {
+          title: 'Deactivate Date',
+          data: 'purchaseDate',
+        },  
+        {
+          title: 'Ref No',
+          data: 'refNo',
+        },  
         {
           title: 'Vehicle No',
-          data: 'tyreModel',
+          data: 'vehicleNo',
         },  
         {
           title: 'Tyre No',
           data: 'tyreNo',
         },  
         {
-          title: 'Activated Date',
-          data: 'purchaseDate',
+          title: 'Brand',
+          data: 'brandName',
         }, 
         {
-          title: 'Brand',
-          data: 'brandID',
+          title: 'Removed By',
+          data: 'removedBy',
+        }, 
+        {
+          title: 'Inspected By',
+          data: 'inspectedBy',
+        },  
+        {
+          title: 'KMR',
+          data: 'kmr',
+        }, 
+        {
+          title: 'Usable Amt',
+          data: 'usableAmount',
+        },  
+        {
+          title: 'Remove Status',
+          data: 'removeStatus',
+        }, 
+        {
+          title: 'Remarks',
+          data: 'remarks',
         }, 
       ],
     };
@@ -192,6 +266,8 @@ export class TyredeactivatedrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr = selectedDataVal.vehicleMasterID.dataId;
+    this.filter.filterStr1 = selectedDataVal.brandID;
     
     this.tyremgntrptService.getTyreDeActivatedRptExcel(this.filter).subscribe(resp => {
       if(resp.status){      
@@ -221,6 +297,8 @@ export class TyredeactivatedrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr = selectedDataVal.vehicleMasterID.dataId;
+    this.filter.filterStr1 = selectedDataVal.brandID;
 
     this.sharedService.loading=true;
     this.getTyreStatus();

@@ -996,6 +996,21 @@ export class ChallanmasteraddComponent {
         return;
       }
     }
+    if (selectedDataValue.challanFromStn.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" From station is Invalid");
+      return;
+    }
+
+    if (selectedDataValue.challanToStn.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" To Station is Invalid");
+      return;
+    }
 
 
     this.formSubmitted = true;

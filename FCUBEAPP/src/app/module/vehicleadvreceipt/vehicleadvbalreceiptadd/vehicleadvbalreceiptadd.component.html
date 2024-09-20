@@ -76,7 +76,7 @@
                                    
                                     <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">Vehicle</label>
+                                            <label for="formrow-inputZip">Vehicle No</label>
                                            
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vehicleList"
@@ -123,7 +123,7 @@
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>VehicleMaster Id</h6>
+                                                        <h6>Vehicle No</h6>
                                                     </label>
                                                 </td>
                                                 <!-- <td class="col-lg-2">
@@ -164,7 +164,7 @@
                                                
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>DtlRemarks</h6>
+                                                        <h6>Dtl Remarks</h6>
                                                     </label>
                                                 </td>
                                               
@@ -269,7 +269,7 @@
                                   
                         <div class="col-sm-3">
                             <div class="mb-3">
-                                <label>Cheq CashAmt: </label><span style="color: red">*</span> 
+                                <label>Cheq Cash Amt: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="cheqCashAmt" decimalonly
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
@@ -285,7 +285,7 @@
                         </div>   
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <label>AmtDed: </label><span style="color: red">*</span> 
+                                <label>Amt Ded: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="amtDed" 
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['amtDed'].invalid) }">
@@ -293,7 +293,7 @@
                         </div>   
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <label>AmtTDS: </label><span style="color: red">*</span> 
+                                <label>Amt TDS: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="amtTDS" 
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['amtTDS'].invalid) }">

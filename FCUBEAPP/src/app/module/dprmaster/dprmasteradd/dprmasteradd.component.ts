@@ -445,7 +445,7 @@ export class DrpmasteraddComponent {
       //ignore
     }
     else{
-      this.toasterService.warning(" To Place is Invalid");
+      this.toasterService.warning("To Place is Invalid");
       return;
     }
 

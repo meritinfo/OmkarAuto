@@ -441,6 +441,13 @@ getVehicleadvbalreceiptInnerGridList(): void {
     }
   
     var selectedDataValue = this.formUser.getRawValue();
+    if (selectedDataValue.vehicleMasterId.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Invalid Vehicle");
+      return;
+    }
   
     
   this.vehicleadvbalreceiptModel.transId = this.selectedvehicleAdvBalReceiptDetail.transId ;
@@ -478,11 +485,20 @@ getVehicleadvbalreceiptInnerGridList(): void {
     // }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if (selectedDataValue.arrayList[i].vehicleMasterId.dataId) {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid vehicle  in grid");          
+      return;
+    }
       if (selectedDataValue.arrayList[i].vehicleMasterId == "" || selectedDataValue.arrayList[i].received=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
+    
       else{
+       
         this.vehicleadvbalreceiptModel.vehicleAdvBalReceiptDtlList.push({
           'transDtlId': "",
           'transId': "",

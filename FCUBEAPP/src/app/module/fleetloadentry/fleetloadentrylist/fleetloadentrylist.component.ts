@@ -101,7 +101,7 @@ export class FleetloadentrylistComponent {
               data: 'tripBrName',
             },
             {
-              title: 'LoadDate',
+              title: 'Load Date',
               data: 'loadDate',
             },
             {
@@ -150,11 +150,11 @@ export class FleetloadentrylistComponent {
               data: 'productId',
             },
             {
-              title: 'QtyWt',
+              title: 'Qty Wt',
               data: 'qtyWt',
             },
             {
-              title: 'qtyPkgs',
+              title: 'Qty Pkgs',
               data: 'qtyPkgs',
             },
             {
@@ -162,7 +162,7 @@ export class FleetloadentrylistComponent {
               data: 'ratePerTon',
             },
             {
-              title: 'HireAmt',
+              title: 'Hire Amt',
               data: 'hireAmt',
             },
             {

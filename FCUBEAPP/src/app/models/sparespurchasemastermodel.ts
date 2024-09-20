@@ -30,6 +30,7 @@ export class Sparespurchasemastermodel {
   refDocAttachedImage:  string="";
   branchCode:  string="";
   yearID:  string="";
+  gstInputTaken: string="";
   loggedInUser:  string="";
  
   sparesPurchaseDtlList: SparesPurchaseDtlListmodel[] = [];
