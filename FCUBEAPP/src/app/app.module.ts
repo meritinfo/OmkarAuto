@@ -348,6 +348,8 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
  import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
+import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
+import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 
 
 @NgModule({
@@ -462,6 +464,7 @@ import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
     LhpayablestatusrptComponent,
     ChallanregisterrptComponent,
+    VehiclerepairsrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -520,6 +523,7 @@ import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
     Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
+    Vehiclerepairsrptmodel,
   ],
   bootstrap: [AppComponent]
 })
