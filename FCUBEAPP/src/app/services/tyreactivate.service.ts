@@ -51,4 +51,12 @@ export class TyreactivateService {
   getTyreNoCostAmt(req:Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreNoCostAmt', req, this.httpOptions);
   }
+  
+  getVehicleTyrePositionList(req:Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleTyrePositionList', req, this.httpOptions);
+  }  
+  getVehicleNoOfTyres(req:Requestmodel): Observable<Dropdownmodel> {
+    return this.httpClient.post<Dropdownmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleNoOfTyres', req, this.httpOptions);
+  }
+  
 }

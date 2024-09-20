@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FreightMasters.Business;
 using Consignment.Business;
+using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1645,6 +1646,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreActivateMasterBusiness.GetTyrePositionList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleTyrePositionList")]
+        public async Task<IActionResult> GetVehicleTyrePositionList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetVehicleTyrePositionList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleNoOfTyres")]
+        public async Task<IActionResult> GetVehicleNoOfTyres(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetVehicleNoOfTyres(request);
 
                 return Ok(result);
             }

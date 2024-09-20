@@ -295,6 +295,61 @@ namespace FleetTrans.Repository
             }
             return BrandList;
         }
+
+        public async Task<List<DropDownListModel>> GetVehicleTyrePositionList(RequestModel request)
+        {
+            List<DropDownListModel> BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = {
+                        new SqlParameter("@VehicleMasterId", request.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleTyrePositionList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            BrandList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return BrandList;
+        }
+        public async Task<DropDownListModel> GetVehicleNoOfTyres(RequestModel request)
+        {
+            DropDownListModel BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = {
+                        new SqlParameter("@VehicleMasterId", request.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleNoOfTyres", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        BrandList.DataId = Convert.ToString(statusData.Tables[0].Rows[0]["DataId"]);
+                        BrandList.DataName = Convert.ToString(statusData.Tables[0].Rows[0]["DataName"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return BrandList;
+        }
         public async Task<List<DropDownListModel>> GetBrandTyreNoList(RequestModel request)
         {
             List<DropDownListModel> BrandList = new();
