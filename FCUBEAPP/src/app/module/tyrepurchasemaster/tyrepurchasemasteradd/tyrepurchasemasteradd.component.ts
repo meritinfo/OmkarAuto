@@ -131,7 +131,7 @@ export class TyrepurchasemasteraddComponent {
       roundOff : new FormControl('',),
       netAmount : new FormControl('',[Validators.required]),
       remarks : new FormControl('',),
-      pmtType : new FormControl('M',[Validators.required]),
+      pmtType : new FormControl('',[Validators.required]),
       neftPmt : new FormControl('',[Validators.required]),
       creditAc : new FormControl('',[Validators.required]),
       chequeNo : new FormControl('',),
@@ -166,7 +166,9 @@ export class TyrepurchasemasteraddComponent {
 
     this.formUser.controls['vendorGstNo'].clearValidators(); 
     this.formUser.controls['vendorGstNo'].updateValueAndValidity();
-    
+    if (this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '') {      
+      this.getCreditAcList(this.selectedTyrePurchaseMasterDetail.pmtType);
+    }
 
     if (this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '') {
       setTimeout(() => {

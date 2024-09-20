@@ -33,7 +33,7 @@
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="stockType"  (change)="changeStockType($event)">
                                                 <!-- <option value="NA">NA</option> -->
-                                                <option value="D">Direct </option>
+                                                <option value="D">Direct</option>
                                                 <option value="S">Stock</option>  
                                                                                                                                           
                                             </select>
@@ -137,7 +137,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor Inv No: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
+                                            <input type="text"  uppercaseonly class="form-control" 
                                             formControlName="vendorInvNo" 
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvNo'].invalid) }">
                                         </div>
@@ -204,6 +204,15 @@
                                             </select>
                                         </div>
                                     </div> 
+                                    <div class="col-lg-1">
+                                        <div class="form-check">
+                                            <input type="checkbox" formControlName="gstInputTaken" id="gstInputTaken"
+                                                
+                                                name="gstInput"  class="form-check-input" >
+                                            <label for="gstInput" class="form-check-label" 
+                                            > Gst Input Taken</label>
+                                        </div>
+                                    </div>     
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>
@@ -244,7 +253,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table ">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-tyre-width">
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
@@ -344,15 +353,15 @@
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="itemQty"  (change)="onPctChange()"> 
+                                                        formControlName="itemQty" decimalonly  (change)="onPctChange()"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="itemRate"  (change)="onPctChange()"> 
+                                                        formControlName="itemRate" decimalonly (change)="onPctChange()"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="itemAmount" (change)="onPctChange()"> 
+                                                        formControlName="itemAmount" decimalonly (change)="onPctChange()"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"

@@ -78,7 +78,8 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
-                         
+                                GstInputTaken = Convert.ToString(dataSet.Tables[0].Rows[i]["GstInputTaken"]),
+
                                 //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
                             });
                         }
@@ -267,7 +268,10 @@ namespace FleetTrans.Repository
                                  new SqlParameter( "@RefDocAttachedImage", sparesPurchaseMasterModel.RefDocAttachedImage ),
                                  new SqlParameter( "@BranchCode", sparesPurchaseMasterModel.BranchCode ),
                                  new SqlParameter( "@YearID", sparesPurchaseMasterModel.YearID ),
+                                 new SqlParameter( "@GstInputTaken", sparesPurchaseMasterModel.GstInputTaken ),
                                  new SqlParameter( "@LoggedInUser", sparesPurchaseMasterModel.LoggedInUser ),
+                                
+                                 
                      };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesPurchaseMasterSave", param);
                     string SpTransId = "0";

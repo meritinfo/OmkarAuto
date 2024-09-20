@@ -132,7 +132,7 @@ export class VehiclerepmaintaddComponent {
     nonVendor : new FormControl('',),
     vendorId : new FormControl('',[Validators.required]),
     vendorInvDt : new FormControl(this.loginDate,[Validators.required]),
-    vendorInvNo : new FormControl('',),
+    vendorInvNo : new FormControl('',[Validators.required]),
     vendorName : new FormControl('',[Validators.required]),
     vendorAddress : new FormControl('',),
     vendorState : new FormControl('',),
@@ -146,12 +146,13 @@ export class VehiclerepmaintaddComponent {
     otherAmount : new FormControl('',),     
     roundOff : new FormControl('',),     
     remarks : new FormControl('',),  
-    pmtType : new FormControl('',),  
+    pmtType : new FormControl('',[Validators.required]),  
     neftPmt : new FormControl('',),  
-    creditAc : new FormControl('',),  
+    creditAc : new FormControl('',[Validators.required]),  
     chequeDate : new FormControl('',),
     chequeNo : new FormControl('',),
     netAmount  : new FormControl('',),
+    gstInputTaken : new FormControl('',),
     
     refDocAttachedImage : new FormControl('',),
     branchCode : new FormControl('',),   
@@ -183,6 +184,9 @@ export class VehiclerepmaintaddComponent {
   this.formUser.controls["totIgstAmt"].disable();
   this.formUser.controls["netAmount"].disable();  
   this.formUser.controls['totItemNetAmount'].disable(); 
+  if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {      
+    this.getCreditAcList(this.selectedvehiclerepmaintMasterDetail.pmtType);
+  }
 
   if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {
     setTimeout(() => {
@@ -301,7 +305,17 @@ changeStockType(e: any) {
   console.log(e.target.value);
   var stocktyp = e.target.value;   
  
-
+  this.formUser.patchValue({
+    nonVendor: "",
+    vendorId: "",
+    vendorInvDt: "",
+    vendorInvNo: "",
+    vendorAddress: "",
+    vendorState: "",
+    vendorGstNo: "",
+    vendorName: "",
+    gstType: "NA",
+  })
     if (stocktyp == "S") {   
       this.formUser.controls['nonVendor'].disable();
       this.formUser.controls['vendorId'].disable();
@@ -311,6 +325,15 @@ changeStockType(e: any) {
       this.formUser.controls['vendorState'].disable();
       this.formUser.controls['vendorGstNo'].disable();
       this.formUser.controls['vendorName'].disable();
+      this.formUser.controls['gstInputTaken'].disable();
+      this.formUser.patchValue({
+    
+        pmtType:"A",
+        creditAc:"",
+      })
+      this.formUser.controls['pmtType'].disable();
+
+
 
     }    
     else   {
@@ -322,16 +345,28 @@ changeStockType(e: any) {
       this.formUser.controls['vendorState'].enable();
       this.formUser.controls['vendorGstNo'].enable();
       this.formUser.controls['vendorName'].enable();
+      this.formUser.controls['gstType'].enable();
       this.formUser.controls['vendorId'].clearValidators(); 
       this.formUser.controls['vendorName'].clearValidators(); 
       this.formUser.controls['vendorAddress'].clearValidators(); 
       this.formUser.controls['vendorState'].clearValidators(); 
       this.formUser.controls['vendorGstNo'].clearValidators(); 
+      this.formUser.controls['gstType'].clearValidators(); 
+      this.formUser.patchValue({
+    
+        pmtType:"",
+        creditAc:"",
+        vendorInvDt: this.loginDate,
+      })
+      this.formUser.controls['pmtType'].enable();
      
     }
     this.formUser.controls['vendorGstNo'].updateValueAndValidity();     
     this.formUser.controls['vendorId'].updateValueAndValidity();   
     this.formUser.controls['vendorName'].updateValueAndValidity();  
+    this.formUser.controls['vendorAddress'].updateValueAndValidity(); 
+    this.formUser.controls['gstType'].updateValueAndValidity(); 
+  
      
  
 }
@@ -370,9 +405,13 @@ getCreditAcList(pmttp:string): void {
     // });
   });
   if (pmttp == 'B'){
+    this.formUser.controls['neftPmt'].enable();
+    this.formUser.controls['chequeNo'].enable();
     this.formUser.controls['chequeDate'].enable();
   }
   else {
+    this.formUser.controls['neftPmt'].disable();
+    this.formUser.controls['chequeNo'].disable();
     this.formUser.controls['chequeDate'].disable();
   }
 }
@@ -383,8 +422,8 @@ createVehicleArray() {
     transDate: [''],
     spareLubId: [''],
     brandId: [''],
-    itemQty: [''],
-    itemRate: [''],
+    itemQty: ['' ,[Validators.required]],
+    itemRate: ['',[Validators.required]],
     itemAmount: [''],
     sgstPct: [''],
     sgstAmt: [''],
@@ -690,6 +729,7 @@ this.vehiclerepmaintMaster.netAmount= selectedDataValue.netAmount.toString();;
 this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks;
 this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
 this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
+this.vehiclerepmaintMaster.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
 this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
 this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
 this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
@@ -727,7 +767,7 @@ this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
         'igstPct': selectedDataValue.arrayList[i].igstPct,
         'igstAmt': selectedDataValue.arrayList[i].igstAmt,
         'netAmount': selectedDataValue.arrayList[i].netAmount,
-        'remarks': selectedDataValue.arrayList[i].remarks,        
+        'remarks': selectedDataValue.arrayList[i].remarks.toString().toLowerCase(),        
       }) 
     }   
   } 

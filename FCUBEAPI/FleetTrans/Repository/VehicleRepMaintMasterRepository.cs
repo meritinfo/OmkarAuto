@@ -86,7 +86,8 @@ namespace FleetTrans.Repository
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
                                 Stype = Convert.ToString(dataSet.Tables[0].Rows[i]["Stype"]),
-                               // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
+                                GstInputTaken = Convert.ToString(dataSet.Tables[0].Rows[i]["GstInputTaken"]),
+                                // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }
 
@@ -248,7 +249,9 @@ namespace FleetTrans.Repository
                                  new SqlParameter("@RefDocAttachedImage",vehicleRepMaintMasterModel.RefDocAttachedImage ),
                                  new SqlParameter("@BranchCode",vehicleRepMaintMasterModel.BranchCode ),
                                  new SqlParameter("@YearID",vehicleRepMaintMasterModel.YearID ),
+                                 new SqlParameter("@GstInputTaken",vehicleRepMaintMasterModel.GstInputTaken),
                                  new SqlParameter("@LoggedInUser",vehicleRepMaintMasterModel.LoggedInUser ),
+
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleRepMaintMasterSave", param);
                     string VrmTransId = "0";
@@ -312,6 +315,7 @@ namespace FleetTrans.Repository
                              new SqlParameter("@IgstAmt",vehicleRepMaintDtlListmodel.IgstAmt),
                              new SqlParameter("@NetAmount",vehicleRepMaintDtlListmodel.NetAmount),
                              new SqlParameter("@Remarks",vehicleRepMaintDtlListmodel.Remarks),
+                           
 
                         };
 

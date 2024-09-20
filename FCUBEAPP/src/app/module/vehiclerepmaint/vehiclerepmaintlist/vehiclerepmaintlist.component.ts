@@ -137,10 +137,10 @@ vehicleMaintList() {
         data: 'stype',
       },
      
-      {
-        title: 'Maint Type',
-        data: 'maintType',
-      }, 
+      // {
+      //   title: 'Maint Type',
+      //   data: 'maintType',
+      // }, 
       {
         title: 'Km Reading',
         data: 'kmReading',
@@ -156,11 +156,11 @@ vehicleMaintList() {
       
       
       {
-        title: 'Vendor InvDate',
+        title: 'Vendor Inv Date',
         data: 'vendorInvDt',
       }, 
       {
-        title: 'VendorInvNo',
+        title: 'Vendor Inv No',
         data: 'vendorInvNo',
       }, 
       {
