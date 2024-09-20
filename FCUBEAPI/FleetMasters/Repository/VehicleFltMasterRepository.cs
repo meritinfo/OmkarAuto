@@ -86,44 +86,64 @@ namespace FleetMasters.Repository
                            new SqlParameter("@Attach2Link", vehicleFltMasterModel.Attach2Link),
                            new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
                            new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
+                             new SqlParameter("@AdBlueMileageLt", vehicleFltMasterModel.AdBlueMileageLt),
                            new SqlParameter("@DeleteFlag", 'N'),
                            new SqlParameter("@LoggedInUser", vehicleFltMasterModel.LoggedInUser)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltMasterSave", param);
-                    string VehiMasterID = "0";
+                    //        string VehiMasterID = "0";
+                    //        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    //        {
+                    //            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    //            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    //            VehiMasterID = Convert.ToString(responseModel.Message);
+                    //            if (!responseModel.Status) { transaction.Rollback(); }
+                    //        }
+                    //        else
+                    //        {
+                    //            responseModel.Status = false;
+                    //            transaction.Rollback();
+                    //        }
+                    //        if (responseModel.Status)
+                    //        {
+                    //            for (int i = 0; i < vehicleFltMasterModel.VehiclefltDetailList.Count; i++)
+                    //            {
+                    //                vehicleFltMasterModel.VehiclefltDetailList[i].Index = i.ToString();
+                    //                vehicleFltMasterModel.VehiclefltDetailList[i].VehicleMasterID=VehiMasterID.ToString();
+                    //                responseModel = await VehicleFltDtlsSave( transaction, vehicleFltMasterModel.VehiclefltDetailList[i]);
+                    //                if (!responseModel.Status) 
+                    //                { 
+                    //                    transaction.Rollback();
+                    //                    i = vehicleFltMasterModel.VehiclefltDetailList.Count;
+                    //                }
+                    //            }
+                    //        }
+                    //        if (responseModel.Status)
+                    //        {
+                    //            transaction.Commit();
+                    //        }
+                    //        else
+                    //        {
+                    //            transaction.Rollback();
+                    //        }
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    transaction.Rollback();
+                    //}
+                    //return responseModel;
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        VehiMasterID = Convert.ToString(responseModel.Message);
-                        if (!responseModel.Status) { transaction.Rollback(); }
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                    if (responseModel.Status)
-                    {
-                        for (int i = 0; i < vehicleFltMasterModel.VehiclefltDetailList.Count; i++)
-                        {
-                            vehicleFltMasterModel.VehiclefltDetailList[i].Index = i.ToString();
-                            vehicleFltMasterModel.VehiclefltDetailList[i].VehicleMasterID=VehiMasterID.ToString();
-                            responseModel = await VehicleFltDtlsSave( transaction, vehicleFltMasterModel.VehiclefltDetailList[i]);
-                            if (!responseModel.Status) 
-                            { 
-                                transaction.Rollback();
-                                i = vehicleFltMasterModel.VehiclefltDetailList.Count;
-                            }
-                        }
-                    }
-                    if (responseModel.Status)
-                    {
-                        transaction.Commit();
-                    }
-                    else
-                    {
                         transaction.Rollback();
                     }
                 }
@@ -133,6 +153,7 @@ namespace FleetMasters.Repository
                 transaction.Rollback();
             }
             return responseModel;
+
         }
 
         public async Task<ResponseModel> VehicleFltDtlsSave(SqlTransaction transaction, VehicleFltDtlsModel vehicleFltDtlsModel)
@@ -250,7 +271,7 @@ namespace FleetMasters.Repository
                         {
                             VehiclefltList.Add(new VehicleFltMasterModel
                             {
-                                VehicleMasterID= Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
                                 VehicleTypeID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeID"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 FleetStation = Convert.ToString(dataSet.Tables[0].Rows[i]["FleetStation"]),
@@ -302,6 +323,7 @@ namespace FleetMasters.Repository
                                 Attach2Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach2Link"]),
                                 Attach3Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Desc"]),
                                 Attach3Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Link"]),
+                                AdBlueMileageLt = Convert.ToString(dataSet.Tables[0].Rows[i]["AdBlueMileageLt"]),
                             });
                         }
 
@@ -492,7 +514,7 @@ namespace FleetMasters.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return VehicalLedgerList; 
+            return VehicalLedgerList;
         }
 
         /// <summary>
@@ -580,7 +602,7 @@ namespace FleetMasters.Repository
             }
             return VehicalMfrList;
         }
-        
+
         public async Task<ResponseModel> ChkVehicalNoExist(RequestModel req)
         {
             ResponseModel responseModel = new();
@@ -647,14 +669,14 @@ namespace FleetMasters.Repository
                         {
                             vehicleFltMasterModel.VehiclefltDetailList.Add(new VehicleFltDtlsModel
                             {
-                               // DetailID        = Convert.ToString(resultData.Tables[0].Rows[i]["DetailID"]),
+                                // DetailID        = Convert.ToString(resultData.Tables[0].Rows[i]["DetailID"]),
                                 VehicleMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleMasterID"]),
-                                ValidFrom       = Convert.ToString(resultData.Tables[0].Rows[i]["ValidFrom"]),
-                                ValidTo         = Convert.ToString(resultData.Tables[0].Rows[i]["ValidTo"]),
-                                VehicleAvgLoad  = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleAvgLoad"]),
+                                ValidFrom = Convert.ToString(resultData.Tables[0].Rows[i]["ValidFrom"]),
+                                ValidTo = Convert.ToString(resultData.Tables[0].Rows[i]["ValidTo"]),
+                                VehicleAvgLoad = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleAvgLoad"]),
                                 VehicleAvgEmpty = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleAvgEmpty"]),
-                                AdBlue          = Convert.ToString(resultData.Tables[0].Rows[i]["AdBlue"]),
-                               
+                                AdBlue = Convert.ToString(resultData.Tables[0].Rows[i]["AdBlue"]),
+
                             });
                         }
                     }

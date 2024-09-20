@@ -150,6 +150,7 @@ export class VehiclemasteraddComponent {
       attach3Link: new FormControl(''),
       userBranch: new FormControl(''),
       userBranch2: new FormControl(''),
+      adBlueMileageLt: new FormControl(''),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])
 
@@ -540,29 +541,30 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc.toString().toUpperCase();
+    this.vehiclefltmastermodel.adBlueMileageLt       = selectedDataValue.adBlueMileageLt;
     this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
 
-    this.vehiclefltmastermodel.vehiclefltDetailList = [];
+    // this.vehiclefltmastermodel.vehiclefltDetailList = [];
 
-    for (var i = 0; i < this.formVehicleMaster.value.arrayList.length; i++) {
-      if (this.formVehicleMaster.value.arrayList[i].validFrom != '') {
-        //Start date end date validation
-        if (Date.parse(selectedDataValue.arrayList[i].validTo) < Date.parse(selectedDataValue.arrayList[i].validFrom)) {
-          this.toasterService.warning("Valid To date should be greter than Valid From date");
-          return;
-        }
+    // for (var i = 0; i < this.formVehicleMaster.value.arrayList.length; i++) {
+    //   if (this.formVehicleMaster.value.arrayList[i].validFrom != '') {
+    //     //Start date end date validation
+    //     if (Date.parse(selectedDataValue.arrayList[i].validTo) < Date.parse(selectedDataValue.arrayList[i].validFrom)) {
+    //       this.toasterService.warning("Valid To date should be greter than Valid From date");
+    //       return;
+    //     }
 
-        this.vehiclefltmastermodel.vehiclefltDetailList.push({
-          //'detailID': '',
-          'vehicleMasterID': '',
-          'validFrom': selectedDataValue.arrayList[i].validFrom,
-          'validTo': selectedDataValue.arrayList[i].validTo,
-          'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad.toString(),
-          'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty.toString(),
-          'adBlue': selectedDataValue.arrayList[i].adBlue.toString(),
-        })
-      }      
-    }
+    //     this.vehiclefltmastermodel.vehiclefltDetailList.push({
+    //       //'detailID': '',
+    //       'vehicleMasterID': '',
+    //       'validFrom': selectedDataValue.arrayList[i].validFrom,
+    //       'validTo': selectedDataValue.arrayList[i].validTo,
+    //       'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad.toString(),
+    //       'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty.toString(),
+    //       'adBlue': selectedDataValue.arrayList[i].adBlue.toString(),
+    //     })
+    //   }      
+    // }
     
     this.formSubmitted = true;
     let formData = new FormData();

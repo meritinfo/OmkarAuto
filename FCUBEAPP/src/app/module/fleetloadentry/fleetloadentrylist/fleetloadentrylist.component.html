@@ -24,10 +24,33 @@
                 <div class="col-sm-8 col-md-8">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <!-- <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Classification</label>
-                                    <input type="text" class="form-control" formControlName="classDesc">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>  
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Party (Load for)</label> 
+                                    <!-- <input class="form-control" placeholder="" uppercaseonly
+                                    formControlName="loadFor"> -->
+                                    <select class="form-control" 
+                                    formControlName="loadFor"
+                                   >
+                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
+                                        {{ac.dataName}}
+                                    </option>
+                                </select>
+                   
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -35,8 +58,8 @@
                                     <button class="btn btn-primary" type="submit" (click)="search()">
                                         <span>Search</span></button>
                                 </div>
-                            </div>-->
-                        </div> 
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 text-right">
@@ -60,20 +83,20 @@
                             <th>sch_Oth</th>
                             <th>lifeType</th>
                             <th>lifeType</th>
+                            <!-- <th>lifeExpectancy</th>
+                            <th>lifeType</th>
+                            <th>lifeType</th>
+                            <th>lifeExpectancy</th> -->
+                            <!-- <th>lifeType</th>
+                            <th>lifeType</th>
                             <th>lifeExpectancy</th>
-                            <th>lifeType</th>
-                            <th>lifeType</th>
-                            <th>lifeExpectancy</th>
-                            <th>lifeType</th>
-                            <th>lifeType</th>
-                            <th>lifeExpectancy</th>
-                            <th>lifeType</th>
+                            <th>lifeType</th> -->
                             <th>lifeType</th>
                     
                             <th>lifeType</th>
                             <th>lifeType</th>
-                            <th>lifeExpectancy</th>
-                            <th>lifeExpectancy</th>
+                            <!-- <th>lifeExpectancy</th>
+                            <th>lifeExpectancy</th> -->
                             <th>lifeExpectancy</th>
                          
                     
@@ -91,18 +114,18 @@
                             <td>{{ branch.loadFor }}</td>
                             <td>{{ branch.loadMemoNo }}</td>
                             <td>{{ branch.loadingFrom }}</td>
-                            <td>{{ branch.consignorName }}</td>
-                            <td>{{ branch.consignorAdd }}</td>
+                            <!-- <td>{{ branch.consignorName }}</td>
+                            <td>{{ branch.consignorAdd }}</td> -->
                             <td>{{ branch.loadingTo }}</td>
-                            <td>{{ branch.consigneeName }}</td>
-                            <td>{{ branch.consigneeAdd }}</td>
-                            <td>{{ branch.productId }}</td>
+                            <!-- <td>{{ branch.consigneeName }}</td>
+                            <td>{{ branch.consigneeAdd }}</td> -->
+                            <!-- <td>{{ branch.productId }}</td>
                             <td>{{ branch.qtyWt }}</td>
                             <td>{{ branch.qtyPkgs }}</td>
-                            <td>{{ branch.ratePerTon }}</td>
+                            <td>{{ branch.ratePerTon }}</td> -->
                             <td>{{ branch.hireAmt }}</td>
-                            <td>{{ branch.advAmt }}</td>
-                            <td>{{ branch.remarks }}</td>
+                            <!-- <td>{{ branch.advAmt }}</td>
+                            <td>{{ branch.remarks }}</td> -->
                             <!-- <td>{{ branch.attachMemocopy }}</td> -->
                     
                    

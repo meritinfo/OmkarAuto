@@ -147,6 +147,8 @@ ngOnInit(): void {
   //  tripId: new FormControl('',),
   });
   setTimeout(() => {
+    this.formFleetLoad.controls['loadBranch'].disable();   
+    this.formFleetLoad.controls['ratePerTon'].disable();   
   if (this.selectedFleetLoadEntryDetails.loadId != '') {
     this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
     this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
@@ -189,6 +191,38 @@ get f() { return this.formFleetLoad.controls; }
 //     });
     
 // }
+onRateChange(){
+
+  var ItemQty = 0;
+  var ItemAmt = 0;
+  var rate = 0;
+ 
+  var selectedVal = this.formFleetLoad.getRawValue();
+
+ 
+   // this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
+    ItemQty = selectedVal.qtyWt?selectedVal.qtyWt:"0";
+    ItemAmt= selectedVal.hireAmt?selectedVal.hireAmt:"0";
+    if(ItemQty>0)
+    {
+      rate  = ItemAmt/ItemQty;
+
+    }
+    else{
+      rate= 0;
+    }
+  
+
+ 
+  
+  this.formFleetLoad.patchValue({
+    ratePerTon : rate.toFixed(2),
+   // issuedDslAmt: totalItemAmt.toFixed(2),
+ 
+   
+   
+  });
+}
 getCreditAcList(): void {
   //this.requestmodel.strRequest= 'B';
   this.commonService.getCreditAcList().subscribe((res) => {
@@ -283,6 +317,20 @@ submitFleetLoadEntryForm(): void {
   }
   else{
     this.toasterService.warning("Invalid Vehicle");
+    return;
+  }
+  if (selectedDataVal.loadingTo.dataId) {
+    //ignore
+  }
+  else{
+    this.toasterService.warning(" To Place is Invalid");
+    return;
+  }
+  if (selectedDataVal.loadingFrom.dataId) {
+    //ignore
+  }
+  else{
+    this.toasterService.warning(" From Place is Invalid");
     return;
   }
   this.formSubmitted = true;

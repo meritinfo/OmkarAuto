@@ -66,8 +66,8 @@
                                         </div>
                                         <div class="ng-untouched ng-pristine ng-valid">
                                             <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
+                                            
+                                                    <!-- <div class="mb-3">
                                                         <label for="formrow-inputState">From</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                          formControlName="from"
@@ -77,9 +77,9 @@
                                                                 {{branch.dataName}}
                                                             </option>
                                                         </select>                                                          
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
+                                                    </div> -->
+                                              
+                                                <!-- <div class="col-lg-3">
                                                     <div class="mb-3"><label for="formrow-inputZip">To</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                          formControlName="to"
@@ -90,18 +90,8 @@
                                                             </option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputZip">Load Or Empty</label>
-                                                        <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
-                                                            formControlName="loadorempty">
-                                                            <option selected="">Choose...</option>
-                                                            <option value="L">Load</option>
-                                                            <option value="E">Empty</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                </div> -->
+                                               
                                             </div>
                                         </div>
                                         <div class="row">
@@ -159,12 +149,18 @@
                                                         formControlName="pmtType"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"  
                                                          (change)="changePmtType($event)">
-                                                        <option value="C"> Cash</option>
+                                                        <!-- <option value="C"> Cash</option>
                                                         <option value="B"> Bank</option>
                                                         <option value="H"> Happay</option>
                                                         <option value="P"> Petro</option>
                                                         <option value="V"> Vendor</option>
-                                                        <option value="A"> Adjust </option>
+                                                        <option value="A"> Adjust </option> -->
+                                                        <option value="M">Cash</option>      
+                                                        <option value="B">Bank</option> 
+                                                        <option value="H">Happay</option>
+                                                        <option value="D">Vendor</option>
+                                                        <option value="A">Adjust</option>     
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -175,7 +171,7 @@
                                                     formControlName="creditAc"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                                     <option value ="">Choose...</option>
-                                                    <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>

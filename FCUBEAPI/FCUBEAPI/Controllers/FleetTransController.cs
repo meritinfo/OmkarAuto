@@ -2008,7 +2008,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("FleetLoadEntryList")]
-        public async Task<IActionResult> GetFleetLoadEntryList(PageRequest request)
+        public async Task<IActionResult> GetFleetLoadEntryList(ReportRequestModel request)
         {
             try
             {
