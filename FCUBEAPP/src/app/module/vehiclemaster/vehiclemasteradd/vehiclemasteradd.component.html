@@ -146,6 +146,15 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['mileageLt'].invalid) }">
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">AdBlue Mileage</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="adBlueMileageLt" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['adBlueMileageLt'].invalid) }">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -474,7 +483,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 1</label>
-                                                <input autoclose="false" placeholder=""
+                                                <input autoclose="false" placeholder="" uppercaseonly
                                                     class="form-control" formControlName="attach1Desc">
                                             </div>
                                         </div>
@@ -492,7 +501,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 2</label>
-                                                <input autoclose="false" placeholder=""
+                                                <input autoclose="false" placeholder="" uppercaseonly
                                                     class="form-control" formControlName="attach2Desc">
                                             </div>
                                         </div>
@@ -510,7 +519,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 3</label>
-                                                <input autoclose="false" placeholder=""
+                                                <input autoclose="false" placeholder="" uppercaseonly
                                                     class="form-control" formControlName="attach3Desc">
                                             </div>
                                         </div>
@@ -531,7 +540,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ng-untouched ng-pristine ng-valid">
+                    <!-- <div class="ng-untouched ng-pristine ng-valid">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -605,7 +614,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                
+                    </div>                 -->
                     <div class="row text-right">
                         <div class="col-lg-12">
                             <div class="tex">

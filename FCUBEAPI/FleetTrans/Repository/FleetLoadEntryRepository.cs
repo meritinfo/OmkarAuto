@@ -19,7 +19,7 @@ namespace FleetTrans.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<FleetLoadEntryList> GetFleetLoadEntryList(PageRequest request)
+        public async Task<FleetLoadEntryList> GetFleetLoadEntryList(ReportRequestModel request)
         {
             FleetLoadEntryList fleetLoadEntryList = new();
             List<FleetLoadEntryModel> loadEntryList = new();
@@ -33,7 +33,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                             new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+
+                            new SqlParameter("@LoadFor",     request.FilterStr),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetLoadEntryList", param);
 

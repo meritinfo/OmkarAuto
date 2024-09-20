@@ -65,7 +65,8 @@ namespace FleetMasters.Models
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? DeleteFlag { get; set; }
-    
+        public string? AdBlueMileageLt { get; set; }
+
         public string? LoggedInUser { get; set; }
         public List<VehicleFltDtlsModel> VehiclefltDetailList { get; set; }
     }
