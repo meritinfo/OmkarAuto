@@ -39,6 +39,8 @@ export class TyreativateaddComponent {
   tyreList: Dropdownmodel[] = [];
   tyreactivate = new Tyreactivatemastermodel();
   refDocAttachedImage: string = "";
+  totTyres:string = "";
+  actTyres:string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -163,6 +165,12 @@ export class TyreativateaddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+    this.getVehicleTyrePositionList(item.dataId);
+    this.requestmodel.strRequest = item.dataId; 
+    this.tyreactivateService.getVehicleNoOfTyres(this.requestmodel).subscribe((res) => {
+      this.totTyres = res.dataName;
+      this.actTyres = res.dataId;
+    });
   }
 
   selectTyreEvent(i: number, item: any) {
@@ -222,6 +230,13 @@ export class TyreativateaddComponent {
 
   getTyrePositionList(): void {
     this.commonService.getTyrePositionList().subscribe((res) => {
+      this.positionList = res;
+    });
+  }
+  
+  getVehicleTyrePositionList(veh: string): void {
+    this.requestmodel.strRequest = veh
+    this.tyreactivateService.getVehicleTyrePositionList(this.requestmodel).subscribe((res) => {
       this.positionList = res;
     });
   }
@@ -381,6 +396,17 @@ export class TyreativateaddComponent {
     }   
     if(this.tyreactivate.tyreActivateDtlList.length==0){
       this.toastrService.warning("Please enter atleast one Record in Details");
+      return;
+    }
+    const foundDuplicateName = this.tyreactivate.tyreActivateDtlList.find((data, index) => {
+      return this.tyreactivate.tyreActivateDtlList.find((x, ind) => x.tyrePosID === data.tyrePosID && index !== ind);
+    })
+    if (foundDuplicateName) {
+      this.toastrService.warning("Duplicate Tyre Position in details grid not allowed");
+      return;
+    }
+    if((this.tyreactivate.tyreActivateDtlList.length + parseInt(this.actTyres)) > (parseInt(this.totTyres) + 1)){
+      this.toastrService.warning("Total No of Active Tyres should be less than Total No Of Tyres");
       return;
     }
           

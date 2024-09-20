@@ -37,6 +37,14 @@ namespace FleetTrans.Business
         {
             return await tyreActivateRepository.GetTyrePositionList();
         }
+        public async Task<List<DropDownListModel>> GetVehicleTyrePositionList(RequestModel request)
+        {
+            return await tyreActivateRepository.GetVehicleTyrePositionList(request);
+        }
+        public async Task<DropDownListModel> GetVehicleNoOfTyres(RequestModel request)
+        {
+            return await tyreActivateRepository.GetVehicleNoOfTyres(request);
+        }
         public async Task<List<DropDownListModel>> GetBrandTyreNoList(RequestModel request)
         {
             return await tyreActivateRepository.GetBrandTyreNoList(request);
