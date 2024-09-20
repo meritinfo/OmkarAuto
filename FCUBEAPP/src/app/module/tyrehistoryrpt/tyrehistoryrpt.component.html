@@ -42,20 +42,20 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
+                            <th>brandID</th>
+                            <th>estLifeKM</th>
                             <th>purchaseDate</th>
                             <th>tyrePattern</th>
                             <th>tyreModel</th>
-                            <th>brandID</th>
-                            <th>estLifeKM</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
+                            <td>{{ eta.brandName }}</td> 
+                            <td>{{ eta.kmr }}</td> 
                             <td>{{ eta.purchaseDate }}</td>
                             <td>{{ eta.tyreStatus }}</td> 
                             <td>{{ eta.vehicleNo }}</td> 
-                            <td>{{ eta.brandName }}</td> 
-                            <td>{{ eta.kmr }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">

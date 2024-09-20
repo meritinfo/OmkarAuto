@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
@@ -309,6 +310,9 @@ namespace FleetTrans.Repository
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentStatusDate"]),
+                                TyreStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentTyreStatus"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                             });
                         }
 
@@ -337,10 +341,15 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BrandId",    request.FilterStr),
-                            new SqlParameter("@RptType" ,   request.FilterStr1),
+                            new SqlParameter("@PageNumber",         request.PageNumber),
+                            new SqlParameter("@PageSize",           request.PageSize),
+                            new SqlParameter("@SortColumn",         request.SortColumn),
+                            new SqlParameter("@SortOrder",          request.SortOrder),
+                            new SqlParameter("@Search",             request.Search),
+                            new SqlParameter("@BrandId",            request.FilterStr),
+                            new SqlParameter("@RptType" ,           request.FilterStr1),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreStockRptExcel", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreStockRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -350,7 +359,15 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = dt.Columns.Count - 1;
+                            int colcnt = 0;
+                            if (request.FilterStr1 == "N")
+                            {
+                                colcnt = 5;
+                            }
+                            else
+                            {
+                                colcnt = 7;
+                            }
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -384,12 +401,20 @@ namespace FleetTrans.Repository
                             if (request.FilterStr1 == "N")
                             {
                                 ws.Cell(5, 1).Value = "Tyre No";
+                                ws.Cell(5, 2).Value = "Brand";
+                                ws.Cell(5, 3).Value = "Last Status Date";
+                                ws.Cell(5, 4).Value = "Last Status"; ;
+                                ws.Cell(5, 5).Value = "Last Vehicle No";
                             }
                             else
                             {
                                 ws.Cell(5, 1).Value = "Tyre No";
-                                ws.Cell(5, 2).Value = "Date";
-                                ws.Cell(5, 3).Value = "Amount";
+                                ws.Cell(5, 2).Value = "Brand";
+                                ws.Cell(5, 3).Value = "Last Status Date";
+                                ws.Cell(5, 4).Value = "Last Status"; ;
+                                ws.Cell(5, 5).Value = "Last Vehicle No";
+                                ws.Cell(5, 6).Value = "Regroup Recd Date";
+                                ws.Cell(5, 7).Value = "Regroup Amount";
                             }
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
@@ -414,12 +439,20 @@ namespace FleetTrans.Repository
                                 if (request.FilterStr1 == "N")
                                 {
                                     ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
+                                    ws.Cell(row, 2).Value = dt.Rows[j]["BrandName"].ToString();
+                                    ws.Cell(row, 3).Value = dt.Rows[j]["CurrentStatusDate"].ToString();
+                                    ws.Cell(row, 4).Value = dt.Rows[j]["CurrentTyreStatus"].ToString();
+                                    ws.Cell(row, 5).Value = dt.Rows[j]["VehicleNo"].ToString();
                                 }
                                 else
                                 {
                                     ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                    ws.Cell(row, 2).Value = dt.Rows[j]["RecdDate"].ToString();
-                                    ws.Cell(row, 3).Value = dt.Rows[j]["RegroupAmount"].ToString();
+                                    ws.Cell(row, 2).Value = dt.Rows[j]["BrandName"].ToString();
+                                    ws.Cell(row, 3).Value = dt.Rows[j]["CurrentStatusDate"].ToString();
+                                    ws.Cell(row, 4).Value = dt.Rows[j]["CurrentTyreStatus"].ToString();
+                                    ws.Cell(row, 5).Value = dt.Rows[j]["VehicleNo"].ToString();
+                                    ws.Cell(row, 6).Value = dt.Rows[j]["RecdDate"].ToString();
+                                    ws.Cell(row, 7).Value = dt.Rows[j]["RegroupAmount"].ToString();
                                 }
                                 row++;
                             }
@@ -489,11 +522,12 @@ namespace FleetTrans.Repository
                             tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
                                 TyreStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreStatus"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
-                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["KM"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["EstLifeKM"]),
+                                TyreRunKM = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreRunKM"]),
                             });
                         }
 
@@ -534,7 +568,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = dt.Columns.Count - 1;
+                            int colcnt = 4;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -558,33 +592,43 @@ namespace FleetTrans.Repository
                             ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
                             ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            ws.Range(4, 1, 4, colcnt).Merge();
-                            ws.Range(4, 1, 4, colcnt).Value = "";
+
+                            ws.Range(4, 1, 4, 2).Merge();
+                            ws.Range(4, 1, 4, 2).Value = "Tyre No: " + Convert.ToString(dataSet.Tables[0].Rows[0]["TyreNo"]);
+
+                            ws.Range(4, 3, 4, 4).Merge();
+                            ws.Range(4, 3, 4, 4).Value = "Brand: " + Convert.ToString(dataSet.Tables[0].Rows[0]["BrandName"]);
+
+                            ws.Range(5, 1, 5, 2).Merge();
+                            ws.Range(5, 1, 5, 2).Value = "Est Life KM: " + Convert.ToString(dataSet.Tables[0].Rows[0]["EstLifeKM"]);
+                           
+                            ws.Range(5, 3, 5, 4).Merge();
+                            ws.Range(5, 3, 5, 4).Value = "Tyre Run KM: " + Convert.ToString(dataSet.Tables[0].Rows[0]["TyreRunKM"]);
+
+
                             ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
-                            ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
-                            ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                          
-                            ws.Cell(5, 1).Value = "Trans Date";
-                            ws.Cell(5, 2).Value = "Vehicle No";
-                            ws.Cell(5, 3).Value = "Tyre Status";
-                            ws.Cell(5, 4).Value = "Brand Name";
-                            ws.Cell(5, 5).Value = "KM";
+                            ws.Range(5, 1, 4, colcnt).Style.Font.Bold = true;
+                            ws.Range(5, 1, 4, colcnt).Style.Font.FontSize = 12;
 
-                            ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
-                            ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
-                            ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+                            ws.Cell(6, 1).Value = "Trans Date";
+                            ws.Cell(6, 2).Value = "Tyre Status";
+                            ws.Range(6, 3, 5, colcnt).Merge();
+                            ws.Range(6, 3, 5, colcnt).Value = "Vehicle No";
+
+                            ws.Range(6, 1, 6, colcnt).Style.Font.Bold = true;
+                            ws.Range(6, 1, 6, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(6, 1, 6, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
 
                             int j = 0;
-                            int row = 6;
+                            int row = 7;
 
                             for (j = 0; j < dt.Rows.Count; j++)
                             {
                                 ws.Cell(row, 1).Value = dt.Rows[j]["TransDate"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["VehicleNo"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["TyreStatus"].ToString();
-                                ws.Cell(row, 4).Value = dt.Rows[j]["BrandName"].ToString();
-                                ws.Cell(row, 5).Value = dt.Rows[j]["KM"].ToString();
+                                ws.Cell(row, 2).Value = dt.Rows[j]["TyreStatus"].ToString();
+                                ws.Range(row, 3, row, colcnt).Merge();
+                                ws.Range(row, 3, row, colcnt).Value = dt.Rows[j]["VehicleNo"].ToString();
 
                                 row++;
                             }
@@ -593,8 +637,8 @@ namespace FleetTrans.Repository
                                 ws.Column(k).AdjustToContents();
                             }
 
-                            ws.Range(5, 1, row - 1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                            ws.Range(5, 1, row - 1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(6, 1, row - 1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(6, 1, row - 1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
                             var foldername = System.IO.Path.Combine("Reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
@@ -658,10 +702,14 @@ namespace FleetTrans.Repository
                         {
                             tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentVehicleNo"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentVehicleNo"]),
                                 TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
-                                PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentStatusDate"]),
                                 BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentStatusDate"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["Kmr"]),
+                                TyreRunKM = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreRunKM"]),
+                                TyreRunKM_RGR = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreRunKM_RGR"]),
+                                RegroupDoneYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreReGrouped"]),
                             });
                         }
 
@@ -707,7 +755,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = 3;
+                            int colcnt = 7;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -739,8 +787,12 @@ namespace FleetTrans.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                             ws.Cell(5, 1).Value = "Tyre No";
-                            ws.Cell(5, 2).Value = "Activate Date";
-                            ws.Cell(5, 3).Value = "Brand";
+                            ws.Cell(5, 2).Value = "Brand";
+                            ws.Cell(5, 3).Value = "Activate Date";
+                            ws.Cell(5, 4).Value = "Act KMs";
+                            ws.Cell(5, 5).Value = "Tyre Run KMs";
+                            ws.Cell(5, 6).Value = "Tyre Run KMs RGR";
+                            ws.Cell(5, 7).Value = "TyreReGrouped";
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -761,9 +813,14 @@ namespace FleetTrans.Repository
 
                                     VehicleNo = dt.Rows[j]["CurrentVehicleNo"].ToString();
                                 }
+                            
                                 ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["CurrentStatusDate"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 2).Value = dt.Rows[j]["BrandName"].ToString(); 
+                                ws.Cell(row, 3).Value = dt.Rows[j]["CurrentStatusDate"].ToString();
+                                ws.Cell(row, 4).Value = dt.Rows[j]["Kmr"].ToString();
+                                ws.Cell(row, 5).Value = dt.Rows[j]["TyreRunKM"].ToString();
+                                ws.Cell(row, 6).Value = dt.Rows[j]["TyreRunKM_RGR"].ToString();
+                                ws.Cell(row, 7).Value = dt.Rows[j]["TyreReGrouped"].ToString();
 
                                 row++;
                             }
@@ -1101,7 +1158,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = 4;
+                            int colcnt = 12;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -1230,6 +1287,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VendorId",           request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
+                            new SqlParameter("@TyreRecdStatus",     request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreReGroupIssRptList", param);
                     int totalRecords = 0;
@@ -1240,9 +1300,15 @@ namespace FleetTrans.Repository
                         {
                             tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssDate"]),
+                                IssueIncharge = Convert.ToString(dataSet.Tables[0].Rows[i]["IssueIncharge"]),
+                                VendorName = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                UsableAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreUsableAmt"]),
+                                TyreStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreRecdStatus"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
@@ -1278,6 +1344,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VendorId",           request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
+                            new SqlParameter("@TyreRecdStatus",     request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreReGroupIssRptList", param);
 
@@ -1289,7 +1358,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = 3;
+                            int colcnt = 9;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -1320,9 +1389,15 @@ namespace FleetTrans.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            ws.Cell(5, 1).Value = "Tyre No";
-                            ws.Cell(5, 2).Value = "Regroup Issued Date";
-                            ws.Cell(5, 3).Value = "Brand";
+                            ws.Cell(5, 1).Value = "Branch";
+                            ws.Cell(5, 2).Value = "Regroup Issue Date";
+                            ws.Cell(5, 3).Value = "Issue Incharge";
+                            ws.Cell(5, 4).Value = "Vendor Name";
+                            ws.Cell(5, 5).Value = "Tyre No";
+                            ws.Cell(5, 6).Value = "Brand";
+                            ws.Cell(5, 7).Value = "Tyre Usable Amt";
+                            ws.Cell(5, 8).Value = "Tyre Recd Status";
+                            ws.Cell(5, 9).Value = "Remarks";
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -1334,9 +1409,15 @@ namespace FleetTrans.Repository
 
                             for (j = 0; j < dt.Rows.Count; j++)
                             {
-                                ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["RegroupIssDate"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 1).Value  = dt.Rows[j]["BranchName"].ToString();
+                                ws.Cell(row, 2).Value  = dt.Rows[j]["RegroupIssDate"].ToString();
+                                ws.Cell(row, 3).Value  = dt.Rows[j]["IssueIncharge"].ToString();
+                                ws.Cell(row, 4).Value  = dt.Rows[j]["VendorName"].ToString();
+                                ws.Cell(row, 5).Value  = dt.Rows[j]["TyreNo"].ToString();
+                                ws.Cell(row, 6).Value  = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 7).Value  = dt.Rows[j]["TyreUsableAmt"].ToString();
+                                ws.Cell(row, 8).Value  = dt.Rows[j]["TyreRecdStatus"].ToString();
+                                ws.Cell(row, 9).Value  = dt.Rows[j]["Remarks"].ToString();
 
                                 row++;
                             }
@@ -1401,6 +1482,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VendorId",           request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreReGroupRcvdRptList", param);
                     int totalRecords = 0;
@@ -1411,11 +1494,16 @@ namespace FleetTrans.Repository
                         {
                             tyrePurchaseslist.Add(new TyreMgntReportModel
                             {
-                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
                                 PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdDate"]),
-                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupDoneYN"]),
+                                VendorName = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                VendorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorBillNo"]),
+                                VendorInvDt = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorBillDt"]),
+                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
                                 BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
                                 RegroupAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupAmount"]),
+                                RegroupDoneYN = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupDoneYN"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
@@ -1451,6 +1539,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@VendorId",           request.FilterStr),
+                            new SqlParameter("@BrandID",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreReGroupRcvdRptList", param);
 
@@ -1462,7 +1552,7 @@ namespace FleetTrans.Repository
                         {
                             response = await sharedRepository.GetCompanyDetail();
 
-                            int colcnt = 5;
+                            int colcnt = 10;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -1493,11 +1583,16 @@ namespace FleetTrans.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            ws.Cell(5, 1).Value = "Tyre No";
-                            ws.Cell(5, 2).Value = "Recd Date";
-                            ws.Cell(5, 3).Value = "Regroup Done YN";
-                            ws.Cell(5, 4).Value = "Brand";
-                            ws.Cell(5, 5).Value = "Regroup Amount";
+                            ws.Cell(5, 1).Value = "Branch";
+                            ws.Cell(5, 2).Value = "Regroup Recd Date";
+                            ws.Cell(5, 3).Value = "Vendor Name";
+                            ws.Cell(5, 4).Value = "Vendor Bill No";
+                            ws.Cell(5, 5).Value = "Vendor Bill Date";
+                            ws.Cell(5, 6).Value = "Tyre No";
+                            ws.Cell(5, 7).Value = "Brand";
+                            ws.Cell(5, 8).Value = "Regroup Amount";
+                            ws.Cell(5, 9).Value = "Regroup Done YN";
+                            ws.Cell(5, 10).Value = "Remarks";
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -1505,15 +1600,19 @@ namespace FleetTrans.Repository
 
                             int j = 0;
                             int row = 6;
-                            var VehicleNo = "";
 
                             for (j = 0; j < dt.Rows.Count; j++)
                             {
-                                ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
-                                ws.Cell(row, 2).Value = dt.Rows[j]["RecdDate"].ToString();
-                                ws.Cell(row, 3).Value = dt.Rows[j]["RegroupDoneYN"].ToString();
-                                ws.Cell(row, 4).Value = dt.Rows[j]["BrandName"].ToString();
-                                ws.Cell(row, 5).Value = dt.Rows[j]["RegroupAmount"].ToString();
+                                ws.Cell(row, 1).Value  = dt.Rows[j]["BranchName"].ToString();
+                                ws.Cell(row, 2).Value  = dt.Rows[j]["RecdDate"].ToString();
+                                ws.Cell(row, 3).Value  = dt.Rows[j]["VendorName"].ToString();
+                                ws.Cell(row, 4).Value  = dt.Rows[j]["VendorBillNo"].ToString();
+                                ws.Cell(row, 5).Value  = dt.Rows[j]["VendorBillDt"].ToString();
+                                ws.Cell(row, 6).Value  = dt.Rows[j]["TyreNo"].ToString();
+                                ws.Cell(row, 7).Value  = dt.Rows[j]["BrandName"].ToString();
+                                ws.Cell(row, 8).Value  = dt.Rows[j]["RegroupAmount"].ToString();
+                                ws.Cell(row, 9).Value  = dt.Rows[j]["RegroupDoneYN"].ToString();
+                                ws.Cell(row, 10).Value  = dt.Rows[j]["Remarks"].ToString();
 
                                 row++;
                             }

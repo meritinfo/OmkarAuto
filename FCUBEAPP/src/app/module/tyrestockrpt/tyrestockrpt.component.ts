@@ -192,6 +192,18 @@ export class TyrestockrptComponent {
         {
           title: 'Brand',
           data: 'brandName',
+        },  
+        {
+          title: 'Last Status Date',
+          data: 'purchaseDate',
+        },  
+        {
+          title: 'Last Status',
+          data: 'tyreStatus',
+        },  
+        {
+          title: 'Last Vehicle No',
+          data: 'vehicleNo',
         }, 
       ],
     };
