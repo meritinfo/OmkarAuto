@@ -17,7 +17,6 @@ namespace FreightMasters.Models
         public string? BillDate { get; set; }
         public string? DueDate { get; set; }
         public string? SuppYN { get; set; }
-        public string? SacCode { get; set; }
         public string? PartyCode { get; set; }
         public string? PartyGstLocation { get; set; }
         public string? CollBranch { get; set; }

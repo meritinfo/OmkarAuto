@@ -124,7 +124,6 @@ export class BillsmasteraddComponent implements OnInit {
       billDate: new FormControl(this.fromDate,[Validators.required]),
       suppYN: new FormControl('N',[Validators.required]),
       sacHsn: new FormControl('',),
-      sacCode: new FormControl(''),
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
       collBranch: new FormControl('',[Validators.required]),
@@ -513,7 +512,6 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.collBranch = selectedDataValue.collBranch.dataId;
     this.billsmastermodel.suppYN = selectedDataValue.suppYN;
     this.billsmastermodel.sacHsn = selectedDataValue.sacHsn.toString();
-    this.billsmastermodel.sacCode = selectedDataValue.sacCode.toString();
     this.billsmastermodel.totalFreight =selectedDataValue.totalFreight.toString();
     this.billsmastermodel.totalStatistical = selectedDataValue.totalStatistical.toString();
     this.billsmastermodel.totalFov = selectedDataValue.totalFov.toString();
