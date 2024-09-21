@@ -1,19 +1,17 @@
 <div class="container-fluid p-0">
     <div class="row g-0">
-
         <div class="col-xl-9">
             <div class="auth-full-bg pt-lg-5 p-4">
                 <div class="w-100">
                     <div class="bg-overlay"></div>
                     <div class="d-flex h-100 flex-column">
-
                         <div class="p-4 mt-auto">
                             <div class="row justify-content-center">
                                 <div class="col-lg-7">
                                     <div class="text-center">
-                                        <h4 class="mb-3">                                             
+                                        <h5 class="mb-3">                                             
                                             <img src="assets/images/fcube_logo_light.png" alt="" height="21" class="auth-logo-dark"> Licensed to <span
-                                                class="text-primary">Network </span></h4>
+                                                class="text-primary">{{companyname}} </span></h5>
                                     </div>
                                 </div>
                             </div>
@@ -23,21 +21,19 @@
             </div>
         </div>
         <!-- end col -->
-
         <div class="col-xl-3">
             <div class="auth-full-page-content p-md-5 p-4">
                 <div class="w-100">
                     <div class="d-flex flex-column h-100">
                         <div class="mb-4 mb-md-5">
-                            <img src="assets/images/meritlogo.png" alt="" height="60" class="auth-logo-dark">
+                            <img src="assets/images/meritlogo.png" alt="" height="40" class="auth-logo-dark">
                         </div>
                         <div class="my-auto">
-                            <div>
+                            <!-- <div>
                                 <h5 class="text-primary">Welcome Back !</h5>
                                 <p class="text-muted">Select Financial Year</p>
-                            </div>
-
-                            <div class="mt-4">
+                            </div> -->
+                            <div class="mt-2">
                                 <form (keydown.enter)="$event.preventDefault()"[formGroup]="formLogin"> 
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Select Year</label>
@@ -72,16 +68,10 @@
                                 </form>   
                             </div>
                         </div>
-                        <div class="mt-4 text-center">
-                           
+                        <div class="mt-4 text-center">                           
                             <img src="assets/images/Logo_black.png" alt="" class="auth-logo-dark">
                         </div>
-                        <div class="mt-md-5 text-center">
-                            <p class="mb-0">© Merit Info Solutions</p>
-                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -67,13 +67,18 @@ export class IntermediatescreenComponent {
       this.route.navigate(['/']);
     }
 
+    var usercompanyname = sessionStorage.getItem('companyname')?.toString();
+    if (typeof usercompanyname !== 'undefined' && usercompanyname !== null && usercompanyname !== '') {
+      this.companyname = usercompanyname;
+    }
+
     var userData = sessionStorage.getItem('scope')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.userscope = userData;
     }
 
     this.sharedService.loggedInStatus = false;
-    this.getCompanyDetails();
+    //this.getCompanyDetails();
     this.getDropdownList();          
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);    
