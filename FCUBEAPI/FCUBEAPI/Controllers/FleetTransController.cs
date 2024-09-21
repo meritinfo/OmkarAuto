@@ -2252,6 +2252,25 @@ namespace FCUBEAPI.Controllers
 
 
         }
+        [HttpPost("GetDslMileage")]
+        public async Task<IActionResult> GetDslMileage(RequestModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDslMileage(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
+
         [HttpPost("GetVehicleRepMaintMasterInnerGridList")]
         public async Task<IActionResult>  GetVehicleRepMaintMasterInnerGridList(RequestModel request)
         {

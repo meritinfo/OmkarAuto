@@ -176,6 +176,9 @@ export class CommonService {
   getDslOpeningBalforPmt(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslOpeningBalforPmt', payload, this.httpOptions);
   }
+  getDslMileage(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslMileage', payload, this.httpOptions);
+  }
   getAdblueOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetAdblueOpeningBal', payload, this.httpOptions);
   }

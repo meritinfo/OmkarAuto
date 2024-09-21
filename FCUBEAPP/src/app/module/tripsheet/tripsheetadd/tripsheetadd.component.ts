@@ -23,12 +23,14 @@ export class TripsheetaddComponent {
   year: string = '';
   loginDate: string = '';
   branch:string = '';
+  dslmileage:string = '';
 
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
   editMode = false;
+  detailMode = false;
 
   formTripsheet!: FormGroup;
   formSubmitted = false;
@@ -119,6 +121,7 @@ export class TripsheetaddComponent {
       dieselPassedAmt: new FormControl('',),
       dieselVarianceAmt: new FormControl('',),
       clBalDsl: new FormControl('',),
+      
       opBalDriver: new FormControl('',),
       paidDriverAdvance: new FormControl('',),
       freightCollByDriver: new FormControl('',),
@@ -204,6 +207,28 @@ export class TripsheetaddComponent {
       this.expList = res;
     });
   }
+  getDslMileage(e:any) {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+  //  this.requestmodel.strRequest= selectedDataValue.vehicleMasterID.dataId;
+  this.requestmodel.strRequest= e;
+    //this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID;
+
+
+    this.commonService.getDslMileage(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.dslmileage = res.message;
+      this.formTripsheet.patchValue({
+        definedMileage : this.dslmileage
+      
+     
+       
+       
+      });
+
+      // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
+     // if(selectedDataValue.actualDays_1==0){
+    });
+  }
+
 
   get f() { return this.formTripsheet.controls; }
   
@@ -278,11 +303,19 @@ export class TripsheetaddComponent {
 
   getDetails(){
     var selectedDataValue = this.formTripsheet.getRawValue();
+    if(selectedDataValue.deptDate =='' || selectedDataValue.endDate =='')
+    {
+      this.toastrService.warning("Please Select Dept  Date & End Date ");          
+      return;
+
+    }
     var validvehi = this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID.dataId) 
     if (typeof validvehi !== 'undefined' && validvehi !== null && validvehi.dataId!="" && validvehi.dataId!="0") {
         //ignore
+       this.detailMode= true;
     }
     else{
+     // this.detailMode= true;
       this.toastrService.warning("Please Enter Valid  Vehicle No");          
       return;
     }
@@ -373,6 +406,7 @@ export class TripsheetaddComponent {
         // this.formDieselArray.controls[i].get("amount")?.disable();
         // this.formDieselArray.controls[i].get("remarks")?.disable();
      // }
+    
     });
     this.onDslChange();
 
@@ -436,6 +470,7 @@ export class TripsheetaddComponent {
   }
 
   selectNewEvent(item: any) {    
+    this.getDslMileage(item.dataId);
     this.requestmodel.strRequest = item.dataId;
     this.requestmodel.strRequest1 = this.year;
     this.tripSheetService.getNextTripNo(this.requestmodel).subscribe((res: Responsemodel) => {

@@ -135,7 +135,7 @@ export class AddtrippaymentsComponent {
     });
         
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
-      this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);  
+      this.getCreditAcList(this.selectedTripPaymentsDetails.pmtType);  
     }
 
     setTimeout(() => {

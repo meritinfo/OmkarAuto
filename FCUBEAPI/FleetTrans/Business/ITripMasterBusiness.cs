@@ -13,5 +13,6 @@ namespace FleetTrans.Business
         Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request);
         Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request);
         Task<List<DropDownListModel>> GetExpList();
+        Task<ResponseModel> GetDslMileage(RequestModel request);
     }
 }
