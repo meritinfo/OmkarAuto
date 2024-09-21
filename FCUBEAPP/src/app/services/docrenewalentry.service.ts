@@ -4,6 +4,7 @@ import { Docrenewalentrymodel } from '../models/docrenewalentrymodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Constants } from '../common/constants';
 import { Docrenewalentrylistmodel } from '../models/docrenewalentrylistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
@@ -51,7 +52,7 @@ export class DocRenewalEntryService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpformOptions);
   }
 
-  getDocrenewalEntryList(filter: Filtermodel): Observable<Docrenewalentrylistmodel> {
+  getDocrenewalEntryList(filter: Reportmodel): Observable<Docrenewalentrylistmodel> {
     return this.httpClient.post<Docrenewalentrylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalEntryList', filter, this.httpOptions);
   }
 

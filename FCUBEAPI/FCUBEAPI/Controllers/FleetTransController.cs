@@ -931,7 +931,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDocRenewalEntryList")]
-        public async Task<IActionResult> GetDocRenewalEntryList(PageRequest request)
+        public async Task<IActionResult> GetDocRenewalEntryList(ReportRequestModel request)
         {
             if (request == null)
             {

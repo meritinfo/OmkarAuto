@@ -7,7 +7,7 @@ namespace FleetTrans.Business
     {
         Task<ResponseModel> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel);
         Task<ResponseModel> DocRenewalEntryDetailsDelete(RequestModel request);
-        Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request);
+        Task<DocRenewalEntryList> GetDocRenewalEntryList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetDocRenewalList();
         Task<List<DropDownListModel>> GetPaymentCreditAcList(RequestModel request);
         Task<ResponseModel> ChkDocrenewalValidity(DocRenewalEntryModel docRenewalEntryModel);

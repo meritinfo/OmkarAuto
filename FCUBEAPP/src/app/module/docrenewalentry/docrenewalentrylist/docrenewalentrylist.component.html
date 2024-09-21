@@ -6,24 +6,67 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Doc Renewal Entry</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Doc Renewal Entry</li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-9 col-md-9">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Document</label>
-                                    <input type="text" class="form-control" formControlName="docDescription">
+                                    <label for="formrow-inputState">From Date </label>
+                                    <span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label>
+                                    <span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation" 
+                                            formControlName="vehicleMasterID"
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-2">
+                                    <label for="formrow-inputCity">Doc Description </label>
+                                    <select id="formrow-inputState" class="form-control" 
+                                    class="form-control form-select ng-pristine ng-touched"
+                                    formControlName="docDescription"> 
+                                       <option *ngFor="let doc of docRenewalList" value={{doc.dataId}}>
+                                          {{doc.dataName}}
+                                       </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -35,7 +78,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-3 col-md-3 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
@@ -53,7 +96,9 @@
                             <tr>
                                 <th>transDate</th>                          
                                 <th>docDescription</th>                              
-                                <th>vehicleNo</th>                              
+                                <th>vehicleNo</th>                                 
+                                <th>validFromDt</th>                                   
+                                <th>validToDt</th>                                
                                 <th>netAmount</th>                             
                                 <th>Action</th>
                             </tr>
@@ -62,7 +107,9 @@
                             <tr *ngFor="let renentry of allDocRenewalEntry.docRenewalList">
                                 <td>{{ renentry.transDate }}</td>                        
                                 <td>{{ renentry.docDescription }}</td>                        
-                                <td>{{ renentry.vehicleNo }}</td>                        
+                                <td>{{ renentry.vehicleNo }}</td>                     
+                                <td>{{ renentry.validFromDt }}</td>                     
+                                <td>{{ renentry.validToDt }}</td>                        
                                 <td>{{ renentry.netAmount }}</td>                       
                                 <td>
                                     <button type="button" class="btn btn-edit" 
