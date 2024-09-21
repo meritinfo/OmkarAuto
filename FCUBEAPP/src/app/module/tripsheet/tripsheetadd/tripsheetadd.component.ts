@@ -95,7 +95,7 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-
+    
 
     this.formTripsheet = this.formBuilder.group({
       tripBranch: new FormControl(this.branch, [Validators.required]),
@@ -158,6 +158,7 @@ export class TripsheetaddComponent {
 
     setTimeout(() => {
       this.sharedService.loading = true;
+      this.formTripsheet.controls['tripBranch'].disable();
       if (this.selectedTripSheetDetails.tripId != '') {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
