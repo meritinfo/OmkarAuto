@@ -139,7 +139,7 @@ namespace FleetTrans.Repository
         /// Service method for get branch list
         /// </summary>
         /// <returns>List<BranchListModel></returns>
-        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request)
+        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(ReportRequestModel request)
         {
             DocRenewalEntryList docRenewalEntryList = new();
             List<DocRenewalEntryModel> docRenewalList = new();
@@ -149,11 +149,14 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@PageNumber"  , request.PageNumber),
-                            new SqlParameter("@PageSize"    , request.PageSize),
-                            new SqlParameter("@SortColumn"  , request.SortColumn),
-                            new SqlParameter("@SortOrder"   , request.SortOrder),
-                            new SqlParameter("@Search"      , request.Search)
+                            new SqlParameter("@PageNumber"      , request.PageNumber),
+                            new SqlParameter("@PageSize"        , request.PageSize),
+                            new SqlParameter("@SortColumn"      , request.SortColumn),
+                            new SqlParameter("@SortOrder"       , request.SortOrder),
+                            new SqlParameter("@Search"          , request.Search),
+                            new SqlParameter("@FromDate"        , request.FromDate),
+                            new SqlParameter("@ToDate"          , request.ToDate),
+                            new SqlParameter("@VehicleMasterID" , request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalEntryList", param);
 

@@ -29,8 +29,7 @@ namespace FleetTrans.Business
         {
             return await docRenewalEntryRepository.DocRenewalEntryDetailsDelete(request);
         }
-
-        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request)
+        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(ReportRequestModel request)
         {
             return await docRenewalEntryRepository.GetDocRenewalEntryList(request);
         }
