@@ -60,18 +60,24 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>TyreModel</th>
                             <th>tyreNo</th>
+                            <th>brandName</th>
                             <th>purchaseDate</th>
-                            <th>brandID</th>
+                            <th>kmr</th>
+                            <th>tyreRunKM</th>
+                            <th>tyreRunKM_RGR</th>
+                            <th>regroupDoneYN</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
-                            <td>{{ eta.tyreModel }}</td>
                             <td>{{ eta.tyreNo }}</td> 
-                            <td>{{ eta.purchaseDate }}</td> 
                             <td>{{ eta.brandName }}</td> 
+                            <td>{{ eta.purchaseDate }}</td> 
+                            <td>{{ eta.kmr }}</td>
+                            <td>{{ eta.tyreRunKM }}</td>
+                            <td>{{ eta.tyreRunKM_RGR }}</td>
+                            <td>{{ eta.regroupDoneYN }}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">

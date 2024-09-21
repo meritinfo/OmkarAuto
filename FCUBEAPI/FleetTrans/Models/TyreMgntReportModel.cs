@@ -25,6 +25,7 @@ namespace FleetTrans.Models
         public string? RefNo { get; set; }
         public string? VehicleNo { get; set; }
         public string? Kmr { get; set; }
+        public string? IssueIncharge { get; set; }        
         public string? InspectedBy { get; set; }
         public string? FittedBy { get; set; }
         public string? RemovedBy { get; set; }
@@ -36,9 +37,12 @@ namespace FleetTrans.Models
         public string? TyrePosition { get; set; }        
         public string? TyreStatus { get; set; }
         public string? TyreModel { get; set; }
+        public string? RegroupDoneYN{ get; set; }
         public string? RegroupAmount { get; set; }
         public string? UsableAmount { get; set; }
-        
+        public string? TyreRunKM { get; set; }
+        public string? TyreRunKM_RGR { get; set; }
+
 
     }
 }

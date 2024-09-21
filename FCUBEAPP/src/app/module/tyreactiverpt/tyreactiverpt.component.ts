@@ -181,20 +181,32 @@ export class TyreactiverptComponent {
       }, 
       columns: [ 
         {
-          title: 'Vehicle No',
-          data: 'tyreModel',
-        },  
-        {
           title: 'Tyre No',
           data: 'tyreNo',
         },  
+        {
+          title: 'Brand',
+          data: 'brandName',
+        }, 
         {
           title: 'Activated Date',
           data: 'purchaseDate',
         }, 
         {
-          title: 'Brand',
-          data: 'brandName',
+          title: 'Act KMs',
+          data: 'kmr',
+        }, 
+        {
+          title: 'Tyre Run KM',
+          data: 'tyreRunKM',
+        }, 
+        {
+          title: 'Tyre Run KM RGR',
+          data: 'tyreRunKM_RGR',
+        }, 
+        {
+          title: 'Regroup Done YN',
+          data: 'regroupDoneYN',
         }, 
       ],
     };
