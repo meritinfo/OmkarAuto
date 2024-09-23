@@ -369,19 +369,19 @@
                                                 <td>
                                                    
                                                     <select class="form-control" formControlName="expId" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['expId'].invalid) }" >
+                                                >
                                                     <option *ngFor="let branch of expList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" uppercaseonly
                                                     formControlName="expParticulars">
                                                    
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control" decimalonly
                                                     formControlName="expAmt">
                                                 </td>
                                                 <td class="col-lg-2">
