@@ -16,6 +16,7 @@ export class Tyremgntreportmodel {
     refNo: string = "";
     vehicleNo: string = "";
     kmr : string = "";
+    issueIncharge: string = "";
     inspectedBy : string = "";
     fittedBy : string = "";
     removedBy: string = "";
@@ -27,7 +28,9 @@ export class Tyremgntreportmodel {
     tyrePosition :  string="";
     tyreStatus:  string="";
     tyreModel :  string="";
+    regroupDoneYN:  string="";
     regroupAmount:  string="";
     usableAmount:  string="";
-    
+    tyreRunKM:  string="";
+    tyreRunKM_RGR:  string="";        
 }

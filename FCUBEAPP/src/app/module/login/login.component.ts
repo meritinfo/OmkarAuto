@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   login = true;
   shdlMsg:string ="";
   scheduleDetails = new Schedulemodel();
+  responseDetails = new Responsemodel();
+  companyname: string = '';
 
   constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, 
     private commonService: CommonService, 
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.getScheduleDetails();
+    this.getCompanyDetails();
     this.sharedService.loggedInStatus = false;
   }
 
@@ -71,6 +74,21 @@ export class LoginComponent implements OnInit {
           formatDate(startdt,format, locale) + ' and ' + formatDate(enddt,format, locale) ;
         }
       }
+    });
+     
+  }
+
+  
+  getCompanyDetails(){
+    this.sharedService.getCompanyDetail().subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status){        
+        this.companyname = this.responseDetails.message;
+      }
+      else{
+        this.companyname = "FCUBE"
+      }
+      sessionStorage.setItem("companyname", this.companyname );
     });
      
   }

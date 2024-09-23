@@ -29,6 +29,54 @@
                                     formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
+                            </div>                          
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Tyre Brand</label>
+                                    <select class="form-control" formControlName="brandID"   
+                                        class="form-control form-select ng-pristine ng-touched"  >
+                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                {{vehi.dataName}}
+                                        </option>
+                                    </select>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-3">                                
+                                <div class="mb-3">
+                                    <label>Vendor</label>                                     
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vendorList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"
+                                            formControlName="vendorId" >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>                             
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Tyre Recd Status</label>
+                                    <select class="form-control" formControlName="tyreRecdStatus"   
+                                        class="form-control form-select ng-pristine ng-touched" >
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>  
+                                </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
@@ -51,16 +99,28 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>tyreNo</th>
+                            <th>branchName</th>
                             <th>purchaseDate </th>  
-                            <th>brandID </th>
+                            <th>issueIncharge </th>
+                            <th>vendorName </th>
+                            <th>tyreNo </th>
+                            <th>brandName </th>
+                            <th>usableAmount </th>
+                            <th>tyreStatus </th>
+                            <th>remarks </th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
-                            <td>{{ eta.tyreNo }}</td> 
+                            <td>{{ eta.branchName }}</td> 
                             <td>{{ eta.purchaseDate }}</td>
+                            <td>{{ eta.issueIncharge }}</td>
+                            <td>{{ eta.vendorName }}</td>
+                            <td>{{ eta.tyreNo }}</td>
                             <td>{{ eta.brandName }}</td>
+                            <td>{{ eta.usableAmount }}</td>
+                            <td>{{ eta.tyreStatus }}</td>
+                            <td>{{ eta.remarks }}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">

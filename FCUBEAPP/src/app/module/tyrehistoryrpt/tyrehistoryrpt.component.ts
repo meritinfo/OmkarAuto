@@ -141,7 +141,15 @@ export class TyrehistoryrptComponent {
               });
             });
         }, 
-        columns: [ 
+        columns: [           
+        {
+          title: 'Brand',
+          data: 'brandName',
+        }, 
+        {
+          title: 'KM',
+          data: 'kmr',
+        }, 
         {
           title: 'Trans Date',
           data: 'purchaseDate',
@@ -153,14 +161,6 @@ export class TyrehistoryrptComponent {
         {
           title: 'Vehicle No',
           data: 'vehicleNo',
-        }, 
-        {
-          title: 'Brand Name',
-          data: 'brandName',
-        }, 
-        {
-          title: 'KM',
-          data: 'kmr',
         }, 
       ],
     };

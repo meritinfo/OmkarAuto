@@ -10,7 +10,7 @@ namespace FleetTrans.Business
 {
     public interface IFleetLoadEntryBusiness
     {
-        Task<FleetLoadEntryList> GetFleetLoadEntryList(PageRequest request);
+        Task<FleetLoadEntryList> GetFleetLoadEntryList(ReportRequestModel request);
         Task<ResponseModel> FleetLoadEntryDelete(RequestModel requestModel);
         Task<ResponseModel> FleetLoadEntrySave(FleetLoadEntryModel fleetLoadEntryModel);
 

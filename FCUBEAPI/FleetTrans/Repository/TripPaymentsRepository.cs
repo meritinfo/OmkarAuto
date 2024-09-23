@@ -493,7 +493,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Branch",     request.FilterStr),
+                          //  new SqlParameter("@Branch",     request.FilterStr),
                             new SqlParameter("@Vehicle",    request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);

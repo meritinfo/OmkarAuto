@@ -50,6 +50,11 @@ namespace FleetTrans.Business
         public async Task<List<DropDownListModel>> GetExpList()
          {
             return await tripMasterRepository.GetExpList();
+        }
+        public async Task<ResponseModel> GetDslMileage(RequestModel request)
+        {
+            return await tripMasterRepository.GetDslMileage(request);
+        }
+
     }
-}
 }

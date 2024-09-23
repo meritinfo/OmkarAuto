@@ -24,6 +24,7 @@ export class TyreregrouprcvdrptComponent {
   deleteStatus = false;
   viewStatus = false; 
   brandList: Dropdownmodel[] = [];
+  vendorList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
@@ -116,9 +117,15 @@ export class TyreregrouprcvdrptComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
+      brandID:new FormControl('',),
+      vendorId:new FormControl('',),
     });
     this.filter.fromDate = this.minDate;
     this.filter.toDate = this.loginDate;
+    this.filter.filterStr = "";
+    this.filter.filterStr1 = "";
+    this.getBrandList();
+    this.getVendorList();
 
     this.sharedService.loading=true;
     this.getTyreStatus();
@@ -126,6 +133,35 @@ export class TyreregrouprcvdrptComponent {
   }
   
   get f() { return this.formFilter.controls; }
+
+  getBrandList(): void {
+    this.commonService.getTyreBrandList().subscribe((res) => {
+      this.brandList = res;
+    });
+  }
+  getVendorList(): void {
+    this.commonService.getVendorList().subscribe((res) => {
+      this.vendorList = res;
+    });
+  }  
+
+  selectEvent(item: any) {
+    // do something with selected item
+   // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   getTyreStatus(){
     this.dtOptions = {
@@ -157,17 +193,29 @@ export class TyreregrouprcvdrptComponent {
         }, 
       columns: [  
         {
+          title: 'Branch Name',
+          data: 'branchName',
+        },  
+        {
+          title: 'Recd Date',
+          data: 'purchaseDate',
+        },  
+        {
+          title: 'Vendor Name',
+          data: 'vendorName',
+        },  
+        {
+          title: 'Vendor Inv No',
+          data: 'vendorInvNo',
+        },  
+        {
+          title: 'Vendor Inv Dt',
+          data: 'vendorInvDt',
+        }, 
+        {
           title: 'Tyre No',
           data: 'tyreNo',
         },  
-        {
-          title: 'Activated Date',
-          data: 'purchaseDate',
-        }, 
-        {
-          title: 'Regroup Done YN',
-          data: 'tyreModel',
-        }, 
         {
           title: 'Brand',
           data: 'brandName',
@@ -175,6 +223,14 @@ export class TyreregrouprcvdrptComponent {
         {
           title: 'Regroup Amount',
           data: 'regroupAmount',
+        }, 
+        {
+          title: 'Regroup Done YN',
+          data: 'tyreModel',
+        }, 
+        {
+          title: 'Usable Amount',
+          data: 'usableAmount',
         }, 
       ],
     };
@@ -196,6 +252,8 @@ export class TyreregrouprcvdrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
+    this.filter.filterStr1 = selectedDataVal.brandID;
     
     this.tyremgntrptService.getTyreReGroupRcvdRptExcel(this.filter).subscribe(resp => {
       if(resp.status){      
@@ -225,6 +283,8 @@ export class TyreregrouprcvdrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
+    this.filter.filterStr1 = selectedDataVal.brandID;
 
     this.sharedService.loading=true;
     this.getTyreStatus();

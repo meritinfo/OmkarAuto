@@ -58,13 +58,19 @@
                     <thead>
                         <tr>
                             <th>tyreNo</th>
-                            <th>brandID</th>
+                            <th>brandName</th>
+                            <th>purchaseDate</th>
+                            <th>tyreStatus</th>
+                            <th>vehicleNo</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
                             <td>{{ eta.tyreNo }}</td>
                             <td>{{ eta.brandName }}</td> 
+                            <td>{{ eta.purchaseDate }}</td> 
+                            <td>{{ eta.tyreStatus }}</td> 
+                            <td>{{ eta.vehicleNo }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">

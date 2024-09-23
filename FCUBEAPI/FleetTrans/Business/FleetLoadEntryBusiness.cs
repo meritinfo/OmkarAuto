@@ -21,7 +21,7 @@ namespace FleetTrans.Business
         {
             return await fleetLoadEntryRepository.FleetLoadEntrySave(fleetLoadEntryModel);
         }
-        public async Task<FleetLoadEntryList> GetFleetLoadEntryList(PageRequest request)
+        public async Task<FleetLoadEntryList> GetFleetLoadEntryList(ReportRequestModel request)
         {
             return await fleetLoadEntryRepository.GetFleetLoadEntryList(request);
         }

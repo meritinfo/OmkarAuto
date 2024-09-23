@@ -96,7 +96,7 @@
                                         </div>                                       
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Load For</label>
+                                                <label for="formrow-inputState">Party (Load for)</label><span style="color: red"> * </span> 
                                                 <!-- <input class="form-control" placeholder="" uppercaseonly
                                                 formControlName="loadFor"> -->
                                                 <select class="form-control" 
@@ -111,8 +111,8 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Load MemoNo</label>
-                                                <input class="form-control" placeholder="" uppercaseonly
+                                                <label for="formrow-inputState">Memo No</label><span style="color: red"> * </span> 
+                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="15"
                                                 formControlName="loadMemoNo">
                                
                                             </div>
@@ -121,15 +121,15 @@
                                     <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="formrow-inputState">Consignor Name</label>
-                                            <input class="form-control" placeholder="" uppercaseonly
+                                            <label for="formrow-inputState">Consignor Name</label><span style="color: red"> * </span> 
+                                            <input class="form-control" placeholder="" uppercaseonly  maxlength="75"
                                                 formControlName="consignorName">
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Add</label>
-                                            <input class="form-control" placeholder="" uppercaseonly
+                                            <input class="form-control" placeholder="" uppercaseonly maxlength="150"
                                                 formControlName="consignorAdd">
                                         </div>
                                     </div>
@@ -138,9 +138,9 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Loading From</label>
+                                                <label for="formrow-inputCity">Loading From</label><span style="color: red"> * </span> 
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="loadingFrom"
+                                                    <ng-autocomplete [data]="locationList" formControlName="loadingFrom" 
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                 
                                                      
@@ -163,7 +163,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Loading To</label>
+                                                <label for="formrow-inputState">Destination</label><span style="color: red"> * </span> 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="loadingTo"
                                                         [searchKeyword]="keywordLocation" placeholder=""
@@ -188,7 +188,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Product</label>
+                                                <label for="formrow-inputState">Product</label><span style="color: red"> * </span> 
                                                
                                                     <select class="form-control" formControlName="productId"                             
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
@@ -202,15 +202,15 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Consignee Name</label>
-                                                <input class="form-control" placeholder="" uppercaseonly
+                                                <label for="formrow-inputState">Consignee Name</label><span style="color: red"> * </span> 
+                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="75"
                                                     formControlName="consigneeName">
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Consignee Address</label>
-                                                <input type="text" class="form-control" uppercaseonly
+                                                <input type="text" class="form-control" uppercaseonly  maxlength="150"
                                                     formControlName="consigneeAdd"
                                                    >
                                             </div>
@@ -220,14 +220,14 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Qty Wt</label>
-                                                <input class="form-control" placeholder="" numbersonly
+                                                <label for="formrow-inputCity">Qty Wt (MT)</label><span style="color: red"> * </span> 
+                                                <input class="form-control" placeholder="" decimalonly  (change)="onRateChange()"
                                                     formControlName="qtyWt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Qty Pkgs</label>
+                                                <label for="formrow-inputCity">Packages</label><span style="color: red"> * </span> 
                                                 <input class="form-control" placeholder="" numbersonly
                                                     formControlName="qtyPkgs">
                                             </div>
@@ -235,7 +235,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Rate Per Ton</label>
-                                                <input class="form-control" placeholder="" numbersonly
+                                                <input class="form-control" placeholder="" numbersonly 
                                                     formControlName="ratePerTon">
                                             </div>
                                         </div>
@@ -244,14 +244,14 @@
                                     <div class="row">   
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Hire Amt</label>
-                                                <input class="form-control" placeholder="" numbersonly
-                                                    formControlName="hireAmt">
+                                                <label for="formrow-inputCity"> Freight (Hire)</label><span style="color: red"> * </span> 
+                                                <input class="form-control" placeholder="" numbersonly 
+                                                    formControlName="hireAmt" (change)="onRateChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Adv Amt</label>
+                                                <label for="formrow-inputCity">Advance</label>
                                                 <input class="form-control" placeholder="" formControlName="advAmt" numbersonly>
                                             </div>
                                         </div>
@@ -275,7 +275,7 @@
                                         
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Attach Memocopy</label>
+                                                <label for="formrow-inputCity"> Attach Memo Copy</label>
                                                 <!-- <input class="form-control" placeholder=""
                                                     formControlName="attachMemocopy"> -->
                                                     <input #attachmentInput class="form-control" type="file"
@@ -287,7 +287,7 @@
                                         <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Remarks</label>
-                                                <input class="form-control" placeholder="" uppercaseonly
+                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="250"
                                                     formControlName="remarks">
                                             </div>
                                         </div>

@@ -97,7 +97,7 @@ export class TrippaymentslistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('',),
+     // branch: new FormControl('',),
       vehicle: new FormControl('',),
       tripNo: new FormControl('',)
     });
@@ -142,7 +142,7 @@ export class TrippaymentslistComponent {
         // Set column title and data field
       columns: [    
         {
-          title: 'PmtBranch',
+          title: 'Branch',
           data: 'bName',
         },
         {
@@ -219,7 +219,7 @@ export class TrippaymentslistComponent {
    
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-    this.filter.filterStr = selectedData.branch;
+   // this.filter.filterStr = selectedData.branch;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
 
     this.tripPaymentList();
