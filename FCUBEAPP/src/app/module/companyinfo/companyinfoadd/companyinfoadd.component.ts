@@ -288,7 +288,7 @@ submitConpanyInfoForm(): void {
   this.companyinfoModel.jurisdiction = selectedDataVal.jurisdiction;
   this.companyinfoModel.msmeNo = selectedDataVal.msmeNo;
   this.companyinfoModel.bank1Name = selectedDataVal.bank1Name.toString().toUpperCase();
-  this.companyinfoModel.bank1Add = selectedDataVal.bank1Add.toString().toUpperCase();;
+  this.companyinfoModel.bank1Add = selectedDataVal.bank1Add.toString().toUpperCase();
   this.companyinfoModel.bank1AcNo = selectedDataVal.bank1AcNo.toString().toUpperCase();
   this.companyinfoModel.bank1Ifsc = selectedDataVal.bank1Ifsc.toString().toUpperCase();
   this.companyinfoModel.bank2Name = selectedDataVal.bank2Name.toString().toUpperCase();

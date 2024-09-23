@@ -142,7 +142,7 @@ export class TrippaymentslistComponent {
         // Set column title and data field
       columns: [    
         {
-          title: 'PmtBranch',
+          title: 'Branch',
           data: 'bName',
         },
         {

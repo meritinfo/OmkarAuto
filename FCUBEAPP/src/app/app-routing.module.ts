@@ -204,6 +204,7 @@ import { ChallanregisterrptComponent } from './module/challanregisterrpt/challan
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
 import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
+import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 
 
 
@@ -489,6 +490,7 @@ const routes: Routes = [
   { path: 'lhpayablerpt', component: LhpayablestatusrptComponent },  
   { path: 'sparepurchrpt', component: SparespurchaserptComponent },  
   { path: 'vehilcereprpt', component: VehiclerepairsrptComponent },
+  { path: 'billreg', component: BillregisterrptComponent },
 ];
 
 @NgModule({

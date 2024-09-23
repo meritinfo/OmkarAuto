@@ -264,6 +264,8 @@ namespace FCUBEAPI
             services.AddScoped<ILhPayableStatusRptRepository, LhPayableStatusRptRepository>();
             services.AddScoped<IVehicleRepairsRptBusiness, VehicleRepairsRptBusiness>();
             services.AddScoped<IVehicleRepairsRptRepository, VehicleRepairsRptRepository>();
+            services.AddScoped<IBillRegisterRptBusiness, BillRegisterRptBusiness>();
+            services.AddScoped<IBillRegisterRptRepository, BillRegisterRptRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

@@ -350,6 +350,8 @@ import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayab
 import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
 import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
+import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
+import { Billregisterrptmodel } from './models/billregisterrptmodel';
 
 
 @NgModule({
@@ -465,6 +467,7 @@ import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclere
     LhpayablestatusrptComponent,
     ChallanregisterrptComponent,
     VehiclerepairsrptComponent,
+    BillregisterrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -524,6 +527,7 @@ import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclere
     Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
     Vehiclerepairsrptmodel,
+    Billregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
