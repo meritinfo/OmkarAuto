@@ -2255,7 +2255,12 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
     left: -.5rem;
     position: relative
 }
-
+.form-switch-md .form-check-input-small {
+    width: 30px;
+    height: 18px;
+    left: -.5rem;
+    position: relative
+}
 .form-switch-md .form-check-label {
     vertical-align: middle
 }
@@ -2273,6 +2278,12 @@ body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
     position: relative
 }
 
+.form-switch-lg .form-check-input-small {
+    width: 28px;
+    height: 14px;
+    left: -.75rem;
+    position: relative
+}
 .input-group-text {
     margin-bottom: 0
 }
@@ -5912,3 +5923,4 @@ background-color: #fbff00 !important
 .full-tyre-width tr td {
     width: fit-content;
 }
+

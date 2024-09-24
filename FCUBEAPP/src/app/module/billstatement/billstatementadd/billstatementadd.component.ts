@@ -398,7 +398,7 @@ export class BillstatementaddComponent implements OnInit {
       cgst = parseFloat(selectedDate.cgstPct)
     }
 
-    if (selectedDate.gstType == "I") {   
+    if (selectedDate.gstType == "IG") {   
       selectedDate.igstPct 
       this.formBillStatement.patchValue({
         sgstPct:"",
@@ -409,7 +409,7 @@ export class BillstatementaddComponent implements OnInit {
         igstAmt: Math.round((totalSubAmount * igst)/100).toFixed(2)
       });   
     }    
-    else if (selectedDate.gstType == "S")  {    
+    else if (selectedDate.gstType == "SC")  {    
       this.formBillStatement.patchValue({
         sgstPct: sgst,
         cgstPct: cgst,
@@ -444,7 +444,7 @@ export class BillstatementaddComponent implements OnInit {
     console.log(e.target.value);
     var gsttype = e.target.value; 
    
-    if (gsttype == "I") {   
+    if (gsttype == "IG") {   
       this.formBillStatement.controls['sgstPct'].disable();
       this.formBillStatement.controls['cgstPct'].disable();  
       this.formBillStatement.controls['igstPct'].enable();    
@@ -457,7 +457,7 @@ export class BillstatementaddComponent implements OnInit {
         igstAmt:"0",
       });   
     }    
-    else if (gsttype == "S")  {      
+    else if (gsttype == "SC")  {      
       this.formBillStatement.controls['sgstPct'].enable();
       this.formBillStatement.controls['cgstPct'].enable();  
       this.formBillStatement.controls['igstPct'].disable();   
@@ -514,7 +514,7 @@ export class BillstatementaddComponent implements OnInit {
       cgst = parseFloat(selectedDate.cgstPct)
     }
 
-    if (selectedDate.gstType == "I") {   
+    if (selectedDate.gstType == "IG") {   
       selectedDate.igstPct 
       this.formBillStatement.patchValue({
         sgstPct:"",
