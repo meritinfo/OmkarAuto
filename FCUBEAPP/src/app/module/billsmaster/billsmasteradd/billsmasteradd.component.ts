@@ -28,10 +28,12 @@ export class BillsmasteraddComponent implements OnInit {
   branch: string = '';
   loginDate: string = '';
   fromDate: string = '';
+  duedate: string = '';
   minDate : string = '';
   maxDate : string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  partyLocationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
@@ -103,6 +105,11 @@ export class BillsmasteraddComponent implements OnInit {
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 12);
+
+    const duedt = this.commonService.getCurrentFiscalYear(this.loginDate).sDate;    
+    const mnth = duedt.getMonth();
+    duedt.setMonth(mnth + 1);
+    this.duedate = duedt.toLocaleDateString('en-CA').toString();
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -121,12 +128,13 @@ export class BillsmasteraddComponent implements OnInit {
     this.formBillsMaster = this.formBuilder.group({
       billingStation: new FormControl(this.branch,[Validators.required]),
       billNo: new FormControl('',[Validators.required]),
-      billDate: new FormControl(this.fromDate,[Validators.required]),
+      billDate: new FormControl(this.loginDate,[Validators.required]),
+      dueDate: new FormControl(this.duedate,[Validators.required]),
       suppYN: new FormControl('N',[Validators.required]),
       sacHsn: new FormControl('',),
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
-      collBranch: new FormControl('',[Validators.required]),
+      collBranch: new FormControl(this.branch,[Validators.required]),
       gstType: new FormControl('N',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
       totalStatistical: new FormControl(''),
@@ -147,17 +155,19 @@ export class BillsmasteraddComponent implements OnInit {
       totalNonGstAmt1: new FormControl(''),
       totalNonGstAmt2: new FormControl(''),
       totalGtotal: new FormControl('',[Validators.required]),
-      billRemarks: new FormControl('',[Validators.required]),
-      dueDate: new FormControl('',[Validators.required]),
+      billRemarks: new FormControl('',),
   
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
+    
+    if (this.selectedBillsmasterDetails.billsMasterId != '') {
+      this.getPartyGstLocationList(this.selectedBillsmasterDetails.partyCode);
+    }
 
     setTimeout(() => {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
-      this.formBillsMaster.controls['billNo'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalStatistical'].disable();
       this.formBillsMaster.controls['totalFov'].disable();
@@ -184,12 +194,14 @@ export class BillsmasteraddComponent implements OnInit {
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
-          partyGstLocation: this.locationList.find(e => e.dataId == this.selectedBillsmasterDetails.partyGstLocation) ,     
-          collBranch: this.locationList.find(e => e.dataId == this.selectedBillsmasterDetails.collBranch) 
         })   
         this.getBillsMasterInnerGridList();
         this.editMode = true;
         this.showButton = false;
+        this.formBillsMaster.controls['billNo'].disable();
+        this.formBillsMaster.controls['partyCode'].disable();
+        this.formBillsMaster.controls['partyGstLocation'].disable();
+        this.formBillsMaster.controls['suppYN'].disable();        
       } 
       else{        
         this.billSeriesChange();
@@ -197,67 +209,15 @@ export class BillsmasteraddComponent implements OnInit {
     }, 2000);
     this.sharedService.loading = false;    
   }
-  
-  billSeriesChange(): void {
-    var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billNo;
-    this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      this.formBillsMaster.patchValue({
-        billNo: res.message
-      });
-    });
-  }  
-  
-  getFinDocDetails(finId: string){
-    this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.seriesDoc = res.message;
-      } 
-      else{
-        this.seriesDoc = '';
-      }
-    });
-  }
 
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
-  }
-  
-  getBillingPartyList(): void {
-    this.commonService.getBillingPartyList().subscribe((res) => {
-      this.partyList = res;
-    });
-  }
-  
-  getLocationList(): void {
-    this.commonService.getLocationList().subscribe((res) => {
-      this.locationList = res;
-    });
-  }
   
   get f() { return this.formBillsMaster.controls;}
+  
   get formArray() {
     return this.formBillsMaster.get("arrayList") as FormArray;
   }  
 
-  onSuppYNChange(e:any){
-    if(e.target.checked){
-      this.supp = true;
-      this.showButton = false;
-      this.formBillsMaster.controls['totFreight'].enable();
-    }
-    else{
-      this.supp = false;
-      this.showButton = true;
-      this.formBillsMaster.controls['totFreight'].disable();
-    }
-  }
-
+  
   createInitialArray() {
     return this.formBuilder.group({
       billDetailId:  ['', []],
@@ -270,6 +230,8 @@ export class BillsmasteraddComponent implements OnInit {
       partyCode:  ['', []],
       gcBranch:  ['', []],
       gcNoteNo:  ['', []],
+      fromPlace:  ['', []],
+      toPlace:  ['', []],
       consignmentid:  ['', []],
       statistical:  ['', []],
       fov:  ['', []],
@@ -300,9 +262,34 @@ export class BillsmasteraddComponent implements OnInit {
     }); 
   }
   
+  
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+  
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+
+  getPartyGstLocationList(party:string): void {
+    this.requestmodel.strRequest = party;
+    this.billsMasterService.getPartyGstLocationList(this.requestmodel).subscribe((res) => {
+      this.partyLocationList = res;
+    });    
+  }
 
   selectEvent(item: any) {
-    // do something with selected item
+    this.getPartyGstLocationList(item.dataId);
   }
 
   onChangeSearch(search: string) {
@@ -331,9 +318,65 @@ export class BillsmasteraddComponent implements OnInit {
 
     this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
       .subscribe((res: Billsmastersearchlistmodel) => {
-      this.billsmastersearchlistmodel = res;
+      this.billsmastersearchlistmodel = res;      
+      this.formBillsMaster.controls['partyCode'].disable();
     });   
   } 
+
+  onBillNoChange(e:any): void {
+    this.requestmodel.strRequest = e.target.value;
+    this.billsMasterService.checkDuplicateBillsNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formBillsMaster.patchValue({
+          billNo: "",
+        });
+      }    
+    });
+  }  
+  
+  billSeriesChange(): void {
+    var selectedData = this.formBillsMaster.getRawValue();
+    this.requestmodel.strRequest = selectedData.billNo;
+    this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      this.formBillsMaster.patchValue({
+        billNo: res.message
+      });
+    });
+  }  
+  
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
+
+
+  onSuppYNChange(e:any){
+    if(e.target.checked){
+      this.supp = true;
+      this.showButton = false;
+      this.formBillsMaster.controls['totFreight'].enable();
+    }
+    else{
+      this.supp = false;
+      this.showButton = true;
+      this.formBillsMaster.controls['totFreight'].disable();
+    }
+  }
+
    
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
@@ -343,8 +386,14 @@ export class BillsmasteraddComponent implements OnInit {
   }
 
   
-  selectedData(index: number, event: any) {
-    this.billsmastersearchlistmodel.billsMasterSearchList[index].selected = event.target.checked;   
+  selectedData(i: number, event: any) {
+    this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = event.target.checked;      
+    var gst = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType;
+    if(event.target.checked && (gst == 'NA' ||gst == 'N')){
+      this.formBillsMaster.patchValue({
+        gstType: 'NA',
+      });
+    }
     this.calculateTotal();
   }  
 
@@ -484,13 +533,6 @@ export class BillsmasteraddComponent implements OnInit {
       this.toasterService.warning(" Party Location is Invalid");
       return;
     }
-    if (selectedDataValue.collBranch.dataId) {
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Coll Branch is Invalid");
-      return;
-    }
     
     if(parseFloat(selectedDataValue.totalGtotal) > 0 ){
       //ignore
@@ -509,7 +551,7 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.billStatus = 'N';
     this.billsmastermodel.billType = '1';
     this.billsmastermodel.partyGstLocation = selectedDataValue.partyGstLocation.dataId;
-    this.billsmastermodel.collBranch = selectedDataValue.collBranch.dataId;
+    this.billsmastermodel.collBranch = selectedDataValue.collBranch;
     this.billsmastermodel.suppYN = selectedDataValue.suppYN;
     this.billsmastermodel.sacHsn = selectedDataValue.sacHsn.toString();
     this.billsmastermodel.totalFreight =selectedDataValue.totalFreight.toString();
@@ -536,9 +578,14 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.yearId = this.year;
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
-
+    var gstType = '' ;
     for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
       if(this.billsmastersearchlistmodel.billsMasterSearchList[i].selected){
+        if(this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType == 'NA' ||
+          this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType == 'N'){
+            gstType = 'NA'
+          }        
+        
         this.billsmastermodel.billsMasterListData.push({
           'billDetailId': '',
           'billsMasterId': '',
@@ -580,6 +627,11 @@ export class BillsmasteraddComponent implements OnInit {
         });
       }
     } 
+    
+    if(gstType == 'NA' && this.billsmastermodel.gstType != 'NA' ){
+      this.toasterService.warning("Bill GST should not be applicable");   
+      return;
+    }
     
     this.billsMasterService.saveBillsMasterDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

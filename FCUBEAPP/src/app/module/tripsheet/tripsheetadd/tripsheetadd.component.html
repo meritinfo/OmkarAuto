@@ -366,19 +366,16 @@
                                         <tr formArrayName="expList"
                                             *ngFor="let drv of formExpTypeArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
-                                                <td>
-                                                   
-                                                    <select class="form-control" formControlName="expId" 
-                                                >
-                                                    <option *ngFor="let branch of expList" value={{branch.dataId}}>
-                                                        {{branch.dataName}}
-                                                    </option>
-                                                </select>
+                                                <td>                                                   
+                                                    <select class="form-control" formControlName="expId">
+                                                        <option *ngFor="let branch of expList" value={{branch.dataId}}>
+                                                            {{branch.dataName}}
+                                                        </option>
+                                                    </select>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" uppercaseonly
-                                                    formControlName="expParticulars">
-                                                   
+                                                    formControlName="expParticulars">                                                   
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" decimalonly
@@ -576,7 +573,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Trip Close Date </label>
-                                            <input type="date" class="form-control" placeholder="" 
+                                            <input type="date" class="form-control"   
                                                 formControlName="tripCloseDt">
                                         </div>
                                     </div>

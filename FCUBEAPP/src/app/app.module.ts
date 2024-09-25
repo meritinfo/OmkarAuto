@@ -64,8 +64,6 @@ import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
-import { ListcnorcneemasterComponent } from './module/cnorcneemaster/listcnorcneemaster/listcnorcneemaster.component';
-import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneemaster/addcnorcneemaster.component';
 import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
 import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
 import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
@@ -352,11 +350,14 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
+import { Mrregisterrptmodel } from './models/mrregisterrptmodel';
 import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
 
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
-
+import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
+import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
 
 @NgModule({
   declarations: [
@@ -379,7 +380,6 @@ import { BenificiarymasterlistComponent } from './module/benificiarymaster/benif
     ConsignmentaddComponent, ConsignmentlistComponent,
     AddbranchmasterComponent,BranchmasterlistComponent,
     VehiclemasteraddComponent,VehiclemasterlistComponent,
-    ListcnorcneemasterComponent,AddcnorcneemasterComponent,
     DrivermasteraddComponent,DrivermasterlistComponent,
     AddtrippaymentsComponent,TrippaymentslistComponent,
     GstpurchaseaddComponent,GstpurchaselistComponent,
@@ -472,8 +472,12 @@ import { BenificiarymasterlistComponent } from './module/benificiarymaster/benif
     ChallanregisterrptComponent,
     VehiclerepairsrptComponent,
     BillregisterrptComponent,
+    MrregisterrptComponent,
     BenificiarymasteraddComponent,
     BenificiarymasterlistComponent,
+    LhpayablestatusrptComponent,  ChallanregisterrptComponent,
+    VehiclerepairsrptComponent, BillregisterrptComponent,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent ,
   ],
   imports: [
     BrowserModule,
@@ -533,6 +537,8 @@ import { BenificiarymasterlistComponent } from './module/benificiarymaster/benif
     Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
     Vehiclerepairsrptmodel,
+    Billregisterrptmodel,
+    Mrregisterrptmodel,
     Billregisterrptmodel,Benificiarymastermodel
   ],
   bootstrap: [AppComponent]

@@ -40,7 +40,7 @@
                                                     <label for="formrow-inputCity">From Location</label>
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            [searchKeyword]="keywordLocation"  
                                                             (selected)='selectEvent($event)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'
@@ -151,7 +151,7 @@
 
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            [searchKeyword]="keywordLocation"  
                                                             (selected)='selectToLocationEvent($event,i)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'

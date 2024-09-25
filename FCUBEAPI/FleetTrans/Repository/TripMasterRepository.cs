@@ -291,9 +291,10 @@ namespace FleetTrans.Repository
                                 TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
                                 TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
-                                TripBr      = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
+                                TripBr = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                DrName= Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
+                                DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
+                                NextTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["NextTrip"]),
                             });
                         }
 

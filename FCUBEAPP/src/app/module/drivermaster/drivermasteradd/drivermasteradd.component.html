@@ -37,7 +37,7 @@
                                             <div class="mb-3">
                                                 <label>Father name</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="fatherName" placeholder=""
+                                                    formControlName="fatherName"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fatherName'].invalid) }">
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                             <div class="mb-3">
                                                 <label>Date of Birth</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfBirth"
-                                                    min="{{minDate}}" max="{{maxDate}}" placeholder=""
+                                                    min="{{minDate}}" max="{{maxDate}}"  
                                                     (change)="onDOBChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['dateOfBirth'].invalid) }">
                                             </div>
@@ -54,7 +54,7 @@
                                             <div class="mb-3">
                                                 <label>Age</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control"
-                                                    formControlName="age" placeholder="" maxlength="2"
+                                                    formControlName="age"   maxlength="2"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['age'].invalid) }">
                                             </div>
                                         </div>
@@ -81,7 +81,7 @@
                                             <div class="mb-3">
                                                 <label>Introduced By</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="introBy" placeholder=""
+                                                    formControlName="introBy"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['introBy'].invalid) }">
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@
                                             <div class="mb-3">
                                                 <label>Mobile No</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control"
-                                                    formControlName="introByMobileNo" placeholder="" maxlength="10"
+                                                    formControlName="introByMobileNo"   maxlength="10"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['introByMobileNo'].invalid) }">
                                             </div>
                                         </div>
@@ -97,7 +97,7 @@
                                             <div class="mb-3">
                                                 <label>Date of Appointment</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfAppoint"
-                                                    placeholder=""
+                                                     
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['dateOfAppoint'].invalid) }">
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@
                                             <div class="mb-3">
                                                 <label>Group Name</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="groupName" placeholder=""
+                                                    formControlName="groupName"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['groupName'].invalid) }">
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                             <div class="mb-3">
                                                 <label>Aadhar No</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control"
-                                                    formControlName="driverAadharNo" placeholder="" maxlength="20"
+                                                    formControlName="driverAadharNo"   maxlength="20"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['driverAadharNo'].invalid) }">
                                             </div>
                                         </div>
@@ -125,7 +125,7 @@
                                             <div class="mb-3">
                                                 <label>Licence No</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="licenseNo" placeholder=""
+                                                    formControlName="licenseNo"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['licenseNo'].invalid) }">
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@
                                             <div class="mb-3">
                                                 <label>Valid Upto</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="licValidUpto"
-                                                    placeholder=""
+                                                     
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['licValidUpto'].invalid) }">
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@
                                             <div class="mb-3">
                                                 <label>Issue Auth</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="licenseIssuAuth" placeholder=""
+                                                    formControlName="licenseIssuAuth"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['licenseIssuAuth'].invalid) }">
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                                 <input uppercaseonly type="text" class="form-control"
                                                     formControlName="hazardousLicNo"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['hazardousLicNo'].invalid) }"
-                                                    placeholder="">
+                                                     >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -173,7 +173,7 @@
                                                 <label>hazardous Valid Upto</label>
                                                 <input type="date" class="form-control"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['hazLicValidUpto'].invalid) }"
-                                                    formControlName="hazLicValidUpto" placeholder="">
+                                                    formControlName="hazLicValidUpto"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -181,7 +181,7 @@
                                                 <label>HazLicense Issue Auth</label>
                                                 <input uppercaseonly type="text" class="form-control"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['hazLicenseIssuAuth'].invalid) }"
-                                                    formControlName="hazLicenseIssuAuth" placeholder="">
+                                                    formControlName="hazLicenseIssuAuth"  >
                                             </div>
                                         </div>
                                     </div>
@@ -190,28 +190,28 @@
                                             <div class="mb-3">
                                                 <label>Temporary Address</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="temporaryAddr" placeholder="">
+                                                    formControlName="temporaryAddr"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>City</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="temporaryAddrCity" placeholder="">
+                                                    formControlName="temporaryAddrCity"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Pin</label>
                                                 <input numbersonly type="text" class="form-control" maxlength="6"
-                                                    formControlName="temporaryAddrPin" placeholder="">
+                                                    formControlName="temporaryAddrPin"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
                                                 <input numbersonly type="text" maxlength="10" class="form-control"
-                                                    formControlName="tempAddPhone" placeholder="">
+                                                    formControlName="tempAddPhone"  >
                                             </div>
                                         </div>
                                     </div>
@@ -220,28 +220,28 @@
                                             <div class="mb-3">
                                                 <label>Permanent Address</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="permanentAddr" placeholder="">
+                                                    formControlName="permanentAddr"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>City</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="permanentAddrCity" placeholder="">
+                                                    formControlName="permanentAddrCity"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Pin</label>
                                                 <input numbersonly type="text" class="form-control" maxlength="6"
-                                                    formControlName="permanentAddrPin" placeholder="">
+                                                    formControlName="permanentAddrPin"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
                                                 <input numbersonly type="text" class="form-control" maxlength="10"
-                                                    formControlName="permAddPhone" placeholder="">
+                                                    formControlName="permAddPhone"  >
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@
                                                     <div class="mb-3">
                                                         <label>Experience</label>
                                                         <input uppercaseonly type="text" class="form-control"
-                                                            formControlName="previousExpDetails" placeholder="">
+                                                            formControlName="previousExpDetails"  >
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -260,7 +260,7 @@
                                                         <label>Years</label>
                                                         <input numbersonly maxlength="4" type="text"
                                                             class="form-control" formControlName="previousExpYears"
-                                                            placeholder="">
+                                                             >
                                                     </div>
                                                 </div>
                                             </div>
@@ -269,7 +269,7 @@
                                                     <div class="mb-3">
                                                         <label>Mobile 1</label><span style="color: red">*</span>
                                                         <input numbersonly type="text" class="form-control"
-                                                            placeholder="" formControlName="driverMobile1"
+                                                              formControlName="driverMobile1"
                                                             maxlength="10"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMobile1'].invalid) }">
                                                     </div>
@@ -279,7 +279,7 @@
                                                         <label>Mobile 2</label>
                                                         <input numbersonly type="text" maxlength="10"
                                                             formControlName="driverMobile2" class="form-control"
-                                                            placeholder="">
+                                                             >
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,7 +315,7 @@
                                                 <label>InActive Date</label>
                                                 <input type="date" class="form-control" formControlName="inActiveDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['inActiveDate'].invalid) }"
-                                                    placeholder="">
+                                                     >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -335,7 +335,7 @@
                                                 <label>Removed Date</label>
                                                 <input type="date" class="form-control" formControlName="removedDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['removedDate'].invalid) }"
-                                                    placeholder="">
+                                                     >
                                             </div>
                                         </div>
                                     </div>
@@ -357,7 +357,7 @@
                                                 <div class="mb-3">
                                                     <label>Bank Account Name</label>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="drBankAccountName" placeholder=""
+                                                        formControlName="drBankAccountName"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['drBankAccountName'].invalid) }">
                                                 </div>
                                             </div>
@@ -365,7 +365,7 @@
                                                 <div class="mb-3">
                                                     <label>Bank Name</label>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="bankName" placeholder=""
+                                                        formControlName="bankName"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankName'].invalid) }">
                                                 </div>
                                             </div>
@@ -373,7 +373,7 @@
                                                 <div class="mb-3">
                                                     <label>Bank Account No</label>
                                                     <input numbersonly type="text" class="form-control"
-                                                        formControlName="bankAcNo" placeholder=""
+                                                        formControlName="bankAcNo"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAcNo'].invalid) }">
                                                 </div>
                                             </div>
@@ -383,7 +383,7 @@
                                                 <div class="mb-3">
                                                     <label>IFSC Code</label>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="bankIfsCode" placeholder=""
+                                                        formControlName="bankIfsCode"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankIfsCode'].invalid) }">
                                                 </div>
                                             </div>
@@ -391,7 +391,7 @@
                                                 <div class="mb-3">
                                                     <label>Branch Name</label>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="bankBranch" placeholder=""
+                                                        formControlName="bankBranch"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankBranch'].invalid) }">
                                                 </div>
                                             </div>

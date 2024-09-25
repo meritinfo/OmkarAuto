@@ -1,7 +1,10 @@
 export class Billsmastersearchmodel {   
   consignmentID:  string = "";  
-  bookingDate:  string = "";  
   bookingPlace:  string = "";  
+  bookingDate:  string = "";  
+  gcNoteNo:  string = "";  
+  fromPlace: string = "";  
+  toPlace: string = "";  
   rateRs:  string = "";  
   freightRs:  string = "";  
   statisticalRs:  string = "";  

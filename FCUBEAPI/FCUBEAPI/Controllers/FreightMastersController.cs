@@ -39,6 +39,7 @@ namespace FCUBEAPI.Controllers
         readonly IChallanRegisterRptBusiness challanRegisterRptBusiness;
         readonly ILhPayableStatusRptBusiness lhPayableStatusRptBusiness;
         readonly IBillRegisterRptBusiness billRegisterRptBusiness;
+        readonly IMRRegisterRptBusiness mRRegisterRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -63,7 +64,8 @@ namespace FCUBEAPI.Controllers
             IUnBilledRptBusiness _unBilledRptBusiness,
             IChallanRegisterRptBusiness _challanRegisterRptBusiness,
             ILhPayableStatusRptBusiness _lhPayableStatusRptBusiness,
-            IBillRegisterRptBusiness _billRegisterRptBusiness)
+            IBillRegisterRptBusiness _billRegisterRptBusiness,
+            IMRRegisterRptBusiness _mRRegisterRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -92,6 +94,7 @@ namespace FCUBEAPI.Controllers
             challanRegisterRptBusiness = _challanRegisterRptBusiness;
             lhPayableStatusRptBusiness = _lhPayableStatusRptBusiness;
             billRegisterRptBusiness = _billRegisterRptBusiness;
+            mRRegisterRptBusiness = _mRRegisterRptBusiness;
         }
 
         /// <summary>
@@ -628,6 +631,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBillPartyGstLocationList")]
+        public async Task<IActionResult> GetBillPartyGstLocationList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillPartyGstLocationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
         {
@@ -1531,6 +1554,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetBookingRegisterRptExcel")]
         public async Task<IActionResult> GetBookingRegisterRptExcel(ReportRequestModel request)
         {
@@ -1749,6 +1773,43 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billRegisterRptBusiness.GetBillRegisterRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetMRRegisterRptExcel")]
+        public async Task<IActionResult> GetMRRegisterRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mRRegisterRptBusiness.GetMRRegisterRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetMRRegisterRptList")]
+        public async Task<IActionResult> GetMRRegisterRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mRRegisterRptBusiness.GetMRRegisterRptList(request);
 
                 return Ok(result);
             }

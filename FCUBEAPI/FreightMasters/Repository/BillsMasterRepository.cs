@@ -135,6 +135,9 @@ namespace FreightMasters.Repository
                                 ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
                                 BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                GcNoteNo= Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
                                 StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
@@ -415,9 +418,12 @@ namespace FreightMasters.Repository
                         {
                             billsMasterSearchModel.Add(new BillsMasterSearchModel
                             {
+                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
                                 ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                GcNoteNo= Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
                                 StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
@@ -491,6 +497,68 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel)
+        {
+            List<DropDownListModel> productList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Party", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillPartyGstLocationList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            productList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return productList;
+        }
+        public async Task<ResponseModel> CheckDuplicateBillsNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+           
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillsNo", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BillsMstDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                       
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return responseModel;
+        }
+        
+
     }
 }
 

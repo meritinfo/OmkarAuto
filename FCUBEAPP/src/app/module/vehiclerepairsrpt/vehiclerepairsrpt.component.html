@@ -60,7 +60,7 @@
                                     <label for="formrow-inputCity">Party </label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="party" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
@@ -85,7 +85,7 @@
                                     <label for="formrow-inputCity">Vehicle No</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="vehicleMasterId" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
@@ -110,7 +110,7 @@
                                     <label for="formrow-inputCity">Spares </label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="sparesList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="spareLubId" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'

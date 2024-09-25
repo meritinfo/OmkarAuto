@@ -34,7 +34,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Name</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                <input uppercaseonly type="text" class="form-control"   
                                                 (change)="chkBranchNameExits($event)"                       
                                                 formControlName="userBranch"    maxlength="49"       
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
@@ -152,7 +152,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Email</label>
-                                                <input type="email" autoclose="false" class="form-control"  placeholder="" 
+                                                <input type="email" autoclose="false" class="form-control"    
                                                 formControlName="branchEmail">
                                             </div>
                                         </div>

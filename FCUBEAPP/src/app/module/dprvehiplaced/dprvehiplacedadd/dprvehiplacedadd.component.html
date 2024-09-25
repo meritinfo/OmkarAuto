@@ -75,7 +75,7 @@
                                             <label>Broker Name: </label><span style="color: red">*</span>  
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="brokerList"
-                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    [searchKeyword]="keywordLocation"  
                                                     formControlName="brokerId" [initialValue]=""
                                                     (selected)='selectEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'

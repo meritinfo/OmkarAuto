@@ -94,7 +94,7 @@
                                     <label for="formrow-inputZip">From Place : </label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="challanFromStn" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
@@ -119,7 +119,7 @@
                                     <label for="formrow-inputZip">To Place : </label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="challanToStn"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -200,7 +200,7 @@
                                     <span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="brokerList" formControlName="brokerId"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 

@@ -43,7 +43,7 @@
                                             <div class="mb-3">
                                                 <label> </label>
                                                 <input uppercaseonly type="text" class="form-control" 
-                                                    formControlName="empCode" placeholder=""                               
+                                                    formControlName="empCode"                                 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['empCode'].invalid) }">
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@
                                             <div class="mb-3">
                                                 <label>Employee Status</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control" 
-                                                    formControlName="empStatus" placeholder=""                               
+                                                    formControlName="empStatus"                                 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['empStatus'].invalid) }">
                                             </div>
                                         </div> -->
@@ -111,7 +111,7 @@
                                             <div class="mb-3">
                                                 <label>Age</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control" formControlName="age"
-                                                    placeholder="" maxlength="2"    
+                                                      maxlength="2"    
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['age'].invalid) }">
                                             </div>
                                         </div>
@@ -316,7 +316,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="empList"
                                                         formControlName="managersUnder"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -340,7 +340,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="empList"
                                                         formControlName="supervisorsUnder"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -364,7 +364,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="empList"
                                                         formControlName="othersUnder"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -421,7 +421,7 @@
                                                 <div class="mb-3">
                                                     <label>IFSC Code</label><span style="color: red">*</span>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="bankIFSC" placeholder=""
+                                                        formControlName="bankIFSC"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankIFSC'].invalid) }">
                                                 </div>
                                             </div>

@@ -44,7 +44,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Vehicle</label>
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         formControlName="vehicleMasterID" [initialValue]=""
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
@@ -111,7 +111,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Remark</label>
                                                     <input uppercaseonly  class="form-control" formControlName="remarks"
-                                                        id="basicpill-email-input" placeholder="">
+                                                        id="basicpill-email-input"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -201,7 +201,7 @@
                                                     <input type="text" class="form-control" formControlName="chequeNo"
                                                         id="basicpill-phoneno-input"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid)}"
-                                                        placeholder="">
+                                                         >
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">

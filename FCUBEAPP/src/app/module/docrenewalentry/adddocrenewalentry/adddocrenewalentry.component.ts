@@ -322,7 +322,8 @@ export class AdddocrenewalentryComponent {
   
   changePmtType(e: any) {
     console.log(e.target.value);
-    var selectedValue = e.target.value;         
+    var selectedValue = e.target.value;    
+    this.formDocEntry.controls['creditAc'].enable();       
     if (selectedValue == 'O'){
       this.formDocEntry.controls['neftPmt'].disable();
       this.formDocEntry.controls['chequeNo'].disable();
@@ -348,7 +349,7 @@ export class AdddocrenewalentryComponent {
     }    
     this.formDocEntry.controls['creditAc'].updateValueAndValidity();
 
-    if (selectedValue != 'o'){
+    if (selectedValue != 'O'){
      this.getPaymentCreditAcList(selectedValue);
     }
   }
