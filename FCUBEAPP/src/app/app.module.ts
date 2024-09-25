@@ -352,6 +352,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
+import { Mrregisterrptmodel } from './models/mrregisterrptmodel';
 
 
 @NgModule({
@@ -468,6 +470,7 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     ChallanregisterrptComponent,
     VehiclerepairsrptComponent,
     BillregisterrptComponent,
+    MrregisterrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -528,6 +531,7 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     Challanregisterrptmodel,
     Vehiclerepairsrptmodel,
     Billregisterrptmodel,
+    Mrregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
