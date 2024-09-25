@@ -48,7 +48,7 @@
                                                 <label for="formrow-inputCity">Vehicle No</label><span style="color: red"> * </span> 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         formControlName="vehicleMasterId" [initialValue]=""
                                                
                                                         (inputChanged)='onChangeSearch($event)'
@@ -97,7 +97,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Party (Load for)</label><span style="color: red"> * </span> 
-                                                <!-- <input class="form-control" placeholder="" uppercaseonly
+                                                <!-- <input class="form-control"   uppercaseonly
                                                 formControlName="loadFor"> -->
                                                 <select class="form-control" 
                                                 formControlName="loadFor"
@@ -112,7 +112,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Memo No</label><span style="color: red"> * </span> 
-                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="15"
+                                                <input class="form-control"   uppercaseonly  maxlength="15"
                                                 formControlName="loadMemoNo">
                                
                                             </div>
@@ -122,14 +122,14 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Name</label><span style="color: red"> * </span> 
-                                            <input class="form-control" placeholder="" uppercaseonly  maxlength="75"
+                                            <input class="form-control"   uppercaseonly  maxlength="75"
                                                 formControlName="consignorName">
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Add</label>
-                                            <input class="form-control" placeholder="" uppercaseonly maxlength="150"
+                                            <input class="form-control"   uppercaseonly maxlength="150"
                                                 formControlName="consignorAdd">
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                                 <label for="formrow-inputCity">Loading From</label><span style="color: red"> * </span> 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="loadingFrom" 
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                 
                                                      
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -166,7 +166,7 @@
                                                 <label for="formrow-inputState">Destination</label><span style="color: red"> * </span> 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="loadingTo"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -203,7 +203,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Consignee Name</label><span style="color: red"> * </span> 
-                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="75"
+                                                <input class="form-control"   uppercaseonly  maxlength="75"
                                                     formControlName="consigneeName">
                                             </div>
                                         </div>
@@ -221,21 +221,21 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Qty Wt (MT)</label><span style="color: red"> * </span> 
-                                                <input class="form-control" placeholder="" decimalonly  (change)="onRateChange()"
+                                                <input class="form-control"   decimalonly  (change)="onRateChange()"
                                                     formControlName="qtyWt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Packages</label><span style="color: red"> * </span> 
-                                                <input class="form-control" placeholder="" numbersonly
+                                                <input class="form-control"   numbersonly
                                                     formControlName="qtyPkgs">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Rate Per Ton</label>
-                                                <input class="form-control" placeholder="" numbersonly 
+                                                <input class="form-control"   numbersonly 
                                                     formControlName="ratePerTon">
                                             </div>
                                         </div>
@@ -245,14 +245,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity"> Freight (Hire)</label><span style="color: red"> * </span> 
-                                                <input class="form-control" placeholder="" numbersonly 
+                                                <input class="form-control"   numbersonly 
                                                     formControlName="hireAmt" (change)="onRateChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Advance</label>
-                                                <input class="form-control" placeholder="" formControlName="advAmt" numbersonly>
+                                                <input class="form-control"   formControlName="advAmt" numbersonly>
                                             </div>
                                         </div>
                                         <!-- <div class="col-lg-3">
@@ -276,7 +276,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity"> Attach Memo Copy</label>
-                                                <!-- <input class="form-control" placeholder=""
+                                                <!-- <input class="form-control"  
                                                     formControlName="attachMemocopy"> -->
                                                     <input #attachmentInput class="form-control" type="file"
                                                     id="formAttFile"  >
@@ -287,7 +287,7 @@
                                         <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Remarks</label>
-                                                <input class="form-control" placeholder="" uppercaseonly  maxlength="250"
+                                                <input class="form-control"   uppercaseonly  maxlength="250"
                                                     formControlName="remarks">
                                             </div>
                                         </div>

@@ -41,7 +41,7 @@
                                     <label for="formrow-inputState">Account </label>                                    
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="accountList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="accountID" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'

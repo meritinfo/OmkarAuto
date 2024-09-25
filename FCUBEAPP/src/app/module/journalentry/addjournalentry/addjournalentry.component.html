@@ -30,14 +30,14 @@
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document No</label>
                                             <span style="color: red">*</span>
-                                            <input class="form-control" placeholder="" formControlName="docNo"
+                                            <input class="form-control"   formControlName="docNo"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['docNo'].invalid) }">
                                            
                                         </div>
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState"> Trans Date</label>
                                             <span style="color: red">*</span>
-                                            <input type="date" class="form-control" placeholder=""
+                                            <input type="date" class="form-control"  
                                                 formControlName="ftmDate"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['ftmDate'].invalid) }">
                                         </div>                                        
@@ -55,7 +55,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Ref No </label>
-                                                <input uppercaseonly autoclose="false" placeholder=""
+                                                <input uppercaseonly autoclose="false"  
                                                     class="form-control" formControlName="refNo">
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                                             <td class="col-lg-3">                                                 
                                                                 <div class="ng-autocomplete">
                                                                     <ng-autocomplete [data]="gridAccountList"
-                                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                                        [searchKeyword]="keywordLocation"  
                                                                         (selected)='selectEvent($event)'
                                                                         (inputChanged)='onChangeSearch($event)'
                                                                         (inputFocused)='onFocused($event)'
@@ -127,19 +127,19 @@
                                                                 </select>
                                                             </td>
                                                             <td class="col-lg-1">
-                                                                <input decimalonly class="form-control" placeholder=""  
+                                                                <input decimalonly class="form-control"    
                                                                     (change)="updateAmount(i,$event, '')"
                                                                         formControlName="amount">
                                                             </td>
                                                             <td class="col-lg-4">
-                                                                <input autoclose="false" type="text" placeholder="" 
+                                                                <input autoclose="false" type="text"   
                                                                     class="form-control"
                                                                     formControlName="narration">
                                                                   
                                                             </td>
                                                             <td class="col-lg-2">
                                                                 <input autoclose="false" type="text"
-                                                                            placeholder="" class="form-control"
+                                                                              class="form-control"
                                                                             formControlName="reference">                                                                
                                                             </td>
                                                             <td class="col-lg-2">
@@ -159,7 +159,7 @@
                                                         <td class="col-lg-2">
                                                             <div class="mb-3">
                                                                 <input autoclose="false" type="text"
-                                                                placeholder="" class="form-control" formControlName="credit"
+                                                                  class="form-control" formControlName="credit"
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['credit'].invalid) }">
                                                             </div>
                                                         </td>
@@ -169,7 +169,7 @@
                                                         <td class="col-lg-2">
                                                             <div class="mb-3">
                                                                 <input autoclose="false" type="text"
-                                                                placeholder="" class="form-control" formControlName="debit"
+                                                                  class="form-control" formControlName="debit"
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['debit'].invalid) }">
                                                             </div>
                                                         </td>
@@ -182,7 +182,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Remark</label>
-                                                <input  uppercaseonly class="form-control" placeholder="" 
+                                                <input  uppercaseonly class="form-control"   
                                                 formControlName="remarks">
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState"> Modify Remark</label>
-                                                <input  uppercaseonly class="form-control" placeholder=""
+                                                <input  uppercaseonly class="form-control"  
                                                     formControlName="modifyRemarks">
                                             </div>
                                         </div>

@@ -45,7 +45,7 @@
                                     <label for="formrow-inputCity">Loading Branch</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="branchList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="tripBranch" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
@@ -71,7 +71,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList" 
                                             formControlName="accountID"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"

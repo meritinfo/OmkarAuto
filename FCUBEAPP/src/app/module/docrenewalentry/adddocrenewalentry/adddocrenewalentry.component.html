@@ -72,7 +72,7 @@
                                                 <label for="formrow-inputCity">Vehicle No.</label><span style="color: red">*</span>                                                 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         formControlName="vehicleMasterID" [initialValue]=""
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'

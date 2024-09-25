@@ -64,8 +64,6 @@ import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
-import { ListcnorcneemasterComponent } from './module/cnorcneemaster/listcnorcneemaster/listcnorcneemaster.component';
-import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneemaster/addcnorcneemaster.component';
 import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
 import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
 import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
@@ -352,7 +350,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
-
+import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
+import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
 
 @NgModule({
   declarations: [
@@ -375,7 +374,6 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     ConsignmentaddComponent, ConsignmentlistComponent,
     AddbranchmasterComponent,BranchmasterlistComponent,
     VehiclemasteraddComponent,VehiclemasterlistComponent,
-    ListcnorcneemasterComponent,AddcnorcneemasterComponent,
     DrivermasteraddComponent,DrivermasterlistComponent,
     AddtrippaymentsComponent,TrippaymentslistComponent,
     GstpurchaseaddComponent,GstpurchaselistComponent,
@@ -464,10 +462,9 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
-    LhpayablestatusrptComponent,
-    ChallanregisterrptComponent,
-    VehiclerepairsrptComponent,
-    BillregisterrptComponent,
+    LhpayablestatusrptComponent,  ChallanregisterrptComponent,
+    VehiclerepairsrptComponent, BillregisterrptComponent,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent ,
   ],
   imports: [
     BrowserModule,
@@ -524,10 +521,8 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Lhpayablestatusrptmodel,
-    Challanregisterrptmodel,
-    Vehiclerepairsrptmodel,
-    Billregisterrptmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,
+    Vehiclerepairsrptmodel, Billregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })

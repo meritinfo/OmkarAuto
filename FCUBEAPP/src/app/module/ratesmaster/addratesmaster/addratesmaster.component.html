@@ -156,7 +156,7 @@
                                                 <td class="col-lg-2">
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            [searchKeyword]="keywordLocation"  
                                                             (selected)='selectNewEvent($event,i)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'
@@ -178,7 +178,7 @@
                                                 <td class="col-lg-2">                                                  
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="stateList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            [searchKeyword]="keywordLocation"  
                                                             (selected)='selectEvent($event)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'

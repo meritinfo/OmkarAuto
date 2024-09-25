@@ -28,7 +28,7 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="empList"
                                                     formControlName="empId"
-                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    [searchKeyword]="keywordLocation"  
                                                     (selected)='selectEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
