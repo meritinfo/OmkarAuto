@@ -536,7 +536,14 @@ export class TripsheetaddComponent {
     //var totalIgstAmt = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-    totaldistanceTripKM = parseInt(selectedval.closingKMR)- parseInt(selectedval.openingKMR);
+    var cKMR= selectedval.closingKMR ? parseFloat(selectedval.closingKMR) : 0
+    var oKMR= selectedval.openingKMR ? parseFloat(selectedval.openingKMR) : 0
+   
+
+    //totaldistanceTripKM = parseInt(selectedval.closingKMR)- parseInt(selectedval.openingKMR);
+    totaldistanceTripKM = cKMR-oKMR;
+
+    //totaldistanceTripKM = parseInt(selectedval.closingKMR)- parseInt(selectedval.openingKMR);
    
     this.formTripsheet.patchValue({
       distanceTripKM : totaldistanceTripKM,
@@ -553,8 +560,13 @@ export class TripsheetaddComponent {
     //var totalIgstAmt = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-
-    calltsDslToBe =     parseFloat(selectedval.definedMileage) / parseFloat(selectedval.distanceTripKM);
+      if(selectedval.definedMileage!=0){
+        calltsDslToBe =    parseFloat(selectedval.distanceTripKM)/parseFloat(selectedval.definedMileage);
+      }
+      else{
+        calltsDslToBe=0;
+      }
+   
     this.formTripsheet.patchValue({
       ltsDslToBe : calltsDslToBe.toFixed(2),
      // totCgstAmt: totalCgstAmt.toFixed(2),

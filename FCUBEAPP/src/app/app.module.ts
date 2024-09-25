@@ -352,6 +352,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
+import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 
 
 @NgModule({
@@ -468,6 +470,8 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
     ChallanregisterrptComponent,
     VehiclerepairsrptComponent,
     BillregisterrptComponent,
+    BenificiarymasteraddComponent,
+    BenificiarymasterlistComponent,
   ],
   imports: [
     BrowserModule,

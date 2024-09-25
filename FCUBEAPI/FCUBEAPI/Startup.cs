@@ -26,6 +26,8 @@ using Shared.Repository;
 using SqlHelper.Models;
 using System.Text;
 using AdminMasters.Models;
+using FinanceMaster.Repository;
+using FinanceMaster.Business;
 
 namespace FCUBEAPI
 {
@@ -266,6 +268,9 @@ namespace FCUBEAPI
             services.AddScoped<IVehicleRepairsRptRepository, VehicleRepairsRptRepository>();
             services.AddScoped<IBillRegisterRptBusiness, BillRegisterRptBusiness>();
             services.AddScoped<IBillRegisterRptRepository, BillRegisterRptRepository>();
+            services.AddScoped<IBeneficiaryMasterBusiness, BeneficiaryMasterBusiness>();
+            services.AddScoped<IBeneficiaryMasterRepository, BeneficiaryMasterRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
