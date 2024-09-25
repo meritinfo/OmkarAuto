@@ -55,7 +55,8 @@ namespace FleetTrans.Models
         public string? Findocid { get; set; }
         public string? TripBr { get; set; }
         public string? VehicleNo { get; set; }
-        public string? DrName { get; set; }        
+        public string? DrName { get; set; }
+        public string? NextTrip { get; set; }        
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }

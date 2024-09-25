@@ -46,7 +46,8 @@ export class Tripsheetmodel {
     findocid: string = "";
     tripBr: string = "";
     vehicleNo: string = "";
-    drName: string = "";        
+    drName: string = "";  
+    nextTrip: string = "";  
     loggedInUser: string = "";
 
     driverList: DriverDetails[] = [];
