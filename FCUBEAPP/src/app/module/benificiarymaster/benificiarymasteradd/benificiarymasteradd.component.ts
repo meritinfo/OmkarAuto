@@ -31,6 +31,12 @@ export class BenificiarymasteraddComponent {
   loginDate:string = '';
   fromDate: string = '';
   responseDetails = new Responsemodel();
+  @ViewChild('cancelCheqAttach', {
+    static: true
+  }) cancelCheqAttach: any;
+  @ViewChild('vendorAttachedfile', {
+    static: true
+  }) vendorAttachedfile: any;
   selectedBenificiaryMasterDetails = new Benificiarymastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder,
@@ -138,7 +144,8 @@ ngOnInit(): void {
     this.editMode = true;
   }
 }
-deleteDriverMasterForm(): void {
+get f() { return this.formBenMaster.controls; }
+deleteBenificiaryMasterForm(): void {
   if (this.selectedBenificiaryMasterDetails.masterId != '') {
     this.requestmodel.strRequest = this.selectedBenificiaryMasterDetails.masterId
     if (confirm("Are you sure, you want to delete this?")) {

@@ -352,6 +352,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
+
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 
@@ -531,7 +533,7 @@ import { BenificiarymasterlistComponent } from './module/benificiarymaster/benif
     Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
     Vehiclerepairsrptmodel,
-    Billregisterrptmodel,
+    Billregisterrptmodel,Benificiarymastermodel
   ],
   bootstrap: [AppComponent]
 })

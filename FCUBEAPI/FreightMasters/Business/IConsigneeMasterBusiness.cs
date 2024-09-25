@@ -11,5 +11,7 @@ namespace FreightMasters.Business
     public interface IConsigneeMasterBusiness
     {
         Task<ResponseModel> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel);
+        Task<ConsigneeCnorList> GetConsigneeCnorList(PageRequest request);
+        Task<ResponseModel> ConsigneeCnorMasterDelete(RequestModel requestModel);
     }
 }

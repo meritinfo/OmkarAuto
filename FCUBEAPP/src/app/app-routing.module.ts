@@ -205,6 +205,11 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
 import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
+import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
+
+import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
+import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
+
 
 
 
@@ -491,6 +496,8 @@ const routes: Routes = [
   { path: 'sparepurchrpt', component: SparespurchaserptComponent },  
   { path: 'vehilcereprpt', component: VehiclerepairsrptComponent },
   { path: 'billreg', component: BillregisterrptComponent },
+  { path: 'benmasterlist', component: BenificiarymasterlistComponent },
+  { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
 ];
 
 @NgModule({
