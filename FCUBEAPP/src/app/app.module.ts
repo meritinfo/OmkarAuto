@@ -350,6 +350,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
+import { Mrregisterrptmodel } from './models/mrregisterrptmodel';
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
@@ -468,6 +470,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     ChallanregisterrptComponent,
     VehiclerepairsrptComponent,
     BillregisterrptComponent,
+    MrregisterrptComponent,
     BenificiarymasteraddComponent,
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
@@ -529,7 +532,11 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel, Vehiclerepairsrptmodel, Billregisterrptmodel,
+    Lhpayablestatusrptmodel,
+    Challanregisterrptmodel,
+    Vehiclerepairsrptmodel,
+    Billregisterrptmodel,
+    Mrregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
