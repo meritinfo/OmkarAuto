@@ -529,10 +529,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Lhpayablestatusrptmodel,
-    Challanregisterrptmodel,
-    Vehiclerepairsrptmodel,
-    Billregisterrptmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel, Vehiclerepairsrptmodel, Billregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
