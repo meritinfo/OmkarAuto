@@ -219,8 +219,6 @@ export class TripsheetaddComponent {
       this.formTripsheet.patchValue({
         definedMileage : this.dslmileage
       
-     
-       
        
       });
 
@@ -538,14 +536,22 @@ export class TripsheetaddComponent {
     //var totalIgstAmt = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-    totaldistanceTripKM = selectedval.closingKMR- selectedval.openingKMR;
+    var cKMR= selectedval.closingKMR ? parseFloat(selectedval.closingKMR) : 0
+    var oKMR= selectedval.openingKMR ? parseFloat(selectedval.openingKMR) : 0
+   
+
+    //totaldistanceTripKM = parseInt(selectedval.closingKMR)- parseInt(selectedval.openingKMR);
+    totaldistanceTripKM = cKMR-oKMR;
+
+    //totaldistanceTripKM = parseInt(selectedval.closingKMR)- parseInt(selectedval.openingKMR);
    
     this.formTripsheet.patchValue({
-      distanceTripKM : totaldistanceTripKM.toFixed(2),
+      distanceTripKM : totaldistanceTripKM,
      // totCgstAmt: totalCgstAmt.toFixed(2),
      // totSgstAmt: totalSgstAmt.toFixed(2),
    
     });
+    this.onDslCal();
   }  
   onDslCal(){
     var calltsDslToBe = 0;
@@ -554,12 +560,18 @@ export class TripsheetaddComponent {
     //var totalIgstAmt = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-
-    calltsDslToBe=     parseFloat(selectedval.definedMileage) / parseFloat(selectedval.distanceTripKM);
+      if(selectedval.definedMileage!=0){
+        calltsDslToBe =    parseFloat(selectedval.distanceTripKM)/parseFloat(selectedval.definedMileage);
+      }
+      else{
+        calltsDslToBe=0;
+      }
+   
     this.formTripsheet.patchValue({
       ltsDslToBe : calltsDslToBe.toFixed(2),
      // totCgstAmt: totalCgstAmt.toFixed(2),
      // totSgstAmt: totalSgstAmt.toFixed(2),
+     
    
     });
   }  
@@ -759,6 +771,10 @@ export class TripsheetaddComponent {
           'expAmt':  selectedDataValue.expList[i].expAmt,
          })
       }
+    }
+    if(this.tripsheetmodel.expList.length==0){      
+      this.toastrService.warning("Please Enter Valid  Exp Details");          
+      return;
     }
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {

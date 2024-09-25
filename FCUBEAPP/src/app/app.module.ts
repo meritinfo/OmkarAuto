@@ -350,6 +350,8 @@ import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
+import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
+import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
 
@@ -462,6 +464,12 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
+    LhpayablestatusrptComponent,
+    ChallanregisterrptComponent,
+    VehiclerepairsrptComponent,
+    BillregisterrptComponent,
+    BenificiarymasteraddComponent,
+    BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent ,
@@ -521,8 +529,10 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,
-    Vehiclerepairsrptmodel, Billregisterrptmodel,
+    Lhpayablestatusrptmodel,
+    Challanregisterrptmodel,
+    Vehiclerepairsrptmodel,
+    Billregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })

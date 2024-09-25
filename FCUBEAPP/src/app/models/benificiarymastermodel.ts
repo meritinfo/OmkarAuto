@@ -1,0 +1,36 @@
+export class Benificiarymastermodel {
+    masterId: string = "";
+    benType: string = "";
+    benCode: string = "";
+    benName: string = "";
+    benCoAcName: string = "";
+    benAdd1: string = "";
+    benAdd2: string = "";
+    benAdd3: string = "";
+    pinCode: string = "";
+    stateCode: string = "";
+    benPhone: string = "";
+    benMobile: string = "";
+    benEmail: string = "";
+    benBankName: string = "";
+    benBankBranch: string = "";
+    benBankAcNo: string = "";
+    benBankIfsc: string = "";
+    amountLimit: string = "";
+    remarks: string = "";
+    cancelCheqAttach: string = "";
+    vendorAttachedfile: string = "";
+    benRefByEmployeeId: string = "";
+    approvedBy: string = "";
+    approvedDate: string = "";
+    approvedRemarks: string = "";
+    apiUsedForApp: string = "";
+    blockYN: string = "";
+    blockDate: string = "";
+    blockBy: string = "";
+    blockReason: string = "";
+    panNo: string = "";
+    globalYN: string = "";
+    branchCode: string = "";
+    loggedInUserID: string= "";
+  }
