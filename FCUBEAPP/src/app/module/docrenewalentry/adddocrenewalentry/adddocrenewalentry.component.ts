@@ -322,19 +322,36 @@ export class AdddocrenewalentryComponent {
   
   changePmtType(e: any) {
     console.log(e.target.value);
-    var selectedValue = e.target.value;
-    if (selectedValue == 'B'){
+    var selectedValue = e.target.value;    
+    this.formDocEntry.controls['creditAc'].enable();       
+    if (selectedValue == 'O'){
+      this.formDocEntry.controls['neftPmt'].disable();
+      this.formDocEntry.controls['chequeNo'].disable();
+      this.formDocEntry.controls['chequeDt'].disable();
+      this.formDocEntry.controls['creditAc'].disable();           
+      this.formDocEntry.controls['creditAc'].clearValidators();  
+      this.formDocEntry.patchValue({
+        creditAc: "" ,
+      });
+    }
+    else if (selectedValue == 'B'){
       this.formDocEntry.controls['neftPmt'].enable();
       this.formDocEntry.controls['chequeNo'].enable();
       this.formDocEntry.controls['chequeDt'].enable();
+      this.formDocEntry.controls['creditAc'].setValidators([Validators.required]);
     }
     else {
       this.checkselected = false;  
       this.formDocEntry.controls['neftPmt'].disable();
       this.formDocEntry.controls['chequeNo'].disable();
       this.formDocEntry.controls['chequeDt'].disable();
+      this.formDocEntry.controls['creditAc'].setValidators([Validators.required]);
+    }    
+    this.formDocEntry.controls['creditAc'].updateValueAndValidity();
+
+    if (selectedValue != 'O'){
+     this.getPaymentCreditAcList(selectedValue);
     }
-    this.getPaymentCreditAcList(selectedValue);
   }
 
   onBasic1Change(e: any) {

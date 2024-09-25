@@ -155,7 +155,7 @@
                                     <label for="formrow-inputZip">From Place</label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -178,7 +178,7 @@
                                     <label for="formrow-inputZip">To Place</label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -220,7 +220,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3"><label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span>
-                                    <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
+                                    <input type="text" id="formrow-inputCity" class="form-control"  
                                         formControlName="invoiceNo" (change)="fillgrid()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceNo'].invalid) }">
                                 </div>
@@ -355,7 +355,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Consignor</label><span style="color: red">*</span>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cnorName"
+                                          formControlName="cnorName"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorName'].invalid) }">
                                 </div>
                             </div>
@@ -363,7 +363,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Cnor Gst</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cnorGst">
+                                          formControlName="cnorGst">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -412,7 +412,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Consignee</label><span style="color: red">*</span>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cneeName"
+                                          formControlName="cneeName"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeName'].invalid) }">
                                 </div>
                             </div>
@@ -653,7 +653,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Freight</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=""
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="freightRs" (change)="calcRate()" >
                                 </div>
                             </div>
@@ -748,7 +748,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=""
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="subTotalRs">
                                 </div>
                             </div> 
@@ -865,7 +865,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList" 
                                             formControlName="billingParty"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -901,7 +901,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="businessByList" 
                                             formControlName="businessBy"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -932,7 +932,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Remarks</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="generalRemarks" >
+                                          formControlName="generalRemarks" >
                                 </div>
                             </div>
                         </div>

@@ -9,8 +9,11 @@ namespace FreightMasters.Models
     public class BillsMasterSearchModel
     {
         public string? ConsignmentID { get; set; }
-        public string? BookingDate { get; set; }
         public string? BookingPlace { get; set; }
+        public string? BookingDate { get; set; }
+        public string? GcNoteNo { get; set; }
+        public string? FromPlace { get; set; }
+        public string? ToPlace { get; set; }
         public string? RateRs { get; set; }
         public string? FreightRs { get; set; }
         public string? StatisticalRs { get; set; }

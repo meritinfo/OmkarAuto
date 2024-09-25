@@ -44,7 +44,7 @@
                                     <label for="formrow-inputCity">Booking Branch</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="branchList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="branch" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
@@ -69,7 +69,7 @@
                                     <label for="formrow-inputCity">Billing Party</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            [searchKeyword]="keywordLocation"  
                                             formControlName="billingParty" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'

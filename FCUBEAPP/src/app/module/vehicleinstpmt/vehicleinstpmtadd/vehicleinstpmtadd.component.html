@@ -24,7 +24,7 @@
                                                 
 
                                                 <input type="date"  autofocus="autofocus" class="form-control"
-                                                placeholder="" formControlName="pmtDate"   [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
+                                                  formControlName="pmtDate"   [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">InstNo</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                <input uppercaseonly type="text" class="form-control"   
                                                                  
                                                 formControlName="instNo"          
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['instNo'].invalid) }">
@@ -61,7 +61,7 @@
                                                
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation"  
                                                         formControlName="vehicleMasterid" [initialValue]=""
                                                     
                                                      
@@ -104,7 +104,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pri Amt</label>
                                                
-                                                <input uppercaseonly autoclose="false" class="form-control" placeholder="" 
+                                                <input uppercaseonly autoclose="false" class="form-control"   
                                                 formControlName="priAmt"    decimalonly     
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['priAmt'].invalid) }">
                                             </div>
@@ -116,7 +116,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">IntAmt</label>
-                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                <input numbersonly autoclose="false" class="form-control"   
                                                 formControlName="intAmt"     decimalonly
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['intAmt'].invalid) }">
                                                 
@@ -126,7 +126,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip"> Total Amt</label>
                                              
-                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                <input numbersonly autoclose="false" class="form-control"   
                                                 formControlName="totAmt"     decimalonly
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totAmt'].invalid) }">
                                             </div>
@@ -180,7 +180,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">CheqNo </label>
-                                                <input type="email" autoclose="false" class="form-control"  placeholder="" 
+                                                <input type="email" autoclose="false" class="form-control"    
                                                 formControlName="cheqNo">
                                             </div>
                                         </div>
@@ -193,7 +193,7 @@
                                               
 
                                                 <input type="date"  autofocus="autofocus" class="form-control"
-                                                placeholder="" formControlName="cheqDate"   [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqDate'].invalid) }">
+                                                  formControlName="cheqDate"   [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">

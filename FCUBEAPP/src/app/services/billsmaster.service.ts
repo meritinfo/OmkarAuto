@@ -44,6 +44,9 @@ export class BillsMasterService {
   getBillsStmtCreditAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBillsStmtCreditAcList', null, this.httpOptions);
   }
+  getPartyGstLocationList(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPartyGstLocationList', req, this.httpOptions);
+  }
   billsMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillsMasterDelete', req, this.httpOptions);
   }
@@ -55,5 +58,8 @@ export class BillsMasterService {
   }
   getBillsMasterInnerGridList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsInnerGridList', request, this.httpOptions);
+  }
+  checkDuplicateBillsNo(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateBillsNo', request, this.httpOptions);
   }
 }

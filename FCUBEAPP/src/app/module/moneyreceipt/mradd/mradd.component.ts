@@ -215,6 +215,7 @@ export class MraddComponent {
     this.formUser.controls['totalSdEmdDed'].disable();
     this.formUser.controls['totalExcess'].disable();
     this.formUser.controls['onAcAdjAmt'].disable();
+    this.formUser.controls['modifyRemarks'].disable();
     
     if (this.selectedMrDetails.mrMasterId != '') { 
       var selectedValue = this.selectedMrDetails.mrReceiptType;
@@ -228,12 +229,22 @@ export class MraddComponent {
       
       this.formMrArray.controls[0].get("selected")?.disable();  
       this.formMrArray.controls[0].get("adjMrNo")?.disable();  
-      this.formMrArray.controls[0].get("mrDate")?.disable();  
       this.formMrArray.controls[0].get("onAcAmt")?.disable();  
       this.formMrArray.controls[0].get("adjAmt")?.disable();  
 
       if (this.selectedMrDetails.mrMasterId != '') {    
-        this.formUser.controls['modifyRemarks'].enable();  
+        this.formUser.controls['mrStation'].disable();  
+        this.formUser.controls['mrNo'].disable();  
+        this.formUser.controls['mrDate'].disable();  
+        this.formUser.controls['mrStatus'].disable();  
+        this.formUser.controls['mrType'].disable();  
+        this.formUser.controls['mrReceiptType'].disable();  
+        this.formUser.controls['billLrOthType'].disable();  
+        this.formUser.controls['partyCode'].disable();  
+        this.formUser.controls['groupMrYN'].disable();  
+        this.formUser.controls['partyGroupId'].disable();  
+        this.formUser.controls['modifyRemarks'].enable(); 
+    
         this.formUser.patchValue(this.selectedMrDetails);        
         if(this.selectedMrDetails.ftmid!="0"){
           this.getFinDocDetails(this.selectedMrDetails.ftmid);
@@ -410,10 +421,13 @@ export class MraddComponent {
         this.formArray.controls[i].get("excessRecd")?.setValue(res.mrDtlsList[i].excessRecd);
         this.formArray.controls[i].get("remarks")?.setValue(res.mrDtlsList[i].remarks);
 
-        this.formArray.controls[i].get("totDed")?.disable();
-
+        this.formArray.controls[i].get("billLrYear")?.disable();
+        this.formArray.controls[i].get("billLrStn")?.disable();
+        this.formArray.controls[i].get("billLrNo")?.disable();
         this.formArray.controls[i].get("billLrDate")?.disable();  
         this.formArray.controls[i].get("partyCode")?.disable();  
+        this.formArray.controls[i].get("dueAmt")?.disable();
+        this.formArray.controls[i].get("totDed")?.disable();
       }
 
       this.formMrArray.clear();
@@ -912,10 +926,14 @@ export class MraddComponent {
         this.formArray.controls[index].get("sdEmdDed")?.setValue("0");
         this.formArray.controls[index].get("excessRecd")?.setValue("0");
         this.formArray.controls[index].get("remarks")?.setValue("");
-        this.formArray.controls[index].get("totDed")?.disable();
         
-        this.formArray.controls[index].get("billLrDate")?.disable();  
-        this.formArray.controls[index].get("partyCode")?.disable();  
+        this.formArray.controls[i].get("billLrYear")?.disable();
+        this.formArray.controls[i].get("billLrStn")?.disable();
+        this.formArray.controls[i].get("billLrNo")?.disable();
+        this.formArray.controls[i].get("billLrDate")?.disable();  
+        this.formArray.controls[i].get("partyCode")?.disable();  
+        this.formArray.controls[i].get("dueAmt")?.disable();
+        this.formArray.controls[i].get("totDed")?.disable();
       }
       else{
         this.formArray.controls[index].get("billLrNo")?.setValue("");     

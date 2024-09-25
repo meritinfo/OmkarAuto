@@ -564,6 +564,8 @@ export class ChallanmasteraddComponent {
     }
     else{
       this.requestmodel.strRequest = pan;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+      
       this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
         this.panDetails = res;
         var panValid = "";

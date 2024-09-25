@@ -5,6 +5,8 @@ using FinanceMasters.Models;
 using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using FinanceMaster.Business;
+using FinanceMaster.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -19,6 +21,7 @@ namespace FCUBEAPI.Controllers
         readonly IOpeningBalanceMasterBusiness openingBalanceMasterBusiness;
         readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
+        readonly IBeneficiaryMasterBusiness beneficiaryMasterBusiness;
 
 
         public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
@@ -26,7 +29,8 @@ namespace FCUBEAPI.Controllers
             IFinScheduleMasterBusiness _finScheduleMasterBusiness,
             IOpeningBalanceMasterBusiness _openingBalanceMasterBusiness,
             IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
-            IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness)
+            IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness,
+            IBeneficiaryMasterBusiness _beneficiaryMasterBusiness)
         {
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
             finGroupMasterBusiness = _finGroupMasterBusiness;
@@ -34,6 +38,7 @@ namespace FCUBEAPI.Controllers
             chequeAllotmentDtlBusiness = _chequeAllotmentDtlBusiness;
             chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
             openingBalanceMasterBusiness=_openingBalanceMasterBusiness;
+            beneficiaryMasterBusiness= _beneficiaryMasterBusiness;
 
         }
         /// <summary>
@@ -468,6 +473,56 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await openingBalanceMasterBusiness.GetConsolidateOpeningBalList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BeneficiaryMasterSave")]
+        public async Task<IActionResult> BeneficiaryMasterSave(BeneficiaryMasterModel beneficiaryMasterModel)
+        {
+            if (beneficiaryMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.BeneficiaryMasterSave(beneficiaryMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBeneficiaryMasterList")]
+        public async Task<IActionResult> GetBeneficiaryMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetBeneficiaryMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BeneficiaryMasterDelete")]
+        public async Task<IActionResult> BeneficiaryMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.BeneficiaryMasterDelete(req);
 
                 return Ok(result);
             }

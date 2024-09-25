@@ -280,7 +280,8 @@ export class DprvehiplacedaddComponent {
   onVehicalChange(e:any){
     var truckno = e.target.value;
     if(truckno!=""){
-      this.requestmodel.strRequest = truckno
+      this.requestmodel.strRequest = truckno;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
         this.selectedDprDetails = res; 
         var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;

@@ -313,7 +313,7 @@ namespace Consignment.Repository
                             new SqlParameter("@InsValidDate",       VehInsValidDate),
                             new SqlParameter("@FitValidDate",       VehFitValidDate),
                             new SqlParameter("@PermitValidDate",    VehPermitValidDate),
-                            new SqlParameter("@LoggedInUser",       ""),
+                            new SqlParameter("@LoggedInUser",       request.strRequest1),
                         };
                         var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TruckDetailsSave", param);
                         var DprId = "0";

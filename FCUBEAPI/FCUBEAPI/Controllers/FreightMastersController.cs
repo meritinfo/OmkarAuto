@@ -631,6 +631,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBillPartyGstLocationList")]
+        public async Task<IActionResult> GetBillPartyGstLocationList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillPartyGstLocationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
         {
@@ -1502,6 +1522,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetBookingRegisterRptExcel")]
         public async Task<IActionResult> GetBookingRegisterRptExcel(ReportRequestModel request)
         {

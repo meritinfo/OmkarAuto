@@ -43,7 +43,7 @@
                                     <label for="formrow-inputCity">From Location</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                            [searchKeyword]="keywordLocation" placeholder="" 
+                                            [searchKeyword]="keywordLocation"   
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate" 
                                             [notFoundTemplate]="notFoundTemplate"
@@ -66,7 +66,7 @@
                                     <label for="formrow-inputCity">To Location</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                            [searchKeyword]="keywordLocation" placeholder="" 
+                                            [searchKeyword]="keywordLocation"   
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate" 
                                             [notFoundTemplate]="notFoundTemplate"

@@ -181,7 +181,7 @@ export class DieselstmtaddComponent {
   }
 
   getAcountList(): void {    
-    this.requestmodel.strRequest="BC"
+    this.requestmodel.strRequest="V"
     this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
