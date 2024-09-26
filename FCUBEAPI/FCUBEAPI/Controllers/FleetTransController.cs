@@ -12,6 +12,7 @@ using SqlHelper.Models;
 using FreightMasters.Business;
 using Consignment.Business;
 using System.Collections.Generic;
+using Org.BouncyCastle.Ocsp;
 
 namespace FCUBEAPI.Controllers
 {
@@ -2239,6 +2240,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetVehicleRepMaintMasterList")]
         public async Task<IActionResult> GetVehicleRepMaintMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await vehicleRepMaintMasterBusiness.GetVehicleRepMaintMasterList(request);
@@ -2255,6 +2260,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetDslMileage")]
         public async Task<IActionResult> GetDslMileage(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetDslMileage(request);
@@ -2265,10 +2274,44 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
 
+        [HttpPost("GetBhattaRate")]
+        public async Task<IActionResult> GetBhattaRate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetBhattaRate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetOpeningBal")]
+        public async Task<IActionResult> GetOpeningBal(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetOpeningBal(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("GetVehicleRepMaintMasterInnerGridList")]

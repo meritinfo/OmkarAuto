@@ -38,7 +38,7 @@ export class Tripsheetmodel {
     netTripBalance: string = "";
     fastagAmount: string = "";
     tripTotalFreight: string = "";
-    tripTotalAdvance: string = "";
+    tripTotalExpenses: string = "";
     tripCloseBy: string = "";
     tripCloseDt: string = "";
     tripCloseUpdateDt: string = "";
@@ -78,7 +78,6 @@ export class RouteDetails {
     loadingTo : string = "";
     consigneeName: string = "";
     hireAmt : string = "";
-    advAmt : string = "";
     remarks : string = "";        
 }
 
