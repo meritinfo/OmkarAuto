@@ -539,7 +539,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     Vehiclerepairsrptmodel,
     Billregisterrptmodel,
     Mrregisterrptmodel,
-    Billregisterrptmodel,Benificiarymastermodel
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel
   ],
   bootstrap: [AppComponent]
 })

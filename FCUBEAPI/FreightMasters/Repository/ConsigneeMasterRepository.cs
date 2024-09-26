@@ -56,11 +56,11 @@ namespace FreightMasters.Repository
                              new SqlParameter("@GstNo " , consigneeMasterModel.GstNo ),
                              new SqlParameter("@IsActive " , consigneeMasterModel.IsActive ),
                              new SqlParameter("@InActiveDate " , consigneeMasterModel.InActiveDate ),
-                             new SqlParameter("@OLD_CnorCnee_ID " , consigneeMasterModel.OLD_CnorCnee_ID ),
+                           //  new SqlParameter("@OLD_CnorCnee_ID " , consigneeMasterModel.OLD_CnorCnee_ID ),
                              new SqlParameter("@LoggedInUser " , consigneeMasterModel.LoggedInUser ),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "ConsigneeMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "ConsigneeCnorMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -111,7 +111,7 @@ namespace FreightMasters.Repository
                                 CnorCneeName = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeName"]),
                                 PrintName = Convert.ToString(dataSet.Tables[0].Rows[i]["PrintName"]),
                                 CnorCneeFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeFlag"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode "]),
+                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 GlobalYN = Convert.ToString(dataSet.Tables[0].Rows[i]["GlobalYN"]),
                                 Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
                                 Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
@@ -121,9 +121,9 @@ namespace FreightMasters.Repository
                                 Phone = Convert.ToString(dataSet.Tables[0].Rows[i]["Phone"]),
                                 Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),
                                 ContactPerson1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson1"]),
-                                Mobile1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile1 "]),
+                                Mobile1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile1"]),
                                 ContactPerson2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson2"]),
-                                Mobile2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile2 "]),
+                                Mobile2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile2"]),
                                 ContactPerson3 = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson3"]),
                                 Mobile3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile3"]),
                                 GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),

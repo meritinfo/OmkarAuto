@@ -2,46 +2,46 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Drivermodel } from '../models/drivermodel';
 import { Filtermodel } from 'src/app/models/filtermodel';
-import { Fleetloadentrylistmodel } from '../models/fleetloadentrylistmodel';
+import { Cnorcneemasterlistmodel } from '../models/cnorcneemasterlistmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Constants } from '../common/constants';
 import { Observable } from 'rxjs';
-import { Fleetloadentrymodel } from '../models/fleetloadentrymodel';
+import { Cnorcneemastermodel } from '../models/cnorcneemastermodel';
 import { Drivermasterlistrequestmodel } from '../models/drivermasterlistrequestmodel.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FleetLoadEntryService {
+export class CnorCneeMasterService {
 
   httpOptions = {
     headers: new HttpHeaders({
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedFleetLoadEntry = new Fleetloadentrymodel();
+  selectedCnorCneeMaster = new Cnorcneemastermodel();
   
   constructor(private httpClient: HttpClient) { }
 
-  setFleetLoadEntryDetails(driverMaster: Fleetloadentrymodel) {
-      this.selectedFleetLoadEntry = driverMaster;
+  setCnorcneeMasterModelDetails(driverMaster: Cnorcneemastermodel) {
+      this.selectedCnorCneeMaster = driverMaster;
   }
-  getFleetLoadEntryDetails() {
-    return this.selectedFleetLoadEntry;
+  getCnorcneeMasterModelDetails() {
+    return this.selectedCnorCneeMaster;
   }
-  clearFleetLoadEntryDetails() {
-    this.selectedFleetLoadEntry = new Fleetloadentrymodel();
+  clearCnorcneeMasterModelDetails() {
+    this.selectedCnorCneeMaster = new Cnorcneemastermodel();
   }
   
-  fleetLoadEntrySubmitted(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetLoadEntrySave', user, this.httpOptions);
+  cnorcneeMasterModelSubmitted(user: Cnorcneemastermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ConsigneeMasterSave', user, this.httpOptions);
   }
-  getFleetLoadEntryList(filter: Filtermodel): Observable<Fleetloadentrylistmodel> {
-    return this.httpClient.post<Fleetloadentrylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetLoadEntryList', filter, this.httpOptions);
+  getCnorCneeMasterList(filter: Filtermodel): Observable<Cnorcneemasterlistmodel> {
+    return this.httpClient.post<Cnorcneemasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetConsigneeCnorList', filter, this.httpOptions);
   }
 
-  fleetLoadEntryDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetLoadEntryDelete', req, this.httpOptions);
+  cnorCneeMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ConsigneeCnorMasterDelete', req, this.httpOptions);
   }
 }

@@ -1,5 +1,4 @@
 
-
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
@@ -11,13 +10,13 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
 
-@Component({
-  selector: 'app-cnorcneemasterlist',
-  templateUrl: './cnorcneemasterlist.component.html',
-  styleUrls: ['./cnorcneemasterlist.component.css']
-})
 
-export class CnorcneemasterlistComponent {
+@Component({
+  selector: 'app-listcnorcneemaster',
+  templateUrl: './listcnorcneemaster.component.html',
+  styleUrls: ['./listcnorcneemaster.component.css']
+})
+export class ListcnorcneemasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -50,7 +49,7 @@ ngOnInit(): void {
     var privilegeData = JSON.parse(menuData);
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Consignor/Consignee Search");
+    .find((aa: { menuName: string; }) => aa.menuName === "Document Renewals Master");
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -98,27 +97,27 @@ cnorcneeMasterList(){
     },
     columns: [   
       {
-        title: 'Cnor Cnee Name',
+        title: 'cnorCneeName',
         data: 'cnorCneeName',
       },
       {
-        title: 'Print Name',
+        title: 'printName',
         data: 'printName',
       },
       {
-        title: 'Address 1',
+        title: 'address1',
         data: 'address1',
       },
       {
-        title: 'Address 2',
+        title: 'address2',
         data: 'address2',
       },
       {
-        title: 'Phone',
+        title: 'phone',
         data: 'phone',
       },
       {
-        title: 'Email',
+        title: 'email',
         data: 'email',
       },
 
@@ -132,14 +131,14 @@ cnorcneeMasterList(){
 
 //Open new destination add screen
 addCneeMastermaster(): void {
-  this.route.navigate(['/cnorcneemasteradd']);
+  this.route.navigate(['/addcneecnorastermaster']);
 }
 
 
 //Open user details screen
 getCneeMasterDetails(Docrenewal: Cnorcneemastermodel): void {
   this.cnorCneeMasterService.setCnorcneeMasterModelDetails(Docrenewal);
-  this.route.navigate(['/cnorcneemasteredit']);
+  this.route.navigate(['/cneecnormasteredit']);
 }
 
 
@@ -154,7 +153,6 @@ search(): void {
 }
 
 }
-
 
 
 

@@ -210,6 +210,9 @@ import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
 
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
+import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
+import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+
 
 
 
@@ -500,6 +503,9 @@ const routes: Routes = [
   { path: 'onacmrstratus', component: MrregisterrptComponent },
   { path: 'benmasterlist', component: BenificiarymasterlistComponent },
   { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
+  { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
+  { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
+  { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
 ];
 
 @NgModule({
