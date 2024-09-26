@@ -129,13 +129,15 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Closing KMR</label>
-                                                <input class="form-control" decimalonly formControlName="closingKMR"  (change)="onKmrChange()">
+                                                <input class="form-control" decimalonly formControlName="closingKMR"  
+                                                (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Opening KMR</label>
-                                                <input class="form-control" decimalonly formControlName="openingKMR" (change)="onKmrChange()">
+                                                <input class="form-control" decimalonly formControlName="openingKMR" 
+                                                (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -181,7 +183,6 @@
                                             <th><label for="formrow-inputZip">Loading To</label></th>
                                             <th><label for="formrow-inputZip">Consignee Name</label></th>
                                             <th><label for="formrow-inputZip">Hire Amt</label></th>
-                                            <th><label for="formrow-inputZip">Adv Amt</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
                                         <tr formArrayName="routeList"
@@ -228,10 +229,6 @@
                                                 <td>
                                                     <input type="text" class="form-control" 
                                                     formControlName="hireAmt">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="advAmt">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 
@@ -379,7 +376,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" decimalonly
-                                                    formControlName="expAmt">
+                                                    formControlName="expAmt" (change)="onExpAmt()" >
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <div class="col-lg-4 details-button">
@@ -401,8 +398,7 @@
                 </div>   
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
-                        <div class="card">
-                           
+                        <div class="card">                           
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
@@ -419,19 +415,21 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Diesel Passed Ltrs</label>
-                                        <input class="form-control" decimalonly formControlName="dieselPassedLtrs">
+                                        <input class="form-control" decimalonly (change)="onDieselPassed()"
+                                        formControlName="dieselPassedLtrs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Diesel Passed Amt</label>
-                                        <input class="form-control" decimalonly formControlName="dieselPassedAmt">
+                                        <input class="form-control" decimalonly 
+                                        formControlName="dieselPassedAmt">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Diesel Variance Amt</label>
-                                        <input class="form-control" decimalonly formControlName="dieselVarianceAmt">
+                                        <input class="form-control" negdecimalonly formControlName="dieselVarianceAmt">
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +455,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Freight Coll By Driver</label>
-                                        <input class="form-control" decimalonly formControlName="freightCollByDriver">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="freightCollByDriver">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -489,21 +488,24 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">On-Time Incentive Amt</label>
-                                        <input class="form-control" decimalonly formControlName="onTimeIncentiveAmt">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="onTimeIncentiveAmt">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Multi Del Incentive Amt</label>
-                                        <input class="form-control" decimalonly formControlName="multiDelIncentiveAmt">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="multiDelIncentiveAmt">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-4">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Penalty Charged To Driver</label>
-                                        <input class="form-control" decimalonly formControlName="penaltyChargedToDr">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="penaltyChargedToDr">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -514,22 +516,23 @@
                                 </div>
                             </div>                      
                             <div class="row">
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Total Driver Ac</label>
                                         <input class="form-control" decimalonly formControlName="totalDriverAc">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Trip Balance</label>
+                                        <label for="formrow-inputCity">Trip Balance (Driver)</label>
                                         <input class="form-control" decimalonly formControlName="tripBalance">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Recd From Driver</label>
-                                        <input class="form-control" decimalonly formControlName="recdFromDriver">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="recdFromDriver">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -541,7 +544,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>
-                                        <input class="form-control" decimalonly formControlName="fastagAmount">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="fastagAmount">
                                     </div>
                                 </div>
                             </div>                   
@@ -554,8 +558,8 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Trip Total Advance</label>
-                                        <input class="form-control" decimalonly formControlName="tripTotalAdvance">
+                                        <label for="formrow-inputCity">Trip Total Expenses</label>
+                                        <input class="form-control" decimalonly formControlName="tripTotalExpenses">
                                     </div>
                                 </div>
                             </div>

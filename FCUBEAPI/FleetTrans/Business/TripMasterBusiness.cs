@@ -55,6 +55,14 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDslMileage(request);
         }
+        public async Task<ResponseModel> GetBhattaRate(RequestModel request)
+        {
+            return await tripMasterRepository.GetBhattaRate(request);
+        }
+        public async Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request)
+        {
+            return await tripMasterRepository.GetOpeningBal(request);
+        }
 
     }
 }
