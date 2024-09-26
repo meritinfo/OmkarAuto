@@ -101,7 +101,6 @@ namespace FleetTrans.Models
     }
     public class TripDrExpDetails
     {
-        public string? TripDtlId { get; set; }
         public string? TripId { get; set; }
         public string? ExpId { get; set; }
         public string? ExpParticulars { get; set; }

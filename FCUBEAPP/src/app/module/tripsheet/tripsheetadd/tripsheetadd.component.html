@@ -376,7 +376,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" decimalonly
-                                                    formControlName="expAmt">
+                                                    formControlName="expAmt" (change)="onExpAmt()" >
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <div class="col-lg-4 details-button">
@@ -501,7 +501,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-4">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Penalty Charged To Driver</label>
                                         <input class="form-control" decimalonly (change)="calTotal()"
@@ -544,7 +544,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>
-                                        <input class="form-control" decimalonly formControlName="fastagAmount">
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="fastagAmount">
                                     </div>
                                 </div>
                             </div>                   

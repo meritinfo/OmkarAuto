@@ -174,7 +174,15 @@ export class TripsheetaddComponent {
     setTimeout(() => {
       this.sharedService.loading = true;
 
-      if (this.selectedTripSheetDetails.tripId != '') {
+      if (this.selectedTripSheetDetails.tripId != '') {        
+        this.formTripsheet.controls['openingKMR'].disable();     
+        this.formTripsheet.controls['opBalDsl'].disable();    
+        this.formTripsheet.controls['opBalDriver'].disable();        
+        this.formTripsheet.controls['deptDate'].disable();     
+        this.formTripsheet.controls['endDate'].disable(); 
+        //this.formTripsheet.controls['stmtDate'].disable();       
+        this.formTripsheet.controls['vehicleMasterID'].disable();     
+
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
           stmtDate: this.commonService.formatDate(this.selectedTripSheetDetails.stmtDate),
@@ -185,12 +193,7 @@ export class TripsheetaddComponent {
           driverMasterID: this.driverLists.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         }); 
              
-        this.formTripsheet.controls['stmtDate'].disable();       
-        this.formTripsheet.controls['vehicleMasterID'].disable(); 
-
         if( this.selectedTripSheetDetails.nextTrip != '0'){        
-          this.formTripsheet.controls['deptDate'].disable();     
-          this.formTripsheet.controls['endDate'].disable();         
           this.formTripsheet.controls['closingKMR'].disable();     
           this.formTripsheet.controls['clBalDsl'].disable();           
         }
@@ -406,11 +409,18 @@ export class TripsheetaddComponent {
 
     var issuedDslLtrs = 0;
     var issuedDslAmt = 0;
-    var tripTotalFreight = 0;
+    var paidDriverAdvance = 0;
+    var tripTotalFreight = 0;    
+
+    var deptDate = new Date(selectedDataValue.deptDate);
+    var endDate = new Date(selectedDataValue.endDate);    
+    var diff = Math.abs(deptDate.getTime() - endDate.getTime());
+    var totalBhattaDays  = Math.ceil(diff / (1000 * 3600 * 24)); 
 
     this.filter.fromDate = selectedDataValue.deptDate;
     this.filter.toDate = selectedDataValue.endDate;
     this.filter.filterStr = selectedDataValue.vehicleMasterID.dataId;
+    
     this.tripSheetService.getTripSheetInnerSearchList(this.filter).subscribe((res: Tripsheetmodel) => {
       this.tripsheetmodel = res;
       this.formDriverArray.clear();
@@ -426,6 +436,8 @@ export class TripsheetaddComponent {
         this.formDriverArray.controls[i].get("amountPaid")?.setValue(res.driverList[i].amountPaid);
         this.formDriverArray.controls[i].get("remarks")?.setValue(res.driverList[i].remarks);
         
+        paidDriverAdvance = paidDriverAdvance + parseFloat(res.driverList[i].amountPaid);
+
         this.formDriverArray.controls[i].get("pmtBranch")?.disable();
         this.formDriverArray.controls[i].get("pmtDate")?.disable();
         this.formDriverArray.controls[i].get("pmtType")?.disable();
@@ -480,25 +492,21 @@ export class TripsheetaddComponent {
         this.formDieselArray.controls[i].get("dslRate")?.disable();
         this.formDieselArray.controls[i].get("amount")?.disable();
         this.formDieselArray.controls[i].get("remarks")?.disable();
-      }    
-    });
+      }
 
-    var deptDate = new Date(selectedDataValue.deptDate);
-    var endDate = new Date(selectedDataValue.endDate);    
-    var diff = Math.abs(deptDate.getTime() - endDate.getTime());
-    var totalBhattaDays  = Math.ceil(diff / (1000 * 3600 * 24)); 
+      var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
+      var clBalDsl =(selectedDataValue.opBalDsl == ""? 0:parseFloat(selectedDataValue.opBalDsl)) + issuedDslLtrs;
 
-    var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
-    var clBalDsl =(selectedDataValue.opBalDsl == ""? 0:parseFloat(selectedDataValue.opBalDsl)) + issuedDslLtrs;
-
-    this.formTripsheet.patchValue({
-      issuedDslLtrs : issuedDslLtrs.toFixed(2),
-      issuedDslAmt: issuedDslAmt.toFixed(2), 
-      clBalDsl:clBalDsl.toFixed(2), 
-      totalBhattaDays: totalBhattaDays,
-      bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
-      tripTotalFreight: tripTotalFreight.toFixed(2),
-    });
+      this.formTripsheet.patchValue({
+        issuedDslLtrs : issuedDslLtrs.toFixed(2),
+        issuedDslAmt: issuedDslAmt.toFixed(2), 
+        clBalDsl:clBalDsl.toFixed(2), 
+        totalBhattaDays: totalBhattaDays,
+        bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
+        tripTotalFreight: tripTotalFreight.toFixed(2),
+        paidDriverAdvance: paidDriverAdvance.toFixed(2),
+      });
+    }); 
   }
 
   getTripSheetInnerGridList(): void {
@@ -573,7 +581,6 @@ export class TripsheetaddComponent {
       }
       for (var i = 0; i < res.expList.length; i++) {
         this.formExpTypeArray.push(this.createTripExpArray());
-        this.formExpTypeArray.controls[i].get("tripDtlId")?.setValue(res.expList[i].tripDtlId);
         this.formExpTypeArray.controls[i].get("tripId")?.setValue(res.expList[i].tripId);
         this.formExpTypeArray.controls[i].get("expId")?.setValue(res.expList[i].expId);
         this.formExpTypeArray.controls[i].get("expParticulars")?.setValue(res.expList[i].expParticulars);
@@ -676,6 +683,20 @@ export class TripsheetaddComponent {
     }    
   }  
 
+  onExpAmt(){    
+    var expensesByDriver = 0;
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    for (var i = 0; i < selectedDataValue.expList.length; i++) {
+      if(selectedDataValue.expList[i].expId!=''){
+        expensesByDriver = expensesByDriver + parseFloat(selectedDataValue.expList[i].expAmt);
+      }
+    }
+    this.formTripsheet.patchValue({
+      expensesByDriver: expensesByDriver.toFixed(2),
+    });
+    this.calTotal();
+  }
+
   onDieselPassed(){
     var dieselPassedAmt = 0;
     var rate = 0;
@@ -689,7 +710,7 @@ export class TripsheetaddComponent {
       dieselPassedAmt: dieselPassedAmt.toFixed(2),
       dieselVarianceAmt : (parseFloat(selectedval.issuedDslAmt) - dieselPassedAmt).toFixed(2),
     });
-    this.calTotal()
+    this.calTotal();
   }
 
     
@@ -698,18 +719,15 @@ export class TripsheetaddComponent {
   }
 
   addItem(index: number): void { 
-    if (this.formExpTypeArray.value[index].expId != "" && this.formExpTypeArray.value[index].expParticulars != "" && this.formExpTypeArray.value[index].expAmt != "" 
-     ) {
-
-       //Start date end date validation
-  
-        this.formExpTypeArray.push(this.createTripExpArray());
-      
-     } 
-     else {
-       this.toastrService.warning("Please select Required Fields ");
-     }
- }
+    if (this.formExpTypeArray.value[index].expId != "" && 
+      this.formExpTypeArray.value[index].expParticulars != "" && 
+      this.formExpTypeArray.value[index].expAmt != "" ) {
+      this.formExpTypeArray.push(this.createTripExpArray());      
+    } 
+    else {
+      this.toastrService.warning("Please select Required Fields ");
+    }
+  }
 
   //Submit user form details //
   submitTripSheetForm(): void {
@@ -845,10 +863,9 @@ export class TripsheetaddComponent {
       }
     }
     for (var i = 0; i < selectedDataValue.expList.length; i++) {
-      if(selectedDataValue.expList[i].pmtId!=''){
+      if(selectedDataValue.expList[i].expId!=''){
         this.tripsheetmodel.expList.push({
-          'tripDtlId': selectedDataValue.expList[i].tripDtlId,
-          'tripId': selectedDataValue.expList[i].tripId,
+          'tripId': '',
           'expId': selectedDataValue.expList[i].expId,
           'expParticulars':  selectedDataValue.expList[i].expParticulars,
           'expAmt':  selectedDataValue.expList[i].expAmt,

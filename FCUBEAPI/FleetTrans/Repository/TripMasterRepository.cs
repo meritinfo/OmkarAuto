@@ -390,22 +390,6 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
-                    //Trip DrExp Details
-                    //if (resultData != null && resultData.Tables[2].Rows.Count > 0)
-                    //{
-                    //    for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
-                    //    {
-                    //        tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
-                    //        {
-                    //            TripDtlId = Convert.ToString(resultData.Tables[2].Rows[i]["TripDtlId"]),
-                    //            TripId = Convert.ToString(resultData.Tables[2].Rows[i]["TripId"]),
-                    //            ExpId = Convert.ToString(resultData.Tables[2].Rows[i]["ExpId"]),
-                    //            ExpParticulars = Convert.ToString(resultData.Tables[2].Rows[i]["ExpParticulars"]),
-                    //            ExpAmt = Convert.ToString(resultData.Tables[2].Rows[i]["ExpAmt"])
-                             
-                    //        });
-                    //    }
-                    //}
                 }
             }
             catch (Exception ex)
@@ -542,7 +526,6 @@ namespace FleetTrans.Repository
                         {
                             tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
                             {
-                                //TripDtlId = Convert.ToString(resultData.Tables[3].Rows[i]["TripDtlId"]),
                                 TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
                                 ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
                                 ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),

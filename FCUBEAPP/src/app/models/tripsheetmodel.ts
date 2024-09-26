@@ -91,7 +91,6 @@ export class DieselDetails {
     remarks: string = "";
 }
 export class TripDrExpDetails {
-    tripDtlId: string = "";
     tripId: string = "";
     expId: string = "";
     expParticulars: string = "";
