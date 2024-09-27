@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using FinanceMaster.Business;
 using FinanceMaster.Models;
+using FreightMasters.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -22,6 +23,7 @@ namespace FCUBEAPI.Controllers
         readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
         readonly IBeneficiaryMasterBusiness beneficiaryMasterBusiness;
+        readonly ICnorCneeGstBusiness cnorCneeGstBusiness;
 
 
         public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
@@ -30,7 +32,8 @@ namespace FCUBEAPI.Controllers
             IOpeningBalanceMasterBusiness _openingBalanceMasterBusiness,
             IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
             IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness,
-            IBeneficiaryMasterBusiness _beneficiaryMasterBusiness)
+            IBeneficiaryMasterBusiness _beneficiaryMasterBusiness,
+            ICnorCneeGstBusiness _cnorCneeGstBusiness)
         {
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
             finGroupMasterBusiness = _finGroupMasterBusiness;
@@ -39,6 +42,7 @@ namespace FCUBEAPI.Controllers
             chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
             openingBalanceMasterBusiness=_openingBalanceMasterBusiness;
             beneficiaryMasterBusiness= _beneficiaryMasterBusiness;
+            cnorCneeGstBusiness= _cnorCneeGstBusiness;
 
         }
         /// <summary>
@@ -523,6 +527,38 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await beneficiaryMasterBusiness.BeneficiaryMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCnorCneeGstList")]
+        public async Task<IActionResult> GetCnorCneeGstList(PageRequest request)
+        {
+            try
+            {
+                var result = await cnorCneeGstBusiness.GetCnorCneeGstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CnorCneeGstSave")]
+        public async Task<IActionResult> CnorCneeGstSave(CnorCneeGstModel cnorCneeGstModel)
+        {
+            if (cnorCneeGstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cnorCneeGstBusiness.CnorCneeGstSave(cnorCneeGstModel);
 
                 return Ok(result);
             }

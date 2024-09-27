@@ -10,6 +10,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BenificiaryMasterService } from 'src/app/services/benificiarymaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class BenificiarymasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  stateList: Dropdownmodel[] = [];
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
@@ -84,7 +86,7 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
-
+this.getStateList();
   this.selectedBenificiaryMasterDetails = this.benificiaryMasterService.getBenificiaryMasterDetails();
   this.formBenMaster = this.formBuilder.group({
     //masterID: new FormControl('',),
@@ -162,6 +164,11 @@ deleteBenificiaryMasterForm(): void {
       });
     }
   }
+}
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
 }
 exit(): void {
   this.route.navigate(['/benmasterlist']);
