@@ -360,6 +360,8 @@ import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemas
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
+import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
+import { ExpensebudgetslistComponent } from './module/expensebudgetslist/expensebudgetslist.component';
 
 @NgModule({
   declarations: [
@@ -479,7 +481,7 @@ import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/c
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, ExpensebudgetsaddComponent, ExpensebudgetslistComponent ,
   ],
   imports: [
     BrowserModule,

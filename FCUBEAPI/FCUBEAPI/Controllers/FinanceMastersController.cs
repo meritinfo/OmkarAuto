@@ -24,6 +24,7 @@ namespace FCUBEAPI.Controllers
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
         readonly IBeneficiaryMasterBusiness beneficiaryMasterBusiness;
         readonly ICnorCneeGstBusiness cnorCneeGstBusiness;
+        readonly IExpenseBudgetsBusiness expenseBudgetsBusiness;
 
 
         public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
@@ -33,7 +34,8 @@ namespace FCUBEAPI.Controllers
             IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
             IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness,
             IBeneficiaryMasterBusiness _beneficiaryMasterBusiness,
-            ICnorCneeGstBusiness _cnorCneeGstBusiness)
+            ICnorCneeGstBusiness _cnorCneeGstBusiness,
+            IExpenseBudgetsBusiness _expenseBudgetsBusiness)
         {
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
             finGroupMasterBusiness = _finGroupMasterBusiness;
@@ -43,6 +45,7 @@ namespace FCUBEAPI.Controllers
             openingBalanceMasterBusiness=_openingBalanceMasterBusiness;
             beneficiaryMasterBusiness= _beneficiaryMasterBusiness;
             cnorCneeGstBusiness= _cnorCneeGstBusiness;
+            expenseBudgetsBusiness= _expenseBudgetsBusiness;
 
         }
         /// <summary>
@@ -567,6 +570,58 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CnorCneeGstDelete")]
+        public async Task<IActionResult> CnorCneeGstDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cnorCneeGstBusiness.CnorCneeGstDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    
+    [HttpPost("GeExpenseBudgetsList")]
+    public async Task<IActionResult> GeExpenseBudgetsList(PageRequest request)
+    {
+        try
+        {
+            var result = await expenseBudgetsBusiness.GeExpenseBudgetsList(request);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+        [HttpPost("ExpenseBudgetsSave")]
+        public async Task<IActionResult> ExpenseBudgetsSave(ExpenseBudgetsList expenseBudgetsModel)
+        {
+            if (expenseBudgetsModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await expenseBudgetsBusiness.ExpenseBudgetsSave(expenseBudgetsModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }
