@@ -3,6 +3,6 @@ import {Benificiarymastermodel } from "./benificiarymastermodel";
 
 export class Benificiarymasterlistmodel {
 
-    benificiaryList: Benificiarymastermodel[] = [];
+    beneficiaryList: Benificiarymastermodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }

@@ -6,6 +6,7 @@ using Shared.Models;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -40,40 +41,47 @@ namespace FinanceMaster.Repository
 
                     responseModel = await ExpenseDelete(transaction, requestModel);
 
-                    for (int i = 0; i < expenseBudgetsModel.ExpenseList.Count; i++)
+                    if (responseModel.Status)
                     {
-                        SqlParameter[] param =
-                         {
-                             new SqlParameter("@YearId" ,expenseBudgetsModel.ExpenseList[i].YearId ),
-                             new SqlParameter("@BranchCode" , expenseBudgetsModel.ExpenseList[i].BranchCode ),
-                             new SqlParameter("@AccountId " , expenseBudgetsModel.ExpenseList[i].AccountId ),
-                             new SqlParameter("@BudgetRs" , expenseBudgetsModel.ExpenseList[i].BudgetRs),
-
-
-                        };
-                        var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ExpenseBudgetsSave", param);
-
-                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                        for (int i = 0; i < expenseBudgetsModel.ExpenseList.Count; i++)
                         {
-                            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                            if (!responseModel.Status)
+                            SqlParameter[] param =
+                             {
+                                 new SqlParameter("@YearId" ,expenseBudgetsModel.ExpenseList[i].YearId ),
+                                 new SqlParameter("@BranchCode" , expenseBudgetsModel.ExpenseList[i].BranchCode ),
+                                 new SqlParameter("@AccountId" , expenseBudgetsModel.ExpenseList[i].AccountId ),
+                                 new SqlParameter("@BudgetRs" , expenseBudgetsModel.ExpenseList[i].BudgetRs),
+
+                            };
+                            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ExpenseBudgetsSave", param);
+
+                            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                            {
+                                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = expenseBudgetsModel.ExpenseList.Count;
+                                }
+                            }
+                            else
                             {
                                 transaction.Rollback();
-                                i = expenseBudgetsModel.ExpenseList.Count;
+                                responseModel.Status = false;
                             }
                         }
-                        else
-                        {
-                            transaction.Rollback();
-                            responseModel.Status = false;
-                        }
+                    }
+                    else
+                    {
+                        transaction.Rollback();
                     }
                     if (responseModel.Status)
                     {
                         transaction.Commit();
                     }
                 }
+                   
             }
             catch (Exception ex)
             {
@@ -82,6 +90,45 @@ namespace FinanceMaster.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<ExpenseBudgetsList> GetExpenseBudgetsInnerGridList(RequestModel request)
+        {
+            ExpenseBudgetsList expenseBudgets = new();
+            List<ExpenseBudgetsModel> expenseList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BranchCode", request.strRequest),
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseMasterInnerGridList", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            expenseList.Add(new ExpenseBudgetsModel
+                            {
+                                YearId = Convert.ToString(resultData.Tables[0].Rows[i]["YearId"]),
+                                BranchCode = Convert.ToString(resultData.Tables[0].Rows[i]["BranchCode"]),
+                                AccountId = Convert.ToString(resultData.Tables[0].Rows[i]["AccountId"]),
+                                BudgetRs = Convert.ToString(resultData.Tables[0].Rows[i]["BudgetRs"]),
+                               
+                            });
+                        }
+                    }
+                    expenseBudgets.ExpenseList = expenseList;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return expenseBudgets;
         }
         public async Task<ExpenseBudgetsList> GeExpenseBudgetsList(PageRequest request)
         {
@@ -152,6 +199,12 @@ namespace FinanceMaster.Repository
 
             responseModel = await ExpenseDelete(transaction, requestModel);
 
+            if (responseModel.Status)
+            {
+                transaction.Commit();
+            }
+            else { transaction.Rollback(); }
+
             return responseModel;
         }
 
@@ -173,13 +226,10 @@ namespace FinanceMaster.Repository
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        transaction.Rollback();
                     }
                 }
             }
@@ -187,7 +237,6 @@ namespace FinanceMaster.Repository
             {
                 responseModel.Status = false;
                 responseModel.Message = ex.Message;
-                transaction.Rollback();
             }
             return responseModel;
         }

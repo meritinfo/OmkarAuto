@@ -144,32 +144,32 @@
                                </div>
                                <div class="col-sm-2">
                                   <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> BenBank AcNo</label>
-                                  <input type="text" uppercaseonly  autofocus="autofocus" 
+                                     class="col-form-label"> Ben Bank AcNo</label>
+                                  <input type="text" numbersonly  autofocus="autofocus" 
                                      class="form-control" formControlName="benBankAcNo"
                                     [ngClass]=>
                                </div>
                                <div class="col-sm-2">
                                   <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben BankIfsc</label>
-                                  <input type="text" numbersonly autofocus="autofocus" 
+                                     class="col-form-label"> Ben Bank Ifsc</label>
+                                  <input type="text" uppercaseonly autofocus="autofocus" 
                                      class="form-control" formControlName="benBankIfsc"
                                     [ngClass]=>
                                </div>
                                <div class="col-sm-2">
                                   <label for="horizontal-firstname-input" 
                                      class="col-form-label">Amount Limit </label>
-                                  <input type="text"  autofocus="autofocus" 
+                                  <input type="text"  decimalonly autofocus="autofocus" 
                                      class="form-control" formControlName="amountLimit" uppercaseonly
                                      [ngClass]=>
                                </div>
                             </div> 
                             <div class="row">
-                               <div class="col-sm-2">
+                               <div class="col-sm-6">
                                   <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> remarks</label>
+                                     class="col-form-label"> Remarks</label>
                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                     formControlName="remarks" uppercaseonly
+                                     formControlName="remarks" uppercaseonly maxlength="500"
                                      [ngClass]=>
                                </div>
                                <div class="col-sm-2">
@@ -238,18 +238,18 @@
                                      [ngClass]=>
                                </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                <div class="col-sm-4">
-                                  <label for="formDLFile" class="col-form-label">cancelCheqAttach</label>
+                                  <label for="cancelCheqAttach" class="col-form-label">Cancel Cheque Attach</label>
                                   <input #attachmentInput class="form-control" type="file"
-                                     id="cancelCheqAttach"  >
+                                     id="cancelCheqAttach" >
                                </div>
                                <div class="col-sm-4">
-                                  <label for="otherUpload" class="col-form-label">vendorAttachedfile</label>
+                                  <label for="vendorAttachedfile" class="col-form-label">Vendor Attached file</label>
                                   <input #vendorAttachedfile class="form-control" type="file"
                                   id="vendorAttachedfile"  >
                                </div>
-                            </div> -->
+                            </div>
                             <div class="row">
                                
                               

@@ -8,6 +8,13 @@ using Shared.Models;
 using FinanceMaster.Business;
 using FinanceMaster.Models;
 using FreightMasters.Models;
+using FleetTrans.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
+using FleetTrans.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -16,6 +23,7 @@ namespace FCUBEAPI.Controllers
     [ApiController]
     public class FinanceMastersController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IFinAccountsMasterBusiness finAccountsMasterBusiness;
         readonly IFinGroupMasterBusiness finGroupMasterBusiness;
         readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
@@ -489,14 +497,49 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("BeneficiaryMasterSave")]
-        public async Task<IActionResult> BeneficiaryMasterSave(BeneficiaryMasterModel beneficiaryMasterModel)
+        public async Task<IActionResult> BeneficiaryMasterSave()
         {
-            if (beneficiaryMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var cancelCheqAttach = HttpContext.Request.Form.Files["attach1"];
+                var vendorAttachedfile = HttpContext.Request.Form.Files["attach2"];
+
+                BeneficiaryMasterModel beneficiaryMasterModel = JsonConvert.DeserializeObject<BeneficiaryMasterModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (cancelCheqAttach != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(cancelCheqAttach.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(cancelCheqAttach.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await cancelCheqAttach.CopyToAsync(fileStream);
+                        beneficiaryMasterModel.CancelCheqAttach = imageName;
+                    }
+                }
+                if (vendorAttachedfile != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vendorAttachedfile.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vendorAttachedfile.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vendorAttachedfile.CopyToAsync(fileStream);
+                        beneficiaryMasterModel.VendorAttachedfile = imageName;
+                    }
+                }
                 var result = await beneficiaryMasterBusiness.BeneficiaryMasterSave(beneficiaryMasterModel);
 
                 return Ok(result);
@@ -620,6 +663,25 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpPost("GetExpenseBudgetsInnerGridList")]
+        public async Task<IActionResult> GetExpenseBudgetsInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await expenseBudgetsBusiness.GetExpenseBudgetsInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
 

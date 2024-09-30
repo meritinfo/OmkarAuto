@@ -12,6 +12,7 @@ namespace FinanceMaster.Business
     {
         Task<ExpenseBudgetsList> GeExpenseBudgetsList(PageRequest request);
         Task<ResponseModel> ExpenseBudgetsSave(ExpenseBudgetsList expenseBudgetsModel);
+        Task<ExpenseBudgetsList> GetExpenseBudgetsInnerGridList(RequestModel request);
 
     }
 }

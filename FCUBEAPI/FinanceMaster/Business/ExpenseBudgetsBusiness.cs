@@ -26,6 +26,10 @@ namespace FinanceMaster.Business
         {
             return await expenseBudgetsRepository.GeExpenseBudgetsList(request);
         }
+        public async Task<ExpenseBudgetsList> GetExpenseBudgetsInnerGridList(RequestModel request)
+        {
+            return await expenseBudgetsRepository.GetExpenseBudgetsInnerGridList(request);
+        }
 
 
     }

@@ -199,7 +199,7 @@ namespace FinanceMaster.Repository
                                 PanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PanNo"]),
                                 GlobalYN = Convert.ToString(dataSet.Tables[0].Rows[i]["GlobalYN"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                LoggedInUserID = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUserID"]),
+                                //LoggedInUserID = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUserID"]),
                             });
                         }
 

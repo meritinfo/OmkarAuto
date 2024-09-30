@@ -34,14 +34,18 @@ export class ExpenseBudgetService {
     this.selectedExpensebudget = new Expensebudgetmodel();
   }
   
-  ExpensebudgetSubmitted(user: Expensebudgetmodel): Observable<Responsemodel> {
+  ExpensebudgetSubmitted(user: Expensebudgetlistmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/ExpenseBudgetsSave', user, this.httpOptions);
   }
   getExpensebudgetList(filter: Filtermodel): Observable<Expensebudgetlistmodel> {
     return this.httpClient.post<Expensebudgetlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GeExpenseBudgetsList', filter, this.httpOptions);
   }
+  getExpensebudgetInnerGridList(request: Requestmodel): Observable<Expensebudgetmodel> {
+    return this.httpClient.post<Expensebudgetmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetExpenseBudgetsInnerGridList', request, this.httpOptions);
+  }
 
   cnorExpensebudgetDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/ExpenseBudgetsDelete', req, this.httpOptions);
   }
+ 
 }

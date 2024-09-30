@@ -212,6 +212,10 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
+import { ExpensebudgetslistComponent } from './module/expensebudgetslist/expensebudgetslist.component';
+import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
+import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 
 
 
@@ -503,10 +507,16 @@ const routes: Routes = [
   { path: 'onacmrstratus', component: MrregisterrptComponent },
   { path: 'benmasterlist', component: BenificiarymasterlistComponent },
   { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
+  { path: 'benificiarymasteredit', component: BenificiarymasteraddComponent },
   { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
   { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
+  { path: 'expensebudgetsadd', component: ExpensebudgetsaddComponent },
+  { path: 'budgetexp', component: ExpensebudgetslistComponent },
+  { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
+  { path: 'cnorcneegst', component: CnorcneegstlistComponent},
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes ,{ useHash: true })],
