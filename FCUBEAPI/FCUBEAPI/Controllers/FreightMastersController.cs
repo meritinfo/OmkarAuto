@@ -40,6 +40,8 @@ namespace FCUBEAPI.Controllers
         readonly ILhPayableStatusRptBusiness lhPayableStatusRptBusiness;
         readonly IBillRegisterRptBusiness billRegisterRptBusiness;
         readonly IMRRegisterRptBusiness mRRegisterRptBusiness;
+        readonly ILHPMVarianceRptBusiness lHPMVarianceRptBusiness;
+        readonly IGSTRegisterRptBusiness gSTRegisterRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -65,7 +67,9 @@ namespace FCUBEAPI.Controllers
             IChallanRegisterRptBusiness _challanRegisterRptBusiness,
             ILhPayableStatusRptBusiness _lhPayableStatusRptBusiness,
             IBillRegisterRptBusiness _billRegisterRptBusiness,
-            IMRRegisterRptBusiness _mRRegisterRptBusiness)
+            IMRRegisterRptBusiness _mRRegisterRptBusiness,
+            ILHPMVarianceRptBusiness _lHPMVarianceRptBusiness,
+            IGSTRegisterRptBusiness _gSTRegisterRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -95,6 +99,8 @@ namespace FCUBEAPI.Controllers
             lhPayableStatusRptBusiness = _lhPayableStatusRptBusiness;
             billRegisterRptBusiness = _billRegisterRptBusiness;
             mRRegisterRptBusiness = _mRRegisterRptBusiness;
+            lHPMVarianceRptBusiness = _lHPMVarianceRptBusiness;
+            gSTRegisterRptBusiness = _gSTRegisterRptBusiness;
         }
 
         /// <summary>
@@ -1810,6 +1816,80 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await mRRegisterRptBusiness.GetMRRegisterRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLHPMVarianceRptExcel")]
+        public async Task<IActionResult> GetLHPMVarianceRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lHPMVarianceRptBusiness.GetLHPMVarianceRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLHPMVarianceRptList")]
+        public async Task<IActionResult> GetLHPMVarianceRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lHPMVarianceRptBusiness.GetLHPMVarianceRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetGSTRegisterRptExcel")]
+        public async Task<IActionResult> GetGSTRegisterRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gSTRegisterRptBusiness.GetGSTRegisterRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetGSTRegisterRptList")]
+        public async Task<IActionResult> GetGSTRegisterRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gSTRegisterRptBusiness.GetGSTRegisterRptList(request);
 
                 return Ok(result);
             }

@@ -358,6 +358,11 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+import { Lhpmvariancerptmodel } from './models/lhpmvariancerptmodel';
+import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
+import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
+import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
+
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
@@ -482,6 +487,8 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, ExpensebudgetsaddComponent, ExpensebudgetslistComponent ,
   ],
   imports: [
@@ -544,6 +551,9 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     Vehiclerepairsrptmodel,
     Billregisterrptmodel,
     Mrregisterrptmodel,
+    Lhpmvariancerptmodel,
+    Gstregisterrptmodel,
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel
     Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
   ],
   bootstrap: [AppComponent]

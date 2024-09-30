@@ -1,0 +1,174 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">LHPM Variance Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Branch </label>
+                                    <select class="form-control" formControlName="branch">
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-5">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Broker </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="brokerList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="broker" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">                                    
+                                    <label for="basicpill-phoneno-input">Varience </label>
+                                    <select id="formrow-inputState" (change)="rptchange($event)"
+                                        formControlName="varType" 
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="P"> Plus</option>
+                                        <option value="M"> Minus </option>
+                                        <option value=""> Both </option>
+                                         
+                                    </select>
+                                </div>
+                            </div> 
+                            <!-- <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Destination </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="destination" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-lg-1"  *ngIf="rptType">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive half-width">
+                        <thead>
+                            <tr>
+                                <th>chStnName</th>
+                                <th>challanNo </th>   
+                                <th>challanDate</th>
+                                <th>vehGroupCode </th>   
+                                <th>vehicleDesc</th>
+                                <th>tptName</th>
+                                <th>totalHire </th>  
+                                <th>estimateAdvLhpm </th>
+                                <th>estimateBalLhpm</th>                                
+                                 
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allLhpmvariancerptlist.lhpmVarianceRptList?.length != 0">
+                            <tr *ngFor="let eta of allLhpmvariancerptlist.lhpmVarianceRptList">
+                                <td>{{ eta.chStnName }}</td>
+                                <td>{{ eta.challanNo }}</td> 
+                                <td>{{ eta.challanDate }}</td> 
+                                <td>{{ eta.vehGroupCode }}</td> 
+                                <td>{{ eta.vehicleDesc }}</td>
+                                <td>{{ eta.tptName }}</td> 
+                                <td>{{ eta.totalHire }}</td>
+                                <td>{{ eta.estimateAdvLhpm }}</td>  
+                                <td>{{ eta.estimateBalLhpm }}</td> 
+                                                                                       
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allLhpmvariancerptlist.lhpmVarianceRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+

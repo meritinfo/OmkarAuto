@@ -206,6 +206,8 @@ import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayab
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
+import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
+import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
 
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
@@ -505,6 +507,8 @@ const routes: Routes = [
   { path: 'vehilcereprpt', component: VehiclerepairsrptComponent },
   { path: 'billreg', component: BillregisterrptComponent },
   { path: 'onacmrstratus', component: MrregisterrptComponent },
+  { path: 'lhpmvarrpt', component: LhpmvariancerptComponent },
+  { path: 'gstreg', component: GstregisterrptComponent },
   { path: 'benmasterlist', component: BenificiarymasterlistComponent },
   { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
   { path: 'benificiarymasteredit', component: BenificiarymasteraddComponent },
