@@ -70,7 +70,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@NetTripBalance" , tripMasterModel.NetTripBalance),
                             new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
                             new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
-                            new SqlParameter("@TripTotalAdvance" , tripMasterModel.TripTotalAdvance),
+                            new SqlParameter("@TripTotalExpenses" , tripMasterModel.TripTotalExpenses),
                             new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
                             new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
@@ -123,7 +123,6 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
                                     new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
                                     new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
-                                    new SqlParameter("@AdvHire",    tripMasterModel.RouteList[i].AdvAmt),
                                     new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
                                     new SqlParameter("@YearId",     tripMasterModel.YearId),
                                 };
@@ -285,15 +284,16 @@ namespace FleetTrans.Repository
                                 NetTripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["NetTripBalance"]),
                                 FastagAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["FastagAmount"]),
                                 TripTotalFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalFreight"]),
-                                TripTotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalAdvance"]),
+                                TripTotalExpenses = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalExpenses"]),
                                 TripCloseBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseBy"]),
                                 TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
                                 TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
                                 TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
-                                TripBr      = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
+                                TripBr = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                DrName= Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
+                                DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
+                                NextTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["NextTrip"]),
                             });
                         }
 
@@ -369,7 +369,6 @@ namespace FleetTrans.Repository
                                 LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
-                                AdvAmt = Convert.ToString(resultData.Tables[1].Rows[i]["AdvAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),                                
                             });
                         }
@@ -391,22 +390,6 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
-                    //Trip DrExp Details
-                    //if (resultData != null && resultData.Tables[2].Rows.Count > 0)
-                    //{
-                    //    for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
-                    //    {
-                    //        tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
-                    //        {
-                    //            TripDtlId = Convert.ToString(resultData.Tables[2].Rows[i]["TripDtlId"]),
-                    //            TripId = Convert.ToString(resultData.Tables[2].Rows[i]["TripId"]),
-                    //            ExpId = Convert.ToString(resultData.Tables[2].Rows[i]["ExpId"]),
-                    //            ExpParticulars = Convert.ToString(resultData.Tables[2].Rows[i]["ExpParticulars"]),
-                    //            ExpAmt = Convert.ToString(resultData.Tables[2].Rows[i]["ExpAmt"])
-                             
-                    //        });
-                    //    }
-                    //}
                 }
             }
             catch (Exception ex)
@@ -424,10 +407,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                           //new SqlParameter("@Tripdate", request.Tripdate),
-                            new SqlParameter("@VehicleMasterId", request.strRequest),
-                         //   new SqlParameter("@DriverMasterID", request.DriverMasterID),
-                       
+                            new SqlParameter("@VehicleMasterId", request.strRequest),                       
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetMileageLt", param);
 
@@ -445,16 +425,38 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetBhattaRate(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripDate", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBhattaRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return responseModel;
         }
@@ -513,7 +515,6 @@ namespace FleetTrans.Repository
                                 LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
-                                AdvAmt = Convert.ToString(resultData.Tables[1].Rows[i]["AdvAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });
                         }
@@ -525,7 +526,6 @@ namespace FleetTrans.Repository
                         {
                             tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
                             {
-                                //TripDtlId = Convert.ToString(resultData.Tables[3].Rows[i]["TripDtlId"]),
                                 TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
                                 ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
                                 ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),
@@ -660,8 +660,6 @@ namespace FleetTrans.Repository
             return expList;
         }
 
-
-
         public async Task<ResponseModel> GetNextTripNo(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -694,6 +692,40 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request)
+        {
+            ReportRequestModel open = new();
+            open.FilterStr = "0";
+            open.FilterStr1 = "0";
+            open.FilterStr2 = "0";
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterID", request.FilterStr),
+                            new SqlParameter("@TripNo", request.FilterStr1),
+                            new SqlParameter("@YearID", request.FilterStr2),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTripOpeningBal", param);
+                    
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        open.FilterStr = Convert.ToString(statusData.Tables[0].Rows[0]["OpeningKMR"]);
+                        open.FilterStr1 = Convert.ToString(statusData.Tables[0].Rows[0]["OpBalDsl"]);
+                        open.FilterStr2 = Convert.ToString(statusData.Tables[0].Rows[0]["OpBalDriver"]);
+                    }                   
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return open;
+        }        
 
 
     }

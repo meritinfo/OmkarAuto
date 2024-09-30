@@ -276,6 +276,9 @@ namespace FCUBEAPI
             services.AddScoped<ILHPMVarianceRptRepository, LHPMVarianceRptRepository>();
             services.AddScoped<IGSTRegisterRptBusiness, GSTRegisterRptBusiness>();
             services.AddScoped<IGSTRegisterRptRepository, GSTRegisterRptRepository>();
+            services.AddScoped<ICnorCneeGstBusiness, CnorCneeGstBusiness>();
+            services.AddScoped<ICnorCneeGstRepository, CnorCneeGstRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

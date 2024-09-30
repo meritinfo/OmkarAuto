@@ -4,10 +4,10 @@ export class Cnorcneemastermodel {
     printName: string = "";
     cnorCneeFlag: string = "";
     branchCode: string = "";
+    globalYN: string = "";
     address1: string = "";
     address2: string = "";
     address3: string = "";
-    address4: string = "";
     stateCode: string = "";
     pinCode: string = "";
     phone: string = "";
@@ -19,9 +19,9 @@ export class Cnorcneemastermodel {
     contactPerson3: string = "";
     mobile3: string = "";
     gstNo: string = "";
-    vendorCode: string = "";
     isActive: string = "";
     inActiveDate: string = "";
-    accountID: string = "";
+    olD_CnorCnee_ID: string = "";
+    loggedInUser: string = "";
 
 }

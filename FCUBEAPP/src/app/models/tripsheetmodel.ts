@@ -38,7 +38,7 @@ export class Tripsheetmodel {
     netTripBalance: string = "";
     fastagAmount: string = "";
     tripTotalFreight: string = "";
-    tripTotalAdvance: string = "";
+    tripTotalExpenses: string = "";
     tripCloseBy: string = "";
     tripCloseDt: string = "";
     tripCloseUpdateDt: string = "";
@@ -46,7 +46,8 @@ export class Tripsheetmodel {
     findocid: string = "";
     tripBr: string = "";
     vehicleNo: string = "";
-    drName: string = "";        
+    drName: string = "";  
+    nextTrip: string = "";  
     loggedInUser: string = "";
 
     driverList: DriverDetails[] = [];
@@ -77,7 +78,6 @@ export class RouteDetails {
     loadingTo : string = "";
     consigneeName: string = "";
     hireAmt : string = "";
-    advAmt : string = "";
     remarks : string = "";        
 }
 
@@ -91,7 +91,6 @@ export class DieselDetails {
     remarks: string = "";
 }
 export class TripDrExpDetails {
-    tripDtlId: string = "";
     tripId: string = "";
     expId: string = "";
     expParticulars: string = "";

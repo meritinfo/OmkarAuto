@@ -407,6 +407,9 @@ export class GeneratetempgcaddComponent {
                 goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
                
                 cnorName: this.eWayBillDetails.result.message.legal_name_of_consignor,
+                cnorAdd1: this.eWayBillDetails.result.message.address1_of_consignor,
+                cnorAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
+                cnorAdd3: this.eWayBillDetails.result.message.place_of_consignor,
                 cneeName: this.eWayBillDetails.result.message.legal_name_of_consignee,
                 cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
                 cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
@@ -416,7 +419,7 @@ export class GeneratetempgcaddComponent {
                 vehicleNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number,);
-              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date)));
+              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date));
               this.formArray.controls[0].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
               this.formArray.controls[0].get("invNo")?.disable();
               this.formArray.controls[0].get("invDate")?.disable();

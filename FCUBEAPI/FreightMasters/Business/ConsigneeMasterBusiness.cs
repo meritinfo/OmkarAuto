@@ -20,5 +20,13 @@ namespace FreightMasters.Business
         {
             return await consigneeMasterRepository.ConsigneeMasterSave(consigneeMasterModel);
         }
+        public async Task<ResponseModel> ConsigneeCnorMasterDelete(RequestModel requestModel)
+        {
+            return await consigneeMasterRepository.ConsigneeCnorMasterDelete(requestModel);
+        }
+        public async Task<ConsigneeCnorList> GetConsigneeCnorList(PageRequest request)
+        {
+            return await consigneeMasterRepository.GetConsigneeCnorList(request);
+        }
     }
 }

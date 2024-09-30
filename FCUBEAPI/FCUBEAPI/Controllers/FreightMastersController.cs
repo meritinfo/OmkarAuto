@@ -1079,6 +1079,38 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetConsigneeCnorList")]
+        public async Task<IActionResult> GetConsigneeCnorList(PageRequest request)
+        {
+            try
+            {
+                var result = await consigneeMasterBusiness.GetConsigneeCnorList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ConsigneeCnorMasterDelete")]
+        public async Task<IActionResult> ConsigneeCnorMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consigneeMasterBusiness.ConsigneeCnorMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         /// <summary>

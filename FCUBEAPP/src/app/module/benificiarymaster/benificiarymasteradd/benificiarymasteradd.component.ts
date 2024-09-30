@@ -10,6 +10,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BenificiaryMasterService } from 'src/app/services/benificiarymaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -26,11 +27,18 @@ export class BenificiarymasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  stateList: Dropdownmodel[] = [];
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
   fromDate: string = '';
   responseDetails = new Responsemodel();
+  @ViewChild('cancelCheqAttach', {
+    static: true
+  }) cancelCheqAttach: any;
+  @ViewChild('vendorAttachedfile', {
+    static: true
+  }) vendorAttachedfile: any;
   selectedBenificiaryMasterDetails = new Benificiarymastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder,
@@ -78,7 +86,7 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
-
+this.getStateList();
   this.selectedBenificiaryMasterDetails = this.benificiaryMasterService.getBenificiaryMasterDetails();
   this.formBenMaster = this.formBuilder.group({
     //masterID: new FormControl('',),
@@ -138,7 +146,8 @@ ngOnInit(): void {
     this.editMode = true;
   }
 }
-deleteDriverMasterForm(): void {
+get f() { return this.formBenMaster.controls; }
+deleteBenificiaryMasterForm(): void {
   if (this.selectedBenificiaryMasterDetails.masterId != '') {
     this.requestmodel.strRequest = this.selectedBenificiaryMasterDetails.masterId
     if (confirm("Are you sure, you want to delete this?")) {
@@ -155,6 +164,11 @@ deleteDriverMasterForm(): void {
       });
     }
   }
+}
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
 }
 exit(): void {
   this.route.navigate(['/benmasterlist']);

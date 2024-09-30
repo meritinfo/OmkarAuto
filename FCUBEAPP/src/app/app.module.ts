@@ -352,6 +352,8 @@ import { BillregisterrptComponent } from './module/billregisterrpt/billregisterr
 import { Billregisterrptmodel } from './models/billregisterrptmodel';
 import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
 import { Mrregisterrptmodel } from './models/mrregisterrptmodel';
+import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
+
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
@@ -361,6 +363,8 @@ import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancer
 import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 
+import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
+import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 
 @NgModule({
   declarations: [
@@ -481,6 +485,7 @@ import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -544,6 +549,7 @@ import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.
     Mrregisterrptmodel,
     Lhpmvariancerptmodel,
     Gstregisterrptmodel,
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel
   ],
   bootstrap: [AppComponent]
 })

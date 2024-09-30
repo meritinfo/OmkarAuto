@@ -47,7 +47,7 @@ namespace FleetTrans.Models
         public string? NetTripBalance { get; set; }
         public string? FastagAmount { get; set; }
         public string? TripTotalFreight { get; set; }
-        public string? TripTotalAdvance { get; set; }
+        public string? TripTotalExpenses { get; set; }
         public string? TripCloseBy { get; set; }
         public string? TripCloseDt { get; set; }
         public string? TripCloseUpdateDt { get; set; }
@@ -55,7 +55,8 @@ namespace FleetTrans.Models
         public string? Findocid { get; set; }
         public string? TripBr { get; set; }
         public string? VehicleNo { get; set; }
-        public string? DrName { get; set; }        
+        public string? DrName { get; set; }
+        public string? NextTrip { get; set; }        
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
@@ -86,7 +87,6 @@ namespace FleetTrans.Models
         public string? LoadingTo { get; set; }
         public string? ConsigneeName { get; set; }
         public string? HireAmt { get; set; }
-        public string? AdvAmt { get; set; }
         public string? Remarks { get; set; }
     }
     public class DieselDetails
@@ -101,7 +101,6 @@ namespace FleetTrans.Models
     }
     public class TripDrExpDetails
     {
-        public string? TripDtlId { get; set; }
         public string? TripId { get; set; }
         public string? ExpId { get; set; }
         public string? ExpParticulars { get; set; }
