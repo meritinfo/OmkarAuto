@@ -206,7 +206,8 @@ import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayab
 import { VehiclerepairsrptComponent } from './module/vehiclerepairsrpt/vehiclerepairsrpt.component';
 import { BillregisterrptComponent } from './module/billregisterrpt/billregisterrpt.component';
 import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
-
+import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
+import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 
 
 const routes: Routes = [
@@ -493,6 +494,8 @@ const routes: Routes = [
   { path: 'vehilcereprpt', component: VehiclerepairsrptComponent },
   { path: 'billreg', component: BillregisterrptComponent },
   { path: 'onacmrstratus', component: MrregisterrptComponent },
+  { path: 'lhpmvarrpt', component: LhpmvariancerptComponent },
+  { path: 'gstreg', component: GstregisterrptComponent },
 ];
 
 @NgModule({

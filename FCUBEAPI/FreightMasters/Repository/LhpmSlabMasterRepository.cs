@@ -1,6 +1,7 @@
 ﻿using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
+using Shared.Repository;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;

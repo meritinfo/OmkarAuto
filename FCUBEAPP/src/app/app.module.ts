@@ -356,6 +356,11 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+import { Lhpmvariancerptmodel } from './models/lhpmvariancerptmodel';
+import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
+import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
+import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
+
 
 @NgModule({
   declarations: [
@@ -475,7 +480,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
   ],
   imports: [
     BrowserModule,
@@ -537,6 +542,8 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     Vehiclerepairsrptmodel,
     Billregisterrptmodel,
     Mrregisterrptmodel,
+    Lhpmvariancerptmodel,
+    Gstregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
