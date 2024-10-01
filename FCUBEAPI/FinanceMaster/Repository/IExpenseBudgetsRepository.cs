@@ -10,7 +10,6 @@ namespace FinanceMaster.Repository
 {
     public interface IExpenseBudgetsRepository
     {
-         Task<ExpenseBudgetsList> GeExpenseBudgetsList(PageRequest request);
          Task<ResponseModel> ExpenseBudgetsSave(ExpenseBudgetsList expenseBudgetsModel);
 
         Task<ExpenseBudgetsList> GetExpenseBudgetsInnerGridList(RequestModel request);

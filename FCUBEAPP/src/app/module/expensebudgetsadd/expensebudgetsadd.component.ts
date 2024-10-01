@@ -106,7 +106,7 @@ ngOnInit(): void {
   this.maxDate = new Date().toLocaleDateString('en-CA').toString();
 
    this.formUser = this.formBuilder.group({
-    branchCode : new FormControl(this.branch,[Validators.required]),
+    branchCode : new FormControl('',[Validators.required]),
     arrayList: this.formBuilder.array([this.createTyreArray()]),
   });
   
@@ -122,8 +122,6 @@ get formTyreArray() {
 
 createTyreArray() {
   return this.formBuilder.group({
-    yearId: [''],
-    branchCode: [''],
     accountId: [''],
     budgetRs: [''],    
   });
@@ -136,30 +134,17 @@ getBranchList(): void {
 }
 
 getExpenseBudgetsInnerGridList(): void {
-  // this.requestmodel.strRequest = this.selectedExpensebudgetDetail.branchCode; 
-  // this.expenseBudgetService.getExpensebudgetInnerGridList(this.requestmodel).subscribe((res) => {
-  //   this.formTyreArray.clear();
-  //   this.expensebudgetmodel = res;
-  //   for (var i = 0; i < res.expenseList.length; i++) {
-  //     this.formTyreArray.push(this.createTyreArray());
-  //     this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseDtlList[i].brandID);
-  //     this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseDtlList[i].tyreNo);  
-  //     //this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseDtlList[i].tyrePattern); 
-  //     this.formTyreArray.controls[i].get("tyreModel")?.setValue(res.tyrePurchaseDtlList[i].tyreModel);  
-  //     this.formTyreArray.controls[i].get("tyreAmount")?.setValue(res.tyrePurchaseDtlList[i].tyreAmount);   
-  //     this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.tyrePurchaseDtlList[i].sgstPct);  
-  //     this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.tyrePurchaseDtlList[i].sgstAmt);    
-  //     this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.tyrePurchaseDtlList[i].cgstPct);  
-  //     this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.tyrePurchaseDtlList[i].cgstAmt);   
-  //     this.formTyreArray.controls[i].get("igstPct")?.setValue(res.tyrePurchaseDtlList[i].igstPct);  
-  //     this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.tyrePurchaseDtlList[i].igstAmt);  
-  //     this.formTyreArray.controls[i].get("netTyreAmount")?.setValue(res.tyrePurchaseDtlList[i].netTyreAmount);  
-  //     this.formTyreArray.controls[i].get("estLifeKM")?.setValue(res.tyrePurchaseDtlList[i].estLifeKM);  
-    
-    
-   
-  //   }     
-  // });
+ // this.requestmodel.strRequest = this.selectedExpensebudgetDetail.branchCode; 
+  this.expenseBudgetService.getExpensebudgetInnerGridList(this.requestmodel).subscribe((res) => {
+    this.formTyreArray.clear();
+    this.expensebudgetsmodel = res;
+    for (var i = 0; i < res.expenseList.length; i++) {
+      this.formTyreArray.push(this.createTyreArray());
+      this.formTyreArray.controls[i].get("accountId")?.setValue(res.expenseList[i].accountId);  
+      this.formTyreArray.controls[i].get("budgetRs")?.setValue(res.expenseList[i].budgetRs);   
+     
+    }     
+  });
 }
 
 addItem(i: number): void {    
@@ -177,6 +162,24 @@ getGetFinAcList(){
     this.creditacList = res;    
   }); 
 } 
+getDetail(e:any){
+  this.requestmodel.strRequest = e.target.value;
+  
+  this.expenseBudgetService.getExpensebudgetInnerGridList(this.requestmodel).subscribe((res) => {
+    this.formTyreArray.clear();
+    this.expensebudgetsmodel = res;
+    for (var i = 0; i < res.expenseList.length; i++) {
+      this.formTyreArray.push(this.createTyreArray());
+      this.formTyreArray.controls[i].get("accountId")?.setValue(res.expenseList[i].accountId);  
+      this.formTyreArray.controls[i].get("budgetRs")?.setValue(res.expenseList[i].budgetRs);   
+     
+    }     
+  });
+  setTimeout(() => {    
+    this.formTyreArray.push(this.createTyreArray());
+  }, 1000);
+
+}
 
 expenseBudgetDelete(): void {  
   var selectedDataValue = this.formUser.getRawValue();
@@ -197,7 +200,7 @@ expenseBudgetDelete(): void {
 }
   
 exit(): void {
-  this.route.navigate(['/budgetexp']);
+  this.route.navigate(['/dashboard']);
 }   
   
 submitExpenseBudgetForm(): void {
@@ -219,17 +222,19 @@ submitExpenseBudgetForm(): void {
 
      
   for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-    if (selectedDataValue.arrayList[i].accountId == "" || parseFloat(selectedDataValue.arrayList[i].budgetRs)==0 ) {
-      if(selectedDataValue.accountId == '' ||  selectedDataValue.yearId == '')
+    if (selectedDataValue.arrayList[i].accountId == ""  ) {
+      this.toastrService.warning("Please Enter Account");
+      return;
+    } 
+    if ( parseFloat(selectedDataValue.arrayList[i].budgetRs)==0 ) {
       this.toastrService.warning("Please Enter Amount");
       return;
     } 
-    
       this.expensebudgetsmodel.expenseList.push({
         'yearId':this.year,   
         'branchCode': selectedDataValue.branchCode,
-        'accountId': selectedDataValue.arrayList[i].accountId,
-        'budgetRs': selectedDataValue.arrayList[i].budgetRs,    
+        'accountId': selectedDataValue.arrayList[i].accountId.toString(),
+        'budgetRs': selectedDataValue.arrayList[i].budgetRs.toString(),    
       }) 
     }   
   

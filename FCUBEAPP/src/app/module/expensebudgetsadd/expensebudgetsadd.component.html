@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label>
-                                            <select class="form-control" formControlName="branchCode"
+                                            <select class="form-control" formControlName="branchCode" (change)="getDetail($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -50,7 +50,7 @@
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table .half-width">
                                             <tr>
                                                 <!-- <th><label for="formrow-inputZip">Year</label></th> -->
-                                                <th><label for="formrow-inputZip">Branch</label></th>
+                                            
                                                 <!-- <th><label for="formrow-inputZip">Tyre Pattern</label></th> -->
                                                 <th><label for="formrow-inputZip">Account </label></th>
                                                 <th><label for="formrow-inputZip">Budget Rs</label></th>
@@ -65,17 +65,9 @@
                                                         <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="yearId" >  
                                                     </td> -->
+                                                   
                                                     <td> 
-                                                        <select class="form-control" formControlName="branchCode"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
-                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
-                                                    </td>
-                                                    <td> 
-                                                        <select class="form-control" formControlName="accountId"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['accountId'].invalid) }">
+                                                        <select class="form-control" formControlName="accountId">
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>

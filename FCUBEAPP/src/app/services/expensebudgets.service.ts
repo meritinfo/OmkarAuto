@@ -40,8 +40,8 @@ export class ExpenseBudgetService {
   getExpensebudgetList(filter: Filtermodel): Observable<Expensebudgetlistmodel> {
     return this.httpClient.post<Expensebudgetlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GeExpenseBudgetsList', filter, this.httpOptions);
   }
-  getExpensebudgetInnerGridList(request: Requestmodel): Observable<Expensebudgetmodel> {
-    return this.httpClient.post<Expensebudgetmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetExpenseBudgetsInnerGridList', request, this.httpOptions);
+  getExpensebudgetInnerGridList(request: Requestmodel): Observable<Expensebudgetlistmodel> {
+    return this.httpClient.post<Expensebudgetlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetExpenseBudgetsInnerGridList', request, this.httpOptions);
   }
 
   cnorExpensebudgetDetailsDelete(req: Requestmodel): Observable<Responsemodel> {

@@ -632,20 +632,6 @@ namespace FCUBEAPI.Controllers
             }
         }
     
-    [HttpPost("GeExpenseBudgetsList")]
-    public async Task<IActionResult> GeExpenseBudgetsList(PageRequest request)
-    {
-        try
-        {
-            var result = await expenseBudgetsBusiness.GeExpenseBudgetsList(request);
-
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
         [HttpPost("ExpenseBudgetsSave")]
         public async Task<IActionResult> ExpenseBudgetsSave(ExpenseBudgetsList expenseBudgetsModel)
         {

@@ -22,10 +22,6 @@ namespace FinanceMaster.Business
         {
             return await expenseBudgetsRepository.ExpenseBudgetsSave(expenseBudgetsList);
         }
-        public async Task<ExpenseBudgetsList> GeExpenseBudgetsList(PageRequest request)
-        {
-            return await expenseBudgetsRepository.GeExpenseBudgetsList(request);
-        }
         public async Task<ExpenseBudgetsList> GetExpenseBudgetsInnerGridList(RequestModel request)
         {
             return await expenseBudgetsRepository.GetExpenseBudgetsInnerGridList(request);

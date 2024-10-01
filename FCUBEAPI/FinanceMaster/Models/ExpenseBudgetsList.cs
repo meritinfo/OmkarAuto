@@ -10,6 +10,5 @@ namespace FinanceMaster.Models
     public class ExpenseBudgetsList
     {
         public List<ExpenseBudgetsModel> ExpenseList { get; set; }
-        public PaginationMetaData PageMetaData { get; set; }
     }
 }

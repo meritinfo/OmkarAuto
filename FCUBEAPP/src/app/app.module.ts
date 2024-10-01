@@ -366,7 +366,6 @@ import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
-import { ExpensebudgetslistComponent } from './module/expensebudgetslist/expensebudgetslist.component';
 import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
 
 @NgModule({
@@ -487,9 +486,10 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, ExpensebudgetsaddComponent, ExpensebudgetslistComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, 
+    LhpmvariancerptComponent, GstregisterrptComponent ,   
+    CnorcneegstaddComponent, CnorcneegstlistComponent, 
+    ExpensebudgetsaddComponent, 
   ],
   imports: [
     BrowserModule,
@@ -553,7 +553,7 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     Mrregisterrptmodel,
     Lhpmvariancerptmodel,
     Gstregisterrptmodel,
-    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
     Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
   ],
   bootstrap: [AppComponent]

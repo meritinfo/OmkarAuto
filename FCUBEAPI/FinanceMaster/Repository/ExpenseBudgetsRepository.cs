@@ -104,7 +104,7 @@ namespace FinanceMaster.Repository
                             new SqlParameter("@BranchCode", request.strRequest),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseMasterInnerGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getExpenseBudgetsInnerGridList", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
@@ -127,64 +127,6 @@ namespace FinanceMaster.Repository
             catch (Exception ex)
             {
 
-            }
-            return expenseBudgets;
-        }
-        public async Task<ExpenseBudgetsList> GeExpenseBudgetsList(PageRequest request)
-        {
-            ExpenseBudgetsList expenseBudgets = new();
-            List<ExpenseBudgetsModel> expenseList = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PageNumber"  , request.PageNumber),
-                            new SqlParameter("@PageSize"    , request.PageSize),
-                            new SqlParameter("@SortColumn"  , request.SortColumn),
-                            new SqlParameter("@SortOrder"   , request.SortOrder),
-                            new SqlParameter("@Search"      , request.Search)
-                        };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetExpenseBudgetsList", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                        {
-                            expenseList.Add(new ExpenseBudgetsModel
-                            {
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                AccountId = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountId"]),
-                                BudgetRs = Convert.ToString(dataSet.Tables[0].Rows[i]["BudgetRs"]),
-                               
-                            });
-                        }
-
-                        expenseBudgets.ExpenseList = expenseList;
-
-                        expenseBudgets.PageMetaData = new PaginationMetaData
-                        {
-                            TotalCount = totalRecords,
-                            CurrentPage = request.PageNumber
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return expenseBudgets;
         }
