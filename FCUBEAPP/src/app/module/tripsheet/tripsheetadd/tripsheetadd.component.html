@@ -32,6 +32,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Stmt Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="stmtDate"
+                                                    min="{{minDate}}" max="{{maxDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['stmtDate'].invalid) }" >
                                             </div>
                                         </div>
@@ -39,6 +40,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Dept Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="deptDate"
+                                                min="{{minDate}}" max="{{maxDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['deptDate'].invalid) }" >
                                             </div>
                                         </div>
@@ -46,6 +48,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">End Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="endDate"
+                                                min="{{minDate}}" max="{{maxDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['endDate'].invalid) }" >
                                             </div>
                                         </div>
@@ -501,9 +504,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Penalty Charged To Driver</label>
+                                        <label for="formrow-inputCity">Penalty Charged</label>
                                         <input class="form-control" decimalonly (change)="calTotal()"
                                         formControlName="penaltyChargedToDr">
                                     </div>
