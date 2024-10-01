@@ -209,7 +209,6 @@ import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.com
 import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
-
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
@@ -217,10 +216,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
-
-
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
-
 
 
 const routes: Routes = [
@@ -515,7 +511,6 @@ const routes: Routes = [
   { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
   { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
-  { path: 'expensebudgetsadd', component: ExpensebudgetsaddComponent },
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
   { path: 'cnorcneegst', component: CnorcneegstlistComponent},

@@ -363,7 +363,6 @@ import { Lhpmvariancerptmodel } from './models/lhpmvariancerptmodel';
 import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
 import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
-
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
@@ -479,23 +478,16 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
-    LhpayablestatusrptComponent,
-    ChallanregisterrptComponent,
-    VehiclerepairsrptComponent,
-    BillregisterrptComponent,
-    MrregisterrptComponent,
-    BenificiarymasteraddComponent,
+    LhpayablestatusrptComponent,  ChallanregisterrptComponent,
+    VehiclerepairsrptComponent,  BillregisterrptComponent,
+    MrregisterrptComponent,  BenificiarymasteraddComponent,
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, ExpensebudgetsaddComponent, ExpensebudgetslistComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, MonthlystatementrptComponent ,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, 
-    LhpmvariancerptComponent, GstregisterrptComponent ,   
-    CnorcneegstaddComponent, CnorcneegstlistComponent, 
-    ExpensebudgetsaddComponent, 
+    LhpmvariancerptComponent, GstregisterrptComponent ,
+    ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
+    CnorcneegstaddComponent ,CnorcneegstlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -554,15 +546,7 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
     Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
-    Lhpayablestatusrptmodel,
-    Challanregisterrptmodel,
-    Vehiclerepairsrptmodel,
-    Billregisterrptmodel,
-    Mrregisterrptmodel,
-    Lhpmvariancerptmodel,
-    Gstregisterrptmodel,
-    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
-    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,
   ],
   bootstrap: [AppComponent]
 })
