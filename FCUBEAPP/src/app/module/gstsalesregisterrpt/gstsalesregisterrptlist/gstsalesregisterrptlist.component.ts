@@ -127,6 +127,7 @@ formFilter!: FormGroup;
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
+        
         tripBranch: new FormControl('',),  
         accountID: new FormControl('',),  
         gstType: new FormControl('',),  

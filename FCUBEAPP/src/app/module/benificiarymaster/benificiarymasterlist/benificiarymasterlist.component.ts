@@ -212,13 +212,13 @@ beneficiaryList(){
 
   get f() { return this.formFilter.controls; }
   benificiaryMasterAdd(): void {
-    this.route.navigate(['/benificiaryMasteradd']);
+    this.route.navigate(['/benificiarymasteradd']);
   }
 
   //Open user details screen
   getBenificiaryMasterDetails(Docrenewal: Benificiarymastermodel): void {
     this.benificiaryMasterService.setBenificiaryMasterDetails(Docrenewal);
-    this.route.navigate(['/benificiaryMasteredit']);
+    this.route.navigate(['/benificiarymasteredit']);
   }
   search(): void {
     this.formSubmitted = true;

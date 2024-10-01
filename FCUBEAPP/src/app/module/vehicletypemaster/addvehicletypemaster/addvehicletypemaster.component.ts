@@ -160,7 +160,7 @@ submitVehicleTypeMasterForm(): void {
   }
   this.formSubmitted = true;
   this.vehicletypemastermodel.vehicleTypeID = this.selectedVehicleTypeMasterDetails.vehicleTypeID;
-  this.vehicletypemastermodel.vehicleTypeDesc= this.formUser.value.vehicleTypeDesc;
+  this.vehicletypemastermodel.vehicleTypeDesc= this.formUser.value.vehicleTypeDesc.toString().toUpperCase();
   this.vehicletypemastermodel.vehicleTypeGroupId = this.formUser.value.vehicleTypeGroupId;
   this.vehicletypemastermodel.tonCap = this.formUser.value.tonCap;
   this.vehicletypemastermodel.runPerDayKM = this.formUser.value.runPerDayKM;

@@ -10,6 +10,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BenificiaryMasterService } from 'src/app/services/benificiarymaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -26,11 +27,18 @@ export class BenificiarymasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  stateList: Dropdownmodel[] = [];
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
   fromDate: string = '';
   responseDetails = new Responsemodel();
+  @ViewChild('cancelCheqAttach', {
+    static: true
+  }) cancelCheqAttach: any;
+  @ViewChild('vendorAttachedfile', {
+    static: true
+  }) vendorAttachedfile: any;
   selectedBenificiaryMasterDetails = new Benificiarymastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder,
@@ -78,7 +86,7 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
-
+this.getStateList();
   this.selectedBenificiaryMasterDetails = this.benificiaryMasterService.getBenificiaryMasterDetails();
   this.formBenMaster = this.formBuilder.group({
     //masterID: new FormControl('',),
@@ -127,8 +135,8 @@ ngOnInit(): void {
     //this.driverPhotoPreview = this.selectedDriverMasterDetails.drPhoto;
     this.formBenMaster.patchValue(this.selectedBenificiaryMasterDetails);
     this.formBenMaster.patchValue({
-      // dateOfBirth: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfBirth),
-      // dateOfAppoint: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
+      blockDate: this.commonService.formatDate(this.selectedBenificiaryMasterDetails.blockDate),
+      approvedDate: this.commonService.formatDate(this.selectedBenificiaryMasterDetails.approvedDate),
       // licValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.licValidUpto),
       // hazLicValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
       // inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
@@ -138,7 +146,8 @@ ngOnInit(): void {
     this.editMode = true;
   }
 }
-deleteDriverMasterForm(): void {
+get f() { return this.formBenMaster.controls; }
+deleteBenificiaryMasterForm(): void {
   if (this.selectedBenificiaryMasterDetails.masterId != '') {
     this.requestmodel.strRequest = this.selectedBenificiaryMasterDetails.masterId
     if (confirm("Are you sure, you want to delete this?")) {
@@ -155,6 +164,11 @@ deleteDriverMasterForm(): void {
       });
     }
   }
+}
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
 }
 exit(): void {
   this.route.navigate(['/benmasterlist']);
@@ -173,9 +187,15 @@ submitBenificiaryMasterForm() {
   }
   this.formSubmitted = true;
   var selectedDataVal = this.formBenMaster.getRawValue()
- // this.driverModel.driverMasterID = this.benificiaryMasterService.masterId;
- this.benificiarymastermodel.benAdd2 = selectedDataVal.benAdd2;
- this.benificiarymastermodel.benAdd3 = selectedDataVal.benAdd3;
+// this.benificiarymastermodel.masterId = selectedDataVal.masterId;
+ this.benificiarymastermodel.masterId = this.selectedBenificiaryMasterDetails.masterId ;
+ this.benificiarymastermodel.benType = selectedDataVal.benType;
+ this.benificiarymastermodel.benCode = selectedDataVal.benCode;
+ this.benificiarymastermodel.benName = selectedDataVal.benName.toString().toUpperCase();;
+ this.benificiarymastermodel.benCoAcName = selectedDataVal.benCoAcName.toString().toUpperCase();
+ this.benificiarymastermodel.benAdd1 = selectedDataVal.benAdd1.toString().toUpperCase();
+ this.benificiarymastermodel.benAdd2 = selectedDataVal.benAdd2.toString().toUpperCase();
+ this.benificiarymastermodel.benAdd3 = selectedDataVal.benAdd3.toString().toUpperCase();
  this.benificiarymastermodel.pinCode = selectedDataVal.pinCode;
  this.benificiarymastermodel.stateCode = selectedDataVal.stateCode;
  this.benificiarymastermodel.benPhone = selectedDataVal.benPhone;
@@ -186,7 +206,7 @@ submitBenificiaryMasterForm() {
  this.benificiarymastermodel.benBankAcNo = selectedDataVal.benBankAcNo;
  this.benificiarymastermodel.benBankIfsc = selectedDataVal.benBankIfsc;
  this.benificiarymastermodel.amountLimit = selectedDataVal.amountLimit;
- this.benificiarymastermodel.remarks = selectedDataVal.remarks;
+ this.benificiarymastermodel.remarks = selectedDataVal.remarks.toString().toUpperCase();
  this.benificiarymastermodel.cancelCheqAttach = selectedDataVal.cancelCheqAttach;
  this.benificiarymastermodel.vendorAttachedfile = selectedDataVal.vendorAttachedfile;
  this.benificiarymastermodel.benRefByEmployeeId = selectedDataVal.benRefByEmployeeId;
@@ -205,23 +225,14 @@ submitBenificiaryMasterForm() {
 //  this.driverModel.drPhoto = selectedDataVal.drPhoto;
 //   this.driverModel.attachDrLic = selectedDataVal.attachDrLic;
 //  this.driverModel.attachDrHazLic = selectedDataVal.attachDrHazLic;
-//   this.driverModel.attachDrAadhar = selectedDataVal.attachDrAadhar;
-//  this.driverModel.attachDrTempAddProof = selectedDataVal.attachDrTempAddProof;
-//   this.driverModel.attachDrPermAddProof = selectedDataVal.attachDrPermAddProof;
-//   this.driverModel.attachDrBankPassBook = selectedDataVal.attachDrBankPassBook;
+
+  let formData = new FormData();
+    formData.append('attach1', this.cancelCheqAttach.nativeElement.files[0]);
+    formData.append('attach2', this.vendorAttachedfile.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.benificiarymastermodel));
 
 
-  // this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
-  // this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-  // this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-  // this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0]?this.tempAddressProveInput.nativeElement.files[0]:"0";
-  // this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0]?this.perAddressProveInput.nativeElement.files[0]:"0";
-  // this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0]?this.aadharCardInput.nativeElement.files[0]:"0";
-  // this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0]?this.bankPassbookInput.nativeElement.files[0]:"0";
-
- 
-
-  this.benificiaryMasterService.benificiarymasterDetailsSubmitted(this.benificiarymastermodel).subscribe((res: Responsemodel) => {
+  this.benificiaryMasterService.benificiarymasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     if (this.responseDetails.status) {
       this.toasterService.success(this.responseDetails.message);

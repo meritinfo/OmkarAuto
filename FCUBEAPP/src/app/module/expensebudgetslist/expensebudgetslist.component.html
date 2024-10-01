@@ -1,0 +1,63 @@
+
+
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Expense Budgets</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            
+                          
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="addExpensebudgetMaster()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>tptName</th>
+                       
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allExpensebudgets.expenseList?.length != 0">
+                        <tr *ngFor="let tm of allExpensebudgets.expenseList">
+                            <td>{{ tm.branchCode}}</td>
+                        
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getExpensebudgetDetails(tm)"></button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allExpensebudgets.expenseList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

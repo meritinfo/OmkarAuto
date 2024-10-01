@@ -48,7 +48,7 @@ export class BenificiaryMasterService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkDocrenewalValidity', user, this.httpOptions);
   }
 
-  benificiarymasterDetailsSubmitted(user: Benificiarymastermodel): Observable<Responsemodel> {
+  benificiarymasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/BeneficiaryMasterSave', user, this.httpformOptions);
   }
 
