@@ -97,10 +97,9 @@ ngOnInit(): void {
   this.formUser = this.formBuilder.group({
    // docCode: new FormControl('',[Validators.required]),
    cnorCneeID: new FormControl('',), 
-   cnorCneeName: new FormControl('',[Validators.required]), 
-   printName:new FormControl('',[Validators.required]), 
-   cnorCneeFlag: new FormControl('',[Validators.required]), 
-   branchCode: new FormControl('',[Validators.required]), 
+  
+   
+   location: new FormControl('',[Validators.required]), 
    globalYN: new FormControl('',[Validators.required]), 
    address1: new FormControl('',[Validators.required]), 
    address2: new FormControl('',), 
@@ -185,7 +184,7 @@ getStateList(): void {
 }
 
 //Submit user form details //
-submitCnorCneeMasterForm(): void {
+submitCnorCneeGstForm(): void {
   if (this.formUser.invalid) {
     this.toasterService.warning("Please Enter Mandatory Fields ");   
     const controls = this.formUser.controls;
