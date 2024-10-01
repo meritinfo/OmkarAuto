@@ -30,6 +30,10 @@ namespace FinanceMaster.Business
         public async  Task<ResponseModel> CnorCneeGstDelete(RequestModel requestModel)
          {
             return await cnorCneeGstRepository.CnorCneeGstDelete(requestModel);
+         }
+        public async Task<List<DropDownListModel>> GetCneeCnorList()
+        {
+            return await cnorCneeGstRepository.GetCneeCnorList();
+        }
     }
-}
 }

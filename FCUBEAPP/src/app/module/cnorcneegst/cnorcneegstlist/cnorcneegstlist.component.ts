@@ -97,18 +97,18 @@ cnorcneeGstList(){
     columns: [   
       {
         title: 'Location',
-        data: 'location',
+        data: 'centrename',
       },
       {
-        title: 'Address1',
+        title: 'Address 1',
         data: 'address1',
       },
       {
-        title: 'address2',
+        title: 'Address 2',
         data: 'address2',
       },
       {
-        title: 'GstNo',
+        title: 'Gst No',
         data: 'gstNo',
       },
       {

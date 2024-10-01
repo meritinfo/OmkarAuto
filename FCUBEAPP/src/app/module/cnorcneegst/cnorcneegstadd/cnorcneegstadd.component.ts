@@ -37,6 +37,7 @@ export class CnorcneegstaddComponent {
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
+  ccList: Dropdownmodel[] = [];
   
   
   selectedCnorCneeGstDetails = new Cnorcneegstmodel();
@@ -100,7 +101,7 @@ ngOnInit(): void {
   
    
    location: new FormControl('',[Validators.required]), 
-   globalYN: new FormControl('',[Validators.required]), 
+  
    address1: new FormControl('',[Validators.required]), 
    address2: new FormControl('',), 
    address3: new FormControl('',), 
@@ -108,19 +109,16 @@ ngOnInit(): void {
    pinCode: new FormControl('',), 
    phone: new FormControl('',), 
    email: new FormControl('',), 
-   contactPerson1: new FormControl('',), 
-   mobile1: new FormControl('',), 
-   contactPerson2: new FormControl('',), 
-   mobile2: new FormControl('',), 
-   contactPerson3: new FormControl('',), 
-   mobile3: new FormControl('',), 
+   contactPerson: new FormControl('',), 
+   mobileNo: new FormControl('',), 
+
    gstNo: new FormControl('',), 
-   isActive: new FormControl('',), 
-   inActiveDate: new FormControl('',), 
-   olD_CnorCnee_ID: new FormControl('',), 
+ 
+ 
   });
   this.getBranchList();
   this.getStateList();
+  this.getCCList();
 
   if (this.selectedCnorCneeGstDetails.cnorCneeID != '') {
     this.formUser.patchValue(this.selectedCnorCneeGstDetails);      
@@ -146,7 +144,7 @@ deleteCnorCneeMasterForm(): void {
         if(this.responseDetails.status){
           this.toasterService.success(this.responseDetails.message);
           this.formUser.reset();
-          this.route.navigate(['/searchcnorcnee']);
+          this.route.navigate(['/cnorcneegst']);
         }
         else{
           this.toasterService.warning(this.responseDetails.message);        
@@ -182,6 +180,11 @@ getStateList(): void {
     this.stateList = res;
   });
 }
+getCCList(): void {
+  this.commonService.getCCList().subscribe((res) => {
+    this.ccList = res;
+  });
+}
 
 //Submit user form details //
 submitCnorCneeGstForm(): void {
@@ -203,15 +206,15 @@ submitCnorCneeGstForm(): void {
  //this.cnorcneemastermodel.cnorCneeName = selectedDataVal.cnorCneeName.toString().toUpperCase();
   //this.cnorcneemastermodel.printName = selectedDataVal.printName.toString().toUpperCase();
  // cnorcneegstmodel.cnorCneeDetID = selectedDataVal.
- // cnorcneegstmodel.cnorCneeID = selectedDataVal.
+  this.cnorcneegstmodel.cnorCneeID = selectedDataVal.cnorCneeID
  this.cnorcneegstmodel.location = selectedDataVal.location
- this.cnorcneegstmodel.address1 = selectedDataVal.address1
- this.cnorcneegstmodel.address2 = selectedDataVal.address2
- this.cnorcneegstmodel.address3 = selectedDataVal.address3
+ this.cnorcneegstmodel.address1 = selectedDataVal.address1.toString().toUpperCase();
+ this.cnorcneegstmodel.address2 = selectedDataVal.address2.toString().toUpperCase();
+ this.cnorcneegstmodel.address3 = selectedDataVal.address3.toString().toUpperCase();
  this.cnorcneegstmodel.stateCode = selectedDataVal.stateCode
  this.cnorcneegstmodel.pinCode = selectedDataVal.pinCode
  this.cnorcneegstmodel.gstNo = selectedDataVal.gstNo
- this.cnorcneegstmodel.contactPerson = selectedDataVal.contactPerson
+ this.cnorcneegstmodel.contactPerson = selectedDataVal.contactPerson.toString().toUpperCase();
  this.cnorcneegstmodel.mobileNo = selectedDataVal.mobileNo
  this.cnorcneegstmodel.email  = selectedDataVal.email 
  //cnorcneegstmodel. olD_CnorCnee_ID: string
@@ -221,7 +224,7 @@ submitCnorCneeGstForm(): void {
     if(this.responseDetails.status){
       this.toasterService.success(this.responseDetails.message);
       this.formUser.reset();
-      this.route.navigate(['/searchcnorcnee']);
+      this.route.navigate(['/cnorcneegst']);
     }
     else{
       this.toasterService.warning(this.responseDetails.message);        

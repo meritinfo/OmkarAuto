@@ -48,7 +48,7 @@ namespace FinanceMaster.Repository
                              new SqlParameter("@ContactPerson " , cnorCneeGstModel.ContactPerson ),
                              new SqlParameter("@MobileNo " , cnorCneeGstModel.MobileNo ),
                              new SqlParameter("@Email " , cnorCneeGstModel.Email ),
-                             new SqlParameter("@OLD_CnorCnee_ID " , cnorCneeGstModel.OLD_CnorCnee_ID ),
+                           //  new SqlParameter("@OLD_CnorCnee_ID " , cnorCneeGstModel.OLD_CnorCnee_ID ),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsigneeCnorGstSave", param);
@@ -104,7 +104,7 @@ namespace FinanceMaster.Repository
                         {
                             gstList.Add(new CnorCneeGstModel
                             {
-                                CnorCneeDetID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeDetID"]),
+                               // CnorCneeDetID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeDetID"]),
                                 CnorCneeID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeID"]),
                                 Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
                                 Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
@@ -116,7 +116,8 @@ namespace FinanceMaster.Repository
                                 ContactPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson"]),
                                 MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
                                 Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),
-                                OLD_CnorCnee_ID = Convert.ToString(dataSet.Tables[0].Rows[i]["OLD_CnorCnee_ID"]),
+                                centrename = Convert.ToString(dataSet.Tables[0].Rows[i]["centrename"]),
+                                //OLD_CnorCnee_ID = Convert.ToString(dataSet.Tables[0].Rows[i]["OLD_CnorCnee_ID"]),
                             });
                         }
 
@@ -144,6 +145,44 @@ namespace FinanceMaster.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return cnorCneeGstList;
+        }
+        public async Task<List<DropDownListModel>> GetCneeCnorList()
+        {
+            List<DropDownListModel> ccList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetCneeCorListSelect", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            ccList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return ccList;
         }
         public async Task<ResponseModel> CnorCneeGstDelete(RequestModel requestModel)
         {

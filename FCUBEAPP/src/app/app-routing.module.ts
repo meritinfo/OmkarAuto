@@ -513,6 +513,7 @@ const routes: Routes = [
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
+  { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
   { path: 'cnorcneegst', component: CnorcneegstlistComponent},
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
 ];

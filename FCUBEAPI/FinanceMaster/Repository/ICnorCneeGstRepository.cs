@@ -14,6 +14,7 @@ namespace FinanceMaster.Repository
         Task<ResponseModel> CnorCneeGstDelete(RequestModel requestModel);
         Task<CnorCneeGstList> GetCnorCneeGstList(PageRequest request);
         Task<ResponseModel> CnorCneeGstSave(CnorCneeGstModel cnorCneeGstModel);
+        Task<List<DropDownListModel>> GetCneeCnorList();
 
     }
 }
