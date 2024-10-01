@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
-import {Maintanencemastermodel } from './models/maintanencemastermodel';
+import { Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -367,6 +368,7 @@ import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cno
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
 import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
+import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 
 @NgModule({
   declarations: [
@@ -486,6 +488,10 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, ExpensebudgetsaddComponent, ExpensebudgetslistComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, MonthlystatementrptComponent ,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, 
     LhpmvariancerptComponent, GstregisterrptComponent ,   
     CnorcneegstaddComponent, CnorcneegstlistComponent, 
@@ -510,7 +516,7 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     MomentModule,
   ],
   
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
@@ -539,13 +545,15 @@ import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
-    Billsmastermodel,Billstypemodel,
-    Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
+    Billsmastermodel,Billstypemodel, Companyinfomodel, Mrmodel,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
+    Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
+    Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
     Lhpayablestatusrptmodel,
     Challanregisterrptmodel,
     Vehiclerepairsrptmodel,

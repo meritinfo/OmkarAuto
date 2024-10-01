@@ -171,7 +171,7 @@ namespace HRMasters.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var foldername = System.IO.Path.Combine("Reports", "Download");
+                        var foldername = System.IO.Path.Combine("reports", "Download");
                         var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                         var filename = "TextReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".txt";
                         var filePath = foldername + "//" + filename;
@@ -342,7 +342,7 @@ namespace HRMasters.Repository
                     ws.Range(5, 1, j + 6, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                     ws.Range(5, 1, j + 6, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                    var foldername = System.IO.Path.Combine("Reports", "Download");
+                    var foldername = System.IO.Path.Combine("reports", "Download");
                     var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                     var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                     var filePath = foldername + "//" + filename;

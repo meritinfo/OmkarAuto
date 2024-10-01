@@ -179,7 +179,7 @@ namespace FinTrans.Repository
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                             var filename = "OpeningBalance_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                             var filePath = foldername + "//" + filename;
@@ -372,7 +372,7 @@ namespace FinTrans.Repository
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                             var filename = "AsOnDate_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                             var filePath = foldername + "//" + filename;
@@ -552,7 +552,7 @@ namespace FinTrans.Repository
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                             var filename = "AsOnDateDetails_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                             var filePath = foldername + "//" + filename;
@@ -763,7 +763,7 @@ namespace FinTrans.Repository
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                             var filename = "AsOnDateDetailsGroup_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                             var filePath = foldername + "//" + filename;
@@ -956,7 +956,7 @@ namespace FinTrans.Repository
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
-                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                             var filename = "ForGivenPeriod_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
                             var filePath = foldername + "//" + filename;

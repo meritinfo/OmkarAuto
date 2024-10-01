@@ -67,7 +67,7 @@ namespace FinTrans.Business
 
         private string CreateLedgerReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
         {
-            var folderName = System.IO.Path.Combine("Reports", "Ledger");
+            var folderName = System.IO.Path.Combine("reports", "Ledger");
             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
             string fileName = "LedgerReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
             var filePath = folderName + "//" + fileName;

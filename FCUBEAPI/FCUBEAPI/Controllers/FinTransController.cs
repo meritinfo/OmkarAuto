@@ -29,6 +29,7 @@ namespace FCUBEAPI.Controllers
         readonly IGstSalesRegisterRptBusiness gstSalesRegisterRptBusiness;
         readonly IBankBookRptBusiness bankBookRptBusiness;
         readonly IBalanceBusiness balanceBusiness;
+        readonly IMonthlyStatementsBusiness monthlyStatementsBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
@@ -39,7 +40,8 @@ namespace FCUBEAPI.Controllers
             ILedgerRptBusiness _ledgerRptBusiness,
             IBankBookRptBusiness _bankBookRptBusiness,
             IGstSalesRegisterRptBusiness _gstSalesRegisterRptBusiness,
-            IBalanceBusiness _balanceBusiness)
+            IBalanceBusiness _balanceBusiness,
+            IMonthlyStatementsBusiness  _monthlyStatementsBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
@@ -50,6 +52,7 @@ namespace FCUBEAPI.Controllers
             gstSalesRegisterRptBusiness = _gstSalesRegisterRptBusiness;
             bankBookRptBusiness = _bankBookRptBusiness;
             balanceBusiness = _balanceBusiness;
+            monthlyStatementsBusiness = _monthlyStatementsBusiness;
         }
         /// <summary>
 
@@ -777,6 +780,63 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await balanceBusiness.GetGivenPeriodExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetMonthlyBookingRptExcel")]
+        public async Task<IActionResult> GetMonthlyBookingRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await monthlyStatementsBusiness.GetMonthlyBookingRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetMonthlyLorryHireRptExcel")]
+        public async Task<IActionResult> GetMonthlyLorryHireRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await monthlyStatementsBusiness.GetMonthlyLorryHireRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetMonthlyAdminExpRptExcel")]
+        public async Task<IActionResult> GetMonthlyAdminExpRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await monthlyStatementsBusiness.GetMonthlyAdminExpRptExcel(req);
 
                 return Ok(result);
             }

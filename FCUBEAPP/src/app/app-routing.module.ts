@@ -219,6 +219,7 @@ import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cno
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 
 
+import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 
 
 
@@ -518,6 +519,7 @@ const routes: Routes = [
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
   { path: 'cnorcneegst', component: CnorcneegstlistComponent},
+  { path: 'monthlystmt', component: MonthlystatementrptComponent },
 ];
 
 

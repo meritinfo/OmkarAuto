@@ -59,7 +59,7 @@ namespace FinTrans.Business
 
         private string CreateBankBookReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
         {
-            var folderName = System.IO.Path.Combine("Reports", "BankBook");
+            var folderName = System.IO.Path.Combine("reports", "BankBook");
             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
             string fileName = "BankBook_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
             var filePath = folderName + "//" + fileName;
