@@ -131,7 +131,6 @@ export class MonthlystatementrptComponent {
     this.filter.toDate      = this.maxDate;
     this.filter.filterStr   = selectedDataVal.freight;
     this.filter.filterStr1  = selectedDataVal.branchWise;
-    this.filter.filterStr2  = selectedDataVal.branch; 
     this.monthstatementrptService.getMonthlyBookingRptExcel(this.filter).subscribe(resp => {    
       if(resp.status){      
         let link = document.createElement("a");
@@ -151,7 +150,6 @@ export class MonthlystatementrptComponent {
     this.filter.toDate      = this.maxDate;
     this.filter.filterStr   = selectedDataVal.freight;
     this.filter.filterStr1  = selectedDataVal.branchWise;
-    this.filter.filterStr2  = selectedDataVal.branch; 
     this.monthstatementrptService.getMonthlyLorryHireRptExcel(this.filter).subscribe(resp => {    
       if(resp.status){      
         let link = document.createElement("a");
