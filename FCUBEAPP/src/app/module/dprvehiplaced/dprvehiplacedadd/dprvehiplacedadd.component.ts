@@ -258,6 +258,7 @@ export class DprvehiplacedaddComponent {
     else{
       for (var j=0; j<selectedData.arrayList.length;i++){
         if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
+          this.formArray.controls[i].get("gcNoteNo")?.setValue("");
           this.toasterService.warning("GC Note No Already Entered in Grid");
           return;
         }

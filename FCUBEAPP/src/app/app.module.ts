@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
-import {Maintanencemastermodel } from './models/maintanencemastermodel';
+import { Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -356,6 +357,7 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 
 @NgModule({
   declarations: [
@@ -475,7 +477,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, MonthlystatementrptComponent ,
   ],
   imports: [
     BrowserModule,
@@ -496,7 +498,7 @@ import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemast
     MomentModule,
   ],
   
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
