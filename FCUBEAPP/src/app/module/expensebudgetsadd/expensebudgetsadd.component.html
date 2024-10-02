@@ -47,42 +47,26 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table .half-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <!-- <th><label for="formrow-inputZip">Year</label></th> -->
-                                            
-                                                <!-- <th><label for="formrow-inputZip">Tyre Pattern</label></th> -->
                                                 <th><label for="formrow-inputZip">Account </label></th>
                                                 <th><label for="formrow-inputZip">Budget Rs</label></th>
-                                              
-                                    
                                                 <th></th>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <!-- <td> 
-                                                        <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="yearId" >  
-                                                    </td> -->
-                                                   
                                                     <td> 
                                                         <select class="form-control" formControlName="accountId">
-                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
-                                                    </td>
-                                                    <!-- <td> 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="tyrePattern"> 
-                                                    </td> -->
-                                                  
+                                                            <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
+                                                    </td>                                                  
                                                     <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="budgetRs" >
-                                                    </td>
-                                                  
+                                                    </td>                                                  
                                                     <td> 
                                                         <div class="col-lg-4 details-button">
                                                             <button *ngIf="i === formTyreArray.controls.length-1" type="button"

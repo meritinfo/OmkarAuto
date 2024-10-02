@@ -19,7 +19,6 @@ namespace FleetTrans.Business
         }
         public async Task<ResponseModel> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)
         {
-
             return await vehicleAdvBalReceiptMstRepository.VehicleAdvBalReceiptMstSave(vehicleAdvBalReceiptMstModel);
         }
         public async  Task<VehicleAdvBalReceiptMstList> GetVehicleAdvBalReceiptMstList(PageFromDtToDtRequest request)
@@ -31,6 +30,10 @@ namespace FleetTrans.Business
         {
 
             return await vehicleAdvBalReceiptMstRepository.GetVehicleAdvBalReceiptMstInnerGridList(request);
+        }
+        public async Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalTripDetails(RequestModel request)
+        {
+            return await vehicleAdvBalReceiptMstRepository.GetVehicleAdvBalTripDetails(request);
         }
         public async Task<ResponseModel> VehicleAdvBalReceiptMstDelete(RequestModel req)
         {

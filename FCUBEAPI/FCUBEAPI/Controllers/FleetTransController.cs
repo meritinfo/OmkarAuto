@@ -2796,6 +2796,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleAdvBalTripDetails")]
+        public async Task<IActionResult> GetVehicleAdvBalTripDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalTripDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("VehicleAdvBalReceiptMstSave")]
         public async Task<IActionResult> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)

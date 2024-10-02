@@ -13,6 +13,7 @@ namespace FleetTrans.Repository
         Task<VehicleAdvBalReceiptMstList> GetVehicleAdvBalReceiptMstList(PageFromDtToDtRequest request);
         Task<ResponseModel> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel);
         Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request);
+        Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalTripDetails(RequestModel request);
         Task<ResponseModel> VehicleAdvBalReceiptMstDelete(RequestModel req);
 
     }
