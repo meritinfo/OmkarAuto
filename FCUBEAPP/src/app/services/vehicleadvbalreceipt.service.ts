@@ -41,7 +41,7 @@ export class VehicleadvbalreceiptService {
     this.selectedVehicleadvbalreceipt = new VehicleadvbalreceiptModel();
   }
   VehicleadvbalreceiptModelDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleadvbalreceiptModelDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstDelete', req, this.httpOptions);
   }
   getVehicleadvbalreceiptInnerGridList(request: Requestmodel): Observable<VehicleadvbalreceiptModel> {
     return this.httpClient.post<VehicleadvbalreceiptModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalReceiptMstInnerGridList', request, this.httpOptions);

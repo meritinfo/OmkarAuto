@@ -143,6 +143,7 @@ export class VehicleadvbalreceiptaddComponent {
     this.formUser.controls["totalAmtRecd"].disable();
 
     if (this.selectedvehicleAdvBalReceiptDetail.transId  != '') {
+      this.getCreditAcList(this.selectedvehicleAdvBalReceiptDetail.receiptType);
       setTimeout(() => {      
         this.formUser.patchValue(this.selectedvehicleAdvBalReceiptDetail);
         this.formUser.patchValue({
@@ -151,6 +152,22 @@ export class VehicleadvbalreceiptaddComponent {
           tripsUptoDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.tripsUptoDate),
           vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.vehicleMasterId),
         })
+        if(this.selectedvehicleAdvBalReceiptDetail.neftYN=="N"){
+          this.formUser.patchValue({
+            neftYN: "",
+          })
+        }
+        if (this.selectedvehicleAdvBalReceiptDetail.receiptType == 'B'){
+          this.formUser.controls['neftYN'].enable();
+          this.formUser.controls['chequeNo'].enable();
+          this.formUser.controls['chequeDate'].enable();
+        }
+        else {
+          this.formUser.controls['neftYN'].disable();
+          this.formUser.controls['chequeNo'].disable();
+          this.formUser.controls['chequeDate'].disable();
+        }    
+          
         this.formUser.controls["transDate"].disable();
         this.formUser.controls["tripsUptoDate"].disable(); 
         this.formUser.controls["vehicleMasterId"].disable();   
