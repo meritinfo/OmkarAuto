@@ -19,13 +19,24 @@
                      <div class="mb-3">
                         <label for="basicpill-phoneno-input">Location</label><span style="color:red">*</span>
                           
-                           <select class="form-control" autoclose="false" formControlName="loation" 
-                           [ngClass]="{ 'is-invalid': formSubmitted && (f['loation'].invalid) }">
+                           <select class="form-control" autoclose="false" formControlName="location" 
+                           [ngClass]="{ 'is-invalid': formSubmitted && (f['location'].invalid) }">
                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                {{branch.dataName}}
                            </option>
                         </select>
 
+                     </div>
+                  </div>
+                  <div class="col-lg-3">
+                     <div class="mb-3">
+                        <label for="basicpill-phoneno-input">CneeCnor </label>
+                        <select class="form-control" formControlName="cnorCneeID" autoclose="false"
+                                              [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorCneeID'].invalid) }">
+                                              <option *ngFor="let state of ccList" value={{state.dataId}}>
+                                                  {{state.dataName}}
+                                              </option>
+                                           </select>                                                                                               
                      </div>
                   </div>
 
@@ -39,21 +50,7 @@
                  
                </div>
                <div class="row">
-                  <div class="col-lg-3">
-                     <div class="mb-3">
-                        <label for="basicpill-phoneno-input">Global YN</label><span style="color:red">*</span>
-                       
-                           <select id="formrow-inputState" 
-                           class="form-control form-select ng-pristine ng-touched"
-                               formControlName="globalYN" (change)="onGlobleChange($event)"
-                               [ngClass]="{ 'is-invalid': formSubmitted && (f['globalYN'].invalid) }">
-                              
-                               <option value="Y">Yes</option>
-                               <option value="N">No</option>
-                              
-                         </select>
-                     </div>
-                   </div>
+                 
                     
                     <div class="col-lg-6">
                        <div class="mb-3">
@@ -63,21 +60,24 @@
                              [ngClass]="{ 'is-invalid': formSubmitted && (f['address1'].invalid) }">                                                
                        </div>
                     </div>
-                    
-                    <div class="col-lg-6">
-                       <div class="mb-3">
-                          <label for="basicpill-phoneno-input">Address 3</label>
-                          <input uppercaseonly type="text" class="form-control"
-                             formControlName="address3" uppercaseonly maxlength="200"
-                             [ngClass]="{ 'is-invalid': formSubmitted && (f['address3'].invalid) }">                                                
-                       </div>
-                    </div>
+                  </div>
+                    <div class="row">
+                   
                     <div class="col-lg-4">
                      <div class="mb-3">
                         <label for="basicpill-phoneno-input">Address 2</label>
                         <input uppercaseonly type="text" class="form-control"
-                           formControlName="address2" uppercaseonly maxlength="200"
+                           formControlName="address2" uppercaseonly maxlength="200" 
                            [ngClass]="{ 'is-invalid': formSubmitted && (f['address2'].invalid) }">                                                
+                     </div>
+                  </div>
+                  
+                  <div class="col-lg-6">
+                     <div class="mb-3">
+                        <label for="basicpill-phoneno-input">Address 3</label>
+                        <input uppercaseonly type="text" class="form-control"
+                           formControlName="address3" uppercaseonly maxlength="200"
+                           [ngClass]="{ 'is-invalid': formSubmitted && (f['address3'].invalid) }">                                                
                      </div>
                   </div>
 
@@ -120,16 +120,16 @@
                    <div class="mb-3">
                       <label for="basicpill-phoneno-input">Contact Person1</label>
                       <input uppercaseonly type="text" class="form-control"
-                         formControlName="contactPerson1" uppercaseonly
-                         [ngClass]="{ 'is-invalid': formSubmitted && (f['contactPerson1'].invalid) }">                                                                                               
+                         formControlName="contactPerson" uppercaseonly
+                         [ngClass]="{ 'is-invalid': formSubmitted && (f['contactPerson'].invalid) }">                                                                                               
                    </div>
                 </div>
                 <div class="col-lg-3">
                    <div class="mb-3">
-                      <label for="basicpill-phoneno-input">Mobile 1</label>
+                      <label for="basicpill-phoneno-input">Mobile No</label>
                       <input uppercaseonly type="text" class="form-control"
-                         formControlName="mobile1" numbersonly
-                         [ngClass]="{ 'is-invalid': formSubmitted && (f['mobile1'].invalid) }">                                                                                               
+                         formControlName="mobileNo" numbersonly maxlength="10"
+                         [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">                                                                                               
                    </div>
                 </div>
                 <div class="col-lg-3">

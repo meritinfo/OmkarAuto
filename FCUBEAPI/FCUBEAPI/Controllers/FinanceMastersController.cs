@@ -162,6 +162,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetFinAccountGstList")]
         public async Task<IActionResult> GetFinAccountGstList(RequestModel request)
         {
@@ -587,6 +588,20 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await cnorCneeGstBusiness.GetCnorCneeGstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCCList")]
+        public async Task<IActionResult> GetCCList()
+        {
+            try
+            {
+                var result = await cnorCneeGstBusiness.GetCneeCnorList();
 
                 return Ok(result);
             }

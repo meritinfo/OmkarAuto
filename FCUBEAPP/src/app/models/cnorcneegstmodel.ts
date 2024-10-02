@@ -11,5 +11,6 @@ export class Cnorcneegstmodel {
   contactPerson: string = "";
   mobileNo: string = "";
   email: string = "";
+  centrename: string = "";
 
 }
