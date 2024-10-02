@@ -104,7 +104,7 @@ namespace FinanceMaster.Repository
                         {
                             gstList.Add(new CnorCneeGstModel
                             {
-                               // CnorCneeDetID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeDetID"]),
+                                CnorCneeDetID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeDetID"]),
                                 CnorCneeID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeID"]),
                                 Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
                                 Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
@@ -198,9 +198,9 @@ namespace FinanceMaster.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@CnorCneeID", requestModel.strRequest),
+                            new SqlParameter("@CnorCneeDetID", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CnorCneeMasterDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CnorCneeGstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
