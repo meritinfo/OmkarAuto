@@ -201,8 +201,8 @@ submitBenificiaryMasterForm() {
  this.benificiarymastermodel.benPhone = selectedDataVal.benPhone;
  this.benificiarymastermodel.benMobile = selectedDataVal.benMobile;
  this.benificiarymastermodel.benEmail = selectedDataVal.benEmail;
- this.benificiarymastermodel.benBankName = selectedDataVal.benBankName;
- this.benificiarymastermodel.benBankBranch = selectedDataVal.benBankBranch;
+ this.benificiarymastermodel.benBankName = selectedDataVal.benBankName.toString().toUpperCase();
+ this.benificiarymastermodel.benBankBranch = selectedDataVal.benBankBranch.toString().toUpperCase();;
  this.benificiarymastermodel.benBankAcNo = selectedDataVal.benBankAcNo;
  this.benificiarymastermodel.benBankIfsc = selectedDataVal.benBankIfsc;
  this.benificiarymastermodel.amountLimit = selectedDataVal.amountLimit;
@@ -212,13 +212,13 @@ submitBenificiaryMasterForm() {
  this.benificiarymastermodel.benRefByEmployeeId = selectedDataVal.benRefByEmployeeId;
  this.benificiarymastermodel.approvedBy = selectedDataVal.approvedBy;
  this.benificiarymastermodel.approvedDate = selectedDataVal.approvedDate;
- this.benificiarymastermodel.approvedRemarks = selectedDataVal.approvedRemarks;
+ this.benificiarymastermodel.approvedRemarks = selectedDataVal.approvedRemarks.toString().toUpperCase();;
  this.benificiarymastermodel.apiUsedForApp = selectedDataVal.apiUsedForApp;
  this.benificiarymastermodel.blockYN = selectedDataVal.blockYN;
  this.benificiarymastermodel.blockDate = selectedDataVal.blockDate;
  this.benificiarymastermodel.blockBy = selectedDataVal.blockBy;
- this.benificiarymastermodel.blockReason = selectedDataVal.blockReason;
- this.benificiarymastermodel.panNo = selectedDataVal.panNo;
+ this.benificiarymastermodel.blockReason = selectedDataVal.blockReason.toString().toUpperCase();;
+ this.benificiarymastermodel.panNo = selectedDataVal.panNo.toString().toUpperCase();;
  this.benificiarymastermodel.globalYN = selectedDataVal.globalYN;
  this.benificiarymastermodel.branchCode = selectedDataVal.branchCode;
  this.benificiarymastermodel.loggedInUserID= this.loggedInUserID;

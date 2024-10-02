@@ -120,7 +120,8 @@ ngOnInit(): void {
   this.getStateList();
   this.getCCList();
 
-  if (this.selectedCnorCneeGstDetails.cnorCneeID != '') {
+  if (this.selectedCnorCneeGstDetails.cnorCneeDetID != '') {
+    this.formUser.controls['location'].disable(); 
     this.formUser.patchValue(this.selectedCnorCneeGstDetails);      
     this.editMode = true;
   
@@ -156,7 +157,7 @@ deleteCnorCneeMasterForm(): void {
   }
 }
 exit(): void {
-  this.route.navigate(['/searchcnorcnee']);
+  this.route.navigate(['/cnorcneegst']);
 }
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {

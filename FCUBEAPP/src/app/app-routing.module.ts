@@ -217,6 +217,8 @@ import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebu
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
+import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
+import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 
 
 const routes: Routes = [
@@ -516,6 +518,9 @@ const routes: Routes = [
   { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
   { path: 'cnorcneegst', component: CnorcneegstlistComponent},
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
+  { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
+  { path: 'partygroupedit', component:  PartygroupmasteraddComponent },
+  { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
 ];
 
 

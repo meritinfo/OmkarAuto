@@ -241,13 +241,17 @@
                             <div class="row">
                                <div class="col-sm-4">
                                   <label for="cancelCheqAttach" class="col-form-label">Cancel Cheque Attach</label>
-                                  <input #attachmentInput class="form-control" type="file"
+                                  <input #cancelCheqAttach class="form-control" type="file"
                                      id="cancelCheqAttach" >
+                                     <a *ngIf="selectedBenificiaryMasterDetails.cancelCheqAttach" target="_blank"
+                                     href={{cancelCheqAttach}}>Download</a>
                                </div>
                                <div class="col-sm-4">
                                   <label for="vendorAttachedfile" class="col-form-label">Vendor Attached file</label>
                                   <input #vendorAttachedfile class="form-control" type="file"
                                   id="vendorAttachedfile"  >
+                                  <a *ngIf="selectedBenificiaryMasterDetails.vendorAttachedfile" target="_blank"
+                                  href={{vendorAttachedfile}}>Download</a>
                                </div>
                             </div>
                             <div class="row">

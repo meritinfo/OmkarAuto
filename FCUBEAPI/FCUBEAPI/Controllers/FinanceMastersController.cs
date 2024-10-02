@@ -35,7 +35,7 @@ namespace FCUBEAPI.Controllers
         readonly IExpenseBudgetsBusiness expenseBudgetsBusiness;
 
 
-        public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
+        public FinanceMastersController(IOptions<DBModel> _dbconnection,IFinGroupMasterBusiness _finGroupMasterBusiness, 
             IFinAccountsMasterBusiness _finAccountsMasterBusiness, 
             IFinScheduleMasterBusiness _finScheduleMasterBusiness,
             IOpeningBalanceMasterBusiness _openingBalanceMasterBusiness,
@@ -45,6 +45,7 @@ namespace FCUBEAPI.Controllers
             ICnorCneeGstBusiness _cnorCneeGstBusiness,
             IExpenseBudgetsBusiness _expenseBudgetsBusiness)
         {
+            dbconnection = _dbconnection;
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
             finGroupMasterBusiness = _finGroupMasterBusiness;
             finScheduleMasterBusiness = _finScheduleMasterBusiness;
@@ -511,7 +512,7 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(cancelCheqAttach.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(cancelCheqAttach.FileName);
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/beneificiary");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)
@@ -528,7 +529,7 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(vendorAttachedfile.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vendorAttachedfile.FileName);
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/beneificiary");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)

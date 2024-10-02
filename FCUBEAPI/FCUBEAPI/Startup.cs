@@ -282,6 +282,8 @@ namespace FCUBEAPI
             services.AddScoped<IExpenseBudgetsRepository, ExpenseBudgetsRepository>();
             services.AddScoped<IMonthlyStatementsBusiness, MonthlyStatementsBusiness>();
             services.AddScoped<IMonthlyStatementsRepository, MonthlyStatementsRepository>();
+            services.AddScoped<IPartyGroupMasterBusiness, PartyGroupMasterBusiness>();
+            services.AddScoped<IPartyGroupMasterRepository, PartyGroupMasterRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

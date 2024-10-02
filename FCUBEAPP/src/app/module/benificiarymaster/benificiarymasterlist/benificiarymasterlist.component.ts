@@ -166,7 +166,7 @@ beneficiaryList(){
           data: 'benType',
         }, 
         {
-          title: 'ben Code',
+          title: 'Ben Code',
           data: 'benCode',
         },
         {
@@ -178,7 +178,7 @@ beneficiaryList(){
           data: 'benCoAcName',
         },  
         {
-          title: 'Ben BankName',
+          title: 'Ben Bank Name',
           data: 'benBankName',
         },   
        
