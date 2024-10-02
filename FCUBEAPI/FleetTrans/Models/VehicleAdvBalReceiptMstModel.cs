@@ -43,20 +43,18 @@ namespace FleetTrans.Models
     }
     public class VehicleAdvBalReceiptDtlListmodel
     {
-        public string? TransDtlId { get; set; }
-        public string? TransId { get; set; }
-        public string? TransBranch { get; set; }
-        public string? TransDate { get; set; }
-        public string? VehicleMasterId { get; set; }
+        public string? TripRouteDtlId { get; set; }
+        public string? LoadBranch { get; set; }
+        public string? LoadMemoNo { get; set; }
+        public string? LoadDate { get; set; }
         public string? TripNo { get; set; }
-     //   public string? TripYear { get; set; }
-   //     public string? TripRouteDtlId { get; set; }
+        public string? DueAmt { get; set; }
+        public string? PaidAmt { get; set; }
         public string? Received { get; set; }
         public string? Deduction { get; set; }
         public string? TDS { get; set; }
         public string? Extras { get; set; }
         public string? DtlRemarks { get; set; }
-        public string? YearId { get; set; }
 
     }
 
