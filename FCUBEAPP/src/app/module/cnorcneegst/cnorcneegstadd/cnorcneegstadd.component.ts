@@ -33,6 +33,7 @@ export class CnorcneegstaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

@@ -92,8 +92,8 @@ ngOnInit(): void {
 
   this.selectedRateTypesDetails = this.rateTypesService.getratetypesDetails();
   this.formUser = this.formBuilder.group({
-    rateDesc: new FormControl('',),
-    rateMethod: new FormControl('',),
+    rateDesc: new FormControl('', [Validators.required]),
+    rateMethod: new FormControl('',[Validators.required]),
   
 
   });
@@ -114,12 +114,21 @@ get f() { return this.formUser.controls; }
 //Submit user form details //
 submitRateTypesForm(): void {
   this.formSubmitted = true;
+  
   if (this.formUser.invalid) {
+    this.toasterService.warning("Please Enter Mandatory Fields"); 
+    const controls = this.formUser.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    } 
     return;
   }
   this.ratetypesmodel.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
   this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc.toString().toUpperCase();
   this.ratetypesmodel.rateMethod = this.formUser.value.rateMethod;
+  this.ratetypesmodel.loggedInUser = this.loggedInUserID;
 
 
   this.rateTypesService.ratetypeDetailsSubmitted(this.ratetypesmodel).subscribe((res: Responsemodel) => {

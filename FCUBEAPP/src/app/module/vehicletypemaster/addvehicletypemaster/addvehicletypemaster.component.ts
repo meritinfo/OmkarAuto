@@ -22,6 +22,9 @@ export class AddvehicletypemasterComponent {
   loggedInUserID: string = '';
   branch: string = '';
   formUser!: FormGroup;
+  branchname: string = '';
+  year: string = '';
+  loginDate: string = '';
   vehicleTypeList: Dropdownmodel[] = [];
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -42,33 +45,41 @@ export class AddvehicletypemasterComponent {
 
 ngOnInit(): void {
   var menuData = sessionStorage.getItem('menulist')?.toString();
-    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Rate Types Master");
-      if (privilegeStatus) {
-        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-      }
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName === "Vehicle Types Master");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
     }
-    
-    var userData3 = sessionStorage.getItem('userBranch')?.toString();
-    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
-      this.branch = userData3;
-    }
-    var userData = sessionStorage.getItem('uid')?.toString();
-    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-      this.loggedInUserID = userData;
-    }
-    if (this.loggedInUserID) {
-      console.log(this.loggedInUserID);
-    }
-    else {
-      this.route.navigate(['/']);
-    }
+  }
+
+  var userData = sessionStorage.getItem('uid')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.loggedInUserID = userData;
+  }
+  if (this.loggedInUserID) {
+    console.log(this.loggedInUserID);
+  }
+  var userData2 = sessionStorage.getItem('yearID')?.toString();
+  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
+    this.year = userData2;
+  }
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
+  var userData5 = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+    this.branchname = userData5;
+  }
+  else {
+    this.route.navigate(['/']);
+  }
   //  this.getVehicleTypeList();
   this.getVehicleTypeGroupList();
   
@@ -84,6 +95,7 @@ ngOnInit(): void {
 
   if (this.selectedVehicleTypeMasterDetails.vehicleTypeID != '') {
     this.formUser.patchValue(this.selectedVehicleTypeMasterDetails);
+    this.editMode = true;
    
   }
  
@@ -146,6 +158,7 @@ vehicleTypeMasterDelete(): void {
   }
 }
 
+
 //Submit user form details //
 submitVehicleTypeMasterForm(): void {
   if (this.formUser.invalid) {
@@ -164,6 +177,7 @@ submitVehicleTypeMasterForm(): void {
   this.vehicletypemastermodel.vehicleTypeGroupId = this.formUser.value.vehicleTypeGroupId;
   this.vehicletypemastermodel.tonCap = this.formUser.value.tonCap;
   this.vehicletypemastermodel.runPerDayKM = this.formUser.value.runPerDayKM;
+  this.vehicletypemastermodel.loggedInUser = this.loggedInUserID;
 
 
   this.vehicleTypesService.vehicletypemasterDetailsSubmitted(this.vehicletypemastermodel).subscribe((res: Responsemodel) => {

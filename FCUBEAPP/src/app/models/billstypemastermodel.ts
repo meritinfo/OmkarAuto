@@ -7,5 +7,5 @@ export class Billstypemodel {
     otherAc3: string = "";
     sacCode: string = "";
 
-    loggedInUserID :string = "";
+    loggedInUser :string = "";
 }

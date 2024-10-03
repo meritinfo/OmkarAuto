@@ -18,27 +18,28 @@
                                 
                         <div class="row">
                           <div class="col-lg-2">
-                              <div class="mb-4"><label for="formrow-inputCity">Rate Desc  Name</label>
+                              <div class="mb-4"><label for="formrow-inputCity">Rate Desc  Name</label> <span style="color: red">*</span>
                               </div>
                              </div>
                              <div class="col-lg-4">
                               <div class="mb-4">
                                 <input type="text"  autofocus="autofocus" class="form-control"
                                   uppercaseonly formControlName="rateDesc"  (change)="checkDuplicateRate()"
-                                [ngClass]=>
+
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['rateDesc'].invalid) }">
                               </div>
                           </div>
                        </div>
                        <div class="row">
                           <div class="col-lg-2">
                               <div class="mb-4">
-                                  <label for="formrow-inputState">Rate Method</label>
+                                  <label for="formrow-inputState">Rate Method</label> <span style="color: red">*</span>
                                 </div>
                              </div>
                          
                              <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <select id="scope"  class="form-select" formControlName="rateMethod">
+                                  <select id="scope"  class="form-select" formControlName="rateMethod"  [ngClass]="{ 'is-invalid': formSubmitted && (f['rateDesc'].invalid) }">
                                    <option value="RTF">Rate = Freight</option>
                                    <option value="CRF">Charge Wt * Rate = Freight </option>
                                    <option value="PRF">Package * Rate = Freight </option>

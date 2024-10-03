@@ -23,6 +23,9 @@ export class AddtransportmasterComponent {
   formUser!: FormGroup;
   formSubmitted = false;
   keywordLocation = 'dataName';
+  branchname: string = '';
+  year: string = '';
+  loginDate: string = '';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -61,30 +64,41 @@ export class AddtransportmasterComponent {
 
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
-    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Transport/Broker Master"));
-      if (privilegeStatus) {
-        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-      }
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName === "Transport/Broker Master");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
     }
-    
-    var userData = sessionStorage.getItem('uid')?.toString();
-    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-      this.loggedInUserID = userData;
-    }
-    if (this.loggedInUserID) {
-      console.log(this.loggedInUserID);
-    }
-    else {
-      this.route.navigate(['/']);
-    }
+  }
 
+  var userData = sessionStorage.getItem('uid')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.loggedInUserID = userData;
+  }
+  if (this.loggedInUserID) {
+    console.log(this.loggedInUserID);
+  }
+  var userData2 = sessionStorage.getItem('yearID')?.toString();
+  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
+    this.year = userData2;
+  }
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
+  var userData5 = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+    this.branchname = userData5;
+  }
+  else {
+    this.route.navigate(['/']);
+  }
     this.getStateList();
     this.getBranchList();
     this.getLocationList();

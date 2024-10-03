@@ -77,10 +77,10 @@ ngOnInit(): void {
   this.formBillTypeMaster = this.formBuilder.group({   
     billTypeDesc: new FormControl('',[Validators.required]),
     mainAc: new FormControl('',[Validators.required]),
-    otherAc: new FormControl('',),
-    otherAc2: new FormControl('',),
-    otherAc3: new FormControl('',),
-    sacCode: new FormControl('',),
+    otherAc: new FormControl('',[Validators.required]),
+    otherAc2: new FormControl('',[Validators.required]),
+    otherAc3: new FormControl('',[Validators.required]),
+    sacCode: new FormControl('',[Validators.required]),
   });
 
   if (this.selectedBillsTypeMasterDetails.billTypeId != '') {
@@ -167,7 +167,7 @@ submitBillTypeMasterForm(): void {
   this.billstypemodel.otherAc2 = selectedDataVal.otherAc2;
   this.billstypemodel.otherAc3 = selectedDataVal.otherAc3;
   this.billstypemodel.sacCode = selectedDataVal.sacCode;
-  this.billstypemodel.loggedInUserID   = this.loggedInUserID;
+  this.billstypemodel.loggedInUser   = this.loggedInUserID;
 
   this.billsTypeService.billsTypeDetailsSubmitted(this.billstypemodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;

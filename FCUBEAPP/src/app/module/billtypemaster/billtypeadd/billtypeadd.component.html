@@ -20,7 +20,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Bill TypeDesc</label>
+                                                <label for="formrow-inputZip">Bill Type Desc</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control" placeholder=" "
                                                 formControlName="billTypeDesc"   (change)="chkBillTypeDuplicate()"
@@ -32,8 +32,8 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Main Ac</label>
-                                                <span style="color: red">*</span>
+                                                <label for="formrow-inputZip">Main Ac</label> <span style="color: red">*</span>
+                                         
                                                 <select class="form-control" formControlName="mainAc"  
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mainAc'].invalid) }">
                                                 <option value="">Choose...</option>
@@ -43,7 +43,7 @@
                                             </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Other Ac</label>
+                                                <label for="formrow-inputZip">Other Ac</label> <span style="color: red">*</span>
                                                 
                                                 
                                                 <select class="form-control" formControlName="otherAc"
@@ -55,11 +55,10 @@
                                             </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">OtherAc2</label>
+                                                <label for="formrow-inputZip">Other Ac2</label> <span style="color: red">*</span>
                                              
-                                                
                                                 <select class="form-control" formControlName="otherAc2"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc2'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc2'].invalid)}">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -67,7 +66,7 @@
                                             </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Other Ac3</label>
+                                                <label for="formrow-inputZip">Other Ac3</label> <span style="color: red">*</span>
                                                
                                                 
                                                 <select class="form-control" formControlName="otherAc3"
@@ -79,7 +78,7 @@
                                             </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">SacCode</label>
+                                                <label for="formrow-inputZip">Sac Code</label> <span style="color: red">*</span>
                                               
                                                 <input uppercaseonly type="text" class="form-control" placeholder=" "
                                                 formControlName="sacCode"   

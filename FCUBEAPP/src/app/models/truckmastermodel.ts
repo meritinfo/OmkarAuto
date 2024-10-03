@@ -34,4 +34,5 @@ export class Truckmastermodel {
       isActive: string = "";
       inActiveDate: string = "";
       remarks: string = "";
+      loggedInUser: string = "";
     }
