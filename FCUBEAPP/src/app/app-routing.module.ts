@@ -520,7 +520,7 @@ const routes: Routes = [
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
   { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
   { path: 'partygroupedit', component:  PartygroupmasteraddComponent },
-  { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
+  { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
 ];
 
 

@@ -81,7 +81,7 @@ ngOnInit(): void {
 
     setTimeout(() => {      
       this.sharedService.loading = true;
-      if (this.selectedPartygroupmasterDetails.partyGroupId != '') {
+      if (this.selectedPartygroupmasterDetails.partyGroupId!= '') {
         console.log(this.selectedPartygroupmasterDetails);
         this.formUser.patchValue(this.selectedPartygroupmasterDetails);
         this.editMode = true;
@@ -163,7 +163,7 @@ ngOnInit(): void {
             if (this.responseDetails.status) {
               this.toasterService.success(this.responseDetails.message);
               this.formUser.reset();
-              this.route.navigate(['/partygrouplist']);
+              this.route.navigate(['/partygrpmst']);
             }
             else {
               this.toasterService.warning(this.responseDetails.message);
@@ -174,7 +174,7 @@ ngOnInit(): void {
   }
 
   exit(): void {
-    this.route.navigate(['/partygrouplist']);
+    this.route.navigate(['/partygrpmst']);
   }
 
   submitpartygroupForm(): void {
@@ -191,7 +191,7 @@ ngOnInit(): void {
     }
     var selectedDataValue = this.formUser.getRawValue();
     this.partygroupmastermodel.partyGroupId = this.selectedPartygroupmasterDetails.partyGroupId;
-    this.partygroupmastermodel.partyGroupDesc  = selectedDataValue.partyGroupDesc;
+    this.partygroupmastermodel.partyGroupDesc  = selectedDataValue.partyGroupDesc.toString().toUpperCase();
     this.partygroupmastermodel.loggedInUser  = this.loggedInUserID;
     
     this.partygroupmastermodel.partyGroupDetailModellist = [];
@@ -221,7 +221,7 @@ ngOnInit(): void {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/partygrouplist']);
+        this.route.navigate(['/partygrpmst']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

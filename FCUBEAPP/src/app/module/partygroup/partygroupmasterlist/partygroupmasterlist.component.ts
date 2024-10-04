@@ -121,9 +121,9 @@ export class PartygroupmasterlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.fromDate = this.formuser.value.fromDate;
-        this.filter.toDate = this.formuser.value.toDate;
-        this.filter.search = this.formuser.value.branch.dataId;
+       // this.filter.fromDate = this.formuser.value.fromDate;
+      //  this.filter.toDate = this.formuser.value.toDate;
+       // this.filter.search = this.formuser.value.branch.dataId;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -164,9 +164,9 @@ export class PartygroupmasterlistComponent {
   }
 
   search(): void {
-    this.filter.fromDate = this.formuser.value.fromDate;
-    this.filter.toDate = this.formuser.value.toDate;
-    this.filter.search = this.formuser.value.branch;
+   // this.filter.fromDate = this.formuser.value.fromDate;
+  //  this.filter.toDate = this.formuser.value.toDate;
+  //  this.filter.search = this.formuser.value.branch;
     this.sharedService.loading=true;
     this.partygroupmasterList();    
     this.sharedService.loading=false;
