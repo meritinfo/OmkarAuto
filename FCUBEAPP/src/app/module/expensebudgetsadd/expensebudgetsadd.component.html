@@ -1,0 +1,110 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Expense Budget</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Branch : </label>
+                                            <select class="form-control" formControlName="branchCode" (change)="getDetail($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                   
+                                   
+                                   
+                                </div> 
+                               
+                               
+                                        
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>  
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="overflow-x">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputZip">Account </label></th>
+                                                <th><label for="formrow-inputZip">Budget Rs</label></th>
+                                                <th></th>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                    *ngFor="let arrayData of formTyreArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td> 
+                                                        <select class="form-control" formControlName="accountId">
+                                                            <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
+                                                    </td>                                                  
+                                                    <td> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="budgetRs" >
+                                                    </td>                                                  
+                                                    <td> 
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formTyreArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                                      
+                </div>         
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                             <button class="btn btn-primary w-md"  *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitExpenseBudgetForm()">Save</button>&nbsp;                            
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="expenseBudgetDelete()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+

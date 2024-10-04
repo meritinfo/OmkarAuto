@@ -94,7 +94,7 @@ namespace FinTrans.Business
         private string CreateCashBookReportAsync(ReportRequestModel request, DataSet reportData,ResponseModel response)
         {
             
-            var folderName = System.IO.Path.Combine("Reports", "CashBook");
+            var folderName = System.IO.Path.Combine("reports", "CashBook");
             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
             string fileName = "CashBookReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
             var filePath = folderName + "//" + fileName;

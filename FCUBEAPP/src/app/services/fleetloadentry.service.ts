@@ -42,6 +42,6 @@ export class FleetLoadEntryService {
   }
 
   fleetLoadEntryDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetLoadEntryDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetLoadEntryDelete', req, this.httpOptions);
   }
 }

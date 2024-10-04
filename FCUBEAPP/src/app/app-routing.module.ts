@@ -209,12 +209,18 @@ import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.com
 import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
-
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
 import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
+import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
+import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
+import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
+import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
+import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
+import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
+
 
 
 
@@ -507,11 +513,21 @@ const routes: Routes = [
   { path: 'gstreg', component: GstregisterrptComponent },
   { path: 'benmasterlist', component: BenificiarymasterlistComponent },
   { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
+  { path: 'benificiarymasteredit', component: BenificiarymasteraddComponent },
   { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
   { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
-  { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
+  { path: 'budgetexp', component: ExpensebudgetsaddComponent },
+  { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
+  { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
+  { path: 'cnorcneegst', component: CnorcneegstlistComponent},
+  { path: 'monthlystmt', component: MonthlystatementrptComponent },
+  { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
+  { path: 'partygroupedit', component:  PartygroupmasteraddComponent },
+  { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
   { path: 'dslstmtrpt', component: DieselstmtrptComponent },
+  { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes ,{ useHash: true })],

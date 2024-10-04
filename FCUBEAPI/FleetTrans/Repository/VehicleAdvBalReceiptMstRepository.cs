@@ -1,4 +1,5 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
@@ -36,7 +37,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalReceiptList", param);
 
@@ -71,9 +71,6 @@ namespace FleetTrans.Repository
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
-
-                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-                                // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }
 
@@ -92,6 +89,101 @@ namespace FleetTrans.Repository
 
             }
             return vehicleAdvBalReceiptMstList;
+        }
+        public async Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request)
+        {
+            VehicleAdvBalReceiptMstModel vehicleRepMaintMasterInnerGridList = new()
+            {
+                VehicleAdvBalReceiptDtlList = new List<VehicleAdvBalReceiptDtlListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TransId", request.strRequest),
+                    };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalInnerGridList", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            vehicleRepMaintMasterInnerGridList.VehicleAdvBalReceiptDtlList.Add(new VehicleAdvBalReceiptDtlListmodel
+                            {
+                                TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TripRouteDtlId"]),
+                                LoadBranch = Convert.ToString(resultData.Tables[0].Rows[i]["LoadBranch"]),
+                                LoadMemoNo = Convert.ToString(resultData.Tables[0].Rows[i]["LoadMemoNo"]),
+                                LoadDate = Convert.ToString(resultData.Tables[0].Rows[i]["LoadDate"]),
+                                TripNo = Convert.ToString(resultData.Tables[0].Rows[i]["TripNo"]),
+                                DueAmt = Convert.ToString(resultData.Tables[0].Rows[i]["DueAmt"]),
+                                PaidAmt = Convert.ToString(resultData.Tables[0].Rows[i]["PaidAmt"]),
+                                Received = Convert.ToString(resultData.Tables[0].Rows[i]["Received"]),
+                                Deduction = Convert.ToString(resultData.Tables[0].Rows[i]["Deduction"]),
+                                TDS = Convert.ToString(resultData.Tables[0].Rows[i]["TDS"]),
+                                Extras = Convert.ToString(resultData.Tables[0].Rows[i]["Extras"]),
+                                DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return vehicleRepMaintMasterInnerGridList;
+        }
+
+
+        public async Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalTripDetails(RequestModel request)
+        {
+            VehicleAdvBalReceiptMstModel vehicleRepMaintMasterInnerGridList = new()
+            {
+                VehicleAdvBalReceiptDtlList = new List<VehicleAdvBalReceiptDtlListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TripsUptoDate",      request.strRequest),
+                        new SqlParameter("@VehicleMasterId",    request.strRequest1),
+                    };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalTripDetails", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            vehicleRepMaintMasterInnerGridList.VehicleAdvBalReceiptDtlList.Add(new VehicleAdvBalReceiptDtlListmodel
+                            {
+                                TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TripRouteDtlId"]),
+                                LoadBranch = Convert.ToString(resultData.Tables[0].Rows[i]["LoadBranch"]),
+                                LoadMemoNo = Convert.ToString(resultData.Tables[0].Rows[i]["LoadMemoNo"]),
+                                LoadDate = Convert.ToString(resultData.Tables[0].Rows[i]["LoadDate"]),
+                                TripNo = Convert.ToString(resultData.Tables[0].Rows[i]["TripNo"]),
+                                DueAmt = Convert.ToString(resultData.Tables[0].Rows[i]["DueAmt"]),
+                                PaidAmt = Convert.ToString(resultData.Tables[0].Rows[i]["PaidAmt"]),
+                                Received = Convert.ToString(resultData.Tables[0].Rows[i]["Received"]),
+                                Deduction = Convert.ToString(resultData.Tables[0].Rows[i]["Deduction"]),
+                                TDS = Convert.ToString(resultData.Tables[0].Rows[i]["TDS"]),
+                                Extras = Convert.ToString(resultData.Tables[0].Rows[i]["Extras"]),
+                                DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return vehicleRepMaintMasterInnerGridList;
         }
 
         public async Task<ResponseModel> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)
@@ -127,8 +219,6 @@ namespace FleetTrans.Repository
                              new SqlParameter("@ChequeNo" , vehicleAdvBalReceiptMstModel.ChequeNo),
                              new SqlParameter("@ChequeDate" , vehicleAdvBalReceiptMstModel.ChequeDate),
                              new SqlParameter("@DebitAc" , vehicleAdvBalReceiptMstModel.DebitAc),
-                             //new SqlParameter("@FinDocid " , vehicleAdvBalReceiptMstModel.FinDocid ),
-                            // new SqlParameter("@FinDocidJV " , vehicleAdvBalReceiptMstModel.FinDocidJV ),
                              new SqlParameter("@YearId" , vehicleAdvBalReceiptMstModel.YearId),
                              new SqlParameter("@LoggedInUser" , vehicleAdvBalReceiptMstModel.LoggedInUser),
                         };
@@ -138,20 +228,37 @@ namespace FleetTrans.Repository
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        TransId = Convert.ToString(responseModel.Message);
+                        TransId = responseModel.Message;
 
                         if (responseModel.Status)
                         {
-                            for (int i = 0; i < vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList.Count; i++)
-                            {
-                                vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList[i].TransId = TransId;
-                                vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList[i].TransDate = vehicleAdvBalReceiptMstModel.TransDate;
+                            var dtllist = vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList;
 
-                                responseModel = await VehicleAdvBalReceiptMstDetailSave(transaction, vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList[i]);
+                            for (int i = 0; i < dtllist.Count; i++)
+                            {
+                                SqlParameter[] paramDtl =
+                                    {
+                                        new SqlParameter("@TransId",        TransId),
+                                        new SqlParameter("@TripRouteDtlId", dtllist[i].TripRouteDtlId),
+                                        new SqlParameter("@TripNo",         dtllist[i].TripNo),
+                                        new SqlParameter("@Received",       dtllist[i].Received),
+                                        new SqlParameter("@Deduction",      dtllist[i].Deduction),
+                                        new SqlParameter("@TDS",            dtllist[i].TDS),
+                                        new SqlParameter("@Extras",         dtllist[i].Extras),
+                                        new SqlParameter("@DtlRemarks",     dtllist[i].DtlRemarks),
+                                    };
+                               
+                                var data = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleAdvBalReceiptDtlSave", paramDtl);
+
+                                if (data != null && data.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(data.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(data.Tables[0].Rows[0]["Message"]);
+                                }                                
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
-                                    i = vehicleAdvBalReceiptMstModel.VehicleAdvBalReceiptDtlList.Count;
+                                    i = dtllist.Count;
                                 }
                             }
                         }
@@ -165,109 +272,14 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
+                responseModel.Status = false; 
+                responseModel.Message = ex.Message;
                 transaction.Rollback();
             }
             return responseModel;
         }
-        public async Task<VehicleAdvBalReceiptMstModel> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request)
-        {
-            VehicleAdvBalReceiptMstModel vehicleRepMaintMasterInnerGridList = new()
-            {
-                VehicleAdvBalReceiptDtlList = new List<VehicleAdvBalReceiptDtlListmodel>(),
-            };
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@TransId", request.strRequest),
-                        };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalReceiptMstInnerGridList", param);
-
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
-                        {
-                            vehicleRepMaintMasterInnerGridList.VehicleAdvBalReceiptDtlList.Add(new VehicleAdvBalReceiptDtlListmodel
-                            {
-                                TransDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TransDtlId"]),
-                                TransId = Convert.ToString(resultData.Tables[0].Rows[i]["TransId"]),
-                                TransBranch = Convert.ToString(resultData.Tables[0].Rows[i]["TransBranch"]),
-                                TransDate = Convert.ToString(resultData.Tables[0].Rows[i]["TransDate"]),
-
-                                VehicleMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleMasterId"]),
-                                TripNo = Convert.ToString(resultData.Tables[0].Rows[i]["TripNo"]),
-                               // TripYear = Convert.ToString(resultData.Tables[0].Rows[i]["TripYear"]),
-                             //   TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TripRouteDtlId"]),
-                                Received = Convert.ToString(resultData.Tables[0].Rows[i]["Received"]),
-                                Deduction = Convert.ToString(resultData.Tables[0].Rows[i]["Deduction"]),
-                                TDS = Convert.ToString(resultData.Tables[0].Rows[i]["TDS"]),
-                                Extras = Convert.ToString(resultData.Tables[0].Rows[i]["Extras"]),
-                                DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
-                                YearId = Convert.ToString(resultData.Tables[0].Rows[i]["YearId"]),
-                            });
-
-
-
-                        }
-
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return vehicleRepMaintMasterInnerGridList;
-        }
-        public async Task<ResponseModel> VehicleAdvBalReceiptMstDetailSave(SqlTransaction transaction, VehicleAdvBalReceiptDtlListmodel vehicleAdvBalReceiptDtlListmodel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                             new SqlParameter("@TransDtlId" , vehicleAdvBalReceiptDtlListmodel.TransDtlId),
-                             new SqlParameter("@TransId" , vehicleAdvBalReceiptDtlListmodel.TransId),
-                             new SqlParameter("@TransBranch" , vehicleAdvBalReceiptDtlListmodel.TransBranch),
-                             new SqlParameter("@TransDate" , vehicleAdvBalReceiptDtlListmodel.TransDate),
-                             new SqlParameter("@VehicleMasterId" , vehicleAdvBalReceiptDtlListmodel.VehicleMasterId),
-                             new SqlParameter("@TripNo" , vehicleAdvBalReceiptDtlListmodel.TripNo),
-                            // new SqlParameter("@TripYear" , vehicleAdvBalReceiptDtlListmodel.TripYear),
-                           //  new SqlParameter("@TripRouteDtlId" , vehicleAdvBalReceiptDtlListmodel.TripRouteDtlId),
-                             new SqlParameter("@Received" , vehicleAdvBalReceiptDtlListmodel.Received),
-                             new SqlParameter("@Deduction" , vehicleAdvBalReceiptDtlListmodel.Deduction),
-                             new SqlParameter("@TDS" , vehicleAdvBalReceiptDtlListmodel.TDS),
-                             new SqlParameter("@Extras" , vehicleAdvBalReceiptDtlListmodel.Extras),
-                             new SqlParameter("@DtlRemarks" , vehicleAdvBalReceiptDtlListmodel.DtlRemarks),
-                             new SqlParameter("@YearId" , vehicleAdvBalReceiptDtlListmodel.YearId),
-
-                        };
-
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleAdvBalReceiptDtlSave", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
-        }
+      
         public async Task<ResponseModel> VehicleAdvBalReceiptMstDelete(RequestModel req)
         {
             ResponseModel responseModel = new();

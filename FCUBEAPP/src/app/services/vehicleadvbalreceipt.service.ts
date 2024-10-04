@@ -41,17 +41,14 @@ export class VehicleadvbalreceiptService {
     this.selectedVehicleadvbalreceipt = new VehicleadvbalreceiptModel();
   }
   VehicleadvbalreceiptModelDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleadvbalreceiptModelDelete', req, this.httpOptions);
-  }
-  chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstDelete', req, this.httpOptions);
   }
   getVehicleadvbalreceiptInnerGridList(request: Requestmodel): Observable<VehicleadvbalreceiptModel> {
     return this.httpClient.post<VehicleadvbalreceiptModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalReceiptMstInnerGridList', request, this.httpOptions);
   }
-  // VehicleadvbalreceiptSubmitted(user: FormData): Observable<Responsemodel> {
-  //   return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstSave', user, this.httpformOptions);
-  // }
+  getVehicleAdvBalTripDetails(request: Requestmodel): Observable<VehicleadvbalreceiptModel> {
+    return this.httpClient.post<VehicleadvbalreceiptModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalTripDetails', request, this.httpOptions);
+  }
   VehicleadvbalreceiptSubmitted(Vehicleadv: VehicleadvbalreceiptModel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstSave', Vehicleadv, this.httpOptions);
   }

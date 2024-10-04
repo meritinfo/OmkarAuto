@@ -20,6 +20,7 @@ namespace FreightMasters.Models
         public string? ContactPerson { get; set; }
         public string? MobileNo { get; set; }
         public string? Email { get; set; }
+        public string? centrename { get; set; }
         public string? OLD_CnorCnee_ID { get; set; }
     }
 }

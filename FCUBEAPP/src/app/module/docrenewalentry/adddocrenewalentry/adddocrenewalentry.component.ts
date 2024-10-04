@@ -321,7 +321,6 @@ export class AdddocrenewalentryComponent {
   }
   
   changePmtType(e: any) {
-    console.log(e.target.value);
     var selectedValue = e.target.value;    
     this.formDocEntry.controls['creditAc'].enable();       
     if (selectedValue == 'O'){

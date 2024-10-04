@@ -104,6 +104,7 @@ namespace FleetTrans.Repository
             }
             return fleetLoadEntryList;
         }
+
         public async Task<ResponseModel> FleetLoadEntryDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

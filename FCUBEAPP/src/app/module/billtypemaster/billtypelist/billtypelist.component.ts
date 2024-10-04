@@ -91,7 +91,7 @@ billsTypeMasterList(){
      
      
       {
-        title: 'Bill TypeDesc',
+        title: 'Bill Type Desc',
         data: 'billTypeDesc',
       },
       {

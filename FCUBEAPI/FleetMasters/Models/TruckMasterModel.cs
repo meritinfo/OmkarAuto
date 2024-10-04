@@ -43,5 +43,6 @@ namespace FleetMasters.Models
         public string? IsActive { get; set; }
         public string? InActiveDate { get; set; }
         public string? Remarks { get; set; }
+        public string? LoggedInUser { get; set; }
     }
 }

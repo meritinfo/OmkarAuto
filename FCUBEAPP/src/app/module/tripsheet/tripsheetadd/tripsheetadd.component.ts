@@ -23,6 +23,9 @@ export class TripsheetaddComponent {
   year: string = '';
   loginDate: string = '';
   branch:string = '';
+  minDate: string = '';
+  maxDate: string = '';
+  fromDate: string = '';
 
   createStatus = false;
   editStatus = false;
@@ -83,6 +86,20 @@ export class TripsheetaddComponent {
       this.route.navigate(['/']);
     }
 
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 12);
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
     
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -179,8 +196,7 @@ export class TripsheetaddComponent {
         this.formTripsheet.controls['opBalDsl'].disable();    
         this.formTripsheet.controls['opBalDriver'].disable();        
         this.formTripsheet.controls['deptDate'].disable();     
-        this.formTripsheet.controls['endDate'].disable(); 
-        //this.formTripsheet.controls['stmtDate'].disable();       
+        this.formTripsheet.controls['endDate'].disable();    
         this.formTripsheet.controls['vehicleMasterID'].disable();     
 
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
@@ -308,8 +324,7 @@ export class TripsheetaddComponent {
   }
 
  
-  selectNewEvent(item: any) {   
-    var selectedDataValue  
+  selectNewEvent(item: any) {  
     this.requestmodel.strRequest = item.dataId;
     this.requestmodel.strRequest1 = this.year;
     this.tripSheetService.getNextTripNo(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -318,6 +333,16 @@ export class TripsheetaddComponent {
         this.formTripsheet.patchValue({
           tripNo: this.responseDetails.message
         });  
+        if(this.responseDetails.message == "1")   {
+          this.formTripsheet.controls['openingKMR'].enable();     
+          this.formTripsheet.controls['opBalDsl'].enable();    
+          this.formTripsheet.controls['opBalDriver'].enable();  
+        }     
+        else{            
+          this.formTripsheet.controls['openingKMR'].disable();     
+          this.formTripsheet.controls['opBalDsl'].disable();    
+          this.formTripsheet.controls['opBalDriver'].disable();     
+        }     
         this.getDslMileage(item.dataId);
         this.getOpeningBal(item.dataId);        
       }
@@ -380,10 +405,7 @@ export class TripsheetaddComponent {
         openingKMR : res.filterStr,
         opBalDsl: res.filterStr1,
         opBalDriver: res.filterStr2,
-      });            
-      this.formTripsheet.controls['openingKMR'].disable();     
-      this.formTripsheet.controls['opBalDsl'].disable();    
-      this.formTripsheet.controls['opBalDriver'].disable();    
+      });       
     });
   }
   
@@ -495,7 +517,8 @@ export class TripsheetaddComponent {
       }
 
       var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
-      var clBalDsl =(selectedDataValue.opBalDsl == ""? 0:parseFloat(selectedDataValue.opBalDsl)) + issuedDslLtrs;
+      var clBalDsl =(selectedDataValue.opBalDsl == ""? 0:parseFloat(selectedDataValue.opBalDsl)) + issuedDslLtrs
+                    - (selectedDataValue.dieselPassedLtrs == ""? 0:parseFloat(selectedDataValue.dieselPassedLtrs));
 
       this.formTripsheet.patchValue({
         issuedDslLtrs : issuedDslLtrs.toFixed(2),
@@ -702,13 +725,18 @@ export class TripsheetaddComponent {
     var rate = 0;
 
     var selectedval = this.formTripsheet.getRawValue();
+    var clBalDsl =(selectedval.opBalDsl == ""? 0:parseFloat(selectedval.opBalDsl)) 
+          + (selectedval.issuedDslLtrs == ""? 0:parseFloat(selectedval.issuedDslLtrs))
+          - (selectedval.dieselPassedLtrs == ""? 0:parseFloat(selectedval.dieselPassedLtrs));
+
     if(parseFloat(selectedval.issuedDslLtrs)>0){
       rate = parseFloat(selectedval.issuedDslAmt)/ parseFloat(selectedval.issuedDslLtrs);
     }
     dieselPassedAmt = parseFloat(selectedval.dieselPassedLtrs) * rate;
     this.formTripsheet.patchValue({
       dieselPassedAmt: dieselPassedAmt.toFixed(2),
-      dieselVarianceAmt : (parseFloat(selectedval.issuedDslAmt) - dieselPassedAmt).toFixed(2),
+      clBalDsl: clBalDsl.toFixed(2),
+      dieselVarianceAmt : Math.round(parseFloat(selectedval.issuedDslAmt) - dieselPassedAmt).toFixed(2),
     });
     this.calTotal();
   }
@@ -794,7 +822,6 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.multiDelIncentiveAmt= selectedDataValue.multiDelIncentiveAmt.toString();
     this.tripsheetmodel.penaltyChargedToDr= selectedDataValue.penaltyChargedToDr.toString();
     this.tripsheetmodel.penaltyRemarks= selectedDataValue.penaltyRemarks.toString().toUpperCase();
-    //this.tripsheetmodel.totalDriverAc= selectedDataValue.totalDriverAc.toString();
     this.tripsheetmodel.tripBalance= selectedDataValue.tripBalance.toString();
     this.tripsheetmodel.recdFromDriver= selectedDataValue.recdFromDriver.toString();
     this.tripsheetmodel.netTripBalance= selectedDataValue.netTripBalance.toString();
@@ -824,11 +851,8 @@ export class TripsheetaddComponent {
         })
       }
     }
-    //var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
-   // var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
-
+    
     for (var i = 0; i < selectedDataValue.routeList.length; i++) {
-
       if(selectedDataValue.routeList[i].pmtId!=''){
         var loadingfrom= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingFrom) 
         var loadingto= this.locationList.find(e => e.dataName == selectedDataValue.routeList[i].loadingTo) 
@@ -871,10 +895,6 @@ export class TripsheetaddComponent {
           'expAmt':  selectedDataValue.expList[i].expAmt,
          })
       }
-    }
-    if(this.tripsheetmodel.expList.length==0){      
-      this.toastrService.warning("Please Enter Valid  Exp Details");          
-      return;
     }
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {

@@ -13,7 +13,7 @@ namespace FCUBEAPI.Controllers
     [ApiController]
     public class FreightMastersController : ControllerBase
     {
-
+        readonly IPartyGroupMasterBusiness partyGroupMasterBusiness;
         readonly IDestinationMasterBusiness freightMastersBusiness;
         readonly IBranchMasterBusiness branchMastersBusiness;
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
@@ -69,7 +69,8 @@ namespace FCUBEAPI.Controllers
             IBillRegisterRptBusiness _billRegisterRptBusiness,
             IMRRegisterRptBusiness _mRRegisterRptBusiness,
             ILHPMVarianceRptBusiness _lHPMVarianceRptBusiness,
-            IGSTRegisterRptBusiness _gSTRegisterRptBusiness)
+            IGSTRegisterRptBusiness _gSTRegisterRptBusiness,
+             IPartyGroupMasterBusiness _partyGroupMasterBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -101,6 +102,7 @@ namespace FCUBEAPI.Controllers
             mRRegisterRptBusiness = _mRRegisterRptBusiness;
             lHPMVarianceRptBusiness = _lHPMVarianceRptBusiness;
             gSTRegisterRptBusiness = _gSTRegisterRptBusiness;
+            partyGroupMasterBusiness = _partyGroupMasterBusiness;
         }
 
         /// <summary>
@@ -1890,6 +1892,76 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await gSTRegisterRptBusiness.GetGSTRegisterRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("PartyGroupMasterSave")]
+        public async Task<IActionResult> PartyGroupMasterSave(PartyGroupMasterModel partyGroupMasterModel)
+        {
+            if (partyGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyGroupMasterBusiness.PartyGroupMasterSave(partyGroupMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPartyGroupMasterlist")]
+        public async Task<IActionResult> GetPartyGroupMasterlist(PageRequestDtBrVh request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyGroupMasterBusiness.GetPartyGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPartyGroupDetailInnergrid")]
+        public async Task<IActionResult> GetPartyGroupDetailInnergrid(RequestModel request)
+        {
+            try
+            {
+                var result = await partyGroupMasterBusiness.GetPartyGroupDetailInnergrid(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("PartyGroupMasterDelete")]
+        public async Task<IActionResult> PartyGroupMasterDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+
+            try
+            {
+                var result = await partyGroupMasterBusiness.PartyGroupMasterDelete(request);
 
                 return Ok(result);
             }

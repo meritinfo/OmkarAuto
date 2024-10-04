@@ -87,8 +87,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="allbenificiarylist.benificiaryList?.length != 0">
-                            <tr *ngFor="let dpr of allbenificiarylist.benificiaryList">
+                        <tbody *ngIf="allbenificiarylist.beneficiaryList?.length != 0">
+                            <tr *ngFor="let dpr of allbenificiarylist.beneficiaryList">
                                 <td>{{ dpr.benType }}</td>  
                                 <td>{{ dpr.benCode }}</td>                        
                                 <td>{{ dpr.benName }}</td>                          
@@ -104,7 +104,7 @@
                                
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allbenificiarylist.benificiaryList?.length == 0">
+                        <tbody *ngIf="allbenificiarylist.beneficiaryList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>

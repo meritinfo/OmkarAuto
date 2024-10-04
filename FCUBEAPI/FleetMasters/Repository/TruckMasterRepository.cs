@@ -74,6 +74,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@IsActive", truckMasterModel.IsActive),
                             new SqlParameter("@InActiveDate", truckMasterModel.InActiveDate),
                             new SqlParameter("@Remarks", truckMasterModel.Remarks),
+                             new SqlParameter("@LoggedInUser", truckMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TruckMaster_Insert", param);
 

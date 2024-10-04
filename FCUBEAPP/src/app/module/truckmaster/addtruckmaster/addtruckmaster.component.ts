@@ -180,16 +180,16 @@ export class AddtruckmasterComponent {
     this.vehicleTypeGroupMasterModel.aadharLinkedYN = selectedDataValue.aadharLinkedYN;
     this.vehicleTypeGroupMasterModel.panValidYN = selectedDataValue.panValidYN;
     this.vehicleTypeGroupMasterModel.itFiledYN = selectedDataValue.itFiledYN;
-    this.vehicleTypeGroupMasterModel.address1 = selectedDataValue.address1;
-    this.vehicleTypeGroupMasterModel.address2 = selectedDataValue.address2;
-    this.vehicleTypeGroupMasterModel.address3 = selectedDataValue.address3;
-    this.vehicleTypeGroupMasterModel.address4 = selectedDataValue.address4;
+    this.vehicleTypeGroupMasterModel.address1 = selectedDataValue.address1.toString().toUpperCase;
+    this.vehicleTypeGroupMasterModel.address2 = selectedDataValue.address2.toString().toUpperCase;;
+    this.vehicleTypeGroupMasterModel.address3 = selectedDataValue.address3.toString().toUpperCase;;
+    this.vehicleTypeGroupMasterModel.address4 = selectedDataValue.address4.toString().toUpperCase;;
     this.vehicleTypeGroupMasterModel.stateCode = selectedDataValue.stateCode;
     this.vehicleTypeGroupMasterModel.pinCode = selectedDataValue.pinCode;
     this.vehicleTypeGroupMasterModel.phoneNo = selectedDataValue.phoneNo;
     this.vehicleTypeGroupMasterModel.contactName = selectedDataValue.contactName;
     this.vehicleTypeGroupMasterModel.mobileNo = selectedDataValue.mobileNo;
-    this.vehicleTypeGroupMasterModel.chasisNo = selectedDataValue.chasisNo;
+    this.vehicleTypeGroupMasterModel.chasisNo = selectedDataValue.chasisNo.toString().toUpperCase;;
     this.vehicleTypeGroupMasterModel.engineNo = selectedDataValue.engineNo;
     this.vehicleTypeGroupMasterModel.vehCode = selectedDataValue.vehCode;
     this.vehicleTypeGroupMasterModel.model = selectedDataValue.model;
@@ -203,7 +203,8 @@ export class AddtruckmasterComponent {
     this.vehicleTypeGroupMasterModel.otherUpload = selectedDataValue.otherUpload?selectedDataValue.otherUpload:'';
     this.vehicleTypeGroupMasterModel.isActive = selectedDataValue.isActive;
     this.vehicleTypeGroupMasterModel.inActiveDate = selectedDataValue.inActiveDate;
-    this.vehicleTypeGroupMasterModel.remarks = selectedDataValue.remarks;
+    this.vehicleTypeGroupMasterModel.remarks = selectedDataValue.remarks.toString().toUpperCase;;
+    this.vehicleTypeGroupMasterModel.loggedInUser = selectedDataValue.loggedInUserID;
     
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);

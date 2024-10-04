@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
-import {Maintanencemastermodel } from './models/maintanencemastermodel';
+import { Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -353,7 +354,7 @@ import { Billregisterrptmodel } from './models/billregisterrptmodel';
 import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
 import { Mrregisterrptmodel } from './models/mrregisterrptmodel';
 import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
-
+import { Expensebudgetlistmodel  } from 'src/app/models/expensebudgetlistmodel';
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
@@ -362,10 +363,15 @@ import { Lhpmvariancerptmodel } from './models/lhpmvariancerptmodel';
 import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
 import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
-
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
+import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
+import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
+import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
+import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
+import { Partygroupmastermodel } from './models/partygroupmastermodel';
+import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 
 @NgModule({
   declarations: [
@@ -476,18 +482,20 @@ import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.com
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
-    LhpayablestatusrptComponent,
-    ChallanregisterrptComponent,
-    VehiclerepairsrptComponent,
-    BillregisterrptComponent,
-    MrregisterrptComponent,
-    BenificiarymasteraddComponent,
+    LhpayablestatusrptComponent,  ChallanregisterrptComponent,
+    VehiclerepairsrptComponent,  BillregisterrptComponent,
+    MrregisterrptComponent,  BenificiarymasteraddComponent,
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, 
     DieselstmtrptComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, 
+    LhpmvariancerptComponent, GstregisterrptComponent ,
+    ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
+    CnorcneegstaddComponent ,CnorcneegstlistComponent,    PartygroupmasterlistComponent,
+    PartygroupmasteraddComponent,
   ],
   imports: [
     BrowserModule,
@@ -508,7 +516,7 @@ import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.com
     MomentModule,
   ],
   
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
@@ -537,8 +545,7 @@ import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.com
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
-    Billsmastermodel,Billstypemodel,
-    Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
+    Billsmastermodel,Billstypemodel, Companyinfomodel, Mrmodel,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
@@ -553,6 +560,10 @@ import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.com
     Gstregisterrptmodel,
     Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
     Dieselstmtmodel
+    Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
+    Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
+    Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
   ],
   bootstrap: [AppComponent]
 })
