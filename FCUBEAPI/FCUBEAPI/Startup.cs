@@ -278,6 +278,8 @@ namespace FCUBEAPI
             services.AddScoped<IGSTRegisterRptRepository, GSTRegisterRptRepository>();
             services.AddScoped<ICnorCneeGstBusiness, CnorCneeGstBusiness>();
             services.AddScoped<ICnorCneeGstRepository, CnorCneeGstRepository>();
+            services.AddScoped<IDieselStmtRptBusiness, DieselStmtRptBusiness>();
+            services.AddScoped<IDieselStmtRptRepository, DieselStmtRptRepository>();
             services.AddScoped<IExpenseBudgetsBusiness, ExpenseBudgetsBusiness>();
             services.AddScoped<IExpenseBudgetsRepository, ExpenseBudgetsRepository>();
             services.AddScoped<IMonthlyStatementsBusiness, MonthlyStatementsBusiness>();

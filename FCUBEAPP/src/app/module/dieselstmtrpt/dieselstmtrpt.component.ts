@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,42 +6,40 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Trippaymentsrptlistmodel  } from 'src/app/models/trippaymentsrptlistmodel';
-import { Trippaymentsrptmodel } from 'src/app/models/trippaymentsrptmodel';
-import { TripPaymentsRptService } from 'src/app/services/trippaymentsrpt.service';
+import { Dieselstmtrptlistmodel} from 'src/app/models/dieselstmtrptlistmodel';
+import { Dieselstmtrptmodel } from 'src/app/models/dieselstmtrptmodel';
+import { DieselstmtrptService } from 'src/app/services/dieselstmtrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-trippaymentsrpt',
-  templateUrl: './trippaymentsrpt.component.html',
-  styleUrls: ['./trippaymentsrpt.component.css']
+  selector: 'app-dieselstmtrpt',
+  templateUrl: './dieselstmtrpt.component.html',
+  styleUrls: ['./dieselstmtrpt.component.css']
 })
-export class TrippaymentsrptComponent {
+export class DieselstmtrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  docRenewalList: Dropdownmodel[] = [];
-    
-  partyList: Dropdownmodel[] = [];
-  branchList: Dropdownmodel[] = [];
+
+  locationList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
-  transType: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
+ // partyList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTripPaymentsRptlist: Trippaymentsrptlistmodel = new Trippaymentsrptlistmodel();
+  allDieselstmtrptlist: Dieselstmtrptlistmodel = new Dieselstmtrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'paymentBr',
+    sortColumn: 'fromPlace',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -51,9 +48,9 @@ export class TrippaymentsrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+  }
 
-}
-formFilter!: FormGroup;
+  formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -62,22 +59,21 @@ formFilter!: FormGroup;
   minDate: string = '';
   branch:string ='';
   responseDetails = new Responsemodel();
-
-  constructor(private tripPaymentsRptService: TripPaymentsRptService, 
+  rptType= true;
+  constructor(private dieselstmtrptService: DieselstmtrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-    ngOnInit(): void {   
-  
+
+    ngOnInit(): void {     
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
-        
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Trip Payments Report");
+        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "Diesel Statement Report");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -111,78 +107,75 @@ formFilter!: FormGroup;
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(year - 1);
-     // today.setFullYear(year - 1);
 
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
-
+      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+      this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+      
+      if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+        this.fromDate = this.minDate ;
+      }
+      else{
+        this.fromDate = today.toLocaleDateString('en-CA').toString();
+      }   
     
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        tripBranch: new FormControl('',),  
+        branch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
-        transType: new FormControl('',),  
-        pmtType: new FormControl('',),   
-        creditAc: new FormControl('',),  
+        accountID: new FormControl('',),  
+        rptType: new FormControl('Y',),
       });
-
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
-      this.filter.filterStr2  = "";
-      this.filter.filterStr3  = "";
+      this.filter.filterStr2  = "Y";
   
       this.sharedService.loading=true;
       this.getBranchList();
       this.getVehicleNoList(); 
-      this.getDocRefNoList();       
-      this.getTripPaymentsCreditList();
-
-      this.expTripPayments();
+     // this.getCreditAcList() ; 
+  
+      this.dieselStmt();
       this.sharedService.loading=false;
     }
+  
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
       });
     }
+  
     getVehicleNoList(): void {
       this.commonService.getVehicleIdList().subscribe((res) => {
         this.vehicleList = res;
       });
-    }
-
-    getTripPaymentsCreditList(): void {
-      this.commonService.getTripPaymentsCreditList().subscribe((res) => {
-        this.creditacList = res;
-      });
-    }
-    
-    getDocRefNoList(): void {
-      this.commonService.getDocRefNoList().subscribe((res) => {
-        this.docRenewalList = res;
-      });
-    }
-    
+    }  
+  
+    // getCreditAcList(){
+    //   this.dieselStatementRptService.getVendorList().subscribe((res) => {
+    //     this.creditacList = res;      
+    //   });   
+    // }
+  
     get f() { return this.formFilter.controls; }
+
+    rptchange(e:any){
+      if(e.target.value == 'Y'){
+        this.rptType = true;
+      }
+      else{
+        this.rptType = false;
+      }
+    } 
   
     selectEvent(item: any) {
       // do something with selected item
-     // this.GetOpeningBal();
     }
   
     onChangeSearch(search: string) {
       // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
     }
   
     onFocused(e: any) {
@@ -192,8 +185,8 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
-
-    expTripPayments(){
+  
+    dieselStmt(){
       this.dtOptions = {
           pagingType: 'full_numbers',
           pageLength: 50,
@@ -201,10 +194,9 @@ formFilter!: FormGroup;
           processing: true,
           searching:false,
           ajax: (dataTablesParameters: any, callback) => {
-            // Filter setting
             this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
             this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'paymentBr';
+            this.filter.sortColumn = 'branch';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
             callback({
@@ -212,8 +204,8 @@ formFilter!: FormGroup;
               recordsFiltered: 0,
               data: []
             });
-            this.tripPaymentsRptService.getTripPaymentsRptList(this.filter).subscribe(resp => {
-               this.allTripPaymentsRptlist = resp;
+            this.dieselstmtrptService.getDieselstmtrptList(this.filter).subscribe(resp => {
+               this.allDieselstmtrptlist = resp;
                 callback({
                   recordsTotal: resp.pageMetaData.totalCount,
                   recordsFiltered: resp.pageMetaData.totalCount,
@@ -223,56 +215,72 @@ formFilter!: FormGroup;
           }, 
           columns: [ 
           {
-            title: 'Payment Br ',
-            data: 'paymentBr',
+            title: 'Branch',
+            data: 'branch',
           },  
           {
-            title: 'Pmt Date ',
-            data: 'pmtDate',
-          },    
-          {
             title: 'Vehicle No',
-            data: 'vehicleNo',
+            data: 'vehicleno',
+          }, 
+          {
+            title: 'Date',
+            data: 'transDate',
+          },   
+          {
+            title: 'Ref No',
+            data: 'transRefNo',
           },
           {
-            title: 'Trans Type ',
-            data: 'transType',
+            title: 'Dsl Qty',
+            data: 'dslQty',
           },       
           {
-            title: 'Qty Ltrs',
-            data: 'qtyLtrs',
+            title: 'Dsl Rate',
+            data: 'dslRate',
           },
           {
-            title: ' Amount Paid',
-            data: 'amountPaid',
+            title: 'Amount',
+            data: 'amount',
           },
           {
-            title: 'Pmt Type ',
-            data: 'pmtType',
-          },
-          {
-            title: 'Credit Affect ',
-            data: 'creditAffect',
-          },
-          {
-            title: 'Trip Adj ',
+            title: 'Trip Adj',
             data: 'tripAdj',
-          },
+          },    
           {
-            title: 'Trip No ',
+            title: 'Trip No',
             data: 'tripNo',
           },
           {
-            title: 'Filling Branch',
+            title: 'Stn Name',
             data: 'fillingStnName',
-          },
-      
+          }, 
         ],
       };
     }
-      
-    //Open user details screen
-    exportExcel(): void {      
+  
+    exportExcel(): void {    
+      var selectedDataVal = this.formFilter.getRawValue();
+      this.filter.fromDate    = selectedDataVal.fromDate;
+      this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.search      = this.loggedInUserID;
+      this.filter.filterStr  = selectedDataVal.branch ;
+      this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr2  = "Y";
+  
+      this.dieselstmtrptService.getDieselstmtrptExcel(this.filter).subscribe(resp => {
+        if(resp.status){      
+          let link = document.createElement("a");
+          link.download = "Diesel Statement Report" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
+    
+    search(): void {
       this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
@@ -284,59 +292,22 @@ formFilter!: FormGroup;
         }     
         return;
       }
-      var selectedDataVal=this.formFilter.getRawValue();
+      var selectedDataVal = this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.search      = this.loggedInUserID;
       this.filter.filterStr  = selectedDataVal.branch;
       this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      this.filter.filterStr2   = selectedDataVal.transType?selectedDataVal.transType:"";
-      this.filter.filterStr3  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-      // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      // this.filter.filterStr3  = selectedDataVal.creditAc;
-
-      this.tripPaymentsRptService.getTripPaymentsRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "TripPayments" + "_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
+      this.filter.filterStr2  = selectedDataVal.rptType;
+  
+      this.sharedService.loading=true;
+      this.dieselStmt();
+      this.sharedService.loading=false;
+      
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
       });
     }
+  } 
   
-  search(): void {
-    this.formSubmitted = true;
-    if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields");   
-      const controls = this.formFilter.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");   
-        }
-      }     
-      return;
-    }
-    var selectedDataVal=this.formFilter.getRawValue();
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr  = selectedDataVal.branch;
-    this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr2   = selectedDataVal.transType?selectedDataVal.transType:"";
-    this.filter.filterStr3  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    // this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
-    // this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    // this.filter.filterStr3  = selectedDataVal.creditAc;
-    
-    this.sharedService.loading=true;
-    this.expTripPayments();
-    this.sharedService.loading=false;
-    
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
-    });
-  }
-} 
+  

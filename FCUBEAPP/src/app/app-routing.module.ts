@@ -213,12 +213,16 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
+import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
+
+
+
 
 
 const routes: Routes = [
@@ -349,7 +353,7 @@ const routes: Routes = [
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
   { path: 'driverlicrpt', component: DriverlicrptComponent},
-  { path: 'dslstmtrpt', component: DieselstatementrptComponent},
+ // { path: 'dslstmtrpt', component: DieselstatementrptComponent},
   { path: 'employeemstlist', component:  EmpmasterlistComponent },
   { path: 'employeemstadd', component: EmpmasteraddComponent },  
   { path: 'employeemstedit', component:  EmpmasteraddComponent },
@@ -512,7 +516,6 @@ const routes: Routes = [
   { path: 'benificiarymasteredit', component: BenificiarymasteraddComponent },
   { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
   { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
-  { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
   { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
@@ -520,6 +523,9 @@ const routes: Routes = [
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
   { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
   { path: 'partygroupedit', component:  PartygroupmasteraddComponent },
+  { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
+  { path: 'dslstmtrpt', component: DieselstmtrptComponent },
+  { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
 ];
 

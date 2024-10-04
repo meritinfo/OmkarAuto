@@ -365,6 +365,7 @@ import { Gstregisterrptmodel } from './models/gstregisterrptmodel';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
+import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
 import { ExpensebudgetsaddComponent } from './module/expensebudgetsadd/expensebudgetsadd.component';
 import { Cnorcneegstmodel } from 'src/app/models/cnorcneegstmodel';
 import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
@@ -487,6 +488,9 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     BenificiarymasterlistComponent,
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, 
+    DieselstmtrptComponent ,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, 
     LhpmvariancerptComponent, GstregisterrptComponent ,
     ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
@@ -546,10 +550,9 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
-    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,            
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
-    Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
+    Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
     Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
   ],
   bootstrap: [AppComponent]
