@@ -365,6 +365,7 @@ import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.
 
 import { CnorcneegstaddComponent } from './module/cnorcneegst/cnorcneegstadd/cnorcneegstadd.component';
 import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/cnorcneegstlist.component';
+import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
 
 @NgModule({
   declarations: [
@@ -485,7 +486,8 @@ import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/c
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent, BillregisterrptComponent,
     CnorcneemasterlistComponent, CnorcneemasteraddComponent, LhpmvariancerptComponent, GstregisterrptComponent ,
-    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent ,
+    CnorcneemasterlistComponent, CnorcneemasteraddComponent, CnorcneegstaddComponent, CnorcneegstlistComponent, 
+    DieselstmtrptComponent ,
   ],
   imports: [
     BrowserModule,
@@ -549,7 +551,8 @@ import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/c
     Mrregisterrptmodel,
     Lhpmvariancerptmodel,
     Gstregisterrptmodel,
-    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
+    Dieselstmtmodel
   ],
   bootstrap: [AppComponent]
 })

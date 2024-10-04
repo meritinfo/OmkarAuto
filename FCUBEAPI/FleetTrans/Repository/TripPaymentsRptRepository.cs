@@ -33,10 +33,10 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@active",             request.FilterStr),
-                            new SqlParameter("@PmtType",            request.FilterStr1),
-                            new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                            new SqlParameter("@CreditAc",           request.FilterStr3),
+                            new SqlParameter("@Branch",             request.FilterStr),
+                            new SqlParameter("@VehicleMasterID",    request.FilterStr1),
+                            new SqlParameter("@TransType",          request.FilterStr2),
+                            new SqlParameter("@PmtType",            request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsRptList", param);
 
@@ -50,14 +50,14 @@ namespace FleetTrans.Repository
                                 PaymentBr = Convert.ToString(dataSet.Tables[0].Rows[i]["PaymentBr"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-                                OriginPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["OriginPlace"]),
-                                Destination = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
                                 PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
                                 CreditAffect = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAffect"]),
+                                TripAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdj"]),
+                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                FillingStnName = Convert.ToString(dataSet.Tables[0].Rows[i]["FillingStnName"]),
 
                             });
                         }
@@ -89,10 +89,10 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@TransType",          request.FilterStr),
-                            new SqlParameter("@PmtType",            request.FilterStr1),
-                            new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                            new SqlParameter("@CreditAc",           request.FilterStr3),
+                            new SqlParameter("@Branch",          request.FilterStr),
+                            new SqlParameter("@VehicleMasterID",            request.FilterStr1),
+                            new SqlParameter("@TransType",    request.FilterStr2),
+                            new SqlParameter("@PmtType",           request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsRptExcel", param);
 

@@ -49,6 +49,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
         readonly ISparesPurchaseRptBusiness sparesPurchaseRptBusiness;
         readonly IVehicleRepairsRptBusiness vehicleRepairsRptBusiness;
+        readonly IDieselStmtRptBusiness dieselStmtRptBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -75,6 +76,7 @@ namespace FCUBEAPI.Controllers
             IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
             ISparesPurchaseRptBusiness _sparesPurchaseRptBusiness,
             IVehicleRepairsRptBusiness _vehicleRepairsRptBusiness,
+            IDieselStmtRptBusiness _dieselStmtRptBusiness,
 
         ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
@@ -107,6 +109,7 @@ namespace FCUBEAPI.Controllers
             vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
             sparesPurchaseRptBusiness = _sparesPurchaseRptBusiness;
             vehicleRepairsRptBusiness = _vehicleRepairsRptBusiness;
+            dieselStmtRptBusiness = _dieselStmtRptBusiness;
         }
 
 
@@ -2884,6 +2887,45 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleRepairsRptBusiness.GetVehicleRepairsRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetDieselStmtRptList")]
+        public async Task<IActionResult> GetDieselStmtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStmtRptBusiness.GetDieselStmtRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDieselStmtRptExcel")]
+        public async Task<IActionResult> GetDieselStmtRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStmtRptBusiness.GetDieselStmtRptExcel(request);
 
                 return Ok(result);
             }

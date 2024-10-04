@@ -1,5 +1,3 @@
-
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -38,7 +36,18 @@
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                           <!-- <div class="col-md-2">
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Branch </label>
+                                    <select class="form-control" formControlName="branch">
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-2">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Loading Branch</label>  
                                     <div class="ng-autocomplete">
@@ -62,7 +71,7 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div> -->
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Vehicle No</label>  
@@ -100,7 +109,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <!-- <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label for="basicpill-phoneno-input">CreditAc </label>          
                                     <select class="form-control" formControlName="creditAc">
@@ -109,7 +118,7 @@
                                     </option>
                                 </select>
                                 </div>
-                            </div>          
+                            </div>           -->
                             <div class="col-lg-2">
                                 <div class="mb-2">
                                     <label for="basicpill-phoneno-input">Payment Type</label>
@@ -149,19 +158,18 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>PaymentBr</th>
-                            <th>PmtDate</th>
-                            <th>VehicleNo</th>  
-                            <th>TripNo</th>
-                            <th>OriginPlace</th>
-                            <th>Destination </th>   
-                            <th>TransType</th>
-                            <th>QtyLtrs</th>
-                            <th>AmountPaid</th>
-                            <th>PmtType</th>
-                            <th>CreditAffect</th>
+                            <th>paymentBr</th>
+                            <th>pmtDate</th>
+                            <th>vehicleNo</th>  
+                            <th>transType</th>
+                            <th>qtyLtrs</th>
+                            <th>amountPaid </th>   
+                            <th>pmtType</th>
+                            <th>creditAffect</th>
+                            <th>tripAdj</th>
+                            <th>tripNo</th>
+                            <th>fillingStnName</th>
                        
-
                         </tr>
                     </thead>
                     <tbody *ngIf="allTripPaymentsRptlist.tripPaymentsRptlist?.length != 0">
@@ -169,14 +177,14 @@
                             <td>{{ eta.paymentBr }}</td>
                             <td>{{ eta.pmtDate }}</td> 
                             <td>{{ eta.vehicleNo }}</td>
-                            <td>{{ eta.tripNo }}</td>
-                            <td>{{ eta.originPlace }}</td>
-                             <td>{{ eta.destination }}</td> 
-                            <td>{{ eta.transType }}</td> 
-                            <td>{{ eta.qtyLtrs }}</td> 
-                            <td>{{ eta.amountPaid }}</td> 
+                            <td>{{ eta.transType }}</td>
+                            <td>{{ eta.qtyLtrs }}</td>
+                             <td>{{ eta.amountPaid }}</td> 
                             <td>{{ eta.pmtType }}</td> 
                             <td>{{ eta.creditAffect }}</td> 
+                            <td>{{ eta.tripAdj }}</td> 
+                            <td>{{ eta.tripNo }}</td> 
+                            <td>{{ eta.fillingStnName }}</td> 
                         
                        
                         </tr>

@@ -214,7 +214,7 @@ import { BenificiarymasteraddComponent } from './module/benificiarymaster/benifi
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
 import { CnorcneemasteraddComponent } from './module/cnorcneemaster/cnorcneemasteradd/cnorcneemasteradd.component';
-
+import { DieselstmtrptComponent } from './module/dieselstmtrpt/dieselstmtrpt.component';
 
 
 
@@ -347,7 +347,7 @@ const routes: Routes = [
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
   { path: 'driverlicrpt', component: DriverlicrptComponent},
-  { path: 'dslstmtrpt', component: DieselstatementrptComponent},
+ // { path: 'dslstmtrpt', component: DieselstatementrptComponent},
   { path: 'employeemstlist', component:  EmpmasterlistComponent },
   { path: 'employeemstadd', component: EmpmasteraddComponent },  
   { path: 'employeemstedit', component:  EmpmasteraddComponent },
@@ -510,6 +510,7 @@ const routes: Routes = [
   { path: 'cnorcneemasteradd', component: CnorcneemasteraddComponent },
   { path: 'cnorcneemasteredit', component: CnorcneemasteraddComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
+  { path: 'dslstmtrpt', component: DieselstmtrptComponent },
 ];
 
 @NgModule({
