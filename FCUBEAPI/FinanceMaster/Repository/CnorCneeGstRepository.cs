@@ -154,7 +154,7 @@ namespace FinanceMaster.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param = { };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetCneeCorListSelect", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetCneeCnorListSelect", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

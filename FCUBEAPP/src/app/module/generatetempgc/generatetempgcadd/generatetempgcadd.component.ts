@@ -40,6 +40,7 @@ export class GeneratetempgcaddComponent {
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  cnorCneeList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -162,6 +163,7 @@ export class GeneratetempgcaddComponent {
     this.getContentList();
     this.getPartyList();
     this.getEmpList();
+    this.getCnorCneeList();
 
 
     this.formUser = this.formBuilder.group({
@@ -180,6 +182,7 @@ export class GeneratetempgcaddComponent {
       invoiceDt : new FormControl('',[Validators.required]),
       goodsValue : new FormControl('',),
 
+      cnorId: new FormControl('',),
       cnorName : new FormControl('',[Validators.required]),
       cnorAdd1 : new FormControl('',),
       cnorAdd2 : new FormControl('',),
@@ -188,6 +191,7 @@ export class GeneratetempgcaddComponent {
       cnorPin : new FormControl('',),
       cnorGst : new FormControl('',),
 
+      cneeId: new FormControl('',),
       cneeName : new FormControl('',[Validators.required]),
       cneeAdd1 : new FormControl('',),
       cneeAdd2 : new FormControl('',),
@@ -324,6 +328,39 @@ export class GeneratetempgcaddComponent {
   }
   
   
+  selectCnorEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({       
+        cnorName: item.dataName,
+        cnorAdd1: res.cneeAdd1,
+        cnorAdd2: res.cneeAdd2,
+        cnorAdd3: res.cneeAdd3,
+        cnorState: res.cneeState,      
+        cnorPin: res.cneePin,   
+        cnorGst:  res.cneeGst,   
+      });
+    })
+  }
+
+  selectCneeEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({  
+        cneeName: item.dataName,
+        cneeAdd1: res.cneeAdd1,
+        cneeAdd2: res.cneeAdd2,
+        cneeAdd3: res.cneeAdd3,
+        cneeState: res.cneeState,      
+        cneePin: res.cneePin,   
+        cneeGst: res.cneeGst,   
+        cneeMob:  res.cneeMob,
+      });
+    })
+  }
+
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
@@ -496,6 +533,11 @@ export class GeneratetempgcaddComponent {
   getEmpList(): void {
     this.commonService.getEmpList().subscribe((res) => {
       this.empList = res;
+    });
+  }
+  getCnorCneeList(): void {
+    this.commonService.GetCneeCnorList().subscribe((res) => {
+      this.cnorCneeList = res;
     });
   }
   

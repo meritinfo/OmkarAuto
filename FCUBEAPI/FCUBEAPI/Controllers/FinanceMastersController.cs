@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FleetTrans.Business;
+using Org.BouncyCastle.Ocsp;
 
 namespace FCUBEAPI.Controllers
 {
@@ -554,6 +555,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetBeneficiaryMasterList")]
         public async Task<IActionResult> GetBeneficiaryMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await beneficiaryMasterBusiness.GetBeneficiaryMasterList(request);
@@ -586,6 +591,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetCnorCneeGstList")]
         public async Task<IActionResult> GetCnorCneeGstList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cnorCneeGstBusiness.GetCnorCneeGstList(request);
@@ -597,8 +606,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetCCList")]
-        public async Task<IActionResult> GetCCList()
+        [HttpPost("GetCneeCnorList")]
+        public async Task<IActionResult> GetCneeCnorList()
         {
             try
             {
