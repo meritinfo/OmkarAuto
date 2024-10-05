@@ -34,6 +34,7 @@ namespace FCUBEAPI.Controllers
         readonly IBeneficiaryMasterBusiness beneficiaryMasterBusiness;
         readonly ICnorCneeGstBusiness cnorCneeGstBusiness;
         readonly IExpenseBudgetsBusiness expenseBudgetsBusiness;
+        readonly ISubLedgerMasterBusiness subLedgerMasterBusiness;
 
 
         public FinanceMastersController(IOptions<DBModel> _dbconnection,IFinGroupMasterBusiness _finGroupMasterBusiness, 
@@ -44,7 +45,8 @@ namespace FCUBEAPI.Controllers
             IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness,
             IBeneficiaryMasterBusiness _beneficiaryMasterBusiness,
             ICnorCneeGstBusiness _cnorCneeGstBusiness,
-            IExpenseBudgetsBusiness _expenseBudgetsBusiness)
+            IExpenseBudgetsBusiness _expenseBudgetsBusiness,
+            ISubLedgerMasterBusiness _subLedgerMasterBusiness)
         {
             dbconnection = _dbconnection;
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
@@ -56,6 +58,7 @@ namespace FCUBEAPI.Controllers
             beneficiaryMasterBusiness= _beneficiaryMasterBusiness;
             cnorCneeGstBusiness= _cnorCneeGstBusiness;
             expenseBudgetsBusiness= _expenseBudgetsBusiness;
+            subLedgerMasterBusiness = _subLedgerMasterBusiness;
 
         }
         /// <summary>
@@ -694,6 +697,76 @@ namespace FCUBEAPI.Controllers
             }
 
         }
+        [HttpPost("SubLedgerMasterSave")]
+        public async Task<IActionResult> SubLedgerMasterSave(SubLedgerMasterModel subLedgerMasterModel)
+        {
+            if (subLedgerMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await subLedgerMasterBusiness.SubLedgerMasterSave(subLedgerMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetSubLedgerMasterList")]
+        public async Task<IActionResult> GetSubLedgerMasterList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await subLedgerMasterBusiness.GetSubLedgerMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("SubLedgerMasterDelete")]
+        public async Task<IActionResult> SubLedgerMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await subLedgerMasterBusiness.SubLedgerMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetSubLedgerMasterInnerGridList")]
+        public async Task<IActionResult> GetSubLedgerMasterInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await subLedgerMasterBusiness.GetSubLedgerMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
 
 

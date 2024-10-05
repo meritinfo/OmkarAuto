@@ -22,7 +22,7 @@ namespace FinanceMaster.Models
     }
     public class SubLedgerMasterDtlListmodel
     {
-        public string? TyreId { get; set; }
+     
         public string? SubLedgerDtlId { get; set; }
         public string? SubLedgerId { get; set; }
         public string? LedgerAc { get; set; }

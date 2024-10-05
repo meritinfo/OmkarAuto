@@ -61,6 +61,7 @@ import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
+import { Subledgermodel } from 'src/app/models/subledgermodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
@@ -372,6 +373,8 @@ import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmas
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 import { Partygroupmastermodel } from './models/partygroupmastermodel';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
+import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
+import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 
 @NgModule({
   declarations: [
@@ -496,6 +499,8 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
     CnorcneegstaddComponent ,CnorcneegstlistComponent,    PartygroupmasterlistComponent,
     PartygroupmasteraddComponent,
+    SubledgermasteraddComponent,
+    SubledgermasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -553,7 +558,7 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,            
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
     Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
   ],
   bootstrap: [AppComponent]
 })
