@@ -377,6 +377,7 @@ export class GeneratetempgclistComponent {
     this.lrmodel.billingBranch = tempgc.payStn
     this.lrmodel.businessBy = tempgc.businessby;
     this.lrmodel.businessBranch = tempgc.bookingPlace;
+    this.lrmodel.cnorId = tempgc.cnorId;
     this.lrmodel.cnorName = tempgc.cnorName;
     this.lrmodel.cnorAdd1 = tempgc.cnorAdd1;
     this.lrmodel.cnorAdd2 = tempgc.cnorAdd2;
@@ -385,6 +386,7 @@ export class GeneratetempgclistComponent {
     this.lrmodel.cnorEmail = "";
     this.lrmodel.cnorMobile = "";
     this.lrmodel.cnorGst = tempgc.cnorGst;
+    this.lrmodel.cneeId = tempgc.cneeId;
     this.lrmodel.cneeName = tempgc.cneeName;
     this.lrmodel.cneeAdd1 = tempgc.cneeAdd1;
     this.lrmodel.cneeAdd2 = tempgc.cneeAdd2;

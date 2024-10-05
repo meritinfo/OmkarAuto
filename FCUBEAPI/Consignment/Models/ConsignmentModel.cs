@@ -27,6 +27,7 @@ namespace Consignment.Models
         public string? BillingParty             { get; set; }
         public string? BillingBranch            { get; set; }
         public string? BusinessBranch           { get; set; }
+        public string? CnorId                   { get; set; }
         public string? CnorName                 { get; set; }
         public string? CnorAdd1                 { get; set; }
         public string? CnorAdd2                 { get; set; }
@@ -35,10 +36,12 @@ namespace Consignment.Models
         public string? CnorGst                  { get; set; }
         public string? CnorMobile               { get; set; }
         public string? CnorEmail                { get; set; }
+        public string? CneeId                   { get; set; }
         public string? CneeName                 { get; set; }
         public string? CneeAdd1                 { get; set; }
         public string? CneeAdd2                 { get; set; }
         public string? CneeAdd3                 { get; set; }
+        public string? CneeState { get; set; }        
         public string? CneePin                  { get; set; }
         public string? CneeGst                  { get; set; }
         public string? CneeMobile               { get; set; }
