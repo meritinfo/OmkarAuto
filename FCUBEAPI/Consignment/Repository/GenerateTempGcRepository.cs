@@ -523,9 +523,9 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<TempGcModel> GetCnorCneeDetails(RequestModel request)
+        public async Task<ConsignmentModel> GetCnorCneeDetails(RequestModel request)
         {
-            TempGcModel tempGc = new();
+            ConsignmentModel tempGc = new();
 
             try
             {
@@ -546,7 +546,8 @@ namespace Consignment.Repository
                         tempGc.CneeState= Convert.ToString(dataSet.Tables[0].Rows[0]["StateCode"]);
                         tempGc.CneePin = Convert.ToString(dataSet.Tables[0].Rows[0]["PinCode"]);
                         tempGc.CneeGst = Convert.ToString(dataSet.Tables[0].Rows[0]["GstNo"]);
-                        tempGc.CneeMob = Convert.ToString(dataSet.Tables[0].Rows[0]["Mobile1"]);
+                        tempGc.CneeMobile = Convert.ToString(dataSet.Tables[0].Rows[0]["Mobile1"]);
+                        tempGc.CneeEmail = Convert.ToString(dataSet.Tables[0].Rows[0]["Email"]);
                     }
                 }
             }

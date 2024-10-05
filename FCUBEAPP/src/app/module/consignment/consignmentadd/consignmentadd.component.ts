@@ -45,6 +45,7 @@ export class ConsignmentaddComponent implements OnInit {
   contentList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   businessByList: Dropdownmodel[] = [];
+  cnorCneeList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();
@@ -136,6 +137,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.getVehicleNoList();
     this.getBillingPartyList();
     this.getVehTypes();
+    this.getCnorCneeList();
 
     this.sharedService.loading = false;
     
@@ -162,6 +164,7 @@ export class ConsignmentaddComponent implements OnInit {
       billingParty : new FormControl('', [Validators.required]),
       billingBranch : new FormControl(this.branch, [Validators.required]),
       businessBranch : new FormControl(this.branch, [Validators.required]),
+      cnorId : new FormControl('',),    
       cnorName : new FormControl('', [Validators.required]),
       cnorAdd1 : new FormControl('',),    
       cnorAdd2 : new FormControl('',),    
@@ -169,7 +172,8 @@ export class ConsignmentaddComponent implements OnInit {
       cnorPin : new FormControl('',),    
       cnorGst : new FormControl('', ),
       cnorMobile : new FormControl('',),    
-      cnorEmail : new FormControl('',),    
+      cnorEmail : new FormControl('',),  
+      cneeId : new FormControl('',),      
       cneeName : new FormControl('', ),
       cneeAdd1 : new FormControl('',),    
       cneeAdd2 : new FormControl('',),    
@@ -264,7 +268,9 @@ export class ConsignmentaddComponent implements OnInit {
           fromPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
           billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
-          businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
+          businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),           
+          cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cnorId),
+          cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cneeId),             
         })      
         
         if(this.selectedLrDetails.ownTruck=='Y'){
@@ -413,6 +419,11 @@ export class ConsignmentaddComponent implements OnInit {
   getVehTypes(): void {
     this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicalType = res;
+    });
+  }
+  getCnorCneeList(): void {
+    this.commonService.GetCneeCnorList().subscribe((res) => {
+      this.cnorCneeList = res;
     });
   }
 
@@ -739,6 +750,39 @@ export class ConsignmentaddComponent implements OnInit {
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
+  selectCnorEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({       
+        cnorName: item.dataName,
+        cnorAdd1: res.cneeAdd1,
+        cnorAdd2: res.cneeAdd2,
+        cnorAdd3: res.cneeAdd3,   
+        cnorPin: res.cneePin,   
+        cnorGst:  res.cneeGst,  
+        cnorMobile:  res.cneeMobile,
+        cnorEmail:  res.cneeEmail, 
+      });
+    })
+  }
+
+  selectCneeEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({  
+        cneeName: item.dataName,
+        cneeAdd1: res.cneeAdd1,
+        cneeAdd2: res.cneeAdd2,
+        cneeAdd3: res.cneeAdd3,    
+        cneePin: res.cneePin,   
+        cneeGst: res.cneeGst,   
+        cneeMobile: res.cneeMobile,
+        cneeEmail: res.cneeEmail,
+      });
+    })
+  }
   selectEvent(item: any) {
     // do something with selected item
   }
@@ -941,8 +985,9 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.truckNo = selectedDataValue.truckNo;
     this.lrmodel.billingParty = selectedDataValue.billingParty ? selectedDataValue.billingParty.dataId : "0";
     this.lrmodel.billingBranch = selectedDataValue.billingBranch;
-    this.lrmodel.businessBy = selectedDataValue.businessBy.dataId;
+    this.lrmodel.businessBy = selectedDataValue.businessBy?selectedDataValue.businessBy.dataId:"0";
     this.lrmodel.businessBranch = selectedDataValue.businessBranch;
+    this.lrmodel.cnorId = selectedDataValue.cnorId? selectedDataValue.cnorId.dataId : "0";
     this.lrmodel.cnorName = selectedDataValue.cnorName;
     this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1;
     this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2;
@@ -951,6 +996,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
     this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
     this.lrmodel.cnorGst = selectedDataValue.cnorGst;
+    this.lrmodel.cneeId = selectedDataValue.cneeId? selectedDataValue.cneeId.dataId : "0";
     this.lrmodel.cneeName = selectedDataValue.cneeName;
     this.lrmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
     this.lrmodel.cneeAdd2 = selectedDataValue.cneeAdd2;

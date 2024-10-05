@@ -272,7 +272,9 @@ export class GeneratetempgcaddComponent {
           vehicleInDt:  this.commonService.formatDate(this.selectedTempgcDetails.vehicleInDt),           
           vehicleOutDt:  this.commonService.formatDate(this.selectedTempgcDetails.vehicleOutDt),   
           fromPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.fromPlace),
-          toPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.toPlace),                 
+          toPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.toPlace),        
+          cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cnorId),
+          cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cneeId),                  
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
           this.getTempGcInnerGridList();
@@ -614,6 +616,7 @@ export class GeneratetempgcaddComponent {
     this.tempgcmodel.invoiceNo          = selectedDataVal.invoiceNo       ?selectedDataVal.invoiceNo:"";  
     this.tempgcmodel.invoiceDt          = selectedDataVal.invoiceDt       ?selectedDataVal.invoiceDt:"";  
     this.tempgcmodel.goodsValue         = selectedDataVal.goodsValue      ?selectedDataVal.goodsValue:"";  
+    this.tempgcmodel.cnorId             = selectedDataVal.cnorId          ?selectedDataVal.cnorId.dataId.toString():"";  
     this.tempgcmodel.cnorName           = selectedDataVal.cnorName        ?selectedDataVal.cnorName.toString().toUpperCase()      :"";  
     this.tempgcmodel.cnorAdd1           = selectedDataVal.cnorAdd1        ?selectedDataVal.cnorAdd1.toString().toUpperCase()      :"";  
     this.tempgcmodel.cnorAdd2           = selectedDataVal.cnorAdd2        ?selectedDataVal.cnorAdd2.toString().toUpperCase()      :"";  
@@ -621,6 +624,7 @@ export class GeneratetempgcaddComponent {
     this.tempgcmodel.cnorState          = selectedDataVal.cnorState       ?selectedDataVal.cnorState.toString().toUpperCase()     :"";  
     this.tempgcmodel.cnorPin            = selectedDataVal.cnorPin         ?selectedDataVal.cnorPin       :"";  
     this.tempgcmodel.cnorGst            = selectedDataVal.cnorGst         ?selectedDataVal.cnorGst.toString().toUpperCase()       :"";  
+    this.tempgcmodel.cneeId             = selectedDataVal.cneeId          ?selectedDataVal.cneeId.dataId.toString():"";  
     this.tempgcmodel.cneeName           = selectedDataVal.cneeName        ?selectedDataVal.cneeName.toString().toUpperCase()      :"";  
     this.tempgcmodel.cneeAdd1           = selectedDataVal.cneeAdd1        ?selectedDataVal.cneeAdd1.toString().toUpperCase()      :"";  
     this.tempgcmodel.cneeAdd2           = selectedDataVal.cneeAdd2        ?selectedDataVal.cneeAdd2.toString().toUpperCase()     :"";  

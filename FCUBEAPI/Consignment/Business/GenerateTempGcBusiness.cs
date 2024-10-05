@@ -36,7 +36,7 @@ namespace Consignment.Business
         {
             return await tempGcRepository.GetLRPdf(request);
         }
-        public async Task<TempGcModel> GetCnorCneeDetails(RequestModel request)
+        public async Task<ConsignmentModel> GetCnorCneeDetails(RequestModel request)
         {
             return await tempGcRepository.GetCnorCneeDetails(request);
         }
