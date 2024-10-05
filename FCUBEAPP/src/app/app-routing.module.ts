@@ -526,6 +526,7 @@ const routes: Routes = [
   { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
   { path: 'dslstmtrpt', component: DieselstmtrptComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
+  { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
 ];
 
 
