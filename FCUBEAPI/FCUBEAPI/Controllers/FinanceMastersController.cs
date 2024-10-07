@@ -747,6 +747,34 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetSubledgerAcList")]
+        public async Task<IActionResult> GetSubledgerAcList()
+        {
+            try
+            {
+                var result = await subLedgerMasterBusiness.GetSubledgerAcList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetValidateList")]
+        public async Task<IActionResult> GetValidateList()
+        {
+            try
+            {
+                var result = await subLedgerMasterBusiness.GetValidateList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetSubLedgerMasterInnerGridList")]
         public async Task<IActionResult> GetSubLedgerMasterInnerGridList(RequestModel request)
         {

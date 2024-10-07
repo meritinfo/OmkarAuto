@@ -530,7 +530,7 @@ const routes: Routes = [
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
   { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
-  { path: 'subledgermasteraddedit', component:  SubledgermasteraddComponent },
+  { path: 'subledgermasteredit', component:  SubledgermasteraddComponent },
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
 ];
 

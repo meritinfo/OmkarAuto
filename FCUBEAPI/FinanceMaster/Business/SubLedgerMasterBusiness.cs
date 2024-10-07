@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2016.Excel;
+﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FinanceMaster.Models;
 using FinanceMaster.Repository;
 using FinanceMasters.Models;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace FinanceMaster.Business
 {
-    public class SubLedgerMasterBusiness: ISubLedgerMasterBusiness
+    public class SubLedgerMasterBusiness : ISubLedgerMasterBusiness
     {
         readonly ISubLedgerMasterRepository subLedgerMasterRepository;
         public SubLedgerMasterBusiness(ISubLedgerMasterRepository _subLedgerMasterRepository)
@@ -32,10 +33,18 @@ namespace FinanceMaster.Business
             return await subLedgerMasterRepository.GetSubLedgerMasterInnerGridList(request);
         }
         public async Task<ResponseModel> SubLedgerMasterDelete(RequestModel req)
-         {
+        {
             return await subLedgerMasterRepository.SubLedgerMasterDelete(req);
+        }
+        public async Task<List<DropDownListModel>> GetSubledgerAcList()
+        {
+            return await subLedgerMasterRepository.GetSubledgerAcList();
+
+        }
+        public async Task<List<DropDownListModel>> GetValidateList()
+        {
+            return await subLedgerMasterRepository.GetValidateList();
+
+        }
     }
-
-
-}
 }

@@ -41,7 +41,7 @@ export class SubledgerService {
     this.selectedSubledgerMaster = new Subledgermodel();
   }
   subLedgerMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleRepMaintMasterDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/SubLedgerMasterDelete', req, this.httpOptions);
   }
 //   chkSubledgerDuplicate(req: Requestmodel): Observable<Responsemodel> {
 //     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
@@ -49,7 +49,7 @@ export class SubledgerService {
   getSubledgerMasterInnerGridList(request: Requestmodel): Observable<Subledgermodel> {
     return this.httpClient.post<Subledgermodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubLedgerMasterInnerGridList', request, this.httpOptions);
   }
-  subledgerMasterSubmitted(user: FormData): Observable<Responsemodel> {
+  subledgerMasterSubmitted(user: Subledgermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/SubLedgerMasterSave', user, this.httpformOptions);
   }
   getSubledgerMasterList(filter: Filtermodel): Observable<Subledgerlistmodel> {

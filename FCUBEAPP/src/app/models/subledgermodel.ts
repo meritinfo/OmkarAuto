@@ -7,7 +7,7 @@ export class Subledgermodel {
     validateTable: string="";
     validateTableField: string="";
     loggedInUser: string="";
-    subLedgerDtlList: subLedgerMasterDtlList[] = [];
+    subLedgerMasterDtlList: subLedgerMasterDtlList[] = [];
 }
 export class subLedgerMasterDtlList {
     subLedgerDtlId :  string="";

@@ -14,5 +14,7 @@ namespace FinanceMaster.Business
         Task<ResponseModel> SubLedgerMasterSave(SubLedgerMasterModel subLedgerMasterModel);
         Task<SubLedgerMasterModel> GetSubLedgerMasterInnerGridList(RequestModel request);
         Task<ResponseModel> SubLedgerMasterDelete(RequestModel req);
+        Task<List<DropDownListModel>> GetSubledgerAcList();
+        Task<List<DropDownListModel>> GetValidateList();
     }
 }
