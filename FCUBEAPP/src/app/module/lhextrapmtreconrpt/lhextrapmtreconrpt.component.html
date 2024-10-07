@@ -1,0 +1,206 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">LH Extra Pmt Reconciliation</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Branch </label>
+                                    <select class="form-control" formControlName="branch">
+                                        <option value="">All</option>
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Party </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="party" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                             <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Origin </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="origin" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Destination </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="destination" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>chBookStnName</th>
+                                <th>challanNo </th>   
+                                <th>challanDate</th>
+                                <th>chFrom </th>   
+                                <th>chTo</th>
+                                <th>lrNo</th>
+                                <th>partyName </th>  
+                                <th>truckNo </th>
+                                <th>lrFrt</th>
+                                <th>lorryHire</th>
+                                <th>extHamaliPaid </th>   
+                                <th>extDetnPaid</th>
+                                <th>extOthersPaid</th>   
+                                <th>billedHamali </th>  
+                                <th>billedDetn </th>
+                                <th>billedOthers</th>
+                                <th>billedExtraSupp</th>
+                                <th>billNo </th>   
+                                <th>mRNo</th>
+                                <th>mR_NR_Amt</th>                               
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allLhextrapmtreconrptlist.lHExtraPmtReconRptList?.length != 0">
+                            <tr *ngFor="let eta of allLhextrapmtreconrptlist.lHExtraPmtReconRptList">
+                                <td>{{ eta.chBookStnName }}</td>
+                                <td>{{ eta.challanNo }}</td> 
+                                <td>{{ eta.challanDate }}</td> 
+                                <td>{{ eta.chFrom }}</td> 
+                                <td>{{ eta.chTo }}</td>
+                                <td>{{ eta.lrNo }}</td> 
+                                <td>{{ eta.partyName }}</td>
+                                <td>{{ eta.truckNo }}</td>
+                                <td>{{ eta.lrFrt }}</td>  
+                                <td>{{ eta.lorryHire }}</td> 
+                                <td>{{ eta.extHamaliPaid }}</td> 
+                                <td>{{ eta.extDetnPaid }}</td>
+                                <td>{{ eta.extOthersPaid }}</td> 
+                                <td>{{ eta.billedHamali }}</td>
+                                <td>{{ eta.billedDetn }}</td>
+                                <td>{{ eta.billedOthers }}</td>  
+                                <td>{{ eta.billedExtraSupp }}</td> 
+                                <td>{{ eta.billNo }}</td> 
+                                <td>{{ eta.mRNo }}</td>
+                                <td>{{ eta.mR_NR_Amt }}</td> 
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allLhextrapmtreconrptlist.lHExtraPmtReconRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+

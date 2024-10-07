@@ -372,6 +372,10 @@ import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmas
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 import { Partygroupmastermodel } from './models/partygroupmastermodel';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
+import { Vehiclefrtoutstandingrptmodel } from './models/vehiclefrtoutstandingrptmodel';
+import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
+import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
+import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 
 @NgModule({
   declarations: [
@@ -496,6 +500,8 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
     CnorcneegstaddComponent ,CnorcneegstlistComponent,    PartygroupmasterlistComponent,
     PartygroupmasteraddComponent,
+    VehiclefrtoutstandingrptComponent,
+    LhextrapmtreconrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -559,11 +565,13 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
     Lhpmvariancerptmodel,
     Gstregisterrptmodel,
     Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
-    Dieselstmtmodel
+    Dieselstmtmodel,
     Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
     Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
     Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
+    Vehiclefrtoutstandingrptmodel,
+    Lhextrapmtreconrptmodel,
   ],
   bootstrap: [AppComponent]
 })

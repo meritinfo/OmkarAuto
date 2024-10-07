@@ -50,6 +50,7 @@ namespace FCUBEAPI.Controllers
         readonly ISparesPurchaseRptBusiness sparesPurchaseRptBusiness;
         readonly IVehicleRepairsRptBusiness vehicleRepairsRptBusiness;
         readonly IDieselStmtRptBusiness dieselStmtRptBusiness;
+        readonly IVehicleFrtOutstandingRptBusiness vehicleFrtOutstandingRptBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -77,6 +78,7 @@ namespace FCUBEAPI.Controllers
             ISparesPurchaseRptBusiness _sparesPurchaseRptBusiness,
             IVehicleRepairsRptBusiness _vehicleRepairsRptBusiness,
             IDieselStmtRptBusiness _dieselStmtRptBusiness,
+            IVehicleFrtOutstandingRptBusiness _vehicleFrtOutstandingRptBusiness,
 
         ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
@@ -110,6 +112,7 @@ namespace FCUBEAPI.Controllers
             sparesPurchaseRptBusiness = _sparesPurchaseRptBusiness;
             vehicleRepairsRptBusiness = _vehicleRepairsRptBusiness;
             dieselStmtRptBusiness = _dieselStmtRptBusiness;
+            vehicleFrtOutstandingRptBusiness = _vehicleFrtOutstandingRptBusiness;
         }
 
 
@@ -2944,6 +2947,44 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await dieselStmtRptBusiness.GetDieselStmtRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicleFrtOutstandingRptList")]
+        public async Task<IActionResult> GetVehicleFrtOutstandingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFrtOutstandingRptBusiness.GetVehicleFrtOutstandingRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicleFrtOutstandingRptExcel")]
+        public async Task<IActionResult> GetVehicleFrtOutstandingRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFrtOutstandingRptBusiness.GetVehicleFrtOutstandingRptExcel(request);
 
                 return Ok(result);
             }

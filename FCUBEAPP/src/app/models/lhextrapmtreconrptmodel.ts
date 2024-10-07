@@ -1,0 +1,22 @@
+export class Lhextrapmtreconrptmodel {
+    chBookStnName :string = "";
+    challanNo :string = "";
+    challanDate :string = "";
+    chFrom :string = "";
+    chTo :string = "";
+    lrNo :string = "";
+    partyName :string = "";
+    truckNo :string = "";
+    lrFrt :string = "";
+    lorryHire :string = "";
+    extHamaliPaid :string = "";
+    extDetnPaid :string = "";
+    extOthersPaid :string = "";
+    billedHamali :string = "";
+    billedDetn :string = "";
+    billedOthers :string = "";
+    billedExtraSupp :string = "";
+    billNo :string = "";
+    mRNo :string = "";
+    mR_NR_Amt :string = "";
+}

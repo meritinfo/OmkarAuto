@@ -42,6 +42,7 @@ namespace FCUBEAPI.Controllers
         readonly IMRRegisterRptBusiness mRRegisterRptBusiness;
         readonly ILHPMVarianceRptBusiness lHPMVarianceRptBusiness;
         readonly IGSTRegisterRptBusiness gSTRegisterRptBusiness;
+        readonly ILHExtraPmtReconRptBusiness lHExtraPmtReconRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -70,7 +71,8 @@ namespace FCUBEAPI.Controllers
             IMRRegisterRptBusiness _mRRegisterRptBusiness,
             ILHPMVarianceRptBusiness _lHPMVarianceRptBusiness,
             IGSTRegisterRptBusiness _gSTRegisterRptBusiness,
-             IPartyGroupMasterBusiness _partyGroupMasterBusiness)
+            IPartyGroupMasterBusiness _partyGroupMasterBusiness,
+            ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -103,6 +105,7 @@ namespace FCUBEAPI.Controllers
             lHPMVarianceRptBusiness = _lHPMVarianceRptBusiness;
             gSTRegisterRptBusiness = _gSTRegisterRptBusiness;
             partyGroupMasterBusiness = _partyGroupMasterBusiness;
+            lHExtraPmtReconRptBusiness = _lHExtraPmtReconRptBusiness;
         }
 
         /// <summary>
@@ -1962,6 +1965,44 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await partyGroupMasterBusiness.PartyGroupMasterDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetLHExtraPmtReconRptExcel")]
+        public async Task<IActionResult> GetLHExtraPmtReconRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lHExtraPmtReconRptBusiness.GetLHExtraPmtReconRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLHExtraPmtReconRptList")]
+        public async Task<IActionResult> GetLHExtraPmtReconRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lHExtraPmtReconRptBusiness.GetLHExtraPmtReconRptList(request);
 
                 return Ok(result);
             }

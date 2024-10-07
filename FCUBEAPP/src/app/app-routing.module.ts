@@ -220,8 +220,8 @@ import { CnorcneegstlistComponent } from './module/cnorcneegst/cnorcneegstlist/c
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmasterlist/partygroupmasterlist.component';
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
-
-
+import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
+import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 
 
 
@@ -526,6 +526,8 @@ const routes: Routes = [
   { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
   { path: 'dslstmtrpt', component: DieselstmtrptComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
+  { path: 'vehicleadvbalrpt', component: VehiclefrtoutstandingrptComponent },
+  { path: 'lhextrapmtreconrpt', component: LhextrapmtreconrptComponent },
 ];
 
 
