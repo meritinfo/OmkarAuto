@@ -290,6 +290,9 @@ namespace FCUBEAPI
             services.AddScoped<IVehicleFrtOutstandingRptRepository, VehicleFrtOutstandingRptRepository>();
             services.AddScoped<ILHExtraPmtReconRptBusiness, LHExtraPmtReconRptBusiness>();
             services.AddScoped<ILHExtraPmtReconRptRepository, LHExtraPmtReconRptRepository>();
+            services.AddScoped<ISubLedgerMasterBusiness, SubLedgerMasterBusiness>();
+            services.AddScoped<ISubLedgerMasterRepository, SubLedgerMasterRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

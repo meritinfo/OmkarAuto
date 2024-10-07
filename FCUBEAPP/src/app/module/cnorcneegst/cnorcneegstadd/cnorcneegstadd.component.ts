@@ -119,17 +119,12 @@ ngOnInit(): void {
   });
   this.getBranchList();
   this.getStateList();
-  this.getCCList();
+  this.getCneeCnorList();
 
   if (this.selectedCnorCneeGstDetails.cnorCneeDetID != '') {
     this.formUser.controls['location'].disable(); 
     this.formUser.patchValue(this.selectedCnorCneeGstDetails);      
     this.editMode = true;
-  
-    this.formUser.patchValue({
-     // inActiveDate: this.commonService.formatDate(this.selectedCnorCneeGstDetails.inActiveDate)
-     
-    })      
   }
   
 
@@ -182,8 +177,8 @@ getStateList(): void {
     this.stateList = res;
   });
 }
-getCCList(): void {
-  this.commonService.getCCList().subscribe((res) => {
+getCneeCnorList(): void {
+  this.commonService.GetCneeCnorList().subscribe((res) => {
     this.ccList = res;
   });
 }

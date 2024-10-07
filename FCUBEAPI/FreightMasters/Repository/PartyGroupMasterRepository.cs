@@ -22,7 +22,7 @@ namespace FreightMasters.Repository
         /// <param name="productMasterModel"></param>
         /// <returns>ResponseModel</returns>
 
-        public async Task<PartyGroupMasterList> GetPartyGroupMasterList(PageRequestDtBrVh request)
+        public async Task<PartyGroupMasterList> GetPartyGroupMasterList(PageFromDtToDtRequest request)
         {
             PartyGroupMasterList partyGroupMasterList = new();
             List<PartyGroupMasterModel> PartyGroupMasterlist = new();

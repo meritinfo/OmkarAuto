@@ -1922,7 +1922,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetPartyGroupMasterlist")]
-        public async Task<IActionResult> GetPartyGroupMasterlist(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetPartyGroupMasterlist(PageFromDtToDtRequest request)
         {
             if (request == null)
             {

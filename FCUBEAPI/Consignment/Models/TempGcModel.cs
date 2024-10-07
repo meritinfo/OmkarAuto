@@ -24,6 +24,7 @@
         public string? InvoiceNo  { get; set; }
         public string? InvoiceDt   { get; set; }
         public string? GoodsValue   { get; set; }
+        public string? CnorId { get; set; }
         public string? CnorName  { get; set; }
         public string? CnorAdd1   { get; set; }
         public string? CnorAdd2   { get; set; }
@@ -31,6 +32,7 @@
         public string? CnorState   { get; set; }
         public string? CnorPin   { get; set; }
         public string? CnorGst   { get; set; }
+        public string? CneeId { get; set; }
         public string? CneeName   { get; set; }
         public string? CneeAdd1   { get; set; }
         public string? CneeAdd2   { get; set; }

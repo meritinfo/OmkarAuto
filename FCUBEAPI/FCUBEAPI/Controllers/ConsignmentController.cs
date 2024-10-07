@@ -1107,6 +1107,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetCnorCneeDetails")]
+        public async Task<IActionResult> GetCnorCneeDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.GetCnorCneeDetails(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDeliveryAckPodList")]
         public async Task<IActionResult> GetDeliveryAckPodList(ReportRequestModel request)
         {

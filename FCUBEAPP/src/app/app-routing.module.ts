@@ -222,6 +222,9 @@ import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmas
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
+import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
+import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
+
 
 
 
@@ -528,6 +531,10 @@ const routes: Routes = [
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'vehicleadvbalrpt', component: VehiclefrtoutstandingrptComponent },
   { path: 'lhextrapmtreconrpt', component: LhextrapmtreconrptComponent },
+  { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
+  { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
+  { path: 'subledgermasteraddedit', component:  SubledgermasteraddComponent },
+  { path: 'subledgerlist', component:  SubledgermasterlistComponent },
 ];
 
 

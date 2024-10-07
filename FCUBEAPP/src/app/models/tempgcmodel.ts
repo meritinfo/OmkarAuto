@@ -24,6 +24,7 @@ export class Tempgcmodel {
     invoiceNo : string = "";
     invoiceDt :  string = "";
     goodsValue :  string = "";
+    cnorId : string = "";
     cnorName : string = "";
     cnorAdd1 :  string = "";
     cnorAdd2 :  string = "";
@@ -31,6 +32,7 @@ export class Tempgcmodel {
     cnorState :  string = "";
     cnorPin :  string = "";
     cnorGst :  string = "";
+    cneeId : string = "";
     cneeName :  string = "";
     cneeAdd1 :  string = "";
     cneeAdd2 :  string = "";

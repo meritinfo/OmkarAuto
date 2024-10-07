@@ -152,6 +152,9 @@ addItem(i: number): void {
   if (this.formTyreArray.value[i].accountId != "" && this.formTyreArray.value[i].budgetRs!="" ) {
     this.formTyreArray.push(this.createTyreArray());
   }  
+  else{
+    this.toastrService.warning("Please Enter Mandatory  Fields in Detail ");   
+  }
 }
 
 removeItem(index: number) {

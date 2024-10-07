@@ -28,6 +28,7 @@ export class Consignmentmodel {
     billingParty : string = "";
     billingBranch : string = "";
     businessBranch : string = "";
+    cnorId : string = "";
     cnorName : string = "";
     cnorAdd1 : string = "";
     cnorAdd2 : string = "";
@@ -36,10 +37,12 @@ export class Consignmentmodel {
     cnorGst : string = "";
     cnorMobile : string = "";
     cnorEmail : string = "";
+    cneeId : string = "";
     cneeName : string = "";
     cneeAdd1 : string = "";
     cneeAdd2 : string = "";
     cneeAdd3 : string = "";
+    cneeState : string = "";
     cneePin : string = "";
     cneeGst : string = "";
     cneeMobile : string = "";

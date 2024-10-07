@@ -11,5 +11,6 @@ namespace Consignment.Repository
         Task<ResponseModel> TempGcDelete(RequestModel requestModel);
         Task<ResponseModel> SendLRMail(ReportRequestModel request);
         Task<ResponseModel> GetLRPdf(ReportRequestModel request);
+        Task<ConsignmentModel> GetCnorCneeDetails(RequestModel request);
     }
 }

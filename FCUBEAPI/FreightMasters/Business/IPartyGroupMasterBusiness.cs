@@ -12,8 +12,9 @@ namespace FreightMasters.Business
     {
 
         Task<ResponseModel> PartyGroupMasterSave(PartyGroupMasterModel partyGroupMasterModel);
-        Task<PartyGroupMasterList> GetPartyGroupMasterList(PageRequestDtBrVh request);
+        Task<PartyGroupMasterList> GetPartyGroupMasterList(PageFromDtToDtRequest request);
         Task<ResponseModel> PartyGroupMasterDelete(RequestModel requestModel);
         Task<PartyGroupMasterModel> GetPartyGroupDetailInnergrid(RequestModel request);
+      
     }
 }

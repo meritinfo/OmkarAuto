@@ -27,7 +27,7 @@ namespace FreightMasters.Business
             return await partyGroupMasterRepository.PartyGroupMasterSave(partyGroupMasterModel);
         }
 
-        public async Task<PartyGroupMasterList> GetPartyGroupMasterList(PageRequestDtBrVh request)
+        public async Task<PartyGroupMasterList> GetPartyGroupMasterList(PageFromDtToDtRequest request)
         {
             return await partyGroupMasterRepository.GetPartyGroupMasterList(request);
         }
@@ -39,6 +39,7 @@ namespace FreightMasters.Business
         {
             return await partyGroupMasterRepository.GetPartyGroupDetailInnergrid(request);
         }
+
 
 
     }

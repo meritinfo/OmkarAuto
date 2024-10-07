@@ -350,15 +350,39 @@
                         </div>
                     </div>
                     <div class="tab-pane mt-4" [ngClass]="{'active' : step2Active}" role="tabpanel" id="step2">
-                        <div class="row">
-                            <div class="col-lg-4">
+                        <div class="row">                            
+                            <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity">Consignor</label><span style="color: red">*</span>
-                                    <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                          formControlName="cnorName"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorName'].invalid) }">
-                                </div>
+                                    <label for="formrow-inputZip">Consignor: </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="cnorCneeList" 
+                                            formControlName="cnorId"
+                                            (selected)='selectCnorEvent($event)'
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div> 
+                                </div>    
+                            </div>      
+                            <div class="col-lg-3">
+                                <div class="mb-3">       
+                                    <label for="formrow-inputZip">Consignor Name: </label>
+                                    <span style="color: red">*</span>  
+                                    <input uppercaseonly type="text" maxlength="100"
+                                        class="form-control" formControlName="cnorName"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorName'].invalid) }" >                                           
+                                </div> 
                             </div>
+                        </div>     
+                        <div class="row">  
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Cnor Gst</label>
@@ -408,14 +432,38 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Consignee</label><span style="color: red">*</span>
-                                    <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                          formControlName="cneeName"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeName'].invalid) }">
+                                    <label for="formrow-inputZip">Consignee: </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="cnorCneeList" 
+                                            formControlName="cneeId"
+                                            (selected)='selectCneeEvent($event)'
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div> 
+                                </div>    
+                            </div>      
+                            <div class="col-lg-3">
+                                <div class="mb-3">       
+                                    <label for="formrow-inputZip">Consignee Name: </label>
+                                    <span style="color: red">*</span>  
+                                    <input uppercaseonly type="text" maxlength="100"
+                                        class="form-control" formControlName="cneeName"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeName'].invalid) }" >                                           
                                 </div>
                             </div>
+                        </div>           
+                        <div class="row">  
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cnee gst</label>

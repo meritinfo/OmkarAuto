@@ -40,6 +40,7 @@ export class GeneratetempgcaddComponent {
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  cnorCneeList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -162,6 +163,7 @@ export class GeneratetempgcaddComponent {
     this.getContentList();
     this.getPartyList();
     this.getEmpList();
+    this.getCnorCneeList();
 
 
     this.formUser = this.formBuilder.group({
@@ -180,6 +182,7 @@ export class GeneratetempgcaddComponent {
       invoiceDt : new FormControl('',[Validators.required]),
       goodsValue : new FormControl('',),
 
+      cnorId: new FormControl('',),
       cnorName : new FormControl('',[Validators.required]),
       cnorAdd1 : new FormControl('',),
       cnorAdd2 : new FormControl('',),
@@ -188,6 +191,7 @@ export class GeneratetempgcaddComponent {
       cnorPin : new FormControl('',),
       cnorGst : new FormControl('',),
 
+      cneeId: new FormControl('',),
       cneeName : new FormControl('',[Validators.required]),
       cneeAdd1 : new FormControl('',),
       cneeAdd2 : new FormControl('',),
@@ -268,7 +272,9 @@ export class GeneratetempgcaddComponent {
           vehicleInDt:  this.commonService.formatDate(this.selectedTempgcDetails.vehicleInDt),           
           vehicleOutDt:  this.commonService.formatDate(this.selectedTempgcDetails.vehicleOutDt),   
           fromPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.fromPlace),
-          toPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.toPlace),                 
+          toPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.toPlace),        
+          cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cnorId),
+          cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cneeId),                  
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
           this.getTempGcInnerGridList();
@@ -324,6 +330,39 @@ export class GeneratetempgcaddComponent {
   }
   
   
+  selectCnorEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({       
+        cnorName: item.dataName,
+        cnorAdd1: res.cneeAdd1,
+        cnorAdd2: res.cneeAdd2,
+        cnorAdd3: res.cneeAdd3,
+        cnorState: res.cneeState,      
+        cnorPin: res.cneePin,   
+        cnorGst:  res.cneeGst,   
+      });
+    })
+  }
+
+  selectCneeEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formUser.patchValue({  
+        cneeName: item.dataName,
+        cneeAdd1: res.cneeAdd1,
+        cneeAdd2: res.cneeAdd2,
+        cneeAdd3: res.cneeAdd3,
+        cneeState: res.cneeState,      
+        cneePin: res.cneePin,   
+        cneeGst: res.cneeGst,   
+        cneeMob:  res.cneeMob,
+      });
+    })
+  }
+
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
@@ -498,6 +537,11 @@ export class GeneratetempgcaddComponent {
       this.empList = res;
     });
   }
+  getCnorCneeList(): void {
+    this.commonService.GetCneeCnorList().subscribe((res) => {
+      this.cnorCneeList = res;
+    });
+  }
   
 
   addItem(index: number): void {
@@ -572,6 +616,7 @@ export class GeneratetempgcaddComponent {
     this.tempgcmodel.invoiceNo          = selectedDataVal.invoiceNo       ?selectedDataVal.invoiceNo:"";  
     this.tempgcmodel.invoiceDt          = selectedDataVal.invoiceDt       ?selectedDataVal.invoiceDt:"";  
     this.tempgcmodel.goodsValue         = selectedDataVal.goodsValue      ?selectedDataVal.goodsValue:"";  
+    this.tempgcmodel.cnorId             = selectedDataVal.cnorId          ?selectedDataVal.cnorId.dataId.toString():"";  
     this.tempgcmodel.cnorName           = selectedDataVal.cnorName        ?selectedDataVal.cnorName.toString().toUpperCase()      :"";  
     this.tempgcmodel.cnorAdd1           = selectedDataVal.cnorAdd1        ?selectedDataVal.cnorAdd1.toString().toUpperCase()      :"";  
     this.tempgcmodel.cnorAdd2           = selectedDataVal.cnorAdd2        ?selectedDataVal.cnorAdd2.toString().toUpperCase()      :"";  
@@ -579,6 +624,7 @@ export class GeneratetempgcaddComponent {
     this.tempgcmodel.cnorState          = selectedDataVal.cnorState       ?selectedDataVal.cnorState.toString().toUpperCase()     :"";  
     this.tempgcmodel.cnorPin            = selectedDataVal.cnorPin         ?selectedDataVal.cnorPin       :"";  
     this.tempgcmodel.cnorGst            = selectedDataVal.cnorGst         ?selectedDataVal.cnorGst.toString().toUpperCase()       :"";  
+    this.tempgcmodel.cneeId             = selectedDataVal.cneeId          ?selectedDataVal.cneeId.dataId.toString():"";  
     this.tempgcmodel.cneeName           = selectedDataVal.cneeName        ?selectedDataVal.cneeName.toString().toUpperCase()      :"";  
     this.tempgcmodel.cneeAdd1           = selectedDataVal.cneeAdd1        ?selectedDataVal.cneeAdd1.toString().toUpperCase()      :"";  
     this.tempgcmodel.cneeAdd2           = selectedDataVal.cneeAdd2        ?selectedDataVal.cneeAdd2.toString().toUpperCase()     :"";  

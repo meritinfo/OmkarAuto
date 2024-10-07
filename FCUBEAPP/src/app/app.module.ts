@@ -61,6 +61,7 @@ import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
+import { Subledgermodel } from 'src/app/models/subledgermodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
@@ -376,6 +377,8 @@ import { Vehiclefrtoutstandingrptmodel } from './models/vehiclefrtoutstandingrpt
 import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
 import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
+import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
+import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 
 @NgModule({
   declarations: [
@@ -502,6 +505,8 @@ import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextra
     PartygroupmasteraddComponent,
     VehiclefrtoutstandingrptComponent,
     LhextrapmtreconrptComponent,
+    SubledgermasteraddComponent,
+    SubledgermasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -567,11 +572,14 @@ import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextra
     Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
     Dieselstmtmodel,
     Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,            
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
     Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
     Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
     Vehiclefrtoutstandingrptmodel,
     Lhextrapmtreconrptmodel,
+    Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
   ],
   bootstrap: [AppComponent]
 })

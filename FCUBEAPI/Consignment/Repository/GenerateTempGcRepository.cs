@@ -70,14 +70,16 @@ namespace Consignment.Repository
                                 EwayBillExpDate     = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
                                 InvoiceNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceNo"]),   
                                 InvoiceDt           = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceDt"]),   
-                                GoodsValue          = Convert.ToString(dataSet.Tables[0].Rows[i]["GoodsValue"]),   
+                                GoodsValue          = Convert.ToString(dataSet.Tables[0].Rows[i]["GoodsValue"]),
+                                CnorId              = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorId"]),
                                 CnorName            = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorName"]),  
                                 CnorAdd1            = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd1"]),    
                                 CnorAdd2            = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd2"]),    
                                 CnorAdd3            = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd3"]),    
                                 CnorState           = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorState"]),   
                                 CnorPin             = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorPin"]),   
-                                CnorGst             = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorGst"]),   
+                                CnorGst             = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorGst"]),
+                                CneeId              = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeId"]),
                                 CneeName            = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeName"]),    
                                 CneeAdd1            = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd1"]),    
                                 CneeAdd2            = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd2"]),    
@@ -232,6 +234,7 @@ namespace Consignment.Repository
                             new SqlParameter("@InvoiceNo",              tempgc.InvoiceNo ),
                             new SqlParameter("@InvoiceDt",              tempgc.InvoiceDt  ),
                             new SqlParameter("@GoodsValue",             tempgc.GoodsValue ),
+                            new SqlParameter("@CnorId",                 tempgc.CnorId  ),
                             new SqlParameter("@CnorName",               tempgc.CnorName  ),
                             new SqlParameter("@CnorAdd1",               tempgc.CnorAdd1 ),
                             new SqlParameter("@CnorAdd2",               tempgc.CnorAdd2 ),
@@ -239,6 +242,7 @@ namespace Consignment.Repository
                             new SqlParameter("@CnorState",              tempgc.CnorState  ),
                             new SqlParameter("@CnorPin",                tempgc.CnorPin   ),
                             new SqlParameter("@CnorGst",                tempgc.CnorGst   ),
+                            new SqlParameter("@CneeId",                 tempgc.CneeId  ),
                             new SqlParameter("@CneeName",               tempgc.CneeName  ),
                             new SqlParameter("@CneeAdd1",               tempgc.CneeAdd1  ),
                             new SqlParameter("@CneeAdd2",               tempgc.CneeAdd2 ),
@@ -518,6 +522,42 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
+        public async Task<ConsignmentModel> GetCnorCneeDetails(RequestModel request)
+        {
+            ConsignmentModel tempGc = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@CnorCneeId", request.strRequest)
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnorCneeDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        tempGc.CneeAdd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["Address1"]);
+                        tempGc.CneeAdd2 = Convert.ToString(dataSet.Tables[0].Rows[0]["Address2"]);
+                        tempGc.CneeAdd3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Address3"]);
+                        tempGc.CneeState= Convert.ToString(dataSet.Tables[0].Rows[0]["StateCode"]);
+                        tempGc.CneePin = Convert.ToString(dataSet.Tables[0].Rows[0]["PinCode"]);
+                        tempGc.CneeGst = Convert.ToString(dataSet.Tables[0].Rows[0]["GstNo"]);
+                        tempGc.CneeMobile = Convert.ToString(dataSet.Tables[0].Rows[0]["Mobile1"]);
+                        tempGc.CneeEmail = Convert.ToString(dataSet.Tables[0].Rows[0]["Email"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tempGc;
+        }
+
 
     }
 
