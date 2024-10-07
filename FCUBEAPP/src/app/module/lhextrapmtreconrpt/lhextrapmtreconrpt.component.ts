@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,42 +6,39 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Trippaymentsrptlistmodel  } from 'src/app/models/trippaymentsrptlistmodel';
-import { Trippaymentsrptmodel } from 'src/app/models/trippaymentsrptmodel';
-import { TripPaymentsRptService } from 'src/app/services/trippaymentsrpt.service';
+import { Lhextrapmtreconrptlistmodel} from 'src/app/models/lhextrapmtreconrptlistmodel';
+import { Lhextrapmtreconrptmodel } from 'src/app/models/lhextrapmtreconrptmodel';
+import { LhextrapmtreconrptService } from 'src/app/services/lhextrapmtreconrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-trippaymentsrpt',
-  templateUrl: './trippaymentsrpt.component.html',
-  styleUrls: ['./trippaymentsrpt.component.css']
+  selector: 'app-lhextrapmtreconrpt',
+  templateUrl: './lhextrapmtreconrpt.component.html',
+  styleUrls: ['./lhextrapmtreconrpt.component.css']
 })
-export class TrippaymentsrptComponent {
+export class LhextrapmtreconrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  docRenewalList: Dropdownmodel[] = [];
-    
-  partyList: Dropdownmodel[] = [];
+
+  //locationList: Dropdownmodel[] = [];
+  //partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  transType: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTripPaymentsRptlist: Trippaymentsrptlistmodel = new Trippaymentsrptlistmodel();
+  allLhextrapmtreconrptlist: Lhextrapmtreconrptlistmodel = new Lhextrapmtreconrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'paymentBr',
+    sortColumn: 'fromPlace',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -51,9 +47,9 @@ export class TrippaymentsrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+  }
 
-}
-formFilter!: FormGroup;
+  formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -63,21 +59,20 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private tripPaymentsRptService: TripPaymentsRptService, 
+  constructor(private lhextrapmtreconrptService: LhextrapmtreconrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-    ngOnInit(): void {   
-  
+
+    ngOnInit(): void {     
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
-        
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Trip Payments Report");
+        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "LH Extra Pmt Reconciliation");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -111,68 +106,59 @@ formFilter!: FormGroup;
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(year - 1);
-     // today.setFullYear(year - 1);
 
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+      this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+      
+      if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+        this.fromDate = this.minDate ;
+      }
+      else{
+        this.fromDate = today.toLocaleDateString('en-CA').toString();
+      }   
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
-
-    this.getBranchList();
-    
+      this.getBranchList();
+     // this.getLocationList(); 
+     // this.getPartyList(); 
+      
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.minDate,[Validators.required]),
+        fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
-        vehicleMasterID: new FormControl('',),  
-        transType: new FormControl('',),  
-        pmtType: new FormControl('',),   
-        creditAc: new FormControl('',),  
+        // party: new FormControl('',),  
+        // origin: new FormControl('',),  
+        // destination: new FormControl('',), 
       });
 
-      this.filter.fromDate = this.minDate;
+      this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
-      this.filter.filterStr1  = "";
-      this.filter.filterStr2  = "";
-      this.filter.filterStr3  = "";
+      // this.filter.filterStr1  = "";
+      // this.filter.filterStr2  = "";
+      // this.filter.filterStr3  = "";
   
       this.sharedService.loading=true;
-      this.getBranchList();
-      this.getVehicleNoList(); 
-      this.getDocRefNoList();       
-      this.getTripPaymentsCreditList();
 
-      this.expTripPayments();
+      this.lhextrapmtreconrptlist();
       this.sharedService.loading=false;
     }
+
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
       });
     }
-    getVehicleNoList(): void {
-      this.commonService.getVehicleIdList().subscribe((res) => {
-        this.vehicleList = res;
-      });
-    }
-
-    getTripPaymentsCreditList(): void {
-      this.commonService.getTripPaymentsCreditList().subscribe((res) => {
-        this.creditacList = res;
-      });
-    }
-    
-    getDocRefNoList(): void {
-      this.commonService.getDocRefNoList().subscribe((res) => {
-        this.docRenewalList = res;
-      });
-    }
+    // getLocationList(): void {
+    //   this.commonService.getLocationList().subscribe((res) => {
+    //     this.locationList = res;
+    //   });
+    // }
+    // getPartyList(): void {
+    //   this.commonService.getPartyList().subscribe((res) => {
+    //     this.partyList = res;
+    //   });
+    // }
+  
     
     get f() { return this.formFilter.controls; }
   
@@ -194,85 +180,120 @@ formFilter!: FormGroup;
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
-    expTripPayments(){
+    lhextrapmtreconrptlist(){
       this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 50,
-          serverSide: true,
-          processing: true,
-          searching:false,
-          ajax: (dataTablesParameters: any, callback) => {
-            // Filter setting
-            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-            this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'paymentBr';
-            this.filter.sortOrder = 'asc';
-            this.filter.search = '';
-            callback({
-              recordsTotal: 0,
-              recordsFiltered: 0,
-              data: []
-            });
-            this.tripPaymentsRptService.getTripPaymentsRptList(this.filter).subscribe(resp => {
-               this.allTripPaymentsRptlist = resp;
-                callback({
-                  recordsTotal: resp.pageMetaData.totalCount,
-                  recordsFiltered: resp.pageMetaData.totalCount,
-                  data: []
-                });
+        pagingType: 'full_numbers',
+        pageLength: 50,
+        serverSide: true,
+        processing: true,
+        searching:false,
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'Branch';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+          this.lhextrapmtreconrptService.geLhextrapmtreconrptList(this.filter).subscribe(resp => {
+            this.allLhextrapmtreconrptlist = resp; 
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
               });
-          }, 
-          columns: [ 
+            });
+        }, 
+        columns: [ 
           {
-            title: 'Payment Br ',
-            data: 'paymentBr',
+            title: 'Branch',
+            data: 'chBookStnName',
+          }, 
+          {
+            title: 'Challan No',
+            data: 'challanNo',
+          }, 
+          {
+            title: 'Challan Date',
+            data: 'challanDate',
+          }, 
+          {
+            title: 'From Stn',
+            data: 'chFrom',
+          }, 
+          
+          {
+            title: 'To Stn ',
+            data: 'chTo',
           },  
           {
-            title: 'Pmt Date ',
-            data: 'pmtDate',
+            title: 'Lr No ',
+            data: 'lrNo',
           },    
           {
-            title: 'Vehicle No',
-            data: 'vehicleNo',
+            title: 'Party Name',
+            data: 'partyName',
           },
           {
-            title: 'Trans Type ',
-            data: 'transType',
-          },       
-          {
-            title: 'Qty Ltrs',
-            data: 'qtyLtrs',
+            title: 'Truck No',
+            data: 'truckNo',
           },
           {
-            title: ' Amount Paid',
-            data: 'amountPaid',
+            title: 'Lr Frt',
+            data: 'lrFrt',
+          }, 
+          {
+            title: 'Lorry Hire',
+            data: 'lorryHire',
+          }, 
+          {
+            title: 'ExtHamali Paid',
+            data: 'extHamaliPaid',
+          }, 
+          {
+            title: 'ExtDetn Paid',
+            data: 'extDetnPaid',
+          }, 
+          {
+            title: 'extOthersPaid',
+            data: 'extOthersPaid',
+          }, 
+          {
+            title: 'Billed Hamali',
+            data: 'billedHamali',
           },
           {
-            title: 'Pmt Type ',
-            data: 'pmtType',
+            title: 'Billed Detn',
+            data: 'billedDetn',
           },
           {
-            title: 'Credit Affect ',
-            data: 'creditAffect',
-          },
+            title: 'Billed Others',
+            data: 'billedOthers',
+          }, 
           {
-            title: 'Trip Adj ',
-            data: 'tripAdj',
-          },
+            title: 'Billed Supp',
+            data: 'billedExtraSupp',
+          }, 
           {
-            title: 'Trip No ',
-            data: 'tripNo',
-          },
+            title: 'Bill No',
+            data: 'billNo',
+          }, 
           {
-            title: 'Filling Branch',
-            data: 'fillingStnName',
-          },
-      
+            title: 'MR No',
+            data: 'mRNo',
+          }, 
+          {
+            title: 'MR Amt',
+            data: 'mR_NR_Amt',
+          }, 
         ],
       };
     }
       
-    //Open user details screen
     exportExcel(): void {      
       this.formSubmitted = true;
       if (this.formFilter.invalid) {
@@ -288,17 +309,15 @@ formFilter!: FormGroup;
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr  = selectedDataVal.branch;
-      this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      this.filter.filterStr2   = selectedDataVal.transType?selectedDataVal.transType:"";
-      this.filter.filterStr3  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-      // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      // this.filter.filterStr3  = selectedDataVal.creditAc;
-
-      this.tripPaymentsRptService.getTripPaymentsRptListExcel(this.filter).subscribe(resp => {
+      this.filter.filterStr   = selectedDataVal.branch;
+      // this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+      // this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+      // this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+      this.lhextrapmtreconrptService.getLhextrapmtreconrptExcel(this.filter).subscribe(resp => {
+      
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "TripPayments" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "LH Extra Pmt Reconciliation" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -323,17 +342,12 @@ formFilter!: FormGroup;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr  = selectedDataVal.branch;
-    this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr2   = selectedDataVal.transType?selectedDataVal.transType:"";
-    this.filter.filterStr3  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    // this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
-    // this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    // this.filter.filterStr3  = selectedDataVal.creditAc;
-    
+    this.filter.filterStr   = selectedDataVal.branch;
+    // this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+    //   this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    //   this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
-    this.expTripPayments();
+    this.lhextrapmtreconrptlist();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -341,3 +355,7 @@ formFilter!: FormGroup;
     });
   }
 } 
+
+
+
+

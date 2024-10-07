@@ -41,6 +41,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
                                     <select class="form-control" formControlName="branch">
+                                        <option value="">All</option>
                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                         {{branch.dataName}}
                                     </option>
@@ -125,8 +126,8 @@
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="pmtType"
                                         [ngClass]="" >
-                                        <option selected="">Choose...</option>
-                                        <option value="C"> Cash</option>
+                                        <option value="">Choose...</option>
+                                        <option value="M"> Cash</option>
                                         <option value="B"> Bank</option>
                                         <option value="H"> Happay</option>
                                         <option value="P"> Petro</option>
