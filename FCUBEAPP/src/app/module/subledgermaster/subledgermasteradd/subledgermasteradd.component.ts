@@ -53,6 +53,7 @@ export class SubledgermasteraddComponent {
   creditAcList: Dropdownmodel[] = [];
   ledgerAcList: Dropdownmodel[] = [];
   validateList: Dropdownmodel[] = [];
+  fieldList: Dropdownmodel[] = [];
   subledgermodel = new Subledgermodel();
 
   selectedSubLedgerMasterDetail = new Subledgermodel();
@@ -120,7 +121,7 @@ ngOnInit(): void {
   this.selectedSubLedgerMasterDetail = this.subledgerService.getSubLedgerMasterDetails();
   this.formUser = this.formBuilder.group({
    // transDate : new FormControl(this.loginDate,[Validators.required]),
-    ledgerAc : new FormControl('',),  
+    ledgerAc : new FormControl('',[Validators.required]),  
     createOrPredefined : new FormControl('',[Validators.required]),
     preDefinedQuery : new FormControl('',),
     validateWithDocNo : new FormControl('Y',[Validators.required]),
@@ -150,10 +151,12 @@ ngOnInit(): void {
   // this.formUser.controls["totIgstAmt"].disable();
   // this.formUser.controls["netAmount"].disable();  
   // this.formUser.controls['totItemNetAmount'].disable(); 
-  
-
+ 
+  if (this.selectedSubLedgerMasterDetail.subLedgerId!= '') {
+    this.gettablefield(this.selectedSubLedgerMasterDetail.validateTable);
+  }
   if (this.selectedSubLedgerMasterDetail.subLedgerId  != '') {
-    setTimeout(() => {
+    setTimeout(() => {  
     
     
       this.formUser.patchValue(this.selectedSubLedgerMasterDetail);
@@ -203,6 +206,27 @@ changePreType(e: any) {
  this.formUser.controls['validateTableField'].updateValueAndValidity();
   
   
+}
+changeTableType(e: any) {
+  // console.log(e.target.value);
+  // var selectedValue = e.target.value;
+  // this.commonService.getTableField(selectedValue).subscribe((res) => {
+  //   this.ledgerAcList = res;
+  // });
+
+  // this.requestmodel.strRequest= e.target.value;
+  //   this.commonService.getTableField(this.requestmodel).subscribe((res) => {
+  //     this.fieldList = res;
+  //   });
+    this.gettablefield(e.target.value);
+  
+}
+gettablefield(stf:any){
+  this.requestmodel.strRequest= stf;
+  this.commonService.getTableField(this.requestmodel).subscribe((res) => {
+    this.fieldList = res;
+  });
+
 }
 
 onFocused(e: any) {

@@ -6,6 +6,9 @@ export class Subledgermodel {
     validateWithDocNo: string="";
     validateTable: string="";
     validateTableField: string="";
+    fName: string="";
+    tName: string="";
+    acname: string="";
     loggedInUser: string="";
     subLedgerMasterDtlList: subLedgerMasterDtlList[] = [];
 }

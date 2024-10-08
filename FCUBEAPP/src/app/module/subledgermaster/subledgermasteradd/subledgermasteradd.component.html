@@ -74,7 +74,7 @@
                                             <span style="color: red">*</span>
                                            
 
-                                                <select class="form-control" formControlName="validateTable"
+                                                <select class="form-control" formControlName="validateTable" (change)="changeTableType($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validateTable'].invalid) }">
     
                                                 <option *ngFor="let branch of validateList" value={{branch.dataId}}>
@@ -88,12 +88,19 @@
                                         <div class="mb-3">
                                             <label  for="formrow-inputState">Validate TableField</label>
                                             <span style="color: red">*</span>
-                                            <input uppercaseonly type="text" class="form-control"
-                                                formControlName="validateTableField"  maxlength="25"                                               
+                                           
+
+                                                <select class="form-control" formControlName="validateTableField" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validateTableField'].invalid) }">
+    
+                                                <option *ngFor="let branch of fieldList" value={{branch.dataId}}>
+    
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-3">
+                                    <!-- <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label  for="formrow-inputState">Pre Defined Query</label>
                                             <span style="color: red">*</span>
@@ -106,7 +113,7 @@
                                             </option>
                                         </select>
                                         </div>
-                                    </div>                                    
+                                    </div>                                     -->
                                     
                                     
                                   

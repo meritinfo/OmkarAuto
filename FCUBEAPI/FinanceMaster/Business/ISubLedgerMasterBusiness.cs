@@ -16,5 +16,6 @@ namespace FinanceMaster.Business
         Task<ResponseModel> SubLedgerMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetSubledgerAcList();
         Task<List<DropDownListModel>> GetValidateList();
+        Task<List<DropDownListModel>> GetTableField(RequestModel request);
     }
 }

@@ -46,5 +46,10 @@ namespace FinanceMaster.Business
             return await subLedgerMasterRepository.GetValidateList();
 
         }
+        public async Task<List<DropDownListModel>> GetTableField(RequestModel request)
+        {
+            return await subLedgerMasterRepository.GetTableField(request);
+
+        }
     }
 }

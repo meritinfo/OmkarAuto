@@ -15,6 +15,9 @@ namespace FinanceMaster.Models
         public string? ValidateWithDocNo { get; set; }
         public string? ValidateTable { get; set; }
         public string? ValidateTableField { get; set; }
+        public string? fName { get; set; }
+        public string? tName { get; set; }
+        public string? Acname { get; set; }
         public string? LoggedInUser{ get; set; }
         public List<SubLedgerMasterDtlListmodel>? SubLedgerMasterDtlList { get; set; }
 

@@ -55,7 +55,10 @@ namespace FinanceMaster.Repository
                                 ValidateWithDocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateWithDocNo"]),
                                 ValidateTable = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateTable"]),
                                 ValidateTableField = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateTableField"]),
-                              
+                                fName = Convert.ToString(dataSet.Tables[0].Rows[i]["fName"]),
+                                tName = Convert.ToString(dataSet.Tables[0].Rows[i]["tName"]),
+                                Acname = Convert.ToString(dataSet.Tables[0].Rows[i]["Acname"]),
+
                             });
                         }
 
@@ -201,6 +204,7 @@ namespace FinanceMaster.Repository
                                 SubLedgerId = Convert.ToString(resultData.Tables[0].Rows[i]["SubLedgerId"]),
                                 LedgerAc = Convert.ToString(resultData.Tables[0].Rows[i]["LedgerAc"]),
                                 SubLedgerDesc = Convert.ToString(resultData.Tables[0].Rows[i]["SubLedgerDesc"]),
+
                                
                             });
                         }
@@ -215,8 +219,47 @@ namespace FinanceMaster.Repository
             }
             return subLedgerMasterInnerGridList;
         }
+        public async Task<List<DropDownListModel>> GetTableField(RequestModel request)
+        {
+            //ResponseModel responseModel = new();
 
-        public async Task<List<DropDownListModel>> GetSubledgerAcList()
+            List<DropDownListModel> cardAcLists = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TableFieldId", request.strRequest),
+
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTableField", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            cardAcLists.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return cardAcLists;
+        }
+       
+
+         public async Task<List<DropDownListModel>> GetSubledgerAcList()
         {
             List<DropDownListModel> cardAcList = new();
             try
@@ -255,6 +298,7 @@ namespace FinanceMaster.Repository
             }
             return cardAcList;
         }
+
         public async Task<List<DropDownListModel>> GetValidateList()
         {
             List<DropDownListModel> cardAcList = new();

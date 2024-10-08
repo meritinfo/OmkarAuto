@@ -18,14 +18,14 @@
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
-                            </div>
-                            <div class="col-md-2">
+                            </div> -->
+                            <!-- <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
@@ -37,7 +37,7 @@
                                     <button class="btn btn-primary" type="submit" (click)="search()">
                                         <span>Search</span></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -54,7 +54,7 @@
                             <th>tptName</th>
                             <th>address1</th>
                            
-                            <th>address3</th> 
+                            <!-- <th>address3</th>  -->
                             <th>address1</th>
                       
                             <th>address3</th> 
@@ -67,14 +67,14 @@
                     <tbody *ngIf="allLedgerMaster.subList?.length != 0">
                         <tr *ngFor="let tm of allLedgerMaster.subList">
                          
-                            <td>{{ tm.ledgerAc}}</td>
+                            <td>{{ tm.acname}}</td>
                             <td>{{ tm.createOrPredefined}}</td>
                             <!-- <td>{{ tm.vendor}}</td>  -->
                             <!-- <td>{{ tm.maintType}}</td>  -->
-                            <td>{{ tm.preDefinedQuery}}</td> 
+                            <!-- <td>{{ tm.preDefinedQuery}}</td>  -->
                             <td>{{ tm.validateWithDocNo}}</td> 
-                            <td>{{ tm.validateTable}}</td> 
-                            <td>{{ tm.validateTableField}}</td> 
+                            <td>{{ tm.tName}}</td> 
+                            <td>{{ tm.fName}}</td> 
                  
                                                     
                             <td>                                

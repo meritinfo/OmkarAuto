@@ -17,6 +17,8 @@ namespace FinanceMaster.Repository
         Task<List<DropDownListModel>> GetSubledgerAcList();
         Task<List<DropDownListModel>> GetValidateList();
 
+        Task<List<DropDownListModel>> GetTableField(RequestModel request);
+
 
 
 
