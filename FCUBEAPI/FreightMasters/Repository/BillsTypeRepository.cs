@@ -63,6 +63,8 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
@@ -113,7 +115,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsTypeList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsTypeMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -146,16 +148,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return billsTypeListModel;
         }
@@ -174,7 +167,6 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@BillTypeDesc", requestModel.strRequest),
-                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CheckDuplicateBillType", param);
 
@@ -195,6 +187,8 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
@@ -233,10 +227,42 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
 
+        public async Task<List<DropDownListModel>> GetBillTypesList()
+        {
+            List<DropDownListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillTypeList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return creditacList;
+        }
 
     }
 }

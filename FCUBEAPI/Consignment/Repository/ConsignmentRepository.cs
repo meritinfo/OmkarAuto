@@ -97,6 +97,7 @@ namespace Consignment.Repository
                                 ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
                                 ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
+                                WeightType= Convert.ToString(dataSet.Tables[0].Rows[i]["WeightType"]),
                                 ActualWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 Chargewt = Convert.ToString(dataSet.Tables[0].Rows[i]["Chargewt"]),
                                 VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
@@ -137,7 +138,6 @@ namespace Consignment.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
-
                             });
                         }
 

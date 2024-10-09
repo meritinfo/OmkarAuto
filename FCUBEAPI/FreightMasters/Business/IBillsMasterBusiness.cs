@@ -17,6 +17,7 @@ namespace FreightMasters.Business
         Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
         Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
         Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel);
+        Task<ResponseModel> GetBillPdf(ReportRequestModel request);
 
     }
 }

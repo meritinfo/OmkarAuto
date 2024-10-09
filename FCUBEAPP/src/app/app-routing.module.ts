@@ -65,8 +65,6 @@ import { JournalentrylistComponent } from './module/journalentry/journalentrylis
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
-import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
-import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
 import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
@@ -90,7 +88,6 @@ import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/doc
 import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
 import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
 import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
-import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
 import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
 import { DistancemastertriprptComponent } from './module/distancemastertriprpt/distancemastertriprpt/distancemastertriprpt.component';
 import { EmpmasterlistComponent } from './module/empmaster/empmasterlist/empmasterlist.component';
@@ -106,7 +103,6 @@ import { HappaystatementlistComponent } from './module/happaystatement/happaysta
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
-
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
@@ -176,7 +172,6 @@ import { TyresaleslistComponent } from './module/tyresales/tyresaleslist/tyresal
 import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresalesadd.component';
 import { LhpmslabmasteraddComponent } from './module/lhpmslabmaster/lhpmslabmasteradd/lhpmslabmasteradd.component';
 import { LhpmslabmasterlistComponent } from './module/lhpmslabmaster/lhpmslabmasterlist/lhpmslabmasterlist.component';
-import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
 import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
@@ -208,7 +203,6 @@ import { BillregisterrptComponent } from './module/billregisterrpt/billregisterr
 import { MrregisterrptComponent } from './module/mrregisterrpt/mrregisterrpt.component';
 import { LhpmvariancerptComponent } from './module/lhpmvariancerpt/lhpmvariancerpt.component';
 import { GstregisterrptComponent } from './module/gstregisterrpt/gstregisterrpt.component';
-import { Benificiarymastermodel  } from 'src/app/models/benificiarymastermodel';
 import { BenificiarymasteraddComponent } from './module/benificiarymaster/benificiarymasteradd/benificiarymasteradd.component';
 import { BenificiarymasterlistComponent } from './module/benificiarymaster/benificiarymasterlist/benificiarymasterlist.component';
 import { CnorcneemasterlistComponent } from './module/cnorcneemaster/cnorcneemasterlist/cnorcneemasterlist.component';
@@ -222,9 +216,8 @@ import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmas
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
-
-
-
+import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
+import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
 
 
 const routes: Routes = [
@@ -355,7 +348,6 @@ const routes: Routes = [
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
   { path: 'driverlicrpt', component: DriverlicrptComponent},
- // { path: 'dslstmtrpt', component: DieselstatementrptComponent},
   { path: 'employeemstlist', component:  EmpmasterlistComponent },
   { path: 'employeemstadd', component: EmpmasteraddComponent },  
   { path: 'employeemstedit', component:  EmpmasteraddComponent },
@@ -377,8 +369,7 @@ const routes: Routes = [
   { path: 'salcalcadd', component: EmpsalcalculationaddComponent },  
   { path: 'salcalcedd', component:  EmpsalcalculationaddComponent },
   { path: 'customwizard', component: CustwizardaddComponent },  
-  { path: 'custwizardedit', component: CustwizardaddComponent },  
-
+  { path: 'custwizardedit', component: CustwizardaddComponent }, 
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
   { path: 'acledgerrpt', component:  LedgerrptComponent },  
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
@@ -530,8 +521,12 @@ const routes: Routes = [
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
   { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
   { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
-  { path: 'subledgermasteraddedit', component:  SubledgermasteraddComponent },
+  { path: 'subledgermasteredit', component:  SubledgermasteraddComponent },
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
+  { path: 'billentrysuppadd', component:  BillsuppliaddComponent },
+  { path: 'billentrysuppedit', component:  BillsuppliaddComponent },
+  { path: 'billentrysupplist', component:  BillsupplilistComponent },  
+
 ];
 
 

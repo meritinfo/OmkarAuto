@@ -375,6 +375,8 @@ import { Partygroupmastermodel } from './models/partygroupmastermodel';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
+import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
+import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
 
 @NgModule({
   declarations: [
@@ -501,6 +503,8 @@ import { SubledgermasterlistComponent } from './module/subledgermaster/subledger
     PartygroupmasteraddComponent,
     SubledgermasteraddComponent,
     SubledgermasterlistComponent,
+    BillsuppliaddComponent,
+    BillsupplilistComponent,
   ],
   imports: [
     BrowserModule,

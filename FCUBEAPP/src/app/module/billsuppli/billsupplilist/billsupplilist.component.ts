@@ -11,13 +11,13 @@ import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 
-@Component({
-  selector: 'app-billsmasterlist',
-  templateUrl: './billsmasterlist.component.html',
-  styleUrls: ['./billsmasterlist.component.css']
-})
 
-export class BillsmasterlistComponent {
+@Component({
+  selector: 'app-billsupplilist',
+  templateUrl: './billsupplilist.component.html',
+  styleUrls: ['./billsupplilist.component.css']
+})
+export class BillsupplilistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -59,7 +59,7 @@ export class BillsmasterlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (Supp)"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -103,7 +103,7 @@ export class BillsmasterlistComponent {
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
-    this.filter.strRequest = "N";
+    this.filter.strRequest = "Y";
     this.billsmasterList();
     this.sharedService.loading=false;
   }
@@ -126,7 +126,7 @@ export class BillsmasterlistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.billsMasterService.getBillsMasterList(this.filter)
+        this.billsMasterService.getBillsSuppliList(this.filter)
           .subscribe(resp => {
             this.allBillsMaster = resp;
             callback({
@@ -166,22 +166,22 @@ export class BillsmasterlistComponent {
           title: 'Action',
           data: 'masterId',
         },   
-        {
-          title: 'Print',
-          data: 'masterId',
-        },  
+        // {
+        //   title: 'Print',
+        //   data: 'masterId',
+        // },  
       ],
     };
   }
 
   billsMasterAdd(): void {
-    this.route.navigate(['/billsmasteradd']);
+    this.route.navigate(['/billentrysuppadd']);
   }
   
   //Open user details screen
   getBillsMasterDetails(bill: Billsmastermodel): void {
     this.billsMasterService.setBillsMasterDetails(bill);
-    this.route.navigate(['/billsmasteredit']);
+    this.route.navigate(['/billentrysuppedit']);
   }
 
   download(bill: Billsmastermodel): void {

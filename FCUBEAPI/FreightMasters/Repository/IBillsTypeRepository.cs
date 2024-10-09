@@ -15,6 +15,7 @@ namespace FreightMasters.Repository
         Task<ResponseModel> BillsTypeDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetFinAcList();
         Task<ResponseModel> CheckDuplicateBillType(RequestModel requestModel);
+        Task<List<DropDownListModel>> GetBillTypesList();
 
     }
 }
