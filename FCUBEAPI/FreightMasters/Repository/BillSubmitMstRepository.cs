@@ -190,7 +190,7 @@ namespace FreightMasters.Repository
                            
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillSubmitMstDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillSubmitDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -228,7 +228,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ToDate",     request.ToDate),
                            // new SqlParameter("@Type",       request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
