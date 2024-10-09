@@ -143,6 +143,18 @@ export class CommonService {
   getCardledgerAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetCardledgerAcList', null, this.httpOptions);
   }
+  getSubledgerAcList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubledgerAcList', null, this.httpOptions);
+  }
+  getValidateList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetValidateList', null, this.httpOptions);
+  }
+  // getTableField(payload: any): Observable<any> {
+  //   return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FinanceMasters/GetTableField', payload, this.httpOptions);
+  // }
+  getTableField(request: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetTableField', request, this.httpOptions);
+  }
   getBankAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetBankAcList2', null, this.httpOptions);
   }

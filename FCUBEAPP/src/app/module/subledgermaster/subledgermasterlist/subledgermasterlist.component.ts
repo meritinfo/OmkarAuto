@@ -128,7 +128,7 @@ subLedgerList() {
     columns: [   
       {
         title: 'Ledger Ac',
-        data: 'ledgerAc',
+        data: 'acname',
       },
       {
         title: 'Create/Predefined ',
@@ -139,10 +139,10 @@ subLedgerList() {
       //   title: 'Maint Type',
       //   data: 'maintType',
       // }, 
-      {
-        title: 'Pre Defined Query',
-        data: 'preDefinedQuery',
-      }, 
+      // {
+      //   title: 'Pre Defined Query',
+      //   data: 'preDefinedQuery',
+      // }, 
       {
         title: 'Validate With DocNo',
         data: 'validateWithDocNo',
@@ -155,12 +155,13 @@ subLedgerList() {
       
       {
         title: 'ValidateTable',
-        data: 'validateTable',
+        data: 'tName',
       }, 
       {
         title: 'Validate Table Field',
-        data: 'validateTableField',
+        data: 'fName',
       }, 
+      
      
       {
         title: 'Action',

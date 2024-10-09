@@ -1,0 +1,213 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Freight Outstanding Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-9 col-md-9">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Branch </label>
+                                    <select class="form-control" formControlName="branch">
+                                        
+                                            <option value="">All</option>
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>  -->
+                            
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="vehicleMasterId" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Party </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="party" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-lg-3">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Report Type</label>
+                                    <select id="formrow-inputState" (change)="rptchange($event)"
+                                        formControlName="rptType" 
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="A"> All</option>
+                                        <option value="O"> Only Outstanding </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="col-md-3" *ngIf="rptType">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Spares </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="sparesList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="spareLubId" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>   -->
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3 col-md-3 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>branch</th>
+                                <th>vehicleNo </th>   
+                                <th>tripNo</th>
+                                <th>loadDate </th>   
+                                <th>challanNo</th>
+                                <th>partyName </th>  
+                                <th>fromPlace </th>
+                                <th>toPlace</th> 
+                                <th>totalHire </th>   
+                                <th>recdAmt</th>
+                                <th>dedAmt </th>   
+                                <th>tdsAmt</th>
+                                <th>dueAmt </th>  
+                                                                                          
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allVehiclefrtoutstandingrptlist.vehicleFrtOutstandingRptList?.length != 0">
+                            <tr *ngFor="let eta of allVehiclefrtoutstandingrptlist.vehicleFrtOutstandingRptList">
+                                <td>{{ eta.branch }}</td>
+                                <td>{{ eta.vehicleNo }}</td> 
+                                <td>{{ eta.tripNo }}</td> 
+                                <td>{{ eta.loadDate }}</td> 
+                                <td>{{ eta.challanNo }}</td> 
+                                <td>{{ eta.partyName }}</td>
+                                <td>{{ eta.fromPlace }}</td>
+                                <td>{{ eta.toPlace }}</td>  
+                                <td>{{ eta.totalHire }}</td> 
+                                <td>{{ eta.recdAmt }}</td> 
+                                <td>{{ eta.dedAmt }}</td> 
+                                <td>{{ eta.tdsAmt }}</td> 
+                                <td>{{ eta.dueAmt }}</td>
+                                                                                                               
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allVehiclefrtoutstandingrptlist.vehicleFrtOutstandingRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+

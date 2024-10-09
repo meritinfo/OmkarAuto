@@ -286,6 +286,10 @@ namespace FCUBEAPI
             services.AddScoped<IMonthlyStatementsRepository, MonthlyStatementsRepository>();
             services.AddScoped<IPartyGroupMasterBusiness, PartyGroupMasterBusiness>();
             services.AddScoped<IPartyGroupMasterRepository, PartyGroupMasterRepository>();
+            services.AddScoped<IVehicleFrtOutstandingRptBusiness, VehicleFrtOutstandingRptBusiness>();
+            services.AddScoped<IVehicleFrtOutstandingRptRepository, VehicleFrtOutstandingRptRepository>();
+            services.AddScoped<ILHExtraPmtReconRptBusiness, LHExtraPmtReconRptBusiness>();
+            services.AddScoped<ILHExtraPmtReconRptRepository, LHExtraPmtReconRptRepository>();
             services.AddScoped<ISubLedgerMasterBusiness, SubLedgerMasterBusiness>();
             services.AddScoped<ISubLedgerMasterRepository, SubLedgerMasterRepository>();
 

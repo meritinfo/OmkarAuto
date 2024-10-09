@@ -373,6 +373,10 @@ import { PartygroupmasterlistComponent } from './module/partygroup/partygroupmas
 import { PartygroupmasteraddComponent } from './module/partygroup/partygroupmasteradd/partygroupmasteradd.component';
 import { Partygroupmastermodel } from './models/partygroupmastermodel';
 import { MonthlystatementrptComponent } from './module/monthlystatementrpt/monthlystatementrpt.component';
+import { Vehiclefrtoutstandingrptmodel } from './models/vehiclefrtoutstandingrptmodel';
+import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
+import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
+import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
@@ -501,6 +505,8 @@ import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/bill
     ExpensebudgetsaddComponent, MonthlystatementrptComponent ,  
     CnorcneegstaddComponent ,CnorcneegstlistComponent,    PartygroupmasterlistComponent,
     PartygroupmasteraddComponent,
+    VehiclefrtoutstandingrptComponent,
+    LhextrapmtreconrptComponent,
     SubledgermasteraddComponent,
     SubledgermasterlistComponent,
     BillsuppliaddComponent,
@@ -559,8 +565,23 @@ import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/bill
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Lhpayablestatusrptmodel,
+    Challanregisterrptmodel,
+    Vehiclerepairsrptmodel,
+    Billregisterrptmodel,
+    Mrregisterrptmodel,
+    Lhpmvariancerptmodel,
+    Gstregisterrptmodel,
+    Billregisterrptmodel,Benificiarymastermodel,Cnorcneemastermodel,
+    Dieselstmtmodel,
+    Lhpayablestatusrptmodel,Challanregisterrptmodel,Vehiclerepairsrptmodel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,            
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
+    Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
+    Vehiclefrtoutstandingrptmodel,
+    Lhextrapmtreconrptmodel,
     Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
     Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
   ],
