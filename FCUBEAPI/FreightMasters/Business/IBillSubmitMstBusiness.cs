@@ -7,15 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Repository
+namespace FreightMasters.Business
 {
-    public interface IBillSubmitMstRepository
+    public interface IBillSubmitMstBusiness
     {
         Task<ResponseModel> BillSubmitMstSave(BillSubmitMasterModel billSubmitMasterModel);
         Task<BillSubmitMasterModel> GetBillSubmitMasterInnerGridList(RequestModel request);
         Task<BillSubmitMasterList> GetBillSubmitMasterList(PageFromDtToDtRequest request);
         Task<ResponseModel> BillSubmitMasterDelete(RequestModel req);
-
-
     }
 }

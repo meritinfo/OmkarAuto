@@ -379,6 +379,8 @@ import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
+import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
+import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
 
 @NgModule({
   declarations: [
@@ -507,6 +509,8 @@ import { SubledgermasterlistComponent } from './module/subledgermaster/subledger
     LhextrapmtreconrptComponent,
     SubledgermasteraddComponent,
     SubledgermasterlistComponent,
+    BillsubmitmasteraddComponent,
+    BillsubmitmasterlistComponent,
   ],
   imports: [
     BrowserModule,

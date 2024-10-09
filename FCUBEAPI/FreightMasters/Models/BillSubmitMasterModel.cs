@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinanceMaster.Models
+namespace FreightMasters.Models
 {
     public class BillSubmitMasterModel
     {
@@ -26,5 +26,17 @@ namespace FinanceMaster.Models
         public string? TotalSubmitAmt { get; set; }
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
+        public List<BillSubmitMasterDtlListmodel> BillSubmitMasterDtlList { get; set; }
     }
+        public class BillSubmitMasterDtlListmodel
+    {
+            public string? SubmitDtlId { get; set; }
+            public string? SubmitMstId { get; set; }
+            public string? SubmitDt { get; set; }
+            public string? BillsMasterId { get; set; }
+            public string? BillAmt { get; set; }
+            public string? DtlRemarks { get; set; }
+        
+        }
+    
 }
