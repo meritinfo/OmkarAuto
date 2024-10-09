@@ -45,5 +45,9 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillPartyGstLocationList(requestModel);
         }
+        public async Task<ResponseModel> GetBillPdf(ReportRequestModel request)
+        {
+            return await billsRepository.GetBillPdf(request);
+        }
     }
 }

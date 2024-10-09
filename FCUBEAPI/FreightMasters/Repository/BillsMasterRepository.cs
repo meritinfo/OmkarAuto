@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace FreightMasters.Repository
 {
@@ -67,6 +67,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@TotalNonGstAmt2",    billsModel.TotalNonGstAmt2),
                             new SqlParameter("@TotalGtotal",        billsModel.TotalGtotal),
                             new SqlParameter("@BillRemarks",        billsModel.BillRemarks),
+                            new SqlParameter("@SuppParticulars",    billsModel.SuppParticulars),
+                            new SqlParameter("@EnlcosedDocs",       billsModel.EnlcosedDocs),
                             new SqlParameter("@YearId",             billsModel.YearId),
                             new SqlParameter("@LoggedInUser",       billsModel.LoggedInUser)
                         };
@@ -305,6 +307,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@SuppYN",     request.strRequest),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 
@@ -446,6 +449,10 @@ namespace FreightMasters.Repository
                                 NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
+                                Remarks1= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
+                                Remarks2= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
+                                Remarks3= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
+                                SuppBillDetRemarks= Convert.ToString(dataSet.Tables[0].Rows[i]["SuppBillDetRemarks"]),
                                 Selected = true,
                             });
                         }
@@ -557,7 +564,51 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        
+
+        public async Task<ResponseModel> GetBillPdf(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Bill/";
+                string UrlParam = "?BillingStn=" + request.FilterStr +
+                                    "&BillNo=" + request.FilterStr1 +
+                                    "&YearId=" + request.FilterStr2+
+                                    "&PrintSign=" + request.FilterStr3;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
+
 
     }
 }

@@ -405,7 +405,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
         this.formArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
         this.formArray.controls[i].get("dueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
-        this.formArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
+        this.formArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].oldDueAmt);
         this.formArray.controls[i].get("recdAmt")?.setValue(res.mrDtlsList[i].recdAmt);
         this.formArray.controls[i].get("freightDed")?.setValue(res.mrDtlsList[i].freightDed);
         this.formArray.controls[i].get("claimsDed")?.setValue(res.mrDtlsList[i].claimsDed);
@@ -569,11 +569,66 @@ export class MraddComponent {
     this.calTot();
   }
 
-  calTot(){    
-    var selectedDataVal=this.formUser.getRawValue();
+  amtcheck(i:number, clm:string){
     var amtDue = 0;
     var dedTot = 0;
     var amtrecv = 0;
+
+    var selectedDataVal=this.formUser.getRawValue();
+    if(selectedDataVal.arrayList[i].dueAmt!=""){
+      amtDue = amtDue + parseFloat(selectedDataVal.arrayList[i].dueAmt) ;
+    }
+    if(selectedDataVal.arrayList[i].oldDueAmt!=""){
+      amtDue = amtDue + parseFloat(selectedDataVal.arrayList[i].oldDueAmt) ;
+    }
+    if(selectedDataVal.arrayList[i].recdAmt!=""){
+      amtrecv = parseFloat(selectedDataVal.arrayList[i].recdAmt) ;
+    }
+    if(selectedDataVal.arrayList[i].freightDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].freightDed) ;
+    }
+    if(selectedDataVal.arrayList[i].claimsDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].claimsDed) ;
+    }
+    if(selectedDataVal.arrayList[i].othersDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed) ;
+    }
+    if(selectedDataVal.arrayList[i].bankChrgDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].bankChrgDed) ;
+    }
+    if(selectedDataVal.arrayList[i].othersDed1!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed1) ;
+    }
+    if(selectedDataVal.arrayList[i].othersDed2!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed2) ;
+    }
+    if(selectedDataVal.arrayList[i].othersDed3!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed3) ;
+    }
+    if(selectedDataVal.arrayList[i].recoverable!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
+    }
+    if(selectedDataVal.arrayList[i].tdsDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
+    }      
+    if(selectedDataVal.arrayList[i].sdEmdDed!=""){
+      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].sdEmdDed) ;
+    }
+    
+    if(dedTot + amtrecv > amtDue){
+      this.toasterService.warning("Due Amount Should not be less than Recvd & Deduction");
+      this.formArray.controls[i].get(clm)?.setValue("");
+      return;
+    }
+    else{        
+      this.formArray.controls[i].get("totDed")?.setValue(dedTot);
+      this.calTot();
+    }
+  }
+
+  calTot(){    
+    var selectedDataVal=this.formUser.getRawValue();
+    var dedTot = 0;
     var recdAmt = 0;
     var freightDed = 0;
     var claimsDed = 0;
@@ -583,24 +638,17 @@ export class MraddComponent {
     var othersDed2 = 0;
     var othersDed3 = 0;
     var recoverable = 0;
-    var totDed = 0;
+    var totalDed = 0;
     var tdsDed = 0;
     var sdEmdDed = 0;
     var excessRecd = 0;
-    var others1Recd = 0;
-    var others2Recd = 0;
+    
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
-      amtDue = 0;  dedTot = 0 ; amtrecv = 0 ;  
-      if(selectedDataVal.arrayList[i].dueAmt!=""){
-        amtDue = amtDue + parseFloat(selectedDataVal.arrayList[i].dueAmt) ;
-      }
-      if(selectedDataVal.arrayList[i].oldDueAmt!=""){
-        amtDue = amtDue + parseFloat(selectedDataVal.arrayList[i].oldDueAmt) ;
-      }
+      dedTot = 0 ; 
+     
       if(selectedDataVal.arrayList[i].recdAmt!=""){
         recdAmt = recdAmt + parseFloat(selectedDataVal.arrayList[i].recdAmt) ;
-        amtrecv = parseFloat(selectedDataVal.arrayList[i].recdAmt) ;
       }
       if(selectedDataVal.arrayList[i].freightDed!=""){
         freightDed = freightDed + parseFloat(selectedDataVal.arrayList[i].freightDed);
@@ -645,15 +693,9 @@ export class MraddComponent {
       if(selectedDataVal.arrayList[i].excessRecd!=""){
         excessRecd = excessRecd + parseFloat( selectedDataVal.arrayList[i].excessRecd);
       }
-      
-      if(dedTot + amtrecv > amtDue){
-        this.toasterService.warning("Due Amount Should not be less than Recvd & Deduction");      
-        return;
-      }
-      else{        
-        this.formArray.controls[i].get("totDed")?.setValue(dedTot);
-        totDed = totDed + parseFloat( selectedDataVal.arrayList[i].totDed);
-      }
+        
+      this.formArray.controls[i].get("totDed")?.setValue(dedTot);
+      totalDed = totalDed + dedTot;
     }
     
     if(recdAmt + excessRecd != parseFloat( selectedDataVal.cheqCashAmt)){
@@ -676,7 +718,7 @@ export class MraddComponent {
       totalRecoverable:recoverable,
       totalTDSDed:tdsDed,
       totalSdEmdDed:sdEmdDed,
-      totalDed:totDed,
+      totalDed:totalDed,
       totalExcess:excessRecd,  
       onAcNewAmt:parseFloat( selectedDataVal.cheqCashAmt) - recdAmt - excessRecd 
     });

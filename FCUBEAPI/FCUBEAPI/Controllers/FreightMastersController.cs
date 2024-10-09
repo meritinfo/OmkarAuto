@@ -5,6 +5,7 @@ using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {
@@ -566,6 +567,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetBillsTypeList")]
         public async Task<IActionResult> GetBillsTypeList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billsTypeBusiness.GetBillsTypeList(request);
@@ -616,9 +621,32 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetBillsMasterList")]
         public async Task<IActionResult> GetBillsMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billsMasterBusiness.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillPdf")]
+        public async Task<IActionResult> GetBillPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillPdf(request);
 
                 return Ok(result);
             }
@@ -701,6 +729,23 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("GetBillTypesList")]
+        public async Task<IActionResult> GetBillTypesList()
+        {
+            try
+            {
+                var result = await billsTypeBusiness.GetBillTypesList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("CheckDuplicateRateDesc")]
         public async Task<IActionResult> CheckDuplicateRateDesc(RequestModel req)
         {
@@ -794,6 +839,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetClassificationMasterList")]
         public async Task<IActionResult> GetClassificationMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await classificationMasterBusiness.GetClassificationMasterList(request);
@@ -991,6 +1040,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFreightTripInnerGridList")]
         public async Task<IActionResult> GetFreightTripInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await distanceMasterTripBusiness.GetFreightTripInnerGridList(request);
@@ -1007,6 +1060,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFreightRateInnerGridList")]
         public async Task<IActionResult> GetFreightRateInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await freightRatesMstBusiness.GetFreightRateInnerGridList(request);
@@ -1021,6 +1078,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFreightInnerGridList")]
         public async Task<IActionResult> GetFreightInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await distanceMasterFrtBusiness.GetFreightInnerGridList(request);
@@ -1090,6 +1151,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetConsigneeCnorList")]
         public async Task<IActionResult> GetConsigneeCnorList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await consigneeMasterBusiness.GetConsigneeCnorList(request);
@@ -1195,6 +1260,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetDestinationMasterList")]
         public async Task<IActionResult> GetDestinationMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await freightMastersBusiness.GetDestinationMasterList(request);
@@ -1210,6 +1279,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetDistanceMasterFrtList")]
         public async Task<IActionResult> GetDistanceMasterFrtList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await distanceMasterFrtBusiness.GetDistanceMasterFrtList(request);
@@ -1224,6 +1297,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFreightRatesList")]
         public async Task<IActionResult> GetFreightRatesList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await freightRatesMstBusiness.GetFreightRatesList(request);
@@ -1258,6 +1335,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetDistanceMasterTripList")]
         public async Task<IActionResult> GetDistanceMasterTripList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await distanceMasterTripBusiness.GetDistanceMasterTripList(request);
@@ -1272,6 +1353,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetBranchMasterList")]
         public async Task<IActionResult> GetBranchMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await branchMastersBusiness.GetBranchMasterList(request);
@@ -1286,6 +1371,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetproductMasterList")]
         public async Task<IActionResult> GetProductMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await productMasterBusiness.GetProductMasterList(request);
@@ -1300,6 +1389,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetProductGroupMasterList")]
         public async Task<IActionResult> GetProductGroupMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await productGroupMastersBusiness.GetProductGroupMasterList(request);
@@ -1314,6 +1407,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("LRBillSeriesList")]
         public async Task<IActionResult> LrBillSeriesList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await lr_Bill_SeriesBusiness.LRBillSeriesList(request);
@@ -1328,6 +1425,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetRateTypesList")]
         public async Task<IActionResult> GetRateTypesList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await ratetypesBusiness.GetRateTypesList(request);
@@ -1539,6 +1640,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetLhpmSlabMasterList")]
         public async Task<IActionResult> GetLhpmSlabMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await lhpmSlabMasterBusiness.GetLhpmSlabMasterList(request);
@@ -1945,6 +2050,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetPartyGroupDetailInnergrid")]
         public async Task<IActionResult> GetPartyGroupDetailInnergrid(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await partyGroupMasterBusiness.GetPartyGroupDetailInnergrid(request);

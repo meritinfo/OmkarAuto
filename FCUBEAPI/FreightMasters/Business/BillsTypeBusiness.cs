@@ -1,4 +1,5 @@
-﻿using FreightMasters.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FreightMasters.Models;
 using FreightMasters.Repository;
 using Shared.Models;
 using System;
@@ -36,6 +37,10 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> CheckDuplicateBillType(RequestModel request)
         {
             return await billsTypeRepository.CheckDuplicateBillType(request);
+        }
+        public async Task<List<DropDownListModel>> GetBillTypesList()
+        {
+            return await billsTypeRepository.GetBillTypesList();
         }
     }
 }
