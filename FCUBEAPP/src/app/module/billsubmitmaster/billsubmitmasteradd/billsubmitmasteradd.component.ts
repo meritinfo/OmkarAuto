@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import {  Billsubmitmasterlistmodel } from 'src/app/models/billsubmitmasterlistmodel';
 import { Billsubmitmastermodel } from 'src/app/models/billsubmitmastermodel';
+import { Billsubmitsearchlistmodel } from 'src/app/models/billsubmitsearchlistmodel';
 import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.service';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
@@ -37,6 +38,7 @@ export class BillsubmitmasteraddComponent {
   editMode= false;
   formSubmitted = false;
   keywordLocation = 'dataName';
+  billsubmitsearchlistmodel = new Billsubmitsearchlistmodel();   
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
@@ -144,7 +146,7 @@ export class BillsubmitmasteraddComponent {
 
     arrayList: this.formBuilder.array([this.createSubmitArray()]),
   }); 
-
+  this.getBranchList();
   // this.getBrandList();
   // this.getVendorList();
   // this.getBranchList();
@@ -192,6 +194,11 @@ selectEvent(item: any) {
  
 
 }
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  });
+}
 
 onChangeSearch(search: string) {
   // fetch remote data from here
@@ -205,6 +212,24 @@ onFocused(e: any) {
 startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
   return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
+searchStatement(): void {
+  var selectedDataValue = this.formUser.getRawValue();
+  // if (selectedDataValue.partyCode.dataId) {
+  //   //ignore
+  // }
+  // else{
+  //   this.toasterService.warning(" Party is Invalid");
+  //   return;
+  // } 
+  this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
+
+  this.billSubmitMasterService.getBillsSubmitSearchList(this.requestmodel)
+    .subscribe((res: Billsubmitsearchlistmodel) => {
+    this.billsubmitsearchlistmodel = res;      
+    //this.formBillsMas.controls['partyCode'].disable();
+  });   
+} 
+
 
 // getStateList(): void {
 //   this.commonService.getStateList().subscribe((res) => {
@@ -261,7 +286,27 @@ billSubmitMasterDelete(): void {
   
 exit(): void {
   this.route.navigate(['/vehiclerepairslist']);
-}  
+} 
+selectedData(index: number, event: any) {
+  this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
+ // this.calculateTotal();
+}
+ 
+selectAll(e: any) {
+  if(e.target.checked){
+    // for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+    //   this.DieselStatementmodel.dieselStatementListData[i].selected = true;
+    //   this.formArray.controls[i].get("selected")?.setValue('Y');
+    // }
+  }
+  else{
+    // for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+    //   this.DieselStatementmodel.dieselStatementListData[i].selected = false;
+    //   this.formArray.controls[i].get("selected")?.setValue('');
+    // }
+  }
+  //this.calculateTotal();
+}
 getBillSubmitMasterInnerGridList(): void {
   this.requestmodel.strRequest = this.selectedBillSubmitMasterDetail.submitMstId; 
   this.billSubmitMasterService.getBillSubmitMasterInnerGridList(this.requestmodel).subscribe((res) => {
@@ -373,7 +418,8 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
        
         'billAmt': selectedDataValue.arrayList[i].billAmt,
  
-        'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toLowerCase(),        
+        'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toLowerCase(), 
+       'selected': false
       }) 
     }   
   } 

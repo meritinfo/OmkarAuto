@@ -6,6 +6,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Billsubmitsearchlistmodel } from 'src/app/models/billsubmitsearchlistmodel';
 import { Billsubmitmasterlistmodel } from '../models/billsubmitmasterlistmodel';
 
 @Injectable({
@@ -43,6 +44,9 @@ export class BillSubmitMasterService {
   billSubmitMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillSubmitMasterDelete', req, this.httpOptions);
   }
+  getBillsSubmitSearchList(request: Requestmodel): Observable<Billsubmitsearchlistmodel> {
+    return this.httpClient.post<Billsubmitsearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitSearchList', request, this.httpOptions);
+  }  
 //   chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
 //     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
 //   }

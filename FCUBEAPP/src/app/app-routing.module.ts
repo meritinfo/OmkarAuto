@@ -220,6 +220,8 @@ import { SubledgermasteraddComponent } from './module/subledgermaster/subledgerm
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
+import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
+import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -529,6 +531,9 @@ const routes: Routes = [
   { path: 'billentrysuppadd', component:  BillsuppliaddComponent },
   { path: 'billentrysuppedit', component:  BillsuppliaddComponent },
   { path: 'billentrysupplist', component:  BillsupplilistComponent },  
+  { path: 'billsubmitmasteradd', component:  BillsubmitmasteraddComponent },
+  { path: 'billsubmitmasteredit', component:  BillsubmitmasteraddComponent },
+  { path: 'billsubmitist', component:  BillsubmitmasterlistComponent },  
 
 ];
 

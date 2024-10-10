@@ -184,13 +184,13 @@ billSubmitList() {
 }
 
 addBillSubmitMaster(): void {
-  this.route.navigate(['/vehiclerepmaintadd']);
+  this.route.navigate(['/billsubmitmasteradd']);
 } 
 
 //Open user details screen
 getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
   this.billSubmitMasterService.setBillSubmitMasterDetails(tyre);
-  this.route.navigate(['/vehiclerepmaintmasteredit']);
+  this.route.navigate(['/billsubmitmasteredit']);
 }
 
 search(): void {

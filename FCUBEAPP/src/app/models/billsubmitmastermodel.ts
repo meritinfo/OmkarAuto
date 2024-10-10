@@ -26,5 +26,6 @@ export class BillSubmitMstDtlListmodel {
     billsMasterId: string = "";
     billAmt: string = "";
     dtlRemarks: string = "";
+    selected: boolean = false;
 
 }

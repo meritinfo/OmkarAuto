@@ -16,6 +16,7 @@ import { Usermodel } from './models/usermodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
+import { Billsubmitmastermodel } from './models/billsubmitmastermodel';
 import { Destinationmodel } from './models/destinationmodel';
 import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
 import { Brandmastermodel } from './models/brandmastermodel';
@@ -587,7 +588,7 @@ import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/bill
     Vehiclefrtoutstandingrptmodel,
     Lhextrapmtreconrptmodel,
     Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,
   ],
   bootstrap: [AppComponent]
 })

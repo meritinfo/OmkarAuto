@@ -6,6 +6,7 @@ using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using System.Collections.Generic;
+using FinanceMaster.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1000,6 +1001,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("DistanceMasterTripDelete")]
         public async Task<IActionResult> DistanceMasterTripDelete(RequestModel request)
@@ -2192,6 +2194,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        //[HttpPost("GetDeptList")]
+        //public async Task<IActionResult> GetDeptList()
+        //{
+        //    if (request == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await billSubmitMstBusiness.GetDeptList();
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+      
 
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)

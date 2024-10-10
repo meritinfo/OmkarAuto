@@ -34,5 +34,9 @@ namespace FreightMasters.Business
         {
             return await billSubmitMstRepository.GetBillSubmitMasterList(request);
     }
-}
+        //public async Task<List<DropDownListModel>> GetDeptList()
+        //{
+        //    return await billSubmitMstRepository.GetDeptList();
+        //}
+    }
 }
