@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using System.Collections.Generic;
 using FinanceMaster.Business;
+using FleetTrans.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -2194,25 +2195,40 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPost("GetDeptList")]
-        //public async Task<IActionResult> GetDeptList()
-        //{
-        //    if (request == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await billSubmitMstBusiness.GetDeptList();
+       
+        [HttpPost("GetDeptList")]
+        public async Task<IActionResult> GetDeptList()
+        {
+            try
+            {
+                var result = await billSubmitMstBusiness.GetDeptList();
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-      
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillSubmitSearchList")]
+        public async Task<IActionResult> GetBillSubmitSearchList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billSubmitMstBusiness.GetBillSubmitSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)

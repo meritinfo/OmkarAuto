@@ -3,6 +3,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { Billsubmitmastermodel } from '../models/billsubmitmastermodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
+
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
@@ -44,8 +46,8 @@ export class BillSubmitMasterService {
   billSubmitMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillSubmitMasterDelete', req, this.httpOptions);
   }
-  getBillsSubmitSearchList(request: Requestmodel): Observable<Billsubmitsearchlistmodel> {
-    return this.httpClient.post<Billsubmitsearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitSearchList', request, this.httpOptions);
+  getBillsSubmitSearchList(request: Reportmodel): Observable<Billsubmitmastermodel> {
+    return this.httpClient.post<Billsubmitmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitSearchList', request, this.httpOptions);
   }  
 //   chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
 //     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
@@ -53,7 +55,7 @@ export class BillSubmitMasterService {
   getBillSubmitMasterInnerGridList(request: Requestmodel): Observable<Billsubmitmastermodel> {
     return this.httpClient.post<Billsubmitmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitMasterInnerGridList', request, this.httpOptions);
   }
-  billsubmitMasterSubmitted(user: FormData): Observable<Responsemodel> {
+  billsubmitMasterSubmitted(user: Billsubmitmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillSubmitMstSave', user, this.httpformOptions);
   }
   getBillSubmitMasterList(filter: Filtermodel): Observable<Billsubmitmasterlistmodel> {

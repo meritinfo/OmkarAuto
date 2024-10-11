@@ -47,8 +47,8 @@ namespace FreightMasters.Repository
                              new SqlParameter("@BillsUptoDt" , billSubmitMasterModel.BillsUptoDt),
                              new SqlParameter("@KindAttnTo" , billSubmitMasterModel.KindAttnTo),
                              new SqlParameter("@Remarks" , billSubmitMasterModel.Remarks),
-                             new SqlParameter("@PartyAcceptDt" , billSubmitMasterModel.PartyAcceptDt),
-                             new SqlParameter("@PartyAccceptRemarks" , billSubmitMasterModel.PartyAccceptRemarks),
+                             //new SqlParameter("@PartyAcceptDt" , billSubmitMasterModel.PartyAcceptDt),
+                            // new SqlParameter("@PartyAccceptRemarks" , billSubmitMasterModel.PartyAccceptRemarks),
                              new SqlParameter("@TotalSubmitAmt" , billSubmitMasterModel.TotalSubmitAmt),
                              new SqlParameter("@YearID" , billSubmitMasterModel.YearID),
                             new SqlParameter("@LoggedInUser",       billSubmitMasterModel.LoggedInUser)
@@ -128,58 +128,60 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        //public async Task<BillSubmitSearchListModel> GetBillSubmitSearchList(RequestModel request)
-        //{
-        //    BillSubmitSearchListModel billSubmitSearchList = new();
-        //    List<BillSubmitMasterModel> billSubmitMasterModel = new();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@BillingParty",   request.strRequest),
-        //                };
-        //            var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
+        public async Task<BillSubmitMasterModel> GetBillSubmitSearchList(ReportRequestModel request)
+        {
+            BillSubmitMasterModel billSubmitMasterDtlLists = new();
+            List<BillSubmitMasterDtlListmodel> billSubmitMasterDtlList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@partycode",   request.FilterStr),
+                            new SqlParameter("@submitlocation",   request.FilterStr1),
+                            new SqlParameter("@uptodate",   request.FromDate),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
 
-        //            if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-        //            {
-        //                int totalRecords = 0;
-        //                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-        //                {
-        //                    billSubmitMasterModel.Add(new BillSubmitMasterModel
-        //                    {
-        //                        SubmitDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDtlId"]),
-        //                        SubmitMstId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitMstId"]),
-        //                        SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
-        //                        BillsMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["BillsMasterId"]),
-        //                        BillAmt = Convert.ToString(resultData.Tables[0].Rows[i]["BillAmt"]),
-        //                        DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = 0;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            billSubmitMasterDtlList.Add(new BillSubmitMasterDtlListmodel
+                            {
+                               // SubmitDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDtlId"]),
+                             //   SubmitMstId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitMstId"]),
+                              //  SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
+                                BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillsMasterId"]),
+                                BillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalGtotal"]),
+                             //   DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
 
 
-        //                        // Selected = false
-        //                    });
-        //                }
+                                // Selected = false
+                            });
+                        }
 
-        //                billSubmitSearchList.BillSubmitSearchList = billSubmitMasterModel;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception on database
-        //        //ExceptionModel exceptionModel = new()
-        //        //{
-        //        //    ExceptionMessage = Convert.ToString(ex.Message),
-        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
-        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
-        //        //};
+                        billSubmitMasterDtlLists.BillSubmitMasterDtlList = billSubmitMasterDtlList;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
 
-        //        //ExceptionRepository exception = new(dbconnection);
-        //        //await exception.SaveExceptionDetails(exceptionModel);
-        //    }
-        //    return billSubmitSearchList;
-        //}
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return billSubmitMasterDtlLists;
+        }
         public async Task<BillSubmitMasterModel> GetBillSubmitMasterInnerGridList(RequestModel request)
         {
             BillSubmitMasterModel billSubmitMasterInnerGridList = new()
@@ -223,45 +225,45 @@ namespace FreightMasters.Repository
             }
             return billSubmitMasterInnerGridList;
         }
-        //public async Task<List<DropDownListModel>> GetDeptList()
-        //{
-        //    List<DropDownListModel> cardAcList = new();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
+        public async Task<List<DropDownListModel>> GetDeptList()
+        {
+            List<DropDownListModel> cardAcList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
 
 
-        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetDeptList_Select", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DeptList_Select", null);
 
-        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-        //            {
-        //                for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
-        //                {
-        //                    cardAcList.Add(new DropDownListModel
-        //                    {
-        //                        DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
-        //                        DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception on database
-        //        //ExceptionModel exceptionModel = new()
-        //        //{
-        //        //    ExceptionMessage = Convert.ToString(ex.Message),
-        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
-        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
-        //        //};
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            cardAcList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
 
-        //        //ExceptionRepository exception = new(dbconnection);
-        //        //await exception.SaveExceptionDetails(exceptionModel);
-        //    }
-        //    return cardAcList;
-        //}
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return cardAcList;
+        }
 
         public async Task<ResponseModel> BillSubmitMstDetailSave(SqlTransaction transaction, BillSubmitMasterDtlListmodel billSubmitMasterDtlListmodel)
         {
@@ -344,7 +346,9 @@ namespace FreightMasters.Repository
                                 PartyAcceptDt = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyAcceptDt"]),
                                 PartyAccceptRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyAccceptRemarks"]),
                                 TotalSubmitAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSubmitAmt"]),
-                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"])
+                                Sname = Convert.ToString(dataSet.Tables[0].Rows[i]["Sname"]),
+                                Lname = Convert.ToString(dataSet.Tables[0].Rows[i]["Lname"]),
+                                dname = Convert.ToString(dataSet.Tables[0].Rows[i]["dname"]),
                             });
                         }
 

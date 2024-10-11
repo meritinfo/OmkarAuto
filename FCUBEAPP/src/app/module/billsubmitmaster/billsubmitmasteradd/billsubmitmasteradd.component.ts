@@ -10,10 +10,12 @@ import { Billsubmitsearchlistmodel } from 'src/app/models/billsubmitsearchlistmo
 import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.service';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
+
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
 
@@ -41,8 +43,11 @@ export class BillsubmitmasteraddComponent {
   billsubmitsearchlistmodel = new Billsubmitsearchlistmodel();   
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
+  partyLocationList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
   maintList: Dropdownmodel[] = [];
+  deptList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   vehicleList : Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
@@ -64,7 +69,7 @@ export class BillsubmitmasteraddComponent {
     private billsubmitmastermodel: Billsubmitmastermodel, 
     private billSubmitMasterService:BillSubmitMasterService, 
     private commonService: CommonService,private toastrService: ToastrService,
-    private requestmodel:Requestmodel) {
+    private requestmodel:Requestmodel, private reportmodel:Reportmodel) {
     this.billsubmitmastermodel = new Billsubmitmastermodel();
 
     
@@ -130,13 +135,13 @@ export class BillsubmitmasteraddComponent {
     courierCo : new FormControl('',),
     courierDocketNo : new FormControl('',),
     partyCode : new FormControl('',[Validators.required]),
-    submitLocation : new FormControl(this.loginDate,[Validators.required]),
+    submitLocation : new FormControl('',[Validators.required]),
     deptId : new FormControl('',[Validators.required]),
     billsUptoDt : new FormControl('',[Validators.required]),
     kindAttnTo : new FormControl('',),
     remarks : new FormControl('',),
     partyAcceptDt : new FormControl('',),
-    partyAccceptRemarks : new FormControl('NA',[Validators.required]),
+    partyAccceptRemarks : new FormControl('',),
     totalSubmitAmt : new FormControl('',),
     yearID : new FormControl('',),
    
@@ -147,6 +152,8 @@ export class BillsubmitmasteraddComponent {
     arrayList: this.formBuilder.array([this.createSubmitArray()]),
   }); 
   this.getBranchList();
+  this.getDeptList();
+  this.getBillingPartyList();
   // this.getBrandList();
   // this.getVendorList();
   // this.getBranchList();
@@ -158,7 +165,9 @@ export class BillsubmitmasteraddComponent {
 
   //this.formArray.controls[0].get("sgstAmt")?.disable();   
  // this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
-
+ if (this.selectedBillSubmitMasterDetail.submitMstId != '') {
+  this.getPartyGstLocationList(this.selectedBillSubmitMasterDetail.partyCode);
+}
 
 
   if (this.selectedBillSubmitMasterDetail.submitMstId   != '') {
@@ -167,11 +176,11 @@ export class BillsubmitmasteraddComponent {
       //this.refDocAttachedImage = Constants.UploadFolderPath + 'vehicleRepairs/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
       this.formUser.patchValue(this.selectedBillSubmitMasterDetail);
       this.formUser.patchValue({
-        // transDate: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.transDate),
-        // chequeDate: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.chequeDate),
-        // vendorInvDt: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.vendorInvDt),
+        submitDt: this.commonService.formatDate(this.selectedBillSubmitMasterDetail.submitDt),
+         billsUptoDt: this.commonService.formatDate(this.selectedBillSubmitMasterDetail.billsUptoDt),
+        // billsUptoDt: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.billsUptoDt),
         // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
-        // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
+         partyCode: this.partyList.find(e => e.dataId == this.selectedBillSubmitMasterDetail.partyCode),
       })  
      // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
          
@@ -191,12 +200,29 @@ return this.formUser.get("arrayList") as FormArray;
 
 selectEvent(item: any) {
   // do something with selected item
- 
+  this.getPartyGstLocationList(item.dataId);
 
 }
+
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
+  });
+}
+getPartyGstLocationList(party:string): void {
+  this.requestmodel.strRequest = party;
+  this.commonService.getPartyGstLocationList(this.requestmodel).subscribe((res) => {
+    this.partyLocationList = res;
+  });    
+}
+getDeptList(): void {
+  this.commonService.getDeptList().subscribe((res) => {
+    this.deptList = res;
+  });
+}
+getBillingPartyList(): void {
+  this.commonService.getBillingPartyList().subscribe((res) => {
+    this.partyList = res;
   });
 }
 
@@ -221,11 +247,13 @@ searchStatement(): void {
   //   this.toasterService.warning(" Party is Invalid");
   //   return;
   // } 
-  this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
+  this.reportmodel.filterStr = selectedDataValue.partyCode.dataId;
+  this.reportmodel.filterStr1 = selectedDataValue.submitLocation;
+  this.reportmodel.fromDate =  selectedDataValue.billsUptoDt;
 
-  this.billSubmitMasterService.getBillsSubmitSearchList(this.requestmodel)
-    .subscribe((res: Billsubmitsearchlistmodel) => {
-    this.billsubmitsearchlistmodel = res;      
+  this.billSubmitMasterService.getBillsSubmitSearchList(this.reportmodel)
+    .subscribe((res: Billsubmitmastermodel) => {
+    this.billsubmitmastermodel = res;      
     //this.formBillsMas.controls['partyCode'].disable();
   });   
 } 
@@ -244,6 +272,7 @@ createSubmitArray() {
     billsMasterId: [''],
     billAmt: [''],
     dtlRemarks: [''],
+    selected: [''],
   //  itemQty: ['' ,[Validators.required]],
     //itemRate: ['',[Validators.required]],
 
@@ -265,6 +294,25 @@ removeItem(index: number) {
   this.formTyreArray.removeAt(index);  
 }  
 
+// searchStatement(): void {
+//   var selectedDataValue = this.formUser.getRawValue();
+//   if (selectedDataValue.partyCode.dataId) {
+//     //ignore
+//   }
+//   else{
+//     this.toastrService.warning(" Party is Invalid");
+//     return;
+//   } 
+//   this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
+
+//   this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
+//     .subscribe((res: Billsmastersearchlistmodel) => {
+//     this.billsmastersearchlistmodel = res;      
+//     this.formBillsMaster.controls['partyCode'].disable();
+//   });   
+// } 
+
+
 billSubmitMasterDelete(): void {
   if(this.selectedBillSubmitMasterDetail.submitMstId   != '' ){
   this.requestmodel.strRequest =this.selectedBillSubmitMasterDetail.submitMstId 
@@ -274,7 +322,7 @@ billSubmitMasterDelete(): void {
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/vehiclerepairslist']);
+            this.route.navigate(['/billsubmitist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -285,11 +333,11 @@ billSubmitMasterDelete(): void {
 }
   
 exit(): void {
-  this.route.navigate(['/vehiclerepairslist']);
+  this.route.navigate(['/billsubmitist']);
 } 
 selectedData(index: number, event: any) {
-  this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
- // this.calculateTotal();
+ // this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
+  this.calculateTotal();
 }
  
 selectAll(e: any) {
@@ -333,6 +381,30 @@ getBillSubmitMasterInnerGridList(): void {
     }     
   });
 }
+
+calculateTotal() {
+  var totalSubmitAmt = 0;
+ 
+  var billlist = this.billsubmitmastermodel.billSubmitMasterDtlList
+
+  for (var i = 0; i < billlist.length; i++) {
+    if (billlist[i].selected) {
+      totalSubmitAmt      = totalSubmitAmt     + (billlist[i].billAmt == ""? 0 : parseFloat(billlist[i].billAmt) );
+       
+      
+      
+    
+    }
+  }
+
+  this.formUser.patchValue({
+    totalSubmitAmt      : totalSubmitAmt.toFixed(2),
+
+  });
+}
+
+
+
 submitBillSubmitMasterForm(): void {
   if (this.formUser.invalid) {
     this.toastrService.warning("Please Enter Mandatory Fields ");   
@@ -347,28 +419,8 @@ submitBillSubmitMasterForm(): void {
 
   var selectedDataValue = this.formUser.getRawValue();
 
-  if(selectedDataValue.nonVendor){
-    if (selectedDataValue.vendorName=="") {
-      this.toastrService.warning(" Please enter Vendor Name");   
-      return;
-    }
-  }
-  else{
-    if (selectedDataValue.vendorId.dataId || selectedDataValue.stockType=='S') {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" Invalid Vendor");
-      return;
-    }
-  }
-  if (selectedDataValue.vehicleMasterId.dataId) {
-    //ignore
-  }
-  else{
-    this.toastrService.warning("Invalid Vehicle");
-    return;
-  }
+  
+  
   
   
 this.billsubmitmastermodel.submitMstId = this.selectedBillSubmitMasterDetail.submitMstId ;
@@ -382,14 +434,14 @@ this.billsubmitmastermodel.courierCo= selectedDataValue.courierCo;
 
 
 this.billsubmitmastermodel.courierDocketNo= selectedDataValue.courierDocketNo;
-this.billsubmitmastermodel.partyCode= selectedDataValue.partyCode;
+this.billsubmitmastermodel.partyCode= selectedDataValue.partyCode.dataId;
 this.billsubmitmastermodel.submitLocation= selectedDataValue.submitLocation;
 this.billsubmitmastermodel.deptId= selectedDataValue.deptId;
 this.billsubmitmastermodel.billsUptoDt= selectedDataValue.billsUptoDt;
-this.billsubmitmastermodel.kindAttnTo= selectedDataValue.kindAttnTo;
-this.billsubmitmastermodel.remarks= selectedDataValue.remarks;
-this.billsubmitmastermodel.partyAcceptDt= selectedDataValue.partyAcceptDt;
-this.billsubmitmastermodel.partyAccceptRemarks= selectedDataValue.partyAccceptRemarks;
+this.billsubmitmastermodel.kindAttnTo= selectedDataValue.kindAttnTo.toString().toUpperCase();
+this.billsubmitmastermodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
+//this.billsubmitmastermodel.partyAcceptDt= selectedDataValue.partyAcceptDt;
+//this.billsubmitmastermodel.partyAccceptRemarks= selectedDataValue.partyAccceptRemarks;
 this.billsubmitmastermodel.totalSubmitAmt= selectedDataValue.totalSubmitAmt;
 
 
@@ -431,15 +483,15 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
 
   let formData = new FormData();
   this.formSubmitted = true;
-  formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
+ // formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
   formData.append('datadetails', JSON.stringify(this.billsubmitmastermodel));  
 
-  this.billSubmitMasterService.billsubmitMasterSubmitted(formData).subscribe((res: Responsemodel) => {
+  this.billSubmitMasterService.billsubmitMasterSubmitted(this.billsubmitmastermodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     if (this.responseDetails.status) {
       this.toastrService.success(this.responseDetails.message);
       this.formUser.reset();
-      this.route.navigate(['/vehiclerepairslist']);
+      this.route.navigate(['/billsubmitist']);
     }
     else {
       this.toastrService.warning(this.responseDetails.message);

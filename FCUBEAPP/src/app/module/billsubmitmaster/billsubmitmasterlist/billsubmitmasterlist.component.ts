@@ -128,11 +128,11 @@ billSubmitList() {
     },
     columns: [   
       {
-        title: 'submitStn',
-        data: 'submitStn',
+        title: 'Submit Stn',
+        data: 'Sname',
       },
       {
-        title: 'submitNo',
+        title: 'Submit No',
         data: 'submitNo',
       },
      
@@ -141,11 +141,11 @@ billSubmitList() {
       //   data: 'maintType',
       // }, 
       {
-        title: 'submitDt',
+        title: 'Submit Date',
         data: 'submitDt',
       }, 
       {
-        title: 'submitType',
+        title: 'Submit Type',
         data: 'submitType',
       },
       // {
@@ -155,24 +155,24 @@ billSubmitList() {
       
       
       {
-        title: 'courierCo',
+        title: 'Courier Co',
         data: 'courierCo',
       }, 
       {
-        title: 'courierDocketNo',
+        title: 'Courier Docket No',
         data: 'courierDocketNo',
       }, 
       {
-        title: 'partyCode',
+        title: 'Party Code',
         data: 'partyCode',
       }, 
       {
-        title: 'submitLocation',
-        data: 'submitLocation',
+        title: 'Submit Location',
+        data: 'lname',
       }, 
       {
-        title: 'deptId',
-        data: 'deptId',
+        title: 'Dept Id',
+        data: 'dname',
       }, 
       
       {

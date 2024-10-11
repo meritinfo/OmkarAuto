@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Models
 {
-    internal class BillSubmitSearchListModel
+    public class BillSubmitSearchListModel
     {
         public List<BillSubmitMasterModel> BillSubmitSearchList { get; set; }
     }

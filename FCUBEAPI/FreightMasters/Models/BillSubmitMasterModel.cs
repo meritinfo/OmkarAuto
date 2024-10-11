@@ -26,6 +26,9 @@ namespace FreightMasters.Models
         public string? TotalSubmitAmt { get; set; }
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? Sname { get; set; }
+        public string? dname { get; set; }
+        public string? Lname{ get; set; }
         public List<BillSubmitMasterDtlListmodel> BillSubmitMasterDtlList { get; set; }
     }
         public class BillSubmitMasterDtlListmodel

@@ -17,6 +17,10 @@ export class Billsubmitmastermodel {
     totalSubmitAmt: string = "";
     yearID: string = "";
     loggedInUser: string = "";
+    sname: string = "";
+    lname: string = "";
+    dname: string = "";
+
     billSubmitMasterDtlList: BillSubmitMstDtlListmodel[] = [];
 }
 export class BillSubmitMstDtlListmodel {

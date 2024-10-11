@@ -69,7 +69,7 @@
                     <tbody *ngIf="allSubmitMaster.submitList?.length != 0">
                         <tr *ngFor="let tm of allSubmitMaster.submitList">
                          
-                            <td>{{ tm.submitStn}}</td>
+                            <td>{{ tm.sname}}</td>
                             <td>{{ tm.submitNo}}</td>
                             <!-- <td>{{ tm.vendor}}</td>  -->
                             <!-- <td>{{ tm.maintType}}</td>  -->
@@ -80,8 +80,8 @@
                         
                             <td>{{ tm.courierDocketNo}}</td> 
                             <td>{{ tm.partyCode}}</td> 
-                            <td>{{ tm.submitLocation}}</td> 
-                            <td>{{ tm.deptId}}</td> 
+                            <td>{{ tm.lname}}</td> 
+                            <td>{{ tm.dname}}</td> 
                                                     
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
