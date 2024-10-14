@@ -142,7 +142,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@submitlocation",   request.FilterStr1),
                             new SqlParameter("@uptodate",   request.FromDate),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitSearchList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

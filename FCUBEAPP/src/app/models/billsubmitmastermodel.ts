@@ -1,3 +1,5 @@
+import { BillSubmitMstDtlListmodel } from "./billsubmitmstdtllistmodel";
+
 export class Billsubmitmastermodel {
     submitMstId: string = "";
     submitStn: string = "";
@@ -23,13 +25,4 @@ export class Billsubmitmastermodel {
 
     billSubmitMasterDtlList: BillSubmitMstDtlListmodel[] = [];
 }
-export class BillSubmitMstDtlListmodel {
-    submitDtlId: string = "";
-    submitMstId: string = "";
-    submitDt: string = "";
-    billsMasterId: string = "";
-    billAmt: string = "";
-    dtlRemarks: string = "";
-    selected: boolean = false;
 
-}

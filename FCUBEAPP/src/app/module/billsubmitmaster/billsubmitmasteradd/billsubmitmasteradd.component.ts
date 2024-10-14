@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {  Billsubmitmasterlistmodel } from 'src/app/models/billsubmitmasterlistmodel';
 import { Billsubmitmastermodel } from 'src/app/models/billsubmitmastermodel';
 import { Billsubmitsearchlistmodel } from 'src/app/models/billsubmitsearchlistmodel';
+import { BillSubmitMstDtlListmodel } from 'src/app/models/billsubmitmstdtllistmodel';
 import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.service';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
@@ -40,7 +41,9 @@ export class BillsubmitmasteraddComponent {
   editMode= false;
   formSubmitted = false;
   keywordLocation = 'dataName';
-  billsubmitsearchlistmodel = new Billsubmitsearchlistmodel();   
+  billsubmitmstdtllistmodel = new BillSubmitMstDtlListmodel();   
+  billsubmitmastermodels = new Billsubmitmastermodel();   
+
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   partyLocationList: Dropdownmodel[] = [];
@@ -128,9 +131,9 @@ export class BillsubmitmasteraddComponent {
   this.selectedBillSubmitMasterDetail = this.billSubmitMasterService.getBillSubmitMasterDetails();
   this.formUser = this.formBuilder.group({
     //transDate : new FormControl(this.loginDate,[Validators.required]),
-    submitStn : new FormControl('',),  
+    submitStn : new FormControl(this.branch,),  
     submitNo : new FormControl('',[Validators.required]),
-    submitDt : new FormControl('',[Validators.required]),
+    submitDt : new FormControl(this.loginDate,[Validators.required]),
     submitType : new FormControl('',),
     courierCo : new FormControl('',),
     courierDocketNo : new FormControl('',),
@@ -164,15 +167,19 @@ export class BillsubmitmasteraddComponent {
   // this.getCreditAcList('');
 
   //this.formArray.controls[0].get("sgstAmt")?.disable();   
- // this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
+ // this.formTyreArray.controls[0].get("cgstAmt")?.disable();
+  this.formUser.controls['submitStn'].disable(); 
+  this.formUser.controls['submitNo'].disable();   
+
  if (this.selectedBillSubmitMasterDetail.submitMstId != '') {
+  
   this.getPartyGstLocationList(this.selectedBillSubmitMasterDetail.partyCode);
 }
 
-
+  
   if (this.selectedBillSubmitMasterDetail.submitMstId   != '') {
     setTimeout(() => {
-    
+      
       //this.refDocAttachedImage = Constants.UploadFolderPath + 'vehicleRepairs/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
       this.formUser.patchValue(this.selectedBillSubmitMasterDetail);
       this.formUser.patchValue({
@@ -183,14 +190,18 @@ export class BillsubmitmasteraddComponent {
          partyCode: this.partyList.find(e => e.dataId == this.selectedBillSubmitMasterDetail.partyCode),
       })  
      // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
-         
+           
+    
+       
                 
      
     
       this.getBillSubmitMasterInnerGridList();
       this.editMode =true;
+     
     }, 2000);  
   }
+  this.billSubmitSeriesChange();
 }
 get f() { return this.formUser.controls; }
 
@@ -203,6 +214,16 @@ selectEvent(item: any) {
   this.getPartyGstLocationList(item.dataId);
 
 }
+billSubmitSeriesChange(): void {
+  var selectedData = this.formUser.getRawValue();
+  this.requestmodel.strRequest = selectedData.submitNo;
+  this.commonService.getBillSubmitSeries(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.responseDetails = res;
+    this.formUser.patchValue({
+      submitNo: res.message
+    });
+  });
+}  
 
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
@@ -240,13 +261,14 @@ startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
 };
 searchStatement(): void {
   var selectedDataValue = this.formUser.getRawValue();
-  // if (selectedDataValue.partyCode.dataId) {
-  //   //ignore
-  // }
-  // else{
-  //   this.toasterService.warning(" Party is Invalid");
-  //   return;
-  // } 
+  if (selectedDataValue.partyCode.dataId || selectedDataValue.submitLocation || selectedDataValue.billsUptoDt) {
+    //ignore
+  }
+  else{
+    this.toastrService.warning(" select party , location and uptodate ");
+    return;
+  } 
+  
   this.reportmodel.filterStr = selectedDataValue.partyCode.dataId;
   this.reportmodel.filterStr1 = selectedDataValue.submitLocation;
   this.reportmodel.fromDate =  selectedDataValue.billsUptoDt;
@@ -255,7 +277,24 @@ searchStatement(): void {
     .subscribe((res: Billsubmitmastermodel) => {
     this.billsubmitmastermodel = res;      
     //this.formBillsMas.controls['partyCode'].disable();
+    this.formTyreArray.clear();
+    for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
+      this.formTyreArray.push(this.createSubmitArray());
+      this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
+      this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
+      this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);
+    //  this.formTyreArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
+
+     // this.formArray.controls[i].get("gcNoteNo")?.disable();
+      this.formTyreArray.controls[i].get("billAmt")?.disable();
+     // this.formArray.controls[i].get("bookingDate")?.disable();
+
+   
+} 
   });   
+
+
+  
 } 
 
 
@@ -336,7 +375,7 @@ exit(): void {
   this.route.navigate(['/billsubmitist']);
 } 
 selectedData(index: number, event: any) {
- // this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
+  this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
   this.calculateTotal();
 }
  
@@ -420,7 +459,14 @@ submitBillSubmitMasterForm(): void {
   var selectedDataValue = this.formUser.getRawValue();
 
   
-  
+  var diesellistarray = this.billsubmitmastermodel.billSubmitMasterDtlList;
+    var IsItemSelected = false;
+    for (var i = 0; i < diesellistarray.length; i++) {
+      if (diesellistarray[i].selected) {
+        IsItemSelected = true;
+      }
+    }
+
   
   
 this.billsubmitmastermodel.submitMstId = this.selectedBillSubmitMasterDetail.submitMstId ;
@@ -457,12 +503,13 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
   }
     
   for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-    if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
+    if (selectedDataValue.arrayList[i].billAmt == "" ) {
       this.toastrService.warning("Please Enter Details Properly");
       return;
     } 
     else{
       this.billsubmitmastermodel.billSubmitMasterDtlList.push({
+      
         'submitDtlId': "",
         'submitMstId': "",
         'submitDt': selectedDataValue.submitDt,
@@ -470,7 +517,7 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
        
         'billAmt': selectedDataValue.arrayList[i].billAmt,
  
-        'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toLowerCase(), 
+        'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
        'selected': false
       }) 
     }   

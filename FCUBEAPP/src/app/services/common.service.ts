@@ -226,6 +226,9 @@ export class CommonService {
   getBillSeries(req: Requestmodel):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSeries', req, this.httpOptions);
   }
+  getBillSubmitSeries(req: Requestmodel):  Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSubmitSeries', req, this.httpOptions);
+  }
   checkDuplicateLr(req: Requestmodel): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', req, this.httpOptions);
   }
