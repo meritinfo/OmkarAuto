@@ -47,6 +47,7 @@ namespace FCUBEAPI.Controllers
         readonly IGSTRegisterRptBusiness gSTRegisterRptBusiness;
         readonly ILHExtraPmtReconRptBusiness lHExtraPmtReconRptBusiness;
         readonly IBillSubmitMstBusiness billSubmitMstBusiness;
+        readonly IAdditionalCostRecMasterBusiness additionalCostRecMasterBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -77,7 +78,8 @@ namespace FCUBEAPI.Controllers
             IGSTRegisterRptBusiness _gSTRegisterRptBusiness,
             IPartyGroupMasterBusiness _partyGroupMasterBusiness,
             ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
-            IBillSubmitMstBusiness _billSubmitMstBusiness)
+            IBillSubmitMstBusiness _billSubmitMstBusiness,
+            IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -112,6 +114,7 @@ namespace FCUBEAPI.Controllers
             partyGroupMasterBusiness = _partyGroupMasterBusiness;
             lHExtraPmtReconRptBusiness = _lHExtraPmtReconRptBusiness;
             billSubmitMstBusiness = _billSubmitMstBusiness;
+            additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
         }
 
         /// <summary>
@@ -2220,6 +2223,61 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billSubmitMstBusiness.GetBillSubmitSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAdditionalCostRecMasterList")]
+        public async Task<IActionResult> GetAdditionalCostRecMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.GetAdditionalCostRecMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("AdditionalCostRecMasterSave")]
+        public async Task<IActionResult> AdditionalCostRecMasterSave(AdditionalCostRecMasterModel additionalCostRecMasterModel)
+        {
+            if (additionalCostRecMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.AdditionalCostRecMasterSave(additionalCostRecMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAdditionalCostRecDelete")]
+        public async Task<IActionResult> GetAdditionalCostRecDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.GetAdditionalCostRecDelete(request);
 
                 return Ok(result);
             }

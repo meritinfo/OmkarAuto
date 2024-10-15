@@ -222,6 +222,8 @@ import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsu
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
 import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
 import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
+import { AdditionalcostrecmasteraddComponent } from './module/additionalcostrec/additionalcostrecmasteradd/additionalcostrecmasteradd.component';
+import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec/additionalcostrecmasterlist/additionalcostrecmasterlist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -534,6 +536,10 @@ const routes: Routes = [
   { path: 'billsubmitmasteradd', component:  BillsubmitmasteraddComponent },
   { path: 'billsubmitmasteredit', component:  BillsubmitmasteraddComponent },
   { path: 'billsubmitist', component:  BillsubmitmasterlistComponent },  
+  { path: 'additionalcostrecmasteradd', component:  AdditionalcostrecmasteraddComponent },
+  { path: 'additionalcostrecmasteredit', component:  AdditionalcostrecmasteraddComponent },
+  { path: 'addcostrecmst', component:  AdditionalcostrecmasterlistComponent },  
+
 
 ];
 

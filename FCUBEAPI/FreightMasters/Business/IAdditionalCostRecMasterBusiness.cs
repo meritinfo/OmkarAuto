@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Repository
+namespace FreightMasters.Business
 {
-    public interface IAdditionalCostRecMasterRepository
+    public interface IAdditionalCostRecMasterBusiness
     {
         Task<ResponseModel> AdditionalCostRecMasterSave(AdditionalCostRecMasterModel additionalCostRecMasterModel);
         Task<AdditionalCostRecMasterList> GetAdditionalCostRecMasterList(PageRequest request);
         Task<ResponseModel> GetAdditionalCostRecDelete(RequestModel requestModel);
     }
+
+
 }

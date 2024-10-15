@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Models
 {
-    internal class AdditionalCostRecMasterModel
+    public class AdditionalCostRecMasterModel
     {
+        public string? AddCostID { get; set; }
+        public string? AddCostCode { get; set; }
+        public string? AddCostType { get; set; }
+        public string? AddCostDescription { get; set; }
+        public string? AccountID { get; set; }
+        public string? AffectCosting { get; set; }
+        public string? LoggedInUser { get; set; }
+   
+
     }
 }
