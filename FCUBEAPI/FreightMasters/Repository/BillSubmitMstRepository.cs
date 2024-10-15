@@ -1,4 +1,5 @@
 ﻿
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
@@ -65,15 +66,18 @@ namespace FreightMasters.Repository
                         {
                             for (int i = 0; i < billSubmitMasterModel.BillSubmitMasterDtlList.Count; i++)
                             {
-                                billSubmitMasterModel.BillSubmitMasterDtlList[i].SubmitMstId = SubmitMstId;
+                                if (billSubmitMasterModel.BillSubmitMasterDtlList[i].Selected)
+                               {
+                                    billSubmitMasterModel.BillSubmitMasterDtlList[i].SubmitMstId = SubmitMstId;
 
 
-                                responseModel = await BillSubmitMstDetailSave(transaction, billSubmitMasterModel.BillSubmitMasterDtlList[i]);
-                                if (!responseModel.Status)
-                                {
-                                    transaction.Rollback();
-                                    i = billSubmitMasterModel.BillSubmitMasterDtlList.Count;
-                                }
+                                    responseModel = await BillSubmitMstDetailSave(transaction, billSubmitMasterModel.BillSubmitMasterDtlList[i]);
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = billSubmitMasterModel.BillSubmitMasterDtlList.Count;
+                                    }
+                               }
                             }
                         }
                     }

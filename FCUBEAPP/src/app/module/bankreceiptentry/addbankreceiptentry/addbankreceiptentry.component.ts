@@ -430,7 +430,7 @@ export class AddbankreceiptentryComponent {
           'chequeDate': this.formArray.value[i].chequeDate==''?selectedDataValue.ftmDate:this.formArray.value[i].chequeDate,
           'chequeNo': this.formArray.value[i].chequeNo,
           'narration': this.formArray.value[i].narration.toString().toUpperCase(),
-          'accountID': this.formArray.value[i].accountID.dataId ,
+          'accountID': this.formArray.value[i].accountID.dataId,
           'reference': this.formArray.value[i].reference,
           })
         }

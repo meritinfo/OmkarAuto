@@ -261,13 +261,13 @@ startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
 };
 searchStatement(): void {
   var selectedDataValue = this.formUser.getRawValue();
-  if (selectedDataValue.partyCode.dataId || selectedDataValue.submitLocation || selectedDataValue.billsUptoDt) {
-    //ignore
-  }
-  else{
-    this.toastrService.warning(" select party , location and uptodate ");
-    return;
-  } 
+  // if (selectedDataValue.partyCode.dataId || selectedDataValue.submitLocation || selectedDataValue.billsUptoDt) {
+  //   //ignore
+  // }
+  // else{
+  //   this.toastrService.warning(" select party , location and uptodate");
+  //   return;
+  // } 
   
   this.reportmodel.filterStr = selectedDataValue.partyCode.dataId;
   this.reportmodel.filterStr1 = selectedDataValue.submitLocation;
@@ -407,7 +407,7 @@ getBillSubmitMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);  
       this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);   
       this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);  
-  
+    this.formTyreArray.controls[i].get("selected")?.setValue(res.billSubmitMasterDtlList[i].selected); 
      
     
     //  this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
@@ -430,8 +430,7 @@ calculateTotal() {
     if (billlist[i].selected) {
       totalSubmitAmt      = totalSubmitAmt     + (billlist[i].billAmt == ""? 0 : parseFloat(billlist[i].billAmt) );
        
-      
-      
+    
     
     }
   }
@@ -518,7 +517,8 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
         'billAmt': selectedDataValue.arrayList[i].billAmt,
  
         'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
-       'selected': false
+       'selected': selectedDataValue.arrayList[i].selected?true:false,
+    //  'selected': false
       }) 
     }   
   } 
