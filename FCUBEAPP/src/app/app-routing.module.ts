@@ -540,10 +540,8 @@ const routes: Routes = [
   { path: 'additionalcostrecmasteradd', component:  AdditionalcostrecmasteraddComponent },
   { path: 'additionalcostrecmasteredit', component:  AdditionalcostrecmasteraddComponent },
   { path: 'addcostrecmst', component:  AdditionalcostrecmasterlistComponent },  
-
   { path: 'billentrysupplist', component: BillsupplilistComponent },  
   { path: 'billoutstndrpt', component: BilloutstandingrptComponent },  
-
 ];
 
 

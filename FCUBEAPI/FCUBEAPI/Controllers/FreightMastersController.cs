@@ -80,8 +80,7 @@ namespace FCUBEAPI.Controllers
             IPartyGroupMasterBusiness _partyGroupMasterBusiness,
             ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
             IBillSubmitMstBusiness _billSubmitMstBusiness,
-            IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness)
-            ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
+            IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
             IBillOutstandingRptBusiness _billOutstandingRptBusiness)
            
         {
@@ -2153,6 +2152,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetBillSubmitMasterInnerGridList")]
         public async Task<IActionResult> GetBillSubmitMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billSubmitMstBusiness.GetBillSubmitMasterInnerGridList(request);
@@ -2290,8 +2293,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
-        }
 
         [HttpPost("GetAgeingSummRptExcel")]
         public async Task<IActionResult> GetAgeingSummRptExcel(ReportRequestModel request)
