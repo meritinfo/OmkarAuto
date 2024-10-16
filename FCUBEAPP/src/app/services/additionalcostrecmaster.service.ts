@@ -38,7 +38,7 @@ export class AdditionalcostrecService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/AdditionalCostRecMasterSave', user, this.httpOptions);
   }
   getadditionalcostrecmasterList(filter: Filtermodel): Observable<Additionalcostrecmasterlistmodel> {
-    return this.httpClient.post<Additionalcostrecmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetAdditionalCostRecDelete', filter, this.httpOptions);
+    return this.httpClient.post<Additionalcostrecmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetAdditionalCostRecMasterList', filter, this.httpOptions);
   }
 
   additionalcostrecmasterDelete(req: Requestmodel): Observable<Responsemodel> {

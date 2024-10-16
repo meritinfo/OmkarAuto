@@ -31,7 +31,7 @@
                       
                           <select id="formrow-inputState" 
                           class="form-control form-select ng-pristine ng-touched"
-                              formControlName="cnorCneeFlag"
+                              formControlName="addCostType"
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostType'].invalid) }">
                               <option selected="">Choose...</option>
                               <option value="I"> Income</option>
@@ -52,16 +52,16 @@
                     <div class="mb-3">
                         <label for="basicpill-phoneno-input">Add Cost Description  </label><span style="color:red">*</span>
                         <input uppercaseonly type="text" class="form-control"
-                           formControlName="addCostDescription "
-                           [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostDescription '].invalid) }">                                                                                               
+                           formControlName="addCostDescription"
+                           [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostDescription'].invalid) }">                                                                                               
                      </div>
                     </div>
                       <div class="col-lg-3">
                         <div class="mb-3">
                            <label for="basicpill-phoneno-input">Account ID</label><span style="color:red">*</span>
                              
-                              <select class="form-control" formControlName="accountID "
-                              [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID '].invalid) }">
+                              <select class="form-control" formControlName="accountID"
+                              [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }">
 
                               <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
 
