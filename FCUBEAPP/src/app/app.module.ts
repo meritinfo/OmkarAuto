@@ -381,6 +381,7 @@ import { SubledgermasteraddComponent } from './module/subledgermaster/subledgerm
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
+import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 
 @NgModule({
   declarations: [
@@ -511,6 +512,7 @@ import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/bill
     SubledgermasterlistComponent,
     BillsuppliaddComponent,
     BillsupplilistComponent,
+    BilloutstandingrptComponent,
   ],
   imports: [
     BrowserModule,

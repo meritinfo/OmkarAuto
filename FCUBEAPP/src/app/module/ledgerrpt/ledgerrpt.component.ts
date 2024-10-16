@@ -222,6 +222,7 @@ export class LedgerrptComponent {
         ],
       };
     }
+    
     exportPdf(): void {      
       this.formSubmitted = true;
       if (this.formFilter.invalid) {

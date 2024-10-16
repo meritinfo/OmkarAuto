@@ -44,6 +44,7 @@ namespace FCUBEAPI.Controllers
         readonly ILHPMVarianceRptBusiness lHPMVarianceRptBusiness;
         readonly IGSTRegisterRptBusiness gSTRegisterRptBusiness;
         readonly ILHExtraPmtReconRptBusiness lHExtraPmtReconRptBusiness;
+        readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -73,7 +74,8 @@ namespace FCUBEAPI.Controllers
             ILHPMVarianceRptBusiness _lHPMVarianceRptBusiness,
             IGSTRegisterRptBusiness _gSTRegisterRptBusiness,
             IPartyGroupMasterBusiness _partyGroupMasterBusiness,
-            ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness)
+            ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
+            IBillOutstandingRptBusiness _billOutstandingRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -107,6 +109,7 @@ namespace FCUBEAPI.Controllers
             gSTRegisterRptBusiness = _gSTRegisterRptBusiness;
             partyGroupMasterBusiness = _partyGroupMasterBusiness;
             lHExtraPmtReconRptBusiness = _lHExtraPmtReconRptBusiness;
+            billOutstandingRptBusiness = _billOutstandingRptBusiness;
         }
 
         /// <summary>
@@ -2121,6 +2124,122 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetAgeingSummRptExcel")]
+        public async Task<IActionResult> GetAgeingSummRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetAgeingSummRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAgeingSummBranchRptExcel")]
+        public async Task<IActionResult> GetAgeingSummBranchRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetAgeingSummBranchRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAgeingSummPartyRptExcel")]
+        public async Task<IActionResult> GetAgeingSummPartyRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetAgeingSummPartyRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAgeingDetailRptExcel")]
+        public async Task<IActionResult> GetAgeingDetailRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetAgeingDetailRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOutstandingSummRptExcel")]
+        public async Task<IActionResult> GetOutstandingSummRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetOutstandingSummRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOutstandingDetailRptExcel")]
+        public async Task<IActionResult> GetOutstandingDetailRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetOutstandingDetailRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+       
+        
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         //{

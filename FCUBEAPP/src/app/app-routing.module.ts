@@ -220,6 +220,7 @@ import { SubledgermasteraddComponent } from './module/subledgermaster/subledgerm
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
+import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -528,7 +529,8 @@ const routes: Routes = [
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
   { path: 'billentrysuppadd', component:  BillsuppliaddComponent },
   { path: 'billentrysuppedit', component:  BillsuppliaddComponent },
-  { path: 'billentrysupplist', component:  BillsupplilistComponent },  
+  { path: 'billentrysupplist', component: BillsupplilistComponent },  
+  { path: 'billoutstndrpt', component: BilloutstandingrptComponent },  
 
 ];
 
