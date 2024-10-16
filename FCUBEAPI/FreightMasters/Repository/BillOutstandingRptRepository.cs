@@ -741,6 +741,11 @@ namespace FreightMasters.Repository
                                 ws.Column(m).AdjustToContents();
                             }
 
+                            ws.Column(1).Width = 12;
+                            ws.Column(2).Width = 12;
+                            ws.Column(3).Width = 12;
+                            ws.Column(4).Width = 12;
+
                             ws.Range(6, 5, r, 13).Style.NumberFormat.Format = "0.00";
 
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
