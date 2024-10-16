@@ -1053,6 +1053,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillSubmitSeries")]
+        public async Task<IActionResult> GetBillSubmitSeries(RequestModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetBillSubmitSeries(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TempGcDelete")]
         public async Task<IActionResult> TempGcDelete(RequestModel request)

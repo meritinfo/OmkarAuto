@@ -16,6 +16,7 @@ import { Usermodel } from './models/usermodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
+import { Billsubmitmastermodel } from './models/billsubmitmastermodel';
 import { Destinationmodel } from './models/destinationmodel';
 import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
 import { Brandmastermodel } from './models/brandmastermodel';
@@ -376,11 +377,16 @@ import { MonthlystatementrptComponent } from './module/monthlystatementrpt/month
 import { Vehiclefrtoutstandingrptmodel } from './models/vehiclefrtoutstandingrptmodel';
 import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandingrpt/vehiclefrtoutstandingrpt.component';
 import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
+import { AdditionalcostrecmasterModel } from './models/additionalcostrecmastermodel';
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
+import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
+import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
+import { AdditionalcostrecmasteraddComponent } from './module/additionalcostrec/additionalcostrecmasteradd/additionalcostrecmasteradd.component';
+import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec/additionalcostrecmasterlist/additionalcostrecmasterlist.component';
 import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 
 @NgModule({
@@ -510,8 +516,12 @@ import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billout
     LhextrapmtreconrptComponent,
     SubledgermasteraddComponent,
     SubledgermasterlistComponent,
+    BillsubmitmasteraddComponent,
+    BillsubmitmasterlistComponent,
     BillsuppliaddComponent,
     BillsupplilistComponent,
+    AdditionalcostrecmasteraddComponent,
+    AdditionalcostrecmasterlistComponent,
     BilloutstandingrptComponent,
   ],
   imports: [
@@ -585,7 +595,7 @@ import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billout
     Vehiclefrtoutstandingrptmodel,
     Lhextrapmtreconrptmodel,
     Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
+    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
   ],
   bootstrap: [AppComponent]
 })

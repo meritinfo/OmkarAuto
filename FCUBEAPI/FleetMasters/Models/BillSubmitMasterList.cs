@@ -9,8 +9,7 @@ namespace FreightMasters.Models
 {
     public class BillSubmitMasterList
     {
-        public List<BillSubmitMasterModel> SubmitList { get; set; }
+        public List<BillSubmitMasterModel> BrandList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
-
     }
 }

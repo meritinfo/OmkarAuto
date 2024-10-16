@@ -220,6 +220,10 @@ import { SubledgermasteraddComponent } from './module/subledgermaster/subledgerm
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { BillsuppliaddComponent } from './module/billsuppli/billsuppliadd/billsuppliadd.component';
 import { BillsupplilistComponent } from './module/billsuppli/billsupplilist/billsupplilist.component';
+import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
+import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
+import { AdditionalcostrecmasteraddComponent } from './module/additionalcostrec/additionalcostrecmasteradd/additionalcostrecmasteradd.component';
+import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec/additionalcostrecmasterlist/additionalcostrecmasterlist.component';
 import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 
 const routes: Routes = [
@@ -529,6 +533,14 @@ const routes: Routes = [
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
   { path: 'billentrysuppadd', component:  BillsuppliaddComponent },
   { path: 'billentrysuppedit', component:  BillsuppliaddComponent },
+  { path: 'billentrysupplist', component:  BillsupplilistComponent },  
+  { path: 'billsubmitmasteradd', component:  BillsubmitmasteraddComponent },
+  { path: 'billsubmitmasteredit', component:  BillsubmitmasteraddComponent },
+  { path: 'billsubmitist', component:  BillsubmitmasterlistComponent },  
+  { path: 'additionalcostrecmasteradd', component:  AdditionalcostrecmasteraddComponent },
+  { path: 'additionalcostrecmasteredit', component:  AdditionalcostrecmasteraddComponent },
+  { path: 'addcostrecmst', component:  AdditionalcostrecmasterlistComponent },  
+
   { path: 'billentrysupplist', component: BillsupplilistComponent },  
   { path: 'billoutstndrpt', component: BilloutstandingrptComponent },  
 

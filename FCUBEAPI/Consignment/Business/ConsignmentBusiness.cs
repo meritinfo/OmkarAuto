@@ -93,5 +93,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetCnEnqInnerGridList(request);
         }
+        public async Task<ResponseModel> GetBillSubmitSeries(RequestModel request)
+        {
+            return await consignmentRepository.GetBillSubmitSeries(request);
+        }
     }
 }

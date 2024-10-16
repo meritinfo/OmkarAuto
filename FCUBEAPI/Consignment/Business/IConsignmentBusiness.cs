@@ -27,6 +27,7 @@ namespace Consignment.Business
         Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel);
         Task<ConsignmentModel> GetCnEnqDetails(RequestModel req);
         Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request);
+        Task<ResponseModel> GetBillSubmitSeries(RequestModel request);
     }
 
 }

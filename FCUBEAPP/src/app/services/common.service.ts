@@ -27,6 +27,12 @@ export class CommonService {
   getBranchList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetBranchList', null, this.httpOptions);
   }
+  getPartyGstLocationList(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPartyGstLocationList', req, this.httpOptions);
+  }
+  getDeptList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetDeptList', null, this.httpOptions);
+  }
   getScopeBranchList(req:Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetScopeBranchList', req, this.httpOptions);
   }  
@@ -219,6 +225,9 @@ export class CommonService {
   }
   getBillSeries(req: Requestmodel):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSeries', req, this.httpOptions);
+  }
+  getBillSubmitSeries(req: Requestmodel):  Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSubmitSeries', req, this.httpOptions);
   }
   checkDuplicateLr(req: Requestmodel): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', req, this.httpOptions);
