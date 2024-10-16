@@ -35,6 +35,7 @@ namespace FreightMasters.Models
     public class BillSubmitMasterDtlListmodel
     {
             public string? SubmitDtlId { get; set; }
+
             public string? SubmitMstId { get; set; }
             public string? SubmitDt { get; set; }
             public string? BillsMasterId { get; set; }
