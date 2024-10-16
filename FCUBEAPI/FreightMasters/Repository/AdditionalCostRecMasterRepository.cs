@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Repository
 {
-    public class AdditionalCostRecMasterRepository
+    public class AdditionalCostRecMasterRepository: IAdditionalCostRecMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
@@ -82,7 +82,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetConsigneeCnorList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_AdditionalCostRecMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -95,7 +95,8 @@ namespace FreightMasters.Repository
                                 AddCostCode = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostCode"]),
                                 AddCostType = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostType"]),
                                 AddCostDescription = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostDescription"]),
-                              
+                                AffectCosting = Convert.ToString(dataSet.Tables[0].Rows[i]["AffectCosting"]),
+
                                 // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser "]),
 
                             });

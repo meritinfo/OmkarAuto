@@ -107,10 +107,10 @@ additionalcostrecMasterList(){
         title: 'AddCost Description',
         data: 'addCostDescription',
       },
-      {
-        title: 'Account ID',
-        data: 'accountID',
-      },
+      // {
+      //   title: 'Account ID',
+      //   data: 'accountID',
+      // },
       {
         title: 'Affect Costing',
         data: 'affectCosting',
