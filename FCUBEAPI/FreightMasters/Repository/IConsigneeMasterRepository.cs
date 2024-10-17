@@ -6,7 +6,8 @@ namespace FreightMasters.Repository
     public interface IConsigneeMasterRepository
     {
         Task<ResponseModel> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel);
-        Task<ConsigneeCnorList> GetConsigneeCnorList(PageRequest request);
+        Task<ConsigneeCnorList> GetConsigneeCnorList(ReportRequestModel request);
         Task<ResponseModel> ConsigneeCnorMasterDelete(RequestModel requestModel);
+
     }
 }

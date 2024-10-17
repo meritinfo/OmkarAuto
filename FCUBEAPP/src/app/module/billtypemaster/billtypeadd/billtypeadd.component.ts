@@ -78,8 +78,8 @@ ngOnInit(): void {
     billTypeDesc: new FormControl('',[Validators.required]),
     mainAc: new FormControl('',[Validators.required]),
     otherAc: new FormControl('',[Validators.required]),
-    otherAc2: new FormControl('',[Validators.required]),
-    otherAc3: new FormControl('',[Validators.required]),
+    otherAc2: new FormControl('',),
+    otherAc3: new FormControl('',),
     sacCode: new FormControl('',[Validators.required]),
   });
 

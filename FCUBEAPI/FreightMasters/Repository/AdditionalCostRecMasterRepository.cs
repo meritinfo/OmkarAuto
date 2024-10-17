@@ -94,6 +94,7 @@ namespace FreightMasters.Repository
                                 AddCostID = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostID"]),
                                 AddCostCode = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostCode"]),
                                 AddCostType = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostType"]),
+                                AccountID = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountID"]),
                                 AddCostDescription = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostDescription"]),
                                 AffectCosting = Convert.ToString(dataSet.Tables[0].Rows[i]["AffectCosting"]),
 
@@ -126,6 +127,84 @@ namespace FreightMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return additionalCostRecMasterList;
+        }
+        public async Task<ResponseModel> CheckDuplicateAddCostCode(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AddCostCode", requestModel.strRequest),
+                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateAddCostCode", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateAddCostDescription(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AddCostDescription", requestModel.strRequest),
+                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateAddCostDescription", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> GetAdditionalCostRecDelete(RequestModel requestModel)
         {

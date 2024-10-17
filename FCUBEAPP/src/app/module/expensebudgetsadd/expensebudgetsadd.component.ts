@@ -246,6 +246,15 @@ submitExpenseBudgetForm(): void {
     this.toastrService.warning("Please enter atleast one Record in Details");
     return;
   }
+  const foundDuplicateName = this.expensebudgetsmodel.expenseList.find((data, index) => {
+    return this.expensebudgetsmodel.expenseList.find((x, ind) => x.accountId === data.accountId && index !== ind);
+  })
+  if (foundDuplicateName) {
+    this.toastrService.warning("Duplicate  Account in details grid not allowed");
+    return;
+  }
+
+  
 
   this.formSubmitted = true;
 

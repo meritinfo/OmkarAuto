@@ -82,7 +82,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ConsigneeCnorList> GetConsigneeCnorList(PageRequest request)
+        public async Task<ConsigneeCnorList> GetConsigneeCnorList(ReportRequestModel request)
         {
             ConsigneeCnorList consigneeList = new();
             List<ConsigneeMasterModel> consigneecnorList = new();
@@ -96,7 +96,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@CnorCneeName", request.FilterStr),
+                            new SqlParameter("@BranchCode",  request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetConsigneeCnorList", param);
 
@@ -130,7 +132,8 @@ namespace FreightMasters.Repository
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                                 InActiveDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InActiveDate"]),
                                 OLD_CnorCnee_ID = Convert.ToString(dataSet.Tables[0].Rows[i]["OLD_CnorCnee_ID"]),
-                               // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser "]),
+                                bname = Convert.ToString(dataSet.Tables[0].Rows[i]["bname"]),
+                                // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser "]),
 
 
                             });

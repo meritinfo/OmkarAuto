@@ -8,6 +8,7 @@ using Shared.Models;
 using System.Collections.Generic;
 using FinanceMaster.Business;
 using FleetTrans.Business;
+using FleetMasters.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1155,7 +1156,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetConsigneeCnorList")]
-        public async Task<IActionResult> GetConsigneeCnorList(PageRequest request)
+        public async Task<IActionResult> GetConsigneeCnorList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -2278,6 +2279,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await additionalCostRecMasterBusiness.GetAdditionalCostRecDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAddCostDescription")]
+        public async Task<IActionResult> CheckDuplicateAddCostDescription(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostDescription(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAddCostCode")]
+        public async Task<IActionResult> CheckDuplicateAddCostCode(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostCode(requestModel);
 
                 return Ok(result);
             }

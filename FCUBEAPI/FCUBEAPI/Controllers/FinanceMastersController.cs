@@ -642,7 +642,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("CnorCneeGstDelete")]
-        public async Task<IActionResult> CnorCneeGstDelete(RequestModel req)
+        public async Task<IActionResult> GetCnorCneeGstDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -650,7 +650,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await cnorCneeGstBusiness.CnorCneeGstDelete(req);
+                var result = await cnorCneeGstBusiness.GetCnorCneeGstDelete(req);
 
                 return Ok(result);
             }
@@ -659,7 +659,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-    
+        [HttpPost("GetCnorCneeDtlList")]
+        public async Task<IActionResult> GetCnorCneeDtlList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cnorCneeGstBusiness.GetCnorCneeDtlList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("ExpenseBudgetsSave")]
         public async Task<IActionResult> ExpenseBudgetsSave(ExpenseBudgetsList expenseBudgetsModel)
         {

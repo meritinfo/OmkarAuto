@@ -6,9 +6,12 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Cnorcneemasterlistmodel  } from 'src/app/models/cnorcneemasterlistmodel';
 import { Cnorcneemastermodel } from 'src/app/models/cnorcneemastermodel';
 import { CnorCneeMasterService } from 'src/app/services/cnorcneemaster.service';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { CommonService } from 'src/app/services/common.service';
 
 
 @Component({
@@ -22,25 +25,35 @@ export class CnorcneemasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  branchList: Dropdownmodel[] = [];
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
     allCnorcneeMaster: Cnorcneemasterlistmodel = new Cnorcneemasterlistmodel();
-    filter: Filtermodel = {
+    filter: Reportmodel = {
       pageNumber: 1,
       pageSize: 10,
-      sortColumn: 'doccode',
+      sortColumn: 'fromPlace',
       sortOrder: 'asc',
-      search: ''
-  } 
+      search: '',
+      fromDate: '',
+      toDate: '',
+      filterStr:'',
+      filterStr1:'',
+      filterStr2:'',
+      filterStr3:'',
+    }
+  
+    
   
   formFilter!: FormGroup;
 
   constructor(private cnorCneeMasterService: CnorCneeMasterService,
-    private formBuilder: FormBuilder,private sharedService: SharedService,
+    private formBuilder: FormBuilder,private sharedService: SharedService, private commonService: CommonService,
     private route: Router) {
+
 
 }
 ngOnInit(): void {
@@ -60,12 +73,29 @@ ngOnInit(): void {
   }
 
   this.cnorCneeMasterService.clearCnorcneeMasterModelDetails();
-  this.formFilter = this.formBuilder.group({
-    docDescription: new FormControl(''),
-  });
+  // this.formFilter = this.formBuilder.group({
+  //  // fromDate: new FormControl( this.fromDate,[Validators.required]),
+  // //  toDate: new FormControl(this.loginDate,[Validators.required]),
+  //   branchCode: new FormControl('',),  
+  //   cnorCneeName: new FormControl('',),  
+   
+  // });
+  this.filter.filterStr   = "";
+  this.filter.filterStr1  = "";
+
 
   this.sharedService.loading=true;
+  this.getBranchList();
   this.cnorcneeMasterList();
+  this.formFilter = this.formBuilder.group({
+    //fromDate: new FormControl(this.fromDate,),
+  //  toDate: new FormControl(this.loginDate,),
+  
+    branchCode: new FormControl('',),  
+    cnorCneeName: new FormControl('',),  
+   
+  });
+
   this.sharedService.loading=false;
 }
 cnorcneeMasterList(){
@@ -98,6 +128,10 @@ cnorcneeMasterList(){
     },
     columns: [   
       {
+        title: 'Branch',
+        data: 'bname',
+      },
+      {
         title: 'Cnor Cnee Name',
         data: 'cnorCneeName',
       },
@@ -106,13 +140,14 @@ cnorcneeMasterList(){
         data: 'printName',
       },
       {
+        title: 'Cnor Cnee Flag',
+        data: 'cnorCneeFlag',
+      },
+      {
         title: 'Address 1',
         data: 'address1',
       },
-      {
-        title: 'Address 2',
-        data: 'address2',
-      },
+      
       {
         title: 'Phone',
         data: 'phone',
@@ -135,6 +170,12 @@ addCneeMastermaster(): void {
   this.route.navigate(['/cnorcneemasteradd']);
 }
 
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  });
+}
+
 
 //Open user details screen
 getCneeMasterDetails(Docrenewal: Cnorcneemastermodel): void {
@@ -144,7 +185,8 @@ getCneeMasterDetails(Docrenewal: Cnorcneemastermodel): void {
 
 
 search(): void {
-  this.filter.search = this.formFilter.value.docDescription;
+  this.filter.filterStr = this.formFilter.value.cnorCneeName;
+  this.filter.filterStr1 = this.formFilter.value.branchCode;
   this.sharedService.loading=true;
   this.cnorcneeMasterList();
   this.sharedService.loading=false;

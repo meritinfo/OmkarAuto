@@ -27,13 +27,17 @@ namespace FinanceMaster.Business
         {
             return await cnorCneeGstRepository.GetCnorCneeGstList(request);
         }
-        public async  Task<ResponseModel> CnorCneeGstDelete(RequestModel requestModel)
+        public async  Task<ResponseModel> GetCnorCneeGstDelete(RequestModel requestModel)
          {
-            return await cnorCneeGstRepository.CnorCneeGstDelete(requestModel);
+            return await cnorCneeGstRepository.GetCnorCneeGstDelete(requestModel);
          }
         public async Task<List<DropDownListModel>> GetCneeCnorList()
         {
             return await cnorCneeGstRepository.GetCneeCnorList();
+        }
+        public async Task<CnorCneeGstModel> GetCnorCneeDtlList(RequestModel request)
+        {
+            return await cnorCneeGstRepository.GetCnorCneeDtlList(request);
         }
     }
 }

@@ -40,6 +40,12 @@ export class AdditionalcostrecService {
   getadditionalcostrecmasterList(filter: Filtermodel): Observable<Additionalcostrecmasterlistmodel> {
     return this.httpClient.post<Additionalcostrecmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetAdditionalCostRecMasterList', filter, this.httpOptions);
   }
+  checkDuplicateAddCostCode(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateAddCostCode', req, this.httpOptions);
+  }
+  checkDuplicateAddCostDescription(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateAddCostDescription', req, this.httpOptions);
+  }
 
   additionalcostrecmasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetAdditionalCostRecDelete', req, this.httpOptions);

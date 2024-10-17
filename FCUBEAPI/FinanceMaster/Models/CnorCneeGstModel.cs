@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceMasters.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,12 @@ using System.Threading.Tasks;
 namespace FreightMasters.Models
 {
     public class CnorCneeGstModel
+    {
+        public string? CnorCneeID { get; set; }
+        public List<CnorCneeGstDetailModel> cnorCneeGstDetail { get; set; }
+
+    }
+    public class CnorCneeGstDetailModel
     {
         public string? CnorCneeDetID { get; set; }
         public string? CnorCneeID { get; set; }

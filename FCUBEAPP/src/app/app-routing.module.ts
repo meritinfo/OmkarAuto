@@ -517,7 +517,7 @@ const routes: Routes = [
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
   { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
-  { path: 'cnorcneegst', component: CnorcneegstlistComponent},
+  { path: 'cnorcneegst', component: CnorcneegstaddComponent},
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
   { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
   { path: 'partygroupedit', component:  PartygroupmasteraddComponent },

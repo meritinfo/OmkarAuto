@@ -30,6 +30,14 @@ namespace FreightMasters.Business
         {
             return await additionalCostRecMasterRepository.GetAdditionalCostRecDelete(requestModel);
         }
+        public async Task<ResponseModel> CheckDuplicateAddCostCode(RequestModel requestModel)
+        {
+            return await additionalCostRecMasterRepository.CheckDuplicateAddCostCode(requestModel);
+        }
+        public async Task<ResponseModel> CheckDuplicateAddCostDescription(RequestModel requestModel)
+        {
+            return await additionalCostRecMasterRepository.CheckDuplicateAddCostDescription(requestModel);
+        }
 
 
     }

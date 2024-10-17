@@ -130,7 +130,7 @@ deleteAdditionalcostrecForm(): void {
         if(this.responseDetails.status){
           this.toasterService.success(this.responseDetails.message);
           this.formUser.reset();
-          this.route.navigate(['/searchcnorcnee']);
+          this.route.navigate(['/addcostrecmst']);
         }
         else{
           this.toasterService.warning(this.responseDetails.message);        
@@ -142,7 +142,7 @@ deleteAdditionalcostrecForm(): void {
   }
 }
 exit(): void {
-  this.route.navigate(['/searchcnorcnee']);
+  this.route.navigate(['/addcostrecmst']);
 }
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
@@ -166,6 +166,48 @@ getStateList(): void {
     this.stateList = res;
   });
 }
+chkAddCostDescriptionDuplicate(){
+  var selectedData = this.formUser.getRawValue();
+  
+    this.requestmodel.strRequest = selectedData.addCostDescription;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.additionalcostrecService.checkDuplicateAddCostDescription(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          addCostDescription: ''
+  
+        });
+        
+      }
+    });
+    
+}
+chkAddCostCodeDuplicate(){
+  var selectedData = this.formUser.getRawValue();
+  
+
+    this.requestmodel.strRequest = selectedData.addCostCode;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.additionalcostrecService.checkDuplicateAddCostCode(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          addCostCode: ''
+  
+        });
+        
+      }
+    });
+  }
 getBankAcList(): void {
   this.commonService.getSubledgerAcList().subscribe((res) => {
     this.ledgerAcList = res;

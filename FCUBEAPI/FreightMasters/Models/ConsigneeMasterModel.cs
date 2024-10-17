@@ -32,6 +32,7 @@ namespace FreightMasters.Models
         public string? InActiveDate { get; set; }
      
         public string? OLD_CnorCnee_ID { get; set; }
+        public string? bname { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

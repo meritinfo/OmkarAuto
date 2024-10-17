@@ -112,13 +112,14 @@ ngOnInit(): void {
    contactPerson3: new FormControl('',), 
    mobile3: new FormControl('',), 
    gstNo: new FormControl('',), 
-   isActive: new FormControl('',), 
+   isActive: new FormControl('Y',), 
    inActiveDate: new FormControl('',), 
    olD_CnorCnee_ID: new FormControl('',), 
   });
   this.getBranchList();
   this.getStateList();
-
+  this.formUser.controls['isActive'].disable(); 
+  this.formUser.controls['inActiveDate'].disable(); 
   if (this.selectedCnorCneeMasterDetails.cnorCneeID != '') {
     this.formUser.patchValue(this.selectedCnorCneeMasterDetails);      
     this.editMode = true;
@@ -126,8 +127,11 @@ ngOnInit(): void {
     this.formUser.patchValue({
       inActiveDate: this.commonService.formatDate(this.selectedCnorCneeMasterDetails.inActiveDate)
      
-    })      
+    })   
+    this.formUser.controls['isActive'].enable(); 
+    this.formUser.controls['inActiveDate'].enable();    
   }
+
   
 
   this.sharedService.loading=false;
@@ -154,9 +158,21 @@ deleteCnorCneeMasterForm(): void {
     this.sharedService.loading=false;
   }
 }
+
 exit(): void {
   this.route.navigate(['/searchcnorcnee']);
+} 
+
+onNameChange(){
+  var selectedDataVal =this.formUser.getRawValue();
+  this.formUser.patchValue({
+    printName: selectedDataVal.cnorCneeName.toString().toUpperCase()
+   
+  })   
 }
+
+
+
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
