@@ -292,7 +292,8 @@ namespace FCUBEAPI
             services.AddScoped<ILHExtraPmtReconRptRepository, LHExtraPmtReconRptRepository>();
             services.AddScoped<ISubLedgerMasterBusiness, SubLedgerMasterBusiness>();
             services.AddScoped<ISubLedgerMasterRepository, SubLedgerMasterRepository>();
-
+            services.AddScoped<ITripOutstandingRptRepository, TripOutstandingRptRepository>();
+            services.AddScoped<ITripOutstandingRptBusiness, TripOutstandingRptBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

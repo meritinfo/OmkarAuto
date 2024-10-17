@@ -224,7 +224,7 @@ import { VehiclefrtoutstandingrptComponent } from './module/vehiclefrtoutstandin
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
-
+import { TripoutstandingrptComponent } from './module/tripoutstandingrpt/tripoutstandingrpt.component';
 
 
 
@@ -535,6 +535,7 @@ const routes: Routes = [
   { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
   { path: 'subledgermasteraddedit', component:  SubledgermasteraddComponent },
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
+  { path: 'tripoutstnd', component:  TripoutstandingrptComponent },
 ];
 
 

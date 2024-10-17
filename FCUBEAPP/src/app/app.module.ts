@@ -379,6 +379,8 @@ import { Lhextrapmtreconrptmodel } from './models/lhextrapmtreconrptmodel';
 import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextrapmtreconrpt.component';
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
+import { Tripoutstandingrptmodel } from './models/tripoutstandingrptmodel';
+import { TripoutstandingrptComponent } from './module/tripoutstandingrpt/tripoutstandingrpt.component';
 
 @NgModule({
   declarations: [
@@ -507,6 +509,7 @@ import { SubledgermasterlistComponent } from './module/subledgermaster/subledger
     LhextrapmtreconrptComponent,
     SubledgermasteraddComponent,
     SubledgermasterlistComponent,
+    TripoutstandingrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -580,6 +583,7 @@ import { SubledgermasterlistComponent } from './module/subledgermaster/subledger
     Lhextrapmtreconrptmodel,
     Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
     Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
+    Tripoutstandingrptmodel,
   ],
   bootstrap: [AppComponent]
 })
