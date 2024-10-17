@@ -150,6 +150,12 @@ namespace FinTrans.Repository
                         var filter = "Ledger From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Accounts Ledger Report", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+
+                    }
                 }
             }
             catch (Exception ex)

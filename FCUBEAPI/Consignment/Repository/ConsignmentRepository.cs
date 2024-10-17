@@ -97,6 +97,7 @@ namespace Consignment.Repository
                                 ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
                                 ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
+                                WeightType= Convert.ToString(dataSet.Tables[0].Rows[i]["WeightType"]),
                                 ActualWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 Chargewt = Convert.ToString(dataSet.Tables[0].Rows[i]["Chargewt"]),
                                 VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
@@ -137,7 +138,6 @@ namespace Consignment.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
-
                             });
                         }
 
@@ -641,6 +641,31 @@ namespace Consignment.Repository
                         {  };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        content.Message = Convert.ToString(statusData.Tables[0].Rows[0]["message"]);
+                        content.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return content;
+        }
+        public async Task<ResponseModel> GetBillSubmitSeries(RequestModel request)
+        {
+            ResponseModel content = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {  };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSubmitSeries_Select", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

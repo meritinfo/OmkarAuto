@@ -104,16 +104,6 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Supplimentary</label><span style="color: red"> * </span>
-                                                <select id="role" class="form-select" formControlName="suppYN"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['suppYN'].invalid) }">
-                                                    <option value="Y">Yes</option>
-                                                    <option value="N">No </option>                                  
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
                                                 <label for="formrow-inputCity">Sac Hsn</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="sacHsn" >
@@ -317,7 +307,7 @@
                                     </table>
                                     </div>                               
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Freight</label><span style="color: red"> * </span>
                                                 <input autoclose="false" type="text" class="form-control" 
@@ -325,70 +315,72 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['totalFreight'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Statistical</label>
                                                 <input autoclose="false" type="text" class="form-control"                                                    
                                                     formControlName="totalStatistical">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Fov</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalFov" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Handling</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalHandling" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Total DoorColl</label>
+                                                <label for="formrow-inputCity">Total Door Coll</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalDoorColl" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Total LoadingDetn</label>
+                                                <label for="formrow-inputCity">Total Loading Detn</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalLoadingDetn" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Enroute</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalEnroute" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Misc</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalMisc" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Extras</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalExtras" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Others</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalOthers" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                    </div>
+                                    <div class="row">   
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">GST Type</label><span style="color: red"> * </span>                                           
                                                 <select id="formrow-inputState" class="form-control"
@@ -399,24 +391,22 @@
                                                         <option value="IG">IGST</option>     
                                                 </select>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">                                       
-                                        <div class="col-lg-3">
+                                        </div>                                    
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalSgstAmt" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amt</label>
                                                 <input autoclose="false" type="text" class="form-control" 
                                                     formControlName="totalCgstAmt">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amt</label>
                                                 <input autoclose="false" type="text" class="form-control" 
@@ -425,14 +415,14 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Non GST Amt1</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalNonGstAmt1" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Non GST Amt2</label>
                                                 <input autoclose="false" type="text" class="form-control" 
@@ -463,6 +453,16 @@
                                                 </label>                                                 
                                             </div>
                                         </div>
+                                    </div>                                    
+                                    <div class="row">                         
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Enclosed Docs</label>
+                                                <input uppercaseonly autoclose="false" type="text" 
+                                                    class="form-control"
+                                                    formControlName="enlcosedDocs"  >
+                                            </div>
+                                        </div>     
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { BillsMasterService } from 'src/app/services/billsmaster.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
@@ -47,7 +48,7 @@ export class BillsmasterlistComponent {
   minDate: string = '';
 
   constructor(private billsMasterService: BillsMasterService, 
-    private toasterService: ToastrService,
+    private toasterService: ToastrService, private reportmodel :Reportmodel,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService, private route: Router) {
   }
@@ -95,12 +96,14 @@ export class BillsmasterlistComponent {
       bill_StmtNo: new FormControl(''),
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
+      printSign:new FormControl('Y'),
     });     
 
     this.sharedService.loading=true;     
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+    this.filter.strRequest = "N";
     this.billsmasterList();
     this.sharedService.loading=false;
   }
@@ -162,6 +165,10 @@ export class BillsmasterlistComponent {
         {
           title: 'Action',
           data: 'masterId',
+        },   
+        {
+          title: 'Print',
+          data: 'masterId',
         },  
       ],
     };
@@ -172,22 +179,35 @@ export class BillsmasterlistComponent {
   }
   
   //Open user details screen
-  getBillsMasterDetails(Docrenewal: Billsmastermodel): void {
-    this.billsMasterService.setBillsMasterDetails(Docrenewal);
+  getBillsMasterDetails(bill: Billsmastermodel): void {
+    this.billsMasterService.setBillsMasterDetails(bill);
     this.route.navigate(['/billsmasteredit']);
   }
 
-  download(pdfUrl:string): void {
-    if(pdfUrl=="")
-    {
-      this.toasterService.warning("No Link Found");   
-      return;
-    }
-    else{
-      let link = document.createElement("a");
-      link.href = pdfUrl ;
-      link.click();
-    }
+  download(bill: Billsmastermodel): void {
+    this.reportmodel.pageNumber = 1;
+    this.reportmodel.pageSize = 10;
+    this.reportmodel.sortColumn = '';
+    this.reportmodel.sortOrder = '';
+    this.reportmodel.search = '';
+    this.reportmodel.fromDate = '';
+    this.reportmodel.toDate = '';
+    this.reportmodel.filterStr = bill.billingStation;
+    this.reportmodel.filterStr1 = bill.billNo;
+    this.reportmodel.filterStr2 = bill.yearId;
+    this.reportmodel.filterStr3 = this.formFilter.value.printSign;
+    
+    this.billsMasterService.getBillPdf(this.reportmodel).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "Bill_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/BillPrint/" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
   }
   
   search(): void {

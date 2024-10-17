@@ -55,7 +55,10 @@ namespace FinanceMaster.Repository
                                 ValidateWithDocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateWithDocNo"]),
                                 ValidateTable = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateTable"]),
                                 ValidateTableField = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidateTableField"]),
-                              
+                                fName = Convert.ToString(dataSet.Tables[0].Rows[i]["fName"]),
+                                tName = Convert.ToString(dataSet.Tables[0].Rows[i]["tName"]),
+                                Acname = Convert.ToString(dataSet.Tables[0].Rows[i]["Acname"]),
+
                             });
                         }
 
@@ -133,8 +136,9 @@ namespace FinanceMaster.Repository
                             new SqlParameter("@ValidateWithDocNo",           subLedgerMasterModel.ValidateWithDocNo),
                             new SqlParameter("@ValidateTable",         subLedgerMasterModel.ValidateTable),
                             new SqlParameter("@ValidateTableField",      subLedgerMasterModel.ValidateTableField),
-                       
-                         
+                             new SqlParameter("@LoggedInUser",      subLedgerMasterModel.LoggedInUser),
+
+
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SubLedgerMasterSave", param);
                     string SubLedgerId = "0";
@@ -200,6 +204,7 @@ namespace FinanceMaster.Repository
                                 SubLedgerId = Convert.ToString(resultData.Tables[0].Rows[i]["SubLedgerId"]),
                                 LedgerAc = Convert.ToString(resultData.Tables[0].Rows[i]["LedgerAc"]),
                                 SubLedgerDesc = Convert.ToString(resultData.Tables[0].Rows[i]["SubLedgerDesc"]),
+
                                
                             });
                         }
@@ -213,6 +218,125 @@ namespace FinanceMaster.Repository
 
             }
             return subLedgerMasterInnerGridList;
+        }
+        public async Task<List<DropDownListModel>> GetTableField(RequestModel request)
+        {
+            //ResponseModel responseModel = new();
+
+            List<DropDownListModel> cardAcLists = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TableFieldId", request.strRequest),
+
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTableField", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            cardAcLists.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return cardAcLists;
+        }
+       
+
+         public async Task<List<DropDownListModel>> GetSubledgerAcList()
+        {
+            List<DropDownListModel> cardAcList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "SubledgerAcList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            cardAcList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return cardAcList;
+        }
+
+        public async Task<List<DropDownListModel>> GetValidateList()
+        {
+            List<DropDownListModel> cardAcList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetValidateTableList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            cardAcList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return cardAcList;
         }
         public async Task<ResponseModel> SubLedgerMasterDelete(RequestModel req)
         {

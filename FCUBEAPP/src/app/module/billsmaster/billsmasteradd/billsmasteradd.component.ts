@@ -124,13 +124,14 @@ export class BillsmasteraddComponent implements OnInit {
     this.getBranchList();
     this.getBillingPartyList();
     this.getLocationList();
+    
     this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
+
     this.formBillsMaster = this.formBuilder.group({
       billingStation: new FormControl(this.branch,[Validators.required]),
       billNo: new FormControl('',[Validators.required]),
       billDate: new FormControl(this.loginDate,[Validators.required]),
       dueDate: new FormControl(this.duedate,[Validators.required]),
-      suppYN: new FormControl('N',[Validators.required]),
       sacHsn: new FormControl('',),
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
@@ -156,6 +157,7 @@ export class BillsmasteraddComponent implements OnInit {
       totalNonGstAmt2: new FormControl(''),
       totalGtotal: new FormControl('',[Validators.required]),
       billRemarks: new FormControl('',),
+      enlcosedDocs: new FormControl('',),
   
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
@@ -201,7 +203,6 @@ export class BillsmasteraddComponent implements OnInit {
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
         this.formBillsMaster.controls['partyGstLocation'].disable();
-        this.formBillsMaster.controls['suppYN'].disable();        
       } 
       else{        
         this.billSeriesChange();
@@ -363,21 +364,7 @@ export class BillsmasteraddComponent implements OnInit {
     });
   }
 
-
-  onSuppYNChange(e:any){
-    if(e.target.checked){
-      this.supp = true;
-      this.showButton = false;
-      this.formBillsMaster.controls['totFreight'].enable();
-    }
-    else{
-      this.supp = false;
-      this.showButton = true;
-      this.formBillsMaster.controls['totFreight'].disable();
-    }
-  }
-
-   
+  
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
@@ -526,13 +513,6 @@ export class BillsmasteraddComponent implements OnInit {
       this.toasterService.warning(" Party is Invalid");
       return;
     } 
-    if (selectedDataValue.partyGstLocation.dataId) {
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Party Location is Invalid");
-      return;
-    }
     
     if(parseFloat(selectedDataValue.totalGtotal) > 0 ){
       //ignore
@@ -550,9 +530,9 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.partyCode = selectedDataValue.partyCode.dataId;
     this.billsmastermodel.billStatus = 'N';
     this.billsmastermodel.billType = '1';
-    this.billsmastermodel.partyGstLocation = selectedDataValue.partyGstLocation.dataId;
+    this.billsmastermodel.partyGstLocation = selectedDataValue.partyGstLocation;
     this.billsmastermodel.collBranch = selectedDataValue.collBranch;
-    this.billsmastermodel.suppYN = selectedDataValue.suppYN;
+    this.billsmastermodel.suppYN = "N";
     this.billsmastermodel.sacHsn = selectedDataValue.sacHsn.toString();
     this.billsmastermodel.totalFreight =selectedDataValue.totalFreight.toString();
     this.billsmastermodel.totalStatistical = selectedDataValue.totalStatistical.toString();
@@ -574,6 +554,8 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalNonGstAmt2 = selectedDataValue.totalNonGstAmt2.toString();
     this.billsmastermodel.totalGtotal = selectedDataValue.totalGtotal.toString();
     this.billsmastermodel.billRemarks = selectedDataValue.billRemarks.toString().toUpperCase();
+    this.billsmastermodel.enlcosedDocs = selectedDataValue.enlcosedDocs.toString().toUpperCase();
+    this.billsmastermodel.suppParticulars = "";
     this.billsmastermodel.dueDate= selectedDataValue.dueDate;
     this.billsmastermodel.yearId = this.year;
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
@@ -596,7 +578,7 @@ export class BillsmasteraddComponent implements OnInit {
           'partyCode': selectedDataValue.partyCode.dataId,
           'gcBranch': "",
           'gcYear': "",
-          'gcNoteNo':"",
+          'gcNoteNo':this.billsmastersearchlistmodel.billsMasterSearchList[i].gcNoteNo,
           'consignmentid': this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID,
           'freight': this.billsmastersearchlistmodel.billsMasterSearchList[i].freightRs,
           'statistical': this.billsmastersearchlistmodel.billsMasterSearchList[i].statisticalRs,

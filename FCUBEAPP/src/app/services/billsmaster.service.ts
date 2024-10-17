@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Billsmastersearchlistmodel} from '../models/billsmastersearchlistmodel';
+import { Billsmastersearchlistmodel} from '../models/billsmastersearchlistmodel';
 import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
 import { Constants } from '../common/constants';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { Billsmasterlistmodel } from '../models/billsmasterlistmodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Billsmastermodel } from '../models/billsmastermodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +42,9 @@ export class BillsMasterService {
   getBillsMasterList(filter: Pagerequestwithdatesmodel): Observable<Billsmasterlistmodel> {
     return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterList', filter, this.httpOptions);
   }  
+  getBillsSuppliList(filter: Pagerequestwithdatesmodel): Observable<Billsmasterlistmodel> {
+    return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterList', filter, this.httpOptions);
+  }  
   getBillsStmtCreditAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBillsStmtCreditAcList', null, this.httpOptions);
   }
@@ -61,5 +65,8 @@ export class BillsMasterService {
   }
   checkDuplicateBillsNo(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateBillsNo', request, this.httpOptions);
+  }  
+  getBillPdf(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPdf', filter, this.httpOptions);
   }
 }

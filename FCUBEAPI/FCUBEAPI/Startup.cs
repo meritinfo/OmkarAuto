@@ -28,6 +28,7 @@ using System.Text;
 using AdminMasters.Models;
 using FinanceMaster.Repository;
 using FinanceMaster.Business;
+using FreightMasters.Models;
 
 namespace FCUBEAPI
 {
@@ -294,6 +295,13 @@ namespace FCUBEAPI
             services.AddScoped<ISubLedgerMasterRepository, SubLedgerMasterRepository>();
             services.AddScoped<ITripOutstandingRptRepository, TripOutstandingRptRepository>();
             services.AddScoped<ITripOutstandingRptBusiness, TripOutstandingRptBusiness>();
+            services.AddScoped<IBillSubmitMstBusiness, BillSubmitMstBusiness>();
+            services.AddScoped<IBillSubmitMstRepository, BillSubmitMstRepository>();
+            services.AddScoped<IAdditionalCostRecMasterBusiness, AdditionalCostRecMasterBusiness>();
+            services.AddScoped<IAdditionalCostRecMasterRepository, AdditionalCostRecMasterRepository>();
+            services.AddScoped<IBillOutstandingRptBusiness, BillOutstandingRptBusiness>();
+            services.AddScoped<IBillOutstandingRptRepository, BillOutstandingRptRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
