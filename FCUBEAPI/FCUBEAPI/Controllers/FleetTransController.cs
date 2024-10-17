@@ -205,42 +205,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("TripPaymentsSaveNew")]
-        public async Task<IActionResult> TripPaymentsSaveNew(TripPaymentsModel tripPaymentsModel)
-        {
-            if (tripPaymentsModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripPaymentsBusiness.TripPaymentsSaveNew(tripPaymentsModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("TripPaymentsEdit")]
-        public async Task<IActionResult> TripPaymentsEdit(TripPaymentsModel tripPaymentsModel)
-        {
-            if (tripPaymentsModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripPaymentsBusiness.TripPaymentsEdit(tripPaymentsModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetTripPaymentsList")]
         public async Task<IActionResult> GetTripPaymentsList(ReportRequestModel request)
         {

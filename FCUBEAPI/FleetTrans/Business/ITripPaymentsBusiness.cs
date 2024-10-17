@@ -11,8 +11,6 @@ namespace FleetTrans.Business
     public interface ITripPaymentsBusiness
     {
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
-        Task<ResponseModel> TripPaymentsSaveNew(TripPaymentsModel tripPaymentsModel);
-        Task<ResponseModel> TripPaymentsEdit(TripPaymentsModel tripPaymentsModel);
         Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request);
         Task<TripModel> GetTripDetail(TripVehicleModel request);
         Task<TripModel> GetTripFromAndToDetail(RequestModel request);

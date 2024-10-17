@@ -457,31 +457,17 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr;    
     this.trippaymentsmodel.yearId = this.year;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
-    if( this.trippaymentsmodel.pmtId!=''){
-      this.tripPaymentsService.trippaymentEditSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.toasterService.success(this.responseDetails.message);
-          this.formTripPayment.reset();
-          this.route.navigate(['/trippaymentlist']);
-        }
-        else {
-          this.toasterService.warning(this.responseDetails.message);
-        } 
-      });
-    }
-    else{
-      this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.toasterService.success(this.responseDetails.message);
-          this.formTripPayment.reset();
-          this.route.navigate(['/trippaymentlist']);
-        }
-        else {
-          this.toasterService.warning(this.responseDetails.message);
-        }
-      });
-    }
+
+    this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formTripPayment.reset();
+        this.route.navigate(['/trippaymentlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
+    });
   }
 }
