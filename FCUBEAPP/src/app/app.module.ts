@@ -588,12 +588,6 @@ import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billout
     Vehiclefrtoutstandingrptmodel, Lhextrapmtreconrptmodel,
     Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
-    Benificiarymastermodel,Cnorcneemastermodel,Expensebudgetlistmodel,Cnorcneegstmodel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,
-    Vehiclefrtoutstandingrptmodel,
-    Lhextrapmtreconrptmodel,
-    Benificiarymastermodel, Cnorcneemastermodel, Expensebudgetlistmodel, Cnorcneegstmodel,
-    Lhpayablestatusrptmodel, Challanregisterrptmodel,Vehiclerepairsrptmodel,Partygroupmastermodel,Subledgermodel,
     Tripoutstandingrptmodel,
   ],
   bootstrap: [AppComponent]
