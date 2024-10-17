@@ -701,6 +701,45 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("CheckDuplicateBillsNo")]
+        public async Task<IActionResult> CheckDuplicateBillsNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.CheckDuplicateBillsNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillTypeSacHsn")]
+        public async Task<IActionResult> GetBillTypeSacHsn(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillTypeSacHsn(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+               
+
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
         {

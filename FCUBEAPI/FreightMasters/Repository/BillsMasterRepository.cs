@@ -112,6 +112,71 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> BillsMasterDtlSave(SqlTransaction transaction, BillsDetailModel billsDtl)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillDetailId",   billsDtl.BillDetailId),
+                            new SqlParameter("@BillsMasterId",  billsDtl.BillsMasterId),
+                            new SqlParameter("@BillingStation",    billsDtl.BillingStation),
+                            new SqlParameter("@BillNo", billsDtl.BillNo),
+                            new SqlParameter("@BillDate", billsDtl.BillDate),
+                            new SqlParameter("@BillType", billsDtl.BillType),
+                            new SqlParameter("@PartyCode", billsDtl.PartyCode),
+                            new SqlParameter("@GcBranch", billsDtl.GcBranch),
+                            new SqlParameter("@GcYear", billsDtl.GcYear),
+                            new SqlParameter("@GcNoteNo", billsDtl.GcNoteNo),
+                            new SqlParameter("@Consignmentid", billsDtl.Consignmentid),
+                            new SqlParameter("@Freight", billsDtl.Freight),
+                            new SqlParameter("@Statistical", billsDtl.Statistical),
+                            new SqlParameter("@Fov", billsDtl.Fov),
+                            new SqlParameter("@DoorColl", billsDtl.DoorColl),
+                            new SqlParameter("@Handling", billsDtl.Handling),
+                            new SqlParameter("@LoadingDetn", billsDtl.LoadingDetn),
+                            new SqlParameter("@Enroute", billsDtl.Enroute),
+                            new SqlParameter("@Misc", billsDtl.Misc),
+                            new SqlParameter("@DoorDel", billsDtl.DoorDel),
+                            new SqlParameter("@UnLoading", billsDtl.UnLoading),
+                            new SqlParameter("@Detention", billsDtl.Detention),
+                            new SqlParameter("@Extras", billsDtl.Extras),
+                            new SqlParameter("@Others", billsDtl.Others),
+                            new SqlParameter("@SubTotal", billsDtl.SubTotal),
+                            new SqlParameter("@SgstAmt", billsDtl.SgstAmt),
+                            new SqlParameter("@CgstAmt", billsDtl.CgstAmt),
+                            new SqlParameter("@IgstAmt", billsDtl.IgstAmt),
+                            new SqlParameter("@NonGstAmt1", billsDtl.NonGstAmt1),
+                            new SqlParameter("@NonGstAmt2", billsDtl.NonGstAmt2),
+                            new SqlParameter("@Gtotal", billsDtl.Gtotal),
+                            new SqlParameter("@DedAmt", billsDtl.DedAmt),
+                            new SqlParameter("@YearId", billsDtl.YearId),
+                            new SqlParameter("@SuppBillDetRemarks", billsDtl.SuppBillDetRemarks),
+                            new SqlParameter("@Remarks1", billsDtl.Remarks1),
+                            new SqlParameter("@Remarks2", billsDtl.Remarks2),
+                            new SqlParameter("@Remarks3", billsDtl.Remarks3),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsDtlsSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+            return responseModel;
+        }
 
         public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
         {
@@ -223,71 +288,6 @@ namespace FreightMasters.Repository
             {
                 transaction.Rollback();
             }
-            return responseModel;
-        }
-        public async Task<ResponseModel> BillsMasterDtlSave(SqlTransaction transaction, BillsDetailModel billsDtl)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@BillDetailId",   billsDtl.BillDetailId),
-                            new SqlParameter("@BillsMasterId",  billsDtl.BillsMasterId),
-                            new SqlParameter("@BillingStation",    billsDtl.BillingStation),
-                            new SqlParameter("@BillNo", billsDtl.BillNo),
-                            new SqlParameter("@BillDate", billsDtl.BillDate),
-                            new SqlParameter("@BillType", billsDtl.BillType),
-                            new SqlParameter("@PartyCode", billsDtl.PartyCode),
-                            new SqlParameter("@GcBranch", billsDtl.GcBranch),
-                            new SqlParameter("@GcYear", billsDtl.GcYear),
-                            new SqlParameter("@GcNoteNo", billsDtl.GcNoteNo),
-                            new SqlParameter("@Consignmentid", billsDtl.Consignmentid),
-                            new SqlParameter("@Freight", billsDtl.Freight),
-                            new SqlParameter("@Statistical", billsDtl.Statistical),
-                            new SqlParameter("@Fov", billsDtl.Fov),
-                            new SqlParameter("@DoorColl", billsDtl.DoorColl),
-                            new SqlParameter("@Handling", billsDtl.Handling),
-                            new SqlParameter("@LoadingDetn", billsDtl.LoadingDetn),
-                            new SqlParameter("@Enroute", billsDtl.Enroute),
-                            new SqlParameter("@Misc", billsDtl.Misc),
-                            new SqlParameter("@DoorDel", billsDtl.DoorDel),
-                            new SqlParameter("@UnLoading", billsDtl.UnLoading),
-                            new SqlParameter("@Detention", billsDtl.Detention),                          
-                            new SqlParameter("@Extras", billsDtl.Extras),
-                            new SqlParameter("@Others", billsDtl.Others),
-                            new SqlParameter("@SubTotal", billsDtl.SubTotal),
-                            new SqlParameter("@SgstAmt", billsDtl.SgstAmt),
-                            new SqlParameter("@CgstAmt", billsDtl.CgstAmt),
-                            new SqlParameter("@IgstAmt", billsDtl.IgstAmt),
-                            new SqlParameter("@NonGstAmt1", billsDtl.NonGstAmt1),
-                            new SqlParameter("@NonGstAmt2", billsDtl.NonGstAmt2),
-                            new SqlParameter("@Gtotal", billsDtl.Gtotal),
-                            new SqlParameter("@DedAmt", billsDtl.DedAmt),
-                            new SqlParameter("@YearId", billsDtl.YearId),
-                            new SqlParameter("@SuppBillDetRemarks", billsDtl.SuppBillDetRemarks),
-                            new SqlParameter("@Remarks1", billsDtl.Remarks1),
-                            new SqlParameter("@Remarks2", billsDtl.Remarks2),
-                            new SqlParameter("@Remarks3", billsDtl.Remarks3),
-
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsDtlsSave", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {   }
             return responseModel;
         }
         public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
@@ -548,7 +548,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@BillsNo", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BillsMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateBillNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -564,7 +564,33 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
 
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillTypeId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillTypeSacHsn", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetBillPdf(ReportRequestModel request)
         {
             ResponseModel responseModel = new();

@@ -48,7 +48,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
-                                                    <input type="checkbox" (change)="onChkCancel($event)"
+                                                    <input type="checkbox"  (change)="onChkCancel($event)"
                                                         class="form-check-input mt-10" formControlName="mrStatus" >
                                                     <label for="formrow-inputZip"> Cancel </label>
                                                 </div>
@@ -107,7 +107,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
-                                                    <input type="checkbox" (change)="onChkGroup($event)"
+                                                    <input type="checkbox"  (change)="onChkGroup($event)"
                                                         class="form-check-input mt-10" formControlName="groupMrYN" >
                                                     <label for="formrow-inputZip"> Group MR </label>
                                                 </div>
@@ -165,7 +165,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <div class="form-check mt-4">
-                                                            <input type="checkbox" (change)="onTotAc($event)"
+                                                            <input type="checkbox"  (change)="onTotAc($event)"
                                                                 class="form-check-input mt-10" formControlName="onAcStatus" >
                                                             <label for="formrow-inputZip"> Total On Ac </label>
                                                         </div>
@@ -186,7 +186,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <input type="checkbox" (change)="onAcAdjusted($event)"
+                                                        <input type="checkbox"  (change)="onAcAdjusted($event)"
                                                         class="form-check-input mt-10" formControlName="onAcAdjMrYn" >
                                                         <label for="formrow-inputZip">  Adj On Account</label>
                                                     </div>
@@ -208,7 +208,7 @@
                                                                 <div [formGroupName]="i" class="grid-table">
                                                                     <td>
                                                                         <div class="mb-3">
-                                                                            <input type="checkbox" name="select" 
+                                                                            <input type="checkbox"  name="select" 
                                                                                 class="form-check-input"
                                                                                 (change)="selectedData(i, $event)" 
                                                                                 formControlName="selected">
@@ -504,7 +504,7 @@
                             </div>
                             <div class="col-lg-2">                                
                                 <div class="form-check">
-                                    <input type="checkbox" formControlName="neftYN" 
+                                    <input type="checkbox"  formControlName="neftYN" 
                                         (change)="onneftChange($event)"
                                         class="form-check-input" >
                                     <label for="neft" class="form-check-label">Neft/Rtgs
