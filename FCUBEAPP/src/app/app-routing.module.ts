@@ -225,6 +225,9 @@ import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsub
 import { AdditionalcostrecmasteraddComponent } from './module/additionalcostrec/additionalcostrecmasteradd/additionalcostrecmasteradd.component';
 import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec/additionalcostrecmasterlist/additionalcostrecmasterlist.component';
 import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
+import { TripoutstandingrptComponent } from './module/tripoutstandingrpt/tripoutstandingrpt.component';
+
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -531,6 +534,7 @@ const routes: Routes = [
   { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
   { path: 'subledgermasteredit', component:  SubledgermasteraddComponent },
   { path: 'subledgerlist', component:  SubledgermasterlistComponent },
+  { path: 'tripoutstnd', component:  TripoutstandingrptComponent },
   { path: 'billentrysuppadd', component:  BillsuppliaddComponent },
   { path: 'billentrysuppedit', component:  BillsuppliaddComponent },
   { path: 'billentrysupplist', component:  BillsupplilistComponent },  
