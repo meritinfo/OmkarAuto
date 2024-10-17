@@ -1,9 +1,6 @@
 import { Component ,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Spareslubesmasterlistmodel } from 'src/app/models/spareslubesmasterlistmodel';
-import { Spareslubesmastermodel } from 'src/app/models/sparelubesmastermodel';
-import { SparesLubesMasterService } from 'src/app/services/spareslubesmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from 'src/app/common/constants';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -57,324 +54,285 @@ export class FleetloadentryaddComponent {
     private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.fleetLoadEntryModel = new Fleetloadentrymodel();
-    
-
-
-}
-ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Load Memo Entry");
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-    }
-  }
-  
- 
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-  var userData = sessionStorage.getItem('userBranch')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.branch = userData;
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-  
-  var loginDate = sessionStorage.getItem('loginDate')?.toString();
-  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-    this.loginDate = loginDate;
   }
 
-  const today = new Date();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  today.setMonth(month - 10);
-  
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-  
-  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-    this.fromDate = this.minDate ;
-  }
-  else{
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
-  }   
-  
-  this.sharedService.loading = true;   
-  this.getLocationList();
-  this.getBranchList();
-  this.getVehicleNoList();
-  this.getProductList();
-  this.getCreditAcList();
-  this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
-  this.formFleetLoad = this.formBuilder.group({   
-    loadBranch: new FormControl(this.branch,[Validators.required]),
-    loadDate: new FormControl(this.loginDate,[Validators.required]),
-    loadType: new FormControl('',),
-    vehicleMasterId: new FormControl('',[Validators.required]),
-    loadFor: new FormControl('',),
-    loadMemoNo: new FormControl('',),
-    loadingFrom: new FormControl('',),
-    consignorName: new FormControl('',),
-    consignorAdd: new FormControl('',),
-    loadingTo: new FormControl('',),
-    consigneeName: new FormControl('',),
-    consigneeAdd: new FormControl('',),
-    productId: new FormControl('',),
-    qtyWt: new FormControl('',),
-    qtyPkgs: new FormControl('',),
-    ratePerTon: new FormControl('',),
-    hireAmt: new FormControl('',),
-    advAmt: new FormControl('',),
-    remarks: new FormControl('',),
-    attachMemocopy: new FormControl('',),
-   // tripAdjYN: new FormControl('',),
-  //  tripId: new FormControl('',),
-  });
-  setTimeout(() => {
-    this.formFleetLoad.controls['loadBranch'].disable();   
-    this.formFleetLoad.controls['ratePerTon'].disable();   
-  if (this.selectedFleetLoadEntryDetails.loadId != '') {
-    this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
-    this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
-    this.formFleetLoad.patchValue({
-    
-    loadDate: this.commonService.formatDate(this.selectedFleetLoadEntryDetails.loadDate),
-    loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
-    loadingTo: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingTo),
-    vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.vehicleMasterId),
-    //loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
-  });
-  this.editMode = true;
-}    
-}, 2000);
-
-  this.sharedService.loading = false;
-
-}
-get f() { return this.formFleetLoad.controls; }
-
-// chkSpareDuplicate(){
-//   var selectedData = this.formSparesMaster.getRawValue();
-  
-
-//     this.requestmodel.strRequest = selectedData.spareLubName;
-//   //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-//     this.sparesLubesMasterService.checkDuplicateSpare(this.requestmodel).subscribe((res: Responsemodel) => {
-//       this.responseDetails = res;
-//       if (this.responseDetails.status) {
-//         //ignore
-//       }
-//       else{
-//         this.toasterService.warning(this.responseDetails.message);
-//         this.formSparesMaster.patchValue({
-//           spareLubName: ''
-  
-//         });
-        
-//       }
-//     });
-    
-// }
-onRateChange(){
-
-  var ItemQty = 0;
-  var ItemAmt = 0;
-  var rate = 0;
- 
-  var selectedVal = this.formFleetLoad.getRawValue();
-
- 
-   // this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
-    ItemQty = selectedVal.qtyWt?selectedVal.qtyWt:"0";
-    ItemAmt= selectedVal.hireAmt?selectedVal.hireAmt:"0";
-    if(ItemQty>0)
-    {
-      rate  = ItemAmt/ItemQty;
-
-    }
-    else{
-      rate= 0;
-    }
-  
-
- 
-  
-  this.formFleetLoad.patchValue({
-    ratePerTon : rate.toFixed(2),
-   // issuedDslAmt: totalItemAmt.toFixed(2),
- 
-   
-   
-  });
-}
-getCreditAcList(): void {
-  //this.requestmodel.strRequest= 'B';
-  this.commonService.getCreditAcList().subscribe((res) => {
-    this.creditAcList = res;
-    // this.formUser.patchValue({
-    //   creditAc: this.creditAcList[0].dataId ,
-    // });
-  });
- 
-}
-
-getVehicleNoList(): void {
-  this.commonService.getVehicleIdList().subscribe((res) => {
-    this.vehicleList = res;
-  });
-}
-getBranchList(): void {
-  this.commonService.getBranchList().subscribe((res) => {
-    this.branchList = res;
-  });
-}
-getProductList(): void {
-  this.commonService.getProductList().subscribe((res) => {
-    this.productList = res;
-  });
-}
-selectEvent(item: any) {
-  // do something with selected item
- // this.GetOpeningBal();
-}
-
-onChangeSearch(search: string) {
-  // fetch remote data from here
-  // And reassign the 'data' which is binded to 'data' property.
-}
-
-onFocused(e: any) {
-  // do something
-}
-
-startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-  return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-};
-
-exit(): void {
-  this.route.navigate(['/loadmemolist']);
-}
-
-
-deleteFleetLoadEntryForm(): void {
-  if(this.selectedFleetLoadEntryDetails.loadId != '' ){
-   this.requestmodel.strRequest =this.selectedFleetLoadEntryDetails.loadId
-    if (confirm("Are you sure, you want to delete this?")) {
-          this.fleetLoadEntryService.fleetLoadEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-          this.responseDetails = res;
-          if (this.responseDetails.status) {
-            this.toasterService.success(this.responseDetails.message);
-            this.formFleetLoad.reset();
-            this.route.navigate(['/loadmemolist']);
-          }
-          else {
-            this.toasterService.warning(this.responseDetails.message);
-          }
-      });
-    }
-  }
-}
-getLocationList(): void {
-  this.commonService.getLocationList().subscribe((res) => {
-    this.locationList = res;
-  });
-}
-
-//Submit user form details //
-submitFleetLoadEntryForm(): void {  
-  if (this.formFleetLoad.invalid) {
-    this.toasterService.warning("Please Enter Mandatory Fields ");
-    const controls = this.formFleetLoad.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        this.toasterService.warning(name + " Fields is Invalid");   
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Load Memo Entry");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-    } 
-    return;
-  }
-    
-  this.sharedService.loading = true;
-
-  var selectedDataVal = this.formFleetLoad.getRawValue();
-  if (selectedDataVal.vehicleMasterId.dataId) {
-    //ignore
-  }
-  else{
-    this.toasterService.warning("Invalid Vehicle");
-    return;
-  }
-  if (selectedDataVal.loadingTo.dataId) {
-    //ignore
-  }
-  else{
-    this.toasterService.warning(" To Place is Invalid");
-    return;
-  }
-  if (selectedDataVal.loadingFrom.dataId) {
-    //ignore
-  }
-  else{
-    this.toasterService.warning(" From Place is Invalid");
-    return;
-  }
-  this.formSubmitted = true;
-  this.fleetLoadEntryModel.loadId = this.selectedFleetLoadEntryDetails.loadId ;
-  //this.fleetLoadEntryModel.spareLubName  = selectedDataVal.spareLubName.toString().toUpperCase();
-  this.fleetLoadEntryModel.loadBranch = selectedDataVal.loadBranch;
-  this.fleetLoadEntryModel.loadDate = selectedDataVal.loadDate;
-  this.fleetLoadEntryModel.loadType = selectedDataVal.loadType;
-  this.fleetLoadEntryModel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId;
-  this.fleetLoadEntryModel.loadFor = selectedDataVal.loadFor;
-  this.fleetLoadEntryModel.loadMemoNo = selectedDataVal.loadMemoNo;
-  this.fleetLoadEntryModel.loadingFrom = selectedDataVal.loadingFrom.dataId;;
-  this.fleetLoadEntryModel.consignorName = selectedDataVal.consignorName;
-  this.fleetLoadEntryModel.consignorAdd = selectedDataVal.consignorAdd;
-  this.fleetLoadEntryModel.loadingTo = selectedDataVal.loadingTo.dataId;;
-  this.fleetLoadEntryModel.consigneeName = selectedDataVal.consigneeName;
-  this.fleetLoadEntryModel.consigneeAdd = selectedDataVal.consigneeAdd;
-  this.fleetLoadEntryModel.productId = selectedDataVal.productId;
-  this.fleetLoadEntryModel.qtyWt = selectedDataVal.qtyWt;
-  this.fleetLoadEntryModel.qtyPkgs = selectedDataVal.qtyPkgs;
-  this.fleetLoadEntryModel.ratePerTon = selectedDataVal.ratePerTon;
-  this.fleetLoadEntryModel.hireAmt = selectedDataVal.hireAmt;
-  this.fleetLoadEntryModel.advAmt = selectedDataVal.advAmt;
-  this.fleetLoadEntryModel.remarks = selectedDataVal.remarks;
-  this.fleetLoadEntryModel.attachMemocopy = selectedDataVal.attachMemocopy;
- // this.fleetLoadEntryModel.tripAdjYN = selectedDataVal.tripAdjYN;
- // this.fleetLoadEntryModel.tripId = selectedDataVal.tripId;
-  this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
-  let formData = new FormData();
-    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
-
-    formData.append('datadetails', JSON.stringify(this.fleetLoadEntryModel));
-
-  this.fleetLoadEntryService.fleetLoadEntrySubmitted(formData).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    if (this.responseDetails.status) {
-      this.toasterService.success(this.responseDetails.message);
-      this.formFleetLoad.reset();
-      this.route.navigate(['/loadmemolist']);
+    }    
+  
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
     }
     else {
-      this.toasterService.warning(this.responseDetails.message);
-    }      
-  });
-  this.sharedService.loading = false;
-}
+      this.route.navigate(['/']);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 10);
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+    
+    this.sharedService.loading = true;   
+    this.getLocationList();
+    this.getBranchList();
+    this.getVehicleNoList();
+    this.getProductList();
+    this.getCreditAcList();
+
+    this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
+    this.formFleetLoad = this.formBuilder.group({   
+      loadBranch: new FormControl(this.branch,[Validators.required]),
+      loadDate: new FormControl(this.loginDate,[Validators.required]),
+      loadType: new FormControl('',[Validators.required]),
+      vehicleMasterId: new FormControl('',[Validators.required]),
+      loadFor: new FormControl('',[Validators.required]),
+      loadMemoNo: new FormControl('',[Validators.required]),
+      loadingFrom: new FormControl('',[Validators.required]),
+      consignorName: new FormControl('',[Validators.required]),
+      consignorAdd: new FormControl('',),
+      loadingTo: new FormControl('',[Validators.required]),
+      consigneeName: new FormControl('',[Validators.required]),
+      consigneeAdd: new FormControl('',),
+      productId: new FormControl('',[Validators.required]),
+      qtyWt: new FormControl('',[Validators.required]),
+      qtyPkgs: new FormControl('',[Validators.required]),
+      ratePerTon: new FormControl('',),
+      hireAmt: new FormControl('',[Validators.required]),
+      advAmt: new FormControl('',),
+      remarks: new FormControl('',),
+      attachMemocopy: new FormControl('',),
+    });
+
+    setTimeout(() => {
+      this.formFleetLoad.controls['loadBranch'].disable();   
+      this.formFleetLoad.controls['ratePerTon'].disable();  
+
+      if (this.selectedFleetLoadEntryDetails.loadId != '') {
+        this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
+        this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
+        this.formFleetLoad.patchValue({        
+          loadDate: this.commonService.formatDate(this.selectedFleetLoadEntryDetails.loadDate),
+          loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
+          loadingTo: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingTo),
+          vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.vehicleMasterId),
+          loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
+        });
+        this.editMode = true;
+      }    
+    }, 2000);
+    this.sharedService.loading = false;
+  }
+
+  get f() { return this.formFleetLoad.controls; }
+
+  getCreditAcList(): void {
+    //this.requestmodel.strRequest= 'B';
+    this.commonService.getCreditAcList().subscribe((res) => {
+      this.creditAcList = res;
+    });  
+  }
+
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+
+  getProductList(): void {
+    this.commonService.getProductList().subscribe((res) => {
+      this.productList = res;
+    });
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+  onRateChange(){
+    var ItemQty = 0;
+    var ItemAmt = 0;
+    var rate = 0;
+
+    var selectedVal = this.formFleetLoad.getRawValue();
+    ItemQty = selectedVal.qtyWt?selectedVal.qtyWt:"0";
+    ItemAmt= selectedVal.hireAmt?selectedVal.hireAmt:"0";
+    rate  = ItemQty>0 ? ItemAmt/ItemQty : 0;  
+
+    this.formFleetLoad.patchValue({
+      ratePerTon : rate.toFixed(2),
+    });
+  }
+
+  exit(): void {
+    this.route.navigate(['/loadmemolist']);
+  }
+
+  deleteFleetLoadEntryForm(): void {
+    if(this.selectedFleetLoadEntryDetails.loadId != '' ){
+    this.requestmodel.strRequest =this.selectedFleetLoadEntryDetails.loadId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.fleetLoadEntryService.fleetLoadEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formFleetLoad.reset();
+              this.route.navigate(['/loadmemolist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
+        });
+      }
+    }
+  }
+
+  //Submit user form details //
+  submitFleetLoadEntryForm(): void {  
+    if (this.formFleetLoad.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formFleetLoad.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
+      return;
+    }
+      
+    this.sharedService.loading = true;
+
+    var selectedDataVal = this.formFleetLoad.getRawValue();
+    if (selectedDataVal.vehicleMasterId.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Invalid Vehicle");
+      return;
+    }
+    if (selectedDataVal.loadingTo.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" To Place is Invalid");
+      return;
+    }
+    if (selectedDataVal.loadingFrom.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" From Place is Invalid");
+      return;
+    }
+
+    if (selectedDataVal.loadFor.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Load For is Invalid");
+      return;
+    }
+
+    this.formSubmitted = true;
+    this.fleetLoadEntryModel.loadId = this.selectedFleetLoadEntryDetails.loadId ;
+    this.fleetLoadEntryModel.loadBranch = selectedDataVal.loadBranch;
+    this.fleetLoadEntryModel.loadDate = selectedDataVal.loadDate;
+    this.fleetLoadEntryModel.loadType = selectedDataVal.loadType;
+    this.fleetLoadEntryModel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId;
+    this.fleetLoadEntryModel.loadFor = selectedDataVal.loadFor.dataId;
+    this.fleetLoadEntryModel.loadMemoNo = selectedDataVal.loadMemoNo;
+    this.fleetLoadEntryModel.loadingFrom = selectedDataVal.loadingFrom.dataId;;
+    this.fleetLoadEntryModel.consignorName = selectedDataVal.consignorName.toString().toUpperCase();;
+    this.fleetLoadEntryModel.consignorAdd = selectedDataVal.consignorAdd.toString().toUpperCase();;
+    this.fleetLoadEntryModel.loadingTo = selectedDataVal.loadingTo.dataId;;
+    this.fleetLoadEntryModel.consigneeName = selectedDataVal.consigneeName.toString().toUpperCase();;
+    this.fleetLoadEntryModel.consigneeAdd = selectedDataVal.consigneeAdd.toString().toUpperCase();;
+    this.fleetLoadEntryModel.productId = selectedDataVal.productId;
+    this.fleetLoadEntryModel.qtyWt = selectedDataVal.qtyWt.toString();
+    this.fleetLoadEntryModel.qtyPkgs = selectedDataVal.qtyPkgs.toString();
+    this.fleetLoadEntryModel.ratePerTon = selectedDataVal.ratePerTon.toString();
+    this.fleetLoadEntryModel.hireAmt = selectedDataVal.hireAmt.toString();
+    this.fleetLoadEntryModel.advAmt = selectedDataVal.advAmt.toString();
+    this.fleetLoadEntryModel.remarks = selectedDataVal.remarks.toString().toUpperCase();
+    this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
+
+    let formData = new FormData();
+    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.fleetLoadEntryModel));
+
+    this.fleetLoadEntryService.fleetLoadEntrySubmitted(formData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formFleetLoad.reset();
+        this.route.navigate(['/loadmemolist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
+    });
+    this.sharedService.loading = false;
+  }
 }

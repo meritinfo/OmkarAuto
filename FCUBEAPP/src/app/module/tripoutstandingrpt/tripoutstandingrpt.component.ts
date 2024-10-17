@@ -1,4 +1,3 @@
-
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -7,38 +6,42 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
-import { Ledgerrptmodel } from 'src/app/models/ledgerrptmodel';
-import { LedgerrptService } from 'src/app/services/ledgerrpt.service';
+import { Tripoutstandingrptlistmodel  } from 'src/app/models/tripoutstandingrptlistmodel';
+import { Tripoutstandingrptmodel } from 'src/app/models/tripoutstandingrptmodel';
+import { TripoutstandingrptService } from 'src/app/services/tripoutstandingrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-ledgerrpt',
-  templateUrl: './ledgerrpt.component.html',
-  styleUrls: ['./ledgerrpt.component.css']
+  selector: 'app-tripoutstandingrpt',
+  templateUrl: './tripoutstandingrpt.component.html',
+  styleUrls: ['./tripoutstandingrpt.component.css']
 })
-export class LedgerrptComponent {
+export class TripoutstandingrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-
-  accountList: Dropdownmodel[] = [];
+  docRenewalList: Dropdownmodel[] = [];
+    
+  partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
+  transType: Dropdownmodel[] = [];
+  creditacList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allLedgerrptlist: Ledgerrptlistmodel = new Ledgerrptlistmodel();
+  allTripOutstandingRptlist: Tripoutstandingrptlistmodel = new Tripoutstandingrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'fromPlace',
+    sortColumn: 'paymentBr',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -47,9 +50,9 @@ export class LedgerrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-  }
 
-  formFilter!: FormGroup;
+}
+formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -57,23 +60,24 @@ export class LedgerrptComponent {
   maxDate: string = '';
   minDate: string = '';
   branch:string ='';
+   
   responseDetails = new Responsemodel();
 
-  constructor(private ledgerrptService: LedgerrptService, 
+  constructor(private tripOutstandingRptService: TripoutstandingrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-
-    ngOnInit(): void {     
+    ngOnInit(): void {   
+  
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Daily Loading Report");
+        .find((aa: { menuName: string; }) => aa.menuName === "Trip Outstanding Report");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -107,48 +111,65 @@ export class LedgerrptComponent {
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(year - 1);
+     // today.setFullYear(year - 1);
 
-      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-      this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-      
-      if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-        this.fromDate = this.minDate ;
-      }
-      else{
-        this.fromDate = today.toLocaleDateString('en-CA').toString();
-      }   
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
+    this.getBranchList();
     
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        accountID: new FormControl('',[Validators.required]),
+        branch: new FormControl('',),  
+        vehicleMasterID: new FormControl('',), 
+        party: new FormControl('',),  
+        transType: new FormControl('',),  
+        pmtType: new FormControl('',),   
+        creditAc: new FormControl('',),  
       });
 
-      this.sharedService.loading=true;
-      this.getBranchList();
-      this.getAccountList();  
-
-      
-      this.filter.fromDate    = this.minDate;
-      this.filter.toDate      = this.loginDate;
+      this.filter.fromDate = this.minDate;
+      this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
-      this.filter.filterStr1  = this.year;
-      this.filter.filterStr2  = "";      
-      this.ledgerList();
+      this.filter.filterStr1  = "";
+      
+  
+      this.sharedService.loading=true;
+      
+      
+      this.getVehicleNoList(); 
+      this.getPartyList();
+      
+
+      this.expTripOutstanding();
       this.sharedService.loading=false;
     }
-
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
       });
     }
-
-    getAccountList(): void {
-      this.ledgerrptService.getLedgerList().subscribe((res) => {
-        this.accountList = res;
+    getVehicleNoList(): void {
+      this.commonService.getVehicleIdList().subscribe((res) => {
+        this.vehicleList = res;
       });
     }
+
+    getPartyList(): void {
+      this.commonService.getPartyList().subscribe((res) => {
+        this.partyList = res;
+      });
+    }
+
+ 
     
     get f() { return this.formFilter.controls; }
   
@@ -170,102 +191,97 @@ export class LedgerrptComponent {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
-    ledgerList(){
+    expTripOutstanding(){
       this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 50,
-        serverSide: true,
-        processing: true,
-        searching:false,
-        ajax: (dataTablesParameters: any, callback) => {
-          // Filter setting
-          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-          this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'Branch';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = '';
-          callback({
-            recordsTotal: 0,
-            recordsFiltered: 0,
-            data: []
-          });
-          this.ledgerrptService.getLedgerrptList(this.filter).subscribe(resp => {
-             this.allLedgerrptlist = resp;
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
+          pagingType: 'full_numbers',
+          pageLength: 50,
+          serverSide: true,
+          processing: true,
+          searching:false,
+          ajax: (dataTablesParameters: any, callback) => {
+            // Filter setting
+            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+            this.filter.pageSize = dataTablesParameters.length;
+            this.filter.sortColumn = 'paymentBr';
+            this.filter.sortOrder = 'asc';
+            this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
             });
-        }, 
-        columns: [ 
-          {
-            title: 'Ftm Date',
-            data: 'ftmDate',
+            this.tripOutstandingRptService.getTripOutstandingRptList(this.filter).subscribe(resp => {
+               this.allTripOutstandingRptlist = resp;
+                callback({
+                  recordsTotal: resp.pageMetaData.totalCount,
+                  recordsFiltered: resp.pageMetaData.totalCount,
+                  data: []
+                });
+              });
           }, 
+          columns: [ 
           {
-            title: 'Doc No',
-            data: 'docNo',
-          }, 
-          {
-            title: 'Narration',
-            data: 'narration',
+            title: 'Vehicle No ',
+            data: 'vehicleNo',
           },  
           {
-            title: 'Dr Amt',
-            data: 'drAmt',
+            title: 'Trip No ',
+            data: 'tripNo',
           },    
           {
-            title: 'Cr Amt',
-            data: 'crAmt',
+            title: 'Trip Date',
+            data: 'tripDate',
           },
+          {
+            title: 'Own/Market ',
+            data: 'ownMarket',
+          },       
+          {
+            title: 'ChBr Code',
+            data: 'chBrCode',
+          },
+          {
+            title: ' ChallanNo',
+            data: 'challanNo',
+          },
+          {
+            title: 'From Place ',
+            data: 'tripFromPlace',
+          },
+          {
+            title: 'To Place ',
+            data: 'tripToPlace',
+          },
+          {
+            title: 'Transporter Name ',
+            data: 'tptName',
+          },
+          {
+            title: 'Total Hire ',
+            data: 'totalHire',
+          },
+          {
+            title: 'Recd Amt',
+            data: 'recdAmt',
+          },
+          {
+            title: 'Ded Amt ',
+            data: 'dedAmt',
+          },
+          {
+            title: 'Tds Amt ',
+            data: 'tdsAmt',
+          },
+          {
+            title: 'Extra Amt',
+            data: 'extraAmt',
+          },
+      
         ],
       };
     }
-    
-    exportPdf(): void {      
-      this.formSubmitted = true;
-      if (this.formFilter.invalid) {
-        this.toastrService.warning("Please Enter Mandatory Fields");   
-        const controls = this.formFilter.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toastrService.warning(name + " Fields is Invalid");   
-          }
-        }     
-        return;
-      }
-      var selectedDataVal=this.formFilter.getRawValue();
       
-      var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-      if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-              fromLoc.dataId!="" && fromLoc.dataId!="0") {
-          //ignore
-      }
-      else{
-        this.toastrService.warning("Please Enter Valid Account ");          
-        return;
-      }
-  
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.accountID.dataId;
-      this.filter.filterStr1  = this.year;
-      this.filter.filterStr2  = "";
-      
-      this.ledgerrptService.getLedgerrptPdf(this.filter).subscribe(resp => {
-        if(resp.status){    
-          let link = document.createElement("a");
-          link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/Ledger/" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
-      
+    //Open user details screen
     exportExcel(): void {      
       this.formSubmitted = true;
       if (this.formFilter.invalid) {
@@ -279,27 +295,16 @@ export class LedgerrptComponent {
         return;
       }
       var selectedDataVal=this.formFilter.getRawValue();
-      
-      var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-      if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-              fromLoc.dataId!="" && fromLoc.dataId!="0") {
-          //ignore
-      }
-      else{
-        this.toastrService.warning("Please Enter Valid Account ");          
-        return;
-      }
-  
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.accountID.dataId;
-      this.filter.filterStr1  = this.year;
-      this.filter.filterStr2  = "";
-      
-      this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
+      this.filter.filterStr  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+       
+
+      this.tripOutstandingRptService.getTripOutstandingRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LedgerReport_" + new Date().getTime() + '.xlsx';
+          link.download = "TripOutstanding" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -322,24 +327,14 @@ export class LedgerrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    
-    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-            fromLoc.dataId!="" && fromLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toastrService.warning("Please Enter Valid Account ");          
-      return;
-    }
-
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.accountID.dataId;
-    this.filter.filterStr1  = this.year;
-    this.filter.filterStr2  = "";
+    this.filter.filterStr  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+   
+    
     this.sharedService.loading=true;
-    this.ledgerList();
+    this.expTripOutstanding();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -347,7 +342,4 @@ export class LedgerrptComponent {
     });
   }
 } 
-
-
-
 

@@ -51,6 +51,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleRepairsRptBusiness vehicleRepairsRptBusiness;
         readonly IDieselStmtRptBusiness dieselStmtRptBusiness;
         readonly IVehicleFrtOutstandingRptBusiness vehicleFrtOutstandingRptBusiness;
+        readonly ITripOutstandingRptBusiness tripOutstandingRptBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -79,6 +80,7 @@ namespace FCUBEAPI.Controllers
             IVehicleRepairsRptBusiness _vehicleRepairsRptBusiness,
             IDieselStmtRptBusiness _dieselStmtRptBusiness,
             IVehicleFrtOutstandingRptBusiness _vehicleFrtOutstandingRptBusiness,
+            ITripOutstandingRptBusiness _tripOutstandingRptBusiness,
 
         ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
@@ -113,6 +115,7 @@ namespace FCUBEAPI.Controllers
             vehicleRepairsRptBusiness = _vehicleRepairsRptBusiness;
             dieselStmtRptBusiness = _dieselStmtRptBusiness;
             vehicleFrtOutstandingRptBusiness = _vehicleFrtOutstandingRptBusiness;
+            tripOutstandingRptBusiness = _tripOutstandingRptBusiness;
         }
 
 
@@ -2985,6 +2988,43 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleFrtOutstandingRptBusiness.GetVehicleFrtOutstandingRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTripOutstandingRptList")]
+        public async Task<IActionResult> GetTripOutstandingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripOutstandingRptBusiness.GetTripOutstandingRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelTripOutstandingRptList")]
+        public async Task<IActionResult> ExcelTripOutstandingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripOutstandingRptBusiness.ExcelTripOutstandingRptList(request);
 
                 return Ok(result);
             }

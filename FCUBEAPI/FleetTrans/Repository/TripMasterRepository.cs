@@ -122,6 +122,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@ChallanNo",  tripMasterModel.RouteList[i].LoadMemoNo),
                                     new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
                                     new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
+                                    new SqlParameter("@OwnMarket",  tripMasterModel.RouteList[i].LoadType),
                                     new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
                                     new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
                                     new SqlParameter("@YearId",     tripMasterModel.YearId),
