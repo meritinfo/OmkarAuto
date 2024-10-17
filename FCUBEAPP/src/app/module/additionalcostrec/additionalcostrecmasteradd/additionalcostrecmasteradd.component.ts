@@ -99,7 +99,7 @@ ngOnInit(): void {
    addCostType:new FormControl('',[Validators.required]), 
    addCostDescription : new FormControl('',[Validators.required]), 
    accountID : new FormControl('',[Validators.required]), 
-   affectCosting: new FormControl('',[Validators.required]), 
+   affectCosting: new FormControl('Y',[Validators.required]), 
   // loggedInUser: new FormControl('',[Validators.required]), 
    
   });

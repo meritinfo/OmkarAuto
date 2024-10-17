@@ -282,11 +282,13 @@ searchStatement(): void {
       this.formTyreArray.push(this.createSubmitArray());
       this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
       this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
-      this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);
-    //  this.formTyreArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
-
+      this.formTyreArray.controls[i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
+     // this.formTyreArray.controls[i].get("billDate")?.setValue(res.billSubmitMasterDtlList[i].billDate);
+      this.formTyreArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
      // this.formArray.controls[i].get("gcNoteNo")?.disable();
       this.formTyreArray.controls[i].get("billAmt")?.disable();
+      this.formTyreArray.controls[i].get("billDate")?.disable();
+      this.formTyreArray.controls[i].get("billNo")?.disable();
      // this.formArray.controls[i].get("bookingDate")?.disable();
 
    
@@ -311,10 +313,11 @@ createSubmitArray() {
     billsMasterId: [''],
     billAmt: [''],
     dtlRemarks: [''],
+    billNo: [''],
+    billDate: [''],
     selected: [''],
   //  itemQty: ['' ,[Validators.required]],
     //itemRate: ['',[Validators.required]],
-
 
   });
 }
@@ -407,6 +410,8 @@ getBillSubmitMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);  
       this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);   
       this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);  
+      this.formTyreArray.controls[i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
+      this.formTyreArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
     this.formTyreArray.controls[i].get("selected")?.setValue(res.billSubmitMasterDtlList[i].selected); 
      
     
@@ -517,6 +522,8 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
         'billAmt': selectedDataValue.arrayList[i].billAmt,
  
         'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
+        'billNo': '',
+        'billDate': '',
        'selected': selectedDataValue.arrayList[i].selected?true:false,
     //  'selected': false
       }) 

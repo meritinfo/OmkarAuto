@@ -150,7 +150,7 @@ deleteCnorCneeMasterForm(): void {
   }
 }
 exit(): void {
-  this.route.navigate(['/cnorcneegst']);
+  this.route.navigate(['/dashboard']);
 }
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
@@ -270,21 +270,21 @@ submitCnorCneeGstForm(): void {
  //this.cnorcneemastermodel.cnorCneeName = selectedDataVal.cnorCneeName.toString().toUpperCase();
   //this.cnorcneemastermodel.printName = selectedDataVal.printName.toString().toUpperCase();
  // cnorcneegstmodel.cnorCneeDetID = selectedDataVal.
-  this.cnorcneegstmodel.cnorCneeID = selectedDataValue.cnorCneeID
+  this.cnorcneegstmodel.cnorCneeID = selectedDataValue.cnorCneeID.dataId
   this.cnorcneegstmodel.cnorCneeGstDetail = [];
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(selectedDataValue.arrayList[i].location!='' && selectedDataValue.arrayList[i].gstNo !=''){
         this.cnorcneegstmodel.cnorCneeGstDetail.push({
           'cnorCneeDetID':'',
-          'cnorCneeID': selectedDataValue.accountId? selectedDataValue.accountId.dataId : '',
+          'cnorCneeID': selectedDataValue.cnorCneeID? selectedDataValue.cnorCneeID.dataId : '',
           'location': selectedDataValue.arrayList[i].location,
           'gstNo': selectedDataValue.arrayList[i].gstNo.toString(),
          // 'address1':  selectedDataValue.arrayList[i].address1.toString().toUpperCase(),
-        'address1':  selectedDataValue.arrayList[i].address1,
-          'address2':  selectedDataValue.arrayList[i].address2,
-          'address3': selectedDataValue.arrayList[i].address3,
-          'contactPerson': selectedDataValue.arrayList[i].contactPerson,
+        'address1':  selectedDataValue.arrayList[i].address1.toString().toUpperCase(),
+          'address2':  selectedDataValue.arrayList[i].address2.toString().toUpperCase(),
+          'address3': selectedDataValue.arrayList[i].address3.toString().toUpperCase(),
+          'contactPerson': selectedDataValue.arrayList[i].contactPerson.toString().toUpperCase(),
           'stateCode':  selectedDataValue.arrayList[i].stateCode,
           'pinCode':  selectedDataValue.arrayList[i].pinCode,
           'mobileNo' :  selectedDataValue.arrayList[i].mobileNo,

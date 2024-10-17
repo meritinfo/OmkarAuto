@@ -242,15 +242,15 @@ namespace FinanceMaster.Repository
 
                                // CnorCneeDetID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeDetID"]),
                                 CnorCneeID = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCneeID"]),
-                               Location = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                               Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
                                 Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
                                 Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
                                 Address3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
                                 StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
                                 PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
                                 GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
-                                ContactPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson1"]),
-                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["Mobile1"]),
+                                ContactPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["ContactPerson"]),
+                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
                                 Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),
                               //  centrename = Convert.ToString(dataSet.Tables[0].Rows[i]["centrename"]),
                             });

@@ -70,7 +70,7 @@
                                   </div>
                                   <div class="col-lg-2">
                                      <div class="mb-3">
-                                        <label for="formrow-inputCity">Courier Co </label><span style="color: red"> * </span>
+                                        <label for="formrow-inputCity">Courier Co </label>
                                         <input numbersonly autoclose="false" 
                                            class="form-control" formControlName="courierCo"
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['courierCo'].invalid) }">
@@ -78,7 +78,7 @@
                                   </div>
                                   <div class="col-lg-2">
                                      <div class="mb-3">
-                                        <label for="formrow-inputCity">Courier Docket No </label><span style="color: red"> * </span>
+                                        <label for="formrow-inputCity">Courier Docket No </label>
                                         <input numbersonly autoclose="false" 
                                            class="form-control" formControlName="courierDocketNo"
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['courierDocketNo'].invalid) }">
@@ -216,9 +216,11 @@
                                </tr>
                                <tr>
                                   <th><label for="formrow-inputCity"></label></th>
-                             
+                                  <th><label for="formrow-inputZip">Bill No</label></th>
+                                  <th><label for="formrow-inputZip">Bill Date</label></th>
                                   <th><label for="formrow-inputZip">Bill Amt</label></th>
                                   <th><label for="formrow-inputZip">Dtl Remarks</label></th>
+                                  
                                </tr>
                                <tr formArrayName="arrayList"
                                   *ngFor="let arrayData of formTyreArray.controls; let i = index">
@@ -230,7 +232,16 @@
                                               (change)="selectedData(i, $event)" formControlName="selected">
                                         </div>
                                      </td>
-                                     
+                                     <td>
+                                       <div class="mb-3">
+                                          <input class="form-control" formControlName="billNo" >
+                                       </div>
+                                    </td>
+                                    <td>
+                                       <div class="mb-3">
+                                          <input class="form-control" formControlName="billDate" type="date" >
+                                       </div>
+                                    </td>
                                     
                                      <td>
                                         <div class="mb-3">

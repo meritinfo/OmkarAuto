@@ -5,6 +5,8 @@ export class BillSubmitMstDtlListmodel {
     billsMasterId: string = "";
     billAmt: string = "";
     dtlRemarks: string = "";
+    billNo: string = "";
+    billDate: string = "";
     selected: boolean = false;
 
 }

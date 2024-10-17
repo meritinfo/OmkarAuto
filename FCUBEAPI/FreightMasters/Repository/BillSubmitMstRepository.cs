@@ -160,7 +160,9 @@ namespace FreightMasters.Repository
                               //  SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
                                 BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillsMasterId"]),
                                 BillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalGtotal"]),
-                             //   DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
+                                BillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillNo"]),
+                                BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
+                                //   DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
 
 
                                 // Selected = false
@@ -214,6 +216,8 @@ namespace FreightMasters.Repository
                                 SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
                                 BillsMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["BillsMasterId"]),
                                 BillAmt = Convert.ToString(resultData.Tables[0].Rows[i]["BillAmt"]),
+                                BillNo = Convert.ToString(resultData.Tables[0].Rows[i]["BillNo"]),
+                                BillDate = Convert.ToString(resultData.Tables[0].Rows[i]["BillDate"]),
                                 DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
                               
                             });
