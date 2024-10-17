@@ -152,7 +152,7 @@
                                         </div> 
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <input type="checkbox" formControlName="suppYN" id="suppYN"
+                                                <input type="checkbox"  formControlName="suppYN" id="suppYN"
                                                     value="Y" (change)="onSuppYNChange($event)" class="form-check-input" >
                                                 <label for="without" > <h5>Without LR</h5></label>
                                             </div>
@@ -194,7 +194,7 @@
                                             *ngFor="let arrayData of billstatementsearchlistmodel.billStatementSearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
-                                                    <input type="checkbox"  class="form-check-input" 
+                                                    <input type="checkbox"   class="form-check-input" 
                                                     (change)="selectedData(i, $event)" [checked]="arrayData.selected"  >
                                                     <!-- {{arrayData.pmtId}} -->
                                                 </div>
@@ -360,7 +360,7 @@
                                         </div>  
                                         <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <input type="checkbox" 
+                                                <input type="checkbox"  
                                                 formControlName="cancelBill"                                     
                                                 class="form-check-input" />
                                                 <label for="formrow-inputCity">Cancel Bill</label>

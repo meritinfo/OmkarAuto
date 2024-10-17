@@ -134,7 +134,7 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-1"> 
-                                                        <input type="checkbox"  class="form-check-input" 
+                                                        <input type="checkbox"   class="form-check-input" 
                                                             formControlName="selected" (change)="onCheked(i,$event)" >  
                                                         <input type="hidden" autoclose="false" class="form-control"
                                                             formControlName="regroupIssueDtlId">                                                   

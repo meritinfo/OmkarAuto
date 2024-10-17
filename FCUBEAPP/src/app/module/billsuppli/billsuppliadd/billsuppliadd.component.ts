@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
-import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -105,7 +104,7 @@ export class BillsuppliaddComponent {
     const year = today.getFullYear();
     today.setMonth(month - 12);
 
-    const duedt = this.commonService.getCurrentFiscalYear(this.loginDate).sDate;    
+    const duedt = new Date();    
     const mnth = duedt.getMonth();
     duedt.setMonth(mnth + 1);
     this.duedate = duedt.toLocaleDateString('en-CA').toString();
@@ -133,7 +132,7 @@ export class BillsuppliaddComponent {
       billDate: new FormControl(this.loginDate,[Validators.required]),
       dueDate: new FormControl(this.duedate,[Validators.required]),
       suppYN: new FormControl('',[Validators.required]),
-      suppParticulars: new FormControl('',),
+      suppParticulars: new FormControl('',[Validators.required]),
       sacHsn: new FormControl('',),
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
@@ -166,27 +165,34 @@ export class BillsuppliaddComponent {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
-      this.formBillsMaster.controls['totalExtras'].disable();
       this.formBillsMaster.controls['totalOthers'].disable();
+      this.formBillsMaster.controls['totalExtras'].disable();
+      this.formBillsMaster.controls['totalNonGstAmt1'].disable();
       this.formBillsMaster.controls['totalSgstAmt'].disable();
       this.formBillsMaster.controls['totalCgstAmt'].disable();
       this.formBillsMaster.controls['totalIgstAmt'].disable();
-      this.formBillsMaster.controls['totalNonGstAmt1'].disable();
       this.formBillsMaster.controls['totalGtotal'].disable();
       this.formBillsMaster.controls['sgstPct'].disable();
       this.formBillsMaster.controls['cgstPct'].disable();  
-      this.formBillsMaster.controls['igstPct'].disable();   
+      this.formBillsMaster.controls['igstPct'].disable();  
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         var suppYN = "";
         if(this.selectedBillsmasterDetails.suppYN=="Y"){
           this.showButton = false;
           suppYN = "Y";
-          this.formBillsMaster.controls['totFreight'].enable();
+          this.formBillsMaster.controls['totalFreight'].enable();
+          this.formBillsMaster.controls['totalOthers'].enable();
+          this.formBillsMaster.controls['totalExtras'].enable();
+          this.formBillsMaster.controls['totalNonGstAmt1'].enable();
         }
         else{
+          suppYN = "";
           this.showButton = true;
-          this.formBillsMaster.controls['totFreight'].disable();
+          this.formBillsMaster.controls['totalFreight'].disable();
+          this.formBillsMaster.controls['totalOthers'].disable();
+          this.formBillsMaster.controls['totalExtras'].disable();
+          this.formBillsMaster.controls['totalNonGstAmt1'].disable();
         }
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         this.formBillsMaster.patchValue({
@@ -211,14 +217,13 @@ export class BillsuppliaddComponent {
           this.formBillsMaster.controls['cgstPct'].disable();  
           this.formBillsMaster.controls['igstPct'].disable(); 
         }  
-
+        this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
         this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
-        this.formBillsMaster.controls['partyGstLocation'].disable();
-        this.formBillsMaster.controls['suppYN'].disable();        
+        this.formBillsMaster.controls['suppYN'].disable();   
       } 
       else{        
         this.billSeriesChange();
@@ -256,6 +261,14 @@ export class BillsuppliaddComponent {
     }); 
   }
   
+  getBillTypeSacHsn(e:any):void{
+    this.requestmodel.strRequest = e.target.value;
+    this.billsMasterService.getBillTypeSacHsn(this.requestmodel).subscribe((res) => {
+      this.formBillsMaster.patchValue({
+        sacHsn: res.message,
+      });
+    });
+  }  
   
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -327,6 +340,25 @@ export class BillsuppliaddComponent {
     });
   }  
   
+  onDueDtChange(e:any): void {
+    var dueDate = new Date(e.target.value);
+    var selectedData = this.formBillsMaster.getRawValue();
+    if(selectedData.billDate==""){
+      this.toasterService.warning("Please Enter Bill Date");
+      this.formBillsMaster.patchValue({
+        dueDate: ""
+      });
+      return;
+    }
+    var billDate = new Date(selectedData.billDate);
+    if(billDate>dueDate){
+      this.toasterService.warning("Due Date should not be lessthan Bill Date");
+      this.formBillsMaster.patchValue({
+        dueDate: ""
+      });
+    }
+  }  
+    
   billSeriesChange(): void {
     var selectedData = this.formBillsMaster.getRawValue();
     this.requestmodel.strRequest = selectedData.billNo;
@@ -356,10 +388,16 @@ export class BillsuppliaddComponent {
     if(e.target.checked){
       this.showButton = false;
       this.formBillsMaster.controls['totalFreight'].enable();
+      this.formBillsMaster.controls['totalOthers'].enable();
+      this.formBillsMaster.controls['totalExtras'].enable();
+      this.formBillsMaster.controls['totalNonGstAmt1'].enable();
     }
     else{
       this.showButton = true;
       this.formBillsMaster.controls['totalFreight'].disable();
+      this.formBillsMaster.controls['totalOthers'].disable();
+      this.formBillsMaster.controls['totalExtras'].disable();
+      this.formBillsMaster.controls['totalNonGstAmt1'].disable();
     }
   }
 
