@@ -192,7 +192,9 @@ export class LorryhirepmtaddComponent {
         }
         this.editMode = true;
         this.formUser.controls['pmtDate'].disable();
-        this.formUser.controls['pmtType'].disable();
+        this.formUser.controls['pmtType'].disable(); 
+        this.formUser.controls['onAcBranchYN'].disable();
+        this.formUser.controls['onAcBranch'].disable();
         this.formUser.controls['modifyRemarks'].enable();
         this.getLorryHirePmtInnerGridList();        
       }
@@ -368,13 +370,22 @@ export class LorryhirepmtaddComponent {
 
   changePmtType(e: any) {
     console.log(e.target.value);
-    var selectedValue = e.target.value;
     var ptype = e.target.value;
     this.getPaymentCreditAcList(ptype);
 
     this.formUser.patchValue({
-      neftPmt: ""
+      neftPmt: "",
+      onAcBranchYN: "",
+      onAcBranch: "",
     });
+
+    if(ptype=='M'|| ptype=='B'){
+      this.formUser.controls['onAcBranchYN'].enable();
+    }
+    else{
+      this.formUser.controls['onAcBranchYN'].enable();      
+    }
+
 
     if (ptype == 'B'){
       this.formUser.controls['neftPmt'].enable();
