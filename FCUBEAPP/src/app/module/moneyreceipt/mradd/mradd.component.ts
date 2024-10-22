@@ -217,6 +217,11 @@ export class MraddComponent {
     this.formUser.controls['totalExcess'].disable();
     this.formUser.controls['onAcAdjAmt'].disable();
     this.formUser.controls['modifyRemarks'].disable();
+    this.formUser.controls['mrSdEmdAc'].disable();   
+    this.formUser.controls['sdEmdRefNo'].disable(); 
+    
+    this.formUser.controls['mrSdEmdAc'].clearValidators(); 
+    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
     
     if (this.selectedMrDetails.mrMasterId != '') { 
       var selectedValue = this.selectedMrDetails.mrReceiptType;
@@ -281,6 +286,18 @@ export class MraddComponent {
             neftYN: ""
           });
         }
+
+        if(this.selectedMrDetails.mrType=="S"){      
+          this.formUser.controls['mrSdEmdAc'].enable();    
+          this.formUser.controls['sdEmdRefNo'].enable();       
+          this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]); 
+        }
+        else{      
+          this.formUser.controls['mrSdEmdAc'].disable();   
+          this.formUser.controls['sdEmdRefNo'].disable(); 
+          this.formUser.controls['mrSdEmdAc'].clearValidators();    
+        }
+        this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
         
         this.editMode = true;
         this.getMrInnerGridList(); 
@@ -469,6 +486,20 @@ export class MraddComponent {
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
+  onMrTypeChange(e: any) {   
+    if(e.target.value=="S"){      
+      this.formUser.controls['mrSdEmdAc'].enable();    
+      this.formUser.controls['sdEmdRefNo'].enable();       
+      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]); 
+    }
+    else{      
+      this.formUser.controls['mrSdEmdAc'].disable();   
+      this.formUser.controls['sdEmdRefNo'].disable(); 
+      this.formUser.controls['mrSdEmdAc'].clearValidators();    
+    }
+    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+  }
 
   onNeftChk(e: any) {   
     this.neftPmtSelected=!this.neftPmtSelected;
@@ -768,7 +799,8 @@ export class MraddComponent {
       this.formUser.controls['mrType'].clearValidators();     
       this.formUser.controls['partyCode'].clearValidators();
       this.formUser.controls['mrDebitAc'].clearValidators();
-      this.formUser.controls['mrSdEmdAc'].clearValidators();   
+      this.formUser.controls['mrSdEmdAc'].clearValidators();  
+      this.formUser.controls['mrSdEmdAc'].updateValueAndValidity(); 
 
       this.formUser.patchValue({
         groupMrYN: '',
@@ -789,7 +821,6 @@ export class MraddComponent {
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrReceiptType'].enable();
       this.formUser.controls['mrDebitAc'].enable();
-      this.formUser.controls['mrSdEmdAc'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
       this.formUser.controls['partyBankDet'].enable();
@@ -799,7 +830,6 @@ export class MraddComponent {
       this.formUser.controls['mrType'].setValidators([Validators.required]);
       this.formUser.controls['partyCode'].setValidators([Validators.required]);
       this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
-      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]);
 
       this.formUser.patchValue({
         groupMrYN: '',
@@ -808,7 +838,6 @@ export class MraddComponent {
     this.formUser.controls['mrType'].updateValueAndValidity();
     this.formUser.controls['partyCode'].updateValueAndValidity();
     this.formUser.controls['mrDebitAc'].updateValueAndValidity();
-    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
   }
 
   onChkGroup(e: any) {  
@@ -845,7 +874,7 @@ export class MraddComponent {
 
       this.formUser.controls['mrRemarks'].disable();
       this.formUser.controls['mrReceiptType'].disable();
-      this.formUser.controls['mrDebitAc'].disable();
+      //this.formUser.controls['mrDebitAc'].disable();
       this.formUser.controls['mrSdEmdAc'].disable();
       this.formUser.controls['chequeNo'].disable();
       this.formUser.controls['chequeDt'].disable();
@@ -854,8 +883,9 @@ export class MraddComponent {
       this.formUser.controls['modifyRemarks'].disable();
 
       
-      this.formUser.controls['mrDebitAc'].clearValidators();
+      //this.formUser.controls['mrDebitAc'].clearValidators();
       this.formUser.controls['mrSdEmdAc'].clearValidators();   
+      this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
     }
     else{
       this.formUser.patchValue({
@@ -865,19 +895,16 @@ export class MraddComponent {
 
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrReceiptType'].enable();
-      this.formUser.controls['mrDebitAc'].enable();
-      this.formUser.controls['mrSdEmdAc'].enable();
+      //this.formUser.controls['mrDebitAc'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
       this.formUser.controls['partyBankDet'].enable();
       this.formUser.controls['sdEmdRefNo'].enable();
       this.formUser.controls['modifyRemarks'].enable();
       
-      this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
-      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]);
+      //this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
     }
-    this.formUser.controls['mrDebitAc'].updateValueAndValidity();
-    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+    //this.formUser.controls['mrDebitAc'].updateValueAndValidity();
 
   }
 
