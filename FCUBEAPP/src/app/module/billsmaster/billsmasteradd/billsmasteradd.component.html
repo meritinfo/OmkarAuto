@@ -40,16 +40,16 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Date</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
-                                                    class="form-control" formControlName="billDate"
+                                                <input autoclose="false" type="date" min="{{minDate}}" max="{{maxDate}}"
+                                                    class="form-control" formControlName="billDate" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['billDate'].invalid) }">
                                             </div>
                                         </div>                                          
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Due Date</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
-                                                    class="form-control" formControlName="dueDate"
+                                                <input autoclose="false" type="date" min="{{maxDate}}" max="{{duedate}}"
+                                                    class="form-control" formControlName="dueDate" (change)="onDueDtChange($event)" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['dueDate'].invalid) }">
                                             </div>
                                         </div> 
@@ -164,7 +164,7 @@
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
                                             <td>
-                                                <input type="checkbox"  class="form-check-input-small" 
+                                                <input type="checkbox"   class="form-check-input-small" 
                                                 (change)="selectedData(i, $event)" [checked]="arrayData.selected"  >                                               
                                             </td>
                                             <td>

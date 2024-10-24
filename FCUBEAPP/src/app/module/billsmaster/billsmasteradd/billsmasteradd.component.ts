@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angu
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
-import { Billsmastersearchmodel } from 'src/app/models/billsmastersearchmodel';
 import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
@@ -106,7 +105,7 @@ export class BillsmasteraddComponent implements OnInit {
     const year = today.getFullYear();
     today.setMonth(month - 12);
 
-    const duedt = this.commonService.getCurrentFiscalYear(this.loginDate).sDate;    
+    const duedt = new Date();
     const mnth = duedt.getMonth();
     duedt.setMonth(mnth + 1);
     this.duedate = duedt.toLocaleDateString('en-CA').toString();
@@ -124,6 +123,7 @@ export class BillsmasteraddComponent implements OnInit {
     this.getBranchList();
     this.getBillingPartyList();
     this.getLocationList();
+    this.getBillTypeSacHsn();
     
     this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
 
@@ -170,6 +170,8 @@ export class BillsmasteraddComponent implements OnInit {
     setTimeout(() => {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
+      this.formBillsMaster.controls['billNo'].disable();
+      this.formBillsMaster.controls['partyCode'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalStatistical'].disable();
       this.formBillsMaster.controls['totalFov'].disable();
@@ -197,12 +199,12 @@ export class BillsmasteraddComponent implements OnInit {
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
         })   
+        this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
         this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
-        this.formBillsMaster.controls['partyGstLocation'].disable();
       } 
       else{        
         this.billSeriesChange();
@@ -261,6 +263,15 @@ export class BillsmasteraddComponent implements OnInit {
       remarks3:  ['', []],
       selected:  ['', []],
     }); 
+  }
+
+  getBillTypeSacHsn():void{
+    this.requestmodel.strRequest = "1";
+    this.billsMasterService.getBillTypeSacHsn(this.requestmodel).subscribe((res) => {
+      this.formBillsMaster.patchValue({
+        sacHsn: res.message,
+      });
+    });
   }
   
   
@@ -338,6 +349,26 @@ export class BillsmasteraddComponent implements OnInit {
         });
       }    
     });
+  }  
+
+  
+  onDueDtChange(e:any): void {
+    var dueDate = new Date(e.target.value);
+    var selectedData = this.formBillsMaster.getRawValue();
+    if(selectedData.billDate==""){
+      this.toasterService.warning("Please Enter Bill Date");
+      this.formBillsMaster.patchValue({
+        dueDate: ""
+      });
+      return;
+    }
+    var billDate = new Date(selectedData.billDate);
+    if(billDate>dueDate){
+      this.toasterService.warning("Due Date should not be lessthan Bill Date");
+      this.formBillsMaster.patchValue({
+        dueDate: ""
+      });
+    }
   }  
   
   billSeriesChange(): void {

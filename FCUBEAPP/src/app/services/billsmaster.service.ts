@@ -66,6 +66,9 @@ export class BillsMasterService {
   checkDuplicateBillsNo(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateBillsNo', request, this.httpOptions);
   }  
+  getBillTypeSacHsn(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillTypeSacHsn', request, this.httpOptions);
+  }  
   getBillPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPdf', filter, this.httpOptions);
   }

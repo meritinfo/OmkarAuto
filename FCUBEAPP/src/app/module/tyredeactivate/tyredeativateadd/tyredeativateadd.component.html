@@ -145,7 +145,7 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-1"> 
-                                                        <input type="checkbox" class="form-check-input mt-10"
+                                                        <input type="checkbox"  class="form-check-input mt-10"
                                                         formControlName="selected" 
                                                         (change)="selectedData(i, $event)" >                                               
                                                     </td>

@@ -1,4 +1,9 @@
 export class Cnorcneegstmodel {
+  cnorCneeID: string="";
+  cnorCneeGstDetail: CnorCneeGstDetailModel[] = [];
+}
+
+export class CnorCneeGstDetailModel {
   cnorCneeDetID: string = "";
   cnorCneeID: string = "";
   location: string = "";
@@ -11,6 +16,6 @@ export class Cnorcneegstmodel {
   contactPerson: string = "";
   mobileNo: string = "";
   email: string = "";
-  centrename: string = "";
+ // centrename: string = "";
 
 }

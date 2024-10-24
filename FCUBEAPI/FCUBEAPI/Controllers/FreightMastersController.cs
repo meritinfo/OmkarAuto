@@ -8,6 +8,7 @@ using Shared.Models;
 using System.Collections.Generic;
 using FinanceMaster.Business;
 using FleetTrans.Business;
+using FleetMasters.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -704,6 +705,45 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("CheckDuplicateBillsNo")]
+        public async Task<IActionResult> CheckDuplicateBillsNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.CheckDuplicateBillsNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillTypeSacHsn")]
+        public async Task<IActionResult> GetBillTypeSacHsn(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillTypeSacHsn(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+               
+
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
         {
@@ -1160,7 +1200,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetConsigneeCnorList")]
-        public async Task<IActionResult> GetConsigneeCnorList(PageRequest request)
+        public async Task<IActionResult> GetConsigneeCnorList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -2287,6 +2327,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await additionalCostRecMasterBusiness.GetAdditionalCostRecDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAddCostDescription")]
+        public async Task<IActionResult> CheckDuplicateAddCostDescription(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostDescription(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAddCostCode")]
+        public async Task<IActionResult> CheckDuplicateAddCostCode(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostCode(requestModel);
 
                 return Ok(result);
             }
