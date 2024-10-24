@@ -5,22 +5,16 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Trip Vehicle Summary</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Driver Master </li> -->
-                            </ol>
-                        </div>
+                        <h4 class="mb-sm-0 font-size-18">Consignment/LR Costing</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-10 col-md-10">
+                <div class="col-sm-8 col-md-8">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -28,7 +22,7 @@
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -36,7 +30,6 @@
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-
                             <!-- <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
@@ -48,13 +41,13 @@
                                 </select>
                                 </div>
                             </div> -->
-                            <!-- <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Loading Branch</label>  
+                                    <label for="formrow-inputCity">Party </label>  
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="branchList"
+                                        <ng-autocomplete [data]="partyList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="tripBranch" [initialValue]=""
+                                            formControlName="party" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -72,14 +65,16 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <label for="formrow-inputCity">Origin </label>  
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList"
+                                        <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="vehicleMasterID" [initialValue]=""
+                                            formControlName="origin" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -100,11 +95,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Driver Name</label>  
+                                    <label for="formrow-inputCity">Destination </label>  
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="driverList"
+                                        <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="driverMasterID" [initialValue]=""
+                                            formControlName="destination" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -122,72 +117,79 @@
                                         </ng-template>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">                                    
+                                    <label for="basicpill-phoneno-input">Varience </label>
+                                    <select id="formrow-inputState" (change)="rptchange($event)"
+                                        formControlName="varType" 
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="P"> Plus</option>
+                                        <option value="M"> Minus </option>
+                                        <option value=""> Both </option>
+                                         
+                                    </select>
+                                </div>
                             </div> 
                             <div class="col-lg-1">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-2 col-md-2 text-right">
+                <div class="col-sm-4 col-md-4 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
                             (click)="exportExcel()"><span>Excel</span></button>
-                       <!--<button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>--> 
                     </div>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">
-                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive full-tyre-width">
-                    <thead>
-                        <tr>
-                            <th>tripBranch</th>
-                            <th>tripNo</th>
-                            <th>vehicleNo</th>  
-                            <th>stmtDate</th>
-                            <th>deptDate</th>
-                            <th>endDate </th>   
-                            <th>noOfDays</th>
-                            <th>distanceTripKM</th>
-                            <th>tripTotalFreight</th>
-                            <th>tripTotalExpenses</th>
-                            <th>tripMargin</th>
-                            <th>marginPerKM</th>
-                            <th>tripStatus</th>
-                           
-                       
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="allTripsummaryRptlist.tripSummaryRptlist?.length != 0">
-                        <tr *ngFor="let eta of allTripsummaryRptlist.tripSummaryRptlist">
-                            <td>{{ eta.tripBranch }}</td>
-                            <td>{{ eta.tripNo }}</td> 
-                            <td>{{ eta.vehicleNo }}</td>
-                            <td>{{ eta.stmtDate }}</td>
-                            <td>{{ eta.deptDate }}</td>
-                             <td>{{ eta.endDate }}</td> 
-                            <td>{{ eta.noOfDays }}</td> 
-                            <td>{{ eta.distanceTripKM }}</td> 
-                            <td>{{ eta.tripTotalFreight }}</td> 
-                            <td>{{ eta.tripTotalExpenses }}</td> 
-                            <td>{{ eta.tripMargin }}</td> 
-                            <td>{{ eta.marginPerKM }}</td> 
-                            <td>{{ eta.tripStatus }}</td> 
-                            
-                       
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="allTripsummaryRptlist.tripSummaryRptlist?.length == 0">
-                        <tr>
-                            <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>cnStnName</th>
+                                <th>gcNoteNo </th>   
+                                <th>bookingDate</th>
+                                <th>partyName </th>   
+                                <th>gcFrom</th>
+                                <th>gcTo</th>
+                                <th>actualWt </th>  
+                                <th>chargewt </th>
+                                <th>challanStnNo</th>
+                                <th>grossFrt</th>
+                                <th>suppFrt </th>   
+                                <th>lH_Hire</th>
+                                                               
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allLrcostingrptlist.lrCostingRptList?.length != 0">
+                            <tr *ngFor="let eta of allLrcostingrptlist.lrCostingRptList">
+                                <td>{{ eta.cnStnName }}</td>
+                                <td>{{ eta.gcNoteNo }}</td> 
+                                <td>{{ eta.bookingDate }}</td> 
+                                <td>{{ eta.partyName }}</td> 
+                                <td>{{ eta.gcFrom }}</td>
+                                <td>{{ eta.gcTo }}</td> 
+                                <td>{{ eta.actualWt }}</td>
+                                <td>{{ eta.chargewt }}</td>
+                                <td>{{ eta.challanStnNo }}</td>  
+                                <td>{{ eta.grossFrt }}</td> 
+                                <td>{{ eta.suppFrt }}</td> 
+                                <td>{{ eta.lH_Hire }}</td>                                                                                   
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allLrcostingrptlist.lrCostingRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -195,6 +197,8 @@
     </div>
     <!-- End Page-content -->
 </div>
+
+
 
 
 

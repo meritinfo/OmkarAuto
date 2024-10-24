@@ -181,7 +181,9 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive full-tyre-width">
+                <!-- <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100"> -->
                     <thead>
                         <tr>
                             <th>vehicleNo</th>

@@ -49,6 +49,7 @@ namespace FCUBEAPI.Controllers
         readonly IBillSubmitMstBusiness billSubmitMstBusiness;
         readonly IAdditionalCostRecMasterBusiness additionalCostRecMasterBusiness;
         readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
+        readonly ILRCostingRptBusiness lRCostingRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -81,7 +82,8 @@ namespace FCUBEAPI.Controllers
             ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
             IBillSubmitMstBusiness _billSubmitMstBusiness,
             IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
-            IBillOutstandingRptBusiness _billOutstandingRptBusiness)
+            IBillOutstandingRptBusiness _billOutstandingRptBusiness,
+            ILRCostingRptBusiness _lRCostingRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -118,6 +120,7 @@ namespace FCUBEAPI.Controllers
             billSubmitMstBusiness = _billSubmitMstBusiness;
             additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
             billOutstandingRptBusiness = _billOutstandingRptBusiness;
+            lRCostingRptBusiness = _lRCostingRptBusiness;
         }
 
         /// <summary>
@@ -2408,8 +2411,45 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-       
-        
+
+
+        [HttpPost("GetLRCostingRptExcel")]
+        public async Task<IActionResult> GetLRCostingRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRCostingRptBusiness.GetLRCostingRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLRCostingRptList")]
+        public async Task<IActionResult> GetLRCostingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRCostingRptBusiness.GetLRCostingRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         //{
