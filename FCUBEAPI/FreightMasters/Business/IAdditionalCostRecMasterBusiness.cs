@@ -13,6 +13,8 @@ namespace FreightMasters.Business
         Task<ResponseModel> AdditionalCostRecMasterSave(AdditionalCostRecMasterModel additionalCostRecMasterModel);
         Task<AdditionalCostRecMasterList> GetAdditionalCostRecMasterList(PageRequest request);
         Task<ResponseModel> GetAdditionalCostRecDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateAddCostDescription(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateAddCostCode(RequestModel requestModel);
     }
 
 

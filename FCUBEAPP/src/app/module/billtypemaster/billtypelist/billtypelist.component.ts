@@ -94,22 +94,22 @@ billsTypeMasterList(){
         title: 'Bill Type Desc',
         data: 'billTypeDesc',
       },
-      {
-        title: 'Main Ac',
-        data: 'mainAc',
-      },
-      {
-        title: 'Other Ac',
-        data: 'otherAc',
-      },
-      {
-        title: 'Other Ac2',
-        data: 'otherAc2',
-      },
-      {
-        title: 'Other Ac3',
-        data: 'otherAc3',
-      },
+      // {
+      //   title: 'Main Ac',
+      //   data: 'mainAc',
+      // },
+      // {
+      //   title: 'Other Ac',
+      //   data: 'otherAc',
+      // },
+      // {
+      //   title: 'Other Ac2',
+      //   data: 'otherAc2',
+      // },
+      // {
+      //   title: 'Other Ac3',
+      //   data: 'otherAc3',
+      // },
       {
         title: 'SAC Code',
         data: 'sasCode',

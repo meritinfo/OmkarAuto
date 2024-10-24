@@ -37,6 +37,9 @@ export class CnorCneeGstService {
   cnorcneeGstModelSubmitted(user: Cnorcneegstmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/CnorCneeGstSave', user, this.httpOptions);
   }
+  getCnorCneeDtlList(req: Requestmodel): Observable<Cnorcneegstmodel> {
+    return this.httpClient.post<Cnorcneegstmodel>(Constants.API_ENDPOINT + 'FinanceMasters/getCnorCneeDtlList', req, this.httpOptions);
+  }
   getCnorCneeGstList(filter: Filtermodel): Observable<Cnorcneegstlistmodel> {
     return this.httpClient.post<Cnorcneegstlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetCnorCneeGstList', filter, this.httpOptions);
   }

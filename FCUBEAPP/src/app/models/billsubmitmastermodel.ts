@@ -23,6 +23,7 @@ export class Billsubmitmastermodel {
     lname: string = "";
     dname: string = "";
 
+
     billSubmitMasterDtlList: BillSubmitMstDtlListmodel[] = [];
 }
 

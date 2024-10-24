@@ -134,7 +134,7 @@ export class BillsubmitmasteraddComponent {
     submitStn : new FormControl(this.branch,),  
     submitNo : new FormControl('',[Validators.required]),
     submitDt : new FormControl(this.loginDate,[Validators.required]),
-    submitType : new FormControl('',),
+    submitType : new FormControl('',[Validators.required]),
     courierCo : new FormControl('',),
     courierDocketNo : new FormControl('',),
     partyCode : new FormControl('',[Validators.required]),
@@ -261,13 +261,27 @@ startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
 };
 searchStatement(): void {
   var selectedDataValue = this.formUser.getRawValue();
-  // if (selectedDataValue.partyCode.dataId || selectedDataValue.submitLocation || selectedDataValue.billsUptoDt) {
-  //   //ignore
-  // }
-  // else{
-  //   this.toastrService.warning(" select party , location and uptodate");
-  //   return;
-  // } 
+  if (selectedDataValue.partyCode.dataId ) {
+    //ignore
+  }
+  else{
+    this.toastrService.warning(" please  select party ");
+    return;
+  } 
+  if ( selectedDataValue.submitLocation) {
+    //ignore
+  }
+  else{
+    this.toastrService.warning("please  select location");
+    return;
+  } 
+  if (selectedDataValue.billsUptoDt) {
+    //ignore
+  }
+  else{
+    this.toastrService.warning(" please select uptodate");
+    return;
+  } 
   
   this.reportmodel.filterStr = selectedDataValue.partyCode.dataId;
   this.reportmodel.filterStr1 = selectedDataValue.submitLocation;
@@ -282,11 +296,13 @@ searchStatement(): void {
       this.formTyreArray.push(this.createSubmitArray());
       this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
       this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
-      this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);
-    //  this.formTyreArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
-
+      this.formTyreArray.controls[i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
+     // this.formTyreArray.controls[i].get("billDate")?.setValue(res.billSubmitMasterDtlList[i].billDate);
+      this.formTyreArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
      // this.formArray.controls[i].get("gcNoteNo")?.disable();
       this.formTyreArray.controls[i].get("billAmt")?.disable();
+      this.formTyreArray.controls[i].get("billDate")?.disable();
+      this.formTyreArray.controls[i].get("billNo")?.disable();
      // this.formArray.controls[i].get("bookingDate")?.disable();
 
    
@@ -311,10 +327,11 @@ createSubmitArray() {
     billsMasterId: [''],
     billAmt: [''],
     dtlRemarks: [''],
+    billNo: [''],
+    billDate: [''],
     selected: [''],
   //  itemQty: ['' ,[Validators.required]],
     //itemRate: ['',[Validators.required]],
-
 
   });
 }
@@ -407,10 +424,13 @@ getBillSubmitMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);  
       this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);   
       this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);  
+      this.formTyreArray.controls[i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
+      this.formTyreArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
     this.formTyreArray.controls[i].get("selected")?.setValue(res.billSubmitMasterDtlList[i].selected); 
      
-    
-    //  this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
+    this.formTyreArray.controls[i].get("billDate")?.disable();
+    this.formTyreArray.controls[i].get("billNo")?.disable();
+      this.formTyreArray.controls[i].get("billAmt")?.disable();   
      // this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
      // this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
      // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
@@ -517,6 +537,8 @@ this.billsubmitmastermodel.billSubmitMasterDtlList = [];
         'billAmt': selectedDataValue.arrayList[i].billAmt,
  
         'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
+        'billNo': '',
+        'billDate': '',
        'selected': selectedDataValue.arrayList[i].selected?true:false,
     //  'selected': false
       }) 

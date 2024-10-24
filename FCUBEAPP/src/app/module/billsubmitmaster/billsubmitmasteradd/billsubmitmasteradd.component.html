@@ -70,7 +70,7 @@
                                   </div>
                                   <div class="col-lg-2">
                                      <div class="mb-3">
-                                        <label for="formrow-inputCity">Courier Co </label><span style="color: red"> * </span>
+                                        <label for="formrow-inputCity">Courier Co </label>
                                         <input numbersonly autoclose="false" 
                                            class="form-control" formControlName="courierCo"
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['courierCo'].invalid) }">
@@ -78,7 +78,7 @@
                                   </div>
                                   <div class="col-lg-2">
                                      <div class="mb-3">
-                                        <label for="formrow-inputCity">Courier Docket No </label><span style="color: red"> * </span>
+                                        <label for="formrow-inputCity">Courier Docket No </label>
                                         <input numbersonly autoclose="false" 
                                            class="form-control" formControlName="courierDocketNo"
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['courierDocketNo'].invalid) }">
@@ -122,7 +122,7 @@
                                   </div>
                                   <div class="col-lg-2">
                                      <div class="mb-3">
-                                        <label for="formrow-inputCity">Dept Id </label><span style="color: red"> * </span>
+                                        <label for="formrow-inputCity">Dept </label><span style="color: red"> * </span>
                                         <select class="form-control" formControlName="deptId" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['deptId'].invalid) }">
                                         <option *ngFor="let branch of deptList" value={{branch.dataId}}>
@@ -216,28 +216,39 @@
                                </tr>
                                <tr>
                                   <th><label for="formrow-inputCity"></label></th>
-                             
+                                  <th><label for="formrow-inputZip">Bill No</label></th>
+                                  <th><label for="formrow-inputZip">Bill Date</label></th>
                                   <th><label for="formrow-inputZip">Bill Amt</label></th>
                                   <th><label for="formrow-inputZip">Dtl Remarks</label></th>
+                                  
                                </tr>
                                <tr formArrayName="arrayList"
                                   *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                   <div [formGroupName]="i" class="grid-table">
-                                     <td>
+                                     <td style="width:2%">
                                         <div class="mb-3">
                                            <input type="checkbox"  name="select" 
                                               class="form-check-input"
                                               (change)="selectedData(i, $event)" formControlName="selected">
                                         </div>
                                      </td>
-                                     
+                                     <td style="width:12%">
+                                       <div class="mb-3">
+                                          <input class="form-control" formControlName="billNo" >
+                                       </div>
+                                    </td>
+                                    <td style="width:12%">
+                                       <div class="mb-3">
+                                          <input class="form-control" formControlName="billDate" type="date" >
+                                       </div>
+                                    </td>
                                     
-                                     <td>
-                                        <div class="mb-3">
+                                     <td style="width:12%">
+                                        <div class="mb-3" >
                                            <input class="form-control" formControlName="billAmt" decimalonly>
                                         </div>
                                      </td>
-                                     <td>
+                                     <td style="width:50%">
                                         <div class="mb-3">
                                            <input class="form-control" formControlName="dtlRemarks" uppercaseonly>
                                         </div>

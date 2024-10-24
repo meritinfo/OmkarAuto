@@ -8,6 +8,7 @@ using Shared.Models;
 using System.Collections.Generic;
 using FinanceMaster.Business;
 using FleetTrans.Business;
+using FleetMasters.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -49,6 +50,7 @@ namespace FCUBEAPI.Controllers
         readonly IBillSubmitMstBusiness billSubmitMstBusiness;
         readonly IAdditionalCostRecMasterBusiness additionalCostRecMasterBusiness;
         readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
+        readonly ILRCostingRptBusiness lRCostingRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -81,7 +83,8 @@ namespace FCUBEAPI.Controllers
             ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
             IBillSubmitMstBusiness _billSubmitMstBusiness,
             IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
-            IBillOutstandingRptBusiness _billOutstandingRptBusiness)
+            IBillOutstandingRptBusiness _billOutstandingRptBusiness,
+            ILRCostingRptBusiness _lRCostingRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -118,6 +121,7 @@ namespace FCUBEAPI.Controllers
             billSubmitMstBusiness = _billSubmitMstBusiness;
             additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
             billOutstandingRptBusiness = _billOutstandingRptBusiness;
+            lRCostingRptBusiness = _lRCostingRptBusiness;
         }
 
         /// <summary>
@@ -1196,7 +1200,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetConsigneeCnorList")]
-        public async Task<IActionResult> GetConsigneeCnorList(PageRequest request)
+        public async Task<IActionResult> GetConsigneeCnorList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -2331,6 +2335,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicateAddCostDescription")]
+        public async Task<IActionResult> CheckDuplicateAddCostDescription(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostDescription(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAddCostCode")]
+        public async Task<IActionResult> CheckDuplicateAddCostCode(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await additionalCostRecMasterBusiness.CheckDuplicateAddCostCode(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("GetAgeingSummRptExcel")]
@@ -2447,8 +2487,45 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-       
-        
+
+
+        [HttpPost("GetLRCostingRptExcel")]
+        public async Task<IActionResult> GetLRCostingRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRCostingRptBusiness.GetLRCostingRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLRCostingRptList")]
+        public async Task<IActionResult> GetLRCostingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRCostingRptBusiness.GetLRCostingRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         //{

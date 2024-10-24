@@ -52,6 +52,7 @@ namespace FCUBEAPI.Controllers
         readonly IDieselStmtRptBusiness dieselStmtRptBusiness;
         readonly IVehicleFrtOutstandingRptBusiness vehicleFrtOutstandingRptBusiness;
         readonly ITripOutstandingRptBusiness tripOutstandingRptBusiness;
+        readonly ITripSummaryRptBusiness tripSummaryRptBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -81,6 +82,7 @@ namespace FCUBEAPI.Controllers
             IDieselStmtRptBusiness _dieselStmtRptBusiness,
             IVehicleFrtOutstandingRptBusiness _vehicleFrtOutstandingRptBusiness,
             ITripOutstandingRptBusiness _tripOutstandingRptBusiness,
+            ITripSummaryRptBusiness _tripSummaryRptBusiness,
 
         ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
@@ -116,6 +118,7 @@ namespace FCUBEAPI.Controllers
             dieselStmtRptBusiness = _dieselStmtRptBusiness;
             vehicleFrtOutstandingRptBusiness = _vehicleFrtOutstandingRptBusiness;
             tripOutstandingRptBusiness = _tripOutstandingRptBusiness;
+            tripSummaryRptBusiness = _tripSummaryRptBusiness;
         }
 
 
@@ -2998,6 +3001,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetTripSummaryRptList")]
+        public async Task<IActionResult> GetTripSummaryRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripSummaryRptBusiness.GetTripSummaryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelTripSummaryRptList")]
+        public async Task<IActionResult> ExcelTripSummaryRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripSummaryRptBusiness.ExcelTripSummaryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

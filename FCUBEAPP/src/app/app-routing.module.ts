@@ -226,7 +226,8 @@ import { AdditionalcostrecmasteraddComponent } from './module/additionalcostrec/
 import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec/additionalcostrecmasterlist/additionalcostrecmasterlist.component';
 import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 import { TripoutstandingrptComponent } from './module/tripoutstandingrpt/tripoutstandingrpt.component';
-
+import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
+import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 
 
 const routes: Routes = [
@@ -521,7 +522,7 @@ const routes: Routes = [
   { path: 'budgetexp', component: ExpensebudgetsaddComponent },
   { path: 'cnorcneegstadd', component: CnorcneegstaddComponent},
   { path: 'cnorcneegstedit', component: CnorcneegstaddComponent},
-  { path: 'cnorcneegst', component: CnorcneegstlistComponent},
+  { path: 'cnorcneegst', component: CnorcneegstaddComponent},
   { path: 'monthlystmt', component: MonthlystatementrptComponent },
   { path: 'partygroupadd', component:  PartygroupmasteraddComponent },
   { path: 'partygroupedit', component:  PartygroupmasteraddComponent },
@@ -546,6 +547,8 @@ const routes: Routes = [
   { path: 'addcostrecmst', component:  AdditionalcostrecmasterlistComponent },  
   { path: 'billentrysupplist', component: BillsupplilistComponent },  
   { path: 'billoutstndrpt', component: BilloutstandingrptComponent },  
+  { path: 'lrcosting', component: LrcostingrptComponent },
+  { path: 'tripvehsum', component: TripsummaryrptComponent },
 ];
 
 

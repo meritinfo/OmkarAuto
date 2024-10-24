@@ -301,7 +301,10 @@ namespace FCUBEAPI
             services.AddScoped<IAdditionalCostRecMasterRepository, AdditionalCostRecMasterRepository>();
             services.AddScoped<IBillOutstandingRptBusiness, BillOutstandingRptBusiness>();
             services.AddScoped<IBillOutstandingRptRepository, BillOutstandingRptRepository>();
-
+            services.AddScoped<ILRCostingRptBusiness, LRCostingRptBusiness>();
+            services.AddScoped<ILRCostingRptRepository, LRCostingRptRepository>();
+            services.AddScoped<ITripSummaryRptRepository, TripSummaryRptRepository>();
+            services.AddScoped<ITripSummaryRptBusiness, TripSummaryRptBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

@@ -171,7 +171,7 @@ billSubmitList() {
         data: 'lname',
       }, 
       {
-        title: 'Dept Id',
+        title: 'Dept',
         data: 'dname',
       }, 
       

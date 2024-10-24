@@ -22,6 +22,7 @@ export class Cnorcneemastermodel {
     isActive: string = "";
     inActiveDate: string = "";
     olD_CnorCnee_ID: string = "";
+    bname: string = "";
     loggedInUser: string = "";
 
 }

@@ -11,10 +11,11 @@ namespace FinanceMaster.Repository
 {
     public interface ICnorCneeGstRepository
     {
-        Task<ResponseModel> CnorCneeGstDelete(RequestModel requestModel);
+        Task<ResponseModel> GetCnorCneeGstDelete(RequestModel requestModel);
         Task<CnorCneeGstList> GetCnorCneeGstList(PageRequest request);
         Task<ResponseModel> CnorCneeGstSave(CnorCneeGstModel cnorCneeGstModel);
         Task<List<DropDownListModel>> GetCneeCnorList();
+        Task<CnorCneeGstModel> GetCnorCneeDtlList(RequestModel request);
 
     }
 }
