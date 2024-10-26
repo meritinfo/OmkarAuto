@@ -212,6 +212,12 @@ export class TripsheetaddComponent {
             tripStatus:""
           }); 
         }
+        if(this.selectedTripSheetDetails.tripLinkYN=="N"){
+          this.formTripsheet.patchValue({
+            tripLinkYN:""
+          }); 
+        }
+        
              
         if( this.selectedTripSheetDetails.nextTrip != '0'){        
           this.formTripsheet.controls['closingKMR'].disable();     
