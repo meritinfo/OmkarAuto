@@ -583,7 +583,7 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Tripsummaryrptmodel,
-    Tripoutstandingrptmodel,
+    
   ],
   bootstrap: [AppComponent]
 })
