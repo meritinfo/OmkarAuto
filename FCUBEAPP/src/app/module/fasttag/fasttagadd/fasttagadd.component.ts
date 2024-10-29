@@ -7,8 +7,8 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-import { DieselstmtService } from 'src/app/services/dieselstmt.service';
-import { Dieselstmtmodel } from 'src/app/models/dieselstmtmodel';
+import { FasttagService } from 'src/app/services/fasttag.service';
+import { Fasttagmodel } from 'src/app/models/fasttagmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import * as XLSX from 'xlsx';
@@ -17,11 +17,11 @@ type AOA = any[][];
 
 
 @Component({
-  selector: 'app-dieselstmtadd',
-  templateUrl: './dieselstmtadd.component.html',
-  styleUrls: ['./dieselstmtadd.component.css']
+  selector: 'app-fasttagadd',
+  templateUrl: './fasttagadd.component.html',
+  styleUrls: ['./fasttagadd.component.css']
 })
-export class DieselstmtaddComponent {
+export class FasttagaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   loginDate: string = '';
@@ -31,8 +31,8 @@ export class DieselstmtaddComponent {
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
-  formDieselStatement!: FormGroup;
-  selectedDieselStmtDetails = new Dieselstmtmodel()
+  formFastTag!: FormGroup;
+  selectedFasttag = new Fasttagmodel()
   seriesDoc: string = "";
 
   keywordLocation = 'dataName';
@@ -48,12 +48,12 @@ export class DieselstmtaddComponent {
   responseDetails = new Responsemodel();
  
   constructor(private reportmodel: Reportmodel, 
-    private requestmodel:Requestmodel,private dieselStatementmodel:Dieselstmtmodel,
+    private requestmodel:Requestmodel,private fasttagmodel:Fasttagmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private sharedService: SharedService,
     private cashReceiptEntryService: CashReceiptEntryService,
-    private dieselstatementService: DieselstmtService, private toasterService: ToastrService) {
-      this.dieselStatementmodel= new Dieselstmtmodel();
+    private fasttagService: FasttagService, private toasterService: ToastrService) {
+      this.fasttagmodel= new Fasttagmodel();
   }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class DieselstmtaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Diesel Data Import"));
+      .find((( aa: { menuName: string; }) => aa.menuName === "Fastag Data Import"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -115,13 +115,13 @@ export class DieselstmtaddComponent {
     this.getBranchList();
     this.getAcountList();
 
-    this.selectedDieselStmtDetails = this.dieselstatementService.getDieselStatementDetails();
-    this.formDieselStatement = this.formBuilder.group({
+    this.selectedFasttag = this.fasttagService.getFasttagDetails();
+    this.formFastTag = this.formBuilder.group({
       branchCode: new FormControl(this.branch, [Validators.required]),
       stmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      dfAccount: new FormControl('', [Validators.required]),
+      ftAccount: new FormControl('', [Validators.required]),
       totalDslLtrs: new FormControl(''),
       totalDslAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
@@ -131,34 +131,35 @@ export class DieselstmtaddComponent {
     
     this.sharedService.loading=false;       
     setTimeout(() => {
-      if (this.selectedDieselStmtDetails.dfMasterID != '') {
-        this.formDieselStatement.patchValue(this.selectedDieselStmtDetails);
-        this.formDieselStatement.patchValue({
-          stmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.stmtDate),
-          fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
-          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          dfAccount: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfAccount),  
+      if (this.selectedFasttag.ftMasterID != '') {
+        this.formFastTag.patchValue(this.selectedFasttag);
+        this.formFastTag.patchValue({
+          stmtDate:this.commonService.formatDate(this.selectedFasttag.stmtDate),
+          fromDate:this.commonService.formatDate(this.selectedFasttag.fromDate),
+          toDate:this.commonService.formatDate(this.selectedFasttag.toDate),
+          ftAccount: this.accountList.find(e => e.dataId == this.selectedFasttag.ftAccount),  
         })
-        if(this.selectedDieselStmtDetails.ftmidHsd!="0"){
-          this.getFinDocDetails(this.selectedDieselStmtDetails.ftmidHsd);
+        if(this.selectedFasttag.ftmId!="0"){
+          this.getFinDocDetails(this.selectedFasttag.ftmId);
         }
         this.editMode=true;
         this.getDieselStmtInnerGridList();
-        this.formDieselStatement.controls['stmtDate'].disable();     
-        this.formDieselStatement.controls['fromDate'].disable();  
-        this.formDieselStatement.controls['toDate'].disable();  
-        this.formDieselStatement.controls['dfAccount'].disable();     
+        this.formFastTag.controls['stmtDate'].disable();     
+        this.formFastTag.controls['fromDate'].disable();  
+        this.formFastTag.controls['toDate'].disable();  
+        this.formFastTag.controls['ftAccount'].disable();     
       }    
     }, 2000);
 
-    this.formDieselStatement.controls['branchCode'].disable();  
-    this.formDieselStatement.controls["totalDslLtrs"].disable();
-    this.formDieselStatement.controls["totalDslAmt"].disable();
+    this.formFastTag.controls['branchCode'].disable();  
+    this.formFastTag.controls["totalDslLtrs"].disable();
+    this.formFastTag.controls["totalDslAmt"].disable();
   }
 
-  get f() { return this.formDieselStatement.controls; }
+  get f() { return this.formFastTag.controls; }
+
   get formArray() {
-    return this.formDieselStatement.get("arrayList") as FormArray;
+    return this.formFastTag.get("arrayList") as FormArray;
   }
 
   
@@ -167,9 +168,10 @@ export class DieselstmtaddComponent {
       transRefNo:  ['', []],
       vehicleNo:  ['', []],
       transDateTime:  ['', []],
-      dslQty:  ['', []],
-      dslRate:  ['', []],
-      amount:  ['', []],
+      ftAmount:  ['', []],
+      crDr:  ['', []],
+      tripPmtId:  ['', []],
+      tripAdjYN:  ['', []],
     });
   }
 
@@ -180,7 +182,7 @@ export class DieselstmtaddComponent {
   }
 
   getAcountList(): void {    
-    this.requestmodel.strRequest="V"
+    this.requestmodel.strRequest = "F"
     this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
@@ -217,26 +219,28 @@ export class DieselstmtaddComponent {
   }
 
   getDieselStmtInnerGridList(): void {
-    this.requestmodel.strRequest = this.selectedDieselStmtDetails.dfMasterID;
-    this.dieselstatementService.getDieselStatementInnerGridList(this.requestmodel).subscribe((res) => {
-      this.dieselStatementmodel = res;
+    this.requestmodel.strRequest = this.selectedFasttag.ftMasterID;
+    this.fasttagService.getFasttagInnerGridList(this.requestmodel).subscribe((res) => {
+      this.fasttagmodel = res;
       this.formArray.clear();
       
-      for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
+      for (var i = 0; i < res.fastTagDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());   
-        this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
-        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStmtDtlsList[i].vehicleNo);
-        this.formArray.controls[i].get("transDateTime")?.setValue(res.dieselStmtDtlsList[i].transDateTime);
-        this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
-        this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
-        this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
+        this.formArray.controls[i].get("transRefNo")?.setValue(res.fastTagDtlList[i].transRefNo);
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.fastTagDtlList[i].vehicleNo);
+        this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
+        this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
+        this.formArray.controls[i].get("crDr")?.setValue(res.fastTagDtlList[i].crDr);
+        this.formArray.controls[i].get("tripPmtId")?.setValue(res.fastTagDtlList[i].tripPmtId);
+        this.formArray.controls[i].get("tripAdjYN")?.setValue(res.fastTagDtlList[i].tripAdjYN);
 
         this.formArray.controls[i].get("transRefNo")?.disable();
         this.formArray.controls[i].get("vehicleNo")?.disable();
         this.formArray.controls[i].get("transDateTime")?.disable();
-        this.formArray.controls[i].get("dslQty")?.disable();
-        this.formArray.controls[i].get("dslRate")?.disable();     
-        this.formArray.controls[i].get("amount")?.disable();   
+        this.formArray.controls[i].get("ftAmount")?.disable();
+        this.formArray.controls[i].get("crDr")?.disable();     
+        this.formArray.controls[i].get("tripPmtId")?.disable();    
+        this.formArray.controls[i].get("tripAdjYN")?.disable();   
       }
     });  
   }
@@ -262,7 +266,7 @@ export class DieselstmtaddComponent {
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
 
-      var selectedDataVal = this.formDieselStatement.getRawValue();
+      var selectedDataVal = this.formFastTag.getRawValue();
       var j=0;
       this.formArray.clear();
       for (var i = 0; i < this.data.length; i++) { 
@@ -277,16 +281,18 @@ export class DieselstmtaddComponent {
             this.formArray.controls[j].get("vehicleNo")?.setValue(this.data[i+1][2]);
             //this.formArray.controls[j].get("transDateTime")?.setValue(startDt.toLocaleDateString('en-CA').toString());
             this.formArray.controls[j].get("transDateTime")?.setValue(this.data[i+1][3]);
-            this.formArray.controls[j].get("dslQty")?.setValue(this.data[i+1][7]);
-            this.formArray.controls[j].get("dslRate")?.setValue(this.data[i+1][6]);
-            this.formArray.controls[j].get("amount")?.setValue(this.data[i+1][8]);
+            this.formArray.controls[j].get("ftAmount")?.setValue(this.data[i+1][7]);
+            this.formArray.controls[j].get("crDr")?.setValue(this.data[i+1][6]);
+            this.formArray.controls[j].get("tripPmtId")?.setValue(this.data[i+1][8]);
+            this.formArray.controls[j].get("tripAdjYN")?.setValue(this.data[i+1][9]);
 
             this.formArray.controls[j].get("transRefNo")?.disable();
             this.formArray.controls[j].get("vehicleNo")?.disable();
             this.formArray.controls[j].get("transDateTime")?.disable();
-            this.formArray.controls[j].get("dslQty")?.disable();
-            this.formArray.controls[j].get("dslRate")?.disable();     
-            this.formArray.controls[j].get("amount")?.disable();  
+            this.formArray.controls[j].get("ftAmount")?.disable();
+            this.formArray.controls[j].get("crDr")?.disable();     
+            this.formArray.controls[j].get("tripPmtId")?.disable();    
+            this.formArray.controls[j].get("tripAdjYN")?.disable();   
 
             j ++; 
           }
@@ -302,45 +308,37 @@ export class DieselstmtaddComponent {
       this.calculateTotal();
     }, 2000);
   }
-
-
   
   calculateTotal() {
-    var totalDslLtrs= 0;
-    var totalDslAmt= 0;
-
-    var selectedData = this.formDieselStatement.getRawValue(); 
+    var totalFtAmt= 0;
+    var selectedData = this.formFastTag.getRawValue(); 
 
     for (var i = 0; i < selectedData.arrayList.length; i++) {
-      if (selectedData.arrayList[i].dslQty != "") {
-        totalDslLtrs = totalDslLtrs + parseFloat(selectedData.arrayList[i].dslQty);
-      }
-      if (selectedData.arrayList[i].amount != "") {
-        totalDslAmt = totalDslAmt + parseFloat(selectedData.arrayList[i].amount);
-      }            
+      if (selectedData.arrayList[i].ftAmount != "") {
+        totalFtAmt = totalFtAmt + parseFloat(selectedData.arrayList[i].ftAmount);
+      }        
     }
      
-    this.formDieselStatement.patchValue({
-      totalDslLtrs:totalDslLtrs.toFixed(2),
-      totalDslAmt: totalDslAmt.toFixed(2),
+    this.formFastTag.patchValue({
+      totalFtAmt:totalFtAmt.toFixed(2),
     });
   }
 
   exit(): void {
-    this.route.navigate(['/dieselimplist']);
+    this.route.navigate(['/fastagimport']);
   }
 
   deleteDieselStatementForm(): void {
-    if(this.selectedDieselStmtDetails.dfMasterID != '' ){      
+    if(this.selectedFasttag.ftMasterID != '' ){      
     this.sharedService.loading=true;
-     this.requestmodel.strRequest =this.selectedDieselStmtDetails.dfMasterID;
+     this.requestmodel.strRequest =this.selectedFasttag.ftMasterID;
       if (confirm("Are you sure, you want to delete this?")) {
-            this.dieselstatementService.dieselStatementDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.fasttagService.fasttagDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message);
-              this.formDieselStatement.reset();
-              this.route.navigate(['/dieselimplist']);
+              this.formFastTag.reset();
+              this.route.navigate(['/fastagimport']);
             }
             else{
               this.toasterService.warning(this.responseDetails.message);        
@@ -354,9 +352,9 @@ export class DieselstmtaddComponent {
 
  
   saveStatementDetails(): void {
-    if (this.formDieselStatement.invalid) {
+    if (this.formFastTag.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
-      const controls = this.formDieselStatement.controls;
+      const controls = this.formFastTag.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           this.toasterService.warning(name + " Fields is Invalid");   
@@ -365,45 +363,45 @@ export class DieselstmtaddComponent {
       return;
     }
 
-    var selectedDataVal=this.formDieselStatement.getRawValue();
+    var selectedDataVal=this.formFastTag.getRawValue();
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
-    this.dieselStatementmodel.dfMasterID      = this.selectedDieselStmtDetails.dfMasterID ;
-    this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
-    this.dieselStatementmodel.stmtDate        = selectedDataVal.stmtDate;
-    this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
-    this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
-    this.dieselStatementmodel.dfAccount       = selectedDataVal.dfAccount?selectedDataVal.dfAccount.dataId:'';
-    this.dieselStatementmodel.remarks         = selectedDataVal.remarks;  
-    this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
-    this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
-    this.dieselStatementmodel.branchCode      = this.branch;
-    this.dieselStatementmodel.yearId          = this.year;
-    this.dieselStatementmodel.loggedInUser    = this.loggedInUserID;
+    this.fasttagmodel.ftMasterID      = this.selectedFasttag.ftMasterID ;
+    this.fasttagmodel.branchCode      = selectedDataVal.branchCode;
+    this.fasttagmodel.stmtDate        = selectedDataVal.stmtDate;
+    this.fasttagmodel.fromDate        = selectedDataVal.fromDate;
+    this.fasttagmodel.toDate          = selectedDataVal.toDate;
+    this.fasttagmodel.ftAccount       = selectedDataVal.ftAccount?selectedDataVal.ftAccount.dataId:'';
+    this.fasttagmodel.remarks         = selectedDataVal.remarks;  
+    this.fasttagmodel.totalFtAmt    = selectedDataVal.totalFtAmt;
+    this.fasttagmodel.branchCode      = this.branch;
+    this.fasttagmodel.yearID          = this.year;
+    this.fasttagmodel.loggedInUser    = this.loggedInUserID;
 
-    this.dieselStatementmodel.dieselStmtDtlsList = [];
+    this.fasttagmodel.fastTagDtlList = [];
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].transRefNo!=''){
-        this.dieselStatementmodel.dieselStmtDtlsList.push({
-          'dfMasterID':"",
+        this.fasttagmodel.fastTagDtlList.push({
+          'ftMasterID':"",
           'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
           'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.toString(),   
           'transDateTime': selectedDataVal.arrayList[i].transDateTime.toString(),   
-          'dslQty': selectedDataVal.arrayList[i].dslQty.toString(),   
-          'dslRate': selectedDataVal.arrayList[i].dslRate.toString(),   
-          'amount': selectedDataVal.arrayList[i].amount.toString(), 
+          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString(),   
+          'crDr': selectedDataVal.arrayList[i].crDr.toString(),   
+          'tripPmtId': selectedDataVal.arrayList[i].tripPmtId.toString(), 
+          'tripAdjYN': selectedDataVal.arrayList[i].tripAdjYN.toString(), 
         });
       }
-    }
+    } 
 
-    this.dieselstatementService.dieselStatementSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
+    this.fasttagService.fasttagSave(this.fasttagmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
-        this.formDieselStatement.reset();
-        this.route.navigate(['/dieselimplist']);
+        this.formFastTag.reset();
+        this.route.navigate(['/fastagimport']);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

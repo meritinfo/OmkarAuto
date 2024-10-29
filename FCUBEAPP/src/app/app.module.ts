@@ -394,6 +394,8 @@ import { Lrcostingrptmodel } from './models/lrcostingrptmodel';
 import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
 import { Tripsummaryrptmodel } from './models/tripsummaryrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
+import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
+import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
 
 @NgModule({
   declarations: [
@@ -519,7 +521,7 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     BillsubmitmasteraddComponent, BillsubmitmasterlistComponent,
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
-    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent,
+    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, FasttagaddComponent, FasttaglistComponent,
     
   ],
   imports: [
