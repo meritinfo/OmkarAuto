@@ -122,8 +122,7 @@ export class FasttagaddComponent {
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
       ftAccount: new FormControl('', [Validators.required]),
-      totalDslLtrs: new FormControl(''),
-      totalDslAmt: new FormControl('',[Validators.required]),
+      totalFtAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
@@ -152,8 +151,7 @@ export class FasttagaddComponent {
     }, 2000);
 
     this.formFastTag.controls['branchCode'].disable();  
-    this.formFastTag.controls["totalDslLtrs"].disable();
-    this.formFastTag.controls["totalDslAmt"].disable();
+    this.formFastTag.controls["totalFtAmt"].disable();
   }
 
   get f() { return this.formFastTag.controls; }
@@ -169,9 +167,6 @@ export class FasttagaddComponent {
       vehicleNo:  ['', []],
       transDateTime:  ['', []],
       ftAmount:  ['', []],
-      crDr:  ['', []],
-      tripPmtId:  ['', []],
-      tripAdjYN:  ['', []],
     });
   }
 
@@ -230,17 +225,11 @@ export class FasttagaddComponent {
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.fastTagDtlList[i].vehicleNo);
         this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
         this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
-        this.formArray.controls[i].get("crDr")?.setValue(res.fastTagDtlList[i].crDr);
-        this.formArray.controls[i].get("tripPmtId")?.setValue(res.fastTagDtlList[i].tripPmtId);
-        this.formArray.controls[i].get("tripAdjYN")?.setValue(res.fastTagDtlList[i].tripAdjYN);
 
         this.formArray.controls[i].get("transRefNo")?.disable();
         this.formArray.controls[i].get("vehicleNo")?.disable();
         this.formArray.controls[i].get("transDateTime")?.disable();
         this.formArray.controls[i].get("ftAmount")?.disable();
-        this.formArray.controls[i].get("crDr")?.disable();     
-        this.formArray.controls[i].get("tripPmtId")?.disable();    
-        this.formArray.controls[i].get("tripAdjYN")?.disable();   
       }
     });  
   }
@@ -257,14 +246,14 @@ export class FasttagaddComponent {
     reader.onload = (e: any) => {
       /* read workbook */
       const bstr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellText: true, cellDates: true });
 
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'dd-MM-yyyy HH:mm:ss' }));
 
       var selectedDataVal = this.formFastTag.getRawValue();
       var j=0;
@@ -272,7 +261,7 @@ export class FasttagaddComponent {
       for (var i = 0; i < this.data.length; i++) { 
         if (this.data[i+1][0]!="")  
         {  
-          if (this.data[i+1][1]=="Debit" && this.data[i+1][5]=="DIESEL" && this.data[i+1][9]=="Settled")  
+          if (this.data[i+1][1]=="Debit")  
           {           
             this.formArray.push(this.createInitialArray());
 
@@ -281,18 +270,12 @@ export class FasttagaddComponent {
             this.formArray.controls[j].get("vehicleNo")?.setValue(this.data[i+1][2]);
             //this.formArray.controls[j].get("transDateTime")?.setValue(startDt.toLocaleDateString('en-CA').toString());
             this.formArray.controls[j].get("transDateTime")?.setValue(this.data[i+1][3]);
-            this.formArray.controls[j].get("ftAmount")?.setValue(this.data[i+1][7]);
-            this.formArray.controls[j].get("crDr")?.setValue(this.data[i+1][6]);
-            this.formArray.controls[j].get("tripPmtId")?.setValue(this.data[i+1][8]);
-            this.formArray.controls[j].get("tripAdjYN")?.setValue(this.data[i+1][9]);
+            this.formArray.controls[j].get("ftAmount")?.setValue(this.data[i+1][4]);
 
             this.formArray.controls[j].get("transRefNo")?.disable();
             this.formArray.controls[j].get("vehicleNo")?.disable();
             this.formArray.controls[j].get("transDateTime")?.disable();
             this.formArray.controls[j].get("ftAmount")?.disable();
-            this.formArray.controls[j].get("crDr")?.disable();     
-            this.formArray.controls[j].get("tripPmtId")?.disable();    
-            this.formArray.controls[j].get("tripAdjYN")?.disable();   
 
             j ++; 
           }
@@ -373,9 +356,8 @@ export class FasttagaddComponent {
     this.fasttagmodel.fromDate        = selectedDataVal.fromDate;
     this.fasttagmodel.toDate          = selectedDataVal.toDate;
     this.fasttagmodel.ftAccount       = selectedDataVal.ftAccount?selectedDataVal.ftAccount.dataId:'';
-    this.fasttagmodel.remarks         = selectedDataVal.remarks;  
-    this.fasttagmodel.totalFtAmt    = selectedDataVal.totalFtAmt;
-    this.fasttagmodel.branchCode      = this.branch;
+    this.fasttagmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
+    this.fasttagmodel.totalFtAmt      = selectedDataVal.totalFtAmt;
     this.fasttagmodel.yearID          = this.year;
     this.fasttagmodel.loggedInUser    = this.loggedInUserID;
 
@@ -388,10 +370,7 @@ export class FasttagaddComponent {
           'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
           'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.toString(),   
           'transDateTime': selectedDataVal.arrayList[i].transDateTime.toString(),   
-          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString(),   
-          'crDr': selectedDataVal.arrayList[i].crDr.toString(),   
-          'tripPmtId': selectedDataVal.arrayList[i].tripPmtId.toString(), 
-          'tripAdjYN': selectedDataVal.arrayList[i].tripAdjYN.toString(), 
+          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString()
         });
       }
     } 

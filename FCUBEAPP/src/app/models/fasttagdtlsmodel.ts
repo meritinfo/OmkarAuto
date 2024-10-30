@@ -3,8 +3,5 @@ export class Fasttagdtlsmodel {
     transRefNo : string = "";      
     vehicleNo   : string = "";     
     transDateTime  : string = "";  
-    ftAmount   : string = "";      
-    crDr       : string = "";      
-    tripPmtId   : string = "";     
-    tripAdjYN  : string = "";
+    ftAmount   : string = "";   
 }

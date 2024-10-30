@@ -253,14 +253,14 @@ export class DieselstmtaddComponent {
     reader.onload = (e: any) => {
       /* read workbook */
       const bstr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellText: true, cellDates: true });
 
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'dd-MM-yyyy HH:mm:ss' }));
 
       var selectedDataVal = this.formDieselStatement.getRawValue();
       var j=0;
@@ -378,7 +378,6 @@ export class DieselstmtaddComponent {
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks;  
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
-    this.dieselStatementmodel.branchCode      = this.branch;
     this.dieselStatementmodel.yearId          = this.year;
     this.dieselStatementmodel.loggedInUser    = this.loggedInUserID;
 

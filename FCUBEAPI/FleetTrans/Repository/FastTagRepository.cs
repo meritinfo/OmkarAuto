@@ -35,7 +35,7 @@ namespace FleetTrans.Repository
                     {
                             new SqlParameter("@MasterID", request.strRequest),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FastTagDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -109,9 +109,6 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@VehicleNo"       , fasttag.FastTagDtlList[i].VehicleNo),
                                     new SqlParameter("@TransDateTime"   , fasttag.FastTagDtlList[i].TransDateTime),
                                     new SqlParameter("@FtAmount"        , fasttag.FastTagDtlList[i].FtAmount),
-                                    new SqlParameter("@CrDr"            , fasttag.FastTagDtlList[i].CrDr),
-                                    new SqlParameter("@TripPmtId"       , fasttag.FastTagDtlList[i].TripPmtId),
-                                    new SqlParameter("@TripAdjYN"       , fasttag.FastTagDtlList[i].TripAdjYN),
                                 };
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FastTagDtlsSave", paramMisc);
                                 if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0 )
@@ -234,10 +231,7 @@ namespace FleetTrans.Repository
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
                                 VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 TransDateTime   = Convert.ToDateTime(dataSet.Tables[0].Rows[i]["TransDateTime"]).ToString("dd-MM-yyyy hh:mm:ss"),
-                                FtAmount        = Convert.ToString(dataSet.Tables[0].Rows[i]["FtAmount"]),
-                                CrDr            = Convert.ToString(dataSet.Tables[0].Rows[i]["CrDr"]),
-                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["TripPmtId"]),
-                                TripAdjYN       = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdjYN"]),
+                                FtAmount        = Convert.ToString(dataSet.Tables[0].Rows[i]["FtAmount"]),                               
                             });
                         }
 

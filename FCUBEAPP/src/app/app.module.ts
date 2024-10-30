@@ -396,6 +396,7 @@ import { Tripsummaryrptmodel } from './models/tripsummaryrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
 import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
+import { Fasttagmodel } from './models/fasttagmodel';
 
 @NgModule({
   declarations: [
@@ -521,7 +522,8 @@ import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.c
     BillsubmitmasteraddComponent, BillsubmitmasterlistComponent,
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
-    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, FasttagaddComponent, FasttaglistComponent,
+    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
+    FasttagaddComponent, FasttaglistComponent,
     
   ],
   imports: [
@@ -543,7 +545,8 @@ import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.c
     MomentModule,
   ],
   
-  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, 
+    Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
@@ -584,7 +587,7 @@ import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.c
     Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
-    Tripsummaryrptmodel,
+    Tripsummaryrptmodel,Fasttagmodel,
     
   ],
   bootstrap: [AppComponent]

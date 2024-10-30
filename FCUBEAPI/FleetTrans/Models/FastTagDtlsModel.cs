@@ -10,9 +10,5 @@ namespace FleetTrans.Models
           public string VehicleNo           { get; set; }
           public string TransDateTime       { get; set; }
           public string FtAmount            { get; set; }
-          public string CrDr                { get; set; }
-          public string TripPmtId           { get; set; }
-          public string TripAdjYN           { get; set; }
-
     }
 }
