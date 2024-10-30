@@ -398,6 +398,9 @@ import { Onaccountmrstatusrptmodel } from './models/onaccountmrstatusrptmodel';
 import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
 import { Addcostrecorveryrptmodel } from './models/addcostrecorveryrptmodel';
 import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
+import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
+import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
+import { Fasttagmodel } from './models/fasttagmodel';
 
 @NgModule({
   declarations: [
@@ -525,6 +528,8 @@ import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addco
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
     AddcostrecorveryrptComponent,
+    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
+    FasttagaddComponent, FasttaglistComponent,
     
   ],
   imports: [
@@ -546,7 +551,8 @@ import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addco
     MomentModule,
   ],
   
-  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+  providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, 
+    Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
@@ -588,6 +594,8 @@ import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addco
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
+    Tripsummaryrptmodel,Fasttagmodel,
+    
   ],
   bootstrap: [AppComponent]
 })

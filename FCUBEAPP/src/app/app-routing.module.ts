@@ -230,6 +230,9 @@ import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.compon
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
 import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
+import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
+import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -552,6 +555,12 @@ const routes: Routes = [
   { path: 'tripvehsum', component: TripsummaryrptComponent },
   { path: 'mrreg', component: OnaccountmrstatusrptComponent },
   { path: 'addcostrecrpt', component: AddcostrecorveryrptComponent },
+  { path: 'fastagimport', component: FasttaglistComponent },
+  { path: 'fasttagimpadd', component: FasttagaddComponent },
+  { path: 'fasttagimpedit', component: FasttagaddComponent },
+
+   
+
 ];
 
 

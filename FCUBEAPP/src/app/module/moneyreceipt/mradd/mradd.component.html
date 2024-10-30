@@ -58,14 +58,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">MR Type</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="mrType"      
+                                                <select class="form-control" formControlName="mrType" (change)="onMrTypeChange($event)"     
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mrType'].invalid) }">
                                                     <option value="B">Bill</option>
-                                                    <option value="L">LR</option>
+                                                    <!-- <option value="L">LR</option> -->
                                                     <option value="N">NR/TDS</option>
                                                     <option value="A">Adj on A/C</option>
                                                     <option value="S">SD</option>
-                                                    <option value="O">Other/General</option>
+                                                    <!-- <option value="O">Other/General</option> -->
                                                  </select>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-1">
+                                        <!-- <div class="col-lg-1">
                                             <div class="form-check">
                                                 <input type="radio" formControlName="billLrOthType" 
                                                 id="formRadios3" value="G" class="form-check-input" 
@@ -100,10 +100,9 @@
                                                     General
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="row">
-                                        
+                                    <div class="row">                                        
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
@@ -281,7 +280,6 @@
                                             <th><label for="formrow-inputZip">Bill/LR Stn</label></th>
                                             <th><label for="formrow-inputZip">Bill/LR No</label></th>
                                             <th><label for="formrow-inputZip">Bill/LR Date</label></th>
-                                            <th><label for="formrow-inputZip">Party</label></th>
                                             <th><label for="formrow-inputZip">Amt Due</label></th>
                                             <th><label for="formrow-inputZip">Amt Recd</label></th>
                                             <th><label for="formrow-inputZip">Frt / NR</label></th>
@@ -291,12 +289,13 @@
                                             <th><label for="formrow-inputZip">Other Ded1</label></th>
                                             <th><label for="formrow-inputZip">Other Ded2</label></th>
                                             <th><label for="formrow-inputZip">Other Ded3</label></th>
-                                            <th><label for="formrow-inputZip">Recoverable</label></th>
+                                            <!-- <th><label for="formrow-inputZip">Recoverable</label></th> -->
                                             <th><label for="formrow-inputZip">Tot Ded</label></th>
                                             <th><label for="formrow-inputZip">TDS</label></th>
                                             <th><label for="formrow-inputZip">Sec.Deposit</label></th>
                                             <th><label for="formrow-inputZip">Excess Recd</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>    
+                                            <th><label for="formrow-inputZip">Party</label></th>
                                             <th><label for="formrow-inputZip"></label></th>                                                     
                                         </tr>
                                         <tr formArrayName="arrayList"
@@ -327,15 +326,7 @@
                                                 <td>
                                                     <input type="date" autoclose="false" class="form-control"
                                                         formControlName="billLrDate">
-                                                </td>  
-                                                <td>                                                  
-                                                    <select class="form-control form-select ng-pristine ng-touched"
-                                                    formControlName="partyCode"> 
-                                                        <option *ngFor="let br of partyList" value={{br.dataId}}>
-                                                            {{br.dataName}}
-                                                        </option>
-                                                    </select>
-                                                </td>                                                 
+                                                </td>                                               
                                                 <td>
                                                     <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="dueAmt">
@@ -374,10 +365,10 @@
                                                     <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="othersDed3" (change)="amtcheck(i,'othersDed3')">
                                                 </td>                                               
-                                                <td>
+                                                <!-- <td>
                                                     <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="recoverable" (change)="amtcheck(i,'recoverable')">
-                                                </td>                                             
+                                                </td>                                              -->
                                                 <td>
                                                     <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="totDed" >
@@ -397,7 +388,15 @@
                                                 <td>
                                                     <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="remarks">
-                                                </td>
+                                                </td> 
+                                                <td>                                                  
+                                                    <select class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="partyCode"> 
+                                                        <option *ngFor="let br of partyList" value={{br.dataId}}>
+                                                            {{br.dataName}}
+                                                        </option>
+                                                    </select>
+                                                </td>   
                                                 <td>
                                                     <div class="col-lg-4 details-button">
                                                         <button *ngIf="i === formArray.controls.length-1" type="button"
@@ -497,8 +496,9 @@
                                         formControlName="mrReceiptType" (change)="changeRecptType()"
                                         class="form-control form-select ng-pristine ng-touched"> 
                                             <option value="M">Cash</option>      
-                                            <option value="B">Bank</option> 
-                                            <option value="J">Jv ( Hire )</option>                                      
+                                            <option value="B">Bank</option>     
+                                            <option value="R">Branch</option> 
+                                            <option value="J">Jv</option>                                      
                                     </select>   
                                 </div>
                             </div>

@@ -309,6 +309,8 @@ namespace FCUBEAPI
             services.AddScoped<IOnAccountMRStatusRptRepository, OnAccountMRStatusRptRepository>();
             services.AddScoped<IAddCostRecorveryRptBusiness, AddCostRecorveryRptBusiness>();
             services.AddScoped<IAddCostRecorveryRptRepository, AddCostRecorveryRptRepository>();
+            services.AddScoped<IFastTagBusiness, FastTagBusiness>();
+            services.AddScoped<IFastTagRepository, FastTagRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

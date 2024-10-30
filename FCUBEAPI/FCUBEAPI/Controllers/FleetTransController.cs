@@ -53,6 +53,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleFrtOutstandingRptBusiness vehicleFrtOutstandingRptBusiness;
         readonly ITripOutstandingRptBusiness tripOutstandingRptBusiness;
         readonly ITripSummaryRptBusiness tripSummaryRptBusiness;
+        readonly IFastTagBusiness fastTagBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -83,8 +84,8 @@ namespace FCUBEAPI.Controllers
             IVehicleFrtOutstandingRptBusiness _vehicleFrtOutstandingRptBusiness,
             ITripOutstandingRptBusiness _tripOutstandingRptBusiness,
             ITripSummaryRptBusiness _tripSummaryRptBusiness,
-
-        ITyreMgntRptBusiness _tyreMgntRptBusiness)
+            ITyreMgntRptBusiness _tyreMgntRptBusiness,
+            IFastTagBusiness _fastTagBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -119,6 +120,7 @@ namespace FCUBEAPI.Controllers
             vehicleFrtOutstandingRptBusiness = _vehicleFrtOutstandingRptBusiness;
             tripOutstandingRptBusiness = _tripOutstandingRptBusiness;
             tripSummaryRptBusiness = _tripSummaryRptBusiness;
+            fastTagBusiness = _fastTagBusiness;
         }
 
 
@@ -3030,6 +3032,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tripSummaryRptBusiness.ExcelTripSummaryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FastTagDelete")]
+        public async Task<IActionResult> FastTagDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fastTagBusiness.FastTagDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FastTagSave")]
+        public async Task<IActionResult> FastTagSave(FastTagModel fasttag)
+        {
+            if (fasttag == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fastTagBusiness.FastTagSave(fasttag);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFastTagList")]
+        public async Task<IActionResult> GetFastTagList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fastTagBusiness.GetFastTagList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFastTagInnerGridList")]
+        public async Task<IActionResult> GetFastTagInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fastTagBusiness.GetFastTagInnerGridList(request);
 
                 return Ok(result);
             }

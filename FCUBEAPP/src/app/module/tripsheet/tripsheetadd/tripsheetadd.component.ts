@@ -113,7 +113,6 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-    
 
     this.formTripsheet = this.formBuilder.group({
       tripBranch: new FormControl(this.branch, [Validators.required]),
@@ -122,12 +121,12 @@ export class TripsheetaddComponent {
       deptDate:  new FormControl('', [Validators.required]),
       endDate:  new FormControl('', [Validators.required]),
       stmtDate:  new FormControl(this.loginDate, [Validators.required]),
-      tripStatus:  new FormControl('', []),
+      tripStatus:  new FormControl('',),
       driverMasterID:  new FormControl('', [Validators.required]),
       definedMileage: new FormControl('',),
-      closingKMR:new FormControl('',),
+      closingKMR:new FormControl('',[Validators.required]),
       openingKMR: new FormControl('',),
-      distanceTripKM: new FormControl('',),
+      distanceTripKM: new FormControl('',[Validators.required]),
       ltsDslToBe: new FormControl('',),
       opBalDsl: new FormControl('',),
       issuedDslLtrs: new FormControl('',),
@@ -150,10 +149,10 @@ export class TripsheetaddComponent {
       //totalDriverAc: new FormControl('',),
       tripBalance: new FormControl('',),
       recdFromDriver: new FormControl('',),
-      netTripBalance: new FormControl('',),
+      netTripBalance: new FormControl('',[Validators.required]),
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
-      tripTotalExpenses: new FormControl('',),
+      tripTotalExpenses: new FormControl('',[Validators.required]),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
 
@@ -208,6 +207,17 @@ export class TripsheetaddComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
           driverMasterID: this.driverLists.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         }); 
+        if(this.selectedTripSheetDetails.tripStatus=="N"){
+          this.formTripsheet.patchValue({
+            tripStatus:""
+          }); 
+        }
+        if(this.selectedTripSheetDetails.tripLinkYN=="N"){
+          this.formTripsheet.patchValue({
+            tripLinkYN:""
+          }); 
+        }
+        
              
         if( this.selectedTripSheetDetails.nextTrip != '0'){        
           this.formTripsheet.controls['closingKMR'].disable();     
@@ -761,7 +771,7 @@ export class TripsheetaddComponent {
   submitTripSheetForm(): void {
     this.formSubmitted = true;
     if (this.formTripsheet.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields "); 
+      this.toastrService.warning("Please Enter Mandatory Fields"); 
       const controls = this.formTripsheet.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
@@ -773,6 +783,14 @@ export class TripsheetaddComponent {
     
     var selectedDataValue = this.formTripsheet.getRawValue();
 
+    // if (selectedDataValue.netTripBalance=="") {
+    //   this.toastrService.warning(" Net Trip balance is Invalid");   
+    //   return;
+    // }
+    // if (selectedDataValue.tripTotalExpenses=="") {
+    //   this.toastrService.warning(" Total Trip Expenses is Invalid");   
+    //   return;
+    // }
     var validdriver = this.driverLists.find(e => e.dataId == selectedDataValue.driverMasterID.dataId) 
     if (typeof validdriver !== 'undefined' && validdriver !== null && validdriver.dataId!="" && validdriver.dataId!="0") {
         //ignore
@@ -797,7 +815,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.deptDate = selectedDataValue.deptDate;
     this.tripsheetmodel.endDate = selectedDataValue.endDate;
     this.tripsheetmodel.stmtDate = selectedDataValue.stmtDate;
-    this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus;
+    this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus?"Y":"N";
     this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID.dataId;
     this.tripsheetmodel.definedMileage = selectedDataValue.definedMileage.toString();
     this.tripsheetmodel.closingKMR = selectedDataValue.closingKMR.toString();

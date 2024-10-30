@@ -186,6 +186,7 @@ export class MraddComponent {
     this.selectedMrDetails = this.mrService.getMrDetails();
 
    
+    this.formUser.controls['mrStation'].disable();  
     this.formUser.controls['neftYN'].disable();
     this.formUser.controls['chequeNo'].disable();      
     this.formUser.controls['chequeDt'].disable();   
@@ -216,6 +217,11 @@ export class MraddComponent {
     this.formUser.controls['totalExcess'].disable();
     this.formUser.controls['onAcAdjAmt'].disable();
     this.formUser.controls['modifyRemarks'].disable();
+    this.formUser.controls['mrSdEmdAc'].disable();   
+    this.formUser.controls['sdEmdRefNo'].disable(); 
+    
+    this.formUser.controls['mrSdEmdAc'].clearValidators(); 
+    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
     
     if (this.selectedMrDetails.mrMasterId != '') { 
       var selectedValue = this.selectedMrDetails.mrReceiptType;
@@ -226,14 +232,13 @@ export class MraddComponent {
     }
     
     setTimeout(() => {
-      
+        
       this.formMrArray.controls[0].get("selected")?.disable();  
       this.formMrArray.controls[0].get("adjMrNo")?.disable();  
       this.formMrArray.controls[0].get("onAcAmt")?.disable();  
       this.formMrArray.controls[0].get("adjAmt")?.disable();  
 
-      if (this.selectedMrDetails.mrMasterId != '') {    
-        this.formUser.controls['mrStation'].disable();  
+      if (this.selectedMrDetails.mrMasterId != '') {  
         this.formUser.controls['mrNo'].disable();  
         this.formUser.controls['mrDate'].disable();  
         this.formUser.controls['mrStatus'].disable();  
@@ -281,6 +286,18 @@ export class MraddComponent {
             neftYN: ""
           });
         }
+
+        if(this.selectedMrDetails.mrType=="S"){      
+          this.formUser.controls['mrSdEmdAc'].enable();    
+          this.formUser.controls['sdEmdRefNo'].enable();       
+          this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]); 
+        }
+        else{      
+          this.formUser.controls['mrSdEmdAc'].disable();   
+          this.formUser.controls['sdEmdRefNo'].disable(); 
+          this.formUser.controls['mrSdEmdAc'].clearValidators();    
+        }
+        this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
         
         this.editMode = true;
         this.getMrInnerGridList(); 
@@ -368,7 +385,7 @@ export class MraddComponent {
       othersDed1: ['0', []],
       othersDed2: ['0', []],
       othersDed3: ['0', []],
-      recoverable: ['0', []],
+      // recoverable: ['0', []],
       totDed: ['0', []],
       tdsDed: ['0', []],
       sdEmdDed: ['0', []],
@@ -414,7 +431,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("othersDed1")?.setValue(res.mrDtlsList[i].othersDed1);
         this.formArray.controls[i].get("othersDed2")?.setValue(res.mrDtlsList[i].othersDed2);
         this.formArray.controls[i].get("othersDed3")?.setValue(res.mrDtlsList[i].othersDed3);
-        this.formArray.controls[i].get("recoverable")?.setValue(res.mrDtlsList[i].recoverable);
+        // this.formArray.controls[i].get("recoverable")?.setValue(res.mrDtlsList[i].recoverable);
         this.formArray.controls[i].get("totDed")?.setValue(res.mrDtlsList[i].totDed);
         this.formArray.controls[i].get("tdsDed")?.setValue(res.mrDtlsList[i].tdsDed);
         this.formArray.controls[i].get("sdEmdDed")?.setValue(res.mrDtlsList[i].sdEmdDed);
@@ -470,6 +487,20 @@ export class MraddComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  onMrTypeChange(e: any) {   
+    if(e.target.value=="S"){      
+      this.formUser.controls['mrSdEmdAc'].enable();    
+      this.formUser.controls['sdEmdRefNo'].enable();       
+      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]); 
+    }
+    else{      
+      this.formUser.controls['mrSdEmdAc'].disable();   
+      this.formUser.controls['sdEmdRefNo'].disable(); 
+      this.formUser.controls['mrSdEmdAc'].clearValidators();    
+    }
+    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+  }
+
   onNeftChk(e: any) {   
     this.neftPmtSelected=!this.neftPmtSelected;
     if (this.neftPmtSelected){
@@ -501,6 +532,15 @@ export class MraddComponent {
   changeRecptType(){
     var selectedValueData= this.formUser.getRawValue();
     var selectedValue = selectedValueData.mrReceiptType;
+    
+    if(selectedValueData.mrType!="B" && selectedValue!="J"){
+      this.toasterService.warning("Receipt Type should be only JV for selected MR Type");
+      this.formUser.patchValue({
+        mrReceiptType: ''
+      });
+      return;
+    }
+
     if(selectedValue=="B"){      
       this.formUser.controls['neftYN'].enable();
       this.formUser.controls['chequeNo'].enable();      
@@ -542,8 +582,13 @@ export class MraddComponent {
     this.formUser.controls['chequeDt'].updateValueAndValidity();
   }
 
-  addItem(i: number): void {
-    var selectedDataVal=this.formUser.getRawValue();
+  addItem(i: number): void {    
+    this.formUser.controls['groupMrYN'].disable();      
+    this.formUser.controls['partyGroupId'].disable();    
+    this.formUser.controls['partyCode'].disable();    
+    this.formUser.controls['mrType'].disable();    
+
+    var selectedDataVal = this.formUser.getRawValue();
     var recdAmt = parseFloat(selectedDataVal.arrayList[i].recdAmt);
     var remarks = selectedDataVal.arrayList[i].remarks;
     var billLrMasterId = selectedDataVal.arrayList[i].billLrMasterId;
@@ -605,9 +650,9 @@ export class MraddComponent {
     if(selectedDataVal.arrayList[i].othersDed3!=""){
       dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed3) ;
     }
-    if(selectedDataVal.arrayList[i].recoverable!=""){
-      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
-    }
+    // if(selectedDataVal.arrayList[i].recoverable!=""){
+    //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
+    // }
     if(selectedDataVal.arrayList[i].tdsDed!=""){
       dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
     }      
@@ -637,7 +682,7 @@ export class MraddComponent {
     var othersDed1 = 0;
     var othersDed2 = 0;
     var othersDed3 = 0;
-    var recoverable = 0;
+    // var recoverable = 0;
     var totalDed = 0;
     var tdsDed = 0;
     var sdEmdDed = 0;
@@ -678,10 +723,10 @@ export class MraddComponent {
         othersDed3 = othersDed3 + parseFloat( selectedDataVal.arrayList[i].othersDed3);
         dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].othersDed3) ;
       }
-      if(selectedDataVal.arrayList[i].recoverable!=""){
-        recoverable = recoverable + parseFloat( selectedDataVal.arrayList[i].recoverable);
-        dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
-      }
+      // if(selectedDataVal.arrayList[i].recoverable!=""){
+      //   recoverable = recoverable + parseFloat( selectedDataVal.arrayList[i].recoverable);
+      //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
+      // }
       if(selectedDataVal.arrayList[i].tdsDed!=""){
         tdsDed = tdsDed + parseFloat( selectedDataVal.arrayList[i].tdsDed);
         dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
@@ -715,7 +760,7 @@ export class MraddComponent {
       totalOthersDed1:othersDed1,
       totalOthersDed2:othersDed2,
       totalOthersDed3:othersDed3,
-      totalRecoverable:recoverable,
+      // totalRecoverable:recoverable,
       totalTDSDed:tdsDed,
       totalSdEmdDed:sdEmdDed,
       totalDed:totalDed,
@@ -754,7 +799,8 @@ export class MraddComponent {
       this.formUser.controls['mrType'].clearValidators();     
       this.formUser.controls['partyCode'].clearValidators();
       this.formUser.controls['mrDebitAc'].clearValidators();
-      this.formUser.controls['mrSdEmdAc'].clearValidators();   
+      this.formUser.controls['mrSdEmdAc'].clearValidators();  
+      this.formUser.controls['mrSdEmdAc'].updateValueAndValidity(); 
 
       this.formUser.patchValue({
         groupMrYN: '',
@@ -775,7 +821,6 @@ export class MraddComponent {
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrReceiptType'].enable();
       this.formUser.controls['mrDebitAc'].enable();
-      this.formUser.controls['mrSdEmdAc'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
       this.formUser.controls['partyBankDet'].enable();
@@ -785,7 +830,6 @@ export class MraddComponent {
       this.formUser.controls['mrType'].setValidators([Validators.required]);
       this.formUser.controls['partyCode'].setValidators([Validators.required]);
       this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
-      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]);
 
       this.formUser.patchValue({
         groupMrYN: '',
@@ -794,7 +838,6 @@ export class MraddComponent {
     this.formUser.controls['mrType'].updateValueAndValidity();
     this.formUser.controls['partyCode'].updateValueAndValidity();
     this.formUser.controls['mrDebitAc'].updateValueAndValidity();
-    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
   }
 
   onChkGroup(e: any) {  
@@ -831,7 +874,7 @@ export class MraddComponent {
 
       this.formUser.controls['mrRemarks'].disable();
       this.formUser.controls['mrReceiptType'].disable();
-      this.formUser.controls['mrDebitAc'].disable();
+      //this.formUser.controls['mrDebitAc'].disable();
       this.formUser.controls['mrSdEmdAc'].disable();
       this.formUser.controls['chequeNo'].disable();
       this.formUser.controls['chequeDt'].disable();
@@ -840,8 +883,9 @@ export class MraddComponent {
       this.formUser.controls['modifyRemarks'].disable();
 
       
-      this.formUser.controls['mrDebitAc'].clearValidators();
+      //this.formUser.controls['mrDebitAc'].clearValidators();
       this.formUser.controls['mrSdEmdAc'].clearValidators();   
+      this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
     }
     else{
       this.formUser.patchValue({
@@ -851,19 +895,16 @@ export class MraddComponent {
 
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrReceiptType'].enable();
-      this.formUser.controls['mrDebitAc'].enable();
-      this.formUser.controls['mrSdEmdAc'].enable();
+      //this.formUser.controls['mrDebitAc'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
       this.formUser.controls['partyBankDet'].enable();
       this.formUser.controls['sdEmdRefNo'].enable();
       this.formUser.controls['modifyRemarks'].enable();
       
-      this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
-      this.formUser.controls['mrSdEmdAc'].setValidators([Validators.required]);
+      //this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
     }
-    this.formUser.controls['mrDebitAc'].updateValueAndValidity();
-    this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+    //this.formUser.controls['mrDebitAc'].updateValueAndValidity();
 
   }
 
@@ -962,7 +1003,7 @@ export class MraddComponent {
         this.formArray.controls[index].get("othersDed1")?.setValue("0");
         this.formArray.controls[index].get("othersDed2")?.setValue("0");
         this.formArray.controls[index].get("othersDed3")?.setValue("0");
-        this.formArray.controls[index].get("recoverable")?.setValue("0");
+        // this.formArray.controls[index].get("recoverable")?.setValue("0");
         this.formArray.controls[index].get("totDed")?.setValue("0");
         this.formArray.controls[index].get("tdsDed")?.setValue("0");
         this.formArray.controls[index].get("sdEmdDed")?.setValue("0");
@@ -1089,6 +1130,14 @@ export class MraddComponent {
     this.mrmodel.yearId           = this.year ; 
     this.mrmodel.loggedInUser     = this.loggedInUserID; 
 
+    if(this.mrmodel.mrType!="B" && this.mrmodel.mrReceiptType !="J"){
+      this.toasterService.warning("Receipt Type should be only JV for selected MR Type");
+      this.formUser.patchValue({
+        mrReceiptType: ''
+      });
+      return;
+    }
+
     this.mrmodel.mrDtlsList = [];
     this.mrmodel.mrOnAcList = [];
 
@@ -1122,7 +1171,7 @@ export class MraddComponent {
           "othersDed1":  selectedDataVal.arrayList[i].othersDed1.toString(),
           "othersDed2":  selectedDataVal.arrayList[i].othersDed2.toString(),
           "othersDed3":  selectedDataVal.arrayList[i].othersDed3.toString(),
-          "recoverable":  selectedDataVal.arrayList[i].recoverable.toString(),
+          "recoverable":  "0",
           "totDed":  selectedDataVal.arrayList[i].totDed.toString(),
           "tdsDed":  selectedDataVal.arrayList[i].tdsDed.toString(),
           "sdEmdDed":  selectedDataVal.arrayList[i].sdEmdDed.toString(),

@@ -198,8 +198,7 @@ namespace FleetTrans.Repository
                         if (responseModel.Status)
                         {
                             transaction.Commit();
-                        }
-                        else { transaction.Rollback(); }
+                        }                       
                     }
                     else
                     {

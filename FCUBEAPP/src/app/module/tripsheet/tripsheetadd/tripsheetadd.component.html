@@ -126,14 +126,16 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Defined Mileage</label>
-                                                <input class="form-control" decimalonly formControlName="definedMileage">
+                                                <input class="form-control" decimalonly formControlName="definedMileage"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['definedMileage'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Closing KMR</label>
                                                 <input class="form-control" decimalonly formControlName="closingKMR"  
-                                                (change)="onKmrChange()">
+                                                (change)="onKmrChange()"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['closingKMR'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -146,7 +148,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Distance Trip KM</label>
-                                                <input class="form-control" decimalonly formControlName="distanceTripKM">
+                                                <input class="form-control" decimalonly formControlName="distanceTripKM"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['distanceTripKM'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -541,7 +544,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Net Trip Balance</label>
-                                        <input class="form-control" decimalonly formControlName="netTripBalance">
+                                        <input class="form-control" decimalonly formControlName="netTripBalance"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['netTripBalance'].invalid) }" >
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -562,7 +566,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Total Expenses</label>
-                                        <input class="form-control" decimalonly formControlName="tripTotalExpenses">
+                                        <input class="form-control" decimalonly formControlName="tripTotalExpenses"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['tripTotalExpenses'].invalid) }" >
                                     </div>
                                 </div>
                             </div>
@@ -572,7 +577,6 @@
                                         <div class="mb-2">
                                             <input type="checkbox"  name="tripStatus" formControlName="tripStatus"  
                                             (change)="changeTripClose($event)" 
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tripStatus'].invalid) }"
                                                 class="form-check-input" />
                                             <label for="tripStatus">Trip Close</label>
                                         </div>
