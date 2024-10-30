@@ -54,6 +54,7 @@ export class Tripsheetmodel {
     routeList: RouteDetails[] = [];
     dieselList: DieselDetails[] = [];
     expList: TripDrExpDetails[] = [];
+    fasttagList: FasttagDetails[] = [];
 }
 
 export class DriverDetails {
@@ -90,6 +91,16 @@ export class DieselDetails {
     amount : string = "";
     remarks: string = "";
 }
+
+
+export class FasttagDetails {
+    detailID: string = "";
+    accountName: string = "";
+    transDate: string = "";
+    ftAmount: string = "";
+    remarks: string = "";
+}
+
 export class TripDrExpDetails {
     tripId: string = "";
     expId: string = "";

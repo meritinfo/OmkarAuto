@@ -197,6 +197,32 @@ namespace FleetTrans.Repository
                         }
                         if (responseModel.Status)
                         {
+                            for (int i = 0; i < tripMasterModel.FasttagList.Count; i++)
+                            {
+                                SqlParameter[] paramft =
+                                {
+                                    new SqlParameter("@TripId", MasterID),
+                                    new SqlParameter("@FtDtlId", tripMasterModel.FasttagList[i].DetailID),
+                                    new SqlParameter("@FtDate", tripMasterModel.FasttagList[i].TransDate),
+                                    new SqlParameter("@FtRemarks", tripMasterModel.FasttagList[i].Remarks),
+                                    new SqlParameter("@FtAmt", tripMasterModel.FasttagList[i].FtAmount),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripFastagDetailsSave", paramft);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.FasttagList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
                             transaction.Commit();
                         }                       
                     }
@@ -320,6 +346,7 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
+                FasttagList = new List<FasttagDetails>(),
             };
             try
             {
@@ -387,6 +414,21 @@ namespace FleetTrans.Repository
                                 DslRate = Convert.ToString(resultData.Tables[2].Rows[i]["DslRate"]),
                                 Amount = Convert.ToString(resultData.Tables[2].Rows[i]["Amount"]),
                                 Remarks = Convert.ToString(resultData.Tables[2].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+                    //FastTag Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.FasttagList.Add(new FasttagDetails
+                            {
+                                DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["DetailID"]),
+                                AccountName= Convert.ToString(resultData.Tables[3].Rows[i]["AccountName"]),
+                                TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["TransDate"]),
+                                FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmount"]),
+                                Remarks = Convert.ToString(resultData.Tables[3].Rows[i]["Remarks"]),
                             });
                         }
                     }
@@ -467,6 +509,7 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
+                FasttagList = new List<FasttagDetails>(),
                 ExpList = new List<TripDrExpDetails>(),
             };
             try
@@ -519,21 +562,6 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
-                    //Driver Exp Details
-                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
-                            {
-                                TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
-                                ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
-                                ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),
-                                ExpAmt = Convert.ToString(resultData.Tables[3].Rows[i]["ExpAmt"]),
-                         
-                            });
-                        }
-                    }
                     //Diesel Details
                     if (resultData != null && resultData.Tables[2].Rows.Count > 0)
                     {
@@ -548,6 +576,37 @@ namespace FleetTrans.Repository
                                 DslRate = Convert.ToString(resultData.Tables[2].Rows[i]["DslRate"]),
                                 Amount = Convert.ToString(resultData.Tables[2].Rows[i]["Amount"]),
                                 Remarks = Convert.ToString(resultData.Tables[2].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+                    //FastTag Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.FasttagList.Add(new FasttagDetails
+                            {
+                                DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["DetailID"]),
+                                AccountName= Convert.ToString(resultData.Tables[3].Rows[i]["AccountName"]),
+                                TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["TransDate"]),
+                                FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmount"]),
+                                Remarks = Convert.ToString(resultData.Tables[3].Rows[i]["Remarks"]),
+                            });
+                        }
+                    }
+
+                    //Driver Exp Details
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
+                            {
+                                TripId = Convert.ToString(resultData.Tables[4].Rows[i]["TripId"]),
+                                ExpId = Convert.ToString(resultData.Tables[4].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[4].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[4].Rows[i]["ExpAmt"]),
+
                             });
                         }
                     }

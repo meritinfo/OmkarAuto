@@ -61,6 +61,7 @@ namespace FleetTrans.Models
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
         public List<DieselDetails> DieselList { get; set; }
+        public List<FasttagDetails> FasttagList { get; set; }
         public List<TripDrExpDetails> ExpList { get; set; }
     }
 
@@ -97,6 +98,14 @@ namespace FleetTrans.Models
         public string? DslQty { get; set; }
         public string? DslRate { get; set; }
         public string? Amount { get; set; }
+        public string? Remarks { get; set; }
+    }
+    public class FasttagDetails
+    {
+        public string? DetailID { get; set; }
+        public string? AccountName { get; set; }
+        public string? TransDate { get; set; }
+        public string? FtAmount { get; set; }
         public string? Remarks { get; set; }
     }
     public class TripDrExpDetails
