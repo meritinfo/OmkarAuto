@@ -394,6 +394,10 @@ import { Lrcostingrptmodel } from './models/lrcostingrptmodel';
 import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
 import { Tripsummaryrptmodel } from './models/tripsummaryrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
+import { Onaccountmrstatusrptmodel } from './models/onaccountmrstatusrptmodel';
+import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
+import { Addcostrecorveryrptmodel } from './models/addcostrecorveryrptmodel';
+import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
 import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
 import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
 import { Fasttagmodel } from './models/fasttagmodel';
@@ -522,6 +526,8 @@ import { Fasttagmodel } from './models/fasttagmodel';
     BillsubmitmasteraddComponent, BillsubmitmasterlistComponent,
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
+    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
+    AddcostrecorveryrptComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
     FasttagaddComponent, FasttaglistComponent,
     
@@ -587,6 +593,7 @@ import { Fasttagmodel } from './models/fasttagmodel';
     Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
+    Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Tripsummaryrptmodel,Fasttagmodel,
     
   ],

@@ -51,6 +51,8 @@ namespace FCUBEAPI.Controllers
         readonly IAdditionalCostRecMasterBusiness additionalCostRecMasterBusiness;
         readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
         readonly ILRCostingRptBusiness lRCostingRptBusiness;
+        readonly IOnAccountMRStatusRptBusiness onAccountMRStatusRptBusiness;
+        readonly IAddCostRecorveryRptBusiness addCostRecorveryRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -84,7 +86,9 @@ namespace FCUBEAPI.Controllers
             IBillSubmitMstBusiness _billSubmitMstBusiness,
             IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
             IBillOutstandingRptBusiness _billOutstandingRptBusiness,
-            ILRCostingRptBusiness _lRCostingRptBusiness)
+            ILRCostingRptBusiness _lRCostingRptBusiness,
+            IOnAccountMRStatusRptBusiness _onAccountMRStatusRptBusiness,
+            IAddCostRecorveryRptBusiness _addCostRecorveryRptBusiness)
            
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -122,6 +126,8 @@ namespace FCUBEAPI.Controllers
             additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
             billOutstandingRptBusiness = _billOutstandingRptBusiness;
             lRCostingRptBusiness = _lRCostingRptBusiness;
+            onAccountMRStatusRptBusiness = _onAccountMRStatusRptBusiness;
+            addCostRecorveryRptBusiness = _addCostRecorveryRptBusiness;
         }
 
         /// <summary>
@@ -2525,6 +2531,82 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetOnAccountMRStatusRptExcel")]
+        public async Task<IActionResult> GetOnAccountMRStatusRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await onAccountMRStatusRptBusiness.GetOnAccountMRStatusRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetOnAccountMRStatusRptList")]
+        public async Task<IActionResult> GetOnAccountMRStatusRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await onAccountMRStatusRptBusiness.GetOnAccountMRStatusRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetAddCostRecorveryRptExcel")]
+        public async Task<IActionResult> GetAddCostRecorveryRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryRptBusiness.GetAddCostRecorveryRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAddCostRecorveryRptList")]
+        public async Task<IActionResult> GetAddCostRecorveryRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryRptBusiness.GetAddCostRecorveryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
