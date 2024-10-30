@@ -394,6 +394,10 @@ import { Lrcostingrptmodel } from './models/lrcostingrptmodel';
 import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
 import { Tripsummaryrptmodel } from './models/tripsummaryrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
+import { Onaccountmrstatusrptmodel } from './models/onaccountmrstatusrptmodel';
+import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
+import { Addcostrecorveryrptmodel } from './models/addcostrecorveryrptmodel';
+import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
 
 @NgModule({
   declarations: [
@@ -519,7 +523,8 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     BillsubmitmasteraddComponent, BillsubmitmasterlistComponent,
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
-    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent,
+    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
+    AddcostrecorveryrptComponent,
     
   ],
   imports: [
@@ -582,8 +587,7 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
-    Tripsummaryrptmodel,
-    Tripoutstandingrptmodel,
+    Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
   ],
   bootstrap: [AppComponent]
 })
