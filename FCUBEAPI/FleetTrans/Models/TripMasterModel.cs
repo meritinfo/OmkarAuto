@@ -93,7 +93,6 @@ namespace FleetTrans.Models
     public class DieselDetails
     {
         public string? DetailID { get; set; }
-        public string? AccountName { get; set; }
         public string? TransDate { get; set; }
         public string? DslQty { get; set; }
         public string? DslRate { get; set; }
@@ -103,7 +102,6 @@ namespace FleetTrans.Models
     public class FasttagDetails
     {
         public string? DetailID { get; set; }
-        public string? AccountName { get; set; }
         public string? TransDate { get; set; }
         public string? FtAmount { get; set; }
         public string? Remarks { get; set; }

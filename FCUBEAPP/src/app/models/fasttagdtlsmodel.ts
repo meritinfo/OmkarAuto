@@ -4,4 +4,5 @@ export class Fasttagdtlsmodel {
     vehicleNo   : string = "";     
     transDateTime  : string = "";  
     ftAmount   : string = "";   
+    dtlRemarks: string = "";   
 }

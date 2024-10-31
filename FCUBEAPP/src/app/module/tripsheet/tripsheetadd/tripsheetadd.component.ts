@@ -321,7 +321,6 @@ export class TripsheetaddComponent {
   createDieselArray() {
     return this.formBuilder.group({
       detailID:  [''],
-      accountName:  [''],
       transDate:  [''],
       dslQty:  [''],
       dslRate:  [''],
@@ -333,7 +332,6 @@ export class TripsheetaddComponent {
   createFasttagArray() {
     return this.formBuilder.group({
       detailID:  [''],
-      accountName:  [''],
       transDate:  [''],
       ftAmount:  [''],
       remarks: [''],
@@ -527,7 +525,6 @@ export class TripsheetaddComponent {
       for (var i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
-        this.formDieselArray.controls[i].get("accountName")?.setValue(res.dieselList[i].accountName);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
         this.formDieselArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
         this.formDieselArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
@@ -537,7 +534,6 @@ export class TripsheetaddComponent {
         issuedDslLtrs = issuedDslLtrs + parseFloat(res.dieselList[i].dslQty);
         issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
 
-        this.formDieselArray.controls[i].get("accountName")?.disable();
         this.formDieselArray.controls[i].get("transDate")?.disable();
         this.formDieselArray.controls[i].get("dslQty")?.disable();
         this.formDieselArray.controls[i].get("dslRate")?.disable();
@@ -548,14 +544,12 @@ export class TripsheetaddComponent {
       for (var i = 0; i < res.fasttagList.length; i++) {
         this.formFasttagArray.push(this.createFasttagArray());
         this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
-        this.formFasttagArray.controls[i].get("accountName")?.setValue(res.fasttagList[i].accountName);
         this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
         this.formFasttagArray.controls[i].get("ftAmount")?.setValue(res.fasttagList[i].ftAmount);
         this.formFasttagArray.controls[i].get("remarks")?.setValue(res.fasttagList[i].remarks);
 
         fastagAmount = fastagAmount + parseFloat(res.fasttagList[i].ftAmount);
 
-        this.formFasttagArray.controls[i].get("accountName")?.disable();
         this.formFasttagArray.controls[i].get("transDate")?.disable();
         this.formFasttagArray.controls[i].get("ftAmount")?.disable();
         this.formFasttagArray.controls[i].get("remarks")?.disable();
@@ -586,7 +580,7 @@ export class TripsheetaddComponent {
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
-      this.formExpTypeArray.clear();
+      this.formFasttagArray.clear();
       
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
@@ -634,14 +628,12 @@ export class TripsheetaddComponent {
       for (var i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
-        this.formDieselArray.controls[i].get("accountName")?.setValue(res.dieselList[i].accountName);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
         this.formDieselArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
         this.formDieselArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
         this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
         this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
         
-        this.formDieselArray.controls[i].get("accountName")?.disable();
         this.formDieselArray.controls[i].get("transDate")?.disable();
         this.formDieselArray.controls[i].get("dslQty")?.disable();
         this.formDieselArray.controls[i].get("dslRate")?.disable();
@@ -652,12 +644,10 @@ export class TripsheetaddComponent {
       for (var i = 0; i < res.fasttagList.length; i++) {
         this.formFasttagArray.push(this.createFasttagArray());
         this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
-        this.formFasttagArray.controls[i].get("accountName")?.setValue(res.fasttagList[i].accountName);
         this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
         this.formFasttagArray.controls[i].get("ftAmount")?.setValue(res.fasttagList[i].ftAmount);
         this.formFasttagArray.controls[i].get("remarks")?.setValue(res.fasttagList[i].remarks);
 
-        this.formFasttagArray.controls[i].get("accountName")?.disable();
         this.formFasttagArray.controls[i].get("transDate")?.disable();
         this.formFasttagArray.controls[i].get("ftAmount")?.disable();
         this.formFasttagArray.controls[i].get("remarks")?.disable();
@@ -946,7 +936,6 @@ export class TripsheetaddComponent {
       if(selectedDataValue.dieselList[i].detailID!=''){
         this.tripsheetmodel.dieselList.push({
           'detailID': selectedDataValue.dieselList[i].detailID,
-          'accountName': selectedDataValue.dieselList[i].accountName,
           'transDate': selectedDataValue.dieselList[i].transDate,
           'dslQty':  selectedDataValue.dieselList[i].dslQty,
           'dslRate':  selectedDataValue.dieselList[i].dslRate,
@@ -960,7 +949,6 @@ export class TripsheetaddComponent {
       if(selectedDataValue.fasttagList[i].detailID!=''){
         this.tripsheetmodel.fasttagList.push({
           'detailID': selectedDataValue.fasttagList[i].detailID,
-          'accountName': selectedDataValue.fasttagList[i].accountName,
           'transDate': selectedDataValue.fasttagList[i].transDate,
           'ftAmount':  selectedDataValue.fasttagList[i].ftAmount,
           'remarks': selectedDataValue.fasttagList[i].remarks,

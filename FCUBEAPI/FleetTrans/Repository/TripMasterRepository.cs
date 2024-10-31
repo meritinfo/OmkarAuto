@@ -408,7 +408,6 @@ namespace FleetTrans.Repository
                             tripSheetInnerGridList.DieselList.Add(new DieselDetails
                             {
                                 DetailID = Convert.ToString(resultData.Tables[2].Rows[i]["DetailID"]),
-                                AccountName= Convert.ToString(resultData.Tables[2].Rows[i]["AccountName"]),
                                 TransDate = Convert.ToString(resultData.Tables[2].Rows[i]["TransDate"]),
                                 DslQty = Convert.ToString(resultData.Tables[2].Rows[i]["DslQty"]),
                                 DslRate = Convert.ToString(resultData.Tables[2].Rows[i]["DslRate"]),
@@ -425,7 +424,6 @@ namespace FleetTrans.Repository
                             tripSheetInnerGridList.FasttagList.Add(new FasttagDetails
                             {
                                 DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["DetailID"]),
-                                AccountName= Convert.ToString(resultData.Tables[3].Rows[i]["AccountName"]),
                                 TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["TransDate"]),
                                 FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmount"]),
                                 Remarks = Convert.ToString(resultData.Tables[3].Rows[i]["Remarks"]),
@@ -562,6 +560,7 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+
                     //Diesel Details
                     if (resultData != null && resultData.Tables[2].Rows.Count > 0)
                     {
@@ -569,16 +568,16 @@ namespace FleetTrans.Repository
                         {
                             tripSheetInnerGridList.DieselList.Add(new DieselDetails
                             {
-                                DetailID = Convert.ToString(resultData.Tables[2].Rows[i]["DetailID"]),
-                                AccountName= Convert.ToString(resultData.Tables[2].Rows[i]["AccountName"]),
-                                TransDate = Convert.ToString(resultData.Tables[2].Rows[i]["TransDate"]),
-                                DslQty = Convert.ToString(resultData.Tables[2].Rows[i]["DslQty"]),
+                                DetailID = Convert.ToString(resultData.Tables[2].Rows[i]["DfdDtlId"]),
+                                TransDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
+                                DslQty = Convert.ToString(resultData.Tables[2].Rows[i]["DslLtrs"]),
                                 DslRate = Convert.ToString(resultData.Tables[2].Rows[i]["DslRate"]),
-                                Amount = Convert.ToString(resultData.Tables[2].Rows[i]["Amount"]),
+                                Amount = Convert.ToString(resultData.Tables[2].Rows[i]["DslAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[2].Rows[i]["Remarks"]),
                             });
                         }
                     }
+
                     //FastTag Details
                     if (resultData != null && resultData.Tables[3].Rows.Count > 0)
                     {
@@ -586,10 +585,9 @@ namespace FleetTrans.Repository
                         {
                             tripSheetInnerGridList.FasttagList.Add(new FasttagDetails
                             {
-                                DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["DetailID"]),
-                                AccountName= Convert.ToString(resultData.Tables[3].Rows[i]["AccountName"]),
-                                TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["TransDate"]),
-                                FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmount"]),
+                                DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["FtDtlId"]),
+                                TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["FtDate"]),
+                                FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[3].Rows[i]["Remarks"]),
                             });
                         }

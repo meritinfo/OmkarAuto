@@ -84,7 +84,6 @@ export class RouteDetails {
 
 export class DieselDetails {
     detailID: string = "";
-    accountName: string = "";
     transDate: string = "";
     dslQty: string = "";
     dslRate: string = "";
@@ -95,7 +94,6 @@ export class DieselDetails {
 
 export class FasttagDetails {
     detailID: string = "";
-    accountName: string = "";
     transDate: string = "";
     ftAmount: string = "";
     remarks: string = "";

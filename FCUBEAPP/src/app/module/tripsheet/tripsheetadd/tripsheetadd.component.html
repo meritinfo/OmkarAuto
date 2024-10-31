@@ -307,7 +307,6 @@
                                     <div class="overflow-x">
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Account</label></th>
                                             <th><label for="formrow-inputCity">Trans Date</label></th>
                                             <th><label for="formrow-inputZip">Dsl Qty</label></th>
                                             <th><label for="formrow-inputZip">Dsl Rate</label></th>
@@ -318,14 +317,10 @@
                                             *ngFor="let drv of formDieselArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
                                                 <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="accountName">
-                                                    <input type="hidden" class="form-control" 
-                                                    formControlName="detailID">
-                                                </td>
-                                                <td>
                                                     <input type="date" class="form-control" 
                                                     formControlName="transDate">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="detailID">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 
@@ -361,23 +356,18 @@
                                     <div class="overflow-x">
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Account</label></th>
                                             <th><label for="formrow-inputCity">Trans Date</label></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
                                         <tr formArrayName="fasttagList"
                                             *ngFor="let drv of formFasttagArray.controls; let k = index">
-                                            <div [formGroupName]="k" class="grid-table">   
-                                                <td>
-                                                    <input type="text" class="form-control" 
-                                                    formControlName="accountName">
-                                                    <input type="hidden" class="form-control" 
-                                                    formControlName="detailID">
-                                                </td>
+                                            <div [formGroupName]="k" class="grid-table">
                                                 <td>
                                                     <input type="date" class="form-control" 
                                                     formControlName="transDate">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="detailID">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 

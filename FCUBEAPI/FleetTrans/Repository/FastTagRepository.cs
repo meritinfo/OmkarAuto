@@ -109,6 +109,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@VehicleNo"       , fasttag.FastTagDtlList[i].VehicleNo),
                                     new SqlParameter("@TransDateTime"   , fasttag.FastTagDtlList[i].TransDateTime),
                                     new SqlParameter("@FtAmount"        , fasttag.FastTagDtlList[i].FtAmount),
+                                    new SqlParameter("@DtlRemarks"      , fasttag.FastTagDtlList[i].DtlRemarks),
                                 };
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FastTagDtlsSave", paramMisc);
                                 if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0 )
@@ -231,7 +232,8 @@ namespace FleetTrans.Repository
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
                                 VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 TransDateTime   = Convert.ToDateTime(dataSet.Tables[0].Rows[i]["TransDateTime"]).ToString("dd-MM-yyyy hh:mm:ss"),
-                                FtAmount        = Convert.ToString(dataSet.Tables[0].Rows[i]["FtAmount"]),                               
+                                FtAmount        = Convert.ToString(dataSet.Tables[0].Rows[i]["FtAmount"]),
+                                DtlRemarks      = Convert.ToString(dataSet.Tables[0].Rows[i]["DtlRemarks"]),
                             });
                         }
 

@@ -113,6 +113,7 @@
                                             <th><label for="formrow-inputZip">Vehicle No</label></th>
                                             <th><label for="formrow-inputZip">Trans Date Time</label></th>
                                             <th><label for="formrow-inputZip">Fasttag Amount</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>                                        
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
@@ -135,6 +136,11 @@
                                             <td>
                                                 <div class="mb-3">
                                                     <input decimalonly class="form-control" formControlName="ftAmount">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input decimalonly class="form-control" formControlName="dtlRemarks">
                                                 </div>
                                             </td>
                                             </div>

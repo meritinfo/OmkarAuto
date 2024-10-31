@@ -142,7 +142,7 @@ export class FasttagaddComponent {
           this.getFinDocDetails(this.selectedFasttag.ftmId);
         }
         this.editMode=true;
-        this.getDieselStmtInnerGridList();
+        this.getFasttagInnerGridList();
         this.formFastTag.controls['stmtDate'].disable();     
         this.formFastTag.controls['fromDate'].disable();  
         this.formFastTag.controls['toDate'].disable();  
@@ -167,6 +167,7 @@ export class FasttagaddComponent {
       vehicleNo:  ['', []],
       transDateTime:  ['', []],
       ftAmount:  ['', []],
+      dtlRemarks:  ['', []],
     });
   }
 
@@ -213,7 +214,7 @@ export class FasttagaddComponent {
     });
   }
 
-  getDieselStmtInnerGridList(): void {
+  getFasttagInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedFasttag.ftMasterID;
     this.fasttagService.getFasttagInnerGridList(this.requestmodel).subscribe((res) => {
       this.fasttagmodel = res;
@@ -225,11 +226,14 @@ export class FasttagaddComponent {
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.fastTagDtlList[i].vehicleNo);
         this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
         this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
+        this.formArray.controls[i].get("dtlRemarks")?.setValue(res.fastTagDtlList[i].dtlRemarks);
 
         this.formArray.controls[i].get("transRefNo")?.disable();
         this.formArray.controls[i].get("vehicleNo")?.disable();
         this.formArray.controls[i].get("transDateTime")?.disable();
         this.formArray.controls[i].get("ftAmount")?.disable();
+        this.formArray.controls[i].get("dtlRemarks")?.disable();
+        
       }
     });  
   }
@@ -271,11 +275,13 @@ export class FasttagaddComponent {
             //this.formArray.controls[j].get("transDateTime")?.setValue(startDt.toLocaleDateString('en-CA').toString());
             this.formArray.controls[j].get("transDateTime")?.setValue(this.data[i+1][3]);
             this.formArray.controls[j].get("ftAmount")?.setValue(this.data[i+1][4]);
+            this.formArray.controls[j].get("dtlRemarks")?.setValue(this.data[i+1][5]);
 
             this.formArray.controls[j].get("transRefNo")?.disable();
             this.formArray.controls[j].get("vehicleNo")?.disable();
             this.formArray.controls[j].get("transDateTime")?.disable();
             this.formArray.controls[j].get("ftAmount")?.disable();
+            this.formArray.controls[j].get("dtlRemarks")?.disable();
 
             j ++; 
           }
@@ -327,16 +333,14 @@ export class FasttagaddComponent {
               this.toasterService.warning(this.responseDetails.message);        
             }   
         });
-      }
-      
-    this.sharedService.loading=false;
+      }      
+      this.sharedService.loading = false;
     }
   }
-
  
   saveStatementDetails(): void {
     if (this.formFastTag.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      this.toasterService.warning("Please Enter Mandatory Fields"); 
       const controls = this.formFastTag.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
@@ -370,7 +374,8 @@ export class FasttagaddComponent {
           'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
           'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.toString(),   
           'transDateTime': selectedDataVal.arrayList[i].transDateTime.toString(),   
-          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString()
+          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString(),
+          'dtlRemarks': selectedDataVal.arrayList[i].dtlRemarks.toString(),
         });
       }
     } 
