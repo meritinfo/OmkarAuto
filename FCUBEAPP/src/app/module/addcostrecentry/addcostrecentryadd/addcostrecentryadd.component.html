@@ -1,0 +1,427 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Addtional Cost Entry</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="formrow-inputZip"> Branch </label>
+                                            <span style="color: red"> * </span>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="branchCode" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Trans No</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="transNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transNo'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Trans Date</label>
+                                            <span style="color: red">*</span>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="transDate" min="{{minDate}}" max="{{maxDate}}"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="formrow-inputZip"> Add Cost/Rec Code </label>
+                                            <span style="color: red"> * </span>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="addCostID" (change)="onaddCostchange($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostID'].invalid) }">
+                                                <option *ngFor="let branch of addCostRecList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Add Cost/Rec Type</label>
+                                            <span style="color: red"> * </span>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="addCostType" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostType'].invalid) }">
+                                                <option value="I">Income</option>
+                                                <option value="E">Expense</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-4">
+                                            <label for="formrow-inputZip"> Document Type </label>
+                                            <span style="color: red"> * </span>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="documentType" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['documentType'].invalid) }">
+                                                <option value="LR">LR</option>
+                                            </select>
+                                        </div>
+                                    </div>      
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-check mb-3">
+                                            <input type="radio" formControlName="manualOrDateRange" value="M"
+                                                class="form-check-input" (change)="changeEntry('M')" />
+                                            <label for="formRadios1" class="form-check-label" style="color:green">
+                                                Manual Entry
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-check">
+                                            <input type="radio" formControlName="manualOrDateRange"  value="R"
+                                                class="form-check-input" (change)="changeEntry('R')" />
+                                            <label for="formRadios2" class="form-check-label" style="color:green">
+                                                Date Range
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="showDateRange">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Doc Branch</label>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="docBranch" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['docBranch'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">From Date</label>
+                                            <input type="date" autoclose="false" class="form-control"
+                                                formControlName="fromDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">To Date</label>
+                                            <input type="date" autoclose="false" class="form-control"
+                                                formControlName="toDate" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-lg-2">
+                                        <div class="mt-3">
+                                            <button class="btn btn-primary" (click)="search()">
+                                                <span>Search</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="showDateRange">                                     
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Division Option </label>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="divisionOption" (change)="onDivOptChange($event)" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['divisionOption'].invalid) }">
+                                                <option value="DF">Divide on Freight</option>
+                                                <option value="DW">Divide on Weight</option>
+                                                <option value="DE">Divide Equally</option>
+                                                <option value="ME">Manual Entry</option>
+                                            </select>
+                                        </div>
+                                    </div>                                                                   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Total Amount</label>
+                                            <span style="color: red"> * </span>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalAmount" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalAmount'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <div class="mt-3">
+                                            <button class="btn btn-primary" (click)="calcCostAmt()">
+                                                <span>Calculate Cost Amt</span></button>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-4"></h4>
+                                                    <div class="overflow-x">
+                                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                        <tr>
+                                                            <th><label for="formrow-inputCity"></label></th>
+                                                            <th><label for="formrow-inputZip">Doc Year  </label></th>
+                                                            <th><label for="formrow-inputZip">Doc Branch</label></th>
+                                                            <th><label for="formrow-inputZip">Doc No</label></th>
+                                                            <th><label for="formrow-inputZip">Cost Code</label></th>
+                                                            <th><label for="formrow-inputZip">Cost Amt</label></th>
+                                                            <th><label for="formrow-inputZip">Oth Amt</label></th>
+                                                            <th><label for="formrow-inputZip">Tot Amt</label></th>
+                                                            <th><label for="formrow-inputZip">Narration</label></th>
+                                                            <th><label for="formrow-inputZip"></label></th>
+                                                        </tr>
+                                                        <tr formArrayName="arrayList" 
+                                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                                        <div [formGroupName]="i" class="grid-table">   
+                                                            <td>
+                                                                <input type="checkbox" class="form-check-input-small" 
+                                                                (change)="selectedData(i, $event)" formControlName="selected">                                               
+                                                            </td>
+                                                            <td>
+                                                                <select class="form-control" formControlName="docYear">
+                                                                    <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                                                        {{yr.dataName}}
+                                                                    </option>
+                                                                </select>
+                                                            </td> 
+                                                            <td>
+                                                                <select class="form-control" formControlName="docBranch">
+                                                                    <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
+                                                                        {{ac.dataName}}
+                                                                    </option>
+                                                                </select>
+                                                            </td>                                         
+                                                            <td>
+                                                                <input autoclose="false" numbersonly class="form-control" 
+                                                                    (change)="getDocDtls(i)" maxlength="15" 
+                                                                    formControlName="docNo">
+                                                                <input autoclose="false" class="form-control" type="hidden"
+                                                                    formControlName="docId">
+                                                            </td>                                           
+                                                            <td>
+                                                                <select class="form-control" autoclose="false" 
+                                                                    formControlName="costCode">
+                                                                    <option *ngFor="let ac of costCodeList" value={{ac.dataId}}>
+                                                                        {{ac.dataName}}
+                                                                    </option>
+                                                                </select>    
+                                                            </td>                                            
+                                                            <td>
+                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                    formControlName="costAmt" (change)="calcTot()">
+                                                                <input type="hidden" autoclose="false" class="form-control" 
+                                                                    formControlName="freightRs">
+                                                                <input type="hidden"  autoclose="false" class="form-control" 
+                                                                    formControlName="chargewt">
+                                                            </td>                                           
+                                                            <td>
+                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                    formControlName="othAmt" (change)="calcTot()">
+                                                            </td>                                          
+                                                            <td>
+                                                                <input decimalonly autoclose="false" class="form-control" 
+                                                                    formControlName="totAmt">
+                                                            </td>                                        
+                                                            <td>
+                                                                <input uppercaseonly autoclose="false" class="form-control" 
+                                                                    formControlName="narration">
+                                                            </td>
+                                                            <td>
+                                                                <div class="col-lg-4 details-button">
+                                                                    <button *ngIf="(i === formArray.controls.length-1) && !showDateRange" type="button"
+                                                                        class="btn btn-add" (click)="addItem(i)"></button>
+                                                                    <button *ngIf="(formArray.controls.length > 1) && !showDateRange"
+                                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                                </div>                                        
+                                                            </td>
+                                                            </div>
+                                                        </tr>
+                                                    </table>
+                                                    </div>     
+                                                </div>     
+                                            </div>     
+                                        </div>     
+                                    </div>     
+                                </div>     
+                                <div class="row">  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Party Option</label>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="partyOption" >
+                                                <option value="S">Single Party</option>
+                                                <option value="A">ALL Party</option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Party</label>                                            
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="partyCode">
+                                                <option *ngFor="let ac of partyList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>    
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cost Total</label>  
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                            formControlName="costTot">
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Other Total</label>  
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                            formControlName="othTot">
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Gross Total</label>  
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                            formControlName="grossTot">
+                                        </div>
+                                    </div>      
+                                </div>  
+                                <div class="row">                    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">TDS Rate</label>  
+                                            <input decimalonly autoclose="false" (change)="onTdsChange($event)" class="form-control" 
+                                            formControlName="tdsRate">
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">TDS Amount</label>  
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                            formControlName="tdsAmt">
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Net Total</label>  
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                            formControlName="netTot">
+                                        </div>
+                                    </div>    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Other Db/Cr Ac</label>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="othDbCrAc" >
+                                                <option *ngFor="let ac of othDbCrAcList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">TDS Account</label>                                            
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="tdsAc">
+                                                <option *ngFor="let ac of tdsAcList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>    
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
+                                                <select id="formrow-inputState" class="form-control" 
+                                                formControlName="rpType" (change)="changePmtType($event)"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['rpType'].invalid) }"> 
+                                                    <option value="M">Cash</option>      
+                                                    <option value="B">Bank</option> 
+                                                    <option value="H">Happay</option>
+                                                    <option value="D">Vendor</option>
+                                                    <option value="A">Adjust</option>                                        
+                                                </select>                    
+                                        </div>
+                                    </div>  
+                                </div>  
+                                <div class="row">                    
+                                    <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Remarks</label>  
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                            formControlName="remarks">
+                                        </div>
+                                    </div>                 
+                                    <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Modify Remarks</label>  
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                            formControlName="modifyRemarks">
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Attach1 </label>                          
+                                            <input #attatchFile1Input class="form-control" type="file" 
+                                            id="formAttach1File"  >
+                                            <a *ngIf="selectedAddcostrecmst.attatchFile1" target="_blank"
+                                                        href={{attatchFile1}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Attach2 </label>                          
+                                            <input #attatchFile2Input class="form-control" type="file" 
+                                            id="formAttach2File"  >
+                                            <a *ngIf="selectedAddcostrecmst.attatchFile2" target="_blank"
+                                                        href={{attatchFile2}}>Download</a>
+                                        </div>
+                                    </div> 
+                                </div>                                                                  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitAddCostRecEntrySave()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteAddCostRecEntryForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- container-fluid -->
+    </div>
+ <!-- End Page-content -->
+</div>

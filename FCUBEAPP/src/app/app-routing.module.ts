@@ -232,6 +232,9 @@ import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/ona
 import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
 import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.component';
 import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
+import { AddcostrecentrylistComponent } from './module/addcostrecentry/addcostrecentrylist/addcostrecentrylist.component';
+import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrecentryadd/addcostrecentryadd.component';
+
 
 
 const routes: Routes = [
@@ -558,6 +561,11 @@ const routes: Routes = [
   { path: 'fastagimport', component: FasttaglistComponent },
   { path: 'fasttagimpadd', component: FasttagaddComponent },
   { path: 'fasttagimpedit', component: FasttagaddComponent },
+  { path: 'addcostentrylist', component: AddcostrecentrylistComponent },
+  { path: 'addcostentryadd', component: AddcostrecentryaddComponent },
+  { path: 'addcostentryedit', component: AddcostrecentryaddComponent },
+  
+ 
 
    
 

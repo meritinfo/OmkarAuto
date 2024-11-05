@@ -307,8 +307,8 @@ namespace FCUBEAPI
             services.AddScoped<ITripSummaryRptBusiness, TripSummaryRptBusiness>();
             services.AddScoped<IOnAccountMRStatusRptBusiness, OnAccountMRStatusRptBusiness>();
             services.AddScoped<IOnAccountMRStatusRptRepository, OnAccountMRStatusRptRepository>();
-            services.AddScoped<IAddCostRecorveryRptBusiness, AddCostRecorveryRptBusiness>();
-            services.AddScoped<IAddCostRecorveryRptRepository, AddCostRecorveryRptRepository>();
+            services.AddScoped<IAddCostRecBusiness, AddCostRecBusiness>();
+            services.AddScoped<IAddCostRecRepository, AddCostRecRepository>();
             services.AddScoped<IFastTagBusiness, FastTagBusiness>();
             services.AddScoped<IFastTagRepository, FastTagRepository>();
 

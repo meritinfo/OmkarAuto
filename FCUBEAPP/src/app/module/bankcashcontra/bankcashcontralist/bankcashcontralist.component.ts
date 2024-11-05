@@ -192,9 +192,9 @@ export class BankcashcontralistComponent {
   }
 
   getBankCashContraDetails(Docrenewal: bankreceiptentrymodel): void {
-     this.cashReceiptEntryService.setCashReceiptEntryDetails(Docrenewal);
-     this.route.navigate(['/bankcashcontraedit']);
-     }
+    this.cashReceiptEntryService.setCashReceiptEntryDetails(Docrenewal);
+    this.route.navigate(['/bankcashcontraedit']);
+  }
   
   
   search(): void {

@@ -41,10 +41,6 @@ namespace FCUBEAPI.Controllers
             rolePrivilegesBusiness = _rolePrivilegesBusiness;
         }
 
-        /// <summary>
-        /// Controller method for user master details save
-        /// </summary>
-        /// <param name="userMasterModel"></param>
         [HttpPost("UserMasterDetailsSave")]
         public async Task<IActionResult> UserMasterDetailsSave()
         {

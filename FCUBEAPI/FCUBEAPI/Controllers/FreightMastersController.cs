@@ -9,6 +9,13 @@ using System.Collections.Generic;
 using FinanceMaster.Business;
 using FleetTrans.Business;
 using FleetMasters.Business;
+using AdminMasters.Business;
+using AdminMasters.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -17,6 +24,7 @@ namespace FCUBEAPI.Controllers
     [ApiController]
     public class FreightMastersController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IPartyGroupMasterBusiness partyGroupMasterBusiness;
         readonly IDestinationMasterBusiness freightMastersBusiness;
         readonly IBranchMasterBusiness branchMastersBusiness;
@@ -52,8 +60,9 @@ namespace FCUBEAPI.Controllers
         readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
         readonly ILRCostingRptBusiness lRCostingRptBusiness;
         readonly IOnAccountMRStatusRptBusiness onAccountMRStatusRptBusiness;
-        readonly IAddCostRecorveryRptBusiness addCostRecorveryRptBusiness;
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
+        readonly IAddCostRecBusiness addCostRecorveryBusiness;
+        public FreightMastersController(IOptions<DBModel> _dbconnection, 
+            IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
             IDocumentAllotmentBusiness _documentAllotmentBusiness,
@@ -88,9 +97,9 @@ namespace FCUBEAPI.Controllers
             IBillOutstandingRptBusiness _billOutstandingRptBusiness,
             ILRCostingRptBusiness _lRCostingRptBusiness,
             IOnAccountMRStatusRptBusiness _onAccountMRStatusRptBusiness,
-            IAddCostRecorveryRptBusiness _addCostRecorveryRptBusiness)
-           
+            IAddCostRecBusiness _addCostRecorveryBusiness)           
         {
+            dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
             productGroupMastersBusiness = _productGroupMasterBusiness;
@@ -127,7 +136,7 @@ namespace FCUBEAPI.Controllers
             billOutstandingRptBusiness = _billOutstandingRptBusiness;
             lRCostingRptBusiness = _lRCostingRptBusiness;
             onAccountMRStatusRptBusiness = _onAccountMRStatusRptBusiness;
-            addCostRecorveryRptBusiness = _addCostRecorveryRptBusiness;
+            addCostRecorveryBusiness = _addCostRecorveryBusiness;
         }
 
         /// <summary>
@@ -2579,7 +2588,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await addCostRecorveryRptBusiness.GetAddCostRecorveryRptExcel(request);
+                var result = await addCostRecorveryBusiness.GetAddCostRecorveryRptExcel(request);
 
                 return Ok(result);
             }
@@ -2597,7 +2606,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await addCostRecorveryRptBusiness.GetAddCostRecorveryRptList(request);
+                var result = await addCostRecorveryBusiness.GetAddCostRecorveryRptList(request);
 
                 return Ok(result);
             }
@@ -2607,6 +2616,208 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetAddCostRecMstList")]
+        public async Task<IActionResult> GetAddCostRecMstList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAddCostRecInnerGridList")]
+        public async Task<IActionResult> GetAddCostRecInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("AddCostRecSave")]
+        public async Task<IActionResult> AddCostRecSave()
+        {
+            try
+            {
+                var attatchFile1 = HttpContext.Request.Form.Files["attatchFile1"];
+                var attatchFile2 = HttpContext.Request.Form.Files["attatchFile2"];
+
+                AddCostRecMstModel addCostRec = JsonConvert.DeserializeObject<AddCostRecMstModel>(HttpContext.Request.Form["datadetails"]);
+                if (attatchFile1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile1.FileName);
+                    var foldername = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/addcostrecentry/attatchFile1/");
+                    var fullPath = System.IO.Path.Combine(foldername, imageName);
+
+                    bool exists = System.IO.Directory.Exists(foldername);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(foldername);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await attatchFile1.CopyToAsync(fileStream);
+                        addCostRec.AttatchFile1 = imageName;
+                    }
+                }
+                if (attatchFile2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile2.FileName);
+                    var foldername = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/addcostrecentry/attatchFile2/");
+                    var fullPath = System.IO.Path.Combine(foldername, imageName);
+
+                    bool exists = System.IO.Directory.Exists(foldername);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(foldername);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await attatchFile1.CopyToAsync(fileStream);
+                        addCostRec.AttatchFile2 = imageName;
+                    }
+                }
+                var result = await addCostRecorveryBusiness.AddCostRecSave(addCostRec);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("AddCostRecDelete")]
+        public async Task<IActionResult> AddCostRecDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.AddCostRecDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAddCostRecEntryTranNo")]
+        public async Task<IActionResult> GetAddCostRecEntryTranNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecEntryTranNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAddCostRecList")]
+        public async Task<IActionResult> GetAddCostRecList()
+        {
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetAddCostRecEntryDocDetails")]
+        public async Task<IActionResult> GetAddCostRecEntryDocDetails(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecEntryDocDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAddCostRecEntrySearchList")]
+        public async Task<IActionResult> GetAddCostRecEntrySearchList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetAddCostRecEntrySearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetcostCodeList")]
+        public async Task<IActionResult> GetcostCodeList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await addCostRecorveryBusiness.GetcostCodeList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)

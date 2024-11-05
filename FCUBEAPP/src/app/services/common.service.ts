@@ -77,8 +77,7 @@ export class CommonService {
   } 
   getVehicleTypeFltGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeFltGroupList', null, this.httpOptions);
-  } 
- 
+  }  
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
   }
@@ -124,7 +123,12 @@ export class CommonService {
   getlrSeriesList(req:Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLRSeries', req, this.httpOptions);
   }
-    
+  getAddCostRecList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetAddCostRecList', null, this.httpOptions);
+  }   
+  getcostCodeList(req:Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetcostCodeList', req, this.httpOptions);
+  }
   getlrSeriesForBillList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLRSeriesForBill', null, this.httpOptions);
   }
