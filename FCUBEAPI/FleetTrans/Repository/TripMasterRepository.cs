@@ -73,6 +73,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripTotalExpenses" , tripMasterModel.TripTotalExpenses),
                             new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
                             new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
+                            new SqlParameter("@ReportDateTime" , tripMasterModel.ReportDateTime),
+                            new SqlParameter("@UnloadDateTime" , tripMasterModel.UnloadDateTime),
+                            new SqlParameter("@DetentionDays" , tripMasterModel.DetentionDays),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterSave", param);
@@ -315,6 +318,9 @@ namespace FleetTrans.Repository
                                 TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
                                 TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
                                 TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
+                                ReportDateTime= Convert.ToString(dataSet.Tables[0].Rows[i]["ReportDateTime"]),
+                                UnloadDateTime= Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadDateTime"]),
+                                DetentionDays= Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionDays"]),
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 TripBr = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),

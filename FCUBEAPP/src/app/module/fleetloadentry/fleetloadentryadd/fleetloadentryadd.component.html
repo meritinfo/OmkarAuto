@@ -62,10 +62,11 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Load Type</label><span style="color: red"> * </span>
                                             <select class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="loadType" 
+                                                formControlName="loadType" (change)="onLoadTypeChange($event)" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['loadType'].invalid) }">
                                                 <option value="O">Own</option>
                                                 <option value="M">Market</option>
+                                                <option value="E">Empty</option>
                                             </select>
                                         </div>
                                     </div>                                       

@@ -52,6 +52,9 @@ namespace FleetTrans.Models
         public string? TripCloseDt { get; set; }
         public string? TripCloseUpdateDt { get; set; }
         public string? TripLinkYN { get; set; }
+        public string? ReportDateTime { get; set; }
+        public string? UnloadDateTime { get; set; }
+        public string? DetentionDays { get; set; }
         public string? Findocid { get; set; }
         public string? TripBr { get; set; }
         public string? VehicleNo { get; set; }

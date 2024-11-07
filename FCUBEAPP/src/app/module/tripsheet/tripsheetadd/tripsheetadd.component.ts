@@ -90,9 +90,12 @@ export class TripsheetaddComponent {
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 12);
+
+    const nowdate = new Date();
+    nowdate.setFullYear(year + 1);
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = nowdate.toLocaleDateString('en-CA').toString();
     
     if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
       this.fromDate = this.minDate ;
@@ -118,8 +121,8 @@ export class TripsheetaddComponent {
       tripBranch: new FormControl(this.branch, [Validators.required]),
       vehicleMasterID: new FormControl('', [Validators.required]),
       tripNo: new FormControl('', [Validators.required]),
-      deptDate:  new FormControl('', [Validators.required]),
-      endDate:  new FormControl('', [Validators.required]),
+      deptDate:  new FormControl(this.loginDate, [Validators.required]),
+      endDate:  new FormControl(this.loginDate, [Validators.required]),
       stmtDate:  new FormControl(this.loginDate, [Validators.required]),
       tripStatus:  new FormControl('',),
       driverMasterID:  new FormControl('', [Validators.required]),
@@ -153,6 +156,9 @@ export class TripsheetaddComponent {
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
       tripTotalExpenses: new FormControl('',[Validators.required]),
+      reportDateTime: new FormControl('',),
+      unloadDateTime: new FormControl('',),
+      detentionDays: new FormControl('',),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
 
@@ -168,7 +174,6 @@ export class TripsheetaddComponent {
 
     this.formTripsheet.controls['tripBranch'].disable(); 
     this.formTripsheet.controls['tripNo'].disable();
-    this.formTripsheet.controls['definedMileage'].disable();
     this.formTripsheet.controls['ltsDslToBe'].disable();
     this.formTripsheet.controls['distanceTripKM'].disable();  
     this.formTripsheet.controls['issuedDslLtrs'].disable();      
@@ -187,7 +192,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['tripTotalFreight'].disable();     
     this.formTripsheet.controls['tripTotalExpenses'].disable(); 
     this.formTripsheet.controls['tripCloseDt'].disable();
-
+    this.formTripsheet.controls['detentionDays'].disable();    
 
     setTimeout(() => {
       this.sharedService.loading = true;
@@ -198,7 +203,7 @@ export class TripsheetaddComponent {
         this.formTripsheet.controls['opBalDriver'].disable();        
         this.formTripsheet.controls['deptDate'].disable();     
         this.formTripsheet.controls['endDate'].disable();    
-        this.formTripsheet.controls['vehicleMasterID'].disable();     
+        this.formTripsheet.controls['vehicleMasterID'].disable();  
 
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
@@ -206,6 +211,8 @@ export class TripsheetaddComponent {
           deptDate: this.commonService.formatDate(this.selectedTripSheetDetails.deptDate),
           endDate: this.commonService.formatDate(this.selectedTripSheetDetails.endDate),
           tripCloseDt: this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
+          reportDateTime: this.commonService.formatDate(this.selectedTripSheetDetails.reportDateTime),
+          unloadDateTime: this.commonService.formatDate(this.selectedTripSheetDetails.unloadDateTime),
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
           driverMasterID: this.driverLists.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         }); 
@@ -218,15 +225,14 @@ export class TripsheetaddComponent {
           this.formTripsheet.patchValue({
             tripLinkYN:""
           }); 
-        }
-        
+        }        
              
         if( this.selectedTripSheetDetails.nextTrip != '0'){        
           this.formTripsheet.controls['closingKMR'].disable();     
           this.formTripsheet.controls['clBalDsl'].disable();           
         }
         this.editMode = true;
-        this.getTripSheetInnerGridList()
+        this.getTripSheetInnerGridList();
       }  
       else{        
         this.getBhattaRate(this.loginDate);
@@ -697,6 +703,31 @@ export class TripsheetaddComponent {
     });  
   }
 
+  calDetentionDays(){    
+    var selectedval = this.formTripsheet.getRawValue();
+
+    var selectedDataValue = this.formTripsheet.getRawValue();
+ 
+    //calculation
+    var date1 = new Date(selectedDataValue.reportDateTime);
+    var date2 = new Date(selectedDataValue.unloadDateTime);
+   
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+ 
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    if (!Number.isNaN(Difference_In_Days)) {
+      this.formTripsheet.patchValue({
+        detentionDays: (Difference_In_Days).toString()
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        detentionDays: '0'
+      });  
+    }
+  }
   
 
   changeTripClose(e:any){
@@ -888,6 +919,9 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripTotalExpenses= selectedDataValue.tripTotalExpenses.toString();
     this.tripsheetmodel.tripCloseDt= selectedDataValue.tripCloseDt;
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN?"Y":"N";
+    this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
+    this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
+    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 

@@ -43,6 +43,9 @@ export class Tripsheetmodel {
     tripCloseDt: string = "";
     tripCloseUpdateDt: string = "";
     tripLinkYN: string = "";
+    reportDateTime: string = "";
+    unloadDateTime: string = "";
+    detentionDays: string = "";
     findocid: string = "";
     tripBr: string = "";
     vehicleNo: string = "";

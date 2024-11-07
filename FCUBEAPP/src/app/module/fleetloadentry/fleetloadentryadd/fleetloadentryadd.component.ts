@@ -226,6 +226,31 @@ export class FleetloadentryaddComponent {
     });
   }
 
+  onLoadTypeChange(e:any){
+    var ldtp = e.target.value;
+    if(ldtp == "E"){
+      this.formFleetLoad.controls['qtyWt'].clearValidators();
+      this.formFleetLoad.controls['qtyPkgs'].clearValidators();
+      this.formFleetLoad.controls['hireAmt'].clearValidators();   
+
+      this.formFleetLoad.patchValue({
+        qtyWt : 0,
+        qtyPkgs : 0,
+        hireAmt : 0,
+      });
+    }
+    else{      
+      this.formFleetLoad.controls['qtyWt'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['qtyPkgs'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['hireAmt'].setValidators([Validators.required]);
+    }
+    this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
+    this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();    
+    this.formFleetLoad.controls['hireAmt'].updateValueAndValidity();    
+
+    
+  }
+
   exit(): void {
     this.route.navigate(['/loadmemolist']);
   }
