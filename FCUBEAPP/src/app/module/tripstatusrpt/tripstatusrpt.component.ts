@@ -66,13 +66,11 @@ formFilter!: FormGroup;
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-    }
-    ngOnInit(): void {   
-  
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        
+  }
+  ngOnInit(): void {   
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);        
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find((aa: { menuName: string; }) => aa.menuName === "Trip Payments Report");
@@ -109,8 +107,7 @@ formFilter!: FormGroup;
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(year - 1);
-     // today.setFullYear(year - 1);
-
+      // today.setFullYear(year - 1);
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
       
@@ -133,8 +130,7 @@ formFilter!: FormGroup;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
-  
-      this.sharedService.loading=true;
+        this.sharedService.loading=true;
       this.getBranchList();
       this.getVehicleNoList(); 
       this.getDocRefNoList();   
@@ -157,143 +153,116 @@ formFilter!: FormGroup;
       });
     }
     get f() { return this.formFilter.controls; }
-  
     selectEvent(item: any) {
       // do something with selected item
-     // this.GetOpeningBal();
+      // this.GetOpeningBal();
     }
-  
     onChangeSearch(search: string) {
       // fetch remote data from here
       // And reassign the 'data' which is binded to 'data' property.
     }
-  
     onFocused(e: any) {
-      // do something
+    // do something
     }
-  
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
     expTripStatus(){
       this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 50,
-          serverSide: true,
-          processing: true,
-          searching:false,
-          ajax: (dataTablesParameters: any, callback) => {
-            // Filter setting
-            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-            this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'Branch';
-            this.filter.sortOrder = 'asc';
-            this.filter.search = '';
-            callback({
-              recordsTotal: 0,
-              recordsFiltered: 0,
-              data: []
-            });
-            this.tripStatusRptService.getTripStatusRptList(this.filter).subscribe(resp => {
-               this.allTripStatusRptlist = resp;
-                callback({
-                  recordsTotal: resp.pageMetaData.totalCount,
-                  recordsFiltered: resp.pageMetaData.totalCount,
-                  data: []
-                });
+        pagingType: 'full_numbers',
+        pageLength: 50,
+        serverSide: true,
+        processing: true,
+        searching:false,
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'Branch';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+          this.tripStatusRptService.getTripStatusRptList(this.filter).subscribe(resp => {
+             this.allTripStatusRptlist = resp;
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
               });
-          }, 
-          columns: [ 
-          {
-            title: 'Branch ',
-            data: 'branch',
-          },  
-          {
-            title: 'TripOpenDate ',
-            data: 'tripOpenDate',
-          },    
-          {
-            title: 'VehicleNo',
-            data: 'vehicleNo',
-          },
-          {
-            title: 'TripNo ',
-            data: 'tripNo',
-          },       
-        
-          {
-            title: 'ExUlDate',
-            data: 'exUlDate',
-          },
-          {
-            title: 'DistanceTripKM_1 ',
-            data: 'distanceTripKM_1',
-          },
-          {
-            title: 'fromPoint ',
-            data: 'fromPoint',
-          },
-          {
-            title: 'ToPoint   ',
-            data: 'toPoint  ',
-          },
-         // {
-        //    title: 'PmtType ',
-          //  data: 'pmtType',
-       //   },
-         // {
-          //   title: 'TripStatus ',
-          //   data: 'tripStatus',
-          // },
-          // {
-          //   title: 'TripCloseDt ',
-          //   data: 'tripCloseDt',
-          // },
-          // {
-          //   title: 'TripLinkYN ',
-          //   data: 'tripLinkYN',
-          // },
-          // {
-          //   title: 'LoadType',
-          //   data: 'loadType',
-          // },
-      
-      
-        ],
-      };
+            });
+        }, 
+        columns: [ 
+        {
+          title: 'Branch ',
+          data: 'branch',
+        },  
+        {
+          title: 'TripOpenDate ',
+          data: 'tripOpenDate',
+        },    
+        {
+          title: 'VehicleNo',
+          data: 'vehicleNo',
+        },
+        {
+          title: 'TripNo ',
+          data: 'tripNo',
+        },       
+               {
+          title: 'ExUlDate',
+          data: 'exUlDate',
+        },
+        {
+          title: 'DistanceTripKM_1 ',
+          data: 'distanceTripKM_1',
+        },
+        {
+          title: 'fromPoint ',
+          data: 'fromPoint',
+        },
+        {
+          title: 'ToPoint   ',
+          data: 'toPoint  ',
+        },     
+      ],
+    };
+  }
+     
+   //Open user details screen
+  exportExcel(): void {      
+    this.formSubmitted = true;
+    if (this.formFilter.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields");   
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      }     
+      return;
     }
-      
-    //Open user details screen
-    exportExcel(): void {      
-      this.formSubmitted = true;
-      if (this.formFilter.invalid) {
-        this.toastrService.warning("Please Enter Mandatory Fields");   
-        const controls = this.formFilter.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toastrService.warning(name + " Fields is Invalid");   
-          }
-        }     
-        return;
+    var selectedDataVal=this.formFilter.getRawValue();
+    this.filter.fromDate    = selectedDataVal.fromDate;
+    this.filter.toDate      = selectedDataVal.toDate;
+    this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
+    this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
+    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.tripStatusRptService.getTripStatusRptListExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "TripStatus" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
       }
-      var selectedDataVal=this.formFilter.getRawValue();
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
-      this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
-      this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      this.tripStatusRptService.getTripStatusRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "TripStatus" + "_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
   
   search(): void {
     this.formSubmitted = true;
@@ -312,7 +281,7 @@ formFilter!: FormGroup;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
     this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
-   this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
     //this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
     this.sharedService.loading=true;
     this.expTripStatus();

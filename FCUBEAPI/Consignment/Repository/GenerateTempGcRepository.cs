@@ -449,7 +449,9 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Mail/";
+                //string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Mail/";
+                string baseUrl = "http://103.73.189.186/brplrpt/api/Mail/";
+
                 string UrlParam = "?MasterId=" + request.FilterStr + "&BranchId=" + request.FilterStr1;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
@@ -488,7 +490,9 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/LR/";
+                //string baseUrl = "http://120.138.9.94/lrprintnccapi/api/LR/";
+                string baseUrl = "http://103.73.189.186/brplrpt/api/LR/";
+
                 string UrlParam = "?MasterId=" + request.FilterStr ;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

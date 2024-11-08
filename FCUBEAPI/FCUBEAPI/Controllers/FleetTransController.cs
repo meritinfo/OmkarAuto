@@ -2291,6 +2291,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetTripPrintPdf")]
+        public async Task<IActionResult> GetTripPrintPdf(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetTripPrintPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
 
         [HttpPost("GetVehicleRepMaintMasterInnerGridList")]
         public async Task<IActionResult>  GetVehicleRepMaintMasterInnerGridList(RequestModel request)

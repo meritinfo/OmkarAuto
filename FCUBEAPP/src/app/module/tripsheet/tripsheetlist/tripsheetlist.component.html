@@ -94,6 +94,7 @@
                                 <th>lastTripCloseDate </th>
                                 <th>tripLinkYN </th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
@@ -106,7 +107,13 @@
                                 <td>{{ trip.endDate }}</td>
                                 <td>{{ trip.drName }}</td>
                                 <td>{{ trip.tripCloseDt }}</td>
-                                <td>{{ trip.tripLinkYN }}</td>
+                                <td>{{ trip.tripLinkYN }}</td>                                
+                                <td>  
+                                    <button type="button" class="btn btn-primary btn-floating"  
+                                    (click)="download(trip)" >
+                                        <i class="fas fa-download"></i>
+                                    </button>  
+                                </td>
                                 <td>
                                     <button type="button" class="btn btn-edit"
                                         (click)="gettripSheetDetails(trip)"></button>

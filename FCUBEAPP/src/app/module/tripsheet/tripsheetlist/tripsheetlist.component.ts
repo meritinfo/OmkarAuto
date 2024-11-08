@@ -9,7 +9,9 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -43,6 +45,7 @@ export class TripsheetlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  request= new Requestmodel();
 
   tsfromDate: string = '';
   tstoDate: string = '';
@@ -52,7 +55,9 @@ export class TripsheetlistComponent {
   dtElement!: DataTableDirective;
   
 
-  constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, private route: Router, private sharedService: SharedService, private commonService: CommonService) {
+  constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, 
+    private route: Router, private sharedService: SharedService, 
+    private toasterService: ToastrService,private commonService: CommonService) {
 
   }
 
@@ -210,6 +215,10 @@ getTripMaster(){
           data: 'tripLinkYN',
         },
         {
+          title: 'Trip Print',
+          data: 'tripId',
+        },
+        {
           title: 'Action',
           data: 'tripId',
         },
@@ -276,6 +285,21 @@ getTripMaster(){
 
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
+    });
+  }
+
+  download(tripsheet: Tripsheetmodel){
+    this.request.strRequest = tripsheet.tripId;
+    this.tripSheetService.getTripPrintPdf(this.request).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "TripPrint_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/tripprint/" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
     });
   }
 

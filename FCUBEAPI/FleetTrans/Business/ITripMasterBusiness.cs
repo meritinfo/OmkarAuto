@@ -16,5 +16,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetDslMileage(RequestModel request);
         Task<ResponseModel> GetBhattaRate(RequestModel request);        
         Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request);
+        Task<ResponseModel> GetTripPrintPdf(RequestModel request);
     }
 }
