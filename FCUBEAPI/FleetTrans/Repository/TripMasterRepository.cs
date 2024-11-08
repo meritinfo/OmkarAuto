@@ -794,8 +794,7 @@ namespace FleetTrans.Repository
             ResponseModel responseModel = new();
             try
             {
-                //string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Trip/";
-                string baseUrl = "http://103.73.189.186/brplrpt/api/Trip/";
+                string baseUrl = dbconnection.Value.apiPath + "api/Trip/";
 
                 string UrlParam = "?TripId=" + request.strRequest;
                 HttpClient client = new HttpClient();
