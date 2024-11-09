@@ -63,6 +63,7 @@ import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
 import { Subledgermodel } from 'src/app/models/subledgermodel';
+import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
@@ -404,6 +405,8 @@ import { Fasttagmodel } from './models/fasttagmodel';
 import { AddcostrecentrylistComponent } from './module/addcostrecentry/addcostrecentrylist/addcostrecentrylist.component';
 import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrecentryadd/addcostrecentryadd.component';
 import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
+import { TripenroutebycompanyaddComponent } from './module/tripenroutebycompany/tripenroutebycompanyadd/tripenroutebycompanyadd.component';
+import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany/tripenroutebycompanylist/tripenroutebycompanylist.component';
 
 @NgModule({
   declarations: [
@@ -532,7 +535,7 @@ import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
     AddcostrecorveryrptComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent,
+    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent,
     
   ],
   imports: [
@@ -597,7 +600,7 @@ import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
-    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel,
+    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel
     
   ],
   bootstrap: [AppComponent]

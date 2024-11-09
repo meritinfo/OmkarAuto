@@ -311,6 +311,8 @@ namespace FCUBEAPI
             services.AddScoped<IAddCostRecRepository, AddCostRecRepository>();
             services.AddScoped<IFastTagBusiness, FastTagBusiness>();
             services.AddScoped<IFastTagRepository, FastTagRepository>();
+            services.AddScoped<ITripEnrouteExpByCompanyBusiness, TripEnrouteExpByCompanyBusiness>();
+            services.AddScoped<ITripEnrouteExpByCompanyRepository, TripEnrouteExpByCompanyRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

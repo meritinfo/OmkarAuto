@@ -54,6 +54,7 @@ namespace FCUBEAPI.Controllers
         readonly ITripOutstandingRptBusiness tripOutstandingRptBusiness;
         readonly ITripSummaryRptBusiness tripSummaryRptBusiness;
         readonly IFastTagBusiness fastTagBusiness;
+        readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -85,7 +86,8 @@ namespace FCUBEAPI.Controllers
             ITripOutstandingRptBusiness _tripOutstandingRptBusiness,
             ITripSummaryRptBusiness _tripSummaryRptBusiness,
             ITyreMgntRptBusiness _tyreMgntRptBusiness,
-            IFastTagBusiness _fastTagBusiness)
+            IFastTagBusiness _fastTagBusiness,
+            ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -121,6 +123,7 @@ namespace FCUBEAPI.Controllers
             tripOutstandingRptBusiness = _tripOutstandingRptBusiness;
             tripSummaryRptBusiness = _tripSummaryRptBusiness;
             fastTagBusiness = _fastTagBusiness;
+            tripEnrouteExpByCompanyBusiness= _tripEnrouteExpByCompanyBusiness;
         }
 
 
@@ -3112,6 +3115,61 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("TripEnrouteExpByCompanySave")]
+        public async Task<IActionResult> TripEnrouteExpByCompanySave(TripEnrouteExpByCompanyModel tripEnrouteExpByCompanyModel)
+        {
+            if (tripEnrouteExpByCompanyModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripEnrouteExpByCompanyBusiness.TripEnrouteExpByCompanySave(tripEnrouteExpByCompanyModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TripEnrouteExpByCompanyDelete")]
+        public async Task<IActionResult> TripEnrouteExpByCompanyDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripEnrouteExpByCompanyBusiness.TripEnrouteExpByCompanyDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTripEnrouteExpByCompanyList")]
+        public async Task<IActionResult> GetTripEnrouteExpByCompanyList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripEnrouteExpByCompanyBusiness.GetTripEnrouteExpByCompanyList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
 

@@ -234,6 +234,8 @@ import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.comp
 import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
 import { AddcostrecentrylistComponent } from './module/addcostrecentry/addcostrecentrylist/addcostrecentrylist.component';
 import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrecentryadd/addcostrecentryadd.component';
+import { TripenroutebycompanyaddComponent } from './module/tripenroutebycompany/tripenroutebycompanyadd/tripenroutebycompanyadd.component';
+import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany/tripenroutebycompanylist/tripenroutebycompanylist.component';
 
 
 
@@ -564,6 +566,9 @@ const routes: Routes = [
   { path: 'addcostentrylist', component: AddcostrecentrylistComponent },
   { path: 'addcostentryadd', component: AddcostrecentryaddComponent },
   { path: 'addcostentryedit', component: AddcostrecentryaddComponent },
+  { path: 'tripexpbycomp', component: TripenroutebycompanylistComponent},
+  { path: 'tripenroutebycompanyadd', component: TripenroutebycompanyaddComponent },
+  { path: 'tripenroutebycompanyedit', component: TripenroutebycompanyaddComponent },
   
  
 
