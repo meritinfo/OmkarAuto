@@ -63,6 +63,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetOpeningBal(request);
         }
+        public async Task<ResponseModel> GetTripPrintPdf(RequestModel request)
+        {
+            return await tripMasterRepository.GetTripPrintPdf(request);
+        }
 
     }
 }

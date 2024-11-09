@@ -596,7 +596,8 @@ namespace FreightMasters.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = "http://120.138.9.94/lrprintnccapi/api/Bill/";
+                string baseUrl = dbconnection.Value.apiPath + "api/Trip/";
+
                 string UrlParam = "?BillingStn=" + request.FilterStr +
                                     "&BillNo=" + request.FilterStr1 +
                                     "&YearId=" + request.FilterStr2+
