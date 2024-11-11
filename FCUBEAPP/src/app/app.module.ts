@@ -404,6 +404,8 @@ import { Fasttagmodel } from './models/fasttagmodel';
 import { AddcostrecentrylistComponent } from './module/addcostrecentry/addcostrecentrylist/addcostrecentrylist.component';
 import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrecentryadd/addcostrecentryadd.component';
 import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
+import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummrpt.component';
+import { Businesssummrptmodel } from './models/businesssummrptmodel';
 
 @NgModule({
   declarations: [
@@ -532,7 +534,8 @@ import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
     AddcostrecorveryrptComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent,
+    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
+    BusinesssummrptComponent,
     
   ],
   imports: [
@@ -597,7 +600,7 @@ import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
-    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel,
+    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel, Businesssummrptmodel,
     
   ],
   bootstrap: [AppComponent]

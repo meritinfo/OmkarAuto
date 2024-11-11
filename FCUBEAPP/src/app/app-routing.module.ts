@@ -234,6 +234,7 @@ import { FasttagaddComponent } from './module/fasttag/fasttagadd/fasttagadd.comp
 import { FasttaglistComponent } from './module/fasttag/fasttaglist/fasttaglist.component';
 import { AddcostrecentrylistComponent } from './module/addcostrecentry/addcostrecentrylist/addcostrecentrylist.component';
 import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrecentryadd/addcostrecentryadd.component';
+import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummrpt.component';
 
 
 
@@ -564,7 +565,7 @@ const routes: Routes = [
   { path: 'addcostentrylist', component: AddcostrecentrylistComponent },
   { path: 'addcostentryadd', component: AddcostrecentryaddComponent },
   { path: 'addcostentryedit', component: AddcostrecentryaddComponent },
-  
+  { path: 'busisummlr', component: BusinesssummrptComponent },
  
 
    
