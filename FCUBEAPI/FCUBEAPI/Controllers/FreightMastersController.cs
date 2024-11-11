@@ -61,6 +61,7 @@ namespace FCUBEAPI.Controllers
         readonly ILRCostingRptBusiness lRCostingRptBusiness;
         readonly IOnAccountMRStatusRptBusiness onAccountMRStatusRptBusiness;
         readonly IAddCostRecBusiness addCostRecorveryBusiness;
+        readonly IBusinessSummRptBusiness businessSummRptBusiness;
         public FreightMastersController(IOptions<DBModel> _dbconnection, 
             IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
@@ -97,7 +98,8 @@ namespace FCUBEAPI.Controllers
             IBillOutstandingRptBusiness _billOutstandingRptBusiness,
             ILRCostingRptBusiness _lRCostingRptBusiness,
             IOnAccountMRStatusRptBusiness _onAccountMRStatusRptBusiness,
-            IAddCostRecBusiness _addCostRecorveryBusiness)           
+            IAddCostRecBusiness _addCostRecorveryBusiness,
+            IBusinessSummRptBusiness _businessSummRptBusiness)           
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -137,6 +139,7 @@ namespace FCUBEAPI.Controllers
             lRCostingRptBusiness = _lRCostingRptBusiness;
             onAccountMRStatusRptBusiness = _onAccountMRStatusRptBusiness;
             addCostRecorveryBusiness = _addCostRecorveryBusiness;
+            businessSummRptBusiness = _businessSummRptBusiness;
         }
 
         /// <summary>
@@ -2810,6 +2813,43 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await addCostRecorveryBusiness.GetcostCodeList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBusinessSummRptExcel")]
+        public async Task<IActionResult> GetbusinessSummRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await businessSummRptBusiness.GetBusinessSummRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBusinessSummRptList")]
+        public async Task<IActionResult> GetBusinessSummRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await businessSummRptBusiness.GetBusinessSummRptList(request);
 
                 return Ok(result);
             }

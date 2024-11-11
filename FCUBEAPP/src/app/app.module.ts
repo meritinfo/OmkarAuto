@@ -407,6 +407,8 @@ import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrec
 import { Addcostrecmstmodel } from './models/addcostrecmstmodel';
 import { TripenroutebycompanyaddComponent } from './module/tripenroutebycompany/tripenroutebycompanyadd/tripenroutebycompanyadd.component';
 import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany/tripenroutebycompanylist/tripenroutebycompanylist.component';
+import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummrpt.component';
+import { Businesssummrptmodel } from './models/businesssummrptmodel';
 
 @NgModule({
   declarations: [
@@ -535,6 +537,8 @@ import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
     AddcostrecorveryrptComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
+    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
+    BusinesssummrptComponent,
     FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent,
     
   ],
@@ -601,6 +605,7 @@ import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel
+    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel, Businesssummrptmodel,
     
   ],
   bootstrap: [AppComponent]
