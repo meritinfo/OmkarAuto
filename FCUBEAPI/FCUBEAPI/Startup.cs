@@ -313,6 +313,8 @@ namespace FCUBEAPI
             services.AddScoped<IFastTagRepository, FastTagRepository>();
             services.AddScoped<IBusinessSummRptBusiness, BusinessSummRptBusiness>();
             services.AddScoped<IBusinessSummRptRepository, BusinessSummRptRepository>();
+            services.AddScoped<ITripEnrouteExpByCompanyBusiness, TripEnrouteExpByCompanyBusiness>();
+            services.AddScoped<ITripEnrouteExpByCompanyRepository, TripEnrouteExpByCompanyRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
