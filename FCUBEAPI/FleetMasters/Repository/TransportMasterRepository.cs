@@ -128,7 +128,13 @@ namespace FleetMasters.Repository
                             new SqlParameter("@BranchCode", tranportMasterModel.BranchCode),
                             new SqlParameter("@Remarks", tranportMasterModel.Remarks),
                             new SqlParameter("@IsActive", tranportMasterModel.IsActive),
-                            new SqlParameter("@InActiveDate", tranportMasterModel.InActiveDate)
+                            new SqlParameter("@InActiveDate", tranportMasterModel.InActiveDate),
+                            new SqlParameter("@BankAcName", tranportMasterModel.BankAcName ),
+                            new SqlParameter("@BankAcType", tranportMasterModel.BankAcType ),
+                            new SqlParameter("@BankName", tranportMasterModel.BankName ),
+                            new SqlParameter("@BankAdd", tranportMasterModel.BankAdd),
+                            new SqlParameter("@BankAcNo", tranportMasterModel.BankAcNo),
+                            new SqlParameter("@BankIfsc", tranportMasterModel.BankIfsc),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportMaster_Insert", param);
@@ -408,7 +414,13 @@ namespace FleetMasters.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                                 InActiveDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InActiveDate"]),
-                            
+                                BankAcName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcName"]),
+                                BankAcType = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcType"]),
+                                BankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankName"]),
+                                BankAdd = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAdd"]),
+                                BankAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
+                                BankIfsc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
+
                             });
                         }
 

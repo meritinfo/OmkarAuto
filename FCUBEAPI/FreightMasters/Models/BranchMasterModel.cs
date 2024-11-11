@@ -29,6 +29,7 @@
         public string? ZnNumCode { get; set; }
         public string? BrNumCode { get; set; }
         public string? DocNumCode { get; set; }
+        public string? RCM_GstNo { get; set; }
         public string? LoggedInUserID { get; set; }
 
     }

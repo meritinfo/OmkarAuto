@@ -23,6 +23,7 @@ export class Branchmodel {
     znNumCode : string = "";
     brNumCode : string = "";
     docNumCode : string = "";
+    rcM_GstNo : string = "";
 
     loggedInUserID :string = "";
 }

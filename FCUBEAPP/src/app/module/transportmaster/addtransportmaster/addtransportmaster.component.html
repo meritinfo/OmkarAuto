@@ -205,7 +205,64 @@
                                             formControlName="inActiveDate"
                                             [ngClass]=>
                                         </div>
-                                    </div>                                         
+                                    </div>  
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Bank Ac Name </label>
+                                            <input type="text"  class="form-control" uppercaseonly
+                                            formControlName="bankAcName" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Bank Ac Type</label>
+                                           
+
+                                        <select id="formrow-inputState" 
+                                        class="form-control form-select ng-pristine ng-touched"
+                                            formControlName="bankAcType" 
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAcType'].invalid) }">
+                                            <option value="S">Savings</option>
+                                            <option value="C">Current</option>                                                                                          
+                                        </select>
+                                    </div>
+                                    </div>  
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Bank Name</label>
+                                            <input  type="text"  class="form-control" uppercaseonly
+                                            formControlName="bankName" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Bank Add</label>
+                                            <input  type="text"  class="form-control" uppercaseonly
+                                            formControlName="bankAdd" >
+                                        </div>
+                                    </div>    
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>BankAcNo</label>
+                                            <input numbersonly type="text"  class="form-control" uppercaseonly
+                                            formControlName="bankAcNo">
+
+
+
+                                        </div>
+
+                                        
+                                    </div>  
+                                    
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>BankIfsc</label>
+                                            <input  type="text"  class="form-control" uppercaseonly
+                                            formControlName="bankIfsc">
+                                        </div>
+                                    </div>                                      
                                 </div>                                
                             </div>                  
                             <!-- end card body -->

@@ -55,10 +55,12 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ManagerPhone", BranchMasterModel.ManagerPhone),
                             new SqlParameter("@ManagerEmail", BranchMasterModel.ManagerEmail),
                             new SqlParameter("@GstNo", BranchMasterModel.GstNo),
+                              new SqlParameter("@RCM_GstNo", BranchMasterModel.RCM_GstNo),
                             new SqlParameter("@EntryLockDays", BranchMasterModel.EntryLockDays),
                             new SqlParameter("@ZnNumCode", BranchMasterModel.ZnNumCode),
                             new SqlParameter("@BrNumCode", BranchMasterModel.BrNumCode),
                             new SqlParameter("@DocNumCode", BranchMasterModel.DocNumCode),
+                            
                             new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUserID)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BranchMasterDetailsSave", param);
@@ -171,6 +173,7 @@ namespace FreightMasters.Repository
                                 ZnNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["ZnNumCode"]),
                                 BrNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["BrNumCode"]),
                                 DocNumCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNumCode"]),
+                                RCM_GstNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["RCM_GstNo"]),
                             });
                         }
 

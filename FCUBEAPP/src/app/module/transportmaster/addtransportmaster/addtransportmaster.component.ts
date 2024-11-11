@@ -132,6 +132,12 @@ export class AddtransportmasterComponent {
       remarks: new FormControl('',),
       isActive: new FormControl('Y',),
       inActiveDate: new FormControl('',),
+      bankAcName : new FormControl('',),
+      bankAcType  : new FormControl('',),
+      bankName   : new FormControl('',),
+      bankAdd   : new FormControl('',),
+      bankAcNo   : new FormControl('',),
+      bankIfsc    : new FormControl('',),
       
       transportDetailList: this.formBuilder.array([this.createLocationArray()]),
       stateDetailList: this.formBuilder.array([this.createStateArray()]),
@@ -348,6 +354,13 @@ export class AddtransportmasterComponent {
     this.transportMasterModel.remarks = selectedData.remarks.toString().toUpperCase();;
     this.transportMasterModel.isActive = selectedData.isActive;
     this.transportMasterModel.inActiveDate = selectedData.inActiveDate;
+
+    this.transportMasterModel.bankAcName  = selectedData.bankAcName.toString().toUpperCase();
+    this.transportMasterModel.bankAcType   = selectedData.bankAcType;
+    this.transportMasterModel.bankName    = selectedData.bankName.toString().toUpperCase();
+    this.transportMasterModel.bankAdd     = selectedData.bankAdd.toString().toUpperCase();
+    this.transportMasterModel.bankAcNo      = selectedData.bankAcNo;
+    this.transportMasterModel.bankIfsc      = selectedData.bankIfsc;
     this.transportMasterModel.transportLocationList = [];
     this.transportMasterModel.transportStatesList = [];
     this.transportMasterModel.transportVehTypesList = [];

@@ -24,7 +24,12 @@ export class Transportmastermodel {
   remarks: string = "";
   isActive: string = "";
   inActiveDate: string = "";
-     
+  bankAcName: string = "";
+  bankAcType : string = "";
+  bankName  : string = "";
+  bankAdd   : string = "";
+  bankAcNo   : string = "";
+  bankIfsc    : string = "";
   transportLocationList: TransportLocationListmodel[] = [];
   transportStatesList: TransportStateListmodel[] = [];
   transportVehTypesList: TransportVehTypesListmodel[] = [];

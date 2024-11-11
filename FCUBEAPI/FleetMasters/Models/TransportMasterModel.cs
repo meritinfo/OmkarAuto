@@ -25,17 +25,21 @@ namespace FleetMasters.Models
         public string?Mobile2 { get; set; }
         public string?PanNo { get; set; }
         public string?GSTNo { get; set; }
-
         public string?AadharNo { get; set; }
         public string?CancelChq { get; set; }
         public string?AddrProof { get; set; }
         public string?EligibleForBid { get; set; }
         public string?WhatsappMblNo { get; set; }
-
         public string? BranchCode { get; set; }
         public string?Remarks{ get; set; }
         public string?IsActive { get; set; }
         public string?InActiveDate { get; set; }
+        public string? BankAcName { get; set; }
+        public string? BankAcType { get; set; }
+        public string? BankName { get; set; }
+        public string? BankAdd { get; set; }
+        public string? BankAcNo { get; set; }
+        public string? BankIfsc { get; set; }
         public List<TransportLocationListmodel>? TransportLocationList { get; set; }
         public List<TransportStatesListmodel>? TransportStatesList { get; set; }
         public List<TransportVehTypesListmodel>? TransportVehTypesList { get; set; }

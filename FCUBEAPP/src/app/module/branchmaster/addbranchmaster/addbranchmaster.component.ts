@@ -91,7 +91,8 @@ export class AddbranchmasterComponent {
       managerPhone: new FormControl('',),
       managerEmail: new FormControl('',),
       gstNo: new FormControl('',),
-      entryLockDays: new FormControl('',),     
+      entryLockDays: new FormControl('',),   
+      rcM_GstNo : new FormControl('',),     
       znNumCode:new FormControl('',[Validators.required]),
       brNumCode:new FormControl('',[Validators.required]),
       docNumCode:new FormControl('',[Validators.required]),
@@ -240,6 +241,7 @@ export class AddbranchmasterComponent {
     this.branchModel.znNumCode        = selectedDataVal.znNumCode.toString();
     this.branchModel.brNumCode        = selectedDataVal.brNumCode.toString();
     this.branchModel.docNumCode       = selectedDataVal.docNumCode.toString();
+    this.branchModel.rcM_GstNo       = selectedDataVal.rcM_GstNo.toString();
     this.branchModel.loggedInUserID   = this.loggedInUserID;
 
   
