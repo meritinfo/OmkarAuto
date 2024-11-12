@@ -603,9 +603,9 @@ import { Businesssummrptmodel } from './models/businesssummrptmodel';
     Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
-    Tripsummaryrptmodel, Tripoutstandingrptmodel, Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
-    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel
-    Tripsummaryrptmodel,Fasttagmodel,Addcostrecmstmodel, Businesssummrptmodel,
+    Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
+    Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,
+    Businesssummrptmodel,
     
   ],
   bootstrap: [AppComponent]

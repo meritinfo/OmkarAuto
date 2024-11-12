@@ -148,8 +148,8 @@ export class AddtransportmasterComponent {
 
     if (this.selectedTransportMasterDetail.tptCode != '') {
       setTimeout(() => {
-        this.uploadedcancelChq = Constants.UploadFolderPath + 'upload/transport/cancelChq/' + this.selectedTransportMasterDetail.cancelChq;
-        this.uploadedaddrProof = Constants.UploadFolderPath + 'upload/transport/addrProof/' + this.selectedTransportMasterDetail.addrProof;
+        this.uploadedcancelChq = Constants.UploadFolderPath + 'transport/cancelChq/' + this.selectedTransportMasterDetail.cancelChq;
+        this.uploadedaddrProof = Constants.UploadFolderPath + 'transport/addrProof/' + this.selectedTransportMasterDetail.addrProof;
         this.formUser.patchValue(this.selectedTransportMasterDetail);
         this.formUser.patchValue({
           inActiveDate: this.commonService.formatDate(this.selectedTransportMasterDetail.inActiveDate),
