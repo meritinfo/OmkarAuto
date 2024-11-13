@@ -54,7 +54,7 @@ export class MrService {
   }  
 
   mrDelete(request: Requestmodel ):  Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/MrDelete', request, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/MrMstDelete', request, this.httpOptions);
   }
   
 }

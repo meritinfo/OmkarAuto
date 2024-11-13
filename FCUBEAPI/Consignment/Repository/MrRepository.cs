@@ -331,6 +331,44 @@ namespace Consignment.Repository
             }
             return mr;
         }
+        public async Task<ResponseModel> MrMstDelete(RequestModel request)
+        {
+            ResponseModel response = new ResponseModel();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MrMasterId", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_MrMstDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        response.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (response.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return response;
+        }
 
         public async Task<ResponseModel> MrMstSave(MrModel mr)
         {

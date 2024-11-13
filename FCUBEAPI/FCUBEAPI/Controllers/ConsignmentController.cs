@@ -1700,6 +1700,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("MrMstDelete")]
+        public async Task<IActionResult> MrMstDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.MrMstDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("MrMstSave")]
         public async Task<IActionResult> MrMstSave(MrModel mr)
         {
