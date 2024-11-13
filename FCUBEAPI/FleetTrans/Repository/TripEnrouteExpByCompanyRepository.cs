@@ -242,6 +242,7 @@ namespace FleetTrans.Repository
                                 FtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmId"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 bname = Convert.ToString(dataSet.Tables[0].Rows[i]["bname"]),
+                                exp = Convert.ToString(dataSet.Tables[0].Rows[i]["exp"]),
                             });
                         }
 
