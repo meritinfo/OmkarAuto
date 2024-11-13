@@ -111,6 +111,7 @@ export class ConsignmentaddComponent implements OnInit {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();

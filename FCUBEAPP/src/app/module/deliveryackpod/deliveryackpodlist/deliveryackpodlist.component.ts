@@ -27,6 +27,7 @@ export class DeliveryackpodlistComponent {
   keywordLocation = 'dataName'; 
   year: string = '';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -83,6 +84,11 @@ export class DeliveryackpodlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+
+    }
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -107,6 +113,7 @@ export class DeliveryackpodlistComponent {
     this.sharedService.loading=true;    
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+    this.filter.filterStr = this.branch;
     this.deliveryackpodList();
     this.sharedService.loading=false;
   }
@@ -182,6 +189,7 @@ export class DeliveryackpodlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
+    this.filter.filterStr = this.branch;
     
     this.sharedService.loading=true;
     this.deliveryackpodList();

@@ -42,6 +42,7 @@ export class DprvehiplacedlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  branch: string = '';
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -87,6 +88,12 @@ export class DprvehiplacedlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+  
+  var userData = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.branch = userData;
+  }
+
 
     const today = new Date();
     const month = today.getMonth();
@@ -168,6 +175,7 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr = this.vehpayParty;
     this.filter.filterStr1 = this.vehorigin;
     this.filter.filterStr2 = this.vehdestination;    
+    this.filter.filterStr3= this.branch;  
 
     this.dprVehiList();    
     this.sharedService.loading=false;
@@ -291,6 +299,7 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr = selecteddata.payParty?selecteddata.payParty.dataId:"";
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
+    this.filter.filterStr3= this.branch;  
 
     this.sharedService.loading=true;
     this.dprVehiList();    
