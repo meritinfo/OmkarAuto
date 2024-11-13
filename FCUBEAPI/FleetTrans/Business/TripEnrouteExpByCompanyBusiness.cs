@@ -1,4 +1,5 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Drawing;
+using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
 using System;
@@ -28,9 +29,13 @@ namespace FleetTrans.Business
         {
             return await tripEnrouteExpByCompanyRepository.TripEnrouteExpByCompanyDelete(req);
         }
+        public async Task<List<DropDownListModel>> GetExpTypeList()
+         {
+            return await tripEnrouteExpByCompanyRepository.GetExpTypeList();
+         }
 
 
 
 
-    }
+}
 }

@@ -26,6 +26,19 @@
                                     <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="basicpill-firstname-input">Select Expense Desc</label><span style="color: red">*</span> 
+                                    <select class="form-control form-select ng-pristine ng-touched"
+                                     formControlName="expId"
+                                       >
+                                        <option *ngFor="let branch of expList"
+                                            value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                             <!-- <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
@@ -93,7 +106,7 @@
                         <tr *ngFor="let trip of allEnrouteTypes.companyList">
                             <td>{{ trip.bname }}</td>
                             <td>{{ trip.expDate }}</td>
-                            <td>{{ trip.expId }}</td>
+                            <td>{{ trip.exp}}</td>
                             <td>{{ trip.expAmount }}</td>
                                                
                             <td>                               

@@ -24,7 +24,8 @@ namespace FleetTrans.Models
         public string? FtmId { get; set; }
         public string? YearId { get; set; }
         public string? bname { get; set; }
-      
+        public string? exp { get; set; }
+
         public string? LoggedInUser { get; set; }
     }
 }
