@@ -13,6 +13,7 @@ namespace Consignment.Business
         Task<MrModel> GetOnAcMrSearchList(DropDownListModel request);
         Task<MrModel> GetBillLRSearchDtls(ReportRequestModel request);
         Task<MrModel> GetMrInnerGridList(RequestModel request);
+        Task<ResponseModel> MrMstDelete(RequestModel request);
         Task<ResponseModel> MrMstSave(MrModel mr);
     }
 

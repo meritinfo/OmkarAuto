@@ -32,6 +32,10 @@ namespace Consignment.Business
         {
             return await mrRepository.GetMrInnerGridList(request);
         }
+        public async Task<ResponseModel> MrMstDelete(RequestModel request)
+        {
+            return await mrRepository.MrMstDelete(request);
+        }
         public async Task<ResponseModel> MrMstSave(MrModel mr)
         {
             return await mrRepository.MrMstSave(mr);

@@ -135,12 +135,12 @@ export class MraddComponent {
       mrDate: new FormControl(this.loginDate, [Validators.required]),
       mrStatus: new FormControl('', ),
       mrType: new FormControl('B', [Validators.required]),
-      mrReceiptType: new FormControl('',),
+      mrReceiptType: new FormControl('',[Validators.required]),
       billLrOthType: new FormControl('B',),
       partyCode: new FormControl('',[Validators.required]),
       groupMrYN: new FormControl('',),
       partyGroupId: new FormControl('',[Validators.required]),
-      cheqCashAmt: new FormControl('',),
+      cheqCashAmt: new FormControl('',[Validators.required]),
       onAcAdjAmt: new FormControl('',),
       onAcStatus: new FormControl('',),
       onAcAdjusted: new FormControl('',),
@@ -164,13 +164,13 @@ export class MraddComponent {
       neftYN:new FormControl('',),
       mrDebitAc:new FormControl('',[Validators.required]),
       mrSdEmdAc:new FormControl('',),
-      chequeNo:new FormControl('',[Validators.required]),
+      chequeNo:new FormControl('',),
       chequeDt:new FormControl(this.loginDate,[Validators.required]),
       partyBankDet:new FormControl('',),
       sdEmdRefNo:new FormControl('',),
       modifyRemarks:new FormControl('',),
 
-      mrarrayList: this.formBuilder.array([this.createInitialMrArray()])  ,    
+      mrarrayList: this.formBuilder.array([this.createInitialMrArray()]),    
       arrayList: this.formBuilder.array([this.createInitialArray()])      
     });
     
@@ -190,11 +190,6 @@ export class MraddComponent {
     this.formUser.controls['neftYN'].disable();
     this.formUser.controls['chequeNo'].disable();      
     this.formUser.controls['chequeDt'].disable();   
-
-    this.formUser.controls['chequeNo'].clearValidators();      
-    this.formUser.controls['chequeDt'].clearValidators(); 
-    this.formUser.controls['chequeNo'].updateValueAndValidity();
-    this.formUser.controls['chequeDt'].updateValueAndValidity();
     
     this.formUser.controls['partyGroupId'].disable();    
     this.formUser.controls['partyGroupId'].clearValidators(); 
@@ -235,6 +230,7 @@ export class MraddComponent {
         
       this.formMrArray.controls[0].get("selected")?.disable();  
       this.formMrArray.controls[0].get("adjMrNo")?.disable();  
+      this.formMrArray.controls[0].get("mrDate")?.disable();  
       this.formMrArray.controls[0].get("onAcAmt")?.disable();  
       this.formMrArray.controls[0].get("adjAmt")?.disable();  
 
@@ -501,24 +497,6 @@ export class MraddComponent {
     this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
   }
 
-  onNeftChk(e: any) {   
-    this.neftPmtSelected=!this.neftPmtSelected;
-    if (this.neftPmtSelected){
-      this.formUser.controls['chequeNo'].disable();      
-      this.formUser.controls['chequeDt'].disable();   
-      this.formUser.controls['chequeNo'].clearValidators();      
-      this.formUser.controls['chequeDt'].clearValidators();   
-    }
-    else {
-      this.formUser.controls['chequeNo'].enable();      
-      this.formUser.controls['chequeDt'].enable();   
-      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
-      this.formUser.controls['chequeDt'].setValidators([Validators.required]);
-    }
-    this.formUser.controls['chequeNo'].updateValueAndValidity();
-    this.formUser.controls['chequeDt'].updateValueAndValidity();
-  }
-  
   selectedData(index: number, event: any) {
     if(event.target.checked){
       this.formMrArray.controls[index].get("adjAmt")?.enable();  
@@ -543,44 +521,19 @@ export class MraddComponent {
 
     if(selectedValue=="B"){      
       this.formUser.controls['neftYN'].enable();
-      this.formUser.controls['chequeNo'].enable();      
-      this.formUser.controls['chequeDt'].enable();   
-      
-      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
-      this.formUser.controls['chequeDt'].setValidators([Validators.required]);
     }
     else{
       this.formUser.patchValue({
         neftYN: ''
       });
       this.formUser.controls['neftYN'].disable();
-      this.formUser.controls['chequeNo'].disable();      
-      this.formUser.controls['chequeDt'].disable();   
-
-      this.formUser.controls['chequeNo'].clearValidators();      
-      this.formUser.controls['chequeDt'].clearValidators();  
     }
-    this.formUser.controls['chequeNo'].updateValueAndValidity();
-    this.formUser.controls['chequeDt'].updateValueAndValidity();
-    
     if(selectedValue=='J') {selectedValue = 'BC'}
     if(selectedValue=='M') {selectedValue = 'C'}
 
     this.getAccountList(selectedValue);
   }
 
-  onneftChange(e:any){
-    if(e.target.checked){
-      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
-      this.formUser.controls['chequeDt'].setValidators([Validators.required]);
-    }
-    else {
-      this.formUser.controls['chequeNo'].clearValidators();      
-      this.formUser.controls['chequeDt'].clearValidators();   
-    }
-    this.formUser.controls['chequeNo'].updateValueAndValidity();
-    this.formUser.controls['chequeDt'].updateValueAndValidity();
-  }
 
   addItem(i: number): void {    
     this.formUser.controls['groupMrYN'].disable();      
@@ -940,7 +893,12 @@ export class MraddComponent {
             this.formMrArray.controls[i].get("adjMrNo")?.setValue(res.mrOnAcList[i].adjMrNo);    
             this.formMrArray.controls[i].get("mrDate")?.setValue(this.commonService.formatDate(res.mrOnAcList[i].mrDate));
             this.formMrArray.controls[i].get("onAcAmt")?.setValue(res.mrOnAcList[i].onAcAmt);
-            this.formMrArray.controls[i].get("adjAmt")?.disable();
+            this.formMrArray.controls[i].get("adjMrMasterID")?.disable();
+            this.formMrArray.controls[i].get("adjMrYear")?.disable();
+            this.formMrArray.controls[i].get("adjMrStn")?.disable();
+            this.formMrArray.controls[i].get("adjMrNo")?.disable();
+            this.formMrArray.controls[i].get("mrDate")?.disable();
+            this.formMrArray.controls[i].get("onAcAmt")?.disable();
           }
         });
       }

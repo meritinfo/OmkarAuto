@@ -41,6 +41,7 @@ export class DrpmasterlistComponent {
   locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -90,6 +91,14 @@ export class DrpmasterlistComponent {
       this.loginDate = loginDate;
     }
 
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    
     this.dprService.clearDprDetails();
     this.dprvehiService.clearDprVehiDetails();
 
@@ -173,6 +182,7 @@ export class DrpmasterlistComponent {
     this.filter.filterStr = this.dprtype;
     this.filter.filterStr1 = this.dprorigin;
     this.filter.filterStr2 = this.dprdestination;
+    this.filter.filterStr3 = this.branch;
 
     this.dprList();    
     this.sharedService.loading=false;
@@ -341,6 +351,8 @@ export class DrpmasterlistComponent {
     this.filter.filterStr = selecteddata.type;
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
+    this.filter.filterStr3 = this.branch;
+    
     this.sharedService.loading = true;
     this.dprList();    
     this.sharedService.loading=false;
