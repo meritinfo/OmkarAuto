@@ -46,6 +46,7 @@ export class GstpurchaselistComponent {
     fromDate: string = '';
     maxDate: string = '';
     minDate: string = '';
+    branch: string = '';
 
     formFilter!: FormGroup;
     constructor(private formBuilder: FormBuilder,
@@ -70,6 +71,14 @@ export class GstpurchaselistComponent {
         }
       }
     
+      var userbranchcode = sessionStorage.getItem('userBranch')?.toString();  
+      if (typeof userbranchcode !== 'undefined' && userbranchcode !== null && userbranchcode !== '') {
+        this.branch = userbranchcode;
+      }
+      else {
+        this.route.navigate(['/']);
+      }   
+      
       var yearIDData = sessionStorage.getItem('yearID')?.toString();
       if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
         this.year = yearIDData;
@@ -101,8 +110,11 @@ export class GstpurchaselistComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.fromDate,),
         toDate: new FormControl(this.loginDate,),
-        strRequest: new FormControl('',),
       });
+
+      this.filter.fromDate = this.fromDate;
+      this.filter.toDate = this.loginDate;
+      this.filter.filterStr = this.branch;
   
       this.gstPurchaselist();
       this.sharedService.loading=false;
@@ -175,8 +187,11 @@ export class GstpurchaselistComponent {
     }
     
     search(): void {
-      this.filter.fromDate = this.formFilter.value.fromDate;
-      this.filter.toDate = this.formFilter.value.toDate;
+      var selectedData = this.formFilter.getRawValue();
+      this.filter.fromDate = selectedData.fromDate;
+      this.filter.toDate = selectedData.toDate;
+      this.filter.filterStr = this.branch;
+
       this.sharedService.loading = true;
       this.gstPurchaselist();       
       this.sharedService.loading = false;

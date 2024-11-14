@@ -227,16 +227,18 @@ namespace FinTrans.Repository
             {
                 if (dbconnection != null)
                 {
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstPurchaseMstList", new SqlParameter[]
-                        {
+                    SqlParameter[] param =
+                    {
                             new SqlParameter("@PageNumber", request.PageNumber),
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
-                            new SqlParameter("@ToDate", request.ToDate)
-                        });
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@LoginBranch", request.FilterStr),
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstPurchaseMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
