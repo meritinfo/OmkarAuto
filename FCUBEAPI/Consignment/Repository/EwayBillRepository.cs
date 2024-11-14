@@ -42,7 +42,8 @@ namespace Consignment.Repository
                         new SqlParameter("@PageSize",   request.PageSize),
                         new SqlParameter("@SortColumn", request.SortColumn),
                         new SqlParameter("@SortOrder",  request.SortOrder),
-                        new SqlParameter("@Search",     request.FilterStr1)
+                        new SqlParameter("@Search",     request.FilterStr1),
+                        new SqlParameter("@LoginBranch",     request.FilterStr)
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEwayBillExtList", param);
 

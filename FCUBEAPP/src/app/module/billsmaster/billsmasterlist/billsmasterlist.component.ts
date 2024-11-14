@@ -43,6 +43,7 @@ export class BillsmasterlistComponent {
   keywordLocation = 'dataName'; 
   year: string = '';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -76,6 +77,10 @@ export class BillsmasterlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+    }   
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -104,6 +109,7 @@ export class BillsmasterlistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.strRequest = "N";
+    this.filter.sortOrder = this.branch;
     this.billsmasterList();
     this.sharedService.loading=false;
   }
@@ -120,7 +126,7 @@ export class BillsmasterlistComponent {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+      //  this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -214,6 +220,7 @@ export class BillsmasterlistComponent {
     this.filter.search = this.formFilter.value.bill_StmtNo;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.sortOrder = this.branch;
     this.sharedService.loading=true;
     this.billsmasterList();
     this.sharedService.loading=false;

@@ -20,6 +20,7 @@ export class EwaybillextensionlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  branch: string="";
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -60,7 +61,11 @@ export class EwaybillextensionlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-  
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+
+    }
     this.ewaybillextService.clearEwaybillextDetails();
     this.formFilter = this.formBuilder.group({
       ewayBillNo: new FormControl(''),
@@ -69,6 +74,7 @@ export class EwaybillextensionlistComponent {
     this.sharedService.loading = true;    
     this.filter.filterStr1 = "";
     this.filter.filterStr2 = "";
+    this.filter.filterStr = this.branch;
     this.ewaybillextlist();       
     this.sharedService.loading = false;
   }
@@ -156,6 +162,7 @@ export class EwaybillextensionlistComponent {
   search(): void {
     this.sharedService.loading = true;
     this.filter.filterStr1 = this.formFilter.value.ewayBillNo;
+    this.filter.filterStr = this.branch;
 
     this.ewaybillextlist();       
     this.sharedService.loading = false;

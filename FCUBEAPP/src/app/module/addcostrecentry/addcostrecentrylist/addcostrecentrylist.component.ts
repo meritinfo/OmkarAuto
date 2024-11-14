@@ -93,6 +93,11 @@ export class AddcostrecentrylistComponent {
     else {
       this.route.navigate(['/']);
     }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -120,13 +125,15 @@ export class AddcostrecentrylistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl( this.fromDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      branch: new FormControl('',),  
+      branch: new FormControl(this.branch,),  
       costType : new FormControl('',),
     });
+    this.formFilter.controls['branch'].disable();  
     this.filter.fromDate =  this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.filterStr   = "";
     this.filter.filterStr1  = "";
+ 
     this.sharedService.loading=true;
     this.addcostrecList();
     this.sharedService.loading=false;
@@ -235,6 +242,7 @@ export class AddcostrecentrylistComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.costtype;
+
 
     this.sharedService.loading=true;
     this.addcostrecList();

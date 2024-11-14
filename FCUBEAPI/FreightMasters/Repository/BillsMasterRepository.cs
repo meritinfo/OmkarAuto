@@ -308,6 +308,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@SuppYN",     request.strRequest),
+                            new SqlParameter("@LoginBranch",     request.SortOrder),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 

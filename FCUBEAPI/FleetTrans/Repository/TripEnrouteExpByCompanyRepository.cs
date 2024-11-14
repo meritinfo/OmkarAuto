@@ -215,7 +215,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@ExpId",     request.FilterStr),
-                            //new SqlParameter("@Vehicle",    request.FilterStr1)
+                            new SqlParameter("@LoginBranch",    request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripEnrouteExpByCompanyList", param);
 

@@ -28,6 +28,7 @@ export class EwaybillextensionaddComponent {
     stateList: Dropdownmodel[] = [];  
     pinDetails = new Dropdownmodel();  
     location: string="";
+    branch: string="";
   
     selectedEwaybillextDetails = new Ewaybillextmodel();
   
@@ -58,6 +59,11 @@ export class EwaybillextensionaddComponent {
       var userData = sessionStorage.getItem('uid')?.toString();
       if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
         this.loggedInUserID = userData;
+      }
+      var branchData = sessionStorage.getItem('userBranch')?.toString();
+      if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+        this.branch = branchData;
+  
       }
       if (this.loggedInUserID) {
         console.log(this.loggedInUserID);

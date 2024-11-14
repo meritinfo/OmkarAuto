@@ -44,6 +44,7 @@ keywordLocation = 'dataName';
 year: string = '';
 loginDate: string = '';
 fromDate: string = '';
+branch: string = '';
 maxDate: string = '';
 minDate: string = '';
 editMode = false;
@@ -93,10 +94,15 @@ ngOnInit(): void {
   if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
     this.fromDate = this.minDate ;
   }
+
   else{
     this.fromDate = today.toLocaleDateString('en-CA').toString();
   }   
+var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
 
+    }
   this.tripenroutebycompanyService.clearTripenrouteexpbycompanyDetails();
   this.formFilter = this.formBuilder.group({
     fromDate: new FormControl(this.fromDate,),
@@ -113,7 +119,7 @@ ngOnInit(): void {
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
  this.filter.filterStr = "";
-//  this.filter.filterStr1 =  "";
+  this.filter.filterStr1 =  this.branch;
   this.tripenroutebycompanyList();
 }
 tripenroutebycompanyList(){
@@ -230,6 +236,7 @@ search(): void {
   this.filter.toDate = selectedData.toDate;
   //this.filter.strRequest = selectedData.expId;
  this.filter.filterStr = selectedData.expId;
+ this.filter.filterStr1 =  this.branch;
 
   this.tripenroutebycompanyList();
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

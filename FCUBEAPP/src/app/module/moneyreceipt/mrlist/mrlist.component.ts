@@ -41,6 +41,7 @@ export class MrlistComponent {
     year: string = '';
     loginDate: string = '';
     fromDate: string = '';
+    branchid: string = '';
     maxDate: string = '';
     minDate: string = '';
 
@@ -87,7 +88,11 @@ export class MrlistComponent {
       }
       else{
         this.fromDate = today.toLocaleDateString('en-CA').toString();
-      }   
+      }  
+      var userbranchcode = sessionStorage.getItem('userBranch')?.toString();  
+      if (typeof userbranchcode !== 'undefined' && userbranchcode !== null && userbranchcode !== '') {
+        this.branchid = userbranchcode;
+      } 
     
       this.mrService.clearMrDetails();    
 
@@ -100,6 +105,7 @@ export class MrlistComponent {
       this.sharedService.loading=true; 
       this.filter.fromDate = this.fromDate;
       this.filter.toDate = this.loginDate;
+      this.filter.strRequest = this.branchid;
       this.mrlist();
       this.sharedService.loading=false;      
     }
@@ -175,6 +181,7 @@ export class MrlistComponent {
     search(): void {
       this.filter.fromDate = this.formFilter.value.fromDate;
       this.filter.toDate = this.formFilter.value.toDate;
+      this.filter.strRequest = this.branchid;
       this.sharedService.loading = true;
       this.mrlist();       
       this.sharedService.loading = false;

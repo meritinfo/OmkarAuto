@@ -43,6 +43,7 @@ export class LorryhirepmtlistComponent {
   keywordLocation = 'dataName'; 
   year: string = '';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -79,6 +80,10 @@ export class LorryhirepmtlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -102,6 +107,7 @@ export class LorryhirepmtlistComponent {
      
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.filterStr = this.branch;
     
     this.sharedService.loading=true;
     this.lorryhireList();
@@ -189,6 +195,7 @@ export class LorryhirepmtlistComponent {
   search(): void {
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.filterStr = this.branch;
     this.sharedService.loading=true;
     this.lorryhireList();
     this.sharedService.loading=false;
