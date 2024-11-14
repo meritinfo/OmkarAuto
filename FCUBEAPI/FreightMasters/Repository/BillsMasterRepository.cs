@@ -597,7 +597,7 @@ namespace FreightMasters.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = dbconnection.Value.apiPath + "api/Trip/";
+                string baseUrl = dbconnection.Value.apiPath + "api/Bill/";
 
                 string UrlParam = "?BillingStn=" + request.FilterStr +
                                     "&BillNo=" + request.FilterStr1 +

@@ -133,6 +133,31 @@ namespace Consignment.Repository
             return mrListModel;
         }
 
+        public async Task<ResponseModel> GetMrNo()
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPartyGroupList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                       response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                       response.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+
 
         public async Task<List<DropDownListModel>> GetPartyGroupList()
         {

@@ -1631,6 +1631,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetMrNo")]
+        public async Task<IActionResult> GetMrNo()
+        {
+            try
+            {
+                var result = await mrBusiness.GetMrNo();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetPartyGroupList")]
         public async Task<IActionResult> GetPartyGroupList()
         {

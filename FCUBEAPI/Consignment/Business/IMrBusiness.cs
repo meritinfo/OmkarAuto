@@ -9,6 +9,7 @@ namespace Consignment.Business
     public interface IMrBusiness
     {
         Task<MrListModel> GetMrMstList(PageFromDtToDtRequest request);
+        Task<ResponseModel> GetMrNo();
         Task<List<DropDownListModel>> GetPartyGroupList();
         Task<MrModel> GetOnAcMrSearchList(DropDownListModel request);
         Task<MrModel> GetBillLRSearchDtls(ReportRequestModel request);

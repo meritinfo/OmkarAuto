@@ -53,6 +53,10 @@ export class MrService {
     return this.httpClient.post<Mrmodel>(Constants.API_ENDPOINT + 'Consignment/GetBillLRSearchDtls', request, this.httpOptions);
   }  
 
+  getMrNo(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetMrNo', null, this.httpOptions);
+  }  
+
   mrDelete(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/MrMstDelete', request, this.httpOptions);
   }

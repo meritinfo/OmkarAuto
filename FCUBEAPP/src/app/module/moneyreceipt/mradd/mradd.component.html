@@ -60,7 +60,7 @@
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="mrType" (change)="onMrTypeChange($event)"     
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mrType'].invalid) }">
-                                                    <option value="B">Bill</option>
+                                                    <option value="B">Bill/LR</option>
                                                     <!-- <option value="L">LR</option> -->
                                                     <option value="N">NR/TDS</option>
                                                     <option value="A">Adj on A/C</option>
@@ -116,7 +116,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Party Group </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"
-                                                 formControlName="partyGroupId"
+                                                 formControlName="partyGroupId"  (change)="partychange()"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['partyGroupId'].invalid) }"> 
                                                     <option *ngFor="let gp of partyGroupList" value={{gp.dataId}}>
                                                         {{gp.dataName}}
@@ -130,7 +130,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="partyList"
                                                         [searchKeyword]="keywordLocation"  
-                                                        (selected)='selectEvent($event)'
+                                                        (selected)='selectpartyEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)'
                                                         [itemTemplate]="itemTemplate"

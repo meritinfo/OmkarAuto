@@ -225,6 +225,9 @@ export class MraddComponent {
       
       this.getAccountList(selectedValue);
     }
+    else{
+      this.getMrNo();
+    }
     
     setTimeout(() => {
         
@@ -347,6 +350,17 @@ export class MraddComponent {
       this.accountList = res;
     });
   }
+  
+  getMrNo(): void {    
+    this.mrService.getMrNo().subscribe((res) => {
+      this.responseDetails = res;
+      if(res.status){
+        this.formUser.patchValue({
+          mrNo: res.message
+        });
+      }
+    });
+  }
 
   getSdAccountList(): void {    
     this.requestmodel.strRequest="BC"
@@ -467,8 +481,13 @@ export class MraddComponent {
     return this.formUser.get("mrarrayList") as FormArray;
   }
 
+  selectpartyEvent(item: any) {
+    // do something with selected item    
+    this.formUser.controls['mrType'].disable();
+  }
+
   selectEvent(item: any) {
-    // do something with selected item
+    
   }
 
   onChangeSearch(search: string) {
@@ -484,6 +503,14 @@ export class MraddComponent {
   };
 
   onMrTypeChange(e: any) {   
+    this.formUser.controls['mrRemarks'].enable();
+    this.formUser.controls['onAcAdjMrYn'].enable();
+    this.formUser.controls['chequeNo'].enable();
+    this.formUser.controls['chequeDt'].enable();
+    this.formUser.controls['partyBankDet'].enable();
+    this.formUser.controls['sdEmdRefNo'].enable();
+    this.formUser.controls['modifyRemarks'].enable();      
+
     if(e.target.value=="S"){      
       this.formUser.controls['mrSdEmdAc'].enable();    
       this.formUser.controls['sdEmdRefNo'].enable();       
@@ -495,6 +522,31 @@ export class MraddComponent {
       this.formUser.controls['mrSdEmdAc'].clearValidators();    
     }
     this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+
+    if(e.target.value=="B"){      
+      this.formUser.controls['cheqCashAmt'].enable();  
+      this.formUser.controls['onAcStatus'].enable();  
+      this.formUser.controls['mrReceiptType'].enable();  
+      this.formUser.patchValue({
+        mrReceiptType: '',
+        cheqCashAmt:"",
+        onAcStatus:"",
+        onAcNewAmt:""
+      });
+    }
+    else{      
+      this.formUser.controls['cheqCashAmt'].disable();  
+      this.formUser.controls['onAcStatus'].disable();  
+      this.formUser.patchValue({
+        mrReceiptType: 'J',
+        cheqCashAmt:"",
+        onAcStatus:"",
+        onAcNewAmt:""
+      });
+      this.formUser.controls['mrReceiptType'].disable();  
+    }
+
+
   }
 
   selectedData(index: number, event: any) {
@@ -509,15 +561,7 @@ export class MraddComponent {
   
   changeRecptType(){
     var selectedValueData= this.formUser.getRawValue();
-    var selectedValue = selectedValueData.mrReceiptType;
-    
-    if(selectedValueData.mrType!="B" && selectedValue!="J"){
-      this.toasterService.warning("Receipt Type should be only JV for selected MR Type");
-      this.formUser.patchValue({
-        mrReceiptType: ''
-      });
-      return;
-    }
+    var selectedValue = selectedValueData.mrReceiptType;   
 
     if(selectedValue=="B"){      
       this.formUser.controls['neftYN'].enable();
@@ -817,6 +861,10 @@ export class MraddComponent {
     this.formUser.controls['partyGroupId'].updateValueAndValidity();
   }
 
+  partychange(){    
+    this.formUser.controls['mrType'].disable();
+  }
+
   onTotAc(e: any) {  
     if(e.target.checked){
       var selectedData = this.formUser.getRawValue();
@@ -826,19 +874,13 @@ export class MraddComponent {
       this.formArray.clear();
 
       this.formUser.controls['mrRemarks'].disable();
-      this.formUser.controls['mrReceiptType'].disable();
-      //this.formUser.controls['mrDebitAc'].disable();
+      this.formUser.controls['onAcAdjMrYn'].disable();
       this.formUser.controls['mrSdEmdAc'].disable();
       this.formUser.controls['chequeNo'].disable();
       this.formUser.controls['chequeDt'].disable();
       this.formUser.controls['partyBankDet'].disable();
       this.formUser.controls['sdEmdRefNo'].disable();
       this.formUser.controls['modifyRemarks'].disable();
-
-      
-      //this.formUser.controls['mrDebitAc'].clearValidators();
-      this.formUser.controls['mrSdEmdAc'].clearValidators();   
-      this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
     }
     else{
       this.formUser.patchValue({
@@ -847,22 +889,19 @@ export class MraddComponent {
       this.formArray.push(this.createInitialArray()); 
 
       this.formUser.controls['mrRemarks'].enable();
-      this.formUser.controls['mrReceiptType'].enable();
-      //this.formUser.controls['mrDebitAc'].enable();
+      this.formUser.controls['onAcAdjMrYn'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
       this.formUser.controls['partyBankDet'].enable();
       this.formUser.controls['sdEmdRefNo'].enable();
-      this.formUser.controls['modifyRemarks'].enable();
-      
-      //this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
+      this.formUser.controls['modifyRemarks'].enable();      
     }
-    //this.formUser.controls['mrDebitAc'].updateValueAndValidity();
-
   }
 
-  onAcAdjusted(e: any) {  
+  onAcAdjusted(e: any) {      
+    this.formUser.controls["onAcStatus"].enable();
     if(e.target.checked){
+      this.formUser.controls["onAcStatus"].disable();
       var selectedData = this.formUser.getRawValue();
       if(selectedData.groupMrYN){
         this.selectedParty.dataId = selectedData.partyGroupId;
@@ -885,7 +924,7 @@ export class MraddComponent {
 
           this.formMrArray.clear();
           for (var i = 0; i < res.mrOnAcList.length; i++) {
-            this.formMrArray.push(this.createInitialArray()); 
+            this.formMrArray.push(this.createInitialMrArray()); 
     
             this.formMrArray.controls[i].get("adjMrMasterID")?.setValue(res.mrOnAcList[i].adjMrMasterID);
             this.formMrArray.controls[i].get("adjMrYear")?.setValue(res.mrOnAcList[i].adjMrYear);  
@@ -899,6 +938,7 @@ export class MraddComponent {
             this.formMrArray.controls[i].get("adjMrNo")?.disable();
             this.formMrArray.controls[i].get("mrDate")?.disable();
             this.formMrArray.controls[i].get("onAcAmt")?.disable();
+            this.formMrArray.controls[i].get("adjAmt")?.disable();
           }
         });
       }

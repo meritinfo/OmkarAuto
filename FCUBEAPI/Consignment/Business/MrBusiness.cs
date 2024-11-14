@@ -16,6 +16,10 @@ namespace Consignment.Business
         {
             return await mrRepository.GetMrMstList(request);
         }
+        public async Task<ResponseModel> GetMrNo()
+        {
+            return await mrRepository.GetMrNo();
+        }
         public async Task<List<DropDownListModel>> GetPartyGroupList()
         {
             return await mrRepository.GetPartyGroupList();

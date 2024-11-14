@@ -146,7 +146,7 @@ export class FleetloadentryaddComponent {
 
       if (this.selectedFleetLoadEntryDetails.loadId != '') {
         this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
-        this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
+        this.uploadedAttach = Constants.UploadFolderPath + 'loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
         this.formFleetLoad.patchValue({        
           loadDate: this.commonService.formatDate(this.selectedFleetLoadEntryDetails.loadDate),
           loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
