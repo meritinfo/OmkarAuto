@@ -450,7 +450,7 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = dbconnection.Value.apiPath + "api/Trip/";
+                string baseUrl = dbconnection.Value.apiPath + "api/Mail/";
 
                 string UrlParam = "?MasterId=" + request.FilterStr + "&BranchId=" + request.FilterStr1;
                 HttpClient client = new HttpClient();
@@ -490,7 +490,7 @@ namespace Consignment.Repository
             ResponseModel responseModel = new();
             try
             {
-                string baseUrl = dbconnection.Value.apiPath + "api/Trip/";
+                string baseUrl = dbconnection.Value.apiPath + "api/LR/";
 
                 string UrlParam = "?MasterId=" + request.FilterStr ;
                 HttpClient client = new HttpClient();

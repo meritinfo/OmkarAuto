@@ -117,6 +117,8 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docNo'].disable(); 
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
+    this.formBankRecEntry.controls['refType'].disable();
+    
     setTimeout(() => {
       if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
         this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 

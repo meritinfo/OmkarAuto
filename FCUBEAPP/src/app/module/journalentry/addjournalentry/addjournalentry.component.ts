@@ -112,7 +112,9 @@ export class AddjournalentryComponent{
     this.formJournalEntry.controls['docNo'].disable(); 
     this.formJournalEntry.controls['credit'].disable(); 
     this.formJournalEntry.controls['debit'].disable(); 
-    this.formJournalEntry.controls['modifyRemarks'].disable(); 
+    this.formJournalEntry.controls['modifyRemarks'].disable();    
+    this.formJournalEntry.controls['refType'].disable();
+    
     setTimeout(() => {
       if (this.selectedJournalEntryDetails.ftmID != '') {        
         var selectedDataValue = this.formJournalEntry.getRawValue();
@@ -122,8 +124,7 @@ export class AddjournalentryComponent{
           credit: this.selectedJournalEntryDetails.docAmount,
           debit: this.selectedJournalEntryDetails.docAmount,
         }); 
-        if(this.selectedJournalEntryDetails.linkedYN=='Y'){        
-          this.formJournalEntry.controls['refType'].disable();
+        if(this.selectedJournalEntryDetails.linkedYN=='Y'){     
           this.formJournalEntry.controls['refNo'].disable();
         }
         this.editMode=true;

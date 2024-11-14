@@ -52,6 +52,9 @@ export class CashReceiptEntryService {
   getAccountList(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetCashBankAccountList', req, this.httpOptions);
   }
+  getMrNo(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetFinRefTypes', null, this.httpOptions);
+  }  
   getFinRefTypes(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetFinRefTypes', null, this.httpOptions);
   }  
