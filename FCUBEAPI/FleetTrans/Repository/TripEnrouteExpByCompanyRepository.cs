@@ -99,7 +99,7 @@ namespace FleetTrans.Repository
                              new SqlParameter("@NeftYN" , tripEnrouteExpByCompanyModel.NeftYN  ),
                              new SqlParameter("@ChequeNo" , tripEnrouteExpByCompanyModel.ChequeNo ),
                              new SqlParameter("@ChequeDate" , tripEnrouteExpByCompanyModel.ChequeDate ),
-                             new SqlParameter("@TripAdjYN" , tripEnrouteExpByCompanyModel.TripAdjYN  ),
+                             new SqlParameter("@TripAdjYN" , tripEnrouteExpByCompanyModel.TripAdjYN),
                              //new SqlParameter("@FtmId" , tripEnrouteExpByCompanyModel.FtmId ),
                              new SqlParameter("@YearId" , tripEnrouteExpByCompanyModel.YearId ),
                             new SqlParameter("@LoggedInUser", tripEnrouteExpByCompanyModel.LoggedInUser),
