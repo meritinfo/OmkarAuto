@@ -37,6 +37,7 @@ export class ChallanmasterlistComponent {
   vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -87,6 +88,10 @@ export class ChallanmasterlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+    }
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -114,7 +119,8 @@ export class ChallanmasterlistComponent {
 
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
-    this.filter.toDate = selectedDataVal.toDate;    
+    this.filter.toDate = selectedDataVal.toDate; 
+    this.filter.filterStr = this.branch;    
     this.getChallanList();
   }
 
@@ -220,6 +226,7 @@ export class ChallanmasterlistComponent {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr = this.branch; 
      this.getChallanList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 

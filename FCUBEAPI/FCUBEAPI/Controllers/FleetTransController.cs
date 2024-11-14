@@ -3189,6 +3189,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetExpTypeList")]
+        public async Task<IActionResult> GetExpTypeList()
+        {
+            try
+            {
+                var result = await tripEnrouteExpByCompanyBusiness.GetExpTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

@@ -56,6 +56,7 @@ export class GeneratetempgclistComponent {
   gcfromDate: string = '';
   gctoDate: string = '';
   gcpayParty: string = '';
+  branch: string = '';
   gcorigin: string = '';
   gcdestination: string = '';
   gcvehicleNo: string = '';
@@ -140,6 +141,10 @@ export class GeneratetempgclistComponent {
     if (typeof gcorigin !== 'undefined' && gcorigin !== null && gcorigin !== '') {
       this.gcorigin = gcorigin;
     }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
     var gcdestination = sessionStorage.getItem('gcdestination')?.toString();
     if (typeof gcdestination !== 'undefined' && gcdestination !== null && gcdestination !== '') {
       this.gcdestination = gcdestination;
@@ -186,6 +191,7 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr2 = this.gcdestination;
     this.filter.filterStr3 = this.gcvehicleNo;
     this.filter.sortColumn =  this.gcmainLr;
+    this.filter.sortOrder =  this.branch;
     
     this.tempgcList();    
     this.sharedService.loading=false;
@@ -477,6 +483,7 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3 = selecteddata.vehicleNo;
     this.filter.sortColumn =  selecteddata.mainLr;
+    this.filter.sortOrder =  this.branch;
 
     this.sharedService.loading=true;
     this.tempgcList();    

@@ -22,20 +22,24 @@ import { DataTableDirective } from 'angular-datatables';
 export class TripenroutebycompanylistComponent {
   dtOptions: DataTables.Settings = {};
   allEnrouteTypes: Tripenroutebycompanylistmodel = new Tripenroutebycompanylistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'groupname',
+    sortColumn: 'brandname',
     sortOrder: 'asc',
     search: '',
-    fromDate:'',
-    toDate:'',
-    strRequest:''
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
 
 formFilter!: FormGroup;
 branchList: Dropdownmodel[] = [];
 vehicleList: Dropdownmodel[] = [];
+expList: Dropdownmodel[] = [];
 keywordLocation = 'dataName';
 year: string = '';
 loginDate: string = '';
@@ -99,15 +103,16 @@ ngOnInit(): void {
     toDate: new FormControl(this.loginDate,),
    // branch: new FormControl('',),
     vehicle: new FormControl('',),
-    tripNo: new FormControl('',)
+    expId: new FormControl('',)
+    
   });
- // this.getBranchList();
+ this.getExpList();
  // this.getVehicleNoList();
 
   var selectedData = this.formFilter.getRawValue();
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
-//  this.filter.filterStr = "";
+ this.filter.filterStr = "";
 //  this.filter.filterStr1 =  "";
   this.tripenroutebycompanyList();
 }
@@ -149,8 +154,8 @@ tripenroutebycompanyList(){
         data: 'expDate',
       },
       {
-        title: 'ExpId',
-        data: 'expId',
+        title: 'Exp',
+        data: 'exp',
       },
       {
         title: 'Exp Amount',
@@ -175,6 +180,11 @@ tripenroutebycompanyList(){
 startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
   return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
+getExpList(): void {
+  this.commonService.getExpTypeList().subscribe((res) => {
+    this.expList = res;
+  });
+}
 
 selectEvent(item: any) {
   // do something with selected item
@@ -218,8 +228,8 @@ search(): void {
  
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
- // this.filter.filterStr = selectedData.branch;
- // this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+  //this.filter.strRequest = selectedData.expId;
+ this.filter.filterStr = selectedData.expId;
 
   this.tripenroutebycompanyList();
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

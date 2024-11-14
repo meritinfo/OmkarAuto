@@ -122,22 +122,22 @@ export class TripenroutebycompanyaddComponent {
     enrouteExpId : new FormControl('',),
     vehicleID  : new FormControl('',[Validators.required]),
     expBranch  : new FormControl(this.branch ,[Validators.required]),
-    expDate  : new FormControl('',[Validators.required]),
+    expDate  : new FormControl(this.loginDate,[Validators.required]),
     expId  : new FormControl('',[Validators.required]),
     remarks  : new FormControl('',),
     expAmount  : new FormControl('',),
-    pmtType  : new FormControl('',),
-    creditAc  : new FormControl('',),
+    pmtType  : new FormControl('',[Validators.required]),
+    creditAc  : new FormControl('',[Validators.required]),
     neftYN  : new FormControl('',),
     chequeNo  : new FormControl('',),
     chequeDate  : new FormControl('',),
    // tripAdjYN  : new FormControl('',),
   //  ftmId  : new FormControl('',),
     });
-        
+    this.formTripPayment.controls['expBranch'].disable();
     setTimeout(() => {
       this.createmode = true;
-    //  this.formTripPayment.controls['expBranch'].disable();
+    
        if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {
         this.formTripPayment.controls['vehicleID'].disable();
 
@@ -180,10 +180,31 @@ export class TripenroutebycompanyaddComponent {
     });
   }
   getExpList(): void {
-    this.commonService.getExpList().subscribe((res) => {
+    this.commonService.getExpTypeList().subscribe((res) => {
       this.expList = res;
     });
   }
+  onNeftChk(e: any) {
+    if(e.target.checked){
+      this.formTripPayment.controls['chequeNo'].clearValidators();      
+      this.formTripPayment.controls['chequeDate'].clearValidators();   
+      this.formTripPayment.controls['chequeNo'].disable();
+      this.formTripPayment.controls['chequeDate'].disable();
+      this.formTripPayment.patchValue({
+        chequeNo:'',
+        chequeDate:'',
+      });   
+    }
+    else {
+      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeNo'].enable();
+      this.formTripPayment.controls['chequeDate'].enable();
+    }
+    this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+    this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
+  }
+
 
   changePmtType(e: any) {
    
@@ -197,6 +218,7 @@ export class TripenroutebycompanyaddComponent {
     
     this.getCreditAcList(selectedValue);
   }
+  
   
   getCreditAcList2(e: any){
     this.requestmodel.strRequest = e;

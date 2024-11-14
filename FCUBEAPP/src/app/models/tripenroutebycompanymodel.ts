@@ -16,7 +16,7 @@ export class TripenrouteexpbycompanyModel {
     ftmId  : string = "";
     yearId  : string = "";
     bname : string = "";
-   
+    exp : string = "";
     loggedInUser  : string = "";
 
 }

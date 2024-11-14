@@ -42,6 +42,7 @@ namespace Consignment.Repository
                             new SqlParameter("@PayParty",   request.FilterStr),
                             new SqlParameter("@Origin",     request.FilterStr1),
                             new SqlParameter("@Destination",request.FilterStr2),
+                            new SqlParameter("@LoginBranch",request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDprVehiclePlacedList", param);
 

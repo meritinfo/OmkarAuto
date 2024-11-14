@@ -14,5 +14,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripEnrouteExpByCompanyDelete(RequestModel req);
 
         Task<TripEnrouteExpByCompanyList> GetTripEnrouteExpByCompanyList(ReportRequestModel request);
+        Task<List<DropDownListModel>> GetExpTypeList();
     }
 }

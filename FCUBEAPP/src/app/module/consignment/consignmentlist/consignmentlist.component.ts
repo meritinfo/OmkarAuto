@@ -37,6 +37,7 @@ export class ConsignmentlistComponent implements OnInit  {
   locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
+  branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -94,6 +95,11 @@ export class ConsignmentlistComponent implements OnInit  {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
     }
     const today = new Date();
     const month = today.getMonth();
@@ -174,7 +180,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr1 = this.lrorigin;
     this.filter.filterStr2 = this.lrdestination; 
     this.filter.filterStr3 = this.lrvehicleNo,   
-    
+    this.filter.sortOrder = this.branch,  
     this.getConsignmentList();
   }
 
@@ -189,7 +195,7 @@ export class ConsignmentlistComponent implements OnInit  {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+       // this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -305,6 +311,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr1 = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr2 = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.filter.filterStr3 = selectedDataVal.vehicleNo;
+    this.filter.sortOrder = this.branch,  
 
      this.getConsignmentList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
