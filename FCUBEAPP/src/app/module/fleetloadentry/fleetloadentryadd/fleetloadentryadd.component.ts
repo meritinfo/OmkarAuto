@@ -141,8 +141,7 @@ export class FleetloadentryaddComponent {
     });
 
     setTimeout(() => {
-      this.formFleetLoad.controls['loadBranch'].disable();   
-      this.formFleetLoad.controls['ratePerTon'].disable();  
+      this.formFleetLoad.controls['loadBranch'].disable();  
 
       if (this.selectedFleetLoadEntryDetails.loadId != '') {
         this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
@@ -213,17 +212,24 @@ export class FleetloadentryaddComponent {
 
   onRateChange(){
     var ItemQty = 0;
+    var Itemrate = 0;
     var ItemAmt = 0;
-    var rate = 0;
 
     var selectedVal = this.formFleetLoad.getRawValue();
     ItemQty = selectedVal.qtyWt?selectedVal.qtyWt:"0";
-    ItemAmt= selectedVal.hireAmt?selectedVal.hireAmt:"0";
-    rate  = ItemQty>0 ? ItemAmt/ItemQty : 0;  
+    Itemrate= selectedVal.ratePerTon?selectedVal.ratePerTon:"0";
+    ItemAmt = ItemQty * Itemrate
 
-    this.formFleetLoad.patchValue({
-      ratePerTon : rate.toFixed(2),
-    });
+    if(Itemrate>0){
+      this.formFleetLoad.patchValue({
+        hireAmt : ItemAmt.toFixed(2),
+      });
+    }
+    else{      
+      this.formFleetLoad.patchValue({
+        hireAmt : "",
+      });
+    }
   }
 
   onLoadTypeChange(e:any){

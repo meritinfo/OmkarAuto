@@ -123,7 +123,7 @@ export class AddcostrecentryaddComponent {
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
 
-    this.sharedService.loading=true;
+   // this.sharedService.loading = true;
 
     this.getBranchList();
     this.getYearList();
@@ -139,7 +139,7 @@ export class AddcostrecentryaddComponent {
       transNo  :new FormControl("", [Validators.required]),
       transDate  :new FormControl(this.loginDate, [Validators.required]),
       addCostID :new FormControl("", [Validators.required]),
-      addCostType :new FormControl("", [Validators.required]),
+      addCostType :new FormControl("E", [Validators.required]),
       manualOrDateRange :new FormControl("M", [Validators.required]),
       documentType :new FormControl("LR", [Validators.required]),
       docBranch :new FormControl("",),
@@ -152,12 +152,12 @@ export class AddcostrecentryaddComponent {
       costTot :new FormControl("",),
       othTot :new FormControl("",),
       grossTot :new FormControl("",),
-      tdsRate :new FormControl("",),
-      tdsAmt :new FormControl("",),
+      // tdsRate :new FormControl("",),
+      // tdsAmt :new FormControl("",),
       netTot :new FormControl("",),
       remarks :new FormControl("",),
       othDbCrAc :new FormControl("",),
-      tdsAc :new FormControl("",),
+      // tdsAc :new FormControl("",),
       rpType :new FormControl("",),
       neftPmt :new FormControl("",),
       chequeNo :new FormControl("",),
@@ -167,14 +167,17 @@ export class AddcostrecentryaddComponent {
     });
 
     this.formUser.controls['branchCode'].disable();  
+    this.formUser.controls['transNo'].disable();  
     this.formUser.controls['documentType'].disable();  
     this.formUser.controls['totalAmount'].disable();    
     this.formUser.controls['costTot'].disable();    
     this.formUser.controls['othTot'].disable();    
     this.formUser.controls['grossTot'].disable();    
-    this.formUser.controls['tdsAmt'].disable();    
+    // this.formUser.controls['tdsAmt'].disable(); 
     this.formUser.controls['netTot'].disable();   
     this.formUser.controls['modifyRemarks'].disable();  
+    this.formUser.controls['addCostType'].disable();  
+    
 
     if (this.selectedAddcostrecmst.masterID != '') {
       this.getcostCodeList(this.selectedAddcostrecmst.addCostID);
@@ -645,12 +648,15 @@ export class AddcostrecentryaddComponent {
     this.addcostrecmstmodel.costTot = selectedDataValue.costTot.toString();
     this.addcostrecmstmodel.othTot = selectedDataValue.othTot.toString();
     this.addcostrecmstmodel.grossTot = selectedDataValue.grossTot.toString();
-    this.addcostrecmstmodel.tdsRate = selectedDataValue.tdsRate.toString();
-    this.addcostrecmstmodel.tdsAmt = selectedDataValue.tdsAmt.toString();
+    // this.addcostrecmstmodel.tdsRate = selectedDataValue.tdsRate.toString();
+    // this.addcostrecmstmodel.tdsAmt = selectedDataValue.tdsAmt.toString();
+    // this.addcostrecmstmodel.tdsAc = selectedDataValue.tdsAc.toString();
+    this.addcostrecmstmodel.tdsRate = "";
+    this.addcostrecmstmodel.tdsAmt = "";
+    this.addcostrecmstmodel.tdsAc = "";
     this.addcostrecmstmodel.netTot = selectedDataValue.netTot.toString();
     this.addcostrecmstmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.addcostrecmstmodel.othDbCrAc = selectedDataValue.othDbCrAc.toString();
-    this.addcostrecmstmodel.tdsAc = selectedDataValue.tdsAc.toString();
     this.addcostrecmstmodel.rpType = selectedDataValue.rpType.toString();
     this.addcostrecmstmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";
     this.addcostrecmstmodel.chequeNo = selectedDataValue.chequeNo.toString();

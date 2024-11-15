@@ -116,7 +116,6 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -163,7 +162,6 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
-
         public async Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request)
         {
             CashReceiptPaymentsList CashRecPaymentsList = new();
@@ -241,7 +239,6 @@ namespace FinTrans.Repository
             }
             return CashRecPaymentsList;
         }
-
         public async Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req)
         {
             CashReceiptPaymentsModel cashReceiptPaymentsModel = new()
@@ -293,7 +290,6 @@ namespace FinTrans.Repository
             }
             return cashReceiptPaymentsModel;
         }
-
         public async Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter)
         {
             ResponseModel responseModel = new();
@@ -337,7 +333,6 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }       
-
         public async Task<List<DropDownListModel>> GetFinRefTypes()
         {
             List<DropDownListModel> accountList = new();

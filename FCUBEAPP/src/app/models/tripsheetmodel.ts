@@ -39,6 +39,7 @@ export class Tripsheetmodel {
     fastagAmount: string = "";
     tripTotalFreight: string = "";
     tripTotalExpenses: string = "";
+    expensesByComp: string = "";
     tripCloseBy: string = "";
     tripCloseDt: string = "";
     tripCloseUpdateDt: string = "";
@@ -56,8 +57,9 @@ export class Tripsheetmodel {
     driverList: DriverDetails[] = [];
     routeList: RouteDetails[] = [];
     dieselList: DieselDetails[] = [];
-    expList: TripDrExpDetails[] = [];
     fasttagList: FasttagDetails[] = [];
+    drExpList: TripDrExpDetails[] = [];
+    cmpExpList: TripCmpExpDetails[] = [];
 }
 
 export class DriverDetails {
@@ -103,8 +105,14 @@ export class FasttagDetails {
 }
 
 export class TripDrExpDetails {
-    tripId: string = "";
     expId: string = "";
     expParticulars: string = "";
     expAmt: string = "";
-  }
+}
+
+export class TripCmpExpDetails {
+    enrouteExpId: string = "";
+    expId: string = "";
+    expParticulars: string = "";
+    expAmt: string = "";
+}
