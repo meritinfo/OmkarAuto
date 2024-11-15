@@ -149,11 +149,13 @@ export class TripenroutebycompanyaddComponent {
            chequeDate:  this.commonService.formatDate(this.selectedTripenrouteexpbycompanyDetails.chequeDate), 
            vehicleID: this.vehicleList.find(e => e.dataId == this.selectedTripenrouteexpbycompanyDetails.vehicleID),
         //   neftPmt:  ""
-         }) } 
+         }) 
+         this.editMode=true;
+        } 
          if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {      
           this.getCreditAcList(this.selectedTripenrouteexpbycompanyDetails.pmtType);  
         }
-         this.editMode=true;
+        
      }, 2000);
      this.sharedService.loading = false;
    }
