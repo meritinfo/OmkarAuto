@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Consignment.Business
 {
-    public class ChallanMasterBusiness:IChallanMasterBusiness
+    public class ChallanMasterBusiness : IChallanMasterBusiness
     {
         readonly IChallanMasterRepository challanRepository;
         public ChallanMasterBusiness(IChallanMasterRepository _challanRepository)
@@ -57,5 +57,14 @@ namespace Consignment.Business
         {
             return await challanRepository.CheckChallanPrepForLr(request);
         }
+        public async Task<ChallanMasterModel> GetChallanEnqInnerGridList(RequestModel request)
+        {
+            return await challanRepository.GetChallanEnqInnerGridList(request);
+        }
+        public async Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req)
+        {
+            return await challanRepository.GetChallanEnqDetails(req);
+        }
+
     }
 }

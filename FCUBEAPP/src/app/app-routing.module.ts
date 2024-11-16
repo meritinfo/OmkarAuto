@@ -237,6 +237,7 @@ import { AddcostrecentryaddComponent } from './module/addcostrecentry/addcostrec
 import { TripenroutebycompanyaddComponent } from './module/tripenroutebycompany/tripenroutebycompanyadd/tripenroutebycompanyadd.component';
 import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany/tripenroutebycompanylist/tripenroutebycompanylist.component';
 import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummrpt.component';
+import { ChallanenquiryComponent } from './module/challanenqiry/challanenquiry/challanenquiry.component';
 
 
 
@@ -570,6 +571,8 @@ const routes: Routes = [
   { path: 'tripexpbycomp', component: TripenroutebycompanylistComponent},
   { path: 'tripenroutebycompanyadd', component: TripenroutebycompanyaddComponent },
   { path: 'tripenroutebycompanyedit', component: TripenroutebycompanyaddComponent },
+  { path: 'chlnenquiry', component: ChallanenquiryComponent },
+  
   
   { path: 'busisummlr', component: BusinesssummrptComponent },
  
