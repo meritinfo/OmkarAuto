@@ -41,8 +41,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@CreditAc", tripPaymentsModel.CreditAc),
                             new SqlParameter("@ChequeNo", tripPaymentsModel.ChequeNo),
                             new SqlParameter("@ChequeDate", tripPaymentsModel.ChequeDate),
-                            new SqlParameter("@Findocid", tripPaymentsModel.Findocid),
-                            new SqlParameter("@AdjInTrip", tripPaymentsModel.AdjInTrip),
                             new SqlParameter("@QtyLtrs", tripPaymentsModel.QtyLtrs),
                             new SqlParameter("@RatePerLtr", tripPaymentsModel.RatePerLtr),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),

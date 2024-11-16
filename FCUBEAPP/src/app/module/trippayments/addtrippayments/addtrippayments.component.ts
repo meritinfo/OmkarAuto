@@ -120,8 +120,6 @@ export class AddtrippaymentsComponent {
       creditAc: new FormControl('', [Validators.required]),
       chequeNo: new FormControl(''),
       chequeDate: new FormControl('', [Validators.required]),
-      findocid: new FormControl('',),
-      adjInTrip: new FormControl('',),
       yearId: new FormControl('',),
       userBranch: new FormControl('',),
       from: new FormControl('',),
@@ -451,8 +449,6 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
     this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;
-    this.trippaymentsmodel.findocid = selectedDataValue.findocid;
-    this.trippaymentsmodel.adjInTrip = selectedDataValue.adjInTrip;
     this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
     this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr;    
     this.trippaymentsmodel.yearId = this.year;
