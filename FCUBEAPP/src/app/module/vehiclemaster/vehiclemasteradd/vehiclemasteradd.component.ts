@@ -327,6 +327,45 @@ export class VehiclemasteraddComponent {
 
   }
 
+  addItem(index: number): void { 
+    if (this.formArray.value[index].validFrom != "" && this.formArray.value[index].validTo != "" 
+      && this.formArray.value[index].vehicleAvgLoad != "" && this.formArray.value[index].vehicleAvgEmpty!= "" 
+      && this.formArray.value[index].AdAvg != "" ) {
+
+       //Start date end date validation
+     if (Date.parse(this.formArray.value[index].validTo) < Date.parse(this.formArray.value[index].validFrom)) {
+      this.toasterService.warning("Valid To date should be greter than Valid From date");
+      }
+      else {
+        this.formArray.push(this.createInitialArray());
+      }
+     } 
+     else {
+       this.toasterService.warning("Please select Required Fields ");
+     }
+ }
+
+  removeItem(index: number) {
+    this.formArray.removeAt(index);
+  }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
 
   onFastTagChange(e: any) {
     var selectedValue = e.target.value;
@@ -542,29 +581,7 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.adBlueMileageLt       = selectedDataValue.adBlueMileageLt;
-    this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
-
-    // this.vehiclefltmastermodel.vehiclefltDetailList = [];
-
-    // for (var i = 0; i < this.formVehicleMaster.value.arrayList.length; i++) {
-    //   if (this.formVehicleMaster.value.arrayList[i].validFrom != '') {
-    //     //Start date end date validation
-    //     if (Date.parse(selectedDataValue.arrayList[i].validTo) < Date.parse(selectedDataValue.arrayList[i].validFrom)) {
-    //       this.toasterService.warning("Valid To date should be greter than Valid From date");
-    //       return;
-    //     }
-
-    //     this.vehiclefltmastermodel.vehiclefltDetailList.push({
-    //       //'detailID': '',
-    //       'vehicleMasterID': '',
-    //       'validFrom': selectedDataValue.arrayList[i].validFrom,
-    //       'validTo': selectedDataValue.arrayList[i].validTo,
-    //       'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad.toString(),
-    //       'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty.toString(),
-    //       'adBlue': selectedDataValue.arrayList[i].adBlue.toString(),
-    //     })
-    //   }      
-    // }
+    this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;      
     
     this.formSubmitted = true;
     let formData = new FormData();
@@ -603,42 +620,5 @@ export class VehiclemasteraddComponent {
   //   this.formArray.push(this.createInitialArray());
   // }
   
-  addItem(index: number): void { 
-    if (this.formArray.value[index].validFrom != "" && this.formArray.value[index].validTo != "" 
-      && this.formArray.value[index].vehicleAvgLoad != "" && this.formArray.value[index].vehicleAvgEmpty!= "" 
-      && this.formArray.value[index].AdAvg != "" ) {
-
-       //Start date end date validation
-     if (Date.parse(this.formArray.value[index].validTo) < Date.parse(this.formArray.value[index].validFrom)) {
-      this.toasterService.warning("Valid To date should be greter than Valid From date");
-      }
-      else {
-        this.formArray.push(this.createInitialArray());
-      }
-     } 
-     else {
-       this.toasterService.warning("Please select Required Fields ");
-     }
- }
-
-  removeItem(index: number) {
-    this.formArray.removeAt(index);
-  }
-
-  selectEvent(item: any) {
-    // do something with selected item
-  }
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-
-  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
+  
 }

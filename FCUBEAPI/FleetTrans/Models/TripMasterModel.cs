@@ -48,6 +48,7 @@ namespace FleetTrans.Models
         public string? FastagAmount { get; set; }
         public string? TripTotalFreight { get; set; }
         public string? TripTotalExpenses { get; set; }
+        public string? ExpensesByComp { get; set; }
         public string? TripCloseBy { get; set; }
         public string? TripCloseDt { get; set; }
         public string? TripCloseUpdateDt { get; set; }
@@ -65,7 +66,9 @@ namespace FleetTrans.Models
         public List<RouteDetails> RouteList { get; set; }
         public List<DieselDetails> DieselList { get; set; }
         public List<FasttagDetails> FasttagList { get; set; }
-        public List<TripDrExpDetails> ExpList { get; set; }
+        public List<TripDrExpDetails> DrExpList { get; set; }
+        public List<TripCmpExpDetails> CmpExpList { get; set; }
+
     }
 
     public class DriverDetails
@@ -111,10 +114,17 @@ namespace FleetTrans.Models
     }
     public class TripDrExpDetails
     {
-        public string? TripId { get; set; }
         public string? ExpId { get; set; }
         public string? ExpParticulars { get; set; }
         public string? ExpAmt { get; set; }
-     
+
+    }
+    public class TripCmpExpDetails
+    {
+        public string? EnrouteExpId { get; set; }        
+        public string? ExpId { get; set; }
+        public string? ExpParticulars { get; set; }
+        public string? ExpAmt { get; set; }
+
     }
 }

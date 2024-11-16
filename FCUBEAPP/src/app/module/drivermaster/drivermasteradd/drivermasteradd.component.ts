@@ -160,12 +160,6 @@ export class DrivermasteraddComponent {
       bankBranch: new FormControl('', ),
       bankIfsCode: new FormControl('', ),
       bankAccountStatus: new FormControl('S', ),
-      createdBy: new FormControl('',),
-      createdDate: new FormControl('',),
-      modifiedBy: new FormControl('',),
-      modifiedDate: new FormControl('',),
-      loggedInUser: new FormControl('',),
-      deleteFlag: new FormControl('',)
     });
 
     this.formDriverMaster.controls['age'].disable(); 
@@ -401,15 +395,7 @@ export class DrivermasteraddComponent {
     this.driverModel.bankIfsCode = selectedDataVal.bankIfsCode;
     this.driverModel.bankAccountStatus = selectedDataVal.bankAccountStatus;
     this.driverModel.loggedInUser = this.loggedInUserID;
-    this.driverModel.deleteFlag = selectedDataVal.deleteFlag;
-
-    // this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
-    // this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-    // this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-    // this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0]?this.tempAddressProveInput.nativeElement.files[0]:"0";
-    // this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0]?this.perAddressProveInput.nativeElement.files[0]:"0";
-    // this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0]?this.aadharCardInput.nativeElement.files[0]:"0";
-    // this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0]?this.bankPassbookInput.nativeElement.files[0]:"0";
+    this.driverModel.deleteFlag = "N";
 
     let formData = new FormData();
     formData.append('driverPhoto', this.driverPhotoInput.nativeElement.files[0]);

@@ -70,6 +70,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
                             new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
                             new SqlParameter("@TripTotalExpenses" , tripMasterModel.TripTotalExpenses),
+                            new SqlParameter("@ExpensesByComp" , tripMasterModel.ExpensesByComp),                            
                             new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
                             new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
                             new SqlParameter("@ReportDateTime" , tripMasterModel.ReportDateTime),
@@ -143,16 +144,16 @@ namespace FleetTrans.Repository
                                 }
                             }
                         }
-                        if (responseModel.Status)
-                        {
-                            for (int i = 0; i < tripMasterModel.ExpList.Count; i++)
+                        if (responseModel.Status) 
+                        {                          
+                            for (int i = 0; i < tripMasterModel.DrExpList.Count; i++)
                             {
                                 SqlParameter[] paramdr =
                                 {
                                     new SqlParameter("@TripId",     MasterID),
-                                    new SqlParameter("@ExpId",  tripMasterModel.ExpList[i].ExpId),
-                                    new SqlParameter("@ExpParticulars",  tripMasterModel.ExpList[i].ExpParticulars),
-                                    new SqlParameter("@ExpAmt",  tripMasterModel.ExpList[i].ExpAmt),
+                                    new SqlParameter("@ExpId",  tripMasterModel.DrExpList[i].ExpId),
+                                    new SqlParameter("@ExpParticulars",  tripMasterModel.DrExpList[i].ExpParticulars),
+                                    new SqlParameter("@ExpAmt",  tripMasterModel.DrExpList[i].ExpAmt),
                                 
                                 };
                                 var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrExpDetailsSave", paramdr);
@@ -163,7 +164,7 @@ namespace FleetTrans.Repository
                                     responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
                                     if (!responseModel.Status)
                                     {
-                                        i = tripMasterModel.ExpList.Count;
+                                        i = tripMasterModel.DrExpList.Count;
                                         transaction.Rollback();
                                     }
                                 }
@@ -223,6 +224,34 @@ namespace FleetTrans.Repository
                                 }
                             }
                         }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.CmpExpList.Count; i++)
+                            {
+                                SqlParameter[] paramcmp =
+                                {
+                                    new SqlParameter("@TripId",     MasterID),
+                                    new SqlParameter("@EnrouteExpId", tripMasterModel.CmpExpList[i].EnrouteExpId),
+                                    new SqlParameter("@ExpId",  tripMasterModel.CmpExpList[i].ExpId),
+                                    new SqlParameter("@ExpParticulars",  tripMasterModel.CmpExpList[i].ExpParticulars),
+                                    new SqlParameter("@ExpAmt",  tripMasterModel.CmpExpList[i].ExpAmt),
+
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripCmpExpDetailsSave", paramcmp);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.CmpExpList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        
                         if (responseModel.Status)
                         {
                             transaction.Commit();
@@ -313,6 +342,7 @@ namespace FleetTrans.Repository
                                 FastagAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["FastagAmount"]),
                                 TripTotalFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalFreight"]),
                                 TripTotalExpenses = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalExpenses"]),
+                                ExpensesByComp = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpensesByComp"]),
                                 TripCloseBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseBy"]),
                                 TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
                                 TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
@@ -435,6 +465,20 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.CmpExpList.Add(new TripCmpExpDetails
+                            {
+                                EnrouteExpId = Convert.ToString(resultData.Tables[4].Rows[i]["EnrouteExpId"]),
+                                ExpId = Convert.ToString(resultData.Tables[4].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[4].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[4].Rows[i]["ExpAmt"]),
+
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -513,7 +557,8 @@ namespace FleetTrans.Repository
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
                 FasttagList = new List<FasttagDetails>(),
-                ExpList = new List<TripDrExpDetails>(),
+                DrExpList = new List<TripDrExpDetails>(),
+                CmpExpList= new List<TripCmpExpDetails>(),
             };
             try
             {
@@ -603,12 +648,28 @@ namespace FleetTrans.Repository
                     {
                         for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
                         {
-                            tripSheetInnerGridList.ExpList.Add(new TripDrExpDetails
+                            tripSheetInnerGridList.DrExpList.Add(new TripDrExpDetails
                             {
-                                TripId = Convert.ToString(resultData.Tables[4].Rows[i]["TripId"]),
                                 ExpId = Convert.ToString(resultData.Tables[4].Rows[i]["ExpId"]),
                                 ExpParticulars = Convert.ToString(resultData.Tables[4].Rows[i]["ExpParticulars"]),
                                 ExpAmt = Convert.ToString(resultData.Tables[4].Rows[i]["ExpAmt"]),
+
+                            });
+                        }
+                    }
+
+
+                    //Company Exp Details
+                    if (resultData != null && resultData.Tables[5].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[5].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.CmpExpList.Add(new TripCmpExpDetails
+                            {
+                                EnrouteExpId = Convert.ToString(resultData.Tables[5].Rows[i]["EnrouteExpId"]),
+                                ExpId = Convert.ToString(resultData.Tables[5].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[5].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[5].Rows[i]["ExpAmt"]),
 
                             });
                         }
@@ -700,7 +761,7 @@ namespace FleetTrans.Repository
                 {
 
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDrExpList", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getExpList", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
