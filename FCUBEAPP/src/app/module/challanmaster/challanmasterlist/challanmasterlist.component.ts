@@ -111,7 +111,9 @@ export class ChallanmasterlistComponent {
 
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
-      toDate: new FormControl(this.loginDate,)
+      toDate: new FormControl(this.loginDate,),
+      vehicleNo: new FormControl("",),
+      challanNo: new FormControl("",),
     });
     
     this.getBranchList();
@@ -120,7 +122,9 @@ export class ChallanmasterlistComponent {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate; 
-    this.filter.filterStr = this.branch;    
+    this.filter.filterStr = selectedDataVal.vehicleNo;
+    this.filter.filterStr1 = selectedDataVal.challanNo;
+    this.filter.filterStr2 = this.branch;    
     this.getChallanList();
   }
 
@@ -226,7 +230,10 @@ export class ChallanmasterlistComponent {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = this.branch; 
+    this.filter.filterStr = selectedDataVal.vehicleNo;
+    this.filter.filterStr1 = selectedDataVal.challanNo;
+    this.filter.filterStr2 = this.branch;    
+    
      this.getChallanList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 

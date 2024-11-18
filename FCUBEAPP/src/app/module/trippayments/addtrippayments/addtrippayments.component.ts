@@ -151,6 +151,21 @@ export class AddtrippaymentsComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
           neftPmt:  ""
         })  
+        if (this.selectedTripPaymentsDetails.transType == "DL") {
+          this.formTripPayment.controls['qtyLtrs'].enable();
+          this.formTripPayment.controls['ratePerLtr'].enable();
+          this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+          this.formTripPayment.controls['amountPaid'].clearValidators();
+        }
+        else {
+          this.formTripPayment.controls['qtyLtrs'].disable();
+          this.formTripPayment.controls['ratePerLtr'].disable();
+          this.formTripPayment.controls['qtyLtrs'].clearValidators();
+          this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+        }
+        this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
+        this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+        
         if (this.selectedTripPaymentsDetails.pmtType == 'B'){
           this.formTripPayment.controls['neftPmt'].enable();
           if (this.selectedTripPaymentsDetails.neftPmt=='Y'){

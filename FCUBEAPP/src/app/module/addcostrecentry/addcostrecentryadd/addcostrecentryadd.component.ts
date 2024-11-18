@@ -42,7 +42,7 @@ export class AddcostrecentryaddComponent {
   costCodeList: Dropdownmodel[] = [];
   docTypeList: Dropdownmodel[] = [];
   othDbCrAcList: Dropdownmodel[] = [];
-  tdsAcList: Dropdownmodel[] = [];
+  accountList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
 
   List: Dropdownmodel[] = [];
@@ -130,7 +130,6 @@ export class AddcostrecentryaddComponent {
     this.getaddCostRecList();
     this.getPartyList();     
     this.getothDbCrAcList();
-    this.gettdsAcList();
 
     this.selectedAddcostrecmst = this.addcostrecorveryrptService.getAddcostrecmstDetails();
 
@@ -159,6 +158,7 @@ export class AddcostrecentryaddComponent {
       othDbCrAc :new FormControl("",),
       // tdsAc :new FormControl("",),
       rpType :new FormControl("",),
+      creditAc:new FormControl("",),
       neftPmt :new FormControl("",),
       chequeNo :new FormControl("",),
       chequeDate :new FormControl("",),
@@ -181,6 +181,9 @@ export class AddcostrecentryaddComponent {
 
     if (this.selectedAddcostrecmst.masterID != '') {
       this.getcostCodeList(this.selectedAddcostrecmst.addCostID);
+      var selectedValue = this.selectedAddcostrecmst.rpType;
+      if(selectedValue=='M') {selectedValue = 'C'}
+      this.getAccountList(selectedValue); 
     }
 
     setTimeout(() => {
@@ -281,13 +284,6 @@ export class AddcostrecentryaddComponent {
     });
   }
 
-  gettdsAcList(): void {
-    this.requestmodel.strRequest="L"
-    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.tdsAcList = res;
-    });
-  }
-
   getaddCostRecList(): void {
     this.commonService.getAddCostRecList().subscribe((res) => {
       this.addCostRecList = res;
@@ -352,10 +348,20 @@ export class AddcostrecentryaddComponent {
       this.formUser.controls['neftPmt'].disable();
       this.formUser.controls['chequeNo'].disable();
       this.formUser.controls['chequeDate'].disable();
-    }    
+    } 
+    
+    if(selectedValue=='M') {selectedValue = 'C'}
+
+    this.getAccountList(selectedValue);   
+  }
+  
+  getAccountList(tp:string): void {    
+    this.requestmodel.strRequest= tp;
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.accountList = res;
+    });
   }
 
-  
   search(){    
     var selectedData = this.formUser.getRawValue();
     this.docDetails.fromDate = selectedData.fromDate ;
@@ -658,6 +664,7 @@ export class AddcostrecentryaddComponent {
     this.addcostrecmstmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.addcostrecmstmodel.othDbCrAc = selectedDataValue.othDbCrAc.toString();
     this.addcostrecmstmodel.rpType = selectedDataValue.rpType.toString();
+    this.addcostrecmstmodel.creditAc = selectedDataValue.creditAc.toString();
     this.addcostrecmstmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";
     this.addcostrecmstmodel.chequeNo = selectedDataValue.chequeNo.toString();
     this.addcostrecmstmodel.chequeDate = selectedDataValue.chequeDate.toString();

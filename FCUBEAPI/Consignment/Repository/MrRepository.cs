@@ -142,7 +142,7 @@ namespace Consignment.Repository
                 {
 
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPartyGroupList", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetMrNo", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

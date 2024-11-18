@@ -382,6 +382,7 @@ namespace FleetTrans.Repository
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
                 FasttagList = new List<FasttagDetails>(),
+                CmpExpList = new List<TripCmpExpDetails>(),
             };
             try
             {

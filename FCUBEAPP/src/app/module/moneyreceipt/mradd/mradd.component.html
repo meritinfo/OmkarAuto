@@ -158,6 +158,7 @@
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip">Cash / Chq Amt</label>
                                                         <input decimalonly class="form-control" formControlName="cheqCashAmt" 
+                                                        (change)="adjAmtChange()"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
                                                     </div>
                                                 </div>
@@ -168,6 +169,14 @@
                                                                 class="form-check-input mt-10" formControlName="onAcStatus" >
                                                             <label for="formrow-inputZip"> Total On Ac </label>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Total Amt</label>
+                                                        <input decimalonly class="form-control" formControlName="totalAmt" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,7 +195,7 @@
                                                     <div class="mb-3">
                                                         <input type="checkbox"  (change)="onAcAdjusted($event)"
                                                         class="form-check-input mt-10" formControlName="onAcAdjMrYn" >
-                                                        <label for="formrow-inputZip">  Adj On Account</label>
+                                                        <label for="formrow-inputZip"> Adj On Account</label>
                                                     </div>
                                                 </div>
                                             </div>

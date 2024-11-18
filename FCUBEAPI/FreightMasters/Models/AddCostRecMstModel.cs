@@ -35,6 +35,7 @@ namespace FreightMasters.Models
         public string? TdsAc { get; set; }
         public string? ApprovedYN { get; set; }
         public string? RpType { get; set; }
+        public string? CreditAc { get; set; }        
         public string? NeftPmt { get; set; }
         public string? ChequeNo { get; set; }
         public string? ChequeDate { get; set; }
