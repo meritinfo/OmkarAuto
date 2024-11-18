@@ -86,6 +86,8 @@ namespace Consignment.Models
         public string? FPlace { get; set; }
         public string? TPlace { get; set; }
         public List<ChallanDetailModel> ChallanDtls { get; set; }
+        public List<ConsignmentModel> CnList { get; set; }
+        public List<ConsignmentLhpmModel> LhpmList { get; set; }
 
     }
 }

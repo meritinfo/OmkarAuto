@@ -1,4 +1,7 @@
 import { Challandetailmodel } from "./challandetailmodel";
+import { Consignmentmodel } from './consignmentmodel';
+import { Consignmentlhpmmodel } from './consignmentlhpmmodel';
+
 
 export class Challanmastermodel {
     challanId: string = "";
@@ -78,7 +81,7 @@ export class Challanmastermodel {
     cbranch: string = ""; 
     fPlace : string = ""; 
     tPlace : string = ""; 
-
     challanDtls: Challandetailmodel[] = [];
-        
-}
+    cnList: Consignmentmodel[] = [];
+    lhpmList: Consignmentlhpmmodel[] = [];
+ }

@@ -409,6 +409,7 @@ import { TripenroutebycompanyaddComponent } from './module/tripenroutebycompany/
 import { TripenroutebycompanylistComponent } from './module/tripenroutebycompany/tripenroutebycompanylist/tripenroutebycompanylist.component';
 import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummrpt.component';
 import { Businesssummrptmodel } from './models/businesssummrptmodel';
+import { ChallanenquiryComponent } from './module/challanenqiry/challanenquiry/challanenquiry.component';
 
 @NgModule({
   declarations: [
@@ -539,7 +540,7 @@ import { Businesssummrptmodel } from './models/businesssummrptmodel';
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
     FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
     BusinesssummrptComponent,
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent,
+    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, ChallanenquiryComponent,
     
   ],
   imports: [

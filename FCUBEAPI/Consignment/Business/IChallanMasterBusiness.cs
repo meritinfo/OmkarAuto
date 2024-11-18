@@ -20,5 +20,7 @@ namespace Consignment.Business
         Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel requestModel);
         Task<PanApiResultModel> GetPanValidDetails(RequestModel request);
         Task<ResponseModel> CheckChallanPrepForLr(RequestModel request);
+        Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req);
+        Task<ChallanMasterModel> GetChallanEnqInnerGridList(RequestModel request);
     }
 }
