@@ -244,6 +244,7 @@ export class MraddComponent {
         this.formUser.controls['mrStatus'].disable();  
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  
+        this.formUser.controls['mrDebitAc'].disable();  
         this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
         this.formUser.controls['groupMrYN'].disable();  
@@ -454,7 +455,7 @@ export class MraddComponent {
 
       this.formMrArray.clear();
       for (var i = 0; i < res.mrOnAcList.length; i++) {
-        this.formMrArray.push(this.createInitialArray()); 
+        this.formMrArray.push(this.createInitialMrArray()); 
 
         this.formMrArray.controls[i].get("adjMrMasterID")?.setValue(res.mrOnAcList[i].adjMrMasterID);
         this.formMrArray.controls[i].get("adjMrYear")?.setValue(res.mrOnAcList[i].adjMrYear);  
@@ -463,6 +464,14 @@ export class MraddComponent {
         this.formMrArray.controls[i].get("mrDate")?.setValue(this.commonService.formatDate(res.mrOnAcList[i].mrDate));
         this.formMrArray.controls[i].get("onAcAmt")?.setValue(res.mrOnAcList[i].onAcAmt);
         this.formMrArray.controls[i].get("adjAmt")?.setValue(res.mrOnAcList[i].adjAmt);
+        this.formMrArray.controls[i].get("selected")?.setValue("");
+
+        this.formMrArray.controls[i].get("adjMrMasterID")?.disable();
+        this.formMrArray.controls[i].get("adjMrYear")?.disable();
+        this.formMrArray.controls[i].get("adjMrStn")?.disable();
+        this.formMrArray.controls[i].get("adjMrNo")?.disable();
+        this.formMrArray.controls[i].get("mrDate")?.disable();
+        this.formMrArray.controls[i].get("onAcAmt")?.disable();
       }
     });
   }
@@ -742,21 +751,21 @@ export class MraddComponent {
     var onAcAdjAmt = selectedDataVal.onAcAdjAmt? parseFloat( selectedDataVal.onAcAdjAmt):0;
     var cheqCashAmt = selectedDataVal.cheqCashAmt? parseFloat( selectedDataVal.cheqCashAmt):0;
 
-    if(cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd != 0){
-      if (selectedDataVal.groupMrYN){      
-        this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
-        return;
-      }
-      if (selectedDataVal.onAcAdjMrYn){      
-        this.toasterService.warning("Adj On Account Checked, On A/C Amt Should be Zero");      
-        return;
-      }
-      if (selectedDataVal.mrType=="A"){      
-        this.toasterService.warning("For MR Type 'Adj on A/C', On A/C Amt Should be Zero");      
-        return;
-      }
-    }
-    else if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd < 0){
+    // if(cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd != 0){
+    //   if (selectedDataVal.groupMrYN){      
+    //     this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
+    //     return;
+    //   }
+    //   if (selectedDataVal.onAcAdjMrYn){      
+    //     this.toasterService.warning("Adj On Account Checked, On A/C Amt Should be Zero");      
+    //     return;
+    //   }
+    //   if (selectedDataVal.mrType=="A"){      
+    //     this.toasterService.warning("For MR Type 'Adj on A/C', On A/C Amt Should be Zero");      
+    //     return;
+    //   }
+    // }
+    if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd < 0){
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }
