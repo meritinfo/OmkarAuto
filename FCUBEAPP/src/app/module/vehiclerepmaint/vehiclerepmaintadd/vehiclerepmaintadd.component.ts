@@ -2,21 +2,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
-import { Sparespurchasemasterlistmodel } from 'src/app/models/sparespurchasemasterlistmodel';
 import { VehiclerepmaintMaster } from 'src/app/models/vehiclerepmaintmastermodel';
 import { VehiclerepmaintMasterService } from 'src/app/services/vehiclerepmaint.service';
-import { DataTableDirective } from 'angular-datatables';
-import { SharedService } from 'src/app/services/shared.service';
-
-
-
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-
 import { CommonService } from 'src/app/services/common.service';
-
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
@@ -124,11 +114,10 @@ export class VehiclerepmaintaddComponent {
   this.selectedvehiclerepmaintMasterDetail = this.vehiclerepmaintMasterService.getVehiclerepmaintMasterDetails();
   this.formUser = this.formBuilder.group({
     transDate : new FormControl(this.loginDate,[Validators.required]),
-    stockType : new FormControl('',),  
+    stockType : new FormControl('',[Validators.required]),
     maintID : new FormControl('',[Validators.required]),
     vehicleMasterId : new FormControl('',[Validators.required]),
-    maintType : new FormControl('',),
-    kmReading : new FormControl('',),
+    kmReading : new FormControl('',[Validators.required]),
     nonVendor : new FormControl('',),
     vendorId : new FormControl('',[Validators.required]),
     vendorInvDt : new FormControl(this.loginDate,[Validators.required]),
@@ -152,11 +141,8 @@ export class VehiclerepmaintaddComponent {
     chequeDate : new FormControl('',),
     chequeNo : new FormControl('',),
     netAmount  : new FormControl('',),
-    gstInputTaken : new FormControl('',),
-    
+    gstInputTaken : new FormControl('',),    
     refDocAttachedImage : new FormControl('',),
-    branchCode : new FormControl('',),   
-
     arrayList: this.formBuilder.array([this.createVehicleArray()]),
   }); 
 
@@ -704,11 +690,9 @@ submitVehicleRepMaintMasterForm(): void {
 this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
 this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
 this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
-//this.vehiclerepmaintMaster.maintType= selectedDataValue.maintType;
 this.vehiclerepmaintMaster.maintID= selectedDataValue.maintID;
-//this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId;
 this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
-this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading;
+this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading.toString();
 this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
 this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
 this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
@@ -734,7 +718,6 @@ this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
 this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
 this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
 this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
-//this.vehiclerepmaintMaster.branchCode = selectedDataValue.branchCode;
 this.vehiclerepmaintMaster.branchCode = this.branch;
 this.vehiclerepmaintMaster.yearID= this.year;
 this.vehiclerepmaintMaster.loggedInUser=  this.loggedInUserID;
