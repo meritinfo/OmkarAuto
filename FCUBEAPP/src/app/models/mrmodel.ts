@@ -60,5 +60,6 @@ export class Mrmodel {
     
     mrDtlsList: Mrdtlsmodel[] = [];
     mrOnAcList: Mronacmodel[] = [];
+    mrAdjList: Mronacmodel[] = [];
         
 }

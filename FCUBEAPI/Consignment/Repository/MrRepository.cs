@@ -19,6 +19,7 @@ using DocumentFormat.OpenXml.VariantTypes;
 using System.Net.NetworkInformation;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Drawing.Imaging;
 
 namespace Consignment.Repository
 {
@@ -132,8 +133,164 @@ namespace Consignment.Repository
             }
             return mrListModel;
         }
+        public async Task<MrModel> GetMrEnqDetails(RequestModel req)
+        {
+            MrModel mrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MrNo", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMrEnqDetails", param);
 
-        public async Task<ResponseModel> GetMrNo()
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        mrmodel.MrMasterId = Convert.ToString(dataSet.Tables[0].Rows[0]["MrMasterId"]);
+                        mrmodel.MrStation = Convert.ToString(dataSet.Tables[0].Rows[0]["MrStation"]);
+                   
+                        mrmodel.MrNo = Convert.ToString(dataSet.Tables[0].Rows[0]["MrNo"]);
+                        mrmodel.MrDate = Convert.ToString(dataSet.Tables[0].Rows[0]["MrDate"]);
+                        mrmodel.MrStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["MrStatus"]);
+                        mrmodel.MrReceiptType = Convert.ToString(dataSet.Tables[0].Rows[0]["MrReceiptType"]);
+                        mrmodel.MrType = Convert.ToString(dataSet.Tables[0].Rows[0]["MrType"]);
+                        mrmodel.BillLrOthType = Convert.ToString(dataSet.Tables[0].Rows[0]["BillLrOthType"]);
+                        mrmodel.GroupMrYN = Convert.ToString(dataSet.Tables[0].Rows[0]["GroupMrYN"]);
+                        mrmodel.PartyGroupId = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyGroupId"]);
+                        mrmodel.PartyCode = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyCode"]);
+                        //mrmodel.PartyName = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyName"]);
+                        mrmodel.CheqCashAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CheqCashAmt"]);
+                        mrmodel.OnAcAdjAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["OnAcAdjAmt"]);
+                        mrmodel.TotalAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalAmt"]);
+                        mrmodel.OnAcNewAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["OnAcNewAmt"]);
+                        mrmodel.OnAcAdjusted = Convert.ToString(dataSet.Tables[0].Rows[0]["OnAcAdjusted"]);
+                        mrmodel.OnAcStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["OnAcStatus"]);
+                        mrmodel.OnAcAdjMrYn = Convert.ToString(dataSet.Tables[0].Rows[0]["OnAcAdjMrYn"]);
+                        mrmodel.TotalRecdAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalRecdAmt"]);
+                        mrmodel.TotalFreightDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalFreightDed"]);
+                        mrmodel.TotalClaimsDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalClaimsDed"]);
+                        mrmodel.TotalOldFrtDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOldFrtDed"]);
+                        mrmodel.TotalOldClaims = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOldClaims"]);
+                        mrmodel.TotalOthersDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthersDed"]);
+                        mrmodel.TotalBankChrgDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalBankChrgDed"]);
+                        mrmodel.TotalOthersDed1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthersDed1"]);
+                        mrmodel.TotalOthersDed2 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthersDed2"]);
+                        mrmodel.TotalOthersDed3 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthersDed3"]);
+                        mrmodel.TotalRecoverable = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalRecoverable"]);
+                        mrmodel.TotalDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalDed"]);
+                        mrmodel.TotalTDSDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalTDSDed"]);
+                        mrmodel.TotalSdEmdDed = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalSdEmdDed"]);
+                        mrmodel.TotalExcess = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalExcess"]);
+                        mrmodel.TotalOthers1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthers1"]);
+                        mrmodel.TotalOthers2 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthers2"]);
+                        mrmodel.MrRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["MrRemarks"]);
+                        //mrmodel.CrAdviceNo = Convert.ToString(dataSet.Tables[0].Rows[0]["CrAdviceNo"]);
+                        //mrmodel.ChequeReturn = Convert.ToString(dataSet.Tables[0].Rows[0]["ChequeReturn"]);
+                        //mrmodel.ChequeReturnDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ChequeReturnDt"]);
+                        //mrmodel.ChequeReturnRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["ChequeReturnRemarks"]);
+                        //mrmodel.Ftmid = Convert.ToString(dataSet.Tables[0].Rows[0]["Ftmid"]);
+                        //mrmodel.FtmidJv = Convert.ToString(dataSet.Tables[0].Rows[0]["FtmidJv"]);
+                        //mrmodel.NeftYN = Convert.ToString(dataSet.Tables[0].Rows[0]["NeftYN"]);
+                        //mrmodel.MrDebitAc = Convert.ToString(dataSet.Tables[0].Rows[0]["MrDebitAc"]);
+                        //mrmodel.MrSdEmdAc = Convert.ToString(dataSet.Tables[0].Rows[0]["MrSdEmdAc"]);
+                        //mrmodel.SdEmdRefNo = Convert.ToString(dataSet.Tables[0].Rows[0]["SdEmdRefNo"]);
+                        //mrmodel.PartyBankDet = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyBankDet"]);
+                        //mrmodel.ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ChequeNo"]);
+                        //mrmodel.ChequeDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ChequeDt"]);
+                        mrmodel.ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifyRemarks"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return mrmodel;
+        }
+        public async Task<MrModel> GetMrEnqInnerGridList(RequestModel request)
+        {
+            MrModel mr = new()
+            {
+                MrDtlsList = new List<MrDtlsModel>(),
+                MrOnAcList = new List<MrOnAcModel>(),
+                MrAdjOnAcList = new List<MrOnAcModel>(),
+
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MrMasterId", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMrEnqInnerGridList", param);
+
+                    if (dataSet != null)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            mr.MrDtlsList.Add(new MrDtlsModel
+                            {
+                                MrMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["MrMasterId"]),
+                                MrStation = Convert.ToString(dataSet.Tables[0].Rows[i]["MrStation"]),
+                                MrNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MrNo"]),
+                                MrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["MrDate"]),
+                                PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
+                               // BillLrYear = Convert.ToString(dataSet.Tables[0].Rows[i]["BillLrYear"]),
+                                BillLrStn = Convert.ToString(dataSet.Tables[0].Rows[i]["BillLrStn"]),
+                                BillLrNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillLrNo"]),
+                               // BillLrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillLrDate"]),
+                              //  BillLrMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillLrMasterId"]),
+                               // DueAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DueAmt"]),
+                               // OldDueAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OldDueAmt"]),
+                                RecdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdAmt"]),
+                                FreightDed = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightDed"]),
+                                ClaimsDed = Convert.ToString(dataSet.Tables[0].Rows[i]["ClaimsDed"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
+                        {
+                            mr.MrOnAcList.Add(new MrOnAcModel
+                            {
+                               // AdjMrMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjMrMasterID"]),
+                               // AdjMrYear = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjMrYear"]),
+                                AdjMrStn = Convert.ToString(dataSet.Tables[1].Rows[i]["AdjMrStn"]),
+                                AdjMrNo = Convert.ToString(dataSet.Tables[1].Rows[i]["AdjMrNo"]),
+                                // MrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["MrDate"]),
+                                AdjAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["AdjAmt"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)
+                        {
+                            mr.MrAdjOnAcList.Add(new MrOnAcModel
+                            {
+                                MrStation = Convert.ToString(dataSet.Tables[2].Rows[i]["MrStation"]),
+                                MrNo = Convert.ToString(dataSet.Tables[2].Rows[i]["MrNo"]),
+                                MrDate = Convert.ToString(dataSet.Tables[2].Rows[i]["MrDate"]),
+                                AdjAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["AdjAmt"]),
+                              
+                            });
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return mr;
+        }
+
+
+    
+
+    public async Task<ResponseModel> GetMrNo()
         {
             ResponseModel response = new();
             try

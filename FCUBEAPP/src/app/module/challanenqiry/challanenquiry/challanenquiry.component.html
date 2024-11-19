@@ -6,25 +6,28 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Challan</h4>
+                        <h4 class="mb-sm-0 font-size-18">Challan Enquiry</h4>
                     </div>
                 </div>
             </div>  <div class="row top-controls">
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="mb-3">
+                            <div class="col-md-1">
+                                <div class="mb-1">
                                     <label for="formrow-inputState">Challan No : </label>
+                                   
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="mb-3">
-                                    <input class="form-control" formControlName="cnno" >
+                                <div class="mb-2">
+                                    
+                                    <input class="form-control" formControlName="challanNo" >
                                 </div>
-                            </div>   
-                            <div class="col-lg-2">
-                                <div class="mt-3">
+                            </div>
+                          
+                            <div class="col-md-2">
+                                <div class="mb-2">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
@@ -37,11 +40,11 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step1Active}" data-toggle="tab" aria-controls="step1" role="tab"
-                        title="Step 1">Consignment Master</a>
+                        title="Step 1">Challan Master</a>
                 </li>
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
-                        title="Step 2">Lhpm Details</a>
+                        title="Step 2"> Consignment & Lhpm Details</a>
                 </li>
                
             </ul>
@@ -51,7 +54,7 @@
                         <div class="row">
                             <div class="col-lg-2">   
                                 <div class="mb-3">
-                                    <label for="neft" >Booking Place : </label>
+                                    <label for="neft" >Challan Branch : </label>
                                     <span style="color: red">*</span>
                                     <select formControlName="challanBranch"
                                         class="form-control form-select ng-pristine ng-touched"
@@ -62,7 +65,17 @@
                                         </option>
                                     </select>                
                                 </div>                    
-                            </div>        
+                            </div>   
+                            <!-- <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Challan No. : </label>
+                                    <span style="color: red">*</span>
+                                    <input type="text" id="formrow-inputCity" class="form-control" 
+                                        formControlName="challanNo" maxlength="15" numbersonly
+                                       
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
+                                </div>
+                            </div>      -->
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Challan Date : </label><span
@@ -70,6 +83,15 @@
                                     <input bsdatepicker="" type="date" autoclose="false" class="form-control"
                                         formControlName="challanDateTime" min="{{minDate}}" max="{{maxDate}}"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanDateTime'].invalid) }">
+                                </div>
+                            </div>  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Exp Arrival Date: </label><span
+                                        style="color: red">*</span>
+                                    <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                        formControlName="expArrivalDate" min="{{minDate}}" max="{{maxDate}}"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['expArrivalDate'].invalid) }">
                                 </div>
                             </div>  
                             <div class="col-lg-2">
@@ -86,541 +108,159 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">LR NO : </label>
                                     <input  class="form-control" formControlName="lrNo" maxlength="15">   
                                 </div>
-                            </div>   
-                            <div class="col-lg-2">
+                            </div>   -->
+                        </div>
+                            <div class="row">  
+                            <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">To Place</label>
-                                    <input class="form-control" formControlName="toPlace">                                    
+                                    <label for="formrow-inputZip">From Place : </label><span style="color: red">*</span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="challanFromStn" [initialValue]=""
+                                            [notFoundTemplate]="notFoundTemplate"
+                                          
+                                            [ngClass]="{'is-invalid': formSubmitted && (f['challanFromStn'].invalid)}">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>                                    
                                 </div>
                             </div> 
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Place : </label><span style="color: red">*</span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList" formControlName="challanToStn"
+                                            [searchKeyword]="keywordLocation"  
+                                          
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                                         
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['challanToStn'].invalid) }">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-1">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">KMs</label>
-                                    <input type="text" class="form-control" formControlName="kms">
+                                    <label for="formrow-inputZip">Kms</label>
+                                    <input type="text" class="form-control" formControlName="distanceKms">
                                 </div>
                             </div>  
-                        </div>
-                        <div class="row">                          
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="ownTruck" 
-                                    class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Own Truck </label>                                    
-                                </div>
-                            </div>                      
+                                               
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
                                     <input class="form-control" formControlName="truckNo">                                    
                                 </div>
-                            </div>                           
+                            </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <input type="checkbox"  formControlName="includeCnYn" 
+                                    <input type="checkbox"  formControlName="ownTruckYN" 
                                     class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Include CN </label>                                    
+                                    <label for="neft" class="form-check-label">Own Truck </label>                                    
                                 </div>
-                            </div>                     
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Include CN No</label>
-                                    <input class="form-control" formControlName="includeCnNo">                                    
-                                </div>
-                            </div>   
+                            </div>                             
                         </div>
+                                              
+                            
+                                               
+                              
+                    
+                       
+                       
+                                               
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity">Consignor</label>
-                                    <input type="text" class="form-control" formControlName="cnorName">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Cnor Gst</label>
-                                    <input type="text" class="form-control" formControlName="cnorGst">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Mobile</label>
-                                    <input class="form-control" formControlName="cnorMobile">
-                                </div>
-                            </div>                            
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Email</label>                                   
-                                    <input class="form-control" formControlName="cnorEmail">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Cnor Address 1</label>
-                                    <input class="form-control" formControlName="cnorAdd1">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Address 2</label>
-                                    <input class="form-control" formControlName="cnorAdd2">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Address 3</label>
-                                    <input class="form-control" formControlName="cnorAdd3">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Pin</label>
-                                    <input class="form-control" formControlName="cnorPin">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Consignee</label>
-                                    <input class="form-control" formControlName="cneeName">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Cnee gst</label>
-                                    <input class="form-control" formControlName="cneeGst">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee Mobile</label>
-                                    <input class="form-control" formControlName="cneeMobile">
-                                </div>
-                            </div>                                                       
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee Email</label>                                   
-                                    <input class="form-control" formControlName="cneeEmail">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Cnee Address 1</label>
-                                    <input class="form-control" formControlName="cneeAdd1">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee Address 2</label>
-                                    <input class="form-control" formControlName="cneeAdd2">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee Address 3</label>
-                                    <input class="form-control" formControlName="cneeAdd3">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee Pin</label>
-                                    <input class="form-control" formControlName="cneePin">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">                            
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Packing</label>
-                                    <input class="form-control" formControlName="classId">
-                                </div>
-                            </div>           
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Contents</label>
-                                    <input class="form-control" formControlName="productId">
-                                </div>
-                            </div>   
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Mat Desc</label>
-                                    <input class="form-control" formControlName="productDesc">
-                                </div>
-                            </div>             
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Vehicle Type</label>
-                                    <input class="form-control" formControlName="vehicleTypeId">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">                                                     
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="bulkYN" 
-                                                    class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Is Bulk </label>                                    
+                                    <label for="formrow-inputZip">Broker : </label>
+                                    <span style="color: red">*</span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="brokerList" formControlName="brokerId"
+                                            [searchKeyword]="keywordLocation"  
+                                       
+                                    
+                                     
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                              
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Length</label>
-                                    <input class="form-control" formControlName="loadLength">
+                                    <label for="formrow-inputZip">Total Pkgs</label>
+                                    <input type="text" numbersonly class="form-control" formControlName="totPkgs">
+                                </div>
+                            </div> 
+                            <div class="col-lg-1">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Chrg Wt</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                    maxlength="10" formControlName="totChrgWt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Width</label>
-                                    <input class="form-control" formControlName="loadWidth">
+                                    <label for="formrow-inputZip">Total Hire</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="totalHire" >
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Height</label>
-                                    <input decimalonly class="form-control" formControlName="loadHeight">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load CFT</label>
-                                    <input class="form-control" formControlName="loadCFT">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Weight Type</label>
-                                    <input class="form-control" formControlName="weightType">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Actual Weight</label>
-                                    <input class="form-control" formControlName="actualWt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Sender Weight</label>
-                                    <input class="form-control" formControlName="senderWt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Charged Weight</label>
-                                    <input class="form-control" formControlName="chargewt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Qty/Pkgs</label>
-                                    <input formControlName="noPackages" class="form-control">
-                                </div>
-                            </div>
-                        </div>                 
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Delivery No</label>
-                                    <input class="form-control" formControlName="deliveryNo">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Delivery Date</label>
-                                    <input type="date" formControlName="deliveryDt" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">PO No</label>
-                                    <input class="form-control" formControlName="poNo" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">PO Date</label>
-                                    <input type="date" formControlName="poDt" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Risk By</label>
-                                    <input class="form-control" formControlName="riskBy">
-                                </div>
-                            </div>
-                        </div>                           
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Shipment No</label>
-                                    <input class="form-control" formControlName="shipmentNo">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Shipment Date</label>
-                                    <input type="date" formControlName="shipmentDt" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Ins Company</label>
-                                    <input class="form-control" formControlName="insCoName" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Ins Policy No</label>
-                                    <input class="form-control" formControlName="insPolicyNo">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Ins Valid Date</label>
-                                    <input type="date" formControlName="insValidDt" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Insured Amount</label>
-                                    <input class="form-control" formControlName="insuredValue">
-                                </div>
-                            </div>
+                            
                         </div>                          
                         <div class="row">
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Billing Stn</label>
-                                    <input class="form-control" formControlName="billingBranch">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Billing Party </label>
-                                    <input class="form-control" formControlName="billingParty">
-                                </div>
-                            </div>                            
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Business Branch</label>
-                                    <input class="form-control" formControlName="businessBranch">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Business By </label>
-                                    <input class="form-control" formControlName="businessBy">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">                            
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">Declared Value</label>
-                                    <input class="form-control" formControlName="declaredValue" >
-                                </div>
-                            </div> 
-                            <div class="col-lg-8">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Remarks</label>
-                                    <input class="form-control" formControlName="generalRemarks" >
-                                </div>
-                            </div>
+                            
                         </div>    
                         <div class="row">                                                       
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">GST By</label>
-                                    <input class="form-control" formControlName="gstBy">     
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Rate Type</label>
-                                    <input class="form-control" formControlName="rateType">  
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Rate</label>
-                                    <input class="form-control" formControlName="rateRs">  
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Freight</label>
-                                    <input class="form-control" formControlName="freightRs">  
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Statistical</label>
-                                    <input class="form-control" formControlName="statisticalRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">FOV</label>
-                                    <input class="form-control" formControlName="fovRs">
-                                </div>
-                            </div>
+                           
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Coll</label>
-                                    <input class="form-control" formControlName="doorCollRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Handling</label>
-                                    <input class="form-control" formControlName="handlingRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Loading Detn</label>
-                                    <input class="form-control" formControlName="loadingDetnRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Enroute</label>
-                                    <input class="form-control" formControlName="enrouteRs" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Misc</label>
-                                    <input class="form-control" formControlName="miscRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Del</label>
-                                    <input class="form-control" formControlName="doorDelRs">
-                                </div>
-                            </div>
+                            
+                            
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading</label>
-                                    <input class="form-control" formControlName="unLoadingRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading Detn</label>
-                                    <input class="form-control" formControlName="unLoadingDetnRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Extras</label>
-                                    <input class="form-control" formControlName="extrasRS">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Others</label>
-                                    <input class="form-control" formControlName="othersRs">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Sub Total</label>
-                                    <input class="form-control" formControlName="subTotalRs">
-                                </div>
-                            </div> 
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">GST Type</label> 
-                                    <input class="form-control" formControlName="gstType">
-                                </div>
-                            </div>
+                          
+                           
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">SGST Pct</label>
-                                    <input class="form-control" formControlName="sgstPct">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">SGST Amount</label>
-                                    <input class="form-control" formControlName="sgstAmt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">CGST Pct</label>
-                                    <input class="form-control" formControlName="cgstPct">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">CGST Amount</label>
-                                    <input class="form-control" formControlName="cgstAmt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">IGST Pct</label>
-                                    <input class="form-control" formControlName="igstPct">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">IGST Amount</label>
-                                    <input class="form-control" formControlName="igstAmt">
-                                </div>
-                            </div> 
+                            
+                            
+                            
+                           
+                           
                         </div>
                         <div class="row">                          
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Non Gst Amt1</label>
-                                    <input class="form-control" formControlName="nonGstAmt1">
-                                </div>
-                            </div>                                  
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Non Gst Amt Desc1</label>
-                                    <input class="form-control" formControlName="nonGstAmt1Desc">
-                                </div>
-                            </div>                                  
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Non Gst Amt2</label>
-                                    <input class="form-control" formControlName="nonGstAmt2">
-                                </div>
-                            </div>                                  
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Non Gst Amt Desc2</label>
-                                    <input class="form-control" formControlName="nonGstAmt2Desc">
-                                </div>
-                            </div>                                   
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Net Total</label>
-                                    <input class="form-control" formControlName="gtotalRs">
-                                </div>
-                            </div>                              
+                                                            
+                                                             
+                                                        
+                                           
                         </div>
                        
                         <div class="row text-right">
@@ -639,7 +279,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="overflow-x">
-                                            <h4 class="card-title mb-4" style="color: red;"> Challan Details</h4>
+                                            <h4 class="card-title mb-4" style="color: red;"> Consignment Details</h4>
                                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
                                                 <th><label for="formrow-inputCity">bookingPlace</label></th>       

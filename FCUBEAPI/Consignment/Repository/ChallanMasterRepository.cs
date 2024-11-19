@@ -337,7 +337,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@ChallanNo", req.strRequest),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqDetails", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanEnqDetails", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -406,7 +406,8 @@ namespace Consignment.Repository
                         chlnmodel.Balance = Convert.ToString(dataSet.Tables[0].Rows[0]["Balance"]);
                         chlnmodel.BalancePayAt = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayAt"]);
                         chlnmodel.GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["GeneralRemarks"]);
-                      
+                        chlnmodel.TotPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["TotPkgs"]);
+
                     }
                 }
             }
@@ -434,12 +435,12 @@ namespace Consignment.Repository
                             new SqlParameter("@ChallanId", request.strRequest)
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqInnerGridList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanEnqInnerGridList", param);
 
                     if (dataSet != null)
                     {
                        
-                        for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             challan.CnList.Add(new ConsignmentModel
                             {
@@ -517,7 +518,7 @@ namespace Consignment.Repository
                                 CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
                                 IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
-                                CnBilledYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBilledYN"]),
+                               // CnBilledYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBilledYN"]),
                                 CnBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBillDate"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
                                 GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
@@ -526,28 +527,28 @@ namespace Consignment.Repository
                          
                             });
                         }
-                        for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)
+                        for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
                         {
                             challan.LhpmList.Add(new ConsignmentLhpmModel
                             {
-                                PmtStation = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtStation"]),
-                                PmtNo = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtNo"]),
-                                PmtDate = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtDate"]),
-                                ChallanStn = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanStn"]),
-                                ChallanNo = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanNo"]),
-                                ChallanDate = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanDate"]),
-                                AbType = Convert.ToString(dataSet.Tables[2].Rows[i]["ABType"]),
-                                HireAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["HireAmt"]),
-                                HamaliAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["HamaliAmt"]),
-                                DetenAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["DetenAmt"]),
-                                OtherAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OtherAmt"]),
-                                RecoveryAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["RecoveryAmt"]),
-                                TdsAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["TdsAmt"]),
-                                LhpmAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["LhpmAmt"]),
-                                OthDedAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OthDedAmt"]),
-                                Oth2DedAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["Oth2DedAmt"]),
-                                DeductRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["DeductRemarks"]),
-                                BenId = Convert.ToString(dataSet.Tables[2].Rows[i]["BenId"]),
+                                PmtStation = Convert.ToString(dataSet.Tables[1].Rows[i]["PmtStation"]),
+                                PmtNo = Convert.ToString(dataSet.Tables[1].Rows[i]["PmtNo"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[1].Rows[i]["PmtDate"]),
+                                ChallanStn = Convert.ToString(dataSet.Tables[1].Rows[i]["ChallanStn"]),
+                                ChallanNo = Convert.ToString(dataSet.Tables[1].Rows[i]["ChallanNo"]),
+                                ChallanDate = Convert.ToString(dataSet.Tables[1].Rows[i]["ChallanDate"]),
+                                AbType = Convert.ToString(dataSet.Tables[1].Rows[i]["ABType"]),
+                                HireAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["HireAmt"]),
+                                HamaliAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["HamaliAmt"]),
+                                DetenAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["DetenAmt"]),
+                                OtherAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["OtherAmt"]),
+                                RecoveryAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["RecoveryAmt"]),
+                                TdsAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["TdsAmt"]),
+                                LhpmAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["LhpmAmt"]),
+                                OthDedAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["OthDedAmt"]),
+                                Oth2DedAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["Oth2DedAmt"]),
+                                DeductRemarks = Convert.ToString(dataSet.Tables[1].Rows[i]["DeductRemarks"]),
+                                BenId = Convert.ToString(dataSet.Tables[1].Rows[i]["BenId"]),
                             });
                         }
                        

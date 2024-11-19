@@ -44,5 +44,13 @@ namespace Consignment.Business
         {
             return await mrRepository.MrMstSave(mr);
         }
+        public async Task<MrModel> GetMrEnqInnerGridList(RequestModel request)
+        {
+            return await mrRepository.GetMrEnqInnerGridList(request);
+        }
+        public async Task<MrModel> GetMrEnqDetails(RequestModel req)
+        {
+            return await mrRepository.GetMrEnqDetails(req);
+        }
     }
 }
