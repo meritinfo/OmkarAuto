@@ -159,7 +159,7 @@ export class MrlistComponent {
             },
             {
               title: 'Total Amt',
-              data: 'cheqCashAmt',
+              data: 'totalAmt',
             },
             {
               title: 'Action',

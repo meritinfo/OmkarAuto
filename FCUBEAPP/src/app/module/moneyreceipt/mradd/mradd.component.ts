@@ -464,7 +464,7 @@ export class MraddComponent {
         this.formMrArray.controls[i].get("mrDate")?.setValue(this.commonService.formatDate(res.mrOnAcList[i].mrDate));
         this.formMrArray.controls[i].get("onAcAmt")?.setValue(res.mrOnAcList[i].onAcAmt);
         this.formMrArray.controls[i].get("adjAmt")?.setValue(res.mrOnAcList[i].adjAmt);
-        this.formMrArray.controls[i].get("selected")?.setValue("");
+        this.formMrArray.controls[i].get("selected")?.setValue("Y");
 
         this.formMrArray.controls[i].get("adjMrMasterID")?.disable();
         this.formMrArray.controls[i].get("adjMrYear")?.disable();
