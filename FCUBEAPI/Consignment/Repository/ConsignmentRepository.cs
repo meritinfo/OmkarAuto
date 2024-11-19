@@ -41,6 +41,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Origin",     request.FilterStr1),
                             new SqlParameter("@Destination",request.FilterStr2),
                             new SqlParameter("@VehicleNo",  request.FilterStr3),
+                            new SqlParameter("@LrNo",       request.SortColumn),
                             new SqlParameter("@LoginBranch",  request.SortOrder),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentList", param);

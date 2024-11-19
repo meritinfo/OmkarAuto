@@ -147,6 +147,7 @@ export class MraddComponent {
       onAcAdjMrYn: new FormControl('',),
       selectedAll: new FormControl('',),
       onAcNewAmt: new FormControl('0',),
+      totalAmt: new FormControl('0',),
       totalRecdAmt: new FormControl('0',),
       totalFreightDed: new FormControl('0',),
       totalClaimsDed: new FormControl('0',),
@@ -243,6 +244,7 @@ export class MraddComponent {
         this.formUser.controls['mrStatus'].disable();  
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  
+        this.formUser.controls['mrDebitAc'].disable();  
         this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
         this.formUser.controls['groupMrYN'].disable();  
@@ -347,12 +349,6 @@ export class MraddComponent {
     });
   }
   
-  getAccountList(tp:string): void {    
-    this.requestmodel.strRequest= tp;
-    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.accountList = res;
-    });
-  }
   
   getMrNo(): void {    
     this.mrService.getMrNo().subscribe((res) => {
@@ -462,7 +458,7 @@ export class MraddComponent {
 
       this.formMrArray.clear();
       for (var i = 0; i < res.mrOnAcList.length; i++) {
-        this.formMrArray.push(this.createInitialArray()); 
+        this.formMrArray.push(this.createInitialMrArray()); 
 
         this.formMrArray.controls[i].get("adjMrMasterID")?.setValue(res.mrOnAcList[i].adjMrMasterID);
         this.formMrArray.controls[i].get("adjMrYear")?.setValue(res.mrOnAcList[i].adjMrYear);  
@@ -471,6 +467,14 @@ export class MraddComponent {
         this.formMrArray.controls[i].get("mrDate")?.setValue(this.commonService.formatDate(res.mrOnAcList[i].mrDate));
         this.formMrArray.controls[i].get("onAcAmt")?.setValue(res.mrOnAcList[i].onAcAmt);
         this.formMrArray.controls[i].get("adjAmt")?.setValue(res.mrOnAcList[i].adjAmt);
+        this.formMrArray.controls[i].get("selected")?.setValue("");
+
+        this.formMrArray.controls[i].get("adjMrMasterID")?.disable();
+        this.formMrArray.controls[i].get("adjMrYear")?.disable();
+        this.formMrArray.controls[i].get("adjMrStn")?.disable();
+        this.formMrArray.controls[i].get("adjMrNo")?.disable();
+        this.formMrArray.controls[i].get("mrDate")?.disable();
+        this.formMrArray.controls[i].get("onAcAmt")?.disable();
       }
     });
   }
@@ -581,6 +585,12 @@ export class MraddComponent {
     this.getAccountList(selectedValue);
   }
 
+  getAccountList(tp:string): void {    
+    this.requestmodel.strRequest= tp;
+    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.accountList = res;
+    });
+  }
 
   addItem(i: number): void {    
     this.formUser.controls['groupMrYN'].disable();      
@@ -590,7 +600,6 @@ export class MraddComponent {
 
     var selectedDataVal = this.formUser.getRawValue();
     var recdAmt = parseFloat(selectedDataVal.arrayList[i].recdAmt);
-    var remarks = selectedDataVal.arrayList[i].remarks;
     var billLrMasterId = selectedDataVal.arrayList[i].billLrMasterId;
     if (billLrMasterId!="") {
         //ignore
@@ -599,7 +608,7 @@ export class MraddComponent {
       this.toasterService.warning("Please Enter Valid Bill/LR ");          
       return;
     }
-    if (remarks != "" && recdAmt > 0) 
+    if (recdAmt > 0) 
     {
       this.formArray.push(this.createInitialArray()); 
     }
@@ -661,7 +670,7 @@ export class MraddComponent {
     }
     
     if(dedTot + amtrecv > amtDue){
-      this.toasterService.warning("Due Amount Should not be less than Recvd & Deduction");
+      this.toasterService.warning("Recvd & Deduction Should be less than or equal to Due Amount ");
       this.formArray.controls[i].get(clm)?.setValue("");
       return;
     }
@@ -742,15 +751,29 @@ export class MraddComponent {
       this.formArray.controls[i].get("totDed")?.setValue(dedTot);
       totalDed = totalDed + dedTot;
     }
-    
-    if(recdAmt + excessRecd != parseFloat( selectedDataVal.cheqCashAmt)){
-      if (selectedDataVal.groupMrYN){      
-        this.toasterService.warning("Received Amount Should Match with Cash & Cheq Amount");      
-        return;
-      }
+    var onAcAdjAmt = selectedDataVal.onAcAdjAmt? parseFloat( selectedDataVal.onAcAdjAmt):0;
+    var cheqCashAmt = selectedDataVal.cheqCashAmt? parseFloat( selectedDataVal.cheqCashAmt):0;
+
+    // if(cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd != 0){
+    //   if (selectedDataVal.groupMrYN){      
+    //     this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
+    //     return;
+    //   }
+    //   if (selectedDataVal.onAcAdjMrYn){      
+    //     this.toasterService.warning("Adj On Account Checked, On A/C Amt Should be Zero");      
+    //     return;
+    //   }
+    //   if (selectedDataVal.mrType=="A"){      
+    //     this.toasterService.warning("For MR Type 'Adj on A/C', On A/C Amt Should be Zero");      
+    //     return;
+    //   }
+    // }
+    if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd < 0){
+      this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
+      return;
     }
 
-
+   
     this.formUser.patchValue({
       totalRecdAmt: recdAmt,
       totalFreightDed:freightDed,
@@ -764,8 +787,9 @@ export class MraddComponent {
       totalTDSDed:tdsDed,
       totalSdEmdDed:sdEmdDed,
       totalDed:totalDed,
-      totalExcess:excessRecd,  
-      onAcNewAmt:parseFloat( selectedDataVal.cheqCashAmt) - recdAmt - excessRecd 
+      totalExcess:excessRecd,        
+      totalAmt: cheqCashAmt + onAcAdjAmt,
+      onAcNewAmt: cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd,  
     });
   }
 
@@ -868,14 +892,14 @@ export class MraddComponent {
     this.formUser.controls['mrType'].disable();
   }
 
-  onTotAc(e: any) {  
-    if(e.target.checked){
-      var selectedData = this.formUser.getRawValue();
-      this.formUser.patchValue({
-        onAcNewAmt: selectedData.cheqCashAmt,
-      });
-      this.formArray.clear();
+  onTotAc(e: any) {      
+    var selectedData = this.formUser.getRawValue();
+    this.formUser.patchValue({
+      onAcNewAmt: selectedData.cheqCashAmt,
+    });
 
+    if(e.target.checked){
+      this.formArray.clear();
       this.formUser.controls['mrRemarks'].disable();
       this.formUser.controls['onAcAdjMrYn'].disable();
       this.formUser.controls['mrSdEmdAc'].disable();
@@ -885,12 +909,8 @@ export class MraddComponent {
       this.formUser.controls['sdEmdRefNo'].disable();
       this.formUser.controls['modifyRemarks'].disable();
     }
-    else{
-      this.formUser.patchValue({
-        onAcNewAmt: "",
-      });      
+    else{        
       this.formArray.push(this.createInitialArray()); 
-
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['onAcAdjMrYn'].enable();
       this.formUser.controls['chequeNo'].enable();
@@ -948,7 +968,6 @@ export class MraddComponent {
     }    
   }
 
-
   adjAmtChange() {  
     var totadjAmt = 0;
     var selectedDataVal = this.formUser.getRawValue();
@@ -958,8 +977,15 @@ export class MraddComponent {
         totadjAmt = totadjAmt + parseFloat(selectedDataVal.mrarrayList[i].adjAmt) ;
       }
     }
+    //Work
+    var cheqCashAmt = selectedDataVal.cheqCashAmt? parseFloat( selectedDataVal.cheqCashAmt) : 0;
+    var totalRecdAmt = selectedDataVal.totalRecdAmt? parseFloat( selectedDataVal.totalRecdAmt) : 0;
+    var totalExcess = selectedDataVal.totalExcess? parseFloat( selectedDataVal.totalExcess) : 0;
+
     this.formUser.patchValue({
       onAcAdjAmt: totadjAmt,
+      totalAmt: cheqCashAmt + totadjAmt,
+      onAcNewAmt: cheqCashAmt + totadjAmt - totalRecdAmt + totalExcess,
     });
   }
 
@@ -1082,6 +1108,29 @@ export class MraddComponent {
       this.toasterService.warning("Invalid Account");
       return;
     }
+    var totalAmt = selectedDataVal.totalAmt?parseFloat(selectedDataVal.totalAmt):0;
+    var totalRecdAmt = selectedDataVal.totalRecdAmt?parseFloat(selectedDataVal.totalRecdAmt):0;
+    var totalExcess = selectedDataVal.totalExcess?parseFloat(selectedDataVal.totalExcess):0;
+
+    if(totalAmt - totalRecdAmt - totalExcess != 0){
+      if (selectedDataVal.groupMrYN){      
+        this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
+        return;
+      }
+      if (selectedDataVal.onAcAdjMrYn){      
+        this.toasterService.warning("Adj On Account Checked, On A/C Amt Should be Zero");      
+        return;
+      }
+      if (selectedDataVal.mrType=="A"){      
+        this.toasterService.warning("For MR Type 'Adj on A/C', On A/C Amt Should be Zero");      
+        return;
+      }
+    }
+    else if (totalAmt - totalRecdAmt - totalExcess < 0){
+      this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
+      return;
+    }
+
 
     this.mrmodel.mrMasterId       = this.selectedMrDetails.mrMasterId ;
     this.mrmodel.mrStation        = selectedDataVal.mrStation ; 
@@ -1096,7 +1145,7 @@ export class MraddComponent {
     this.mrmodel.partyCode        = selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"" ; 
     this.mrmodel.cheqCashAmt      = selectedDataVal.cheqCashAmt.toString() ; 
     this.mrmodel.onAcAdjAmt       = selectedDataVal.onAcAdjAmt.toString() ; 
-    this.mrmodel.totalAmt         = "0" ; 
+    this.mrmodel.totalAmt         = selectedDataVal.totalAmt.toString() ; 
     this.mrmodel.onAcNewAmt       = selectedDataVal.onAcNewAmt.toString() ; 
     this.mrmodel.onAcAdjusted     = "0";
     this.mrmodel.onAcStatus       = selectedDataVal.onAcStatus?"T":"P" ; 

@@ -28,6 +28,7 @@ export class Addcostrecmstmodel {
     tdsAc :string = "";
     approvedYN :string = "";
     rpType :string = "";
+    creditAc:string = "";
     neftPmt :string = ""; 
     chequeNo :string = "";
     chequeDate :string = "";

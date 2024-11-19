@@ -165,6 +165,7 @@ export class SparespurchasemasteraddComponent {
     this.formUser.controls["totIgstAmt"].disable();
     this.formUser.controls["netAmount"].disable();  
     this.formUser.controls['totItemNetAmount'].disable(); 
+    this.formUser.controls["gstInputTaken"].disable(); 
 
     if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
       setTimeout(() => {
@@ -200,6 +201,20 @@ export class SparespurchasemasteraddComponent {
             nonVendor: "",
           })
         }   
+        if(this.selectedSparesPurchaseMasterDetail.gstType=="NA"){
+          this.formUser.controls["gstInputTaken"].disable();
+          this.formUser.patchValue({
+            gstInputTaken: "",
+          }) 
+        }
+        else{          
+          this.formUser.controls["gstInputTaken"].enable(); 
+        }
+        if(this.selectedSparesPurchaseMasterDetail.gstInputTaken!="Y"){
+          this.formUser.patchValue({
+            gstInputTaken: "",
+          })
+        }
       
         this.getSparesPurchaseMasterInnerGridList();
         this.editMode =true;
@@ -443,7 +458,8 @@ export class SparespurchasemasteraddComponent {
 
   changeGstType(e: any) {
     console.log(e.target.value);
-    var gsttype = e.target.value;   
+    var gsttype = e.target.value;       
+    this.formUser.controls["gstInputTaken"].enable(); 
     for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
@@ -470,8 +486,11 @@ export class SparespurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable(); 
         this.formUser.controls['vendorGstNo'].clearValidators();  
-       
 
+        this.formUser.patchValue({
+          gstInputTaken:""
+        });
+        this.formUser.controls["gstInputTaken"].disable(); 
       } 
       this.formUser.controls['vendorGstNo'].updateValueAndValidity(); 
     }    

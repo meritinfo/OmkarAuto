@@ -54,6 +54,7 @@ export class ConsignmentlistComponent implements OnInit  {
   lrorigin: string = '';
   lrdestination: string = '';
   lrvehicleNo: string = '';
+  lrlrNo: string = '';
 
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -139,6 +140,11 @@ export class ConsignmentlistComponent implements OnInit  {
     if (typeof lrvehicleNo !== 'undefined' && lrvehicleNo !== null && lrvehicleNo !== '') {
       this.lrvehicleNo = lrvehicleNo;
     }
+    var lrlrNo = sessionStorage.getItem('lrlrNo')?.toString();
+    if (typeof lrlrNo !== 'undefined' && lrlrNo !== null && lrlrNo !== '') {
+      this.lrlrNo = lrlrNo;
+    }
+    
     var lrorigin = sessionStorage.getItem('lrorigin')?.toString();
     if (typeof lrorigin !== 'undefined' && lrorigin !== null && lrorigin !== '') {
       this.lrorigin = lrorigin;
@@ -161,6 +167,7 @@ export class ConsignmentlistComponent implements OnInit  {
       payParty: new FormControl('',),
       origin: new FormControl('',),
       destination: new FormControl('',),
+      lrNo: new FormControl('',),
     });
     
     setTimeout(() => {      
@@ -169,6 +176,7 @@ export class ConsignmentlistComponent implements OnInit  {
         toDate: this.lrtoDate,
         payParty: this.partyList.find(e => e.dataId == this.lrpayParty),   
         vehicleNo: this.lrvehicleNo,
+        lrNo: this.lrlrNo,
         origin: this.locationList.find(e => e.dataId == this.lrorigin),   
         destination: this.locationList.find(e => e.dataId == this.lrdestination),     
       })
@@ -179,7 +187,8 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr = this.lrpayParty;
     this.filter.filterStr1 = this.lrorigin;
     this.filter.filterStr2 = this.lrdestination; 
-    this.filter.filterStr3 = this.lrvehicleNo,   
+    this.filter.filterStr3 = this.lrvehicleNo,  
+    this.filter.sortColumn = this.lrlrNo ,
     this.filter.sortOrder = this.branch,  
     this.getConsignmentList();
   }
@@ -285,6 +294,7 @@ export class ConsignmentlistComponent implements OnInit  {
     sessionStorage.setItem("lrorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("lrdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("lrvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("lrlrNo", selecteddata.lrNo);
 
     this.route.navigate(['/consignmentadd']);
   }
@@ -297,7 +307,8 @@ export class ConsignmentlistComponent implements OnInit  {
     sessionStorage.setItem("lrorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("lrdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("lrvehicleNo", selecteddata.vehicleNo);
-
+    sessionStorage.setItem("lrlrNo", selecteddata.lrNo);
+    
     this.consignmentService.setConsignmentDetails(Consignment);
     this.route.navigate(['/consignmentedit']);
   }
@@ -311,6 +322,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr1 = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr2 = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.filter.filterStr3 = selectedDataVal.vehicleNo;
+    this.filter.sortColumn = selectedDataVal.lrNo;
     this.filter.sortOrder = this.branch,  
 
      this.getConsignmentList();

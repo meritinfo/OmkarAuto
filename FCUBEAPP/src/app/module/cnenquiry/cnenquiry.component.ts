@@ -348,6 +348,7 @@ export class CnenquiryComponent {
     this.requestmodel.strRequest = selectedDataVal.cnno;
     this.lrentryService.getCnEnqDetails(this.requestmodel).subscribe((res) => {
       this.selectedLrDetails = res;
+      this.formFilter.controls["cnno"].disable();
       this.formUser.patchValue(this.selectedLrDetails);
       this.formUser.patchValue({
         bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
@@ -355,10 +356,19 @@ export class CnenquiryComponent {
         ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
         invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
         shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),               
-      })      
-          
+      })     
+      if (this.selectedLrDetails.ownTruck!="Y"){
+        this.formUser.patchValue({
+          ownTruck : "",               
+        })     
+      }  
       this.getCnEnqInnerGridList();
     });
+    setTimeout(() => { 
+      if(selectedDataVal.bookingDate==""){
+        this.toastrService.warning("LR does not Exists");
+      }
+    }, 2000); 
   }
 
   

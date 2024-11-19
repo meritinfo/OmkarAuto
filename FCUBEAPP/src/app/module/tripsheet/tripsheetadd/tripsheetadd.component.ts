@@ -219,12 +219,12 @@ export class TripsheetaddComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
           driverMasterID: this.driverLists.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         }); 
-        if(this.selectedTripSheetDetails.tripStatus=="N"){
+        if(this.selectedTripSheetDetails.tripStatus!="Y"){
           this.formTripsheet.patchValue({
             tripStatus:""
           }); 
         }
-        if(this.selectedTripSheetDetails.tripLinkYN=="N"){
+        if(this.selectedTripSheetDetails.tripLinkYN!="Y"){
           this.formTripsheet.patchValue({
             tripLinkYN:""
           }); 
@@ -496,7 +496,6 @@ export class TripsheetaddComponent {
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formFasttagArray.clear();
-      this.formDrExpTypeArray.clear();
       this.formCmpExpTypeArray.clear();
 
       for (var i = 0; i < res.driverList.length; i++) {
@@ -620,7 +619,6 @@ export class TripsheetaddComponent {
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formFasttagArray.clear();
-      this.formDrExpTypeArray.clear();
       this.formCmpExpTypeArray.clear();
       
       for (var i = 0; i < res.driverList.length; i++) {

@@ -153,7 +153,7 @@ export class AddbankcashcontraComponent {
       this.formBankContra.patchValue({
         accountid2: res.detailList[0].accountID,
         chequeNo: res.detailList[0].chequeNo,
-        chequeDate: res.detailList[0].chequeDate,
+        chequeDate: this.commonService.formatDate(res.detailList[0].chequeDate),
         amount: res.detailList[0].amount,
         reference: res.detailList[0].reference,
         narration: res.detailList[0].narration,
