@@ -35,6 +35,8 @@
         public string? YearId { get; set; }
         public string? ModifyRemarks { get; set; }
         public string? PmtStn { get; set; }
+        public string? PmtTp { get; set; }
+        
         public string? LoggedInUserID { get; set; }
         public List<LorryHireDetailModel> LhpmDetails { get; set; }
 

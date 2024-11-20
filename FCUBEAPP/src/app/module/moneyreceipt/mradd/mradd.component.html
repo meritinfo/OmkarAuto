@@ -103,7 +103,7 @@
                                         </div> -->
                                     </div>
                                     <div class="row">                                        
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
                                                     <input type="checkbox"  (change)="onChkGroup($event)"
@@ -123,7 +123,7 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                        </div>            
+                                        </div>             -->
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Party</label><span style="color: red">*</span>                                                
@@ -302,7 +302,7 @@
                                             <th><label for="formrow-inputZip">Sec.Deposit</label></th>
                                             <th><label for="formrow-inputZip">Excess Recd</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>    
-                                            <th><label for="formrow-inputZip">Party</label></th>
+                                            <!-- <th><label for="formrow-inputZip">Party</label></th> -->
                                             <th><label for="formrow-inputZip"></label></th>                                                     
                                         </tr>
                                         <tr formArrayName="arrayList"
@@ -396,14 +396,14 @@
                                                     <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="remarks">
                                                 </td> 
-                                                <td>                                                  
+                                                <!-- <td>                                                  
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="partyCode"> 
                                                         <option *ngFor="let br of partyList" value={{br.dataId}}>
                                                             {{br.dataName}}
                                                         </option>
                                                     </select>
-                                                </td>   
+                                                </td>    -->
                                                 <td>
                                                     <div class="col-lg-4 details-button">
                                                         <button *ngIf="i === formArray.controls.length-1" type="button"
@@ -418,7 +418,6 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>                                                    
-                                            <td></td>                                                   
                                             <td></td>                                                   
                                             <td></td>                                                 
                                             <td>                                                        
@@ -461,11 +460,11 @@
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totalOthersDed3">
                                             </td>                                               
-                                            <td>       
+                                            <!-- <td>       
                                                 <label for="formrow-inputZip">Tot Recov </label>
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totalRecoverable">
-                                            </td>                                                
+                                            </td>                                                 -->
                                             <td>       
                                                 <label for="formrow-inputZip">Tot Ded </label>
                                                 <input decimalonly autoclose="false" class="form-control"
@@ -477,7 +476,7 @@
                                                     formControlName="totalTDSDed">
                                             </td>                                               
                                             <td>       
-                                                <label for="formrow-inputZip">Tot Recd </label>
+                                                <label for="formrow-inputZip">Tot Sd Emd Ded </label>
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totalSdEmdDed">
                                             </td>                                               
@@ -485,8 +484,7 @@
                                                 <label for="formrow-inputZip">Tot Excess </label>
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totalExcess">
-                                            </td>                                             
-                                            <td></td>
+                                            </td>  
                                         </tr>
                                     </table>
                                 </div>

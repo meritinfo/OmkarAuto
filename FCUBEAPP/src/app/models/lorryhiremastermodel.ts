@@ -34,6 +34,7 @@ export class Lorryhiremastermodel {
     yearId : string = "";
     modifyRemarks : string = "";
     pmtStn : string = "";
+    pmtTp: string = "";
     loggedInUserID : string = "";
     lhpmDetails: Lorryhiredetailmodel[] = [];
 }

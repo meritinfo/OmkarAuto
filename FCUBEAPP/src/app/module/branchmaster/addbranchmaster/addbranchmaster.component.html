@@ -212,7 +212,17 @@
                                                 <input autoclose="false" maxlength="22" class="form-control"  uppercaseonly
                                                 formControlName="rcM_GstNo" >
                                             </div>
-                                        </div>   
+                                        </div>  
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Branch Ac Ledger</label>
+                                                <select class="form-control" formControlName="branchAcLedger" >
+                                                    <option *ngFor="let a of accountList" value={{a.dataId}}>
+                                                       {{a.dataName}}
+                                                    </option>
+                                                 </select>
+                                            </div>
+                                        </div> 
                                     </div> 
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -235,7 +245,7 @@
                                         </div>   
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">DocNum Code </label>
+                                                <label for="formrow-inputZip">Doc Num Code </label>
                                                 <span style="color: red">*</span>
                                                 <input numbersonly maxlength="2" autoclose="false" class="form-control"
                                                 formControlName="docNumCode"        
