@@ -27,6 +27,7 @@ export class AddbranchmasterComponent {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
+  accountList: Dropdownmodel[] = [];
 
   List: Dropdownmodel[] = [];
   selectedBranchMasterDetails = new Branchmodel();
@@ -70,8 +71,10 @@ export class AddbranchmasterComponent {
 
     this.getBranchList();
     this.getStateList();
+    this.getAccountList();
 
     this.selectedBranchMasterDetails = this.branchmasterService.getBranchMasterDetails();
+
     this.formBranchMaster = this.formBuilder.group({
       code: new FormControl('',[Validators.required]),
       userBranch: new FormControl('',[Validators.required]),
@@ -96,6 +99,7 @@ export class AddbranchmasterComponent {
       znNumCode:new FormControl('',[Validators.required]),
       brNumCode:new FormControl('',[Validators.required]),
       docNumCode:new FormControl('',[Validators.required]),
+      branchAcLedger: new FormControl('',),     
     });
     this.formBranchMaster.controls['docNumCode'].disable();   
 
@@ -126,6 +130,13 @@ export class AddbranchmasterComponent {
   getStateList(): void {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;
+    });
+  }
+  
+  getAccountList(): void {    
+    this.requestmodel.strRequest= "T";
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.accountList = res;
     });
   }
 
@@ -241,7 +252,8 @@ export class AddbranchmasterComponent {
     this.branchModel.znNumCode        = selectedDataVal.znNumCode.toString();
     this.branchModel.brNumCode        = selectedDataVal.brNumCode.toString();
     this.branchModel.docNumCode       = selectedDataVal.docNumCode.toString();
-    this.branchModel.rcM_GstNo       = selectedDataVal.rcM_GstNo.toString();
+    this.branchModel.rcM_GstNo        = selectedDataVal.rcM_GstNo.toString();
+    this.branchModel.branchAcLedger   = selectedDataVal.branchAcLedger.toString();
     this.branchModel.loggedInUserID   = this.loggedInUserID;
 
   

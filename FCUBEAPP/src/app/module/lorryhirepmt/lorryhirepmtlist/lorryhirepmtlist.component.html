@@ -57,6 +57,7 @@
                                 <th>totalHamaliAmt</th>
                                 <th>totalDetenAmt</th>
                                 <th>totalOtherAmt</th>
+                                <th>totalRecoveryAmt</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,11 +66,12 @@
                                 <td>{{ lrhr.pmtStn}}</td>
                                 <td>{{ lrhr.pmtNo}}</td>
                                 <td>{{ lrhr.pmtDate}}</td>
-                                <td>{{ lrhr.pmtType}}</td> 
+                                <td>{{ lrhr.pmtTp}}</td> 
                                 <td>{{ lrhr.totalHireAmt}}</td> 
                                 <td>{{ lrhr.totalHamaliAmt}}</td> 
                                 <td>{{ lrhr.totalDetenAmt}}</td> 
-                                <td>{{ lrhr.totalOtherAmt}}</td>            
+                                <td>{{ lrhr.totalOtherAmt}}</td>   
+                                <td>{{ lrhr.totalRecoveryAmt}}</td>            
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getLorryHirePmtDetails(lrhr)"></button> 

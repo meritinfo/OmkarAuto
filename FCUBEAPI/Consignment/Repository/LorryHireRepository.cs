@@ -80,6 +80,7 @@ namespace Consignment.Repository
                                 FindocIdOpp         = Convert.ToString(dataSet.Tables[0].Rows[i]["FindocIdOpp"]),
                                 ModifyRemarks       = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                                 PmtStn              = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtStn"]),
+                                PmtTp               = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtTp"]),
                             });
                         }
 

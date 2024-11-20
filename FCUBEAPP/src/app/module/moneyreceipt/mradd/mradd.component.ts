@@ -138,8 +138,8 @@ export class MraddComponent {
       mrReceiptType: new FormControl('',[Validators.required]),
       billLrOthType: new FormControl('B',),
       partyCode: new FormControl('',[Validators.required]),
-      groupMrYN: new FormControl('',),
-      partyGroupId: new FormControl('',[Validators.required]),
+      // groupMrYN: new FormControl('',),
+      // partyGroupId: new FormControl('',[Validators.required]),
       cheqCashAmt: new FormControl('',[Validators.required]),
       onAcAdjAmt: new FormControl('',),
       onAcStatus: new FormControl('',),
@@ -156,7 +156,7 @@ export class MraddComponent {
       totalOthersDed1: new FormControl('0',),
       totalOthersDed2: new FormControl('0',),
       totalOthersDed3: new FormControl('0',),
-      totalRecoverable : new FormControl('0',),
+      //totalRecoverable : new FormControl('0',),
       totalDed: new FormControl('0',),
       totalTDSDed: new FormControl('0',),
       totalSdEmdDed: new FormControl('0',),
@@ -192,11 +192,12 @@ export class MraddComponent {
     this.formUser.controls['chequeNo'].disable();      
     this.formUser.controls['chequeDt'].disable();   
     
-    this.formUser.controls['partyGroupId'].disable();    
-    this.formUser.controls['partyGroupId'].clearValidators(); 
-    this.formUser.controls['partyGroupId'].updateValueAndValidity();
+    // this.formUser.controls['partyGroupId'].disable();    
+    // this.formUser.controls['partyGroupId'].clearValidators(); 
+    // this.formUser.controls['partyGroupId'].updateValueAndValidity();
          
     this.formUser.controls['onAcNewAmt'].disable();  
+    this.formUser.controls['totalAmt'].disable();  
     
     this.formUser.controls['totalRecdAmt'].disable();
     this.formUser.controls['totalFreightDed'].disable();
@@ -206,7 +207,7 @@ export class MraddComponent {
     this.formUser.controls['totalOthersDed1'].disable();
     this.formUser.controls['totalOthersDed2'].disable();
     this.formUser.controls['totalOthersDed3'].disable();
-    this.formUser.controls['totalRecoverable'].disable(); 
+    //this.formUser.controls['totalRecoverable'].disable(); 
     this.formUser.controls['totalDed'].disable(); 
     this.formUser.controls['totalTDSDed'].disable();
     this.formUser.controls['totalSdEmdDed'].disable();
@@ -247,8 +248,9 @@ export class MraddComponent {
         this.formUser.controls['mrDebitAc'].disable();  
         this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
-        this.formUser.controls['groupMrYN'].disable();  
-        this.formUser.controls['partyGroupId'].disable();  
+        this.formUser.controls['onAcAdjMrYn'].disable(); 
+        //this.formUser.controls['groupMrYN'].disable();  
+        //this.formUser.controls['partyGroupId'].disable();  
         this.formUser.controls['modifyRemarks'].enable(); 
     
         this.formUser.patchValue(this.selectedMrDetails);        
@@ -267,11 +269,11 @@ export class MraddComponent {
             mrStatus: ""
           });
         }
-        if (this.selectedMrDetails.groupMrYN=="N"){
-          this.formUser.patchValue({
-            groupMrYN: ""
-          });
-        }
+        // if (this.selectedMrDetails.groupMrYN=="N"){
+        //   this.formUser.patchValue({
+        //     groupMrYN: ""
+        //   });
+        // }
         if (this.selectedMrDetails.onAcStatus=="P"){
           this.formUser.patchValue({
             onAcStatus: ""
@@ -383,7 +385,7 @@ export class MraddComponent {
       billLrYear:  ['', []],
       billLrStn:  ['', []],
       billLrDate:  ['', []],
-      partyCode:  ['', []],
+      //partyCode:  ['', []],
       dueAmt:  ['0', []],
       oldDueAmt:  ['0', []],
       recdAmt: ['0', []],
@@ -429,7 +431,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("billLrStn")?.setValue(res.mrDtlsList[i].billLrStn);
         this.formArray.controls[i].get("billLrNo")?.setValue(res.mrDtlsList[i].billLrNo);        
         this.formArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
-        this.formArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
+        //this.formArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
         this.formArray.controls[i].get("dueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
         this.formArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].oldDueAmt);
         this.formArray.controls[i].get("recdAmt")?.setValue(res.mrDtlsList[i].recdAmt);
@@ -451,7 +453,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("billLrStn")?.disable();
         this.formArray.controls[i].get("billLrNo")?.disable();
         this.formArray.controls[i].get("billLrDate")?.disable();  
-        this.formArray.controls[i].get("partyCode")?.disable();  
+        //this.formArray.controls[i].get("partyCode")?.disable();  
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("totDed")?.disable();
       }
@@ -467,8 +469,9 @@ export class MraddComponent {
         this.formMrArray.controls[i].get("mrDate")?.setValue(this.commonService.formatDate(res.mrOnAcList[i].mrDate));
         this.formMrArray.controls[i].get("onAcAmt")?.setValue(res.mrOnAcList[i].onAcAmt);
         this.formMrArray.controls[i].get("adjAmt")?.setValue(res.mrOnAcList[i].adjAmt);
-        this.formMrArray.controls[i].get("selected")?.setValue("");
+        this.formMrArray.controls[i].get("selected")?.setValue("Y");
 
+        this.formMrArray.controls[i].get("selected")?.disable();
         this.formMrArray.controls[i].get("adjMrMasterID")?.disable();
         this.formMrArray.controls[i].get("adjMrYear")?.disable();
         this.formMrArray.controls[i].get("adjMrStn")?.disable();
@@ -568,8 +571,10 @@ export class MraddComponent {
   
   changeRecptType(){
     var selectedValueData= this.formUser.getRawValue();
-    var selectedValue = selectedValueData.mrReceiptType;   
-
+    var selectedValue = selectedValueData.mrReceiptType;       
+    this.formUser.patchValue({
+      mrDebitAc: ''
+    });
     if(selectedValue=="B"){      
       this.formUser.controls['neftYN'].enable();
     }
@@ -593,8 +598,8 @@ export class MraddComponent {
   }
 
   addItem(i: number): void {    
-    this.formUser.controls['groupMrYN'].disable();      
-    this.formUser.controls['partyGroupId'].disable();    
+    // this.formUser.controls['groupMrYN'].disable();      
+    // this.formUser.controls['partyGroupId'].disable();    
     this.formUser.controls['partyCode'].disable();    
     this.formUser.controls['mrType'].disable();    
 
@@ -799,17 +804,15 @@ export class MraddComponent {
   
   onChkCancel(e: any) {  
     if(e.target.checked){
-
       this.formArray.clear();
-
       this.formUser.controls['mrType'].disable();
       this.formUser.controls['cheqCashAmt'].disable();
       this.formUser.controls['onAcStatus'].disable();
       this.formUser.controls['onAcAdjMrYn'].disable();      
       this.formUser.controls['partyCode'].disable();
       this.formUser.controls['billLrOthType'].disable();
-      this.formUser.controls['groupMrYN'].disable();
-      this.formUser.controls['partyGroupId'].disable();
+      // this.formUser.controls['groupMrYN'].disable();
+      // this.formUser.controls['partyGroupId'].disable();
       this.formUser.controls['mrRemarks'].disable();
       this.formUser.controls['mrReceiptType'].disable();
       this.formUser.controls['mrDebitAc'].disable();
@@ -825,10 +828,9 @@ export class MraddComponent {
       this.formUser.controls['mrDebitAc'].clearValidators();
       this.formUser.controls['mrSdEmdAc'].clearValidators();  
       this.formUser.controls['mrSdEmdAc'].updateValueAndValidity(); 
-
-      this.formUser.patchValue({
-        groupMrYN: '',
-      });
+      // this.formUser.patchValue({
+      //   groupMrYN: '',
+      // });
     }
     else{
       
@@ -840,7 +842,7 @@ export class MraddComponent {
       this.formUser.controls['onAcAdjMrYn'].enable();   
       this.formUser.controls['partyCode'].enable();
       this.formUser.controls['billLrOthType'].enable();
-      this.formUser.controls['groupMrYN'].enable();
+      // this.formUser.controls['groupMrYN'].enable();
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrRemarks'].enable();
       this.formUser.controls['mrReceiptType'].enable();
@@ -855,38 +857,38 @@ export class MraddComponent {
       this.formUser.controls['partyCode'].setValidators([Validators.required]);
       this.formUser.controls['mrDebitAc'].setValidators([Validators.required]);
 
-      this.formUser.patchValue({
-        groupMrYN: '',
-      });
+      // this.formUser.patchValue({
+      //   groupMrYN: '',
+      // });
     }
     this.formUser.controls['mrType'].updateValueAndValidity();
     this.formUser.controls['partyCode'].updateValueAndValidity();
     this.formUser.controls['mrDebitAc'].updateValueAndValidity();
   }
 
-  onChkGroup(e: any) {  
-    if(e.target.checked){
-      this.formUser.patchValue({
-        partyCode: "",
-      });
-      this.formUser.controls['partyCode'].disable();
-      this.formUser.controls['partyGroupId'].enable();
-      this.formUser.controls['partyCode'].clearValidators(); 
-      this.formUser.controls['partyGroupId'].setValidators([Validators.required]);
-    }
-    else{      
-      this.formUser.patchValue({
-        partyGroupId: "",
-      });
-      this.formUser.controls['partyCode'].enable();
-      this.formUser.controls['partyGroupId'].disable();
+  // onChkGroup(e: any) {  
+  //   if(e.target.checked){
+  //     this.formUser.patchValue({
+  //       partyCode: "",
+  //     });
+  //     this.formUser.controls['partyCode'].disable();
+  //     this.formUser.controls['partyGroupId'].enable();
+  //     this.formUser.controls['partyCode'].clearValidators(); 
+  //     this.formUser.controls['partyGroupId'].setValidators([Validators.required]);
+  //   }
+  //   else{      
+  //     this.formUser.patchValue({
+  //       partyGroupId: "",
+  //     });
+  //     this.formUser.controls['partyCode'].enable();
+  //     this.formUser.controls['partyGroupId'].disable();
 
-      this.formUser.controls['partyCode'].setValidators([Validators.required]);
-      this.formUser.controls['partyGroupId'].clearValidators(); 
-    }
-    this.formUser.controls['partyCode'].updateValueAndValidity();
-    this.formUser.controls['partyGroupId'].updateValueAndValidity();
-  }
+  //     this.formUser.controls['partyCode'].setValidators([Validators.required]);
+  //     this.formUser.controls['partyGroupId'].clearValidators(); 
+  //   }
+  //   this.formUser.controls['partyCode'].updateValueAndValidity();
+  //   this.formUser.controls['partyGroupId'].updateValueAndValidity();
+  // }
 
   partychange(){    
     this.formUser.controls['mrType'].disable();
@@ -926,14 +928,14 @@ export class MraddComponent {
     if(e.target.checked){
       this.formUser.controls["onAcStatus"].disable();
       var selectedData = this.formUser.getRawValue();
-      if(selectedData.groupMrYN){
-        this.selectedParty.dataId = selectedData.partyGroupId;
-        this.selectedParty.dataName = "G"
-      }
-      else{
-        this.selectedParty.dataId = selectedData.partyCode?selectedData.partyCode.dataId:"";
-        this.selectedParty.dataName = ""
-      }
+      // if(selectedData.groupMrYN){
+      //   this.selectedParty.dataId = selectedData.partyGroupId;
+      //   this.selectedParty.dataName = "G"
+      // }
+      // else{
+      this.selectedParty.dataId = selectedData.partyCode?selectedData.partyCode.dataId:"";
+      this.selectedParty.dataName = ""
+      // }
       if(this.selectedParty.dataId==""){
         this.formUser.patchValue({
           onAcAdjMrYn: "",
@@ -974,7 +976,15 @@ export class MraddComponent {
 
     for (var i = 0; i < selectedDataVal.mrarrayList.length; i++) { 
       if(selectedDataVal.mrarrayList[i].adjAmt!=""){
-        totadjAmt = totadjAmt + parseFloat(selectedDataVal.mrarrayList[i].adjAmt) ;
+        var adjAmt = parseFloat(selectedDataVal.mrarrayList[i].adjAmt);
+        if(adjAmt > parseFloat(selectedDataVal.mrarrayList[i].onAcAmt)){
+          this.toasterService.warning("Adj Amt Should not be more than UnAdj Amt ");  
+          this.formMrArray.controls[i].get("adjAmt")?.setValue("");
+          return;
+        }
+        else{
+          totadjAmt = totadjAmt + parseFloat(selectedDataVal.mrarrayList[i].adjAmt) ;
+        }
       }
     }
     //Work
@@ -998,14 +1008,14 @@ export class MraddComponent {
         return;
       }
     }
-    if(selectedDataVal.groupMrYN){
-      this.selectedBillLR.search = "G"
-      this.selectedBillLR.filterStr1 = selectedDataVal.partyGroupId;
-    }
-    else{
+    // if(selectedDataVal.groupMrYN){
+    //   this.selectedBillLR.search = "G"
+    //   this.selectedBillLR.filterStr1 = selectedDataVal.partyGroupId;
+    // }
+    // else{
       this.selectedBillLR.search = ""
       this.selectedBillLR.filterStr1 = selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"";
-    }
+    // }
     this.selectedBillLR.filterStr = selectedDataVal.arrayList[index].billLrNo;
     this.selectedBillLR.filterStr2 = selectedDataVal.arrayList[index].billLrStn;
     this.selectedBillLR.filterStr3 = selectedDataVal.arrayList[index].billLrYear;
@@ -1019,7 +1029,7 @@ export class MraddComponent {
         this.formArray.controls[index].get("billLrStn")?.setValue(res.mrDtlsList[0].billLrStn);
         this.formArray.controls[index].get("billLrNo")?.setValue(res.mrDtlsList[0].billLrNo);        
         this.formArray.controls[index].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[0].billLrDate));
-        this.formArray.controls[index].get("partyCode")?.setValue(res.mrDtlsList[0].partyCode);
+        //this.formArray.controls[index].get("partyCode")?.setValue(res.mrDtlsList[0].partyCode);
         this.formArray.controls[index].get("dueAmt")?.setValue(res.mrDtlsList[0].dueAmt);
         this.formArray.controls[index].get("oldDueAmt")?.setValue(res.mrDtlsList[0].oldDueAmt);
         this.formArray.controls[index].get("recdAmt")?.setValue(res.mrDtlsList[0].recdAmt);
@@ -1041,7 +1051,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("billLrStn")?.disable();
         this.formArray.controls[i].get("billLrNo")?.disable();
         this.formArray.controls[i].get("billLrDate")?.disable();  
-        this.formArray.controls[i].get("partyCode")?.disable();  
+        //this.formArray.controls[i].get("partyCode")?.disable();  
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("totDed")?.disable();
       }
@@ -1113,10 +1123,10 @@ export class MraddComponent {
     var totalExcess = selectedDataVal.totalExcess?parseFloat(selectedDataVal.totalExcess):0;
 
     if(totalAmt - totalRecdAmt - totalExcess != 0){
-      if (selectedDataVal.groupMrYN){      
-        this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
-        return;
-      }
+      // if (selectedDataVal.groupMrYN){      
+      //   this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
+      //   return;
+      // }
       if (selectedDataVal.onAcAdjMrYn){      
         this.toasterService.warning("Adj On Account Checked, On A/C Amt Should be Zero");      
         return;
@@ -1140,8 +1150,8 @@ export class MraddComponent {
     this.mrmodel.billLrOthType    = selectedDataVal.billLrOthType;
     this.mrmodel.mrReceiptType    = selectedDataVal.mrReceiptType ; 
     this.mrmodel.mrType           = selectedDataVal.mrType ; 
-    this.mrmodel.groupMrYN        = selectedDataVal.groupMrYN ?"Y":"N";
-    this.mrmodel.partyGroupId     = selectedDataVal.partyGroupId ; 
+    this.mrmodel.groupMrYN        = "N";
+    this.mrmodel.partyGroupId     = "" ; 
     this.mrmodel.partyCode        = selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"" ; 
     this.mrmodel.cheqCashAmt      = selectedDataVal.cheqCashAmt.toString() ; 
     this.mrmodel.onAcAdjAmt       = selectedDataVal.onAcAdjAmt.toString() ; 
@@ -1160,7 +1170,7 @@ export class MraddComponent {
     this.mrmodel.totalOthersDed1  = selectedDataVal.totalOthersDed1.toString() ; 
     this.mrmodel.totalOthersDed2  = selectedDataVal.totalOthersDed2.toString() ; 
     this.mrmodel.totalOthersDed3  = selectedDataVal.totalOthersDed3.toString() ; 
-    this.mrmodel.totalRecoverable = selectedDataVal.totalRecoverable.toString() ; 
+    this.mrmodel.totalRecoverable = "0" ; 
     this.mrmodel.totalDed         = selectedDataVal.totalDed.toString() ; 
     this.mrmodel.totalTDSDed      = selectedDataVal.totalTDSDed.toString() ; 
     this.mrmodel.totalSdEmdDed    = selectedDataVal.totalSdEmdDed.toString() ; 
@@ -1205,7 +1215,7 @@ export class MraddComponent {
           "mrStation": selectedDataVal.mrStation,
           "mrNo": selectedDataVal.mrNo,
           "mrDate": selectedDataVal.mrDate,
-          "partyCode": selectedDataVal.arrayList[i].partyCode,
+          "partyCode": selectedDataVal.partyCode,
           'billLrYear':    selectedDataVal.arrayList[i].billLrYear,
           "billLrStn": selectedDataVal.arrayList[i].billLrStn,
           'billLrNo':  selectedDataVal.arrayList[i].billLrNo,

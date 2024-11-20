@@ -157,7 +157,7 @@ export class LorryhirepmtlistComponent {
         },
         {
           title: 'Payment Type',
-          data: 'pmtType',
+          data: 'pmtTp',
         },
         {
           title: 'Total Hire Amt',
@@ -174,6 +174,10 @@ export class LorryhirepmtlistComponent {
         {
           title: 'Total Other Amt',
           data: 'totalOtherAmt',
+        },
+        {
+          title: 'Total Recovery Amt',
+          data: 'totalRecoveryAmt',
         },
         {
           title: 'Action',

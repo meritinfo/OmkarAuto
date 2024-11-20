@@ -665,74 +665,75 @@ namespace Consignment.Repository
                             }
                         }
 
-                        var groupedPartyList = mr.MrDtlsList.
-                                    Select(m => new {m.PartyCode })
-                                    .Distinct().ToList();
+                        //var groupedPartyList = mr.MrDtlsList.
+                        //            Select(m => new {m.PartyCode })
+                        //            .Distinct().ToList();
                         
-                        List<MrFinTransModel> mrfin = new();
+                        //List<MrFinTransModel> mrfin = new();
 
-                        for (int j = 0; j < groupedPartyList.Count; j++)
-                        {
-                            mrfin.Add(new MrFinTransModel
-                            {
-                                MrMasterId = MasterID,
-                                MrDate     = mr.MrDate,
-                                MrStation  = mr.MrStation,
-                                MrNo       = mr.MrNo,
-                                YearID     = mr.YearId,
-                                PartyCode  = groupedPartyList[j].PartyCode
-                            });                            
-                        }
-                        for (int j = 0; j < mrfin.Count; j++)
-                        {                           
-                            for (int i = 0; i < mr.MrDtlsList.Count; i++)
-                            {
-                                if (mrfin[j].PartyCode == mr.MrDtlsList[i].PartyCode)
-                                {
-                                    mrfin[j].RecdAmt = (Convert.ToDecimal(mrfin[j].RecdAmt==""?"0": mrfin[j].RecdAmt) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].RecdAmt=="" ? "0" : mr.MrDtlsList[i].RecdAmt)).ToString();
-                                    mrfin[j].FreightDed = (Convert.ToDecimal(mrfin[j].FreightDed=="" ? "0" : mrfin[j].FreightDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].FreightDed=="" ? "0" : mr.MrDtlsList[i].FreightDed)).ToString();
-                                    mrfin[j].ClaimsDed = (Convert.ToDecimal(mrfin[j].ClaimsDed=="" ? "0" : mrfin[j].ClaimsDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].ClaimsDed=="" ? "0" : mr.MrDtlsList[i].ClaimsDed)).ToString();
-                                    mrfin[j].OthersDed = (Convert.ToDecimal(mrfin[j].OthersDed=="" ? "0" : mrfin[j].OthersDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].OthersDed=="" ? "0" : mr.MrDtlsList[i].OthersDed)).ToString();
-                                    mrfin[j].BankChrgDed = (Convert.ToDecimal(mrfin[j].BankChrgDed=="" ? "0" : mrfin[j].BankChrgDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].BankChrgDed=="" ? "0" : mr.MrDtlsList[i].BankChrgDed)).ToString();
-                                    mrfin[j].OthersDed1 = (Convert.ToDecimal(mrfin[j].OthersDed1=="" ? "0" : mrfin[j].OthersDed1) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].OthersDed1=="" ? "0" : mr.MrDtlsList[i].OthersDed1)).ToString();
-                                    mrfin[j].OthersDed2 = (Convert.ToDecimal(mrfin[j].OthersDed2=="" ? "0" : mrfin[j].OthersDed2) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].OthersDed2=="" ? "0" : mr.MrDtlsList[i].OthersDed2)).ToString();
-                                    mrfin[j].OthersDed3 = (Convert.ToDecimal(mrfin[j].OthersDed3=="" ? "0" : mrfin[j].OthersDed3) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].OthersDed3=="" ? "0" : mr.MrDtlsList[i].OthersDed3)).ToString();
-                                    mrfin[j].Recoverable = (Convert.ToDecimal(mrfin[j].Recoverable=="" ? "0" : mrfin[j].Recoverable) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].Recoverable=="" ? "0" : mr.MrDtlsList[i].Recoverable)).ToString();
-                                    mrfin[j].TdsDed = (Convert.ToDecimal(mrfin[j].TdsDed=="" ? "0" : mrfin[j].TdsDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].TdsDed=="" ? "0" : mr.MrDtlsList[i].TdsDed)).ToString();
-                                    mrfin[j].SdEmdDed = (Convert.ToDecimal(mrfin[j].SdEmdDed=="" ? "0" : mrfin[j].SdEmdDed) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].SdEmdDed=="" ? "0" : mr.MrDtlsList[i].SdEmdDed)).ToString();
-                                    mrfin[j].ExcessRecd = (Convert.ToDecimal(mrfin[j].ExcessRecd=="" ? "0" : mrfin[j].ExcessRecd) +
-                                                    Convert.ToDecimal(mr.MrDtlsList[i].ExcessRecd=="" ? "0" : mr.MrDtlsList[i].ExcessRecd)).ToString();
+                        //for (int j = 0; j < groupedPartyList.Count; j++)
+                        //{
+                        //    mrfin.Add(new MrFinTransModel
+                        //    {
+                        //        MrMasterId = MasterID,
+                        //        MrDate     = mr.MrDate,
+                        //        MrStation  = mr.MrStation,
+                        //        MrNo       = mr.MrNo,
+                        //        YearID     = mr.YearId,
+                        //        PartyCode  = groupedPartyList[j].PartyCode
+                        //    });                            
+                        //}
+                        //for (int j = 0; j < mrfin.Count; j++)
+                        //{                           
+                        //    for (int i = 0; i < mr.MrDtlsList.Count; i++)
+                        //    {
+                        //        if (mrfin[j].PartyCode == mr.MrDtlsList[i].PartyCode)
+                        //        {
+                        //            mrfin[j].RecdAmt = (Convert.ToDecimal(mrfin[j].RecdAmt==""?"0": mrfin[j].RecdAmt) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].RecdAmt=="" ? "0" : mr.MrDtlsList[i].RecdAmt)).ToString();
+                        //            mrfin[j].FreightDed = (Convert.ToDecimal(mrfin[j].FreightDed=="" ? "0" : mrfin[j].FreightDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].FreightDed=="" ? "0" : mr.MrDtlsList[i].FreightDed)).ToString();
+                        //            mrfin[j].ClaimsDed = (Convert.ToDecimal(mrfin[j].ClaimsDed=="" ? "0" : mrfin[j].ClaimsDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].ClaimsDed=="" ? "0" : mr.MrDtlsList[i].ClaimsDed)).ToString();
+                        //            mrfin[j].OthersDed = (Convert.ToDecimal(mrfin[j].OthersDed=="" ? "0" : mrfin[j].OthersDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].OthersDed=="" ? "0" : mr.MrDtlsList[i].OthersDed)).ToString();
+                        //            mrfin[j].BankChrgDed = (Convert.ToDecimal(mrfin[j].BankChrgDed=="" ? "0" : mrfin[j].BankChrgDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].BankChrgDed=="" ? "0" : mr.MrDtlsList[i].BankChrgDed)).ToString();
+                        //            mrfin[j].OthersDed1 = (Convert.ToDecimal(mrfin[j].OthersDed1=="" ? "0" : mrfin[j].OthersDed1) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].OthersDed1=="" ? "0" : mr.MrDtlsList[i].OthersDed1)).ToString();
+                        //            mrfin[j].OthersDed2 = (Convert.ToDecimal(mrfin[j].OthersDed2=="" ? "0" : mrfin[j].OthersDed2) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].OthersDed2=="" ? "0" : mr.MrDtlsList[i].OthersDed2)).ToString();
+                        //            mrfin[j].OthersDed3 = (Convert.ToDecimal(mrfin[j].OthersDed3=="" ? "0" : mrfin[j].OthersDed3) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].OthersDed3=="" ? "0" : mr.MrDtlsList[i].OthersDed3)).ToString();
+                        //            mrfin[j].Recoverable = (Convert.ToDecimal(mrfin[j].Recoverable=="" ? "0" : mrfin[j].Recoverable) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].Recoverable=="" ? "0" : mr.MrDtlsList[i].Recoverable)).ToString();
+                        //            mrfin[j].TdsDed = (Convert.ToDecimal(mrfin[j].TdsDed=="" ? "0" : mrfin[j].TdsDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].TdsDed=="" ? "0" : mr.MrDtlsList[i].TdsDed)).ToString();
+                        //            mrfin[j].SdEmdDed = (Convert.ToDecimal(mrfin[j].SdEmdDed=="" ? "0" : mrfin[j].SdEmdDed) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].SdEmdDed=="" ? "0" : mr.MrDtlsList[i].SdEmdDed)).ToString();
+                        //            mrfin[j].ExcessRecd = (Convert.ToDecimal(mrfin[j].ExcessRecd=="" ? "0" : mrfin[j].ExcessRecd) +
+                        //                            Convert.ToDecimal(mr.MrDtlsList[i].ExcessRecd=="" ? "0" : mr.MrDtlsList[i].ExcessRecd)).ToString();
 
-                                }
-                            }
-                        }
+                        //        }
+                        //    }
+                        //}
 
-                        for (int j = 0; j < mrfin.Count; j++)
-                        {
-                            responseModel = await MRFinTransSave(transaction, mrfin[j]);
+                        //for (int j = 0; j < mrfin.Count; j++)
+                        //{
+                        //    responseModel = await MRFinTransSave(transaction, mrfin[j]);
 
-                            if (!responseModel.Status)
-                            {
-                                transaction.Rollback();
-                                j = mrfin.Count;
-                            }
+                        //    if (!responseModel.Status)
+                        //    {
+                        //        transaction.Rollback();
+                        //        j = mrfin.Count;
+                        //    }
 
-                        }
+                        //}
                     }
                     if (responseModel.Status)
                     {
-                        transaction.Commit();
+                        transaction.Commit(); 
+                        responseModel.Message = "MR Saved Successfully";
                     }
                     else { transaction.Rollback(); }
                 }

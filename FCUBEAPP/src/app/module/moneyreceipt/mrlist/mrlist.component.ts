@@ -158,7 +158,7 @@ export class MrlistComponent {
               data: 'partyName',
             },
             {
-              title: 'Total Amt',
+              title: 'Cheq Cash Amt',
               data: 'cheqCashAmt',
             },
             {

@@ -30,6 +30,7 @@
         public string? BrNumCode { get; set; }
         public string? DocNumCode { get; set; }
         public string? RCM_GstNo { get; set; }
+        public string? BranchAcLedger { get; set; }        
         public string? LoggedInUserID { get; set; }
 
     }

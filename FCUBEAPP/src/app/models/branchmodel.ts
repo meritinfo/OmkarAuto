@@ -24,6 +24,6 @@ export class Branchmodel {
     brNumCode : string = "";
     docNumCode : string = "";
     rcM_GstNo : string = "";
-
+    branchAcLedger: string = "";
     loggedInUserID :string = "";
 }
