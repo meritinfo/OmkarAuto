@@ -411,6 +411,7 @@ import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummr
 import { Businesssummrptmodel } from './models/businesssummrptmodel';
 import { ChallanenquiryComponent } from './module/challanenqiry/challanenquiry/challanenquiry.component';
 import { MrenquiryComponent } from './module/mrenquiry/mrenquiry/mrenquiry.component';
+import { BillenquiryComponent } from './module/billenquiry/billenquiry/billenquiry.component';
 
 @NgModule({
   declarations: [
@@ -541,7 +542,7 @@ import { MrenquiryComponent } from './module/mrenquiry/mrenquiry/mrenquiry.compo
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
     FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
     BusinesssummrptComponent,
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, ChallanenquiryComponent, MrenquiryComponent,
+    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent,
     
   ],
   imports: [

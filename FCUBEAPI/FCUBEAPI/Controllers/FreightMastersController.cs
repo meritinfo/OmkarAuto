@@ -16,6 +16,7 @@ using System.Data.Common;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -648,6 +649,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetBillsMasterList")]
         public async Task<IActionResult> GetBillsMasterList(PageFromDtToDtRequest request)
         {
@@ -666,6 +668,44 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillEnqDetails")]
+        public async Task<IActionResult> GetBillEnqDetails(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillEnqDetails(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillEnqInnerGridList")]
+        public async Task<IActionResult> GetMrEnqInnerGridList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillEnqInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("GetBillPdf")]
         public async Task<IActionResult> GetBillPdf(ReportRequestModel request)

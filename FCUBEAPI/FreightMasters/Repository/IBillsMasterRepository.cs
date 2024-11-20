@@ -20,6 +20,8 @@ namespace FreightMasters.Repository
         Task<ResponseModel> CheckDuplicateBillsNo(RequestModel requestModel);
         Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel);
         Task<ResponseModel> GetBillPdf(ReportRequestModel request);
+        Task<BillsMasterModel> GetBillEnqDetails(RequestModel req);
+        Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request);
 
     }
 }

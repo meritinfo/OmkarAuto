@@ -72,5 +72,8 @@ namespace FreightMasters.Models
         public string? CollectionBranch { get; set; }
         public string? LoggedInUser { get; set; }
         public List<BillsDetailModel> BillsMasterListData { get; set; }
+        public List<BillsMasterSearchModel> BillsEnqListData { get; set; }
+        public List<BillSubmitMasterModel> BillSubmitList { get; set; }
+        public List<MrList> MrList { get; set; }
     }
 }

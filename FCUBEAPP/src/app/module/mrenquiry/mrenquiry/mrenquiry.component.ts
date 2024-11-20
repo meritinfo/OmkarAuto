@@ -271,7 +271,7 @@ getLocationList(): void {
 }
 
 exit(): void {
-  this.route.navigate(['/chlnenquiry']);
+  this.route.navigate(['/mrenquiry']);
 }
 
 nextStep(index: number): void {
@@ -335,7 +335,7 @@ getMrEnqInnerGridList(): void {
       this.formMrArray.controls[i].get("billLrYear")?.setValue(res.mrDtlsList[i].billLrYear);
       this.formMrArray.controls[i].get("billLrStn")?.setValue(res.mrDtlsList[i].billLrStn);
       this.formMrArray.controls[i].get("billLrNo")?.setValue(res.mrDtlsList[i].billLrNo);        
-      this.formMrArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
+    //  this.formMrArray.controls[i].get("billLrDate")?.setValue(this.commonService.formatDate(res.mrDtlsList[i].billLrDate));
       this.formMrArray.controls[i].get("partyCode")?.setValue(res.mrDtlsList[i].partyCode);
       this.formMrArray.controls[i].get("dueAmt")?.setValue(res.mrDtlsList[i].dueAmt);
       this.formMrArray.controls[i].get("oldDueAmt")?.setValue(res.mrDtlsList[i].oldDueAmt);

@@ -1,4 +1,7 @@
 import { BillsDetailModel } from "./billsdetailmodel";
+import { Billsmastersearchmodel } from "./billsmastersearchmodel";
+import { Billsubmitmastermodel } from "./billsubmitmastermodel";
+import { Mrmodel } from "./mrmodel";
 export class Billsmastermodel {
     billsMasterId: string = "";  
     billingStation: string = "";  
@@ -65,4 +68,8 @@ export class Billsmastermodel {
     collectionBranch: string = "";  
     loggedInUser: string = "";  
     billsMasterListData: BillsDetailModel[] = [];
+   // billsEnqListData: Billsmastersearchmodel[] = [];
+   billsEnqListData: BillsDetailModel[] = [];
+    billSubmitList: Billsubmitmastermodel[] = [];
+    mrList: Mrmodel[] = [];
 }

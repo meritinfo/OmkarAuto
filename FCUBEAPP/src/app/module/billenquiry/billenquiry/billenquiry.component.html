@@ -1,0 +1,594 @@
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Bill Enquiry</h4>
+                    </div>
+                </div>
+            </div>  <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="mb-1">
+                                    <label for="formrow-inputState">Bill No : </label>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-2">
+                                    
+                                    <input class="form-control" formControlName="billNo" numbersonly >
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-2">
+                                <div class="mb-2">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>          
+            <!-- end page title -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active' : step1Active}" data-toggle="tab" aria-controls="step1" role="tab"
+                        title="Step 1">Bill Master</a>
+                </li>
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
+                        title="Step 2"> Bill Submit & Mr Detail</a>
+                </li>
+               
+            </ul>
+            <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser">
+                <div class="tab-content">
+                    <div class="tab-pane mt-4" [ngClass]="{'active' : step1Active}" role="tabpanel" id="step1">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Bill Station</label><span style="color: red"> * </span>
+                                    <select class="form-control" formControlName="billingStation" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStation'].invalid) }">
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Challan No. : </label>
+                                    <span style="color: red">*</span>
+                                    <input type="text" id="formrow-inputCity" class="form-control" 
+                                        formControlName="challanNo" maxlength="15" numbersonly
+                                       
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
+                                </div>
+                            </div>      -->
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
+                                    <input autoclose="false" type="text" numbersonly class="form-control"
+                                    formControlName="billNo" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Bill Date</label><span style="color: red"> * </span>
+                                    <input autoclose="false" type="date" 
+                                        class="form-control" formControlName="billDate" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billDate'].invalid) }">
+                                </div>
+                            </div>  
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Due Date</label><span style="color: red"> * </span>
+                                    <input autoclose="false" type="date" 
+                                        class="form-control" formControlName="dueDate" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['dueDate'].invalid) }">
+                                </div>
+                            </div> 
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Party</label><span style="color: red"> * </span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="partyCode"
+                                            [searchKeyword]="keywordLocation" 
+                                         
+                                
+                                        
+                                            [notFoundTemplate]="notFoundTemplate"
+                                 
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['partyCode'].invalid) }">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>   
+                         
+                            <!-- <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">LR NO : </label>
+                                    <input  class="form-control" formControlName="lrNo" maxlength="15">   
+                                </div>
+                            </div>   -->
+                        </div>
+                            <div class="row">  
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputCity">Party Location</label><span style="color: red"> * </span>                                                 
+                                        <select class="form-control" formControlName="partyGstLocation" 
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['partyGstLocation'].invalid) }">
+                                            <option *ngFor="let branch of partyLocationList" value={{branch.dataId}}>
+                                                {{branch.dataName}}
+                                            </option>
+                                        </select>
+                                    </div>    
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputCity">Sac Hsn</label>
+                                        <input autoclose="false" type="text" class="form-control"
+                                            formControlName="sacHsn" >
+                                    </div>
+                                </div>   
+                                                  
+                        </div>
+                                               
+                        <div class="row">
+                            
+                        </div>                          
+                       
+                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4" style="color: red;"> Bill Details</h4>
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>billingStation</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>billNo</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>billDate</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>billType </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>partyCode </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>gcBranch </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>gcNoteNo </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>fromPlace </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>toPlace </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>consignmentid </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>statistical </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>fov </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>doorColl </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>unLoading </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>detention </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>extras </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>others </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>subTotal </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>sgstAmt </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>cgstAmt </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>igstAmt </h6>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr formArrayName="billsEnqListData"
+                                                *ngFor="let arrayData of formBillArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2">
+                                                        <input uppercaseonly type="text" class="form-control" 
+                                                        formControlName="billingStation">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="billNo">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="billDate">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input uppercaseonly type="text" class="form-control" 
+                                                        formControlName="billType">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="partyCode">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="gcBranch">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="fromPlace">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="toPlace">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="consignmentid">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="statistical">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="fov">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="doorColl">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="unLoading">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="detention">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="extras">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="others">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="subTotal">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="sgstAmt">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="cgstAmt">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="igstAmt">
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                            
+                                                             
+                                                        
+                                           
+                    
+                       
+                       
+                        <div class="row text-right">
+                            <div class="col-lg-12">
+                                <div class="tex">
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                    id="n-btn1" (click)="nextStep(2)">Next</button>&nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane mt-4" [ngClass]="{'active' : step2Active}" role="tabpanel" id="step2">
+                       
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> Bill Submit List</h4>
+                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Submit Stn</label></th>  
+                                                <th><label for="formrow-inputCity">Submit No</label></th>  
+                                                <th><label for="formrow-inputCity">Submit Dt</label></th>   
+                                                <th><label for="formrow-inputCity">Submit Type</label></th>   
+                                                <th><label for="formrow-inputCity">Courier Co</label></th>  
+                                                <th><label for="formrow-inputCity">CourierDocketNo</label></th> 
+                                                <th><label for="formrow-inputCity">Party Code</label></th> 
+                                                <th><label for="formrow-inputCity">Submit Location</label></th> 
+                                                <th><label for="formrow-inputCity">Dept Id</label></th> 
+                                                <th><label for="formrow-inputCity">Bills UptoDt</label></th> 
+                                                <th><label for="formrow-inputCity">Kind AttnTo</label></th> 
+                                                <th><label for="formrow-inputCity">Remarks</label></th> 
+                                                <th><label for="formrow-inputCity">PartyAccceptRemarks</label></th> 
+                                                <th><label for="formrow-inputCity">Total SubmitAmt</label></th> 
+                                                <th><label for="formrow-inputCity">Branch Code</label></th> 
+                                            </tr>
+                                            <tr formArrayName="billSubmitList"
+                                                *ngFor="let arrayData of formSubmitArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitStn">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitNo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitDt">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitType">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="courierCo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="courierDocketNo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="partyCode">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitLocation">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="deptId">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billsUptoDt">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="kindAttnTo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="remarks">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="partyAccceptRemarks">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalSubmitAmt">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="branchCode">
+                                                    </td>
+                                                    
+                                                    
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> Mr Detail</h4>
+                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Mr Station</label></th>  
+                                                <th><label for="formrow-inputCity">Mr No</label></th>  
+                                                <th><label for="formrow-inputCity">Mr Date</label></th>   
+                                                <th><label for="formrow-inputCity">Mr Status</label></th>  
+                                                <th><label for="formrow-inputCity">Mr Type</label></th> 
+                                                <th><label for="formrow-inputCity">Mr ReceiptType</label></th> 
+                                                <th><label for="formrow-inputCity">Bill LrOthType</label></th> 
+                                                <th><label for="formrow-inputCity">Party Code</label></th>
+                                                <th><label for="formrow-inputCity">Group MrYN</label></th>
+                                                <th><label for="formrow-inputCity">Party Group</label></th>
+                                                <!-- <th><label for="formrow-inputCity">cheqCashAmt</label></th>
+                                                <th><label for="formrow-inputCity">onAcAdjAmt</label></th>
+                                                <th><label for="formrow-inputCity">onAcStatus</label></th>
+                                                <th><label for="formrow-inputCity">onAcAdjusted</label></th>
+                                                <th><label for="formrow-inputCity">onAcAdjMrYn</label></th>
+                                                <th><label for="formrow-inputCity">onAcAdjMrYn</label></th> -->
+                                            </tr>
+                                            <tr formArrayName="mrList"
+                                                *ngFor="let arrayData of formMrArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrStation">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrNo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrStatus">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrType">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrReceiptType">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billLrOthType">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="partyCode">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="groupMrYN">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="partyGroupId">
+                                                    </td>
+                                                    
+                                                    
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                                             
+                       
+                                          
+                       
+                        <div class="row text-right">
+                            <div class="col-lg-12">
+                                <div class="tex">
+                                    <button type="button" class="btn btn-default prev-step"
+                                        id="p-btn1" (click)="nextStep(1)">Previous</button>
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                        id="n-btn2"  (click)="nextStep(3)">Next</button>&nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane mt-4"  [ngClass]="{'active' : step3Active}" role="tabpanel" id="step3">
+                        <!-- 3rd tab -->
+                        <div class="row text-right">
+                            <div class="col-lg-12">
+                                <div class="tex">
+                                    <button type="button" class="btn btn-default prev-step"
+                                        id="p-btn2" (click)="nextStep(2)">Previous</button> &nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

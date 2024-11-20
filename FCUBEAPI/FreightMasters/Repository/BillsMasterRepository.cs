@@ -400,6 +400,245 @@ namespace FreightMasters.Repository
             }
             return billsMasterList;
         }
+        public async Task<BillsMasterModel> GetBillEnqDetails(RequestModel req)
+        {
+            BillsMasterModel billmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillNo", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillEnqDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        billmodel.BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[0]["BillsMasterId"]);
+                        billmodel.BillingStation = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStation"]);
+                        billmodel.BillNo = Convert.ToString(dataSet.Tables[0].Rows[0]["BillNo"]);
+                        billmodel.BillStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["BillStatus"]);
+                        billmodel.BillType = Convert.ToString(dataSet.Tables[0].Rows[0]["BillType"]);
+                        billmodel.SacHsn = Convert.ToString(dataSet.Tables[0].Rows[0]["SacHsn"]);
+                        billmodel.BillDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BillDate"]);
+                        billmodel.DueDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DueDate"]);
+                        billmodel.SuppYN = Convert.ToString(dataSet.Tables[0].Rows[0]["SuppYN"]);
+                        billmodel.PartyCode = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyCode"]);
+                        billmodel.PartyGstLocation = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyGstLocation"]);
+                        billmodel.CollBranch = Convert.ToString(dataSet.Tables[0].Rows[0]["CollBranch"]);
+                        billmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
+                        billmodel.TotalFreight = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalFreight"]);
+                        billmodel.TotalStatistical = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalStatistical"]);
+                        billmodel.TotalFov = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalFov"]);
+                        billmodel.TotalDoorColl = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalDoorColl"]);
+                        billmodel.TotalHandling = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalHandling"]);
+                        billmodel.TotalLoadingDetn = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalLoadingDetn"]);
+                        billmodel.TotalEnroute = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalEnroute"]);
+                        billmodel.TotalMisc = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalMisc"]);
+                        billmodel.TotalDoorDel = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalDoorDel"]);
+                        billmodel.TotalUnLoading = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalUnLoading"]);
+                        billmodel.TotalDetention = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalDetention"]);
+                        billmodel.TotalExtras = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalExtras"]);
+                        billmodel.TotalOthers = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalOthers"]);
+                        billmodel.TotalSubTotal = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalSubTotal"]);
+                        billmodel.TotalSgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalSgstAmt"]);
+                        billmodel.TotalCgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalCgstAmt"]);
+                        billmodel.TotalIgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalIgstAmt"]);
+                        billmodel.TotalNonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalNonGstAmt1"]);
+                        billmodel.TotalNonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalNonGstAmt2"]);
+                        billmodel.TotalGtotal = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalGtotal"]);
+                        billmodel.BillRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["BillRemarks"]);
+                        billmodel.EnlcosedDocs = Convert.ToString(dataSet.Tables[0].Rows[0]["EnlcosedDocs"]);
+                        billmodel.SuppParticulars = Convert.ToString(dataSet.Tables[0].Rows[0]["SuppParticulars"]);
+                        
+                        billmodel.BillAmtCleared = Convert.ToString(dataSet.Tables[0].Rows[0]["BillAmtCleared"]);
+                        billmodel.BillDed = Convert.ToString(dataSet.Tables[0].Rows[0]["BillDed"]);
+                        billmodel.BillTDS = Convert.ToString(dataSet.Tables[0].Rows[0]["BillTDS"]);
+                        billmodel.Recoverable = Convert.ToString(dataSet.Tables[0].Rows[0]["Recoverable"]);
+                        billmodel.BillExcess = Convert.ToString(dataSet.Tables[0].Rows[0]["BillExcess"]);
+                        billmodel.SdEmdAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SdEmdAmt"]);
+                        billmodel.RecoveredAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["RecoveredAmt"]);
+                        billmodel.PrintedYN = Convert.ToString(dataSet.Tables[0].Rows[0]["PrintedYN"]);
+                        billmodel.PrintedDate = Convert.ToString(dataSet.Tables[0].Rows[0]["PrintedDate"]);
+                        billmodel.MRDone = Convert.ToString(dataSet.Tables[0].Rows[0]["MRDone"]);
+                        billmodel.MRDate = Convert.ToString(dataSet.Tables[0].Rows[0]["MRDate"]);
+                        billmodel.SubmitYN = Convert.ToString(dataSet.Tables[0].Rows[0]["SubmitYN"]);
+                        billmodel.SubmitDate = Convert.ToString(dataSet.Tables[0].Rows[0]["SubmitDate"]);
+                        billmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
+                        billmodel.FinFtmid = Convert.ToString(dataSet.Tables[0].Rows[0]["FinFtmid"]);
+                        billmodel.CheckedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["CheckedBy"]);
+                        billmodel.ApprovedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ApprovedBy"]);
+                        billmodel.DisputeType = Convert.ToString(dataSet.Tables[0].Rows[0]["DisputeType"]);
+                        billmodel.DisputeDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DisputeDate"]);
+                        billmodel.DisputeCaseNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DisputeCaseNo"]);
+                        billmodel.DisputeCaseStory = Convert.ToString(dataSet.Tables[0].Rows[0]["DisputeCaseStory"]);
+                        billmodel.DisputeReleaseDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DisputeReleaseDate"]);
+                        billmodel.StationName = Convert.ToString(dataSet.Tables[0].Rows[0]["StationName"]);
+                        billmodel.Party = Convert.ToString(dataSet.Tables[0].Rows[0]["Party"]);
+                        billmodel.CollectionBranch = Convert.ToString(dataSet.Tables[0].Rows[0]["CollectionBranch"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return billmodel;
+        }
+        public async Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request)
+        {
+            BillsMasterModel billmodel = new()
+            {
+                BillsEnqListData = new List<BillsMasterSearchModel>(),
+                BillSubmitList = new List<BillSubmitMasterModel>(),
+                MrList = new List<MrList>(),
+
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillsMasterId", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillEnqInnerGridList", param);
+
+                    if (dataSet != null)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            billmodel.BillsEnqListData.Add(new BillsMasterSearchModel
+                            {
+                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
+                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
+                                FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
+                                DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollRs"]),
+                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
+                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
+                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
+                                DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDelRs"]),
+                                UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
+                                UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
+                                ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
+                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
+                                GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
+                                NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
+                                Remarks1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
+                                Remarks2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
+                                Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
+                                SuppBillDetRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppBillDetRemarks"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
+                        {
+                            billmodel.BillSubmitList.Add(new BillSubmitMasterModel
+                            {
+                               // SubmitMstId = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitMstId"]),
+                                SubmitStn = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitStn"]),
+                                SubmitNo = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitNo"]),
+                                SubmitDt = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitDt"]),
+                                SubmitType = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitType"]),
+                                CourierCo = Convert.ToString(dataSet.Tables[1].Rows[i]["CourierCo"]),
+                                CourierDocketNo = Convert.ToString(dataSet.Tables[1].Rows[i]["CourierDocketNo"]),
+                                PartyCode = Convert.ToString(dataSet.Tables[1].Rows[i]["PartyCode"]),
+                                SubmitLocation = Convert.ToString(dataSet.Tables[1].Rows[i]["SubmitLocation"]),
+                                DeptId = Convert.ToString(dataSet.Tables[1].Rows[i]["DeptId"]),
+                                BillsUptoDt = Convert.ToString(dataSet.Tables[1].Rows[i]["BillsUptoDt"]),
+                                KindAttnTo = Convert.ToString(dataSet.Tables[1].Rows[i]["KindAttnTo"]),
+                                Remarks = Convert.ToString(dataSet.Tables[1].Rows[i]["Remarks"]),
+                                PartyAcceptDt = Convert.ToString(dataSet.Tables[1].Rows[i]["PartyAcceptDt"]),
+                                PartyAccceptRemarks = Convert.ToString(dataSet.Tables[1].Rows[i]["PartyAccceptRemarks"]),
+                                TotalSubmitAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["TotalSubmitAmt"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)
+                        {
+                            billmodel.MrList.Add(new MrList
+                            {
+                                MrMasterId = Convert.ToString(dataSet.Tables[2].Rows[i]["MrMasterId"]),
+                                MrStation = Convert.ToString(dataSet.Tables[2].Rows[i]["MrStation"]),
+                                MrStn = Convert.ToString(dataSet.Tables[2].Rows[i]["MrStn"]),
+                                MrNo = Convert.ToString(dataSet.Tables[2].Rows[i]["MrNo"]),
+                                MrDate = Convert.ToString(dataSet.Tables[2].Rows[i]["MrDate"]),
+                                MrStatus = Convert.ToString(dataSet.Tables[2].Rows[i]["MrStatus"]),
+                                MrReceiptType = Convert.ToString(dataSet.Tables[2].Rows[i]["MrReceiptType"]),
+                                MrType = Convert.ToString(dataSet.Tables[2].Rows[i]["MrType"]),
+                                BillLrOthType = Convert.ToString(dataSet.Tables[2].Rows[i]["BillLrOthType"]),
+                                GroupMrYN = Convert.ToString(dataSet.Tables[2].Rows[i]["GroupMrYN"]),
+                                PartyGroupId = Convert.ToString(dataSet.Tables[2].Rows[i]["PartyGroupId"]),
+                                PartyCode = Convert.ToString(dataSet.Tables[2].Rows[i]["PartyCode"]),
+                                PartyName = Convert.ToString(dataSet.Tables[2].Rows[i]["PartyName"]),
+                                CheqCashAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["CheqCashAmt"]),
+                                OnAcAdjAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OnAcAdjAmt"]),
+                                TotalAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalAmt"]),
+                                OnAcNewAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OnAcNewAmt"]),
+                                OnAcAdjusted = Convert.ToString(dataSet.Tables[2].Rows[i]["OnAcAdjusted"]),
+                                OnAcStatus = Convert.ToString(dataSet.Tables[2].Rows[i]["OnAcStatus"]),
+                                OnAcAdjMrYn = Convert.ToString(dataSet.Tables[2].Rows[i]["OnAcAdjMrYn"]),
+                                TotalRecdAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalRecdAmt"]),
+                                TotalFreightDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalFreightDed"]),
+                                TotalClaimsDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalClaimsDed"]),
+                                TotalOldFrtDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOldFrtDed"]),
+                                TotalOldClaims = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOldClaims"]),
+                                TotalOthersDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthersDed"]),
+                                TotalBankChrgDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalBankChrgDed"]),
+                                TotalOthersDed1 = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthersDed1"]),
+                                TotalOthersDed2 = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthersDed2"]),
+                                TotalOthersDed3 = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthersDed3"]),
+                                TotalRecoverable = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalRecoverable"]),
+                                TotalDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalDed"]),
+                                TotalTDSDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalTDSDed"]),
+                                TotalSdEmdDed = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalSdEmdDed"]),
+                                TotalExcess = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalExcess"]),
+                                TotalOthers1 = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthers1"]),
+                                TotalOthers2 = Convert.ToString(dataSet.Tables[2].Rows[i]["TotalOthers2"]),
+                                MrRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["MrRemarks"]),
+                                CrAdviceNo = Convert.ToString(dataSet.Tables[2].Rows[i]["CrAdviceNo"]),
+                                ChequeReturn = Convert.ToString(dataSet.Tables[2].Rows[i]["ChequeReturn"]),
+                                ChequeReturnDt = Convert.ToString(dataSet.Tables[2].Rows[i]["ChequeReturnDt"]),
+                                ChequeReturnRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["ChequeReturnRemarks"]),
+                                Ftmid = Convert.ToString(dataSet.Tables[2].Rows[i]["Ftmid"]),
+                                FtmidJv = Convert.ToString(dataSet.Tables[2].Rows[i]["FtmidJv"]),
+                                NeftYN = Convert.ToString(dataSet.Tables[2].Rows[i]["NeftYN"]),
+                                MrDebitAc = Convert.ToString(dataSet.Tables[2].Rows[i]["MrDebitAc"]),
+                                MrSdEmdAc = Convert.ToString(dataSet.Tables[2].Rows[i]["MrSdEmdAc"]),
+                                SdEmdRefNo = Convert.ToString(dataSet.Tables[2].Rows[i]["SdEmdRefNo"]),
+                                PartyBankDet = Convert.ToString(dataSet.Tables[2].Rows[i]["PartyBankDet"]),
+                                ChequeNo = Convert.ToString(dataSet.Tables[2].Rows[i]["ChequeNo"]),
+                                ChequeDt = Convert.ToString(dataSet.Tables[2].Rows[i]["ChequeDt"]),
+                                ModifyRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["ModifyRemarks"]),
+
+                            });
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return billmodel;
+        }
+
 
         public async Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request)
         {
