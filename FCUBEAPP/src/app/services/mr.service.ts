@@ -61,4 +61,11 @@ export class MrService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/MrMstDelete', request, this.httpOptions);
   }
   
+  getMrEnqDetails(filter: Requestmodel): Observable<Mrmodel> {
+    return this.httpClient.post<Mrmodel>(Constants.API_ENDPOINT + 'Consignment/GetMrEnqDetails', filter, this.httpOptions);
+  }
+  getMrEnqInnerGridList(req: Requestmodel): Observable<Mrmodel> {
+    return this.httpClient.post<Mrmodel>(Constants.API_ENDPOINT + 'Consignment/GetMrEnqInnerGridList', req, this.httpOptions);
+  }
+  
 }

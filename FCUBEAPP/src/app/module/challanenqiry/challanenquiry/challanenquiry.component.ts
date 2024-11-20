@@ -42,6 +42,7 @@ export class ChallanenquiryComponent {
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   vehicalType: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
@@ -66,6 +67,8 @@ export class ChallanenquiryComponent {
     private toastrService: ToastrService,
     private requestmodel: Requestmodel) {
     this.challan = new Challanmastermodel();
+
+
 
 }
 ngOnInit(): void {
@@ -125,12 +128,15 @@ ngOnInit(): void {
   this.selectedChnDetails = this.challanService.getChallanDetails();
 
   this.formFilter = this.formBuilder.group({
-    cnno: new FormControl('',),
+    challanNo: new FormControl('',),
   });
+      this.getBranchList();
+      this.getLocationList();
   
+    this.getBrokerList();
   this.formUser = this.formBuilder.group({
     challanBranch: new FormControl(this.branch, [Validators.required]),
-      challanNo: new FormControl('', [Validators.required]),
+    challanNo: new FormControl('', [Validators.required]),
       challanDateTime: new FormControl(this.loginDate, [Validators.required]),
       chStatus: new FormControl('N', [Validators.required]),
       lrNo: new FormControl('',),
@@ -239,6 +245,22 @@ createCnInitialArray() {
   });
 }  
 
+getBrokerList(): void {
+  this.commonService.getBrokerList().subscribe((res) => {
+    this.brokerList = res;
+  });
+}
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  });
+}
+getLocationList(): void {
+  this.commonService.getLocationList().subscribe((res) => {
+    this.locationList = res;
+  });
+}
+
 createLhpmInitialArray() {
   return this.formBuilder.group({
     pmtStation :  ['', []],
@@ -264,7 +286,7 @@ createLhpmInitialArray() {
 
 
 exit(): void {
-  this.route.navigate(['/cnenquiry']);
+  this.route.navigate(['/chlnenquiry']);
 }
 
 nextStep(index: number): void {
@@ -292,16 +314,19 @@ nextStep(index: number): void {
 
 search(): void {
   var selectedDataVal = this.formFilter.getRawValue();
-  this.requestmodel.strRequest = selectedDataVal.cnno;
+  this.requestmodel.strRequest = selectedDataVal.challanNo;
   this.challanService.getChallanEnqDetails(this.requestmodel).subscribe((res) => {
     this.selectedChnDetails = res;
     this.formUser.patchValue(this.selectedChnDetails);
     this.formUser.patchValue({
-      //bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
-     // ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
+      challanDateTime: this.commonService.formatDate(this.selectedChnDetails.challanDateTime) ,
+      expArrivalDate : this.commonService.formatDate(this.selectedChnDetails.expArrivalDate),
      // ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
      // invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
-      //shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),               
+      //shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
+      challanFromStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanFromStn),
+      challanToStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanToStn), 
+      brokerId : this.brokerList.find(e => e.dataId == this.selectedChnDetails.brokerId),              
     })      
         
     this.getChallanEnqInnerGridList();
@@ -339,6 +364,7 @@ getChallanEnqInnerGridList(): void {
       this.formChlnArray.controls[i].get("cnorId")?.disable();
       this.formChlnArray.controls[i].get("cneeId")?.disable();
       this.formChlnArray.controls[i].get("productId")?.disable();
+      
       
     }         
     

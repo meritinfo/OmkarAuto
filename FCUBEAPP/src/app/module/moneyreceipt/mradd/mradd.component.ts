@@ -329,6 +329,9 @@ export class MraddComponent {
     });
   }
 
+  
+
+
   getDebitAcList(){
     this.requestmodel.strRequest= '';
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {

@@ -13,5 +13,7 @@ namespace Consignment.Repository
         Task<MrModel> GetMrInnerGridList(RequestModel request);
         Task<ResponseModel> MrMstDelete(RequestModel request);
         Task<ResponseModel> MrMstSave(MrModel mr);
+        Task<MrModel> GetMrEnqInnerGridList(RequestModel request);
+        Task<MrModel> GetMrEnqDetails(RequestModel req);
     }
 }
