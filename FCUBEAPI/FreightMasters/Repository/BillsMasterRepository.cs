@@ -513,7 +513,7 @@ namespace FreightMasters.Repository
                         {
                             billmodel.BillsEnqListData.Add(new BillsMasterSearchModel
                             {
-                              //  BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
                                // ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),

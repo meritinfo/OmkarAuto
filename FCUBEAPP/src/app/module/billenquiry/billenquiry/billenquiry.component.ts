@@ -416,8 +416,8 @@ getBillEnqInnerGridList(): void {
     for (var i = 0; i < res.billsEnqListData.length; i++) {
       this.formBillArray.push(this.createInitialBillArray());
       this.formBillArray.controls[i].get("bookingPlace")?.setValue(res.billsEnqListData[i].bookingPlace);
-     // this.formBillArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsEnqListData[i].bookingDate));
-     this.formBillArray.controls[i].get("bookingDate")?.setValue(res.billsEnqListData[i].bookingDate);
+      this.formBillArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsEnqListData[i].bookingDate));
+    // this.formBillArray.controls[i].get("bookingDate")?.setValue(res.billsEnqListData[i].bookingDate);
       this.formBillArray.controls[i].get("gcNoteNo")?.setValue(res.billsEnqListData[i].gcNoteNo);
       this.formBillArray.controls[i].get("fromPlace")?.setValue(res.billsEnqListData[i].fromPlace);        
 
