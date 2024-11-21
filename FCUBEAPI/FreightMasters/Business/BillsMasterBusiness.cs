@@ -59,9 +59,9 @@ namespace FreightMasters.Business
             return await billsRepository.GetBillPdf(request);
         }
         public async Task<BillsMasterModel> GetBillEnqDetails(RequestModel req)
-          {
+        {
             return await billsRepository.GetBillEnqDetails(req);
-    }
+        }
         public async Task<BillsMasterModel> GetBillEnqInnerGridList(RequestModel request)
           {
             return await billsRepository.GetBillEnqInnerGridList(request);
