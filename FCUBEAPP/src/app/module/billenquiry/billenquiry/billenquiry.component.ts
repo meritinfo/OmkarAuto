@@ -211,6 +211,14 @@ createInitialBillArray() {
     billDetailId:  ['', []],
       billsMasterId:  ['', []],
       billingStation:  ['', []],
+
+      bookingPlace:  ['', []],
+      bookingDate:  ['', []],
+      rateRs:  ['', []],
+      freightRs:  ['', []],
+      subTotalRs:  ['', []],
+      gstType:  ['', []],
+      gtotalRs:  ['', []],
       index:  ['', []],
       billNo:  ['', []],
       billDate:  ['', []],
@@ -407,28 +415,26 @@ getBillEnqInnerGridList(): void {
 
     for (var i = 0; i < res.billsEnqListData.length; i++) {
       this.formBillArray.push(this.createInitialBillArray());
-      this.formBillArray.controls[i].get("billDetailId")?.setValue(res.billsEnqListData[i].billDetailId);
-      this.formBillArray.controls[i].get("billsMasterId")?.setValue(res.billsEnqListData[i].billsMasterId);
-      this.formBillArray.controls[i].get("billingStation")?.setValue(res.billsEnqListData[i].billingStation);
-      this.formBillArray.controls[i].get("billNo")?.setValue(res.billsEnqListData[i].billNo);        
-     this.formBillArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billsEnqListData[i].billDate));
-      this.formBillArray.controls[i].get("billType")?.setValue(res.billsEnqListData[i].billType);
-      this.formBillArray.controls[i].get("partyCode")?.setValue(res.billsEnqListData[i].partyCode);
-      this.formBillArray.controls[i].get("gcBranch")?.setValue(res.billsEnqListData[i].gcBranch);
+      this.formBillArray.controls[i].get("bookingPlace")?.setValue(res.billsEnqListData[i].bookingPlace);
+     // this.formBillArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsEnqListData[i].bookingDate));
+     this.formBillArray.controls[i].get("bookingDate")?.setValue(res.billsEnqListData[i].bookingDate);
       this.formBillArray.controls[i].get("gcNoteNo")?.setValue(res.billsEnqListData[i].gcNoteNo);
+      this.formBillArray.controls[i].get("fromPlace")?.setValue(res.billsEnqListData[i].fromPlace);        
+
+      this.formBillArray.controls[i].get("toPlace")?.setValue(res.billsEnqListData[i].toPlace);
+      this.formBillArray.controls[i].get("rateRs")?.setValue(res.billsEnqListData[i].rateRs);
+      this.formBillArray.controls[i].get("freightRs")?.setValue(res.billsEnqListData[i].freightRs);
+      this.formBillArray.controls[i].get("subTotalRs")?.setValue(res.billsEnqListData[i].subTotalRs);
      // this.formBillArray.controls[i].get("fromPlace")?.setValue(res.billsEnqListData[i].fromPlace);
-      this.formBillArray.controls[i].get("consignmentid")?.setValue(res.billsEnqListData[i].consignmentid);
-      this.formBillArray.controls[i].get("statistical")?.setValue(res.billsEnqListData[i].statistical);
-      this.formBillArray.controls[i].get("fov")?.setValue(res.billsEnqListData[i].fov);
-      this.formBillArray.controls[i].get("doorColl")?.setValue(res.billsEnqListData[i].doorColl);
-      this.formBillArray.controls[i].get("handling")?.setValue(res.billsEnqListData[i].handling);
-      this.formBillArray.controls[i].get("loadingDetn")?.setValue(res.billsEnqListData[i].loadingDetn);
+      this.formBillArray.controls[i].get("gstType")?.setValue(res.billsEnqListData[i].gstType);
+      this.formBillArray.controls[i].get("cgstAmt")?.setValue(res.billsEnqListData[i].cgstAmt);
+      this.formBillArray.controls[i].get("sgstAmt")?.setValue(res.billsEnqListData[i].sgstAmt);
+      this.formBillArray.controls[i].get("igstAmt")?.setValue(res.billsEnqListData[i].igstAmt);
+      this.formBillArray.controls[i].get("nonGstAmt1")?.setValue(res.billsEnqListData[i].nonGstAmt1);
+      this.formBillArray.controls[i].get("nonGstAmt2")?.setValue(res.billsEnqListData[i].nonGstAmt2);
       // this.formBillArray.controls[i].get("recoverable")?.setValue(res.billsEnqListData[i].recoverable);
-      this.formBillArray.controls[i].get("enroute")?.setValue(res.billsEnqListData[i].enroute);
-      this.formBillArray.controls[i].get("misc")?.setValue(res.billsEnqListData[i].misc);
-      this.formBillArray.controls[i].get("doorDel")?.setValue(res.billsEnqListData[i].doorDel);
-      this.formBillArray.controls[i].get("unLoading")?.setValue(res.billsEnqListData[i].unLoading);
-      this.formBillArray.controls[i].get("detention")?.setValue(res.billsEnqListData[i].detention);
+      this.formBillArray.controls[i].get("gtotalRs")?.setValue(res.billsEnqListData[i].gtotalRs);
+
       // this.formMrArray.controls[i].get("billLrYear")?.disable();
       // this.formMrArray.controls[i].get("billLrStn")?.disable();
       // this.formMrArray.controls[i].get("billLrNo")?.disable();

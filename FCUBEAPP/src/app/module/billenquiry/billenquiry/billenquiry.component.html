@@ -121,6 +121,7 @@
                                     </div>
                                 </div>
                             </div>   
+                           
                          
                             <!-- <div class="col-lg-2">
                                 <div class="mb-3">
@@ -152,6 +153,18 @@
                         </div>
                                                
                         <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Total Freight</label>
+                                    <input class="form-control" formControlName="totalFreight">
+                                </div>
+                            </div> 
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Total Statistical</label>
+                                    <input class="form-control" formControlName="totalStatistical">
+                                </div>
+                            </div> 
                             
                         </div>                          
                        
@@ -165,193 +178,149 @@
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>billingStation</h6>
+                                                        <h6>Booking Place</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>billNo</h6>
+                                                        <h6>Booking Date</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>billDate</h6>
+                                                        <h6>Gc Note No</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>billType </h6>
+                                                        <h6>From Place </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>partyCode </h6>
+                                                        <h6>To Place</h6>
+                                                    </label>
+                                                </td>
+                                             
+                                                
+                                               
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Rate Rs </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>gcBranch </h6>
+                                                        <h6>Freight Rs </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>gcNoteNo </h6>
+                                                        <h6>gstType </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>fromPlace </h6>
+                                                        <h6>Cgst Amt </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>toPlace </h6>
+                                                        <h6>Sgst Amt </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>consignmentid </h6>
+                                                        <h6>Igst Amt </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>statistical </h6>
+                                                        <h6>Extras </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>fov </h6>
+                                                        <h6>Non GstAmt1 </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>doorColl </h6>
+                                                        <h6>Non GstAmt2 </h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>unLoading </h6>
+                                                        <h6>GtotalRs </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>detention </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>extras </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>others </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>subTotal </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>sgstAmt </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>cgstAmt </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>igstAmt </h6>
-                                                    </label>
-                                                </td>
+                                               
                                             </tr>
                                             <tr formArrayName="billsEnqListData"
                                                 *ngFor="let arrayData of formBillArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2">
                                                         <input uppercaseonly type="text" class="form-control" 
-                                                        formControlName="billingStation">
+                                                        formControlName="bookingPlace">
                                                     </td>
                                                     <td class="col-lg-2">
                                                         <input type="date" class="form-control" 
-                                                        formControlName="billNo">
+                                                        formControlName="bookingDate">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input type="date" class="form-control" 
-                                                        formControlName="billDate">
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="gcNoteNo">
                                                     </td>
                                                     <td class="col-lg-2">
                                                         <input uppercaseonly type="text" class="form-control" 
-                                                        formControlName="billType">
-                                                    </td>
-                                                    <td class="col-lg-2">
-                                                        <input type="date" class="form-control" 
-                                                        formControlName="partyCode">
-                                                    </td>
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="gcBranch">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
                                                         formControlName="fromPlace">
-                                                    </td> 
+                                                    </td>
                                                     <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="toPlace">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="consignmentid">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="statistical">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="fov">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="doorColl">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="unLoading">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="detention">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="extras">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="others">
-                                                    </td> 
-                                                    <td class="col-lg-2">
-                                                        <input decimalonly type="text" class="form-control" 
-                                                        formControlName="subTotal">
                                                     </td>
+                                                   
                                                     <td class="col-lg-2">
                                                         <input decimalonly type="text" class="form-control" 
-                                                        formControlName="sgstAmt">
-                                                    </td>
+                                                        formControlName="rateRs">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="freightRs">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="subTotalRs">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="gstType">
+                                                    </td> 
                                                     <td class="col-lg-2">
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="cgstAmt">
-                                                    </td>
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="sgstAmt">
+                                                    </td> 
                                                     <td class="col-lg-2">
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="igstAmt">
-                                                    </td>
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="nonGstAmt1">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="nonGstAmt2">
+                                                    </td> 
+                                                    <td class="col-lg-2">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="gtotalRs">
+                                                    </td> 
+                                                   
                                                 </div>
                                             </tr>
                                         </table>

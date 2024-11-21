@@ -69,7 +69,7 @@ export class Billsmastermodel {
     loggedInUser: string = "";  
     billsMasterListData: BillsDetailModel[] = [];
    // billsEnqListData: Billsmastersearchmodel[] = [];
-   billsEnqListData: BillsDetailModel[] = [];
+   billsEnqListData: Billsmastersearchmodel[] = [];
     billSubmitList: Billsubmitmastermodel[] = [];
     mrList: Mrmodel[] = [];
 }
