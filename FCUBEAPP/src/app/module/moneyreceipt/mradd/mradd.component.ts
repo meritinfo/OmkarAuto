@@ -161,6 +161,7 @@ export class MraddComponent {
       totalTDSDed: new FormControl('0',),
       totalSdEmdDed: new FormControl('0',),
       totalExcess: new FormControl('0',),
+      totalOthers1: new FormControl('0',),
       mrRemarks:new FormControl('',),
       neftYN:new FormControl('',),
       mrDebitAc:new FormControl('',[Validators.required]),
@@ -212,6 +213,7 @@ export class MraddComponent {
     this.formUser.controls['totalTDSDed'].disable();
     this.formUser.controls['totalSdEmdDed'].disable();
     this.formUser.controls['totalExcess'].disable();
+    this.formUser.controls['totalOthers1'].disable();    
     this.formUser.controls['onAcAdjAmt'].disable();
     this.formUser.controls['modifyRemarks'].disable();
     this.formUser.controls['mrSdEmdAc'].disable();   
@@ -401,6 +403,7 @@ export class MraddComponent {
       tdsDed: ['0', []],
       sdEmdDed: ['0', []],
       excessRecd: ['0', []],
+      others1Recd: ['0', []],
       remarks: ['', []],
     });
   }
@@ -447,6 +450,7 @@ export class MraddComponent {
         this.formArray.controls[i].get("tdsDed")?.setValue(res.mrDtlsList[i].tdsDed);
         this.formArray.controls[i].get("sdEmdDed")?.setValue(res.mrDtlsList[i].sdEmdDed);
         this.formArray.controls[i].get("excessRecd")?.setValue(res.mrDtlsList[i].excessRecd);
+        this.formArray.controls[i].get("others1Recd")?.setValue(res.mrDtlsList[i].others1Recd);        
         this.formArray.controls[i].get("remarks")?.setValue(res.mrDtlsList[i].remarks);
 
         this.formArray.controls[i].get("billLrYear")?.disable();
@@ -667,9 +671,9 @@ export class MraddComponent {
     // if(selectedDataVal.arrayList[i].recoverable!=""){
     //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
     // }
-    if(selectedDataVal.arrayList[i].tdsDed!=""){
-      dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
-    }      
+    // if(selectedDataVal.arrayList[i].tdsDed!=""){
+    //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
+    // }      
     if(selectedDataVal.arrayList[i].sdEmdDed!=""){
       dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].sdEmdDed) ;
     }
@@ -701,6 +705,7 @@ export class MraddComponent {
     var tdsDed = 0;
     var sdEmdDed = 0;
     var excessRecd = 0;
+    var others1Recd = 0;
     
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
@@ -743,7 +748,7 @@ export class MraddComponent {
       // }
       if(selectedDataVal.arrayList[i].tdsDed!=""){
         tdsDed = tdsDed + parseFloat( selectedDataVal.arrayList[i].tdsDed);
-        dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
+        //dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
       }      
       if(selectedDataVal.arrayList[i].sdEmdDed!=""){
         sdEmdDed = sdEmdDed + parseFloat( selectedDataVal.arrayList[i].sdEmdDed);
@@ -752,6 +757,10 @@ export class MraddComponent {
       if(selectedDataVal.arrayList[i].excessRecd!=""){
         excessRecd = excessRecd + parseFloat( selectedDataVal.arrayList[i].excessRecd);
       }
+      if(selectedDataVal.arrayList[i].others1Recd!=""){
+        others1Recd = others1Recd + parseFloat( selectedDataVal.arrayList[i].others1Recd);
+      }
+      
         
       this.formArray.controls[i].get("totDed")?.setValue(dedTot);
       totalDed = totalDed + dedTot;
@@ -773,7 +782,7 @@ export class MraddComponent {
     //     return;
     //   }
     // }
-    if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd < 0){
+    if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd < 0){
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }
@@ -792,9 +801,10 @@ export class MraddComponent {
       totalTDSDed:tdsDed,
       totalSdEmdDed:sdEmdDed,
       totalDed:totalDed,
-      totalExcess:excessRecd,        
+      totalExcess:excessRecd,    
+      totalOthers1:others1Recd ,   
       totalAmt: cheqCashAmt + onAcAdjAmt,
-      onAcNewAmt: cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd,  
+      onAcNewAmt: cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd,  
     });
   }
 
@@ -991,11 +1001,12 @@ export class MraddComponent {
     var cheqCashAmt = selectedDataVal.cheqCashAmt? parseFloat( selectedDataVal.cheqCashAmt) : 0;
     var totalRecdAmt = selectedDataVal.totalRecdAmt? parseFloat( selectedDataVal.totalRecdAmt) : 0;
     var totalExcess = selectedDataVal.totalExcess? parseFloat( selectedDataVal.totalExcess) : 0;
+    var totalOthers1 = selectedDataVal.totalOthers1? parseFloat( selectedDataVal.totalOthers1) : 0;
 
     this.formUser.patchValue({
       onAcAdjAmt: totadjAmt,
       totalAmt: cheqCashAmt + totadjAmt,
-      onAcNewAmt: cheqCashAmt + totadjAmt - totalRecdAmt + totalExcess,
+      onAcNewAmt: cheqCashAmt + totadjAmt - (totalRecdAmt + totalExcess + totalOthers1),
     });
   }
 
@@ -1045,6 +1056,8 @@ export class MraddComponent {
         this.formArray.controls[index].get("tdsDed")?.setValue("0");
         this.formArray.controls[index].get("sdEmdDed")?.setValue("0");
         this.formArray.controls[index].get("excessRecd")?.setValue("0");
+        this.formArray.controls[index].get("others1Recd")?.setValue("0");
+        
         this.formArray.controls[index].get("remarks")?.setValue("");
         
         this.formArray.controls[i].get("billLrYear")?.disable();
@@ -1118,11 +1131,13 @@ export class MraddComponent {
       this.toasterService.warning("Invalid Account");
       return;
     }
+    var cheqCashAmt = selectedDataVal.cheqCashAmt?parseFloat(selectedDataVal.cheqCashAmt):0;
     var totalAmt = selectedDataVal.totalAmt?parseFloat(selectedDataVal.totalAmt):0;
     var totalRecdAmt = selectedDataVal.totalRecdAmt?parseFloat(selectedDataVal.totalRecdAmt):0;
     var totalExcess = selectedDataVal.totalExcess?parseFloat(selectedDataVal.totalExcess):0;
+    var totalOthers1 = selectedDataVal.totalOthers1?parseFloat(selectedDataVal.totalOthers1):0;
 
-    if(totalAmt - totalRecdAmt - totalExcess != 0){
+    if(totalAmt - totalRecdAmt - totalExcess - totalOthers1 != 0){
       // if (selectedDataVal.groupMrYN){      
       //   this.toasterService.warning("Received and Excess Amount Should Match with Cash & Cheq Amount");      
       //   return;
@@ -1136,11 +1151,15 @@ export class MraddComponent {
         return;
       }
     }
-    else if (totalAmt - totalRecdAmt - totalExcess < 0){
+    else if (totalAmt - totalRecdAmt - totalExcess - totalOthers1 < 0){
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }
 
+    if (cheqCashAmt - (totalExcess + totalOthers1) <= 0){
+      this.toasterService.warning("Total Excess Amt Should be less than Cheq Cash Amt");      
+      return;
+    }
     var onAcStatus = selectedDataVal.onAcStatus?"T":(parseFloat(selectedDataVal.onAcNewAmt)>0?"P":"N"); 
     
 
@@ -1177,7 +1196,7 @@ export class MraddComponent {
     this.mrmodel.totalTDSDed      = selectedDataVal.totalTDSDed.toString() ; 
     this.mrmodel.totalSdEmdDed    = selectedDataVal.totalSdEmdDed.toString() ; 
     this.mrmodel.totalExcess      = selectedDataVal.totalExcess.toString() ; 
-    this.mrmodel.totalOthers1     = "" ; 
+    this.mrmodel.totalOthers1     = selectedDataVal.totalOthers1.toString() ;  ; 
     this.mrmodel.totalOthers2     = "" ; 
     this.mrmodel.mrRemarks        = selectedDataVal.mrRemarks.toString().toUpperCase() ;  
     this.mrmodel.crAdviceNo       = "" ; 
@@ -1244,7 +1263,7 @@ export class MraddComponent {
           "tdsDed":  selectedDataVal.arrayList[i].tdsDed.toString(),
           "sdEmdDed":  selectedDataVal.arrayList[i].sdEmdDed.toString(),
           "excessRecd":  selectedDataVal.arrayList[i].excessRecd.toString(),
-          "others1Recd":  '',
+          "others1Recd":   selectedDataVal.arrayList[i].others1Recd.toString(),
           "others2Recd":  '',
           "remarks":  selectedDataVal.arrayList[i].remarks.toString().toUpperCase(),
           "yearId":  this.year,

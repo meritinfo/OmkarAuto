@@ -301,6 +301,7 @@
                                             <th><label for="formrow-inputZip">TDS</label></th>
                                             <th><label for="formrow-inputZip">Sec.Deposit</label></th>
                                             <th><label for="formrow-inputZip">Excess Recd</label></th>
+                                            <th><label for="formrow-inputZip">Other Recd</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>    
                                             <!-- <th><label for="formrow-inputZip">Party</label></th> -->
                                             <th><label for="formrow-inputZip"></label></th>                                                     
@@ -391,7 +392,11 @@
                                                 <td>
                                                     <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="excessRecd" (change)="calTot()">
-                                                </td>                                             
+                                                </td>                                                 
+                                                <td>
+                                                    <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="others1Recd" (change)="calTot()">
+                                                </td>                                     
                                                 <td>
                                                     <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="remarks">
@@ -484,6 +489,11 @@
                                                 <label for="formrow-inputZip">Tot Excess </label>
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totalExcess">
+                                            </td>                                              
+                                            <td>       
+                                                <label for="formrow-inputZip">Tot Others </label>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="totalOthers1">
                                             </td>  
                                         </tr>
                                     </table>
