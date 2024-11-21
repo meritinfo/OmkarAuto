@@ -132,8 +132,7 @@ export class BillsmasterlistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.billsMasterService.getBillsMasterList(this.filter)
-          .subscribe(resp => {
+        this.billsMasterService.getBillsMasterList(this.filter).subscribe(resp => {
             this.allBillsMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,

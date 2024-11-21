@@ -58,7 +58,7 @@
         public string? LoggedInUser { get; set; }
         public List<MrDtlsModel> MrDtlsList { get; set; }
         public List<MrOnAcModel> MrOnAcList { get; set; }
-        public List<MrOnAcModel> MrAdjOnAcList { get; set; }
+        public List<MrOnAcModel> MrAdjList { get; set; }
 
     }
 }

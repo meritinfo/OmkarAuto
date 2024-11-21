@@ -215,8 +215,7 @@ namespace Consignment.Repository
             {
                 MrDtlsList = new List<MrDtlsModel>(),
                 MrOnAcList = new List<MrOnAcModel>(),
-                MrAdjOnAcList = new List<MrOnAcModel>(),
-
+                MrAdjList = new List<MrOnAcModel>(),
 
             };
             try
@@ -267,7 +266,7 @@ namespace Consignment.Repository
                         }
                         for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)
                         {
-                            mr.MrAdjOnAcList.Add(new MrOnAcModel
+                            mr.MrAdjList.Add(new MrOnAcModel
                             {
                                 MrStation = Convert.ToString(dataSet.Tables[2].Rows[i]["MrStation"]),
                                 MrNo = Convert.ToString(dataSet.Tables[2].Rows[i]["MrNo"]),

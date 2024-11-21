@@ -1200,6 +1200,7 @@ export class MraddComponent {
 
     this.mrmodel.mrDtlsList = [];
     this.mrmodel.mrOnAcList = [];
+    this.mrmodel.mrAdjList = [];
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
       if (selectedDataVal.arrayList[i].recdAmt != "" && parseFloat(selectedDataVal.arrayList[i].recdAmt) > 0) {

@@ -748,8 +748,6 @@ export class TripsheetaddComponent {
   }
 
   calDetentionDays(){    
-    var selectedval = this.formTripsheet.getRawValue();
-
     var selectedDataValue = this.formTripsheet.getRawValue();
  
     //calculation
@@ -790,8 +788,19 @@ export class TripsheetaddComponent {
   }
 
   deleteTripsheetForm(): void {
+    this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId;
     if (confirm("Are you sure, you want to delete this?")) {
-
+      // this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+      //   this.responseDetails = res;
+      //   if (this.responseDetails.status) {
+      //     this.toasterService.success(this.responseDetails.message);
+      //     this.formTripPayment.reset();
+      //     this.route.navigate(['/trippaymentlist']);
+      //   }
+      //   else {
+      //     this.toasterService.warning(this.responseDetails.message);
+      //   }
+      // });
     }
   }  
 

@@ -719,6 +719,8 @@
                         <div class="tex">
                             <button  (click)="submitTripSheetForm()" *ngIf="(!editMode && createStatus) || (editMode && editStatus)"
                                 class="btn btn-primary w-md">Save</button>  
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteTripsheetForm()">Delete</button>
                             <button  class="btn btn-secondary w-md m-2"
                                 (click)="exit()">Exit</button>
                         </div>
