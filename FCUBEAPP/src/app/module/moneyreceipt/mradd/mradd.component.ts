@@ -1141,6 +1141,8 @@ export class MraddComponent {
       return;
     }
 
+    var onAcStatus = selectedDataVal.onAcStatus?"T":(parseFloat(selectedDataVal.onAcNewAmt)>0?"P":"N"); 
+    
 
     this.mrmodel.mrMasterId       = this.selectedMrDetails.mrMasterId ;
     this.mrmodel.mrStation        = selectedDataVal.mrStation ; 
@@ -1158,7 +1160,7 @@ export class MraddComponent {
     this.mrmodel.totalAmt         = selectedDataVal.totalAmt.toString() ; 
     this.mrmodel.onAcNewAmt       = selectedDataVal.onAcNewAmt.toString() ; 
     this.mrmodel.onAcAdjusted     = "0";
-    this.mrmodel.onAcStatus       = selectedDataVal.onAcStatus?"T":"P" ; 
+    this.mrmodel.onAcStatus       = onAcStatus ; 
     this.mrmodel.onAcAdjMrYn      = selectedDataVal.onAcAdjMrYn?"Y":"N";
     this.mrmodel.totalRecdAmt     = selectedDataVal.totalRecdAmt.toString() ; 
     this.mrmodel.totalFreightDed  = selectedDataVal.totalFreightDed .toString(); 
@@ -1189,6 +1191,11 @@ export class MraddComponent {
     this.mrmodel.modifyRemarks    = selectedDataVal.modifyRemarks.toString().toUpperCase() ;  
     this.mrmodel.yearId           = this.year ; 
     this.mrmodel.loggedInUser     = this.loggedInUserID; 
+    this.mrmodel.chequeReturn = "" 
+    this.mrmodel.chequeReturnDt = ""
+    this.mrmodel.chequeReturnRemarks = ""
+    this.mrmodel.ftmid  = ""
+    this.mrmodel.ftmidJv = ""
 
     if(this.mrmodel.mrType!="B" && this.mrmodel.mrReceiptType !="J"){
       this.toasterService.warning("Receipt Type should be only JV for selected MR Type");
@@ -1216,7 +1223,7 @@ export class MraddComponent {
           "mrStation": selectedDataVal.mrStation,
           "mrNo": selectedDataVal.mrNo,
           "mrDate": selectedDataVal.mrDate,
-          "partyCode": selectedDataVal.partyCode,
+          "partyCode": selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"",
           'billLrYear':    selectedDataVal.arrayList[i].billLrYear,
           "billLrStn": selectedDataVal.arrayList[i].billLrStn,
           'billLrNo':  selectedDataVal.arrayList[i].billLrNo,
