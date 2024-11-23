@@ -25,8 +25,8 @@ export class BillsmasterlistComponent {
   filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'vendor',
-    sortOrder: 'asc',
+    sortColumn: '',
+    sortOrder: '',
     search: '',
     fromDate: '',
     toDate: '',
@@ -125,8 +125,6 @@ export class BillsmasterlistComponent {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      //  this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,

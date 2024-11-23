@@ -81,6 +81,7 @@
                                                 <label for="formrow-inputZip">On A/c Branch</label>
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="onAcBranch" 
+                                                    (change)="onAcBrSelected($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['onAcBranch'].invalid) }">
                                                     <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
                                                         {{ac.dataName}}
