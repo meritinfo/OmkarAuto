@@ -398,8 +398,10 @@ export class VehicleinstscheduleaddComponent {
     }       
   }
 
-  removeItem(index: number) {
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
     this.formArray.removeAt(index);
+  }
   }
 
 

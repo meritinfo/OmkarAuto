@@ -237,8 +237,9 @@ addItem(index: number): void {
   }
 }
 
-removeItem(index: number) {
-  this.formArray.removeAt(index);
+removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+  this.formArray.removeAt(index);}
 }
 onChangeSearch(e: any) {
   // do something

@@ -214,7 +214,7 @@ export class AddjournalentryComponent{
   
   removeItem(i: number) {
     this.formArray.removeAt(i);    
-    this.updateAmount(0, '', '');
+    this.updateAmount();
   }
 
   getdocno(doctp: string){
@@ -230,11 +230,9 @@ export class AddjournalentryComponent{
     });
   }
   
-  updateAmount(index: number, event: any, comingFrom: string) {
+  updateAmount() {
     var selectedDataValue = this.formJournalEntry.getRawValue();
-    if (comingFrom === 'amount') {
-      selectedDataValue.arrayList[index].amount = event.target.value;
-    }
+    
     var totalCreditAmount = 0;
     var totalDebitAmount = 0;
     var i=0;

@@ -184,7 +184,7 @@ export class FinopenbalanceaddComponent {
     }   
   }
 
-  removeItem(index: number) {
+  removeItem(index: number){
     this.formArray.removeAt(index);
   }
 

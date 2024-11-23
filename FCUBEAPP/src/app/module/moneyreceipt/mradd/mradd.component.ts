@@ -627,9 +627,11 @@ export class MraddComponent {
     }   
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);
-    this.calTot();
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+      this.calTot();
+    }
   }
 
   amtcheck(i:number, clm:string){

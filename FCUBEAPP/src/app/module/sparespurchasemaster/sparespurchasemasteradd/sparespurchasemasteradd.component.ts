@@ -429,8 +429,11 @@ export class SparespurchasemasteraddComponent {
     }
   }
 
-  removeItem(index: number) {
-    this.formTyreArray.removeAt(index);  
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formTyreArray.removeAt(index);  
+      this.onPctChange();
+    }
   }  
 
   sparesMasterDelete(): void {
@@ -520,10 +523,11 @@ export class SparespurchasemasteraddComponent {
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
+      itemRate = selectedDate.arrayList[i].itemRate!=""?parseFloat(selectedDate.arrayList[i].itemRate ): 0;
+      itemQty = selectedDate.arrayList[i].itemQty!=""?parseFloat(selectedDate.arrayList[i].itemQty ): 0;
 
-
-      if (selectedDate.arrayList[i].itemRate!="") {
-        itemAmount= parseFloat(selectedDate.arrayList[i].itemQty) * parseFloat(selectedDate.arrayList[i].itemRate);
+      if (itemRate>0) {
+        itemAmount= itemQty * itemRate;
         this.formTyreArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
       
         totalItemAmt = totalItemAmt+itemAmount;

@@ -261,12 +261,12 @@
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="itemAmt" maxlength="12" 
-                                                (change)="onAmtChange($event, i)">
+                                                (change)="onAmtChange()">
                                         </td>
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="sgstPct" maxlength="5" 
-                                                (change)="onSgstChange($event, i)" >
+                                                (change)="onAmtChange()" >
                                         </td>
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
@@ -275,7 +275,7 @@
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="cgstPct" maxlength="5"  
-                                                (change)="onCgstChange($event, i)" >
+                                                (change)="onAmtChange()" >
                                         </td>
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
@@ -284,7 +284,7 @@
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="igstPct" maxlength="5"  
-                                                (change)="onIgstChange($event, i)" >
+                                                (change)="onAmtChange()" >
                                         </td>
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control"

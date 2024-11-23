@@ -288,11 +288,13 @@ export class AddratesmasterComponent implements OnInit {
 
   }
 
-  removeItem(index: number) {
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this?")) {
     this.formArray.removeAt(index);
     if (this.formArray.length==1){
       this.formRatesMaster.controls['rateForStateOrToPlace'].enable();
     }
+  }
   }
 
 

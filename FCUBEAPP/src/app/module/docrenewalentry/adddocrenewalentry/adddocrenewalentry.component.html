@@ -6,14 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Doc Renewal Entry </h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="/#/branchmasterlist">Doc Renewal Entry</a></li>
-                                <li class="breadcrumb-item active">Doc Renewal Entry</li> -->
-                            </ol>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -409,14 +401,14 @@
                 </div>                           
                 <div class="row text-right">
                     <div class="col-lg-12">
-                    <div class="tex">
-                        <button class="btn btn-primary w-md" 
-                        *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
-                            (click)="submitDocRenewalEntryForm()">Save</button>&nbsp;
-                        <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                            (click)="deleteDocRenewalEntryForm()">Delete</button>&nbsp;
-                        <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
-                    </div>
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitDocRenewalEntryForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDocRenewalEntryForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
                     </div>
                     <!-- end col -->
                 </div> 

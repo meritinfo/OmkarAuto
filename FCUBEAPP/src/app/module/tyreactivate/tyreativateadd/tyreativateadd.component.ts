@@ -291,9 +291,11 @@ export class TyreativateaddComponent {
     }
   }
   
-  removeItem(index: number) {
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
     this.formTyreArray.removeAt(index);  
     this.onAmtChange();
+  }
   }  
 
   getTyreNo(j: number,e: any){   
