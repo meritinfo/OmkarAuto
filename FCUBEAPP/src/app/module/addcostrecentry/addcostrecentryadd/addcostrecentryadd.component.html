@@ -329,7 +329,7 @@
                                             formControlName="netTot">
                                         </div>
                                     </div>    
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Other Db/Cr Ac</label>
                                             <select class="form-control" autoclose="false" 
@@ -364,18 +364,18 @@
                                                     <option value="D">Vendor</option>
                                                     <option value="A">Adjust</option>                                        
                                                 </select>                    
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Credit Ac</label>                                            
-                                                <select class="form-control" autoclose="false" 
-                                                    formControlName="creditAc">
-                                                    <option *ngFor="let ac of accountList" value={{ac.dataId}}>
-                                                        {{ac.dataName}}
-                                                    </option>
-                                                </select>    
-                                            </div>
                                         </div>               
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Credit Ac</label>                                            
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="creditAc">
+                                                <option *ngFor="let ac of accountList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>    
+                                        </div>         
                                     </div>  
                                 </div>  
                                 <div class="row">                    
