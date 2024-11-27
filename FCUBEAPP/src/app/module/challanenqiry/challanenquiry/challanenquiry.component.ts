@@ -242,6 +242,11 @@ createCnInitialArray() {
     oth2DedAmt :  ['', []],
     deductRemarks :  ['', []],
     productId :  ['', []],
+    cneeName :  ['', []],
+    cnorName :  ['', []],
+    actualWt :  ['', []],
+    chargewt :  ['', []],
+
   });
 }  
 
@@ -351,19 +356,23 @@ getChallanEnqInnerGridList(): void {
       this.formChlnArray.controls[i].get("bookedAt")?.setValue(res.cnList[i].bookedAt);
       this.formChlnArray.controls[i].get("gcNoteNo")?.setValue(res.cnList[i].gcNoteNo);
       this.formChlnArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.cnList[i].bookingDate));
-      this.formChlnArray.controls[i].get("bookingStatus")?.setValue(res.cnList[i].bookingStatus);
-      this.formChlnArray.controls[i].get("ewayBillEntryType")?.setValue(res.cnList[i].ewayBillEntryType);
-      this.formChlnArray.controls[i].get("ewayBillNo")?.setValue(res.cnList[i].ewayBillNo);
-      this.formChlnArray.controls[i].get("ewayBillDate")?.setValue(res.cnList[i].ewayBillDate);
-      this.formChlnArray.controls[i].get("ewayBillExpDate")?.setValue(res.cnList[i].ewayBillExpDate);
+      // this.formChlnArray.controls[i].get("bookingStatus")?.setValue(res.cnList[i].bookingStatus);
+      // this.formChlnArray.controls[i].get("ewayBillEntryType")?.setValue(res.cnList[i].ewayBillEntryType);
+      // this.formChlnArray.controls[i].get("ewayBillNo")?.setValue(res.cnList[i].ewayBillNo);
+      // this.formChlnArray.controls[i].get("ewayBillDate")?.setValue(res.cnList[i].ewayBillDate);
+      // this.formChlnArray.controls[i].get("ewayBillExpDate")?.setValue(res.cnList[i].ewayBillExpDate);
       this.formChlnArray.controls[i].get("fromPlace")?.setValue(res.cnList[i].fromPlace);
       this.formChlnArray.controls[i].get("toPlace")?.setValue(res.cnList[i].toPlace);
-      this.formChlnArray.controls[i].get("kms")?.disable();
-      this.formChlnArray.controls[i].get("truckNo")?.disable();
-      this.formChlnArray.controls[i].get("billingParty")?.disable();
-      this.formChlnArray.controls[i].get("cnorId")?.disable();
-      this.formChlnArray.controls[i].get("cneeId")?.disable();
-      this.formChlnArray.controls[i].get("productId")?.disable();
+      this.formChlnArray.controls[i].get("cneeName")?.setValue(res.cnList[i].cneeName);
+      this.formChlnArray.controls[i].get("cnorName")?.setValue(res.cnList[i].cnorName);
+      this.formChlnArray.controls[i].get("actualWt")?.setValue(res.cnList[i].actualWt);
+      this.formChlnArray.controls[i].get("chargewt")?.setValue(res.cnList[i].chargewt);
+      this.formChlnArray.controls[i].get("fromPlace")?.disable();
+      this.formChlnArray.controls[i].get("toPlace")?.disable();
+      this.formChlnArray.controls[i].get("cneeName")?.disable();
+      this.formChlnArray.controls[i].get("cnorName")?.disable();
+      this.formChlnArray.controls[i].get("gcNoteNo")?.disable();
+      this.formChlnArray.controls[i].get("bookingDate")?.disable();
       
       
     }         

@@ -408,8 +408,9 @@ getBillEnqInnerGridList(): void {
   this.billService.getBillEnqInnerGridList(this.requestmodel).subscribe((res) => {
     this.billmodel = res;
    
-  //  this.formBillArray.clear();
-  //  this.formLhpmArray.clear();
+   this.formBillArray.clear();
+    this.formSubmitArray.clear();
+    this.formMrArray.clear();
    
     
 

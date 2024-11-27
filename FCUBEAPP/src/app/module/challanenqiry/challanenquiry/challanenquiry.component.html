@@ -282,24 +282,28 @@
                                             <h4 class="card-title mb-4" style="color: red;"> Consignment Details</h4>
                                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <th><label for="formrow-inputCity">bookingPlace</label></th>       
-                                                <th><label for="formrow-inputCity">bookedAt</label> </th>     
-                                                <th><label for="formrow-inputCity">gcNoteNo</label></th>      
-                                                <th><label for="formrow-inputCity">bookingDate</label></th>       
-                                                <th><label for="formrow-inputCity">bookingStatus</label></th>       
-                                                <th><label for="formrow-inputCity">ewayBillNo</label></th>      
-                                                <th><label for="formrow-inputCity">ewayBillDate</label></th>      
-                                                <th><label for="formrow-inputCity">ewayBillExpDate</label></th>      
-                                                <th><label for="formrow-inputCity">fromPlace</label></th>      
-                                                <th><label for="formrow-inputCity">toPlace</label></th>       
-                                                <th><label for="formrow-inputCity">kms</label></th>      
+                                                <th><label for="formrow-inputCity">Booking Place</label></th>       
+                                                <!-- <th><label for="formrow-inputCity">bookedAt</label> </th>      -->
+                                                <th><label for="formrow-inputCity">Gc Note No</label></th>      
+                                                <th><label for="formrow-inputCity">Booking Date</label></th>       
+                                                <!-- <th><label for="formrow-inputCity">bookingStatus</label></th>        -->
+                                                <!-- <th><label for="formrow-inputCity">ewayBillNo</label></th>       -->
+                                                <!-- <th><label for="formrow-inputCity">ewayBillDate</label></th>       -->
+                                                <!-- <th><label for="formrow-inputCity">ewayBillExpDate</label></th>       -->
+                                                <th><label for="formrow-inputCity">From</label></th>      
+                                                <th><label for="formrow-inputCity">To</label></th>       
+                                                <!-- <th><label for="formrow-inputCity">kms</label></th>      
                                                 <th><label for="formrow-inputCity">truckNo</label></th>     
                                                 <th><label for="formrow-inputCity">billingParty</label></th>      
                                                 <th><label for="formrow-inputCity">cnorId</label></th>  
                                                 <th><label for="formrow-inputCity">cneeId</label></th>  
                                                 <th><label for="formrow-inputCity">oth2DedAmt</label></th>  
                                                 <th><label for="formrow-inputCity">deductRemarks</label></th>  
-                                                <th><label for="formrow-inputCity">productId</label></th> 
+                                                <th><label for="formrow-inputCity">productId</label></th>  -->
+                                                <th><label for="formrow-inputCity">Cnor Name</label></th> 
+                                                <th><label for="formrow-inputCity">Cnee Name</label></th> 
+                                                <th><label for="formrow-inputCity">Actual Weight</label></th> 
+                                                <th><label for="formrow-inputCity">Charge Weight</label></th> 
                                             </tr>
                                             <tr formArrayName="arrayChlnList"
                                                 *ngFor="let arrayData of formChlnArray.controls; let i = index">
@@ -309,34 +313,34 @@
                                                         maxlength="15" numbersonly
                                                         formControlName="bookingPlace">
                                                     </td>
-                                                    <td >
+                                                    <!-- <td >
                                                         <input type="text" class="form-control" 
                                                         formControlName="bookedAt">
-                                                    </td>
+                                                    </td> -->
                                                     <td>
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="gcNoteNo">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="bookingDate">
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="bookingStatus">
-                                                    </td>
-                                                    <td>
+                                                    </td> -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="ewayBillNo">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="date" class="form-control" 
                                                         formControlName="ewayBillDate">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="ewayBillExpDate">
-                                                    </td> 
+                                                    </td>  -->
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="fromPlace">
@@ -345,37 +349,53 @@
                                                         <input type="text" class="form-control" 
                                                         formControlName="toPlace">
                                                     </td> 
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="kms">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="truckNo">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="billingParty">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="cnorId">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="cneeId">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="oth2DedAmt">
-                                                    </td> 
-                                                    <td>
+                                                    </td>  -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="deductRemarks">
+                                                    </td>  -->
+                                                    <!-- <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="productId">
+                                                    </td>  -->
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="cnorName">
                                                     </td> 
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="productId">
+                                                        formControlName="cneeName">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="actualWt">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="chargewt">
                                                     </td> 
                                                 </div>
                                             </tr>
@@ -393,22 +413,22 @@
                                             <h4 class="card-title mb-4" style="color: red;"> Lorry Hire Payment Details</h4>
                                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <th><label for="formrow-inputCity">Pmt Station</label></th>  
-                                                <th><label for="formrow-inputCity">Pmt No</label></th>  
-                                                <th><label for="formrow-inputCity">Pmt Date</label></th>   
-                                                <th><label for="formrow-inputCity">Challan Stn</label></th>   
+                                                <th><label for="formrow-inputCity">Payment Station</label></th>  
+                                                <th><label for="formrow-inputCity">Payment No</label></th>  
+                                                <th><label for="formrow-inputCity">Payment Date</label></th>   
+                                                <th><label for="formrow-inputCity">Challan Station</label></th>   
                                                 <th><label for="formrow-inputCity">Challan No</label></th>  
                                                 <th><label for="formrow-inputCity">Challan Date</label></th>  
                                                 <th><label for="formrow-inputCity">Adv/Bal</label></th>  
-                                                <th><label for="formrow-inputCity">Hire Amt</label></th>  
-                                                <th><label for="formrow-inputCity">Hamali Amt</label></th>   
-                                                <th><label for="formrow-inputCity">Deten Amt</label></th>  
-                                                <th><label for="formrow-inputCity">Other Amt</label></th>  
-                                                <th><label for="formrow-inputCity">Recovery Amt</label></th>   
-                                                <th><label for="formrow-inputCity">TDS Amt</label></th>   
-                                                <th><label for="formrow-inputCity">LHPM Amt</label></th>   
-                                                <th><label for="formrow-inputCity">Oth1 Ded Amt</label></th> 
-                                                <th><label for="formrow-inputCity">Oth2 Ded Amt</label></th>  
+                                                <th><label for="formrow-inputCity">Hire Amount</label></th>  
+                                                <th><label for="formrow-inputCity">Hamali Amount</label></th>   
+                                                <th><label for="formrow-inputCity">Deten Amount</label></th>  
+                                                <th><label for="formrow-inputCity">Other Amount</label></th>  
+                                                <th><label for="formrow-inputCity">Recovery Amount</label></th>   
+                                                <th><label for="formrow-inputCity">TDS Amount</label></th>   
+                                                <th><label for="formrow-inputCity">LHPM Amount</label></th>   
+                                                <th><label for="formrow-inputCity">Oth1 Ded Amount</label></th> 
+                                                <th><label for="formrow-inputCity">Oth2 Ded Amount</label></th>  
                                                 <th><label for="formrow-inputCity">Deduct Remarks</label></th> 
                                                 <th><label for="formrow-inputCity">Beneficiary</label></th>   
                                             </tr>
