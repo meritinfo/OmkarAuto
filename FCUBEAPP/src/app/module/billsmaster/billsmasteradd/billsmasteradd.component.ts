@@ -171,7 +171,6 @@ export class BillsmasteraddComponent implements OnInit {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
       this.formBillsMaster.controls['billNo'].disable();
-      this.formBillsMaster.controls['partyCode'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalStatistical'].disable();
       this.formBillsMaster.controls['totalFov'].disable();
@@ -193,6 +192,7 @@ export class BillsmasteraddComponent implements OnInit {
       this.formBillsMaster.controls['totalGtotal'].disable();
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
+        this.formBillsMaster.controls['partyCode'].disable();
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         this.formBillsMaster.patchValue({
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 

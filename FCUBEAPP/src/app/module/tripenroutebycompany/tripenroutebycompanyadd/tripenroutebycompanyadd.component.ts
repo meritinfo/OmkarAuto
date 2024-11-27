@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
-import { Tripenroutebycompanylistmodel } from 'src/app/models/tripenroutebycompanylistmodel';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripenroutebycompanyService } from 'src/app/services/tripenroutebycompany.service';
