@@ -564,8 +564,11 @@ export class TyrepurchasemasteraddComponent {
     }
   }
   
-  removeItem(index: number) {
-    this.formTyreArray.removeAt(index);  
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formTyreArray.removeAt(index);  
+      this.onPctChange();
+    }
   }  
 
   chkTyreNoDuplicate(j: number,e: any){

@@ -555,8 +555,9 @@ export class GeneratetempgceditComponent {
     } 
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);   
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+    this.formArray.removeAt(index);   }
   }
  
   deletetempgcDetailsForm(): void {

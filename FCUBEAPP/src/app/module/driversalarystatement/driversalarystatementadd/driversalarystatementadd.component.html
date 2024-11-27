@@ -95,12 +95,10 @@
                                             *ngFor="let arrayData of driversalarysearchlistmodel.driverSalarySearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
-                                                    <input type="checkbox"  name="select" class="form-check-input" (change)="valueUpdate($event, i)"  [checked]="arrayData.selected"
-                                                    >
-                                                    <!-- {{arrayData.pmtId}} -->
+                                                    <input type="checkbox" name="select" class="form-check-input" 
+                                                    (change)="valueUpdate($event, i)"  [checked]="arrayData.selected" >
                                                 </div>
                                             </td>
-                                            
                                             <td>
                                                 <div class="mb-3">
                                                      {{arrayData.vehicleNo}} 

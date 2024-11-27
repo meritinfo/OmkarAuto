@@ -115,6 +115,7 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();    
     this.formCashRRecEntry.controls['refType'].disable();
+    this.formCashRRecEntry.controls['docType'].disable();
 
     this.formCashRRecEntry.controls['modifyRemarks'].clearValidators();
     this.formCashRRecEntry.controls['modifyRemarks'].updateValueAndValidity();
@@ -216,12 +217,14 @@ export class AddcashreceiptentryComponent {
     }
   }
 
-  removeItem(index: number) {
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this?")) {
     this.formArray.removeAt(index);
-    this.updateAmount(0, '', ''); 
+    this.updateAmount(); 
     // if(this.formArray.value.length==0){
     //   this.formArray.push(this.createInitialArray());
     // }
+    }
   }
 
   changePType(selectedValue: string) { 
@@ -245,11 +248,8 @@ export class AddcashreceiptentryComponent {
     });
   }
 
-  updateAmount(index: number, event: any, comingFrom: string) {
+  updateAmount() {
     var selectedDataValue = this.formCashRRecEntry.getRawValue();
-    if (comingFrom === 'amount') {
-      selectedDataValue.arrayList[index].amount = event.target.value;
-    }
     var totalAmount = 0;
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
         totalAmount = totalAmount + (selectedDataValue.arrayList[i].amount == "" ? 0 : parseFloat(selectedDataValue.arrayList[i].amount));

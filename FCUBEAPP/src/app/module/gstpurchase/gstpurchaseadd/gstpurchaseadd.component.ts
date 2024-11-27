@@ -656,131 +656,57 @@ export class GstpurchaseaddComponent {
     });
   }
   
-  onAmtChange(event: any, i: number){
+  onAmtChange(){
     var selectedDataVal= this.formGSTPurchase.getRawValue();
-    var selArray=selectedDataVal.arrayList[i];
-    var varitemAmt =parseFloat(event.target.value);
-    if (varitemAmt>0){
-      if(parseFloat(selArray.sgstPct)>0){
-        this.formArray.controls[i].get("sgstAmt")?.setValue((varitemAmt*parseFloat(selArray.sgstPct==''?0:selArray.sgstPct)/100).toFixed(2));
+    var selArray= selectedDataVal.arrayList;
+    var itemAmt = 0,sgstPct = 0,sgstAmt = 0,cgstPct = 0,cgstAmt = 0,igstPct = 0,igstAmt = 0,totAmount = 0;
+    var totalItemAmt = 0,totalSgstAmt = 0,totalCgstAmt = 0,totalIgstAmt = 0,totalAmount = 0;
+
+    for (var i = 0; i < selArray.length; i++) {
+      if(selArray[i].itemAmt!=''){
+        itemAmt = parseFloat(selArray[i].itemAmt);        
+        sgstPct = selArray[i].sgstPct==''?0:parseFloat(selArray[i].sgstPct);
+        cgstPct = selArray[i].cgstPct==''?0:parseFloat(selArray[i].cgstPct);
+        sgstPct = selArray[i].sgstPct==''?0:parseFloat(selArray[i].sgstPct);
+        totAmount = itemAmt;
+        totalItemAmt = totalItemAmt + itemAmt;
+
+        if(selArray[i].sgstPct!=''){
+          sgstAmt = itemAmt * sgstPct / 100;
+          totAmount = totAmount + sgstAmt;
+          totalSgstAmt = totalSgstAmt + sgstAmt;
+          this.formArray.controls[i].get("sgstAmt")?.setValue(sgstAmt.toFixed(2));
+        }
+        if(selArray[i].cgstPct!=''){
+          cgstAmt = itemAmt * cgstPct / 100;
+          totAmount = totAmount + cgstAmt;
+          totalCgstAmt = totalCgstAmt + cgstAmt;
+          this.formArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
+        }
+        if(selArray[i].igstPct!=''){
+          igstAmt = itemAmt * igstPct / 100;
+          totAmount = totAmount + igstAmt;
+          totalIgstAmt = totalIgstAmt + igstAmt;
+          this.formArray.controls[i].get("igstAmt")?.setValue(cgstAmt.toFixed(2));
+        }    
+        
+        
+        totalAmount = totalAmount + totalSgstAmt + totalCgstAmt + totalIgstAmt;
+        this.formArray.controls[i].get("totAmount")?.setValue(totAmount.toFixed(2));
       }
-      if(parseFloat(selArray.cgstPct)>0){
-        this.formArray.controls[i].get("cgstAmt")?.setValue((varitemAmt*parseFloat(selArray.cgstPct==''?0:selArray.cgstPct)/100).toFixed(2));
-      }
-      if(parseFloat(selArray.igstPct)>0){
-        this.formArray.controls[i].get("igstAmt")?.setValue((varitemAmt*parseFloat(selArray.igstPct==''?0:selArray.igstPct)/100).toFixed(2));
-      }
-      this.getRowTotal(i);  
-      this.getGrandItemTotal();
-      this.getGrandSGSTTotal();
-      this.getGrandCGSTTotal();
-      this.getGrandIGSTTotal();
-      this.getGrandTotal();
     }
-  }
+    var netAmount = totalAmount + parseFloat(selectedDataVal.roundOff==''?0:selectedDataVal.roundOff);
 
-  onSgstChange(event: any, i: number){
-    var selectedDataVal= this.formGSTPurchase.getRawValue();
-    var selArray=selectedDataVal.arrayList[i];
-    var varsgstPct = parseFloat(event.target.value);
-    if(varsgstPct > 0){
-      this.formArray.controls[i].get("sgstAmt")?.setValue((parseFloat(selArray.itemAmt)*varsgstPct/100).toFixed(2));
-      this.getRowTotal(i); 
-      this.getGrandSGSTTotal();
-      this.getGrandTotal();   
-    }    
-  }
-
-  onCgstChange(event: any, i: number){
-    var selectedDataVal= this.formGSTPurchase.getRawValue();
-    var selArray=selectedDataVal.arrayList[i];
-    var varcgstPct = parseFloat(event.target.value);
-    if(varcgstPct > 0){
-      this.formArray.controls[i].get("cgstAmt")?.setValue((parseFloat(selArray.itemAmt)*varcgstPct/100).toFixed(2));
-      this.getRowTotal(i);  
-      this.getGrandCGSTTotal();
-      this.getGrandTotal();  
-    }    
-  }
-  
-  onIgstChange(event: any, i: number){
-    var selectedDataVal= this.formGSTPurchase.getRawValue();
-    var selArray=selectedDataVal.arrayList[i];
-    var varigstPct = parseFloat(event.target.value);
-    if(varigstPct > 0){
-      this.formArray.controls[i].get("igstAmt")?.setValue((parseFloat(selArray.itemAmt)*varigstPct/100).toFixed(2));
-      this.getRowTotal(i); 
-      this.getGrandIGSTTotal();
-      this.getGrandTotal();   
-    }    
-  }
-
-  getRowTotal(i: number){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();
-    var selArray=selectedDataVal.arrayList[i];
-    var subtot = parseFloat(selArray.itemAmt) +
-                parseFloat(selArray.sgstAmt)+
-                parseFloat(selArray.cgstAmt)+
-                parseFloat(selArray.igstAmt)
-    this.formArray.controls[i].get("totAmount")?.setValue(subtot.toFixed(2));
-  }
-
-  getGrandItemTotal(){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();    
-    var totalItemAmount = 0;
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-        totalItemAmount = totalItemAmount + parseFloat(selectedDataVal.arrayList[i].itemAmt==''?0:selectedDataVal.arrayList[i].itemAmt)
-    }
     this.formGSTPurchase.patchValue({
-      totalItemAmt: totalItemAmount.toFixed(2),
-    });
-  }
-
-  getGrandSGSTTotal(){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();    
-    var totalSgstAmount = 0;
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      totalSgstAmount = totalSgstAmount + parseFloat(selectedDataVal.arrayList[i].sgstAmt==''?0:selectedDataVal.arrayList[i].sgstAmt)
-    }
-    this.formGSTPurchase.patchValue({
-      totalSgstAmt: totalSgstAmount.toFixed(2),
-    });
-  }
-
-  getGrandCGSTTotal(){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();    
-    var totalCgstAmount = 0;
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      totalCgstAmount = totalCgstAmount + parseFloat(selectedDataVal.arrayList[i].cgstAmt==''?0:selectedDataVal.arrayList[i].cgstAmt)
-    }
-    this.formGSTPurchase.patchValue({
-      totalCgstAmt: totalCgstAmount.toFixed(2),
-    });
-  }
-
-  getGrandIGSTTotal(){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();    
-    var totalIgstAmount = 0;
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      totalIgstAmount = totalIgstAmount + parseFloat(selectedDataVal.arrayList[i].igstAmt==''?0:selectedDataVal.arrayList[i].igstAmt)
-    }
-    this.formGSTPurchase.patchValue({
-      totalIgstAmt: totalIgstAmount.toFixed(2),
-    });
-  }
-
-  getGrandTotal(){    
-    var selectedDataVal=this.formGSTPurchase.getRawValue();    
-    var totalAmount = 0;
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-        totalAmount = totalAmount + parseFloat(selectedDataVal.arrayList[i].totAmount)
-    }
-    var nettot = totalAmount + parseFloat(selectedDataVal.roundOff==''?0:selectedDataVal.roundOff)
-    this.formGSTPurchase.patchValue({
+      totalItemAmt: totalItemAmt.toFixed(2),
+      totalSgstAmt: totalSgstAmt.toFixed(2),
+      totalCgstAmt: totalCgstAmt.toFixed(2),
+      totalIgstAmt: totalIgstAmt.toFixed(2),
       totalAmount: totalAmount.toFixed(2),
-      netAmount:nettot.toFixed(2),
+      netAmount: netAmount.toFixed(2),
     });
   }
+
 
   onTdsChange(e: any) {
     var selectedValue = e.target.value;    
@@ -858,8 +784,11 @@ export class GstpurchaseaddComponent {
     }   
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this?")) {
+      this.formArray.removeAt(index);
+      this.onAmtChange();
+    }
   }
 
 

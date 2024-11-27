@@ -461,9 +461,11 @@ export class AddcostrecentryaddComponent {
     }
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);
-    this.calcTot(); 
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+      this.calcTot(); 
+    }
   }
 
   calcCostAmt(){

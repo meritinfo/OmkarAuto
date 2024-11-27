@@ -164,11 +164,17 @@ export class LorryhirepmtaddComponent {
     this.formUser.controls['modifyRemarks'].disable();
 
     this.formArray.controls[0].get("challanId")?.disable();
+    this.formArray.controls[0].get("challanBranch")?.disable();
     this.formArray.controls[0].get("dueAmt")?.disable();
     this.formArray.controls[0].get("netAmt")?.disable();
+    
+    this.formArray.controls[0].get("challanBranch")?.setValue(this.branch);
 
     if (this.selectedLorryhiremaster.masterId != '') {  
       this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);
+      if(this.selectedLorryhiremaster.onAcBranch!=''){        
+        this.formArray.controls[0].get("challanBranch")?.setValue(this.selectedLorryhiremaster.onAcBranch);
+      }
     }
 
     setTimeout(() => {
@@ -349,6 +355,16 @@ export class LorryhirepmtaddComponent {
       this.formArray.controls[i+1].get("challanId")?.disable();
       this.formArray.controls[i+1].get("dueAmt")?.disable();
       this.formArray.controls[i+1].get("netAmt")?.disable();
+      this.formArray.controls[i+1].get("challanBranch")?.disable();
+
+      this.formUser.controls['onAcBranch'].disable();
+      
+      if(selectedDataVal.onAcBranch!=''){        
+        this.formArray.controls[i+1].get("challanBranch")?.setValue(selectedDataVal.onAcBranch);
+      }
+      else{
+        this.formArray.controls[i+1].get("challanBranch")?.setValue(this.branch);
+      }
     }      
     else {
       this.toasterService.warning("Please select Required Fields ");
@@ -361,10 +377,10 @@ export class LorryhirepmtaddComponent {
 
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);
-    if (this.formArray.length==1){
-      this.formUser.controls['rateForStateOrToPlace'].enable();
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+      this.caltot();
     }
   }
 
@@ -422,6 +438,18 @@ export class LorryhirepmtaddComponent {
     this.formUser.controls['onAcBranch'].updateValueAndValidity();
   }
 
+  onAcBrSelected(e: any) {    
+    if(e.target.value==this.branch){
+      this.toasterService.warning("On Ac Branch should not be Login Branch");
+      this.formUser.patchValue({
+        onAcBranch:'',
+      });   
+      return;
+    }
+    else{
+      this.formArray.controls[0].get('challanBranch')?.setValue(e.target.value);
+    }   
+  }
   
   onNeftChk(e: any) {    
     if (e.target.checked){
@@ -446,7 +474,15 @@ export class LorryhirepmtaddComponent {
 
 
   getChallanDtls(i:number){
-    var selectedData = this.formUser.getRawValue();   
+    var selectedData = this.formUser.getRawValue();  
+    if(selectedData.onAcBranchYN){
+      if(selectedData.onAcBranch==""){
+        this.toasterService.warning("Please Select On Ac Branch, Before Entering Challan Details");
+        this.formArray.controls[i].get("challanNo")?.setValue("");
+        return;
+      }
+    }
+
     this.challanInputDtls.search = selectedData.pmtType;
     this.challanInputDtls.filterStr = selectedData.arrayList[i].abType ;
     this.challanInputDtls.filterStr1 = selectedData.arrayList[i].chYear ;
@@ -556,6 +592,16 @@ export class LorryhirepmtaddComponent {
       return;
     }
     
+    this.caltot();
+
+  }
+
+  caltot(){
+    var selectedDataVal = this.formUser.getRawValue();
+    var tot = 0, totHire = 0, tothamali = 0, totdeten = 0, 
+    totother = 0, totother2 = 0, totother3 = 0, 
+    totlhpm = 0, totrec = 0, totothded = 0, totothded2 = 0, tottds = 0
+
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       var netTot = 0;
       if(selectedDataVal.arrayList[i].hireAmt!=''){
@@ -615,9 +661,7 @@ export class LorryhirepmtaddComponent {
       totalOth2DedAmt: totothded2 ,     
       totalTdsAmt: tottds ,   
     });
-
   }
-
 
   deleteLorryHirePaymentForm(): void {
     if (this.selectedLorryhiremaster.masterId != '') {

@@ -261,8 +261,9 @@ addItem(i: number): void {
   }
 }
 
-removeItem(index: number) {
-  this.formSubArray.removeAt(index);  
+removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+  this.formSubArray.removeAt(index);  }
 }  
 ledgerMasterDelete(): void {
   if(this.selectedSubLedgerMasterDetail.subLedgerId  != '' ){

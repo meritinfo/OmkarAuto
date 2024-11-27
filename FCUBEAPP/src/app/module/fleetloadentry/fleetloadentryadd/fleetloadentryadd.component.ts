@@ -236,8 +236,13 @@ export class FleetloadentryaddComponent {
     var ldtp = e.target.value;
     if(ldtp == "E"){
       this.formFleetLoad.controls['qtyWt'].clearValidators();
-      this.formFleetLoad.controls['qtyPkgs'].clearValidators();
-      this.formFleetLoad.controls['hireAmt'].clearValidators();   
+      this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
+      this.formFleetLoad.controls['hireAmt'].clearValidators();  
+      this.formFleetLoad.controls['loadFor'].clearValidators();   
+      this.formFleetLoad.controls['loadMemoNo'].clearValidators();   
+      this.formFleetLoad.controls['consignorName'].clearValidators();   
+      this.formFleetLoad.controls['consigneeName'].clearValidators();  
+      this.formFleetLoad.controls['productId'].clearValidators();     
 
       this.formFleetLoad.patchValue({
         qtyWt : 0,
@@ -249,12 +254,21 @@ export class FleetloadentryaddComponent {
       this.formFleetLoad.controls['qtyWt'].setValidators([Validators.required]);
       this.formFleetLoad.controls['qtyPkgs'].setValidators([Validators.required]);
       this.formFleetLoad.controls['hireAmt'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['consignorName'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['consigneeName'].setValidators([Validators.required]);
+      this.formFleetLoad.controls['productId'].setValidators([Validators.required]);
+
     }
     this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
     this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();    
-    this.formFleetLoad.controls['hireAmt'].updateValueAndValidity();    
-
-    
+    this.formFleetLoad.controls['hireAmt'].updateValueAndValidity();   
+    this.formFleetLoad.controls['loadFor'].updateValueAndValidity();   
+    this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity();   
+    this.formFleetLoad.controls['consignorName'].updateValueAndValidity();   
+    this.formFleetLoad.controls['consigneeName'].updateValueAndValidity();  
+    this.formFleetLoad.controls['productId'].updateValueAndValidity();  
   }
 
   exit(): void {
@@ -263,7 +277,7 @@ export class FleetloadentryaddComponent {
 
   deleteFleetLoadEntryForm(): void {
     if(this.selectedFleetLoadEntryDetails.loadId != '' ){
-    this.requestmodel.strRequest =this.selectedFleetLoadEntryDetails.loadId
+      this.requestmodel.strRequest = this.selectedFleetLoadEntryDetails.loadId;
       if (confirm("Are you sure, you want to delete this?")) {
             this.fleetLoadEntryService.fleetLoadEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;

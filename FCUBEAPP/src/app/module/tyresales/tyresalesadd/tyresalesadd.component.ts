@@ -350,8 +350,11 @@ export class TyresalesaddComponent {
     }
   }
   
-  removeItem(index: number) {
-    this.formTyreArray.removeAt(index);  
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formTyreArray.removeAt(index);  
+      this.calAmt();
+    }
   }  
 
   getTyreNo(){   

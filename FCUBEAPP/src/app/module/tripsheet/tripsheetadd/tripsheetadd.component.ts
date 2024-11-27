@@ -876,8 +876,11 @@ export class TripsheetaddComponent {
   }
 
     
-  removeItem(index: number) {
-    this.formDrExpTypeArray.removeAt(index);
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formDrExpTypeArray.removeAt(index);
+      this.onExpAmt();
+    }
   }
 
   addItem(index: number): void { 

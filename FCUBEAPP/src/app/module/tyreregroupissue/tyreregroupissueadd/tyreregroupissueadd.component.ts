@@ -203,8 +203,10 @@ export class TyreregroupissueaddComponent {
     }
   }
   
-  removeItem(index: number) {
+  removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
     this.formTyreArray.removeAt(index);  
+  }
   }  
 
   getTyreNo(j: number,e: any){   
