@@ -40,6 +40,7 @@ namespace FreightMasters.Models
         public string? Remarks2 { get; set; }
         public string? Remarks3 { get; set; }
         public string? SuppBillDetRemarks { get; set; }
+        public string? OtherAmt { get; set; }
         public bool Selected { get; set; }
 
 

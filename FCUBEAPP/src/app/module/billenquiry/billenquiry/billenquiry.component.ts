@@ -254,6 +254,8 @@ createInitialBillArray() {
       remarks1:  ['', []],
       remarks2:  ['', []],
       remarks3:  ['', []],
+      otherAmt:  ['', []],
+    
     
   });
 }  
@@ -324,6 +326,16 @@ createInitialMrArray() {
     partyBankDet: ['', []],
     sdEmdRefNo: ['', []],
     modifyRemarks: ['', []],
+    totDed: ['', []],
+    excessRecd: ['', []],
+    othersDed1: ['', []],
+    othersDed2: ['', []],
+    totalOthersDed: ['', []],
+    othersDed3: ['', []],
+    totalRecoverable: ['', []],
+    totalOthers1: ['', []],
+    totalOthers2: ['', []],
+   
   });
 }  
 
@@ -433,7 +445,7 @@ getBillEnqInnerGridList(): void {
       this.formBillArray.controls[i].get("igstAmt")?.setValue(res.billsEnqListData[i].igstAmt);
       this.formBillArray.controls[i].get("nonGstAmt1")?.setValue(res.billsEnqListData[i].nonGstAmt1);
       this.formBillArray.controls[i].get("nonGstAmt2")?.setValue(res.billsEnqListData[i].nonGstAmt2);
-      // this.formBillArray.controls[i].get("recoverable")?.setValue(res.billsEnqListData[i].recoverable);
+       this.formBillArray.controls[i].get("otherAmt")?.setValue(res.billsEnqListData[i].otherAmt);
       this.formBillArray.controls[i].get("gtotalRs")?.setValue(res.billsEnqListData[i].gtotalRs);
 
       // this.formMrArray.controls[i].get("billLrYear")?.disable();
@@ -488,6 +500,24 @@ getBillEnqInnerGridList(): void {
       this.formMrArray.controls[i].get("onAcAdjMrYn")?.setValue(res.mrList[i].onAcAdjMrYn);
       this.formMrArray.controls[i].get("onAcNewAmt")?.setValue(res.mrList[i].onAcNewAmt);
       this.formMrArray.controls[i].get("totalDed")?.setValue(res.mrList[i].totalDed);
+      this.formMrArray.controls[i].get("totalDed")?.setValue(res.mrList[i].totalDed);
+      this.formMrArray.controls[i].get("totDed")?.setValue(res.mrList[i].totDed);
+      this.formMrArray.controls[i].get("excessRecd")?.setValue(res.mrList[i].excessRecd);
+      this.formMrArray.controls[i].get("othersDed1")?.setValue(res.mrList[i].othersDed1);
+      this.formMrArray.controls[i].get("othersDed2")?.setValue(res.mrList[i].othersDed2);
+      this.formMrArray.controls[i].get("totalRecdAmt")?.setValue(res.mrList[i].totalRecdAmt);
+      this.formMrArray.controls[i].get("totalFreightDed")?.setValue(res.mrList[i].totalFreightDed);
+      this.formMrArray.controls[i].get("totalClaimsDed")?.setValue(res.mrList[i].totalClaimsDed);
+      this.formMrArray.controls[i].get("othersDed3")?.setValue(res.mrList[i].othersDed3);
+      this.formMrArray.controls[i].get("othersDed3")?.setValue(res.mrList[i].othersDed3);
+      this.formMrArray.controls[i].get("totalRecoverable")?.setValue(res.mrList[i].totalRecoverable);
+      this.formMrArray.controls[i].get("totalOthers1")?.setValue(res.mrList[i].totalOthers1);
+      this.formMrArray.controls[i].get("totalOthers2")?.setValue(res.mrList[i].totalOthers2);
+      this.formMrArray.controls[i].get("totalTDSDed")?.setValue(res.mrList[i].totalTDSDed);
+      this.formMrArray.controls[i].get("totalSdEmdDed")?.setValue(res.mrList[i].totalSdEmdDed);
+      this.formMrArray.controls[i].get("totalOthersDed")?.setValue(res.mrList[i].totalOthersDed);
+      this.formMrArray.controls[i].get("totalBankChrgDed")?.setValue(res.mrList[i].totalBankChrgDed);
+
  
       
      // this.formMrArray.controls[i].get("billLrYear")?.disable();

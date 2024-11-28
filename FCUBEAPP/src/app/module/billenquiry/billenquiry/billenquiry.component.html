@@ -219,6 +219,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title mb-4" style="color: red;"> Bill Details</h4>
+                                        <div class="overflow-x">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
                                                 <td class="col-lg-2">
@@ -254,9 +255,14 @@
                                                         <h6>Rate Rs </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-3">
                                                     <label for="formrow-inputZip">
                                                         <h6>Freight Rs </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Sub Total Rs</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
@@ -295,6 +301,11 @@
                                                         <h6>GtotalRs </h6>
                                                     </label>
                                                 </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Other Amount </h6>
+                                                    </label>
+                                                </td>
                                                
                                             </tr>
                                             <tr formArrayName="billsEnqListData"
@@ -325,9 +336,13 @@
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="rateRs">
                                                     </td> 
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-3">
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="freightRs">
+                                                    </td> 
+                                                    <td class="col-lg-3">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="subTotalRs">
                                                     </td> 
                                                     <td class="col-lg-2">
                                                         <input decimalonly type="text" class="form-control" 
@@ -354,7 +369,7 @@
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="nonGstAmt1">
                                                     </td> 
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-3">
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="nonGstAmt2">
                                                     </td> 
@@ -362,10 +377,15 @@
                                                         <input decimalonly type="text" class="form-control" 
                                                         formControlName="gtotalRs">
                                                     </td> 
+                                                    <td class="col-lg-3">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="otherAmt">
+                                                    </td> 
                                                    
                                                 </div>
                                             </tr>
                                         </table>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -400,18 +420,18 @@
                                                 <th><label for="formrow-inputCity">Submit Stn</label></th>  
                                                 <th><label for="formrow-inputCity">Submit No</label></th>  
                                                 <th><label for="formrow-inputCity">Submit Dt</label></th>   
-                                                <th><label for="formrow-inputCity">Submit Type</label></th>   
+                                                <!-- <th><label for="formrow-inputCity">Submit Type</label></th>   
                                                 <th><label for="formrow-inputCity">Courier Co</label></th>  
                                                 <th><label for="formrow-inputCity">CourierDocketNo</label></th> 
                                                 <th><label for="formrow-inputCity">Party Code</label></th> 
                                                 <th><label for="formrow-inputCity">Submit Location</label></th> 
                                                 <th><label for="formrow-inputCity">Dept Id</label></th> 
                                                 <th><label for="formrow-inputCity">Bills UptoDt</label></th> 
-                                                <th><label for="formrow-inputCity">Kind AttnTo</label></th> 
+                                                <th><label for="formrow-inputCity">Kind AttnTo</label></th>  -->
                                                 <th><label for="formrow-inputCity">Remarks</label></th> 
-                                                <th><label for="formrow-inputCity">PartyAccceptRemarks</label></th> 
+                                                <!-- <th><label for="formrow-inputCity">PartyAccceptRemarks</label></th> 
                                                 <th><label for="formrow-inputCity">Total SubmitAmt</label></th> 
-                                                <th><label for="formrow-inputCity">Branch Code</label></th> 
+                                                <th><label for="formrow-inputCity">Branch Code</label></th>  -->
                                             </tr>
                                             <tr formArrayName="billSubmitList"
                                                 *ngFor="let arrayData of formSubmitArray.controls; let i = index">
@@ -428,15 +448,15 @@
                                                         <input type="text" class="form-control" 
                                                         formControlName="submitDt">
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="submitType">
-                                                    </td>
-                                                    <td>
+                                                    </td> -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="courierCo">
-                                                    </td>
-                                                    <td>
+                                                    </td> -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="courierDocketNo">
                                                     </td>
@@ -447,8 +467,8 @@
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="submitLocation">
-                                                    </td>
-                                                    <td>
+                                                    </td> -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="deptId">
                                                     </td>
@@ -459,23 +479,23 @@
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="kindAttnTo">
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="remarks">
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="partyAccceptRemarks">
-                                                    </td>
-                                                    <td>
+                                                    </td> -->
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="totalSubmitAmt">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="branchCode">
-                                                    </td>
+                                                    </td> -->
                                                     
                                                     
                                                 </div>
@@ -497,19 +517,25 @@
                                                 <th><label for="formrow-inputCity">Mr Station</label></th>  
                                                 <th><label for="formrow-inputCity">Mr No</label></th>  
                                                 <th><label for="formrow-inputCity">Mr Date</label></th>   
-                                                <th><label for="formrow-inputCity">Mr Status</label></th>  
+                                                <!-- <th><label for="formrow-inputCity">Mr Status</label></th>   -->
                                                 <th><label for="formrow-inputCity">Mr Type</label></th> 
                                                 <th><label for="formrow-inputCity">Mr ReceiptType</label></th> 
-                                                <th><label for="formrow-inputCity">Bill LrOthType</label></th> 
-                                                <th><label for="formrow-inputCity">Party Code</label></th>
-                                                <th><label for="formrow-inputCity">Group MrYN</label></th>
-                                                <th><label for="formrow-inputCity">Party Group</label></th>
-                                                <!-- <th><label for="formrow-inputCity">cheqCashAmt</label></th>
-                                                <th><label for="formrow-inputCity">onAcAdjAmt</label></th>
-                                                <th><label for="formrow-inputCity">onAcStatus</label></th>
-                                                <th><label for="formrow-inputCity">onAcAdjusted</label></th>
-                                                <th><label for="formrow-inputCity">onAcAdjMrYn</label></th>
-                                                <th><label for="formrow-inputCity">onAcAdjMrYn</label></th> -->
+                                                <th><label for="formrow-inputCity">Total RecdAmt</label></th> 
+                                                <th><label for="formrow-inputCity">FreightDed</label></th>
+                                                <th><label for="formrow-inputCity">ClaimsDed</label></th>
+                                                <th><label for="formrow-inputCity">OthersDed</label></th>
+                                              <th><label for="formrow-inputCity">Total BankChrg Ded</label></th>
+                                                <th><label for="formrow-inputCity">Excess Recd</label></th>
+                                                <th><label for="formrow-inputCity">Others Ded1</label></th>
+                                                <th><label for="formrow-inputCity">Others Ded2</label></th>
+                                                <th><label for="formrow-inputCity">Others Ded3</label></th>
+                                                <th><label for="formrow-inputCity">Recoverable</label></th>
+                                                <th><label for="formrow-inputCity">Ded</label></th>
+                                                <th><label for="formrow-inputCity">TDSDed</label></th>
+                                                <th><label for="formrow-inputCity">Total SdEmdDed</label></th>
+                                                <th><label for="formrow-inputCity">Others1</label></th>
+                                                <th><label for="formrow-inputCity">Others2</label></th>
+                                              
                                             </tr>
                                             <tr formArrayName="mrList"
                                                 *ngFor="let arrayData of formMrArray.controls; let i = index">
@@ -526,10 +552,10 @@
                                                         <input type="text" class="form-control" 
                                                         formControlName="mrDate">
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="mrStatus">
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <input type="text" class="form-control" 
                                                         formControlName="mrType">
@@ -540,21 +566,68 @@
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="billLrOthType">
+                                                        formControlName="totalRecdAmt">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="partyCode">
+                                                        formControlName="totalFreightDed">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="groupMrYN">
+                                                        formControlName="totalClaimsDed">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="partyGroupId">
+                                                        formControlName="totalOthersDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalBankChrgDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="excessRecd">
                                                     </td>
                                                     
+                                                   
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="othersDed1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="othersDed2">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="othersDed3">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalRecoverable">
+                                                    </td>
+                                                  
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalTDSDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalSdEmdDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalOthers1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totalOthers2">
+                                                    </td>
+                                                  
                                                     
                                                 </div>
                                             </tr>

@@ -61,6 +61,10 @@ namespace FreightMasters.Models
         public string? ChequeDt { get; set; }
         public string? ModifyRemarks { get; set; }
         public string? YearId { get; set; }
+        public string? TotDed { get; set; }
+        public string? ExcessRecd { get; set; }
+        public string? OthersDed1 { get; set; }
+        public string? OthersDed2 { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }
