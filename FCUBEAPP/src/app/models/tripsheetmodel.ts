@@ -83,6 +83,8 @@ export class RouteDetails {
     consignorName: string = "";
     loadingTo : string = "";
     consigneeName: string = "";
+    loadWt: string = "";
+    unloadWt: string = "";
     hireAmt : string = "";
     remarks : string = "";        
 }

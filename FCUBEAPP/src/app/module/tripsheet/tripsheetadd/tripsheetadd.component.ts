@@ -326,6 +326,8 @@ export class TripsheetaddComponent {
       consignorName: [''],
       loadingTo: [''],
       consigneeName: [''],
+      loadWt: [''],
+      unloadWt: [''],
       hireAmt: [''],
       remarks: [''],
     });
@@ -527,6 +529,8 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
+        this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -541,6 +545,7 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("consignorName")?.disable();
         this.formRouteArray.controls[i].get("loadingTo")?.disable();
         this.formRouteArray.controls[i].get("consigneeName")?.disable();
+        this.formRouteArray.controls[i].get("loadWt")?.disable();
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
@@ -649,6 +654,8 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
+        this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -661,6 +668,7 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("consignorName")?.disable();
         this.formRouteArray.controls[i].get("loadingTo")?.disable();
         this.formRouteArray.controls[i].get("consigneeName")?.disable();
+        this.formRouteArray.controls[i].get("loadWt")?.disable();
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
@@ -1017,6 +1025,8 @@ export class TripsheetaddComponent {
           'consignorName':  selectedDataValue.routeList[i].consignorName,
           'loadingTo':  loadingto?loadingto.dataId:"" ,
           'consigneeName':  selectedDataValue.routeList[i].consigneeName,
+          'loadWt':  selectedDataValue.routeList[i].loadWt,
+          'unloadWt':  selectedDataValue.routeList[i].unloadWt,
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
           'remarks':  selectedDataValue.routeList[i].remarks,
         })

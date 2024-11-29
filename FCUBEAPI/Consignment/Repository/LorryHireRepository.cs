@@ -100,7 +100,6 @@ namespace Consignment.Repository
             }
             return lorryHire;
         }
-
         public async Task<LorryHireMasterModel> GetLorryHireInnerGrid(RequestModel request)
         {
             LorryHireMasterModel lorryHire = new()
@@ -159,7 +158,37 @@ namespace Consignment.Repository
             }
             return lorryHire;
         }
+        public async Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request)
+        {
 
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@ChYear",         request.FilterStr1),
+                            new SqlParameter("@ChallanBranch",  request.FilterStr2),
+                            new SqlParameter("@ChallanNo",      request.FilterStr3),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkLHPMBrokerDisputeDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return responseModel;
+        }
         public async Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request)
         {
             LorryHireMasterModel lorryHire = new()
@@ -306,7 +335,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> lorryHireDtlSave(SqlTransaction transaction, LorryHireDetailModel lhDetail)
         {
             ResponseModel responseModel = new();
@@ -358,7 +386,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> LorryHireMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -397,7 +424,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -426,8 +452,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
-
         public async Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

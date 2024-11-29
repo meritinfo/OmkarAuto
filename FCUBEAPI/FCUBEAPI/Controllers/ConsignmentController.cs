@@ -1365,6 +1365,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ChkLHPMBrokerDisputeDetails")]
+        public async Task<IActionResult> ChkLHPMBrokerDisputeDetails(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.ChkLHPMBrokerDisputeDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
         [HttpPost("LorryHireMasterSave")]
         public async Task<IActionResult> LorryHireMasterSave(LorryHireMasterModel lorryHire)
         {

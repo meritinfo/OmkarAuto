@@ -17,6 +17,7 @@ namespace Consignment.Models
         public string? InvoiceDate              { get; set; }
         public string? InvoiceValue             { get; set; }
         public string? DeclaredValue            { get; set; }
+        public string? BillingStatus { get; set; }        
         public string? FromPlace                { get; set; }
         public string? ToPlace                  { get; set; }
         public string? FPlace                   { get; set; }

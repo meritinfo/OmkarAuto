@@ -37,6 +37,8 @@ export class DeliveryackpodaddComponent {
   stateList: Dropdownmodel[] = [];
   consignmentId: string = "";
   gcYear: string = "";
+  bookingFrt: string = "";
+  challanNo: string = "";
 
   List: Dropdownmodel[] = [];
   selectedDeliveryackpod = new Deliveryackpodmodel();
@@ -136,6 +138,7 @@ export class DeliveryackpodaddComponent {
       party: new FormControl('', ),
       cnPkgs: new FormControl('', ),
       cnActWt: new FormControl('', ),
+      deliveryStatus: new FormControl('',  [Validators.required]),    
       delPkgs: new FormControl('',  [Validators.required]),    
       delActWt: new FormControl('', [Validators.required]),    
       shExPkgs: new FormControl('', ),
@@ -193,6 +196,20 @@ export class DeliveryackpodaddComponent {
     this.formUser.controls['totExtPayable'].disable();
     this.formUser.controls['netPayable'].disable();
     this.formUser.controls['podRecdDate'].disable();
+    this.formUser.controls['latePodDed'].disable();    
+    
+    this.formUser.controls['damageDesc'].disable();
+    this.formUser.controls['damageClaim'].disable();
+    this.formUser.controls['shortageDesc'].disable();
+    this.formUser.controls['shortageClaim'].disable(); 
+    this.formUser.controls['damageDesc'].clearValidators();
+    this.formUser.controls['damageClaim'].clearValidators();
+    this.formUser.controls['shortageDesc'].clearValidators();
+    this.formUser.controls['shortageClaim'].clearValidators();    
+    this.formUser.controls['damageDesc'].updateValueAndValidity(); 
+    this.formUser.controls['damageClaim'].updateValueAndValidity();  
+    this.formUser.controls['shortageDesc'].updateValueAndValidity();  
+    this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
 
     setTimeout(() => {
       if (this.selectedDeliveryackpod.ackId != '') {
@@ -214,7 +231,55 @@ export class DeliveryackpodaddComponent {
           this.formUser.patchValue({      
             podRecdYN:""
           });
-        }        
+        }  
+        else{          
+          this.formUser.controls['podRecdDate'].enable();
+        }
+        if(this.selectedDeliveryackpod.deliveryStatus=="DM"){
+          this.formUser.controls['damageDesc'].enable();
+          this.formUser.controls['damageClaim'].enable();
+          this.formUser.controls['damageDesc'].setValidators([Validators.required]);
+          this.formUser.controls['damageClaim'].setValidators([Validators.required]);
+          this.formUser.controls['shortageDesc'].disable();
+          this.formUser.controls['shortageClaim'].disable(); 
+          this.formUser.controls['shortageDesc'].clearValidators();
+          this.formUser.controls['shortageClaim'].clearValidators();   
+            
+          this.formUser.controls['damageDesc'].updateValueAndValidity(); 
+          this.formUser.controls['damageClaim'].updateValueAndValidity();  
+          this.formUser.controls['shortageDesc'].updateValueAndValidity();  
+          this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
+        }
+        else if(this.selectedDeliveryackpod.deliveryStatus=="SH"){      
+          this.formUser.controls['damageDesc'].disable();
+          this.formUser.controls['damageClaim'].disable();
+          this.formUser.controls['damageDesc'].clearValidators();
+          this.formUser.controls['damageClaim'].clearValidators();
+          this.formUser.controls['shortageDesc'].enable();
+          this.formUser.controls['shortageClaim'].enable();
+          this.formUser.controls['shortageDesc'].setValidators([Validators.required]);
+          this.formUser.controls['shortageClaim'].setValidators([Validators.required]); 
+            
+          this.formUser.controls['damageDesc'].updateValueAndValidity(); 
+          this.formUser.controls['damageClaim'].updateValueAndValidity();  
+          this.formUser.controls['shortageDesc'].updateValueAndValidity();  
+          this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
+        }
+        else if(this.selectedDeliveryackpod.deliveryStatus=="DS"){      
+          this.formUser.controls['damageDesc'].enable();
+          this.formUser.controls['damageClaim'].enable();
+          this.formUser.controls['shortageDesc'].enable();
+          this.formUser.controls['shortageClaim'].enable();
+          this.formUser.controls['damageDesc'].setValidators([Validators.required]);
+          this.formUser.controls['damageClaim'].setValidators([Validators.required]);
+          this.formUser.controls['shortageDesc'].setValidators([Validators.required]);
+          this.formUser.controls['shortageClaim'].setValidators([Validators.required]); 
+            
+          this.formUser.controls['damageDesc'].updateValueAndValidity(); 
+          this.formUser.controls['damageClaim'].updateValueAndValidity();  
+          this.formUser.controls['shortageDesc'].updateValueAndValidity();  
+          this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
+        }
         this.editMode = true;
         this.formUser.controls['gcNoteNo'].disable();   
         this.formUser.controls['ackDate'].disable();      
@@ -265,6 +330,54 @@ export class DeliveryackpodaddComponent {
     this.formUser.controls['podRecdDate'].updateValueAndValidity();    
   }
 
+  onDelvStatus(e:any){
+    var delStatus = e.target.value;   
+    if(delStatus=="DM"){
+      this.formUser.controls['damageDesc'].enable();
+      this.formUser.controls['damageClaim'].enable();
+      this.formUser.controls['damageDesc'].setValidators([Validators.required]);
+      this.formUser.controls['damageClaim'].setValidators([Validators.required]);
+      this.formUser.controls['shortageDesc'].disable();
+      this.formUser.controls['shortageClaim'].disable(); 
+      this.formUser.controls['shortageDesc'].clearValidators();
+      this.formUser.controls['shortageClaim'].clearValidators();   
+    }
+    else if(delStatus=="SH"){      
+      this.formUser.controls['damageDesc'].disable();
+      this.formUser.controls['damageClaim'].disable();
+      this.formUser.controls['damageDesc'].clearValidators();
+      this.formUser.controls['damageClaim'].clearValidators();
+      this.formUser.controls['shortageDesc'].enable();
+      this.formUser.controls['shortageClaim'].enable();
+      this.formUser.controls['shortageDesc'].setValidators([Validators.required]);
+      this.formUser.controls['shortageClaim'].setValidators([Validators.required]); 
+    }
+    else if(delStatus=="DS"){      
+      this.formUser.controls['damageDesc'].enable();
+      this.formUser.controls['damageClaim'].enable();
+      this.formUser.controls['shortageDesc'].enable();
+      this.formUser.controls['shortageClaim'].enable();
+      this.formUser.controls['damageDesc'].setValidators([Validators.required]);
+      this.formUser.controls['damageClaim'].setValidators([Validators.required]);
+      this.formUser.controls['shortageDesc'].setValidators([Validators.required]);
+      this.formUser.controls['shortageClaim'].setValidators([Validators.required]); 
+    }
+    else{          
+      this.formUser.controls['damageDesc'].disable();
+      this.formUser.controls['damageClaim'].disable();
+      this.formUser.controls['shortageDesc'].disable();
+      this.formUser.controls['shortageClaim'].disable(); 
+      this.formUser.controls['damageDesc'].clearValidators();
+      this.formUser.controls['damageClaim'].clearValidators();
+      this.formUser.controls['shortageDesc'].clearValidators();
+      this.formUser.controls['shortageClaim'].clearValidators();   
+    }    
+    this.formUser.controls['damageDesc'].updateValueAndValidity(); 
+    this.formUser.controls['damageClaim'].updateValueAndValidity();  
+    this.formUser.controls['shortageDesc'].updateValueAndValidity();  
+    this.formUser.controls['shortageClaim'].updateValueAndValidity();  
+  }
+
   onDelPkgsChange(e:any){
     var delpkgs = e.target.value;
     var selectedDataValue = this.formUser.getRawValue();
@@ -295,44 +408,53 @@ export class DeliveryackpodaddComponent {
     });
   }
 
-  onRptDateChange(e:any){
-    var rptdate = e.target.value;
+  onDateChange(){
     var selectedDataValue = this.formUser.getRawValue();
     var expdt = new Date();
     var rptdt = new Date();
+    var dlydt = new Date();
+    var podRecdDt = new Date();
+    var latePodDed = 0;
+
     if(selectedDataValue.expectedRptdate!=''){
       expdt = new Date(selectedDataValue.expectedRptdate);
       rptdt = expdt;
-    }
-    if(rptdate!=''){
-      rptdt = new Date(rptdate)
-    }
-    const differenceInMilliseconds = rptdt.getTime() - expdt.getTime();
-    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-
-    this.formUser.patchValue({      
-      delayDays: differenceInDays,
-    });
-  }
-
-  onDlyDateChange(e:any){
-    var dlydate = e.target.value;
-    var selectedDataValue = this.formUser.getRawValue();
-    var rptdt = new Date();
-    var dlydt = new Date();
+      dlydt = rptdt;
+      podRecdDt = rptdt;
+    }    
     if(selectedDataValue.reportingDate!=''){
       rptdt = new Date(selectedDataValue.reportingDate);
       dlydt = rptdt;
+      podRecdDt = rptdt;
     }
-    if(dlydate!=''){
-      dlydt = new Date(dlydate)
+    if(selectedDataValue.deliveryDate!=''){
+      dlydt = new Date(selectedDataValue.deliveryDate);
+      podRecdDt = dlydt;
     }
-    const differenceInMilliseconds = dlydt.getTime() - rptdt.getTime();
-    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    if(selectedDataValue.podRecdDate!=''){
+      podRecdDt = new Date(selectedDataValue.podRecdDate);
+    }
+
     
-    this.formUser.patchValue({      
-      detnDays: differenceInDays,
+    const differenceInMilliseconds = rptdt.getTime() - expdt.getTime();
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+    const diffInMilliseconds = dlydt.getTime() - rptdt.getTime();
+    const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+    
+    const poddiffInMilliseconds = podRecdDt.getTime() - dlydt.getTime();
+    const poddiffInDays = Math.floor(poddiffInMilliseconds / (1000 * 60 * 60 * 24));
+   
+    if(poddiffInDays>30 && parseFloat(this.bookingFrt)>0 ){
+      latePodDed = (parseFloat(this.bookingFrt)*1.5* poddiffInDays)/3000
+    }
+
+    this.formUser.patchValue({   
+      delayDays:differenceInDays,  
+      detnDays: diffInDays,
+      latePodDed:latePodDed.toFixed(2),
     });
+    this.calcTot();
   }
 
   calcTot(){    
@@ -395,12 +517,12 @@ export class DeliveryackpodaddComponent {
         party: this.deliveryackpodmodel.party,
         expectedRptdate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
         expectedRptTime:this.deliveryackpodmodel.expectedRptTime,
-        reportingDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-        reportingTime:this.deliveryackpodmodel.expectedRptTime,
-        deliveryDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-        deliveryTime:this.deliveryackpodmodel.expectedRptTime,
-        delayDays:0,
-        detnDays:0,
+        reportingDate:this.commonService.formatDate(this.deliveryackpodmodel.reportingDate),
+        reportingTime:this.deliveryackpodmodel.reportingTime,
+        deliveryDate:this.commonService.formatDate(this.deliveryackpodmodel.deliveryDate),
+        deliveryTime:this.deliveryackpodmodel.deliveryTime,
+        delayDays:"0",
+        detnDays:this.deliveryackpodmodel.detnDays,
         balancePayable:this.deliveryackpodmodel.balancePayable,
         handlingPayable:this.deliveryackpodmodel.handlingPayable,
         detiontionPayable:this.deliveryackpodmodel.detiontionPayable,
@@ -409,6 +531,9 @@ export class DeliveryackpodaddComponent {
         totExtPayable:this.deliveryackpodmodel.totExtPayable,
         netPayable:this.deliveryackpodmodel.balancePayable,
       });
+      
+      this.bookingFrt = this.deliveryackpodmodel.bookingFrt;
+      this.challanNo = this.deliveryackpodmodel.challanNo;
       this.formUser.controls["gcNoteNo"].disable();
     });
   }
@@ -484,6 +609,7 @@ export class DeliveryackpodaddComponent {
     this.deliveryackpodmodel.others1Payable     = selectedDataValue.others1Payable.toString();
     this.deliveryackpodmodel.others2Payable     = selectedDataValue.others2Payable.toString();
     this.deliveryackpodmodel.totExtPayable      = selectedDataValue.totExtPayable.toString();
+    this.deliveryackpodmodel.deliveryStatus     = selectedDataValue.deliveryStatus.toString();
     this.deliveryackpodmodel.shortageDesc       = selectedDataValue.shortageDesc.toString().toUpperCase();
     this.deliveryackpodmodel.damageDesc         = selectedDataValue.damageDesc.toString().toUpperCase();
     this.deliveryackpodmodel.shortageClaim      = selectedDataValue.shortageClaim.toString();

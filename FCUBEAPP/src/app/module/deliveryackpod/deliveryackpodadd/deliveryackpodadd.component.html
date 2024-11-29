@@ -56,7 +56,14 @@
                                                 formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
-                                    </div> 
+                                    </div>                                                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label style="color: red"> 
+                                                <h6>Challan No: {{ this.challanNo}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>
                                 </div> 
                                 <div class="row">   
                                     <div class="col-lg-2">
@@ -129,7 +136,21 @@
                                         </div>
                                     </div>  
                                 </div>    
-                                <div class="row">  
+                                <div class="row"> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Delivery Status</label>
+                                            <select autoclose="false"
+                                            class="form-control form-select ng-pristine ng-touched"  
+                                            formControlName="deliveryStatus" (change)="onDelvStatus($event)"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['deliveryStatus'].invalid) }">
+                                                <option value="OK">OK </option>
+                                                <option value="DM">Damage </option>
+                                                <option value="SH">Shortage </option>
+                                                <option value="DS">Damage+Shortage </option>
+                                            </select>
+                                        </div>
+                                    </div> 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Pkgs</label>
@@ -183,7 +204,7 @@
                                             <label for="formrow-inputZip">Reporting Date</label>
                                             <span style="color: red"> * </span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="reportingDate" (change)="onRptDateChange($event)" 
+                                                formControlName="reportingDate" (change)="onDateChange()"  
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['reportingDate'].invalid) }">
                                         </div>
                                     </div>                                     
@@ -209,7 +230,7 @@
                                             <label for="formrow-inputZip">Delivery Date</label>
                                             <span style="color: red"> * </span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="deliveryDate" (change)="onDlyDateChange($event)" 
+                                                formControlName="deliveryDate" (change)="onDateChange()" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['deliveryDate'].invalid) }">
                                         </div>
                                     </div>                                      
@@ -316,7 +337,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">POD Recd Date</label>
-                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                            <input type="date" (change)="onDateChange()" 
+                                                 autoclose="false" class="form-control"
                                                 formControlName="podRecdDate" >
                                         </div>
                                     </div>  
@@ -330,8 +352,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Late Pod Ded</label>
-                                            <input decimalonly (change)="calcTot()" 
-                                            autoclose="false" class="form-control" formControlName="latePodDed" >
+                                            <input autoclose="false" class="form-control" 
+                                            formControlName="latePodDed" >
                                         </div>
                                     </div>  
                                 </div>

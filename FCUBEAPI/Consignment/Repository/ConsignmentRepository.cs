@@ -486,6 +486,7 @@ namespace Consignment.Repository
                         lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
                         lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.BillingStatus= Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
@@ -533,6 +534,9 @@ namespace Consignment.Repository
                         lrmodel.UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnloadingDetenNarr"]);
                         lrmodel.ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasNarr"]);
                         lrmodel.OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersNarr"]);
+                        lrmodel.UlReportingDateTime= Convert.ToString(dataSet.Tables[0].Rows[0]["UlReportingDateTime"]);
+                        lrmodel.DeliveryDateTime= Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDateTime"]);
+                        lrmodel.UlDetentionDays= Convert.ToString(dataSet.Tables[0].Rows[0]["UlDetentionDays"]);
                     }
                 }
             }
@@ -557,6 +561,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),
+                            new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
                             new SqlParameter("@RateDesc",           ConsignmentModel.RateDesc ),
                             new SqlParameter("@GstBy",              ConsignmentModel.GstBy),
@@ -600,6 +605,9 @@ namespace Consignment.Repository
                             new SqlParameter("@NonGstAmt2",         ConsignmentModel.NonGstAmt2   ),
                             new SqlParameter("@NonGstAmt2Desc",     ConsignmentModel.NonGstAmt2Desc    ),
                             new SqlParameter("@GtotalRs",           ConsignmentModel.GtotalRs  ),
+                            new SqlParameter("@UlReportingDateTime",ConsignmentModel.UlReportingDateTime  ),
+                            new SqlParameter("@DeliveryDateTime",   ConsignmentModel.DeliveryDateTime  ),
+                            new SqlParameter("@UlDetentionDays",    ConsignmentModel.UlDetentionDays  ),
                             new SqlParameter("@YearId",             ConsignmentModel.YearId   ),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
                         };

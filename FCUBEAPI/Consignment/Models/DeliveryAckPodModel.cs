@@ -37,7 +37,9 @@ namespace Consignment.Models
 		public string? DeliveryDate { get; set; }
         public string? DeliveryTime { get; set; }        
         public string? DetnDays { get; set; }
-		public string? PodRecdYN { get; set; }
+        public string? BookingFrt { get; set; }
+        public string? ChallanNo { get; set; }        
+        public string? PodRecdYN { get; set; }
 		public string? PodRecdDate { get; set; }
 		public string? PodAttach1 { get; set; }
 		public string? PodAttach2 { get; set; }
@@ -47,7 +49,8 @@ namespace Consignment.Models
 		public string? Others1Payable { get; set; }
 		public string? Others2Payable { get; set; }
 		public string? TotExtPayable { get; set; }
-		public string? ShortageDesc { get; set; }
+        public string? DeliveryStatus { get; set; }
+        public string? ShortageDesc { get; set; }
 		public string? DamageDesc { get; set; }
 		public string? ShortageClaim { get; set; }
 		public string? DamageClaim { get; set; }

@@ -36,7 +36,20 @@
                                                 formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
-                                    </div> 
+                                    </div>                                
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill Status</label><span style="color: red">*</span>
+                                            <select formControlName="billingStatus"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStatus'].invalid) }">
+                                                <option value="NA">Not Applicable</option>
+                                                <option value="WP">With POD</option>
+                                                <option value="WO">Without POD</option>
+                                                <option value="IB">Indemnity Bond</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div> 
                                 <div class="row">   
                                     <div class="col-lg-2">
@@ -259,7 +272,30 @@
                                             <input uppercaseonly autoclose="false" class="form-control"
                                                 formControlName="doorDelNarr" >
                                         </div>
-                                    </div>                                     
+                                    </div>                                    
+                                    <div class="row"> 
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading Date</label>
+                                                <input type="date" class="form-control"  
+                                                    formControlName="ulReportingDateTime" (change)="calcDetDays()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Delivery Date</label>
+                                                <input type="date" class="form-control" 
+                                                    formControlName="deliveryDateTime" (change)="calcDetDays()">
+                                            </div>
+                                        </div>      
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Detn Days</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="ulDetentionDays">
+                                            </div>
+                                        </div> 
+                                    </div>                                           
                                     <div class="row">    
                                         <div class="col-lg-2">
                                             <div class="mb-3">

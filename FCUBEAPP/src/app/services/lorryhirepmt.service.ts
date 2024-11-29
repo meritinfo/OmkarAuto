@@ -54,6 +54,10 @@ export class LorryhirepmtService {
   checkChallanNoExists(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanNoExists', request, this.httpOptions);
   }
+  chkLHPMBrokerDisputeDetails(request: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChkLHPMBrokerDisputeDetails', request, this.httpOptions);
+  } 
+  
 
   lorryhiremasterDelete(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDelete', request, this.httpOptions);

@@ -282,7 +282,6 @@ import { MaintanencemasterlistComponent } from './module/maintanencemaster/maint
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
-import { LrbillupdateComponent } from './module/lrbillupdate/lrbillupdate/lrbillupdate.component';
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
@@ -499,8 +498,7 @@ import { BillenquiryComponent } from './module/billenquiry/billenquiry/billenqui
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent, 
-    BalanacerptComponent,LrbillupdateComponent,
-    VehicleinstpmtaddComponent, VehicleinstpmtlistComponent,
+    BalanacerptComponent,VehicleinstpmtaddComponent, VehicleinstpmtlistComponent,
     CompanyinfoaddComponent, MraddComponent, MrlistComponent, 
     TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,   
     TyreativatelistComponent, TyreativateaddComponent, 

@@ -113,9 +113,10 @@ export class ConsignmentupdateComponent {
     this.formUser = this.formBuilder.group({
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       gcNoteNo  : new FormControl('', [Validators.required]),
-      bookingDate : new FormControl(this.loginDate, [Validators.required]),
-      fromPlace : new FormControl('', [Validators.required]),    
-      toPlace : new FormControl('', [Validators.required]),    
+      billingStatus: new FormControl('', [Validators.required]),
+      bookingDate : new FormControl('', ),
+      fromPlace : new FormControl('',),    
+      toPlace : new FormControl('', ),    
       noPackages : new FormControl('',),  
       actualWt : new FormControl('',),   
       chargewt : new FormControl('',),   
@@ -164,7 +165,10 @@ export class ConsignmentupdateComponent {
       nonGstAmt1Desc: new FormControl('',),   
       nonGstAmt2: new FormControl('',),   
       nonGstAmt2Desc: new FormControl('',),   
-      gtotalRs : new FormControl('',),   
+      gtotalRs : new FormControl('',),      
+      ulReportingDateTime : new FormControl('',), 
+      deliveryDateTime : new FormControl('',),      
+      ulDetentionDays : new FormControl('',),     
     });
 
     this.sharedService.loading = false;
@@ -179,6 +183,8 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['party'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
+    this.formUser.controls['ulDetentionDays'].disable(); 
+    
       
   }
 
@@ -200,6 +206,7 @@ export class ConsignmentupdateComponent {
   getConsignmentDetails(e: any) { 
     this.formUser.patchValue({
       bookingDate : "",
+      billingStatus: "",
       fromPlace : "",
       toPlace :  "",     
       noPackages :  "",
@@ -251,6 +258,9 @@ export class ConsignmentupdateComponent {
       nonGstAmt2:  "", 
       nonGstAmt2Desc:  "", 
       gtotalRs :  "", 
+      ulReportingDateTime:  "", 
+      deliveryDateTime:  "", 
+      ulDetentionDays :  "", 
     });
 
       this.sharedService.loading = true;
@@ -269,6 +279,7 @@ export class ConsignmentupdateComponent {
         else{
           this.formUser.patchValue({
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
+            billingStatus:this.lrmodel.billingStatus,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace,    
             noPackages :  this.lrmodel.noPackages,
@@ -320,13 +331,26 @@ export class ConsignmentupdateComponent {
             nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
             nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
             gtotalRs :  this.lrmodel.gtotalRs ,
-            //freightNarr :  this.lrmodel.gtotalRs 
+            ulReportingDateTime :  this.commonService.formatDate(this.lrmodel.ulReportingDateTime ),
+            deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
+            ulDetentionDays :  this.lrmodel.ulDetentionDays ,
           });
         }
       });
       this.sharedService.loading = false;
   }
 
+  calcDetDays(){    
+    var selectedData = this.formUser.getRawValue();
+    
+    let deliveryDateTime = new Date(selectedData.deliveryDateTime);
+    let ulReportingDateTime = new Date(selectedData.ulReportingDateTime);
+    let differenceInTime =  deliveryDateTime.getTime() - ulReportingDateTime.getTime();
+    var ulDetentionDays = Math.floor((differenceInTime / (1000 * 3600 * 24)));
+    this.formUser.patchValue({
+      ulDetentionDays: ulDetentionDays
+    })
+  }
       
   changeGstType(e: any) {
     console.log(e.target.value);
@@ -500,8 +524,19 @@ export class ConsignmentupdateComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
+    if(selectedDataValue.ulReportingDateTime.toString()=="" && selectedDataValue.deliveryDateTime.toString()!="")
+    {      
+      this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
+      return;
+    }
+    if(selectedDataValue.ulReportingDateTime.toString()!="" && selectedDataValue.deliveryDateTime.toString()=="")
+    {      
+      this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
+      return;
+    }
     this.sharedService.loading = true;
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;
+    this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
     this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
@@ -545,6 +580,9 @@ export class ConsignmentupdateComponent {
     this.cnmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
     this.cnmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc  ? selectedDataValue.nonGstAmt2Desc : "0"; 
     this.cnmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
+    this.cnmodel.ulReportingDateTime = selectedDataValue.ulReportingDateTime.toString();
+    this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
+    this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
     this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
      
