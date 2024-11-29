@@ -1918,6 +1918,22 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+      
+        [HttpPost("SearchChallanDetails")]
+        public async Task<IActionResult> SearchChallanDetails(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await challanReleaseBusiness.SearchChallanDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
 

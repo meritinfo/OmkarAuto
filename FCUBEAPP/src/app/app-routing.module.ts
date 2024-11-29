@@ -240,6 +240,8 @@ import { BusinesssummrptComponent } from './module/businesssummrpt/businesssummr
 import { ChallanenquiryComponent } from './module/challanenqiry/challanenquiry/challanenquiry.component';
 import { MrenquiryComponent } from './module/mrenquiry/mrenquiry/mrenquiry.component';
 import { BillenquiryComponent } from './module/billenquiry/billenquiry/billenquiry.component';
+import { ChallanreleaseaddComponent } from './module/challanrelease/challanreleaseadd/challanreleaseadd.component';
+import { ChallanreleaselistComponent } from './module/challanrelease/challanreleaselist/challanreleaselist.component';
 
 
 
@@ -576,6 +578,9 @@ const routes: Routes = [
   { path: 'chlnenquiry', component: ChallanenquiryComponent },
   { path: 'mrenquiry', component: MrenquiryComponent },
   { path: 'billenquiry', component: BillenquiryComponent},
+  { path: 'challanrelease', component: ChallanreleaselistComponent },
+  { path: 'challanreleaseadd', component: ChallanreleaseaddComponent },
+  
   
   
   { path: 'busisummlr', component: BusinesssummrptComponent },

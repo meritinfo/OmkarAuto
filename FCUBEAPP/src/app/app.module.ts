@@ -24,6 +24,7 @@ import { Ratetypesmodel } from './models/ratetypesmodel';
 import { Tyrepositionmastermodel } from './models/tyrepositionmastermodel';
 import { Productgroupmastermodel } from './models/productgroupmastermodel';
 import { Productmastermodel } from './models/productmastermodel';
+import { ChallanreleaseModel } from 'src/app/models/challanreleasemodel';
 import { DataTablesModule } from 'angular-datatables';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
@@ -610,7 +611,7 @@ import { ChallanreleaselistComponent } from './module/challanrelease/challanrele
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,
-    Businesssummrptmodel,
+    Businesssummrptmodel,ChallanreleaseModel
     
   ],
   bootstrap: [AppComponent]

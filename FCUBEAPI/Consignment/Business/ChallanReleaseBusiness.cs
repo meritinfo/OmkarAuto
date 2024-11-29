@@ -29,5 +29,9 @@ namespace Consignment.Business
         {
             return await challanReleaseRepository.ChallanReleaseDelete(requestModel);
         }
+        public async Task<ChallanMasterModel> SearchChallanDetails(ReportRequestModel req)
+        {
+            return await challanReleaseRepository.SearchChallanDetails(req);
+        }
     }
 }
