@@ -56,6 +56,12 @@ export class Mrmodel {
     modifyRemarks : string = ""
     yearId : string = ""
     loggedInUser : string = "" 
+    totDed : string = ""
+    excessRecd : string = ""
+    othersDed1 : string = ""
+    othersDed2 : string = ""
+    othersDed3 : string = ""
+    
 
     
     mrDtlsList: Mrdtlsmodel[] = [];

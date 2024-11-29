@@ -31,5 +31,6 @@ export class Billsmastersearchmodel {
   remarks2:  string = "";
   remarks3:  string = "";
   suppBillDetRemarks:  string = "";
+  otherAmt:  string = "";
   selected: boolean = false;
 }

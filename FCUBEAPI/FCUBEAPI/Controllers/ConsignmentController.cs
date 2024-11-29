@@ -32,6 +32,7 @@ namespace FCUBEAPI.Controllers
         readonly ILorryHireReqBusiness lorryHireReqBusiness;
         readonly ILorryHireAprvBusiness lorryHireAprvBusiness;
         readonly IMrBusiness mrBusiness;
+        readonly IChallanReleaseBusiness challanReleaseBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -44,7 +45,8 @@ namespace FCUBEAPI.Controllers
             ILorryHireBusiness _lorryHireBusiness,
             ILorryHireReqBusiness _lorryHireReqBusiness,
             ILorryHireAprvBusiness _lorryHireAprvBusiness,
-            IMrBusiness _mrBusiness)
+            IMrBusiness _mrBusiness,
+            IChallanReleaseBusiness _challanReleaseBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -59,6 +61,7 @@ namespace FCUBEAPI.Controllers
             lorryHireReqBusiness = _lorryHireReqBusiness;
             lorryHireAprvBusiness = _lorryHireAprvBusiness;
             mrBusiness = _mrBusiness;
+            challanReleaseBusiness = _challanReleaseBusiness;
         }
         
 
@@ -1881,6 +1884,61 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetChallanReleaseList")]
+        public async Task<IActionResult> GetChallanReleaseList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanReleaseBusiness.GetChallanReleaseList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanReleaseSave")]
+        public async Task<IActionResult> ChallanReleaseSave(ChallanReleaseModel mr)
+        {
+            if (mr == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanReleaseBusiness.ChallanReleaseSave(mr);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanReleaseDelete")]
+        public async Task<IActionResult> ChallanReleaseDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanReleaseBusiness.ChallanReleaseDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
 

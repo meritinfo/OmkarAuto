@@ -315,6 +315,8 @@ namespace FCUBEAPI
             services.AddScoped<IBusinessSummRptRepository, BusinessSummRptRepository>();
             services.AddScoped<ITripEnrouteExpByCompanyBusiness, TripEnrouteExpByCompanyBusiness>();
             services.AddScoped<ITripEnrouteExpByCompanyRepository, TripEnrouteExpByCompanyRepository>();
+            services.AddScoped<IChallanReleaseBusiness, ChallanReleaseBusiness>();
+            services.AddScoped<IChallanReleaseRepository, ChallanReleaseRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

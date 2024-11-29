@@ -30,6 +30,7 @@ namespace FreightMasters.Models
         public string? dname { get; set; }
         public string? Lname{ get; set; }
 
+
         public List<BillSubmitMasterDtlListmodel> BillSubmitMasterDtlList { get; set; }
     }
     public class BillSubmitMasterDtlListmodel
