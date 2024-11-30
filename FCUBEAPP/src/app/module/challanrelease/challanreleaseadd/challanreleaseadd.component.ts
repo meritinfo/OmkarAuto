@@ -291,6 +291,8 @@ submitChallanReleaseForm(): void {
   this.challanreleaseModel.challanNo = selectedDataValue.challanNo;
   this.challanreleaseModel.challanId = selectedDataValue.challanId;
   this.challanreleaseModel.releaseForPmt = selectedDataValue.releaseForPmt;
+  this.challanreleaseModel.loggedInUser = this.loggedInUserID;
+ 
 
 
   this.challanReleaseService.challanReleaseSubmitted(this.challanreleaseModel).subscribe((res: Responsemodel) => {
