@@ -56,6 +56,7 @@ namespace Consignment.Repository
 
                                 ReleaseForPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ReleaseForPmt"]),
                                 Year = Convert.ToString(dataSet.Tables[0].Rows[i]["Year"]),
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 
