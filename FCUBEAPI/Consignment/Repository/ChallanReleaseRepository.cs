@@ -34,9 +34,9 @@ namespace Consignment.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@LoginBranch",     request.FilterStr)
+                            //new SqlParameter("@FromDate",   request.FromDate),
+                            //new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@ChallanNo",     request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChallanReleaseList", param);
 
@@ -55,7 +55,7 @@ namespace Consignment.Repository
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
 
                                 ReleaseForPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ReleaseForPmt"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
                               
                             });
@@ -120,6 +120,43 @@ namespace Consignment.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<ChallanMasterModel> SearchChallanDetails(ReportRequestModel req)
+        {
+            ChallanMasterModel chlnmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@challanBranch", req.FilterStr),
+                             new SqlParameter("@ChallanNo", req.FilterStr1),
+                            new SqlParameter("@chYear", req.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_SearchChallanDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        chlnmodel.ChallanId = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanId"]);
+                        chlnmodel.ChallanBranch = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanBranch"]);
+                        chlnmodel.ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanNo"]);
+                        chlnmodel.ChallanDateTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanDateTime"]);
+                     
+                        chlnmodel.ChallanFromStn = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
+                        chlnmodel.ChallanToStn = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
+                     
+                        chlnmodel.BrokerId = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
+                      
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return chlnmodel;
         }
         public async Task<ResponseModel>ChallanReleaseDelete(RequestModel requestModel)
         {
