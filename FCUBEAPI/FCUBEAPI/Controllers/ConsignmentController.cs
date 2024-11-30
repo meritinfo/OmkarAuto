@@ -504,6 +504,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
         [HttpPost("GetConsignmentId")]
         public async Task<IActionResult> GetConsignmentId(RequestModel req)
         {
@@ -1925,6 +1926,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await challanReleaseBusiness.SearchChallanDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateChallanRelease")]
+        public async Task<IActionResult> CheckDuplicateChallanRelease(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanReleaseBusiness.CheckDuplicateChallanRelease(req);
 
                 return Ok(result);
             }

@@ -55,9 +55,10 @@ namespace Consignment.Repository
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
 
                                 ReleaseForPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ReleaseForPmt"]),
+                                Year = Convert.ToString(dataSet.Tables[0].Rows[i]["Year"]),
                                 //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
-                              
+
                             });
                         }
 
@@ -76,6 +77,47 @@ namespace Consignment.Repository
 
             }
             return challanRelModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateChallanRelease(ReportRequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          
+                            new SqlParameter("@ChallanNo", requestModel.FilterStr),
+                              new SqlParameter("@Branch", requestModel.FilterStr1),
+                                new SqlParameter("@Year", requestModel.FilterStr2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallanRelease", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> ChallanReleaseSave(ChallanReleaseModel challanReleaseModel)
         {
@@ -130,8 +172,8 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@challanBranch", req.FilterStr),
-                             new SqlParameter("@ChallanNo", req.FilterStr1),
+                            new SqlParameter("@ChallanNo", req.FilterStr),
+                             new SqlParameter("@challanBranch", req.FilterStr1),
                             new SqlParameter("@chYear", req.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_SearchChallanDetails", param);

@@ -92,20 +92,25 @@ ngOnInit(): void {
   this.selectedChallanReleaseDetails = this.challanReleaseService.getChallanDetails();
   this.formUser = this.formBuilder.group({
     chYear: new FormControl('',[Validators.required]),
-    challanBranch: new FormControl('',[Validators.required]),
+    challanBranch: new FormControl(this.branch,[Validators.required]),
     challanNo: new FormControl('',[Validators.required]),
-    challanId: new FormControl('',[Validators.required]),
+    challanId: new FormControl('',),
     releaseForPmt: new FormControl('Y',[Validators.required]),
-    challanFromStn: new FormControl('', [Validators.required]),
-    challanToStn: new FormControl('', [Validators.required]),
-    challanDateTime: new FormControl('', [Validators.required]),
-    brokerId: new FormControl('', [Validators.required]),
+    challanFromStn: new FormControl('', ),
+    challanToStn: new FormControl('', ),
+    challanDateTime: new FormControl('', ),
+    brokerId: new FormControl('', ),
   });
 
- 
+  this.formUser.controls["challanBranch"].disable();
+  this.formUser.controls["releaseForPmt"].disable();
   if (this.selectedChallanReleaseDetails.chReleaseId != '') {
     this.formUser.patchValue(this.selectedChallanReleaseDetails);   
     this.editMode = true;
+    this.searchChallan();
+    this.formUser.patchValue({
+      challanBranch: this.selectedChallanReleaseDetails.challanBranch,
+    });  
   }
  
 
@@ -150,9 +155,11 @@ onChangeSearch(search: string) {
   // do something with selected item
 }
 searchChallan(): void {
+
+ // this.chkChallanDuplicateRelease();
   var selectedDataVal = this.formUser.getRawValue();
-  this.reportmodel.filterStr = selectedDataVal.challanBranch;
-  this.reportmodel.filterStr1 = selectedDataVal.challanNo;
+  this.reportmodel.filterStr = selectedDataVal.challanNo;
+  this.reportmodel.filterStr1 = selectedDataVal.challanBranch;
   this.reportmodel.filterStr2 = selectedDataVal.chYear;
   this.challanReleaseService.searchChallanDetail(this.reportmodel).subscribe((res) => {
     this.selectedChallanDetails = res;
@@ -207,6 +214,39 @@ exit(): void {
 //     });
     
 // }
+chkChallanDuplicateRelease(){
+  var selectedData = this.formUser.getRawValue();
+  // if (selectedData.challanNo==""){
+  //   this.toasterService.warning("Challan No should not be Blank");
+  //   return;
+  // }
+  // else{
+    this.reportmodel.filterStr = selectedData.challanNo;
+    this.reportmodel.filterStr1 = selectedData.challanBranch;
+    this.reportmodel.filterStr2 = selectedData.chYear;
+
+    this.challanReleaseService.checkDuplicateChallanRelease(this.reportmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+        this.searchChallan();
+        
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          challanNo: "",
+         // releaseForPmt: "",
+          challanFromStn: "",
+          challanToStn: "",
+          challanDateTime: "",
+          brokerId: "",
+
+        });
+      }
+    });
+ // }  
+}
 deleteChallanReleaseForm(): void {
   if(this.selectedChallanReleaseDetails.chReleaseId != '' ){
    this.requestmodel.strRequest =this.selectedChallanReleaseDetails.chReleaseId

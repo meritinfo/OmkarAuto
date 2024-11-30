@@ -8,6 +8,7 @@ export class ChallanreleaseModel {
     challanId: string = "";
     releaseForPmt: string = "";
     year: string = "";
+    branch: string = "";
     loggedInUser: string = "";
      
   }
