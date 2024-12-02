@@ -189,11 +189,6 @@ export class DeliveryackpodaddComponent {
     this.formUser.controls['delayDays'].disable();
     this.formUser.controls['detnDays'].disable();
     this.formUser.controls['balancePayable'].disable();
-    this.formUser.controls['handlingPayable'].disable();
-    this.formUser.controls['detiontionPayable'].disable();
-    this.formUser.controls['others1Payable'].disable();
-    this.formUser.controls['others2Payable'].disable();
-    this.formUser.controls['totExtPayable'].disable();
     this.formUser.controls['netPayable'].disable();
     this.formUser.controls['podRecdDate'].disable();
     this.formUser.controls['latePodDed'].disable();    
@@ -416,6 +411,8 @@ export class DeliveryackpodaddComponent {
     var podRecdDt = new Date();
     var latePodDed = 0;
 
+    var gcDate = new Date(selectedDataValue.gcDate);
+
     if(selectedDataValue.expectedRptdate!=''){
       expdt = new Date(selectedDataValue.expectedRptdate);
       rptdt = expdt;
@@ -434,8 +431,27 @@ export class DeliveryackpodaddComponent {
     if(selectedDataValue.podRecdDate!=''){
       podRecdDt = new Date(selectedDataValue.podRecdDate);
     }
-
-    
+    if(gcDate>rptdt){
+      this.toasterService.warning(" Reporting Date Should not be less than Booking Date");  
+      this.formUser.patchValue({   
+        reportingDate:"",
+      });
+      return;
+    }
+    if(rptdt>dlydt){
+      this.toasterService.warning(" Delivery Date Should not be less than Reporting Date");  
+      this.formUser.patchValue({   
+        deliveryDate:"",
+      });
+      return;
+    }
+    if(dlydt>podRecdDt){
+      this.toasterService.warning(" POD Recd Date Should not be less than Delivery Date");  
+      this.formUser.patchValue({   
+        podRecdDate:"",
+      });
+      return;
+    }
     const differenceInMilliseconds = rptdt.getTime() - expdt.getTime();
     const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
@@ -464,8 +480,27 @@ export class DeliveryackpodaddComponent {
     if(selectedDataValue.balancePayable!=''){
       tot = tot + parseFloat(selectedDataValue.balancePayable)
     }
+    if(selectedDataValue.handlingPayable!=''){
+      tot = tot + parseFloat(selectedDataValue.handlingPayable)
+    }
+    if(selectedDataValue.detiontionPayable!=''){
+      tot = tot + parseFloat(selectedDataValue.detiontionPayable)
+    }
+    if(selectedDataValue.others1Payable!=''){
+      tot = tot + parseFloat(selectedDataValue.others1Payable)
+    }
+    if(selectedDataValue.others2Payable!=''){
+      tot = tot + parseFloat(selectedDataValue.others2Payable)
+    }
     if(selectedDataValue.totExtPayable!=''){
       tot = tot + parseFloat(selectedDataValue.totExtPayable)
+    }
+    //deductions
+    if(selectedDataValue.shortageClaim!=''){
+      tot = tot - parseFloat(selectedDataValue.shortageClaim)
+    }
+    if(selectedDataValue.damageClaim!=''){
+      tot = tot - parseFloat(selectedDataValue.damageClaim)
     }
     if(selectedDataValue.lateRptDed!=''){
       tot = tot - parseFloat(selectedDataValue.lateRptDed)
@@ -476,6 +511,8 @@ export class DeliveryackpodaddComponent {
     if(selectedDataValue.othDed && selectedDataValue.othDed!=''){
       tot = tot - parseFloat(selectedDataValue.othDed)
     }
+
+
     this.formUser.patchValue({      
       netPayable:tot,
     });

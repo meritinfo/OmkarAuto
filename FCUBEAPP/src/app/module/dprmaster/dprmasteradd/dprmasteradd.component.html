@@ -296,6 +296,8 @@
                                             </label>
                                             <input #attachmentInput class="form-control" type="file"
                                                 id="formAttFile"  >
+                                            <a *ngIf="selectedDprDetails.attachConfirmDoc" target="_blank"
+                                                href={{attachConfirmDoc}}>Download</a>
                                         </div>
                                     </div> 
                                 </div> 

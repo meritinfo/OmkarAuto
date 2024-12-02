@@ -1120,6 +1120,46 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
+        public async Task<CnEnqDocModel> GetCnEnqDoc(RequestModel req)
+        {
+            CnEnqDocModel lrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@CnNo", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqDoc", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        lrmodel.DprIndentDoc      = Convert.ToString(dataSet.Tables[0].Rows[0]["DprIndentDoc"]);
+                        lrmodel.VehRcDoc          = Convert.ToString(dataSet.Tables[0].Rows[0]["VehRcDoc"]);
+                        lrmodel.LoadingSlipDoc    = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingSlipDoc"]);
+                        lrmodel.VehPanDoc         = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPanDoc"]);
+                        lrmodel.VehDecDoc         = Convert.ToString(dataSet.Tables[0].Rows[0]["VehDecDoc"]);
+                        lrmodel.PartyInvDoc       = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyInvDoc"]);
+                        lrmodel.VehPhoto1Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto1Doc"]);
+                        lrmodel.VehPhoto2Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto2Doc"]);
+                        lrmodel.VehPhoto3Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto3Doc"]);
+                        lrmodel.DeclarationDoc    = Convert.ToString(dataSet.Tables[0].Rows[0]["DeclarationDoc"]);
+                        lrmodel.ChallanPhoto1     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPhoto1"]);
+                        lrmodel.ChallanPhoto2     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPhoto2"]);
+                        lrmodel.TruckDriverImage  = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckDriverImage"]);
+                        lrmodel.PodAttach1        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach1"]);
+                        lrmodel.PodAttach2        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach2"]);                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lrmodel;
+        }
+        
         public async Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request)
         {
             ConsignmentModel consignment = new()

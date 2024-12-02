@@ -1794,6 +1794,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetCnEnqDoc")]
+        public async Task<IActionResult> GetCnEnqDoc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetCnEnqDoc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("GetCnEnqInnerGridList")]
         public async Task<IActionResult> GetCnEnqInnerGridList(RequestModel req)
         {

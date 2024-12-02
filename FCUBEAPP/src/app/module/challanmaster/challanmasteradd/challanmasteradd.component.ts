@@ -242,9 +242,9 @@ export class ChallanmasteraddComponent {
       if (this.selectedChallanDetails.challanId != '') {
         this.sharedService.loading = true;
         this.photo1 = Constants.UploadFolderPath + 'challan/photo1/' + this.selectedChallanDetails.photo1;
-        this.photo1 = Constants.UploadFolderPath + 'challan/photo2/' + this.selectedChallanDetails.photo2;
-        this.photo1 = Constants.UploadFolderPath + 'challan/photo3/' + this.selectedChallanDetails.photo3;
-        this.photo1 = Constants.UploadFolderPath + 'challan/truckDriverImage/' + this.selectedChallanDetails.truckDriverImage;
+        this.photo2 = Constants.UploadFolderPath + 'challan/photo2/' + this.selectedChallanDetails.photo2;
+        this.photo3 = Constants.UploadFolderPath + 'challan/photo3/' + this.selectedChallanDetails.photo3;
+        this.truckDriverImage = Constants.UploadFolderPath + 'challan/truckDriverImage/' + this.selectedChallanDetails.truckDriverImage;
         this.formUser.patchValue(this.selectedChallanDetails);
         this.formUser.patchValue({
           challanDateTime: this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) ,

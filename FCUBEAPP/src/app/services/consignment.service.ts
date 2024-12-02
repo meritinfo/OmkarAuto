@@ -4,7 +4,7 @@ import { Consignmentmodel } from '../models/consignmentmodel';
 import { Consignmentupdatemodel } from '../models/consignmentupdatemodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
-import { Filtermodel } from '../models/filtermodel';
+import { Cnenqdocmodel } from '../models/cnenqdocmodel';
 import { Constants } from '../common/constants';
 import { Consignmentlistmodel } from '../models/consignmentlistmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -78,6 +78,9 @@ export class ConsignmentService {
 
   getCnEnqDetails(filter: Requestmodel): Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqDetails', filter, this.httpOptions);
+  }
+  getCnEnqDoc(filter: Requestmodel): Observable<Cnenqdocmodel> {
+    return this.httpClient.post<Cnenqdocmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqDoc', filter, this.httpOptions);
   }
   getCnEnqInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqInnerGridList', req, this.httpOptions);

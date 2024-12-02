@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
+import { Cnenqdocmodel } from 'src/app/models/cnenqdocmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from 'src/app/common/constants';
@@ -45,10 +46,26 @@ export class CnenquiryComponent {
   contentList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   businessByList: Dropdownmodel[] = [];
+  dprIndentDoc: string ="";
+  vehRcDoc: string ="";
+  loadingSlipDoc: string ="";
+  vehPanDoc: string ="";
+  vehDecDoc: string ="";
+  partyInvDoc: string ="";
+  vehPhoto1Doc: string ="";
+  vehPhoto2Doc: string ="";
+  vehPhoto3Doc: string ="";
+  declarationDoc: string ="";
+  challanPhoto1: string ="";
+  challanPhoto2: string ="";
+  truckDriverImage : string ="";
+  podAttach1: string ="";
+  podAttach2: string ="";
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();
   selectedLrDetails = new Consignmentmodel();
+  selectedLrDoc = new Cnenqdocmodel();
   keywordLocation = 'dataName';
   attach1: string = "";
   formFilter!: FormGroup;
@@ -56,6 +73,7 @@ export class CnenquiryComponent {
   step1Active = true;
   step2Active = false;
   step3Active = false;
+  step4Active = false;
   
   constructor(private route: Router, private formBuilder: FormBuilder,
     private lrmodel: Consignmentmodel, private lrentryService: ConsignmentService,
@@ -326,21 +344,30 @@ export class CnenquiryComponent {
       this.step1Active = true;
       this.step2Active = false;
       this.step3Active = false;
+      this.step4Active = false;      
     }
     if (index === 2) {
       this.step1Active = false;
       this.step2Active = true;
       this.step3Active = false;
+      this.step4Active = false;   
     }
     if (index === 3) {
       this.step1Active = false;
       this.step2Active = false;
       this.step3Active = true;
+      this.step4Active = false;   
+    }
+    if (index === 4) {
+      this.step1Active = false;
+      this.step2Active = false;
+      this.step3Active = false;   
+      this.step4Active = true;
     }
   }
 
   exit(): void {
-    this.route.navigate(['/cnenquiry']);
+    this.route.navigate(['/dashboard']);
   }
 
   search(): void {
@@ -364,6 +391,25 @@ export class CnenquiryComponent {
       }  
       this.getCnEnqInnerGridList();
     });
+    this.lrentryService.getCnEnqDoc(this.requestmodel).subscribe((res) => {
+      this.selectedLrDoc = res;
+      this.dprIndentDoc= Constants.UploadFolderPath + 'dpr/confirmdoc/' + this.selectedLrDoc.dprIndentDoc;
+      this.vehRcDoc= Constants.UploadFolderPath + 'tempGc/vehRcDoc/' + this.selectedLrDoc.vehRcDoc;
+      this.loadingSlipDoc= Constants.UploadFolderPath + 'tempGc/loadingSlipDoc/' + this.selectedLrDoc.loadingSlipDoc;
+      this.vehPanDoc= Constants.UploadFolderPath + 'tempGc/vehPanDoc/' + this.selectedLrDoc.vehPanDoc;
+      this.vehDecDoc= Constants.UploadFolderPath + 'tempGc/vehDecDoc/' + this.selectedLrDoc.vehDecDoc;
+      this.partyInvDoc= Constants.UploadFolderPath + 'tempGc/partyInvDoc/' + this.selectedLrDoc.partyInvDoc;
+      this.vehPhoto1Doc= Constants.UploadFolderPath + 'tempGc/vehPhoto1Doc/' + this.selectedLrDoc.vehPhoto1Doc;
+      this.vehPhoto2Doc= Constants.UploadFolderPath + 'tempGc/vehPhoto2Doc/' + this.selectedLrDoc.vehPhoto2Doc;
+      this.vehPhoto3Doc= Constants.UploadFolderPath + 'tempGc/vehPhoto3Doc/' + this.selectedLrDoc.vehPhoto3Doc;
+      this.declarationDoc= Constants.UploadFolderPath + 'challan/photo1/' + this.selectedLrDoc.declarationDoc;
+      this.challanPhoto1= Constants.UploadFolderPath + 'challan/photo2/' + this.selectedLrDoc.challanPhoto1;
+      this.challanPhoto2= Constants.UploadFolderPath + 'challan/photo3/' + this.selectedLrDoc.challanPhoto2;
+      this.truckDriverImage= Constants.UploadFolderPath + 'challan/truckDriverImage/' + this.selectedLrDoc.truckDriverImage;
+      this.podAttach1= Constants.UploadFolderPath + 'deliveryackpod/podattach1/' + this.selectedLrDoc.podAttach1;
+      this.podAttach2= Constants.UploadFolderPath + 'deliveryackpod/podattach2/' + this.selectedLrDoc.podAttach2;
+    });
+        
     setTimeout(() => { 
       if(selectedDataVal.bookingDate==""){
         this.toastrService.warning("LR does not Exists");

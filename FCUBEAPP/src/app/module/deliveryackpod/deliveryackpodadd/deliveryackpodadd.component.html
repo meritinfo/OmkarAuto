@@ -262,14 +262,14 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Handling Payable</label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="handlingPayable" >
+                                            (change)="calcTot()" formControlName="handlingPayable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Detiontion Payable </label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="detiontionPayable" >
+                                            (change)="calcTot()" formControlName="detiontionPayable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
@@ -283,14 +283,14 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Others2 Payable</label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="others2Payable" >
+                                            (change)="calcTot()" formControlName="others2Payable" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Tot Ext Payable</label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="totExtPayable" >
+                                            (change)="calcTot()" formControlName="totExtPayable" >
                                         </div>
                                     </div>  
                                 </div>                             
@@ -312,14 +312,14 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Shortage Claim</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly (change)="calcTot()" autoclose="false" class="form-control"
                                                 formControlName="shortageClaim" >
                                         </div>
                                     </div>   
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Damage Claim</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input decimalonly (change)="calcTot()" autoclose="false" class="form-control"
                                                 formControlName="damageClaim" >
                                         </div>
                                     </div>  

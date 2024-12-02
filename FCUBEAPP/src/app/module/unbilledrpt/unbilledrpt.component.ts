@@ -125,14 +125,20 @@ export class UnbilledrptComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
+        asOnDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
         party: new FormControl('',),  
         origin: new FormControl('',),  
         destination: new FormControl('',), 
+        billingStatus: new FormControl('',), 
+        rptType: new FormControl('D',), 
       });
 
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
+      this.filter.search = this.loginDate;
+      this.filter.sortColumn = '';
+      this.filter.sortOrder = 'D';
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
       this.filter.filterStr2  = "";
@@ -192,9 +198,6 @@ export class UnbilledrptComponent {
           // Filter setting
           this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
           this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'Branch';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = '';
           callback({
             recordsTotal: 0,
             recordsFiltered: 0,
@@ -253,16 +256,7 @@ export class UnbilledrptComponent {
             data: 'truckNo',
           }, 
           {
-            title: 'Freight Total',
-            data: 'freightRs',
-          }, 
-
-          {
-            title: 'Grand Total',
-            data: 'gtotalRs',
-          }, 
-          {
-            title: 'Billed Total',
+            title: 'Amount',
             data: 'billedAmt',
           }, 
            
@@ -285,6 +279,9 @@ export class UnbilledrptComponent {
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.sortColumn  = selectedDataVal.billingStatus;
+      this.filter.sortOrder   = selectedDataVal.rptType;
+      this.filter.search      = selectedDataVal.asOnDate;
       this.filter.filterStr   = selectedDataVal.branch;
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
       this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
@@ -318,10 +315,13 @@ export class UnbilledrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
+    this.filter.sortColumn  = selectedDataVal.billingStatus;
+    this.filter.sortOrder   = 'D';
+    this.filter.search      = selectedDataVal.asOnDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
     this.unbilledrptlist();
     this.sharedService.loading=false;
