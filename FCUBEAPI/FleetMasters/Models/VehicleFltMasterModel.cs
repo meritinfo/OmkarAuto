@@ -25,6 +25,7 @@ namespace FleetMasters.Models
         public string? GrossWt { get; set; }
         public string? UnLadenWT { get; set; }
         public string? NoOfTyres { get; set; }
+        public string? VehicleCapacity { get; set; }        
         public string? MileageLt { get; set; }
         public string? VehLength { get; set; }
         public string? VehBreadth { get; set; }
