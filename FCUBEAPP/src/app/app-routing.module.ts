@@ -580,6 +580,7 @@ const routes: Routes = [
   { path: 'billenquiry', component: BillenquiryComponent},
   { path: 'challanrelease', component: ChallanreleaselistComponent },
   { path: 'challanreleaseadd', component: ChallanreleaseaddComponent },
+  { path: 'challanreleaseedit', component: ChallanreleaseaddComponent },
   
   
   

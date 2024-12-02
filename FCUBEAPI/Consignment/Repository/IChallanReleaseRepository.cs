@@ -14,6 +14,8 @@ namespace Consignment.Repository
         Task<ResponseModel> ChallanReleaseSave(ChallanReleaseModel challanReleaseModel);
         Task<ChallanReleaseListModel> GetChallanReleaseList(ReportRequestModel request);
         Task<ChallanMasterModel> SearchChallanDetails(ReportRequestModel req);
+        Task<ResponseModel> CheckDuplicateChallanRelease(ReportRequestModel requestModel);
+
 
 
     }

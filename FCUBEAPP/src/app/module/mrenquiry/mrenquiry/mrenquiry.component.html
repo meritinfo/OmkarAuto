@@ -250,12 +250,9 @@
                                                 <div [formGroupName]="i" class="grid-table">
                                                     
                                                     <td>                                                  
-                                                        <select class="form-control form-select ng-pristine ng-touched"
-                                                        formControlName="billLrStn"> 
-                                                            <option *ngFor="let br of branchList" value={{br.dataId}}>
-                                                                {{br.dataName}}
-                                                            </option>
-                                                        </select>
+                                                     
+                                                        <input type="text" autoclose="false" class="form-control"
+                                                        formControlName="billLrStn">
                                                     </td>
                                                     <td>
                                                         <input uppercaseonly autoclose="false" class="form-control"

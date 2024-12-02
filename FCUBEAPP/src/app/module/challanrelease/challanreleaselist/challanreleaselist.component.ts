@@ -157,7 +157,7 @@ formFilter!: FormGroup;
       columns: [  
         {
           title: 'Branch',
-          data: 'challanBranch',
+          data: 'branch',
         },
         {
           title: 'Challan Year',
@@ -213,7 +213,7 @@ formFilter!: FormGroup;
 
   getChallanReleaseDetails(Challan: ChallanreleaseModel): void {
     this.challanreleaseService.setChallanDetails(Challan);
-    this.route.navigate(['/challanedit']);
+    this.route.navigate(['/challanreleaseedit']);
   }
 
   search(): void {

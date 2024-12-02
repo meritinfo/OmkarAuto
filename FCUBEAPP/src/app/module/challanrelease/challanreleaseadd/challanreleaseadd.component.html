@@ -21,7 +21,7 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-firstname-input">Challan Branch</label>
+                                                    <label for="basicpill-firstname-input">Challan Branch</label> <span style="color: red">*</span>
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                      formControlName="challanBranch"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanBranch'].invalid) }">
@@ -34,7 +34,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input">Challan Year</label>
+                                                    <label for="basicpill-lastname-input">Challan Year</label> <span style="color: red">*</span>
                                                    
                                                     <select class="form-control" formControlName="chYear" [ngClass]="{ 'is-invalid': formSubmitted && (f['chYear'].invalid) }" >
                                                         <option *ngFor="let branch of yearList" value={{branch.dataId}}>
@@ -49,14 +49,14 @@
                                                         <label for="formrow-inputZip">Challan No</label>
                                                         <span style="color: red">*</span>
                                                         <input uppercaseonly type="text" class="form-control" placeholder=" "
-                                                        formControlName="challanNo"   
+                                                        formControlName="challanNo" numbersonly
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="mb-2">
                                                         <button class="btn btn-primary"   
-                                                        (click)="searchChallan()"><span>Search</span></button>
+                                                        (click)="chkChallanDuplicateRelease()"><span>Search</span></button>
                                                     </div>
                                                 </div>
                                                 
@@ -81,8 +81,7 @@
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputZip">Challan Date : </label><span
-                                                        style="color: red">*</span>
+                                                    <label for="formrow-inputZip">Challan Date : </label>
                                                     <input bsdatepicker="" type="date" autoclose="false" class="form-control"
                                                         formControlName="challanDateTime" 
                                                         
@@ -91,7 +90,7 @@
                                             </div>  
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputZip">From Place : </label><span style="color: red">*</span>
+                                                    <label for="formrow-inputZip">From Place : </label>
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList"
                                                     
@@ -116,7 +115,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputZip">To Place : </label><span style="color: red">*</span>
+                                                    <label for="formrow-inputZip">To Place : </label>
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList" formControlName="challanToStn"
                                                            
@@ -140,7 +139,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Broker : </label>
-                                                    <span style="color: red">*</span>
+                                                  
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="brokerList" formControlName="brokerId"
                                                         

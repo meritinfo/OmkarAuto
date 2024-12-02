@@ -250,6 +250,16 @@ namespace Consignment.Repository
                                 RecdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdAmt"]),
                                 FreightDed = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightDed"]),
                                 ClaimsDed = Convert.ToString(dataSet.Tables[0].Rows[i]["ClaimsDed"]),
+                                BankChrgDed = Convert.ToString(dataSet.Tables[0].Rows[i]["bankChrgDed"]),
+                               OthersDed = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersDed"]),
+                                OthersDed1 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersDed1"]),
+                                OthersDed2 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersDed2"]),
+                                OthersDed3 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersDed3"]),
+                                TotDed = Convert.ToString(dataSet.Tables[0].Rows[i]["TotDed"]),
+                                TdsDed = Convert.ToString(dataSet.Tables[0].Rows[i]["TdsDed"]),
+                                SdEmdDed = Convert.ToString(dataSet.Tables[0].Rows[i]["SdEmdDed"]),
+                                ExcessRecd = Convert.ToString(dataSet.Tables[0].Rows[i]["ExcessRecd"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
                         for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
