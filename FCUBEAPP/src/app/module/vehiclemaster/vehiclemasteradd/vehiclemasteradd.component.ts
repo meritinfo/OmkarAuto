@@ -113,6 +113,7 @@ export class VehiclemasteraddComponent {
       grossWt: new FormControl(''),
       unLadenWT: new FormControl(''),
       noOfTyres: new FormControl('' ,[Validators.required]),
+      vehicleCapacity: new FormControl('' ,[Validators.required]),
       mileageLt: new FormControl('',[Validators.required]),
       vehLength: new FormControl(''),
       vehBreadth: new FormControl(''),
@@ -150,7 +151,7 @@ export class VehiclemasteraddComponent {
       attach3Link: new FormControl(''),
       userBranch: new FormControl(''),
       userBranch2: new FormControl(''),
-      adBlueMileageLt: new FormControl(''),
+      adBlueMileageLt: new FormControl('',[Validators.required]),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])
 
@@ -541,20 +542,21 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.chasisNo           = selectedDataValue.chasisNo.toString().toUpperCase();;
     this.vehiclefltmastermodel.engineNo           = selectedDataValue.engineNo.toString().toUpperCase();;
     this.vehiclefltmastermodel.vehicleTypeID      = '';
-    this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId;
-    this.vehiclefltmastermodel.vehMfrId           = selectedDataValue.vehMfrId;
+    this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId.toString();
+    this.vehiclefltmastermodel.vehMfrId           = selectedDataValue.vehMfrId.toString();
     this.vehiclefltmastermodel.mfrModelName       = selectedDataValue.mfrModelName.toString().toUpperCase();
-    this.vehiclefltmastermodel.fuelType           = selectedDataValue.fuelType;
-    this.vehiclefltmastermodel.makeYear           = selectedDataValue.makeYear;
-    this.vehiclefltmastermodel.tankCap            = selectedDataValue.tankCap;
-    this.vehiclefltmastermodel.grossWt            = selectedDataValue.grossWt;
-    this.vehiclefltmastermodel.unLadenWT          = selectedDataValue.unLadenWT;
-    this.vehiclefltmastermodel.noOfTyres          = selectedDataValue.noOfTyres;
-    this.vehiclefltmastermodel.mileageLt          = selectedDataValue.mileageLt;
-    this.vehiclefltmastermodel.vehLength          = selectedDataValue.vehLength;
-    this.vehiclefltmastermodel.vehBreadth         = selectedDataValue.vehBreadth;
-    this.vehiclefltmastermodel.vehHeight          = selectedDataValue.vehHeight;
-    this.vehiclefltmastermodel.vehVolumeCFT       = selectedDataValue.vehVolumeCFT;
+    this.vehiclefltmastermodel.fuelType           = selectedDataValue.fuelType.toString();
+    this.vehiclefltmastermodel.makeYear           = selectedDataValue.makeYear.toString();
+    this.vehiclefltmastermodel.tankCap            = selectedDataValue.tankCap.toString();
+    this.vehiclefltmastermodel.grossWt            = selectedDataValue.grossWt.toString();
+    this.vehiclefltmastermodel.unLadenWT          = selectedDataValue.unLadenWT.toString();
+    this.vehiclefltmastermodel.noOfTyres          = selectedDataValue.noOfTyres.toString();
+    this.vehiclefltmastermodel.vehicleCapacity    = selectedDataValue.vehicleCapacity.toString();    
+    this.vehiclefltmastermodel.mileageLt          = selectedDataValue.mileageLt.toString();
+    this.vehiclefltmastermodel.vehLength          = selectedDataValue.vehLength.toString();
+    this.vehiclefltmastermodel.vehBreadth         = selectedDataValue.vehBreadth.toString();
+    this.vehiclefltmastermodel.vehHeight          = selectedDataValue.vehHeight.toString();
+    this.vehiclefltmastermodel.vehVolumeCFT       = selectedDataValue.vehVolumeCFT.toString();
     this.vehiclefltmastermodel.remarks            = selectedDataValue.remarks.toString().toUpperCase();
     this.vehiclefltmastermodel.ownershipType      = selectedDataValue.ownershipType;
     this.vehiclefltmastermodel.fastTagYN          = selectedDataValue.fastTagYN;

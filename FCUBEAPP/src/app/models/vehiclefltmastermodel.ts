@@ -16,6 +16,7 @@ export class Vehiclefltmastermodel {
     grossWt: string = "";
     unLadenWT: string = "";
     noOfTyres: string = "";
+    vehicleCapacity: string = "";
     mileageLt: string = "";
     vehLength: string = "";
     vehBreadth: string = "";

@@ -159,8 +159,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Gross Weight</label>
-                                               
+                                                <label for="formrow-inputState">Gross Weight</label>                                               
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="grossWt" >
                                             </div>
@@ -176,32 +175,39 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">No of Tyres</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly maxlength="3" type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="noOfTyres">
+                                                <input numbersonly maxlength="3" type="text" class="form-control"
+                                                    formControlName="noOfTyres"                                               
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfTyres'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Vehicle Capacity</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly maxlength="8" type="text" class="form-control"
+                                                    formControlName="vehicleCapacity"                                               
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleCapacity'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Vehicle Length</label>
-                                               
+                                                <label for="formrow-inputCity">Vehicle Length</label>                                               
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehLength" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Vehicle Height</label>
-                                              
+                                                <label for="formrow-inputState">Vehicle Height</label>                                              
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehHeight" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Vehicle Breadth</label>
-                                            
+                                                <label for="formrow-inputState">Vehicle Breadth</label>                                            
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehBreadth" >
                                             </div>
