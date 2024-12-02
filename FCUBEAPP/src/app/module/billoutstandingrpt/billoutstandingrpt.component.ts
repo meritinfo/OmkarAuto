@@ -110,6 +110,7 @@ export class BilloutstandingrptComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
+      asOnDate: new FormControl(this.loginDate,[Validators.required]),
       branch: new FormControl('',),  
       incUnBilled: new FormControl('',),  
       submitYN: new FormControl('',),  
@@ -151,6 +152,7 @@ export class BilloutstandingrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.search        = selectedDataVal.asOnDate;
     this.filter.filterStr     = selectedDataVal.branch;
     this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
     this.filter.filterStr2    = selectedDataVal.submitYN;

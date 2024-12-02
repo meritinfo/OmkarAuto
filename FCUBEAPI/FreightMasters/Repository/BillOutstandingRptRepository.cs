@@ -30,6 +30,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
@@ -195,6 +196,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
@@ -340,6 +342,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
@@ -485,6 +488,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
@@ -786,7 +790,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetOutstandingSummRptExcel(ReportRequestModel request)
         {
             ResponseModel responseModel = new();
@@ -798,6 +801,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
@@ -952,6 +956,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
                             new SqlParameter("@Branch",         request.FilterStr),
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),

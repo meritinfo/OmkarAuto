@@ -12,7 +12,7 @@
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">CN No : </label>
                                 </div>
@@ -23,7 +23,7 @@
                                 </div>
                             </div>   
                             <div class="col-lg-2">
-                                <div class="mt-3">
+                                <div class="mb-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
@@ -45,6 +45,10 @@
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step3Active}" data-toggle="tab" aria-controls="step3" role="tab"
                         title="Step 3">Finance</a>
+                </li>
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active' : step4Active}" data-toggle="tab" aria-controls="step4" role="tab"
+                        title="Step 4">Downloads</a>
                 </li>
             </ul>
             <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser">
@@ -989,11 +993,142 @@
                     </div>
                     <div class="tab-pane mt-4"  [ngClass]="{'active' : step3Active}" role="tabpanel" id="step3">
                         <!-- 3rd tab -->
+                         <div class="row">
+                            
+                        </div>
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">
                                     <button type="button" class="btn btn-default prev-step"
                                         id="p-btn2" (click)="nextStep(2)">Previous</button> &nbsp;
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                        id="n-btn2"  (click)="nextStep(4)">Next</button>&nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane mt-4"  [ngClass]="{'active' : step4Active}" role="tabpanel" id="step4">
+                        <!-- 3rd tab -->
+                        <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">DPR Indent Doc</label>   
+                                        <a *ngIf="selectedLrDoc.dprIndentDoc" target="_blank"
+                                                    href={{dprIndentDoc}}>Download</a>
+                                    </div>
+                                </div>                             
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Rc Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehRcDoc" target="_blank"
+                                                    href={{vehRcDoc}}>Download</a>
+                                    </div>
+                                </div>                          
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Loading Slip Doc</label>   
+                                        <a *ngIf="selectedLrDoc.loadingSlipDoc" target="_blank"
+                                                    href={{loadingSlipDoc}}>Download</a>
+                                    </div>
+                                </div>                        
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Loading Slip Doc</label>   
+                                        <a *ngIf="selectedLrDoc.loadingSlipDoc" target="_blank"
+                                                    href={{loadingSlipDoc}}>Download</a>
+                                    </div>
+                                </div>                        
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Pan Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehPanDoc" target="_blank"
+                                                    href={{vehPanDoc}}>Download</a>
+                                    </div>
+                                </div>                        
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Dec Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehDecDoc" target="_blank"
+                                                    href={{vehDecDoc}}>Download</a>
+                                    </div>
+                                </div>                      
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Party Inv Doc</label>   
+                                        <a *ngIf="selectedLrDoc.partyInvDoc" target="_blank"
+                                                    href={{partyInvDoc}}>Download</a>
+                                    </div>
+                                </div>                     
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Photo1 Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehPhoto1Doc" target="_blank"
+                                                    href={{vehPhoto1Doc}}>Download</a>
+                                    </div>
+                                </div>                      
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Photo2 Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehPhoto2Doc" target="_blank"
+                                                    href={{vehPhoto2Doc}}>Download</a>
+                                    </div>
+                                </div>                       
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Veh Photo3 Doc</label>   
+                                        <a *ngIf="selectedLrDoc.vehPhoto3Doc" target="_blank"
+                                                    href={{vehPhoto3Doc}}>Download</a>
+                                    </div>
+                                </div>                     
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Declaration Doc</label>   
+                                        <a *ngIf="selectedLrDoc.declarationDoc" target="_blank"
+                                                    href={{declarationDoc}}>Download</a>
+                                    </div>
+                                </div>                       
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Challan Photo2</label>   
+                                        <a *ngIf="selectedLrDoc.challanPhoto1" target="_blank"
+                                                    href={{challanPhoto1}}>Download</a>
+                                    </div>
+                                </div>                         
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Challan Photo3</label>   
+                                        <a *ngIf="selectedLrDoc.challanPhoto2" target="_blank"
+                                                    href={{challanPhoto2}}>Download</a>
+                                    </div>
+                                </div>                          
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">Truck Driver Image</label>   
+                                        <a *ngIf="selectedLrDoc.truckDriverImage" target="_blank"
+                                                    href={{truckDriverImage}}>Download</a>
+                                    </div>
+                                </div>                          
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">POD Attach1</label>   
+                                        <a *ngIf="selectedLrDoc.podAttach1" target="_blank"
+                                                    href={{podAttach1}}>Download</a>
+                                    </div>
+                                </div>                                
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputZip">POD Attach2</label>   
+                                        <a *ngIf="selectedLrDoc.podAttach2" target="_blank"
+                                                    href={{podAttach2}}>Download</a>
+                                    </div>
+                                </div> 
+                        </div>
+                        <div class="row text-right">
+                            <div class="col-lg-12">
+                                <div class="tex">
+                                    <button type="button" class="btn btn-default prev-step"
+                                        id="p-btn2" (click)="nextStep(3)">Previous</button> &nbsp;
                                     <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>

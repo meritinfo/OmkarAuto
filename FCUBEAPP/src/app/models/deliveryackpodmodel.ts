@@ -28,6 +28,8 @@ export class Deliveryackpodmodel {
     deliveryDate:       string = "";
     deliveryTime:       string = "";
     detnDays:       string = "";
+    bookingFrt:       string = "";
+    challanNo:       string = "";
     podRecdYN:       string = "";
     podRecdDate :       string = "";
     podAttach1 :       string = "";
@@ -38,6 +40,7 @@ export class Deliveryackpodmodel {
     others1Payable:       string = "";
     others2Payable:       string = "";
     totExtPayable:       string = "";
+    deliveryStatus:       string = "";
     shortageDesc :       string = "";
     damageDesc:       string = "";
     shortageClaim:       string = "";

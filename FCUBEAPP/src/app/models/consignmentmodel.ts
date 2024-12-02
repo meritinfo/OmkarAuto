@@ -18,6 +18,7 @@ export class Consignmentmodel {
     invoiceDate : string = "";
     invoiceValue : string = "";
     declaredValue : string = "";
+    billingStatus: string = "";
     fromPlace : string = "";            
     toPlace : string = "";
     fPlace: string = "";

@@ -1,5 +1,6 @@
 export class Consignmentupdatemodel {
     consignmentID : string = "";
+    billingStatus : string = "";
     rateType : string = "";
     rateDesc : string = "";
     gstBy : string = "";
@@ -43,6 +44,9 @@ export class Consignmentupdatemodel {
     nonGstAmt2 : string = "";
     nonGstAmt2Desc : string = "";
     gtotalRs : string = "";
+    ulReportingDateTime: string = "";
+    deliveryDateTime: string = "";
+    ulDetentionDays: string = "";
     yearId : string = "";
     loggedInUser :  string = "";
  

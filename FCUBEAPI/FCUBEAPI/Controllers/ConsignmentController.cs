@@ -1369,6 +1369,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ChkLHPMBrokerDisputeDetails")]
+        public async Task<IActionResult> ChkLHPMBrokerDisputeDetails(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.ChkLHPMBrokerDisputeDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
         [HttpPost("LorryHireMasterSave")]
         public async Task<IActionResult> LorryHireMasterSave(LorryHireMasterModel lorryHire)
         {
@@ -1774,6 +1794,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetCnEnqDoc")]
+        public async Task<IActionResult> GetCnEnqDoc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetCnEnqDoc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("GetCnEnqInnerGridList")]
         public async Task<IActionResult> GetCnEnqInnerGridList(RequestModel req)

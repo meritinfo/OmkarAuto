@@ -192,7 +192,6 @@ export class BillsmasteraddComponent implements OnInit {
       this.formBillsMaster.controls['totalGtotal'].disable();
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
-        this.formBillsMaster.controls['partyCode'].disable();
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         this.formBillsMaster.patchValue({
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 

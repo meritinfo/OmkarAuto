@@ -11,6 +11,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-dprmasteradd',
@@ -42,6 +43,7 @@ export class DrpmasteraddComponent {
   businessByList: Dropdownmodel[] = [];
   createdBy: string = "";
   modifiedBy: string = "";
+  attachConfirmDoc :  string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -177,6 +179,7 @@ export class DrpmasteraddComponent {
         this.editMode = true;
         this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
         this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
+        this.attachConfirmDoc = Constants.UploadFolderPath + 'dpr/confirmdoc/' + this.selectedDprDetails.attachConfirmDoc;
       }    
     }, 2000);
 

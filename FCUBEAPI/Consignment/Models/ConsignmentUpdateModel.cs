@@ -9,6 +9,7 @@ namespace Consignment.Models
     public class ConsignmentUpdateModel
     {
         public string? ConsignmentID { get; set; }
+        public string? BillingStatus { get; set; }
         public string? RateType { get; set; }
         public string? RateDesc { get; set; }
         public string? GstBy { get; set; }
@@ -52,6 +53,9 @@ namespace Consignment.Models
         public string? NonGstAmt2 { get; set; }
         public string? NonGstAmt2Desc { get; set; }
         public string? GtotalRs { get; set; }
+        public string? UlReportingDateTime { get; set; }
+        public string? DeliveryDateTime { get; set; }
+        public string? UlDetentionDays { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
 

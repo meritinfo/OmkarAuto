@@ -93,6 +93,8 @@ namespace FleetTrans.Models
         public string? ConsignorName { get; set; }
         public string? LoadingTo { get; set; }
         public string? ConsigneeName { get; set; }
+        public string? LoadWt { get; set; }
+        public string? UnloadWt { get; set; }
         public string? HireAmt { get; set; }
         public string? Remarks { get; set; }
     }

@@ -89,6 +89,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetCnEnqDetails(req);
         }
+        public async Task<CnEnqDocModel> GetCnEnqDoc(RequestModel req)
+        {
+            return await consignmentRepository.GetCnEnqDoc(req);
+        }
         public async Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request)
         {
             return await consignmentRepository.GetCnEnqInnerGridList(request);

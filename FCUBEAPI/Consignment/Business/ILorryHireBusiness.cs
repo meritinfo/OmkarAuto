@@ -11,6 +11,7 @@ namespace Consignment.Business
         Task<LorryHireListModel> GetLorryHirePaymentList(ReportRequestModel request);
         Task<LorryHireMasterModel> GetLorryHireInnerGrid(RequestModel request);
         Task<ResponseModel> LorryHireMasterSave(LorryHireMasterModel lorryHire);
+        Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request);
         Task<ResponseModel> LorryHireMasterDelete(RequestModel requestModel);
         Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request);
         Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel);

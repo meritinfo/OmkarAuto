@@ -486,6 +486,7 @@ namespace Consignment.Repository
                         lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
                         lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.BillingStatus= Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
@@ -533,6 +534,9 @@ namespace Consignment.Repository
                         lrmodel.UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnloadingDetenNarr"]);
                         lrmodel.ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasNarr"]);
                         lrmodel.OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersNarr"]);
+                        lrmodel.UlReportingDateTime= Convert.ToString(dataSet.Tables[0].Rows[0]["UlReportingDateTime"]);
+                        lrmodel.DeliveryDateTime= Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDateTime"]);
+                        lrmodel.UlDetentionDays= Convert.ToString(dataSet.Tables[0].Rows[0]["UlDetentionDays"]);
                     }
                 }
             }
@@ -557,6 +561,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),
+                            new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
                             new SqlParameter("@RateDesc",           ConsignmentModel.RateDesc ),
                             new SqlParameter("@GstBy",              ConsignmentModel.GstBy),
@@ -600,6 +605,9 @@ namespace Consignment.Repository
                             new SqlParameter("@NonGstAmt2",         ConsignmentModel.NonGstAmt2   ),
                             new SqlParameter("@NonGstAmt2Desc",     ConsignmentModel.NonGstAmt2Desc    ),
                             new SqlParameter("@GtotalRs",           ConsignmentModel.GtotalRs  ),
+                            new SqlParameter("@UlReportingDateTime",ConsignmentModel.UlReportingDateTime  ),
+                            new SqlParameter("@DeliveryDateTime",   ConsignmentModel.DeliveryDateTime  ),
+                            new SqlParameter("@UlDetentionDays",    ConsignmentModel.UlDetentionDays  ),
                             new SqlParameter("@YearId",             ConsignmentModel.YearId   ),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
                         };
@@ -1112,6 +1120,46 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
+        public async Task<CnEnqDocModel> GetCnEnqDoc(RequestModel req)
+        {
+            CnEnqDocModel lrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@CnNo", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqDoc", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        lrmodel.DprIndentDoc      = Convert.ToString(dataSet.Tables[0].Rows[0]["DprIndentDoc"]);
+                        lrmodel.VehRcDoc          = Convert.ToString(dataSet.Tables[0].Rows[0]["VehRcDoc"]);
+                        lrmodel.LoadingSlipDoc    = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingSlipDoc"]);
+                        lrmodel.VehPanDoc         = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPanDoc"]);
+                        lrmodel.VehDecDoc         = Convert.ToString(dataSet.Tables[0].Rows[0]["VehDecDoc"]);
+                        lrmodel.PartyInvDoc       = Convert.ToString(dataSet.Tables[0].Rows[0]["PartyInvDoc"]);
+                        lrmodel.VehPhoto1Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto1Doc"]);
+                        lrmodel.VehPhoto2Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto2Doc"]);
+                        lrmodel.VehPhoto3Doc      = Convert.ToString(dataSet.Tables[0].Rows[0]["VehPhoto3Doc"]);
+                        lrmodel.DeclarationDoc    = Convert.ToString(dataSet.Tables[0].Rows[0]["DeclarationDoc"]);
+                        lrmodel.ChallanPhoto1     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPhoto1"]);
+                        lrmodel.ChallanPhoto2     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPhoto2"]);
+                        lrmodel.TruckDriverImage  = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckDriverImage"]);
+                        lrmodel.PodAttach1        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach1"]);
+                        lrmodel.PodAttach2        = Convert.ToString(dataSet.Tables[0].Rows[0]["PodAttach2"]);                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lrmodel;
+        }
+        
         public async Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request)
         {
             ConsignmentModel consignment = new()

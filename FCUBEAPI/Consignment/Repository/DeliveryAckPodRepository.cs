@@ -65,6 +65,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Others1Payable", deleveryAckPodModel.Others1Payable),
                             new SqlParameter("@Others2Payable", deleveryAckPodModel.Others2Payable),
                             new SqlParameter("@TotExtPayable", deleveryAckPodModel.TotExtPayable),
+                            new SqlParameter("@DeliveryStatus", deleveryAckPodModel.DeliveryStatus),                            
                             new SqlParameter("@ShortageDesc", deleveryAckPodModel.ShortageDesc),
                             new SqlParameter("@DamageDesc", deleveryAckPodModel.DamageDesc),
                             new SqlParameter("@ShortageClaim", deleveryAckPodModel.ShortageClaim),
@@ -165,6 +166,7 @@ namespace Consignment.Repository
                                 Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others1Payable"]),
                                 Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others2Payable"]),
                                 TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtPayable"]),
+                                DeliveryStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryStatus"]),
                                 ShortageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageDesc"]),
                                 DamageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["DamageDesc"]),
                                 ShortageClaim = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageClaim"]),
@@ -220,6 +222,13 @@ namespace Consignment.Repository
                         deleveryAck.CnActWt = Convert.ToString(dataSet.Tables[0].Rows[0]["CnActWt"]);
                         deleveryAck.ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptdate"]);
                         deleveryAck.ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptTime"]);
+                        deleveryAck.ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingDate"]);
+                        deleveryAck.ReportingTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingTime"]);
+                        deleveryAck.DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDate"]);
+                        deleveryAck.DeliveryTime = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryTime"]);
+                        deleveryAck.DetnDays= Convert.ToString(dataSet.Tables[0].Rows[0]["DetnDays"]);
+                        deleveryAck.BookingFrt= Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
+                        deleveryAck.ChallanNo= Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanNo"]);                        
                         deleveryAck.BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayable"]);
                         deleveryAck.HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingPayable"]);
                         deleveryAck.DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["DetiontionPayable"]);

@@ -126,6 +126,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
                                     new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
                                     new SqlParameter("@OwnMarket",  tripMasterModel.RouteList[i].LoadType),
+                                    new SqlParameter("@UnloadWt",   tripMasterModel.RouteList[i].UnloadWt),
                                     new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
                                     new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
                                     new SqlParameter("@YearId",     tripMasterModel.YearId),
@@ -431,6 +432,8 @@ namespace FleetTrans.Repository
                                 ConsignorName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsignorName"]),
                                 LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
+                                LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
+                                UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),                                
                             });
@@ -606,6 +609,8 @@ namespace FleetTrans.Repository
                                 ConsignorName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsignorName"]),
                                 LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
+                                LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
+                                UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });

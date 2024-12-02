@@ -21,6 +21,10 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.GetLorryHireInnerGrid(request);
         }
+        public async Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request)
+        {
+            return await lorryHireRepository.ChkLHPMBrokerDisputeDetails(request);
+        }
         public async Task<ResponseModel> LorryHireMasterSave(LorryHireMasterModel lorryHire)
         {
             return await lorryHireRepository.LorryHireMasterSave(lorryHire);

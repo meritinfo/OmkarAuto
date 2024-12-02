@@ -502,7 +502,21 @@ export class LorryhirepmtaddComponent {
         return;
       }
     });
-    
+
+    if(selectedData.arrayList[i].abType=="F"){
+      this.lorryhirepmtService.chkLHPMBrokerDisputeDetails(this.challanInputDtls).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formArray.controls[i].get("challanNo")?.setValue("");
+          return;
+        }
+      });
+    }   
+
     this.lorryhirepmtService.getChallanLorryhireDetails(this.challanInputDtls).subscribe((res) => {
       this.lorryhiremaster = res;
       var chln = res.lhpmDetails.length>0?res.lhpmDetails[0].challanId:'';
