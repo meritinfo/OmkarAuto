@@ -305,7 +305,7 @@ search(): void {
     this.formUser.patchValue(this.selectedMrDetails);
     this.formUser.patchValue({
       //challanDateTime: this.commonService.formatDate(this.selectedMrDetails.challanDateTime) ,
-      //expArrivalDate : this.commonService.formatDate(this.selectedMrDetails.expArrivalDate),
+      mrDate : this.commonService.formatDate(this.selectedMrDetails.mrDate),
      // ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
      // invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
       //shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
