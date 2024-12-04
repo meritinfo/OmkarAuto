@@ -58,6 +58,8 @@ namespace FinTrans.Models
         public string? Flt_FrtDedAc { get; set; }
         public string? Flt_TdsDedAc { get; set; }
         public string? Flt_OthDedAc { get; set; }
+        public string? MR_Others1RecdAc { get; set; }
+        public string? MR_Others2RecdAc { get; set; }
 
 
 

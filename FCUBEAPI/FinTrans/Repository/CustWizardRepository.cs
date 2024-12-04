@@ -91,6 +91,8 @@ namespace FinTrans.Repository
                                 Flt_FrtDedAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_FrtDedAc"]),
                                 Flt_TdsDedAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_TdsDedAc"]),
                                 Flt_OthDedAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_OthDedAc"]),
+                                MR_Others1RecdAc = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_Others1RecdAc"]),
+                                MR_Others2RecdAc = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_Others2RecdAc"]),
 
 
 
@@ -183,6 +185,8 @@ namespace FinTrans.Repository
                         custWizardModel.Flt_FrtDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_FrtDedAc"]);
                         custWizardModel.Flt_TdsDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TdsDedAc"]);
                         custWizardModel.Flt_OthDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_OthDedAc"]);
+                        custWizardModel.MR_Others1RecdAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_Others1RecdAc"]);
+                        custWizardModel.MR_Others2RecdAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_Others2RecdAc"]);
                     }
                     else
                     {
@@ -252,6 +256,8 @@ namespace FinTrans.Repository
                  new SqlParameter("@Flt_FrtDedAc" , custWizardModel.Flt_FrtDedAc ),
                  new SqlParameter("@Flt_TdsDedAc" , custWizardModel.Flt_TdsDedAc ),
                  new SqlParameter("@Flt_OthDedAc" , custWizardModel.Flt_OthDedAc ),
+                 new SqlParameter("@MR_Others1RecdAc" , custWizardModel.MR_Others1RecdAc),
+                 new SqlParameter("@MR_Others2RecdAc" , custWizardModel.MR_Others2RecdAc),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);
