@@ -35,19 +35,19 @@
             <!-- end page title -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li role="presentation" class="nav-item">
-                    <a class="nav-link" [ngClass]="{'active' : step1Active}" data-toggle="tab" aria-controls="step1" role="tab"
+                    <a (click)="nextStep(1)" class="nav-link" [ngClass]="{'active' : step1Active}" data-toggle="tab" aria-controls="step1" role="tab"
                         title="Step 1">CN Master</a>
                 </li>
                 <li role="presentation" class="nav-item">
-                    <a class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
+                    <a (click)="nextStep(2)" class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
                         title="Step 2">CN Details</a>
                 </li>
                 <li role="presentation" class="nav-item">
-                    <a class="nav-link" [ngClass]="{'active' : step3Active}" data-toggle="tab" aria-controls="step3" role="tab"
+                    <a (click)="nextStep(3)" class="nav-link" [ngClass]="{'active' : step3Active}" data-toggle="tab" aria-controls="step3" role="tab"
                         title="Step 3">Finance</a>
                 </li>
                 <li role="presentation" class="nav-item">
-                    <a class="nav-link" [ngClass]="{'active' : step4Active}" data-toggle="tab" aria-controls="step4" role="tab"
+                    <a (click)="nextStep(4)" class="nav-link" [ngClass]="{'active' : step4Active}" data-toggle="tab" aria-controls="step4" role="tab"
                         title="Step 4">Downloads</a>
                 </li>
             </ul>
@@ -64,7 +64,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Booking Date</label>
-                                    <input type="date" class="form-control" formControlName="bookingDate" >
+                                    <input type="text" class="form-control" formControlName="bookingDate" >
                                 </div>
                             </div>  
                             <div class="col-lg-2">
@@ -325,7 +325,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Delivery Date</label>
-                                    <input type="date" formControlName="deliveryDt" class="form-control">
+                                    <input type="text" formControlName="deliveryDt" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -337,7 +337,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">PO Date</label>
-                                    <input type="date" formControlName="poDt" class="form-control">
+                                    <input type="text" formControlName="poDt" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -357,7 +357,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Shipment Date</label>
-                                    <input type="date" formControlName="shipmentDt" class="form-control">
+                                    <input type="text" formControlName="shipmentDt" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -375,7 +375,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Ins Valid Date</label>
-                                    <input type="date" formControlName="insValidDt" class="form-control">
+                                    <input type="text" formControlName="insValidDt" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -655,11 +655,11 @@
                                                         formControlName="ewayBillNo">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="ewayBillDate">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="ewayBillExpDate">
                                                     </td>
                                                     <td class="col-lg-2">
@@ -667,7 +667,7 @@
                                                         formControlName="invNo">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="invDate">
                                                     </td>
                                                     <td class="col-lg-2">
@@ -698,7 +698,7 @@
                                     <div class="card-body">
                                         <div class="overflow-x">
                                             <h4 class="card-title mb-4" style="color: red;"> Challan Details</h4>
-                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <table class="table table-bordered dt-responsive no-border-table full-tyre-width">
                                             <tr>
                                                 <th><label for="formrow-inputCity">Challan No</label></th>       
                                                 <th><label for="formrow-inputCity">Challan Date</label> </th>     
@@ -723,11 +723,11 @@
                                                         formControlName="challanNo">
                                                     </td>
                                                     <td >
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="challanDate">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="expArrivalDate">
                                                     </td>
                                                     <td>
@@ -784,8 +784,8 @@
                                     <div class="card-body">
                                         <div class="overflow-x">
                                             <h4 class="card-title mb-4" style="color: red;"> Lorry Hire Payment Details</h4>
-                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                            <tr>
+                                            <table class="table table-bordered dt-responsive no-border-table full-tyre-width">
+                                                <tr>
                                                 <th><label for="formrow-inputCity">Pmt Station</label></th>  
                                                 <th><label for="formrow-inputCity">Pmt No</label></th>  
                                                 <th><label for="formrow-inputCity">Pmt Date</label></th>   
@@ -817,7 +817,7 @@
                                                         formControlName="pmtNo">
                                                     </td>
                                                     <td >
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="pmtDate">
                                                     </td>
                                                     <td>
@@ -830,7 +830,7 @@
                                                         formControlName="challanNo">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="challanDate">
                                                     </td>
                                                     <td>
@@ -895,7 +895,7 @@
                                     <div class="card-body">
                                         <div class="overflow-x">
                                             <h4 class="card-title mb-4" style="color: red;"> Bill Details</h4>
-                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <table class="table table-bordered dt-responsive no-border-table full-tyre-width">
                                             <tr>
                                                 <th><label for="formrow-inputCity">Billing Station</label></th> 
                                                 <th><label for="formrow-inputCity">Bill No</label></th> 
@@ -924,7 +924,7 @@
                                                         formControlName="billNo">
                                                     </td>
                                                     <td >
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="billDate">
                                                     </td>
                                                     <td>
@@ -932,7 +932,7 @@
                                                         formControlName="billType">
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="form-control" 
+                                                        <input type="text" class="form-control" 
                                                         formControlName="dueDate">
                                                     </td>
                                                     <td>
@@ -978,7 +978,162 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                    
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> DPR Details</h4>
+                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">DPR Branch</label></th> 
+                                                <th><label for="formrow-inputCity">DPR SlNo</label></th> 
+                                                <th><label for="formrow-inputCity">DPR Date</label></th> 
+                                                <th><label for="formrow-inputCity">Pay Party</label></th>
+                                                <th><label for="formrow-inputCity">Charge Wt</label></th> 
+                                                <th><label for="formrow-inputCity">Tot Freight Amt</label></th> 
+                                            </tr>
+                                            <tr formArrayName="arrayDprList"
+                                                *ngFor="let arrayData of formDprArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="dprBranch">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="dprSlNo">
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="dprDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="payParty">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="chargeWt">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="totFreightAmt">
+                                                    </td> 
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                  
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> Delv Ack Details</h4>
+                                            <table class="table table-bordered dt-responsive no-border-table full-tyre-width">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Ack Branch</label></th> 
+                                                <th><label for="formrow-inputCity">Ack SlNo</label></th> 
+                                                <th><label for="formrow-inputCity">Ack Date</label></th> 
+                                                <th><label for="formrow-inputCity">Delivery Status</label></th>
+                                                <th><label for="formrow-inputCity">Del Pkgs</label></th> 
+                                                <th><label for="formrow-inputCity">Del ActWt</label></th> 
+                                                <th><label for="formrow-inputCity">Sh Ex Pkgs</label></th> 
+                                                <th><label for="formrow-inputCity">Sh Exp Act Wt</label></th> 
+                                                <th><label for="formrow-inputCity">Expected Rpt Date</label></th> 
+                                                <th><label for="formrow-inputCity">Reporting Date</label></th> 
+                                                <th><label for="formrow-inputCity">Delay Days</label></th> 
+                                                <th><label for="formrow-inputCity">Delivery Date</label></th> 
+                                                <th><label for="formrow-inputCity">Detn Days</label></th> 
+                                                <th><label for="formrow-inputCity">PodRecd YN</label></th> 
+                                                <th><label for="formrow-inputCity">PodRecd Date</label></th> 
+                                                <th><label for="formrow-inputCity">Pod Delay Days</label></th> 
+                                                <th><label for="formrow-inputCity">Net Payable</label></th> 
+                                            </tr>                                            
+                                            <tr formArrayName="arrayDelvAckList"
+                                                *ngFor="let arrayData of formDelvAckArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="ackBranch">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="ackSlNo">
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="ackDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="deliveryStatus">
+                                                    </td>   
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="delPkgs">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="delActWt">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="shExPkgs">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="shExpActWt">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="expectedRptDate">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="reportingDate">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="delayDays">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="deliveryDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="detnDays">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="podRecdYN">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="podRecdDate">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="podDelayDays">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="netPayable">
+                                                    </td> 
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>             
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">

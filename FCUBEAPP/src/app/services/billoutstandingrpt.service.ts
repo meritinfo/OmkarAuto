@@ -36,4 +36,7 @@ export class BilloutstandingrptService {
   getOutStandingDetailRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingDetailRptExcel', filter, this.httpOptions);
   }
+  getOutstandingAnalysisRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingAnalysisRptExcel', filter, this.httpOptions);
+  }
 }

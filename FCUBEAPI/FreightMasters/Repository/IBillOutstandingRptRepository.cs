@@ -16,5 +16,6 @@ namespace FreightMasters.Repository
         Task<ResponseModel> GetAgeingDetailRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetOutstandingSummRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetOutstandingDetailRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetOutstandingAnalysisRptExcel(ReportRequestModel request);
     }
 }

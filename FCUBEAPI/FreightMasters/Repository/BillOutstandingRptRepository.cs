@@ -1180,6 +1180,41 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetOutstandingAnalysisRptExcel(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOutstandingSummRptList", param);
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter  + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        responseModel = await sharedRepository.GetExcelReport(dataSet.Tables[0], "OUTSTANDING ANALYSIS REPORT", filter);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
 
     }
 }

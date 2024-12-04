@@ -1238,6 +1238,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetRateTypeMethod")]
+        public async Task<IActionResult> GetRateTypeMethod(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRatesMstBusiness.GetRateTypeMethod(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("ConsigneeMasterSave")]
         public async Task<IActionResult> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel)
@@ -2544,6 +2563,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetOutstandingAnalysisRptExcel")]
+        public async Task<IActionResult> GetOutstandingAnalysisRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetOutstandingAnalysisRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
 
 

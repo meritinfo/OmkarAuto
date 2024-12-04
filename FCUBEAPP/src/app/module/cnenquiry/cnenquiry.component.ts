@@ -37,15 +37,6 @@ export class CnenquiryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
-  branchList: Dropdownmodel[] = [];
-  locationList: Dropdownmodel[] = [];
-  rateList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
-  vehicalType: Dropdownmodel[] = [];
-  contentList: Dropdownmodel[] = [];
-  classList: Dropdownmodel[] = [];
-  businessByList: Dropdownmodel[] = [];
   dprIndentDoc: string ="";
   vehRcDoc: string ="";
   loadingSlipDoc: string ="";
@@ -245,6 +236,8 @@ export class CnenquiryComponent {
       arrayChlnList: this.formBuilder.array([this.createChlnInitialArray()])  , 
       arrayLhpmList: this.formBuilder.array([this.createLhpmInitialArray()])  , 
       arrayBillList: this.formBuilder.array([this.createBillInitialArray()])  , 
+      arrayDprList: this.formBuilder.array([this.createDprInitialArray()])  , 
+      arrayDelvAckList: this.formBuilder.array([this.createDelvAckInitialArray()])  , 
     });
     
     const controls = this.formUser.controls;
@@ -266,6 +259,12 @@ export class CnenquiryComponent {
   }
   get formBillArray() {
     return this.formUser.get("arrayBillList") as FormArray;
+  }
+  get formDprArray() {
+    return this.formUser.get("arrayDprList") as FormArray;
+  }
+  get formDelvAckArray() {
+    return this.formUser.get("arrayDelvAckList") as FormArray;
   }
   
   createInvInitialArray() {
@@ -339,6 +338,39 @@ export class CnenquiryComponent {
     });
   }  
 
+  createDprInitialArray() {
+    return this.formBuilder.group({
+      dprBranch : ['', []],
+      dprSlNo:  ['', []],
+      dprDate:  ['', []],
+      payParty:  ['', []],
+      chargeWt:  ['', []],
+      totFreightAmt:  ['', []],
+    });
+  }  
+
+  createDelvAckInitialArray() {
+    return this.formBuilder.group({
+      ackBranch : ['', []],
+      ackSlNo  : ['', []],
+      ackDate   : ['', []],
+      deliveryStatus : ['', []],
+      delPkgs    : ['', []],
+      delActWt   : ['', []],
+      shExPkgs     : ['', []],
+      shExpActWt   : ['', []],
+      expectedRptDate: ['', []],
+      reportingDate : ['', []],
+      delayDays    : ['', []],
+      deliveryDate  : ['', []],
+      detnDays   : ['', []],
+      podRecdYN   : ['', []],
+      podRecdDate  : ['', []],
+      podDelayDays   : ['', []],
+      netPayable : ['', []],
+    });
+  }  
+
   nextStep(index: number): void {
     if (index === 1) {
       this.step1Active = true;
@@ -377,13 +409,13 @@ export class CnenquiryComponent {
       this.selectedLrDetails = res;
       this.formFilter.controls["cnno"].disable();
       this.formUser.patchValue(this.selectedLrDetails);
-      this.formUser.patchValue({
-        bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
-        ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
-        ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
-        invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
-        shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),               
-      })     
+      // this.formUser.patchValue({
+      //   bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
+      //   ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
+      //   ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
+      //   invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
+      //   shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),               
+      // })     
       if (this.selectedLrDetails.ownTruck!="Y"){
         this.formUser.patchValue({
           ownTruck : "",               
@@ -426,14 +458,16 @@ export class CnenquiryComponent {
       this.formChlnArray.clear();
       this.formLhpmArray.clear();
       this.formBillArray.clear();
+      this.formDprArray.clear();
+      this.formDelvAckArray.clear();
 
       for (var i = 0; i < res.invList.length; i++) {
         this.formInvArray.push(this.createInvInitialArray());
         this.formInvArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
-        this.formInvArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
-        this.formInvArray.controls[i].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillExpDate));
+        this.formInvArray.controls[i].get("ewayBillDate")?.setValue(res.invList[i].ewayBillDate);
+        this.formInvArray.controls[i].get("ewayBillExpDate")?.setValue(res.invList[i].ewayBillExpDate);
         this.formInvArray.controls[i].get("invNo")?.setValue(res.invList[i].invoiceNo);
-        this.formInvArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invoiceDate));
+        this.formInvArray.controls[i].get("invDate")?.setValue(res.invList[i].invoiceDate);
         this.formInvArray.controls[i].get("invValue")?.setValue(res.invList[i].invoiceValue);
         this.formInvArray.controls[i].get("ewayBillNo")?.disable();
         this.formInvArray.controls[i].get("ewayBillDate")?.disable();
@@ -446,8 +480,8 @@ export class CnenquiryComponent {
       for (var i = 0; i < res.chlnList.length; i++) {
         this.formChlnArray.push(this.createChlnInitialArray());
         this.formChlnArray.controls[i].get("challanNo")?.setValue(res.chlnList[i].challanNo);
-        this.formChlnArray.controls[i].get("challanDate")?.setValue(this.commonService.formatDate(res.chlnList[i].challanDate));
-        this.formChlnArray.controls[i].get("expArrivalDate")?.setValue(this.commonService.formatDate(res.chlnList[i].expArrivalDate));
+        this.formChlnArray.controls[i].get("challanDate")?.setValue(res.chlnList[i].challanDate);
+        this.formChlnArray.controls[i].get("expArrivalDate")?.setValue(res.chlnList[i].expArrivalDate);
         this.formChlnArray.controls[i].get("mainChallanNo")?.setValue(res.chlnList[i].mainChallanNo);
         this.formChlnArray.controls[i].get("fromStn")?.setValue(res.chlnList[i].fromStn);
         this.formChlnArray.controls[i].get("toStn")?.setValue(res.chlnList[i].toStn);
@@ -477,10 +511,10 @@ export class CnenquiryComponent {
         this.formLhpmArray.push(this.createLhpmInitialArray());
         this.formLhpmArray.controls[i].get("pmtStation")?.setValue(res.lhpmList[i].pmtStation);
         this.formLhpmArray.controls[i].get("pmtNo")?.setValue(res.lhpmList[i].pmtNo);
-        this.formLhpmArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.lhpmList[i].pmtDate));
+        this.formLhpmArray.controls[i].get("pmtDate")?.setValue(res.lhpmList[i].pmtDate);
         this.formLhpmArray.controls[i].get("challanStn")?.setValue(res.lhpmList[i].challanStn);
         this.formLhpmArray.controls[i].get("challanNo")?.setValue(res.lhpmList[i].challanNo);
-        this.formLhpmArray.controls[i].get("challanDate")?.setValue(this.commonService.formatDate(res.lhpmList[i].challanDate));
+        this.formLhpmArray.controls[i].get("challanDate")?.setValue(res.lhpmList[i].challanDate);
         this.formLhpmArray.controls[i].get("abType")?.setValue(res.lhpmList[i].abType);
         this.formLhpmArray.controls[i].get("hireAmt")?.setValue(res.lhpmList[i].hireAmt);
         this.formLhpmArray.controls[i].get("hamaliAmt")?.setValue(res.lhpmList[i].hamaliAmt);
@@ -517,9 +551,9 @@ export class CnenquiryComponent {
         this.formBillArray.push(this.createBillInitialArray());
         this.formBillArray.controls[i].get("billingStation")?.setValue(res.billList[i].billingStation);
         this.formBillArray.controls[i].get("billNo")?.setValue(res.billList[i].billNo);
-        this.formBillArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billList[i].billDate));
+        this.formBillArray.controls[i].get("billDate")?.setValue(res.billList[i].billDate);
         this.formBillArray.controls[i].get("billType")?.setValue(res.billList[i].billType);
-        this.formBillArray.controls[i].get("dueDate")?.setValue(this.commonService.formatDate(res.billList[i].dueDate));
+        this.formBillArray.controls[i].get("dueDate")?.setValue(res.billList[i].dueDate);
         this.formBillArray.controls[i].get("collBranch")?.setValue(res.billList[i].collBranch);
         this.formBillArray.controls[i].get("partyGstLocation")?.setValue(res.billList[i].partyGstLocation);
         this.formBillArray.controls[i].get("freight")?.setValue(res.billList[i].freight);
@@ -543,6 +577,58 @@ export class CnenquiryComponent {
         this.formBillArray.controls[i].get("cgstAmt")?.disable();
         this.formBillArray.controls[i].get("igstAmt")?.disable();
         this.formBillArray.controls[i].get("gtotal")?.disable();
+      }    
+      for (var i = 0; i < res.dprList.length; i++) {
+        this.formDprArray.push(this.createDprInitialArray());
+        this.formDprArray.controls[i].get("dprBranch")?.setValue(res.dprList[i].dprBranch);
+        this.formDprArray.controls[i].get("dprSlNo")?.setValue(res.dprList[i].dprSlNo);
+        this.formDprArray.controls[i].get("dprDate")?.setValue(res.dprList[i].dprDate);
+        this.formDprArray.controls[i].get("payParty")?.setValue(res.dprList[i].payParty);
+        this.formDprArray.controls[i].get("chargeWt")?.setValue(res.dprList[i].chargeWt);
+        this.formDprArray.controls[i].get("totFreightAmt")?.setValue(res.dprList[i].totFreightAmt);
+        this.formDprArray.controls[i].get("dprBranch")?.disable();
+        this.formDprArray.controls[i].get("dprSlNo")?.disable();
+        this.formDprArray.controls[i].get("dprDate")?.disable();
+        this.formDprArray.controls[i].get("payParty")?.disable();
+        this.formDprArray.controls[i].get("chargeWt")?.disable();
+        this.formDprArray.controls[i].get("totFreightAmt")?.disable();     
+      }    
+      for (var i = 0; i < res.delAckList.length; i++) {
+        this.formDelvAckArray.push(this.createDelvAckInitialArray());
+        this.formDelvAckArray.controls[i].get("ackBranch")?.setValue(res.delAckList[i].ackBranch);
+        this.formDelvAckArray.controls[i].get("ackSlNo")?.setValue(res.delAckList[i].ackSlNo );
+        this.formDelvAckArray.controls[i].get("ackDate")?.setValue(res.delAckList[i].ackDate); 
+        this.formDelvAckArray.controls[i].get("deliveryStatus")?.setValue(res.delAckList[i].deliveryStatus );
+        this.formDelvAckArray.controls[i].get("delPkgs")?.setValue(res.delAckList[i].delPkgs );
+        this.formDelvAckArray.controls[i].get("delActWt")?.setValue(res.delAckList[i].delActWt );
+        this.formDelvAckArray.controls[i].get("shExPkgs")?.setValue(res.delAckList[i].shExPkgs );
+        this.formDelvAckArray.controls[i].get("shExpActWt")?.setValue(res.delAckList[i].shExpActWt);
+        this.formDelvAckArray.controls[i].get("expectedRptDate")?.setValue(res.delAckList[i].expectedRptDate);
+        this.formDelvAckArray.controls[i].get("reportingDate")?.setValue(res.delAckList[i].reportingDate);
+        this.formDelvAckArray.controls[i].get("delayDays")?.setValue(res.delAckList[i].delayDays );
+        this.formDelvAckArray.controls[i].get("deliveryDate")?.setValue(res.delAckList[i].deliveryDate );
+        this.formDelvAckArray.controls[i].get("detnDays")?.setValue(res.delAckList[i].detnDays );
+        this.formDelvAckArray.controls[i].get("podRecdYN")?.setValue(res.delAckList[i].podRecdYN  );
+        this.formDelvAckArray.controls[i].get("podRecdDate")?.setValue(res.delAckList[i].podRecdDate  );
+        this.formDelvAckArray.controls[i].get("podDelayDays")?.setValue(res.delAckList[i].podDelayDays  );
+        this.formDelvAckArray.controls[i].get("netPayable")?.setValue(res.delAckList[i].netPayable);
+        this.formDelvAckArray.controls[i].get("ackBranch")?.disable();
+        this.formDelvAckArray.controls[i].get("ackSlNo")?.disable();
+        this.formDelvAckArray.controls[i].get("ackDate")?.disable();
+        this.formDelvAckArray.controls[i].get("deliveryStatus")?.disable();
+        this.formDelvAckArray.controls[i].get("delPkgs")?.disable();
+        this.formDelvAckArray.controls[i].get("delActWt")?.disable(); 
+        this.formDelvAckArray.controls[i].get("shExPkgs")?.disable(); 
+        this.formDelvAckArray.controls[i].get("shExpActWt")?.disable(); 
+        this.formDelvAckArray.controls[i].get("expectedRptDate")?.disable(); 
+        this.formDelvAckArray.controls[i].get("reportingDate")?.disable(); 
+        this.formDelvAckArray.controls[i].get("delayDays")?.disable(); 
+        this.formDelvAckArray.controls[i].get("deliveryDate")?.disable(); 
+        this.formDelvAckArray.controls[i].get("detnDays")?.disable(); 
+        this.formDelvAckArray.controls[i].get("podRecdYN")?.disable(); 
+        this.formDelvAckArray.controls[i].get("podRecdDate")?.disable(); 
+        this.formDelvAckArray.controls[i].get("podDelayDays")?.disable(); 
+        this.formDelvAckArray.controls[i].get("netPayable")?.disable(); 
       }               
     });
   }

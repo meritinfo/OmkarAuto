@@ -1013,51 +1013,51 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.productId = selectedDataValue.productId;
     this.lrmodel.productDesc = selectedDataValue.productDesc;
     this.lrmodel.hsnSac = "";
-    this.lrmodel.noPackages = selectedDataValue.noPackages;
+    this.lrmodel.noPackages = selectedDataValue.noPackages.toString();
     this.lrmodel.looseFlag = "N";
     this.lrmodel.weightType = selectedDataValue.weightType;
-    this.lrmodel.actualWt = selectedDataValue.actualWt;
-    this.lrmodel.senderWt = selectedDataValue.senderWt;
-    this.lrmodel.chargewt = selectedDataValue.chargewt;  
+    this.lrmodel.actualWt = selectedDataValue.actualWt?selectedDataValue.actualWt.toString():"";
+    this.lrmodel.senderWt = selectedDataValue.senderWt?selectedDataValue.senderWt.toString():"";
+    this.lrmodel.chargewt = selectedDataValue.chargewt?selectedDataValue.chargewt.toString():"";
     this.lrmodel.wtDesc = "";  
     this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 
     this.lrmodel.privateMark = "";  
     this.lrmodel.bulkYN = selectedDataValue.bulkYN?'Y':'N';
-    this.lrmodel.loadLength = selectedDataValue.loadLength;
-    this.lrmodel.loadWidth = selectedDataValue.loadWidth;
-    this.lrmodel.loadHeight = selectedDataValue.loadHeight;
-    this.lrmodel.loadCFT = selectedDataValue.loadCFT;
+    this.lrmodel.loadLength = selectedDataValue.loadLength?selectedDataValue.loadLength.toString():"";
+    this.lrmodel.loadWidth = selectedDataValue.loadWidth?selectedDataValue.loadWidth.toString():"";
+    this.lrmodel.loadHeight = selectedDataValue.loadHeight?selectedDataValue.loadHeight.toString():"";
+    this.lrmodel.loadCFT = selectedDataValue.loadCFT?selectedDataValue.loadCFT.toString():"";
     this.lrmodel.rateType = selectedDataValue.rateType;  
     this.lrmodel.rateDesc = "";  
     this.lrmodel.gstBy = selectedDataValue.gstBy;    
-    this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
-    this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
-    this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
-    this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
-    this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
-    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";    
-    this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
+    this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs.toString() : "0";
+    this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs.toString() : "0";
+    this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs.toString() : "0";
+    this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs.toString() : "0";
+    this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs.toString() : "0";
+    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs.toString() : "0";    
+    this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs.toString() : "0";
     this.lrmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
-    this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
-    this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
-    this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
-    this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
-    this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
-    this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
-    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
+    this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs.toString() : "0";
+    this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs.toString() : "0";
+    this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs.toString() : "0";
+    this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs.toString() : "0";
+    this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS.toString() : "0";
+    this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs.toString() : "0";
+    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs.toString() : "0"; 
     this.lrmodel.gstType = selectedDataValue.gstType ;
-    this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 
-    this.lrmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt : "0"; 
-    this.lrmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct : "0";   
-    this.lrmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt : "0"; 
-    this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
-    this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
-    this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
-    this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc.toString().toUpperCase();
-    this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
-    this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc.toString().toUpperCase();
-    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
-    this.lrmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
+    this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct.toString() : "0"; 
+    this.lrmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt.toString() : "0"; 
+    this.lrmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct.toString() : "0";   
+    this.lrmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt.toString() : "0"; 
+    this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct.toString() : "0";   
+    this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt.toString() : "0"; 
+    this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1.toString() : "0"; 
+    this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc?selectedDataValue.nonGstAmt1Desc.toString().toUpperCase():"";
+    this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2.toString() : "0"; 
+    this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc?selectedDataValue.nonGstAmt2Desc.toString().toUpperCase():"";
+    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
+    this.lrmodel.gtotalRs = selectedDataValue.gtotalRs?selectedDataValue.gtotalRs.toString():"";
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;
 
@@ -1071,9 +1071,9 @@ export class ConsignmentaddComponent implements OnInit {
           'ewayBillNo': selectedDataValue.arrayList[i].ewayBillNo,
           'ewayBillDate': selectedDataValue.arrayList[i].ewayBillDate,
           'ewayBillExpDate': selectedDataValue.arrayList[i].ewayBillExpDate,
-          'invoiceNo': selectedDataValue.arrayList[i].invoiceNo,
-          'invoiceDate': selectedDataValue.arrayList[i].invoiceDate,
-          'invoiceValue': selectedDataValue.arrayList[i].invoiceValue,
+          'invoiceNo': selectedDataValue.arrayList[i].invNo,
+          'invoiceDate': selectedDataValue.arrayList[i].invDate,
+          'invoiceValue': selectedDataValue.arrayList[i].invValue,
           'deliveryNo': '',
         });
       }

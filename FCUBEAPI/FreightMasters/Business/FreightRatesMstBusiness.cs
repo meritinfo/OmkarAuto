@@ -36,6 +36,9 @@ namespace FreightMasters.Business
         {
             return await freightRatesMstRepository.GetPartyList();
         }
-
+        public async Task<ResponseModel> GetRateTypeMethod(RequestModel req)
+        {
+            return await freightRatesMstRepository.GetRateTypeMethod(req);
+        }
     }
 }

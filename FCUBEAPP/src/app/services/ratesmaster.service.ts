@@ -55,4 +55,7 @@ export class RatesMasterService {
   getPartyList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetPartyList', null, this.httpOptions);
   }
+  getRateTypeMethod(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetRateTypeMethod', req, this.httpOptions);
+  }
 }

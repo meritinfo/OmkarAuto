@@ -154,6 +154,41 @@ export class FleetloadentryaddComponent {
           loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
         });
         this.editMode = true;
+        this.formFleetLoad.controls['loadType'].disable();  
+        if(this.selectedFleetLoadEntryDetails.loadType == "E"){
+          this.formFleetLoad.controls['qtyWt'].clearValidators();
+          this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
+          this.formFleetLoad.controls['hireAmt'].clearValidators();  
+          this.formFleetLoad.controls['loadFor'].clearValidators();   
+          this.formFleetLoad.controls['loadMemoNo'].clearValidators();   
+          this.formFleetLoad.controls['consignorName'].clearValidators();   
+          this.formFleetLoad.controls['consigneeName'].clearValidators();  
+          this.formFleetLoad.controls['productId'].clearValidators();     
+    
+          this.formFleetLoad.patchValue({
+            qtyWt : 0,
+            qtyPkgs : 0,
+            hireAmt : 0,
+          });
+        }
+        else{      
+          this.formFleetLoad.controls['qtyWt'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['qtyPkgs'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['hireAmt'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['consignorName'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['consigneeName'].setValidators([Validators.required]);
+          this.formFleetLoad.controls['productId'].setValidators([Validators.required]);
+        }
+        this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
+        this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();    
+        this.formFleetLoad.controls['hireAmt'].updateValueAndValidity();   
+        this.formFleetLoad.controls['loadFor'].updateValueAndValidity();   
+        this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity();   
+        this.formFleetLoad.controls['consignorName'].updateValueAndValidity();   
+        this.formFleetLoad.controls['consigneeName'].updateValueAndValidity();  
+        this.formFleetLoad.controls['productId'].updateValueAndValidity();  
       }    
     }, 2000);
     this.sharedService.loading = false;
@@ -234,6 +269,7 @@ export class FleetloadentryaddComponent {
 
   onLoadTypeChange(e:any){
     var ldtp = e.target.value;
+
     if(ldtp == "E"){
       this.formFleetLoad.controls['qtyWt'].clearValidators();
       this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
@@ -259,7 +295,6 @@ export class FleetloadentryaddComponent {
       this.formFleetLoad.controls['consignorName'].setValidators([Validators.required]);
       this.formFleetLoad.controls['consigneeName'].setValidators([Validators.required]);
       this.formFleetLoad.controls['productId'].setValidators([Validators.required]);
-
     }
     this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
     this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();    

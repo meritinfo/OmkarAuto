@@ -13,5 +13,6 @@ namespace FreightMasters.Repository
         Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req);
         Task<FreightRatesMstModel> GetFreightRateInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetPartyList();
+        Task<ResponseModel> GetRateTypeMethod(RequestModel req);
     }
 }

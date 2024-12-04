@@ -1165,9 +1165,11 @@ namespace Consignment.Repository
             ConsignmentModel consignment = new()
             {
                 InvList  = new List<ConsignmentInvModel>(),
-                ChlnList= new List<ConsignmentChlnModel>(), 
-                LhpmList= new List<ConsignmentLhpmModel>(),  
-                BillList= new List<ConsignmentBillModel>(),
+                ChlnList = new List<ConsignmentChlnModel>(), 
+                LhpmList = new List<ConsignmentLhpmModel>(),  
+                BillList = new List<ConsignmentBillModel>(),
+                DprList = new List<ConsignmentDprModel>(),
+                DelAckList = new List<ConsignmentDelvAckModel>(),
             };
             try
             {
@@ -1256,6 +1258,41 @@ namespace Consignment.Repository
                                 CgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["CgstAmt"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["IgstAmt"]),
                                 Gtotal = Convert.ToString(dataSet.Tables[3].Rows[i]["Gtotal"]),
+                            }); 
+                        }
+                        for (int i = 0; i < dataSet.Tables[4].Rows.Count; i++)
+                        {
+                            consignment.DprList.Add(new ConsignmentDprModel
+                            {
+                                DprBranch = Convert.ToString(dataSet.Tables[4].Rows[i]["DprBranch"]),
+                                DprSlNo = Convert.ToString(dataSet.Tables[4].Rows[i]["DprSlNo"]),
+                                DprDate = Convert.ToString(dataSet.Tables[4].Rows[i]["DprDate"]),
+                                PayParty = Convert.ToString(dataSet.Tables[4].Rows[i]["PayParty"]),
+                                ChargeWt = Convert.ToString(dataSet.Tables[4].Rows[i]["ChargeWt"]),
+                                TotFreightAmt = Convert.ToString(dataSet.Tables[4].Rows[i]["TotFreightAmt"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[5].Rows.Count; i++)
+                        {
+                            consignment.DelAckList.Add(new ConsignmentDelvAckModel
+                            {
+                                AckBranch           = Convert.ToString(dataSet.Tables[5].Rows[i]["AckBranch"]),
+                                AckSlNo             = Convert.ToString(dataSet.Tables[5].Rows[i]["AckSlNo"]),
+                                AckDate             = Convert.ToString(dataSet.Tables[5].Rows[i]["AckDate"]),
+                                DeliveryStatus      = Convert.ToString(dataSet.Tables[5].Rows[i]["DeliveryStatus"]),
+                                DelPkgs             = Convert.ToString(dataSet.Tables[5].Rows[i]["DelPkgs"]),
+                                DelActWt            = Convert.ToString(dataSet.Tables[5].Rows[i]["DelActWt"]),
+                                ShExPkgs            = Convert.ToString(dataSet.Tables[5].Rows[i]["ShExPkgs"]),
+                                ShExpActWt          = Convert.ToString(dataSet.Tables[5].Rows[i]["ShExpActWt"]),
+                                ExpectedRptDate     = Convert.ToString(dataSet.Tables[5].Rows[i]["ExpectedRptDate"]) + " " + Convert.ToString(dataSet.Tables[5].Rows[i]["ExpectedRptTime"]),
+                                ReportingDate       = Convert.ToString(dataSet.Tables[5].Rows[i]["ReportingDate"]) + " " + Convert.ToString(dataSet.Tables[5].Rows[i]["ReportingTime"]),
+                                DelayDays           = Convert.ToString(dataSet.Tables[5].Rows[i]["DelayDays"]),
+                                DeliveryDate        = Convert.ToString(dataSet.Tables[5].Rows[i]["DeliveryDate"]) + " " + Convert.ToString(dataSet.Tables[5].Rows[i]["DeliveryTime"]),
+                                DetnDays            = Convert.ToString(dataSet.Tables[5].Rows[i]["DetnDays"]),
+                                PodRecdYN           = Convert.ToString(dataSet.Tables[5].Rows[i]["PodRecdYN"]),
+                                PodRecdDate         = Convert.ToString(dataSet.Tables[5].Rows[i]["PodRecdDate"]),
+                                PodDelayDays        = Convert.ToString(dataSet.Tables[5].Rows[i]["PodDelayDays"]),
+                                NetPayable          = Convert.ToString(dataSet.Tables[5].Rows[i]["NetPayable"]),                               
                             });
                         }
                     }

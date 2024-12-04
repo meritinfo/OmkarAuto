@@ -21,27 +21,49 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Account Name</label>
-                                                    <span style="color: red">*</span>
-                                                    <select class="form-control"
-                                                        formControlName="accountid" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountid'].invalid) }">
-                                                        <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
-                                                            {{ac.dataName}}
-                                                        </option>
-                                                    </select>
+                                                    <span style="color: red">*</span>                                                    
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="creditacList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="accountid"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['accountid'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">From Point</label>
                                                     <span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="fromPlace"   
-                                                    class="form-control form-select ng-pristine ng-touched"   
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
-                                                        <option *ngFor="let loc of locationList" value={{loc.dataId}}>
-                                                           {{loc.dataName}}
-                                                        </option>
-                                                     </select>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation"  
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="fromPlace"  
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">

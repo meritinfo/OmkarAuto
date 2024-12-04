@@ -205,9 +205,14 @@ export class BilloutstandingrptComponent {
         link.click();
       });
     }
-    
-
-    
+    if(selectedDataVal.rptType=="OA"){
+      this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
+        let link = document.createElement("a");
+        link.download = "OutstandingAnalysisReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      });
+    }    
   }
 }
 

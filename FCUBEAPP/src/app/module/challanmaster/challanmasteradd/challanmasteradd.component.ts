@@ -237,6 +237,8 @@ export class ChallanmasteraddComponent {
     this.formUser.controls['mainChallanNo'].clearValidators();
     this.formUser.controls['mainChallanBranch'].updateValueAndValidity();
     this.formUser.controls['mainChallanNo'].updateValueAndValidity();
+    this.formUser.controls['mainChallanBranch'].disable();
+    this.formUser.controls['mainChallanNo'].disable();
 
     setTimeout(() => {      
       if (this.selectedChallanDetails.challanId != '') {
@@ -277,7 +279,61 @@ export class ChallanmasteraddComponent {
           permitValid: permitValid,
           declarationYN: declarationYN,
         })   
-  
+        if (this.selectedChallanDetails.chStatus == "I") {
+          this.formUser.controls['mainChallanBranch'].setValidators([Validators.required]);
+          this.formUser.controls['mainChallanNo'].setValidators([Validators.required]); 
+          this.formUser.controls['lorryHire'].clearValidators();
+          this.formUser.controls['subTotal'].clearValidators();
+          this.formUser.controls['totalHire'].clearValidators();
+          this.formUser.controls['balancePayAt'].clearValidators();    
+          this.formUser.controls['mainChallanBranch'].enable();
+          this.formUser.controls['mainChallanNo'].enable();
+        }
+        else{
+          this.formUser.controls['mainChallanBranch'].clearValidators();
+          this.formUser.controls['mainChallanNo'].clearValidators();
+          this.formUser.controls['lorryHire'].setValidators([Validators.required]); 
+          this.formUser.controls['subTotal'].setValidators([Validators.required]); 
+          this.formUser.controls['totalHire'].setValidators([Validators.required]); 
+          this.formUser.controls['balancePayAt'].setValidators([Validators.required]); 
+          this.formUser.controls['mainChallanBranch'].disable();
+          this.formUser.controls['mainChallanNo'].disable();
+        }    
+        if (this.selectedChallanDetails.chStatus == "C") {
+          this.formUser.controls['challanFromStn'].clearValidators();
+          this.formUser.controls['challanToStn'].clearValidators();
+          this.formUser.controls['truckNo'].clearValidators();
+          this.formUser.controls['brokerId'].clearValidators();
+          this.formUser.controls['vehicleType'].clearValidators();
+          this.formUser.controls['lorryHire'].clearValidators();
+          this.formUser.controls['subTotal'].clearValidators();
+          this.formUser.controls['totalHire'].clearValidators();
+          this.formUser.controls['balancePayAt'].clearValidators();
+        }
+        else{
+          this.formUser.controls['challanFromStn'].setValidators([Validators.required]);
+          this.formUser.controls['challanToStn'].setValidators([Validators.required]);
+          this.formUser.controls['truckNo'].setValidators([Validators.required]);
+          this.formUser.controls['brokerId'].setValidators([Validators.required]);
+          this.formUser.controls['vehicleType'].setValidators([Validators.required]);
+          this.formUser.controls['lorryHire'].setValidators([Validators.required]);
+          this.formUser.controls['subTotal'].setValidators([Validators.required]);
+          this.formUser.controls['totalHire'].setValidators([Validators.required]);
+          this.formUser.controls['balancePayAt'].setValidators([Validators.required]);
+        }    
+        this.formUser.controls['mainChallanBranch'].updateValueAndValidity();
+        this.formUser.controls['mainChallanNo'].updateValueAndValidity();
+    
+        this.formUser.controls['challanFromStn'].updateValueAndValidity();
+        this.formUser.controls['challanToStn'].updateValueAndValidity();
+        this.formUser.controls['truckNo'].updateValueAndValidity();
+        this.formUser.controls['brokerId'].updateValueAndValidity();
+        this.formUser.controls['vehicleType'].updateValueAndValidity();
+        this.formUser.controls['lorryHire'].updateValueAndValidity();
+        this.formUser.controls['subTotal'].updateValueAndValidity();
+        this.formUser.controls['totalHire'].updateValueAndValidity();
+        this.formUser.controls['balancePayAt'].updateValueAndValidity();
+
         this.formUser.controls['challanNo'].disable();  
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
@@ -644,6 +700,8 @@ export class ChallanmasteraddComponent {
       this.formUser.controls['subTotal'].clearValidators();
       this.formUser.controls['totalHire'].clearValidators();
       this.formUser.controls['balancePayAt'].clearValidators();    
+      this.formUser.controls['mainChallanBranch'].enable();
+      this.formUser.controls['mainChallanNo'].enable();
     }
     else{
       this.formUser.controls['mainChallanBranch'].clearValidators();
@@ -652,6 +710,8 @@ export class ChallanmasteraddComponent {
       this.formUser.controls['subTotal'].setValidators([Validators.required]); 
       this.formUser.controls['totalHire'].setValidators([Validators.required]); 
       this.formUser.controls['balancePayAt'].setValidators([Validators.required]); 
+      this.formUser.controls['mainChallanBranch'].disable();
+      this.formUser.controls['mainChallanNo'].disable();
     }    
     if (e.target.value == "C") {
       this.formUser.controls['challanFromStn'].clearValidators();
@@ -1022,67 +1082,68 @@ export class ChallanmasteraddComponent {
     this.formSubmitted = true;
     this.sharedService.loading = true;
     this.challanmodel.challanId = this.selectedChallanDetails.challanId?this.selectedChallanDetails.challanId:"";
-    this.challanmodel.challanBranch= selectedDataValue.challanBranch;
-    this.challanmodel.challanNo= selectedDataValue.challanNo;
-    this.challanmodel.challanDateTime= selectedDataValue.challanDateTime;
-    this.challanmodel.chStatus= selectedDataValue.chStatus;
-    this.challanmodel.challanFromStn= selectedDataValue.challanFromStn?selectedDataValue.challanFromStn.dataId:"";
-    this.challanmodel.challanToStn= selectedDataValue.challanToStn?selectedDataValue.challanToStn.dataId:"";
-    this.challanmodel.distanceKms= selectedDataValue.distanceKms? selectedDataValue.distanceKms : ""; 
-    this.challanmodel.expArrivalDate= selectedDataValue.expArrivalDate;
-    this.challanmodel.mainChallanBranch= selectedDataValue.mainChallanBranch? selectedDataValue.mainChallanBranch : ""; 
-    this.challanmodel.mainChallanNo= selectedDataValue.mainChallanNo? selectedDataValue.mainChallanNo : ""; 
-    this.challanmodel.truckNo= selectedDataValue.truckNo? selectedDataValue.truckNo.toString().toUpperCase() : ""; 
-    this.challanmodel.ownTruckYN= selectedDataValue.ownTruckYN?"Y":"N";
-    this.challanmodel.brokerId= selectedDataValue.brokerId?selectedDataValue.brokerId.dataId:"";
-    this.challanmodel.brokerMblNo= selectedDataValue.brokerMblNo? selectedDataValue.brokerMblNo : ""; 
-    this.challanmodel.vehicleType= selectedDataValue.vehicleType? selectedDataValue.vehicleType.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleMake= selectedDataValue.vehicleMake? selectedDataValue.vehicleMake.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleModel= selectedDataValue.vehicleModel? selectedDataValue.vehicleModel.toString().toUpperCase() : ""; 
-    this.challanmodel.engineNo= selectedDataValue.engineNo? selectedDataValue.engineNo.toString().toUpperCase() : ""; 
-    this.challanmodel.chassisNo= selectedDataValue.chassisNo? selectedDataValue.chassisNo.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleOwnerName= selectedDataValue.vehicleOwnerName? selectedDataValue.vehicleOwnerName.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleOwnerAdd1= selectedDataValue.vehicleOwnerAdd1? selectedDataValue.vehicleOwnerAdd1.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleOwnerAdd2= selectedDataValue.vehicleOwnerAdd2? selectedDataValue.vehicleOwnerAdd2.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleOwnerPanNo= selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo.toString().toUpperCase() : ""; 
-    this.challanmodel.vehicleOwnerMblNo= selectedDataValue.vehicleOwnerMblNo? selectedDataValue.vehicleOwnerMblNo : ""; 
-    this.challanmodel.vehicleInsDetails= selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails : ""; 
-    this.challanmodel.panValid= selectedDataValue.panValid?"Y":"N";
-    this.challanmodel.aadharLinked= selectedDataValue.aadharLinked?"Y":"N";
-    this.challanmodel.itFiled= selectedDataValue.itFiled?"Y":"N";
-    this.challanmodel.permitValid= selectedDataValue.permitValid?"Y":"N";
-    this.challanmodel.driverAddress= selectedDataValue.driverAddress? selectedDataValue.driverAddress.toString().toUpperCase() : ""; 
-    this.challanmodel.driverLicNo= selectedDataValue.driverLicNo? selectedDataValue.driverLicNo.toString().toUpperCase() : ""; 
-    this.challanmodel.driverLicIssuedAt= selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt : ""; 
-    this.challanmodel.driverLicValid= selectedDataValue.driverLicValid? selectedDataValue.driverLicValid : ""; 
-    this.challanmodel.driverMblNo= selectedDataValue.driverMblNo? selectedDataValue.driverMblNo : ""; 
-    this.challanmodel.engagedBy= selectedDataValue.engagedBy? selectedDataValue.engagedBy : ""; 
-    this.challanmodel.loadedBy= selectedDataValue.loadedBy? selectedDataValue.loadedBy : ""; 
-    this.challanmodel.unLoadingBy= ""; 
-    this.challanmodel.declarationYN= selectedDataValue.declarationYN?"Y":"N";
-    this.challanmodel.odcLength= selectedDataValue.odcLength? selectedDataValue.odcLength.toString() : ""; 
-    this.challanmodel.odcWidth= selectedDataValue.odcWidth? selectedDataValue.odcWidth.toString() : ""; 
-    this.challanmodel.odcHeight= selectedDataValue.odcHeight? selectedDataValue.odcHeight.toString() : ""; 
-    this.challanmodel.odcCFT= selectedDataValue.odcCFT? selectedDataValue.odcCFT.toString() : "0"; ;
-    this.challanmodel.totPkgs= selectedDataValue.totPkgs? selectedDataValue.totPkgs.toString() : "0"; 
-    this.challanmodel.totActWt= selectedDataValue.totActWt? selectedDataValue.totActWt.toString() : "0"; 
-    this.challanmodel.totChrgWt= selectedDataValue.totChrgWt? selectedDataValue.totChrgWt.toString() : "0"; 
-    this.challanmodel.ratePerTon= selectedDataValue.ratePerTon? selectedDataValue.ratePerTon.toString() : "0"; 
-    this.challanmodel.lorryHire= selectedDataValue.lorryHire? selectedDataValue.lorryHire.toString() : "0"; 
-    this.challanmodel.extraHire1= selectedDataValue.extraHire1? selectedDataValue.extraHire1.toString() : "0"; 
-    this.challanmodel.extraHire2= selectedDataValue.extraHire2? selectedDataValue.extraHire2.toString() : "0"; 
-    this.challanmodel.extraHire3= selectedDataValue.extraHire3? selectedDataValue.extraHire3.toString() : "0"; 
-    this.challanmodel.deduction1= selectedDataValue.deduction1? selectedDataValue.deduction1.toString() : "0"; 
-    this.challanmodel.deduction2= selectedDataValue.deduction2? selectedDataValue.deduction2.toString() : "0"; 
-    this.challanmodel.subTotal= selectedDataValue.subTotal? selectedDataValue.subTotal.toString() : "0"; 
-    this.challanmodel.tdsPct= selectedDataValue.tdsPct? selectedDataValue.tdsPct.toString() : "0"; 
-    this.challanmodel.tdsAmt= selectedDataValue.tdsAmt? selectedDataValue.tdsAmt.toString() : "0"; 
-    this.challanmodel.totalHire= selectedDataValue.totalHire? selectedDataValue.totalHire.toString() : "0"; 
-    this.challanmodel.cashAdvance= selectedDataValue.cashAdvance? selectedDataValue.cashAdvance.toString() : "0"; 
-    this.challanmodel.cardAdvance= selectedDataValue.cardAdvance? selectedDataValue.cardAdvance.toString(): "0"; 
-    this.challanmodel.totalAdvance= selectedDataValue.totalAdvance? selectedDataValue.totalAdvance.toString() : "0"; 
+    this.challanmodel.challanBranch = selectedDataValue.challanBranch;
+    this.challanmodel.challanNo = selectedDataValue.challanNo;
+    this.challanmodel.challanDateTime = selectedDataValue.challanDateTime;
+    this.challanmodel.chStatus = selectedDataValue.chStatus;
+    this.challanmodel.chSuppYN = "N"
+    this.challanmodel.challanFromStn = selectedDataValue.challanFromStn?selectedDataValue.challanFromStn.dataId:"";
+    this.challanmodel.challanToStn = selectedDataValue.challanToStn?selectedDataValue.challanToStn.dataId:"";
+    this.challanmodel.distanceKms = selectedDataValue.distanceKms? selectedDataValue.distanceKms : ""; 
+    this.challanmodel.expArrivalDate = selectedDataValue.expArrivalDate;
+    this.challanmodel.mainChallanBranch = selectedDataValue.mainChallanBranch? selectedDataValue.mainChallanBranch : ""; 
+    this.challanmodel.mainChallanNo = selectedDataValue.mainChallanNo? selectedDataValue.mainChallanNo : ""; 
+    this.challanmodel.truckNo = selectedDataValue.truckNo? selectedDataValue.truckNo.toString().toUpperCase() : ""; 
+    this.challanmodel.ownTruckYN = selectedDataValue.ownTruckYN?"Y":"N";
+    this.challanmodel.brokerId = selectedDataValue.brokerId?selectedDataValue.brokerId.dataId:"";
+    this.challanmodel.brokerMblNo = selectedDataValue.brokerMblNo? selectedDataValue.brokerMblNo : ""; 
+    this.challanmodel.vehicleType = selectedDataValue.vehicleType? selectedDataValue.vehicleType.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleMake = selectedDataValue.vehicleMake? selectedDataValue.vehicleMake.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleModel = selectedDataValue.vehicleModel? selectedDataValue.vehicleModel.toString().toUpperCase() : ""; 
+    this.challanmodel.engineNo = selectedDataValue.engineNo? selectedDataValue.engineNo.toString().toUpperCase() : ""; 
+    this.challanmodel.chassisNo = selectedDataValue.chassisNo? selectedDataValue.chassisNo.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerName = selectedDataValue.vehicleOwnerName? selectedDataValue.vehicleOwnerName.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerAdd1 = selectedDataValue.vehicleOwnerAdd1? selectedDataValue.vehicleOwnerAdd1.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerAdd2 = selectedDataValue.vehicleOwnerAdd2? selectedDataValue.vehicleOwnerAdd2.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerPanNo = selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerMblNo = selectedDataValue.vehicleOwnerMblNo? selectedDataValue.vehicleOwnerMblNo : ""; 
+    this.challanmodel.vehicleInsDetails = selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails : ""; 
+    this.challanmodel.panValid = selectedDataValue.panValid?"Y":"N";
+    this.challanmodel.aadharLinked = selectedDataValue.aadharLinked?"Y":"N";
+    this.challanmodel.itFiled = selectedDataValue.itFiled?"Y":"N";
+    this.challanmodel.permitValid = selectedDataValue.permitValid?"Y":"N";
+    this.challanmodel.driverAddress = selectedDataValue.driverAddress? selectedDataValue.driverAddress.toString().toUpperCase() : ""; 
+    this.challanmodel.driverLicNo = selectedDataValue.driverLicNo? selectedDataValue.driverLicNo.toString().toUpperCase() : ""; 
+    this.challanmodel.driverLicIssuedAt = selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt : ""; 
+    this.challanmodel.driverLicValid = selectedDataValue.driverLicValid? selectedDataValue.driverLicValid : ""; 
+    this.challanmodel.driverMblNo = selectedDataValue.driverMblNo? selectedDataValue.driverMblNo : ""; 
+    this.challanmodel.engagedBy = selectedDataValue.engagedBy? selectedDataValue.engagedBy : ""; 
+    this.challanmodel.loadedBy = selectedDataValue.loadedBy? selectedDataValue.loadedBy : ""; 
+    this.challanmodel.unLoadingBy = ""; 
+    this.challanmodel.declarationYN = selectedDataValue.declarationYN?"Y":"N";
+    this.challanmodel.odcLength = selectedDataValue.odcLength? selectedDataValue.odcLength.toString() : ""; 
+    this.challanmodel.odcWidth = selectedDataValue.odcWidth? selectedDataValue.odcWidth.toString() : ""; 
+    this.challanmodel.odcHeight = selectedDataValue.odcHeight? selectedDataValue.odcHeight.toString() : ""; 
+    this.challanmodel.odcCFT = selectedDataValue.odcCFT? selectedDataValue.odcCFT.toString() : "0"; ;
+    this.challanmodel.totPkgs = selectedDataValue.totPkgs? selectedDataValue.totPkgs.toString() : "0"; 
+    this.challanmodel.totActWt = selectedDataValue.totActWt? selectedDataValue.totActWt.toString() : "0"; 
+    this.challanmodel.totChrgWt = selectedDataValue.totChrgWt? selectedDataValue.totChrgWt.toString() : "0"; 
+    this.challanmodel.ratePerTon = selectedDataValue.ratePerTon? selectedDataValue.ratePerTon.toString() : "0"; 
+    this.challanmodel.lorryHire = selectedDataValue.lorryHire? selectedDataValue.lorryHire.toString() : "0"; 
+    this.challanmodel.extraHire1 = selectedDataValue.extraHire1? selectedDataValue.extraHire1.toString() : "0"; 
+    this.challanmodel.extraHire2 = selectedDataValue.extraHire2? selectedDataValue.extraHire2.toString() : "0"; 
+    this.challanmodel.extraHire3 = selectedDataValue.extraHire3? selectedDataValue.extraHire3.toString() : "0"; 
+    this.challanmodel.deduction1 = selectedDataValue.deduction1? selectedDataValue.deduction1.toString() : "0"; 
+    this.challanmodel.deduction2 = selectedDataValue.deduction2? selectedDataValue.deduction2.toString() : "0"; 
+    this.challanmodel.subTotal = selectedDataValue.subTotal? selectedDataValue.subTotal.toString() : "0"; 
+    this.challanmodel.tdsPct = selectedDataValue.tdsPct? selectedDataValue.tdsPct.toString() : "0"; 
+    this.challanmodel.tdsAmt = selectedDataValue.tdsAmt? selectedDataValue.tdsAmt.toString() : "0"; 
+    this.challanmodel.totalHire = selectedDataValue.totalHire? selectedDataValue.totalHire.toString() : "0"; 
+    this.challanmodel.cashAdvance = selectedDataValue.cashAdvance? selectedDataValue.cashAdvance.toString() : "0"; 
+    this.challanmodel.cardAdvance = selectedDataValue.cardAdvance? selectedDataValue.cardAdvance.toString(): "0"; 
+    this.challanmodel.totalAdvance = selectedDataValue.totalAdvance? selectedDataValue.totalAdvance.toString() : "0"; 
     this.challanmodel.balance = selectedDataValue.balance? selectedDataValue.balance.toString() : "0"; 
-    this.challanmodel.balancePayAt= selectedDataValue.balancePayAt? selectedDataValue.balancePayAt : ""; 
+    this.challanmodel.balancePayAt = selectedDataValue.balancePayAt? selectedDataValue.balancePayAt : ""; 
     this.challanmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
     this.challanmodel.modifyRemarks = selectedDataValue.modifyRemarks?selectedDataValue.modifyRemarks.toString().toUpperCase():"";
     this.challanmodel.yearId = this.year;

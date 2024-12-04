@@ -36,6 +36,10 @@ export class AddratesmasterComponent implements OnInit {
   deleteStatus = false;
   viewStatus = false;
   responseDetails = new Responsemodel();
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  loginDate: string = '';
 
   constructor(private ratesmastermodel: Ratesmastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
@@ -75,12 +79,31 @@ export class AddratesmasterComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 12);
     
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
     this.formRatesMaster = this.formBuilder.group({
       accountid: new FormControl('', [Validators.required]),
       fromPlace: new FormControl('', [Validators.required]),
-      validFrom: new FormControl('', [Validators.required]),
-      validUpto: new FormControl('', [Validators.required]),
+      validFrom: new FormControl(this.minDate, [Validators.required]),
+      validUpto: new FormControl(this.loginDate, [Validators.required]),
       rateTypeId: new FormControl('', [Validators.required]),
       rateMethod: new FormControl('', [Validators.required]),
       vehicleTypeGroupId: new FormControl('', [Validators.required]),
@@ -123,6 +146,9 @@ export class AddratesmasterComponent implements OnInit {
         this.formRatesMaster.patchValue({
           validFrom: this.commonService.formatDate(this.selectedRatesMaster.validFrom),
           validUpto: this.commonService.formatDate(this.selectedRatesMaster.validUpto), 
+          accountid: this.creditacList.find(e => e.dataId == this.selectedRatesMaster.accountid),
+          fromPlace: this.locationList.find(e => e.dataId == this.selectedRatesMaster.fromPlace),
+
         });
         this.editMode = true;
         this.formRatesMaster.controls['rateTypeId'].disable();
@@ -202,17 +228,16 @@ export class AddratesmasterComponent implements OnInit {
   }
 
   onRateTypeChange(e: any) {
-    var selectedValue = e.target.value;
-    if (selectedValue.toString() == '1') {
-      this.formRatesMaster.patchValue({
-        rateMethod: 'KRF',
-      });
-    }
-    else {
-      this.formRatesMaster.patchValue({
-        rateMethod: 'RTF',
-      });
-    }
+    this.requestmodel.strRequest = e.target.value;
+    
+    this.ratesMasterService.getRateTypeMethod(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formRatesMaster.patchValue({
+          rateMethod: this.responseDetails.message
+        });
+      }
+    });    
   }
   
   // convenience getter for easy access to contact form fields
@@ -256,11 +281,11 @@ export class AddratesmasterComponent implements OnInit {
     var selectedDataVal= this.formRatesMaster.getRawValue()
     if ((this.formArray.value[index].destState != "" || this.formArray.value[index].toPlace != "") 
     && this.formArray.value[index].rate) {
-      if (selectedDataVal.rateForStateOrToPlace == "P" && this.formArray.value[index].toPlace.dataId==selectedDataVal.fromPlace){
+      if (selectedDataVal.rateForStateOrToPlace == "P" && this.formArray.value[index].toPlace.dataId==selectedDataVal.fromPlace.dataId){
         this.toasterService.warning("From Point cannot be same as To Place in details grid");
         return;
       }
-      else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace){
+      else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace.dataId){
         this.toasterService.warning("From Point cannot be same as State in details grid");
         return;
       }
@@ -340,11 +365,19 @@ export class AddratesmasterComponent implements OnInit {
       return;
     }
     
-    this.sharedService.loading=true;
     var selectedDataVal=this.formRatesMaster.getRawValue();
+    
+    if (selectedDataVal.fromPlace.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" From Point is Invalid");
+      return;
+    }
+    
     this.ratesmastermodel.masterID = this.selectedRatesMaster.masterID ;
-    this.ratesmastermodel.accountid = selectedDataVal.accountid?selectedDataVal.accountid:this.selectedRatesMaster.accountid;
-    this.ratesmastermodel.fromPlace = selectedDataVal.fromPlace;
+    this.ratesmastermodel.accountid = selectedDataVal.accountid?selectedDataVal.accountid.dataId:this.selectedRatesMaster.accountid;
+    this.ratesmastermodel.fromPlace = selectedDataVal.fromPlace?selectedDataVal.fromPlace.dataId:0;
     this.ratesmastermodel.validFrom = selectedDataVal.validFrom;
     this.ratesmastermodel.validUpto = selectedDataVal.validUpto;
     this.ratesmastermodel.rateTypeId = selectedDataVal.rateTypeId;
@@ -423,6 +456,7 @@ export class AddratesmasterComponent implements OnInit {
     }
 
     this.formSubmitted = true;
+    this.sharedService.loading=true;
     this.ratesMasterService.ratesMasterSubmitted(this.ratesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

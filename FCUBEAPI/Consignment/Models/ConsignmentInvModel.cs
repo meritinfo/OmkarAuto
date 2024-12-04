@@ -10,7 +10,7 @@ namespace Consignment.Models
         public string? EwayBillExpDate { get; set; }
         public string? InvoiceNo { get; set; }
         public string? InvoiceDate { get; set; }
-        public string? DeliveryNo { get; set; }
         public string? InvoiceValue { get; set; }
+        public string? DeliveryNo { get; set; }
     }
 }
