@@ -69,6 +69,9 @@ export class ChallanmasterService {
   checkChallanPrepForLr(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanPrepForLr', req, this.httpOptions);
   }
+  getChallanPrintPdf(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanPrintPdf', req, this.httpOptions);
+  }
   getChallanEnqDetails(filter: Requestmodel): Observable<Challanmastermodel> {
     return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqDetails', filter, this.httpOptions);
   }

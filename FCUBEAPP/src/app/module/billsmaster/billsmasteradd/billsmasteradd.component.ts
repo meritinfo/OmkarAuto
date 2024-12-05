@@ -170,7 +170,7 @@ export class BillsmasteraddComponent implements OnInit {
     setTimeout(() => {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
-      this.formBillsMaster.controls['billNo'].disable();
+      //this.formBillsMaster.controls['billNo'].disable();
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalStatistical'].disable();
       this.formBillsMaster.controls['totalFov'].disable();

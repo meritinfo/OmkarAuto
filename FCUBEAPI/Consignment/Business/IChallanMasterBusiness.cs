@@ -22,5 +22,6 @@ namespace Consignment.Business
         Task<ResponseModel> CheckChallanPrepForLr(RequestModel request);
         Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req);
         Task<ChallanMasterModel> GetChallanEnqInnerGridList(RequestModel request);
+        Task<ResponseModel> GetChallanPrintPdf(RequestModel request);
     }
 }

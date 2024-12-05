@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
@@ -1001,8 +1002,47 @@ namespace Consignment.Repository
             return responseModel;
         }
         
+        public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/Challan/";
+
+                string UrlParam = "?ChallanId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = "Error Fetching Report";
+            }
+            return responseModel;
+        }
 
 
     }

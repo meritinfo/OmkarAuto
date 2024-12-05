@@ -8,6 +8,8 @@ import { ChallanmasterService } from 'src/app/services/challanmaster.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-challanmasterlist',
@@ -18,6 +20,7 @@ export class ChallanmasterlistComponent {
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
   allChallan: Challanlistmodel = new Challanlistmodel();
+  request: Requestmodel = new Requestmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -50,7 +53,7 @@ export class ChallanmasterlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
     private challanmasterService: ChallanmasterService, private route: Router,
     private commonService: CommonService,) {
   }
@@ -183,6 +186,10 @@ export class ChallanmasterlistComponent {
         {
           title: 'Action',
           data: 'challanId',
+        },  
+        {
+          title: 'Action',
+          data: 'challanId',
         },
       ],
     };
@@ -223,6 +230,22 @@ export class ChallanmasterlistComponent {
   getChallanDetails(Challan: Challanmastermodel): void {
     this.challanmasterService.setChallanDetails(Challan);
     this.route.navigate(['/challanedit']);
+  }  
+
+  download(ch: Challanmastermodel): void {
+    this.request.strRequest = ch.challanId;
+        
+    this.challanmasterService.getChallanPrintPdf(this.request).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "Challan_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/challanprint/" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
   }
 
   search(): void {

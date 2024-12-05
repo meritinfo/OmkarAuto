@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 using System;
@@ -64,6 +65,10 @@ namespace Consignment.Business
         public async Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req)
         {
             return await challanRepository.GetChallanEnqDetails(req);
+        }
+        public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
+        {
+            return await challanRepository.GetChallanPrintPdf(request);
         }
 
     }

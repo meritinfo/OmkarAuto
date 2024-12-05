@@ -68,6 +68,7 @@
                                 <th>tPlace </th>
                                 <th>truckNo </th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allChallan.challanList?.length != 0">
@@ -82,6 +83,12 @@
                                     <button type="button" class="btn btn-edit" 
                                         (click)="getChallanDetails(cn)"></button>                               
                                 </td>
+                                <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(cn)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allChallan.challanList?.length == 0">
