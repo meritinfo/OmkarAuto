@@ -648,9 +648,12 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {  };
+                        {
+                            new SqlParameter("@BillingStation",    request.strRequest  ),
+                            new SqlParameter("@YearId",             request.strRequest1 ), 
+                        };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

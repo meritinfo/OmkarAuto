@@ -46,7 +46,7 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillPartyGstLocationList(requestModel);
         }
-        public async Task<ResponseModel> CheckDuplicateBillsNo(RequestModel requestModel)
+        public async Task<ResponseModel> CheckDuplicateBillsNo(BillsMasterModel requestModel)
         {
             return await billsRepository.CheckDuplicateBillsNo(requestModel);
         }

@@ -334,9 +334,13 @@ export class BillsmasteraddComponent implements OnInit {
     });   
   } 
 
-  onBillNoChange(e:any): void {
-    this.requestmodel.strRequest = e.target.value;
-    this.billsMasterService.checkDuplicateBillsNo(this.requestmodel).subscribe((res: Responsemodel) => {
+  onBillNoChange(): void {    
+    var selectedDataValue = this.formBillsMaster.getRawValue();
+    this.billsmastermodel.billingStation = selectedDataValue.billingStation;
+    this.billsmastermodel.billNo = selectedDataValue.billNo;
+    this.billsmastermodel.yearId = this.year;
+
+    this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         //ignore
@@ -372,7 +376,8 @@ export class BillsmasteraddComponent implements OnInit {
   
   billSeriesChange(): void {
     var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billNo;
+    this.requestmodel.strRequest = selectedData.billingStation;
+    this.requestmodel.strRequest1 = this.year;
     this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formBillsMaster.patchValue({

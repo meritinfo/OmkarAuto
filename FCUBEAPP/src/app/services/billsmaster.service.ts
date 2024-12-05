@@ -60,7 +60,7 @@ export class BillsMasterService {
   getBillsMasterInnerGridList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsInnerGridList', request, this.httpOptions);
   }
-  checkDuplicateBillsNo(request: Requestmodel): Observable<Responsemodel> {
+  checkDuplicateBillsNo(request: Billsmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateBillsNo', request, this.httpOptions);
   }  
   getBillTypeSacHsn(request: Requestmodel): Observable<Responsemodel> {

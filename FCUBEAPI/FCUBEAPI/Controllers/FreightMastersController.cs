@@ -764,7 +764,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("CheckDuplicateBillsNo")]
-        public async Task<IActionResult> CheckDuplicateBillsNo(RequestModel request)
+        public async Task<IActionResult> CheckDuplicateBillsNo(BillsMasterModel request)
         {
             if (request == null)
             {

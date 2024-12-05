@@ -775,7 +775,7 @@ namespace FreightMasters.Repository
             }
             return productList;
         }
-        public async Task<ResponseModel> CheckDuplicateBillsNo(RequestModel requestModel)
+        public async Task<ResponseModel> CheckDuplicateBillsNo(BillsMasterModel requestModel)
         {
             ResponseModel responseModel = new();
            
@@ -785,7 +785,9 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillsNo", requestModel.strRequest),
+                            new SqlParameter("@BillingStation", requestModel.BillingStation),
+                            new SqlParameter("@BillNo",         requestModel.BillNo),
+                            new SqlParameter("@YearId",         requestModel.YearId),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateBillNo", param);
 

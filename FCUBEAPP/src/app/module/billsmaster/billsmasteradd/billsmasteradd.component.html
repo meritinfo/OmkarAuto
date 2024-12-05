@@ -33,7 +33,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
                                                 <input autoclose="false" type="text" numbersonly class="form-control"
-                                                formControlName="billNo" (change)="onBillNoChange($event)" 
+                                                formControlName="billNo" (change)="onBillNoChange()" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
                                             </div>
                                         </div>
