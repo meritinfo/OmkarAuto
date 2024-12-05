@@ -1657,11 +1657,11 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetMrNo")]
-        public async Task<IActionResult> GetMrNo()
+        public async Task<IActionResult> GetMrNo(RequestModel request)
         {
             try
             {
-                var result = await mrBusiness.GetMrNo();
+                var result = await mrBusiness.GetMrNo(request);
 
                 return Ok(result);
             }

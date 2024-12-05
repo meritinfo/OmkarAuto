@@ -354,8 +354,11 @@ export class MraddComponent {
   }
   
   
-  getMrNo(): void {    
-    this.mrService.getMrNo().subscribe((res) => {
+  getMrNo(): void { 
+    var selectedData =  this.formUser.getRawValue();  
+    this.requestmodel.strRequest = selectedData.mrStation;
+    this.requestmodel.strRequest1 = this.year;
+    this.mrService.getMrNo(this.requestmodel).subscribe((res) => {
       this.responseDetails = res;
       if(res.status){
         this.formUser.patchValue({
