@@ -1,5 +1,7 @@
 export class Consignmentupdatemodel {
     consignmentID : string = "";
+    poNo: string = "";
+    shipmentNo: string = "";
     billingStatus : string = "";
     rateType : string = "";
     rateDesc : string = "";

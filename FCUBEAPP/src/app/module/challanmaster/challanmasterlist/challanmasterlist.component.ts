@@ -186,11 +186,11 @@ export class ChallanmasterlistComponent {
         {
           title: 'Action',
           data: 'challanId',
-        },  
-        {
-          title: 'Action',
-          data: 'challanId',
         },
+        {
+          title: 'Print',
+          data: 'challanId',
+        },  
       ],
     };
   }
@@ -234,6 +234,7 @@ export class ChallanmasterlistComponent {
 
   download(ch: Challanmastermodel): void {
     this.request.strRequest = ch.challanId;
+    this.request.strRequest1 = this.loggedInUserID;
         
     this.challanmasterService.getChallanPrintPdf(this.request).subscribe(resp => {
       if(resp.status){    

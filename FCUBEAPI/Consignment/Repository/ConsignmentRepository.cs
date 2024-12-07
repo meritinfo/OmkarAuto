@@ -489,6 +489,8 @@ namespace Consignment.Repository
                         lrmodel.BillingStatus= Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
+                        lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
+                        lrmodel.ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentNo"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
                         lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
                         lrmodel.CneeName = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
@@ -560,7 +562,9 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),
+                            new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),                            
+                            new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
+                            new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
                             new SqlParameter("@RateDesc",           ConsignmentModel.RateDesc ),

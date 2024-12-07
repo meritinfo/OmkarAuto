@@ -282,7 +282,7 @@ export class BillsubmitmasteraddComponent {
         this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);  
         this.formTyreArray.controls[i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
         this.formTyreArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
-        this.formTyreArray.controls[i].get("selected")?.setValue(res.billSubmitMasterDtlList[i].selected); 
+        this.formTyreArray.controls[i].get("selected")?.setValue("Y"); 
       
         this.formTyreArray.controls[i].get("billDate")?.disable();
         this.formTyreArray.controls[i].get("billNo")?.disable();
@@ -305,14 +305,10 @@ export class BillsubmitmasteraddComponent {
     });
   }
   
-  selectedData(index: number, event: any) {
-    this.billsubmitmastermodel.billSubmitMasterDtlList[index].selected = event.target.checked;
-    this.calculateTotal();
-  }
-
   calculateTotal() {
     var totalSubmitAmt = 0; 
-    var billlist = this.billsubmitmastermodel.billSubmitMasterDtlList;
+    var selectedData = this.formUser.getRawValue();
+    var billlist = selectedData.arrayList;
     for (var i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
         totalSubmitAmt = totalSubmitAmt + (billlist[i].billAmt == ""? 0 : parseFloat(billlist[i].billAmt) );
@@ -320,26 +316,10 @@ export class BillsubmitmasteraddComponent {
     }
   
     this.formUser.patchValue({
-      totalSubmitAmt      : totalSubmitAmt.toFixed(2),
+      totalSubmitAmt : totalSubmitAmt.toFixed(2),
     });
   }
 
-  addItem(i: number): void {    
-    var selectedDate = this.formUser.getRawValue();
-    if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" ) {
-      this.formTyreArray.push(this.createSubmitArray());
-  
-    } 
-    else {
-      this.toastrService.warning("Please Enter  Spares Details");
-    }
-  }
-
-  removeItem(index: number){ 
-    if (confirm("Are you sure, you want to delete this row?")) {
-      this.formTyreArray.removeAt(index);  
-    }
-  }  
 
   billSubmitMasterDelete(): void {
     if(this.selectedBillSubmitMasterDetail.submitMstId   != '' ){
@@ -377,14 +357,6 @@ export class BillsubmitmasteraddComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
-
-    var diesellistarray = this.billsubmitmastermodel.billSubmitMasterDtlList;
-    var IsItemSelected = false;
-    for (var i = 0; i < diesellistarray.length; i++) {
-      if (diesellistarray[i].selected) {
-        IsItemSelected = true;
-      }
-    }    
     
     this.billsubmitmastermodel.submitMstId = this.selectedBillSubmitMasterDetail.submitMstId ;
     this.billsubmitmastermodel.submitStn= selectedDataValue.submitStn;

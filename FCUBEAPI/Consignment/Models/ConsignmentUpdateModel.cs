@@ -10,6 +10,8 @@ namespace Consignment.Models
     {
         public string? ConsignmentID { get; set; }
         public string? BillingStatus { get; set; }
+        public string? PoNo { get; set; }
+        public string? ShipmentNo { get; set; }
         public string? RateType { get; set; }
         public string? RateDesc { get; set; }
         public string? GstBy { get; set; }

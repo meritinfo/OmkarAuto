@@ -116,7 +116,9 @@ export class ConsignmentupdateComponent {
       billingStatus: new FormControl('', [Validators.required]),
       bookingDate : new FormControl('', ),
       fromPlace : new FormControl('',),    
-      toPlace : new FormControl('', ),    
+      toPlace : new FormControl('', ), 
+      poNo:new FormControl('', ), 
+      shipmentNo:new FormControl('', ), 
       noPackages : new FormControl('',),  
       actualWt : new FormControl('',),   
       chargewt : new FormControl('',),   
@@ -208,7 +210,9 @@ export class ConsignmentupdateComponent {
       bookingDate : "",
       billingStatus: "",
       fromPlace : "",
-      toPlace :  "",     
+      toPlace :  "",   
+      poNo:"",
+      shipmentNo:"",  
       noPackages :  "",
       actualWt :  "", 
       chargewt :  "", 
@@ -282,6 +286,8 @@ export class ConsignmentupdateComponent {
             billingStatus:this.lrmodel.billingStatus,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace,    
+            poNo :  this.lrmodel.poNo,
+            shipmentNo: this.lrmodel.poNo,
             noPackages :  this.lrmodel.noPackages,
             actualWt :  this.lrmodel.actualWt, 
             chargewt :  this.lrmodel.chargewt, 
@@ -535,7 +541,9 @@ export class ConsignmentupdateComponent {
       return;
     }
     this.sharedService.loading = true;
-    this.cnmodel.consignmentID = this.lrmodel.consignmentID;
+    this.cnmodel.consignmentID = this.lrmodel.consignmentID;       
+    this.cnmodel.poNo = selectedDataValue.poNo.toString();
+    this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
     this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 

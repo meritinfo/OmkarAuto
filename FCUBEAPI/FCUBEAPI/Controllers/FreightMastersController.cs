@@ -2269,6 +2269,27 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+
+        [HttpPost("GetBillSubmitPrint")]
+        public async Task<IActionResult> GetBillSubmitPrint(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billSubmitMstBusiness.GetBillSubmitPrint(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetBillSubmitMasterInnerGridList")]
         public async Task<IActionResult> GetBillSubmitMasterInnerGridList(RequestModel request)
         {
@@ -2287,6 +2308,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("BillSubmitMasterDelete")]
         public async Task<IActionResult> BillSubmitMasterDelete(RequestModel request)
         {
@@ -2306,6 +2328,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("BillSubmitMstSave")]
         public async Task<IActionResult> BillSubmitMstSave(BillSubmitMasterModel billSubmitMasterModel)
         {

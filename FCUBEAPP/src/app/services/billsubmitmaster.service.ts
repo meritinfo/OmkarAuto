@@ -49,9 +49,6 @@ export class BillSubmitMasterService {
   getBillsSubmitSearchList(request: Reportmodel): Observable<Billsubmitmastermodel> {
     return this.httpClient.post<Billsubmitmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitSearchList', request, this.httpOptions);
   }  
-//   chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
-//     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
-//   }
   getBillSubmitMasterInnerGridList(request: Requestmodel): Observable<Billsubmitmastermodel> {
     return this.httpClient.post<Billsubmitmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitMasterInnerGridList', request, this.httpOptions);
   }
@@ -60,5 +57,8 @@ export class BillSubmitMasterService {
   }
   getBillSubmitMasterList(filter: Filtermodel): Observable<Billsubmitmasterlistmodel> {
     return this.httpClient.post<Billsubmitmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitMasterList', filter, this.httpOptions);
+  }  
+  getBillSubmitPrint(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmitPrint', request, this.httpOptions);
   }  
 }

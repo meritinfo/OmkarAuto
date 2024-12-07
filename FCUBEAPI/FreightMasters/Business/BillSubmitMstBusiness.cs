@@ -29,11 +29,15 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> BillSubmitMasterDelete(RequestModel req)
          {
             return await billSubmitMstRepository.BillSubmitMasterDelete(req);
-    }
+        }
         public async Task<BillSubmitMasterList> GetBillSubmitMasterList(PageFromDtToDtRequest request)
         {
             return await billSubmitMstRepository.GetBillSubmitMasterList(request);
-    }
+        }
+        public async Task<ResponseModel> GetBillSubmitPrint(RequestModel request)
+        {
+            return await billSubmitMstRepository.GetBillSubmitPrint(request);
+        }
         public async Task<List<DropDownListModel>> GetDeptList()
         {
             return await billSubmitMstRepository.GetDeptList();

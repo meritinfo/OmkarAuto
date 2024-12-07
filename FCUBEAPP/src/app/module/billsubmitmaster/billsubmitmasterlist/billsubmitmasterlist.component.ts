@@ -1,4 +1,3 @@
-
 import { Component ,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -9,6 +8,8 @@ import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.servi
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class BillsubmitmasterlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
+  loggedInUserID: string = '';
   allSubmitMaster: Billsubmitmasterlistmodel = new Billsubmitmasterlistmodel();
+  request: Requestmodel = new Requestmodel();
   filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -43,7 +46,7 @@ export class BillsubmitmasterlistComponent {
   minDate: string = '';
   year: string = '';
 
-  constructor(private billSubmitMasterService: BillSubmitMasterService,
+  constructor(private billSubmitMasterService: BillSubmitMasterService,private toastrService : ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
 
@@ -65,6 +68,16 @@ ngOnInit(): void {
   var yearIDData = sessionStorage.getItem('yearID')?.toString();
   if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
     this.year = yearIDData;
+  } 
+  var userData = sessionStorage.getItem('uid')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.loggedInUserID = userData;
+  }
+  if (this.loggedInUserID) {
+    console.log(this.loggedInUserID);
+  }
+  else {
+    this.route.navigate(['/']);
   }
   var loginDate = sessionStorage.getItem('loginDate')?.toString();
   if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -173,12 +186,15 @@ billSubmitList() {
       {
         title: 'Dept',
         data: 'dname',
-      }, 
-      
+      },  
       {
         title: 'Action',
         data: 'submitMstId',
       },
+      {
+        title: 'Print',
+        data: 'submitMstId',
+      },  
     ],
   };
 }
@@ -191,6 +207,23 @@ addBillSubmitMaster(): void {
 getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
   this.billSubmitMasterService.setBillSubmitMasterDetails(tyre);
   this.route.navigate(['/billsubmitmasteredit']);
+}
+
+download(billsub: Billsubmitmastermodel): void {
+  this.request.strRequest = billsub.submitMstId;
+  this.request.strRequest1 = "Y";
+
+  this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
+    if(resp.status){    
+      let link = document.createElement("a");
+      link.download = "BillSubmit_" + new Date().getTime() + '.pdf';
+      link.href = "assets/reports/billsubmitprint/" + resp.message;
+      link.click();
+    }
+    else{        
+      this.toastrService.warning(resp.message);   
+    }
+  });
 }
 
 search(): void {
