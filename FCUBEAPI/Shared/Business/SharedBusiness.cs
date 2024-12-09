@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace Shared.Business
 {
@@ -150,6 +151,10 @@ namespace Shared.Business
                 });
             }
             return menuList;
+        }
+        public async Task<List<DocRenewalModel>> GetDocRenewalDetails()
+        {
+            return await sharedRepository.GetDocRenewalDetails();
         }
     }
 }

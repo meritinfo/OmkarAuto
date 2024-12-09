@@ -5,14 +5,11 @@ using System;
 using AdminMasters.Business;
 using AdminMasters.Models;
 using Shared.Models;
-using FleetMasters.Business;
-using FleetMasters.Models;
 using Newtonsoft.Json;
-using System.Data.Common;
 using System.IO;
-using System.Data;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using Shared.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -27,11 +24,13 @@ namespace FCUBEAPI.Controllers
         readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IRolePrivilegesBusiness rolePrivilegesBusiness;
         readonly IMenuFormTypesBusiness menuFormTypesBusiness;
+        readonly ISharedBusiness sharedBusiness;
         public AdminController(IOptions<DBModel> _dbconnection, IUserBusiness _userBusiness,
             IRoleMasterBusiness _roleMasterBusiness,
               IPtSlabMasterBusiness _ptSlabMasterBusiness,
             IMenuFormTypesBusiness _menuFormTypeBusiness,
-            IRolePrivilegesBusiness _rolePrivilegesBusiness)
+            IRolePrivilegesBusiness _rolePrivilegesBusiness, 
+            ISharedBusiness _sharedBusiness)
         {
             dbconnection = _dbconnection;
             userBusiness = _userBusiness;
@@ -39,6 +38,7 @@ namespace FCUBEAPI.Controllers
             ptSlabMasterBusiness = _ptSlabMasterBusiness;
             menuFormTypesBusiness = _menuFormTypeBusiness;
             rolePrivilegesBusiness = _rolePrivilegesBusiness;
+            sharedBusiness =_sharedBusiness;
         }
 
         [HttpPost("UserMasterDetailsSave")]
@@ -365,7 +365,22 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }      
+        }
+
+        [HttpPost("GetDocRenewalDetails")]
+        public async Task<IActionResult> GetDocRenewalDetails()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetDocRenewalDetails();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

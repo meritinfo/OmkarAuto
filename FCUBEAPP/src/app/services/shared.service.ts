@@ -6,6 +6,7 @@ import { Loginmodel } from '../models/loginmodel';
 import { Intermediatescreenmodel } from '../models/intermediatescreenmodel';
 import { LoggedinUsermodel } from '../models/loggedinusermodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Docrenewalmodel } from '../models/docrenewalmodel';
 import { Datemodel } from '../models/datemodel';
 
 @Injectable({
@@ -48,8 +49,8 @@ export class SharedService {
   getCompanyDetail(): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail',null, this.httpOptions);
   }
-  //getGcSeries(): Observable<any> {
-    //return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries/' , this.httpOptions);
-  //}
+  getDocRenewalDetails(): Observable<Docrenewalmodel[]> { 
+    return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Login/GetDocRenewalDetails/' ,null, this.httpOptions);
+  }
  
 }

@@ -10,6 +10,7 @@ using ClosedXML.Excel;
 using System.Data;
 using System.IO;
 using DocumentFormat.OpenXml.Office2016.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Shared.Repository
 {
@@ -22,11 +23,6 @@ namespace Shared.Repository
             dbconnection = _dbconnection;
         }
 
-        /// <summary>
-        /// Service method for login to the application
-        /// </summary>
-        /// <param name="loginModel"></param>
-        /// <returns>UserModel</returns>
         public async Task<UserModel> LoginDetails(LoginModel loginModel)
         {
             UserModel userModel = new();
@@ -61,20 +57,10 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return userModel;
         }
-
         public async Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request)
         {
             ResponseModel responseModel = new();
@@ -102,16 +88,7 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return responseModel;
         }
@@ -144,16 +121,7 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return branchList;
         }
@@ -185,25 +153,10 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return responseModel;
         }
-
-        /// <summary>
-        /// Service method for login to the application
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <returns>List<MenuModel></returns>
         public async Task<List<MenuModel>> MenuDetails(string userID)
         {
             List<MenuModel> menuList = new();
@@ -239,16 +192,7 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return menuList;
         }
@@ -277,16 +221,7 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return yearList;
         }
@@ -315,16 +250,7 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return yearList;
         }
@@ -350,7 +276,6 @@ namespace Shared.Repository
             }
             return responseModel;
         }
-
         public async Task<ScheduleModel> GetScheduleDetails()
         {
             ScheduleModel scheduleModel = new();
@@ -374,12 +299,6 @@ namespace Shared.Repository
             }
             return scheduleModel;
         }
-
-        // <summary>
-        /// Service method for login to the application
-        /// </summary>
-        /// <param name="loginModel"></param>
-        /// <returns>UserModel</returns>
         public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails()
         {
             EWayAPIConfigurationModel configModel = new();
@@ -507,6 +426,37 @@ namespace Shared.Repository
                 responseModel.Message = ex.Message;
             }
             return responseModel;
+        }
+        public async Task<List<DocRenewalModel>> GetDocRenewalDetails()
+        {
+            List<DocRenewalModel> DocRenewalList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var menuData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalDetails", null);
+
+                    if (menuData != null && menuData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < menuData.Tables[0].Rows.Count; i++)
+                        {
+                            DocRenewalList.Add(new DocRenewalModel
+                            {
+                                VehicleNo = Convert.ToString(menuData.Tables[0].Rows[i]["VehicleNo"]),
+                                DocDescription = Convert.ToString(menuData.Tables[0].Rows[i]["DocDescription"]),
+                                ValidToDt = Convert.ToString(menuData.Tables[0].Rows[i]["ValidToDt"]),
+                                NetAmount = Convert.ToString(menuData.Tables[0].Rows[i]["NetAmount"]),
+                                DaysRemaining = Convert.ToString(menuData.Tables[0].Rows[i]["DaysRemaining"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return DocRenewalList;
         }
 
     }

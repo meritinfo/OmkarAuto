@@ -139,8 +139,8 @@ export class FinopenbalanceaddComponent {
         totdebitamount=totdebitamount+parseFloat(selectedDataVal.arrayList[i].debitAmt);
     }
     this.formFinOpenBal.patchValue({
-      totalDebit: totdebitamount,
-      totalCredit: totcreditamount,
+      totalDebit: totdebitamount.toFixed(2),
+      totalCredit: totcreditamount.toFixed(2),
     });
   }
 

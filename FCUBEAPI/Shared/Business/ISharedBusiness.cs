@@ -19,5 +19,6 @@ namespace Shared.Business
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<DropDownListModel>> GetYearList();
         Task<List<DropDownListModel>> GetServerDate();
+        Task<List<DocRenewalModel>> GetDocRenewalDetails();
     }
 }

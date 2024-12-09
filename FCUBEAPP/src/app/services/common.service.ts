@@ -1,13 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Branchmodel } from '../models/branchmodel';
-import { Destinationmodel } from '../models/destinationmodel';
+import { Docrenewalmodel } from '../models/docrenewalmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
-import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
 import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
-import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Injectable({
@@ -256,7 +253,10 @@ export class CommonService {
   }  
   getVendorDetails(filter: Requestmodel): Observable<Requestmodel> {
     return this.httpClient.post<Requestmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorDetails', filter, this.httpOptions);
-  }  
+  } 
+  getDocRenewalDetails(): Observable<Docrenewalmodel[]> {
+    return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDocRenewalDetails', null, this.httpOptions);
+  }
 
   formatDate(date: string) {
     if(date == ''){
