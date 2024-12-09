@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
   getDocRenewalDetails(): void {
     this.commonService.getDocRenewalDetails().subscribe((res) => {
       this.docrenewalList = res;
+      this.formArray.clear();
       for (var i = 0; i < res.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("vehicleNo")?.setValue(this.docrenewalList[i].vehicleNo);
