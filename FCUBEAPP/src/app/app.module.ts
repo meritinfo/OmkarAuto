@@ -420,6 +420,7 @@ import { DriversalarypmtaddComponent } from './module/driversalarypayment/driver
 import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
 import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
+import { Tripmastermodel } from './models/tripmastermodel';
 
 @NgModule({
   declarations: [
@@ -551,7 +552,8 @@ import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/trip
     ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent, 
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
-    DriversalarypmtaddComponent, DriversalarypmtlistComponent, TripmasteraddComponent, TripmasterlistComponent,
+    DriversalarypmtaddComponent, DriversalarypmtlistComponent,
+     TripmasteraddComponent, TripmasterlistComponent,
     
   ],
   imports: [
@@ -617,7 +619,8 @@ import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/trip
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,
-    Businesssummrptmodel,ChallanreleaseModel
+    Businesssummrptmodel,ChallanreleaseModel,
+    Tripmastermodel
     
   ],
   bootstrap: [AppComponent]
