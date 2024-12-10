@@ -52,6 +52,11 @@ export class Tripsheetmodel {
     vehicleNo: string = "";
     drName: string = "";  
     nextTrip: string = "";  
+    food_Sal_PerDay : string = ""; 
+    food_Sal_FromDt: string = ""; 
+    food_Sal_ToDt : string = ""; 
+    food_Sal_Days : string = ""; 
+    food_Sal_Amt : string = ""; 
     loggedInUser: string = "";
 
     driverList: DriverDetails[] = [];

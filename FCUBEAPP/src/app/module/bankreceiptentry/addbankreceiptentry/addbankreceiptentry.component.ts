@@ -118,10 +118,10 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
     this.formBankRecEntry.controls['refType'].disable();
-    this.formBankRecEntry.controls['docType'].disable();
     
     setTimeout(() => {
-      if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
+      if (this.selectedBankReceiptEntryDetails.ftmID != '') {  
+        this.formBankRecEntry.controls['docType'].disable();
         this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
         this.formBankRecEntry.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),

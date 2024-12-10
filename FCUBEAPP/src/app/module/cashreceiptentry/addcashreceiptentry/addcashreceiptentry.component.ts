@@ -115,13 +115,13 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();    
     this.formCashRRecEntry.controls['refType'].disable();
-    this.formCashRRecEntry.controls['docType'].disable();
 
     this.formCashRRecEntry.controls['modifyRemarks'].clearValidators();
     this.formCashRRecEntry.controls['modifyRemarks'].updateValueAndValidity();
     
     setTimeout(() => {
       if (this.selectedCashReceiptEntryDetails.ftmID != '') {   
+        this.formCashRRecEntry.controls['docType'].disable();
         this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
         this.formCashRRecEntry.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),

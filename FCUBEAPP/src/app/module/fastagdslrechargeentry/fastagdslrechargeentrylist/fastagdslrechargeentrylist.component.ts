@@ -1,0 +1,215 @@
+import { Component,ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { CommonService } from 'src/app/services/common.service';
+import { Fastagdslrechargeentrylistmodel } from 'src/app/models/fastagdslrechargeentrylistmodel';
+import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
+import { FastagdslrechargeentryService } from 'src/app/services/fastagdslrechargeentry.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Reportmodel } from 'src/app/models/reportmodel';
+
+
+@Component({
+  selector: 'app-fastagdslrechargeentrylist',
+  templateUrl: './fastagdslrechargeentrylist.component.html',
+  styleUrls: ['./fastagdslrechargeentrylist.component.css']
+})
+export class FastagdslrechargeentrylistComponent {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  year: string = '';
+  loginDate: string = '';
+  branch: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  vehicleList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
+
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  allFasttag: Fastagdslrechargeentrylistmodel = new Fastagdslrechargeentrylistmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'brandname',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
+  }
+
+  formFilter!: FormGroup;
+
+  constructor(private fastagdslrechargeentryService: FastagdslrechargeentryService, 
+    private formBuilder: FormBuilder, private commonService: CommonService,
+    private sharedService: SharedService, private route: Router) {
+  }
+  ngOnInit(): void {        
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Card Recharge Entry");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }  
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 12);
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
+    
+    this.fastagdslrechargeentryService.clearFastagdslrechargeentryDetails();
+    this.formFilter = this.formBuilder.group({
+      vehicleID: new FormControl(''),
+      fromDate: new FormControl(this.fromDate),
+      toDate: new FormControl(this.loginDate),
+
+    });
+    this.getVehicleIdList();
+    this.sharedService.loading=true;
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.filterStr = "";
+    this.fastagdslrechargeentrylist();
+    this.sharedService.loading=false;
+
+  }
+
+  
+  getVehicleIdList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }  
+  
+  onFocused(e: any) {
+    // do something
+  }
+  
+  startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
+    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  
+  fastagdslrechargeentrylist(){
+    this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 50,
+    serverSide: true,
+    processing: true,
+    searching: false,
+    ajax: (dataTablesParameters: any, callback) => {
+      // Filter setting
+      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+      this.filter.pageSize = dataTablesParameters.length;
+      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+      this.filter.sortOrder = dataTablesParameters.order[0].dir;
+      // this.filter.search = '';      
+      callback({
+        recordsTotal: 0,
+        recordsFiltered: 0,
+        data: []
+      });
+      this.sharedService.loading = true;
+      this.fastagdslrechargeentryService.getFastagdslrechargeentryList(this.filter).subscribe(resp => {
+         this.allFasttag = resp;
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
+          });
+        });  
+        this.sharedService.loading = false;
+      },
+       // Set column title and data field
+       columns: [     
+
+        {
+          title: 'Trans Branch',
+          data: 'branch',
+        },
+        {
+        title: 'Recharge Date',
+        data: 'rechargeDate',
+        },
+        {
+          title: 'Recharge Type',
+          data: 'rechargeType',
+        },
+        {
+          title: 'Recharge Amount',
+          data: 'rechargeAmt',
+        },       
+        {
+          title: 'Action',
+          data: 'transId',
+        },
+      ],
+    };
+  }
+  
+  //Open new driver master add screen
+  addfastagdslrechargeentry(): void {
+    this.route.navigate(['/rechargeentryadd']);
+  }
+
+  //Open user details screen
+  getfastagdslrechargeentryDetails(finact: Fastagdslrechargeentrymodel): void {
+    this.fastagdslrechargeentryService.setFastagdslrechargeentryDetails(finact);
+    this.route.navigate(['/rechargeentryedit']);
+  }
+ 
+  search(): void { 
+    var selectedDataValue = this.formFilter.getRawValue()
+    this.filter.filterStr = selectedDataValue.vehicleID.dataId;
+    this.filter.fromDate = selectedDataValue.fromDate;
+    this.filter.toDate = selectedDataValue.toDate;
+    this.filter.search = this.branch;
+    
+    this.sharedService.loading=true;
+    this.fastagdslrechargeentrylist();
+    this.sharedService.loading=false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
+}

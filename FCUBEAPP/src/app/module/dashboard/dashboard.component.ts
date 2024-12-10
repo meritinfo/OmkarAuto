@@ -67,21 +67,21 @@ export class DashboardComponent implements OnInit {
   getDocRenewalDetails(): void {
     this.commonService.getDocRenewalDetails().subscribe((res) => {
       this.docrenewalList = res;
-      this.formArray.clear();
-      for (var i = 0; i < res.length; i++) {
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("vehicleNo")?.setValue(this.docrenewalList[i].vehicleNo);
-        this.formArray.controls[i].get("docDescription")?.setValue(this.docrenewalList[i].docDescription);
-        this.formArray.controls[i].get("validToDt")?.setValue(this.docrenewalList[i].validToDt);
-        this.formArray.controls[i].get("netAmount")?.setValue(this.docrenewalList[i].netAmount);
-        this.formArray.controls[i].get("daysRemaining")?.setValue(this.docrenewalList[i].daysRemaining);
+      // this.formArray.clear();
+      // for (var i = 0; i < res.length; i++) {
+      //   this.formArray.push(this.createInitialArray());
+      //   this.formArray.controls[i].get("vehicleNo")?.setValue(this.docrenewalList[i].vehicleNo);
+      //   this.formArray.controls[i].get("docDescription")?.setValue(this.docrenewalList[i].docDescription);
+      //   this.formArray.controls[i].get("validToDt")?.setValue(this.docrenewalList[i].validToDt);
+      //   this.formArray.controls[i].get("netAmount")?.setValue(this.docrenewalList[i].netAmount);
+      //   this.formArray.controls[i].get("daysRemaining")?.setValue(this.docrenewalList[i].daysRemaining);
 
-        this.formArray.controls[i].get("vehicleNo")?.disable();
-        this.formArray.controls[i].get("docDescription")?.disable();
-        this.formArray.controls[i].get("validToDt")?.disable();
-        this.formArray.controls[i].get("netAmount")?.disable();
-        this.formArray.controls[i].get("daysRemaining")?.disable();
-      }
+      //   this.formArray.controls[i].get("vehicleNo")?.disable();
+      //   this.formArray.controls[i].get("docDescription")?.disable();
+      //   this.formArray.controls[i].get("validToDt")?.disable();
+      //   this.formArray.controls[i].get("netAmount")?.disable();
+      //   this.formArray.controls[i].get("daysRemaining")?.disable();
+      // }
     });
   }
 

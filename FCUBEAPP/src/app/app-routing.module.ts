@@ -242,6 +242,12 @@ import { MrenquiryComponent } from './module/mrenquiry/mrenquiry/mrenquiry.compo
 import { BillenquiryComponent } from './module/billenquiry/billenquiry/billenquiry.component';
 import { ChallanreleaseaddComponent } from './module/challanrelease/challanreleaseadd/challanreleaseadd.component';
 import { ChallanreleaselistComponent } from './module/challanrelease/challanreleaselist/challanreleaselist.component';
+import { FastagdslrechargeentryaddComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentryadd/fastagdslrechargeentryadd.component';
+import { FastagdslrechargeentrylistComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentrylist/fastagdslrechargeentrylist.component';
+import { DriversalarypmtaddComponent } from './module/driversalarypayment/driversalarypmtadd/driversalarypmtadd.component';
+import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
+import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
+import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 
 
 
@@ -581,14 +587,19 @@ const routes: Routes = [
   { path: 'challanrelease', component: ChallanreleaselistComponent },
   { path: 'challanreleaseadd', component: ChallanreleaseaddComponent },
   { path: 'challanreleaseedit', component: ChallanreleaseaddComponent },
-  
-  
-  
   { path: 'busisummlr', component: BusinesssummrptComponent },
- 
+  { path: 'rechargeentry', component: FastagdslrechargeentrylistComponent },
+  { path: 'rechargeentryadd', component: FastagdslrechargeentryaddComponent },
+  { path: 'rechargeentryedit', component: FastagdslrechargeentryaddComponent },
+  { path: 'drsalpmt', component: DriversalarypmtlistComponent},
+  { path: 'drsalpmtadd', component: DriversalarypmtaddComponent },
+  { path: 'drsalpmtedit', component: DriversalarypmtaddComponent }, 
+  { path: 'tripsheetjetlist', component: TripmasterlistComponent },
+  { path: 'tripsheetjetadd', component: TripmasteraddComponent },
+  { path: 'tripsheetjetedit', component: TripmasteraddComponent },
+  
 
-   
-
+  
 ];
 
 

@@ -390,7 +390,7 @@
                         </div>
                     </div>
                 </div>            
-                <div class="ng-untouched ng-pristine ng-valid">
+                <!-- <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
@@ -424,6 +424,54 @@
                                         </tr>
                                     </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     -->
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="color: red;">Fasttag Details</h4>
+                                    <div class="overflow-x">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity">Trans Date</label></th>
+                                            <th><label for="formrow-inputCity">Amount</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                            <th><label for="formrow-inputZip">Action</label></th>
+                                        </tr>
+                                        <tr formArrayName="fasttagList"
+                                            *ngFor="let drv of formFasttagArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
+                                                <td>                                                   
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="transDate">
+                                                </td>
+                                              
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="ftAmount">
+                                                    </td>                                                  
+                                              
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="remarks">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="k === formFasttagArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem2(k)"></button>
+                                                        <button *ngIf="formFasttagArray.controls.length > 1"
+                                                            (click)="removeItem2(k)" class="btn btn-delete"></button>
+                                                    </div>                                        
+                                                </td>                                              
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -521,8 +569,60 @@
                     </div>
                 </div>   
                 <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="color: red;">Driver Fooding Expenses</h4>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Food Sal Per Day</label>
+                                                <input class="form-control" numbersonly formControlName="food_Sal_PerDay" (change) ="getFoodCal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity"> Food Sal FromDt </label>
+                                                <input type="date" class="form-control"   
+                                                formControlName="food_Sal_FromDt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Food Sal ToDt</label>
+                                                <input type="date" class="form-control"   
+                                                formControlName="food_Sal_ToDt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Food Sal Days </label>
+                                              
+                                                <input class="form-control" numbersonly formControlName="food_Sal_Days" (change) ="getFoodCal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Food Sal Amount</label>
+                                             
+                                                <input class="form-control" numbersonly formControlName="food_Sal_Amt">
+                                                
+                                            </div>
+                                        </div>
+        
+        
+                                    </div>  
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+                <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
-                        <div class="card">                           
+                        <div class="card"> 
+                                                   
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">

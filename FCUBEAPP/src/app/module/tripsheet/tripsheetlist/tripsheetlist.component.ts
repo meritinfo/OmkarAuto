@@ -1,7 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Tripsheetmodel } from 'src/app/models/tripsheetmodel';
 import { TripSheetService } from 'src/app/services/tripsheet.service';
@@ -104,6 +103,7 @@ export class TripsheetlistComponent {
 
 
     this.tripSheetService.clearTripSheetDetails();
+
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
@@ -228,9 +228,8 @@ getTripMaster(){
   }
   
   tripsheetAdd(): void {
-    this.route.navigate(['/tripsheetadd']);
+    this.route.navigate(['/tripsheetjetadd']);
   }
-
   
   gettripSheetDetails(tripsheet: Tripsheetmodel): void {
     this.tripSheetService.setTripSheetDetails(tripsheet);
@@ -245,7 +244,7 @@ getTripMaster(){
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
     sessionStorage.setItem("tsbranch", this.filter.filterStr);
     sessionStorage.setItem("tsvehicle", this.filter.filterStr1);
-    this.route.navigate(['/tripsheetedit']);
+    this.route.navigate(['/tripsheetjetedit']);
   }
 
   getBranchList(): void {

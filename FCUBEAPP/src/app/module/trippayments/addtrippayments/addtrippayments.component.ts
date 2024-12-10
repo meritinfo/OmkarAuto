@@ -151,7 +151,7 @@ export class AddtrippaymentsComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
           neftPmt:  ""
         })  
-        if (this.selectedTripPaymentsDetails.transType == "DL") {
+        if (this.selectedTripPaymentsDetails.transType == "DL"|| this.selectedTripPaymentsDetails.transType == "AB") {
           this.formTripPayment.controls['qtyLtrs'].enable();
           this.formTripPayment.controls['ratePerLtr'].enable();
           this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
@@ -309,7 +309,7 @@ export class AddtrippaymentsComponent {
   changeTransType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
-    if (selectedValue == "DL") {
+    if (selectedValue == "DL"|| selectedValue == "AB") {
       this.formTripPayment.controls['qtyLtrs'].enable();
       this.formTripPayment.controls['ratePerLtr'].enable();
       this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);

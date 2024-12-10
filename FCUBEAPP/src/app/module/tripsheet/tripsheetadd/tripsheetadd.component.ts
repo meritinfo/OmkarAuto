@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Constants } from 'src/app/common/constants';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Tripsheetmodel } from 'src/app/models/tripsheetmodel';
@@ -162,7 +161,11 @@ export class TripsheetaddComponent {
       detentionDays: new FormControl('',),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
-
+      food_Sal_PerDay : new FormControl('',),
+      food_Sal_FromDt  : new FormControl('',),
+      food_Sal_ToDt   : new FormControl('',),
+      food_Sal_Days    : new FormControl('',),
+      food_Sal_Amt     : new FormControl('',),
       driverList: this.formBuilder.array([this.createDriverArray()]),
       routeList: this.formBuilder.array([this.createRouteArray()]),
       dieselList: this.formBuilder.array([this.createDieselArray()]),
@@ -196,6 +199,8 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['expensesByComp'].disable();     
     this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['detentionDays'].disable();    
+    this.formTripsheet.controls['food_Sal_Amt'].disable(); 
+    
 
     setTimeout(() => {
       this.sharedService.loading = true;
@@ -216,6 +221,8 @@ export class TripsheetaddComponent {
           tripCloseDt: this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
           reportDateTime: this.commonService.formatDate(this.selectedTripSheetDetails.reportDateTime),
           unloadDateTime: this.commonService.formatDate(this.selectedTripSheetDetails.unloadDateTime),
+          food_Sal_FromDt: this.commonService.formatDate(this.selectedTripSheetDetails.food_Sal_FromDt),
+          food_Sal_ToDt: this.commonService.formatDate(this.selectedTripSheetDetails.food_Sal_ToDt),
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
           driverMasterID: this.driverLists.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         }); 
@@ -244,11 +251,14 @@ export class TripsheetaddComponent {
     }, 2000);  
   }
   
+  
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
+
+  
   
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
@@ -440,6 +450,22 @@ export class TripsheetaddComponent {
       }
     });
   }
+  getFoodCal() {
+    var totalamt = 0;
+   // var ltsDslToBe = 0;
+  
+    var selectedval = this.formTripsheet.getRawValue();
+    var fsp= selectedval.food_Sal_PerDay  ? parseFloat(selectedval.food_Sal_PerDay ) : 0
+    var fsd = selectedval.food_Sal_Days  ? parseFloat(selectedval.food_Sal_Days ) : 0
+
+    totalamt = fsp*fsd;
+    this.formTripsheet.patchValue({
+  
+      food_Sal_Amt: totalamt
+     
+    });    
+  }
+
 
   getOpeningBal(e:any) {
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -497,7 +523,7 @@ export class TripsheetaddComponent {
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
-      this.formFasttagArray.clear();
+     // this.formFasttagArray.clear();
       this.formCmpExpTypeArray.clear();
 
       for (var i = 0; i < res.driverList.length; i++) {
@@ -577,10 +603,10 @@ export class TripsheetaddComponent {
 
         fastagAmount = fastagAmount + parseFloat(res.fasttagList[i].ftAmount);
 
-        this.formFasttagArray.controls[i].get("transDate")?.disable();
-        this.formFasttagArray.controls[i].get("ftAmount")?.disable();
-        this.formFasttagArray.controls[i].get("remarks")?.disable();
-      }
+      //   this.formFasttagArray.controls[i].get("transDate")?.disable();
+      //   this.formFasttagArray.controls[i].get("ftAmount")?.disable();
+      //   this.formFasttagArray.controls[i].get("remarks")?.disable();
+       }
 
       
       for (var i = 0; i < res.cmpExpList.length; i++) {
@@ -795,27 +821,6 @@ export class TripsheetaddComponent {
     }
   }
 
-  deleteTripsheetForm(): void {
-    this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId;
-    if (confirm("Are you sure, you want to delete this?")) {
-      this.tripSheetService.tripSheetDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.toastrService.success(this.responseDetails.message);
-          this.formTripsheet.reset();
-          this.route.navigate(['/tripsheetlist']);
-        }
-        else {
-          this.toastrService.warning(this.responseDetails.message);
-        }
-      });
-    }
-  }  
-
-  exit(): void {    
-    this.route.navigate(['/tripsheetlist']);
-  }
-
   onKmrChange(){
     var totaldistanceTripKM = 0;
     var ltsDslToBe = 0;
@@ -890,6 +895,12 @@ export class TripsheetaddComponent {
       this.onExpAmt();
     }
   }
+  removeItem2(index: number){ 
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formFasttagArray.removeAt(index);
+      this.onExpAmt();
+    }
+  }
 
   addItem(index: number): void { 
     if (this.formDrExpTypeArray.value[index].expId != "" && 
@@ -901,6 +912,39 @@ export class TripsheetaddComponent {
       this.toastrService.warning("Please select Required Fields ");
     }
   }
+  addItem2(index: number): void { 
+    if (this.formFasttagArray.value[index].transDate != "" && 
+      this.formFasttagArray.value[index].ftAmount != "" && 
+      this.formFasttagArray.value[index].remarks != "" ) {
+      this.formFasttagArray.push(this.createFasttagArray());      
+    } 
+    else {
+      this.toastrService.warning("Please select Required Fields ");
+    }
+  }
+
+  
+  deleteTripsheetForm(): void {
+    this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId;
+    if (confirm("Are you sure, you want to delete this?")) {
+      this.tripSheetService.tripMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.toastrService.success(this.responseDetails.message);
+          this.formTripsheet.reset();
+          this.route.navigate(['/tripsheetjetlist']);
+        }
+        else {
+          this.toastrService.warning(this.responseDetails.message);
+        }
+      });
+    }
+  }  
+
+  exit(): void {    
+    this.route.navigate(['/tripsheetjetlist']);
+  }
+
 
   //Submit user form details //
   submitTripSheetForm(): void {
@@ -918,14 +962,6 @@ export class TripsheetaddComponent {
     
     var selectedDataValue = this.formTripsheet.getRawValue();
 
-    // if (selectedDataValue.netTripBalance=="") {
-    //   this.toastrService.warning(" Net Trip balance is Invalid");   
-    //   return;
-    // }
-    // if (selectedDataValue.tripTotalExpenses=="") {
-    //   this.toastrService.warning(" Total Trip Expenses is Invalid");   
-    //   return;
-    // }
     var validdriver = this.driverLists.find(e => e.dataId == selectedDataValue.driverMasterID.dataId) 
     if (typeof validdriver !== 'undefined' && validdriver !== null && validdriver.dataId!="" && validdriver.dataId!="0") {
         //ignore
@@ -987,6 +1023,11 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
     this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
     this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
+    this.tripsheetmodel.food_Sal_PerDay = selectedDataValue.food_Sal_PerDay;
+    this.tripsheetmodel.food_Sal_FromDt = selectedDataValue.food_Sal_FromDt;
+    this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
+    this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days;
+    this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt ;
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 
@@ -1047,7 +1088,7 @@ export class TripsheetaddComponent {
     }
     
     for (var i = 0; i < selectedDataValue.fasttagList.length; i++) {
-      if(selectedDataValue.fasttagList[i].detailID!=''){
+      if(selectedDataValue.fasttagList[i].transDate!=''){
         this.tripsheetmodel.fasttagList.push({
           'detailID': selectedDataValue.fasttagList[i].detailID,
           'transDate': selectedDataValue.fasttagList[i].transDate,
@@ -1072,7 +1113,7 @@ export class TripsheetaddComponent {
       if (this.responseDetails.status) {
         this.toastrService.success("Saved succsessfully");
         this.formTripsheet.reset();
-        this.route.navigate(['/tripsheetlist']);
+        this.route.navigate(['/tripsheetjetlist']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

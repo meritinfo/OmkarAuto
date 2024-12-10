@@ -1,0 +1,166 @@
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Card Recharge Entry</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFasttagDsl">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
+                                                <select class="form-control" formControlName="transBranch"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['transBranch'].invalid) }"> 
+                                                    <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                        {{br.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                        <div class="col-sm-2">
+                                            <div class="mb-3">
+                                                <label >Recharge Date: </label><span style="color: red">*</span>  
+                                                <input type="date" class="form-control" 
+                                                min="{{minDate}}" max="{{maxDate}}" formControlName="rechargeDate" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['rechargeDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Recharge Type: </label><span style="color: red">*</span>  
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="rechargeType"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['rechargeType'].invalid) }">
+                                                <option value ="">Choose...</option>
+                                                <option *ngFor="let branch of rechargeList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-firstname-input">Vehicle</label> <span style="color: red">*</span> 
+                                                <ng-autocomplete [data]="vehicleList"
+                                                [searchKeyword]="keywordLocation"  
+                                                formControlName="vehicleID" [initialValue]=""
+                                                (inputChanged)='onChangeSearch($event)'
+                                                (inputFocused)='onFocused($event)' 
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="notFoundTemplate"
+                                                [customFilter]="startWithFilter"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleID'].invalid) }">
+                                            </ng-autocomplete>
+
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.dataName"></a>
+                                            </ng-template>
+
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="mb-3">
+                                                <label>Recharge Amt: </label><span style="color: red">*</span>
+                                                <input decimalonly type="text" class="form-control" 
+                                                formControlName="rechargeAmt" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Trans Type </label><span style="color: red">*</span>  
+                                                <select id="formrow-inputState" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="transType"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }">
+                                                    <option selected="">Choose...</option>
+                                                    <option value="R"> Recharge</option>
+                                                    <option value="O">Opening </option>                                            
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">                                       
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Payment Type</label> <span style="color: red">*</span> 
+                                                <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="paymentType" (change)="changePmtType($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['paymentType'].invalid) }"  >
+                                                    <option value="M">Cash</option>      
+                                                    <option value="B">Bank</option> 
+                                                    <option value="H">Happay</option>
+                                                    <option value="D">Vendor</option>
+                                                    <option value="A">Adjust</option>     
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Credit Ac </label> <span style="color: red">*</span>          
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="creditAc"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                <option value ="">Choose...</option>
+                                                <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div> 
+                                      
+                                         
+                                    </div> 
+                                    <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Remarks</label>
+                                            <input type="text" class="form-control" uppercaseonly
+                                            formControlName="remarks">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                            (click)="submitFastagdslrechargeentryForm()" >Save</button> &nbsp;  
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteFastagdslrechargeentryForm()">Delete</button> &nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>
+

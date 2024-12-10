@@ -18,61 +18,6 @@ namespace FleetTrans.Repository
         {
             dbconnection = _dbconnection;
         }
-        //public async Task<ResponseModel> TripEnrouteExpByCompanySave(TripEnrouteExpByCompanyModel tripEnrouteExpByCompanyModel)
-        //{
-        //    ResponseModel responseModel = new();
-
-        //    var connection = new SqlConnection(dbconnection.Value.DBConnection);
-        //    connection.Open();
-        //    SqlTransaction transaction;
-        //    transaction = connection.BeginTransaction();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@EnrouteExpId" , tripEnrouteExpByCompanyModel.EnrouteExpId ),
-        //                     new SqlParameter("@VehicleID" , tripEnrouteExpByCompanyModel.VehicleID ),
-        //                     new SqlParameter("@ExpBranch" , tripEnrouteExpByCompanyModel.ExpBranch ),
-        //                     new SqlParameter("@ExpDate" , tripEnrouteExpByCompanyModel.ExpDate ),
-        //                     new SqlParameter("@ExpId" , tripEnrouteExpByCompanyModel.ExpId  ),
-        //                     new SqlParameter("@Remarks" , tripEnrouteExpByCompanyModel.Remarks ),
-        //                     new SqlParameter("@ExpAmount" , tripEnrouteExpByCompanyModel.ExpAmount ),
-        //                     new SqlParameter("@PmtType" , tripEnrouteExpByCompanyModel.PmtType ),
-        //                     new SqlParameter("@CreditAc" , tripEnrouteExpByCompanyModel.CreditAc ),
-        //                     new SqlParameter("@NeftYN" , tripEnrouteExpByCompanyModel.NeftYN  ),
-        //                     new SqlParameter("@ChequeNo" , tripEnrouteExpByCompanyModel.ChequeNo ),
-        //                     new SqlParameter("@ChequeDate" , tripEnrouteExpByCompanyModel.ChequeDate ),
-        //                     new SqlParameter("@TripAdjYN" , tripEnrouteExpByCompanyModel.TripAdjYN  ),
-        //                     new SqlParameter("@FtmId" , tripEnrouteExpByCompanyModel.FtmId ),
-        //                     new SqlParameter("@YearId" , tripEnrouteExpByCompanyModel.YearId ),
-        //                    new SqlParameter("@LoggedInUser", tripEnrouteExpByCompanyModel.LoggedInUser),
-
-        //                };
-        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripEnrouteExpByCompanySave", param);
-
-        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-        //            {
-        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-        //                if (responseModel.Status) { transaction.Commit(); }
-        //                else { transaction.Rollback(); }
-        //            }
-        //            else
-        //            {
-        //                responseModel.Status = false;
-        //                transaction.Rollback();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        transaction.Rollback();
-        //    }
-        //    return responseModel;
-        //}
         public async Task<ResponseModel> TripEnrouteExpByCompanySave(TripEnrouteExpByCompanyModel tripEnrouteExpByCompanyModel)
         {
             ResponseModel responseModel = new();
@@ -87,25 +32,20 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                           new SqlParameter("@EnrouteExpId" , tripEnrouteExpByCompanyModel.EnrouteExpId ),
-                             new SqlParameter("@VehicleID" , tripEnrouteExpByCompanyModel.VehicleID ),
-                             new SqlParameter("@ExpBranch" , tripEnrouteExpByCompanyModel.ExpBranch ),
-                             new SqlParameter("@ExpDate" , tripEnrouteExpByCompanyModel.ExpDate ),
-                             new SqlParameter("@ExpId" , tripEnrouteExpByCompanyModel.ExpId  ),
-                             new SqlParameter("@Remarks" , tripEnrouteExpByCompanyModel.Remarks ),
-                             new SqlParameter("@ExpAmount" , tripEnrouteExpByCompanyModel.ExpAmount ),
-                             new SqlParameter("@PmtType" , tripEnrouteExpByCompanyModel.PmtType ),
-                             new SqlParameter("@CreditAc" , tripEnrouteExpByCompanyModel.CreditAc ),
-                             new SqlParameter("@NeftYN" , tripEnrouteExpByCompanyModel.NeftYN  ),
-                             new SqlParameter("@ChequeNo" , tripEnrouteExpByCompanyModel.ChequeNo ),
-                             new SqlParameter("@ChequeDate" , tripEnrouteExpByCompanyModel.ChequeDate ),
-                             new SqlParameter("@TripAdjYN" , tripEnrouteExpByCompanyModel.TripAdjYN),
-                             //new SqlParameter("@FtmId" , tripEnrouteExpByCompanyModel.FtmId ),
-                             new SqlParameter("@YearId" , tripEnrouteExpByCompanyModel.YearId ),
-                            new SqlParameter("@LoggedInUser", tripEnrouteExpByCompanyModel.LoggedInUser),
-
-
-                           
+                            new SqlParameter("@EnrouteExpId" , tripEnrouteExpByCompanyModel.EnrouteExpId ),
+                            new SqlParameter("@VehicleID" , tripEnrouteExpByCompanyModel.VehicleID ),
+                            new SqlParameter("@ExpBranch" , tripEnrouteExpByCompanyModel.ExpBranch ),
+                            new SqlParameter("@ExpDate" , tripEnrouteExpByCompanyModel.ExpDate ),
+                            new SqlParameter("@ExpId" , tripEnrouteExpByCompanyModel.ExpId  ),
+                            new SqlParameter("@Remarks" , tripEnrouteExpByCompanyModel.Remarks ),
+                            new SqlParameter("@ExpAmount" , tripEnrouteExpByCompanyModel.ExpAmount ),
+                            new SqlParameter("@PmtType" , tripEnrouteExpByCompanyModel.PmtType ),
+                            new SqlParameter("@CreditAc" , tripEnrouteExpByCompanyModel.CreditAc ),
+                            new SqlParameter("@NeftYN" , tripEnrouteExpByCompanyModel.NeftYN  ),
+                            new SqlParameter("@ChequeNo" , tripEnrouteExpByCompanyModel.ChequeNo ),
+                            new SqlParameter("@ChequeDate" , tripEnrouteExpByCompanyModel.ChequeDate ),
+                            new SqlParameter("@YearId" , tripEnrouteExpByCompanyModel.YearId ),
+                            new SqlParameter("@LoggedInUser", tripEnrouteExpByCompanyModel.LoggedInUser),                           
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripEnrouteExpByCompanySave", param);
 

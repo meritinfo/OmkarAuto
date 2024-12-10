@@ -414,6 +414,12 @@ import { MrenquiryComponent } from './module/mrenquiry/mrenquiry/mrenquiry.compo
 import { BillenquiryComponent } from './module/billenquiry/billenquiry/billenquiry.component';
 import { ChallanreleaseaddComponent } from './module/challanrelease/challanreleaseadd/challanreleaseadd.component';
 import { ChallanreleaselistComponent } from './module/challanrelease/challanreleaselist/challanreleaselist.component';
+import { FastagdslrechargeentryaddComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentryadd/fastagdslrechargeentryadd.component';
+import { FastagdslrechargeentrylistComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentrylist/fastagdslrechargeentrylist.component';
+import { DriversalarypmtaddComponent } from './module/driversalarypayment/driversalarypmtadd/driversalarypmtadd.component';
+import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
+import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
+import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 
 @NgModule({
   declarations: [
@@ -539,11 +545,13 @@ import { ChallanreleaselistComponent } from './module/challanrelease/challanrele
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
     BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
-    AddcostrecorveryrptComponent,
-    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, 
+    AddcostrecorveryrptComponent, BusinesssummrptComponent,
     FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
-    BusinesssummrptComponent,
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent, ChallanreleaseaddComponent, ChallanreleaselistComponent,
+    TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, 
+    ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent, 
+    ChallanreleaseaddComponent, ChallanreleaselistComponent,
+    FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
+    DriversalarypmtaddComponent, DriversalarypmtlistComponent, TripmasteraddComponent, TripmasterlistComponent,
     
   ],
   imports: [

@@ -272,11 +272,10 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
-        }
-      
-        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
+        }      
+        public async Task<TripMasterList> GetTripMasterList(ReportRequestModel request)
         {
-            TripSheetList tripSheetList = new();
+            TripMasterList tripSheetList = new();
             List<TripMasterModel> tripList = new();
             try
             {
@@ -375,7 +374,7 @@ namespace FleetTrans.Repository
             }
             return tripSheetList;
         }
-        public async Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request)
+        public async Task<TripMasterModel> GetTripMasterInnerSearchList(ReportRequestModel request)
         {
             TripMasterModel tripSheetInnerGridList = new()
             {
@@ -396,7 +395,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VehicleMasterId",    request.FilterStr)
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripSheetInnerSearchList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerSearchList", param);
 
                     //Driver Adv Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
@@ -491,69 +490,7 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
-        public async Task<ResponseModel> GetDslMileage(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@VehicleMasterId", request.strRequest),                       
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetMileageLt", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> GetBhattaRate(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@TripDate", request.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBhattaRate", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
-        }
-        public async Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request)
+        public async Task<TripMasterModel> GetTripMasterInnerGridList(RequestModel request)
         {
             TripMasterModel tripSheetInnerGridList = new()
             {
@@ -573,7 +510,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripId",   request.strRequest),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripSheetInnerGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerGridList", param);
 
                     //Driver Adv Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
@@ -688,7 +625,6 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
-
         public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -727,7 +663,68 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetDslMileage(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterId", request.strRequest),                       
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetMileageLt", param);
 
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetBhattaRate(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripDate", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBhattaRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
         public async Task<List<DropDownListModel>> GetDriverList()
         {
             List<DropDownListModel> driverList = new();
@@ -788,7 +785,6 @@ namespace FleetTrans.Repository
             }
             return expList;
         }
-
         public async Task<ResponseModel> GetNextTripNo(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -855,7 +851,6 @@ namespace FleetTrans.Repository
             }
             return open;
         }
-
         public async Task<ResponseModel> GetTripPrintPdf(RequestModel request)
         {
             ResponseModel responseModel = new();

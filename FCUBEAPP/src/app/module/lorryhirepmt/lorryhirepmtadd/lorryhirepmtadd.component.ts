@@ -359,7 +359,7 @@ export class LorryhirepmtaddComponent {
 
       this.formUser.controls['onAcBranch'].disable();
       
-      if(selectedDataVal.onAcBranch!=''){        
+      if(selectedDataVal.onAcBranch!='' && selectedDataVal.onAcBranch!='0'){        
         this.formArray.controls[i+1].get("challanBranch")?.setValue(selectedDataVal.onAcBranch);
       }
       else{

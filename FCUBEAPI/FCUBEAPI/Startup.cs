@@ -317,6 +317,13 @@ namespace FCUBEAPI
             services.AddScoped<ITripEnrouteExpByCompanyRepository, TripEnrouteExpByCompanyRepository>();
             services.AddScoped<IChallanReleaseBusiness, ChallanReleaseBusiness>();
             services.AddScoped<IChallanReleaseRepository, ChallanReleaseRepository>();
+            services.AddScoped<IFastagDslRechargeEntryRepository, FastagDslRechargeEntryRepository>();
+            services.AddScoped<IFastagDslRechargeEntryBusiness, FastagDslRechargeEntryBusiness>();
+            services.AddScoped<IDriverSalaryPaymentBusiness, DriverSalaryPaymentBusiness>();
+            services.AddScoped<IDriverSalaryPaymentRepository, DriverSalaryPaymentRepository>();
+            services.AddScoped<ITripSheetRepository, TripSheetRepository>();
+            services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

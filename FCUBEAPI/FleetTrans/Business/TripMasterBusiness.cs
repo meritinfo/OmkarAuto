@@ -13,39 +13,33 @@ namespace FleetTrans.Business
         {
             tripMasterRepository = _tripMasterRepository;
         }
-
-        /// <summary>
-        /// Business method for save Branch master details
-        /// </summary>
-        /// <param name="BranchMasterModel"></param>
         public async Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel)
         {
             return await tripMasterRepository.TripMasterSave(tripMasterModel);
         }
-
-        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
+        public async Task<TripMasterList> GetTripMasterList(ReportRequestModel request)
         {
-            return await tripMasterRepository.GetTripSheetList(request);
+            return await tripMasterRepository.GetTripMasterList(request);
         }
-        public async Task<List<DropDownListModel>> GetDriverList()
+        public async Task<TripMasterModel> GetTripMasterInnerSearchList(ReportRequestModel request)
         {
-            return await tripMasterRepository.GetDriverList();
+            return await tripMasterRepository.GetTripMasterInnerSearchList(request);
         }
         public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
         {
             return await tripMasterRepository.TripMasterDelete(requestModel);
         }
+        public async Task<TripMasterModel> GetTripMasterInnerGridList(RequestModel request)
+        {
+            return await tripMasterRepository.GetTripMasterInnerGridList(request);
+        }
+        public async Task<List<DropDownListModel>> GetDriverList()
+        {
+            return await tripMasterRepository.GetDriverList();
+        }
         public async Task<ResponseModel> GetNextTripNo(RequestModel request)
         {
             return await tripMasterRepository.GetNextTripNo(request);
-        }
-        public async Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request)
-        {
-            return await tripMasterRepository.GetTripSheetInnerSearchList(request);
-        }
-        public async Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request)
-        {
-            return await tripMasterRepository.GetTripSheetInnerGridList(request);
         }
         public async Task<List<DropDownListModel>> GetExpList()
          {

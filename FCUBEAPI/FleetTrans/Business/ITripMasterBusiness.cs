@@ -6,15 +6,15 @@ namespace FleetTrans.Business
     public interface ITripMasterBusiness
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
-        Task<TripSheetList> GetTripSheetList(ReportRequestModel request);
-        Task<List<DropDownListModel>> GetDriverList();
+        Task<TripMasterList> GetTripMasterList(ReportRequestModel request);
+        Task<TripMasterModel> GetTripMasterInnerSearchList(ReportRequestModel request);
+        Task<TripMasterModel> GetTripMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TripMasterDelete(RequestModel requestModel);
-        Task<ResponseModel> GetNextTripNo(RequestModel request);
-        Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request);
-        Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetDriverList();
         Task<List<DropDownListModel>> GetExpList();
+        Task<ResponseModel> GetNextTripNo(RequestModel request);
         Task<ResponseModel> GetDslMileage(RequestModel request);
-        Task<ResponseModel> GetBhattaRate(RequestModel request);        
+        Task<ResponseModel> GetBhattaRate(RequestModel request);
         Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request);
         Task<ResponseModel> GetTripPrintPdf(RequestModel request);
     }
