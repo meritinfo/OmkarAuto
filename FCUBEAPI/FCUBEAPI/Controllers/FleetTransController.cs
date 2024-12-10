@@ -315,7 +315,7 @@ namespace FCUBEAPI.Controllers
 
 
 
-        [HttpPost("GetTriMasterInnerGridList")]
+        [HttpPost("GetTripMasterInnerGridList")]
         public async Task<IActionResult> GetTripMasterInnerGridList(RequestModel request)
         {
             if (request == null)

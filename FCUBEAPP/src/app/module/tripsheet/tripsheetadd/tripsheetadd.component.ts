@@ -1027,7 +1027,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.food_Sal_FromDt = selectedDataValue.food_Sal_FromDt;
     this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
     this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days;
-    this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt ;
+    this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt.toString(); 
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 
