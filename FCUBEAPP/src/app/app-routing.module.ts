@@ -336,9 +336,9 @@ const routes: Routes = [
   { path: 'addbankreceiptentry', component: AddbankreceiptentryComponent },
   { path: 'bankreceiptentryedit', component: AddbankreceiptentryComponent },
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
-  { path: 'tripsheetlist', component: TripsheetlistComponent },
-  { path: 'tripsheetadd', component: TripsheetaddComponent },
-  { path: 'tripsheetedit', component: TripsheetaddComponent },
+  { path: 'tripsheetjetlist', component: TripsheetlistComponent },
+  { path: 'tripsheetjetadd', component: TripsheetaddComponent },
+  { path: 'tripsheetjetedit', component: TripsheetaddComponent },
   { path: 'bankcashcontralist', component:  BankcashcontralistComponent },
   { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
   { path: 'bankcashcontraedit', component:  AddbankcashcontraComponent },
@@ -594,9 +594,9 @@ const routes: Routes = [
   { path: 'drsalpmt', component: DriversalarypmtlistComponent},
   { path: 'drsalpmtadd', component: DriversalarypmtaddComponent },
   { path: 'drsalpmtedit', component: DriversalarypmtaddComponent }, 
-  { path: 'tripsheetjetlist', component: TripmasterlistComponent },
-  { path: 'tripsheetjetadd', component: TripmasteraddComponent },
-  { path: 'tripsheetjetedit', component: TripmasteraddComponent },
+  { path: 'tripsheetlist', component: TripmasterlistComponent },
+  { path: 'tripsheetadd', component: TripmasteraddComponent },
+  { path: 'tripsheetedit', component: TripmasteraddComponent },
   
 
   
