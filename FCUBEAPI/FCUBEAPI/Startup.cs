@@ -324,7 +324,6 @@ namespace FCUBEAPI
             services.AddScoped<ITripSheetRepository, TripSheetRepository>();
             services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
 
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
