@@ -248,6 +248,7 @@ import { DriversalarypmtaddComponent } from './module/driversalarypayment/driver
 import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
 import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
+import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
 
 
 
