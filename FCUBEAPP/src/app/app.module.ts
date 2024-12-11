@@ -66,6 +66,7 @@ import { Branchmodel } from './models/branchmodel';
 import { Subledgermodel } from 'src/app/models/subledgermodel';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
+import { Driversalarypaymentmodel } from 'src/app//models/driversalarypaymentmodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
@@ -421,6 +422,7 @@ import { DriversalarypmtlistComponent } from './module/driversalarypayment/drive
 import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { Tripmastermodel } from './models/tripmastermodel';
+import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
 
 @NgModule({
   declarations: [
@@ -619,7 +621,7 @@ import { Tripmastermodel } from './models/tripmastermodel';
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,
-    Businesssummrptmodel,ChallanreleaseModel,
+    Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel
     
   ],
