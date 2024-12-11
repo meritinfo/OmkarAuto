@@ -463,7 +463,8 @@ export class TripsheetaddComponent {
   
       food_Sal_Amt: totalamt
      
-    });    
+    });   
+    this.calTotal(); 
   }
 
 
@@ -765,6 +766,7 @@ export class TripsheetaddComponent {
     var dieselPassedAmt = selectedDataValue.dieselPassedAmt==''?0:parseFloat(selectedDataValue.dieselPassedAmt);
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
     var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
+    var foodsal = selectedDataValue.food_Sal_Amt==''?0:parseFloat(selectedDataValue.food_Sal_Amt);
     
     var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
                       - expensesByDriver - bhattaAmt - penaltyChargedToDr 
@@ -772,7 +774,7 @@ export class TripsheetaddComponent {
 
     var netTripBalance = tripBalance - recdFromDriver;
     var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp
+                      + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp+foodsal
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
