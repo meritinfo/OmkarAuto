@@ -31,30 +31,30 @@ namespace FCUBEAPI.Controllers
         readonly ITyreDeActivateMasterBusiness tyreDeActivateMasterBusiness;
         readonly ITyreRegroupIssueMasterBusiness tyreRegroupIssueMasterBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
-        readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
-        readonly IDocRenewalRptBusiness docRenewalRptBusiness;
-        readonly IDieselStatementRptBusiness dieselStatementRptBusiness;
-        readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
-        readonly ITripStatusRptBusiness tripStatusRptBusiness;
-        readonly IDailyLoadingRptBusiness dailyLoadingRptBusiness;
+
+     
+     
+   
+   
         readonly IVehiEmiBusiness vehiEmiBusiness;
         readonly ITyreRegroupRecdMasterBusiness tyreRegroupRecdMasterBusiness;
         readonly IFleetLoadEntryBusiness fleetLoadEntryBusiness;
         readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
         readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
-        readonly ITyreMgntRptBusiness tyreMgntRptBusiness;
+   
         readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
-        readonly ISparesPurchaseRptBusiness sparesPurchaseRptBusiness;
-        readonly IVehicleRepairsRptBusiness vehicleRepairsRptBusiness;
-        readonly IDieselStmtRptBusiness dieselStmtRptBusiness;
-        readonly IVehicleFrtOutstandingRptBusiness vehicleFrtOutstandingRptBusiness;
-        readonly ITripOutstandingRptBusiness tripOutstandingRptBusiness;
-        readonly ITripSummaryRptBusiness tripSummaryRptBusiness;
+    
+   
+  
+      
+    
+   
         readonly IFastTagBusiness fastTagBusiness;
         readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
         readonly IDriverSalaryPaymentBusiness driverSalaryPaymentBusiness;
+        readonly IFleetRptBusiness fleetRptBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,
@@ -63,15 +63,14 @@ namespace FCUBEAPI.Controllers
             IDieselStatementBusiness _dieselStatementBusiness, 
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
-            IExpTruckArrRptBusiness _expTruckArrRptBusiness,
-            IDocRenewalRptBusiness _docRenewalRptBusiness,
+    
+        
             ITyrePurchaseMasterBusiness _tyrePurchaseMasterBusiness,
             ITyreActivateMasterBusiness _tyreActivateMasterBusiness,
             ITyreDeActivateMasterBusiness _tyreDeActivateMasterBusiness,
-            IDieselStatementRptBusiness _dieselStatementRptBusiness,
-            ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
-            ITripStatusRptBusiness _tripStatusRptBusiness,
-            IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
+          
+        
+        
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
             ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
@@ -81,17 +80,16 @@ namespace FCUBEAPI.Controllers
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
             IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
-            ISparesPurchaseRptBusiness _sparesPurchaseRptBusiness,
-            IVehicleRepairsRptBusiness _vehicleRepairsRptBusiness,
-            IDieselStmtRptBusiness _dieselStmtRptBusiness,
-            IVehicleFrtOutstandingRptBusiness _vehicleFrtOutstandingRptBusiness,
-            ITripOutstandingRptBusiness _tripOutstandingRptBusiness,
-            ITripSummaryRptBusiness _tripSummaryRptBusiness,
-            ITyreMgntRptBusiness _tyreMgntRptBusiness,
+      
+          
+      
+         
+     
             IFastTagBusiness _fastTagBusiness,
             ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness,
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
-            IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness)
+            IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness,
+            IFleetRptBusiness _fleetRptBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -101,15 +99,13 @@ namespace FCUBEAPI.Controllers
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
-            expTruckArrRptBusiness = _expTruckArrRptBusiness;
-            docRenewalRptBusiness = _docRenewalRptBusiness;
-            dieselStatementRptBusiness = _dieselStatementRptBusiness;
-            tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
+        
+       
             tyrePurchaseMasterBusiness = _tyrePurchaseMasterBusiness;
             tyreActivateMasterBusiness = _tyreActivateMasterBusiness;
             tyreDeActivateMasterBusiness = _tyreDeActivateMasterBusiness;
-            tripStatusRptBusiness = _tripStatusRptBusiness;
-            dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
+        
+         
             vehiEmiBusiness = _vehiEmiBusiness;
             vehicleInstPmtBusiness = _vehicleInstPmtBusiness;
             tyreRegroupIssueMasterBusiness = _tyreRegroupIssueMasterBusiness;
@@ -119,18 +115,16 @@ namespace FCUBEAPI.Controllers
             tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
-            tyreMgntRptBusiness = _tyreMgntRptBusiness;
+         
             vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
-            sparesPurchaseRptBusiness = _sparesPurchaseRptBusiness;
-            vehicleRepairsRptBusiness = _vehicleRepairsRptBusiness;
-            dieselStmtRptBusiness = _dieselStmtRptBusiness;
-            vehicleFrtOutstandingRptBusiness = _vehicleFrtOutstandingRptBusiness;
-            tripOutstandingRptBusiness = _tripOutstandingRptBusiness;
-            tripSummaryRptBusiness = _tripSummaryRptBusiness;
+          
+        
+  
             fastTagBusiness = _fastTagBusiness;
             tripEnrouteExpByCompanyBusiness= _tripEnrouteExpByCompanyBusiness;
             fastagDslRechargeEntryBusiness = _fastagDslRechargeEntryBusiness;
             driverSalaryPaymentBusiness = _driverSalaryPaymentBusiness;
+            fleetRptBusiness = _fleetRptBusiness;
         }
 
 
@@ -1070,43 +1064,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetExpTruckArrRPTList")]
-        public async Task<IActionResult> GetExpTruckArrRPTList(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await expTruckArrRptBusiness.GetExpTruckArrRPTList(request);
+        //[HttpPost("GetExpTruckArrRPTList")]
+        //public async Task<IActionResult> GetExpTruckArrRPTList(ReportRequestModel request)
+        //{
+        //    if (request == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await fleetRptBusiness.GetExpTruckArrRPTList(request);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
-        [HttpPost("ExcelExpTruckArrRPTList")]
-        public async Task<IActionResult> ExcelExpTruckArrRPTList(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await expTruckArrRptBusiness.ExcelExpTruckArrRPTList(request);
+        //[HttpPost("ExcelExpTruckArrRPTList")]
+        //public async Task<IActionResult> ExcelExpTruckArrRPTList(ReportRequestModel request)
+        //{
+        //    if (request == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await fleetRptBusiness.ExcelExpTruckArrRPTList(request);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("GetTripStatusRPTList")]
         public async Task<IActionResult> GetTripStatusRptList(ReportRequestModel request)
         {
@@ -1116,7 +1110,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripStatusRptBusiness.GetTripStatusRptList(request);
+                var result = await fleetRptBusiness.GetTripStatusRptList(request);
 
                 return Ok(result);
             }
@@ -1134,7 +1128,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripStatusRptBusiness.GetTripStatusRptExcel(request);
+                var result = await fleetRptBusiness.GetTripStatusRptExcel(request);
 
                 return Ok(result);
             }
@@ -1152,7 +1146,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStatementRptBusiness.GetDieselStatementRptList(request);
+                var result = await fleetRptBusiness.GetDieselStatementRptList(request);
 
                 return Ok(result);
             }
@@ -1170,7 +1164,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await docRenewalRptBusiness.GetDocRenewalRptList(request);
+                var result = await fleetRptBusiness.GetDocRenewalRptList(request);
 
                 return Ok(result);
             }
@@ -1188,7 +1182,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStatementRptBusiness.GetDieselStatementRptExcel(request);
+                var result = await fleetRptBusiness.GetDieselStatementRptExcel(request);
 
                 return Ok(result);
             }
@@ -1206,7 +1200,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await docRenewalRptBusiness.ExcelDocRenewalRptList(request);
+                var result = await fleetRptBusiness.ExcelDocRenewalRptList(request);
 
                 return Ok(result);
             }
@@ -1217,11 +1211,11 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetTripPaymentsCreditList")]
-        public async Task<IActionResult> GetTripPaymentsRptList()
+        public async Task<IActionResult> GetTripPaymentsCreditList()
         {
             try
             {
-                var result = await tripPaymentsRptBusiness.GetTripPaymentsCreditList();
+                var result = await fleetRptBusiness.GetTripPaymentsCreditList();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -1239,7 +1233,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripPaymentsRptBusiness.GetTripPaymentsRptList(request);
+                var result = await fleetRptBusiness.GetTripPaymentsRptList(request);
 
                 return Ok(result);
             }
@@ -1257,7 +1251,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripPaymentsRptBusiness.ExcelTripPaymentsRptList(request);
+                var result = await fleetRptBusiness.ExcelTripPaymentsRptList(request);
 
                 return Ok(result);
             }
@@ -1479,7 +1473,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dailyLoadingRptBusiness.GetDailyLoadingRptList(request);
+                var result = await fleetRptBusiness.GetDailyLoadingRptList(request);
 
                 return Ok(result);
             }
@@ -1498,7 +1492,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dailyLoadingRptBusiness.GetDailyLoadingRptExcel(request);
+                var result = await fleetRptBusiness.GetDailyLoadingRptExcel(request);
 
                 return Ok(result);
             }
@@ -2540,7 +2534,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyrePurchaseRptExcel(request);
+                var result = await fleetRptBusiness.GetTyrePurchaseRptExcel(request);
 
                 return Ok(result);
             }
@@ -2559,7 +2553,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyrePurchaseRptList(request);
+                var result = await fleetRptBusiness.GetTyrePurchaseRptList(request);
 
                 return Ok(result);
             }
@@ -2578,7 +2572,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreStockRptList(request);
+                var result = await fleetRptBusiness.GetTyreStockRptList(request);
 
                 return Ok(result);
             }
@@ -2597,7 +2591,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreStockRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreStockRptExcel(request);
 
                 return Ok(result);
             }
@@ -2617,7 +2611,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreHistoryRptList(request);
+                var result = await fleetRptBusiness.GetTyreHistoryRptList(request);
 
                 return Ok(result);
             }
@@ -2636,7 +2630,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreHistoryRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreHistoryRptExcel(request);
 
                 return Ok(result);
             }
@@ -2655,7 +2649,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetActiveTyreRptList(request);
+                var result = await fleetRptBusiness.GetActiveTyreRptList(request);
 
                 return Ok(result);
             }
@@ -2674,7 +2668,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetActiveTyreRptExcel(request);
+                var result = await fleetRptBusiness.GetActiveTyreRptExcel(request);
 
                 return Ok(result);
             }
@@ -2692,7 +2686,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreActivatedRptList(request);
+                var result = await fleetRptBusiness.GetTyreActivatedRptList(request);
 
                 return Ok(result);
             }
@@ -2711,7 +2705,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreActivatedRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreActivatedRptExcel(request);
 
                 return Ok(result);
             }
@@ -2729,7 +2723,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreDeActivatedRptList(request);
+                var result = await fleetRptBusiness.GetTyreDeActivatedRptList(request);
 
                 return Ok(result);
             }
@@ -2748,7 +2742,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreDeActivatedRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreDeActivatedRptExcel(request);
 
                 return Ok(result);
             }
@@ -2766,7 +2760,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreReGroupIssRptList(request);
+                var result = await fleetRptBusiness.GetTyreReGroupIssRptList(request);
 
                 return Ok(result);
             }
@@ -2785,7 +2779,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreReGroupIssRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreReGroupIssRptExcel(request);
 
                 return Ok(result);
             }
@@ -2803,7 +2797,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreReGroupRcvdRptList(request);
+                var result = await fleetRptBusiness.GetTyreReGroupRcvdRptList(request);
 
                 return Ok(result);
             }
@@ -2822,7 +2816,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tyreMgntRptBusiness.GetTyreReGroupRcvdRptExcel(request);
+                var result = await fleetRptBusiness.GetTyreReGroupRcvdRptExcel(request);
 
                 return Ok(result);
             }
@@ -2930,7 +2924,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await sparesPurchaseRptBusiness.GetSparesPurchaseRptList(request);
+                var result = await fleetRptBusiness.GetSparesPurchaseRptList(request);
 
                 return Ok(result);
             }
@@ -2949,7 +2943,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await sparesPurchaseRptBusiness.GetSparesPurchaseRptExcel(request);
+                var result = await fleetRptBusiness.GetSparesPurchaseRptExcel(request);
 
                 return Ok(result);
             }
@@ -2969,7 +2963,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await vehicleRepairsRptBusiness.GetVehicleRepairsRptList(request);
+                var result = await fleetRptBusiness.GetVehicleRepairsRptList(request);
 
                 return Ok(result);
             }
@@ -2988,7 +2982,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await vehicleRepairsRptBusiness.GetVehicleRepairsRptExcel(request);
+                var result = await fleetRptBusiness.GetVehicleRepairsRptExcel(request);
 
                 return Ok(result);
             }
@@ -3008,7 +3002,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStmtRptBusiness.GetDieselStmtRptList(request);
+                var result = await fleetRptBusiness.GetDieselStmtRptList(request);
 
                 return Ok(result);
             }
@@ -3027,7 +3021,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStmtRptBusiness.GetDieselStmtRptExcel(request);
+                var result = await fleetRptBusiness.GetDieselStmtRptExcel(request);
 
                 return Ok(result);
             }
@@ -3046,7 +3040,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await vehicleFrtOutstandingRptBusiness.GetVehicleFrtOutstandingRptList(request);
+                var result = await fleetRptBusiness.GetVehicleFrtOutstandingRptList(request);
 
                 return Ok(result);
             }
@@ -3065,7 +3059,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await vehicleFrtOutstandingRptBusiness.GetVehicleFrtOutstandingRptExcel(request);
+                var result = await fleetRptBusiness.GetVehicleFrtOutstandingRptExcel(request);
 
                 return Ok(result);
             }
@@ -3084,7 +3078,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripOutstandingRptBusiness.GetTripOutstandingRptList(request);
+                var result = await fleetRptBusiness.GetTripOutstandingRptList(request);
 
                 return Ok(result);
             }
@@ -3102,7 +3096,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripOutstandingRptBusiness.ExcelTripOutstandingRptList(request);
+                var result = await fleetRptBusiness.ExcelTripOutstandingRptList(request);
 
                 return Ok(result);
             }
@@ -3122,7 +3116,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripSummaryRptBusiness.GetTripSummaryRptList(request);
+                var result = await fleetRptBusiness.GetTripSummaryRptList(request);
 
                 return Ok(result);
             }
@@ -3140,7 +3134,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await tripSummaryRptBusiness.ExcelTripSummaryRptList(request);
+                var result = await fleetRptBusiness.ExcelTripSummaryRptList(request);
 
                 return Ok(result);
             }

@@ -155,16 +155,10 @@ namespace FCUBEAPI
             services.AddScoped<IEwayBillBusiness, EwayBillBusiness>();
             services.AddScoped<IRolePrivilegesRepository, RolePrivilegesRepository>();
             services.AddScoped<IRolePrivilegesBusiness, RolePrivilegesBusiness>();
-            services.AddScoped<IExpTruckArrRptRepository, ExpTruckArrRptRepository>();
-            services.AddScoped<IExpTruckArrRptBusiness, ExpTruckArrRptBusiness>();
-            services.AddScoped<IDocRenewalRptRepository, DocRenewalRptRepository>();
-            services.AddScoped<IDocRenewalRptBusiness, DocRenewalRptBusiness>();
-            services.AddScoped<ITripPaymentsRptRepository, TripPaymentsRptRepository>();
-            services.AddScoped<ITripPaymentsRptBusiness, TripPaymentsRptBusiness>();
-            services.AddScoped<ITripStatusRptRepository, TripStatusRptRepository>();
-            services.AddScoped<ITripStatusRptBusiness, TripStatusRptBusiness>();
-            services.AddScoped<IDieselStatementRptRepository, DieselStatementRptRepository>();
-            services.AddScoped<IDieselStatementRptBusiness, DieselStatementRptBusiness>();
+        
+        
+          //  services.AddScoped<IDieselStatementRptRepository, DieselStatementRptRepository>();
+          //  services.AddScoped<IDieselStatementRptBusiness, DieselStatementRptBusiness>();
             services.AddScoped<IDistanceMasterFrtRptRepository, DistanceMasterFrtRptRepository>();
             services.AddScoped<IDistanceMasterFrtRptBusiness, DistanceMasterFrtRptBusiness>();
             services.AddScoped<IDistanceMasterTripRptRepository, DistanceMasterTripRptRepository>();
@@ -181,8 +175,7 @@ namespace FCUBEAPI
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IEmpSalaryCalcBusiness, EmpSalaryCalcBusiness>();
             services.AddScoped<IEmpSalaryCalcRepository, EmpSalaryCalcRepository>();
-            services.AddScoped<IDailyLoadingRptBusiness, DailyLoadingRptBusiness>();
-            services.AddScoped<IDailyLoadingRptRepository, DailyLoadingRptRepository>();
+        
             services.AddScoped<ILedgerRptBusiness, LedgerRptBusiness>();
             services.AddScoped<ILedgerRptRepository, LedgerRptRepository>();
             services.AddScoped<IBankBookRptBusiness, BankBookRptBusiness>();
@@ -253,20 +246,17 @@ namespace FCUBEAPI
             services.AddScoped<ILRWithOutChallanRptRepository, LRWithOutChallanRptRepository>();
             services.AddScoped<IUnBilledRptBusiness, UnBilledRptBusiness>();
             services.AddScoped<IUnBilledRptRepository, UnBilledRptRepository>();
-            services.AddScoped<ITyreMgntRptBusiness, TyreMgntRptBusiness>();
-            services.AddScoped<ITyreMgntRptRepository, TyreMgntRptRepository>();
+       
             services.AddScoped<IVehicleAdvBalReceiptMstBusiness, VehicleAdvBalReceiptMstBusiness>();
             services.AddScoped<IVehicleAdvBalReceiptMstRepository, VehicleAdvBalReceiptMstRepository>();
             services.AddScoped<IChallanRegisterRptBusiness, ChallanRegisterRptBusiness>();
             services.AddScoped<IChallanRegisterRptRepository, ChallanRegisterRptRepository>();
-            services.AddScoped<ISparesPurchaseRptBusiness, SparesPurchaseRptBusiness>();
-            services.AddScoped<ISparesPurchaseRptRepository, SparesPurchaseRptRepository>();
+     
             services.AddScoped<IChallanRegisterRptBusiness, ChallanRegisterRptBusiness>();
             services.AddScoped<IChallanRegisterRptRepository, ChallanRegisterRptRepository>();
             services.AddScoped<ILhPayableStatusRptBusiness, LhPayableStatusRptBusiness>();
             services.AddScoped<ILhPayableStatusRptRepository, LhPayableStatusRptRepository>();
-            services.AddScoped<IVehicleRepairsRptBusiness, VehicleRepairsRptBusiness>();
-            services.AddScoped<IVehicleRepairsRptRepository, VehicleRepairsRptRepository>();
+      
             services.AddScoped<IBillRegisterRptBusiness, BillRegisterRptBusiness>();
             services.AddScoped<IBillRegisterRptRepository, BillRegisterRptRepository>();
             services.AddScoped<IMRRegisterRptBusiness, MRRegisterRptBusiness>();
@@ -279,22 +269,19 @@ namespace FCUBEAPI
             services.AddScoped<IGSTRegisterRptRepository, GSTRegisterRptRepository>();
             services.AddScoped<ICnorCneeGstBusiness, CnorCneeGstBusiness>();
             services.AddScoped<ICnorCneeGstRepository, CnorCneeGstRepository>();
-            services.AddScoped<IDieselStmtRptBusiness, DieselStmtRptBusiness>();
-            services.AddScoped<IDieselStmtRptRepository, DieselStmtRptRepository>();
+         
             services.AddScoped<IExpenseBudgetsBusiness, ExpenseBudgetsBusiness>();
             services.AddScoped<IExpenseBudgetsRepository, ExpenseBudgetsRepository>();
             services.AddScoped<IMonthlyStatementsBusiness, MonthlyStatementsBusiness>();
             services.AddScoped<IMonthlyStatementsRepository, MonthlyStatementsRepository>();
             services.AddScoped<IPartyGroupMasterBusiness, PartyGroupMasterBusiness>();
             services.AddScoped<IPartyGroupMasterRepository, PartyGroupMasterRepository>();
-            services.AddScoped<IVehicleFrtOutstandingRptBusiness, VehicleFrtOutstandingRptBusiness>();
-            services.AddScoped<IVehicleFrtOutstandingRptRepository, VehicleFrtOutstandingRptRepository>();
+        
             services.AddScoped<ILHExtraPmtReconRptBusiness, LHExtraPmtReconRptBusiness>();
             services.AddScoped<ILHExtraPmtReconRptRepository, LHExtraPmtReconRptRepository>();
             services.AddScoped<ISubLedgerMasterBusiness, SubLedgerMasterBusiness>();
             services.AddScoped<ISubLedgerMasterRepository, SubLedgerMasterRepository>();
-            services.AddScoped<ITripOutstandingRptRepository, TripOutstandingRptRepository>();
-            services.AddScoped<ITripOutstandingRptBusiness, TripOutstandingRptBusiness>();
+    
             services.AddScoped<IBillSubmitMstBusiness, BillSubmitMstBusiness>();
             services.AddScoped<IBillSubmitMstRepository, BillSubmitMstRepository>();
             services.AddScoped<IAdditionalCostRecMasterBusiness, AdditionalCostRecMasterBusiness>();
@@ -303,8 +290,7 @@ namespace FCUBEAPI
             services.AddScoped<IBillOutstandingRptRepository, BillOutstandingRptRepository>();
             services.AddScoped<ILRCostingRptBusiness, LRCostingRptBusiness>();
             services.AddScoped<ILRCostingRptRepository, LRCostingRptRepository>();
-            services.AddScoped<ITripSummaryRptRepository, TripSummaryRptRepository>();
-            services.AddScoped<ITripSummaryRptBusiness, TripSummaryRptBusiness>();
+         
             services.AddScoped<IOnAccountMRStatusRptBusiness, OnAccountMRStatusRptBusiness>();
             services.AddScoped<IOnAccountMRStatusRptRepository, OnAccountMRStatusRptRepository>();
             services.AddScoped<IAddCostRecBusiness, AddCostRecBusiness>();
@@ -323,6 +309,8 @@ namespace FCUBEAPI
             services.AddScoped<IDriverSalaryPaymentRepository, DriverSalaryPaymentRepository>();
             services.AddScoped<ITripSheetRepository, TripSheetRepository>();
             services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
+           services.AddScoped<IFleetRptRepository, FleetRptRepository>();
+           services.AddScoped<IFleetRptBusiness, FleetRptBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
