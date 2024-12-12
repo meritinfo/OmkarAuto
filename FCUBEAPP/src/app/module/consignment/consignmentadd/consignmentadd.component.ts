@@ -297,7 +297,7 @@ export class ConsignmentaddComponent implements OnInit {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[0].get("ewayBillNo")?.setValue(this.selectedLrDetails.ewayBillNo);
           this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillDate));
-          this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.selectedLrDetails.ewayBillExpDate);
+          this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate));
           this.formArray.controls[0].get("invNo")?.setValue(this.selectedLrDetails.invoiceNo);
           this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.invoiceDate));
           this.formArray.controls[0].get("invValue")?.setValue(this.selectedLrDetails.invoiceValue);
@@ -354,7 +354,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
         this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
-        this.formArray.controls[i].get("ewayBillExpDate")?.setValue(res.invList[i].ewayBillExpDate);
+        this.formArray.controls[i].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillExpDate));
         this.formArray.controls[i].get("invNo")?.setValue(res.invList[i].invoiceNo);
         this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invoiceDate));
         this.formArray.controls[i].get("invValue")?.setValue(res.invList[i].invoiceValue);
