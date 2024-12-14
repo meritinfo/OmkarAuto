@@ -279,7 +279,39 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
-        }      
+        }
+        public async Task<ResponseModel> GetNextTripSalDate(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterID", request.strRequest),
+                            new SqlParameter("@YearID", request.strRequest1),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetNextTripSalDate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
         public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
         {
             TripSheetList tripSheetList = new();

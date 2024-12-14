@@ -78,6 +78,9 @@ export class TripSheetService {
   getNextTripNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetNextTripNo', payload, this.httpOptions);
   }  
+  getNextTripSalDate(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetNextTripSalDate', payload, this.httpOptions);
+  }  
   getTripPrintPdf(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPrintPdf', req, this.httpOptions);
   }

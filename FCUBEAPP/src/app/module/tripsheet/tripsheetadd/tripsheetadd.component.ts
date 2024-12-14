@@ -115,6 +115,7 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
+   
 
     this.formTripsheet = this.formBuilder.group({
       tripBranch: new FormControl(this.branch, [Validators.required]),
@@ -392,7 +393,9 @@ export class TripsheetaddComponent {
       if (this.responseDetails.status) {
         this.formTripsheet.patchValue({
           tripNo: this.responseDetails.message
-        });  
+        });
+           
+
         if(this.responseDetails.message == "1")   {
           this.formTripsheet.controls['openingKMR'].enable();     
           this.formTripsheet.controls['opBalDsl'].enable();    
@@ -401,7 +404,8 @@ export class TripsheetaddComponent {
         else{            
           this.formTripsheet.controls['openingKMR'].disable();     
           this.formTripsheet.controls['opBalDsl'].disable();    
-          this.formTripsheet.controls['opBalDriver'].disable();     
+          this.formTripsheet.controls['opBalDriver'].disable(); 
+          this.getNextTripSalDate(item);    
         }     
         this.getDslMileage(item.dataId);
         this.getOpeningBal(item.dataId);        
@@ -527,6 +531,7 @@ export class TripsheetaddComponent {
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
+    
      // this.formFasttagArray.clear();
       this.formCmpExpTypeArray.clear();
 
@@ -766,7 +771,9 @@ export class TripsheetaddComponent {
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
   
     Difference_In_Days = Math.abs(Difference_In_Days)
+
     if (!Number.isNaN(Difference_In_Days)) {
+      Difference_In_Days= Difference_In_Days+1;
       this.formTripsheet.patchValue({
         food_Sal_Days: (Difference_In_Days).toString()
   
@@ -781,6 +788,32 @@ export class TripsheetaddComponent {
     }
     this.getFoodCal();
   }
+  getNextTripSalDate(item: any){
+  
+    //var selectedDataValue = this.formTripsheet.getRawValue();
+
+    this.requestmodel.strRequest = item.dataId;
+    this.requestmodel.strRequest1 = this.year;
+    this.tripSheetService.getNextTripSalDate(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+     
+        var selectedDataValue = this.formTripsheet.getRawValue();
+ // if(selectedDataValue.tripNo<1){
+ 
+ let date1= this.commonService.formatDate(this.responseDetails.message)
+    let date: Date = new Date(date1);
+
+
+    date.setDate(date.getDate() + 1)
+    let date2 = (date).toISOString()
+    this.formTripsheet.patchValue({
+      food_Sal_FromDt: date2.split("T")[0],
+    });
+ // }
+  });
+  
+  
+}
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -814,6 +847,11 @@ export class TripsheetaddComponent {
       tripTotalExpenses: tripTotalExpenses.toFixed(2),
     });  
   }
+ 
+
+
+
+
 
   calDetentionDays(){    
     var selectedDataValue = this.formTripsheet.getRawValue();

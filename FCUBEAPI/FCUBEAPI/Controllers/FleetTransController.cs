@@ -406,6 +406,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetNextTripSalDate")]
+        public async Task<IActionResult> GetNextTripSalDate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripSheetBusiness.GetNextTripSalDate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetDriverList")]
         public async Task<IActionResult> GetDriverList()

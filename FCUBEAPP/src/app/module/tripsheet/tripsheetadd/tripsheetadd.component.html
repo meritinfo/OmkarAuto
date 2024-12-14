@@ -266,26 +266,26 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">                                        
-                                        <div class="col-lg-3">
+                                        <!-- <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Reporting Date</label>
                                                 <input type="date" class="form-control" formControlName="reportDateTime"
                                                 min="{{minDate}}" max="{{maxDate}}" (change)="calDetentionDays()" >
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
+                                        </div> -->
+                                        <!-- <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Unloading Date</label>    
                                                 <input type="date" class="form-control" formControlName="unloadDateTime"
                                                 min="{{minDate}}" max="{{maxDate}}" (change)="calDetentionDays()" >
                                             </div>
-                                        </div>                                        
-                                        <div class="col-lg-3">
+                                        </div>                                         -->
+                                        <!-- <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Detention Days</label>
                                                 <input class="form-control" numbersonly formControlName="detentionDays">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -650,20 +650,20 @@
                                         formControlName="dieselPassedAmt">
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Diesel Variance Amt</label>
                                         <input class="form-control" negdecimalonly formControlName="dieselVarianceAmt">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Close Bal Dsl</label>
                                         <input class="form-control" decimalonly formControlName="clBalDsl">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Open Bal Driver</label>
@@ -716,6 +716,9 @@
                                         formControlName="onTimeIncentiveAmt">
                                     </div>
                                 </div>
+                                
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Multi Del Incentive Amt</label>
@@ -723,8 +726,6 @@
                                         formControlName="multiDelIncentiveAmt">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Penalty Charged</label>
@@ -746,18 +747,13 @@
                                         <input class="form-control" decimalonly formControlName="totalDriverAc">
                                     </div>
                                 </div> -->
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-4">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Rta Challan Desc </label>
                                         <input class="form-control" uppercaseonly formControlName="rtaChallanDesc">
                                     </div>
                                 </div> 
-                                  <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Rta Challan Amt</label>
-                                        <input class="form-control" decimalonly formControlName="rtaChallanAmt" (change)="calTotal()">
-                                    </div>
-                                </div>
+                                 
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Balance (Driver)</label>
@@ -779,8 +775,15 @@
                                     </div>
                                 </div>
                                
+                               
                             </div>                   
                             <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Rta Challan Amt</label>
+                                        <input class="form-control" decimalonly formControlName="rtaChallanAmt" (change)="calTotal()">
+                                    </div>
+                                </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>

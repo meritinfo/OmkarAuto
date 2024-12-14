@@ -9,5 +9,6 @@ namespace FleetTrans.Business
         Task<TripSheetList> GetTripSheetList(ReportRequestModel request);
         Task<TripSheetModel> GetTripSheetInnerSearchList(ReportRequestModel request);
         Task<TripSheetModel> GetTripSheetInnerGridList(RequestModel request);
+        Task<ResponseModel> GetNextTripSalDate(RequestModel request);
     }
 }
