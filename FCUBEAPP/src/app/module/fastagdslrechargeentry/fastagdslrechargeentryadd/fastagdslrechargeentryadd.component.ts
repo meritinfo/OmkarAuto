@@ -127,7 +127,7 @@ export class FastagdslrechargeentryaddComponent {
     this.getBranchList();  
     this.getRechargeTypeList(); 
     this.formFasttagDsl.controls["transBranch"].disable();
-    this.formFasttagDsl.controls["rechargeDate"].disable();
+  //  this.formFasttagDsl.controls["rechargeDate"].disable();
 
     if (this.selectedFastagdslrechargeentryDetails.transId != '') {
       this.getCreditAcList(this.selectedFastagdslrechargeentryDetails.paymentType);  
