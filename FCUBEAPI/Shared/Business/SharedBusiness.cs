@@ -156,5 +156,9 @@ namespace Shared.Business
         {
             return await sharedRepository.GetDocRenewalDetails();
         }
+        public async Task<ResponseModel> GenerateLoginOTP(LoginModel login)
+        {
+            return await sharedRepository.GenerateLoginOTP(login);
+        }
     }
 }

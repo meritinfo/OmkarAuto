@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminMasters.Models
+namespace HRMasters.Models
 {
     public class PtSlabMasterModel
     {

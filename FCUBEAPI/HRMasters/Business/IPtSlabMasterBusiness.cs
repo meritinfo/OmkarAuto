@@ -1,4 +1,4 @@
-﻿using AdminMasters.Models;
+﻿using HRMasters.Models;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminMasters.Business
+namespace HRMasters.Business
 {
     public interface IPtSlabMasterBusiness
     {

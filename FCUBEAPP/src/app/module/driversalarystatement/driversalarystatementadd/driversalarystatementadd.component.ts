@@ -7,15 +7,11 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Driversalarystatementmodel } from 'src/app/models/driversalarystatementmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
-import { Driversalarysearchmodel } from 'src/app/models/driversalarysearchmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
 import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-
-
-import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
 
 @Component({
   selector: 'app-driversalarystatementadd',

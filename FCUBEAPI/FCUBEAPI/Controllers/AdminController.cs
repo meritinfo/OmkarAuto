@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Shared.Business;
+using Microsoft.AspNetCore.Http;
 
 namespace FCUBEAPI.Controllers
 {
@@ -21,13 +22,11 @@ namespace FCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly IUserBusiness userBusiness;
         readonly IRoleMasterBusiness roleMasterBusiness;
-        readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IRolePrivilegesBusiness rolePrivilegesBusiness;
         readonly IMenuFormTypesBusiness menuFormTypesBusiness;
         readonly ISharedBusiness sharedBusiness;
         public AdminController(IOptions<DBModel> _dbconnection, IUserBusiness _userBusiness,
             IRoleMasterBusiness _roleMasterBusiness,
-              IPtSlabMasterBusiness _ptSlabMasterBusiness,
             IMenuFormTypesBusiness _menuFormTypeBusiness,
             IRolePrivilegesBusiness _rolePrivilegesBusiness, 
             ISharedBusiness _sharedBusiness)
@@ -35,7 +34,6 @@ namespace FCUBEAPI.Controllers
             dbconnection = _dbconnection;
             userBusiness = _userBusiness;
             roleMasterBusiness = _roleMasterBusiness;
-            ptSlabMasterBusiness = _ptSlabMasterBusiness;
             menuFormTypesBusiness = _menuFormTypeBusiness;
             rolePrivilegesBusiness = _rolePrivilegesBusiness;
             sharedBusiness =_sharedBusiness;
@@ -218,58 +216,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("PtSlabMasterDelete")]
-        public async Task<IActionResult> PtSlabMasterDelete(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await ptSlabMasterBusiness.PtSlabMasterDelete(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-               
-        [HttpPost("PtSlabMasterSave")]
-        public async Task<IActionResult> PtSlabMasterSave(PtSlabMasterModel ptSlabMasterModel)
-        {
-            if (ptSlabMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await ptSlabMasterBusiness.PtSlabMasterSave(ptSlabMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        
-        [HttpPost("GetPtSlabMasterList")]
-        public async Task<IActionResult> GetPtSlabMasterList(PageRequest request)
-        {
-            try
-            {
-                var result = await ptSlabMasterBusiness.GetPtSlabMasterList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
         /// <summary>
         /// Controller method for Menutype master details save
         /// </summary>
@@ -381,6 +328,5 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }

@@ -18,8 +18,10 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   loginSubmitted = false;
   selectedUserDetails = new LoggedinUsermodel();
-  shdled=false;
+  shdled = false;
   login = true;
+  otp = false;
+  ipAddress = "";
   shdlMsg:string ="";
   scheduleDetails = new Schedulemodel();
   responseDetails = new Responsemodel();
@@ -35,7 +37,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),
-      userPassword: new FormControl('', Validators.required)
+      userPassword: new FormControl('', Validators.required),
+      otp: new FormControl('',),
     });
     
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
       this.login= false;
       this.shdlMsg = 'Another project is open' ;
     }
-
+    //this.getIpAddress();
     this.getScheduleDetails();
     this.getCompanyDetails();
     this.sharedService.loggedInStatus = false;
@@ -78,6 +81,11 @@ export class LoginComponent implements OnInit {
      
   }
 
+  getIpAddress(){
+    this.sharedService.getipaddress().subscribe((res) => {
+      this.ipAddress = res;
+    });     
+  }
   
   getCompanyDetails(){
     this.sharedService.getCompanyDetail().subscribe((res: Responsemodel) => {
@@ -99,9 +107,14 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.invalid) {
       return;
     }
+
     this.sharedService.loading = true;
-    this.loginModel.userName = this.formLogin.value.userName;
-    this.loginModel.userPassword = this.formLogin.value.userPassword;
+    var selecteddata = this.formLogin.getRawValue();
+    this.loginModel.userName = selecteddata.userName;
+    this.loginModel.userPassword = selecteddata.userPassword;
+    this.loginModel.ipAddress = this.ipAddress;
+    this.loginModel.otp = selecteddata.otp?selecteddata.otp : "";
+
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
@@ -112,6 +125,21 @@ export class LoginComponent implements OnInit {
       
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/intermediatescreen']);
+      }
+      else if(this.selectedUserDetails.userId == "1"){
+        if (confirm("Do you want to generate OTP?")) {
+          this.sharedService.generateOTP(this.loginModel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if(this.responseDetails.status){
+              this.selectedUserDetails.message = "OTP Generated, Login with OTP";
+              console.log("OTP Generated, Login with OTP"); 
+              this.otp = true;
+            }
+            else{
+              console.log(this.responseDetails.message);        
+            }     
+          });
+        }
       }
       else {
         console.log(this.selectedUserDetails.message);

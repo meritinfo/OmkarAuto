@@ -605,8 +605,8 @@ export class ConsignmentaddComponent implements OnInit {
     var unLoadingDetnRs= selectedData.unLoadingDetnRs != ""? parseFloat(selectedData.unLoadingDetnRs) : 0;
     var extrasRS = selectedData.extrasRS != ""? parseFloat(selectedData.extrasRS) : 0;
     var othersRs = selectedData.othersRs != ""? parseFloat(selectedData.othersRs) : 0;
-    var nonGstAmt1 = selectedData.nonGstAmt1 != ""? parseFloat(selectedData.nonGstAmt1) : 0;
-    var nonGstAmt2 = selectedData.nonGstAmt2 != ""? parseFloat(selectedData.nonGstAmt2) : 0;
+    var nonGstAmt1 = selectedData.nonGstAmt1?selectedData.nonGstAmt1 != ""? parseFloat(selectedData.nonGstAmt1) : 0: 0;
+    var nonGstAmt2 = selectedData.nonGstAmt2?selectedData.nonGstAmt2 != ""? parseFloat(selectedData.nonGstAmt2) : 0: 0;
    
     subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +

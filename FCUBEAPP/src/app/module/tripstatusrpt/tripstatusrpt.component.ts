@@ -1,6 +1,5 @@
 
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,8 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Tripstatusrptlistmodel  } from 'src/app/models/tripstatusrptlistmodel';
-import { Tripstatusrptmodel } from 'src/app/models/tripstatusrptmodel';
-import { TripStatusRptService } from 'src/app/services/tripstatusrpt.service';
+import { FleetreportsService } from 'src/app/services/fleetreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -61,7 +59,7 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private tripStatusRptService: TripStatusRptService, 
+  constructor(private tripStatusRptService: FleetreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

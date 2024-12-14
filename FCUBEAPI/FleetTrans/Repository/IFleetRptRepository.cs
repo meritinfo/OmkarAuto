@@ -10,8 +10,6 @@ namespace FleetTrans.Repository
 {
     public interface IFleetRptRepository
     {
-        Task<DieselStatementRptListModel> GetDieselStatementRptList(ReportRequestModel request);
-        Task<ResponseModel> GetDieselStatementRptExcel(ReportRequestModel request);
         Task<DieselStmtRptListModel> GetDieselStmtRptList(ReportRequestModel request);
         Task<ResponseModel> GetDieselStmtRptExcel(ReportRequestModel request);
         Task<DocRenewalRptListModel> GetDocRenewalRptList(ReportRequestModel request);

@@ -1137,24 +1137,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetDieselStatementRPTList")]
-        public async Task<IActionResult> GetDieselStatementRptList(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetRptBusiness.GetDieselStatementRptList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetDocRenewalRPTList")]
         public async Task<IActionResult> GetDocRenewalRptList(ReportRequestModel request)
         {
@@ -1165,24 +1147,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await fleetRptBusiness.GetDocRenewalRptList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("ExcelDieselStatementRptList")]
-        public async Task<IActionResult> GetDieselStatementRptExcel(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetRptBusiness.GetDieselStatementRptExcel(request);
 
                 return Ok(result);
             }

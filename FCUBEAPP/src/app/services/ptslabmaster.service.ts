@@ -20,26 +20,26 @@ export class PtSlabMasterService {
     })
   }
   selectedPtslabmaster = new Ptslabmastermodel();
-  constructor(private httpClient: HttpClient) { }
-  setPtSlabMasterDetails(ratetypes: Ptslabmastermodel) {
- 
-      this.selectedPtslabmaster= ratetypes;
-    
   
+  constructor(private httpClient: HttpClient) { }
+
+  setPtSlabMasterDetails(ratetypes: Ptslabmastermodel) { 
+      this.selectedPtslabmaster= ratetypes;
   }
   getPtSlabmasterDetails() {
     return this.selectedPtslabmaster;
   }
-  ptSlabMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/PtSlabMasterDelete', req, this.httpOptions);
-  }
   clearPtSlabMasterDetails() {
     this.selectedPtslabmaster = new Ptslabmastermodel();
   }
+  
+  ptSlabMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/PtSlabMasterDelete', req, this.httpOptions);
+  }
   ptSlabMasterSubmitted(user: Ptslabmastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/PtSlabMasterSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/PtSlabMasterSave', user, this.httpOptions);
   }
   getPtSlabMasterList(filter: Filtermodel): Observable<Ptslabmasterlistmodel> {
-    return this.httpClient.post<Ptslabmasterlistmodel>(Constants.API_ENDPOINT + 'Admin/GetPtSlabMasterList', filter, this.httpOptions);
+    return this.httpClient.post<Ptslabmasterlistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetPtSlabMasterList', filter, this.httpOptions);
   }
 }

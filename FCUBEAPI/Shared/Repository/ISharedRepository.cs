@@ -22,5 +22,6 @@ namespace Shared.Repository
         Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();
         Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter);
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
+        Task<ResponseModel> GenerateLoginOTP(LoginModel login);
     }
 }

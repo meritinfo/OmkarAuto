@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
-using AdminMasters.Models;
+using HRMasters.Models;
 using Shared.Models;
 
 
 
-namespace AdminMasters.Repository
+namespace HRMasters.Repository
 {
     public class PtSlabmasterRepository : IPtSlabmasterRepository
     {

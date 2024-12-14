@@ -6,15 +6,14 @@ export class Usermodel {
     userMobile: string = "";
     userEmail: string = "";
     userScope: string = "";
+    roleId : string = "";
     userRoleType: string = "";
     centreName: string = "";
     activeYN: string = "";
     branchList: string = "";
-    moduleList: string = "";
     loggedInUser: string = "";
-    createdDate: string = "";
     imageName: string = "";
-    roleId : string = "";
     empbranch : string = "";
+    outOfOffReqOTP: string = "";
   //  imageData: [] = [];
 }

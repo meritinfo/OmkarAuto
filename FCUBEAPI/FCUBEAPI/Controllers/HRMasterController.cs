@@ -15,6 +15,7 @@ namespace FCUBEAPI.Controllers
     public class HRMasterController : ControllerBase
     {
         readonly IHrMasterBusiness hrMasterBusiness;
+        readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IEmpMasterBusiness empMasterBusiness;
         readonly IEmpSalaryBusiness empSalaryBusiness;
         readonly ILoanBusiness loanBusiness;
@@ -24,10 +25,12 @@ namespace FCUBEAPI.Controllers
         public HRMasterController(IHrMasterBusiness _hrMasterBusiness, 
             IEmpMasterBusiness _empMasterBusiness,
             IEmpSalaryBusiness _empSalaryBusiness,
+            IPtSlabMasterBusiness _ptSlabMasterBusiness,
             ILoanBusiness _loanBusiness,
             IEmpSalaryCalcBusiness _empSalaryCalcBusiness)
         {
             hrMasterBusiness = _hrMasterBusiness;
+            ptSlabMasterBusiness = _ptSlabMasterBusiness;
             empMasterBusiness = _empMasterBusiness;
             empSalaryBusiness = _empSalaryBusiness;
             loanBusiness = _loanBusiness;
@@ -766,7 +769,58 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("PtSlabMasterDelete")]
+        public async Task<IActionResult> PtSlabMasterDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ptSlabMasterBusiness.PtSlabMasterDelete(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("PtSlabMasterSave")]
+        public async Task<IActionResult> PtSlabMasterSave(PtSlabMasterModel ptSlabMasterModel)
+        {
+            if (ptSlabMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ptSlabMasterBusiness.PtSlabMasterSave(ptSlabMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetPtSlabMasterList")]
+        public async Task<IActionResult> GetPtSlabMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await ptSlabMasterBusiness.GetPtSlabMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

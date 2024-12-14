@@ -8,8 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Dailyloadingrptlistmodel  } from 'src/app/models/dailyloadingrptlistmodel';
-import { Dailyloadingrptmodel } from 'src/app/models/dailyloadingrptmodel';
-import { DailyloadingrptService } from 'src/app/services/dailyloadingrpt.service';
+import { FleetreportsService } from 'src/app/services/fleetreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -60,7 +59,7 @@ export class DailyloadingrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private dailyloadingrptService: DailyloadingrptService, 
+  constructor(private dailyloadingrptService: FleetreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

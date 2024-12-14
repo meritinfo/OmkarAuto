@@ -20,5 +20,6 @@ namespace Shared.Business
         Task<List<DropDownListModel>> GetYearList();
         Task<List<DropDownListModel>> GetServerDate();
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
+        Task<ResponseModel> GenerateLoginOTP(LoginModel login);
     }
 }
