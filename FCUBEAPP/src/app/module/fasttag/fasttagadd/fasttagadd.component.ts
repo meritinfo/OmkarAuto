@@ -265,7 +265,7 @@ export class FasttagaddComponent {
       for (var i = 0; i < this.data.length; i++) { 
         if (this.data[i+1][0]!="")  
         {  
-          if (this.data[i+1][1]=="Debit")  
+          if (this.data[i+1][1].toUpperCase() =="Debit")  
           {           
             this.formArray.push(this.createInitialArray());
 
