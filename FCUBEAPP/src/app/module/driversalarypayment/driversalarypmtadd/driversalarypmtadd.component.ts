@@ -131,7 +131,9 @@ export class DriversalarypmtaddComponent {
     this.getBranchList();  
 
     this.formSalary.controls["branchCode"].disable();
-    this.formSalary.controls["totalSalary"].disable();  
+    this.formSalary.controls["totalSalary"].disable(); 
+    this.formSalary.controls["salDays"].disable(); 
+     
 
     if (this.selectedDriversalarypaymentDetails.masterid != '') {      
       this.getCreditAcList(this.selectedDriversalarypaymentDetails.pmtType);  
@@ -171,6 +173,34 @@ export class DriversalarypmtaddComponent {
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });    
+  }
+  getSalDays(){
+    var selectedDataValue = this.formSalary.getRawValue();
+    var date1 = new Date(selectedDataValue.salaryFromDt);
+    var date2 = new Date(selectedDataValue.salaryToDt);
+   
+  
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+  
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  
+    Difference_In_Days = Math.abs(Difference_In_Days)
+    if (!Number.isNaN(Difference_In_Days)) {
+      this.formSalary.patchValue({
+        salDays: (Difference_In_Days).toString()
+  
+      });
+    }
+    else {
+      this.formSalary.patchValue({
+        salDays: '0'
+  
+      });
+  
+    }
+    this.getSalCal();
   }
 
   getDriverList(): void {

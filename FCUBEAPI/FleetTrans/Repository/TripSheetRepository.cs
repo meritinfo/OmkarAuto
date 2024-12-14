@@ -81,6 +81,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Food_Sal_ToDt" , tripMasterModel.Food_Sal_ToDt),
                             new SqlParameter("@Food_Sal_Days" , tripMasterModel.Food_Sal_Days),
                             new SqlParameter("@Food_Sal_Amt" , tripMasterModel.Food_Sal_Amt),
+                            new SqlParameter("@RtaChallanDesc" , tripMasterModel.RtaChallanDesc),
+                            new SqlParameter("@RtaChallanAmt " , tripMasterModel.RtaChallanAmt),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripSheetSave", param);
@@ -365,6 +367,8 @@ namespace FleetTrans.Repository
                                 Food_Sal_ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["Food_Sal_ToDt"]),
                                 Food_Sal_Days = Convert.ToString(dataSet.Tables[0].Rows[i]["Food_Sal_Days"]),
                                 Food_Sal_Amt = Convert.ToString(dataSet.Tables[0].Rows[i]["Food_Sal_Amt"]),
+                                RtaChallanDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["RtaChallanDesc"]),
+                                RtaChallanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["RtaChallanAmt"]),
                             });
                         }
 

@@ -166,6 +166,8 @@ export class TripsheetaddComponent {
       food_Sal_ToDt   : new FormControl('',),
       food_Sal_Days    : new FormControl('',),
       food_Sal_Amt     : new FormControl('',),
+      rtaChallanDesc     : new FormControl('',),
+      rtaChallanAmt      : new FormControl('',),
       driverList: this.formBuilder.array([this.createDriverArray()]),
       routeList: this.formBuilder.array([this.createRouteArray()]),
       dieselList: this.formBuilder.array([this.createDieselArray()]),
@@ -200,6 +202,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['detentionDays'].disable();    
     this.formTripsheet.controls['food_Sal_Amt'].disable(); 
+    this.formTripsheet.controls['food_Sal_Days'].disable(); 
     
 
     setTimeout(() => {
@@ -750,6 +753,34 @@ export class TripsheetaddComponent {
       }
     });
   }
+  getSalDays(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    var date1 = new Date(selectedDataValue.food_Sal_FromDt);
+    var date2 = new Date(selectedDataValue.food_Sal_ToDt);
+   
+  
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+  
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  
+    Difference_In_Days = Math.abs(Difference_In_Days)
+    if (!Number.isNaN(Difference_In_Days)) {
+      this.formTripsheet.patchValue({
+        food_Sal_Days: (Difference_In_Days).toString()
+  
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        food_Sal_Days: '0'
+  
+      });
+  
+    }
+    this.getFoodCal();
+  }
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -767,6 +798,7 @@ export class TripsheetaddComponent {
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
     var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
     var foodsal = selectedDataValue.food_Sal_Amt==''?0:parseFloat(selectedDataValue.food_Sal_Amt);
+    var rtaAmt =  selectedDataValue.rtaChallanAmt==''?0:parseFloat(selectedDataValue.rtaChallanAmt);
     
     var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
                       - expensesByDriver - bhattaAmt - penaltyChargedToDr 
@@ -774,7 +806,7 @@ export class TripsheetaddComponent {
 
     var netTripBalance = tripBalance - recdFromDriver;
     var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp+foodsal
+                      + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp + foodsal + rtaAmt
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
@@ -1030,6 +1062,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
     this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days;
     this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt.toString(); 
+    this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc;
+    this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt ;
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 
