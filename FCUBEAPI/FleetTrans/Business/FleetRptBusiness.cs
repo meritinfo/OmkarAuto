@@ -17,14 +17,7 @@ namespace FleetTrans.Business
         {
             fleetRptRepository = _fleetRptRepository;
         }
-        public async Task<DieselStatementRptListModel> GetDieselStatementRptList(ReportRequestModel request)
-        {
-            return await fleetRptRepository.GetDieselStatementRptList(request);
-        }
-        public async Task<ResponseModel> GetDieselStatementRptExcel(ReportRequestModel request)
-        {
-            return await fleetRptRepository.GetDieselStatementRptExcel(request);
-        }
+        
         public async Task<DieselStmtRptListModel> GetDieselStmtRptList(ReportRequestModel request)
         {
             return await fleetRptRepository.GetDieselStmtRptList(request);

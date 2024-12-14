@@ -7,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Sparespurchaserptlistmodel} from 'src/app/models/sparespurchaserptlistmodel';
-import { Sparespurchaserptmodel } from 'src/app/models/sparespurchaserptmodel';
-import { SparespurchaserptService } from 'src/app/services/sparespurchaserpt.service';
+import { FleetreportsService } from 'src/app/services/fleetreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -59,7 +58,7 @@ export class SparespurchaserptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private sparespurchaserptService: SparespurchaserptService, 
+  constructor(private sparespurchaserptService: FleetreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

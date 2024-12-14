@@ -93,7 +93,6 @@ import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripshe
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 import { UppercaseonlyDirective } from './directives/uppercaseonly.directive';
 import { Tripsheetmodel } from './models/tripsheetmodel';
-import { Getkmsmodel } from './models/getkmsmodel';
 import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
 import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import { AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
@@ -105,18 +104,13 @@ import { DieselstatementaddComponent } from './module/dieselstatement/dieselstat
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementlistmodel } from './models/dieselstatementlistmodel';
-import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { Distancemastertripmodel } from './models/distancemastertripmodel';
 import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
 import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
-import { Billstatementsearchlistrequestmodel } from './models/billstatementsearchlistrequestmodel';
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { Ratesmastermodel } from './models/ratesmastermodel';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
-import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
-import { billstatementmodel } from './models/billstatementmodel';
-import { Billstatementsearchmodel } from './models/billstatementsearchmodel';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
@@ -183,8 +177,6 @@ import { Distancemasterfrtrptmodel } from './models/distancemasterfrtrptmodel';
 import { Distancemastertriprptmodel } from './models/distancemastertriprptmodel';
 import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
 import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
-import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
-import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
 import { EmpmasterlistComponent } from './module/empmaster/empmasterlist/empmasterlist.component';
 import { EmpmasteraddComponent } from './module/empmaster/empmasteradd/empmasteradd.component';
 import { Employeemodel } from './models/employeemodel';
@@ -215,18 +207,14 @@ import { Custwizardmodel } from './models/custwizardmodel';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
-import { Custwizardlistmodel } from './models/custwizardlistmodel';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
-
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
 import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
-import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { Gstsalesregisterrptmodel } from './models/gstsalesregisterrptmodel';
-//import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { Dprmodel } from './models/dprmodel';
@@ -239,7 +227,7 @@ import { GeneratetempgclistComponent } from './module/generatetempgc/generatetem
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
-import {Tyremodelmastermodel } from './models/tyremodelmastermodel';
+import { Tyremodelmastermodel } from './models/tyremodelmastermodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
@@ -394,7 +382,6 @@ import { AdditionalcostrecmasterlistComponent } from './module/additionalcostrec
 import { BilloutstandingrptComponent } from './module/billoutstandingrpt/billoutstandingrpt.component';
 import { Lrcostingrptmodel } from './models/lrcostingrptmodel';
 import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
-import { Tripsummaryrptmodel } from './models/tripsummaryrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 import { Onaccountmrstatusrptmodel } from './models/onaccountmrstatusrptmodel';
 import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
@@ -456,7 +443,6 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     AddbankcashcontraComponent,BankcashcontralistComponent,
     JournalentrylistComponent,AddjournalentryComponent,
     DieselstatementaddComponent,DieselstatementlistComponent,
-    BillstatementaddComponent,BillstatementlistComponent,
     AddratesmasterComponent,RatesmasterlistComponent,
     DriversalarystatementaddComponent,DriversalarystatementlistComponent,
     FingroupaddComponent,FingrouplistComponent,
@@ -476,7 +462,6 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     DistancemastertriprptComponent,
     TrippaymentsrptComponent,
     DriverlicrptComponent,
-    DieselstatementrptComponent,
     EmpmasterlistComponent,EmpmasteraddComponent,
     EmpsalarylistComponent, EmpsalaryaddComponent,
     EmploanlistComponent, EmploanaddComponent,
@@ -488,7 +473,6 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
-    HappaystatementrptComponent,
     EwaybillexprptComponent, GstsalesregisterrptlistComponent,    
     DrpmasteraddComponent, DrpmasterlistComponent,
     DprvehiplacedlistComponent, DprvehiplacedaddComponent,
@@ -586,9 +570,8 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     Intermediatescreenmodel,Tripsheetmodel,
     Distancemasterfreightmodel,Distancefreighteditmodel,
     Distancemastertripmodel,Distancetripeditmodel,
-    bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
-    Dieselstatementlistmodel, Dieselstatementmodel, 
-    Billstatementsearchlistrequestmodel, Deliveryackpodmodel,
+    bankreceiptentrymodel,Ratesmastermodel,
+    Dieselstatementlistmodel, Dieselstatementmodel, Deliveryackpodmodel,
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
@@ -603,7 +586,7 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,Lorryhirereqmodel,
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
-    Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
+    Driverlicrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
@@ -615,8 +598,7 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
     Lhpayablestatusrptmodel,Challanregisterrptmodel, Vehiclerepairsrptmodel,
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
-    Vehiclefrtoutstandingrptmodel, Lhextrapmtreconrptmodel,
-    Expensebudgetlistmodel, Cnorcneegstmodel,
+    Vehiclefrtoutstandingrptmodel, Lhextrapmtreconrptmodel, Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,

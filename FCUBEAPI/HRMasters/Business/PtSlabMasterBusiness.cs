@@ -1,5 +1,5 @@
-﻿using AdminMasters.Models;
-using AdminMasters.Repository;
+﻿using HRMasters.Models;
+using HRMasters.Repository;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminMasters.Business
+namespace HRMasters.Business
 {
     public class PtSlabMasterBusiness : IPtSlabMasterBusiness
     {

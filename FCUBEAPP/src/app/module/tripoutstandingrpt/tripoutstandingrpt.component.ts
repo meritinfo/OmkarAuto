@@ -7,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Tripoutstandingrptlistmodel  } from 'src/app/models/tripoutstandingrptlistmodel';
-import { Tripoutstandingrptmodel } from 'src/app/models/tripoutstandingrptmodel';
-import { TripoutstandingrptService } from 'src/app/services/tripoutstandingrpt.service';
+import { FleetreportsService } from 'src/app/services/fleetreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -63,7 +62,7 @@ formFilter!: FormGroup;
    
   responseDetails = new Responsemodel();
 
-  constructor(private tripOutstandingRptService: TripoutstandingrptService, 
+  constructor(private tripOutstandingRptService: FleetreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

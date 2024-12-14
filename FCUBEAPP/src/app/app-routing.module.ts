@@ -108,7 +108,6 @@ import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingr
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
-import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
 import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
@@ -406,7 +405,6 @@ const routes: Routes = [
   { path: 'acledgerrpt', component:  LedgerrptComponent },  
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
-  { path: 'happaystmtrpt', component:  HappaystatementrptComponent },  
   { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   
   { path: 'dprindentlist', component:  DrpmasterlistComponent },    
   { path: 'dprindentadd', component:  DrpmasteraddComponent },   

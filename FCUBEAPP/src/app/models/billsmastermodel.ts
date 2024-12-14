@@ -2,6 +2,7 @@ import { BillsDetailModel } from "./billsdetailmodel";
 import { Billsmastersearchmodel } from "./billsmastersearchmodel";
 import { Billsubmitmastermodel } from "./billsubmitmastermodel";
 import { Mrmodel } from "./mrmodel";
+
 export class Billsmastermodel {
     billsMasterId: string = "";  
     billingStation: string = "";  
