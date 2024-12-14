@@ -585,14 +585,14 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity"> Food Sal FromDt </label>
                                                 <input type="date" class="form-control"   
-                                                formControlName="food_Sal_FromDt">
+                                                formControlName="food_Sal_FromDt" (change) ="getSalDays()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Food Sal ToDt</label>
                                                 <input type="date" class="form-control"   
-                                                formControlName="food_Sal_ToDt">
+                                                formControlName="food_Sal_ToDt" (change) ="getSalDays()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -746,6 +746,18 @@
                                         <input class="form-control" decimalonly formControlName="totalDriverAc">
                                     </div>
                                 </div> -->
+                                 <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Rta Challan Desc </label>
+                                        <input class="form-control" uppercaseonly formControlName="rtaChallanDesc">
+                                    </div>
+                                </div> 
+                                  <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Rta Challan Amt</label>
+                                        <input class="form-control" decimalonly formControlName="rtaChallanAmt" (change)="calTotal()">
+                                    </div>
+                                </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Balance (Driver)</label>
@@ -766,6 +778,9 @@
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['netTripBalance'].invalid) }" >
                                     </div>
                                 </div>
+                               
+                            </div>                   
+                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>
@@ -773,8 +788,6 @@
                                         formControlName="fastagAmount">
                                     </div>
                                 </div>
-                            </div>                   
-                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Total Freight</label>

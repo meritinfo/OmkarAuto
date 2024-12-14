@@ -84,7 +84,7 @@
                                                 <label >Salary From Date: </label><span style="color: red">*</span>  
                                                
 
-                                                <input type="date" class="form-control" 
+                                                <input type="date" class="form-control"  (change) ="getSalDays()"
                                                 min="{{minDate}}" max="{{maxDate}}" formControlName="salaryFromDt" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['salaryFromDt'].invalid) }">
 
@@ -96,7 +96,7 @@
                                             <div class="mb-3">
                                                 <label >Salary To Date: </label><span style="color: red">*</span>  
                                                 <input type="date" class="form-control" 
-                                               formControlName="salaryToDt" 
+                                               formControlName="salaryToDt" (change) ="getSalDays()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['salaryToDt'].invalid) }">
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
                                             <div class="mb-3">
                                                 <label>Sal Per Day: </label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control" (change) ="getSalCal()"
-                                                formControlName="salPerDay" >
+                                                formControlName="salPerDay">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
