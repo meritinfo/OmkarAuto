@@ -206,6 +206,34 @@ namespace FleetTrans.Repository
                                 }
                             }
                         }
+                        //if (responseModel.Status)
+                        //{
+                        //    for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
+                        //    {
+                        //        SqlParameter[] paramdr =
+                        //        {
+                        //            new SqlParameter("@TripId", MasterID),
+                        //            new SqlParameter("@TripDtlId", tripMasterModel.AdblueList[i].TripDtlId),
+                        //            new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].IssueBranch),
+                        //            new SqlParameter("@IssueDate", tripMasterModel.AdblueList[i].IssueDate),
+                        //            new SqlParameter("@IssueParticulars", tripMasterModel.AdblueList[i].IssueParticulars),
+                        //            new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdblueLtrs),
+                        //            new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdblueAmt),
+                        //        };
+                        //        var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripAdblueSave", paramdr);
+
+                        //        if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                        //        {
+                        //            responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                        //            responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                        //            if (!responseModel.Status)
+                        //            {
+                        //                i = tripMasterModel.DieselList.Count;
+                        //                transaction.Rollback();
+                        //            }
+                        //        }
+                        //    }
+                        //}
                         if (responseModel.Status)
                         {
                             for (int i = 0; i < tripMasterModel.FasttagList.Count; i++)
