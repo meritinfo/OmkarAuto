@@ -11,6 +11,9 @@ using System.Data;
 using System.IO;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Net.Mail;
+using System.Net;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace Shared.Repository
 {
@@ -33,9 +36,11 @@ namespace Shared.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@UserName", loginModel.UserName),
-                            new SqlParameter("@UserPassword", loginModel.UserPassword)
+                            new SqlParameter("@UserPassword", loginModel.UserPassword),
+                            new SqlParameter("@IpAddress",  loginModel.IpAddress),
+                            new SqlParameter("@Otp",  loginModel.Otp),
                         };
-                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "LoginDetails_Select", param);
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLoginDetails", param);
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
@@ -457,7 +462,168 @@ namespace Shared.Repository
                
             }
             return DocRenewalList;
+        }        
+        public async Task<ResponseModel> GenerateLoginOTP(LoginModel login)
+        {
+            ResponseModel responseModel = new();
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@UserName", login.UserName),
+                            new SqlParameter("@IpAddress",  login.IpAddress)
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GenerateLoginOTP", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    if (responseModel.Status)
+                    {
+                        login.Otp = responseModel.Message;
+                        response = await SendOTPMail(login);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
+        public async Task<ResponseModel> SendOTPMail(LoginModel login)
+        {
+            ResponseModel response = new(); 
+            ResponseModel company = new();
+            List<DropDownListModel> emailList = new();
+            MailHostDtlsModel mailHost = new();
+            try
+            {
+
+                using (MailMessage mail = new MailMessage())
+                {
+                    mailHost = await GetMailHostDetails();
+                    company = await GetCompanyDetail();                       
+
+                    string strMail = "";
+                    string sUserName = mailHost.EmailId;
+                    string sUserPassword = mailHost.EmailPwd;
+                    string sHost = mailHost.EmailServer;
+                    string sDisplayName = mailHost.EmailDisplayName;
+                    bool bEnableSsl = true;
+                    int port = Convert.ToInt32(mailHost.EmailPort);
+
+                    emailList = await GetEmailIdList("OTP");
+
+                    for (int i = 0; i < emailList.Count; i++)
+                    {
+                        strMail = strMail + "," + emailList[i].DataName.ToString();
+                    }
+
+                    strMail = strMail.Remove(0, 1);
+
+                    string strNarr = "";
+                    strNarr += "Dear Admin, <br><br><br><br>";
+                    strNarr += "Greetings of day !" + "<br>";
+                    strNarr += "Please find Login OTP generated for <b>" + login.UserName + 
+                                " </b> is <b>"+ login.Otp +"</b> " +
+                                "trying to login from Mac Address/ IP Address "+ login.IpAddress +" <br>";
+                    strNarr += "Share OTP for Login" + "<br><br><br>";
+                    strNarr += "Thanks" + "<br>";
+                    strNarr += company.Message + "<br>";
+
+                    mail.To.Add(strMail);
+                    mail.From = new MailAddress(sUserName, sDisplayName);
+                    mail.Subject = "Login OTP for " + login.UserName ;
+                    mail.Body = strNarr;
+                    mail.IsBodyHtml = true;
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = sHost;
+                    smtp.Credentials = new NetworkCredential(sUserName, sUserPassword);
+                    smtp.EnableSsl = bEnableSsl;
+                    smtp.Port = port;
+                    mail.Priority = MailPriority.Normal;
+                    mail.IsBodyHtml = true;
+                    mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                    smtp.Send(mail);
+                    response.Status = true;
+                    response.Message = "Mail Sent Successfully";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+
         }
 
+        public async Task<MailHostDtlsModel> GetMailHostDetails()
+        {
+            MailHostDtlsModel mail = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmailHostConfig", null);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        mail.EmailId = Convert.ToString(userData.Tables[0].Rows[0]["EmailId"]);
+                        mail.EmailPwd = Convert.ToString(userData.Tables[0].Rows[0]["EmailPwd"]);
+                        mail.EmailServer = Convert.ToString(userData.Tables[0].Rows[0]["EmailServer"]);
+                        mail.EmailPort = Convert.ToString(userData.Tables[0].Rows[0]["EmailPort"]);
+                        mail.EmailDisplayName = Convert.ToString(userData.Tables[0].Rows[0]["EmailDisplayName"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return mail;
+        }
+
+        public async Task<List<DropDownListModel>> GetEmailIdList(string EmailFor)
+        {
+            List<DropDownListModel> emailList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@EmailFor", EmailFor),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmailIdList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            emailList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return emailList;
+        }
     }
 }

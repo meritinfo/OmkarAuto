@@ -24,14 +24,16 @@ export class SharedService {
   loading: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
-
+    
   loginSubmitted(login : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
+  generateOTP(login : Loginmodel): Observable<LoggedinUsermodel> {
+    return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/GenerateLoginOTP', login, this.httpOptions);
+  }
   refreshToken(request : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/RefreshToken', request, this.httpOptions);
-  }
-  
+  }  
   intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetail', login, this.httpOptions);
   }
@@ -52,5 +54,10 @@ export class SharedService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> { 
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Login/GetDocRenewalDetails/' ,null, this.httpOptions);
   }
- 
+  getipaddress(): Observable<any> {
+    return this.httpClient.get<any>("https://api.ipify.org?format=json", this.httpOptions);
+    //return this.httpClient.get("https://api.ipify.org/", {responseType: 'text'});
+  }
+
+  
 }

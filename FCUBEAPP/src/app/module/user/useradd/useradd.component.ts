@@ -89,8 +89,10 @@ export class UseraddComponent implements OnInit {
       userScope: new FormControl('BO', Validators.required),
       role: new FormControl('', [Validators.required]),
       empbranch: new FormControl(''),
+      formUserPhoto: new FormControl(''),
       activeYN: new FormControl('Y', [Validators.required]),      
       userBranch: new FormControl([], [Validators.required]),
+      outOfOffReqOTP: new FormControl('N',[Validators.required]),
       imageName: new FormControl([], ),
     });
 
@@ -234,9 +236,9 @@ export class UseraddComponent implements OnInit {
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.branchList = selecteddata.userBranch.toString();
-    this.userModel.moduleList = '';
     this.userModel.imageName = this.userPhotoName;   
     this.userModel.roleId = selecteddata.role;
+    this.userModel.outOfOffReqOTP = selecteddata.outOfOffReqOTP.toString();
 
     let formData = new FormData();
     formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);

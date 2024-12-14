@@ -189,6 +189,28 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+
+
+        [HttpPost("GenerateLoginOTP")]
+        public async Task<IActionResult> GenerateLoginOTP(LoginModel login)
+        {
+            if (login == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.GenerateLoginOTP(login);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }

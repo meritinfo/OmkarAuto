@@ -49,23 +49,15 @@ namespace AdminMasters.Repository
                             new SqlParameter("@UserMobile", userMasterModel.UserMobile),
                             new SqlParameter("@UserEmail", userMasterModel.UserEmail),
                             new SqlParameter("@UserScope", userMasterModel.UserScope),
-                            new SqlParameter("@UserImage", userMasterModel.UserImage),
                             new SqlParameter("@RoleId", userMasterModel.RoleId),
-                            new SqlParameter("@Remarks", userMasterModel.Remarks),
-                            new SqlParameter("@Employeeid", userMasterModel.Employeeid),
                             new SqlParameter("@Empbranch", userMasterModel.Empbranch),
                             new SqlParameter("@ActiveYN", userMasterModel.ActiveYN),
-                            new SqlParameter("@LastLoginDateTime_Success", userMasterModel.LastLoginDateTime_Success),
-                            new SqlParameter("@LastLoginIP_Success", userMasterModel.LastLoginIP_Success),
-                            new SqlParameter("@LastLoginDateTime_Fail", userMasterModel.LastLoginDateTime_Fail),
-                            new SqlParameter("@LastLoginIP_Fail", userMasterModel.LastLoginIP_Fail),
+                            new SqlParameter("@OutOfOffReqOTP", userMasterModel.OutOfOffReqOTP),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
-                            new SqlParameter("@ModuleList", userMasterModel.ModuleList),
                             new SqlParameter("@ImageName", userMasterModel.ImageName),
-                         //  new SqlParameter("@ImageData", userMasterModel.ImageData){ SqlDbType = SqlDbType.VarBinary},
                             new SqlParameter("@LoggedInUser", userMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "UserDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_UserDetailsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -276,7 +268,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserDetailsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUserDetailsList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -296,7 +288,7 @@ namespace AdminMasters.Repository
                                 RoleId          = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleId"]),
                                 UserRoleType    = Convert.ToString(dataSet.Tables[0].Rows[i]["UserRoleType"]),
                                 CentreName      = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
-                                Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                OutOfOffReqOTP  = Convert.ToString(dataSet.Tables[0].Rows[i]["OutOfOffReqOTP"]),
                                 ActiveYN        = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
                                 ImageName       = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
                                 BranchList      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
@@ -315,24 +307,11 @@ namespace AdminMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return userMasterList;
         }
 
-        /// <summary>
-        /// Service method for get eway bill details
-        /// </summary>
-        /// <returns>EWayBillModel</returns>
         public async Task<string> GetAccessToken(EWayAPIConfigurationModel ewayapiConfigurtion)
         {
             string token = "";
@@ -367,24 +346,11 @@ namespace AdminMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return token;
         }
 
-        /// <summary>
-        /// Service method for get eway bill details
-        /// </summary>
-        /// <returns>EWayBillModel</returns>
         public async Task<EWayBillModel> GetEWayBillDetails(RequestModel request)
         {
             EWayBillModel eWayBill = new();
@@ -399,7 +365,9 @@ namespace AdminMasters.Repository
 
                 string token = await GetAccessToken(ewayapiConfigurtion);
 
-                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ ewayapiConfigurtion.EwayBillApiGstId + "&eway_bill_number=" + request.strRequest;
+                string urlParameters = "?access_token=" + token + 
+                                        "&action=GetEwayBill&gstin="+ ewayapiConfigurtion.EwayBillApiGstId + 
+                                        "&eway_bill_number=" + request.strRequest;
 
                 HttpClient client = new()
                 {

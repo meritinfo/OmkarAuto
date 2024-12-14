@@ -7,5 +7,8 @@
     {
         public string UserName { get; set; }
         public string UserPassword { get; set; }
+        public string IpAddress { get; set; }
+        public string Otp { get; set; }
+        
     }
 }
