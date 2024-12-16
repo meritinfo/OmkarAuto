@@ -188,6 +188,7 @@ export class DriversalarypmtaddComponent {
   
     Difference_In_Days = Math.abs(Difference_In_Days)
     if (!Number.isNaN(Difference_In_Days)) {
+      Difference_In_Days= Difference_In_Days+1;
       this.formSalary.patchValue({
         salDays: (Difference_In_Days).toString()
   
@@ -202,6 +203,7 @@ export class DriversalarypmtaddComponent {
     }
     this.getSalCal();
   }
+ 
 
   getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {

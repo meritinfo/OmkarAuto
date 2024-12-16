@@ -65,6 +65,7 @@ namespace FleetTrans.Models
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
         public List<DieselDetails> DieselList { get; set; }
+        public List<AdblueDetails> AdblueList { get; set; }
         public List<FasttagDetails> FasttagList { get; set; }
         public List<TripDrExpDetails> DrExpList { get; set; }
         public List<TripCmpExpDetails> CmpExpList { get; set; }
@@ -106,6 +107,16 @@ namespace FleetTrans.Models
         public string? DslRate { get; set; }
         public string? Amount { get; set; }
         public string? Remarks { get; set; }
+    }
+    public class AdblueDetails
+    {
+        public string? TripDtlId { get; set; }
+        public string? TripId { get; set; }
+        public string? IssueBranch { get; set; }
+        public string? IssueDate { get; set; }
+        public string? IssueParticulars { get; set; }
+        public string? AdblueLtrs { get; set; }
+        public string? AdblueAmt { get; set; }
     }
     public class FasttagDetails
     {

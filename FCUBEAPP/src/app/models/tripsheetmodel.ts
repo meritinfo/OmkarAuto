@@ -64,6 +64,7 @@ export class Tripsheetmodel {
     driverList: DriverDetails[] = [];
     routeList: RouteDetails[] = [];
     dieselList: DieselDetails[] = [];
+    adblueList: AdblueDetails[] = [];
     fasttagList: FasttagDetails[] = [];
     drExpList: TripDrExpDetails[] = [];
     cmpExpList: TripCmpExpDetails[] = [];
@@ -103,6 +104,17 @@ export class DieselDetails {
     dslRate: string = "";
     amount : string = "";
     remarks: string = "";
+}
+
+
+export class AdblueDetails {
+    tripDtlId: string = "";
+    tripId: string = "";
+    issueBranch: string = "";
+    issueDate: string = "";
+    issueParticulars : string = "";
+    adblueLtrs: string = "";
+    adblueAmt: string = "";
 }
 
 

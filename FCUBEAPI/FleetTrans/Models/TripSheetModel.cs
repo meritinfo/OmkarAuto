@@ -72,6 +72,7 @@ namespace FleetTrans.Models
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
         public List<DieselDetails> DieselList { get; set; }
+        public List<AdblueDetails> AdblueList { get; set; }
         public List<FasttagDetails> FasttagList { get; set; }
         public List<TripDrExpDetails> DrExpList { get; set; }
         public List<TripCmpExpDetails> CmpExpList { get; set; }
