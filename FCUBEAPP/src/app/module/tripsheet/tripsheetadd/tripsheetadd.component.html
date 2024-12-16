@@ -388,8 +388,56 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
-                </div>            
+                </div>    
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="color: red;">Adblue Details</h4>
+                                    <div class="overflow-x">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity">Issue Date</label></th>
+                                            <th><label for="formrow-inputZip">issue Particulars</label></th>
+                                            <th><label for="formrow-inputZip">Adblue Ltrs</label></th>
+                                            <th><label for="formrow-inputZip">Adblue Amount</label></th>
+                                        
+                                        </tr>
+                                        <tr formArrayName="adblueList"
+                                            *ngFor="let drv of formAdblueArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
+                                                <td>
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="issueDate">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="tripDtlId">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="issueParticulars">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="adblueLtrs">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="adblueAmt">
+                                                </td>
+                                               
+                                            </div>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>         
                 <!-- <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -648,6 +696,13 @@
                                         <label for="formrow-inputCity">Diesel Passed Amt</label>
                                         <input class="form-control" decimalonly 
                                         formControlName="dieselPassedAmt">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Adblue Passed Amount</label>
+                                        <input class="form-control" decimalonly 
+                                        formControlName="adbluePassedAmt">
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-2">

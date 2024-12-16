@@ -206,34 +206,34 @@ namespace FleetTrans.Repository
                                 }
                             }
                         }
-                        //if (responseModel.Status)
-                        //{
-                        //    for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
-                        //    {
-                        //        SqlParameter[] paramdr =
-                        //        {
-                        //            new SqlParameter("@TripId", MasterID),
-                        //            new SqlParameter("@TripDtlId", tripMasterModel.AdblueList[i].TripDtlId),
-                        //            new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].IssueBranch),
-                        //            new SqlParameter("@IssueDate", tripMasterModel.AdblueList[i].IssueDate),
-                        //            new SqlParameter("@IssueParticulars", tripMasterModel.AdblueList[i].IssueParticulars),
-                        //            new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdblueLtrs),
-                        //            new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdblueAmt),
-                        //        };
-                        //        var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripAdblueSave", paramdr);
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId", MasterID),
+                                    //new SqlParameter("@TripDtlId", tripMasterModel.AdblueList[i].TripDtlId),
+                                    new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].IssueBranch),
+                                    new SqlParameter("@IssueDate", tripMasterModel.AdblueList[i].IssueDate),
+                                    new SqlParameter("@IssueParticulars", tripMasterModel.AdblueList[i].IssueParticulars),
+                                    new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdblueLtrs),
+                                    new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdblueAmt),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripAdblueSave", paramdr);
 
-                        //        if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
-                        //        {
-                        //            responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
-                        //            responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
-                        //            if (!responseModel.Status)
-                        //            {
-                        //                i = tripMasterModel.DieselList.Count;
-                        //                transaction.Rollback();
-                        //            }
-                        //        }
-                        //    }
-                        //}
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.DieselList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
                         if (responseModel.Status)
                         {
                             for (int i = 0; i < tripMasterModel.FasttagList.Count; i++)
@@ -455,8 +455,10 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
-                FasttagList = new List<FasttagDetails>(),
+               // AdblueList = new List<AdblueDetails>(),
+              //  FasttagList = new List<FasttagDetails>(),
                 CmpExpList = new List<TripCmpExpDetails>(),
+                AdblueList = new List<AdblueDetails>(),
             };
             try
             {
@@ -528,6 +530,7 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+                  
                     //FastTag Details
                     //if (resultData != null && resultData.Tables[3].Rows.Count > 0)
                     //{
@@ -556,6 +559,23 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+                    //Adblue Details
+                    if (resultData != null && resultData.Tables[5].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[5].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.AdblueList.Add(new AdblueDetails
+                            {
+                                //TripDtlId = Convert.ToString(resultData.Tables[5].Rows[i]["TripDtlId"]),
+                                //TripId = Convert.ToString(resultData.Tables[5].Rows[i]["TripId"]),
+                                IssueBranch = Convert.ToString(resultData.Tables[5].Rows[i]["IssueBranch"]),
+                                IssueDate = Convert.ToString(resultData.Tables[5].Rows[i]["IssueDate"]),
+                                IssueParticulars = Convert.ToString(resultData.Tables[5].Rows[i]["IssueParticulars"]),
+                                AdblueLtrs = Convert.ToString(resultData.Tables[5].Rows[i]["AdblueLtrs"]),
+                                AdblueAmt = Convert.ToString(resultData.Tables[5].Rows[i]["AdblueAmt"]),
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -574,6 +594,7 @@ namespace FleetTrans.Repository
                 FasttagList = new List<FasttagDetails>(),
                 DrExpList = new List<TripDrExpDetails>(),
                 CmpExpList= new List<TripCmpExpDetails>(),
+                AdblueList = new List<AdblueDetails>(),
             };
             try
             {
@@ -688,6 +709,23 @@ namespace FleetTrans.Repository
                                 ExpParticulars = Convert.ToString(resultData.Tables[5].Rows[i]["ExpParticulars"]),
                                 ExpAmt = Convert.ToString(resultData.Tables[5].Rows[i]["ExpAmt"]),
 
+                            });
+                        }
+                    }
+                    //Adblue Details
+                    if (resultData != null && resultData.Tables[6].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[6].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.AdblueList.Add(new AdblueDetails
+                            {
+                                TripDtlId = Convert.ToString(resultData.Tables[6].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[6].Rows[i]["TripId"]),
+                                IssueBranch = Convert.ToString(resultData.Tables[6].Rows[i]["IssueBranch"]),
+                                IssueDate = Convert.ToString(resultData.Tables[6].Rows[i]["IssueDate"]),
+                                IssueParticulars = Convert.ToString(resultData.Tables[6].Rows[i]["IssueParticulars"]),
+                                AdblueLtrs = Convert.ToString(resultData.Tables[6].Rows[i]["AdblueLtrs"]),
+                                AdblueAmt = Convert.ToString(resultData.Tables[6].Rows[i]["AdblueAmt"]),
                             });
                         }
                     }
