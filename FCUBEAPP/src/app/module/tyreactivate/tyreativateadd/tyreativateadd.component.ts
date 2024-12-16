@@ -150,7 +150,7 @@ export class TyreativateaddComponent {
           activateDate: this.commonService.formatDate(this.selectedTyreactivateDetail.activateDate),
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedTyreactivateDetail.vehicleMasterid),
         }) 
-   
+        this.getVehicleTyreNos(this.selectedTyreactivateDetail.vehicleMasterid);
         this.getTyreActivateInnerGridList();
         this.editMode =true;
       }, 3000);  
@@ -166,11 +166,7 @@ export class TyreativateaddComponent {
   selectEvent(item: any) {
     // do something with selected item
     this.getVehicleTyrePositionList(item.dataId);
-    this.requestmodel.strRequest = item.dataId; 
-    this.tyreactivateService.getVehicleNoOfTyres(this.requestmodel).subscribe((res) => {
-      this.totTyres = res.dataName;
-      this.actTyres = res.dataId;
-    });
+    this.getVehicleTyreNos(item.dataId);
   }
 
   selectTyreEvent(i: number, item: any) {
@@ -238,6 +234,14 @@ export class TyreativateaddComponent {
     this.requestmodel.strRequest = veh
     this.tyreactivateService.getVehicleTyrePositionList(this.requestmodel).subscribe((res) => {
       this.positionList = res;
+    });
+  }
+
+  getVehicleTyreNos(veh: string): void {
+    this.requestmodel.strRequest = veh; 
+    this.tyreactivateService.getVehicleNoOfTyres(this.requestmodel).subscribe((res) => {
+      this.totTyres = res.dataName;
+      this.actTyres = res.dataId;
     });
   }
 
