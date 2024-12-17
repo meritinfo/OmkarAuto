@@ -21,11 +21,13 @@ export class LoginComponent implements OnInit {
   shdled = false;
   login = true;
   otp = false;
-  ipAddress = "";
+  //ipAddress = "";
   shdlMsg:string ="";
   scheduleDetails = new Schedulemodel();
   responseDetails = new Responsemodel();
   companyname: string = '';
+
+  ipAddress?: string | null = null;
 
   constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, 
     private commonService: CommonService, 
@@ -40,13 +42,15 @@ export class LoginComponent implements OnInit {
       userPassword: new FormControl('', Validators.required),
       otp: new FormControl('',),
     });
+
+    this.fetchIp();  
     
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.login= false;
       this.shdlMsg = 'Another project is open' ;
     }
-    //this.getIpAddress();
+    
     this.getScheduleDetails();
     this.getCompanyDetails();
     this.sharedService.loggedInStatus = false;
@@ -55,6 +59,20 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to contact form fields
   get f() { return this.formLogin.controls; }
   
+   // Method to fetch and set the IP
+  async fetchIp(): Promise<void> {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      this.ipAddress = data.ip; // Set the IP address to the component variable
+      console.log(this.ipAddress);
+    } catch (error) {
+      console.error('Error fetching IP:', error);
+    }
+  }
   
   getScheduleDetails(){
     this.commonService.getScheduleDetails().subscribe((res: Schedulemodel ) => {
@@ -112,7 +130,7 @@ export class LoginComponent implements OnInit {
     var selecteddata = this.formLogin.getRawValue();
     this.loginModel.userName = selecteddata.userName;
     this.loginModel.userPassword = selecteddata.userPassword;
-    this.loginModel.ipAddress = this.ipAddress;
+    this.loginModel.ipAddress = this.ipAddress?this.ipAddress:"";
     this.loginModel.otp = selecteddata.otp?selecteddata.otp : "";
 
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
