@@ -159,7 +159,7 @@
                                                 <input class="form-control" decimalonly formControlName="ltsDslToBe">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2" *ngif="1==2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Open Bal Dsl</label>
                                                 <input class="form-control" decimalonly formControlName="opBalDsl">
@@ -617,60 +617,8 @@
                     </div>
                 </div>   
                 <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">Driver Fooding Expenses</h4>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Food Sal Per Day</label>
-                                                <input class="form-control" numbersonly formControlName="food_Sal_PerDay" (change) ="getFoodCal()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity"> Food Sal FromDt </label>
-                                                <input type="date" class="form-control"   
-                                                formControlName="food_Sal_FromDt" (change) ="getSalDays()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Food Sal ToDt</label>
-                                                <input type="date" class="form-control"   
-                                                formControlName="food_Sal_ToDt" (change) ="getSalDays()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Food Sal Days </label>
-                                              
-                                                <input class="form-control" numbersonly formControlName="food_Sal_Days" (change) ="getFoodCal()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Food Sal Amount</label>
-                                             
-                                                <input class="form-control" decimalonly formControlName="food_Sal_Amt">
-                                                
-                                            </div>
-                                        </div>
-        
-        
-                                    </div>  
-                                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>   
-                <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
-                        <div class="card"> 
-                                                   
+                        <div class="card">                                                    
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
@@ -745,7 +693,7 @@
                                     </div>
                                 </div>
                             </div>                            
-                            <div class="row">
+                            <div class="row" *ngif="1==2">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Total Bhatta Days</label>
@@ -763,7 +711,9 @@
                                         <label for="formrow-inputCity">Bhatta Amt</label>
                                         <input class="form-control" decimalonly formControlName="bhattaAmt">
                                     </div>
-                                </div>
+                                </div>                                
+                            </div>                            
+                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">On-Time Incentive Amt</label>
@@ -771,9 +721,6 @@
                                         formControlName="onTimeIncentiveAmt">
                                     </div>
                                 </div>
-                                
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Multi Del Incentive Amt</label>
@@ -811,6 +758,65 @@
                                  
                                 <div class="col-lg-2">
                                     <div class="mb-2">
+                                        <label for="formrow-inputCity">Rta Challan Amt</label>
+                                        <input class="form-control" decimalonly formControlName="rtaChallanAmt" (change)="calTotal()">
+                                    </div>
+                                </div> 
+                            </div>      
+                            <div class="ng-untouched ng-pristine ng-valid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;">Driver Fooding Expenses</h4>
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">Food Sal Per Day</label>
+                                                            <input class="form-control" numbersonly formControlName="food_Sal_PerDay" (change) ="getFoodCal()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity"> Food Sal FromDt </label>
+                                                            <input type="date" class="form-control"   
+                                                            formControlName="food_Sal_FromDt" (change) ="getSalDays()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">Food Sal ToDt</label>
+                                                            <input type="date" class="form-control"   
+                                                            formControlName="food_Sal_ToDt" (change) ="getSalDays()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">Food Sal Days </label>
+                                                          
+                                                            <input class="form-control" numbersonly formControlName="food_Sal_Days" (change) ="getFoodCal()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">Food Sal Amount</label>
+                                                         
+                                                            <input class="form-control" decimalonly formControlName="food_Sal_Amt">
+                                                            
+                                                        </div>
+                                                    </div>
+                    
+                    
+                                                </div>  
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="row">                                
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
                                         <label for="formrow-inputCity">Trip Balance (Driver)</label>
                                         <input class="form-control" decimalonly formControlName="tripBalance">
                                     </div>
@@ -829,27 +835,13 @@
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['netTripBalance'].invalid) }" >
                                     </div>
                                 </div>
-                               
-                               
-                            </div>                   
+                            </div>            
                             <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Rta Challan Amt</label>
-                                        <input class="form-control" decimalonly formControlName="rtaChallanAmt" (change)="calTotal()">
-                                    </div>
-                                </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Fastag Amount</label>
                                         <input class="form-control" decimalonly (change)="calTotal()"
                                         formControlName="fastagAmount">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Trip Total Freight</label>
-                                        <input class="form-control" decimalonly formControlName="tripTotalFreight">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -863,6 +855,12 @@
                                         <label for="formrow-inputCity">Trip Total Expenses</label>
                                         <input class="form-control" decimalonly formControlName="tripTotalExpenses"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['tripTotalExpenses'].invalid) }" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Trip Total Freight</label>
+                                        <input class="form-control" decimalonly formControlName="tripTotalFreight">
                                     </div>
                                 </div>
                             </div>

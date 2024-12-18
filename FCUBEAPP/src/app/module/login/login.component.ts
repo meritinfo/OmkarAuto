@@ -99,12 +99,6 @@ export class LoginComponent implements OnInit {
      
   }
 
-  getIpAddress(){
-    this.sharedService.getipaddress().subscribe((res) => {
-      this.ipAddress = res;
-    });     
-  }
-  
   getCompanyDetails(){
     this.sharedService.getCompanyDetail().subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -145,24 +139,25 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['/intermediatescreen']);
       }
       else if(this.selectedUserDetails.userId == "1"){
+        this.selectedUserDetails.message = "";
         if (confirm("Do you want to generate OTP?")) {
           this.sharedService.generateOTP(this.loginModel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if(this.responseDetails.status){
               this.selectedUserDetails.message = "OTP Generated, Login with OTP";
-              console.log("OTP Generated, Login with OTP"); 
               this.otp = true;
             }
             else{
-              console.log(this.responseDetails.message);        
+              this.selectedUserDetails.message = res.message;  
+              this.formLogin.reset();       
             }     
           });
         }
       }
       else {
         console.log(this.selectedUserDetails.message);
+        this.formLogin.reset(); 
       }
-      this.formLogin.reset(); 
     });
     this.sharedService.loading = false;
   }

@@ -634,7 +634,7 @@ export class ChallanmasteraddComponent {
             aadharLinked="Y";
           }
           var ch = pan.substring(3, 4) ;
-          if(ch == "P" || ch == "H"){
+          if(ch == "P" || ch == "F" || ch == "H"){
             if(panValid == "Y" && aadharLinked == "Y"){
               tdsPct = 1;
             }
@@ -651,7 +651,7 @@ export class ChallanmasteraddComponent {
             }
           }
 
-          if(ch == "P"){            
+          if(ch == "P" || ch == "F"){            
             this.formUser.controls["declarationYN"].enable();              
           }
           else{            

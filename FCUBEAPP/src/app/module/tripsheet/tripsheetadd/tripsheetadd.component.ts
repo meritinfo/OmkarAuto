@@ -682,6 +682,8 @@ export class TripsheetaddComponent {
       this.formTripsheet.patchValue({
         issuedDslLtrs : issuedDslLtrs.toFixed(2),
         issuedDslAmt: issuedDslAmt.toFixed(2), 
+        dieselPassedLtrs: issuedDslLtrs.toFixed(2),
+        dieselPassedAmt: issuedDslAmt.toFixed(2), 
         fastagAmount: fastagAmount.toFixed(2), 
         clBalDsl: clBalDsl.toFixed(2), 
         totalBhattaDays: totalBhattaDays,
@@ -900,15 +902,15 @@ export class TripsheetaddComponent {
     var rtaAmt =  selectedDataValue.rtaChallanAmt==''?0:parseFloat(selectedDataValue.rtaChallanAmt);
     
     var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
-                      - expensesByDriver - bhattaAmt - penaltyChargedToDr 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt + dieselVarianceAmt;
+                      - expensesByDriver - bhattaAmt + penaltyChargedToDr - foodsal
+                      - onTimeIncentiveAmt - multiDelIncentiveAmt - rtaAmt;
 
     var netTripBalance = tripBalance - recdFromDriver;
     // var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
     //                   + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp + foodsal + rtaAmt
-
-     var tripTotalExpenses = dieselPassedAmt + expensesByDriver  + bhattaAmt  + onTimeIncentiveAmt + multiDelIncentiveAmt + fastagAmount 
-                      + expensesByComp + foodsal + rtaAmt- penaltyChargedToDr
+   
+    var tripTotalExpenses = expensesByDriver  + bhattaAmt  + onTimeIncentiveAmt + multiDelIncentiveAmt - penaltyChargedToDr + rtaAmt + fastagAmount 
+                      + expensesByComp + dieselPassedAmt + foodsal + rtaAmt- penaltyChargedToDr
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
