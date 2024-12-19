@@ -110,8 +110,8 @@ namespace FleetTrans.Models
     }
     public class AdblueDetails
     {
-        public string? TripDtlId { get; set; }
         public string? TripId { get; set; }
+        public string? PmtId { get; set; }
         public string? IssueBranch { get; set; }
         public string? IssueDate { get; set; }
         public string? IssueParticulars { get; set; }

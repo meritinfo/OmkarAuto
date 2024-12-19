@@ -143,7 +143,7 @@ export class BillsubmitmasteraddComponent {
     this.getBillingPartyList();
 
     this.formUser.controls['submitStn'].disable(); 
-    this.formUser.controls['submitNo'].disable();   
+    //this.formUser.controls['submitNo'].disable();   
 
     if (this.selectedBillSubmitMasterDetail.submitMstId != '') {
       this.getPartyGstLocationList(this.selectedBillSubmitMasterDetail.partyCode);
@@ -152,6 +152,7 @@ export class BillsubmitmasteraddComponent {
     
     if (this.selectedBillSubmitMasterDetail.submitMstId   != '') {
       setTimeout(() => {
+        this.formUser.controls['submitNo'].disable();  
         this.formUser.patchValue(this.selectedBillSubmitMasterDetail);
         this.formUser.patchValue({
           submitDt: this.commonService.formatDate(this.selectedBillSubmitMasterDetail.submitDt),
@@ -178,7 +179,8 @@ export class BillsubmitmasteraddComponent {
 
   billSubmitSeriesChange(): void {
     var selectedData = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedData.submitNo;
+    this.requestmodel.strRequest = selectedData.submitStn;
+    this.requestmodel.strRequest1 = this.year;
     this.commonService.getBillSubmitSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formUser.patchValue({

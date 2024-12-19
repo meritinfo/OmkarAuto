@@ -15,5 +15,6 @@ namespace FleetTrans.Repository
         Task<TripSheetModel> GetTripSheetInnerSearchList(ReportRequestModel request);
         Task<TripSheetModel> GetTripSheetInnerGridList(RequestModel request);
         Task<ResponseModel> GetNextTripSalDate(RequestModel request);
+        Task<ResponseModel> GetTripJetPrintPdf(RequestModel request);
     }
 }

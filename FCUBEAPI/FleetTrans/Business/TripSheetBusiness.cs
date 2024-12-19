@@ -34,6 +34,10 @@ namespace FleetTrans.Business
         {
             return await tripSheetRepository.GetNextTripSalDate(request);
         }
+        public async Task<ResponseModel> GetTripJetPrintPdf(RequestModel request)
+        {
+            return await tripSheetRepository.GetTripJetPrintPdf(request);
+        }
 
     }
 }

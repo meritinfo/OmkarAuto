@@ -136,7 +136,6 @@ export class TripsheetaddComponent {
       issuedDslAmt: new FormControl('',),
       dieselPassedLtrs: new FormControl('',),
       dieselPassedAmt: new FormControl('',),
-      adbluePassedAmt: new FormControl('',),
       dieselVarianceAmt: new FormControl('',),
       clBalDsl: new FormControl('',),      
       opBalDriver: new FormControl('',),
@@ -151,6 +150,7 @@ export class TripsheetaddComponent {
       penaltyChargedToDr: new FormControl('',),
       penaltyRemarks: new FormControl('',),
       //totalDriverAc: new FormControl('',),
+      totalAdblueExp: new FormControl('',),
       tripBalance: new FormControl('',),
       recdFromDriver: new FormControl('',),
       netTripBalance: new FormControl('',[Validators.required]),
@@ -189,8 +189,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['issuedDslLtrs'].disable();      
     this.formTripsheet.controls['issuedDslAmt'].disable();       
     this.formTripsheet.controls['fastagAmount'].disable();          
-    this.formTripsheet.controls['dieselPassedAmt'].disable();    
-    this.formTripsheet.controls['adbluePassedAmt'].disable();     
+    this.formTripsheet.controls['dieselPassedAmt'].disable();   
     this.formTripsheet.controls['dieselVarianceAmt'].disable();     
     this.formTripsheet.controls['clBalDsl'].disable();       
     this.formTripsheet.controls['paidDriverAdvance'].disable();    
@@ -200,7 +199,8 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['bhattaAmt'].disable();       
     this.formTripsheet.controls['tripBalance'].disable();      
     this.formTripsheet.controls['netTripBalance'].disable();     
-    this.formTripsheet.controls['tripTotalFreight'].disable();     
+    this.formTripsheet.controls['tripTotalFreight'].disable();       
+    this.formTripsheet.controls['totalAdblueExp'].disable();    
     this.formTripsheet.controls['tripTotalExpenses'].disable();   
     this.formTripsheet.controls['expensesByComp'].disable();     
     this.formTripsheet.controls['tripCloseDt'].disable();
@@ -367,8 +367,7 @@ export class TripsheetaddComponent {
   }
   createAdblueArray() {
     return this.formBuilder.group({
-      tripDtlId:  [''],
-      tripId:  [''],
+      pmtId:  [''],
       issueBranch:  [''],
       issueDate:  [''],
       issueParticulars:  [''],
@@ -535,7 +534,8 @@ export class TripsheetaddComponent {
     var fastagAmount = 0;
     var paidDriverAdvance = 0;
     var tripTotalFreight = 0;    
-    var expensesByComp = 0;    
+    var expensesByComp = 0;   
+    var totalAdblueExp = 0; 
 
     var deptDate = new Date(selectedDataValue.deptDate);
     var endDate = new Date(selectedDataValue.endDate);    
@@ -626,24 +626,20 @@ export class TripsheetaddComponent {
       }
       for (var i = 0; i < res.adblueList.length; i++) {
         this.formAdblueArray.push(this.createAdblueArray());
-        this.formAdblueArray.controls[i].get("tripDtlId")?.setValue(res.adblueList[i].tripDtlId);
-        this.formAdblueArray.controls[i].get("tripId")?.setValue(res.adblueList[i].tripId);
+        this.formAdblueArray.controls[i].get("pmtId")?.setValue(res.adblueList[i].pmtId);
         this.formAdblueArray.controls[i].get("issueBranch")?.setValue(res.adblueList[i].issueBranch);
         this.formAdblueArray.controls[i].get("issueDate")?.setValue(this.commonService.formatDate(res.adblueList[i].issueDate));
-        //this.formAdblueArray.controls[i].get("issueDate")?.setValue(res.adblueList[i].issueDate);
         this.formAdblueArray.controls[i].get("issueParticulars")?.setValue(res.adblueList[i].issueParticulars);
         this.formAdblueArray.controls[i].get("adblueLtrs")?.setValue(res.adblueList[i].adblueLtrs);
         this.formAdblueArray.controls[i].get("adblueAmt")?.setValue(res.adblueList[i].adblueAmt);
        
 
-        //issuedDslLtrs = issuedDslLtrs + parseFloat(res.dieselList[i].dslQty);
-        //issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
+        totalAdblueExp = totalAdblueExp + parseFloat(res.adblueList[i].adblueAmt);
 
         this.formAdblueArray.controls[i].get("issueDate")?.disable();
-       this.formAdblueArray.controls[i].get("issueParticulars")?.disable();
+        this.formAdblueArray.controls[i].get("issueParticulars")?.disable();
         this.formAdblueArray.controls[i].get("adblueLtrs")?.disable();
-         this.formAdblueArray.controls[i].get("adblueAmt")?.disable();
-        // this.formDieselArray.controls[i].get("remarks")?.disable();
+        this.formAdblueArray.controls[i].get("adblueAmt")?.disable();
       }
 
       // for (var i = 0; i < res.fasttagList.length; i++) {
@@ -684,6 +680,7 @@ export class TripsheetaddComponent {
         issuedDslAmt: issuedDslAmt.toFixed(2), 
         dieselPassedLtrs: issuedDslLtrs.toFixed(2),
         dieselPassedAmt: issuedDslAmt.toFixed(2), 
+        totalAdblueExp : totalAdblueExp.toFixed(2), 
         fastagAmount: fastagAmount.toFixed(2), 
         clBalDsl: clBalDsl.toFixed(2), 
         totalBhattaDays: totalBhattaDays,
@@ -756,16 +753,14 @@ export class TripsheetaddComponent {
       for (var i = 0; i < res.adblueList.length; i++) {
         this.formAdblueArray.push(this.createAdblueArray());
 
-        this.formAdblueArray.controls[i].get("tripDtlId")?.setValue(res.adblueList[i].tripDtlId);
-        this.formAdblueArray.controls[i].get("tripId")?.setValue(res.adblueList[i].tripId);
+        this.formAdblueArray.controls[i].get("pmtId")?.setValue(res.adblueList[i].pmtId);
         this.formAdblueArray.controls[i].get("issueBranch")?.setValue(res.adblueList[i].issueBranch);
         this.formAdblueArray.controls[i].get("issueDate")?.setValue(this.commonService.formatDate(res.adblueList[i].issueDate));
         this.formAdblueArray.controls[i].get("issueParticulars")?.setValue(res.adblueList[i].issueParticulars);
         this.formAdblueArray.controls[i].get("adblueAmt")?.setValue(res.adblueList[i].adblueAmt);
         this.formAdblueArray.controls[i].get("adblueLtrs")?.setValue(res.adblueList[i].adblueLtrs);
         
-        this.formAdblueArray.controls[i].get("tripDtlId")?.disable();
-        this.formAdblueArray.controls[i].get("tripId")?.disable();
+        this.formAdblueArray.controls[i].get("pmtId")?.disable();
         this.formAdblueArray.controls[i].get("issueBranch")?.disable();
         this.formAdblueArray.controls[i].get("issueDate")?.disable();
         this.formAdblueArray.controls[i].get("issueParticulars")?.disable();
@@ -900,6 +895,7 @@ export class TripsheetaddComponent {
     var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
     var foodsal = selectedDataValue.food_Sal_Amt==''?0:parseFloat(selectedDataValue.food_Sal_Amt);
     var rtaAmt =  selectedDataValue.rtaChallanAmt==''?0:parseFloat(selectedDataValue.rtaChallanAmt);
+    var adblueExp  =selectedDataValue.totalAdblueExp==''?0:parseFloat(selectedDataValue.totalAdblueExp);
     
     var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
                       - expensesByDriver - bhattaAmt + penaltyChargedToDr - foodsal
@@ -909,8 +905,10 @@ export class TripsheetaddComponent {
     // var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
     //                   + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp + foodsal + rtaAmt
    
-    var tripTotalExpenses = expensesByDriver  + bhattaAmt  + onTimeIncentiveAmt + multiDelIncentiveAmt - penaltyChargedToDr + rtaAmt + fastagAmount 
-                      + expensesByComp + dieselPassedAmt + foodsal + rtaAmt- penaltyChargedToDr
+    var tripTotalExpenses = expensesByDriver  + bhattaAmt  + 
+                      onTimeIncentiveAmt + multiDelIncentiveAmt 
+                      - penaltyChargedToDr + fastagAmount 
+                      + expensesByComp + adblueExp + dieselPassedAmt + foodsal + rtaAmt
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
@@ -1147,6 +1145,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.freightCollByDriver= selectedDataValue.freightCollByDriver.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
+    this.tripsheetmodel.totalAdblueExp= selectedDataValue.totalAdblueExp.toString();    
     this.tripsheetmodel.totalBhattaDays= selectedDataValue.totalBhattaDays.toString();
     this.tripsheetmodel.bhattaRate= selectedDataValue.bhattaRate.toString();
     this.tripsheetmodel.bhattaAmt= selectedDataValue.bhattaAmt.toString();
@@ -1235,8 +1234,8 @@ export class TripsheetaddComponent {
     for (var i = 0; i < selectedDataValue.adblueList.length; i++) {
       if(selectedDataValue.adblueList[i].detailID!=''){
         this.tripsheetmodel.adblueList.push({
-          'tripDtlId': selectedDataValue.adblueList[i].tripDtlId,
-          'tripId': selectedDataValue.adblueList[i].tripId,
+          'tripId': "",
+          'pmtId': selectedDataValue.adblueList[i].pmtId,
           'issueBranch':  selectedDataValue.adblueList[i].issueBranch,
           'issueDate':  selectedDataValue.adblueList[i].issueDate,
           'issueParticulars':  selectedDataValue.adblueList[i].issueParticulars,
