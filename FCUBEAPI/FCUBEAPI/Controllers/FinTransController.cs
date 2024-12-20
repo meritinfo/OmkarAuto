@@ -656,6 +656,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBankBookRptExcel")]
+        public async Task<IActionResult> GetBankBookRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankBookRptBusiness.GetBankBookRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("GetBankBookRptPdf")]
         public async Task<IActionResult> GetBankBookRptPdf(ReportRequestModel req)
         {

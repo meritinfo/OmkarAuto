@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FinTrans.Models;
 using FinTrans.Repository;
 using iText.Kernel.Colors;
@@ -17,11 +12,9 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using iText.Kernel.Geom;
 using iText.Layout;
 using Microsoft.Extensions.Options;
-using Org.BouncyCastle.Asn1.Ocsp;
 using Shared.Repository;
 using SqlHelper.Models;
 using System.Collections;
@@ -46,15 +39,32 @@ namespace FinTrans.Business
         {
             return await bankBookRptRepository.GetBankBookRptList(request);
         }
+        public async Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request)
+        {
+            return await bankBookRptRepository.GetBankBookRptExcel(request);
+        }
         public async Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request)
         {
+            ResponseModel res = new ResponseModel();
             DataSet reportData = await bankBookRptRepository.bankBookReport(request);
 
-            ResponseModel response = new ResponseModel();
-            response = await sharedRepository.GetCompanyDetail();
+            if (reportData != null && reportData.Tables[0].Rows.Count > 0)
+            {
+                ResponseModel response = new ResponseModel();
+                response = await sharedRepository.GetCompanyDetail();
 
-            string path = CreateBankBookReportAsync(request, reportData, response);
-            return new ResponseModel { Status = true, Message = path };
+                string path = CreateBankBookReportAsync(request, reportData, response);
+
+                res.Status = true;
+                res.Message = path;
+            }
+            else
+            {
+                res.Status = false;
+                res.Message = "No Data Found";
+            }
+           
+            return res;
         }
 
         private string CreateBankBookReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)

@@ -29,4 +29,7 @@ export class BankbookrptService {
   getBankBookrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankBookRptPdf', filter, this.httpOptions);
   } 
+  getBankBookrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankBookRptExcel', filter, this.httpOptions);
+  } 
 }
