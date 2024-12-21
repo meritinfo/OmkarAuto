@@ -367,7 +367,7 @@ namespace FCUBEAPI
             app.UseCors(builder => builder
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .SetIsOriginAllowed((host) => true)
+            .SetIsOriginAllowed(_ => true)
             .AllowCredentials());
 
             app.UseHttpsRedirection();

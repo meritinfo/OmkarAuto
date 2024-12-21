@@ -769,7 +769,7 @@ export class TripsheetaddComponent {
 
       }
       
-      for (var i = 0; i < res.adblueList.length; i++) {
+      for (var i = 0; i < res.dieselList.length; i++) {
         this.formDieselArray.push(this.createDieselArray());
         this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
         this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
