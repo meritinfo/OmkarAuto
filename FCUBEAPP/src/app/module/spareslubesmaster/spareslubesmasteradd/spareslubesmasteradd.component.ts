@@ -80,6 +80,10 @@ ngOnInit(): void {
     lifeType: new FormControl('',[Validators.required]),
     lifeExpectancy: new FormControl('',[Validators.required]),
     isActive: new FormControl('Y',[Validators.required]),
+    inventroyYN: new FormControl('',[Validators.required]),
+    openingQty: new FormControl(''),
+    openingValue: new FormControl(''),
+   
   });
 
   if (this.selectedSpareslubesMasterDetails.spareLubId != '') {
@@ -186,6 +190,9 @@ submitSparesLubesMasterForm(): void {
   this.sparesLubesMasterModel.lifeType = selectedDataVal.lifeType;
   this.sparesLubesMasterModel.lifeExpectancy = selectedDataVal.lifeExpectancy;
   this.sparesLubesMasterModel.isActive = selectedDataVal.isActive;
+  this.sparesLubesMasterModel.inventroyYN = selectedDataVal.inventroyYN;
+  this.sparesLubesMasterModel.openingQty = selectedDataVal.openingQty;
+  this.sparesLubesMasterModel.openingValue = selectedDataVal.openingValue;
   //this.classificationModel.loggedInUserID   = this.loggedInUserID;
 
   this.sparesLubesMasterService.sparesLubesMasterSubmitted(this.sparesLubesMasterModel).subscribe((res: Responsemodel) => {

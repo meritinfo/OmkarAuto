@@ -16,6 +16,9 @@ namespace FleetMasters.Models
         public string? LifeExpectancy { get; set; }
         public string? IsActive { get; set; }
         public string? stype { get; set; }
+        public string? InventroyYN { get; set; }
+        public string? OpeningQty { get; set; }
+        public string? OpeningValue { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

@@ -8,5 +8,7 @@ export class Spareslubesmastermodel {
     isActive: string="";
     loggedInUser: string="";
     stype: string="";
-    
+    inventroyYN: string="";
+    openingQty: string="";
+    openingValue: string="";
 }

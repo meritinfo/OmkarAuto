@@ -27,8 +27,6 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['spareLubName'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>   
-                                    <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Spare LubType</label>
@@ -41,6 +39,9 @@
                                                 </select> 
                                             </div>
                                         </div> 
+                                    </div>   
+                                    <div class="row">                                        
+                                       
                                     </div>  
                                     <div class="row">                                        
                                         <div class="col-lg-3">
@@ -55,7 +56,6 @@
                                                 </select> 
                                             </div>
                                         </div> 
-                                    </div>     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">LifeType</label>
@@ -68,6 +68,8 @@
                                                 </select> 
                                             </div>
                                         </div> 
+                                    </div>     <div class="row">                                        
+                                        
                                     </div> 
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -79,8 +81,6 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lifeExpectancy'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>   
-                                    <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Is Active</label>
@@ -93,7 +93,45 @@
                                                 </select> 
                                             </div>
                                         </div> 
-                                    </div> 
+                                     
+                                    </div>   
+                                   
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Inventroy YN</label>
+                                             
+                                                <select formControlName="inventroyYN" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['inventroyYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
+                                                </select> 
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Opening Qty</label>
+                                               
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" " decimalonly
+                                                formControlName="openingQty"   
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['openingQty'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Opening Value</label>
+                                            
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" " decimalonly
+                                                formControlName="openingValue"   
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['openingValue'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                      
+                                    </div>   
+                                    
                                 </div>
                             </div>
                         </div>

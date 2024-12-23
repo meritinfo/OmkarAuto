@@ -39,6 +39,9 @@ namespace FleetMasters.Repository
                             new SqlParameter("@LifeType", sparesLubesMasterModel.LifeType),
                             new SqlParameter("@LifeExpectancy", sparesLubesMasterModel.LifeExpectancy),
                             new SqlParameter("@IsActive", sparesLubesMasterModel.IsActive),
+                            new SqlParameter("@InventroyYN", sparesLubesMasterModel.InventroyYN),
+                            new SqlParameter("@OpeningQty", sparesLubesMasterModel.OpeningQty),
+                             new SqlParameter("@OpeningValue", sparesLubesMasterModel.OpeningValue),
                             new SqlParameter("@LoggedInUser", sparesLubesMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesLubesMasterSave", param);
@@ -97,6 +100,9 @@ namespace FleetMasters.Repository
                                 LifeType = Convert.ToString(dataSet.Tables[0].Rows[i]["LifeType"]),
                                 LifeExpectancy = Convert.ToString(dataSet.Tables[0].Rows[i]["LifeExpectancy"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
+                                InventroyYN = Convert.ToString(dataSet.Tables[0].Rows[i]["InventroyYN"]),
+                                OpeningQty = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningQty"]),
+                                OpeningValue = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningValue"]),
                                 stype = Convert.ToString(dataSet.Tables[0].Rows[i]["stype"]),
                                 // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                             });
