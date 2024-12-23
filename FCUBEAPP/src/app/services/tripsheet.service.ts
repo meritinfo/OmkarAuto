@@ -84,5 +84,8 @@ export class TripSheetService {
   getTripPrintPdf(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPrintPdf', req, this.httpOptions);
   }
+  getTripJetPrintPdf(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripJetPrintPdf', req, this.httpOptions);
+  }
 
 }

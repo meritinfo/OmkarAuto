@@ -42,6 +42,7 @@ namespace FleetTrans.Models
         public string? PenaltyChargedToDr { get; set; }
         public string? PenaltyRemarks { get; set; }
         public string? TotalDriverAc { get; set; }
+        public string? TotalAdblueExp { get; set; }        
         public string? TripBalance { get; set; }
         public string? RecdFromDriver { get; set; }
         public string? NetTripBalance { get; set; }

@@ -13,5 +13,6 @@ namespace FinTrans.Repository
     {
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<DataSet> bankBookReport(ReportRequestModel request);
+        Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
     }
 }

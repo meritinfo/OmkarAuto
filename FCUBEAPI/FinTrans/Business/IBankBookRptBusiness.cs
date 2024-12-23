@@ -14,5 +14,6 @@ namespace FinTrans.Business
     {
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request);
+        Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
     }
 }

@@ -33,6 +33,7 @@ export class Tripsheetmodel {
     penaltyChargedToDr: string = "";
     penaltyRemarks: string = "";
     totalDriverAc: string = "";
+    totalAdblueExp: string = "";
     tripBalance: string = "";
     recdFromDriver: string = "";
     netTripBalance: string = "";
@@ -108,8 +109,8 @@ export class DieselDetails {
 
 
 export class AdblueDetails {
-    tripDtlId: string = "";
     tripId: string = "";
+    pmtId: string = "";
     issueBranch: string = "";
     issueDate: string = "";
     issueParticulars : string = "";

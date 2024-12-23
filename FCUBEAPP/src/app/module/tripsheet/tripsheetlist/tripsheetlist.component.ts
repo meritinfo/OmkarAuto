@@ -289,7 +289,7 @@ getTripMaster(){
 
   download(tripsheet: Tripsheetmodel){
     this.request.strRequest = tripsheet.tripId;
-    this.tripSheetService.getTripPrintPdf(this.request).subscribe(resp => {
+    this.tripSheetService.getTripJetPrintPdf(this.request).subscribe(resp => {
       if(resp.status){    
         let link = document.createElement("a");
         link.download = "TripPrint_" + new Date().getTime() + '.pdf';

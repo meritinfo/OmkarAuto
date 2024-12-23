@@ -634,7 +634,7 @@ export class ChallanmasteraddComponent {
             aadharLinked="Y";
           }
           var ch = pan.substring(3, 4) ;
-          if(ch == "P" || ch == "H"){
+          if(ch == "P" || ch == "F" || ch == "H"){
             if(panValid == "Y" && aadharLinked == "Y"){
               tdsPct = 1;
             }
@@ -651,7 +651,7 @@ export class ChallanmasteraddComponent {
             }
           }
 
-          if(ch == "P"){            
+          if(ch == "P" || ch == "F"){            
             this.formUser.controls["declarationYN"].enable();              
           }
           else{            
@@ -1045,7 +1045,8 @@ export class ChallanmasteraddComponent {
       return;
     }
     if(selectedDataValue.declarationYN){
-      if(this.photo1Input.nativeElement.files[0]|| this.selectedChallanDetails.photo1!=""){
+      if(this.photo1Input.nativeElement.files[0]?this.photo1Input.nativeElement.files[0]:""!="" || 
+        this.selectedChallanDetails.photo1?this.selectedChallanDetails.photo1:""!=""){
         //ignore
       }
       else{
@@ -1175,7 +1176,6 @@ export class ChallanmasteraddComponent {
     formData.append('photo2', this.photo2Input.nativeElement.files[0]);
     formData.append('photo3', this.photo3Input.nativeElement.files[0]);
     formData.append('truckDriverImage', this.truckDriverImageInput.nativeElement.files[0]);
-
     formData.append('datadetails', JSON.stringify(this.challanmodel));
 
      

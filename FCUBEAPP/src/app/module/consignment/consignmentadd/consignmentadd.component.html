@@ -13,15 +13,15 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step1Active}" data-toggle="tab" aria-controls="step1" role="tab"
-                        title="Step 1">Booking</a>
+                    (click)="nextStep(1)"  title="Step 1">Booking</a>
                 </li>
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
-                        title="Step 2">Cnor/Cnee</a>
+                    (click)="nextStep(2)"  title="Step 2">Cnor/Cnee</a>
                 </li>
                 <li role="presentation" class="nav-item">
                     <a class="nav-link" [ngClass]="{'active' : step3Active}" data-toggle="tab" aria-controls="step3" role="tab"
-                        title="Step 3">Freight</a>
+                    (click)="nextStep(3)" title="Step 3">Freight</a>
                 </li>
             </ul>
             <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser" (keydown.enter)="$event.preventDefault()">

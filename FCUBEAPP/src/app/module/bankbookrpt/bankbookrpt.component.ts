@@ -7,7 +7,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
-import { Ledgerrptmodel } from 'src/app/models/ledgerrptmodel';
 import { BankbookrptService } from 'src/app/services/bankbookrpt.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { ExcelService } from 'src/app/services/excel.service';
@@ -269,6 +268,50 @@ export class BankbookrptComponent {
       }
     });
   }    
+
+  exportExcel(){
+    this.formSubmitted = true;
+    if (this.formFilter.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields");   
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      }     
+      return;
+    }
+    var selectedDataVal=this.formFilter.getRawValue();
+    
+    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid Account ");          
+      return;
+    }
+
+    this.filter.fromDate    = selectedDataVal.fromDate;
+    this.filter.toDate      = selectedDataVal.toDate;
+    this.filter.filterStr   = selectedDataVal.accountID.dataId;
+    this.filter.filterStr1  = this.year;
+    this.filter.filterStr2  = selectedDataVal.branch;
+    this.filter.filterStr3  = selectedDataVal.accountID.dataName;
+    
+    this.bankbookrptService.getBankBookrptExcel(this.filter).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "BankBook_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
   
   search(): void {
     this.formSubmitted = true;

@@ -64,6 +64,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PenaltyChargedToDr" , tripMasterModel.PenaltyChargedToDr),
                             new SqlParameter("@PenaltyRemarks" , tripMasterModel.PenaltyRemarks),
                             new SqlParameter("@TotalDriverAc" , tripMasterModel.TotalDriverAc),
+                            new SqlParameter("@TotalAdblueExp" , tripMasterModel.TotalAdblueExp),                            
                             new SqlParameter("@TripBalance" , tripMasterModel.TripBalance),
                             new SqlParameter("@RecdFromDriver" , tripMasterModel.RecdFromDriver),
                             new SqlParameter("@NetTripBalance" , tripMasterModel.NetTripBalance),
@@ -213,7 +214,7 @@ namespace FleetTrans.Repository
                                 SqlParameter[] paramdr =
                                 {
                                     new SqlParameter("@TripId", MasterID),
-                                    //new SqlParameter("@TripDtlId", tripMasterModel.AdblueList[i].TripDtlId),
+                                    new SqlParameter("@PmtId", tripMasterModel.AdblueList[i].PmtId),
                                     new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].IssueBranch),
                                     new SqlParameter("@IssueDate", tripMasterModel.AdblueList[i].IssueDate),
                                     new SqlParameter("@IssueParticulars", tripMasterModel.AdblueList[i].IssueParticulars),
@@ -403,6 +404,7 @@ namespace FleetTrans.Repository
                                 PenaltyChargedToDr = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyChargedToDr"]),
                                 PenaltyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyRemarks"]),
                                 TotalDriverAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDriverAc"]),
+                                TotalAdblueExp = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAdblueExp"]),
                                 TripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBalance"]),
                                 RecdFromDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdFromDriver"]),
                                 NetTripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["NetTripBalance"]),
@@ -567,7 +569,7 @@ namespace FleetTrans.Repository
                             tripSheetInnerGridList.AdblueList.Add(new AdblueDetails
                             {
                                 //TripDtlId = Convert.ToString(resultData.Tables[5].Rows[i]["TripDtlId"]),
-                                //TripId = Convert.ToString(resultData.Tables[5].Rows[i]["TripId"]),
+                                PmtId = Convert.ToString(resultData.Tables[5].Rows[i]["PmtId"]),
                                 IssueBranch = Convert.ToString(resultData.Tables[5].Rows[i]["IssueBranch"]),
                                 IssueDate = Convert.ToString(resultData.Tables[5].Rows[i]["IssueDate"]),
                                 IssueParticulars = Convert.ToString(resultData.Tables[5].Rows[i]["IssueParticulars"]),
@@ -719,8 +721,8 @@ namespace FleetTrans.Repository
                         {
                             tripSheetInnerGridList.AdblueList.Add(new AdblueDetails
                             {
-                                TripDtlId = Convert.ToString(resultData.Tables[6].Rows[i]["TripDtlId"]),
                                 TripId = Convert.ToString(resultData.Tables[6].Rows[i]["TripId"]),
+                                PmtId = Convert.ToString(resultData.Tables[6].Rows[i]["PmtId"]),
                                 IssueBranch = Convert.ToString(resultData.Tables[6].Rows[i]["IssueBranch"]),
                                 IssueDate = Convert.ToString(resultData.Tables[6].Rows[i]["IssueDate"]),
                                 IssueParticulars = Convert.ToString(resultData.Tables[6].Rows[i]["IssueParticulars"]),
@@ -737,7 +739,47 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
+        
+        public async Task<ResponseModel> GetTripJetPrintPdf(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/Tripjet/";
 
+                string UrlParam = "?TripId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
     }
 
 }

@@ -54,10 +54,5 @@ export class SharedService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> { 
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Login/GetDocRenewalDetails/' ,null, this.httpOptions);
   }
-  getipaddress(): Observable<any> {
-    return this.httpClient.get<any>("https://api.ipify.org?format=json", this.httpOptions);
-    //return this.httpClient.get("https://api.ipify.org/", {responseType: 'text'});
-  }
-
   
 }
