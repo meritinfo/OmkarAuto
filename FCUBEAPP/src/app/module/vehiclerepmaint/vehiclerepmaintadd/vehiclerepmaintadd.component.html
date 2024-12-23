@@ -24,7 +24,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Stock Type </label><span style="color: red">*</span> 
                                             <select id="formrow-inputState" 
@@ -244,6 +244,11 @@
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
+                                                        <h6>Avail Qty </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
                                                         <h6>Item Qty </h6>
                                                     </label>
                                                 </td>
@@ -310,8 +315,7 @@
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2">
                                                         <select class="form-control" formControlName="spareLubId"   
-                                                            class="form-control form-select ng-pristine ng-touched"   
-                                                            [ngClass]="">
+                                                            class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of sparesList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
                                                             </option>
@@ -319,12 +323,15 @@
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <select class="form-control" formControlName="brandId"   
-                                                            class="form-control form-select ng-pristine ng-touched"   
-                                                            [ngClass]="">
+                                                            class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
                                                             </option>
                                                          </select>  
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="availQty"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"

@@ -309,8 +309,8 @@ namespace FCUBEAPI
             services.AddScoped<IDriverSalaryPaymentRepository, DriverSalaryPaymentRepository>();
             services.AddScoped<ITripSheetRepository, TripSheetRepository>();
             services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
-           services.AddScoped<IFleetRptRepository, FleetRptRepository>();
-           services.AddScoped<IFleetRptBusiness, FleetRptBusiness>();
+            services.AddScoped<IFleetRptRepository, FleetRptRepository>();
+            services.AddScoped<IFleetRptBusiness, FleetRptBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -367,7 +367,7 @@ namespace FCUBEAPI
             app.UseCors(builder => builder
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .SetIsOriginAllowed(_ => true)
+            .SetIsOriginAllowed((host) => true)
             .AllowCredentials());
 
             app.UseHttpsRedirection();

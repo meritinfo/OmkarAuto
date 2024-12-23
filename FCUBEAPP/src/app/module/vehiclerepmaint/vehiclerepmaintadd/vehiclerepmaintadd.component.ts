@@ -312,8 +312,8 @@ changeStockType(e: any) {
       this.formUser.controls['vendorGstNo'].disable();
       this.formUser.controls['vendorName'].disable();
       this.formUser.controls['gstInputTaken'].disable();
-      this.formUser.patchValue({
-    
+      
+      this.formUser.patchValue({    
         pmtType:"A",
         creditAc:"",
       })
@@ -408,6 +408,7 @@ createVehicleArray() {
     transDate: [''],
     spareLubId: [''],
     brandId: [''],
+    availQty: [''],
     itemQty: ['' ,[Validators.required]],
     itemRate: ['',[Validators.required]],
     itemAmount: [''],
@@ -493,6 +494,7 @@ getVehicleMaintMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("transDate")?.setValue(res.vehicleRepMaintDtlList[i].transDate); 
       this.formTyreArray.controls[i].get("spareLubId")?.setValue(res.vehicleRepMaintDtlList[i].spareLubId);  
       this.formTyreArray.controls[i].get("brandId")?.setValue(res.vehicleRepMaintDtlList[i].brandId);   
+      this.formTyreArray.controls[i].get("availQty")?.setValue(res.vehicleRepMaintDtlList[i].availQty);         
       this.formTyreArray.controls[i].get("itemQty")?.setValue(res.vehicleRepMaintDtlList[i].itemQty);  
       this.formTyreArray.controls[i].get("itemRate")?.setValue(res.vehicleRepMaintDtlList[i].itemRate);    
       this.formTyreArray.controls[i].get("itemAmount")?.setValue(res.vehicleRepMaintDtlList[i].itemAmount);  
@@ -505,7 +507,8 @@ getVehicleMaintMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("netAmount")?.setValue(res.vehicleRepMaintDtlList[i].netAmount); 
       this.formTyreArray.controls[i].get("remarks")?.setValue(res.vehicleRepMaintDtlList[i].remarks); 
     
-      this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
+      this.formTyreArray.controls[i].get("availQty")?.disable();
+      this.formTyreArray.controls[i].get("sgstAmt")?.disable();     
       this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
       this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
       this.formTyreArray.controls[0].get("netAmount")?.disable(); 
@@ -582,6 +585,7 @@ getVehicleIdList(): void {
     this.vehicleList = res;
   });
 }
+
 onPctChange(){
   var totalItemAmt = 0;
   var totalCgstAmt = 0;
@@ -743,6 +747,7 @@ this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
         'transDate': selectedDataValue.transDate,
         'spareLubId': selectedDataValue.arrayList[i].spareLubId,
         'brandId': selectedDataValue.arrayList[i].brandId,
+        'availQty':"",
         'itemQty': selectedDataValue.arrayList[i].itemQty,
         'itemRate': selectedDataValue.arrayList[i].itemRate,
         'itemAmount': selectedDataValue.arrayList[i].itemAmount,
