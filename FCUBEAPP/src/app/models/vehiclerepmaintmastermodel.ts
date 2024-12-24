@@ -51,6 +51,7 @@ export class vehicleRepMaintDtlList {
     transDate :  string="";
     spareLubId :  string="";
     brandId :  string="";
+    availQty :  string="";
     itemQty :  string="";
     itemRate :  string="";
     itemAmount :  string="";
