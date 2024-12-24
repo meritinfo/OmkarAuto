@@ -20,5 +20,17 @@ namespace FleetMasters.Models
         public string? OpeningQty { get; set; }
         public string? OpeningValue { get; set; }
         public string? LoggedInUser { get; set; }
+        public List<SparesLubesDetailModel> SparesLubesDetailList { get; set; }
+    }
+
+    public class SparesLubesDetailModel
+    {
+        public string? Id { get; set; }
+        public string? SpareLubId { get; set; }
+      
+        public string? BrandId { get; set; }
+        public string? OpeningQty { get; set; }
+        public string? OpeningValue { get; set; }
+
     }
 }

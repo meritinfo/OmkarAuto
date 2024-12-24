@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Requestmodel } from '../models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 import {Spareslubesmasterlistmodel } from '../models/spareslubesmasterlistmodel';
 
 @Injectable({
@@ -37,9 +38,16 @@ export class SparesLubesMasterService {
   checkDuplicateSpare(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkDuplicateSpares', req, this.httpOptions);
   }
+  getSparesLubesMasterInnerGridList(request: Requestmodel): Observable<Spareslubesmastermodel> {
+    return this.httpClient.post<Spareslubesmastermodel>(Constants.API_ENDPOINT + 'FleetMasters/GetSparesLubesInnerGridList', request, this.httpOptions);
+  }
   clearSparesLubesMasterDetails() {
     this.selectedspareslubesmaster = new Spareslubesmastermodel();
   }
+  getBrandList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetBrandList', null, this.httpOptions);
+  }
+  
  sparesLubesMasterSubmitted(user:Spareslubesmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/SparesLubesMasterSave', user, this.httpOptions);
   }

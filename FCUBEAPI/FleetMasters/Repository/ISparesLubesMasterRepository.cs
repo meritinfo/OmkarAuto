@@ -14,6 +14,8 @@ namespace FleetMasters.Repository
         Task<SparesLubesMasterList> GetSparesLubesMasterList(ReportRequestModel request);
         Task<ResponseModel> SparesLubesMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateSpares(RequestModel requestModel);
+        Task<SparesLubesMasterModel> GetSparesLubesInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetBrandList();
 
     }
 }

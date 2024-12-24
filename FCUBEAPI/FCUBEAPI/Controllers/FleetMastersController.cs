@@ -1180,6 +1180,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("GetBrandList")]
+        public async Task<IActionResult> GetBrandList()
+        {
+            try
+            {
+                var result = await sparesLubesMasterBusiness.GetBrandList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetSparesLubesMasterList")]
         public async Task<IActionResult> GetSparesLubesMasterList(ReportRequestModel request)
         {
@@ -1212,6 +1227,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetSparesLubesInnerGridList")]
+        public async Task<IActionResult> GetSparesLubesInnerGridList(RequestModel request)
+        {
+            try
+            {
+                var result = await sparesLubesMasterBusiness.GetSparesLubesInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("SparesLubesMasterDelete")]
         public async Task<IActionResult> SparesLubesMasterDelete(RequestModel req)
         {

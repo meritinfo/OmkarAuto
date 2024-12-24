@@ -18,6 +18,54 @@ namespace FleetMasters.Repository
         {
             dbconnection = _dbconnection;
         }
+        //public async Task<ResponseModel> SparesLubesMasterSave(SparesLubesMasterModel sparesLubesMasterModel)
+        //{
+        //    ResponseModel responseModel = new();
+
+        //    var connection = new SqlConnection(dbconnection.Value.DBConnection);
+        //    connection.Open();
+        //    SqlTransaction transaction;
+        //    transaction = connection.BeginTransaction();
+        //    try
+        //    {
+        //        if (dbconnection != null)
+        //        {
+        //            SqlParameter[] param =
+        //                {
+        //                    new SqlParameter("@SpareLubId", sparesLubesMasterModel.SpareLubId),
+        //                    new SqlParameter("@SpareLubName", sparesLubesMasterModel.SpareLubName),
+        //                    new SqlParameter("@SpareLubType", sparesLubesMasterModel.SpareLubType),
+        //                    new SqlParameter("@Sch_Oth", sparesLubesMasterModel.Sch_Oth),
+        //                    new SqlParameter("@LifeType", sparesLubesMasterModel.LifeType),
+        //                    new SqlParameter("@LifeExpectancy", sparesLubesMasterModel.LifeExpectancy),
+        //                    new SqlParameter("@IsActive", sparesLubesMasterModel.IsActive),
+        //                    new SqlParameter("@InventroyYN", sparesLubesMasterModel.InventroyYN),
+        //                   // new SqlParameter("@OpeningQty", sparesLubesMasterModel.OpeningQty),
+        //                 //    new SqlParameter("@OpeningValue", sparesLubesMasterModel.OpeningValue),
+        //                    new SqlParameter("@LoggedInUser", sparesLubesMasterModel.LoggedInUser)
+        //                };
+        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesLubesMasterSave", param);
+
+        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+        //            {
+        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+        //                if (responseModel.Status) { transaction.Commit(); }
+        //                else { transaction.Rollback(); }
+        //            }
+        //            else
+        //            {
+        //                responseModel.Status = false;
+        //                transaction.Rollback();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //    }
+        //    return responseModel;
+        //}
         public async Task<ResponseModel> SparesLubesMasterSave(SparesLubesMasterModel sparesLubesMasterModel)
         {
             ResponseModel responseModel = new();
@@ -40,29 +88,165 @@ namespace FleetMasters.Repository
                             new SqlParameter("@LifeExpectancy", sparesLubesMasterModel.LifeExpectancy),
                             new SqlParameter("@IsActive", sparesLubesMasterModel.IsActive),
                             new SqlParameter("@InventroyYN", sparesLubesMasterModel.InventroyYN),
-                            new SqlParameter("@OpeningQty", sparesLubesMasterModel.OpeningQty),
-                             new SqlParameter("@OpeningValue", sparesLubesMasterModel.OpeningValue),
                             new SqlParameter("@LoggedInUser", sparesLubesMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesLubesMasterSave", param);
-
+                    string SpareLubId = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
+                        SpareLubId = Convert.ToString(responseModel.Message);
+
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < sparesLubesMasterModel.SparesLubesDetailList.Count; i++)
+                            {
+                                if (Convert.ToString(sparesLubesMasterModel.SparesLubesDetailList[i].BrandId) != "")
+                                {
+                                    sparesLubesMasterModel.SparesLubesDetailList[i].SpareLubId = SpareLubId;
+                                    responseModel = await SparesLubesDetailSave(transaction, sparesLubesMasterModel.SparesLubesDetailList[i]);
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = sparesLubesMasterModel.SparesLubesDetailList.Count;
+                                    }
+
+                                }
+                            }
+
+                        }
                     }
-                    else
+                    if (responseModel.Status)
                     {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+                        transaction.Commit();
                     }
+                    else { transaction.Rollback(); }
+
+
                 }
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<List<DropDownListModel>> GetBrandList()
+        {
+            List<DropDownListModel> BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrandList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            BrandList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return BrandList;
+        }
+
+
+        public async Task<SparesLubesMasterModel> GetSparesLubesInnerGridList(RequestModel request)
+        {
+            SparesLubesMasterModel sparesLubesInnerGridList = new()
+            {
+                SparesLubesDetailList = new List<SparesLubesDetailModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@SpareLubId", request.strRequest)
+                    };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesLubesInnergrid", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            sparesLubesInnerGridList.SparesLubesDetailList.Add(new SparesLubesDetailModel
+                            {
+                               // Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
+                            
+                               // SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),
+                                BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
+                                OpeningQty = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningQty"]),
+                                OpeningValue = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningValue"]),
+
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return sparesLubesInnerGridList;
+        }
+        public async Task<ResponseModel> SparesLubesDetailSave(SqlTransaction transaction, SparesLubesDetailModel sparesLubesDetailModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Id",               sparesLubesDetailModel.Id),
+
+                            new SqlParameter("@SpareLubId",           sparesLubesDetailModel.SpareLubId),
+                        
+                            new SqlParameter("@BrandId",             sparesLubesDetailModel.BrandId),
+                            new SqlParameter("@OpeningQty",                    sparesLubesDetailModel.OpeningQty),
+                            new SqlParameter("@OpeningValue",        sparesLubesDetailModel.OpeningValue) ,
+                    };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesLubesDetailSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return responseModel;
         }
@@ -101,8 +285,8 @@ namespace FleetMasters.Repository
                                 LifeExpectancy = Convert.ToString(dataSet.Tables[0].Rows[i]["LifeExpectancy"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                                 InventroyYN = Convert.ToString(dataSet.Tables[0].Rows[i]["InventroyYN"]),
-                                OpeningQty = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningQty"]),
-                                OpeningValue = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningValue"]),
+                              //  OpeningQty = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningQty"]),
+                               // OpeningValue = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningValue"]),
                                 stype = Convert.ToString(dataSet.Tables[0].Rows[i]["stype"]),
                                 // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                             });

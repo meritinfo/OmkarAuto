@@ -109,7 +109,7 @@
                                                 </select> 
                                             </div>
                                         </div> 
-                                        <div class="col-lg-3">
+                                        <!-- <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Opening Qty</label>
                                                
@@ -126,7 +126,7 @@
                                                 formControlName="openingValue"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['openingValue'].invalid) }">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>   
                                     <div class="row">
                                       
@@ -136,7 +136,100 @@
                             </div>
                         </div>
                     </div>
-                </div>           
+                </div>    
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table no-padding">
+                                        <tr>
+                                            <!-- <td class="col-lg-3">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Spare LubId</h6>
+                                                </label>
+                                            </td> -->
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Brand </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Opening Qty</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Opening Value</h6>
+                                                </label>
+                                            </td>  
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Action</h6>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <!-- <td class="col-lg-3">
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="issueList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="spareLubId">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </td> -->
+                                                <td class="col-lg-2">
+                                                    <select class="form-control" formControlName="brandId"   
+                                                class="form-control form-select ng-pristine ng-touched"   
+                                                [ngClass]="">
+                                                    <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                       {{vehi.dataName}}
+                                                    </option>
+                                                 </select>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <input autoclose="false"  numbersonly class="form-control" 
+                                                        formControlName="openingQty" >
+
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input autoclose="false" class="form-control"
+                                                    uppercaseonly   formControlName="openingValue">
+
+                                                </td>    
+                                                <td class="col-lg-4">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>       
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
