@@ -143,13 +143,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table no-padding">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <!-- <td class="col-lg-3">
-                                                <label for="formrow-inputZip">
-                                                    <h6>Spare LubId</h6>
-                                                </label>
-                                            </td> -->
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
                                                     <h6>Brand </h6>
@@ -174,35 +169,14 @@
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
-                                                <!-- <td class="col-lg-3">
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="issueList"
-                                                            [searchKeyword]="keywordLocation" 
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="spareLubId">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                                </td> -->
                                                 <td class="col-lg-2">
                                                     <select class="form-control" formControlName="brandId"   
-                                                class="form-control form-select ng-pristine ng-touched"   
-                                                [ngClass]="">
-                                                    <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
-                                                       {{vehi.dataName}}
-                                                    </option>
-                                                 </select>
+                                                        class="form-control form-select ng-pristine ng-touched"   
+                                                        [ngClass]="">
+                                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                            {{vehi.dataName}}
+                                                            </option>
+                                                    </select>
                                                 </td>
                                                 <td class="col-lg-1">
                                                     <input autoclose="false"  numbersonly class="form-control" 
