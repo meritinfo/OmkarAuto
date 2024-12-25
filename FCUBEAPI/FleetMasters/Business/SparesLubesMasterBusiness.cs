@@ -33,5 +33,13 @@ namespace FleetMasters.Business
         {
             return await sparesLubesMasterRepository.CheckDuplicateSpares(requestModel);
         }
+        public async Task<SparesLubesMasterModel> GetSparesLubesInnerGridList(RequestModel request)
+        {
+            return await sparesLubesMasterRepository.GetSparesLubesInnerGridList(request);
+        }
+        public async Task<List<DropDownListModel>> GetBrandList()
+        {
+            return await sparesLubesMasterRepository.GetBrandList();
+        }
     }
 }

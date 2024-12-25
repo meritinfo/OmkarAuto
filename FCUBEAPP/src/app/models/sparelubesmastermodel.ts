@@ -9,6 +9,14 @@ export class Spareslubesmastermodel {
     loggedInUser: string="";
     stype: string="";
     inventroyYN: string="";
-    openingQty: string="";
-    openingValue: string="";
+  //  openingQty: string="";
+   // openingValue: string="";
+   sparesLubesDetailList: Spareslubesdetailmodel[] = [];
+}
+export class Spareslubesdetailmodel {
+  id: string = "";
+  spareLubId: string = "";
+  brandId: string = "";
+  openingQty: string = "";
+  openingValue: string = "";
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Spareslubesmasterlistmodel } from 'src/app/models/spareslubesmasterlistmodel';
 import { Spareslubesmastermodel } from 'src/app/models/sparelubesmastermodel';
@@ -29,6 +29,7 @@ export class SpareslubesmasteraddComponent {
   viewStatus = false;
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
+  brandList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
 
   List: Dropdownmodel[] = [];
@@ -71,7 +72,7 @@ ngOnInit(): void {
   }
 
   this.sharedService.loading = true;   
-
+  this.getBrandList();
   this.selectedSpareslubesMasterDetails = this.sparesLubesMasterService.getSparesLubesMasterDetails();
   this.formSparesMaster = this.formBuilder.group({   
     spareLubName: new FormControl('',[Validators.required]),
@@ -81,8 +82,9 @@ ngOnInit(): void {
     lifeExpectancy: new FormControl('',[Validators.required]),
     isActive: new FormControl('Y',[Validators.required]),
     inventroyYN: new FormControl('',[Validators.required]),
-    openingQty: new FormControl(''),
-    openingValue: new FormControl(''),
+    arrayList: this.formBuilder.array([this.createInitialArray()])
+   // openingQty: new FormControl(''),
+   // openingValue: new FormControl(''),
    
   });
 
@@ -90,7 +92,8 @@ ngOnInit(): void {
     this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails);  
     this.formSparesMaster.patchValue({
    
-    });      
+    });    
+    this.getSparesLubesInnerGridList();  
     this.editMode = true;
   }
   
@@ -98,7 +101,9 @@ ngOnInit(): void {
 
 }
 get f() { return this.formSparesMaster.controls; }
-
+get formArray() {
+  return this.formSparesMaster.get("arrayList") as FormArray;
+}
 //Get Classification List details //  
 
 
@@ -119,6 +124,7 @@ get f() { return this.formSparesMaster.controls; }
 //     this.sharedService.loading = false;
 //   }
 // }
+
 
 chkSpareDuplicate(){
   var selectedData = this.formSparesMaster.getRawValue();
@@ -142,8 +148,50 @@ chkSpareDuplicate(){
     });
     
 }
+getBrandList(): void {
+  this.sparesLubesMasterService.getBrandList().subscribe((res) => {
+    this.brandList = res;
+  });
+}
+addItem(index: number): void {
+  if (this.formArray.value[index].brandId != "0" && this.formArray.value[index].openingQty != "") {
+    this.formArray.push(this.createInitialArray());
+  } else {
+    this.toasterService.warning("Please select one Item  detail brand, qty");
+  }
+}
+
+removeItem(index: number) {
+  if (confirm("Are you sure, you want to delete this row?")) {
+    this.formArray.removeAt(index);
+  }
+}
+
+createInitialArray() {
+  return this.formBuilder.group({      
+    spareLubId: ['', []],
+    brandId: ['0', []],
+    openingQty: ['0', []],
+    openingValue: ['', []],
+  });
+}
+
 exit(): void {
   this.route.navigate(['/sparesmasterlist']);
+}
+getSparesLubesInnerGridList(): void {
+  this.requestmodel.strRequest= this.selectedSpareslubesMasterDetails.spareLubId;
+  this.sparesLubesMasterService.getSparesLubesMasterInnerGridList(this.requestmodel).subscribe((res) => {
+    this.formArray.clear();
+    this.sparesLubesMasterModel = res;
+    for (var i = 0; i < res.sparesLubesDetailList.length; i++) {
+      this.formArray.push(this.createInitialArray());
+     // this.formArray.controls[i].get("spareLubId")?.setValue(this.issueList.find(e => e.dataId == res.sparesLubesIssueDetailList[i].spareLubId));
+      this.formArray.controls[i].get("brandId")?.setValue(res.sparesLubesDetailList[i].brandId);
+      this.formArray.controls[i].get("openingQty")?.setValue(res.sparesLubesDetailList[i].openingQty);
+      this.formArray.controls[i].get("openingValue")?.setValue(res.sparesLubesDetailList[i].openingValue);       
+    }     
+  });
 }
 
 deleteSparesLubesMasterForm(): void {
@@ -191,9 +239,39 @@ submitSparesLubesMasterForm(): void {
   this.sparesLubesMasterModel.lifeExpectancy = selectedDataVal.lifeExpectancy;
   this.sparesLubesMasterModel.isActive = selectedDataVal.isActive;
   this.sparesLubesMasterModel.inventroyYN = selectedDataVal.inventroyYN;
-  this.sparesLubesMasterModel.openingQty = selectedDataVal.openingQty;
-  this.sparesLubesMasterModel.openingValue = selectedDataVal.openingValue;
+//  this.sparesLubesMasterModel.openingQty = selectedDataVal.openingQty;
+ // this.sparesLubesMasterModel.openingValue = selectedDataVal.openingValue;
   //this.classificationModel.loggedInUserID   = this.loggedInUserID;
+  this.sparesLubesMasterModel.sparesLubesDetailList = [];
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
+     // var spareLubId = this.issueList.find(e => e.dataId == selectedDataValue.arrayList[i].spareLubId.dataId) 
+     // if (typeof spareLubId !== 'undefined' && spareLubId !== null && spareLubId.dataId!="" && spareLubId.dataId!="0") {
+          //ignore
+      // }
+      // else{
+      //   this.toastrService.warning("Please Enter Valid Item Name");          
+      //   return;
+      // }
+      if (selectedDataVal.arrayList[i].brandId =='0' ) {
+        this.toasterService.warning("Please select Brand");
+        return;
+      } 
+      if (selectedDataVal.arrayList[i].openingQty =='' ) {
+        this.toasterService.warning("Please Enter Qty");
+        return;
+      } 
+      
+      this.sparesLubesMasterModel.sparesLubesDetailList.push({     
+        'id': '',
+        'spareLubId': '',
+       
+        'brandId': selectedDataVal.arrayList[i].brandId,
+        'openingQty': selectedDataVal.arrayList[i].openingQty,
+        'openingValue': selectedDataVal.arrayList[i].openingValue
+      })
+    }
+  
+    
 
   this.sparesLubesMasterService.sparesLubesMasterSubmitted(this.sparesLubesMasterModel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
