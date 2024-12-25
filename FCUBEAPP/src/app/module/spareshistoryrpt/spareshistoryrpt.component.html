@@ -1,0 +1,97 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Spares/Lubes Stock Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>spareLubName</th>
+                                <th>brandName </th>   
+                                <th>vehicleNo</th>
+                                <th>transDate </th>    
+                                <th>stockType </th>    
+                                <th>kmReading </th>     
+                                <th>itemQty </th>     
+                                <th>netAmount </th>   
+                                <th>remarks </th>                                                        
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allSparespurchaserptlist.sparessHistoryRptList?.length != 0">
+                            <tr *ngFor="let eta of allSparespurchaserptlist.sparessHistoryRptList">
+                                <td>{{ eta.spareLubName }}</td>
+                                <td>{{ eta.brandName }}</td> 
+                                <td>{{ eta.vehicleNo }}</td> 
+                                <td>{{ eta.transDate }}</td>   
+                                <td>{{ eta.stockType }}</td>   
+                                <td>{{ eta.kmReading }}</td>    
+                                <td>{{ eta.itemQty }}</td>    
+                                <td>{{ eta.netAmount }}</td>    
+                                <td>{{ eta.remarks }}</td>                                                                            
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allSparespurchaserptlist.sparessHistoryRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+

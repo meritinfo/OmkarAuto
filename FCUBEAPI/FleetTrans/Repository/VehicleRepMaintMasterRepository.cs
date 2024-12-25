@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace FleetTrans.Repository
 {
@@ -373,6 +374,39 @@ namespace FleetTrans.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetSpareStockAvailable(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                             new SqlParameter("@SpareLubId", req.strRequest),
+                             new SqlParameter("@BrandId", req.strRequest1),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSpareStockAvailable", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return responseModel;
         }

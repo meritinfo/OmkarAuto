@@ -130,15 +130,15 @@ formFilter!: FormGroup;
         branch: new FormControl('',),  
         vehicleMasterID: new FormControl('',), 
         party: new FormControl('',),  
-        transType: new FormControl('',),  
-        pmtType: new FormControl('',),   
-        creditAc: new FormControl('',),  
+        rptType: new FormControl('D',),  
       });
 
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
+      this.filter.filterStr2  = "";
+      this.filter.filterStr3  = "";
       
   
       this.sharedService.loading=true;
@@ -203,7 +203,6 @@ formFilter!: FormGroup;
             this.filter.pageSize = dataTablesParameters.length;
             this.filter.sortColumn = 'paymentBr';
             this.filter.sortOrder = 'asc';
-            this.filter.search = '';
             callback({
               recordsTotal: 0,
               recordsFiltered: 0,
@@ -298,6 +297,7 @@ formFilter!: FormGroup;
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.filterStr  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+      this.filter.filterStr2 = selectedDataVal.rptType;
        
 
       this.tripOutstandingRptService.getTripOutstandingRptListExcel(this.filter).subscribe(resp => {
@@ -329,8 +329,8 @@ formFilter!: FormGroup;
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-   
+    this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";  
+    this.filter.filterStr2 = selectedDataVal.rptType;
     
     this.sharedService.loading=true;
     this.expTripOutstanding();

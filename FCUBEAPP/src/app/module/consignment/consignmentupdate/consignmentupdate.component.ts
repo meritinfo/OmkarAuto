@@ -10,6 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-consignmentupdate',
@@ -26,6 +27,8 @@ export class ConsignmentupdateComponent {
   maxDate: string = '';
   minDate: string = '';
   newDate: string = '';
+  whatsappPOD1: string = '';
+  whatsappPOD2: string = '';
   partyList: Dropdownmodel[] = [];
   formSubmitted = false;
   editMode = false;
@@ -40,6 +43,14 @@ export class ConsignmentupdateComponent {
   responseDetails = new Responsemodel();
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
+
+  @ViewChild('whatsappPOD1Input', {
+    static: true
+  }) whatsappPOD1Input: any;
+  
+  @ViewChild('whatsappPOD2Input', {
+    static: true
+  }) whatsappPOD2Input: any;
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private lrmodel: Consignmentmodel,  private cnmodel: Consignmentupdatemodel,private lrentryService: ConsignmentService,
@@ -341,6 +352,8 @@ export class ConsignmentupdateComponent {
             deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
             ulDetentionDays :  this.lrmodel.ulDetentionDays ,
           });
+          this.whatsappPOD1 = Constants.UploadFolderPath + 'Lr/whatsappPOD1/' + this.selectedLrDetails.whatsappPOD1;
+          this.whatsappPOD2 = Constants.UploadFolderPath + 'Lr/whatsappPOD2/' + this.selectedLrDetails.whatsappPOD2;
         }
       });
       this.sharedService.loading = false;
@@ -540,7 +553,7 @@ export class ConsignmentupdateComponent {
       this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
       return;
     }
-    this.sharedService.loading = true;
+
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;       
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
@@ -593,8 +606,15 @@ export class ConsignmentupdateComponent {
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
     this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
-     
-    this.lrentryService.updateConsignmentDetails(this.cnmodel).subscribe((res: Responsemodel) => {
+
+    
+    this.sharedService.loading = true;
+    let formData = new FormData();
+    formData.append('whatsappPOD1', this.whatsappPOD1Input.nativeElement.files[0]);
+    formData.append('whatsappPOD2', this.whatsappPOD2Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.cnmodel));
+          
+    this.lrentryService.updateConsignmentDetails(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (res.status) {
         this.formUser.reset();

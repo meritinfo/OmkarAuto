@@ -23,9 +23,7 @@ namespace FleetTrans.Repository
         Task<VehicleFrtOutstandingRptListModel> GetVehicleFrtOutstandingRptList(ReportRequestModel request);
         Task<TripOutstandingRptListModel> GetTripOutstandingRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelTripOutstandingRptList(ReportRequestModel request);
-
         Task<List<DropDownListModel>> GetTripPaymentsCreditList();
-
         Task<SparesPurchaseRptListModel> GetSparesPurchaseRptList(ReportRequestModel request);
         Task<ResponseModel> GetSparesPurchaseRptExcel(ReportRequestModel request);
         Task<ResponseModel> ExcelTripPaymentsRptList(ReportRequestModel request);
@@ -33,9 +31,6 @@ namespace FleetTrans.Repository
         Task<TripSummaryRptListModel> GetTripSummaryRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelTripSummaryRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelExpTruckArrRPTList(ReportRequestModel request);
-
-
-
         Task<VehicleRepairsRptListModel> GetVehicleRepairsRptList(ReportRequestModel request);
         Task<ResponseModel> GetVehicleRepairsRptExcel(ReportRequestModel request);
         Task<TyreMgntReportList> GetTyrePurchaseRptList(ReportRequestModel request);
@@ -54,15 +49,10 @@ namespace FleetTrans.Repository
         Task<TyreMgntReportList> GetTyreReGroupRcvdRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyreReGroupRcvdRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetTyrePurchaseRptExcel(ReportRequestModel request);
-
-
-
-
+        Task<SparesStockRptListModel> GetSparesStockRptList(ReportRequestModel request);
+        Task<ResponseModel> GetSparesStockRptExcel(ReportRequestModel request);
+        Task<SparesHistoryRptListModel> GetSparesUsageHistoryRptList(ReportRequestModel request);
+        Task<ResponseModel> GetSparesUsageHistoryRptExcel(ReportRequestModel request);
 
     }
-
-
-
-
-
 }

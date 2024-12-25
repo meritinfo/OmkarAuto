@@ -20,17 +20,14 @@ namespace FleetTrans.Business
         }
         public async Task<ResponseModel> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel)
         {
-
             return await vehicleRepMaintRepository.VehicleRepMaintMasterSave(vehicleRepMaintMasterModel);
         }
         public async Task<ResponseModel> VehicleRepMaintMasterDelete(RequestModel req)
         {
-
             return await vehicleRepMaintRepository.VehicleRepMaintMasterDelete(req);
         }
         public async Task<VehicleRepMaintMasterModel> GetVehicleRepMaintMasterInnerGridList(RequestModel request)
         {
-
             return await vehicleRepMaintRepository.GetVehicleRepMaintMasterInnerGridList(request);
         }
         public async Task<VehicleRepMaintMasterList> GetVehicleRepMaintMasterList(PageFromDtToDtRequest request)
@@ -40,9 +37,11 @@ namespace FleetTrans.Business
         }
         public async Task<List<DropDownListModel>> GetMaintanenceList()
         {
-
             return await vehicleRepMaintRepository.GetMaintanenceList();
         }
-
+        public async Task<ResponseModel> GetSpareStockAvailable(RequestModel req)
+        {
+            return await vehicleRepMaintRepository.GetSpareStockAvailable(req);
+        }
     }
 }

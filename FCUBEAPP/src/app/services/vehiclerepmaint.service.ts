@@ -55,4 +55,7 @@ export class VehiclerepmaintMasterService {
   getVehiclerepmaintMasterList(filter: Filtermodel): Observable<Vehiclerepmaintlistmodel> {
     return this.httpClient.post<Vehiclerepmaintlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleRepMaintMasterList', filter, this.httpOptions);
   }  
+  getSpareStockAvailable(user: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSpareStockAvailable', user, this.httpformOptions);
+  }
 }

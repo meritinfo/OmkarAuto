@@ -83,9 +83,12 @@ export class HeaderComponent {
     sessionStorage.clear();
     this.route.navigate(['']);
   }
-  changePwd(): void {
- 
+  changePwd():void { 
     this.route.navigate(['/changepassword']);
+  }
+
+  dashboard(): void { 
+    this.route.navigate(['/dashboard']);
   }
 
   getScheduleDetails(){

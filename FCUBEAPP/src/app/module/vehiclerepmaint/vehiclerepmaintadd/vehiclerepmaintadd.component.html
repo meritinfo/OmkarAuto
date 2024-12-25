@@ -322,7 +322,8 @@
                                                          </select>   
                                                     </td>
                                                     <td class="col-lg-2"> 
-                                                        <select class="form-control" formControlName="brandId"   
+                                                        <select class="form-control" formControlName="brandId"
+                                                            (change)="getAvail(i)"   
                                                             class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}

@@ -142,6 +142,8 @@ namespace Consignment.Models
         public string? IncludeCnNo              { get; set; }
         public string? BusinessBy               { get; set; }
         public string? Attachedfile             { get; set; }
+        public string? WhatsappPOD1             { get; set; }
+        public string? WhatsappPOD2             { get; set; }
         public string? YearId                   { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }

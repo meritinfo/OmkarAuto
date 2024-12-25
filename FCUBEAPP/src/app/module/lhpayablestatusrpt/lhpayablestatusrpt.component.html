@@ -11,7 +11,7 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
@@ -30,8 +30,7 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div class="mb-2">
                                     <label for="basicpill-phoneno-input">Report Type</label>
                                     <select id="formrow-inputState" 
@@ -43,109 +42,43 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Broker </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="brokerList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="broker" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
 
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
 
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
                             </div>
-
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Branch </label>
-                                    <select class="form-control" formControlName="branch">
-                                        
-                                            <option value="">All</option>
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
-                                </div>
-                            </div>  -->
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Party </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="partyList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="party" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>  -->
-                        </div>
-                        <div class="row">
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Origin </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="locationList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="origin" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Destination </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="locationList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="destination" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div> -->                         
-                            
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 

@@ -193,7 +193,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@DslRate", tripMasterModel.DieselList[i].DslRate),
                                     new SqlParameter("@DslAmt", tripMasterModel.DieselList[i].Amount),
                                 };
-                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDslSave", paramdr);
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDslJetSave", paramdr);
 
                                 if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
                                 {

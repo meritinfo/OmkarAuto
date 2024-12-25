@@ -28,6 +28,7 @@ export class LhpayablestatusrptComponent {
 
   locationList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
@@ -118,15 +119,15 @@ export class LhpayablestatusrptComponent {
       }   
     
       this.getBranchList();
-      this.getLocationList(); 
-      // this.getPartyList(); 
+      this.getLocationList();
+      this.getBrokerList()
       
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         rptType: new FormControl('C',),
         // branch: new FormControl('',),  
-        // party: new FormControl('',),  
+        broker: new FormControl('',),  
         origin: new FormControl('',),  
         destination: new FormControl('',), 
       });
@@ -134,7 +135,7 @@ export class LhpayablestatusrptComponent {
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "C";
-      // this.filter.filterStr1  = "";
+       this.filter.filterStr1  = "";
       // this.filter.filterStr2  = "";
        
   
@@ -144,6 +145,11 @@ export class LhpayablestatusrptComponent {
       this.sharedService.loading=false;
     }
 
+    getBrokerList(): void {
+      this.commonService.getBrokerList().subscribe((res) => {
+        this.brokerList = res;
+      });
+    }
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
@@ -296,7 +302,7 @@ export class LhpayablestatusrptComponent {
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;  
       this.filter.filterStr  = selectedDataVal.rptType;       
-      // this.filter.filterStr1  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+      this.filter.filterStr1  = selectedDataVal.broker?selectedDataVal.broker.dataId:"";
       // this.filter.filterStr2  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
       this.lhpayablestatusrptService.getLhpayablestatusrptExcel(this.filter).subscribe(resp => {
       
@@ -328,7 +334,7 @@ export class LhpayablestatusrptComponent {
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr  = selectedDataVal.rptType;
-    // this.filter.filterStr1  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    this.filter.filterStr1  = selectedDataVal.broker?selectedDataVal.broker.dataId:"";
     // this.filter.filterStr2  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
     this.lhpayablestatusrptlist();

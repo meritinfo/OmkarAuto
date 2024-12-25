@@ -41,7 +41,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@RptType",     request.FilterStr),
-                         
+                            new SqlParameter("@Broker",    request.FilterStr1),
+
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPayableStatusRptList", param);
@@ -99,6 +100,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@RptType",    request.FilterStr),
+                            new SqlParameter("@Broker",    request.FilterStr1),
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPayableStatusRptExcel", param);

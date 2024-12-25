@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
+using FreightMasters.Repository;
 
 
 namespace FCUBEAPI.Controllers
@@ -1313,15 +1314,52 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("ConsignmentUpdate")]
-        public async Task<IActionResult> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
+        public async Task<IActionResult> ConsignmentUpdate()
         {
-            if (ConsignmentModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
-                var result = await consignmentBusiness.ConsignmentUpdate(ConsignmentModel);
+                var whatsappPOD1 = HttpContext.Request.Form.Files["whatsappPOD1"];
+                var whatsappPOD2 = HttpContext.Request.Form.Files["whatsappPOD2"];
+                ConsignmentUpdateModel consignmentModel = JsonConvert.DeserializeObject<ConsignmentUpdateModel>(HttpContext.Request.Form["datadetails"]);
+                consignmentModel.WhatsappPOD1 = "";
+                consignmentModel.WhatsappPOD2 = "";
+
+                if (whatsappPOD1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(whatsappPOD1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(whatsappPOD1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/Lr/whatsappPOD1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await whatsappPOD1.CopyToAsync(fileStream);
+                        consignmentModel.WhatsappPOD1 = imageName;
+                    }
+                }  
+
+                if (whatsappPOD2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(whatsappPOD2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(whatsappPOD2.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/Lr/whatsappPOD2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await whatsappPOD2.CopyToAsync(fileStream);
+                        consignmentModel.WhatsappPOD2 = imageName;
+                    }
+                }
+                var result = await consignmentBusiness.ConsignmentUpdate(consignmentModel);
 
                 return Ok(result);
             }

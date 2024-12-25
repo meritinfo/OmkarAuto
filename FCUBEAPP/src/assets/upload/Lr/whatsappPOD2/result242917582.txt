@@ -1,0 +1,116 @@
+{"result":{"regNo":"TS07UM0173","message":"No Challan Details Found","status_code":204,"challanDetails":[],"successfulSources":["TS"],"failedSources":["ECHALLAN"]}}
+ 
+"result": {
+        "regNo": "TS07UM0173",
+        "message": "Challan Details Found",
+        "status_code": 200,
+        "challanDetails": [
+            {
+                "number": 1,
+                "challanNumber": "MH227717240617195637",
+                "offenseDetails": "Reflectors not fitted",
+                "challanPlace": "3WG7+M4W, Dapchari, Maharashtra 401610, India Vasai ",
+                "challanDate": "17/06/2024",
+                "state": "MH",
+                "rto": "",
+                "accusedName": "O***R C******S M**E",
+                "amount": "",
+                "challanStatus": "Pending",
+                "court_challan": "",
+                "challanSource": "ECHALLAN"
+            },
+            {
+                "number": 2,
+                "challanNumber": "MH100436231204163032",
+                "offenseDetails": "Reflectors not fitted",
+                "challanPlace": "BCP NANDANI SOLAPUR",
+                "challanDate": "04/12/2023",
+                "state": "MH",
+                "rto": "",
+                "accusedName": "H*****S P M****R",
+                "amount": "",
+                "challanStatus": "Disposed",
+                "court_challan": "",
+                "challanSource": "ECHALLAN"
+            },
+            {
+                "number": 3,
+                "challanNumber": "MH121114230304151128",
+                "offenseDetails": "Custom offence 1",
+                "challanPlace": "BCP NAVAPUR NANDURBAR",
+                "challanDate": "04/03/2023",
+                "state": "MH",
+                "rto": "",
+                "accusedName": "N*****H  J****V",
+                "amount": "",
+                "challanStatus": "Pending",
+                "court_challan": "",
+                "challanSource": "ECHALLAN"
+            }
+        ],
+        "successfulSources": [
+            "ECHALLAN",
+            "TS"
+        ],
+        "failedSources": []
+
+
+
+
+
+
+
+ "error": {
+        "name": "error",
+        "message": "Vehicle Number not found",
+        "status": 404,
+        "reason": "NOT_FOUND",
+        "type": "Not Found",
+        "statusCode": 404
+    }
+
+
+{
+    "result": {
+        "regNo": "MH40CT4650",
+        "message": "No Challan Details Found",
+        "status_code": 204,
+        "challanDetails": [],
+        "successfulSources": [
+            "ECHALLAN"
+        ],
+        "failedSources": [
+            "MH"
+        ]
+    }
+}
+
+
+AP09CP6312
+AP09CC6312
+{
+    "result": {
+        "regNo": "TG07T8435",
+        "message": "No Challan Details Found",
+        "status_code": 204,
+        "challanDetails": [],
+        "successfulSources": [
+            "ECHALLAN",
+            "TG"
+        ],
+        "failedSources": []
+    }
+}
+
+{
+    "result": {
+        "regNo": "AP09CC6312",
+        "message": "No Challan Details Found",
+        "status_code": 204,
+        "challanDetails": [],
+        "successfulSources": [
+            "ECHALLAN"
+        ],
+        "failedSources": []
+    }
+}

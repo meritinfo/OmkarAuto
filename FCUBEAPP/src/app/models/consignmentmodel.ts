@@ -145,6 +145,8 @@ export class Consignmentmodel {
         includeCnNo : string = "";
     businessBy : string = "";
     attachedfile : string = "";
+    whatsappPOD1: string = "";
+    whatsappPOD2: string = "";
     yearId : string = ""; 
     loggedInUser: string = "";  
     createdBy: string = "";

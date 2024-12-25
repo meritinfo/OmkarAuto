@@ -2284,6 +2284,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
         [HttpPost("GetMaintanenceList")]
         public async Task<IActionResult> GetMaintanenceList()
         {
@@ -2308,6 +2309,25 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleRepMaintMasterBusiness.GetVehicleRepMaintMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSpareStockAvailable")]
+        public async Task<IActionResult> GetSpareStockAvailable(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.GetSpareStockAvailable(request);
 
                 return Ok(result);
             }
@@ -2525,6 +2545,84 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("GetSparesStockRptList")]
+        public async Task<IActionResult> GetSparesStockRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetSparesStockRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSparesStockRptExcel")]
+        public async Task<IActionResult> GetSparesStockRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetSparesStockRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSparesUsageHistoryRptList")]
+        public async Task<IActionResult> GetSparesUsageHistoryRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetSparesUsageHistoryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSparesUsageHistoryRptExcel")]
+        public async Task<IActionResult> GetSparesUsageHistoryRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetSparesUsageHistoryRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetTyrePurchaseRptExcel")]
         public async Task<IActionResult> GetTyrePurchaseRptExcel(ReportRequestModel request)
         {
@@ -2563,24 +2661,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetTyreStockRptList")]
-        public async Task<IActionResult> GetTyreStockRptList(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await fleetRptBusiness.GetTyreStockRptList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("GetTyreStockRptExcel")]
         public async Task<IActionResult> GetTyreStockRptExcel(ReportRequestModel request)

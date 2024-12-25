@@ -473,7 +473,25 @@
                                                     formControlName="gtotalRs" [ngClass]=>
                                             </div>
                                         </div>                              
-                                    </div> 
+                                    </div>                                    
+                                    <div class="row">  
+                                        <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Whatsapp POD1 </label>                          
+                                                <input #whatsappPOD1Input class="form-control" type="file" id="formAttach1File">
+                                                <a *ngIf="selectedLrDetails.whatsappPOD1" target="_blank"
+                                                            href={{whatsappPOD1}}>Download</a>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Whatsapp POD2 </label>                          
+                                                <input #whatsappPOD2Input class="form-control" type="file" id="formAttach1File">
+                                                <a *ngIf="selectedLrDetails.whatsappPOD1" target="_blank"
+                                                            href={{whatsappPOD2}}>Download</a>
+                                            </div>
+                                        </div> 
+                                    </div>         
                                 </div>                                                                                                                                                    
                             </div>
                         </div>

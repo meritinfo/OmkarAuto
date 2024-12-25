@@ -171,15 +171,27 @@ namespace FleetTrans.Business
         public async Task<ResponseModel> GetTyreReGroupRcvdRptExcel(ReportRequestModel request)
         {
             return await fleetRptRepository.GetTyreReGroupRcvdRptExcel(request);
-        }
-      
+        }      
         public async Task<ResponseModel> GetTyrePurchaseRptExcel(ReportRequestModel request)
         {
             return await fleetRptRepository.GetTyrePurchaseRptExcel(request);
         }
-      
-      
-
+        public async Task<SparesStockRptListModel> GetSparesStockRptList(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetSparesStockRptList(request);
+        }
+        public async Task<ResponseModel> GetSparesStockRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetSparesStockRptExcel(request);
+        }
+        public async Task<SparesHistoryRptListModel> GetSparesUsageHistoryRptList(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetSparesUsageHistoryRptList(request);
+        }
+        public async Task<ResponseModel> GetSparesUsageHistoryRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetSparesUsageHistoryRptExcel(request);
+        }
 
     }
 }

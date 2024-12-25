@@ -14,6 +14,8 @@ import { Trippaymentsrptlistmodel  } from 'src/app/models/trippaymentsrptlistmod
 import { Tripsummaryrptlistmodel  } from 'src/app/models/tripsummaryrptlistmodel';
 import { Vehiclefrtoutstandingrptlistmodel  } from 'src/app/models/vehiclefrtoutstandingrptlistmodel';
 import { Sparespurchaserptlistmodel  } from 'src/app/models/sparespurchaserptlistmodel';
+import { Sparesstockrptlistmodel  } from 'src/app/models/sparesstockrptlistmodel';
+import { Spareshistoryrptlistmodel  } from 'src/app/models/spareshistoryrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -99,4 +101,17 @@ export class FleetreportsService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseRptExcel', filter, this.httpOptions);
   }    
    
+  getSparesStockRptList(filter: Reportmodel): Observable<Sparesstockrptlistmodel> {
+    return this.httpClient.post<Sparesstockrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesStockRptList', filter, this.httpOptions);
+  }  
+  getSparesStockRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesStockRptExcel', filter, this.httpOptions);
+  }    
+  
+  getSparesUsageHistoryRptList(filter: Reportmodel): Observable<Spareshistoryrptlistmodel> {
+    return this.httpClient.post<Spareshistoryrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesUsageHistoryRptList', filter, this.httpOptions);
+  }  
+  getSparesUsageHistoryRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesUsageHistoryRptExcel', filter, this.httpOptions);
+  }    
 }

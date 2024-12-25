@@ -422,14 +422,17 @@ createVehicleArray() {
     remarks: [''],
   });
 }
+
 addItem(i: number): void {    
   var selectedDate = this.formUser.getRawValue();
   if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" ) {
     this.formTyreArray.push(this.createVehicleArray());
     
-  this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
-  this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
-  this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
+    this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
+    this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
+    this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
+    this.formTyreArray.controls[i+1].get("availQty")?.disable();   
+    
     
     if (selectedDate.gstType == "I") {   
       this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
@@ -532,6 +535,7 @@ getVehicleMaintMasterInnerGridList(): void {
     }     
   });
 }
+
 changeGstType(e: any) {
   console.log(e.target.value);
   var gsttype = e.target.value;   
@@ -563,6 +567,7 @@ changeGstType(e: any) {
   }    
   this.onPctChange()
 }
+
 onNeftChk(e:any){
   if(e.target.checked){
     this.formUser.controls['chequeNo'].clearValidators();      
@@ -586,6 +591,25 @@ getVehicleIdList(): void {
   });
 }
 
+getAvail(i:number){  
+  var selectedData = this.formUser.getRawValue();  
+  this.formTyreArray.controls[i].get("availQty")?.setValue(""); 
+  if(selectedData.stockType=="S"){
+    this.requestmodel.strRequest = selectedData.arrayList[i].spareLubId;
+    this.requestmodel.strRequest1 = selectedData.arrayList[i].brandId;
+  
+    this.vehiclerepmaintMasterService.getSpareStockAvailable(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formTyreArray.controls[i].get("availQty")?.setValue(this.responseDetails.message); 
+      }
+      else {
+        this.formTyreArray.controls[i].get("availQty")?.setValue(""); 
+      }      
+    });
+  } 
+}
+
 onPctChange(){
   var totalItemAmt = 0;
   var totalCgstAmt = 0;
@@ -605,10 +629,19 @@ onPctChange(){
   var selectedDate = this.formUser.getRawValue();
 
   for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    if(selectedDate.arrayList[i].availQty!=""){
+      if(parseFloat(selectedDate.arrayList[i].itemQty) > parseFloat(selectedDate.arrayList[i].availQty)){
+        this.formTyreArray.controls[i].get("itemQty")?.setValue("");
+        this.toastrService.warning("Issue Qty should not be more than stock Qty");
+        return;
+      }
+    }
+  }
+
+  for (var i = 0; i < this.formTyreArray.controls.length; i++) {  
     this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
     this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
-    this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
-
+    this.formTyreArray.controls[i].get("igstAmt")?.setValue(""); 
 
     if (selectedDate.arrayList[i].itemRate!="") {
       itemAmount= parseFloat(selectedDate.arrayList[i].itemQty) * parseFloat(selectedDate.arrayList[i].itemRate);

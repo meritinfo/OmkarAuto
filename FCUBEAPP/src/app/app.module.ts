@@ -410,6 +410,8 @@ import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripma
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { Tripmastermodel } from './models/tripmastermodel';
 import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
+import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
+import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
 
 @NgModule({
   declarations: [
@@ -531,15 +533,17 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     BillsubmitmasteraddComponent, BillsubmitmasterlistComponent,
     BillsuppliaddComponent, BillsupplilistComponent,
     AdditionalcostrecmasteraddComponent, AdditionalcostrecmasterlistComponent,
-    BilloutstandingrptComponent,TripoutstandingrptComponent,LrcostingrptComponent, OnaccountmrstatusrptComponent, 
+    BilloutstandingrptComponent,TripoutstandingrptComponent,
+    LrcostingrptComponent, OnaccountmrstatusrptComponent, 
     AddcostrecorveryrptComponent, BusinesssummrptComponent,
-    FasttagaddComponent, FasttaglistComponent, AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
+    FasttagaddComponent, FasttaglistComponent, 
+    AddcostrecentrylistComponent, AddcostrecentryaddComponent, 
     TripenroutebycompanyaddComponent, TripenroutebycompanylistComponent, 
     ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent, 
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent,
+     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent,
     
   ],
   imports: [
@@ -598,7 +602,8 @@ import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeent
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
     Lhpayablestatusrptmodel,Challanregisterrptmodel, Vehiclerepairsrptmodel,
     Billregisterrptmodel, Mrregisterrptmodel, Lhpmvariancerptmodel, Gstregisterrptmodel,
-    Vehiclefrtoutstandingrptmodel, Lhextrapmtreconrptmodel, Expensebudgetlistmodel, Cnorcneegstmodel,
+    Vehiclefrtoutstandingrptmodel, Lhextrapmtreconrptmodel, 
+    Expensebudgetlistmodel, Cnorcneegstmodel,
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,

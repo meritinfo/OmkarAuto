@@ -38,8 +38,9 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@VehicleMasterID",          request.FilterStr),
-                            new SqlParameter("@Party",            request.FilterStr1),
+                            new SqlParameter("@VehicleMasterID",    request.FilterStr),
+                            new SqlParameter("@Party",              request.FilterStr1),
+                            new SqlParameter("@RptType",            request.FilterStr2),
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripOutstandingRptExcel", param);
@@ -47,8 +48,8 @@ namespace FleetTrans.Repository
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         var filter = "Trip Outstanding report " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
-
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Trip Outstanding report", filter);
+                        var rptname = request.FilterStr2 == "S"? "Vehicle Advances / Balances Receipt Details" :"Trip Outstanding report";
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], rptname, filter);
 
                     }
                     else
@@ -2875,7 +2876,197 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<SparesStockRptListModel> GetSparesStockRptList(ReportRequestModel request)
+        {
+            SparesStockRptListModel sparesStockRptListModel = new();
+            List<SparesStockRptModel> sparesStockRptList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@RptType",    request.FilterStr1),
 
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesStockRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            sparesStockRptList.Add(new SparesStockRptModel
+                            {
+                                SpareLubName = Convert.ToString(dataSet.Tables[0].Rows[i]["SpareLubName"]),
+                                OpeningQty = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningQty"]),
+                                PurchQty = Convert.ToString(dataSet.Tables[0].Rows[i]["PurchQty"]),
+                                IssueQty = Convert.ToString(dataSet.Tables[0].Rows[i]["IssueQty"]),
+                            });
+                        }
+
+                        sparesStockRptListModel.SparesStockRptList = sparesStockRptList;
+
+                        sparesStockRptListModel.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return sparesStockRptListModel;
+        }
+        public async Task<ResponseModel> GetSparesStockRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@RptType",    request.FilterStr1),
+
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesStockRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Stock Report", filter);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<SparesHistoryRptListModel> GetSparesUsageHistoryRptList(ReportRequestModel request)
+        {
+            SparesHistoryRptListModel sparesStockRptListModel = new();
+            List<SparesHistoryRptModel> sparesStockRptList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@RptType",    request.FilterStr1),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesIssueRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            sparesStockRptList.Add(new SparesHistoryRptModel
+                            {
+                                SpareLubName = Convert.ToString(dataSet.Tables[0].Rows[i]["SpareLubName"]),
+                                BrandName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                StockType = Convert.ToString(dataSet.Tables[0].Rows[i]["StockType"]),
+                                KmReading = Convert.ToString(dataSet.Tables[0].Rows[i]["KmReading"]),
+                                ItemQty = Convert.ToString(dataSet.Tables[0].Rows[i]["ItemQty"]),
+                                NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+
+                        sparesStockRptListModel.SparessHistoryRptList = sparesStockRptList;
+
+                        sparesStockRptListModel.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return sparesStockRptListModel;
+        }
+        public async Task<ResponseModel> GetSparesUsageHistoryRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@RptType",    request.FilterStr1),
+
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesIssueRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Usage History Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
 
 

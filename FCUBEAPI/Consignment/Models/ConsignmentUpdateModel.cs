@@ -58,6 +58,8 @@ namespace Consignment.Models
         public string? UlReportingDateTime { get; set; }
         public string? DeliveryDateTime { get; set; }
         public string? UlDetentionDays { get; set; }
+        public string? WhatsappPOD1 { get; set; }
+        public string? WhatsappPOD2 { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
 
