@@ -123,7 +123,17 @@ export class SpareslubesmasteraddComponent {
   }
 
   addItem(index: number): void {
-    if (this.formArray.value[index].brandId != "0" && this.formArray.value[index].openingQty != "") {
+    var selectedData= this.formSparesMaster.getRawValue();
+    var arr=selectedData.arrayList;
+    for (var i = 0; i < arr.length; i++) {  
+      if(i!=index && arr[index].brandId==arr[i].brandId){
+        this.toasterService.warning("brand already selected");
+        return;
+
+      }
+    }
+
+    if (this.formArray.value[index].brandId != "0" && this.formArray.value[index].openingQty != "0") {
       this.formArray.push(this.createInitialArray());
     } else {
       this.toasterService.warning("Please select one Item  detail brand, qty");
@@ -220,6 +230,11 @@ export class SpareslubesmasteraddComponent {
         this.toasterService.warning("Please Enter Qty");
         return;
       } 
+      // if (selectedDataVal.arrayList[i].openingValue =='' ) {
+      //   this.toasterService.warning("Please Enter openingValue");
+      //   return;
+      // } 
+      
       
       this.sparesLubesMasterModel.sparesLubesDetailList.push({     
         'id': '',
