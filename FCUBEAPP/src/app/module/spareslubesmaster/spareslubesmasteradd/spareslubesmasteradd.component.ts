@@ -121,6 +121,18 @@ export class SpareslubesmasteraddComponent {
       this.brandList = res;
     });
   }
+  checkduplicate(index: number){
+    var selectedData= this.formSparesMaster.getRawValue();
+    var arr=selectedData.arrayList;
+    for (var i = 0; i < arr.length; i++) {  
+      if(i!=index && arr[index].brandId==arr[i].brandId){
+        this.toasterService.warning("brand already selected");
+        this.formArray.controls[index].get("brandId")?.setValue('');
+        return;
+
+      }
+    }
+  }
 
   addItem(index: number): void {
     var selectedData= this.formSparesMaster.getRawValue();
