@@ -634,8 +634,16 @@ export class ChallanmasteraddComponent {
             aadharLinked="Y";
           }
           var ch = pan.substring(3, 4) ;
-          if(ch == "P" || ch == "F" || ch == "H"){
+          if(ch == "P" || ch == "F"){
             if(panValid == "Y" && aadharLinked == "Y"){
+              tdsPct = 1;
+            }
+            else{
+              tdsPct = 20;
+            }
+          }
+          else if(ch == "H"){
+            if(panValid == "Y"){
               tdsPct = 1;
             }
             else{

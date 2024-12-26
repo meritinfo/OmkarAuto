@@ -160,7 +160,9 @@ export class TripsheetaddComponent {
       expensesByComp: new FormControl('',),
       reportDateTime: new FormControl('',),
       unloadDateTime: new FormControl('',),
-      detentionDays: new FormControl('',),
+      detentionDays: new FormControl('',),      
+      detnRate : new FormControl('',),      
+      detnAmount: new FormControl('',),      
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
       food_Sal_PerDay : new FormControl('',),
@@ -934,16 +936,25 @@ export class TripsheetaddComponent {
  
     // To calculate the no. of days between two dates
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    
+    var detentionDays = "0";
+    var detnAmount = "0";
+    var tripTotalFreight = "0";
+
     if (!Number.isNaN(Difference_In_Days)) {
-      this.formTripsheet.patchValue({
-        detentionDays: (Difference_In_Days).toString()
-      });
+      detentionDays = (Difference_In_Days).toString();     
     }
-    else {
-      this.formTripsheet.patchValue({
-        detentionDays: '0'
-      });  
+    if(selectedDataValue.detnRate!=""){
+      detnAmount = (parseFloat(selectedDataValue.detnRate)*parseInt(detentionDays)).toFixed(2);
     }
+    if(selectedDataValue.tripTotalFreight!=""){
+      tripTotalFreight = (parseFloat(selectedDataValue.tripTotalFreight)+ parseFloat(detnAmount)).toFixed(2);
+    }
+    this.formTripsheet.patchValue({
+      detentionDays: detentionDays,
+      detnAmount: detnAmount,
+      tripTotalFreight : tripTotalFreight
+    });
   }
   
 
@@ -1165,6 +1176,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
     this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
     this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
+    this.tripsheetmodel.detnRate= selectedDataValue.detnRate;
+    this.tripsheetmodel.detnAmount= selectedDataValue.detnAmount;
     this.tripsheetmodel.food_Sal_PerDay = selectedDataValue.food_Sal_PerDay;
     this.tripsheetmodel.food_Sal_FromDt = selectedDataValue.food_Sal_FromDt;
     this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
