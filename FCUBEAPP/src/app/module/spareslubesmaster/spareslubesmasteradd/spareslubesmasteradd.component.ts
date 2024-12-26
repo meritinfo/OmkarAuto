@@ -117,7 +117,8 @@ export class SpareslubesmasteraddComponent {
   }
 
   getBrandList(): void {
-    this.sparesLubesMasterService.getBrandList().subscribe((res) => {
+   // this.sparesLubesMasterService.getBrandList().subscribe((res) => {
+    this.commonService.getSparesBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
