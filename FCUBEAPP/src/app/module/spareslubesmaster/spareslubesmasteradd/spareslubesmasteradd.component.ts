@@ -127,7 +127,7 @@ export class SpareslubesmasteraddComponent {
     var arr=selectedData.arrayList;
     for (var i = 0; i < arr.length; i++) {  
       if(i!=index && arr[index].brandId==arr[i].brandId){
-        this.toasterService.warning("brand already selected");
+        this.toasterService.warning("Brand already selected in grid");
         this.formArray.controls[index].get("brandId")?.setValue('');
         return;
 
