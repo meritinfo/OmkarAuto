@@ -266,24 +266,37 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">                                        
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Reporting Date</label>
                                                 <input type="date" class="form-control" formControlName="reportDateTime"
                                                 min="{{minDate}}" max="{{maxDate}}" (change)="calDetentionDays()" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Unloading Date</label>    
                                                 <input type="date" class="form-control" formControlName="unloadDateTime"
                                                 min="{{minDate}}" max="{{maxDate}}" (change)="calDetentionDays()" >
                                             </div>
                                         </div>                                        
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Detention Days</label>
                                                 <input class="form-control" numbersonly formControlName="detentionDays">
+                                            </div>
+                                        </div>                                      
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Detention Rate</label>
+                                                <input class="form-control" decimalonly (change)="calDetentionDays()" 
+                                                formControlName="detnRate">
+                                            </div>
+                                        </div>                                      
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Detention Amt</label>
+                                                <input class="form-control" decimalonly formControlName="detnAmount">
                                             </div>
                                         </div>
                                     </div>

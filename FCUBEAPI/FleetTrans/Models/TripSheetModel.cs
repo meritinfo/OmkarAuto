@@ -57,6 +57,8 @@ namespace FleetTrans.Models
         public string? ReportDateTime { get; set; }
         public string? UnloadDateTime { get; set; }
         public string? DetentionDays { get; set; }
+        public string? DetnRate { get; set; }
+        public string? DetnAmount { get; set; }
         public string? Findocid { get; set; }
         public string? TripBr { get; set; }
         public string? VehicleNo { get; set; }

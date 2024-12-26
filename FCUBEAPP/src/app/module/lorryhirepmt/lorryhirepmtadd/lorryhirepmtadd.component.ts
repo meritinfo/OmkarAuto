@@ -146,7 +146,6 @@ export class LorryhirepmtaddComponent {
     this.selectedLorryhiremaster = this.lorryhirepmtService.getLorryhiremasterDetails(); 
 
     this.formUser.controls['pmtStation'].disable();
-    this.formUser.controls['pmtNo'].disable();
     this.formUser.controls['onAcBranch'].disable();
     this.formUser.controls['neftPmt'].disable();
     this.formUser.controls['totalHireAmt'].disable();
@@ -178,7 +177,8 @@ export class LorryhirepmtaddComponent {
     }
 
     setTimeout(() => {
-      if (this.selectedLorryhiremaster.masterId != '') {    
+      if (this.selectedLorryhiremaster.masterId != '') {  
+        this.formUser.controls['pmtNo'].disable();
         this.formUser.patchValue(this.selectedLorryhiremaster);
         var onAcBranchYN = this.selectedLorryhiremaster.onAcBranchYN=="Y"?"Y":"";
         var neftPmt = this.selectedLorryhiremaster.neftPmt=="Y"?"Y":"";

@@ -48,6 +48,8 @@ export class Tripsheetmodel {
     reportDateTime: string = "";
     unloadDateTime: string = "";
     detentionDays: string = "";
+    detnRate : string = "";
+    detnAmount: string = "";
     findocid: string = "";
     tripBr: string = "";
     vehicleNo: string = "";
