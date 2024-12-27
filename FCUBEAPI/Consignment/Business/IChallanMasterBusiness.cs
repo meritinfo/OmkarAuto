@@ -23,5 +23,6 @@ namespace Consignment.Business
         Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req);
         Task<ChallanMasterModel> GetChallanEnqInnerGridList(RequestModel request);
         Task<ResponseModel> GetChallanPrintPdf(RequestModel request);
+        Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel);
     }
 }

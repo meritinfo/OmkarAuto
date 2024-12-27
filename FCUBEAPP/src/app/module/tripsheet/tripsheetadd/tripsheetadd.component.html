@@ -830,6 +830,13 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
+                                        <label for="formrow-inputCity">Paid to Driver</label>
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="paidToDriver">
+                                    </div>
+                                </div>                                
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
                                         <label for="formrow-inputCity">Net Trip Balance</label>
                                         <input class="form-control" decimalonly formControlName="netTripBalance"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['netTripBalance'].invalid) }" >

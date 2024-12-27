@@ -172,6 +172,7 @@ export class TripsheetaddComponent {
       food_Sal_Amt     : new FormControl('',),
       rtaChallanDesc     : new FormControl('',),
       rtaChallanAmt      : new FormControl('',),
+      paidToDriver   : new FormControl('',),
       driverList: this.formBuilder.array([this.createDriverArray()]),
       routeList: this.formBuilder.array([this.createRouteArray()]),
       dieselList: this.formBuilder.array([this.createDieselArray()]),
@@ -897,13 +898,14 @@ export class TripsheetaddComponent {
     var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
     var foodsal = selectedDataValue.food_Sal_Amt==''?0:parseFloat(selectedDataValue.food_Sal_Amt);
     var rtaAmt =  selectedDataValue.rtaChallanAmt==''?0:parseFloat(selectedDataValue.rtaChallanAmt);
-    var adblueExp  =selectedDataValue.totalAdblueExp==''?0:parseFloat(selectedDataValue.totalAdblueExp);
+    var adblueExp  = selectedDataValue.totalAdblueExp==''?0:parseFloat(selectedDataValue.totalAdblueExp);
+    var paidToDriver = selectedDataValue.paidToDriver==''?0:parseFloat(selectedDataValue.paidToDriver);
     
     var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
                       - expensesByDriver - bhattaAmt + penaltyChargedToDr - foodsal
                       - onTimeIncentiveAmt - multiDelIncentiveAmt - rtaAmt;
 
-    var netTripBalance = tripBalance - recdFromDriver;
+    var netTripBalance = tripBalance - recdFromDriver + paidToDriver;
     // var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
     //                   + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp + foodsal + rtaAmt
    
@@ -1185,6 +1187,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt.toString(); 
     this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc;
     this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt ;
+    this.tripsheetmodel.paidToDriver   = selectedDataValue.paidToDriver ;    
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 

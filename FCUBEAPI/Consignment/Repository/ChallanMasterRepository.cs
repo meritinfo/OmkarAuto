@@ -652,11 +652,6 @@ namespace Consignment.Repository
         public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -665,25 +660,22 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@Branch", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getChallanNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);                       
                     }
                     else
                     {
                         responseModel.Status = false;
-                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                responseModel.Status = false;
             }
             return responseModel;
         }
@@ -1040,6 +1032,38 @@ namespace Consignment.Repository
             {
                 responseModel.Status = false;
                 responseModel.Message = "Error Fetching Report";
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo", requestModel.strRequest),
+                            new SqlParameter("@Date", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanWiseTdsRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
             }
             return responseModel;
         }
