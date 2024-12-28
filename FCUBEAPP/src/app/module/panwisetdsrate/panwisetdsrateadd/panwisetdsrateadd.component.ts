@@ -116,7 +116,8 @@ ngOnInit(): void {
   this.formPanMaster = this.formBuilder.group({
     panNo : new FormControl('',[Validators.required]),
     ownerName : new FormControl('', [Validators.required]),
-    validFrom : new FormControl(this.minDate, [Validators.required]),
+   // validFrom : new FormControl(this.minDate, [Validators.required]),
+   validFrom : new FormControl(this.loginDate, [Validators.required]),
     validUpto : new FormControl(this.maxDate , [Validators.required]),
     tdsRate  : new FormControl('', [Validators.required]),
     tdsCertUpload   : new FormControl('', ),
