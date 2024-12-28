@@ -62,6 +62,7 @@ export class Tripsheetmodel {
     food_Sal_Amt : string = ""; 
     rtaChallanDesc  : string = ""; 
     rtaChallanAmt   : string = ""; 
+    paidToDriver: string = "";
     loggedInUser: string = "";
 
     driverList: DriverDetails[] = [];

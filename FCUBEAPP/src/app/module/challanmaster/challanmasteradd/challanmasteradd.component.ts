@@ -599,7 +599,8 @@ export class ChallanmasteraddComponent {
   }
 
   onOwnerPanChange() {
-    var pan = this.formUser.value.vehicleOwnerPanNo ;
+    var selectedData = this.formUser.getRawValue();
+    var pan = selectedData.vehicleOwnerPanNo ;
     var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
     var test = regexp.test(pan);
     var tdsPct = 0;
@@ -620,65 +621,79 @@ export class ChallanmasteraddComponent {
     }
     else{
       this.requestmodel.strRequest = pan;
-      this.requestmodel.strRequest1 = this.loggedInUserID;
+      this.requestmodel.strRequest1 = selectedData.challanDateTime;
       
-      this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
-        this.panDetails = res;
-        var panValid = "";
-        var aadharLinked = "";
-        if (this.panDetails.result.number!="") { 
-          if(this.panDetails.result.isValid){
-            panValid= "Y";
-          }
-          if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
-            aadharLinked="Y";
-          }
-          var ch = pan.substring(3, 4) ;
-          if(ch == "P" || ch == "F"){
-            if(panValid == "Y" && aadharLinked == "Y"){
-              tdsPct = 1;
-            }
-            else{
-              tdsPct = 20;
-            }
-          }
-          else if(ch == "H"){
-            if(panValid == "Y"){
-              tdsPct = 1;
-            }
-            else{
-              tdsPct = 20;
-            }
-          }
-          else{
-            if(panValid == "Y"){
-              tdsPct = 2;
-            }
-            else{
-              tdsPct = 20;
-            }
-          }
-
-          if(ch == "P" || ch == "F"){            
-            this.formUser.controls["declarationYN"].enable();              
-          }
-          else{            
-            this.formUser.controls["declarationYN"].disable();  
-          }
-
+      this.challanmasterService.getPanwiseTdsRate(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
           this.formUser.patchValue({
-            panValid: panValid,
-            aadharLinked: aadharLinked,
-            vehicleOwnerName: this.panDetails.result.name,
-            tdsPct: tdsPct,
-            declarationYN:"",
+            tdsPct: parseFloat(this.responseDetails.message)
           });  
         }
-        else{          
-          this.toastrService.warning("Invalid PAN No...!");
-          return;
+       else{
+          this.requestmodel.strRequest = pan;
+          this.requestmodel.strRequest1 = this.loggedInUserID;
+          
+          this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
+            this.panDetails = res;
+            var panValid = "";
+            var aadharLinked = "";
+            if (this.panDetails.result.number!="") { 
+              if(this.panDetails.result.isValid){
+                panValid= "Y";
+              }
+              if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
+                aadharLinked="Y";
+              }
+              var ch = pan.substring(3, 4) ;
+              if(ch == "P" || ch == "F"){
+                if(panValid == "Y" && aadharLinked == "Y"){
+                  tdsPct = 1;
+                }
+                else{
+                  tdsPct = 20;
+                }
+              }
+              else if(ch == "H"){
+                if(panValid == "Y"){
+                  tdsPct = 1;
+                }
+                else{
+                  tdsPct = 20;
+                }
+              }
+              else{
+                if(panValid == "Y"){
+                  tdsPct = 2;
+                }
+                else{
+                  tdsPct = 20;
+                }
+              }
+    
+              if(ch == "P" || ch == "F"){            
+                this.formUser.controls["declarationYN"].enable();              
+              }
+              else{            
+                this.formUser.controls["declarationYN"].disable();  
+              }
+    
+              this.formUser.patchValue({
+                panValid: panValid,
+                aadharLinked: aadharLinked,
+                vehicleOwnerName: this.panDetails.result.name,
+                tdsPct: tdsPct,
+                declarationYN:"",
+              });  
+            }
+            else{          
+              this.toastrService.warning("Invalid PAN No...!");
+              return;
+            }
+          }); 
         }
-      }); 
+      });
+
     }
 
     setTimeout(() => {

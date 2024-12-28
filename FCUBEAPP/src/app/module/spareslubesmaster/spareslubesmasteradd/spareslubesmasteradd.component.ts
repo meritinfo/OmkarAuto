@@ -122,6 +122,7 @@ export class SpareslubesmasteraddComponent {
       this.brandList = res;
     });
   }
+  
   checkduplicate(index: number){
     var selectedData= this.formSparesMaster.getRawValue();
     var arr=selectedData.arrayList;

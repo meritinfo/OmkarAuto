@@ -78,4 +78,8 @@ export class ChallanmasterService {
   getChallanEnqInnerGridList(req: Requestmodel): Observable<Challanmastermodel> {
     return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqInnerGridList', req, this.httpOptions);
   }
+  getPanwiseTdsRate(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanwiseTdsRate', req, this.httpOptions);
+  }
+  
 }

@@ -1927,6 +1927,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetPanwiseTdsRate")]
+        public async Task<IActionResult> GetPanwiseTdsRate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetPanwiseTdsRate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("GetMrEnqDetails")]
         public async Task<IActionResult> GetMrEnqDetails(RequestModel req)
         {
