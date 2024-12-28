@@ -17,6 +17,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Consignment.Business;
+using FleetMasters.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -63,7 +64,8 @@ namespace FCUBEAPI.Controllers
         readonly IOnAccountMRStatusRptBusiness onAccountMRStatusRptBusiness;
         readonly IAddCostRecBusiness addCostRecorveryBusiness;
         readonly IBusinessSummRptBusiness businessSummRptBusiness;
-        public FreightMastersController(IOptions<DBModel> _dbconnection, 
+        readonly IPanWiseTdsRateBusiness panWiseTdsRateBusiness;
+        public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -100,7 +102,8 @@ namespace FCUBEAPI.Controllers
             ILRCostingRptBusiness _lRCostingRptBusiness,
             IOnAccountMRStatusRptBusiness _onAccountMRStatusRptBusiness,
             IAddCostRecBusiness _addCostRecorveryBusiness,
-            IBusinessSummRptBusiness _businessSummRptBusiness)           
+            IBusinessSummRptBusiness _businessSummRptBusiness,
+           IPanWiseTdsRateBusiness _panWiseTdsRateBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -141,6 +144,7 @@ namespace FCUBEAPI.Controllers
             onAccountMRStatusRptBusiness = _onAccountMRStatusRptBusiness;
             addCostRecorveryBusiness = _addCostRecorveryBusiness;
             businessSummRptBusiness = _businessSummRptBusiness;
+            panWiseTdsRateBusiness = _panWiseTdsRateBusiness;
         }
 
         /// <summary>
@@ -387,24 +391,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("ProductMasterSave")]
-        public async Task<IActionResult> ProductMasterSave(ProductMasterModel productMasterModel)
-        {
-            if (productMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await productMasterBusiness.ProductMasterSave(productMasterModel);
+        //[HttpPost("ProductMasterSave")]
+        //public async Task<IActionResult> ProductMasterSave(ProductMasterModel productMasterModel)
+        //{
+        //    if (productMasterModel == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await productMasterBusiness.ProductMasterSave(productMasterModel);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("ClassificationMasterSave")]
         public async Task<IActionResult> ClassificationMasterSave(ClassificationMasterModel classificationasterModel)
         {
@@ -800,7 +804,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-               
+
 
         [HttpPost("CheckDuplicateClass")]
         public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
@@ -1000,7 +1004,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("RateTypeDelete")]
-        public async Task<IActionResult>RateTypeDelete(RequestModel req)
+        public async Task<IActionResult> RateTypeDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -1256,7 +1260,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
 
         [HttpPost("ConsigneeMasterSave")]
         public async Task<IActionResult> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel)
@@ -1735,7 +1739,7 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetCompanyDetail")]
         public async Task<IActionResult> GetCompanyDetail()
         {
-           
+
             try
             {
                 var result = await companyInfoBusiness.GetCompanyDetail();
@@ -1913,7 +1917,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
 
         [HttpPost("GetChallanRegisterRptList")]
         public async Task<IActionResult> GetChallanRegisterRptList(ReportRequestModel request)
@@ -2269,7 +2273,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
 
         [HttpPost("GetBillSubmitPrint")]
         public async Task<IActionResult> GetBillSubmitPrint(RequestModel request)
@@ -2347,7 +2351,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
         [HttpPost("GetDeptList")]
         public async Task<IActionResult> GetDeptList()
         {
@@ -2605,7 +2609,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
 
 
 
@@ -2865,7 +2869,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
         [HttpPost("GetAddCostRecEntryDocDetails")]
         public async Task<IActionResult> GetAddCostRecEntryDocDetails(ReportRequestModel request)
         {
@@ -3028,8 +3032,100 @@ namespace FCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("PanWiseTdsRateSave")]
+        public async Task<IActionResult> PanWiseTdsRateSave()
+        {
+            try
+            {
+               // var driverPhoto = HttpContext.Request.Form.Files["driverPhoto"];
+                var drivingLicense = HttpContext.Request.Form.Files["tdsCertUpload"];
+
+            
+                PanWiseTdsRateModel panWiseTdsRateModel = JsonConvert.DeserializeObject<PanWiseTdsRateModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (drivingLicense != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(drivingLicense.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(drivingLicense.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/panwise");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await drivingLicense.CopyToAsync(fileStream);
+                        panWiseTdsRateModel.TdsCertUpload = imageName;
+                    }
+                }
+
+                var result = await panWiseTdsRateBusiness.PanWiseTdsRateSave(panWiseTdsRateModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPanWiseTdsRateList")]
+        public async Task<IActionResult> GetPanWiseTdsRateList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await panWiseTdsRateBusiness.GetPanWiseTdsRateList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
+        [HttpPost("ChkPanDuplicate")]
+        public async Task<IActionResult> ChkPanDuplicate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await panWiseTdsRateBusiness.ChkPanDuplicate(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("PanWiseTdsRateDelete")]
+        public async Task<IActionResult> PanWiseTdsRateDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await panWiseTdsRateBusiness.PanWiseTdsRateDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

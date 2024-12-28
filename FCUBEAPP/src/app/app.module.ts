@@ -16,6 +16,7 @@ import { Usermodel } from './models/usermodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
+import { Panwisetdsratemodel } from './models/panwisetdsratemodel';
 import { Billsubmitmastermodel } from './models/billsubmitmastermodel';
 import { Destinationmodel } from './models/destinationmodel';
 import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
@@ -412,6 +413,8 @@ import { Tripmastermodel } from './models/tripmastermodel';
 import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
 import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
+import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
+import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 
 @NgModule({
   declarations: [
@@ -543,7 +546,7 @@ import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshisto
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent,
+     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
     
   ],
   imports: [
@@ -607,7 +610,7 @@ import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshisto
     Partygroupmastermodel,Subledgermodel,Billsubmitmastermodel,AdditionalcostrecmasterModel,
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
-    Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,
+    Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel
     

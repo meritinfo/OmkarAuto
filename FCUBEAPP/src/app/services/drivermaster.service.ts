@@ -41,6 +41,7 @@ export class DrivermasterService {
   chkDriverDupli(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkDriverDuplicate', req, this.httpOptions);
   }
+ 
 
   driverMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterDetailsDelete', req, this.httpOptions);
