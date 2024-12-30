@@ -74,7 +74,9 @@ export class TripSheetService {
   getTripSheetInnerGridList(request: Requestmodel): Observable<Tripsheetmodel> {
     return this.httpClient.post<Tripsheetmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
   }
-
+  tripSheetDetailsDelete(user: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripSheetDelete', user, this.httpOptions);
+  }
   getNextTripNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetNextTripNo', payload, this.httpOptions);
   }  

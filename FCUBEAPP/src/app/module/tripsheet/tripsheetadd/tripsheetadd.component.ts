@@ -209,8 +209,8 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['detentionDays'].disable();    
     this.formTripsheet.controls['food_Sal_Amt'].disable(); 
-    this.formTripsheet.controls['food_Sal_Days'].disable(); 
-    
+    this.formTripsheet.controls['food_Sal_Days'].disable();  
+    this.formTripsheet.controls['detnAmount'].disable(); 
 
     setTimeout(() => {
       this.sharedService.loading = true;
@@ -1076,7 +1076,7 @@ export class TripsheetaddComponent {
   deleteTripsheetForm(): void {
     this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId;
     if (confirm("Are you sure, you want to delete this?")) {
-      this.tripSheetService.tripMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.tripSheetService.tripSheetDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);

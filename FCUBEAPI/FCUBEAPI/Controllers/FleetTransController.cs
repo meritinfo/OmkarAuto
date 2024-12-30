@@ -531,6 +531,25 @@ namespace FCUBEAPI.Controllers
 
         }
 
+        [HttpPost("TripSheetDelete")]
+        public async Task<IActionResult> TripSheetDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripSheetBusiness.TripSheetDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("TripSheetSave")]
         public async Task<IActionResult> TripSheetSave(TripSheetModel tripMasterModel)
