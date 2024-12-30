@@ -1,0 +1,150 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">PAN wise TDS Rates</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formPanMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Personal Details -->
+                               
+                                <section>
+                                    <div class="row">
+                                        <!-- <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Driver name</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="panNo" (change)="chkDriverDupli($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['driverName'].invalid) }">
+                                            </div>
+                                        </div> -->
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Pan No</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="panNo"  minlength="10"   maxlength="10"  (change)="chkDriverDupli()"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['panNo'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Owner Name</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="ownerName"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['ownerName'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Valid From</label><span style="color: red">*</span>
+                                                <input type="date" class="form-control" formControlName="validFrom"
+                                                    min="{{minDate}}" max="{{maxDate}}"   
+                                                  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['validFrom'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Valid Upto</label><span style="color: red">*</span>
+                                                <input type="date" class="form-control" formControlName="validUpto"  
+                                                 min="{{minDate}}" max="{{maxDate}}"  
+                                                    
+                                                  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['validUpto'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Tds Rate</label><span style="color: red">*</span>
+                                                <input  type="text" class="form-control"
+                                                    formControlName="tdsRate"  decimalonly
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tdsRate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Active Y/N </label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="isActive"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['isActive'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">NO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Attachment Details -->
+                                  
+                                    <section>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Tds Cert Upload</label>
+                                                        <input #drivingLicenseInput class="form-control" type="file"
+                                                            id="formDLFile"  >
+                                                        <a *ngIf="selectedPanRateDetails.tdsCertUpload" target="_blank"
+                                                            href={{uploadedDrLic}}>Download</a>
+                                                    </div>
+                                                </div>
+                                               
+                                               
+                                            </div>
+                                       
+                                           
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md"
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitPanWiseForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deletePanWiseForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

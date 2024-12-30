@@ -249,6 +249,8 @@ import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripma
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
+import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
+import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 
 
@@ -599,6 +601,11 @@ const routes: Routes = [
   { path: 'tripsheetadd', component: TripmasteraddComponent },
   { path: 'tripsheetedit', component: TripmasteraddComponent },
   { path: 'sparesstockrpt', component: SparesstockrptComponent }, 
+  { path: 'spareshostoryrpt', component: SpareshistoryrptComponent },   
+  { path: 'panwisetdsrate', component: PanwisetdsratelistComponent },
+  { path: 'panwisetdsrateadd', component: PanwisetdsrateaddComponent },
+  { path: 'panwisetdsrateedit', component: PanwisetdsrateaddComponent },
+  
   { path: 'spareshostoryrpt', component: SpareshistoryrptComponent }, 
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
     

@@ -311,6 +311,8 @@ namespace FCUBEAPI
             services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
             services.AddScoped<IFleetRptRepository, FleetRptRepository>();
             services.AddScoped<IFleetRptBusiness, FleetRptBusiness>();
+            services.AddScoped<IPanWiseTdsRateRepository, PanWiseTdsRateRepository>();
+            services.AddScoped<IPanWiseTdsRateBusiness, PanWiseTdsRateBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
