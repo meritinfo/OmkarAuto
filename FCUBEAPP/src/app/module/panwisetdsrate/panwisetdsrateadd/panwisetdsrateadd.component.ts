@@ -123,7 +123,7 @@ ngOnInit(): void {
     tdsCertUpload   : new FormControl('', ),
     isActive : new FormControl('Y', [Validators.required]),
   });
- // this.formPanMaster.controls['age'].disable(); 
+  this.formPanMaster.controls['isActive'].disable(); 
 
   if (this.selectedPanRateDetails.rateid != '') {
  
@@ -140,6 +140,7 @@ ngOnInit(): void {
    
     })
     this.formPanMaster.controls['panNo'].disable();
+    this.formPanMaster.controls['isActive'].enable(); 
     this.editMode = true;
   }
 }
