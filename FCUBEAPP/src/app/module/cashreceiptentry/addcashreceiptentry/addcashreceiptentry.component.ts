@@ -352,7 +352,7 @@ export class AddcashreceiptentryComponent {
 
     var tpsign =''
     var tpfirstsign =''
-    if (selectedDataValue.docType == "CP") {
+    if (selectedDataValue.docType == "CR") {
       var tpsign ='C'
       var tpfirstsign ='D'
     }

@@ -2605,7 +2605,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+       
+
+        [HttpPost("GetOutstandingAnalysisRptList")]
+        public async Task<IActionResult> GetOutstandingAnalysisRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billOutstandingRptBusiness.GetOutstandingAnalysisRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 

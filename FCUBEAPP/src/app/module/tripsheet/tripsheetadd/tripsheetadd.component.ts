@@ -589,7 +589,7 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
         this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(parseFloat(res.routeList[i].unloadWt).toFixed(2));
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -736,7 +736,7 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
         this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(parseFloat(res.routeList[i].unloadWt).toFixed(2));
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -824,6 +824,7 @@ export class TripsheetaddComponent {
       }
     });
   }
+
   getSalDays(){
     var selectedDataValue = this.formTripsheet.getRawValue();
     var date1 = new Date(selectedDataValue.food_Sal_FromDt);
@@ -848,38 +849,44 @@ export class TripsheetaddComponent {
     else {
       this.formTripsheet.patchValue({
         food_Sal_Days: '0'
-  
       });
-  
     }
     this.getFoodCal();
   }
-  getNextTripSalDate(item: any){
-  
-    //var selectedDataValue = this.formTripsheet.getRawValue();
 
+  getNextTripSalDate(item: any){
     this.requestmodel.strRequest = item.dataId;
     this.requestmodel.strRequest1 = this.year;
     this.tripSheetService.getNextTripSalDate(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-     
-        var selectedDataValue = this.formTripsheet.getRawValue();
- // if(selectedDataValue.tripNo<1){
- 
- let date1= this.commonService.formatDate(this.responseDetails.message)
-    let date: Date = new Date(date1);
-
-
-    date.setDate(date.getDate() + 1)
-    let date2 = (date).toISOString()
-    this.formTripsheet.patchValue({
-      food_Sal_FromDt: date2.split("T")[0],
+      let date1= this.commonService.formatDate(this.responseDetails.message)
+      let date: Date = new Date(date1);
+      date.setDate(date.getDate() + 1)
+      let date2 = (date).toISOString()
+      this.formTripsheet.patchValue({
+        food_Sal_FromDt: date2.split("T")[0],
+      });
     });
- // }
-  });
-  
-  
-}
+  }
+
+  calDetnAmount(){
+    var selectedDataVal = this.formTripsheet.getRawValue();
+    var detnAmount = 0, tripTotalFreight = 0;
+    for (var i = 0; i < selectedDataVal.routeList.length; i++) {
+      if(selectedDataVal.routeList[i].unloadWt!=""){
+        detnAmount = detnAmount + parseFloat(selectedDataVal.routeList[i].unloadWt);
+      }
+      if(selectedDataVal.routeList[i].hireAmt!=""){
+        tripTotalFreight = tripTotalFreight + parseFloat(selectedDataVal.routeList[i].hireAmt);
+      }
+    }
+    
+    this.formTripsheet.patchValue({
+      detnAmount: detnAmount.toFixed(2),
+      tripTotalFreight : (tripTotalFreight + detnAmount).toFixed(2),
+    });
+    this.calTotal();
+  }
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -906,8 +913,6 @@ export class TripsheetaddComponent {
                       - onTimeIncentiveAmt - multiDelIncentiveAmt - rtaAmt;
 
     var netTripBalance = tripBalance - recdFromDriver + paidToDriver;
-    // var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
-    //                   + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp + foodsal + rtaAmt
    
     var tripTotalExpenses = expensesByDriver  + bhattaAmt  + 
                       onTimeIncentiveAmt + multiDelIncentiveAmt 
@@ -940,22 +945,12 @@ export class TripsheetaddComponent {
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
     
     var detentionDays = "0";
-    var detnAmount = "0";
-    var tripTotalFreight = "0";
 
     if (!Number.isNaN(Difference_In_Days)) {
       detentionDays = (Difference_In_Days).toString();     
-    }
-    if(selectedDataValue.detnRate!=""){
-      detnAmount = (parseFloat(selectedDataValue.detnRate)*parseInt(detentionDays)).toFixed(2);
-    }
-    if(selectedDataValue.tripTotalFreight!=""){
-      tripTotalFreight = (parseFloat(selectedDataValue.tripTotalFreight)+ parseFloat(detnAmount)).toFixed(2);
-    }
+    }    
     this.formTripsheet.patchValue({
       detentionDays: detentionDays,
-      detnAmount: detnAmount,
-      tripTotalFreight : tripTotalFreight
     });
   }
   
@@ -1185,9 +1180,9 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
     this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days;
     this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt.toString(); 
-    this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc;
-    this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt ;
-    this.tripsheetmodel.paidToDriver   = selectedDataValue.paidToDriver ;    
+    this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc.toString().toUpperCase();
+    this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt.toString(); 
+    this.tripsheetmodel.paidToDriver   = selectedDataValue.paidToDriver.toString(); 
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 
@@ -1206,7 +1201,7 @@ export class TripsheetaddComponent {
           'pmtDate':  selectedDataValue.driverList[i].pmtDate,
           'transType':  selectedDataValue.driverList[i].transType,
           'amountPaid':  selectedDataValue.driverList[i].amountPaid,
-          'remarks':  selectedDataValue.driverList[i].remarks,
+          'remarks':  selectedDataValue.driverList[i].remarks.toString().toUpperCase(),
           'pmtType': selectedDataValue.driverList[i].pmtType,
         })
       }
@@ -1224,13 +1219,13 @@ export class TripsheetaddComponent {
           'loadFor': selectedDataValue.routeList[i].loadFor,
           'loadMemoNo':  selectedDataValue.routeList[i].loadMemoNo,
           'loadingFrom': loadingfrom?loadingfrom.dataId:"" ,
-          'consignorName':  selectedDataValue.routeList[i].consignorName,
+          'consignorName':  selectedDataValue.routeList[i].consignorName.toString().toUpperCase(),
           'loadingTo':  loadingto?loadingto.dataId:"" ,
-          'consigneeName':  selectedDataValue.routeList[i].consigneeName,
+          'consigneeName':  selectedDataValue.routeList[i].consigneeName.toString().toUpperCase(),
           'loadWt':  selectedDataValue.routeList[i].loadWt,
           'unloadWt':  selectedDataValue.routeList[i].unloadWt,
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
-          'remarks':  selectedDataValue.routeList[i].remarks,
+          'remarks':  selectedDataValue.routeList[i].remarks.toString().toUpperCase(),
         })
       }
     }
@@ -1243,7 +1238,7 @@ export class TripsheetaddComponent {
           'dslQty':  selectedDataValue.dieselList[i].dslQty,
           'dslRate':  selectedDataValue.dieselList[i].dslRate,
           'amount':  selectedDataValue.dieselList[i].amount,
-          'remarks': selectedDataValue.dieselList[i].remarks,
+          'remarks': selectedDataValue.dieselList[i].remarks.toString().toUpperCase(),
         })
       }
     }
@@ -1254,7 +1249,7 @@ export class TripsheetaddComponent {
           'pmtId': selectedDataValue.adblueList[i].pmtId,
           'issueBranch':  selectedDataValue.adblueList[i].issueBranch,
           'issueDate':  selectedDataValue.adblueList[i].issueDate,
-          'issueParticulars':  selectedDataValue.adblueList[i].issueParticulars,
+          'issueParticulars':  selectedDataValue.adblueList[i].issueParticulars.toString().toUpperCase(),
           'adblueLtrs': selectedDataValue.adblueList[i].adblueLtrs,
           'adblueAmt': selectedDataValue.adblueList[i].adblueAmt,
         })
@@ -1267,7 +1262,7 @@ export class TripsheetaddComponent {
           'detailID': selectedDataValue.fasttagList[i].detailID,
           'transDate': selectedDataValue.fasttagList[i].transDate,
           'ftAmount':  selectedDataValue.fasttagList[i].ftAmount,
-          'remarks': selectedDataValue.fasttagList[i].remarks,
+          'remarks': selectedDataValue.fasttagList[i].remarks.toString().toUpperCase(),
         })
       }
     }
@@ -1276,7 +1271,7 @@ export class TripsheetaddComponent {
       if(selectedDataValue.drExpList[i].expId!=''){
         this.tripsheetmodel.drExpList.push({
           'expId': selectedDataValue.drExpList[i].expId,
-          'expParticulars':  selectedDataValue.drExpList[i].expParticulars,
+          'expParticulars':  selectedDataValue.drExpList[i].expParticulars.toString().toUpperCase(),
           'expAmt':  selectedDataValue.drExpList[i].expAmt,
          })
       }

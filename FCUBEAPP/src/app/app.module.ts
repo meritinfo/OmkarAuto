@@ -412,6 +412,7 @@ import { Tripmastermodel } from './models/tripmastermodel';
 import { Fastagdslrechargeentrymodel } from 'src/app/models/fastagdslrechargeentrymodel';
 import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
+import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 
 @NgModule({
   declarations: [
@@ -543,7 +544,7 @@ import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshisto
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent,
+     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, OutstandinganalysisrptComponent,
     
   ],
   imports: [

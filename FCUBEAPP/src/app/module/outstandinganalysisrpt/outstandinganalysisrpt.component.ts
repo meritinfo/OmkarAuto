@@ -7,14 +7,16 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { Outstandinganalrptlistmodel } from 'src/app/models/outstandinganalrptlistmodel';
 import { ToastrService } from 'ngx-toastr';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'app-billoutstandingrpt',
-  templateUrl: './billoutstandingrpt.component.html',
-  styleUrls: ['./billoutstandingrpt.component.css']
+  selector: 'app-outstandinganalysisrpt',
+  templateUrl: './outstandinganalysisrpt.component.html',
+  styleUrls: ['./outstandinganalysisrpt.component.css']
 })
-export class BilloutstandingrptComponent {
+export class OutstandinganalysisrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -34,6 +36,10 @@ export class BilloutstandingrptComponent {
   minDate: string = '';
   branch:string ='';
   responseDetails = new Responsemodel();
+  
+    dtOptions: DataTables.Settings = {};
+    @ViewChild(DataTableDirective)
+    dtElement!: DataTableDirective;
 
   filter: Reportmodel = {
     pageNumber: 1,
@@ -48,7 +54,8 @@ export class BilloutstandingrptComponent {
     filterStr2:'',
     filterStr3:'',
   }
-
+ 
+  allOutstandinganalrptlist: Outstandinganalrptlistmodel = new Outstandinganalrptlistmodel();
 
   constructor(private billoutstandingrptService: BilloutstandingrptService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
@@ -62,7 +69,7 @@ export class BilloutstandingrptComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Bills Outstanding Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Outstanding Analysis");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -108,17 +115,19 @@ export class BilloutstandingrptComponent {
     }   
       
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl('2022-04-01',[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
-      branch: new FormControl('',),  
-      incUnBilled: new FormControl('',),  
-      submitYN: new FormControl('',),  
-      rptType: new FormControl('AS',),
     });
+
+    this.filter.fromDate =  "";
+    this.filter.toDate = this.loginDate;
+    this.filter.filterStr   = this.loginDate;
+    this.filter.filterStr1  = "";
+    this.filter.filterStr2  = "";
 
     this.sharedService.loading=true;
     this.getBranchList();
+    this.outstandingList();
     this.sharedService.loading=false;
   }
   
@@ -147,64 +156,104 @@ export class BilloutstandingrptComponent {
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+  
+  outstandingList(){
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      searching:false,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = 'Branch';
+        this.filter.sortOrder = 'asc';
+        this.filter.search = '';
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.billoutstandingrptService.getOutstandingAnalysisRptList(this.filter).subscribe(resp => {
+          this.allOutstandinganalrptlist = resp; 
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
+            });
+          });
+      }, 
+      columns: [ 
+        {
+          title: 'Year',
+          data: 'year',
+        }, 
+        {
+          title: 'Party',
+          data: 'party',
+        }, 
+        {
+          title: 'Billed Due Amt',
+          data: 'billedDueAmt',
+        }, 
+        {
+          title: 'Adhoc Recd',
+          data: 'adhocRecd',
+        },         
+        {
+          title: 'Actual Bill Due',
+          data: 'actualBillDue',
+        },  
+        {
+          title: 'Ledger Amt',
+          data: 'ledgerAmt',
+        },   
+        {
+          title: 'Total Unbilled Amt',
+          data: 'totalUnbilledAmt',
+        },          
+      ],
+    };
+  }
 
-  getRptExcel(): void {
+  exportExcel(): void {
     var selectedDataVal=this.formFilter.getRawValue();
-    this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.search        = selectedDataVal.asOnDate;
-    this.filter.filterStr     = selectedDataVal.branch;
-    this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
-    this.filter.filterStr2    = selectedDataVal.submitYN;
+    this.filter.filterStr = selectedDataVal.asOnDate;
 
-    if(selectedDataVal.rptType=="AS"){
-      this.billoutstandingrptService.getAgeingSummRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
+    this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
+      let link = document.createElement("a");
+      link.download = "OutstandingAnalysisReport" + "_" + new Date().getTime() + '.xlsx';
+      link.href = "assets\\reports\\Download\\" + resp.message;
+      link.click();
+    });
+  }
+
+  search(): void {
+    this.formSubmitted = true;
+    if (this.formFilter.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields");   
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      }     
+      return;
     }
-    if(selectedDataVal.rptType=="ASB"){
-      this.billoutstandingrptService.getAgeingSummBranchRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummBranchReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }
-    if(selectedDataVal.rptType=="ASP"){
-      this.billoutstandingrptService.getAgeingSummPartyRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummPartyReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }
-    if(selectedDataVal.rptType=="AD"){
-      this.billoutstandingrptService.getAgeingDetailRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingDetailReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }
-    if(selectedDataVal.rptType=="OS"){
-      this.billoutstandingrptService.getOutStandingSummRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "OutstandingSummReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }
-    if(selectedDataVal.rptType=="OD"){
-      this.billoutstandingrptService.getOutStandingDetailRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "OutstandingDetailReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }
+    var selectedDataVal=this.formFilter.getRawValue();
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.filterStr        = selectedDataVal.asOnDate;
+    
+    this.sharedService.loading=true;
+    this.outstandingList();
+    this.sharedService.loading=false;
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
 }
 

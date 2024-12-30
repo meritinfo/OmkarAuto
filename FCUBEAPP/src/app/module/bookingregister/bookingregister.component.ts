@@ -139,7 +139,7 @@ export class BookingregisterComponent {
   
       this.sharedService.loading=true;
 
-      this.bookingregisterList();
+     // this.bookingregisterList();
       this.sharedService.loading=false;
     }
 

@@ -627,6 +627,7 @@ export class ChallanmasteraddComponent {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formUser.patchValue({
+            panValid:"Y",
             tdsPct: parseFloat(this.responseDetails.message)
           });  
         }

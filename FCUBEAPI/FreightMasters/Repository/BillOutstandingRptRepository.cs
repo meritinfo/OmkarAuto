@@ -1191,7 +1191,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",       request.FromDate),
                             new SqlParameter("@ToDate",         request.ToDate),
-                            new SqlParameter("@AsOnDate",       request.Search),
+                            new SqlParameter("@AsOnDate",       request.FilterStr),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOutstandingSummRptList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
@@ -1214,6 +1214,60 @@ namespace FreightMasters.Repository
                 responseModel.Message = ex.Message;
             }
             return responseModel;
+        }
+        public async Task<OutstandingAnalRptListModel> GetOutstandingAnalysisRptList(ReportRequestModel request)
+        {
+            OutstandingAnalRptListModel ledgerRptListModel = new();
+            List<OutstandingAnalRptModel> ledgerRpts = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@AsOnDate",   request.FilterStr),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOutstandingSummRptList", param);
+                    int totalRecords = 0;
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            ledgerRpts.Add(new OutstandingAnalRptModel
+                            {
+                                Year                = Convert.ToString(dataSet.Tables[0].Rows[i]["Year"]),
+                                Party               = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
+                                BilledDueAmt        = Convert.ToString(dataSet.Tables[0].Rows[i]["BilledDueAmt"]),
+                                AdhocRecd           = Convert.ToString(dataSet.Tables[0].Rows[i]["AdhocRecd"]),
+                                ActualBillDue       = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualBillDue"]),
+                                LedgerAmt           = Convert.ToString(dataSet.Tables[0].Rows[i]["LedgerAmt"]),
+                                TotalUnbilledAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalUnbilledAmt"]),
+                            });
+                        }
+
+                        ledgerRptListModel.OutstandingAnalList = ledgerRpts;
+
+                        ledgerRptListModel.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ledgerRptListModel;
         }
 
     }

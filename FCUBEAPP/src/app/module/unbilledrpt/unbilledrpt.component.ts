@@ -123,7 +123,7 @@ export class UnbilledrptComponent {
       this.getPartyList(); 
       
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl( this.fromDate,[Validators.required]),
+        fromDate: new FormControl( '2022-04-01',[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         asOnDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
@@ -146,7 +146,7 @@ export class UnbilledrptComponent {
   
       this.sharedService.loading=true;
 
-      this.unbilledrptlist();
+      //this.unbilledrptlist();
       this.sharedService.loading=false;
     }
 

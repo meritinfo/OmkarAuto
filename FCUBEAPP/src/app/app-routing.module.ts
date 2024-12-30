@@ -249,6 +249,7 @@ import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripma
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
+import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 
 
 
@@ -598,7 +599,9 @@ const routes: Routes = [
   { path: 'tripsheetadd', component: TripmasteraddComponent },
   { path: 'tripsheetedit', component: TripmasteraddComponent },
   { path: 'sparesstockrpt', component: SparesstockrptComponent }, 
-  { path: 'spareshostoryrpt', component: SpareshistoryrptComponent },   
+  { path: 'spareshostoryrpt', component: SpareshistoryrptComponent }, 
+  { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
+    
 ];
 
 

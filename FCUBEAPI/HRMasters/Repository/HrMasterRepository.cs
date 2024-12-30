@@ -86,7 +86,7 @@ namespace HRMasters.Repository
                              new SqlParameter("@LoggedInUser", hrMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "HrMasterNew_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HrMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -125,7 +125,7 @@ namespace HRMasters.Repository
                         {
                             new SqlParameter("@HrCode",  request.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ChkHrMasterHrCode", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkHrMasterHrCode", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -160,7 +160,7 @@ namespace HRMasters.Repository
                         {
                             new SqlParameter("@HrId", request.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "HrMasterNew_Delete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HrMasterDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
