@@ -547,8 +547,9 @@ import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, OutstandinganalysisrptComponent,
+     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, 
+     PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
+     OutstandinganalysisrptComponent,
     
   ],
   imports: [

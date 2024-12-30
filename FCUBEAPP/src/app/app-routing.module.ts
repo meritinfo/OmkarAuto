@@ -605,8 +605,6 @@ const routes: Routes = [
   { path: 'panwisetdsrate', component: PanwisetdsratelistComponent },
   { path: 'panwisetdsrateadd', component: PanwisetdsrateaddComponent },
   { path: 'panwisetdsrateedit', component: PanwisetdsrateaddComponent },
-  
-  { path: 'spareshostoryrpt', component: SpareshistoryrptComponent }, 
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
     
 ];
