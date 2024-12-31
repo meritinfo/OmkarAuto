@@ -31,5 +31,8 @@ export class UnbilledrptService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetUnBilledRptExcel', filter, this.httpOptions);
   }    
 
+  getPendingDelvAckRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetPendingDelvAckRptExcel', filter, this.httpOptions);
+  }    
 }
 

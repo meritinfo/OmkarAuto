@@ -252,6 +252,7 @@ import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshisto
 import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
+import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 
 
 
@@ -606,7 +607,8 @@ const routes: Routes = [
   { path: 'panwisetdsrateadd', component: PanwisetdsrateaddComponent },
   { path: 'panwisetdsrateedit', component: PanwisetdsrateaddComponent },
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
-    
+  { path: 'pendingdelack', component: PendingdelvackrptComponent }, 
+  
 ];
 
 

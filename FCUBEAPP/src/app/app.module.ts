@@ -416,6 +416,7 @@ import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshisto
 import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
+import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 
 @NgModule({
   declarations: [
@@ -550,6 +551,7 @@ import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt
      TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, 
      PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
      OutstandinganalysisrptComponent,
+     PendingdelvackrptComponent,
     
   ],
   imports: [

@@ -5,19 +5,11 @@ using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using System.Collections.Generic;
-using FinanceMaster.Business;
-using FleetTrans.Business;
-using FleetMasters.Business;
-using AdminMasters.Business;
-using AdminMasters.Models;
 using Newtonsoft.Json;
-using System.Data.Common;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using Consignment.Business;
-using FleetMasters.Models;
+
 
 namespace FCUBEAPI.Controllers
 {
@@ -41,30 +33,16 @@ namespace FCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
-        readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
-        readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
         readonly IDriverLicRptBusiness driverLicRptBusiness;
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         readonly ICompanyInfoBusiness companyInfoBusiness;
         readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
-        readonly IBookingRegisterRptBusiness bookingRegisterRptBusiness;
-        readonly ILRWithOutChallanRptBusiness lRWithOutChallanRptBusiness;
-        readonly IUnBilledRptBusiness unBilledRptBusiness;
-        readonly IChallanRegisterRptBusiness challanRegisterRptBusiness;
-        readonly ILhPayableStatusRptBusiness lhPayableStatusRptBusiness;
-        readonly IBillRegisterRptBusiness billRegisterRptBusiness;
-        readonly IMRRegisterRptBusiness mRRegisterRptBusiness;
-        readonly ILHPMVarianceRptBusiness lHPMVarianceRptBusiness;
-        readonly IGSTRegisterRptBusiness gSTRegisterRptBusiness;
-        readonly ILHExtraPmtReconRptBusiness lHExtraPmtReconRptBusiness;
         readonly IBillSubmitMstBusiness billSubmitMstBusiness;
         readonly IAdditionalCostRecMasterBusiness additionalCostRecMasterBusiness;
-        readonly IBillOutstandingRptBusiness billOutstandingRptBusiness;
-        readonly ILRCostingRptBusiness lRCostingRptBusiness;
-        readonly IOnAccountMRStatusRptBusiness onAccountMRStatusRptBusiness;
         readonly IAddCostRecBusiness addCostRecorveryBusiness;
-        readonly IBusinessSummRptBusiness businessSummRptBusiness;
         readonly IPanWiseTdsRateBusiness panWiseTdsRateBusiness;
+        readonly IFreightRptBusiness freightRptBusiness;
+
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
@@ -79,31 +57,16 @@ namespace FCUBEAPI.Controllers
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness,
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
-            IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
-            IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness,
             IDriverLicRptBusiness _driverLicRptBusiness,
             ICompanyInfoBusiness _companyInfoBusiness,
             ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
-            IBookingRegisterRptBusiness _bookingRegisterRptBusiness,
-            ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness,
-            IUnBilledRptBusiness _unBilledRptBusiness,
-            IChallanRegisterRptBusiness _challanRegisterRptBusiness,
-            ILhPayableStatusRptBusiness _lhPayableStatusRptBusiness,
-            IBillRegisterRptBusiness _billRegisterRptBusiness,
-            IMRRegisterRptBusiness _mRRegisterRptBusiness,
-            ILHPMVarianceRptBusiness _lHPMVarianceRptBusiness,
-            IGSTRegisterRptBusiness _gSTRegisterRptBusiness,
             IPartyGroupMasterBusiness _partyGroupMasterBusiness,
-            ILHExtraPmtReconRptBusiness _lHExtraPmtReconRptBusiness,
             IBillSubmitMstBusiness _billSubmitMstBusiness,
             IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
-            IBillOutstandingRptBusiness _billOutstandingRptBusiness,
-            ILRCostingRptBusiness _lRCostingRptBusiness,
-            IOnAccountMRStatusRptBusiness _onAccountMRStatusRptBusiness,
             IAddCostRecBusiness _addCostRecorveryBusiness,
-            IBusinessSummRptBusiness _businessSummRptBusiness,
-           IPanWiseTdsRateBusiness _panWiseTdsRateBusiness)
+           IPanWiseTdsRateBusiness _panWiseTdsRateBusiness,
+           IFreightRptBusiness _freightRptBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -117,8 +80,6 @@ namespace FCUBEAPI.Controllers
             freightRatesMstBusiness = _freightRatesMstBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
-            distanceMasterFrtRptBusiness = _distanceMasterFrtRptBusiness;
-            distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
             driverLicRptBusiness = _driverLicRptBusiness;
             documentAllotmentBusiness = _documentAllotmentBusiness;
@@ -126,25 +87,12 @@ namespace FCUBEAPI.Controllers
             billsTypeBusiness = _billsTypeBusiness;
             companyInfoBusiness = _companyInfoBusiness;
             lhpmSlabMasterBusiness = _lhpmSlabMasterBusiness;
-            bookingRegisterRptBusiness = _bookingRegisterRptBusiness;
-            lRWithOutChallanRptBusiness = _lRWithOutChallanRptBusiness;
-            unBilledRptBusiness = _unBilledRptBusiness;
-            challanRegisterRptBusiness = _challanRegisterRptBusiness;
-            lhPayableStatusRptBusiness = _lhPayableStatusRptBusiness;
-            billRegisterRptBusiness = _billRegisterRptBusiness;
-            mRRegisterRptBusiness = _mRRegisterRptBusiness;
-            lHPMVarianceRptBusiness = _lHPMVarianceRptBusiness;
-            gSTRegisterRptBusiness = _gSTRegisterRptBusiness;
             partyGroupMasterBusiness = _partyGroupMasterBusiness;
-            lHExtraPmtReconRptBusiness = _lHExtraPmtReconRptBusiness;
             billSubmitMstBusiness = _billSubmitMstBusiness;
             additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
-            billOutstandingRptBusiness = _billOutstandingRptBusiness;
-            lRCostingRptBusiness = _lRCostingRptBusiness;
-            onAccountMRStatusRptBusiness = _onAccountMRStatusRptBusiness;
             addCostRecorveryBusiness = _addCostRecorveryBusiness;
-            businessSummRptBusiness = _businessSummRptBusiness;
             panWiseTdsRateBusiness = _panWiseTdsRateBusiness;
+            freightRptBusiness= _freightRptBusiness;
         }
 
         /// <summary>
@@ -178,7 +126,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceMasterFrtRptBusiness.GetDistanceMasterFrtRptList(request);
+                var result = await freightRptBusiness.GetDistanceMasterFrtRptList(request);
 
                 return Ok(result);
             }
@@ -196,7 +144,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceMasterFrtRptBusiness.ExcelDistanceMasterFrtRptList(request);
+                var result = await freightRptBusiness.ExcelDistanceMasterFrtRptList(request);
 
                 return Ok(result);
             }
@@ -214,7 +162,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceMasterTripRptBusiness.GetDistanceMasterTripRptList(request);
+                var result = await freightRptBusiness.GetDistanceMasterTripRptList(request);
 
                 return Ok(result);
             }
@@ -232,7 +180,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceMasterTripRptBusiness.ExcelDistanceMasterTripRptList(request);
+                var result = await freightRptBusiness.ExcelDistanceMasterTripRptList(request);
 
                 return Ok(result);
             }
@@ -1815,7 +1763,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await bookingRegisterRptBusiness.GetBookingRegisterRptExcel(request);
+                var result = await freightRptBusiness.GetBookingRegisterRptExcel(request);
 
                 return Ok(result);
             }
@@ -1833,7 +1781,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await bookingRegisterRptBusiness.GetBookingRegisterRptList(request);
+                var result = await freightRptBusiness.GetBookingRegisterRptList(request);
 
                 return Ok(result);
             }
@@ -1852,7 +1800,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lRWithOutChallanRptBusiness.GetLRWithOutChallanRptExcel(request);
+                var result = await freightRptBusiness.GetLRWithOutChallanRptExcel(request);
 
                 return Ok(result);
             }
@@ -1870,7 +1818,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lRWithOutChallanRptBusiness.GetLRWithOutChallanRptList(request);
+                var result = await freightRptBusiness.GetLRWithOutChallanRptList(request);
 
                 return Ok(result);
             }
@@ -1890,7 +1838,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await unBilledRptBusiness.GetUnBilledRptExcel(request);
+                var result = await freightRptBusiness.GetUnBilledRptExcel(request);
 
                 return Ok(result);
             }
@@ -1908,7 +1856,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await unBilledRptBusiness.GetUnBilledRptList(request);
+                var result = await freightRptBusiness.GetUnBilledRptList(request);
 
                 return Ok(result);
             }
@@ -1919,6 +1867,26 @@ namespace FCUBEAPI.Controllers
         }
 
 
+        [HttpPost("GetPendingDelvAckRptExcel")]
+        public async Task<IActionResult> GetPendingDelvAckRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetPendingDelvAckRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
         [HttpPost("GetChallanRegisterRptList")]
         public async Task<IActionResult> GetChallanRegisterRptList(ReportRequestModel request)
         {
@@ -1928,7 +1896,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await challanRegisterRptBusiness.GetChallanRegisterRptList(request);
+                var result = await freightRptBusiness.GetChallanRegisterRptList(request);
 
                 return Ok(result);
             }
@@ -1947,7 +1915,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await challanRegisterRptBusiness.GetChallanRegisterRptExcel(request);
+                var result = await freightRptBusiness.GetChallanRegisterRptExcel(request);
 
                 return Ok(result);
             }
@@ -1967,7 +1935,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lhPayableStatusRptBusiness.GetLhPayableStatusRptList(request);
+                var result = await freightRptBusiness.GetLhPayableStatusRptList(request);
 
                 return Ok(result);
             }
@@ -1986,7 +1954,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lhPayableStatusRptBusiness.GetLhPayableStatusRptExcel(request);
+                var result = await freightRptBusiness.GetLhPayableStatusRptExcel(request);
 
                 return Ok(result);
             }
@@ -2005,7 +1973,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billRegisterRptBusiness.GetBillRegisterRptExcel(request);
+                var result = await freightRptBusiness.GetBillRegisterRptExcel(request);
 
                 return Ok(result);
             }
@@ -2023,7 +1991,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billRegisterRptBusiness.GetBillRegisterRptList(request);
+                var result = await freightRptBusiness.GetBillRegisterRptList(request);
 
                 return Ok(result);
             }
@@ -2042,7 +2010,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await mRRegisterRptBusiness.GetMRRegisterRptExcel(request);
+                var result = await freightRptBusiness.GetMRRegisterRptExcel(request);
 
                 return Ok(result);
             }
@@ -2060,7 +2028,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await mRRegisterRptBusiness.GetMRRegisterRptList(request);
+                var result = await freightRptBusiness.GetMRRegisterRptList(request);
 
                 return Ok(result);
             }
@@ -2079,7 +2047,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lHPMVarianceRptBusiness.GetLHPMVarianceRptExcel(request);
+                var result = await freightRptBusiness.GetLHPMVarianceRptExcel(request);
 
                 return Ok(result);
             }
@@ -2097,7 +2065,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lHPMVarianceRptBusiness.GetLHPMVarianceRptList(request);
+                var result = await freightRptBusiness.GetLHPMVarianceRptList(request);
 
                 return Ok(result);
             }
@@ -2116,7 +2084,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await gSTRegisterRptBusiness.GetGSTRegisterRptExcel(request);
+                var result = await freightRptBusiness.GetGSTRegisterRptExcel(request);
 
                 return Ok(result);
             }
@@ -2134,7 +2102,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await gSTRegisterRptBusiness.GetGSTRegisterRptList(request);
+                var result = await freightRptBusiness.GetGSTRegisterRptList(request);
 
                 return Ok(result);
             }
@@ -2228,7 +2196,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lHExtraPmtReconRptBusiness.GetLHExtraPmtReconRptExcel(request);
+                var result = await freightRptBusiness.GetLHExtraPmtReconRptExcel(request);
 
                 return Ok(result);
             }
@@ -2246,7 +2214,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lHExtraPmtReconRptBusiness.GetLHExtraPmtReconRptList(request);
+                var result = await freightRptBusiness.GetLHExtraPmtReconRptList(request);
 
                 return Ok(result);
             }
@@ -2486,7 +2454,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetAgeingSummRptExcel(request);
+                var result = await freightRptBusiness.GetAgeingSummRptExcel(request);
 
                 return Ok(result);
             }
@@ -2505,7 +2473,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetAgeingSummBranchRptExcel(request);
+                var result = await freightRptBusiness.GetAgeingSummBranchRptExcel(request);
 
                 return Ok(result);
             }
@@ -2524,7 +2492,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetAgeingSummPartyRptExcel(request);
+                var result = await freightRptBusiness.GetAgeingSummPartyRptExcel(request);
 
                 return Ok(result);
             }
@@ -2543,7 +2511,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetAgeingDetailRptExcel(request);
+                var result = await freightRptBusiness.GetAgeingDetailRptExcel(request);
 
                 return Ok(result);
             }
@@ -2562,7 +2530,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetOutstandingSummRptExcel(request);
+                var result = await freightRptBusiness.GetOutstandingSummRptExcel(request);
 
                 return Ok(result);
             }
@@ -2581,7 +2549,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetOutstandingDetailRptExcel(request);
+                var result = await freightRptBusiness.GetOutstandingDetailRptExcel(request);
 
                 return Ok(result);
             }
@@ -2600,7 +2568,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetOutstandingAnalysisRptExcel(request);
+                var result = await freightRptBusiness.GetOutstandingAnalysisRptExcel(request);
 
                 return Ok(result);
             }
@@ -2620,7 +2588,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billOutstandingRptBusiness.GetOutstandingAnalysisRptList(request);
+                var result = await freightRptBusiness.GetOutstandingAnalysisRptList(request);
 
                 return Ok(result);
             }
@@ -2641,7 +2609,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lRCostingRptBusiness.GetLRCostingRptExcel(request);
+                var result = await freightRptBusiness.GetLRCostingRptExcel(request);
 
                 return Ok(result);
             }
@@ -2659,7 +2627,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lRCostingRptBusiness.GetLRCostingRptList(request);
+                var result = await freightRptBusiness.GetLRCostingRptList(request);
 
                 return Ok(result);
             }
@@ -2678,7 +2646,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await onAccountMRStatusRptBusiness.GetOnAccountMRStatusRptExcel(request);
+                var result = await freightRptBusiness.GetOnAccountMRStatusRptExcel(request);
 
                 return Ok(result);
             }
@@ -2696,7 +2664,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await onAccountMRStatusRptBusiness.GetOnAccountMRStatusRptList(request);
+                var result = await freightRptBusiness.GetOnAccountMRStatusRptList(request);
 
                 return Ok(result);
             }
@@ -2956,7 +2924,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await businessSummRptBusiness.GetBusinessSummRptExcel(request);
+                var result = await freightRptBusiness.GetBusinessSummRptExcel(request);
 
                 return Ok(result);
             }
@@ -2974,7 +2942,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await businessSummRptBusiness.GetBusinessSummRptList(request);
+                var result = await freightRptBusiness.GetBusinessSummRptList(request);
 
                 return Ok(result);
             }
