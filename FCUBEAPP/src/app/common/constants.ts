@@ -9,9 +9,9 @@ export class Constants {
 
     public static UploadFolderPath = 'assets/upload/';
 
-    //ng build --configuration production --base-href /ncc/  
-    //ng build --configuration production --base-href /rafleet/   
-    //ng build --configuration production --base-href /brpl/   
+    // ng build --configuration production --base-href /ncc/  
+    // ng build --configuration production --base-href /rafleet/   
+    // ng build --configuration production --base-href /brpl/   
 
 }
 
