@@ -54,7 +54,6 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered nowrap dt-responsive">
                         <thead>
                             <tr>
-                                <th>year </th>  
                                 <th>party </th>
                                 <th>billedDueAmt</th>
                                 <th>adhocRecd</th>
@@ -65,7 +64,6 @@
                         </thead>
                         <tbody *ngIf="allOutstandinganalrptlist.outstandingAnalList?.length != 0">
                             <tr *ngFor="let eta of allOutstandinganalrptlist.outstandingAnalList">
-                                <td>{{ eta.year }}</td>
                                 <td>{{ eta.party }}</td> 
                                 <td>{{ eta.billedDueAmt }}</td> 
                                 <td>{{ eta.adhocRecd }}</td> 

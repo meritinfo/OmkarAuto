@@ -13,5 +13,6 @@ namespace Consignment.Repository
         Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request);
         Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel);
         Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel);
+        Task<ResponseModel> GetLorryHirePrintPdf(RequestModel request);
     }
 }

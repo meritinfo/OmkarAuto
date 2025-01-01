@@ -1194,11 +1194,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ToDate",         request.ToDate),
                             new SqlParameter("@AsOnDate",       request.FilterStr),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOutstandingSummRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOutstandingSummRptExcel", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
-                        filter = filter  + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+                        var filter = "To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+                        filter = filter  + " As on Date " + Convert.ToDateTime(request.FilterStr).ToString("dd/MM/yyyy");
 
                         responseModel = await sharedRepository.GetExcelReport(dataSet.Tables[0], "OUTSTANDING ANALYSIS REPORT", filter);
                     }
@@ -1244,7 +1244,6 @@ namespace FreightMasters.Repository
                         {
                             ledgerRpts.Add(new OutstandingAnalRptModel
                             {
-                                Year                = Convert.ToString(dataSet.Tables[0].Rows[i]["Year"]),
                                 Party               = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
                                 BilledDueAmt        = Convert.ToString(dataSet.Tables[0].Rows[i]["BilledDueAmt"]),
                                 AdhocRecd           = Convert.ToString(dataSet.Tables[0].Rows[i]["AdhocRecd"]),

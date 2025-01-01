@@ -7,6 +7,8 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.VariantTypes;
 using System.Data.Common;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Consignment.Repository
 {
@@ -479,6 +481,48 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetLorryHirePrintPdf(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/LH/";
+
+                string UrlParam = "?MasterId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = "Error Fetching Report";
+            }
+            return responseModel;
+        }
+
     }
 
 }

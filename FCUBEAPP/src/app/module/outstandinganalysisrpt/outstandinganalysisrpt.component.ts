@@ -187,10 +187,6 @@ export class OutstandinganalysisrptComponent {
       }, 
       columns: [ 
         {
-          title: 'Year',
-          data: 'year',
-        }, 
-        {
           title: 'Party',
           data: 'party',
         }, 

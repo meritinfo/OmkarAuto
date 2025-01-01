@@ -8,7 +8,6 @@ namespace FreightMasters.Models
 {
     public class OutstandingAnalRptModel
     {
-        public string? Year { get; set; }
         public string? Party { get; set; }
         public string? BilledDueAmt { get; set; }
         public string? AdhocRecd { get; set; }
