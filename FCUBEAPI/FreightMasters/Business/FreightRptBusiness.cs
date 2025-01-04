@@ -190,6 +190,22 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetPendingDelvAckRptExcel(request);
         }
+        public async Task<DriverLicRptListModel> GetDriverLicRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDriverLicRptList(request);
+        }
+        public async Task<ResponseModel> ExcelDriverLicRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.ExcelDriverLicRptList(request);
+        }
 
+        public async Task<DprRptListModel> GetDPRRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDPRRptList(request);
+        }
+        public async Task<ResponseModel> GetDPRRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDPRRptExcel(request);
+        }
     }
 }

@@ -33,7 +33,6 @@ namespace FCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
-        readonly IDriverLicRptBusiness driverLicRptBusiness;
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         readonly ICompanyInfoBusiness companyInfoBusiness;
         readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
@@ -58,7 +57,6 @@ namespace FCUBEAPI.Controllers
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness,
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness,
-            IDriverLicRptBusiness _driverLicRptBusiness,
             ICompanyInfoBusiness _companyInfoBusiness,
             ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
             IPartyGroupMasterBusiness _partyGroupMasterBusiness,
@@ -81,7 +79,6 @@ namespace FCUBEAPI.Controllers
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
-            driverLicRptBusiness = _driverLicRptBusiness;
             documentAllotmentBusiness = _documentAllotmentBusiness;
             billsMasterBusiness = _billsMasterBusiness;
             billsTypeBusiness = _billsTypeBusiness;
@@ -198,7 +195,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await driverLicRptBusiness.GetDriverLicRptList(request);
+                var result = await freightRptBusiness.GetDriverLicRptList(request);
 
                 return Ok(result);
             }
@@ -216,7 +213,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await driverLicRptBusiness.ExcelDriverLicRptList(request);
+                var result = await freightRptBusiness.ExcelDriverLicRptList(request);
 
                 return Ok(result);
             }
@@ -226,6 +223,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDPRRptList")]
+        public async Task<IActionResult> GetDPRRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetDPRRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDPRRptExcel")]
+        public async Task<IActionResult> GetDPRRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetDPRRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("BranchMasterDetailsSave")]
         public async Task<IActionResult> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)
         {

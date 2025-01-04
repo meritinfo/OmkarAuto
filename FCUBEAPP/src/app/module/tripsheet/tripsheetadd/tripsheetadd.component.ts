@@ -353,6 +353,7 @@ export class TripsheetaddComponent {
       consigneeName: [''],
       loadWt: [''],
       unloadWt: [''],
+      extDetention: [''],
       hireAmt: [''],
       remarks: [''],
     });
@@ -589,7 +590,8 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
         this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(parseFloat(res.routeList[i].unloadWt).toFixed(2));
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
+        this.formRouteArray.controls[i].get("extDetention")?.setValue(res.routeList[i].extDetention);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -736,7 +738,8 @@ export class TripsheetaddComponent {
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
         this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
         this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(parseFloat(res.routeList[i].unloadWt).toFixed(2));
+        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
+        this.formRouteArray.controls[i].get("extDetention")?.setValue(res.routeList[i].extDetention);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -872,9 +875,9 @@ export class TripsheetaddComponent {
   calDetnAmount(){
     var selectedDataVal = this.formTripsheet.getRawValue();
     var detnAmount = 0, tripTotalFreight = 0;
-    for (var i = 0; i < selectedDataVal.routeList.length; i++) {
-      if(selectedDataVal.routeList[i].unloadWt!=""){
-        detnAmount = detnAmount + parseFloat(selectedDataVal.routeList[i].unloadWt);
+    for (var i = 0; i < selectedDataVal.routeList.length; i++) {    
+      if(selectedDataVal.routeList[i].extDetention!=""){
+        detnAmount = detnAmount + parseFloat(selectedDataVal.routeList[i].extDetention);
       }
       if(selectedDataVal.routeList[i].hireAmt!=""){
         tripTotalFreight = tripTotalFreight + parseFloat(selectedDataVal.routeList[i].hireAmt);
@@ -1224,6 +1227,7 @@ export class TripsheetaddComponent {
           'consigneeName':  selectedDataValue.routeList[i].consigneeName.toString().toUpperCase(),
           'loadWt':  selectedDataValue.routeList[i].loadWt,
           'unloadWt':  selectedDataValue.routeList[i].unloadWt,
+          'extDetention': selectedDataValue.routeList[i].extDetention,
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
           'remarks':  selectedDataValue.routeList[i].remarks.toString().toUpperCase(),
         })

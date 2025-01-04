@@ -3670,5 +3670,239 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
+
+        public async Task<DriverLicRptListModel> GetDriverLicRptList(ReportRequestModel request)
+        {
+            DriverLicRptListModel driverLicRpt = new();
+            List<DriverLicRptModel> driverLicRptList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@Active",     request.FilterStr),
+                            new SqlParameter("@ExpiryLic",  request.FilterStr1),
+                            new SqlParameter("@DriverName", request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverLicRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            driverLicRptList.Add(new DriverLicRptModel
+                            {
+                                DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
+                                FatherName = Convert.ToString(dataSet.Tables[0].Rows[i]["FatherName"]),
+                                DateOfBirth = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfBirth"]),
+                                IntroBy = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroBy"]),
+                                IntroByMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroByMobileNo"]),
+                                DateOfAppoint = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfAppoint"]),
+                                LicenseNo = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseNo"]),
+                                LicenseIssuAuth= Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseIssuAuth"]),
+                                LicValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["LicValidUpto"]),
+                                BloodGroup = Convert.ToString(dataSet.Tables[0].Rows[i]["BloodGroup"]),
+                                DriverMobile1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMobile1"]),
+                                DriverMobile2 = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMobile2"]),
+                                TempAddPhone = Convert.ToString(dataSet.Tables[0].Rows[i]["TempAddPhone"]),
+                                PermanentAddr = Convert.ToString(dataSet.Tables[0].Rows[i]["PermanentAddr"]),
+                                PermAddPhone = Convert.ToString(dataSet.Tables[0].Rows[i]["PermAddPhone"]),
+                                DriverAadharNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverAadharNo"]),
+                                IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
+                                GroupName = Convert.ToString(dataSet.Tables[0].Rows[i]["GroupName"]),
+                                DrBankAccountName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrBankAccountName"]),
+                                BankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankName"]),
+                                BankAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
+                                BankIfsCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsCode"]),
+
+                            });
+                        }
+
+                        driverLicRpt.DriverLicRptList = driverLicRptList;
+
+                        driverLicRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return driverLicRpt;
+        }
+        public async Task<ResponseModel> ExcelDriverLicRptList(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Active",     request.FilterStr),
+                            new SqlParameter("@ExpiryLic",  request.FilterStr1),
+                            new SqlParameter("@DriverName", request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverLicRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        if (request.FilterStr1 == "V")
+                        {
+                            filter = filter  + " Drivers Having Valid License ";
+                        }
+                        else if (request.FilterStr1 == "E")
+                        {
+                            filter = filter  + " Drivers Having Expired License ";
+                        }
+                        else if (request.FilterStr1 == "M")
+                        {
+                            filter = filter  + " Drivers with License Expire in 1 Month  ";
+                        }
+                        else
+                        {
+                            filter = filter  + " All Drivers";
+                        }
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Driver License Report", filter);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
+        public async Task<DprRptListModel> GetDPRRptList(ReportRequestModel request)
+        {
+            DprRptListModel dprRpt = new();
+            List<DprRptModel> dprList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@PayParty",   request.FilterStr),
+                            new SqlParameter("@Origin",     request.FilterStr1),
+                            new SqlParameter("@Destination",request.FilterStr2),
+                            new SqlParameter("@VehicleNo",  request.FilterStr3),
+                            new SqlParameter("@Branch",     request.SortOrder),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDPRRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dprList.Add(new DprRptModel
+                            {
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                OrderPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["OrderPerson"]),
+                                DprDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DprDate"]),
+                                PartyName = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]),
+                                Fplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Fplace"]),
+                                Tplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Tplace"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                VehOwnerName = Convert.ToString(dataSet.Tables[0].Rows[i]["VehOwnerName"]),
+                                DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
+                                DriverMob1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob1"]),
+                                RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
+                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                TotFreightAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
+                                RatePerTon = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerTon"]),
+                                LorryHire = Convert.ToString(dataSet.Tables[0].Rows[i]["LorryHire"]),
+                                AdvanceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceAmt"]),
+                                BalanceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceAmt"]),
+                                BrokerName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
+                                TrafficPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["TrafficPerson"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+
+                        dprRpt.DprRptList = dprList;
+
+                        dprRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprRpt;
+        }
+        public async Task<ResponseModel> GetDPRRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@PayParty",   request.FilterStr),
+                            new SqlParameter("@Origin",     request.FilterStr1),
+                            new SqlParameter("@Destination",request.FilterStr2),
+                            new SqlParameter("@VehicleNo",  request.FilterStr3),
+                            new SqlParameter("@Branch",     request.SortOrder),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDPRRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "DPR Report", filter);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
     }
 }

@@ -1,3 +1,5 @@
+import { DriverDetails,RouteDetails,DieselDetails,AdblueDetails,FasttagDetails,TripDrExpDetails,TripCmpExpDetails } from "./tripmastermodel";
+
 export class Tripsheetmodel {
     tripId: string = "";
     tripBranch: string = "";
@@ -74,70 +76,7 @@ export class Tripsheetmodel {
     cmpExpList: TripCmpExpDetails[] = [];
 }
 
-export class DriverDetails {
-    pmtId: string = "";
-    pmtBranch : string = "";
-    pmtDate : string = "";
-    transType : string = "";
-    amountPaid: string = "";
-    remarks : string = "";
-    pmtType : string = "";
-}
-
-export class RouteDetails {
-    loadId : string = "";
-    loadBranch : string = "";
-    loadDate : string = "";
-    loadType : string = "";
-    loadFor : string = "";
-    loadMemoNo: string = "";
-    loadingFrom : string = "";
-    consignorName: string = "";
-    loadingTo : string = "";
-    consigneeName: string = "";
-    loadWt: string = "";
-    unloadWt: string = "";
-    hireAmt : string = "";
-    remarks : string = "";        
-}
-
-export class DieselDetails {
-    detailID: string = "";
-    transDate: string = "";
-    dslQty: string = "";
-    dslRate: string = "";
-    amount : string = "";
-    remarks: string = "";
-}
 
 
-export class AdblueDetails {
-    tripId: string = "";
-    pmtId: string = "";
-    issueBranch: string = "";
-    issueDate: string = "";
-    issueParticulars : string = "";
-    adblueLtrs: string = "";
-    adblueAmt: string = "";
-}
 
 
-export class FasttagDetails {
-    detailID: string = "";
-    transDate: string = "";
-    ftAmount: string = "";
-    remarks: string = "";
-}
-
-export class TripDrExpDetails {
-    expId: string = "";
-    expParticulars: string = "";
-    expAmt: string = "";
-}
-
-export class TripCmpExpDetails {
-    enrouteExpId: string = "";
-    expId: string = "";
-    expParticulars: string = "";
-    expAmt: string = "";
-}

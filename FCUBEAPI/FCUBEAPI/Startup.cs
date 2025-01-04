@@ -155,8 +155,6 @@ namespace FCUBEAPI
             services.AddScoped<IEwayBillBusiness, EwayBillBusiness>();
             services.AddScoped<IRolePrivilegesRepository, RolePrivilegesRepository>();
             services.AddScoped<IRolePrivilegesBusiness, RolePrivilegesBusiness>();
-            services.AddScoped<IDriverLicRptBusiness, DriverLicRptBusiness>();
-            services.AddScoped<IDriverLicRptRepository, DriverLicRptRepository>();
             services.AddScoped<IGstSalesRegisterRptRepository, GstSalesRegisterRptRepository>();
             services.AddScoped<IGstSalesRegisterRptBusiness, GstSalesRegisterRptBusiness>();
             services.AddScoped<IEmpSalaryBusiness, EmpSalaryBusiness>();

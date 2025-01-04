@@ -417,6 +417,7 @@ import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsra
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
+import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
 
 @NgModule({
   declarations: [
@@ -552,6 +553,7 @@ import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingde
      PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
      OutstandinganalysisrptComponent,
      PendingdelvackrptComponent,
+     DprdashboardComponent,
     
   ],
   imports: [

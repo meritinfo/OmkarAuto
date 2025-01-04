@@ -19,7 +19,7 @@
                                     <label for="formrow-inputState">To Date </label>
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="toDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                     <label for="formrow-inputState">As On Date </label>
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="asOnDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="asOnDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['asOnDate'].invalid) }">
                                 </div>
                             </div>

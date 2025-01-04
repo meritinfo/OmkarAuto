@@ -7,7 +7,7 @@ import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Unbilledrptlistmodel  } from 'src/app/models/unbilledrptlistmodel';
-import { Unbilledrptmodel } from 'src/app/models/unbilledrptmodel';
+import { Dprrptlistmodel } from 'src/app/models/dprrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,14 @@ export class UnbilledrptService {
 
   getPendingDelvAckRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetPendingDelvAckRptExcel', filter, this.httpOptions);
-  }    
+  }
+  
+  
+  getDPRRptList(filter: Reportmodel): Observable<Dprrptlistmodel> {
+    return this.httpClient.post<Dprrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDPRRptList', filter, this.httpOptions);
+  }  
+  getDPRRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDPRRptExcel', filter, this.httpOptions);
+  }   
 }
 

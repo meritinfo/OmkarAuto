@@ -66,5 +66,12 @@ namespace FreightMasters.Business
         Task<ResponseModel> GetUnBilledRptExcel(ReportRequestModel request);
 
         Task<ResponseModel> GetPendingDelvAckRptExcel(ReportRequestModel request);
+
+        Task<DriverLicRptListModel> GetDriverLicRptList(ReportRequestModel request);
+        Task<ResponseModel> ExcelDriverLicRptList(ReportRequestModel request);
+
+        Task<DprRptListModel> GetDPRRptList(ReportRequestModel request);
+        Task<ResponseModel> GetDPRRptExcel(ReportRequestModel request);
+
     }
 }

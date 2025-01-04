@@ -120,16 +120,16 @@ namespace FleetTrans.Repository
                             {
                                 SqlParameter[] paramdr =
                                 {
-                                    new SqlParameter("@TripId",     MasterID),
-                                    new SqlParameter("@ChallanId",  tripMasterModel.RouteList[i].LoadId),
-                                    new SqlParameter("@ChallanNo",  tripMasterModel.RouteList[i].LoadMemoNo),
-                                    new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
-                                    new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
-                                    new SqlParameter("@OwnMarket",  tripMasterModel.RouteList[i].LoadType),
-                                    new SqlParameter("@UnloadWt",   tripMasterModel.RouteList[i].UnloadWt),
-                                    new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
-                                    new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
-                                    new SqlParameter("@YearId",     tripMasterModel.YearId),
+                                    new SqlParameter("@TripId",         MasterID),
+                                    new SqlParameter("@ChallanId",      tripMasterModel.RouteList[i].LoadId),
+                                    new SqlParameter("@ChallanNo",      tripMasterModel.RouteList[i].LoadMemoNo),
+                                    new SqlParameter("@FromPlace",      tripMasterModel.RouteList[i].LoadingFrom),
+                                    new SqlParameter("@ToPlace",        tripMasterModel.RouteList[i].LoadingTo),
+                                    new SqlParameter("@OwnMarket",      tripMasterModel.RouteList[i].LoadType),
+                                    new SqlParameter("@ExtDetention",   tripMasterModel.RouteList[i].ExtDetention),
+                                    new SqlParameter("@TotalHire",      tripMasterModel.RouteList[i].HireAmt),
+                                    new SqlParameter("@Remarks",        tripMasterModel.RouteList[i].Remarks),
+                                    new SqlParameter("@YearId",         tripMasterModel.YearId),
                                 };
                                 var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteSave", paramdr);
 
@@ -433,6 +433,7 @@ namespace FleetTrans.Repository
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
+                                ExtDetention = Convert.ToString(resultData.Tables[1].Rows[i]["ExtDetention"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),                                
                             });
@@ -548,6 +549,7 @@ namespace FleetTrans.Repository
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
+                                ExtDetention = Convert.ToString(resultData.Tables[1].Rows[i]["ExtDetention"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });

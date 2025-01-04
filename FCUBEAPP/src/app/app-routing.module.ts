@@ -253,6 +253,7 @@ import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsra
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
+import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
 
 
 
@@ -608,6 +609,7 @@ const routes: Routes = [
   { path: 'panwisetdsrateedit', component: PanwisetdsrateaddComponent },
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
   { path: 'pendingdelack', component: PendingdelvackrptComponent }, 
+  { path: 'dprdashboard', component: DprdashboardComponent }, 
   
 ];
 
