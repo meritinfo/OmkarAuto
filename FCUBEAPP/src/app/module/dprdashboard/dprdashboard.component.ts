@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./dprdashboard.component.css']
 })
 export class DprdashboardComponent {
+  interval:any;
 
   loggedInUserID: string = '';
   createStatus = false;
@@ -145,8 +146,10 @@ export class DprdashboardComponent {
       this.filter.filterStr3  = "";
   
       this.sharedService.loading=true;
-     
-       this.dprrptlist();
+      this.dprrptlist();
+      this.interval = setInterval(()=>{
+                   this.search();
+                   },10);
       this.sharedService.loading=false;
     }
 

@@ -276,7 +276,7 @@ export class MraddComponent {
         //     groupMrYN: ""
         //   });
         // }
-        if (this.selectedMrDetails.onAcStatus=="P"){
+        if (this.selectedMrDetails.onAcStatus!="T"){
           this.formUser.patchValue({
             onAcStatus: ""
           });
