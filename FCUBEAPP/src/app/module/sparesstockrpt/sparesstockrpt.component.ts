@@ -128,7 +128,7 @@ export class SparesstockrptComponent {
     this.filter.filterStr1  = "";
 
     this.sharedService.loading=true;
-    this.sparespurchaserptlist();
+   // this.sparespurchaserptlist();
     this.sharedService.loading=false;
   }
 
