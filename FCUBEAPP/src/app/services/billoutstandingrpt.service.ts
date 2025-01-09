@@ -4,6 +4,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { Outstandinganalrptlistmodel } from '../models/outstandinganalrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,7 @@ export class BilloutstandingrptService {
   getOutstandingAnalysisRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingAnalysisRptExcel', filter, this.httpOptions);
   }
+  getOutstandingAnalysisRptList(filter: Reportmodel): Observable<Outstandinganalrptlistmodel> {
+    return this.httpClient.post<Outstandinganalrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingAnalysisRptList', filter, this.httpOptions);
+  }  
 }

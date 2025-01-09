@@ -327,6 +327,7 @@ export class TripmasteraddComponent {
       consigneeName: [''],
       loadWt: [''],
       unloadWt: [''],
+      extDetention: [''],
       hireAmt: [''],
       remarks: [''],
     });
@@ -1026,6 +1027,7 @@ export class TripmasteraddComponent {
           'consigneeName':  selectedDataValue.routeList[i].consigneeName,
           'loadWt':  selectedDataValue.routeList[i].loadWt,
           'unloadWt':  selectedDataValue.routeList[i].unloadWt,
+          'extDetention':'',
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
           'remarks':  selectedDataValue.routeList[i].remarks,
         })

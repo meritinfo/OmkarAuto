@@ -247,7 +247,7 @@ export class MraddComponent {
         this.formUser.controls['mrStatus'].disable();  
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  
-        this.formUser.controls['mrDebitAc'].disable();  
+       // this.formUser.controls['mrDebitAc'].disable();  
         this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
         this.formUser.controls['onAcAdjMrYn'].disable(); 
@@ -276,7 +276,7 @@ export class MraddComponent {
         //     groupMrYN: ""
         //   });
         // }
-        if (this.selectedMrDetails.onAcStatus=="P"){
+        if (this.selectedMrDetails.onAcStatus!="T"){
           this.formUser.patchValue({
             onAcStatus: ""
           });

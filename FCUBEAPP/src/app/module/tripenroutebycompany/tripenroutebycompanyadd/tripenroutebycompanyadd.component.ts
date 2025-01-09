@@ -100,64 +100,51 @@ export class TripenroutebycompanyaddComponent {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    
-    this.getBranchList();   
-    this.getVehicleNoList();
-   // this.getLocationList();
-   this.getExpList();
-
-   if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {      
-    this.getCreditAcList(this.selectedTripenrouteexpbycompanyDetails.pmtType);  
-  }
-    
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    console.log(this.maxDate);
-
+        
     this.selectedTripenrouteexpbycompanyDetails = this.tripenroutebycompanyService.getTripenrouteexpbycompanyDetails();
 
     this.formTripPayment = this.formBuilder.group({
-    //  pmtBranch: new FormControl(this.branch , [Validators.required]),
-    enrouteExpId : new FormControl('',),
-    vehicleID  : new FormControl('',[Validators.required]),
-    expBranch  : new FormControl(this.branch ,[Validators.required]),
-    expDate  : new FormControl(this.loginDate,[Validators.required]),
-    expId  : new FormControl('',[Validators.required]),
-    remarks  : new FormControl('',),
-    expAmount  : new FormControl('',),
-    pmtType  : new FormControl('',[Validators.required]),
-    creditAc  : new FormControl('',[Validators.required]),
-    neftYN  : new FormControl('',),
-    chequeNo  : new FormControl('',),
-    chequeDate  : new FormControl('',),
-   // tripAdjYN  : new FormControl('',),
-  //  ftmId  : new FormControl('',),
+      enrouteExpId : new FormControl('',),
+      vehicleID  : new FormControl('',[Validators.required]),
+      expBranch  : new FormControl(this.branch ,[Validators.required]),
+      expDate  : new FormControl(this.loginDate,[Validators.required]),
+      expId  : new FormControl('',[Validators.required]),
+      remarks  : new FormControl('',),
+      expAmount  : new FormControl('',),
+      pmtType  : new FormControl('',[Validators.required]),
+      creditAc  : new FormControl('',[Validators.required]),
+      neftYN  : new FormControl('',),
+      chequeNo  : new FormControl('',),
+      chequeDate  : new FormControl('',),
     });
-    this.formTripPayment.controls['expBranch'].disable();
-    setTimeout(() => {
-      this.createmode = true;
-    
-       if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {
-        this.formTripPayment.controls['vehicleID'].disable();
 
-        // this.seriesDoc = this.selectedTripenrouteexpbycompanyDetails.seriesDoc; 
-         this.formTripPayment.patchValue(this.selectedTripenrouteexpbycompanyDetails);
-       
-         this.formTripPayment.patchValue({
-         expDate:   this.commonService.formatDate(this.selectedTripenrouteexpbycompanyDetails.expDate), 
-           chequeDate:  this.commonService.formatDate(this.selectedTripenrouteexpbycompanyDetails.chequeDate), 
-           vehicleID: this.vehicleList.find(e => e.dataId == this.selectedTripenrouteexpbycompanyDetails.vehicleID),
-        //   neftPmt:  ""
-         }) 
-         this.editMode=true;
-        } 
-         if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {      
-          this.getCreditAcList(this.selectedTripenrouteexpbycompanyDetails.pmtType);  
-        }
-        
-     }, 2000);
-     this.sharedService.loading = false;
-   }
-   getFinDocDetails(finId: string){
+    this.getBranchList();   
+    this.getVehicleNoList();
+    this.getExpList();
+
+    this.formTripPayment.controls['expBranch'].disable();
+
+    if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {      
+      this.getCreditAcList(this.selectedTripenrouteexpbycompanyDetails.pmtType);  
+    }
+
+    setTimeout(() => {
+      if (this.selectedTripenrouteexpbycompanyDetails.enrouteExpId != '') {
+        this.formTripPayment.controls['vehicleID'].disable();
+        this.formTripPayment.patchValue(this.selectedTripenrouteexpbycompanyDetails);
+        this.formTripPayment.patchValue({
+          expDate: this.commonService.formatDate(this.selectedTripenrouteexpbycompanyDetails.expDate), 
+          chequeDate:  this.commonService.formatDate(this.selectedTripenrouteexpbycompanyDetails.chequeDate), 
+          vehicleID: this.vehicleList.find(e => e.dataId == this.selectedTripenrouteexpbycompanyDetails.vehicleID),
+        }) 
+        this.editMode=true;
+      } 
+    }, 2000);
+    this.sharedService.loading = false;
+  }
+
+  getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
     this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -170,8 +157,6 @@ export class TripenroutebycompanyaddComponent {
     });
   }
  
- 
-
   get f() { return this.formTripPayment.controls; }
 
   getBranchList(): void {
@@ -207,7 +192,6 @@ export class TripenroutebycompanyaddComponent {
 
 
   changePmtType(e: any) {
-   
     console.log(e.target.value);
     var selectedValue = e.target.value;
     this.formTripPayment.patchValue({
@@ -215,19 +199,14 @@ export class TripenroutebycompanyaddComponent {
       chequeNo: "",
       chequeDate: this.loginDate,
     });
-    
     this.getCreditAcList(selectedValue);
   }
   
   
   getCreditAcList2(e: any){
     this.requestmodel.strRequest = e;
-
     this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
       this.creditacList = res;   
-      this.formTripPayment.patchValue({
-        //creditAc:this.creditacList[0].dataId
-      });  
     });
   }
 
@@ -259,16 +238,6 @@ export class TripenroutebycompanyaddComponent {
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
-    // if (pmttp == 'B'){
-    //   this.formUser.controls['neftPmt'].enable();
-    //   this.formUser.controls['chequeNo'].enable();
-    //   this.formUser.controls['chequeDate'].enable();
-    // }
-    // else {
-    //   this.formUser.controls['neftPmt'].disable();
-    //   this.formUser.controls['chequeNo'].disable();
-    //   this.formUser.controls['chequeDate'].disable();
-    // }
   }
 
  
@@ -315,31 +284,20 @@ export class TripenroutebycompanyaddComponent {
       return;
     }
     var selectedDataValue = this.formTripPayment.getRawValue();
-    
-   
-   
-    
+
     this.formSubmitted = true; 
     this.tripenrouteexpbycompanyModel.enrouteExpId = this.selectedTripenrouteexpbycompanyDetails.enrouteExpId ;
-    // this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
-    // this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
-    // this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
-    // this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
-   // this.tripenrouteexpbycompanyModel.enrouteExpId = selectedDataValue.
     this.tripenrouteexpbycompanyModel.vehicleID  = selectedDataValue.vehicleID.dataId;
     this.tripenrouteexpbycompanyModel.expBranch  = selectedDataValue.expBranch;
     this.tripenrouteexpbycompanyModel.expDate  = selectedDataValue.expDate;
     this.tripenrouteexpbycompanyModel.expId  = selectedDataValue.expId;
-    this.tripenrouteexpbycompanyModel.remarks  = selectedDataValue.remarks;
+    this.tripenrouteexpbycompanyModel.remarks  = selectedDataValue.remarks.toString().toUpperCase();
     this.tripenrouteexpbycompanyModel.expAmount  = selectedDataValue.expAmount;
-   this.tripenrouteexpbycompanyModel.pmtType  = selectedDataValue.pmtType;
+    this.tripenrouteexpbycompanyModel.pmtType  = selectedDataValue.pmtType;
     this.tripenrouteexpbycompanyModel.creditAc  = selectedDataValue.creditAc;
-
-   this.tripenrouteexpbycompanyModel.neftYN = selectedDataValue.neftYN?"Y":"N";
-   this.tripenrouteexpbycompanyModel.chequeNo  = selectedDataValue.chequeNo;
+    this.tripenrouteexpbycompanyModel.neftYN = selectedDataValue.neftYN?"Y":"N";
+    this.tripenrouteexpbycompanyModel.chequeNo  = selectedDataValue.chequeNo;
     this.tripenrouteexpbycompanyModel.chequeDate  = selectedDataValue.chequeDate;
-  // this.tripenrouteexpbycompanyModel.tripAdjYN  = selectedDataValue.tripAdjYN;
-   //this.tripenrouteexpbycompanyModel.ftmId  = selectedDataValue.ftmId;
     this.tripenrouteexpbycompanyModel.yearId = this.year;
     this.tripenrouteexpbycompanyModel.loggedInUser = this.loggedInUserID;
 

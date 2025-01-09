@@ -108,7 +108,7 @@ export class BilloutstandingrptComponent {
     }   
       
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.minDate,[Validators.required]),
+      fromDate: new FormControl('2022-04-01',[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
       branch: new FormControl('',),  
@@ -205,14 +205,6 @@ export class BilloutstandingrptComponent {
         link.click();
       });
     }
-    if(selectedDataVal.rptType=="OA"){
-      this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "OutstandingAnalysisReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
-      });
-    }    
   }
 }
 

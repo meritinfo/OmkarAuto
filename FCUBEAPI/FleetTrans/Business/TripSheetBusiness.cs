@@ -30,6 +30,10 @@ namespace FleetTrans.Business
         {
             return await tripSheetRepository.GetTripSheetInnerGridList(request);
         }
+        public async Task<ResponseModel> TripSheetDelete(RequestModel request)
+        {
+            return await tripSheetRepository.TripSheetDelete(request);
+        }
         public async Task<ResponseModel> GetNextTripSalDate(RequestModel request)
         {
             return await tripSheetRepository.GetNextTripSalDate(request);

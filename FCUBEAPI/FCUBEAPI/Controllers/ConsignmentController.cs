@@ -1520,6 +1520,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetLorryHirePrintPdf")]
+        public async Task<IActionResult> GetLorryHirePrintPdf(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.GetLorryHirePrintPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
 
 
         [HttpPost("GetLorryHireReqList")]

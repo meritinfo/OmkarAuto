@@ -131,16 +131,17 @@ namespace FleetTrans.Repository
                             {
                                 SqlParameter[] paramdr =
                                 {
-                                    new SqlParameter("@TripId",     MasterID),
-                                    new SqlParameter("@ChallanId",  tripMasterModel.RouteList[i].LoadId),
-                                    new SqlParameter("@ChallanNo",  tripMasterModel.RouteList[i].LoadMemoNo),
-                                    new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
-                                    new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
-                                    new SqlParameter("@OwnMarket",  tripMasterModel.RouteList[i].LoadType),
-                                    new SqlParameter("@UnloadWt",   tripMasterModel.RouteList[i].UnloadWt),
-                                    new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
-                                    new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
-                                    new SqlParameter("@YearId",     tripMasterModel.YearId),
+                                    new SqlParameter("@TripId",         MasterID),
+                                    new SqlParameter("@ChallanId",      tripMasterModel.RouteList[i].LoadId),
+                                    new SqlParameter("@ChallanNo",      tripMasterModel.RouteList[i].LoadMemoNo),
+                                    new SqlParameter("@FromPlace",      tripMasterModel.RouteList[i].LoadingFrom),
+                                    new SqlParameter("@ToPlace",        tripMasterModel.RouteList[i].LoadingTo),
+                                    new SqlParameter("@OwnMarket",      tripMasterModel.RouteList[i].LoadType),
+                                    new SqlParameter("@UnloadWt",       tripMasterModel.RouteList[i].UnloadWt),
+                                    new SqlParameter("@ExtDetention",   tripMasterModel.RouteList[i].ExtDetention),
+                                    new SqlParameter("@TotalHire",      tripMasterModel.RouteList[i].HireAmt),
+                                    new SqlParameter("@Remarks",        tripMasterModel.RouteList[i].Remarks),
+                                    new SqlParameter("@YearId",         tripMasterModel.YearId),
                                 };
                                 var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteSave", paramdr);
 
@@ -517,6 +518,7 @@ namespace FleetTrans.Repository
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
+                                ExtDetention = Convert.ToString(resultData.Tables[1].Rows[i]["ExtDetention"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),                                
                             });
@@ -651,6 +653,7 @@ namespace FleetTrans.Repository
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
+                                ExtDetention = Convert.ToString(resultData.Tables[1].Rows[i]["ExtDetention"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });
@@ -745,7 +748,44 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
-        
+        public async Task<ResponseModel> TripSheetDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripSheetDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetTripJetPrintPdf(RequestModel request)
         {
             ResponseModel responseModel = new();

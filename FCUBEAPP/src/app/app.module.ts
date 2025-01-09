@@ -415,6 +415,9 @@ import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
 import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
+import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
+import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
+import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
 
 @NgModule({
   declarations: [
@@ -546,7 +549,11 @@ import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsr
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
+     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, 
+     PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
+     OutstandinganalysisrptComponent,
+     PendingdelvackrptComponent,
+     DprdashboardComponent,
     
   ],
   imports: [

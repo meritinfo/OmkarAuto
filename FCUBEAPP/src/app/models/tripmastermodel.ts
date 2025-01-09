@@ -85,6 +85,7 @@ export class RouteDetails {
     consigneeName: string = "";
     loadWt: string = "";
     unloadWt: string = "";
+    extDetention: string = "";
     hireAmt : string = "";
     remarks : string = "";        
 }
@@ -98,6 +99,15 @@ export class DieselDetails {
     remarks: string = "";
 }
 
+export class AdblueDetails {
+    tripId: string = "";
+    pmtId: string = "";
+    issueBranch: string = "";
+    issueDate: string = "";
+    issueParticulars : string = "";
+    adblueLtrs: string = "";
+    adblueAmt: string = "";
+}
 
 export class FasttagDetails {
     detailID: string = "";

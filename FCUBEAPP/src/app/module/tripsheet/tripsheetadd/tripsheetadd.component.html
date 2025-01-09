@@ -190,7 +190,8 @@
                                             <th><label for="formrow-inputZip">Loading To</label></th>
                                             <th><label for="formrow-inputZip">Consignee Name</label></th>
                                             <th><label for="formrow-inputZip">Load Wt</label></th>
-                                            <th><label for="formrow-inputZip">Unload Wi</label></th>
+                                            <th><label for="formrow-inputZip">UnLoad Wt</label></th>
+                                            <th><label for="formrow-inputZip">Detn Amt</label></th>
                                             <th><label for="formrow-inputZip">Hire Amt</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
@@ -240,8 +241,13 @@
                                                     formControlName="loadWt">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                     formControlName="unloadWt">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" decimalonly
+                                                    (change)="calDetnAmount()"
+                                                    formControlName="extDetention">
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" 
@@ -286,13 +292,13 @@
                                                 <input class="form-control" numbersonly formControlName="detentionDays">
                                             </div>
                                         </div>                                      
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Detention Rate</label>
                                                 <input class="form-control" decimalonly (change)="calDetentionDays()" 
                                                 formControlName="detnRate">
                                             </div>
-                                        </div>                                      
+                                        </div>                                       -->
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Detention Amt</label>

@@ -67,4 +67,8 @@ export class LorryhirepmtService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePmtNo', request, this.httpOptions);
   }
   
+  getLorryHirePrintPdf(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePrintPdf', req, this.httpOptions);
+  }
+  
 }

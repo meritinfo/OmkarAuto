@@ -865,6 +865,8 @@ export class LorryhirepmtaddComponent {
         
     this.sharedService.loading=false;
   }
+
+  
   
 
 }

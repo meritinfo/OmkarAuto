@@ -18,7 +18,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="fromDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="toDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
@@ -41,7 +41,8 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
-                                    <select class="form-control" formControlName="branch">                                        
+                                    <select formControlName="branch"
+                                    class="form-control form-select ng-pristine ng-touched" >                                        
                                     <option value="">All</option>
                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                         {{branch.dataName}}
@@ -130,31 +131,31 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Billing Status </label>  
-                                    <select class="form-control" formControlName="billingStatus">                                        
+                                    <label for="formrow-inputCity">Booking Status </label>  
+                                    <select formControlName="billingStatus"
+                                    class="form-control form-select ng-pristine ng-touched" >                                        
                                         <option value="">All</option>                                       
-                                        <option value="NA">Not Applicable</option>
-                                        <option value="WP">With POD</option>
-                                        <option value="WO">Without POD</option>
-                                        <option value="IB">Indemnity Bond</option>
+                                        <option value="TP">To Paid</option>
+                                        <option value="TBB">To Be Billed</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Report Type </label>  
-                                    <select class="form-control" formControlName="rptType">  
+                                    <select formControlName="rptType"
+                                    class="form-control form-select ng-pristine ng-touched" >  
                                         <option value="S">Summary</option>
                                         <option value="D">Detail</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-1">
+                            <!-- <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -166,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+            <!-- <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
@@ -206,7 +207,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- container-fluid -->
     </div>

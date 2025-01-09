@@ -251,6 +251,9 @@ import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.
 import { SpareshistoryrptComponent } from './module/spareshistoryrpt/spareshistoryrpt.component';
 import { PanwisetdsrateaddComponent } from './module/panwisetdsrate/panwisetdsrateadd/panwisetdsrateadd.component';
 import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsratelist/panwisetdsratelist.component';
+import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
+import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
+import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
 
 
 
@@ -604,6 +607,9 @@ const routes: Routes = [
   { path: 'panwisetdsrate', component: PanwisetdsratelistComponent },
   { path: 'panwisetdsrateadd', component: PanwisetdsrateaddComponent },
   { path: 'panwisetdsrateedit', component: PanwisetdsrateaddComponent },
+  { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
+  { path: 'pendingdelack', component: PendingdelvackrptComponent }, 
+  { path: 'dprdashboard', component: DprdashboardComponent }, 
   
 ];
 

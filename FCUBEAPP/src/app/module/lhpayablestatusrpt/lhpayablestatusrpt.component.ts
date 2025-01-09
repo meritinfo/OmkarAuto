@@ -126,7 +126,7 @@ export class LhpayablestatusrptComponent {
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         rptType: new FormControl('C',),
-        // branch: new FormControl('',),  
+        branch: new FormControl('',),  
         broker: new FormControl('',),  
         origin: new FormControl('',),  
         destination: new FormControl('',), 
@@ -135,13 +135,12 @@ export class LhpayablestatusrptComponent {
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "C";
-       this.filter.filterStr1  = "";
-      // this.filter.filterStr2  = "";
+      this.filter.filterStr1  = "";
+      this.filter.filterStr2  = "";
        
   
       this.sharedService.loading=true;
-
-      this.lhpayablestatusrptlist();
+      //this.lhpayablestatusrptlist();
       this.sharedService.loading=false;
     }
 
@@ -150,11 +149,13 @@ export class LhpayablestatusrptComponent {
         this.brokerList = res;
       });
     }
+
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
       });
     }
+
     getLocationList(): void {
       this.commonService.getLocationList().subscribe((res) => {
         this.locationList = res;
@@ -303,7 +304,8 @@ export class LhpayablestatusrptComponent {
       this.filter.toDate      = selectedDataVal.toDate;  
       this.filter.filterStr  = selectedDataVal.rptType;       
       this.filter.filterStr1  = selectedDataVal.broker?selectedDataVal.broker.dataId:"";
-      // this.filter.filterStr2  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+      this.filter.filterStr2  = selectedDataVal.branch;
+
       this.lhpayablestatusrptService.getLhpayablestatusrptExcel(this.filter).subscribe(resp => {
       
         if(resp.status){      

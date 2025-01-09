@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { LorryhirepmtService } from 'src/app/services/lorryhirepmt.service';
 import { Lorryhiremastermodel } from 'src/app/models/lorryhiremastermodel';
 import { Lorryhirelistmodel } from 'src/app/models/lorryhirelistmodel';
-import { Filtermodel } from 'src/app/models/filtermodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lorryhirepmtlist',
@@ -47,8 +48,9 @@ export class LorryhirepmtlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  request: Requestmodel = new Requestmodel();
   
-  constructor(private lorryhirepmtService: LorryhirepmtService,
+  constructor(private lorryhirepmtService: LorryhirepmtService,private toastrService : ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder, 
     private sharedService: SharedService,private route: Router) {
   }
@@ -183,6 +185,10 @@ export class LorryhirepmtlistComponent {
           title: 'Action',
           data: 'masterID',
         },
+        {
+          title: 'Print',
+          data: 'masterID',
+        },
       ],
     };
   }
@@ -205,6 +211,22 @@ export class LorryhirepmtlistComponent {
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
+    });
+  }
+  
+  download(ch: Lorryhiremastermodel): void {
+    this.request.strRequest = ch.masterId;
+        
+    this.lorryhirepmtService.getLorryHirePrintPdf(this.request).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "LH_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/lhprint/" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
     });
   }
 

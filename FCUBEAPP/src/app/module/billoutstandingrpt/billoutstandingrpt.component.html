@@ -19,7 +19,7 @@
                                     <label for="formrow-inputState">From Date </label>
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="fromDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                     <label for="formrow-inputState">To Date </label>
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="toDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                     <label for="formrow-inputState">As On Date </label>
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="asOnDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="asOnDate" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['asOnDate'].invalid) }">
                                 </div>
                             </div>
@@ -82,8 +82,7 @@
                                         <option value="ASP">Ageing Summ Party</option>
                                         <option value="AD">Ageing Detail</option>
                                         <option value="OS">OutStanding Summ</option>
-                                        <option value="OD">OutStanding Detail</option>
-                                        <option value="OA">OutStanding Analysis</option>                                        
+                                        <option value="OD">OutStanding Detail</option>                                      
                                     </select>
                                 </div>
                             </div>

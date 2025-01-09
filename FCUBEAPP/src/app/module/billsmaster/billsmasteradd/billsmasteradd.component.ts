@@ -42,7 +42,8 @@ export class BillsmasteraddComponent implements OnInit {
   canCancelBill = false;
   billsmastersearchmodel = new Pagerequestwithdatesmodel();
   seriesDoc: string = "";
-  billsmastersearchlistmodel = new Billsmastersearchlistmodel();    
+  billsmastersearchlistmodel = new Billsmastersearchlistmodel();     
+  appendMode = false;  
   editMode = false;
   createmode = true;
   createStatus = false;
@@ -201,6 +202,7 @@ export class BillsmasteraddComponent implements OnInit {
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
+        this.appendMode = true; 
         this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
@@ -315,6 +317,64 @@ export class BillsmasteraddComponent implements OnInit {
   startWithFilter = function (branchList: Dropdownmodel[], query: string): any[] {
     return branchList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
+  append():void {
+    var selectedDataValue = this.formBillsMaster.getRawValue();
+    if (selectedDataValue.partyCode.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Party is Invalid");
+      return;
+    } 
+    this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
+
+    this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
+      .subscribe((res: Billsmastersearchlistmodel) => {
+        this.appendMode = false;
+        for(var i=0;i<res.billsMasterSearchList.length;i++){
+          this.billsmastersearchlistmodel.billsMasterSearchList.push({
+            'consignmentID': res.billsMasterSearchList[i].consignmentID,
+            'bookingPlace':  res.billsMasterSearchList[i].bookingPlace,
+            'bookingDate':  res.billsMasterSearchList[i].bookingDate,
+            'gcNoteNo':  res.billsMasterSearchList[i].gcNoteNo,
+            'fromPlace': res.billsMasterSearchList[i].fromPlace,
+            'toPlace':res.billsMasterSearchList[i].toPlace, 
+            'rateRs': res.billsMasterSearchList[i].rateRs, 
+            'freightRs':  res.billsMasterSearchList[i].freightRs, 
+            'statisticalRs':  res.billsMasterSearchList[i].statisticalRs,
+            'fovRs':  res.billsMasterSearchList[i].fovRs, 
+            'doorCollRs':  res.billsMasterSearchList[i].doorCollRs, 
+            'handlingRs':  res.billsMasterSearchList[i].handlingRs, 
+            'loadingDetnRs': res.billsMasterSearchList[i].loadingDetnRs, 
+            'enrouteRs':  res.billsMasterSearchList[i].enrouteRs, 
+            'miscRs': res.billsMasterSearchList[i].miscRs, 
+            'doorDelRs': res.billsMasterSearchList[i].doorDelRs,  
+            'unLoadingRs':  res.billsMasterSearchList[i].unLoadingRs, 
+            'unLoadingDetnRs':  res.billsMasterSearchList[i].unLoadingDetnRs, 
+            'extrasRS':  res.billsMasterSearchList[i].extrasRS,
+            'othersRs':res.billsMasterSearchList[i].othersRs,
+            'subTotalRs':  res.billsMasterSearchList[i].subTotalRs,
+            'gstType':  res.billsMasterSearchList[i].gstType, 
+            'cgstAmt': res.billsMasterSearchList[i].cgstAmt, 
+            'sgstAmt':  res.billsMasterSearchList[i].sgstAmt,  
+            'igstAmt':  res.billsMasterSearchList[i].igstAmt, 
+            'nonGstAmt1': res.billsMasterSearchList[i].nonGstAmt1,
+            'nonGstAmt2':  res.billsMasterSearchList[i].nonGstAmt2, 
+            'gtotalRs':  res.billsMasterSearchList[i].gtotalRs, 
+            'remarks1':  res.billsMasterSearchList[i].remarks1,
+            'remarks2':  res.billsMasterSearchList[i].remarks2,
+            'remarks3':  res.billsMasterSearchList[i].remarks3,
+            'suppBillDetRemarks':  res.billsMasterSearchList[i].suppBillDetRemarks,
+            'otherAmt': res.billsMasterSearchList[i].otherAmt,
+            'selected': false
+           });
+        }
+        
+//      this.billsmastersearchlistmodel = res;      
+      this.formBillsMaster.controls['partyCode'].disable();
+    });   
+  } 
 
   searchStatement(): void {
     var selectedDataValue = this.formBillsMaster.getRawValue();
