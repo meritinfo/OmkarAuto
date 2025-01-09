@@ -254,6 +254,10 @@ import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsr
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
+import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbanklist.component';
+import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
+
+
 
 
 
@@ -610,6 +614,10 @@ const routes: Routes = [
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
   { path: 'pendingdelack', component: PendingdelvackrptComponent }, 
   { path: 'dprdashboard', component: DprdashboardComponent }, 
+  { path: 'banklistmst', component: BenbanklistComponent },
+  { path: 'benbanklistadd', component: BenbanklistaddComponent },
+  { path: 'benbanklistedit', component: BenbanklistaddComponent },
+ 
   
 ];
 
