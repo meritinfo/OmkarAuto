@@ -372,8 +372,6 @@ namespace FinanceMaster.Repository
             {
                 if (dbconnection != null)
                 {
-
-
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBenBankList", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
