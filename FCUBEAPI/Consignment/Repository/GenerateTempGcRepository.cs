@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using Shared.Models;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Consignment.Repository
 {
@@ -278,6 +279,7 @@ namespace Consignment.Repository
                             new SqlParameter("@VehPhoto2Doc",           tempgc.VehPhoto2Doc  ),
                             new SqlParameter("@VehPhoto3Doc",           tempgc.VehPhoto3Doc  ),
                             new SqlParameter("@Remarks",                tempgc.Remarks  ),
+                            new SqlParameter("@YearId",                 tempgc.YearId  ),                            
                             new SqlParameter("@LoggedInUser",           tempgc.LoggedInUser),
                             
                         };

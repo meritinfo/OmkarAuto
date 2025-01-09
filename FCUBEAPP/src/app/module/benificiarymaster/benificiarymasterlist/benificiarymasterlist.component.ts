@@ -6,8 +6,6 @@ import { Benificiarymasterlistmodel } from 'src/app/models/benificiarymasterlist
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Dprmodel } from 'src/app/models/dprmodel';
-import { DprService } from 'src/app/services/dpr.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -52,16 +50,13 @@ export class BenificiarymasterlistComponent {
   viewStatus = false;
   formSubmitted = false;
 
-  
-
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
     private toasterService: ToastrService, private benificiaryMasterService: BenificiaryMasterService, 
-    private dprService: DprService, private ratesMasterService: RatesMasterService,
-    private commonService: CommonService,private route: Router)  {
+    private route: Router)  {
   
 
 }
@@ -85,51 +80,10 @@ ngOnInit(): void {
     this.loginDate = loginDate;
   }
 
-  this.dprService.clearDprDetails();
   this.benificiaryMasterService.clearBenificiarymasterEntryDetails();
 
-  const today = new Date();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  today.setMonth(month - 10);
-  
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-  
-  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-    this.fromDate = this.minDate ;
-  }
-  else{
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
-  }   
-
-  
-  this.formFilter = this.formBuilder.group({
-    fromDate: new FormControl(this.fromDate,),
-    toDate: new FormControl(this.loginDate,),
-    //payParty: new FormControl('',),
-  
-  });
-  this.sharedService.loading=true;
-
-  setTimeout(() => {      
-    this.formFilter.patchValue({
-      // fromDate: this.dprfromDate,
-      // toDate: this.dprtoDate,
-      // payParty: this.partyList.find(e => e.dataId == this.dprpayParty),   
-      // type: this.dprtype,
-      // origin: this.locationList.find(e => e.dataId == this.dprorigin),   
-      // destination: this.locationList.find(e => e.dataId == this.dprdestination),     
-    })
-  }, 2000);
-
- // this.filter.fromDate = this.dprfromDate;
- // this.filter.toDate = this.dprtoDate;
-  // this.filter.search = this.dprpayParty;
-  // this.filter.filterStr = this.dprtype;
-  // this.filter.filterStr1 = this.dprorigin;
-  // this.filter.filterStr2 = this.dprdestination;
-
+   
+  this.sharedService.loading=true; 
   this.beneficiaryList();    
   this.sharedService.loading=false;
 }
@@ -178,11 +132,6 @@ beneficiaryList(){
           data: 'benCoAcName',
         },  
         {
-          title: 'Ben Bank Name',
-          data: 'benBankName',
-        },   
-       
-        {
           title: 'Action',
           data: 'masterId',
         },    
@@ -192,25 +141,9 @@ beneficiaryList(){
   }
 
 
-  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
-
-  
-  
-  
-  getLocationList(): void {
-    this.commonService.getLocationList().subscribe((res) => {
-      this.locationList = res;
-    });
-  }
-  getPartyList(): void {
-    this.commonService.getPartyList().subscribe((res) => {
-      this.partyList = res;
-    });
-  }
 
   get f() { return this.formFilter.controls; }
+
   benificiaryMasterAdd(): void {
     this.route.navigate(['/benificiarymasteradd']);
   }
@@ -220,6 +153,7 @@ beneficiaryList(){
     this.benificiaryMasterService.setBenificiaryMasterDetails(Docrenewal);
     this.route.navigate(['/benificiarymasteredit']);
   }
+
   search(): void {
     this.formSubmitted = true;
     if (this.formFilter.invalid) {
@@ -233,13 +167,6 @@ beneficiaryList(){
       return;
     }
 
-    var selecteddata = this.formFilter.getRawValue();
-    this.filter.fromDate = selecteddata.fromDate;
-    this.filter.toDate = selecteddata.toDate;
-    this.filter.search = selecteddata.payParty?selecteddata.payParty.dataId:"";
-    this.filter.filterStr = selecteddata.type;
-    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
-    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.sharedService.loading = true;
     this.beneficiaryList();    
     this.sharedService.loading=false;

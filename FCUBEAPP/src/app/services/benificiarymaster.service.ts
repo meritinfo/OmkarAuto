@@ -44,27 +44,22 @@ export class BenificiaryMasterService {
     this.selectedBenificiaryMaster = new Benificiarymastermodel();
   }
 
-  chkDocrenewalValidity(user: Benificiarymastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkDocrenewalValidity', user, this.httpOptions);
+  getBenCode(user: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetBenCode', user, this.httpOptions);
   }
-
+  getBankAccountVerify(user: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetBankAccountVerify', user, this.httpOptions);
+  }
+  getUserBenApproveBlock(user: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetUserBenApproveBlock', user, this.httpOptions);
+  }
   benificiarymasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/BeneficiaryMasterSave', user, this.httpformOptions);
   }
-
   getBenificiaryMasterList(filter: Reportmodel): Observable<Benificiarymasterlistmodel> {
     return this.httpClient.post<Benificiarymasterlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetBeneficiaryMasterList', filter, this.httpOptions);
   }
-
   BenificiaryMasterDelete(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/BeneficiaryMasterDelete', request, this.httpOptions);
   }
-
-//   getDocRenewalList(): Observable<Dropdownmodel[]> {
-//     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMaster/GetDocRenewalList', null, this.httpOptions);
-//   }
-
-//   getPaymentCreditAcList(request: Requestmodel): Observable<Dropdownmodel[]> {
-//     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetPaymentCreditAcList', request, this.httpOptions);
-//   }
 }

@@ -1,308 +1,270 @@
 <div class="main-content">
-    <div class="page-content">
-       <div class="container-fluid">
+   <div class="page-content">
+      <div class="container-fluid">
           <!-- start page title -->
-          <div class="row">
-             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">Benificiary Master</h4>
-                </div>
-             </div>
-          </div>
+         <div class="row">
+            <div class="col-12">
+               <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Benificiary Master</h4>
+               </div>
+            </div>
+         </div>
           <!-- end page title -->
-          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBenMaster">
-             <div class="row">
-                <div class="col-lg-12">
-                   <div class="card">
-                      <div class="card-body">                       
-                         <div class="row">                             
-                            <div class="row">
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Type </label><span style="color: red">*</span>                                       
-                                
-
-
-                                     <select id="formrow-inputState" 
-                                     class="form-control form-select ng-pristine ng-touched"
-                                         formControlName="benType" 
-                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['benType'].invalid) }">
-                                        
-                                         <option value="V">Vendor</option>
-                                         <option value="A">Admin</option>
-                                        
-                                   </select>
-                               </div>                                      
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">Ben Code </label><span style="color: red">*</span>                                          
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     formControlName="benCode"
-                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['benCode'].invalid) }">
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Name</label><span style="color: red">*</span> 
-                                  <input type="text"  uppercaseonly autofocus="autofocus" 
-                                     class="form-control" formControlName="benName"
-                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['benName'].invalid) }">
-                               </div>
-                               <div class="col-sm-2">
-                                 <label for="horizontal-firstname-input" 
-                                    class="col-form-label"> Ben CoAc Name  </label>                             
-                                 <input type="text"  uppercaseonly autofocus="autofocus" 
-                                    class="form-control"  formControlName="benCoAcName"
-                                 [ngClass]=>
-                              </div>
-                                                   
-                            </div>
-                            <div class="row">                                    
-                              
-                                                        
-                               <div class="col-sm-4">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Address1 </label><span style="color: red">*</span>                              
-                                  <input type="text" autofocus="autofocus" uppercaseonly
-                                     class="form-control" formControlName="benAdd1"
-                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd1'].invalid) }">
-                               </div>       
-                               <div class="col-sm-4">
-                                <label for="horizontal-firstname-input" 
-                                   class="col-form-label"> Ben Address2 </label><span style="color: red">*</span>                              
-                                <input type="text" uppercaseonly  autofocus="autofocus" 
-                                   class="form-control" formControlName="benAdd2"
-                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd2'].invalid) }">
-                             </div>     
-                             <div class="col-sm-6">
-                                <label for="horizontal-firstname-input" 
-                                   class="col-form-label"> Ben Address3</label><span style="color: red">*</span>                              
-                                <input type="text" uppercaseonly autofocus="autofocus" 
-                                   class="form-control" formControlName="benAdd3"
-                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd3'].invalid) }">
-                             </div>  
-                             <div class="col-sm-2">
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBenMaster">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="card">
+                     <div class="card-body">                         
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Ben Type </label><span style="color: red">*</span>                                       
+                              <select id="formrow-inputState" 
+                                 class="form-control form-select ng-pristine ng-touched"
+                                      formControlName="benType" (change)="benTypeChange($event)"
+                                      [ngClass]="{ 'is-invalid': formSubmitted && (f['benType'].invalid) }">
+                                      <option value="V">Vendor</option>
+                                      <option value="A">Admin</option>                                        
+                              </select>
+                           </div>                                      
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Ben Code </label>
+                              <input type="text" autofocus="autofocus" class="form-control"
+                                 formControlName="benCode">
+                           </div>
+                           <div class="col-sm-3">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Ben Name</label><span style="color: red">*</span> 
+                              <input type="text"  uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="benName"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['benName'].invalid) }">
+                           </div>
+                           <div class="col-sm-3">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Ben Co Ac Name  </label>                             
+                              <input type="text"  uppercaseonly autofocus="autofocus" 
+                                 class="form-control"  formControlName="benCoAcName">
+                           </div>              
+                        </div>
+                        <div class="row">  
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Global YN</label>
+                                 <select id="formrow-inputState" formControlName="globalYN" 
+                                    class="form-control form-select ng-pristine ng-touched"
+                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['globalYN'].invalid) }">
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                               </select>
+                           </div>         
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Address1 </label><span style="color: red">*</span>                              
+                              <input type="text" autofocus="autofocus" uppercaseonly
+                                 class="form-control" formControlName="benAdd1"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd1'].invalid) }">
+                           </div>       
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Address2 </label><span style="color: red">*</span>                              
+                              <input type="text" uppercaseonly  autofocus="autofocus" 
+                                 class="form-control" formControlName="benAdd2"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd2'].invalid) }">
+                           </div>           
+                        </div>
+                        <div class="row">      
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Address3</label><span style="color: red">*</span>                              
+                              <input type="text" uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="benAdd3"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['benAdd3'].invalid) }">
+                           </div>  
+                           <div class="col-sm-2">
                               <label for="horizontal-firstname-input" numbersonly
                                  class="col-form-label"> Pin Code </label>                              
-                              <input type="text" numbersonly  autofocus="autofocus" class="form-control"
-                                formControlName="pinCode"
-                                [ngClass]=>
-                           </div>                     
-                              
-                            </div>
-                            <div class="row">
-                                                     
-                                              
-                                                       
-                               <div class="col-sm-4">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> State Code </label>                          
-                                     <select class="form-control" formControlName="stateCode" autoclose="false"
-                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
-                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
-                                         {{state.dataName}}
-                                     </option>
-                                  </select>     
-                               </div>
-                               <div class="col-sm-4">
-                                 <label for="horizontal-firstname-input" 
-                                    class="col-form-label"> Ben Phone</label>
-                                 <input type="text" numbersonly autofocus="autofocus" 
-                                    class="form-control" formControlName="benPhone"
-                                    [ngClass]=>
-                              </div>   
-                            </div>
-                            <div class="row">
-                                                       
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Mobile</label>
-                                  <input type="text" numbersonly autofocus="autofocus" 
-                                     class="form-control" formControlName="benMobile"
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-4">
-                                  <label for="horizontal-firstname-input"  
-                                     class="col-form-label"> Ben Email</label><span style="color: red">*</span> 
-                                     <input type="text"  autofocus="autofocus" 
-                                     class="form-control" formControlName="benEmail"
-                                    [ngClass]=>
-                               </div>    
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Bank Name</label>
-                                  <input type="text"  autofocus="autofocus" 
-                                     class="form-control" formControlName="benBankName">
-                               </div>
-                            </div>
-                            <div class="row">
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">BenBank Branch</label>
-                                  <input type="text" uppercaseonly  autofocus="autofocus" 
-                                     class="form-control" formControlName="benBankBranch"
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Bank AcNo</label>
-                                  <input type="text" numbersonly  autofocus="autofocus" 
-                                     class="form-control" formControlName="benBankAcNo"
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Ben Bank Ifsc</label>
-                                  <input type="text" uppercaseonly autofocus="autofocus" 
-                                     class="form-control" formControlName="benBankIfsc"
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">Amount Limit </label>
-                                  <input type="text"  decimalonly autofocus="autofocus" 
-                                     class="form-control" formControlName="amountLimit" uppercaseonly
-                                     [ngClass]=>
-                               </div>
-                            </div> 
-                            <div class="row">
-                               <div class="col-sm-6">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Remarks</label>
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     formControlName="remarks" uppercaseonly maxlength="500"
-                                     [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> BenRefByEmployeeId</label>
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                    placeholder="" formControlName="benRefByEmployeeId" uppercaseonly
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Approved By</label>
-                                  <input type="text" autofocus="autofocus" 
-                                     class="form-control" formControlName="approvedBy" uppercaseonly
-                                     [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Approved Date</label>
-                                  <input type="Date"  autofocus="autofocus" class="form-control"
-                                     placeholder="" formControlName="approvedDate" uppercaseonly
-                                     [ngClass]=>
-                                  </div>
-                               </div>
-                            </div>
-                            <div class="row">
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">Approved Remarks </label>
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     placeholder="" formControlName="approvedRemarks" decimalonly
-                                     [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Api Used ForApp</label>
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     placeholder="" formControlName="apiUsedForApp" decimalonly
-                                     [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Block YN</label>
-                                     <select id="formrow-inputState" 
-                                     class="form-control form-select ng-pristine ng-touched"
-                                         formControlName="blockYN" 
-                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['blockYN'].invalid) }">
-                                        
-                                         <option value="Y">Yes</option>
-                                         <option value="N">No</option>
-                                        
-                                   </select>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label"> Block Date</label>
-                                  <input type="date" autofocus="autofocus" class="form-control"
-                                    placeholder="" formControlName="blockDate"
-                                    [ngClass]=>
-                               </div>
-                               <div class="col-sm-2">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">Block By</label>
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     placeholder="" formControlName="blockBy"
-                                     [ngClass]=>
-                               </div>
-                            </div>
-                            <div class="row">
-                               <div class="col-sm-4">
-                                  <label for="cancelCheqAttach" class="col-form-label">Cancel Cheque Attach</label>
-                                  <input #cancelCheqAttach class="form-control" type="file"
-                                     id="cancelCheqAttach" >
-                                     <a *ngIf="selectedBenificiaryMasterDetails.cancelCheqAttach" target="_blank"
-                                     href={{cancelCheqAttach}}>Download</a>
-                               </div>
-                               <div class="col-sm-4">
-                                  <label for="vendorAttachedfile" class="col-form-label">Vendor Attached file</label>
-                                  <input #vendorAttachedfile class="form-control" type="file"
-                                  id="vendorAttachedfile"  >
-                                  <a *ngIf="selectedBenificiaryMasterDetails.vendorAttachedfile" target="_blank"
-                                  href={{vendorAttachedfile}}>Download</a>
-                               </div>
-                            </div>
-                            <div class="row">
-                               
-                              
-                               <div class="col-sm-4">
-                                  <label for="horizontal-firstname-input" 
-                                     class="col-form-label">Block Reason</label>
-                                  <input type="text" uppercaseonly autofocus="autofocus" 
-                                     class="form-control" formControlName="blockReason"
-                                     [ngClass]=>
-                               </div>
-                                
-                               <div class="col-sm-4">
-                                <label for="horizontal-firstname-input" 
-                                   class="col-form-label">Pan No</label>
-                                <input type="text" uppercaseonly autofocus="autofocus" 
-                                   class="form-control" formControlName="panNo"
-                                   [ngClass]=>
-                             </div>
-                             <div class="col-sm-2">
-                                <label for="horizontal-firstname-input" 
-                                   class="col-form-label">Global YN</label>
-                                   <select id="formrow-inputState" 
-                                   class="form-control form-select ng-pristine ng-touched"
-                                       formControlName="globalYN" 
-                                       [ngClass]="{ 'is-invalid': formSubmitted && (f['globalYN'].invalid) }">
-                                      
-                                       <option value="Y">Yes</option>
-                                       <option value="N">No</option>
-                                      
-                                 </select>
-                             </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div> 
-                </div> 
-                <div class="row text-right">
-                   <div class="col-lg-12">
-                      <div class="tex">
-                         <button class="btn btn-primary w-md"
-                         *ngIf="((editMode && editStatus) || (!editMode && createStatus))"
-                            (click)="submitBenificiaryMasterForm()">Save</button>
-                         <button class="btn btn-danger w-md m-2" 
-                               (click)="deleteBenificiaryMasterForm()" *ngIf="editMode && deleteStatus">Delete</button>                         
-                         <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
-                      </div>
-                   </div>
-                </div>
-             </form>
-          </div>
-       </div>
-    </div>
+                              <input type="text" numbersonly maxlength="6" autofocus="autofocus" 
+                                 class="form-control" formControlName="pinCode">
+                           </div> 
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> State </label><span style="color: red">*</span>                                                     
+                                 <select class="form-control" formControlName="stateCode" autoclose="false"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
+                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                     {{state.dataName}}
+                                 </option>
+                              </select>     
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Phone</label>
+                              <input type="text" numbersonly autofocus="autofocus" 
+                                 class="form-control" formControlName="benPhone">
+                           </div>                  
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Mobile</label>
+                              <input type="text" numbersonly autofocus="autofocus" 
+                                 class="form-control" formControlName="benMobile"
+                                 [ngClass]=>
+                           </div>
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input"  
+                                 class="col-form-label"> Email</label>
+                                 <input type="text"  autofocus="autofocus" 
+                                 class="form-control" formControlName="benEmail">
+                           </div>  
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Pan No</label>
+                              <input type="text" uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="panNo">
+                           </div>
+                        </div>
+                        <div class="row">  
+                           <div class="col-sm-5">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Bank Name</label>
+                              <select formControlName="bankId"
+                                 class="form-control form-select ng-pristine ng-touched">
+                                 <option *ngFor="let dl of bankList" value={{dl.dataId}}>
+                                     {{dl.dataName}}
+                                 </option>
+                             </select>
+                           </div>
+                           <div class="col-sm-5">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Bank Branch</label>
+                              <input type="text" uppercaseonly  autofocus="autofocus" 
+                                 class="form-control" formControlName="benBankBranch">
+                           </div>
+                        </div>
+                        <div class="row">  
+                           <div class="col-sm-3">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Bank Ac No</label>
+                              <input type="text" numbersonly  autofocus="autofocus" 
+                                 class="form-control" formControlName="benBankAcNo">
+                           </div>
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Bank IFSC</label>
+                              <input type="text" uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="benBankIfsc">
+                           </div>
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Amount Limit </label>
+                              <input type="text" decimalonly autofocus="autofocus" 
+                                 class="form-control" formControlName="amountLimit" uppercaseonly>
+                           </div>
+                        </div>
+                        <div class="row"> &nbsp;  
+                        </div>
+                        <div class="row" *ngIf="apvblk"> 
+                           <div class="col-md-2"> 
+                              <button class="btn btn-primary w-md" *ngIf="apvblk"
+                                 (click)="verifyBankAc()">Verify Bank Ac</button>
+                           </div>
+                           <div class="col-sm-5">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Benificiary Bank Name</label>                             
+                              <input type="text" uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="bankName">
+                           </div>
+                        </div> 
+                        <div class="row">
+                           <div class="col-sm-4">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Reffered By</label>
+                              <select formControlName="benRefByEmployeeId"
+                                  class="form-control form-select ng-pristine ng-touched">
+                                  <option *ngFor="let dl of empList" value={{dl.dataId}}>
+                                      {{dl.dataName}}
+                                  </option>
+                              </select>
+                           </div>
+                           <div class="col-sm-6">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label"> Remarks</label>
+                              <input type="text" autofocus="autofocus" class="form-control"
+                                 formControlName="remarks" uppercaseonly maxlength="500">
+                           </div>
+                        </div> 
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Approved</label>                                  
+                              <select id="formrow-inputState" 
+                                 class="form-control form-select ng-pristine ng-touched"
+                                      formControlName="approvedYN">
+                                 <option value="Y">Yes</option>
+                                 <option value="N">No</option>
+                              </select>
+                           </div>
+                           <div class="col-sm-5">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Approved Remarks </label>
+                              <input type="text"  autofocus="autofocus" class="form-control"
+                                   formControlName="approvedRemarks" uppercaseonly>
+                           </div>
+                        </div> 
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Block</label>
+                              <select id="formrow-inputState" 
+                                class="form-control form-select ng-pristine ng-touched"
+                                     formControlName="blockYN">
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>
+                              </select>
+                           </div>
+                           <div class="col-sm-5">
+                              <label for="horizontal-firstname-input" 
+                                 class="col-form-label">Block Reason</label>
+                              <input type="text" uppercaseonly autofocus="autofocus" 
+                                 class="form-control" formControlName="blockReason">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-4">
+                              <label for="cancelCheqAttach" class="col-form-label">Cancel Cheque Attach</label>
+                              <input #cancelCheqAttachInput class="form-control" type="file"
+                                 id="cancelCheqAttach" >
+                              <a *ngIf="selectedBenMaster.cancelCheqAttach" target="_blank"
+                                 href={{cancelCheqAttach}}>Download</a>
+                           </div>
+                           <div class="col-sm-4">
+                              <label for="vendorAttachedfile" class="col-form-label">Vendor Attached file</label>
+                              <input #vendorAttachedfileInput class="form-control" type="file"
+                              id="vendorAttachedfile"  >
+                              <a *ngIf="selectedBenMaster.vendorAttachedfile" target="_blank"
+                                 href={{vendorAttachedfile}}>Download</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div> 
+               </div> 
+            </div> 
+            <div class="row text-right">
+               <div class="col-lg-12">
+                  <div class="tex">
+                     <button class="btn btn-primary w-md"
+                     *ngIf="((editMode && editStatus) || (!editMode && createStatus))"
+                        (click)="submitBenificiaryMasterForm()">Save</button>&nbsp;
+                     <button class="btn btn-danger w-md m-2" 
+                           (click)="deleteBenificiaryMasterForm()" 
+                           *ngIf="editMode && deleteStatus">Delete</button>  &nbsp;                       
+                     <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
+                  </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

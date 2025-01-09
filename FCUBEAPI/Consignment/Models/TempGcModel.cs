@@ -69,6 +69,7 @@
         public string? Businessby { get; set; }
         public string? GstBy { get; set; }
         public string? Remarks { get; set; }
+        public string? YearId { get; set; }        
         public string? VehRcDoc { get; set; }
         public string? VehPanDoc { get; set; }
         public string? VehDecDoc { get; set; }

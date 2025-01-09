@@ -2,10 +2,7 @@
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 

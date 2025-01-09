@@ -70,7 +70,7 @@ export class BillsubmitmasteraddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Vehicle Repairs Entry");
+      .find((aa: { menuName: string; }) => aa.menuName === "Bill Submit Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

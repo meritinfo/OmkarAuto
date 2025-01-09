@@ -373,24 +373,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        //[HttpPost("ProductMasterSave")]
-        //public async Task<IActionResult> ProductMasterSave(ProductMasterModel productMasterModel)
-        //{
-        //    if (productMasterModel == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await productMasterBusiness.ProductMasterSave(productMasterModel);
+        [HttpPost("ProductMasterSave")]
+        public async Task<IActionResult> ProductMasterSave(ProductMasterModel productMasterModel)
+        {
+            if (productMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await productMasterBusiness.ProductMasterSave(productMasterModel);
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("ClassificationMasterSave")]
         public async Task<IActionResult> ClassificationMasterSave(ClassificationMasterModel classificationasterModel)
         {

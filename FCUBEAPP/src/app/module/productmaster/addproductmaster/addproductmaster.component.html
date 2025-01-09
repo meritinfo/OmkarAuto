@@ -18,21 +18,19 @@
                         <div class="row">
                            <div class="col-sm-2">
                               <div class="mb-4">
-                              <label for="horizontal-firstname-input" class="col-form-label">
-                                 Product Name</label>
-                              <span style="color: red">*</span>
-                           </div>
+                                 <label for="horizontal-firstname-input" class="col-form-label">
+                                    Product Name</label>
+                                 <span style="color: red">*</span>
+                              </div>
                            </div>
                            <div class="col-sm-4">
                               <div class="mb-4">
-                              <input type="text" autofocus="autofocus" class="form-control"
-                                 uppercaseonly formControlName="productName"  (change)="chkProductDuplicate()"
-                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['classDesc'].invalid) }">
-                           </div>
+                                 <input type="text" autofocus="autofocus" class="form-control"
+                                    uppercaseonly formControlName="productName"  (change)="chkProductDuplicate()"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['productName'].invalid) }">
+                              </div>
+                           </div>                           
                         </div>
-                           
-                        </div>
-                        
                         <div class="row">
                            <div class="col-sm-2">
                               <label for="horizontal-firstname-input" class="col-form-label">

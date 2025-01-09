@@ -10,12 +10,16 @@ using System.Threading.Tasks;
 namespace FinanceMaster.Business
 {
  
-        public interface IBeneficiaryMasterBusiness
-        {
-            Task<ResponseModel> BeneficiaryMasterSave(BeneficiaryMasterModel beneficiaryMasterModel);
-            Task<ResponseModel> BeneficiaryMasterDelete(RequestModel request);
-            Task<BeneficiaryMasterList> GetBeneficiaryMasterList(PageRequest request);
-        }
+    public interface IBeneficiaryMasterBusiness
+    {
+        Task<ResponseModel> BeneficiaryMasterSave(BeneficiaryMasterModel beneficiaryMasterModel);
+        Task<ResponseModel> BeneficiaryMasterDelete(RequestModel request);
+        Task<BeneficiaryMasterList> GetBeneficiaryMasterList(PageRequest request);
+        Task<ResponseModel> GetBenCode(RequestModel requestModel);
+        Task<ResponseModel> GetBankAccountVerify(ReportRequestModel request);
+        Task<ResponseModel> GetUserBenApproveBlock(RequestModel requestModel);
+        Task<List<DropDownListModel>> GetBenBankList();
+    }
     
 
 }

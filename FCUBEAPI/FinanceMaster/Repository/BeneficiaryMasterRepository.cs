@@ -3,12 +3,9 @@ using FinanceMasters.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace FinanceMaster.Repository
 {
@@ -48,7 +45,7 @@ namespace FinanceMaster.Repository
                              new SqlParameter("@BenPhone" , beneficiaryMasterModel.BenPhone),
                              new SqlParameter("@BenMobile" , beneficiaryMasterModel.BenMobile),
                              new SqlParameter("@BenEmail" , beneficiaryMasterModel.BenEmail),
-                             new SqlParameter("@BenBankName" , beneficiaryMasterModel.BenBankName),
+                             new SqlParameter("@BankId" , beneficiaryMasterModel.BankId),
                              new SqlParameter("@BenBankBranch" , beneficiaryMasterModel.BenBankBranch),
                              new SqlParameter("@BenBankAcNo" , beneficiaryMasterModel.BenBankAcNo),
                              new SqlParameter("@BenBankIfsc" , beneficiaryMasterModel.BenBankIfsc),
@@ -57,15 +54,10 @@ namespace FinanceMaster.Repository
                              new SqlParameter("@CancelCheqAttach" , beneficiaryMasterModel.CancelCheqAttach),
                              new SqlParameter("@VendorAttachedfile" , beneficiaryMasterModel.VendorAttachedfile),
                              new SqlParameter("@BenRefByEmployeeId" , beneficiaryMasterModel.BenRefByEmployeeId),
-                             new SqlParameter("@ApprovedBy" , beneficiaryMasterModel.ApprovedBy),
-                             new SqlParameter("@ApprovedDate" , beneficiaryMasterModel.ApprovedDate),
+                             new SqlParameter("@ApprovedYN" , beneficiaryMasterModel.ApprovedYN),
                              new SqlParameter("@ApprovedRemarks" , beneficiaryMasterModel.ApprovedRemarks),
-                             new SqlParameter("@ApiUsedForApp" , beneficiaryMasterModel.ApiUsedForApp),
                              new SqlParameter("@BlockYN" , beneficiaryMasterModel.BlockYN),
-                             new SqlParameter("@BlockDate" , beneficiaryMasterModel.BlockDate),
-                             new SqlParameter("@BlockBy" , beneficiaryMasterModel.BlockBy),
                              new SqlParameter("@BlockReason" , beneficiaryMasterModel.BlockReason),
-                           //  new SqlParameter("@DeleteFlag" , beneficiaryMasterModel.DeleteFlag),
                              new SqlParameter("@PanNo" , beneficiaryMasterModel.PanNo),
                              new SqlParameter("@GlobalYN" , beneficiaryMasterModel.GlobalYN),
                              new SqlParameter("@BranchCode" , beneficiaryMasterModel.BranchCode),
@@ -96,6 +88,9 @@ namespace FinanceMaster.Repository
             }
             catch (Exception ex)
             {
+                responseModel.Status =  false;
+                responseModel.Message = ex.Message;
+
                 transaction.Rollback();
             }
             return responseModel;
@@ -178,7 +173,7 @@ namespace FinanceMaster.Repository
                                 BenPhone = Convert.ToString(dataSet.Tables[0].Rows[i]["BenPhone"]),
                                 BenMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["BenMobile"]),
                                 BenEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["BenEmail"]),
-                                BenBankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BenBankName"]),
+                                BankId = Convert.ToString(dataSet.Tables[0].Rows[i]["BankId"]),
                                 BenBankBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BenBankBranch"]),
                                 BenBankAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BenBankAcNo"]),
                                 BenBankIfsc = Convert.ToString(dataSet.Tables[0].Rows[i]["BenBankIfsc"]),
@@ -187,19 +182,16 @@ namespace FinanceMaster.Repository
                                 CancelCheqAttach = Convert.ToString(dataSet.Tables[0].Rows[i]["CancelCheqAttach"]),
                                 VendorAttachedfile = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorAttachedfile"]),
                                 BenRefByEmployeeId = Convert.ToString(dataSet.Tables[0].Rows[i]["BenRefByEmployeeId"]),
+                                ApprovedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedYN"]),
                                 ApprovedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedBy"]),
                                 ApprovedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedDate"]),
                                 ApprovedRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedRemarks"]),
-                                ApiUsedForApp = Convert.ToString(dataSet.Tables[0].Rows[i]["ApiUsedForApp"]),
                                 BlockYN = Convert.ToString(dataSet.Tables[0].Rows[i]["BlockYN"]),
                                 BlockDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BlockDate"]),
                                 BlockBy = Convert.ToString(dataSet.Tables[0].Rows[i]["BlockBy"]),
                                 BlockReason = Convert.ToString(dataSet.Tables[0].Rows[i]["BlockReason"]),
-                               // DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
                                 PanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PanNo"]),
                                 GlobalYN = Convert.ToString(dataSet.Tables[0].Rows[i]["GlobalYN"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                //LoggedInUserID = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUserID"]),
                             });
                         }
 
@@ -215,18 +207,192 @@ namespace FinanceMaster.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return beneficiaryMasterList;
         }
+
+        public async Task<ResponseModel> GetBenCode(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BenType", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBenCode", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetUserBenApproveBlock(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUserBenApproveBlock", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }        
+        public async Task<ResponseModel> GetBankAccountVerify(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            ResponseModel responseSave = new();
+            try
+            {
+                string baseUrl = "http://fcube.net/bankapi/api.php";
+
+                string UrlParam = "?account=" + request.FilterStr1 +
+                                    "&ifsc=" + request.FilterStr2;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    responseSave = await APILogBenificiarySave(request);
+
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    int statusCode = data.status;
+                    if (statusCode == 200)
+                    {
+                        var res = JsonConvert.DeserializeObject<BenBankResult>(result);
+
+                        responseModel.Status = true;
+                        responseModel.Message = res.Name.ToString();
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> APILogBenificiarySave(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                             new SqlParameter("@BenId" ,    request.FilterStr),
+                             new SqlParameter("@BankAcNo",  request.FilterStr1),
+                             new SqlParameter("@BankIfsc" , request.FilterStr2),
+                             new SqlParameter("@LogUserId", request.FilterStr3),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ApiLogBenSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status =  false;
+                responseModel.Message = ex.Message;
+
+                transaction.Rollback();
+            }
+            return responseModel;
+
+        }
+        public async Task<List<DropDownListModel>> GetBenBankList()
+        {
+            List<DropDownListModel> contentList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBenBankList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            contentList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return contentList;
+        }
+
     }
 }

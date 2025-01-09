@@ -3,11 +3,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Cnorcneemasterlistmodel  } from 'src/app/models/cnorcneemasterlistmodel';
 import { Cnorcneemastermodel } from 'src/app/models/cnorcneemastermodel';
 import { CnorCneeMasterService } from 'src/app/services/cnorcneemaster.service';
 import { CommonService } from 'src/app/services/common.service';
-
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -54,7 +52,7 @@ ngOnInit(): void {
     var privilegeData = JSON.parse(menuData);
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Consignor/Consignee Search");
+    .find((aa: { menuName: string; }) => aa.menuName === "Consignor/Consignee Master");
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
