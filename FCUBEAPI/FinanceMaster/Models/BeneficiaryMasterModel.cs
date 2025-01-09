@@ -21,7 +21,7 @@ namespace FinanceMaster.Models
         public string? BenPhone { get; set; }
         public string? BenMobile { get; set; }
         public string? BenEmail { get; set; }
-        public string? BenBankName { get; set; }
+        public string? BankId { get; set; }
         public string? BenBankBranch { get; set; }
         public string? BenBankAcNo { get; set; }
         public string? BenBankIfsc { get; set; }
@@ -30,16 +30,14 @@ namespace FinanceMaster.Models
         public string? CancelCheqAttach { get; set; }
         public string? VendorAttachedfile { get; set; }
         public string? BenRefByEmployeeId { get; set; }
+        public string? ApprovedYN { get; set; }        
         public string? ApprovedBy { get; set; }
         public string? ApprovedDate { get; set; }
         public string? ApprovedRemarks { get; set; }
-        public string? ApiUsedForApp { get; set; }
         public string? BlockYN { get; set; }
         public string? BlockDate { get; set; }
         public string? BlockBy { get; set; }
         public string? BlockReason { get; set; }
-  
-   
         public string? PanNo { get; set; }
         public string? GlobalYN { get; set; }
         public string? BranchCode { get; set; }

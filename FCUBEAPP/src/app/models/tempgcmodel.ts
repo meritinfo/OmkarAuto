@@ -69,6 +69,7 @@ export class Tempgcmodel {
     businessby:  string = "";
     gstBy: string = "";
     remarks:  string = "";
+    yearId: string = "";
     vehRcDoc:  string = "";
     vehPanDoc:  string = "";
     vehDecDoc:  string = "";

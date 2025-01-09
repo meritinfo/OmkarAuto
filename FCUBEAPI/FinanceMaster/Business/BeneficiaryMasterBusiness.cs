@@ -1,4 +1,5 @@
-﻿using FinanceMaster.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FinanceMaster.Models;
 using FinanceMaster.Repository;
 using FinanceMasters.Repository;
 using Shared.Models;
@@ -28,9 +29,23 @@ namespace FinanceMaster.Business
         }
         public async Task<BeneficiaryMasterList> GetBeneficiaryMasterList(PageRequest request)
         {
-
             return await beneficiaryMasterRepository.GetBeneficiaryMasterList(request);
-
+        }
+        public async Task<ResponseModel> GetBenCode(RequestModel request)
+        {
+            return await beneficiaryMasterRepository.GetBenCode(request);
+        }
+        public async Task<ResponseModel> GetBankAccountVerify(ReportRequestModel request)
+        {
+            return await beneficiaryMasterRepository.GetBankAccountVerify(request);
+        }
+        public async Task<ResponseModel> GetUserBenApproveBlock(RequestModel request)
+        {
+            return await beneficiaryMasterRepository.GetUserBenApproveBlock(request);
+        }
+        public async Task<List<DropDownListModel>> GetBenBankList()
+        {
+            return await beneficiaryMasterRepository.GetBenBankList();
         }
     }
 }

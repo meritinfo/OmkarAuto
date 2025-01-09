@@ -23,6 +23,7 @@ import { Constants } from 'src/app/common/constants';
 export class GeneratetempgcaddComponent {
   loggedInUserID: string = '';
   dprid: string = '';
+  year: string = '';
   branch: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
@@ -128,6 +129,10 @@ export class GeneratetempgcaddComponent {
     }
     else {
       this.route.navigate(['/']);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
     }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
@@ -654,7 +659,7 @@ export class GeneratetempgcaddComponent {
     this.tempgcmodel.businessby         = selectedDataVal.businessby ?selectedDataVal.businessby:"";
     this.tempgcmodel.gstBy              = selectedDataVal.gstBy ?selectedDataVal.gstBy:"";
     this.tempgcmodel.remarks            = selectedDataVal.remarks ?selectedDataVal.remarks.toString().toUpperCase():"";
-   
+    this.tempgcmodel.yearId             = this.year;
     this.tempgcmodel.loggedInUser = this.loggedInUserID;  
 
     this.tempgcmodel.invList = [];

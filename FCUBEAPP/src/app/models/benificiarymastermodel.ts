@@ -12,7 +12,7 @@ export class Benificiarymastermodel {
     benPhone: string = "";
     benMobile: string = "";
     benEmail: string = "";
-    benBankName: string = "";
+    bankId: string = "";
     benBankBranch: string = "";
     benBankAcNo: string = "";
     benBankIfsc: string = "";
@@ -21,10 +21,10 @@ export class Benificiarymastermodel {
     cancelCheqAttach: string = "";
     vendorAttachedfile: string = "";
     benRefByEmployeeId: string = "";
+    approvedYN: string = "";
     approvedBy: string = "";
     approvedDate: string = "";
     approvedRemarks: string = "";
-    apiUsedForApp: string = "";
     blockYN: string = "";
     blockDate: string = "";
     blockBy: string = "";

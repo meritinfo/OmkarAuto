@@ -14,5 +14,9 @@ namespace FinanceMaster.Repository
         Task<ResponseModel> BeneficiaryMasterSave(BeneficiaryMasterModel beneficiaryMasterModel);
         Task<ResponseModel> BeneficiaryMasterDelete(RequestModel request);
         Task<BeneficiaryMasterList> GetBeneficiaryMasterList(PageRequest request);
+        Task<ResponseModel> GetBenCode(RequestModel requestModel);
+        Task<ResponseModel> GetBankAccountVerify(ReportRequestModel request);
+        Task<ResponseModel> GetUserBenApproveBlock(RequestModel requestModel);
+        Task<List<DropDownListModel>> GetBenBankList();
     }
 }

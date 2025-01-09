@@ -83,8 +83,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@HRCode", hrMasterModel.HRCode),
                             new SqlParameter("@Description", hrMasterModel.Description),
                             new SqlParameter("@HrType", hrMasterModel.HrType),
-                             new SqlParameter("@LoggedInUser", hrMasterModel.LoggedInUser)
-
+                            new SqlParameter("@LoggedInUser", hrMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HrMasterSave", param);
 

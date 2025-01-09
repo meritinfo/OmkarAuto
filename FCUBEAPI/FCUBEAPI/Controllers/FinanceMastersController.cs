@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FleetTrans.Business;
 using Org.BouncyCastle.Ocsp;
+using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {
@@ -507,8 +508,8 @@ namespace FCUBEAPI.Controllers
         {
             try
             {
-                var cancelCheqAttach = HttpContext.Request.Form.Files["attach1"];
-                var vendorAttachedfile = HttpContext.Request.Form.Files["attach2"];
+                var cancelCheqAttach = HttpContext.Request.Form.Files["cancelCheqAttach"];
+                var vendorAttachedfile = HttpContext.Request.Form.Files["vendorAttachedfile"];
 
                 BeneficiaryMasterModel beneficiaryMasterModel = JsonConvert.DeserializeObject<BeneficiaryMasterModel>(HttpContext.Request.Form["datadetails"]);
 
@@ -573,6 +574,79 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBenCode")]
+        public async Task<IActionResult> GetBenCode(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetBenCode(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBankAccountVerify")]
+        public async Task<IActionResult> GetBankAccountVerify(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetBankAccountVerify(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBenBankList")]
+        public async Task<IActionResult> GetBenBankList()
+        {
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetBenBankList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetUserBenApproveBlock")]
+        public async Task<IActionResult> GetUserBenApproveBlock(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetUserBenApproveBlock(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("BeneficiaryMasterDelete")]
         public async Task<IActionResult> BeneficiaryMasterDelete(RequestModel req)
         {
