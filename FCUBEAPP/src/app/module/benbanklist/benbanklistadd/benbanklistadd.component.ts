@@ -113,7 +113,7 @@ ngOnInit(): void {
    verifyAvailYN : new FormControl('', [Validators.required]),
 
   });
-
+  this.formBenMaster.controls['activeYN'].disable(); 
   if (this.selectedBenBankDetails.bankId != '') {
  
 
@@ -125,7 +125,7 @@ ngOnInit(): void {
      // validUpto: this.commonService.formatDate(this.selectedPanRateDetails.validUpto),
    
     })
-    this.formBenMaster.controls['isActive'].enable(); 
+    this.formBenMaster.controls['activeYN'].enable(); 
    
     this.editMode = true;
   }
@@ -152,6 +152,51 @@ deleteBenBankForm(): void {
 }
 exit(): void {
   this.route.navigate(['/banklistmst']);
+}
+
+chkBankDuplicate(e:any){
+  var selectedData = this.formBenMaster.getRawValue();
+  
+
+   // this.requestmodel.strRequest = e.value;
+    this.requestmodel.strRequest = selectedData.bankName;
+    this.benService.checkDuplicateBank(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formBenMaster.patchValue({
+          bankName: ''
+  
+        });
+        
+      }
+    });
+    
+}
+chkCodeDuplicate(e:any){
+  var selectedData = this.formBenMaster.getRawValue();
+  
+
+   // this.requestmodel.strRequest = e.value;
+    this.requestmodel.strRequest = selectedData.bankShortCode;
+    this.benService.checkDuplicateBank(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formBenMaster.patchValue({
+          bankShortCode: ''
+  
+        });
+        
+      }
+    });
+    
 }
 
 submitBenBankForm() {

@@ -44,8 +44,9 @@ export class BenBankListService {
     this.selectedBenBankMaster = new Benbankmodel();
   }
 
-  chkDuplicatebank(user: Benbankmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/CheckDuplicateBank', user, this.httpOptions);
+  
+  checkDuplicateBank(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/CheckDuplicateBank', req, this.httpOptions);
   }
 
   benBankDetailsSubmitted(user: Benbankmodel): Observable<Responsemodel> {
@@ -53,7 +54,7 @@ export class BenBankListService {
   }
 
   getBenBankList(filter: Reportmodel): Observable<Benbanklistmodel> {
-    return this.httpClient.post<Benbanklistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetBenBankList', filter, this.httpOptions);
+    return this.httpClient.post<Benbanklistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetBenBanksList', filter, this.httpOptions);
   }
 
   benBankDelete(request: Requestmodel): Observable<Responsemodel> {

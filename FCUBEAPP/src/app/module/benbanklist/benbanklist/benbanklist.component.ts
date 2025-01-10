@@ -75,7 +75,7 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
 
   this.benService.clearBenBankEntryDetails();
   this.formFilter = this.formBuilder.group({
-    panNo: new FormControl(''),
+    bankName: new FormControl(''),
     yearID: new FormControl(''),
   });
   this.sharedService.loading=true;
@@ -118,7 +118,7 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
           data: 'bankShortCode',
         },
         {
-          title: 'bankName ',
+          title: 'Bank Name ',
           data: 'bankName',
         },
         {
@@ -126,7 +126,7 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
           data: 'activeYN',
         },
         {
-          title: 'verifyAvailYN',
+          title: 'Verify Available',
           data: 'verifyAvailYN',
         },
         {
@@ -155,12 +155,12 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
   //Open user details screen
   setBenBankDetails(Docrenewal: Benbankmodel): void {
     this.benService.setBenBankListDetails(Docrenewal);
-    this.route.navigate(['/benbankedit']);
+    this.route.navigate(['/benbanklistedit']);
   }
   search(): void {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.search = "";
-    this.filter.filterStr = selectedDataVal.panNo;
+    this.filter.filterStr = selectedDataVal.bankName;
     this.filter.filterStr1 = this.year;
     this.sharedService.loading=true;
     this.benBankList();

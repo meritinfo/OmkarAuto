@@ -908,7 +908,7 @@ namespace FCUBEAPI.Controllers
             }
 
         }
-        [HttpPost("GetBenBankList")]
+        [HttpPost("GetBenBanksList")]
         public async Task<IActionResult> GetBenBankList(ReportRequestModel request)
         {
             try

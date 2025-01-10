@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">PAN wise TDS Rates </h4>
+                        <h4 class="mb-sm-0 font-size-18">Bank List Master</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
@@ -23,8 +23,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Pan No</label>
-                                    <input type="text" class="form-control" formControlName="panNo">
+                                    <label for="formrow-inputState">Bank Name</label>
+                                    <input type="text" class="form-control" formControlName="bankName">
                                 </div>
                             </div>
                             <!-- <div class="mb-3">
@@ -61,7 +61,7 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>Driver Name </th>
+                    
                             <th>Father Name </th>
                             <th>Date Of Appoint </th>
                             <th>License No</th>
@@ -74,8 +74,8 @@
                     <tbody *ngIf="allBenBank.benList?.length != 0">
                         <tr *ngFor="let drvr of allBenBank.benList">
                          
-                            <td>{{ drvr.bankId }}</td>
-                            <td>{{ drvr.BankShortCode }}</td>
+                        
+                            <td>{{ drvr.bankShortCode }}</td>
                             <td>{{ drvr.bankName }}</td>
                             <td>{{ drvr.activeYN }}</td>
                             <td>{{ drvr.verifyAvailYN }}</td>

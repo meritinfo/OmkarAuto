@@ -87,7 +87,7 @@ namespace FinanceMaster.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
-                            //new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@Bank", request.FilterStr),
                             //new SqlParameter("@ToDate", request.ToDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BenBankList", param);
@@ -104,7 +104,7 @@ namespace FinanceMaster.Repository
                                 BankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankName"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
                                 VerifyAvailYN = Convert.ToString(dataSet.Tables[0].Rows[i]["VerifyAvailYN"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                             });
                         }
 
