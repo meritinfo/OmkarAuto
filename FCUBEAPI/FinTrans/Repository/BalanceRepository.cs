@@ -42,6 +42,7 @@ namespace FinTrans.Repository
                     {
                         
                         DataTable dt = dataSet.Tables[0];
+                        responseModel = await sharedRepository.GetCompanyDetail();
 
                         using (XLWorkbook wb = new XLWorkbook())
                         {
@@ -49,7 +50,7 @@ namespace FinTrans.Repository
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
-                            ws.Range(1, 1, 1, colcnt).Value = "MAXWELL LOGISTICS PRIVATE LIMITED";
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
                             ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -235,6 +236,7 @@ namespace FinTrans.Repository
                     {
 
                         DataTable dt = dataSet.Tables[0];
+                        responseModel = await sharedRepository.GetCompanyDetail();
 
                         using (XLWorkbook wb = new XLWorkbook())
                         {
@@ -242,7 +244,7 @@ namespace FinTrans.Repository
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
-                            ws.Range(1, 1, 1, colcnt).Value = "MAXWELL LOGISTICS PRIVATE LIMITED";
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
                             ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -428,6 +430,7 @@ namespace FinTrans.Repository
                     {
 
                         DataTable dt = dataSet.Tables[0];
+                        responseModel = await sharedRepository.GetCompanyDetail();
 
                         using (XLWorkbook wb = new XLWorkbook())
                         {
@@ -435,7 +438,7 @@ namespace FinTrans.Repository
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
-                            ws.Range(1, 1, 1, colcnt).Value = "MAXWELL LOGISTICS PRIVATE LIMITED";
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
                             ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -606,6 +609,7 @@ namespace FinTrans.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
+                        responseModel = await sharedRepository.GetCompanyDetail();
 
                         DataTable dt = dataSet.Tables[0];
 
@@ -615,7 +619,7 @@ namespace FinTrans.Repository
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
-                            ws.Range(1, 1, 1, colcnt).Value = "MAXWELL LOGISTICS PRIVATE LIMITED";
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
                             ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -820,13 +824,15 @@ namespace FinTrans.Repository
 
                         DataTable dt = dataSet.Tables[0];
 
+                        responseModel = await sharedRepository.GetCompanyDetail();
+
                         using (XLWorkbook wb = new XLWorkbook())
                         {
                             int colcnt = 4;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
-                            ws.Range(1, 1, 1, colcnt).Value = "MAXWELL LOGISTICS PRIVATE LIMITED";
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
                             ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
                             ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;

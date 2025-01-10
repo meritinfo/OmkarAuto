@@ -192,6 +192,9 @@ namespace FleetTrans.Business
         {
             return await fleetRptRepository.GetSparesUsageHistoryRptExcel(request);
         }
-
+        public async Task<ResponseModel> GetVehicleMonthlySummRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetVehicleMonthlySummRptExcel(request);
+        }
     }
 }

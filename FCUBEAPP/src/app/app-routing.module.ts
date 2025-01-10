@@ -254,6 +254,8 @@ import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsr
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
+import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
+
 
 
 
@@ -610,6 +612,8 @@ const routes: Routes = [
   { path: 'osanalysis', component: OutstandinganalysisrptComponent }, 
   { path: 'pendingdelack', component: PendingdelvackrptComponent }, 
   { path: 'dprdashboard', component: DprdashboardComponent }, 
+  { path: 'vehsumrpt', component: VehiclesummmonthlyrptComponent }, 
+  
   
 ];
 
