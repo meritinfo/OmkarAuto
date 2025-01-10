@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace FinanceMaster.Models
 {
-    internal class BenBankListModel
+    public class BenBankListModel
     {
+        public string? BankId { get; set; }
+        public string? BankShortCode { get; set; }
+        public string? BankName { get; set; }
+        public string? ActiveYN { get; set; }
+        public string? VerifyAvailYN { get; set; }
+        public string? LoggedInUser { get; set; }
+      
     }
 }

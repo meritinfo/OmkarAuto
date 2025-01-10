@@ -17,6 +17,7 @@ using SqlHelper.Models;
 using FleetTrans.Business;
 using Org.BouncyCastle.Ocsp;
 using System.Collections.Generic;
+using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -36,6 +37,7 @@ namespace FCUBEAPI.Controllers
         readonly ICnorCneeGstBusiness cnorCneeGstBusiness;
         readonly IExpenseBudgetsBusiness expenseBudgetsBusiness;
         readonly ISubLedgerMasterBusiness subLedgerMasterBusiness;
+        readonly IBenBankListBusiness benBankListBusiness;
 
 
         public FinanceMastersController(IOptions<DBModel> _dbconnection,IFinGroupMasterBusiness _finGroupMasterBusiness, 
@@ -47,7 +49,8 @@ namespace FCUBEAPI.Controllers
             IBeneficiaryMasterBusiness _beneficiaryMasterBusiness,
             ICnorCneeGstBusiness _cnorCneeGstBusiness,
             IExpenseBudgetsBusiness _expenseBudgetsBusiness,
-            ISubLedgerMasterBusiness _subLedgerMasterBusiness)
+            ISubLedgerMasterBusiness _subLedgerMasterBusiness,
+            IBenBankListBusiness _benBankListBusiness)
         {
             dbconnection = _dbconnection;
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
@@ -60,6 +63,7 @@ namespace FCUBEAPI.Controllers
             cnorCneeGstBusiness= _cnorCneeGstBusiness;
             expenseBudgetsBusiness= _expenseBudgetsBusiness;
             subLedgerMasterBusiness = _subLedgerMasterBusiness;
+            benBankListBusiness= _benBankListBusiness;
 
         }
         /// <summary>
@@ -904,6 +908,75 @@ namespace FCUBEAPI.Controllers
             }
 
         }
+        [HttpPost("GetBenBanksList")]
+        public async Task<IActionResult> GetBenBankList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await benBankListBusiness.GetBenBankList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BenBankListSave")]
+        public async Task<IActionResult> BenBankListSave(BenBankListModel benbankListModel)
+        {
+            if (benbankListModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await benBankListBusiness.BenBankListSave(benbankListModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BenBankListDelete")]
+        public async Task<IActionResult> BenBankListDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await benBankListBusiness.BenBankListDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateBank")]
+        public async Task<IActionResult> CheckDuplicateBank(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await benBankListBusiness.CheckDuplicateBank(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
 

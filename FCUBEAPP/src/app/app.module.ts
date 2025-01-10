@@ -418,6 +418,9 @@ import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsr
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
+import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbanklist.component';
+import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
+import { Benbankmodel } from './models/benbankmodel';
 import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
 
 @NgModule({
@@ -555,6 +558,8 @@ import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/v
      OutstandinganalysisrptComponent,
      PendingdelvackrptComponent,
      DprdashboardComponent,
+     BenbanklistComponent,
+     BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,
     
   ],
@@ -621,7 +626,7 @@ import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/v
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
-    Tripmastermodel
+    Tripmastermodel,Benbankmodel
     
   ],
   bootstrap: [AppComponent]
