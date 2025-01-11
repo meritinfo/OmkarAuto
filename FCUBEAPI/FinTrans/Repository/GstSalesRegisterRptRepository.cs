@@ -135,6 +135,11 @@ namespace FinTrans.Repository
                         var filter = "Gst Sales From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Gst Sales Report", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)

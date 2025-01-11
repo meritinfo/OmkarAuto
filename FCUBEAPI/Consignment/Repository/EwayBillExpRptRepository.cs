@@ -111,6 +111,11 @@ namespace Consignment.Repository
                         var filter = "Eway Bill Expiry From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Ewaybill Expiry Report", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)

@@ -1879,6 +1879,11 @@ namespace FreightMasters.Repository
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Challan Register", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -2053,6 +2058,11 @@ namespace FreightMasters.Repository
                         }
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Distance Trip Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -2369,6 +2379,11 @@ namespace FreightMasters.Repository
 
                         response = await GetLhPayableStatusExcelReport(dataSet.Tables[0], "Lorry Hire Payable", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -2618,6 +2633,11 @@ namespace FreightMasters.Repository
 
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "LHPM Variation Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -3780,6 +3800,11 @@ namespace FreightMasters.Repository
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Driver License Report", filter);
 
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -3893,6 +3918,11 @@ namespace FreightMasters.Repository
                         var filter = "";
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "DPR Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }

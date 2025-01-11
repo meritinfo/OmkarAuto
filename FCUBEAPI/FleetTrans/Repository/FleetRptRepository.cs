@@ -427,6 +427,11 @@ namespace FleetTrans.Repository
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Diesel Statement Report", filter);
 
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -607,6 +612,11 @@ namespace FleetTrans.Repository
                         var filter = "Trip From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Daily Loading Report", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -699,6 +709,11 @@ namespace FleetTrans.Repository
                     {
                         var filter = "Payment From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Trip Status Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -1074,6 +1089,11 @@ namespace FleetTrans.Repository
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vehicle Repairs Report", filter);
 
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -2867,6 +2887,11 @@ namespace FleetTrans.Repository
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Purchase Report", filter);
 
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -2957,6 +2982,11 @@ namespace FleetTrans.Repository
                         var filter = "";
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Stock Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -3091,6 +3121,11 @@ namespace FleetTrans.Repository
                         var rptnm = "Vehicle Summary Report For Month of " + Convert.ToDateTime(request.FromDate+"-01").ToString("MMM-yy");
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], rptnm, filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
