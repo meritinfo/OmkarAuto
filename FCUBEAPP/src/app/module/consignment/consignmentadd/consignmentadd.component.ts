@@ -994,7 +994,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1;
     this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2;
     this.lrmodel.cnorAdd3 = selectedDataValue.cnorAdd3;
-    this.lrmodel.cnorPin = selectedDataValue.cnorPin.toString();
+    this.lrmodel.cnorPin = selectedDataValue.cnorPin?selectedDataValue.cnorPin.toString():"";
     this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
     this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
     this.lrmodel.cnorGst = selectedDataValue.cnorGst;
@@ -1003,7 +1003,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
     this.lrmodel.cneeAdd2 = selectedDataValue.cneeAdd2;
     this.lrmodel.cneeAdd3 = selectedDataValue.cneeAdd3;
-    this.lrmodel.cneePin = selectedDataValue.cneePin.toString();
+    this.lrmodel.cneePin = selectedDataValue.cneePin?selectedDataValue.cneePin.toString():"";
     this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
     this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
     this.lrmodel.cneeGst = selectedDataValue.cneeGst;
