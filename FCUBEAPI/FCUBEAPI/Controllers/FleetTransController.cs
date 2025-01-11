@@ -2661,7 +2661,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+
+        [HttpPost("GetVehicleMonthlyLPRptExcel")]
+        public async Task<IActionResult> GetVehicleMonthlyLPRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVehicleMonthlyLPRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetTyrePurchaseRptExcel")]
         public async Task<IActionResult> GetTyrePurchaseRptExcel(ReportRequestModel request)
