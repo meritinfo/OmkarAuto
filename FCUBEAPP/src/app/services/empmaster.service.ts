@@ -53,6 +53,9 @@ export class EmpmasterService {
   getBankList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetBankList', null, this.httpOptions);
   } 
+  getPreFixList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetPrefixList', null, this.httpOptions);
+  } 
   
   getMotherTongueList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetMotherTongueList', null, this.httpOptions);

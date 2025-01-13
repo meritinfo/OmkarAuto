@@ -31,6 +31,7 @@ export class EmpmasteraddComponent {
   designList: Dropdownmodel[] = [];
   deptList: Dropdownmodel[] = [];
   bankList: Dropdownmodel[] = [];
+  preList: Dropdownmodel[] = [];
   languageList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
   selectedEmployeemodelDetails = new Employeemodel();
@@ -128,6 +129,7 @@ export class EmpmasteraddComponent {
     this.getBankList();
     this.getLanguageList();
     this.getEmpList();
+    this.getPrefixList();
 
     if (this.selectedEmployeemodelDetails.empId != '') {
       this.formEmployee.patchValue(this.selectedEmployeemodelDetails);
@@ -185,6 +187,11 @@ export class EmpmasteraddComponent {
   getBankList(): void {
     this.empmasterService.getBankList().subscribe((res) => {
       this.bankList = res;
+    });
+  }
+  getPrefixList(): void {
+    this.empmasterService.getPreFixList().subscribe((res) => {
+      this.preList = res;
     });
   }
 

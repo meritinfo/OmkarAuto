@@ -16,6 +16,8 @@ namespace HRMasters.Repository
         Task<List<DropDownListModel>> GetDesignationList();
         Task<List<DropDownListModel>> GetMotherTongueList();
         Task<List<DropDownListModel>> GetEmployeeList();
+        Task<List<DropDownListModel>> GetPrefixList();
         Task<ResponseModel> GetMaxEmpNo(RequestModel request);
+        
     }
 }
