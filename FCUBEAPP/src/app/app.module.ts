@@ -421,6 +421,7 @@ import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.compon
 import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbanklist.component';
 import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
 import { Benbankmodel } from './models/benbankmodel';
+import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
 
 @NgModule({
   declarations: [
@@ -559,6 +560,7 @@ import { Benbankmodel } from './models/benbankmodel';
      DprdashboardComponent,
      BenbanklistComponent,
      BenbanklistaddComponent,
+     VehiclesummmonthlyrptComponent,
     
   ],
   imports: [

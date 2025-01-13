@@ -1,0 +1,111 @@
+<p>vehiclesummmonthlyrpt works!</p><div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Summary Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Fleet Station </label>
+                                    <select  formControlName="branch"
+                                    class="form-control form-select ng-pristine ng-touched" >                                        
+                                            <option value="">All</option>
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div> 
+                            <div class="col-lg-5">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Vehicle Type</label>
+                                    <span style="color: red">*</span>
+                                    <select class="form-control" formControlName="vehicleTypeGroupId"   
+                                    class="form-control form-select ng-pristine ng-touched">
+                                        <option *ngFor="let vehi of vehicleFltGrpList" value={{vehi.dataId}}>
+                                           {{vehi.dataName}}
+                                        </option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="vehicleMasterId" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Report Type</label>
+                                    <span style="color: red">*</span>
+                                    <select class="form-control" (change)="changerpttype($event)" 
+                                    formControlName="rptType"   
+                                    class="form-control form-select ng-pristine ng-touched">
+                                        <option value="S">Summary</option>
+                                        <option value="Y">Yearly Profit & Loss</option>
+                                        <option value="M">Monthly Profit & Loss</option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">For The Month </label>
+                                    <span style="color: red">*</span>    
+                                    <input type="month" class="form-control" 
+                                    formControlName="fromDate" 
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>     
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+

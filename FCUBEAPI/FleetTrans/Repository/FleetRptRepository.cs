@@ -427,6 +427,11 @@ namespace FleetTrans.Repository
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Diesel Statement Report", filter);
 
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -607,6 +612,11 @@ namespace FleetTrans.Repository
                         var filter = "Trip From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Daily Loading Report", filter);
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -699,6 +709,11 @@ namespace FleetTrans.Repository
                     {
                         var filter = "Payment From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Trip Status Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -1074,6 +1089,11 @@ namespace FleetTrans.Repository
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vehicle Repairs Report", filter);
 
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -2867,6 +2887,11 @@ namespace FleetTrans.Repository
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Purchase Report", filter);
 
                     }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
                 }
             }
             catch (Exception ex)
@@ -2957,6 +2982,11 @@ namespace FleetTrans.Repository
                         var filter = "";
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Spares Stock Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
                     }
                 }
             }
@@ -3067,17 +3097,95 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+
+        public async Task<ResponseModel> GetVehicleMonthlySummRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",           request.FromDate),
+                            new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@FleetStation",       request.FilterStr),
+                            new SqlParameter("@VehicleTypeGroupId", request.FilterStr1),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleMonthlySummRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = request.FilterStr3;
+                        var rptnm = "Vehicle Summary Report For Month of " + Convert.ToDateTime(request.FromDate+"-01").ToString("MMM-yy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], rptnm, filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ResponseModel> GetVehicleMonthlyLPRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",           request.FromDate),
+                            new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@FleetStation",       request.FilterStr),
+                            new SqlParameter("@VehicleTypeGroupId", request.FilterStr1),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleMonthlyPLRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = request.FilterStr3;
+                        var rptnm = "";
+                        if (request.FromDate=="")
+                        {
+                            rptnm = "Vehicle Profit & Loss Report ";
+                        }
+                        else
+                        {
+                            rptnm = "Vehicle Profit & Loss Report For Month of " +
+                                    Convert.ToDateTime(request.FromDate+"-01").ToString("MMM-yy");
+                        }                        
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], rptnm, filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        
+
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

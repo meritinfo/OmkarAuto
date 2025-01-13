@@ -254,10 +254,9 @@ import { PanwisetdsratelistComponent } from './module/panwisetdsrate/panwisetdsr
 import { OutstandinganalysisrptComponent } from './module/outstandinganalysisrpt/outstandinganalysisrpt.component';
 import { PendingdelvackrptComponent } from './module/pendingdelvackrpt/pendingdelvackrpt.component';
 import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.component';
+import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
 import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbanklist.component';
 import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
-
-
 
 
 
@@ -618,6 +617,8 @@ const routes: Routes = [
   { path: 'benbanklistadd', component: BenbanklistaddComponent },
   { path: 'benbanklistedit', component: BenbanklistaddComponent },
  
+  { path: 'vehsumrpt', component: VehiclesummmonthlyrptComponent }, 
+  
   
 ];
 
