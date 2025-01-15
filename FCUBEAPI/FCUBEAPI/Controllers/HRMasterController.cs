@@ -188,6 +188,21 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetPrefixList")]
+        public async Task<IActionResult> GetPrefixList()
+        {
+            try
+            {
+                var result = await empMasterBusiness.GetPrefixList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDepartmentList")]
         public async Task<IActionResult> GetDepartmentList()
         {

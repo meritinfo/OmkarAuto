@@ -18,7 +18,7 @@
                                 <h4 class="card-title mb-4">Personal Details</h4>
                                 <section>
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Employee Code</label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="empPrefix"
@@ -29,6 +29,18 @@
                                                         <option value="NCCL">Labours</option>
                                                         <option value="NCCD">Directors</option>
                                                 </select>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Employee Code</label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="empPrefix"  (change)="empprefixchange($event)" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['empPrefix'].invalid) }">
+                                                        <option *ngFor="let bank of preList"
+                                                            value={{bank.dataId}}>
+                                                            {{bank.dataName}}
+                                                        </option>
+                                                    </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">

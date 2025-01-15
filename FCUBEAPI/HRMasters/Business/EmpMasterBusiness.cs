@@ -49,6 +49,10 @@ namespace HRMasters.Business
         {
             return await empMasterRepository.GetMaxEmpNo(request);
         }
+        public async Task<List<DropDownListModel>> GetPrefixList()
+        {
+            return await empMasterRepository.GetPrefixList();
+        }
 
     }
 }

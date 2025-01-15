@@ -300,6 +300,38 @@ namespace HRMasters.Repository
             }
             return bankList;
         }
+        public async Task<List<DropDownListModel>> GetPrefixList()
+        {
+            List<DropDownListModel> preList = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPrefixList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            preList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return preList;
+        }
+
 
         public async Task<List<DropDownListModel>> GetDepartmentList()
         {

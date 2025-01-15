@@ -155,6 +155,7 @@ exit(): void {
 }
 
 chkBankDuplicate(e:any){
+
   var selectedData = this.formBenMaster.getRawValue();
   
 
@@ -178,9 +179,9 @@ chkBankDuplicate(e:any){
 }
 chkCodeDuplicate(e:any){
   var selectedData = this.formBenMaster.getRawValue();
-  
+  var bn = e.target.value;
 
-   // this.requestmodel.strRequest = e.value;
+   //this.requestmodel.strRequest = e.target.value;
     this.requestmodel.strRequest = selectedData.bankShortCode;
     this.benService.checkDuplicateBank(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

@@ -17,5 +17,7 @@ namespace HRMasters.Business
         Task<List<DropDownListModel>> GetMotherTongueList();
         Task<List<DropDownListModel>> GetEmployeeList();
         Task<ResponseModel> GetMaxEmpNo(RequestModel request);
+        Task<List<DropDownListModel>> GetPrefixList();
+
     }
 }
