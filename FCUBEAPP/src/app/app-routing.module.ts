@@ -257,7 +257,8 @@ import { DprdashboardComponent } from './module/dprdashboard/dprdashboard.compon
 import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
 import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbanklist.component';
 import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
-
+import { EwaybillextensionbulkComponent } from './module/ewaybillextensionbulk/ewaybillextensionbulk.component';
+import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsummrpt.component';
 
 
 const routes: Routes = [
@@ -615,10 +616,10 @@ const routes: Routes = [
   { path: 'dprdashboard', component: DprdashboardComponent }, 
   { path: 'banklistmst', component: BenbanklistComponent },
   { path: 'benbanklistadd', component: BenbanklistaddComponent },
-  { path: 'benbanklistedit', component: BenbanklistaddComponent },
- 
-  { path: 'vehsumrpt', component: VehiclesummmonthlyrptComponent }, 
-  
+  { path: 'benbanklistedit', component: BenbanklistaddComponent }, 
+  { path: 'vehsumrpt', component: VehiclesummmonthlyrptComponent },
+  { path: 'ewaybillbulkext', component: EwaybillextensionbulkComponent },
+  { path: 'lhpmtsummary', component: LhpaymentsummrptComponent },  
   
 ];
 

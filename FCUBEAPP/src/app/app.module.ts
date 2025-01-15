@@ -422,6 +422,8 @@ import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbankli
 import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
 import { Benbankmodel } from './models/benbankmodel';
 import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
+import { EwaybillextensionbulkComponent } from './module/ewaybillextensionbulk/ewaybillextensionbulk.component';
+import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsummrpt.component';
 
 @NgModule({
   declarations: [
@@ -561,8 +563,10 @@ import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/v
      BenbanklistComponent,
      BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,
-    
+     EwaybillextensionbulkComponent,
+     LhpaymentsummrptComponent,    
   ],
+  
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

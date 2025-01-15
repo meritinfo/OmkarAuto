@@ -207,5 +207,10 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetDPRRptExcel(request);
         }
+
+        public async Task<ResponseModel> GetLHPaymentSummRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetLHPaymentSummRptExcel(request);
+        }
     }
 }

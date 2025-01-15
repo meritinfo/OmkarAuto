@@ -2128,7 +2128,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("FleetLoadEntryList")]
+        [HttpPost("GetFleetLoadEntryList")]
         public async Task<IActionResult> GetFleetLoadEntryList(ReportRequestModel request)
         {
             try

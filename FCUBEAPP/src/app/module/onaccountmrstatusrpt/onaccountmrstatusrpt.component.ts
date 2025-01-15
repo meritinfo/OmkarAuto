@@ -7,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Onaccountmrstatusrptlistmodel} from 'src/app/models/onaccountmrstatusrptlistmodel';
-import { Onaccountmrstatusrptmodel } from 'src/app/models/onaccountmrstatusrptmodel';
-import { OnaccountmrstatusrptService } from 'src/app/services/onaccountmrstatusrpt.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -59,7 +58,7 @@ export class OnaccountmrstatusrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
   rptType= true;
-  constructor(private onaccountmrstatusrptService: OnaccountmrstatusrptService, 
+  constructor(private onaccountmrstatusrptService: FreightreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

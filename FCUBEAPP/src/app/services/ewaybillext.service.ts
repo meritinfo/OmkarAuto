@@ -59,4 +59,8 @@ export class EwaybillextService {
   getEWayBillExtRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtRptExcel', filter, this.httpOptions);
   }  
+  
+  ewaybillextBulkSubmitted(Fingroupm: Ewaybillextlistmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/EWayBillBulkExtend', Fingroupm, this.httpOptions);
+  }
 }

@@ -39,10 +39,14 @@ export class DistancemastertripaddComponent {
   createmode =true;
   selectedLocation: string[] = [];
 
-  constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService,) {
+  constructor(private distancemastertripmodel: Distancemastertripmodel, 
+    private route: Router, private formBuilder: FormBuilder, 
+    private commonService: CommonService, private distanceMastertripService: DistancemastertripService, 
+    private toasterService: ToastrService,private requestmodel: Requestmodel,
+    private sharedService: SharedService,) {
     this.distancemastertripmodel = new Distancemastertripmodel();
-
   }
+  
   ngOnInit(): void {
     this.sharedService.loading = true;
     //Privilege check

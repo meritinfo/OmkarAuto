@@ -7,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Billregisterrptlistmodel} from 'src/app/models/billregisterrptlistmodel';
-import { Billregisterrptmodel } from 'src/app/models/billregisterrptmodel';
-import { BillregisterrptService } from 'src/app/services/billregisterrpt.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -60,7 +59,7 @@ export class BillregisterrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
   rptType= true;
-  constructor(private billregisterrptService: BillregisterrptService, 
+  constructor(private billregisterrptService: FreightreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

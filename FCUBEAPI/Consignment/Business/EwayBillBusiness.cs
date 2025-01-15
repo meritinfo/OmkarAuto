@@ -30,5 +30,9 @@ namespace Consignment.Business
         {
             return await ewayBill.GetCurrentLocFromApi(request);
         }
+        public async Task<ResponseModel> GetStateNameWithPin(RequestModel request)
+        {
+            return await ewayBill.GetStateNameWithPin(request);
+        }
     }
 }

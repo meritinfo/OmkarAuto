@@ -73,5 +73,7 @@ namespace FreightMasters.Business
         Task<DprRptListModel> GetDPRRptList(ReportRequestModel request);
         Task<ResponseModel> GetDPRRptExcel(ReportRequestModel request);
 
+        Task<ResponseModel> GetLHPaymentSummRptExcel(ReportRequestModel request);
+
     }
 }

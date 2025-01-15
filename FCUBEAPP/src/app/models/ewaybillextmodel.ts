@@ -10,6 +10,7 @@ export class Ewaybillextmodel {
     fromLocation: string = "";
     fromPin : string = "";
     destination: string = "";
+    toPin: string = "";
     partyName: string = "";
     consignor: string = "";
     consignee: string = "";

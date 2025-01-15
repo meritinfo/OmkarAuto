@@ -38,7 +38,7 @@ export class FleetLoadEntryService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetLoadEntrySave', user, this.httpOptions);
   }
   getFleetLoadEntryList(filter: Filtermodel): Observable<Fleetloadentrylistmodel> {
-    return this.httpClient.post<Fleetloadentrylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/FleetLoadEntryList', filter, this.httpOptions);
+    return this.httpClient.post<Fleetloadentrylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetLoadEntryList', filter, this.httpOptions);
   }
 
   fleetLoadEntryDetailsDelete(req: Requestmodel): Observable<Responsemodel> {

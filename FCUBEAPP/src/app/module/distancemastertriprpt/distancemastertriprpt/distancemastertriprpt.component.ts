@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Distancemastertriprptlistmodel  } from 'src/app/models/distancemastertriprptlistmodel';
-import { Distancemastertriprptmodel } from 'src/app/models/distancemastertriprptmodel';
-import { DistanceMasterTripRptService } from 'src/app/services/distancemastertriprpt.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -61,7 +59,7 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private distanceMasterTripRptService: DistanceMasterTripRptService, 
+  constructor(private distanceMasterTripRptService: FreightreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

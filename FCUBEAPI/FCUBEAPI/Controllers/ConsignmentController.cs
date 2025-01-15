@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
 using FreightMasters.Repository;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace FCUBEAPI.Controllers
@@ -614,6 +615,61 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+              
+        [HttpPost("GetKmsFromApi")]
+        public async Task<IActionResult> GetKmsFromApi(DropDownListModel dropDown)
+        {
+            if (dropDown == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillBusiness.GetKmsFromApi(dropDown);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+         [HttpPost("GetCurrentLocFromApi")]
+        public async Task<IActionResult> GetCurrentLocFromApi(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillBusiness.GetCurrentLocFromApi(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetStateNameWithPin")]
+        public async Task<IActionResult> GetStateNameWithPin(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillBusiness.GetStateNameWithPin(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        } 
 
         [HttpPost("GetEWayBillExtRptList")]
         public async Task<IActionResult> GetEWayBillExtRptList(ReportRequestModel request)

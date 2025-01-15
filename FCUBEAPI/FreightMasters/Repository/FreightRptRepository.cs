@@ -1269,7 +1269,7 @@ namespace FreightMasters.Repository
             }
             return ledgerRptListModel;
         }
-
+       
         public async Task<BillRegisterRptListModel> GetBillRegisterRptList(ReportRequestModel request)
         {
             BillRegisterRptListModel billRegisterRpt = new();
@@ -2176,7 +2176,6 @@ namespace FreightMasters.Repository
             return response;
         }
 
-
         public async Task<LHExtraPmtReconRptListModel> GetLHExtraPmtReconRptList(ReportRequestModel request)
         {
             LHExtraPmtReconRptListModel lHExtraPmtReconRpt = new();
@@ -2649,7 +2648,6 @@ namespace FreightMasters.Repository
             return response;
         }
 
-
         public async Task<LRCostingRptListModel> GetLRCostingRptList(ReportRequestModel request)
         {
             LRCostingRptListModel lRCostingRpt = new();
@@ -2757,7 +2755,6 @@ namespace FreightMasters.Repository
             return response;
         }
 
-
         public async Task<LRWithOutChallanRptListModel> GetLRWithOutChallanRptList(ReportRequestModel request)
         {
             LRWithOutChallanRptListModel lRWithOutChallanRpt = new();
@@ -2858,7 +2855,6 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-
 
         public async Task<MRRegisterRptListModel> GetMRRegisterRptList(ReportRequestModel request)
         {
@@ -2963,7 +2959,6 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-
 
         public async Task<OnAccountMRStatusRptListModel> GetOnAccountMRStatusRptList(ReportRequestModel request)
         {
@@ -3071,7 +3066,6 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-
 
         public async Task<UnBilledRptListModel> GetUnBilledRptList(ReportRequestModel request)
         {
@@ -3815,7 +3809,6 @@ namespace FreightMasters.Repository
             return response;
         }
 
-
         public async Task<DprRptListModel> GetDPRRptList(ReportRequestModel request)
         {
             DprRptListModel dprRpt = new();
@@ -3933,7 +3926,158 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-      
+
+        public async Task<ResponseModel> GetLHPaymentSummRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@YearId",   request.FilterStr),
+                            new SqlParameter("@Branch",   request.FilterStr1),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLHPaymentSummRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = request.FilterStr2==""?"":"For the Branch: "+ request.FilterStr2;
+
+                        response = await GetLhSummReport(dataSet.Tables[0], "LH Payment Summary Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ResponseModel> GetLhSummReport(DataTable dt, string rptheader, string filter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    responseModel = await sharedRepository.GetCompanyDetail();
+                    int colcnt = dt.Columns.Count - 1;
+
+
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = rptheader;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = filter;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    for (int i = 1; i < colcnt; i++)
+                    {
+                        ws.Cell(5, i+1).Value = dt.Columns[i].ColumnName;
+                    }
+
+                    ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                    int j = 0, row = 6;
+                    var pmtType = "";
+
+
+                    for (j = 0; j < dt.Rows.Count; j++)
+                    {                       
+                        if (pmtType != dt.Rows[j]["PmtType"].ToString())
+                        {
+                            pmtType = dt.Rows[j]["PmtType"].ToString();
+
+                            ws.Range(row, 1, row, colcnt).Merge();
+                            ws.Range(row, 1, row, colcnt).Value = pmtType;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                            ws.Range(row, 1, row, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(row, 1, row, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+
+                            row++;
+                        }
+                        for (int i = 1; i < colcnt; i++)
+                        {
+                            ws.Cell(row, i).Value = dt.Rows[j][i].ToString();
+                        }
+
+                        row++;
+
+                    }
+
+                    for (int k = 1; k < colcnt + 1; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                    var foldername = System.IO.Path.Combine("reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
+
 
     }
 }

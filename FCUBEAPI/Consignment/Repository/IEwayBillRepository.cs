@@ -9,5 +9,7 @@ namespace Consignment.Repository
         Task<ResponseModel> EWayBillExtend(EwayBillExtModel request);
         Task<ResponseModel> GetKmsFromApi(DropDownListModel dropDown);
         Task<ResponseModel> GetCurrentLocFromApi(RequestModel request);
+        Task<ResponseModel> GetStateNameWithPin(RequestModel request);
+        
     }
 }

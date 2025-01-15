@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { BilloutstandingrptService } from 'src/app/services/billoutstandingrpt.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -57,7 +57,7 @@ export class OutstandinganalysisrptComponent {
  
   allOutstandinganalrptlist: Outstandinganalrptlistmodel = new Outstandinganalrptlistmodel();
 
-  constructor(private billoutstandingrptService: BilloutstandingrptService,private toastrService:ToastrService,
+  constructor(private billoutstandingrptService: FreightreportsService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, private route: Router) {
   }

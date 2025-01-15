@@ -7,8 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Lhextrapmtreconrptlistmodel} from 'src/app/models/lhextrapmtreconrptlistmodel';
-import { Lhextrapmtreconrptmodel } from 'src/app/models/lhextrapmtreconrptmodel';
-import { LhextrapmtreconrptService } from 'src/app/services/lhextrapmtreconrpt.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -59,7 +58,7 @@ export class LhextrapmtreconrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private lhextrapmtreconrptService: LhextrapmtreconrptService, 
+  constructor(private lhextrapmtreconrptService: FreightreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

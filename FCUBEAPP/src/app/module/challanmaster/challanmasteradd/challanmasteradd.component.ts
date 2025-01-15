@@ -647,7 +647,7 @@ export class ChallanmasteraddComponent {
                 aadharLinked="Y";
               }
               var ch = pan.substring(3, 4) ;
-              if(ch == "P" || ch == "F"){
+              if(ch == "P"){
                 if(panValid == "Y" && aadharLinked == "Y"){
                   tdsPct = 1;
                 }

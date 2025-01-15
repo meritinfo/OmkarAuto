@@ -1,6 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
 import { Ewaybillextmodel  } from 'src/app/models/ewaybillextmodel';
 import { Ewaybillextlistmodel } from 'src/app/models/ewaybillextlistmodel';
 import { EwaybillextService } from 'src/app/services/ewaybillext.service';
