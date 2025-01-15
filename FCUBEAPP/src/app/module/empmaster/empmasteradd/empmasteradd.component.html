@@ -34,7 +34,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Employee Code</label><span style="color: red">*</span>
-                                                <select class="form-control" formControlName="empPrefix"  (change)="empprefixchange($event)" 
+                                                <select class="form-control" formControlName="empPrefix"  
+                                                (change)="empprefixchange($event)" 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['empPrefix'].invalid) }">
                                                         <option *ngFor="let bank of preList"
                                                             value={{bank.dataId}}>
