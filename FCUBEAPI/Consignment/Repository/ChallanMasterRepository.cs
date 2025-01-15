@@ -1067,8 +1067,33 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<ReportRequestModel> GetLhPanTdsRate(RequestModel requestModel)
+        {
+            ReportRequestModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanChar", requestModel.strRequest),
+                            new SqlParameter("@TdsDt", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPanTdsRate", param);
 
-
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.FilterStr = Convert.ToString(statusData.Tables[0].Rows[0]["TdsRate"]);
+                        responseModel.FilterStr1 = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
+                        responseModel.FilterStr2 = Convert.ToString(statusData.Tables[0].Rows[0]["DecApplicable"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
     }
 
 

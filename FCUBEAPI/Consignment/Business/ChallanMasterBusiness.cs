@@ -74,6 +74,10 @@ namespace Consignment.Business
         {
             return await challanRepository.GetPanwiseTdsRate(request);
         }
+        public async Task<ReportRequestModel> GetLhPanTdsRate(RequestModel request)
+        {
+            return await challanRepository.GetLhPanTdsRate(request);
+        }
 
     }
 }
