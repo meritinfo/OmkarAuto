@@ -2258,9 +2258,45 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }        
+
+        [HttpPost("DoVehiPlacedSave")]
+        public async Task<IActionResult> DoVehiPlacedSave(DoVehiPlacedModel doModel)
+        {
+            if (doModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.DoVehiPlacedSave(doModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-       
+        [HttpPost("DoVehiPlacedDelete")]
+        public async Task<IActionResult> DoVehiPlacedDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.DoVehiPlacedDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 

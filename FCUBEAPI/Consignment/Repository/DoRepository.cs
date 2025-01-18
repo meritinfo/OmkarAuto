@@ -309,6 +309,105 @@ namespace Consignment.Repository
             return dprMasterList;
         }
 
+        public async Task<ResponseModel> DoVehiPlacedSave(DoVehiPlacedModel dprModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DoId",               dprModel.DoId),
+                            new SqlParameter("@DoBranch",           dprModel.DoBranch),
+                            new SqlParameter("@DoNo",               dprModel.DoNo),
+                            new SqlParameter("@PartyDoNo",          dprModel.PartyDoNo),
+                            new SqlParameter("@DoVpId",             dprModel.DoVpId),
+                            new SqlParameter("@LoadingFrom",        dprModel.PlacementDate),
+                            new SqlParameter("@VehicleNo",          dprModel.VehicleNo),
+                            new SqlParameter("@VehicleType",        dprModel.VehicleType),
+                            new SqlParameter("@VehicleCapacity",    dprModel.VehicleCapacity),
+                            new SqlParameter("@OwnMarket",          dprModel.OwnMarket),
+                            new SqlParameter("@BrokerId",           dprModel.BrokerId),
+                            new SqlParameter("@HireRateType",       dprModel.HireRateType),
+                            new SqlParameter("@HireRate",           dprModel.HireRate),
+                            new SqlParameter("@HireAmt",            dprModel.HireAmt),
+                            new SqlParameter("@VehicleEngBy",       dprModel.VehicleEngBy),
+                            new SqlParameter("@LoadAssignTo",       dprModel.LoadAssignTo),
+                            new SqlParameter("@PlacementRem",       dprModel.PlacementRem),
+                            new SqlParameter("@LoggedInUser",       dprModel.LoggedInUserID)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DoVehiPlacedSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> DoVehiPlacedDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DoVpId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DoVehiPlacedDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+
     }
 
 }

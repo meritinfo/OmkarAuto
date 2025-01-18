@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace Consignment.Business
@@ -31,6 +32,14 @@ namespace Consignment.Business
         public async Task<DoVehiPlacedListModel> GetDoVehiPlacedList(ReportRequestModel request)
         {
             return await doRepository.GetDoVehiPlacedList(request);
+        }
+        public async Task<ResponseModel> DoVehiPlacedSave(DoVehiPlacedModel dprModel)
+        {
+            return await doRepository.DoVehiPlacedSave(dprModel);
+        }
+        public async Task<ResponseModel> DoVehiPlacedDelete(RequestModel requestModel)
+        {
+            return await doRepository.DoVehiPlacedDelete(requestModel);
         }
     }
 }

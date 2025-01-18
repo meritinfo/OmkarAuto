@@ -147,11 +147,18 @@ export class DovehiplacededitComponent {
         this.doQty = this.selectedDoDetails.doQty?this.selectedDoDetails.doQty:"0";
         this.doQtyLift = this.selectedDoDetails.doQtyLift?this.selectedDoDetails.doQtyLift:"0";
         this.baldoQty = (parseFloat(this.doQty) - parseFloat(this.doQtyLift)).toString();
-
+        if(this.selectedDoDetails.hireRateType=="P"){
+          this.formUser.controls['hireRate'].enable(); 
+          this.formUser.controls['hireAmt'].disable();       
+        }
+        else{      
+          this.formUser.controls['hireRate'].disable();  
+          this.formUser.controls['hireAmt'].enable();      
+        }
         this.editMode = true;        
         this.createdBy = this.selectedDoDetails.createdBy + " " + this.selectedDoDetails.createdDate;
         this.modifiedBy = this.selectedDoDetails.modifiedBy + " " + this.selectedDoDetails.modifiedDate;       
-      }    
+      }   
     }, 2000);
 
     this.sharedService.loading=false;

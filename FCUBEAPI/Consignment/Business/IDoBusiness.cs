@@ -14,6 +14,8 @@ namespace Consignment.Business
         Task<ResponseModel> DoDelete(RequestModel requestModel);
         Task<DoVehiPlacedModel> GetDoVehiDetails(RequestModel request);
         Task<DoVehiPlacedListModel> GetDoVehiPlacedList(ReportRequestModel request);
+        Task<ResponseModel> DoVehiPlacedSave(DoVehiPlacedModel dprModel);
+        Task<ResponseModel> DoVehiPlacedDelete(RequestModel requestModel);
     }
 
 }
