@@ -112,20 +112,13 @@ export class ConsignmentaddComponent implements OnInit {
       this.loginDate = loginDate;
     }
     
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
     
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
+  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+  
+  this.fromDate = this.minDate ;
+  
+
 
     this.sharedService.loading = true;
     
@@ -459,6 +452,7 @@ export class ConsignmentaddComponent implements OnInit {
     else{
       this.requestmodel.strRequest = selectedData.bookingPlace;
       this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.requestmodel.strRequest2 = this.year;
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {

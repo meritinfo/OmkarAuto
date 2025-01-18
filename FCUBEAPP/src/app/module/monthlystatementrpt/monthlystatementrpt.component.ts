@@ -96,16 +96,13 @@ export class MonthlystatementrptComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
+      
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
 
-    var mindt = this.datepipe.transform(this.commonService.getCurrentFiscalYear(this.loginDate).sDate, 'yyyy-MM-dd');
-    if (typeof mindt !== 'undefined' && mindt !== null && mindt !== '') {
-      this.minDate = mindt;
-    }
-    var maxdt = this.datepipe.transform(today, 'yyyy-MM-dd');
-    if (typeof maxdt !== 'undefined' && maxdt !== null && maxdt !== '') {
-      this.maxDate = maxdt;
-    }
+
     
     this.getBranchList();
     

@@ -83,21 +83,13 @@ ngOnInit(): void {
   if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
     this.loginDate = loginDate;
   }
-  const today = new Date();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  today.setMonth(month - 1);
-
+      
   this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
   
-  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-    this.fromDate = this.minDate ;
-  }
+  this.fromDate = this.minDate ;
 
-  else{
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
-  }   
+
 var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;

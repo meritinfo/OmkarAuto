@@ -103,20 +103,14 @@ export class EwaybillexprptComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const day = today.getDate();
-    const year = today.getFullYear();
-    today.setDate(day + 3);
-  
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
-    this.toDate = today.toLocaleDateString('en-CA').toString();
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
   
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.loginDate,[Validators.required]),
-      toDate: new FormControl(this.toDate,[Validators.required]),
+      fromDate: new FormControl(this.minDate,[Validators.required]),
+      toDate: new FormControl(this.loginDate,[Validators.required]),
       billingParty: new FormControl('',),  
       branch: new FormControl('',),  
     });

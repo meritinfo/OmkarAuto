@@ -105,15 +105,12 @@ export class BillsubmitmasteraddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
- 
-
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+    
 
     this.selectedBillSubmitMasterDetail = this.billSubmitMasterService.getBillSubmitMasterDetails();
     this.formUser = this.formBuilder.group({

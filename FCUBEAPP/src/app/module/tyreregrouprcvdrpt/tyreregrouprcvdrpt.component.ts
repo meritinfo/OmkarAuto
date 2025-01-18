@@ -100,19 +100,13 @@ export class TyreregrouprcvdrptComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setFullYear(year - 1);
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+
+
   
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),

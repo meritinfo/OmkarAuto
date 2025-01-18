@@ -424,6 +424,9 @@ import { Benbankmodel } from './models/benbankmodel';
 import { VehiclesummmonthlyrptComponent } from './module/vehiclesummmonthlyrpt/vehiclesummmonthlyrpt.component';
 import { EwaybillextensionbulkComponent } from './module/ewaybillextensionbulk/ewaybillextensionbulk.component';
 import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsummrpt.component';
+import { DoentrylistComponent } from './module/doentry/doentrylist/doentrylist.component';
+import { DoentryaddComponent } from './module/doentry/doentryadd/doentryadd.component';
+import { Domodel } from './models/domodel';
 
 @NgModule({
   declarations: [
@@ -564,7 +567,9 @@ import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsu
      BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,
      EwaybillextensionbulkComponent,
-     LhpaymentsummrptComponent,    
+     LhpaymentsummrptComponent,
+     DoentrylistComponent,
+     DoentryaddComponent,    
   ],
   
   imports: [
@@ -630,7 +635,7 @@ import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsu
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
-    Tripmastermodel,Benbankmodel
+    Tripmastermodel,Benbankmodel,Domodel,
     
   ],
   bootstrap: [AppComponent]

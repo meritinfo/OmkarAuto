@@ -270,6 +270,8 @@ namespace FCUBEAPI
             services.AddScoped<IFreightRptBusiness, FreightRptBusiness>();
            services.AddScoped<IBenBankListRepository, BenBankListRepository>();
             services.AddScoped<IBenBankListBusiness, BenBankListBusiness>();
+            services.AddScoped<IDoBusiness, DoBusiness>();
+            services.AddScoped<IDoRepository, DoRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

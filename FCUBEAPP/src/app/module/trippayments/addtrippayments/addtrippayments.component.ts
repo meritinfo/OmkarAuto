@@ -103,7 +103,7 @@ export class AddtrippaymentsComponent {
     this.getVehicleNoList();
     this.getLocationList();
     
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
 
     this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();

@@ -85,23 +85,13 @@ export class TripmasteraddComponent {
       this.route.navigate(['/']);
     }
 
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
-
-    const nowdate = new Date();
-    nowdate.setFullYear(year + 1);
-    
+      
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = nowdate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
+    this.fromDate = this.minDate ;
+
+
     
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {

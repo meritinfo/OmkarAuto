@@ -259,6 +259,8 @@ import { BenbanklistComponent } from './module/benbanklist/benbanklist/benbankli
 import { BenbanklistaddComponent } from './module/benbanklist/benbanklistadd/benbanklistadd.component';
 import { EwaybillextensionbulkComponent } from './module/ewaybillextensionbulk/ewaybillextensionbulk.component';
 import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsummrpt.component';
+import { DoentrylistComponent } from './module/doentry/doentrylist/doentrylist.component';
+import { DoentryaddComponent } from './module/doentry/doentryadd/doentryadd.component';
 
 
 const routes: Routes = [
@@ -619,7 +621,12 @@ const routes: Routes = [
   { path: 'benbanklistedit', component: BenbanklistaddComponent }, 
   { path: 'vehsumrpt', component: VehiclesummmonthlyrptComponent },
   { path: 'ewaybillbulkext', component: EwaybillextensionbulkComponent },
-  { path: 'lhpmtsummary', component: LhpaymentsummrptComponent },  
+  { path: 'lhpmtsummary', component: LhpaymentsummrptComponent },    
+  { path: 'doentrylist', component: DoentrylistComponent },
+  { path: 'doentryadd', component: DoentryaddComponent },
+  { path: 'doentryedit', component: DoentryaddComponent },
+  
+ 
   
 ];
 

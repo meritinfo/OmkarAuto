@@ -119,21 +119,13 @@ export class ChallanmasteraddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
-
+    this.fromDate = this.minDate ;
+    
+  
     this.sharedService.loading = true;
     this.getBranchList();
     this.getLocationList();
@@ -474,6 +466,7 @@ export class ChallanmasteraddComponent {
     else{
       this.requestmodel.strRequest = selectedData.challanBranch;
       this.requestmodel.strRequest1 = selectedData.challanNo;
+      this.requestmodel.strRequest2 = this.year;
       this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -504,6 +497,7 @@ export class ChallanmasteraddComponent {
       else{
         this.requestmodel.strRequest = "";
         this.requestmodel.strRequest1 = selectedData.mainChallanNo;
+        this.requestmodel.strRequest2 = this.year;
         this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if (this.responseDetails.status) {

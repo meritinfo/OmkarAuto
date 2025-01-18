@@ -101,26 +101,12 @@ export class BillsmasteraddComponent implements OnInit {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
-
-    const duedt = new Date();
-    const mnth = duedt.getMonth();
-    duedt.setMonth(mnth + 1);
-    this.duedate = duedt.toLocaleDateString('en-CA').toString();
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
-   
+    this.fromDate = this.minDate ;
+    
     this.getBranchList();
     this.getBillingPartyList();
     this.getLocationList();
@@ -669,7 +655,7 @@ export class BillsmasteraddComponent implements OnInit {
           'billingStation': selectedDataValue.billingStation,
           'billNo': selectedDataValue.billNo, 
           'billDate':  selectedDataValue.billDate,
-          'billType': selectedDataValue.billType,
+          'billType': '1',
           'partyCode': selectedDataValue.partyCode.dataId,
           'gcBranch': "",
           'gcYear': "",

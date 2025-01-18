@@ -5,5 +5,6 @@ namespace Shared.Models
     {
         public string? strRequest { get; set; }
         public string? strRequest1 { get; set; }
+        public string? strRequest2 { get; set; }
     }
 }

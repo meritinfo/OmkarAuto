@@ -100,7 +100,7 @@ export class TripenroutebycompanyaddComponent {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
         
     this.selectedTripenrouteexpbycompanyDetails = this.tripenroutebycompanyService.getTripenrouteexpbycompanyDetails();
 

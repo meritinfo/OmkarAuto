@@ -100,14 +100,13 @@ export class TyrepurchasemasteraddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 12);
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
- 
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+
+
     this.selectedTyrePurchaseMasterDetail = this.tyrePurchaseMasterService.getTyrePurchaseMasterDetails();
     this.formUser = this.formBuilder.group({
       branchCode : new FormControl(this.branch,[Validators.required]),

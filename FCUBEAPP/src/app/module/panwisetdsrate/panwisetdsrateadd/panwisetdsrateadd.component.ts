@@ -88,18 +88,12 @@ ngOnInit(): void {
   if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
     this.loginDate = loginDate;
   }
-  const today = new Date();
-  const today2 = new Date();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  today.setMonth(month - 12);
-  today2.setMonth(month - 2);
-  this.fromDate = today.toLocaleDateString('en-CA').toString();
-
+      
   this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
- 
- //this.maxDate = today2.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+  
+  this.fromDate = this.minDate ;
+
 
   var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {

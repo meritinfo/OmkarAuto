@@ -10,8 +10,6 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
-using FreightMasters.Repository;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace FCUBEAPI.Controllers
@@ -35,6 +33,7 @@ namespace FCUBEAPI.Controllers
         readonly ILorryHireAprvBusiness lorryHireAprvBusiness;
         readonly IMrBusiness mrBusiness;
         readonly IChallanReleaseBusiness challanReleaseBusiness;
+        readonly IDoBusiness doBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -48,7 +47,8 @@ namespace FCUBEAPI.Controllers
             ILorryHireReqBusiness _lorryHireReqBusiness,
             ILorryHireAprvBusiness _lorryHireAprvBusiness,
             IMrBusiness _mrBusiness,
-            IChallanReleaseBusiness _challanReleaseBusiness)
+            IChallanReleaseBusiness _challanReleaseBusiness,
+            IDoBusiness _doBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -64,6 +64,7 @@ namespace FCUBEAPI.Controllers
             lorryHireAprvBusiness = _lorryHireAprvBusiness;
             mrBusiness = _mrBusiness;
             challanReleaseBusiness = _challanReleaseBusiness;
+            doBusiness = _doBusiness;
         }
         
 
@@ -2167,9 +2168,79 @@ namespace FCUBEAPI.Controllers
         }
 
 
+        [HttpPost("GetDoList")]
+        public async Task<IActionResult> GetDoList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.GetDoList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DoSave")]
+        public async Task<IActionResult> DoSave(DoModel dos)
+        {
+            if (dos == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.DoSave(dos);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DoDelete")]
+        public async Task<IActionResult> DoDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.DoDelete(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDoVehiDetails")]
+        public async Task<IActionResult> GetDoVehiDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doBusiness.GetDoVehiDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
 
 

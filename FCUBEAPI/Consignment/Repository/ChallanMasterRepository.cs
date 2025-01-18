@@ -659,6 +659,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@YearId", requestModel.strRequest),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
 
@@ -695,6 +696,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@Branch", requestModel.strRequest),
                             new SqlParameter("@ChallanNo", requestModel.strRequest1),
+                            new SqlParameter("@YearId", requestModel.strRequest2),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallan", param);
 
