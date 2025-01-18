@@ -1,4 +1,5 @@
-﻿using FleetMasters.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetMasters.Models;
 using FleetMasters.Repository;
 using Shared.Models;
 
@@ -32,6 +33,10 @@ namespace FleetMasters.Business
         public async Task<ResponseModel> CheckDuplicateVehicleDesc(RequestModel request)
         {
             return await vehicleTypeMasterRepository.CheckDuplicateVehicleDesc(request);
+        }
+        public async Task<ResponseModel> GetVehiCapacity(RequestModel request)
+        {
+            return await vehicleTypeMasterRepository.GetVehiCapacity(request);
         }
 
     }

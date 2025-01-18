@@ -344,6 +344,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehiCapacity")]
+        public async Task<IActionResult> GetVehiCapacity(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.GetVehiCapacity(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         [HttpPost("TruckMasterSave")]
         public async Task<IActionResult> TruckMasterSave()
         {

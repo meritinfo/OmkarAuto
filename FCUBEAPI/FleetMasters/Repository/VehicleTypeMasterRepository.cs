@@ -32,11 +32,8 @@ namespace FleetMasters.Repository
                             new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
                             new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
                             new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
-                            new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),
-                     
-                           new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
-                          //  new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
-                          //  new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
+                            new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),                     
+                            new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
                             new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
 
                         };
@@ -103,11 +100,6 @@ namespace FleetMasters.Repository
         public async Task<ResponseModel> CheckDuplicateVehicleDesc(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -115,27 +107,22 @@ namespace FleetMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@RateDesc", requestModel.strRequest),
-                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateVehicleDesc", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkDuplicateVehicleDesc", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
             }
             return responseModel;
         }
@@ -198,6 +185,36 @@ namespace FleetMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return vehicleTypeMasterList;
+        }
+        
+        public async Task<ResponseModel> GetVehiCapacity(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehTypeId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehiCapacity", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
         }
     }
 }

@@ -427,6 +427,12 @@ import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsu
 import { DoentrylistComponent } from './module/doentry/doentrylist/doentrylist.component';
 import { DoentryaddComponent } from './module/doentry/doentryadd/doentryadd.component';
 import { Domodel } from './models/domodel';
+import { DovehiplacedlistComponent } from './module/dovehiplaced/dovehiplacedlist/dovehiplacedlist.component';
+import { DovehiplacedaddComponent } from './module/dovehiplaced/dovehiplacedadd/dovehiplacedadd.component';
+import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededit/dovehiplacededit.component';
+import { Dovehiplacedmodel } from './models/dovehiplacedmodel';
+
+
 
 @NgModule({
   declarations: [
@@ -560,16 +566,11 @@ import { Domodel } from './models/domodel';
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
      TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, 
      PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
-     OutstandinganalysisrptComponent,
-     PendingdelvackrptComponent,
-     DprdashboardComponent,
-     BenbanklistComponent,
-     BenbanklistaddComponent,
-     VehiclesummmonthlyrptComponent,
-     EwaybillextensionbulkComponent,
-     LhpaymentsummrptComponent,
-     DoentrylistComponent,
-     DoentryaddComponent,    
+     OutstandinganalysisrptComponent, PendingdelvackrptComponent, DprdashboardComponent,
+     BenbanklistComponent, BenbanklistaddComponent,
+     VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
+     DoentrylistComponent,DoentryaddComponent,
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent,    
   ],
   
   imports: [
@@ -635,7 +636,7 @@ import { Domodel } from './models/domodel';
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
-    Tripmastermodel,Benbankmodel,Domodel,
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,
     
   ],
   bootstrap: [AppComponent]

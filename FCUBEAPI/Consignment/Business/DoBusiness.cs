@@ -24,9 +24,13 @@ namespace Consignment.Business
         {
             return await doRepository.DoDelete(request);
         }
-        public async Task<DoModel> GetDoVehiDetails(RequestModel request)
+        public async Task<DoVehiPlacedModel> GetDoVehiDetails(RequestModel request)
         {
             return await doRepository.GetDoVehiDetails(request);
+        }
+        public async Task<DoVehiPlacedListModel> GetDoVehiPlacedList(ReportRequestModel request)
+        {
+            return await doRepository.GetDoVehiPlacedList(request);
         }
     }
 }

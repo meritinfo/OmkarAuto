@@ -8,6 +8,8 @@ import { Constants } from '../common/constants';
 import { Domodel } from '../models/domodel';
 import { Dolistmodel } from '../models/dolistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
+import { Dovehiplacedmodel } from '../models/dovehiplacedmodel';
+import { Dovehiplacedlistmodel } from '../models/dovehiplacedlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class DoentryService {
   }
 
   selecteddo = new Domodel();
+  selecteddoVehi = new Dovehiplacedmodel();
 
   constructor(private httpClient: HttpClient) { }
 
@@ -47,7 +50,33 @@ export class DoentryService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DoDelete', req, this.httpOptions);
   }  
 
+  setDoVehiDetails(dos: Dovehiplacedmodel) { 
+    this.selecteddoVehi = dos;   
+  }
+
+  getDoVehiDetails() {
+    return this.selecteddoVehi;
+  }
+
+  clearDoVehiDetails() {
+    this.selecteddoVehi = new Dovehiplacedmodel();
+  }
+
+  getDoVehiPlacedDetails(filter: Requestmodel): Observable<Dovehiplacedmodel> {
+    return this.httpClient.post<Dovehiplacedmodel>(Constants.API_ENDPOINT + 'Consignment/GetDoVehiDetails', filter, this.httpOptions);
+  } 
   
+  getDoVehiPlacedList(filter: Reportmodel): Observable<Dovehiplacedlistmodel> {
+    return this.httpClient.post<Dovehiplacedlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetDoVehiPlacedList', filter, this.httpOptions);
+  } 
+  
+  doVehiPlacedSubmitted(dos: Dovehiplacedmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DoVehiPlacedSave', dos, this.httpOptions);
+  }
+  
+  doVehiPlacedDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DoVehiPlacedDelete', req, this.httpOptions);
+  }  
 }
 
 

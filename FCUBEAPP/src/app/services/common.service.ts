@@ -6,6 +6,7 @@ import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Responsemodel } from '../models/responsemodel';
 
 @Injectable({
   providedIn: 'root'
@@ -260,6 +261,9 @@ export class CommonService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> {
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDocRenewalDetails', null, this.httpOptions);
   }
+  getVehiCapacity(filter: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehiCapacity', filter, this.httpOptions);
+  } 
 
   formatDate(date: string) {
     if(date == ''){

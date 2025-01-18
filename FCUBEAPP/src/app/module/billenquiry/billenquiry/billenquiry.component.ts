@@ -140,7 +140,8 @@ ngOnInit(): void {
 
 
  this.getBrokerList();
-this.formUser = this.formBuilder.group({
+
+  this.formUser = this.formBuilder.group({
   billingStation: new FormControl(this.branch,[Validators.required]),
   billNo: new FormControl('',[Validators.required]),
   billDate: new FormControl(this.loginDate,[Validators.required]),

@@ -261,6 +261,9 @@ import { EwaybillextensionbulkComponent } from './module/ewaybillextensionbulk/e
 import { LhpaymentsummrptComponent } from './module/lhpaymentsummrpt/lhpaymentsummrpt.component';
 import { DoentrylistComponent } from './module/doentry/doentrylist/doentrylist.component';
 import { DoentryaddComponent } from './module/doentry/doentryadd/doentryadd.component';
+import { DovehiplacedlistComponent } from './module/dovehiplaced/dovehiplacedlist/dovehiplacedlist.component';
+import { DovehiplacedaddComponent } from './module/dovehiplaced/dovehiplacedadd/dovehiplacedadd.component';
+import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededit/dovehiplacededit.component';
 
 
 const routes: Routes = [
@@ -625,7 +628,9 @@ const routes: Routes = [
   { path: 'doentrylist', component: DoentrylistComponent },
   { path: 'doentryadd', component: DoentryaddComponent },
   { path: 'doentryedit', component: DoentryaddComponent },
-  
+  { path: 'dovehplacedlist', component:  DovehiplacedlistComponent },
+  { path: 'dovehplacedadd', component: DovehiplacedaddComponent  },
+  { path: 'dovehplacededit', component: DovehiplacededitComponent },
  
   
 ];

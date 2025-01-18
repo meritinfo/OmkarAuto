@@ -8,9 +8,9 @@
         public string? DoNo { get; set; }
         public string? DoDate { get; set; }
         public string? PartyDoNo { get; set; }
-        public string? DoQty { get; set; }
-        public string? DoRemarks { get; set; }        
+        public string? DoQty { get; set; }  
         public string? DoQtyLift { get; set; }
+        public string? DoBr { get; set; }        
         public string? LoadingFr { get; set; }
         public string? Dest { get; set; }
         public string? PartyName { get; set; }
@@ -20,6 +20,7 @@
         public string? PlacementDate { get; set; }
         public string? VehicleNo { get; set; }
         public string? VehicleType { get; set; }
+        public string? VehicleCapacity { get; set; }        
         public string? OwnMarket { get; set; }
         public string? BrokerId { get; set; }
         public string? HireRateType { get; set; }
@@ -31,6 +32,7 @@
         public string? LrDoneYN { get; set; }
         public string? LrBranch { get; set; }
         public string? LrNo { get; set; }
+        public string? BrokerName { get; set; }        
         public string? LoggedInUserID { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }

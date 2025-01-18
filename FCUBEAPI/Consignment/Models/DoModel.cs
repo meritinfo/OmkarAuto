@@ -17,6 +17,7 @@
         public string? DoQty { get; set; }
         public string? DoRemarks { get; set; }        
         public string? DoQtyLift { get; set; }
+        public string? BalQty { get; set; }
         public string? DoQtySettle { get; set; }
         public string? DoStatus { get; set; }
         public string? DoBr { get; set; }

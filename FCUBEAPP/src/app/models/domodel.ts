@@ -14,6 +14,7 @@ export class Domodel {
     doQty : string = "";
     doRemarks : string = ""; 
     doQtyLift : string = "";
+    balQty : string = "";
     doQtySettle : string = "";
     doStatus : string = "";
     doBr     : string = "";     

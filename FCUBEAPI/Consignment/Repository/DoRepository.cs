@@ -63,6 +63,7 @@ namespace Consignment.Repository
                                 DoQty           = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQty"]),
                                 DoRemarks       = Convert.ToString(dataSet.Tables[0].Rows[i]["DoRemarks"]),
                                 DoQtyLift       = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQtyLift"]),
+                                BalQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["BalQty"]),
                                 DoQtySettle     = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQtySettle"]),
                                 DoStatus        = Convert.ToString(dataSet.Tables[0].Rows[i]["DoStatus"]),
                                 DoBr            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoBr"]),
@@ -188,9 +189,9 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<DoModel> GetDoVehiDetails(RequestModel request)
+        public async Task<DoVehiPlacedModel> GetDoVehiDetails(RequestModel request)
         {
-            DoModel dos = new();
+            DoVehiPlacedModel dos = new();
             try
             {
                 if (dbconnection != null)
@@ -211,8 +212,8 @@ namespace Consignment.Repository
                             dos.DoDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoDate"]);
                             dos.PartyDoNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyDoNo"]);
                             dos.DoQty           = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQty"]);
-                            dos.DoRemarks       = Convert.ToString(dataSet.Tables[0].Rows[i]["DoRemarks"]);
                             dos.DoQtyLift       = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQtyLift"]);
+                            dos.DoBr            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQtyLift"]);
                             dos.LoadingFr       = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingFr"]);
                             dos.Dest            = Convert.ToString(dataSet.Tables[0].Rows[i]["Dest"]);
                             dos.PartyName       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]);
@@ -227,6 +228,85 @@ namespace Consignment.Repository
 
             }
             return dos;
+        }
+
+        public async Task<DoVehiPlacedListModel> GetDoVehiPlacedList(ReportRequestModel request)
+        {
+            DoVehiPlacedListModel dprMasterList = new();
+            List<DoVehiPlacedModel> dos = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@BrokerId",   request.FilterStr1),
+                            new SqlParameter("@LoginBranch",request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDoVehiPlacedList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dos.Add(new DoVehiPlacedModel
+                            {
+                                DoId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoId"]),
+                                DoBranch        = Convert.ToString(dataSet.Tables[0].Rows[i]["DoBranch"]),
+                                DoNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoNo"]),
+                                DoDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoDate"]),
+                                PartyDoNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyDoNo"]),
+                                DoQty           = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQty"]),
+                                DoQtyLift       = Convert.ToString(dataSet.Tables[0].Rows[i]["DoQtyLift"]),
+                                LoadingFr       = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingFr"]),
+                                Dest            = Convert.ToString(dataSet.Tables[0].Rows[i]["Dest"]),
+                                PartyName       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]),
+                                CnorName        = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorName"]),
+                                CneeName        = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeName"]),
+                                DoVpId          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoVpId"]),
+                                PlacementDate   = Convert.ToString(dataSet.Tables[0].Rows[i]["PlacementDate"]),
+                                VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                VehicleType     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleType"]),
+                                VehicleCapacity = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleCapacity"]),
+                                OwnMarket       = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnMarket"]),
+                                BrokerId        = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerId"]),
+                                HireRateType    = Convert.ToString(dataSet.Tables[0].Rows[i]["HireRateType"]),
+                                HireRate        = Convert.ToString(dataSet.Tables[0].Rows[i]["HireRate"]),
+                                HireAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["HireAmt"]),
+                                VehicleEngBy    = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleEngBy"]),
+                                LoadAssignTo    = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadAssignTo"]),
+                                PlacementRem    = Convert.ToString(dataSet.Tables[0].Rows[i]["PlacementRem"]),
+                                BrokerName      = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
+                                CreatedBy       = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate     = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy      = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate    = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                            });
+
+                            dprMasterList.DoVehiPlacedList = dos;
+
+                            dprMasterList.PageMetaData = new PaginationMetaData
+                            {
+                                TotalCount = totalRecords,
+                                CurrentPage = request.PageNumber
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprMasterList;
         }
 
     }

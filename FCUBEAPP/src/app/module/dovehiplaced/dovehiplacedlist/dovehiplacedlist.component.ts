@@ -1,24 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dolistmodel  } from 'src/app/models/dolistmodel';
+import { Dovehiplacedlistmodel  } from 'src/app/models/dovehiplacedlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Domodel } from 'src/app/models/domodel';
 import { DoentryService } from 'src/app/services/doentry.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
+import { Dovehiplacedmodel } from 'src/app/models/dovehiplacedmodel';
   
  
 @Component({
-  selector: 'app-doentrylist',
-  templateUrl: './doentrylist.component.html',
-  styleUrls: ['./doentrylist.component.css']
+  selector: 'app-dovehiplacedlist',
+  templateUrl: './dovehiplacedlist.component.html',
+  styleUrls: ['./dovehiplacedlist.component.css']
 })
-export class DoentrylistComponent {
-  allDolist: Dolistmodel = new Dolistmodel();
+export class DovehiplacedlistComponent {
+  allDolist: Dovehiplacedlistmodel = new Dovehiplacedlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -34,8 +34,8 @@ export class DoentrylistComponent {
   }
 
   formFilter!: FormGroup;
-  partyList: Dropdownmodel[] = [];
-  locationList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
+  
   keywordLocation = 'dataName';
   loginDate: string = '';
   branch: string = '';
@@ -55,7 +55,7 @@ export class DoentrylistComponent {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private toasterService: ToastrService,    private doentryService: DoentryService, 
+    private toasterService: ToastrService, private doentryService: DoentryService, 
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -65,7 +65,7 @@ export class DoentrylistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "DO Entry"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "DO Vehicle Placement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -94,17 +94,15 @@ export class DoentrylistComponent {
     this.fromDate = this.minDate ;
     
     
-    this.doentryService.clearDoDetails();
+    this.doentryService.clearDoVehiDetails();
 
-    this.getPartyList();
-    this.getLocationList();
+    this.getBrokerList();
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      payParty: new FormControl('',),
-      origin: new FormControl('',),
-      destination: new FormControl('',),
+      vehicleNo: new FormControl('',),
+      broker: new FormControl('',),
     });
     
     this.sharedService.loading=true;
@@ -121,6 +119,12 @@ export class DoentrylistComponent {
     this.sharedService.loading=false;
   }
   
+  getBrokerList(): void {
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
+    });
+  } 
+
   doList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -139,7 +143,7 @@ export class DoentrylistComponent {
           data: []
         });
         
-        this.doentryService.getDoList(this.filter).subscribe(resp => {
+        this.doentryService.getDoVehiPlacedList(this.filter).subscribe(resp => {
           this.allDolist = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -178,25 +182,17 @@ export class DoentrylistComponent {
           data: 'cneeName',
         },   
         {
-          title: 'DO Qty',
-          data: 'doQty',
-        },    
-        {
-          title: 'Bal Qty',
-          data: 'balQty',
+          title: 'Vehicle No',
+          data: 'vehicleNo',
         },   
         {
-          title: 'DO Status',
-          data: 'doStatus',
+          title: 'Broker Name',
+          data: 'brokerName',
         },    
         {
           title: 'Action',
           data: 'dprId',
-        },    
-        {
-          title: 'Vehical Place',
-          data: 'dprId',
-        },     
+        },   
       ],
     };
   }
@@ -205,31 +201,10 @@ export class DoentrylistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getdoDetails(dos: Domodel): void {
-    this.doentryService.setDoDetails(dos);
-    this.route.navigate(['/doentryedit']);
+  getdoVehiDetails(dos: Dovehiplacedmodel): void {
+    this.doentryService.setDoVehiDetails(dos);
+    this.route.navigate(['/dovehplacededit']);
   }  
-
-  getdoVehiplaced(dos: Domodel): void {
-    sessionStorage.setItem("doid", dos.doId);
-    this.route.navigate(['/dovehplacedadd']);
-  }  
-
-  doAdd(): void {
-    this.route.navigate(['/doentryadd']);
-  }
-
-  getLocationList(): void {
-    this.commonService.getLocationList().subscribe((res) => {
-      this.locationList = res;
-    });
-  }
-  
-  getPartyList(): void {
-    this.commonService.getPartyList().subscribe((res) => {
-      this.partyList = res;
-    });
-  }
 
   get f() { return this.formFilter.controls; }
 
@@ -249,10 +224,9 @@ export class DoentrylistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
-    this.filter.search = selecteddata.payParty?selecteddata.payParty.dataId:"";
-    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
-    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
-    this.filter.filterStr3 = this.branch;
+    this.filter.search = selecteddata.vehicleNo;
+    this.filter.filterStr1 = selecteddata.broker?selecteddata.broker.dataId:"";
+    this.filter.filterStr2 = this.branch;
     
     this.sharedService.loading = true;
     this.doList();    

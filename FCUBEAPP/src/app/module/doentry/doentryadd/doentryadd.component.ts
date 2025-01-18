@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
-import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-doentryadd',
