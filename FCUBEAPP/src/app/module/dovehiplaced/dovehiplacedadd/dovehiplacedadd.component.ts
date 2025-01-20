@@ -103,7 +103,7 @@ export class DovehiplacedaddComponent {
       sessionStorage.setItem("doid", "");
     }
     else {
-      this.route.navigate(['/']);
+      this.route.navigate(['/dashboard']);
     }
     
     this.sharedService.loading=true;
@@ -273,9 +273,6 @@ export class DovehiplacedaddComponent {
     }
     
     if (parseFloat(selectedDataVal.vehicleCapacity)> parseFloat(this.baldoQty)) {
-      //ignore
-    }
-    else{
       this.toasterService.warning(" Vehi Capacity should not be more than DO Balance Qty");
       return;
     }

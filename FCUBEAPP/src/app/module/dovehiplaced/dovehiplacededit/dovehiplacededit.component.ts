@@ -138,11 +138,12 @@ export class DovehiplacededitComponent {
     this.formUser.controls['cnorName'].disable(); 
 
     setTimeout(() => {
-      if (this.selectedDoDetails.doId != '') {
+      if (this.selectedDoDetails.doVpId != '') {
         this.formUser.patchValue(this.selectedDoDetails); 
         this.formUser.patchValue({
           doDate: this.commonService.formatDate(this.selectedDoDetails.doDate),
-          brokerId: this.branchList.find(e => e.dataId == this.selectedDoDetails.brokerId),  
+          placementDate: this.commonService.formatDate(this.selectedDoDetails.placementDate),
+          brokerId: this.brokerList.find(e => e.dataId == this.selectedDoDetails.brokerId),  
         });    
         this.doQty = this.selectedDoDetails.doQty?this.selectedDoDetails.doQty:"0";
         this.doQtyLift = this.selectedDoDetails.doQtyLift?this.selectedDoDetails.doQtyLift:"0";
@@ -296,9 +297,6 @@ export class DovehiplacededitComponent {
     }
     
     if (parseFloat(selectedDataVal.vehicleCapacity)> (parseFloat(this.baldoQty)+parseFloat(this.selectedDoDetails.vehicleCapacity))) {
-      //ignore
-    }
-    else{
       this.toasterService.warning(" Vehi Capacity should not be more than DO Balance Qty");
       return;
     }

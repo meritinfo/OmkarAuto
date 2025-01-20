@@ -625,6 +625,11 @@ export class ChallanmasteraddComponent {
             panValid:"Y",
             tdsPct: parseFloat(this.responseDetails.message)
           });  
+          this.formUser.patchValue({
+            panValid: "Y",
+            tdsPct: parseFloat(this.responseDetails.message),
+            declarationYN:"",
+          });   
         }
        else{
           this.requestmodel.strRequest = pan;
@@ -632,8 +637,8 @@ export class ChallanmasteraddComponent {
           
           this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
             this.panDetails = res;
-            var panValid = "";
-            var aadharLinked = "";
+            var panValid = "N";
+            var aadharLinked = "N";
             if (this.panDetails.result.number!="") { 
               if(this.panDetails.result.isValid){
                 panValid= "Y";
@@ -663,8 +668,6 @@ export class ChallanmasteraddComponent {
                 else{            
                   this.formUser.controls["declarationYN"].disable();  
                 }
-              });  
-              setTimeout(() => {      
                 this.formUser.patchValue({
                   panValid: panValid,
                   aadharLinked: aadharLinked,
@@ -672,7 +675,7 @@ export class ChallanmasteraddComponent {
                   tdsPct: tdsPct,
                   declarationYN:"",
                 });   
-              }, 2000);   
+              });  
             }
             else{          
               this.toastrService.warning("Invalid PAN No...!");

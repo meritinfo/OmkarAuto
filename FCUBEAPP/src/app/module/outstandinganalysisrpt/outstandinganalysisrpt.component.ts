@@ -37,9 +37,11 @@ export class OutstandinganalysisrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
   
-    dtOptions: DataTables.Settings = {};
-    @ViewChild(DataTableDirective)
-    dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+
+  rptType = false;
 
   filter: Reportmodel = {
     pageNumber: 1,
@@ -110,15 +112,17 @@ export class OutstandinganalysisrptComponent {
     this.formFilter = this.formBuilder.group({
       toDate: new FormControl(this.loginDate,[Validators.required]),
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
+      rptType: new FormControl('S',),
     });
 
     this.filter.fromDate =  "";
     this.filter.toDate = this.loginDate;
     this.filter.filterStr   = this.loginDate;
-    this.filter.filterStr1  = "";
+    this.filter.filterStr1  = "S";
     this.filter.filterStr2  = "";
 
     this.sharedService.loading=true;
+    this.getPartyList();     
     this.getBranchList();
     this.outstandingList();
     this.sharedService.loading=false;
@@ -130,6 +134,21 @@ export class OutstandinganalysisrptComponent {
     });
   }
 
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+  onrptchange(e:any){
+    var rpt = e.target.value;
+    if(rpt=="S"){
+      this.rptType = false;
+    }
+    else{
+      this.rptType = true;
+    }
+  }
+    
   get f() { return this.formFilter.controls; }
 
   selectEvent(item: any) {
@@ -211,6 +230,11 @@ export class OutstandinganalysisrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr = selectedDataVal.asOnDate;
+    this.filter.filterStr1 = selectedDataVal.rptType;
+    this.filter.filterStr2 = "";
+    if(selectedDataVal.rptType=="S"){
+      this.filter.filterStr2 = selectedDataVal.party?selectedDataVal.party.dataId:"";
+    }
 
     this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
       let link = document.createElement("a");
@@ -233,8 +257,8 @@ export class OutstandinganalysisrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.filterStr        = selectedDataVal.asOnDate;
+    this.filter.toDate      = selectedDataVal.toDate;
+    this.filter.filterStr   = selectedDataVal.asOnDate;
     
     this.sharedService.loading=true;
     this.outstandingList();

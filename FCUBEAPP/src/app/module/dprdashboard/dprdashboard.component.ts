@@ -137,10 +137,7 @@ export class DprdashboardComponent {
       this.filter.filterStr3  = "";
   
       this.sharedService.loading=true;
-      this.dprrptlist();
-      this.interval = setInterval(()=>{
-                   this.search();
-                   },10);
+      this.dprrptlist();     
       this.sharedService.loading=false;
     }
 

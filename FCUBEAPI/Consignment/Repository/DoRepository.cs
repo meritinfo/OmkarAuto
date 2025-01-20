@@ -261,6 +261,7 @@ namespace Consignment.Repository
                             {
                                 DoId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoId"]),
                                 DoBranch        = Convert.ToString(dataSet.Tables[0].Rows[i]["DoBranch"]),
+                                DoBr            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoBr"]),
                                 DoNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoNo"]),
                                 DoDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoDate"]),
                                 PartyDoNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyDoNo"]),
@@ -328,7 +329,7 @@ namespace Consignment.Repository
                             new SqlParameter("@DoNo",               dprModel.DoNo),
                             new SqlParameter("@PartyDoNo",          dprModel.PartyDoNo),
                             new SqlParameter("@DoVpId",             dprModel.DoVpId),
-                            new SqlParameter("@LoadingFrom",        dprModel.PlacementDate),
+                            new SqlParameter("@PlacementDate",      dprModel.PlacementDate),
                             new SqlParameter("@VehicleNo",          dprModel.VehicleNo),
                             new SqlParameter("@VehicleType",        dprModel.VehicleType),
                             new SqlParameter("@VehicleCapacity",    dprModel.VehicleCapacity),
