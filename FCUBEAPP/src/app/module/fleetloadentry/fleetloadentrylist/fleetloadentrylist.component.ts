@@ -2,10 +2,8 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
 import { Fleetloadentrylistmodel } from 'src/app/models/fleetloadentrylistmodel';
 import { Fleetloadentrymodel } from 'src/app/models/fleetloadentrymodel';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { FleetLoadEntryService } from 'src/app/services/fleetloadentry.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';

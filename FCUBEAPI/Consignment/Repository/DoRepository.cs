@@ -147,6 +147,8 @@ namespace Consignment.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
@@ -185,6 +187,8 @@ namespace Consignment.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
@@ -366,6 +370,8 @@ namespace Consignment.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }
@@ -404,6 +410,8 @@ namespace Consignment.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
             }
             return responseModel;
         }

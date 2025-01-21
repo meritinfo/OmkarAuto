@@ -20,8 +20,6 @@ export class BilloutstandingrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 

@@ -198,6 +198,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GenerateLrNo")]
+        public async Task<IActionResult> GenerateLrNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GenerateLrNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("CheckVehicleNo")]
         public async Task<IActionResult> CheckVehicleNo(RequestModel request)

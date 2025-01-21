@@ -30,6 +30,7 @@ export class Dprmodel {
     otherAmt   : string = "";        
     otherDesc  : string = "";        
     totFreightAmt   : string = "";   
+    yearId  : string = "";   
     attachConfirmDoc : string = "";  
     dPR_Status  : string = "";       
     vehicleNo  : string = "";  

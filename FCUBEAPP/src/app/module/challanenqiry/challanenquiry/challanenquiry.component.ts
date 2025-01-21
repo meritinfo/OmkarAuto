@@ -39,14 +39,7 @@ export class ChallanenquiryComponent {
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
-  rateList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
-  vehicalType: Dropdownmodel[] = [];
-  contentList: Dropdownmodel[] = [];
-  classList: Dropdownmodel[] = [];
-  businessByList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();

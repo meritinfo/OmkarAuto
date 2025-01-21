@@ -31,6 +31,7 @@
         public string? OtherAmt { get; set; }
         public string? OtherDesc { get; set; }
         public string? TotFreightAmt { get; set; }
+        public string? YearId { get; set; }
         public string? AttachConfirmDoc { get; set; }
         public string? DPR_Status { get; set; }
         public string? VehicleNo { get; set; }

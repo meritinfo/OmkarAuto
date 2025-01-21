@@ -21,6 +21,7 @@ import { Constants } from 'src/app/common/constants';
 export class DrpmasteraddComponent {
   loggedInUserID: string = '';
   branch: string = '';
+  year: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   editMode = false;
@@ -99,7 +100,10 @@ export class DrpmasteraddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -485,6 +489,7 @@ export class DrpmasteraddComponent {
     this.dprmodel.otherAmt   = selectedDataVal.otherAmt;
     this.dprmodel.otherDesc   = selectedDataVal.otherDesc.toString().toUpperCase();
     this.dprmodel.totFreightAmt  = selectedDataVal.totFreightAmt;
+    this.dprmodel.yearId  = this.year;    
     this.dprmodel.loggedInUserID = this.loggedInUserID; 
     
     this.dprmodel.dprDtls = [];

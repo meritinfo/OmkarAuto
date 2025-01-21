@@ -39,18 +39,10 @@ export class BillsubmitmasteraddComponent {
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   partyLocationList: Dropdownmodel[] = [];
-  sparesList: Dropdownmodel[] = [];
-  maintList: Dropdownmodel[] = [];
   deptList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
-  vehicleList : Dropdownmodel[] = [];
-  brandList: Dropdownmodel[] = [];
-  modelList: Dropdownmodel[] = [];
-  vendorList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
-  vehicleTypeList: Dropdownmodel[] = [];
-  creditAcList: Dropdownmodel[] = [];
   vehicleRepmaintMaster = new Billsubmitmastermodel();
 
   selectedBillSubmitMasterDetail = new Billsubmitmastermodel();

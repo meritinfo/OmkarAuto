@@ -23,6 +23,7 @@ export class DprvehiplacedaddComponent {
   loggedInUserID: string = '';
   dprid: string = '';
   branch: string = '';
+  year: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   editMode = false;
@@ -94,6 +95,10 @@ export class DprvehiplacedaddComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
     }
 
     
@@ -199,6 +204,7 @@ export class DprvehiplacedaddComponent {
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
         this.formArray.controls[i].get("fromStn")?.disable();
         this.formArray.controls[i].get("toStn")?.disable();
+        this.formArray.controls[i].get("gcNoteNo")?.disable();
       }
     });
   }
@@ -257,6 +263,7 @@ export class DprvehiplacedaddComponent {
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+      this.requestmodel.strRequest2 = this.year;
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -268,6 +275,23 @@ export class DprvehiplacedaddComponent {
         }
       });
     }   
+  }
+
+  genLrNo(){
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = this.year;
+    this.lrentryService.genLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        var lrno = parseInt(res.message);
+        var selectedDataVal = this.formUser.getRawValue();
+
+        for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
+          this.formArray.controls[i].get("gcNoteNo")?.setValue(lrno.toString());
+          lrno = lrno + 1;
+        }
+      }
+    });
   }
 
   onVehicalChange(e:any){

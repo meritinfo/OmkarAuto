@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using Shared.Models;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Consignment.Repository
 {
@@ -192,6 +193,7 @@ namespace Consignment.Repository
                             new SqlParameter("@OtherAmt",           dprModel.OtherAmt),
                             new SqlParameter("@OtherDesc",          dprModel.OtherDesc),
                             new SqlParameter("@TotFreightAmt",      dprModel.TotFreightAmt),
+                            new SqlParameter("@YearId",             dprModel.YearId),                            
                             new SqlParameter("@AttachConfirmDoc",   dprModel.AttachConfirmDoc),                    
                             new SqlParameter("@LoggedInUser",       dprModel.LoggedInUserID)
                         };

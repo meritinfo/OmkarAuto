@@ -41,6 +41,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckDuplicateLr(request);
         }
+        public async Task<ResponseModel> GenerateLrNo(RequestModel request)
+        {
+            return await consignmentRepository.GenerateLrNo(request);
+        }
         public async Task<ResponseModel> CheckVehicleNo(RequestModel request)
         {
             return await consignmentRepository.CheckVehicleNo(request);

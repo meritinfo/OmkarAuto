@@ -22,6 +22,7 @@ export class DprplacevehicleComponent {
   loggedInUserID: string = '';
   dprid: string = '';
   branch: string = '';
+  year: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   editMode = false;
@@ -95,6 +96,10 @@ export class DprplacevehicleComponent {
       this.loginDate = loginDate;
     }
 
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -200,6 +205,7 @@ export class DprplacevehicleComponent {
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
         this.formArray.controls[i].get("fromStn")?.disable();
         this.formArray.controls[i].get("toStn")?.disable();
+        this.formArray.controls[i].get("gcNoteNo")?.disable();
       }
     });
   }
@@ -269,6 +275,24 @@ export class DprplacevehicleComponent {
       });
     }   
   }
+
+  genLrNo(){
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = this.year;
+    this.lrentryService.genLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        var lrno = parseInt(res.message);
+        var selectedDataVal = this.formUser.getRawValue();
+
+        for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
+          this.formArray.controls[i].get("gcNoteNo")?.setValue(lrno.toString());
+          lrno = lrno + 1;
+        }
+      }
+    });
+  }
+
 
   onVehicalChange(e:any){
     var truckno = e.target.value;
