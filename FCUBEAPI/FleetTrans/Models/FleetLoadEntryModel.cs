@@ -14,6 +14,7 @@ namespace FleetTrans.Models
         public string? LoadType { get; set; }
         public string? VehicleMasterId { get; set; }
         public string? LoadFor { get; set; }
+        public string? LdFor { get; set; }        
         public string? LoadMemoNo { get; set; }
         public string? LoadingFrom { get; set; }
         public string? ConsignorName { get; set; }

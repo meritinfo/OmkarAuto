@@ -50,7 +50,7 @@ namespace FleetTrans.Repository
                             {
                                 LoadId = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadId"]),
                                 LoadBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadBranch"]),
-
+                                LdFor = Convert.ToString(dataSet.Tables[0].Rows[i]["LdFor"]),
                                 LoadDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadDate"]),
                                 LoadType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadType"]),
                                 VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),

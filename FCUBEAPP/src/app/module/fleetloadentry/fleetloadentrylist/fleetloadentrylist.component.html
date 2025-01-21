@@ -39,7 +39,7 @@
                                             {{ac.dataName}}
                                         </option>
                                     </select>                   
-                                </div>vehicleNo
+                                </div>
                             </div>                            
                             <div class="col-lg-2">
                                 <div class="mb-3">
@@ -72,13 +72,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
-                    <div class="dt-buttons btn-group flex-wrap export-button">
-                        <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
-                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
-                    </div>
+                <div class="col-sm-2 col-md-2 text-right">
                     <button class="btn btn-primary buttons-html5" type="button" 
                         (click)="AddFleetLoadEntry()"><span>New</span></button>
                 </div>
@@ -121,7 +115,7 @@
                             <td>{{ branch.loadDate }}</td>
                             <td>{{ branch.loadType }}</td>
                             <td>{{ branch.vehicleNo }}</td>
-                            <td>{{ branch.loadFor }}</td>
+                            <td>{{ branch.ldFor }}</td>
                             <td>{{ branch.loadMemoNo }}</td>
                             <td>{{ branch.loadingFrom }}</td>
                             <!-- <td>{{ branch.consignorName }}</td>

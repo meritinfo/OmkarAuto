@@ -103,6 +103,7 @@ export class FleetloadentrylistComponent {
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       loadFor: new FormControl(''),
+      vehicleMasterId: new FormControl(''),
     }); 
   
     this.sharedService.loading = true;
@@ -186,7 +187,7 @@ export class FleetloadentrylistComponent {
         },
         {
           title: 'Party (Load for)',
-          data: 'loadFor',
+          data: 'ldFor',
         },       
         {
           title: 'Memo No',
