@@ -117,7 +117,8 @@
                      <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                        <thead>
                             <tr>
-                                <th>doBr </th>                          
+                                <th>doBr </th>                           
+                                <th>doDate </th>                      
                                 <th>doDate </th>
                                 <th>loadingFr</th>  
                                 <th>dest</th>   
@@ -133,7 +134,8 @@
                         </thead>
                         <tbody *ngIf="allDolist.doList?.length != 0">
                             <tr *ngFor="let dpr of allDolist.doList">
-                                <td>{{ dpr.doBr }}</td>  
+                                <td>{{ dpr.doBr }}</td> 
+                                <td>{{ dpr.doNo }}</td>   
                                 <td>{{ dpr.doDate }}</td>                        
                                 <td>{{ dpr.loadingFr }}</td>                          
                                 <td>{{ dpr.dest }}</td>                         

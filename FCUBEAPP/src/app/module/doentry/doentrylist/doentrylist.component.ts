@@ -154,6 +154,10 @@ export class DoentrylistComponent {
           data: 'doBr',
         }, 
         {
+          title: 'DO No ',
+          data: 'doNo',
+        },
+        {
           title: 'DO Date ',
           data: 'doDate',
         },

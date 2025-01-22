@@ -212,6 +212,7 @@ namespace Consignment.Repository
                         {
 
                             dos.DoId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoId"]);
+                            dos.DoNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoNo"]);
                             dos.DoBranch        = Convert.ToString(dataSet.Tables[0].Rows[i]["DoBranch"]);
                             dos.DoDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoDate"]);
                             dos.PartyDoNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyDoNo"]);

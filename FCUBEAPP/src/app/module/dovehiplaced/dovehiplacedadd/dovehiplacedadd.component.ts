@@ -114,6 +114,7 @@ export class DovehiplacedaddComponent {
 
     this.formUser = this.formBuilder.group({      
       doBranch : new FormControl('',),
+      doNo: new FormControl('',),
       doDate  : new FormControl('',),
       partyName : new FormControl('',),
       partyDoNo: new FormControl('',),
@@ -136,6 +137,7 @@ export class DovehiplacedaddComponent {
     });
     
     this.formUser.controls['doBranch'].disable(); 
+    this.formUser.controls['doNo'].disable(); 
     this.formUser.controls['doDate'].disable(); 
     this.formUser.controls['partyName'].disable(); 
     this.formUser.controls['partyDoNo'].disable(); 
@@ -290,12 +292,12 @@ export class DovehiplacedaddComponent {
     this.dovehiplacedmodel.vehicleCapacity = selectedDataVal.vehicleCapacity;
     this.dovehiplacedmodel.ownMarket = selectedDataVal.ownMarket;
     this.dovehiplacedmodel.brokerId = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
-    this.dovehiplacedmodel.hireRateType = selectedDataVal.hireRateType.toString();
-    this.dovehiplacedmodel.hireRate = selectedDataVal.hireRate.toString();
+    this.dovehiplacedmodel.hireRateType = selectedDataVal.hireRateType;
+    this.dovehiplacedmodel.hireRate = selectedDataVal.hireRate?selectedDataVal.hireRate.toString():"0";
     this.dovehiplacedmodel.hireAmt = selectedDataVal.hireAmt.toString();
     this.dovehiplacedmodel.vehicleEngBy = selectedDataVal.vehicleEngBy;
     this.dovehiplacedmodel.loadAssignTo = selectedDataVal.loadAssignTo;
-    this.dovehiplacedmodel.placementRem = selectedDataVal.placementRem.toString().toUpperCase();
+    this.dovehiplacedmodel.placementRem = selectedDataVal.placementRem?selectedDataVal.placementRem.toString().toUpperCase():"";
     this.dovehiplacedmodel.loggedInUserID = this.loggedInUserID;     
 
     this.formSubmitted = true;
