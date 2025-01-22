@@ -17,21 +17,23 @@
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
-                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
-                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="basicpill-firstname-input">Select Expense Desc</label><span style="color: red">*</span> 
+                                    <label for="basicpill-firstname-input">Expense Desc</label> 
                                     <select class="form-control form-select ng-pristine ng-touched"
-                                     formControlName="expId"
-                                       >
+                                     formControlName="expId" >
+                                        <option value="">ALL</option>
                                         <option *ngFor="let branch of expList"
                                             value={{branch.dataId}}>
                                             {{branch.dataName}}
@@ -39,18 +41,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">Branch</label>
-                                    <select class="form-control" formControlName="branch" [ngClass]="">
-                                        <option value="0">ALL</option>
-                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                            {{branch.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-lg-2">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
                                     <div class="ng-autocomplete">
@@ -72,7 +63,7 @@
                                         </ng-template>
                                     </div>
                                 </div> 
-                            </div>   -->
+                            </div>  
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   (click)="search()">
@@ -95,16 +86,17 @@
                     <thead>
                         <tr>
                             <th>PmtBranch </th>
+                            <th>PmtBranch </th>
                             <th>Date </th>
                             <th>Vehicle No. </th> 
-                            <th>Trans Type</th>
-                          
+                            <th>Trans Type</th>                          
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allEnrouteTypes.companyList?.length != 0">
                         <tr *ngFor="let trip of allEnrouteTypes.companyList">
-                            <td>{{ trip.bname }}</td>
+                            <td>{{ trip.bname }}</td> 
+                            <td>{{ trip.vehicleNo }}</td>
                             <td>{{ trip.expDate }}</td>
                             <td>{{ trip.exp}}</td>
                             <td>{{ trip.expAmount }}</td>

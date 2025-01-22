@@ -155,7 +155,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@ExpId",     request.FilterStr),
-                            new SqlParameter("@LoginBranch",    request.FilterStr1)
+                            new SqlParameter("@LoginBranch",    request.FilterStr1),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripEnrouteExpByCompanyList", param);
 
@@ -181,6 +182,7 @@ namespace FleetTrans.Repository
                                 TripAdjYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdjYN"]),
                                 FtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmId"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 bname = Convert.ToString(dataSet.Tables[0].Rows[i]["bname"]),
                                 exp = Convert.ToString(dataSet.Tables[0].Rows[i]["exp"]),
                             });

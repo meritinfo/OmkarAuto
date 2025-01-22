@@ -23,6 +23,7 @@ namespace FleetTrans.Models
         public string? TripAdjYN { get; set; }
         public string? FtmId { get; set; }
         public string? YearId { get; set; }
+        public string? VehicleNo { get; set; }
         public string? bname { get; set; }
         public string? exp { get; set; }
 

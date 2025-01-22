@@ -2,14 +2,11 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
 import { Tripenroutebycompanylistmodel } from 'src/app/models/tripenroutebycompanylistmodel';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { TripenroutebycompanyService } from 'src/app/services/tripenroutebycompany.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -104,14 +101,15 @@ var userData3 = sessionStorage.getItem('userBranch')?.toString();
     expId: new FormControl('',)
     
   });
- this.getExpList();
- // this.getVehicleNoList();
+  this.getExpList();
+  this.getVehicleNoList();
 
   var selectedData = this.formFilter.getRawValue();
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
- this.filter.filterStr = "";
+  this.filter.filterStr = "";
   this.filter.filterStr1 =  this.branch;
+  this.filter.filterStr2 = "";
   this.tripenroutebycompanyList();
 }
 tripenroutebycompanyList(){
@@ -146,6 +144,10 @@ tripenroutebycompanyList(){
       {
         title: 'Branch',
         data: 'bname',
+      },  
+      {
+        title: 'Vehicle No',
+        data: 'vehicleNo',
       },
       {
         title: 'Exp Date',
@@ -226,9 +228,9 @@ search(): void {
  
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
-  //this.filter.strRequest = selectedData.expId;
- this.filter.filterStr = selectedData.expId;
- this.filter.filterStr1 =  this.branch;
+  this.filter.filterStr = selectedData.expId;
+  this.filter.filterStr1 =  this.branch;
+  this.filter.filterStr2 = selectedData.vehicle?selectedData.vehicle.dataId:"";
 
   this.tripenroutebycompanyList();
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
