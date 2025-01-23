@@ -191,10 +191,10 @@ export class DovehiplacededitComponent {
       if(res.status){
         this.formUser.patchValue({
           vehicleCapacity: res.message,  
-        });   
+        });  
+        this.onratepct();
       }
-    });
-    
+    });    
   }
 
   onRateChange(e:any){
@@ -213,16 +213,16 @@ export class DovehiplacededitComponent {
     });      
   }
 
-  onratepct(e:any){
-    var rate = e.target.value;
+  onratepct(){
     var selectedData = this.formUser.getRawValue();
+    var rate = selectedData.hireRate;
     var capacity = selectedData.vehicleCapacity==""?0:parseFloat(selectedData.vehicleCapacity);
     var hire = capacity * (rate==""?0:parseFloat(rate))
     this.formUser.patchValue({
       hireAmt: hire,  
     });  
   }
-
+  
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
  

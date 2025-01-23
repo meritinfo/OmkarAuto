@@ -154,6 +154,7 @@ export class DovehiplacedaddComponent {
         this.formUser.patchValue(this.selectedDoDetails);  
         this.formUser.patchValue({
           doDate: this.commonService.formatDate(this.selectedDoDetails.doDate),
+          placementDate:this.loginDate,
           hireRate: "0",  
           hireAmt: "0",  
         });    
@@ -190,7 +191,8 @@ export class DovehiplacedaddComponent {
       if(res.status){
         this.formUser.patchValue({
           vehicleCapacity: res.message,  
-        });   
+        });  
+        this.onratepct();
       }
     });    
   }
@@ -211,9 +213,9 @@ export class DovehiplacedaddComponent {
     });      
   }
 
-  onratepct(e:any){
-    var rate = e.target.value;
+  onratepct(){
     var selectedData = this.formUser.getRawValue();
+    var rate = selectedData.hireRate;
     var capacity = selectedData.vehicleCapacity==""?0:parseFloat(selectedData.vehicleCapacity);
     var hire = capacity * (rate==""?0:parseFloat(rate))
     this.formUser.patchValue({

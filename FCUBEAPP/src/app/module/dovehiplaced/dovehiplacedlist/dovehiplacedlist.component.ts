@@ -158,8 +158,8 @@ export class DovehiplacedlistComponent {
           data: 'doBr',
         }, 
         {
-          title: 'DO No ',
-          data: 'doNo',
+          title: 'Party DO No ',
+          data: 'partyDoNo',
         },
         {
           title: 'DO Date ',
