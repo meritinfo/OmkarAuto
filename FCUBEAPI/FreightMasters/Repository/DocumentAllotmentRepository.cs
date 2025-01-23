@@ -46,6 +46,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DocCloseDate", documentAllotmentModel.DocCloseDate),
                             new SqlParameter("@DocUsedCount", documentAllotmentModel.DocUsedCount),
                             new SqlParameter("@DocMaxNo", documentAllotmentModel.DocMaxNo),
+                            new SqlParameter("@AutoGenYN", documentAllotmentModel.AutoGenYN),                            
                             new SqlParameter("@LoggedInUser", documentAllotmentModel.LoggedInUser)
 
                         };
@@ -114,7 +115,8 @@ namespace FreightMasters.Repository
                                 DocStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["DocStatus"]),
                                 DocCloseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DocCloseDate"]),
                                 DocUsedCount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocUsedCount"]),
-                                DocMaxNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocMaxNo"])  
+                                DocMaxNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocMaxNo"]),
+                                AutoGenYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoGenYN"]),
                             });
                         }
 

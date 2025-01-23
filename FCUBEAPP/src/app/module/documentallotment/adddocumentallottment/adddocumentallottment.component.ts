@@ -108,6 +108,7 @@ export class AdddocumentallottmentComponent {
       docCount  : new FormControl('',[Validators.required]),
       docStatus  : new FormControl('O',[Validators.required]),
       docCloseDate  : new FormControl('',),
+      autoGenYN  : new FormControl('Y',[Validators.required]),
     });   
 
     this.formUser.controls['docCount'].disable();   
@@ -277,6 +278,7 @@ export class AdddocumentallottmentComponent {
     this.documentallotmentmodel.docCount = selectedDataVal.docCount.toString();
     this.documentallotmentmodel.docStatus = selectedDataVal.docStatus.toString();
     this.documentallotmentmodel.docCloseDate = selectedDataVal.docCloseDate;
+    this.documentallotmentmodel.autoGenYN = selectedDataVal.autoGenYN;
 
     this.documentallotmentService.documentallotmentSubmitted(this.documentallotmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

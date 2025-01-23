@@ -12,5 +12,6 @@ export class Documentallotmentmodel {
     docCloseDate: string = "";
     docUsedCount: string = "";
     docMaxNo: string = "";
+    autoGenYN: string = "";
     loggedInUser: string = "";
 }

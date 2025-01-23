@@ -205,7 +205,7 @@ export class DprplacevehicleComponent {
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
         this.formArray.controls[i].get("fromStn")?.disable();
         this.formArray.controls[i].get("toStn")?.disable();
-        this.formArray.controls[i].get("gcNoteNo")?.disable();
+        //this.formArray.controls[i].get("gcNoteNo")?.disable();
       }
     });
   }

@@ -15,6 +15,7 @@
         public string? DocCloseDate { get; set; }
         public string? DocUsedCount { get; set; }
         public string? DocMaxNo { get; set; }
+        public string? AutoGenYN { get; set; }        
         public string? LoggedInUser { get; set; }
 
     }
