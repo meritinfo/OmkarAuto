@@ -52,6 +52,7 @@ export class Tripmastermodel {
     vehicleNo: string = "";
     drName: string = "";  
     nextTrip: string = "";  
+    remarks: string = "";  
     loggedInUser: string = "";
 
     driverList: DriverDetails[] = [];

@@ -59,6 +59,7 @@ export class Tripsheetmodel {
     vehicleNo: string = "";
     drName: string = "";  
     nextTrip: string = "";  
+    remarks: string = "";  
     food_Sal_PerDay : string = ""; 
     food_Sal_FromDt: string = ""; 
     food_Sal_ToDt : string = ""; 

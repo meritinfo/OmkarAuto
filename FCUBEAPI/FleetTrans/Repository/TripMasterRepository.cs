@@ -76,6 +76,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ReportDateTime" , tripMasterModel.ReportDateTime),
                             new SqlParameter("@UnloadDateTime" , tripMasterModel.UnloadDateTime),
                             new SqlParameter("@DetentionDays" , tripMasterModel.DetentionDays),
+                            new SqlParameter("@Remarks" , tripMasterModel.Remarks),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterSave", param);
@@ -355,6 +356,7 @@ namespace FleetTrans.Repository
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
                                 NextTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["NextTrip"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
