@@ -87,8 +87,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Food_Sal_Days" , tripMasterModel.Food_Sal_Days),
                             new SqlParameter("@Food_Sal_Amt" , tripMasterModel.Food_Sal_Amt),
                             new SqlParameter("@RtaChallanDesc" , tripMasterModel.RtaChallanDesc),
-                            new SqlParameter("@RtaChallanAmt " , tripMasterModel.RtaChallanAmt),
-                            new SqlParameter("@PaidToDriver " , tripMasterModel.PaidToDriver),                            
+                            new SqlParameter("@RtaChallanAmt" , tripMasterModel.RtaChallanAmt),
+                            new SqlParameter("@PaidToDriver" , tripMasterModel.PaidToDriver),
+                            new SqlParameter("@Remarks" , tripMasterModel.Remarks),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripSheetSave", param);
@@ -441,7 +442,8 @@ namespace FleetTrans.Repository
                                 Food_Sal_Amt = Convert.ToString(dataSet.Tables[0].Rows[i]["Food_Sal_Amt"]),
                                 RtaChallanDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["RtaChallanDesc"]),
                                 RtaChallanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["RtaChallanAmt"]),
-                                PaidToDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidToDriver"]),                                
+                                PaidToDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidToDriver"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 

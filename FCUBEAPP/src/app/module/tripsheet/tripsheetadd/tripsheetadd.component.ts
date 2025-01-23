@@ -165,6 +165,7 @@ export class TripsheetaddComponent {
       rtaChallanDesc     : new FormControl('',),
       rtaChallanAmt      : new FormControl('',),
       paidToDriver   : new FormControl('',),
+      remarks   : new FormControl('',),
       driverList: this.formBuilder.array([this.createDriverArray()]),
       routeList: this.formBuilder.array([this.createRouteArray()]),
       dieselList: this.formBuilder.array([this.createDieselArray()]),
@@ -1180,6 +1181,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc.toString().toUpperCase();
     this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt.toString(); 
     this.tripsheetmodel.paidToDriver   = selectedDataValue.paidToDriver.toString(); 
+    this.tripsheetmodel.remarks   = selectedDataValue.remarks.toString().toUpperCase();
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 

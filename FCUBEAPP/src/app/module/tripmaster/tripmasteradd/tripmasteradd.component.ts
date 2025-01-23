@@ -151,6 +151,7 @@ export class TripmasteraddComponent {
       detentionDays: new FormControl('',),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
+      remarks: new FormControl('',),
 
       driverList: this.formBuilder.array([this.createDriverArray()]),
       routeList: this.formBuilder.array([this.createRouteArray()]),
@@ -977,6 +978,7 @@ export class TripmasteraddComponent {
     this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
     this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
     this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
+    this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase(),
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 

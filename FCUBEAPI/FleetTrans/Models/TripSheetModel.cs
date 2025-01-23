@@ -73,7 +73,8 @@ namespace FleetTrans.Models
         public string? Food_Sal_Amt { get; set; }
         public string? RtaChallanDesc { get; set; }
         public string? RtaChallanAmt { get; set; }
-        public string? PaidToDriver { get; set; }        
+        public string? PaidToDriver { get; set; }
+        public string? Remarks { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }

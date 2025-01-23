@@ -60,12 +60,13 @@ namespace FleetTrans.Models
         public string? TripBr { get; set; }
         public string? VehicleNo { get; set; }
         public string? DrName { get; set; }
-        public string? NextTrip { get; set; }        
+        public string? NextTrip { get; set; }
+        public string? Remarks { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }
         public List<DieselDetails> DieselList { get; set; }
-        public List<AdblueDetails> AdblueList { get; set; }
+       // public List<AdblueDetails> AdblueList { get; set; }
         public List<FasttagDetails> FasttagList { get; set; }
         public List<TripDrExpDetails> DrExpList { get; set; }
         public List<TripCmpExpDetails> CmpExpList { get; set; }
