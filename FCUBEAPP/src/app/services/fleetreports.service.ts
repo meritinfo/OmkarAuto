@@ -16,6 +16,8 @@ import { Vehiclefrtoutstandingrptlistmodel  } from 'src/app/models/vehiclefrtout
 import { Sparespurchaserptlistmodel  } from 'src/app/models/sparespurchaserptlistmodel';
 import { Sparesstockrptlistmodel  } from 'src/app/models/sparesstockrptlistmodel';
 import { Spareshistoryrptlistmodel  } from 'src/app/models/spareshistoryrptlistmodel';
+import { VehicleadvbalreceiptlistComponent } from '../module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
+import { VehicleadvbalreceiptlistModel } from '../models/vehicleadvbalreceiptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -119,5 +121,17 @@ export class FleetreportsService {
   }     
   getVehicleMonthlyLPRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleMonthlyLPRptExcel', filter, this.httpOptions);
-  }    
+  }  
+
+
+  getVehicleAdvBalRptList(filter: Reportmodel): Observable<VehicleadvbalreceiptlistModel> {
+    return this.httpClient.post<VehicleadvbalreceiptlistModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalRptList', filter, this.httpOptions);
+  }  
+  getVehicleAdvBalRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalRptExcel', filter, this.httpOptions);
+  }   
+  
+  
+
+
 }

@@ -3097,7 +3097,6 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-
         public async Task<ResponseModel> GetVehicleMonthlySummRptExcel(ReportRequestModel request)
         {
             ResponseModel response = new();
@@ -3136,7 +3135,6 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-
         public async Task<ResponseModel> GetVehicleMonthlyLPRptExcel(ReportRequestModel request)
         {
             ResponseModel response = new();
@@ -3184,7 +3182,107 @@ namespace FleetTrans.Repository
             }
             return response;
         }
-        
+        public async Task<VehicleAdvBalReceiptMstList> GetVehicleAdvBalRptList(ReportRequestModel request)
+        {
+            VehicleAdvBalReceiptMstList vehicleAdvBalList = new();
+            List<VehicleAdvBalReceiptMstModel> vehicleAdvBals = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalReportList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            vehicleAdvBals.Add(new VehicleAdvBalReceiptMstModel
+                            {
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                TripsUptoDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripsUptoDate"]),
+                                CheqCashAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqCashAmt"]),
+                                TripOnAcAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOnAcAdj"]),
+                                OnAcAdjAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OnAcAdjAmt"]),
+                                AmtRecd = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtRecd"]),
+                                AmtDed = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtDed"]),
+                                AmtTDS = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtTDS"]),
+                                AmtExtras = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtExtras"]),
+                                TotalAmtRecd = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmtRecd"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+
+                        vehicleAdvBalList.AdvanceList = vehicleAdvBals;
+
+                        vehicleAdvBalList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return vehicleAdvBalList;
+        }
+        public async Task<ResponseModel> GetVehicleAdvBalRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleAdvBalReportExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vehicle Adv/Bal Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
 
     }
 

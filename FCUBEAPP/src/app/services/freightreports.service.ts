@@ -22,6 +22,8 @@ import { Onaccountmrstatusrptlistmodel  } from 'src/app/models/onaccountmrstatus
 import { Unbilledrptlistmodel  } from 'src/app/models/unbilledrptlistmodel';
 import { Dprrptlistmodel } from 'src/app/models/dprrptlistmodel';
 import { Driverlicrptlistmodel  } from 'src/app/models/driverlicrptlistmodel';
+import { Detentionrptlistmodel  } from 'src/app/models/detentionrptlistmodel';
+import { Mrlistmodel  } from 'src/app/models/mrlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -186,5 +188,18 @@ export class FreightreportsService {
   
   getLHPaymentSummRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetLHPaymentSummRptExcel', filter, this.httpOptions);
+  }   
+
+  getDetentionRptList(filter: Reportmodel): Observable<Detentionrptlistmodel> {
+    return this.httpClient.post<Detentionrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDetentionRptList', filter, this.httpOptions);
+  }  
+  getDetentionRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDetentionRptExcel', filter, this.httpOptions);
+  }   
+  getDeductionRptList(filter: Reportmodel): Observable<Mrlistmodel> {
+    return this.httpClient.post<Mrlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDeductionRptList', filter, this.httpOptions);
+  }  
+  getDeductionRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDeductionRptExcel', filter, this.httpOptions);
   }   
 }

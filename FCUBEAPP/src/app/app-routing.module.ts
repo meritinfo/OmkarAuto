@@ -264,6 +264,10 @@ import { DoentryaddComponent } from './module/doentry/doentryadd/doentryadd.comp
 import { DovehiplacedlistComponent } from './module/dovehiplaced/dovehiplacedlist/dovehiplacedlist.component';
 import { DovehiplacedaddComponent } from './module/dovehiplaced/dovehiplacedadd/dovehiplacedadd.component';
 import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededit/dovehiplacededit.component';
+import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
+import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
+import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
+
 
 
 const routes: Routes = [
@@ -564,7 +568,7 @@ const routes: Routes = [
   { path: 'partygrouplist', component:  PartygroupmasterlistComponent },
   { path: 'dslstmtrpt', component: DieselstmtrptComponent },
   { path: 'searchcnorcnee', component: CnorcneemasterlistComponent },
-  { path: 'vehicleadvbalrpt', component: VehiclefrtoutstandingrptComponent },
+  { path: 'vehiclefrtoutrpt', component: VehiclefrtoutstandingrptComponent },
   { path: 'lhextrapmtreconrpt', component: LhextrapmtreconrptComponent },
   { path: 'partygrpmst', component:  PartygroupmasterlistComponent },
   { path: 'subledgermasteradd', component:  SubledgermasteraddComponent },
@@ -631,7 +635,11 @@ const routes: Routes = [
   { path: 'dovehplacedlist', component:  DovehiplacedlistComponent },
   { path: 'dovehplacedadd', component: DovehiplacedaddComponent  },
   { path: 'dovehplacededit', component: DovehiplacededitComponent },
- 
+  { path: 'vehicleadvbalrpt', component: VehicleadvbalrptComponent },
+  { path: 'detentionrpt', component: DetentionrptComponent },
+  { path: 'deductionrpt', component: DeductionrptComponent },
+  
+  
   
 ];
 

@@ -431,6 +431,9 @@ import { DovehiplacedlistComponent } from './module/dovehiplaced/dovehiplacedlis
 import { DovehiplacedaddComponent } from './module/dovehiplaced/dovehiplacedadd/dovehiplacedadd.component';
 import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededit/dovehiplacededit.component';
 import { Dovehiplacedmodel } from './models/dovehiplacedmodel';
+import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
+import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
+import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
 
 
 
@@ -570,7 +573,7 @@ import { Dovehiplacedmodel } from './models/dovehiplacedmodel';
      BenbanklistComponent, BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent,    
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent,    
   ],
   
   imports: [

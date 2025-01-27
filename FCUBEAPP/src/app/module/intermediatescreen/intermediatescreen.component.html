@@ -37,7 +37,9 @@
                                 <form (keydown.enter)="$event.preventDefault()"[formGroup]="formLogin"> 
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Select Year</label>
-                                        <select class="form-control" formControlName="yearID" [ngClass]="{ 'is-invalid': formSubmitted && (f['yearID'].invalid) }" >
+                                        <select class="form-control form-select ng-pristine ng-touched"
+                                         formControlName="yearID" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['yearID'].invalid) }" >
                                             <option *ngFor="let branch of yearList" value={{branch.dataId}}>
                                                {{branch.dataName}}
                                             </option>
@@ -51,7 +53,8 @@
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Select Branch</label>
                                         <select   class="form-control form-select ng-pristine ng-touched"
-                                         formControlName="userBranch"  [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
+                                         formControlName="userBranch"  
+                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                             <option *ngFor="let branch of branchList" [ngValue]="branch">
                                                {{branch.dataName}}
                                             </option>

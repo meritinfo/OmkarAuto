@@ -70,7 +70,7 @@ export class Billsmastermodel {
     loggedInUser: string = "";  
     billsMasterListData: BillsDetailModel[] = [];
    // billsEnqListData: Billsmastersearchmodel[] = [];
-   billsEnqListData: Billsmastersearchmodel[] = [];
+    billsEnqListData: Billsmastersearchmodel[] = [];
     billSubmitList: Billsubmitmastermodel[] = [];
     mrList: Mrmodel[] = [];
 }

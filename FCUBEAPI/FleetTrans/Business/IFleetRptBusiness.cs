@@ -54,7 +54,8 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetSparesUsageHistoryRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetVehicleMonthlySummRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetVehicleMonthlyLPRptExcel(ReportRequestModel request);
-        
+        Task<VehicleAdvBalReceiptMstList> GetVehicleAdvBalRptList(ReportRequestModel request);
+        Task<ResponseModel> GetVehicleAdvBalRptExcel(ReportRequestModel request);
 
 
     }

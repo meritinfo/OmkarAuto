@@ -4388,7 +4388,6 @@ namespace FreightMasters.Repository
             }
             return response;
         }
-
         public async Task<ResponseModel> GetLhSummReport(DataTable dt, string rptheader, string filter)
         {
             ResponseModel responseModel = new();
@@ -4429,9 +4428,9 @@ namespace FreightMasters.Repository
                     ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                     ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                    for (int i = 1; i < colcnt; i++)
+                    for (int i = 1; i < dt.Columns.Count; i++)
                     {
-                        ws.Cell(5, i+1).Value = dt.Columns[i].ColumnName;
+                        ws.Cell(5, i).Value = dt.Columns[i].ColumnName;
                     }
 
                     ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
@@ -4456,7 +4455,7 @@ namespace FreightMasters.Repository
 
                             row++;
                         }
-                        for (int i = 1; i < colcnt; i++)
+                        for (int i = 1; i < dt.Columns.Count; i++)
                         {
                             ws.Cell(row, i).Value = dt.Rows[j][i].ToString();
                         }
@@ -4464,6 +4463,310 @@ namespace FreightMasters.Repository
                         row++;
 
                     }
+
+                    for (int k = 1; k < dt.Columns.Count; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                    var foldername = System.IO.Path.Combine("reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
+        public async Task<DetentionRptListModel> GetDetentionRptList(ReportRequestModel request)
+        {
+            DetentionRptListModel dprRpt = new();
+            List<DetentionRptModel> dprList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@Origin",     request.FilterStr2),
+                            new SqlParameter("@Destination",request.FilterStr3),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDetentionRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dprList.Add(new DetentionRptModel
+                            {
+                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                Party = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
+                                OriginDetn = Convert.ToString(dataSet.Tables[0].Rows[i]["OriginDetn"]),
+                                DestDetn = Convert.ToString(dataSet.Tables[0].Rows[i]["DestDetn"]),
+                                Paid = Convert.ToString(dataSet.Tables[0].Rows[i]["Paid"]),
+ 
+                            });
+                        }
+
+                        dprRpt.DetentionList = dprList;
+
+                        dprRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprRpt;
+        }
+        public async Task<ResponseModel> GetDetentionRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@Origin",     request.FilterStr2),
+                            new SqlParameter("@Destination",request.FilterStr3),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDetentionRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await GetDetnReport(dataSet.Tables[0], "Detention Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetDetnReport(DataTable dt, string rptheader, string filter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    responseModel = await sharedRepository.GetCompanyDetail();
+                    int colcnt = dt.Columns.Count - 2;
+
+
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = rptheader;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = filter;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    for (int i = 2; i < dt.Columns.Count; i++)
+                    {
+                        ws.Cell(5, i-1).Value = dt.Columns[i].ColumnName;
+                    }
+
+                    ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                    int j = 0, row = 6;
+                    Decimal gLDetn = 0, gUnDetn = 0, gPaid = 0;
+                    Decimal brLDetn = 0, brUnDetn = 0, brPaid = 0;
+                    Decimal partyLDetn = 0, partyUnDetn = 0, partyPaid = 0;
+
+                    var party = "";  var brnm = "";
+
+                    for (j = 0; j < dt.Rows.Count; j++)
+                    {
+                        if (party != dt.Rows[j][1].ToString())
+                        {
+                            if (party!="")
+                            {
+                                ws.Range(row, 1, row, 6).Merge();
+                                ws.Range(row, 1, row, 6).Value = "Party Total";
+                                ws.Cell(row, 7).Value = partyLDetn.ToString();
+                                ws.Cell(row, 8).Value = partyUnDetn.ToString();
+                                ws.Cell(row, 9).Value = partyPaid.ToString();
+                                ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Blue;
+                                ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                                row++;
+                            }
+                        }
+                        if (brnm != dt.Rows[j][0].ToString())
+                        {
+                            if (brnm!="")
+                            {
+                                ws.Range(row, 1, row, 6).Merge();
+                                ws.Range(row, 1, row, 6).Value = "Branch Total";
+                                ws.Cell(row, 7).Value = brLDetn.ToString();
+                                ws.Cell(row, 8).Value = brUnDetn.ToString();
+                                ws.Cell(row, 9).Value = brPaid.ToString();
+                                ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                                ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                                row++;
+                                ws.Range(row, 1, row, colcnt).Merge();
+                                row++;
+                            }
+                            brLDetn = 0; brUnDetn = 0; brPaid = 0;
+                            brnm = dt.Rows[j][0].ToString();
+
+                            ws.Range(row, 1, row, colcnt).Merge();
+                            ws.Range(row, 1, row, colcnt).Value = brnm;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                            ws.Range(row, 1, row, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Underline =  XLFontUnderlineValues.Single;
+                            ws.Range(row, 1, row, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+
+                            row++;
+                        }
+                        if (party != dt.Rows[j][1].ToString())
+                        {
+                            partyLDetn = 0; partyUnDetn = 0; partyPaid = 0;
+                            party = dt.Rows[j][1].ToString();
+
+                            ws.Range(row, 1, row, colcnt).Merge();
+                            ws.Range(row, 1, row, colcnt).Value = party;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                            ws.Range(row, 1, row, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(row, 1, row, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            
+                            row++;
+                        }
+                        for (int i = 2; i < dt.Columns.Count; i++)
+                        {
+                            ws.Cell(row, i-1).Value = dt.Rows[j][i].ToString();
+                        }
+                        partyLDetn = partyLDetn + Convert.ToDecimal(dt.Rows[j][8]);
+                        partyUnDetn = partyUnDetn + Convert.ToDecimal(dt.Rows[j][9]);
+                        partyPaid = partyPaid + Convert.ToDecimal(dt.Rows[j][10]);
+
+                        brLDetn = brLDetn + Convert.ToDecimal(dt.Rows[j][8]);
+                        brUnDetn = brUnDetn + Convert.ToDecimal(dt.Rows[j][9]);
+                        brPaid = brPaid + Convert.ToDecimal(dt.Rows[j][10]);
+
+                        gLDetn = gLDetn + Convert.ToDecimal(dt.Rows[j][8]);
+                        gUnDetn = gUnDetn + Convert.ToDecimal(dt.Rows[j][9]);
+                        gPaid = gPaid + Convert.ToDecimal(dt.Rows[j][10]);
+
+                        row++;
+
+                    }
+
+                    ws.Range(row, 1, row, 6).Merge();
+                    ws.Range(row, 1, row, 6).Value = "Party Total";
+                    ws.Cell(row, 7).Value = partyLDetn.ToString();
+                    ws.Cell(row, 8).Value = partyUnDetn.ToString();
+                    ws.Cell(row, 9).Value = partyPaid.ToString();
+                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                    row++;
+
+                    ws.Range(row, 1, row, 6).Merge();
+                    ws.Range(row, 1, row, 6).Value = "Branch Total";
+                    ws.Cell(row, 7).Value = brLDetn.ToString();
+                    ws.Cell(row, 8).Value = brUnDetn.ToString();
+                    ws.Cell(row, 9).Value = brPaid.ToString();
+                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                    row++;
+
+                    ws.Range(row, 1, row, 6).Merge();
+                    ws.Range(row, 1, row, 6).Value = "Grand Total";
+                    ws.Cell(row, 7).Value = gLDetn.ToString();
+                    ws.Cell(row, 8).Value = gUnDetn.ToString();
+                    ws.Cell(row, 9).Value = gPaid.ToString();
+                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+                    ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                    row++;
+
 
                     for (int k = 1; k < colcnt + 1; k++)
                     {
@@ -4503,7 +4806,246 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
+        public async Task<MrListModel> GetDeductionRptList(ReportRequestModel request)
+        {
+            MrListModel dprRpt = new();
+            List<MrList> dprList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeductionRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dprList.Add(new MrList
+                            {
+                                PartyName = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]),
+                                MrNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MrNo"]),
+                                MrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["MrDate"]),
+                                BillLrOthType = Convert.ToString(dataSet.Tables[0].Rows[i]["BillNo"]),
+                                TotalDed = Convert.ToString(dataSet.Tables[0].Rows[i]["Deduction"]),
+                                MrRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+
+                        dprRpt.MrList = dprList;
+
+                        dprRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprRpt;
+        }
+        public async Task<ResponseModel> GetDeductionRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeductionRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "";
+
+                        response = await GetDednReport(dataSet.Tables[0], "DEDUCTION STATEMENT", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetDednReport(DataTable dt, string rptheader, string filter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    responseModel = await sharedRepository.GetCompanyDetail();
+                    int colcnt = dt.Columns.Count - 1;
 
 
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = rptheader;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = filter;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    for (int i = 1; i < dt.Columns.Count; i++)
+                    {
+                        ws.Cell(5, i).Value = dt.Columns[i].ColumnName;
+                    }
+
+                    ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                    int j = 0, row = 6;
+                    Decimal partyDed = 0,grandDed = 0;
+
+                    var party = "";
+
+                    for (j = 0; j < dt.Rows.Count; j++)
+                    {
+                        if (party != dt.Rows[j][0].ToString())
+                        {
+                            if (party!="")
+                            {
+                                ws.Range(row, 1, row, 3).Merge();
+                                ws.Range(row, 1, row, 3).Value = "Party Total";
+                                ws.Cell(row, 4).Value = partyDed.ToString();
+                                ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Blue;
+                                ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                                row++;
+                                ws.Range(row, 1, row, colcnt).Merge();
+                                row++;
+                            }
+                            party = dt.Rows[j][0].ToString();
+                            partyDed = 0;
+
+                            ws.Range(row, 1, row, colcnt).Merge();
+                            ws.Range(row, 1, row, colcnt).Value = party;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                            ws.Range(row, 1, row, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(row, 1, row, colcnt).Style.Font.Underline =  XLFontUnderlineValues.Single;
+                            ws.Range(row, 1, row, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+
+                            row++;
+                        }
+                       
+                        for (int i = 1; i < dt.Columns.Count; i++)
+                        {
+                            ws.Cell(row, i).Value = dt.Rows[j][i].ToString();
+                        }
+                        partyDed = partyDed + Convert.ToDecimal(dt.Rows[j][4]);
+                        grandDed = grandDed + Convert.ToDecimal(dt.Rows[j][4]);
+
+                        row++;
+
+                    }
+
+                    ws.Range(row, 1, row, 3).Merge();
+                    ws.Range(row, 1, row, 3).Value = "Party Total";
+                    ws.Cell(row, 4).Value = partyDed.ToString();
+                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                    row++;
+
+                    ws.Range(row, 1, row, 3).Merge();
+                    ws.Range(row, 1, row, 3).Value = "Grand Total";
+                    ws.Cell(row, 4).Value = grandDed.ToString();
+                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
+                    row++;
+
+                    for (int k = 1; k < colcnt + 1; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, row-1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                    var foldername = System.IO.Path.Combine("reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
     }
 }

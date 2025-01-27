@@ -212,5 +212,23 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetLHPaymentSummRptExcel(request);
         }
+
+        public async Task<DetentionRptListModel> GetDetentionRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDetentionRptList(request);
+        }
+        public async Task<ResponseModel> GetDetentionRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDetentionRptExcel(request);
+        }
+
+        public async Task<MrListModel> GetDeductionRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDeductionRptList(request);
+        }
+        public async Task<ResponseModel> GetDeductionRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetDeductionRptExcel(request);
+        }
     }
 }

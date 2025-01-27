@@ -112,6 +112,8 @@ export class IntermediatescreenComponent {
         sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
         sessionStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
+        var yr = this.yearList.find(e=> e.dataId== this.selectedScreenDetails.yearID)       
+        sessionStorage.setItem("yeardesc", yr?yr.dataName:"");
 
         this.sharedService.loading = false;
         this.sharedService.loggedInStatus = true;

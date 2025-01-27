@@ -75,5 +75,10 @@ namespace FreightMasters.Business
 
         Task<ResponseModel> GetLHPaymentSummRptExcel(ReportRequestModel request);
 
+        Task<DetentionRptListModel> GetDetentionRptList(ReportRequestModel request);
+        Task<ResponseModel> GetDetentionRptExcel(ReportRequestModel request);
+
+        Task<MrListModel> GetDeductionRptList(ReportRequestModel request);
+        Task<ResponseModel> GetDeductionRptExcel(ReportRequestModel request);
     }
 }

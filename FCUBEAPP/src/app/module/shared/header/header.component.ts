@@ -23,6 +23,7 @@ export class HeaderComponent {
   user: string = '';
   company: string = '';
   branchname: string = '';
+  yeardesc: string = '';
   shdled=false;
   shdlMsg:string ="";
   scheduleDetails = new Schedulemodel();
@@ -52,6 +53,11 @@ export class HeaderComponent {
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
     }
+    var yeardesc = sessionStorage.getItem('yeardesc')?.toString();
+    if (typeof yeardesc !== 'undefined' && yeardesc !== null && yeardesc !== '') {
+      this.yeardesc = yeardesc;
+    }
+    
     var userData4 = sessionStorage.getItem('user')?.toString();
     if (typeof userData4 !== 'undefined' && userData4 !== null && userData4 !== '') {
       this.user = userData4;

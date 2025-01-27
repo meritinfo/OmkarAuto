@@ -5,13 +5,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Daily Loading Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Adv/Bal Report</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-9 col-md-9">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
@@ -19,7 +19,7 @@
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -27,26 +27,16 @@
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Branch </label>
-                                    <select class="form-control" formControlName="branch">
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
-                                </div>
-                            </div>
+                            </div>                          
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Vehicle No</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="vehicleMasterID" [initialValue]=""
+                                            formControlName="vehicleMasterId" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
@@ -64,33 +54,7 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">Open Through</label>
-                                    <select id="formrow-inputState" class="form-control"
-                                        formControlName="openThrough"
-                                        [ngClass]=""    >
-                                        <option value="" selected="">All</option>
-                                        <option value="LR"> LR</option>
-                                        <option value="OT"> Other Trip </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">Load/Empty</label>
-                                    <select id="formrow-inputState" class="form-control"
-                                        formControlName="loadEmptyType"
-                                        [ngClass]="">
-                                        <option value="" selected="">Choose...</option>
-                                        <option value="L"> Load </option>
-                                        <option value="E"> Empty </option>
-                                    </select>
-                                </div>
-                            </div>  
+                            </div>    
                             <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
@@ -100,7 +64,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-3 col-md-3 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
@@ -113,31 +77,33 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
                             <tr>
-                                <th>tripBranchName</th>
-                                <th>newTripDate </th>   
-                                <th>vehicleNo</th>
-                                <th>tripNo </th>   
-                                <th>fromPlace</th>
-                                <th>toPlace</th>
-                                <th>openThrough </th>  
-                                <th>partyName </th>
-                                <th>lrNo</th>
+                                <th>branch</th>
+                                <th>vehicleNo </th>   
+                                <th>tripNo</th>
+                                <th>loadDate </th>   
+                                <th>challanNo</th>
+                                <th>partyName </th>  
+                                <th>fromPlace </th>
+                                <th>toPlace</th> 
+                                <th>totalHire </th> 
+                                <th>dueAmt </th>                                                                                            
                             </tr>
                         </thead>
-                        <tbody *ngIf="allDailyloadingrptlist.dailyLoadingRptsList?.length != 0">
-                            <tr *ngFor="let eta of allDailyloadingrptlist.dailyLoadingRptsList">
-                                <td>{{ eta.tripBranchName }}</td>
-                                <td>{{ eta.newTripDate }}</td> 
+                        <tbody *ngIf="allVehicleadvrptlist.advanceList?.length != 0">
+                            <tr *ngFor="let eta of allVehicleadvrptlist.advanceList">
+                                <td>{{ eta.branchName }}</td>
                                 <td>{{ eta.vehicleNo }}</td> 
-                                <td>{{ eta.tripNo }}</td> 
-                                <td>{{ eta.fromPlace }}</td>
-                                <td>{{ eta.toPlace }}</td> 
-                                <td>{{ eta.openThrough }}</td>
-                                <td>{{ eta.partyName }}</td>
-                                <td>{{ eta.lrNo }}</td>                       
+                                <td>{{ eta.transDate }}</td> 
+                                <td>{{ eta.cheqCashAmt }}</td> 
+                                <td>{{ eta.amtRecd }}</td> 
+                                <td>{{ eta.amtDed }}</td>
+                                <td>{{ eta.amtTDS }}</td>
+                                <td>{{ eta.amtExtras }}</td>  
+                                <td>{{ eta.totalAmtRecd }}</td> 
+                                <td>{{ eta.remarks }}</td>                                                                                                                
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allDailyloadingrptlist.dailyLoadingRptsList?.length == 0">
+                        <tbody *ngIf="allVehicleadvrptlist.advanceList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
@@ -150,5 +116,10 @@
     </div>
     <!-- End Page-content -->
 </div>
+
+
+
+
+
 
 
