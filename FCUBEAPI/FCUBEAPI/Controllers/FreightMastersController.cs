@@ -356,6 +356,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetMissingDocRptList")]
+        public async Task<IActionResult> GetMissingDocRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetMissingDocRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetMissingDocRptExcel")]
+        public async Task<IActionResult> GetMissingDocRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetMissingDocRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("BranchMasterDetailsSave")]
         public async Task<IActionResult> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)
@@ -597,6 +634,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetRangeList")]
+        public async Task<IActionResult> GetRangeList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.GetRangeList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         //[HttpPost("ChallanMasterSave")]
         //public async Task<IActionResult> ChallanMasterSave(ChallanMasterModel challanMasterModel)
         //{

@@ -7,6 +7,7 @@ import { Dropdownmodel } from '../models/dropdownmodel';
 import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Dashboardmodel } from '../models/dashboardmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -261,9 +262,17 @@ export class CommonService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> {
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDocRenewalDetails', null, this.httpOptions);
   }
+  
+  getNccDashBoardDetails(req: Requestmodel): Observable<Dashboardmodel> {
+    return this.httpClient.post<Dashboardmodel>(Constants.API_ENDPOINT + 'Admin/GetDashboardNCC', req, this.httpOptions);
+  }
   getVehiCapacity(filter: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehiCapacity', filter, this.httpOptions);
   } 
+  getRangeList(filter: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetRangeList', filter, this.httpOptions);
+  }  
+
 
   formatDate(date: string) {
     if(date == ''){

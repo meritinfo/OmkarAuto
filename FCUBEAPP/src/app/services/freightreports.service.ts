@@ -24,6 +24,7 @@ import { Dprrptlistmodel } from 'src/app/models/dprrptlistmodel';
 import { Driverlicrptlistmodel  } from 'src/app/models/driverlicrptlistmodel';
 import { Detentionrptlistmodel  } from 'src/app/models/detentionrptlistmodel';
 import { Mrlistmodel  } from 'src/app/models/mrlistmodel';
+import { Documentallotmentlistmodel  } from 'src/app/models/documentallotmentlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -201,5 +202,12 @@ export class FreightreportsService {
   }  
   getDeductionRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDeductionRptExcel', filter, this.httpOptions);
+  } 
+
+  getMissingDocRptList(filter: Reportmodel): Observable<Documentallotmentlistmodel> {
+    return this.httpClient.post<Documentallotmentlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetMissingDocRptList', filter, this.httpOptions);
+  }  
+  getMissingDocRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetMissingDocRptExcel', filter, this.httpOptions);
   }   
 }

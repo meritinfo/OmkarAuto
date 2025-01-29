@@ -211,6 +211,20 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDashboardDetail")]
+        public async Task<IActionResult> GetDashboardDetail(RequestModel request)
+        {
+            try
+            {
+                var result = await sharedBusiness.GetDashboardDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

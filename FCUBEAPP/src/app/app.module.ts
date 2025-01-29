@@ -434,6 +434,8 @@ import { Dovehiplacedmodel } from './models/dovehiplacedmodel';
 import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
 import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
+import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.component';
+import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
 
 
 
@@ -573,7 +575,7 @@ import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.compon
      BenbanklistComponent, BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent,    
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, MissingdocrptComponent, DashboardnccComponent,    
   ],
   
   imports: [

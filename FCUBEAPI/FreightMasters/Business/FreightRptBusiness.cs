@@ -230,5 +230,14 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetDeductionRptExcel(request);
         }
+
+        public async Task<DocumentAllotmentListModel> GetMissingDocRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetMissingDocRptList(request);
+        }
+        public async Task<ResponseModel> GetMissingDocRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetMissingDocRptExcel(request);
+        }
     }
 }

@@ -267,6 +267,8 @@ import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededi
 import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
 import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
+import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.component';
+import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
 
 
 
@@ -638,6 +640,8 @@ const routes: Routes = [
   { path: 'vehicleadvbalrpt', component: VehicleadvbalrptComponent },
   { path: 'detentionrpt', component: DetentionrptComponent },
   { path: 'deductionrpt', component: DeductionrptComponent },
+  { path: 'missingdocrpt', component: MissingdocrptComponent },
+  { path: 'dashboardncc', component: DashboardnccComponent },
   
   
   
