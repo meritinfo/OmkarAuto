@@ -1147,6 +1147,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetGstByList")]
+        public async Task<IActionResult> GetGstByList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetGstByList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("TempGcDelete")]
         public async Task<IActionResult> TempGcDelete(RequestModel request)

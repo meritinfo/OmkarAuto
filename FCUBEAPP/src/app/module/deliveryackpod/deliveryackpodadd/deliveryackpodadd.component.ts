@@ -163,6 +163,7 @@ export class DeliveryackpodaddComponent {
       latePodDed : new FormControl('', ),
       othDed :  new FormControl('0', ),
       netPayable : new FormControl('', ),
+      remarks: new FormControl('', ),
     });
 
     this.formUser.controls['ackBranch'].disable();
@@ -648,6 +649,7 @@ export class DeliveryackpodaddComponent {
     this.deliveryackpodmodel.latePodDed         = selectedDataValue.latePodDed.toString();
     this.deliveryackpodmodel.othDed             = selectedDataValue.othDed?selectedDataValue.othDed.toString():"";
     this.deliveryackpodmodel.netPayable         = selectedDataValue.netPayable.toString();
+    this.deliveryackpodmodel.remarks         = selectedDataValue.remarks.toString().toUpperCase();    
     this.deliveryackpodmodel.yearId             = this.year;
     this.deliveryackpodmodel.loggedInUser       = this.loggedInUserID;
 

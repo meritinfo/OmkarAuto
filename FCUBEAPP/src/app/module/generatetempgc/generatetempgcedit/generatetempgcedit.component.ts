@@ -38,6 +38,7 @@ export class GeneratetempgceditComponent {
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  gstByList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
   cnorCneeList: Dropdownmodel[] = [];
@@ -149,6 +150,7 @@ export class GeneratetempgceditComponent {
     
     this.sharedService.loading=true;
     this.getBranchList();
+    this.getGstByList();
     this.getLocationList();
     this.getStateList();
     this.getClassList();
@@ -490,6 +492,12 @@ export class GeneratetempgceditComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+  
+  getGstByList(): void {
+    this.commonService.getGstByList().subscribe((res) => {
+      this.gstByList = res;
     });
   }
   

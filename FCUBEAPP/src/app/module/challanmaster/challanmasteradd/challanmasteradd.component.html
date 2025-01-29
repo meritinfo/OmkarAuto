@@ -181,7 +181,7 @@
                                     <label for="formrow-inputZip">Vehicle No : </label>
                                     <span style="color: red">*</span>
                                     <input uppercaseonly class="form-control" formControlName="truckNo"
-                                        maxlength="15" 
+                                        maxlength="15" (change)="chkTruckNo($event)"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
                                 </div>
                             </div>                           

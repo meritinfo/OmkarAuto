@@ -57,7 +57,8 @@ namespace Consignment.Models
 		public string? LateRptDed { get; set; }
 		public string? LatePodDed { get; set; }
 		public string? OthDed { get; set; }
-		public string? NetPayable { get; set; }      
+		public string? NetPayable { get; set; }
+        public string? Remarks { get; set; }        
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
     }

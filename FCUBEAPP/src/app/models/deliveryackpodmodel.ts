@@ -49,6 +49,7 @@ export class Deliveryackpodmodel {
     latePodDed :       string = "";
     othDed :       string = "";
     netPayable :       string = "";
+    remarks:       string = "";
     yearId:       string = "";
     loggedInUser:       string = "";
 }

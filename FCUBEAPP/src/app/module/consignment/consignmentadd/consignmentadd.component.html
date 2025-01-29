@@ -137,7 +137,8 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
-                                    <input uppercaseonly class="form-control" formControlName="truckNo"
+                                    <input uppercaseonly class="form-control" 
+                                    formControlName="truckNo" (change)="chkTruckNo($event)"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
                                 </div>
                             </div>                           
@@ -670,12 +671,9 @@
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="gstBy"  
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
-                                            <option value="N">NA</option>      
-                                            <option value="T">Transporter</option> 
-                                            <option value="O">Consignor</option>   
-                                            <option value="I">Consignee</option> 
-                                            <option value="E">Exempted</option>
-                                            <option value="R">RCM</option>             
+                                        <option *ngFor="let dl of gstByList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>          
                                     </select>
                                 </div>
                             </div>
@@ -804,7 +802,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="gstType"  (change)="changeGstType($event)"
+                                         formControlName="gstType" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
                                             <option value="N">NA</option>      
                                             <option value="S">S/CGST</option> 
@@ -813,7 +811,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row"> (change)="changeGstType($event)"
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">SGST Pct</label>
@@ -856,7 +854,7 @@
                                         formControlName="igstAmt" >
                                 </div>
                             </div> 
-                        </div>
+                        </div> -->
                         <div class="row">                          
                             <div class="col-lg-2">
                                 <div class="mb-3">

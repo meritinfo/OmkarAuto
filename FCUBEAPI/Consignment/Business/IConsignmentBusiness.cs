@@ -30,6 +30,7 @@ namespace Consignment.Business
         Task<CnEnqDocModel> GetCnEnqDoc(RequestModel req);
         Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request);
         Task<ResponseModel> GetBillSubmitSeries(RequestModel request);
+        Task<List<DropDownListModel>> GetGstByList();
     }
 
 }

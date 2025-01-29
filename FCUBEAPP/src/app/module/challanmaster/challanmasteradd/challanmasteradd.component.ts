@@ -762,7 +762,6 @@ export class ChallanmasteraddComponent {
     this.formUser.controls['totalHire'].updateValueAndValidity();
     this.formUser.controls['balancePayAt'].updateValueAndValidity();
   }
-
   chkTruck(e: any) {
     if(e.target.checked){
       var selectedData = this.formUser.getRawValue();
@@ -780,13 +779,38 @@ export class ChallanmasteraddComponent {
          else{
             this.toastrService.warning(this.responseDetails.message);
             this.formUser.patchValue({
-              truckNo:"",
-            });
+              ownTruckYN:"",
+            });   
           }
         });
       }   
     }
-  }      
+  }
+
+  chkTruckNo(e: any) {
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.truckNo==""){
+      this.toastrService.warning("Vehicle No should not be Blank");
+      return;
+    }
+    if(selectedData.ownTruckYN)
+    {
+      this.requestmodel.strRequest = selectedData.truckNo;
+      this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            truckNo:"",
+          });   
+        }
+      });
+    }   
+  }
+   
   
   calculateTotalAmount(){
     var subTotal = 0;
