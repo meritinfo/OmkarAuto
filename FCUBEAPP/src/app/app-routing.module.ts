@@ -267,6 +267,10 @@ import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededi
 import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
 import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
+import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
+import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
+
+
 
 
 
@@ -638,6 +642,9 @@ const routes: Routes = [
   { path: 'vehicleadvbalrpt', component: VehicleadvbalrptComponent },
   { path: 'detentionrpt', component: DetentionrptComponent },
   { path: 'deductionrpt', component: DeductionrptComponent },
+  { path: 'definegstpct', component: GstpctvalueslistComponent },
+  { path: 'gstpctvaluesadd', component: GstpctvaluesaddComponent },
+  { path: 'gstpctvaluesedit', component: GstpctvaluesaddComponent },
   
   
   
