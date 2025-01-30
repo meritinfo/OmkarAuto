@@ -8,6 +8,7 @@ import { LoggedinUsermodel } from '../models/loggedinusermodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Docrenewalmodel } from '../models/docrenewalmodel';
 import { Datemodel } from '../models/datemodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,9 @@ export class SharedService {
   }
   getCompanyDetail(): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail',null, this.httpOptions);
+  }
+  getDashboardDetail(req:Requestmodel): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetDashboardDetail',req, this.httpOptions);
   }
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> { 
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Login/GetDocRenewalDetails/' ,null, this.httpOptions);

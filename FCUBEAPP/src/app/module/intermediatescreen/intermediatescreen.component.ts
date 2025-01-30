@@ -36,6 +36,7 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
   companyname: string = '';
+  dashboard: string = '';
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
     private commonService: CommonService, private sharedService: SharedService, private route: Router, 
@@ -79,7 +80,8 @@ export class IntermediatescreenComponent {
 
     this.sharedService.loggedInStatus = false;
     //this.getCompanyDetails();
-    this.getDropdownList();          
+    this.getDropdownList();         
+    this.getDashboard(); 
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);    
     this.sharedService.loading = false;
@@ -89,7 +91,7 @@ export class IntermediatescreenComponent {
   get f() { return this.formLogin.controls; }
 
   submitIntermediateForm(): void {
-    this.sharedService.loading = true;
+    //this.sharedService.loading = true;
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
       this.toasterService.warning("Mandatory fields is required");
@@ -117,9 +119,8 @@ export class IntermediatescreenComponent {
 
         this.sharedService.loading = false;
         this.sharedService.loggedInStatus = true;
-        this.sharedService.loading = false;
-        this.route.navigate(['/dashboard']);
-
+        this.sharedService.loading = false;       
+          this.route.navigate([this.dashboard]);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);
@@ -134,6 +135,7 @@ export class IntermediatescreenComponent {
       this.responseDetails = res;
       if (this.responseDetails.status){        
         this.companyname = this.responseDetails.message;
+        this.responseDetails.message = "";
       }
       else{
         this.companyname = "FCUBE"
@@ -142,9 +144,23 @@ export class IntermediatescreenComponent {
     });
      
   }
+
+  getDashboard(){
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.sharedService.getDashboardDetail(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status){        
+        this.dashboard = this.responseDetails.message;
+        this.responseDetails.message ="";
+      }
+      else{
+        this.dashboard = "/dashboard"
+      }     
+    });
+  }
   
   getDropdownList() {
-    this.sharedService.loading = true;
+    //this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
       this.formLogin.patchValue({

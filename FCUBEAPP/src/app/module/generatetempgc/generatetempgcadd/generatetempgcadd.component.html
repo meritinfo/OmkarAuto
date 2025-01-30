@@ -613,16 +613,14 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputState">Gst By: </label>
-                                            <span style="color: red">*</span>  
-                                            <select id="formrow-inputState" 
-                                            class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="gstBy"
+                                        <div class="mb-3">                                             
+                                            <label for="formrow-inputCity">GST By</label><span style="color: red"> * </span>                                            
+                                            <select id="formrow-inputState" class="form-control"
+                                                formControlName="gstBy"  
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
-                                                <option value="T">Transporter</option>
-                                                <option value="E">Exempted</option>
-                                                <option value="R">RCM</option>                                             
+                                                <option *ngFor="let dl of gstByList" value={{dl.dataId}}>
+                                                    {{dl.dataName}}
+                                                </option>          
                                             </select>
                                         </div>
                                     </div>

@@ -5047,5 +5047,99 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
+        public async Task<DocumentAllotmentListModel> GetMissingDocRptList(ReportRequestModel request)
+        {
+            DocumentAllotmentListModel dprRpt = new();
+            List<DocumentAllotmentModel> dprList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@DocType",    request.FilterStr1),
+                            new SqlParameter("@RangeFrom",  request.FromDate),
+                            new SqlParameter("@RangeTo",    request.ToDate),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMissingDocRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dprList.Add(new DocumentAllotmentModel
+                            {
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+                                DocNumCode = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
+                            });
+                        }
+
+                        dprRpt.DocumentAllotmentLists = dprList;
+
+                        dprRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprRpt;
+        }
+        public async Task<ResponseModel> GetMissingDocRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@DocType",    request.FilterStr1),
+                            new SqlParameter("@RangeFrom",  request.FromDate),
+                            new SqlParameter("@RangeTo",    request.ToDate),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMissingDocRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Document Type : " + request.FilterStr2;
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Missing Document Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
 }

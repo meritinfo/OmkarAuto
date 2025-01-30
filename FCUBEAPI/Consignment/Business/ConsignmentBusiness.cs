@@ -105,5 +105,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetBillSubmitSeries(request);
         }
+        public async Task<List<DropDownListModel>> GetGstByList()
+        {
+            return await consignmentRepository.GetGstByList();
+        }
     }
 }

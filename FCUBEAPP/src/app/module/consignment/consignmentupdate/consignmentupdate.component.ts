@@ -39,6 +39,7 @@ export class ConsignmentupdateComponent {
   branchList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  delvDetnDays: string="";
 
   responseDetails = new Responsemodel();
   selectedLrDetails = new Consignmentmodel();
@@ -285,6 +286,7 @@ export class ConsignmentupdateComponent {
           return;
         }
         else{
+          this.delvDetnDays = this.lrmodel.insPolicyNo;
           this.formUser.patchValue({
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
             billingStatus:this.lrmodel.billingStatus,

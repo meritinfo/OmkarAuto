@@ -625,5 +625,32 @@ namespace Shared.Repository
             }
             return emailList;
         }
+
+        public async Task<ResponseModel> GetDashboardDetail(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserId", request.strRequest),
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCompanyDashboard", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
     }
 }

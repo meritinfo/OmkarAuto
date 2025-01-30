@@ -37,6 +37,7 @@ export class ConsignmentaddComponent implements OnInit {
   deleteStatus = false;
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
+  gstByList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -123,6 +124,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.sharedService.loading = true;
     
     this.getBranchList();
+    this.getGstByList();
     this.getRateList();
     this.getContentList();
     this.getLocationList();
@@ -168,7 +170,7 @@ export class ConsignmentaddComponent implements OnInit {
       cnorMobile : new FormControl('',),    
       cnorEmail : new FormControl('',),  
       cneeId : new FormControl('',),      
-      cneeName : new FormControl('', ),
+      cneeName : new FormControl('', [Validators.required]),
       cneeAdd1 : new FormControl('',),    
       cneeAdd2 : new FormControl('',),    
       cneeAdd3 : new FormControl('',),    
@@ -193,10 +195,10 @@ export class ConsignmentaddComponent implements OnInit {
       hsnSac : new FormControl('',),    
       noPackages : new FormControl('',),    
       looseFlag : new FormControl('',),    
-      weightType : new FormControl('MT',),    
-      actualWt : new FormControl('',),    
-      senderWt : new FormControl('',),    
-      chargewt : new FormControl('',),    
+      weightType : new FormControl('MT',[Validators.required]), 
+      actualWt : new FormControl('',[Validators.required]),    
+      senderWt : new FormControl('',[Validators.required]),    
+      chargewt : new FormControl('',[Validators.required]),    
       wtDesc :new FormControl('',),    
       vehicleTypeId :new FormControl('', [Validators.required]),
       privateMark : new FormControl('',),    
@@ -207,7 +209,7 @@ export class ConsignmentaddComponent implements OnInit {
       loadCFT : new FormControl('',),    
       rateType : new FormControl('1',),    
       rateDesc : new FormControl('',),    
-      gstBy : new FormControl('',),    
+      gstBy : new FormControl('N',[Validators.required]),
       rateRs : new FormControl('',),    
       freightRs : new FormControl('',),    
       statisticalRs : new FormControl('',),    
@@ -224,12 +226,12 @@ export class ConsignmentaddComponent implements OnInit {
       othersRs : new FormControl('',),    
       subTotalRs : new FormControl('',),    
       gstType : new FormControl('N',),    
-      sgstPct : new FormControl('',),    
-      sgstAmt : new FormControl('',),    
-      cgstPct : new FormControl('',),    
-      cgstAmt : new FormControl('',),     
-      igstPct : new FormControl('',),   
-      igstAmt : new FormControl('',),  
+      // sgstPct : new FormControl('',),    
+      // sgstAmt : new FormControl('',),    
+      // cgstPct : new FormControl('',),    
+      // cgstAmt : new FormControl('',),     
+      // igstPct : new FormControl('',),   
+      // igstAmt : new FormControl('',),  
       nonGstAmt1 : new FormControl('',),  
       nonGstAmt1Desc : new FormControl('',),  
       nonGstAmt2 : new FormControl('',),  
@@ -242,12 +244,12 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls['ewayBillExpDate'].disable();    
-    this.formUser.controls['sgstPct'].disable();
-    this.formUser.controls['cgstPct'].disable();  
-    this.formUser.controls['igstPct'].disable();  
-    this.formUser.controls['sgstAmt'].disable();
-    this.formUser.controls['cgstAmt'].disable();  
-    this.formUser.controls['igstAmt'].disable();   
+    // this.formUser.controls['sgstPct'].disable();
+    // this.formUser.controls['cgstPct'].disable();  
+    // this.formUser.controls['igstPct'].disable();  
+    // this.formUser.controls['sgstAmt'].disable();
+    // this.formUser.controls['cgstAmt'].disable();  
+    // this.formUser.controls['igstAmt'].disable();   
 
     setTimeout(() => {
       if (this.selectedLrDetails.consignmentID != '') {
@@ -366,6 +368,12 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+  getGstByList(): void {
+    this.commonService.getGstByList().subscribe((res) => {
+      this.gstByList = res;
+    });
+  }
+  
 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
@@ -485,12 +493,36 @@ export class ConsignmentaddComponent implements OnInit {
          else{
             this.toastrService.warning(this.responseDetails.message);
             this.formUser.patchValue({
-              truckNo:"",
+              ownTruck:"",
             });   
           }
         });
       }   
     }
+  }
+
+  chkTruckNo(e: any) {
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.truckNo==""){
+      this.toastrService.warning("Vehicle No should not be Blank");
+      return;
+    }
+    if(selectedData.ownTruck)
+    {
+      this.requestmodel.strRequest = selectedData.truckNo;
+      this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            truckNo:"",
+          });   
+        }
+      });
+    }   
   }
       
   changeGstType(e: any) {
@@ -606,53 +638,54 @@ export class ConsignmentaddComponent implements OnInit {
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs
    
-    var igst = 0;
-    var sgst = 0;
-    var cgst = 0;
-    if(selectedData.igstPct!=0){
-      igst = parseFloat(selectedData.igstPct)
-    }
-    if(selectedData.sgstPct!=0){
-      sgst = parseFloat(selectedData.sgstPct)
-    }
-    if(selectedData.cgstPct!=0){
-      cgst = parseFloat(selectedData.cgstPct)
-    }
+    // var igst = 0;
+    // var sgst = 0;
+    // var cgst = 0;
+    // if(selectedData.igstPct!=0){
+    //   igst = parseFloat(selectedData.igstPct)
+    // }
+    // if(selectedData.sgstPct!=0){
+    //   sgst = parseFloat(selectedData.sgstPct)
+    // }
+    // if(selectedData.cgstPct!=0){
+    //   cgst = parseFloat(selectedData.cgstPct)
+    // }
 
-    if (selectedData.gstType == "I") {   
-      selectedData.igstPct 
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct: igst,
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
-      });   
-    }    
-    else if (selectedData.gstType == "S")  {    
-      this.formUser.patchValue({
-        sgstPct: sgst,
-        cgstPct: cgst,
-        igstPct: "",
-        sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
-        cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
-        igstAmt: "",
-      });     
-    }
-    else{
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct:"",
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt:"",
-      });   
-    }    
-    gtotalRs = subTotalRs + 
-    Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
-    + nonGstAmt1 + nonGstAmt2
+    // if (selectedData.gstType == "I") {   
+    //   selectedData.igstPct 
+    //   this.formUser.patchValue({
+    //     sgstPct:"",
+    //     cgstPct:"",
+    //     igstPct: igst,
+    //     sgstAmt:"",
+    //     cgstAmt:"",
+    //     igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
+    //   });   
+    // }    
+    // else if (selectedData.gstType == "S")  {    
+    //   this.formUser.patchValue({
+    //     sgstPct: sgst,
+    //     cgstPct: cgst,
+    //     igstPct: "",
+    //     sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
+    //     cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
+    //     igstAmt: "",
+    //   });     
+    // }
+    // else{
+    //   this.formUser.patchValue({
+    //     sgstPct:"",
+    //     cgstPct:"",
+    //     igstPct:"",
+    //     sgstAmt:"",
+    //     cgstAmt:"",
+    //     igstAmt:"",
+    //   });   
+    // }    
+    // gtotalRs = subTotalRs + 
+    // Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
+    // + nonGstAmt1 + nonGstAmt2
+    gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2
 
     this.formUser.patchValue({
       subTotalRs: subTotalRs.toFixed(2),
@@ -1039,13 +1072,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS.toString() : "0";
     this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs.toString() : "0";
     this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs.toString() : "0"; 
-    this.lrmodel.gstType = selectedDataValue.gstType ;
-    this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct.toString() : "0"; 
-    this.lrmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt.toString() : "0"; 
-    this.lrmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct.toString() : "0";   
-    this.lrmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt.toString() : "0"; 
-    this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct.toString() : "0";   
-    this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt.toString() : "0"; 
+    this.lrmodel.gstType = selectedDataValue.gstType ; 
     this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1.toString() : "0"; 
     this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc?selectedDataValue.nonGstAmt1Desc.toString().toUpperCase():"";
     this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2.toString() : "0"; 

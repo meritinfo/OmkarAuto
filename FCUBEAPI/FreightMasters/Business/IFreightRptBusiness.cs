@@ -80,5 +80,8 @@ namespace FreightMasters.Business
 
         Task<MrListModel> GetDeductionRptList(ReportRequestModel request);
         Task<ResponseModel> GetDeductionRptExcel(ReportRequestModel request);
+
+        Task<DocumentAllotmentListModel> GetMissingDocRptList(ReportRequestModel request);
+        Task<ResponseModel> GetMissingDocRptExcel(ReportRequestModel request);
     }
 }

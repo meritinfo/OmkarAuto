@@ -215,8 +215,22 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
        
+        [HttpPost("GetDashboardNCC")]
+        public async Task<IActionResult> GetDashboardNCC(RequestModel request)
+        {
+            try
+            {
+                var result = await userBusiness.GetDashboardNCC(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Controller method for Menutype master details save
         /// </summary>
@@ -328,5 +342,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
     }
 }

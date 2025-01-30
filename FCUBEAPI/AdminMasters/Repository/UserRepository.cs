@@ -551,5 +551,47 @@ namespace AdminMasters.Repository
             }
             return roleTypeList;
         }
+
+        public async Task<DashBoardModel> GetDashboardNCC(RequestModel request)
+        {
+            DashBoardModel dashBoard = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@LoginDate", Convert.ToDateTime(request.strRequest))
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDashboardNCC", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        dashBoard.TotalBusi = Convert.ToString(statusData.Tables[0].Rows[0]["TotalBusi"]);
+                        dashBoard.PreMonth= Convert.ToString(statusData.Tables[0].Rows[0]["PreMonth"]);
+                        dashBoard.PrvMonth = Convert.ToString(statusData.Tables[0].Rows[0]["PrvMonth"]);
+                        dashBoard.OldMonth = Convert.ToString(statusData.Tables[0].Rows[0]["OldMonth"]);
+                        dashBoard.PreMonName= Convert.ToString(statusData.Tables[0].Rows[0]["PreMonName"]);
+                        dashBoard.PrvMonName = Convert.ToString(statusData.Tables[0].Rows[0]["PrvMonName"]);
+                        dashBoard.OldMonName = Convert.ToString(statusData.Tables[0].Rows[0]["OldMonName"]);
+                        dashBoard.TotBilledCnt = Convert.ToString(statusData.Tables[0].Rows[0]["TotBilledCnt"]);                        
+                        dashBoard.TotBilledAmt= Convert.ToString(statusData.Tables[0].Rows[0]["TotBilledAmt"]);
+                        dashBoard.TotUnBilledCnt = Convert.ToString(statusData.Tables[0].Rows[0]["TotUnBilledCnt"]);
+                        dashBoard.TotUnBilledAmt = Convert.ToString(statusData.Tables[0].Rows[0]["TotUnBilledAmt"]);
+                        dashBoard.BilledCnt = Convert.ToString(statusData.Tables[0].Rows[0]["BilledCnt"]);
+                        dashBoard.BilledAmt = Convert.ToString(statusData.Tables[0].Rows[0]["BilledAmt"]);
+                        dashBoard.UnBilledCnt = Convert.ToString(statusData.Tables[0].Rows[0]["UnBilledCnt"]);
+                        dashBoard.UnBilledAmt= Convert.ToString(statusData.Tables[0].Rows[0]["UnBilledAmt"]);
+                        dashBoard.PendingAckCnt = Convert.ToString(statusData.Tables[0].Rows[0]["PendingAckCnt"]);
+                        dashBoard.PendingAckAmt = Convert.ToString(statusData.Tables[0].Rows[0]["PendingAckAmt"]);
+                        dashBoard.VehiCnt = Convert.ToString(statusData.Tables[0].Rows[0]["VehiCnt"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return dashBoard;
+        }
     }
 }

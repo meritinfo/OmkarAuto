@@ -18,5 +18,6 @@ namespace AdminMasters.Repository
         Task<ResponseModel> DeleteUserDetails(string request);
         Task<ResponseModel> UsernameValidation(RequestModel request);
         Task<List<DropDownListModel>> GetRoleTypeList();
+        Task<DashBoardModel> GetDashboardNCC(RequestModel request);
     }
 }

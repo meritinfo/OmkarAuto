@@ -361,6 +361,11 @@ namespace FinTrans.Repository
 
                     }
                 }
+                else
+                {
+                    responseModel.Status = false;
+                    responseModel.Message = "No Data Found";
+                }
                 
             }
             catch (Exception ex)

@@ -74,6 +74,7 @@ namespace Consignment.Repository
                             new SqlParameter("@LatePodDed", deleveryAckPodModel.LatePodDed),
                             new SqlParameter("@OthDed", deleveryAckPodModel.OthDed),
                             new SqlParameter("@NetPayable", deleveryAckPodModel.NetPayable),
+                            new SqlParameter("@Remarks", deleveryAckPodModel.Remarks),
                             new SqlParameter("@YearId", deleveryAckPodModel.YearId),
                             new SqlParameter("@LoggedInUser", deleveryAckPodModel.LoggedInUser)
                         };
@@ -174,6 +175,7 @@ namespace Consignment.Repository
                                 LateRptDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LateRptDed"]),
                                 LatePodDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LatePodDed"]),
                                 NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
