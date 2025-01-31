@@ -54,7 +54,7 @@ export class AddbrsentryComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Fleet Card Master"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Opening Bank Reco Entry"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -124,7 +124,7 @@ export class AddbrsentryComponent {
           if(this.responseDetails.status){
             this.toastrService.success(this.responseDetails.message); 
             this.formUser.reset();
-            this.route.navigate(['/opbrsentrylist']);
+            this.route.navigate(['/opbankrecoentry']);
           }
           else{
             this.toastrService.warning(this.responseDetails.message);        
@@ -135,7 +135,7 @@ export class AddbrsentryComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/opbrsentrylist']);
+    this.route.navigate(['/opbankrecoentry']);
   }
 
   getBankAcList(): void {
@@ -183,7 +183,7 @@ export class AddbrsentryComponent {
       if(this.responseDetails.status){
         this.toastrService.success("Saved Successfully"); 
         this.formUser.reset();
-        this.route.navigate(['/opbrsentrylist']);
+        this.route.navigate(['/opbankrecoentry']);
       }
       else{
         this.toastrService.warning(this.responseDetails.message);        

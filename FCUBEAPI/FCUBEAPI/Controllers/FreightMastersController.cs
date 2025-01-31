@@ -2633,7 +2633,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetAgeingSummRptExcel")]
-        public async Task<IActionResult> GetAgeingSummRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetAgeingSummRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {
@@ -2652,7 +2652,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetAgeingSummBranchRptExcel")]
-        public async Task<IActionResult> GetAgeingSummBranchRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetAgeingSummBranchRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {
@@ -2671,7 +2671,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetAgeingSummPartyRptExcel")]
-        public async Task<IActionResult> GetAgeingSummPartyRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetAgeingSummPartyRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {
@@ -2690,7 +2690,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetAgeingDetailRptExcel")]
-        public async Task<IActionResult> GetAgeingDetailRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetAgeingDetailRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {
@@ -2709,7 +2709,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetOutstandingSummRptExcel")]
-        public async Task<IActionResult> GetOutstandingSummRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetOutstandingSummRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {
@@ -2728,7 +2728,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetOutstandingDetailRptExcel")]
-        public async Task<IActionResult> GetOutstandingDetailRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetOutstandingDetailRptExcel(ReportAgeModel request)
         {
             if (request == null)
             {

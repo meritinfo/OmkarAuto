@@ -140,6 +140,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Delivery Status</label>
+                                            <span style="color: red"> * </span>
                                             <select autoclose="false"
                                             class="form-control form-select ng-pristine ng-touched"  
                                             formControlName="deliveryStatus" (change)="onDelvStatus($event)"
@@ -387,7 +388,7 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">POD Attach1 </label>                          
                                             <input #podAttach1Input class="form-control" type="file" 
-                                            id="formAttach1File"  >
+                                            id="formAttach1File" formControlName="podfile1"  >
                                             <a *ngIf="selectedDeliveryackpod.podAttach1" target="_blank"
                                                         href={{podAttach1}}>Download</a>
                                         </div>

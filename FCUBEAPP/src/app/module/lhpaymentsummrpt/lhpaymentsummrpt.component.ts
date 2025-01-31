@@ -126,7 +126,7 @@ export class LhpaymentsummrptComponent {
     this.lhpayablestatusrptService.getLHPaymentSummRptExcel(this.filter).subscribe(resp => {    
       if(resp.status){      
         let link = document.createElement("a");
-        link.download = "LHPaymentSumm" + "_" + new Date().getTime() + '.xlsx';
+        link.download = "LHPaymentSummary" + "_" + new Date().getTime() + '.xlsx';
         link.href = "assets\\reports\\Download\\" + resp.message;
         link.click();
       }

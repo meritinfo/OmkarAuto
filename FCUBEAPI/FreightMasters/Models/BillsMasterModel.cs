@@ -21,6 +21,7 @@ namespace FreightMasters.Models
         public string? PartyGstLocation { get; set; }
         public string? CollBranch { get; set; }
         public string? GstType { get; set; }
+        public string? GstBy { get; set; }        
         public string? TotalFreight { get; set; }
         public string? TotalStatistical { get; set; }
         public string? TotalFov { get; set; }

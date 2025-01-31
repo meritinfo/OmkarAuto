@@ -21,7 +21,7 @@ namespace FreightMasters.Repository
             sharedRepository = _sharedRepository;
         }
        
-        public async Task<ResponseModel> GetAgeingSummRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -37,6 +37,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "AS"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 
@@ -79,10 +84,18 @@ namespace FreightMasters.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            for (int i = 1; i <= colcnt; i++)
-                            {
-                                ws.Cell(5, i).Value = dataSet.Tables[0].Columns[i].ColumnName;
-                            }
+                            
+                            ws.Cell(5, 1).Value = dataSet.Tables[0].Columns[1].ColumnName;
+                            ws.Cell(5, 2).Value = "<=" + request.Age1.ToString();
+                            ws.Cell(5, 3).Value = ">=" + request.Age1.ToString() + " & <" +request.Age2.ToString();
+                            ws.Cell(5, 4).Value = ">=" + request.Age2.ToString() + " & <" +request.Age3.ToString();
+                            ws.Cell(5, 5).Value = ">=" + request.Age3.ToString() + " & <" +request.Age4.ToString();
+                            ws.Cell(5, 6).Value = ">=" + request.Age4.ToString() + " & <" +request.Age5.ToString();
+                            ws.Cell(5, 7).Value = ">=" + request.Age5.ToString();
+                            ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[8].ColumnName;
+                            ws.Cell(5, 9).Value = dataSet.Tables[0].Columns[9].ColumnName;
+                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[10].ColumnName;
+
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -187,7 +200,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -203,6 +216,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "ASB"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 
@@ -245,10 +263,17 @@ namespace FreightMasters.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            for (int i = 0; i < colcnt; i++)
-                            {
-                                ws.Cell(5, i + 1).Value = dataSet.Tables[0].Columns[i].ColumnName;
-                            }
+                           
+                            ws.Cell(5, 1).Value = dataSet.Tables[0].Columns[0].ColumnName;
+                            ws.Cell(5, 2).Value = "<=" + request.Age1.ToString();
+                            ws.Cell(5, 3).Value = ">=" + request.Age1.ToString() + " & <" +request.Age2.ToString();
+                            ws.Cell(5, 4).Value = ">=" + request.Age2.ToString() + " & <" +request.Age3.ToString();
+                            ws.Cell(5, 5).Value = ">=" + request.Age3.ToString() + " & <" +request.Age4.ToString();
+                            ws.Cell(5, 6).Value = ">=" + request.Age4.ToString() + " & <" +request.Age5.ToString();
+                            ws.Cell(5, 7).Value = ">=" + request.Age5.ToString();
+                            ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[7].ColumnName;
+                            ws.Cell(5, 9).Value = dataSet.Tables[0].Columns[8].ColumnName;
+                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[9].ColumnName;
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -333,7 +358,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -349,6 +374,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "ASP"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 
@@ -391,10 +421,17 @@ namespace FreightMasters.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            for (int i = 0; i < colcnt; i++)
-                            {
-                                ws.Cell(5, i + 1).Value = dataSet.Tables[0].Columns[i].ColumnName;
-                            }
+
+                            ws.Cell(5, 1).Value = dataSet.Tables[0].Columns[0].ColumnName;
+                            ws.Cell(5, 2).Value = "<=" + request.Age1.ToString();
+                            ws.Cell(5, 3).Value = ">=" + request.Age1.ToString() + " & <" +request.Age2.ToString();
+                            ws.Cell(5, 4).Value = ">=" + request.Age2.ToString() + " & <" +request.Age3.ToString();
+                            ws.Cell(5, 5).Value = ">=" + request.Age3.ToString() + " & <" +request.Age4.ToString();
+                            ws.Cell(5, 6).Value = ">=" + request.Age4.ToString() + " & <" +request.Age5.ToString();
+                            ws.Cell(5, 7).Value = ">=" + request.Age5.ToString();
+                            ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[7].ColumnName;
+                            ws.Cell(5, 9).Value = dataSet.Tables[0].Columns[8].ColumnName;
+                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[9].ColumnName;
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -479,7 +516,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetAgeingDetailRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingDetailRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -495,6 +532,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "AD"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 
@@ -541,12 +583,12 @@ namespace FreightMasters.Repository
                             ws.Cell(5, 2).Value  = "Ref No";
                             ws.Cell(5, 3).Value  = "Ref Date";
                             ws.Cell(5, 4).Value  = "Sub Date";
-                            ws.Cell(5, 5).Value  = dataSet.Tables[0].Columns[6].ColumnName;
-                            ws.Cell(5, 6).Value  = dataSet.Tables[0].Columns[7].ColumnName;
-                            ws.Cell(5, 7).Value  = dataSet.Tables[0].Columns[8].ColumnName;
-                            ws.Cell(5, 8).Value  = dataSet.Tables[0].Columns[9].ColumnName;
-                            ws.Cell(5, 9).Value  = dataSet.Tables[0].Columns[10].ColumnName;
-                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[11].ColumnName;
+                            ws.Cell(5, 5).Value = "<=" + request.Age1.ToString();
+                            ws.Cell(5, 6).Value = ">=" + request.Age1.ToString() + " & <" +request.Age2.ToString();
+                            ws.Cell(5, 7).Value = ">=" + request.Age2.ToString() + " & <" +request.Age3.ToString();
+                            ws.Cell(5, 8).Value = ">=" + request.Age3.ToString() + " & <" +request.Age4.ToString();
+                            ws.Cell(5, 9).Value = ">=" + request.Age4.ToString() + " & <" +request.Age5.ToString();
+                            ws.Cell(5, 10).Value = ">=" + request.Age5.ToString();
                             ws.Cell(5, 11).Value = dataSet.Tables[0].Columns[12].ColumnName;
                             ws.Cell(5, 12).Value = dataSet.Tables[0].Columns[13].ColumnName;
                             ws.Cell(5, 13).Value = dataSet.Tables[0].Columns[14].ColumnName;
@@ -792,7 +834,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetOutstandingSummRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetOutstandingSummRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -808,6 +850,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "OS"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 
@@ -947,7 +994,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetOutstandingDetailRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetOutstandingDetailRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -963,6 +1010,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@IncUnBilled",    request.FilterStr1),
                             new SqlParameter("@SubmitYN",       request.FilterStr2),
                             new SqlParameter("@RptType",        "OD"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
 

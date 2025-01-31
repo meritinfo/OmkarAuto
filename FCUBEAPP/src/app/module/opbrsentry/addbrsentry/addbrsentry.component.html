@@ -1,80 +1,62 @@
 
 <div class="main-content">
     <div class="page-content">
-       <div class="container-fluid">
+        <div class="container-fluid">
           <!-- start page title -->
-          <div class="row">
-             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18"> Op Brs Entry</h4>
-                   <div class="page-title-right">
-                      <ol class="breadcrumb m-0">
-                         <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Trans</a></li>
-                         <li class="breadcrumb-item active">Op Brs Entry</li> -->
-                      </ol>
-                   </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Opening Bank Reco Entry</h4>
+                    </div>
                 </div>
-             </div>
-          </div>
-          <!-- end page title -->
-          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
-             <div class="row">
-                <div class="col-lg-12">
-                   <div class="card">
-                      <div class="card-body">
-                         <h4 class="card-title mb-4">Op Brs Entry</h4>
-                      
-                            
-                               
-                               
-                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">TransDate</label>
-                                                <input type="date" class="form-control"
-                                                placeholder=" " formControlName="transDate"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }" >
-                                               
-                                            </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">                           
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">TransDate</label>
+                                            <input type="date" class="form-control"
+                                            placeholder=" " formControlName="transDate"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }" >
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">bank Ac</label>
-                                                <select class="form-control" formControlName="bankAc"
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                        <label for="basicpill-phoneno-input">bank Ac</label>
+                                        <select class="form-control" formControlName="bankAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAc'].invalid) }">
-
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
-
                                                     {{branch.dataName}}
                                                 </option>
-                                            </select>
-                                                
-                                            </div>
+                                            </select>                                       
                                         </div>
-                                       
+                                    </div>                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Cheque No</label>
+                                            <input type="text" class="form-control"
+                                            placeholder=" " formControlName="chequeNo"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
+                                            
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Cheque No</label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" " formControlName="chequeNo"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
-                                                
-                                            </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">ChequeDate</label>
+                                            <input type="date" class="form-control"
+                                            placeholder=" " formControlName="chequeDate"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid) }">
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">ChequeDate</label>
-                                                <input type="date" class="form-control"
-                                                placeholder=" " formControlName="chequeDate"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid) }">
-                                                
-                                            </div>
-                                        </div>
-                                      
                                     </div>
-                                    <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-6">
                                             <label for="basicpill-phoneno-input">Narration</label>
@@ -86,76 +68,62 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="mb-3">
-                                        <label for="basicpill-phoneno-input">Amount Rs</label>
-                                        <input type="text" class="form-control"
-                                        placeholder=" " formControlName="amountRs"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['amountRs'].invalid) }">
-                                        
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Amount Rs</label>
+                                            <input type="text" class="form-control"
+                                            placeholder=" " formControlName="amountRs"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['amountRs'].invalid) }">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Bank Db/Cr</label>
+                                            <select id="formrow-inputState" class="form-control"
+                                                formControlName="typesign"   [ngClass]="{ 'is-invalid': formSubmitted && (f['typesign'].invalid) }">
+                                                <option selected="">Choose...</option>
+                                                <option value="C">Credit</option>
+                                                <option value="D">Debit</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="mb-3">
-                                        <label for="basicpill-phoneno-input">Bank Db/Cr</label>
-                                        <select id="formrow-inputState" class="form-control"
-                                        formControlName="typesign"   [ngClass]="{ 'is-invalid': formSubmitted && (f['typesign'].invalid) }"
-                                      >
-                                        <option selected="">Choose...</option>
-                                        <option value="C">Credit</option>
-                                        <option value="D">Debit</option>
-                                       
-                                    </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-6">
-                                        <label for="basicpill-phoneno-input">Db/Cr Ac</label>
-                                        <select class="form-control" formControlName="otherAc"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
-
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-6">
+                                            <label for="basicpill-phoneno-input">Db/Cr Ac</label>
+                                            <select class="form-control" formControlName="otherAc"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
                                                 <option *ngFor="let branch of debitAcList" value={{branch.dataId}}>
-
                                                     {{branch.dataName}}
                                                 </option>
                                             </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                                
-                                  
-                          
-                        
-                                
-                             
-                       
-               
-                 
-                      </div>
-                      <!-- end card body -->
-                   </div>
-                   <!-- end card -->
+                        <!-- end card body -->
+                        </div>
+                    <!-- end card -->
+                    </div>
                 </div>
-             </div>
-             <div class="row text-right">
-                <div class="col-lg-12">
-                   <div class="tex">
-                      <button  class="btn btn-primary w-md"
-                         (click)="submitBrsEntryForm()">Save</button>
-                          <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="opBrsEntryDelete()">Delete</button>
-                                <button class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
-                   </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                    <div class="tex">
+                        <button  class="btn btn-primary w-md"
+                            (click)="submitBrsEntryForm()">Save</button>
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                    (click)="opBrsEntryDelete()">Delete</button>
+                                    <button class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
+                    </div>
+                    </div>
                 </div>
-             </div>
-          </form>
+            </form>
           <!-- end row -->
           <!-- end row -->
-       </div>
+        </div>
        <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
- </div>
+</div>
