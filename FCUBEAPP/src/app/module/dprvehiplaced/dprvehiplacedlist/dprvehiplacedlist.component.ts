@@ -171,7 +171,10 @@ export class DprvehiplacedlistComponent {
         payParty: this.partyList.find(e => e.dataId == this.vehpayParty),   
         vehicleNo: this.vehvehicleNo,
         origin: this.locationList.find(e => e.dataId == this.vehorigin),   
-        destination: this.locationList.find(e => e.dataId == this.vehdestination),  
+        destination: this.locationList.find(e => e.dataId == this.vehdestination), 
+        assignToStaff: this.assign,
+        vehicleEngagedBy: this.engaged
+
         //aashish add 2 columns here   
       })
     }, 2000);
@@ -269,8 +272,8 @@ export class DprvehiplacedlistComponent {
     sessionStorage.setItem("vehpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
     sessionStorage.setItem("vehorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
-    sessionStorage.setItem("engaged", selecteddata.origin?selecteddata.vehicleEngagedBy:"");
-    sessionStorage.setItem("assign", selecteddata.destination?selecteddata.assignToStaff:"");
+    sessionStorage.setItem("engaged", selecteddata.vehicleEngagedBy?selecteddata.vehicleEngagedBy:"");
+    sessionStorage.setItem("assign", selecteddata.assignToStaff?selecteddata.assignToStaff:"");
     //aashish check this above 2 lines origin? 
 
     this.dprvehiService.setDprVehiDetails(dpr);
