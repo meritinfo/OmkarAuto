@@ -70,16 +70,13 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Broker : </label>
-                                   
+                                    <label for="formrow-inputZip">Broker : </label>                                   
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="brokerList" formControlName="brokerId"
-                                            [searchKeyword]="keywordLocation"  
-                                     
+                                        <ng-autocomplete [data]="brokerList" 
+                                            formControlName="brokerId"
+                                            [searchKeyword]="keywordLocation" 
                                             [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate" 
-                              
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
+                                            [notFoundTemplate]="notFoundTemplate" >
                                         </ng-autocomplete>
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>

@@ -101,8 +101,10 @@ import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/
 import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
 import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
+import { EmppaygenerationlistComponent } from './module/emppaygeneration/emppaygenerationlist/emppaygenerationlist.component';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
+import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
@@ -384,11 +386,11 @@ const routes: Routes = [
   { path: 'finaccountedit', component: FinaccountsmasteraddComponent },
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
   { path: 'opbalanceadd', component: FinopenbalanceaddComponent },  
-  { path: 'opbrsentrylist', component:  OpbrsentrylistComponent },
+  { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
+  { path: 'opbankrecoentry', component:  OpbrsentrylistComponent },
   { path: 'addbrsentry', component: AddbrsentryComponent },
   { path: 'editbrsentry', component: AddbrsentryComponent },
-  { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
-  { path: 'bankrecorpt', component: BankreconcilationComponent },
+  { path: 'bankreco', component: BankreconcilationComponent },
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},
   { path: 'addeditdisttrip', component: DistancetripeditComponent},
   { path: 'ewaybillext',component:EwaybillextensionlistComponent},
@@ -407,6 +409,8 @@ const routes: Routes = [
   { path: 'employeemstlist', component:  EmpmasterlistComponent },
   { path: 'employeemstadd', component: EmpmasteraddComponent },  
   { path: 'employeemstedit', component:  EmpmasteraddComponent },
+  { path: 'paysheetlist', component:  EmppaygenerationlistComponent },  
+  { path: 'paysheetrpt', component:EmppaysheetrptComponent},
   { path: 'empsalmstlist', component:  EmpsalarylistComponent },
   { path: 'empsalmstadd', component: EmpsalaryaddComponent },  
   { path: 'empsalmstedit', component:  EmpsalaryaddComponent },

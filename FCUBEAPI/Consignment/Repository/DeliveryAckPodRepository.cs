@@ -117,7 +117,10 @@ namespace Consignment.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                             new SqlParameter("@Loginbranch", request.FilterStr)
+                             new SqlParameter("@Loginbranch", request.FilterStr),
+                             new SqlParameter("@GcNoteNo", request.FilterStr1),
+                             new SqlParameter("@YearId", request.FilterStr2),
+
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryAckPodList", param);
 
@@ -204,7 +207,9 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@GCNoteNo", request.strRequest)
+                            new SqlParameter("@GCNoteNo", request.strRequest),
+                            new SqlParameter("@Branch", request.strRequest1),
+                            new SqlParameter("@Year", request.strRequest2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryCnDetails", param);
 
@@ -331,6 +336,8 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@GcNoteNo", requestModel.strRequest),
+                            new SqlParameter("@Branch", requestModel.strRequest1),
+                            new SqlParameter("@Year", requestModel.strRequest2),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDeliveryAckDoneForLrNo", param);
