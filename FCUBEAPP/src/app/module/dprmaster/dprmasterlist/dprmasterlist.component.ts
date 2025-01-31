@@ -106,9 +106,16 @@ export class DrpmasterlistComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
-
+    var frdt = new Date(this.loginDate);
+    var mindt = new Date(this.minDate);    
+    var mnth = frdt.getMonth();
+    frdt.setMonth(mnth - 1);
+    if(frdt<mindt){
+      this.fromDate =  this.minDate ;
+    }
+    else{
+      this.fromDate = frdt.toLocaleDateString('en-CA').toString();   
+    }   
     
     var dprfromDate = sessionStorage.getItem('dprfromDate')?.toString();
     if (typeof dprfromDate !== 'undefined' && dprfromDate !== null && dprfromDate !== '') {
@@ -171,6 +178,7 @@ export class DrpmasterlistComponent {
         type: this.dprtype,
         origin: this.locationList.find(e => e.dataId == this.dprorigin),   
         destination: this.locationList.find(e => e.dataId == this.dprdestination),     
+        brokerId:this.brokerList.find(e => e.dataId == this.broker),
       })
     }, 2000);
 
@@ -291,6 +299,7 @@ export class DrpmasterlistComponent {
     sessionStorage.setItem("dprtype", selecteddata.type);
     sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("broker", selecteddata.brokerId?selecteddata.brokerId.dataId:"");
 
     this.dprService.setDprDetails(dpr);
     this.route.navigate(['/dprindentedit']);
@@ -304,7 +313,7 @@ export class DrpmasterlistComponent {
     sessionStorage.setItem("dprtype", selecteddata.type);
     sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
-    sessionStorage.setItem("broker", selecteddata.destination?selecteddata.brokerId.dataId:"");
+    sessionStorage.setItem("broker", selecteddata.brokerId?selecteddata.brokerId.dataId:"");
 
     sessionStorage.setItem("dprid", dpr.dprId);
     this.route.navigate(['/dprvehplacedadd']);
@@ -318,7 +327,7 @@ export class DrpmasterlistComponent {
     sessionStorage.setItem("dprtype", selecteddata.type);
     sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
-    sessionStorage.setItem("broker", selecteddata.destination?selecteddata.brokerId.dataId:"");
+    sessionStorage.setItem("broker", selecteddata.brokerId?selecteddata.brokerId.dataId:"");
 
     this.route.navigate(['/dprindentadd']);
   }

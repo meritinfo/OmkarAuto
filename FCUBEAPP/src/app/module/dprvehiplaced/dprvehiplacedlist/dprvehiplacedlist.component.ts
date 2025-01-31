@@ -171,7 +171,8 @@ export class DprvehiplacedlistComponent {
         payParty: this.partyList.find(e => e.dataId == this.vehpayParty),   
         vehicleNo: this.vehvehicleNo,
         origin: this.locationList.find(e => e.dataId == this.vehorigin),   
-        destination: this.locationList.find(e => e.dataId == this.vehdestination),     
+        destination: this.locationList.find(e => e.dataId == this.vehdestination),  
+        //aashish add 2 columns here   
       })
     }, 2000);
 
@@ -181,10 +182,9 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr = this.vehpayParty;
     this.filter.filterStr1 = this.vehorigin;
     this.filter.filterStr2 = this.vehdestination;    
-    this.filter.filterStr3= this.branch;  
-   //this.filter.sortColumn = "";
-   this.filter.sortColumn = this.engaged;
-        this.filter.sortOrder = this.assign;
+    this.filter.filterStr3= this.branch; 
+    this.filter.sortColumn = this.engaged;
+    this.filter.sortOrder = this.assign;
     this.getEmpList();
     this.dprVehiList(); 
        
@@ -271,6 +271,7 @@ export class DprvehiplacedlistComponent {
     sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("engaged", selecteddata.origin?selecteddata.vehicleEngagedBy:"");
     sessionStorage.setItem("assign", selecteddata.destination?selecteddata.assignToStaff:"");
+    //aashish check this above 2 lines origin? 
 
     this.dprvehiService.setDprVehiDetails(dpr);
     this.route.navigate(['/dprvehplacededit']);
