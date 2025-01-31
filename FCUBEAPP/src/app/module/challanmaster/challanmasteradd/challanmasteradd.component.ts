@@ -254,7 +254,7 @@ export class ChallanmasteraddComponent {
      
      
        // var date=  this.datepipe.transform(this.selectedChallanDetails.challanDateTime, 'yyyy-MM-dd');
-        this.minDate2 =this.selectedChallanDetails.challanDateTime;
+        this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            
           this.formUser.controls["declarationYN"].enable();              
@@ -1116,6 +1116,16 @@ export class ChallanmasteraddComponent {
     else{
       this.toastrService.warning(" From station is Invalid");
       return;
+    }
+    let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
+    let arrdate = new Date(selectedDataValue.expArrivalDate).toLocaleDateString('en-CA').toString(); 
+    if (arrdate>=chdate) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("exp arrival date should not be less than challan date");
+      return;
+
     }
 
     if (selectedDataValue.challanToStn.dataId) {
