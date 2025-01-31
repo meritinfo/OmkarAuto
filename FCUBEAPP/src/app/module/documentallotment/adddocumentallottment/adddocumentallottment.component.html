@@ -126,6 +126,16 @@
                                 formControlName="docCloseDate" class="form-control">
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="formrow-inputZip">Remarks</label>
+                         
+                            <input uppercaseonly autoclose="false" class="form-control"   
+                            formControlName="remarks"   minlength="4"  
+                             [ngClass]="{ 'is-invalid': formSubmitted && (f['remarks'].invalid) }">
+                        </div>
                     </div>
                     <div class="row text-right">
                         <div class="col-lg-12">

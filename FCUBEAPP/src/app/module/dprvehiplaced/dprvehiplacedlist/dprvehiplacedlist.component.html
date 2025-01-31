@@ -57,9 +57,34 @@
                                     <label for="formrow-inputState">Vehicle No</label>
                                     <input class="form-control" formControlName="vehicleNo" >
                                 </div>
-                            </div>        
+                            </div>  
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <label>Engaged By: </label>
+                                    <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
+                                    class="form-control form-select ng-pristine ng-touched">
+                                        <option *ngFor="let emp of empList" value={{emp.dataId}}>
+                                            {{emp.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>       
                         </div>                        
                         <div class="row">
+                           
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <label>Assign To: </label>
+                                    
+                                    <select id="scope" class="form-select" formControlName="assignToStaff"
+                                    class="form-control form-select ng-pristine ng-touched"
+                                   >
+                                        <option *ngFor="let emp of empList" value={{emp.dataId}}>
+                                            {{emp.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> 
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Place: </label>
