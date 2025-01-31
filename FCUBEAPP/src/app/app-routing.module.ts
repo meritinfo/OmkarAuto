@@ -271,6 +271,10 @@ import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.compon
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
 import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.component';
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
+import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
+import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
+
+
 
 
 
@@ -644,6 +648,9 @@ const routes: Routes = [
   { path: 'vehicleadvbalrpt', component: VehicleadvbalrptComponent },
   { path: 'detentionrpt', component: DetentionrptComponent },
   { path: 'deductionrpt', component: DeductionrptComponent },
+  { path: 'definegstpct', component: GstpctvalueslistComponent },
+  { path: 'gstpctvaluesadd', component: GstpctvaluesaddComponent },
+  { path: 'gstpctvaluesedit', component: GstpctvaluesaddComponent },
   { path: 'missingdocrpt', component: MissingdocrptComponent },
   { path: 'dashboardncc', component: DashboardnccComponent },
   

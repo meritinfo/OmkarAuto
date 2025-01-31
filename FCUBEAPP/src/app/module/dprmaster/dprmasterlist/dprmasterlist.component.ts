@@ -25,7 +25,7 @@ export class DrpmasterlistComponent {
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'dprBranch',
+    sortColumn: '',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -58,9 +58,9 @@ export class DrpmasterlistComponent {
   dprpayParty: string  = "";
   dprtype: string  = "";
   dprorigin: string  = "";
+  broker: string  = "";
   dprdestination: string  = "";
-  
-
+  brokerList: Dropdownmodel[] = [];
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -140,10 +140,15 @@ export class DrpmasterlistComponent {
     if (typeof dprdestination !== 'undefined' && dprdestination !== null && dprdestination !== '') {
       this.dprdestination = dprdestination;
     }
+    var broker = sessionStorage.getItem('broker')?.toString();
+    if (typeof broker !== 'undefined' && broker !== null && broker !== '') {
+      this.broker = broker;
+    }
 
     
     this.dprService.clearDprDetails();
     this.getPartyList();
+    this.getBrokerList();
     this.getLocationList();
     
     this.formFilter = this.formBuilder.group({
@@ -153,6 +158,7 @@ export class DrpmasterlistComponent {
       type: new FormControl('',),
       origin: new FormControl('',),
       destination: new FormControl('',),
+      brokerId: new FormControl('',),
     });
     
     this.sharedService.loading=true;
@@ -175,6 +181,7 @@ export class DrpmasterlistComponent {
     this.filter.filterStr1 = this.dprorigin;
     this.filter.filterStr2 = this.dprdestination;
     this.filter.filterStr3 = this.branch;
+    this.filter.sortColumn= this.broker;
 
     this.dprList();    
     this.sharedService.loading=false;
@@ -190,8 +197,6 @@ export class DrpmasterlistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -272,6 +277,12 @@ export class DrpmasterlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  getBrokerList(): void {
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
+    });
+  }
+
   getdprDetails(dpr: Dprmodel): void {
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("dprfromDate", selecteddata.fromDate);
@@ -293,6 +304,7 @@ export class DrpmasterlistComponent {
     sessionStorage.setItem("dprtype", selecteddata.type);
     sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("broker", selecteddata.destination?selecteddata.brokerId.dataId:"");
 
     sessionStorage.setItem("dprid", dpr.dprId);
     this.route.navigate(['/dprvehplacedadd']);
@@ -306,6 +318,7 @@ export class DrpmasterlistComponent {
     sessionStorage.setItem("dprtype", selecteddata.type);
     sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("broker", selecteddata.destination?selecteddata.brokerId.dataId:"");
 
     this.route.navigate(['/dprindentadd']);
   }
@@ -344,6 +357,7 @@ export class DrpmasterlistComponent {
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3 = this.branch;
+    this.filter.sortColumn = selecteddata.brokerId?selecteddata.brokerId.dataId:"";
     
     this.sharedService.loading = true;
     this.dprList();    

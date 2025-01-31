@@ -270,6 +270,8 @@ namespace FCUBEAPI
             services.AddScoped<IFreightRptBusiness, FreightRptBusiness>();
            services.AddScoped<IBenBankListRepository, BenBankListRepository>();
             services.AddScoped<IBenBankListBusiness, BenBankListBusiness>();
+            services.AddScoped<IGstPctValuesRepository, GstPctValuesRepository>();
+            services.AddScoped<IGstPctValuesBusiness, GstPctValuesBusiness>();
             services.AddScoped<IDoBusiness, DoBusiness>();
             services.AddScoped<IDoRepository, DoRepository>();
 

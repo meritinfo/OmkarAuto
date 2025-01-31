@@ -65,6 +65,7 @@ import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
 import { Subledgermodel } from 'src/app/models/subledgermodel';
+import { Gstpctvaluesmodel  } from 'src/app/models/gstpctvaluesmodel';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { Driversalarypaymentmodel } from 'src/app//models/driversalarypaymentmodel';
@@ -435,6 +436,8 @@ import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.compon
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
 import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.component';
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
+import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
+import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
 
 
 
@@ -575,6 +578,7 @@ import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.compon
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
      DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, MissingdocrptComponent, DashboardnccComponent,    
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
   ],
   
   imports: [
@@ -640,7 +644,7 @@ import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.compon
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
-    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     
   ],
   bootstrap: [AppComponent]

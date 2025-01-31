@@ -56,6 +56,10 @@ export class DprvehiplacedlistComponent {
   vehvehicleNo: string = '';
   vehpayParty: string = '';
   vehorigin: string = '';
+  engaged : string = '';
+  assign : string = '';
+  empList: Dropdownmodel[] = [];
+  
   vehdestination: string = '';
   
 
@@ -133,6 +137,14 @@ export class DprvehiplacedlistComponent {
     if (typeof vehdestination !== 'undefined' && vehdestination !== null && vehdestination !== '') {
       this.vehdestination = vehdestination;
     }
+    var engaged = sessionStorage.getItem('engaged')?.toString();
+    if (typeof engaged !== 'undefined' && engaged !== null && engaged !== '') {
+      this.engaged = engaged;
+    }
+    var assign = sessionStorage.getItem('assign')?.toString();
+    if (typeof assign !== 'undefined' && assign !== null && assign !== '') {
+      this.assign = assign;
+    }
 
 
     this.dprvehiService.clearDprVehiDetails();
@@ -144,6 +156,8 @@ export class DprvehiplacedlistComponent {
       vehicleNo :new FormControl('',),
       origin: new FormControl('',),
       destination: new FormControl('',),
+      assignToStaff: new FormControl('',),
+      vehicleEngagedBy: new FormControl('',),
     });
 
     this.getPartyList();
@@ -168,11 +182,15 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr1 = this.vehorigin;
     this.filter.filterStr2 = this.vehdestination;    
     this.filter.filterStr3= this.branch;  
-
-    this.dprVehiList();    
+   //this.filter.sortColumn = "";
+   this.filter.sortColumn = this.engaged;
+        this.filter.sortOrder = this.assign;
+    this.getEmpList();
+    this.dprVehiList(); 
+       
     this.sharedService.loading=false;
   }
-  
+ 
   dprVehiList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -183,8 +201,7 @@ export class DprvehiplacedlistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -252,6 +269,8 @@ export class DprvehiplacedlistComponent {
     sessionStorage.setItem("vehpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
     sessionStorage.setItem("vehorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+    sessionStorage.setItem("engaged", selecteddata.origin?selecteddata.vehicleEngagedBy:"");
+    sessionStorage.setItem("assign", selecteddata.destination?selecteddata.assignToStaff:"");
 
     this.dprvehiService.setDprVehiDetails(dpr);
     this.route.navigate(['/dprvehplacededit']);
@@ -269,6 +288,11 @@ export class DprvehiplacedlistComponent {
     });
   }
 
+  getEmpList(): void {
+    this.commonService.getEmpList().subscribe((res) => {
+      this.empList = res;
+    });
+  }
   get f() { return this.formFilter.controls; }
 
   search(): void {
@@ -292,6 +316,9 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3= this.branch;  
+    this.filter.sortColumn = selecteddata.vehicleEngagedBy;
+    this.filter.sortOrder = selecteddata.assignToStaff;
+
 
     this.sharedService.loading=true;
     this.dprVehiList();    

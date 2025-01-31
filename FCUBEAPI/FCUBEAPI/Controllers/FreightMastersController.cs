@@ -41,6 +41,7 @@ namespace FCUBEAPI.Controllers
         readonly IAddCostRecBusiness addCostRecorveryBusiness;
         readonly IPanWiseTdsRateBusiness panWiseTdsRateBusiness;
         readonly IFreightRptBusiness freightRptBusiness;
+        readonly IGstPctValuesBusiness gstPctValuesBusiness;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -64,7 +65,8 @@ namespace FCUBEAPI.Controllers
             IAdditionalCostRecMasterBusiness _additionalCostRecMasterBusiness,
             IAddCostRecBusiness _addCostRecorveryBusiness,
            IPanWiseTdsRateBusiness _panWiseTdsRateBusiness,
-           IFreightRptBusiness _freightRptBusiness)
+           IFreightRptBusiness _freightRptBusiness,
+           IGstPctValuesBusiness _gstPctValuesBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -89,7 +91,8 @@ namespace FCUBEAPI.Controllers
             additionalCostRecMasterBusiness = _additionalCostRecMasterBusiness;
             addCostRecorveryBusiness = _addCostRecorveryBusiness;
             panWiseTdsRateBusiness = _panWiseTdsRateBusiness;
-            freightRptBusiness= _freightRptBusiness;
+            freightRptBusiness = _freightRptBusiness;
+            gstPctValuesBusiness = _gstPctValuesBusiness;
         }
 
         /// <summary>
@@ -3293,6 +3296,60 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await panWiseTdsRateBusiness.PanWiseTdsRateDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetGstPctValuesList")]
+        public async Task<IActionResult> GetGstPctValuesList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPctValuesBusiness.GetGstPctValuesList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetGstPctValuesDelete")]
+        public async Task<IActionResult> GetGstPctValuesDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPctValuesBusiness.GetGstPctValuesDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GstPctValuesSave")]
+        public async Task<IActionResult> GstPctValuesSave(GstPctValuesModel gstPctValuesModel)
+        {
+            if (gstPctValuesModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPctValuesBusiness.GstPctValuesSave(gstPctValuesModel);
 
                 return Ok(result);
             }
