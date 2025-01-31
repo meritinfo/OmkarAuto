@@ -16,5 +16,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> DieselStatementSave(DieselStmtModel dieselStmtModel);
         Task<DieselStmtListModel> GetDieselStmtList(ReportRequestModel request);
         Task<DieselStmtModel> GetDieselStmtInnerGridList(RequestModel request);
+        Task<ResponseModel> DieselStatementDelete(RequestModel request);
     }
 }

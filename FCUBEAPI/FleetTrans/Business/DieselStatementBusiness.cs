@@ -59,5 +59,9 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetDieselStmtInnerGridList(request);
         }
+        public async Task<ResponseModel> DieselStatementDelete(RequestModel request)
+        {
+            return await dieselStatementRepository.DieselStatementDelete(request);
+        }
     }
 }

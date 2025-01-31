@@ -254,18 +254,11 @@ export class DieselstmtaddComponent {
       for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
-        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStmtDtlsList[i].vehicleNo);
-        this.formArray.controls[i].get("transDateTime")?.setValue(res.dieselStmtDtlsList[i].transDateTime);
+        this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.dieselStmtDtlsList[i].vehicleNo));
+        this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
         this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
-
-        this.formArray.controls[i].get("transRefNo")?.disable();
-        this.formArray.controls[i].get("vehicleNo")?.disable();
-        this.formArray.controls[i].get("transDateTime")?.disable();
-        this.formArray.controls[i].get("dslQty")?.disable();
-        this.formArray.controls[i].get("dslRate")?.disable();     
-        this.formArray.controls[i].get("amount")?.disable();   
       }
      
     });  
@@ -332,19 +325,15 @@ export class DieselstmtaddComponent {
       this.calculateTotal();
     }, 2000);
   }
-  calculateAmt(i: number, event: any) {
-    
-    var selectedData = this.formDieselStatement.getRawValue(); 
-   
-   
-    if (selectedData.arrayList[i].dslQty!=''&& selectedData.arrayList[i].dslRate!='' ){
-     
-   var pro =  parseFloat(selectedData.arrayList[i].dslQty)*parseFloat(selectedData.arrayList[i].dslRate);
-   this.formArray.controls[i].get("amount")?.setValue(pro);
-  // totalProAmount = totalProAmount + pro;
-}
-this.calculateTotal();
 
+  calculateAmt(i: number, event: any) {    
+    var selectedData = this.formDieselStatement.getRawValue();   
+    if (selectedData.arrayList[i].dslQty!=''&& selectedData.arrayList[i].dslRate!='' ){     
+      var pro =  parseFloat(selectedData.arrayList[i].dslQty)*parseFloat(selectedData.arrayList[i].dslRate);
+      this.formArray.controls[i].get("amount")?.setValue(pro);
+      // totalProAmount = totalProAmount + pro;
+    }
+    this.calculateTotal();
   }
 
   
@@ -432,7 +421,7 @@ this.calculateTotal();
         this.dieselStatementmodel.dieselStmtDtlsList.push({
           'dfMasterID':"",
           'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
-          'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.dataId, 
+          'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.dataName, 
           'transDateTime': selectedDataVal.arrayList[i].transDateTime,   
       // 'transDateTime':  this.commonService.formatDate(selectedDataVal.arrayList[i].transDateTime),
           'dslQty': selectedDataVal.arrayList[i].dslQty.toString(),   

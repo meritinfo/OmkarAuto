@@ -735,5 +735,45 @@ namespace FleetTrans.Repository
             return dieselStatementList;
         }
 
+        public async Task<ResponseModel> DieselStatementDelete(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@MasterID", request.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
     }
 }
