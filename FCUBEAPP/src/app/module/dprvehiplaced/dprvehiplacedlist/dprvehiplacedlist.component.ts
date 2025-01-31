@@ -174,8 +174,6 @@ export class DprvehiplacedlistComponent {
         destination: this.locationList.find(e => e.dataId == this.vehdestination), 
         assignToStaff: this.assign,
         vehicleEngagedBy: this.engaged
-
-        //aashish add 2 columns here   
       })
     }, 2000);
 
@@ -274,7 +272,6 @@ export class DprvehiplacedlistComponent {
     sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("engaged", selecteddata.vehicleEngagedBy?selecteddata.vehicleEngagedBy:"");
     sessionStorage.setItem("assign", selecteddata.assignToStaff?selecteddata.assignToStaff:"");
-    //aashish check this above 2 lines origin? 
 
     this.dprvehiService.setDprVehiDetails(dpr);
     this.route.navigate(['/dprvehplacededit']);
