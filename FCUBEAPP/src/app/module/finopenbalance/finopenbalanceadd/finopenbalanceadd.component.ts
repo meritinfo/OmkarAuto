@@ -171,10 +171,10 @@ export class FinopenbalanceaddComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  addItem(index: number): void {
+  addItem(i: number): void {
     var selectedDataVal= this.formFinOpenBal.getRawValue()
-    if (this.formArray.value[index].accountID != "" &&
-    (parseFloat(this.formArray.value[index].creditAmt) > 0 || parseFloat(this.formArray.value[index].debitAmt) > 0) ) 
+    if (selectedDataVal.arrayList[i].accountID != "" &&
+    (parseFloat(selectedDataVal.arrayList[i].creditAmt) > 0 || parseFloat(selectedDataVal.arrayList[i].debitAmt) > 0) ) 
     {
        this.formArray.push(this.createInitialArray());  
     }
@@ -215,13 +215,12 @@ export class FinopenbalanceaddComponent {
       if(res.openingBalDetailList.length>0){        
         this.formArray.clear();
         for (var i = 0; i < res.openingBalDetailList.length; i++) {
+          debitamount="0.00",creditamount="0.00";
           if(res.openingBalDetailList[i].openingBalanceCrDr=="C"){
-            debitamount="0.00"
             creditamount=res.openingBalDetailList[i].openingBalanceAmt;
             totcreditamount=totcreditamount+parseFloat(creditamount);
           }
           else{
-            creditamount="0.00";
             debitamount=res.openingBalDetailList[i].openingBalanceAmt;
             totdebitamount=totdebitamount+parseFloat(debitamount);
           }
@@ -231,8 +230,8 @@ export class FinopenbalanceaddComponent {
           this.formArray.controls[i].get("debitAmt")?.setValue(debitamount);
         }
         this.formFinOpenBal.patchValue({
-          totalDebit: totdebitamount,
-          totalCredit: totcreditamount,
+          totalDebit: totdebitamount.toFixed(2),
+          totalCredit: totcreditamount.toFixed(2),
         });             
       }
       
