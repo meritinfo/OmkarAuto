@@ -111,6 +111,7 @@ export class ConsignmentupdateComponent {
     this.getBranchList();
     this.getRateList();
     this.getLocationList();
+    this.getBillingPartyList();
     this.formSubmitted = false;
 
     this.sharedService.loading = false;
@@ -129,7 +130,7 @@ export class ConsignmentupdateComponent {
       chargewt : new FormControl('',),   
       cnorName: new FormControl('',), 
       cneeName: new FormControl('',),
-      party: new FormControl('',),
+      party: new FormControl('',[Validators.required]),
       rateType : new FormControl('',),   
       rateDesc : new FormControl('',),   
       gstBy : new FormControl('',),   
@@ -187,7 +188,6 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['actualWt'].disable();   
     this.formUser.controls['cnorName'].disable();  
     this.formUser.controls['cneeName'].disable();  
-    this.formUser.controls['party'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
     this.formUser.controls['ulDetentionDays'].disable(); 
@@ -299,7 +299,7 @@ export class ConsignmentupdateComponent {
             chargewt :  this.lrmodel.chargewt, 
             cnorName:  this.lrmodel.cnorName,
             cneeName:  this.lrmodel.cneeName, 
-            party:  this.lrmodel.billingParty, 
+            party: this.partyList.find(x => x.dataName = this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
             rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
@@ -555,6 +555,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
+    this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
     this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 

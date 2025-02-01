@@ -120,9 +120,25 @@
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Party</label>
-                                            <input autoclose="false" class="form-control"
-                                                formControlName="party" >
-                                                
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="partyList" 
+                                                    formControlName="party"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    (selected)='selectEvent($event)' 
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate" 
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['party'].invalid) }">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>  
                                 </div>                                  
