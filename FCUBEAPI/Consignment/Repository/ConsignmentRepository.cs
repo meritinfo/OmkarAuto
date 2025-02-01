@@ -568,6 +568,7 @@ namespace Consignment.Repository
                             new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
                             new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
+                            new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
                             new SqlParameter("@RateDesc",           ConsignmentModel.RateDesc ),
                             new SqlParameter("@GstBy",              ConsignmentModel.GstBy),

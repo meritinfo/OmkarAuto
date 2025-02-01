@@ -8,6 +8,7 @@ import { ConsolidatedopnbalService } from 'src/app/services/consolidatedopnbal.s
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-consolidatedopenbal',
@@ -24,6 +25,7 @@ export class ConsolidatedopenbalComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  yearList:Dropdownmodel[]=[];
 
   balList: Consolidateopenballistmodel = new Consolidateopenballistmodel();
   responseDetails = new Responsemodel();
@@ -89,11 +91,16 @@ export class ConsolidatedopenbalComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;    
-    
+    this.getYearList();
+
     this.formBankRecEntry = this.formBuilder.group({
+      totalDebit: new FormControl('0',),
+      totalCredit: new FormControl('0',),
       arrayList: this.formBuilder.array([this.createInitialArray()]),
     });
 
+    this.formBankRecEntry.controls['totalDebit'].disable();
+    this.formBankRecEntry.controls['totalCredit'].disable();
   }
 
 
@@ -107,9 +114,14 @@ export class ConsolidatedopenbalComponent {
 
   getBankrecData(): void {
     this.formArray.clear();
-    this.sharedService.loading = true;
-    this.request.strRequest = this.year; 
-    this.consolidatedopnbalService.getConsolidateOpeningBalGridList(this.request).subscribe((res) => {
+    this.sharedService.loading = true;  
+    var debitamount="0.00";
+    var creditamount="0.00";
+    var totdebitamount=0.00;
+    var totcreditamount=0.00;
+
+    this.request.strRequest = this.year;   
+    this.consolidatedopnbalService.getConsolidateOpeningBalGridList(this.request).subscribe((res) => {    
       this.balList = res;
       for (var i = 0; i < res.consolidateopenballist.length; i++) {
         this.formArray.push(this.createInitialArray());
@@ -120,11 +132,33 @@ export class ConsolidatedopenbalComponent {
         this.formArray.controls[i].get("accountName")?.disable();
         this.formArray.controls[i].get("balAmt")?.disable();
         this.formArray.controls[i].get("crdr")?.disable();
+
+        debitamount="0.00",creditamount="0.00";
+        if(res.consolidateopenballist[i].crdr=="C"){
+          creditamount=res.consolidateopenballist[i].balAmt;
+          totcreditamount=totcreditamount+parseFloat(creditamount);
+        }
+        else{          
+          debitamount=res.consolidateopenballist[i].balAmt;
+          totdebitamount=totdebitamount+parseFloat(debitamount);
+        }
       }
+
+      this.formBankRecEntry.patchValue({
+        totalDebit: totdebitamount.toFixed(2),
+        totalCredit: totcreditamount.toFixed(2),
+      });  
     });
 
     this.sharedService.loading = false;
   }
+
+  
+  getYearList():void{
+    this.commonService.getYearList().subscribe((res) => {
+      this.yearList = res;
+    });
+  }    
 
   get formArray() {
     return this.formBankRecEntry.get("arrayList") as FormArray;
@@ -151,6 +185,25 @@ export class ConsolidatedopenbalComponent {
       } 
     });
     this.sharedService.loading = false;
+  }
+
+  exportExcel(){    
+    this.sharedService.loading = true;
+    var yr = this.yearList.find(e=>e.dataId== this.year)?.dataName
+    this.request.strRequest = this.year; 
+    this.request.strRequest1 = yr?yr:""; 
+    this.consolidatedopnbalService.getConsolidateOpeningBalExcel(this.request).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(res.status){      
+        let link = document.createElement("a");
+        link.download = "OpeningBalReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + res.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(res.message);   
+      }
+    });
   }
 }
 

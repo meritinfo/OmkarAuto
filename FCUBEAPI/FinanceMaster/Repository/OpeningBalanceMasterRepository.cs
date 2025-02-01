@@ -5,23 +5,22 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Models;
 using System.Transactions;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using Shared.Repository;
 
 namespace FinanceMasters.Repository
 {
     public class OpeningBalanceMasterRepository : IOpeningBalanceMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly ISharedRepository sharedRepository;
 
-        public OpeningBalanceMasterRepository(IOptions<DBModel> _dbconnection)
+        public OpeningBalanceMasterRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
-        /// <summary>
-        /// Service method for save fin accounts master details
-        /// </summary>
-        /// <param name="finAccountsMasterModel"></param>
-        /// <returns>ResponseModel</returns>
-        /// 
+
         public async Task<ResponseModel> OpeningBalanceSave(OpeningBalanceMasterModel openingBalanceMaster)
         {
             ResponseModel responseModel = new();
@@ -232,16 +231,6 @@ namespace FinanceMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return AccountList;
         }
@@ -253,29 +242,38 @@ namespace FinanceMasters.Repository
             connection.Open();
             SqlTransaction transaction;
             transaction = connection.BeginTransaction();
-
-            SqlParameter[] param =
+            try
             {
-                new SqlParameter("@YearID"      , req.YearId    ),
-                new SqlParameter("@BranchCode"  , req.BranchCode),
-            };
-            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_OpeningBalDetailDelete", param);
-            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-            {
-                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                if (responseModel.Status)
+                SqlParameter[] param =
                 {
-                    transaction.Commit();
+                    new SqlParameter("@YearID"      , req.YearId    ),
+                    new SqlParameter("@BranchCode"  , req.BranchCode),
+                };
+                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_OpeningBalDetailDelete", param);
+                if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                {
+                    responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
                 }
                 else
                 {
+                    responseModel.Status = false;
+                    responseModel.Message = "No Data found";
                     transaction.Rollback();
                 }
             }
-            else
+            catch (Exception ex)
             {
                 responseModel.Status = false;
+                responseModel.Message = ex.Message;
                 transaction.Rollback();
             }
             return responseModel;
@@ -289,32 +287,43 @@ namespace FinanceMasters.Repository
             SqlTransaction transaction;
             transaction = connection.BeginTransaction();
 
-            SqlParameter[] param =
+            try
             {
-                new SqlParameter("@YearID" , req.strRequest),
-            };
-            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsolidateOpeningBalUpdate", param);
-            
-            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-            {
-                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                if (responseModel.Status)
+                SqlParameter[] param =
                 {
-                    transaction.Commit();
+                    new SqlParameter("@YearID" , req.strRequest),
+                };
+                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsolidateOpeningBalUpdate", param);
+            
+                if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                {
+                    responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
                 }
                 else
                 {
+                    responseModel.Status = false;
+                    responseModel.Message = "No Data Found";
                     transaction.Rollback();
                 }
             }
-            else
+            catch (Exception ex)
             {
                 responseModel.Status = false;
+                responseModel.Message = ex.Message;
                 transaction.Rollback();
             }
             return responseModel;
         }
+
 
         public async Task<ConsolidatedOpenBalListModel> GetConsolidateOpeningBalList(RequestModel req)
         {
@@ -352,6 +361,37 @@ namespace FinanceMasters.Repository
                 
             }
             return consolidatedOpenBal;
+        }
+
+        public async Task<ResponseModel> GetConsolidateOpeningBalExcel(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                SqlParameter[] param =
+                {
+                    new SqlParameter("@YearID" , req.strRequest),
+                };
+                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsolidateOpeningBalExcel", param);
+
+                if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                {
+                    var filter = " FOR YEAR " + req.strRequest1;
+
+                    responseModel = await sharedRepository.GetExcelReport(statusData.Tables[0], "Opening Balance", filter);
+                }
+                else
+                {
+                    responseModel.Status = false;
+                    responseModel.Message = "No Data Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
         }
 
     }

@@ -3,6 +3,7 @@ export class Consignmentupdatemodel {
     poNo: string = "";
     shipmentNo: string = "";
     billingStatus : string = "";
+    billingParty : string = "";
     rateType : string = "";
     rateDesc : string = "";
     gstBy : string = "";
