@@ -79,7 +79,7 @@ namespace Consignment.Repository
                                 OtherDesc           = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherDesc"]),
                                 TotFreightAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
                                 AttachConfirmDoc    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttachConfirmDoc"]),
-                                DPR_Status          = Convert.ToString(dataSet.Tables[0].Rows[i]["DPR_Status"]),
+                                Dpr_Status          = Convert.ToString(dataSet.Tables[0].Rows[i]["DPR_Status"]),
                                 VehicleNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 BrokerName          = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 DriverName          = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
@@ -193,6 +193,7 @@ namespace Consignment.Repository
                             new SqlParameter("@OtherAmt",           dprModel.OtherAmt),
                             new SqlParameter("@OtherDesc",          dprModel.OtherDesc),
                             new SqlParameter("@TotFreightAmt",      dprModel.TotFreightAmt),
+                            new SqlParameter("@Dpr_Status",         dprModel.Dpr_Status),                            
                             new SqlParameter("@YearId",             dprModel.YearId),                            
                             new SqlParameter("@AttachConfirmDoc",   dprModel.AttachConfirmDoc),                    
                             new SqlParameter("@LoggedInUser",       dprModel.LoggedInUserID)

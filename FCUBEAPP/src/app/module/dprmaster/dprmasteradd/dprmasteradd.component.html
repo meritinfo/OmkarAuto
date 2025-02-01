@@ -36,7 +36,7 @@
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['dprDate'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Party: </label><span style="color: red">*</span>  
                                             <div class="ng-autocomplete">
@@ -72,6 +72,13 @@
                                                 <option value="Paid">Paid</option>
                                                 <option value="FOC">FOC</option>                                                
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <input type="checkbox" formControlName="dpr_Status"  
+                                                class="form-check-input" />
+                                            <label for="tripStatus">DPR Cancel</label>
                                         </div>
                                     </div>
                                 </div>

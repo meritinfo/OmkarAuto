@@ -145,6 +145,7 @@ export class DrpmasteraddComponent {
       otherAmt  : new FormControl('',),
       otherDesc  : new FormControl('',[Validators.required]),
       totFreightAmt : new FormControl('',[Validators.required]),
+      dpr_Status: new FormControl('',),
       attachConfirmDoc: new FormControl('',),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
@@ -489,6 +490,7 @@ export class DrpmasteraddComponent {
     this.dprmodel.otherAmt   = selectedDataVal.otherAmt;
     this.dprmodel.otherDesc   = selectedDataVal.otherDesc.toString().toUpperCase();
     this.dprmodel.totFreightAmt  = selectedDataVal.totFreightAmt;
+    this.dprmodel.dpr_Status = selectedDataVal.dpr_Status?"C":"";
     this.dprmodel.yearId  = this.year;    
     this.dprmodel.loggedInUserID = this.loggedInUserID; 
     
