@@ -209,7 +209,7 @@ export class DieselstmtaddComponent {
   }
 
   getAcountList(): void {    
-    this.requestmodel.strRequest="C"
+    this.requestmodel.strRequest="D"
     this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
