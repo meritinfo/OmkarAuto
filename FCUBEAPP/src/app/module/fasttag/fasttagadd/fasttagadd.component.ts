@@ -105,6 +105,7 @@ export class FasttagaddComponent {
  
     this.getBranchList();
     this.getAcountList();
+    this.getVehicleNoList();
 
     this.selectedFasttag = this.fasttagService.getFasttagDetails();
     this.formFastTag = this.formBuilder.group({
@@ -175,6 +176,12 @@ export class FasttagaddComponent {
     });
   }
 
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
   selectEvent(item: any) {
     // do something with selected item
   }
@@ -183,10 +190,12 @@ export class FasttagaddComponent {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+ 
 
   onFocused(e: any) {
     // do something
   }
+
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
@@ -290,28 +299,21 @@ export class FasttagaddComponent {
   }
 
   
-  addItem(index: number): void {
-    var ind = index + 1;
+  addItem(index: number): void {    
     var selectedData= this.formFastTag.getRawValue();
-    var arr= selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) {  
-      if(i!=index && arr[index].vehicleNo?arr[index].vehicleNo.dataId:""==arr[i].vehicleNo?arr[i].vehicleNo.dataId:""){
-        this.toasterService.warning("Vehicle already exists in grid");
-        return;
-      }
-    }
+    var arr= selectedData.arrayList;   
 
     if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" 
       && arr[index].ftAmount != "") {
      this.formArray.push(this.createInitialArray());
+     this.formArray.controls[index+1].get("amount")?.disable();
     } 
     else {
      this.toasterService.warning("Please enter vehicle no & Amount");
     }
-    this.formArray.controls[ind].get("amount")?.disable();
   }
 
-  removeItem(index: number) {
+  removeItem(index: number){
     if (confirm("Are you sure, you want to delete this row?")) {
       this.formArray.removeAt(index);
     }
@@ -390,8 +392,7 @@ export class FasttagaddComponent {
     var arr=selectedDataVal.arrayList;
 
     for (var i = 0; i < arr.length; i++) {
-      if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && 
-          arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
+      if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && arr[i].vehicleNo[i].ftAmount!=''){
         this.fasttagmodel.fastTagDtlList.push({
           'ftMasterID':"",
           'transRefNo': arr[i].transRefNo.toString(),   
@@ -401,6 +402,14 @@ export class FasttagaddComponent {
           'dtlRemarks': arr[i].dtlRemarks.toString(),  
         });
       }
+    }
+
+    const foundDuplicateName = this.fasttagmodel.fastTagDtlList.find((data, index) => {
+      return this.fasttagmodel.fastTagDtlList.find((x, ind) => x.vehicleNo === data.vehicleNo && index !== ind);
+    })
+    if (foundDuplicateName) {
+      this.toasterService.warning("Duplicate Vehicle No grid not allowed");
+      return;
     }
 
     this.fasttagService.fasttagSave(this.fasttagmodel).subscribe((res: Responsemodel) => {

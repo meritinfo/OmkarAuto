@@ -174,23 +174,15 @@ export class DieselstmtaddComponent {
   }
 
   addItem(index: number): void {
-    var ind = index + 1;
     var selectedData= this.formDieselStatement.getRawValue();
     var arr= selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) {  
-      if(i!=index && arr[index].vehicleNo?arr[index].vehicleNo.dataId:""==arr[i].vehicleNo?arr[i].vehicleNo.dataId:""){
-        this.toasterService.warning("Vehicle already exists in grid");
-        return;
-      }
-    }
-
-    if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" && arr[index].dslQty != "" && arr[index].dslRate != "") {
+       if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" && arr[index].dslQty != "" && arr[index].dslRate != "") {
      this.formArray.push(this.createInitialArray());
     } 
     else {
      this.toasterService.warning("Please enter vehicle no ,dslQty & dslRate");
     }
-    this.formArray.controls[ind].get("amount")?.disable();
+    this.formArray.controls[index+1].get("amount")?.disable();
   }
 
   removeItem(index: number) {
@@ -437,6 +429,13 @@ export class DieselstmtaddComponent {
        }
     }
 
+    const foundDuplicateName = this.dieselStatementmodel.dieselStmtDtlsList.find((data, index) => {
+      return this.dieselStatementmodel.dieselStmtDtlsList.find((x, ind) => x.vehicleNo === data.vehicleNo && index !== ind);
+    })
+    if (foundDuplicateName) {
+      this.toasterService.warning("Duplicate Vehicle No grid not allowed");
+      return;
+    }
     this.dieselstatementService.dieselStatementSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
