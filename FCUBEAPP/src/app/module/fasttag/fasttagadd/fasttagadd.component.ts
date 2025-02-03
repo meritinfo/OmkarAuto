@@ -105,7 +105,6 @@ export class FasttagaddComponent {
  
     this.getBranchList();
     this.getAcountList();
-    this.getVehicleNoList();
 
     this.selectedFasttag = this.fasttagService.getFasttagDetails();
     this.formFastTag = this.formBuilder.group({
@@ -157,7 +156,7 @@ export class FasttagaddComponent {
     return this.formBuilder.group({
       transRefNo:  ['', []],
       vehicleNo:  ['', []],
-      transDateTime:  [this.loginDate, []],
+      transDateTime:  ['', []],
       ftAmount:  ['', []],
       dtlRemarks:  ['', []],
     });
@@ -188,44 +187,10 @@ export class FasttagaddComponent {
   onFocused(e: any) {
     // do something
   }
-  addItem(index: number): void {
-    var ind = index + 1;
-     if (this.formArray.value[index].vehicleNo != "" && this.formArray.value[index].ftAmount != "" ) {
-      this.formArray.push(this.createInitialArray());
-     } else {
-     this.toasterService.warning("Please enter vehicle no ,ftAmount ");
-     }
-   // this.formArray.controls[ind].get("amount")?.disable();
-  }
-
-  getVehicleNoList(): void {
-    this.commonService.getVehicleIdList().subscribe((res) => {
-      this.vehicleList = res;
-    });
-  }
-
-  removeItem(index: number) {
-    if (confirm("Are you sure, you want to delete this row?")) {
-      this.formArray.removeAt(index);
-    }
-    //this.formArray.splice(index, 1);
-    this.calculateTotal();
-  }
-
-
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
-  calculateAmt(i: number, event: any) {    
-    var selectedData = this.formFastTag.getRawValue();   
-    if (selectedData.arrayList[i].dslQty!=''&& selectedData.arrayList[i].dslRate!='' ){     
-      var pro =  parseFloat(selectedData.arrayList[i].dslQty)*parseFloat(selectedData.arrayList[i].dslRate);
-      this.formArray.controls[i].get("amount")?.setValue(pro);
-      // totalProAmount = totalProAmount + pro;
-    }
-    this.calculateTotal();
-  }
  
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
@@ -250,8 +215,7 @@ export class FasttagaddComponent {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.fastTagDtlList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.fastTagDtlList[i].vehicleNo));
-        this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.fastTagDtlList[i].transDateTime));
-        
+        this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
         this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
         this.formArray.controls[i].get("dtlRemarks")?.setValue(res.fastTagDtlList[i].dtlRemarks);
 
