@@ -287,6 +287,35 @@ export class FasttagaddComponent {
       this.calculateTotal();
     }, 2000);
   }
+
+  
+  addItem(index: number): void {
+    var ind = index + 1;
+    var selectedData= this.formFastTag.getRawValue();
+    var arr= selectedData.arrayList;
+    for (var i = 0; i < arr.length; i++) {  
+      if(i!=index && arr[index].vehicleNo?arr[index].vehicleNo.dataId:""==arr[i].vehicleNo?arr[i].vehicleNo.dataId:""){
+        this.toasterService.warning("Vehicle already exists in grid");
+        return;
+      }
+    }
+
+    if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" 
+      && arr[index].ftAmount != "") {
+     this.formArray.push(this.createInitialArray());
+    } 
+    else {
+     this.toasterService.warning("Please enter vehicle no & Amount");
+    }
+    this.formArray.controls[ind].get("amount")?.disable();
+  }
+
+  removeItem(index: number) {
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+    }
+    this.calculateTotal();
+  }
   
   calculateTotal() {
     var totalFtAmt= 0;
@@ -357,18 +386,21 @@ export class FasttagaddComponent {
 
     this.fasttagmodel.fastTagDtlList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].transRefNo!=''){
+    var arr=selectedDataVal.arrayList;
+
+    for (var i = 0; i < arr.length; i++) {
+      if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && 
+          arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
         this.fasttagmodel.fastTagDtlList.push({
           'ftMasterID':"",
-          'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
-          'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.toString(),   
-          'transDateTime': selectedDataVal.arrayList[i].transDateTime.toString(),   
-          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString(),
-          'dtlRemarks': selectedDataVal.arrayList[i].dtlRemarks.toString(),
+          'transRefNo': arr[i].transRefNo.toString(),   
+          'vehicleNo': arr[i].vehicleNo?arr[i].vehicleNo.dataName:"", 
+          'transDateTime': arr[i].transDateTime,   
+          'ftAmount': arr[i].ftAmount.toString(),   
+          'dtlRemarks': arr[i].dtlRemarks.toString(),  
         });
       }
-    } 
+    }
 
     this.fasttagService.fasttagSave(this.fasttagmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
-                                            <input type="checkbox" formControlName="dpr_Status"  
+                                            <input type="checkbox" *ngIf="editMode" formControlName="dpr_Status"  
                                                 class="form-check-input" />
                                             <label for="tripStatus">DPR Cancel</label>
                                         </div>

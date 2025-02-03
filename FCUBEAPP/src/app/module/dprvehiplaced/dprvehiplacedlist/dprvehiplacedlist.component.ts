@@ -249,6 +249,14 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Lorry Hire',
           data: 'lorryHire',
+        },       
+        {
+          title: 'Advance1 Paid',
+          data: 'adv1PaidYN',
+        },       
+        {
+          title: 'Advance2 Paid',
+          data: 'adv2PaidYN',
         },     
         {
           title: 'Action',

@@ -33,6 +33,8 @@ export class Dprvehiplacedmodel {
     advanceAmt : string = "";
     balanceAmt : string = "";
     assignToStaff : string = "";
+    adv1PaidYN : string = "";
+    adv2PaidYN : string = "";
     vehicleRptDateTime : string = "";
     placementStatus : string = "";
     placementStatusRemarks: string = "";

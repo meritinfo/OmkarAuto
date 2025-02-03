@@ -920,7 +920,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+       
+        [HttpPost("DprVehiPlacedAdvUpd")]
+        public async Task<IActionResult> DprVehiPlacedAdvUpd(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiPlacedAdvUpd(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetTempgcList")]
         public async Task<IActionResult> GetTempgcList(ReportRequestModel request)

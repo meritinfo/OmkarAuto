@@ -495,58 +495,62 @@ export class DrpmasteraddComponent {
     this.dprmodel.loggedInUserID = this.loggedInUserID; 
     
     this.dprmodel.dprDtls = [];
-    
-    if(selectedDataVal.arrayList.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
-      return;
-    }
-    if(selectedDataVal.totFreightAmt!=""?parseFloat(selectedDataVal.totFreightAmt):0 >0) {
-      //ignore
-    }
-    else{
-      this.toasterService.warning("Total Frt Amt Should not be Zero");
-      return;
-    }
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].fromPlace || selectedDataVal.arrayList[i].toPlace)
-      {
-        var fmplc = "";
-        var toplc = "";   
-        if(selectedDataVal.arrayList[i].fromPlace.dataId){
-          fmplc = selectedDataVal.arrayList[i].fromPlace.dataId;
-
-        }  
-        else{
-          this.toasterService.warning("Select Proper From Place in Details");
-          return;
-        }
-        if(selectedDataVal.arrayList[i].toPlace.dataId){
-          toplc = selectedDataVal.arrayList[i].toPlace.dataId;
-        }  
-        else{
-          this.toasterService.warning("Select Proper To Place in Details");
-          return;
-        }  
-      
-        this.dprmodel.dprDtls.push({
-          'dprDtlId': '',
-          'dprId': '',
-          'fromPlace': fmplc,
-          'toPlace': toplc,
-          'fromStn': '',
-          'toStn': '',
-          'gcNoteNo':"",
-          'mainGcYN':"",
-          'specialRemarks': selectedDataVal.arrayList[i].specialRemarks.toString().toUpperCase(),
-        });
+    if(this.dprmodel.dpr_Status=="")
+    {
+      if(selectedDataVal.arrayList.length==0){
+        this.toasterService.warning("Provide atleast one detail record");
+        return;
       }
+      if(selectedDataVal.totFreightAmt!=""?parseFloat(selectedDataVal.totFreightAmt):0 >0) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning("Total Frt Amt Should not be Zero");
+        return;
+      }
+  
+      for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+        if(selectedDataVal.arrayList[i].fromPlace || selectedDataVal.arrayList[i].toPlace)
+        {
+          var fmplc = "";
+          var toplc = "";   
+          if(selectedDataVal.arrayList[i].fromPlace.dataId){
+            fmplc = selectedDataVal.arrayList[i].fromPlace.dataId;
+  
+          }  
+          else{
+            this.toasterService.warning("Select Proper From Place in Details");
+            return;
+          }
+          if(selectedDataVal.arrayList[i].toPlace.dataId){
+            toplc = selectedDataVal.arrayList[i].toPlace.dataId;
+          }  
+          else{
+            this.toasterService.warning("Select Proper To Place in Details");
+            return;
+          }  
+        
+          this.dprmodel.dprDtls.push({
+            'dprDtlId': '',
+            'dprId': '',
+            'fromPlace': fmplc,
+            'toPlace': toplc,
+            'fromStn': '',
+            'toStn': '',
+            'gcNoteNo':"",
+            'mainGcYN':"",
+            'specialRemarks': selectedDataVal.arrayList[i].specialRemarks.toString().toUpperCase(),
+          });
+        }
+      }
+  
+      if(this.dprmodel.dprDtls.length==0){
+        this.toasterService.warning("Provide atleast one detail record");
+        return;
+      }   
     }
-
-    if(this.dprmodel.dprDtls.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
-      return;
-    }   
+    
 
     this.formSubmitted = true;
     this.sharedService.loading=true;

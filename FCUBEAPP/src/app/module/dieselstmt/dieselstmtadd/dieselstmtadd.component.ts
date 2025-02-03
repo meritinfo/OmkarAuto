@@ -175,21 +175,21 @@ export class DieselstmtaddComponent {
 
   addItem(index: number): void {
     var ind = index + 1;
-    // var selectedData= this.formSparesMaster.getRawValue();
-    // var arr=selectedData.arrayList;
-    // for (var i = 0; i < arr.length; i++) {  
-    //   if(i!=index && arr[index].brandId==arr[i].brandId){
-    //     this.toasterService.warning("brand already selected");
-    //     return;
+    var selectedData= this.formDieselStatement.getRawValue();
+    var arr= selectedData.arrayList;
+    for (var i = 0; i < arr.length; i++) {  
+      if(i!=index && arr[index].vehicleNo?arr[index].vehicleNo.dataId:""==arr[i].vehicleNo?arr[i].vehicleNo.dataId:""){
+        this.toasterService.warning("Vehicle already exists in grid");
+        return;
+      }
+    }
 
-    //   }
-    // }
-
-     if (this.formArray.value[index].vehicleNo != "" && this.formArray.value[index].dslQty != "" && this.formArray.value[index].dslRate != "") {
-      this.formArray.push(this.createInitialArray());
-     } else {
+    if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" && arr[index].dslQty != "" && arr[index].dslRate != "") {
+     this.formArray.push(this.createInitialArray());
+    } 
+    else {
      this.toasterService.warning("Please enter vehicle no ,dslQty & dslRate");
-     }
+    }
     this.formArray.controls[ind].get("amount")?.disable();
   }
 
@@ -197,7 +197,6 @@ export class DieselstmtaddComponent {
     if (confirm("Are you sure, you want to delete this row?")) {
       this.formArray.removeAt(index);
     }
-    //this.formArray.splice(index, 1);
     this.calculateTotal();
   }
 
@@ -416,17 +415,20 @@ export class DieselstmtaddComponent {
 
     this.dieselStatementmodel.dieselStmtDtlsList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].vehicleNo!=''&& selectedDataVal.arrayList[i].dslQty!='' && selectedDataVal.arrayList[i].dslRate!=''){
+    var arr=selectedDataVal.arrayList;
+
+    for (var i = 0; i < arr.length; i++) {
+      if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && 
+          arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({
           'dfMasterID':"",
-          'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
-          'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.dataName, 
-          'transDateTime': selectedDataVal.arrayList[i].transDateTime,   
+          'transRefNo': arr[i].transRefNo.toString(),   
+          'vehicleNo': arr[i].vehicleNo?arr[i].vehicleNo.dataName:"", 
+          'transDateTime': arr[i].transDateTime,   
       // 'transDateTime':  this.commonService.formatDate(selectedDataVal.arrayList[i].transDateTime),
-          'dslQty': selectedDataVal.arrayList[i].dslQty.toString(),   
-          'dslRate': selectedDataVal.arrayList[i].dslRate.toString(),   
-          'amount': selectedDataVal.arrayList[i].amount.toString(), 
+          'dslQty': arr[i].dslQty.toString(),   
+          'dslRate': arr[i].dslRate.toString(),   
+          'amount': arr[i].amount.toString(), 
         });
       }
       else{

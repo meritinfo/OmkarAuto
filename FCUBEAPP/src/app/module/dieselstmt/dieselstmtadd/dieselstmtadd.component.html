@@ -169,12 +169,12 @@
                                                     <div class="col-lg-4 details-button">
                                                         <button *ngIf="i === formArray.controls.length-1" type="button"
                                                         class="btn btn-add" (click)="addItem(i)"></button>
-                                                    <button *ngIf="formArray.controls.length > 1"
-                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                </div>
-                                            </td>
-                                        </div>
-                                    </tr>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>
+                                                </td>
+                                            </div>
+                                        </tr>
                                     </table>
                                     <div class="row">                                                                
                                         <div class="col-lg-3">
