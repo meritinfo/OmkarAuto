@@ -609,7 +609,7 @@ export class DeliveryackpodaddComponent {
     }
     var file1 = this.podAttach1Input.nativeElement.files[0];
 
-    //if(this.selectedDeliveryackpod.ackId==""){
+    if(this.selectedDeliveryackpod.ackId==""){
       if (typeof file1 !== 'undefined') {
         //ignore
       }
@@ -617,7 +617,7 @@ export class DeliveryackpodaddComponent {
         this.toasterService.warning("POD Attach1 is mandatory")
         return;
       }
-   // }
+    }
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
