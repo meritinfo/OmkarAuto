@@ -232,7 +232,7 @@ export class OutstandinganalysisrptComponent {
     this.filter.filterStr = selectedDataVal.asOnDate;
     this.filter.filterStr1 = selectedDataVal.rptType;
     this.filter.filterStr2 = "";
-    if(selectedDataVal.rptType=="S"){
+    if(selectedDataVal.rptType=="D"){
       this.filter.filterStr2 = selectedDataVal.party?selectedDataVal.party.dataId:"";
     }
 

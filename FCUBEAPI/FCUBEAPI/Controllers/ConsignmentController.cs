@@ -1330,7 +1330,7 @@ namespace FCUBEAPI.Controllers
                     }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        await podAttach1.CopyToAsync(fileStream);
+                        await podAttach2.CopyToAsync(fileStream);
                         deliveryAckPodModel.PodAttach2 = imageName;
                     }
                 }
