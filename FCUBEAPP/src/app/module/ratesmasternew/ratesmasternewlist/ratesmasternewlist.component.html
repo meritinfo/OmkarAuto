@@ -1,0 +1,92 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Rates Master New</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>  
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   (click)="search()">
+                                        <span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="addRatesMasterNew()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <!-- <th>address1</th> -->
+                      
+                           
+                                                 
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allRatesMaster.newList?.length != 0">
+                        <tr *ngFor="let tm of allRatesMaster.newList">
+                         
+                            <td>{{ tm.party}}</td>
+                            <td>{{ tm.validFrom}}</td>
+                            <!-- <td>{{ tm.vendor}}</td>  -->
+                            <td>{{ tm.validUpto}}</td> 
+                            <!-- <td>{{ tm.vehTypeId}}</td>  -->
+                            <!-- <td>{{ tm.rateTypeId}}</td>  -->
+                            <!-- <td>{{ tm.fromLocationType}}</td>  -->
+                            <td>{{ tm.location}}</td> 
+                                                    
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getRatesMasterNewDetails(tm)"></button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allRatesMaster.newList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

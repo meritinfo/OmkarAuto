@@ -274,6 +274,9 @@ namespace FCUBEAPI
             services.AddScoped<IGstPctValuesBusiness, GstPctValuesBusiness>();
             services.AddScoped<IDoBusiness, DoBusiness>();
             services.AddScoped<IDoRepository, DoRepository>();
+          
+            services.AddScoped<IRatesMasterNewBusiness, RatesMasterNewBusiness>();
+            services.AddScoped<IRatesMasterNewRepository, RatesMasterNewRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

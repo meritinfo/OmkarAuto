@@ -439,6 +439,9 @@ import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.com
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
 import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
 import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
+import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmasternewadd/ratesmasternewadd.component';
+import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
+import { Ratesmasternewmodel } from './models/ratesmasternewmodel';
 
 
 
@@ -579,7 +582,7 @@ import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
      DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, MissingdocrptComponent, DashboardnccComponent,    
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, GstpctvaluesaddComponent,  GstpctvalueslistComponent, RatesmasternewaddComponent, RatesmasternewlistComponent, 
   ],
   
   imports: [
@@ -645,7 +648,7 @@ import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
-    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     
   ],
   bootstrap: [AppComponent]
