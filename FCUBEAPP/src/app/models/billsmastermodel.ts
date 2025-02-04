@@ -18,6 +18,7 @@ export class Billsmastermodel {
     partyGstLocation: string = "";  
     collBranch: string = "";  
     gstType: string = "";  
+    gstBy: string = "";  
     totalFreight: string = "";  
     totalStatistical: string = "";  
     totalFov: string = "";  

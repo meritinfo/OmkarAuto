@@ -117,17 +117,14 @@ export class BusinesssummrptComponent {
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
-        party: new FormControl('',),  
-        rptType: new FormControl('S',),  
+        incSupply: new FormControl('Y',),  
        // destination: new FormControl('',), 
       });
 
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
-      this.filter.filterStr1  = "";
-      this.filter.filterStr2  = "S";
-    //  this.filter.filterStr3  = "";
+      this.filter.filterStr1  = "Y";
   
       this.sharedService.loading=true;
 
@@ -244,14 +241,14 @@ export class BusinesssummrptComponent {
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.filterStr   = selectedDataVal.branch;
-      // this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+      this.filter.filterStr1  = selectedDataVal.incSupply?"Y":"";
       // this.filter.filterStr2  = selectedDataVal.rptType; 
     //  this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
       this.businesssummrptService.getBusinesssummrptExcel(this.filter).subscribe(resp => {
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Business Summary(LR)" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "BusinessSummary(LR)" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -277,7 +274,7 @@ export class BusinesssummrptComponent {
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
-    // this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+    this.filter.filterStr1  = selectedDataVal.incSupply?"Y":"";
     // this.filter.filterStr2  = selectedDataVal.rptType; 
   //  this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;

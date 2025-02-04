@@ -99,12 +99,15 @@ export class DeliveryackpodlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
+      gcNoteNo : new FormControl(''),
     });     
 
     this.sharedService.loading=true;    
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = "";
+    this.filter.filterStr2 = "";
     this.deliveryackpodList();
     this.sharedService.loading=false;
   }
@@ -181,6 +184,8 @@ export class DeliveryackpodlistComponent {
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = selecteddata.gcNoteNo;
+    this.filter.filterStr2 = this.year;
     
     this.sharedService.loading=true;
     this.deliveryackpodList();

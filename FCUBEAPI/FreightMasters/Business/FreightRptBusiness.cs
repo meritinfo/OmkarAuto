@@ -16,28 +16,28 @@ namespace FreightMasters.Business
         {
             freightRptRepository = _freightRptRepository;
         }
-        public async Task<ResponseModel> GetAgeingSummRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetAgeingSummRptExcel(request);
         }
-        public async Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetAgeingSummBranchRptExcel(request);
         }
-        public async Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetAgeingSummPartyRptExcel(request);
         }
-        public async Task<ResponseModel> GetAgeingDetailRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetAgeingDetailRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetAgeingDetailRptExcel(request);
         }
 
-        public async Task<ResponseModel> GetOutstandingSummRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetOutstandingSummRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetOutstandingSummRptExcel(request);
         }
-        public async Task<ResponseModel> GetOutstandingDetailRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetOutstandingDetailRptExcel(ReportAgeModel request)
         {
             return await freightRptRepository.GetOutstandingDetailRptExcel(request);
         }

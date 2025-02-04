@@ -1,6 +1,7 @@
 import { Component, OnInit ,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -28,6 +29,7 @@ export class ChallanmasteraddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  minDate2: string = '';
   newDate: string = '';
   noPackages:string = '';
 
@@ -124,7 +126,7 @@ export class ChallanmasteraddComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
+    this.minDate2 = this.loginDate;
   
     this.sharedService.loading = true;
     this.getBranchList();
@@ -249,6 +251,10 @@ export class ChallanmasteraddComponent {
           challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
+     
+     
+       // var date=  this.datepipe.transform(this.selectedChallanDetails.challanDateTime, 'yyyy-MM-dd');
+        this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            
           this.formUser.controls["declarationYN"].enable();              
@@ -332,7 +338,8 @@ export class ChallanmasteraddComponent {
         this.formUser.controls["modifyRemarks"].enable();   
         this.getChallanInnerGridList();   
         this.editMode = true;        
-        this.sharedService.loading = false;     
+        this.sharedService.loading = false;   
+        
       }   
     }, 2000);   
   }
@@ -860,6 +867,7 @@ export class ChallanmasteraddComponent {
   selectEvent(item: any) {
     // do something with selected item
   }
+  
 
   onChangeSearch(search: string) {
     // do something with selected item
@@ -1101,12 +1109,23 @@ export class ChallanmasteraddComponent {
         return;
       }
     }
+   
     if (selectedDataValue.challanFromStn.dataId) {
       //ignore
     }
     else{
       this.toastrService.warning(" From station is Invalid");
       return;
+    }
+    let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
+    let arrdate = new Date(selectedDataValue.expArrivalDate).toLocaleDateString('en-CA').toString(); 
+    if (arrdate>=chdate) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("exp arrival date should not be less than challan date");
+      return;
+
     }
 
     if (selectedDataValue.challanToStn.dataId) {

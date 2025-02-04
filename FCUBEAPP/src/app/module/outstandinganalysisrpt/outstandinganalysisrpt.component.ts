@@ -113,6 +113,7 @@ export class OutstandinganalysisrptComponent {
       toDate: new FormControl(this.loginDate,[Validators.required]),
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
       rptType: new FormControl('S',),
+      party: new FormControl('',),
     });
 
     this.filter.fromDate =  "";
@@ -232,7 +233,7 @@ export class OutstandinganalysisrptComponent {
     this.filter.filterStr = selectedDataVal.asOnDate;
     this.filter.filterStr1 = selectedDataVal.rptType;
     this.filter.filterStr2 = "";
-    if(selectedDataVal.rptType=="S"){
+    if(selectedDataVal.rptType=="D"){
       this.filter.filterStr2 = selectedDataVal.party?selectedDataVal.party.dataId:"";
     }
 

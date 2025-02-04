@@ -10,12 +10,12 @@ namespace FreightMasters.Business
 {
     public interface IFreightRptBusiness
     {
-        Task<ResponseModel> GetAgeingSummRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetAgeingDetailRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetOutstandingSummRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetOutstandingDetailRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetAgeingSummRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetAgeingSummBranchRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetAgeingSummPartyRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetAgeingDetailRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetOutstandingSummRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetOutstandingDetailRptExcel(ReportAgeModel request);
         Task<ResponseModel> GetOutstandingAnalysisRptExcel(ReportRequestModel request);
         Task<OutstandingAnalRptListModel> GetOutstandingAnalysisRptList(ReportRequestModel request);
 

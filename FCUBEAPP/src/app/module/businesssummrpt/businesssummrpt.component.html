@@ -104,8 +104,15 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div> -->
-                            <div class="col-lg-1"  *ngIf="rptType">
+                            </div> -->                                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <input type="checkbox"  formControlName="incSupply" 
+                                      class="form-check-input" >
+                                    <label for="neft" class="form-check-label">Inc Supply </label>                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>

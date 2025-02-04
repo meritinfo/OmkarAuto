@@ -34,6 +34,8 @@
         public string? AdvanceAmt { get; set; }
         public string? BalanceAmt { get; set; }
         public string? AssignToStaff { get; set; }
+        public string? Adv1PaidYN { get; set; }
+        public string? Adv2PaidYN { get; set; }
         public string? VehicleRptDateTime { get; set; }
         public string? PlacementStatus { get; set; }
         public string? PlacementStatusRemarks { get; set; }

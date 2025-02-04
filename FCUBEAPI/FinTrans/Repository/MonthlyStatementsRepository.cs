@@ -10,6 +10,7 @@ using DocumentFormat.OpenXml.Office2016.Excel;
 using System.Data;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using System.Text;
+using DocumentFormat.OpenXml.Vml;
 
 namespace FinTrans.Repository
 {
@@ -111,7 +112,7 @@ namespace FinTrans.Repository
                     {
                         responseModel = await sharedRepository.GetCompanyDetail();
                         DataTable dt = dataSet.Tables[0];
-                        int colcnt = 13;
+                        int colcnt = 14;
 
                         var ws = wb.Worksheets.Add("worksheet");
                         ws.Range(1, 1, 1, colcnt).Merge();
@@ -156,6 +157,7 @@ namespace FinTrans.Repository
                         ws.Cell(5, 11).Value    = "January";
                         ws.Cell(5, 12).Value    = "February";
                         ws.Cell(5, 13).Value    = "March";
+                        ws.Cell(5, 14).Value    = "Total";
 
                         ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                         ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -177,6 +179,7 @@ namespace FinTrans.Repository
                         decimal brJanuary = 0;  decimal TotJanuary = 0;
                         decimal brFebruary = 0; decimal TotFebruary = 0;
                         decimal brMarch = 0;    decimal TotMarch = 0;
+                        decimal brTotal = 0; decimal gTotal = 0;
 
                         int j = 0;
                         int i = 6;
@@ -200,6 +203,8 @@ namespace FinTrans.Repository
                                     ws.Cell(i, 11).Value = brJanuary.ToString();
                                     ws.Cell(i, 12).Value = brFebruary.ToString();
                                     ws.Cell(i, 13).Value = brMarch.ToString();
+                                    ws.Cell(i, 14).Value = brTotal.ToString();
+
                                     ws.Range(i, 1, i, colcnt).Style.Font.Bold = true;
                                     ws.Range(i, 1, i, colcnt).Style.Font.FontSize = 12;
                                     ws.Range(i, 1, i, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -219,6 +224,7 @@ namespace FinTrans.Repository
                                 brJanuary = 0;
                                 brFebruary = 0;
                                 brMarch = 0;
+                                brTotal = 0;
 
                                 br = dt.Rows[j]["Branch"].ToString();
 
@@ -245,6 +251,7 @@ namespace FinTrans.Repository
                             ws.Cell(i, 11).Value = dt.Rows[j]["January"].ToString();
                             ws.Cell(i, 12).Value = dt.Rows[j]["February"].ToString();
                             ws.Cell(i, 13).Value = dt.Rows[j]["March"].ToString();
+                            ws.Cell(i, 14).Value = dt.Rows[j]["Total"].ToString();
 
                             i++;
 
@@ -279,6 +286,7 @@ namespace FinTrans.Repository
                             brJanuary   = brJanuary   + dt.Rows[j]["January"].ToString()    ==""? 0 : Convert.ToDecimal(dt.Rows[j]["January"]);
                             brFebruary  = brFebruary  + dt.Rows[j]["February"].ToString()   ==""? 0 : Convert.ToDecimal(dt.Rows[j]["February"]);
                             brMarch     = brMarch     + dt.Rows[j]["March"].ToString()      ==""? 0 : Convert.ToDecimal(dt.Rows[j]["March"]);
+                            brTotal     = brTotal     + dt.Rows[j]["Total"].ToString()      =="" ? 0 : Convert.ToDecimal(dt.Rows[j]["Total"]);
 
                             TotApril     = TotApril     + dt.Rows[j]["April"].ToString()      ==""? 0 : Convert.ToDecimal(dt.Rows[j]["April"]);
                             TotMay       = TotMay       + dt.Rows[j]["May"].ToString()        ==""? 0 : Convert.ToDecimal(dt.Rows[j]["May"]);
@@ -292,6 +300,7 @@ namespace FinTrans.Repository
                             TotJanuary   = TotJanuary   + dt.Rows[j]["January"].ToString()    ==""? 0 : Convert.ToDecimal(dt.Rows[j]["January"]);
                             TotFebruary  = TotFebruary  + dt.Rows[j]["February"].ToString()   ==""? 0 : Convert.ToDecimal(dt.Rows[j]["February"]);
                             TotMarch     = TotMarch     + dt.Rows[j]["March"].ToString()      =="" ? 0 : Convert.ToDecimal(dt.Rows[j]["March"]);
+                            gTotal       = gTotal     + dt.Rows[j]["Total"].ToString()      =="" ? 0 : Convert.ToDecimal(dt.Rows[j]["Total"]);
                         }
 
                         ws.Cell(i, 1).Value = "Branch Total";
@@ -307,6 +316,8 @@ namespace FinTrans.Repository
                         ws.Cell(i, 11).Value = brJanuary.ToString();
                         ws.Cell(i, 12).Value = brFebruary.ToString();
                         ws.Cell(i, 13).Value = brMarch.ToString();
+                        ws.Cell(i, 14).Value = brTotal.ToString();
+
                         ws.Range(i, 1, i, colcnt).Style.Font.Bold = true;
                         ws.Range(i, 1, i, colcnt).Style.Font.FontSize = 12;
                         ws.Range(i, 1, i, colcnt).Style.Font.FontColor = XLColor.Maroon;
@@ -326,6 +337,8 @@ namespace FinTrans.Repository
                         ws.Cell(i, 11).Value = TotJanuary.ToString();
                         ws.Cell(i, 12).Value = TotFebruary.ToString();
                         ws.Cell(i, 13).Value = TotMarch.ToString();
+                        ws.Cell(i, 14).Value = gTotal.ToString();
+
                         ws.Range(i, 1, i, colcnt).Style.Font.Bold = true;
                         ws.Range(i, 1, i, colcnt).Style.Font.FontSize = 14;
 

@@ -156,7 +156,6 @@ namespace Consignment.Repository
             }
             return tempGcList;
         }
-
         public async Task<TempGcModel> GetTempgcInnerGridList(RequestModel request)
         {
             TempGcModel tempGc = new()
@@ -338,7 +337,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> InvDetailsSave(SqlTransaction transaction, TempGcInvModel inv)
         {
             ResponseModel responseModel = new();
@@ -373,7 +371,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> SealDetailsSave(SqlTransaction transaction, TempGcSealModel inv)
         {
             ResponseModel responseModel = new();
@@ -406,7 +403,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> TempGcDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -445,8 +441,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        
-
         public async Task<ResponseModel> SendLRMail(ReportRequestModel request)
         {
             ResponseModel responseModel = new();
@@ -527,7 +521,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ConsignmentModel> GetCnorCneeDetails(RequestModel request)
         {
             ConsignmentModel tempGc = new();

@@ -36,6 +36,7 @@ export class BillsmasteraddComponent implements OnInit {
   partyList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
+  gstByList: Dropdownmodel[] = [];
   formBillsMaster!: FormGroup;
   keywordLocation = 'dataName';
   supp = false;
@@ -108,6 +109,7 @@ export class BillsmasteraddComponent implements OnInit {
     this.fromDate = this.minDate ;
     
     this.getBranchList();
+    this.getGstByList();
     this.getBillingPartyList();
     this.getLocationList();
     this.getBillTypeSacHsn();
@@ -123,7 +125,7 @@ export class BillsmasteraddComponent implements OnInit {
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
       collBranch: new FormControl(this.branch,[Validators.required]),
-      gstType: new FormControl('N',[Validators.required]),
+      gstType: new FormControl('NA',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
       totalStatistical: new FormControl(''),
       totalFov: new FormControl(''),
@@ -137,6 +139,9 @@ export class BillsmasteraddComponent implements OnInit {
       totalExtras: new FormControl(''),
       totalOthers: new FormControl(''),
       totalSubTotal: new FormControl(''),
+      sgstPct: new FormControl(''),
+      cgstPct: new FormControl(''),
+      igstPct: new FormControl('',),
       totalSgstAmt: new FormControl(''),
       totalCgstAmt: new FormControl(''),
       totalIgstAmt: new FormControl(''),
@@ -145,6 +150,7 @@ export class BillsmasteraddComponent implements OnInit {
       totalGtotal: new FormControl('',[Validators.required]),
       billRemarks: new FormControl('',),
       enlcosedDocs: new FormControl('',),
+      gstBy : new FormControl('N',[Validators.required]),
   
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
@@ -177,6 +183,10 @@ export class BillsmasteraddComponent implements OnInit {
       this.formBillsMaster.controls['totalNonGstAmt1'].disable();
       this.formBillsMaster.controls['totalNonGstAmt2'].disable();
       this.formBillsMaster.controls['totalGtotal'].disable();
+      this.formBillsMaster.controls['sgstPct'].disable();
+      this.formBillsMaster.controls['cgstPct'].disable();  
+      this.formBillsMaster.controls['igstPct'].disable();  
+
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
@@ -185,6 +195,21 @@ export class BillsmasteraddComponent implements OnInit {
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
         })   
+        if (this.selectedBillsmasterDetails.gstType == "IG") {   
+          this.formBillsMaster.controls['sgstPct'].disable();
+          this.formBillsMaster.controls['cgstPct'].disable();  
+          this.formBillsMaster.controls['igstPct'].enable(); 
+        }    
+        else if (this.selectedBillsmasterDetails.gstType == "SC")  {      
+          this.formBillsMaster.controls['sgstPct'].enable();
+          this.formBillsMaster.controls['cgstPct'].enable();  
+          this.formBillsMaster.controls['igstPct'].disable(); 
+        }
+        else{
+          this.formBillsMaster.controls['sgstPct'].disable();
+          this.formBillsMaster.controls['cgstPct'].disable();  
+          this.formBillsMaster.controls['igstPct'].disable(); 
+        }  
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
@@ -236,12 +261,6 @@ export class BillsmasteraddComponent implements OnInit {
       extras:  ['', []],
       others:  ['', []],
       subTotal:  ['', []],
-      sgstAmt:  ['', []],
-      cgstAmt:  ['', []],
-      igstAmt:  ['', []],
-      nonGstAmt1:  ['', []],
-      nonGstAmt2:  ['', []],
-      gtotal:  ['', []],
       dedAmt:  ['', []],
       yearId:  ['', []],
       suppBillDetRemarks:  ['', []],
@@ -265,6 +284,12 @@ export class BillsmasteraddComponent implements OnInit {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+
+  getGstByList(): void {
+    this.commonService.getGstByList().subscribe((res) => {
+      this.gstByList = res;
     });
   }
   
@@ -480,36 +505,25 @@ export class BillsmasteraddComponent implements OnInit {
     var totalExtras = 0;
     var totalOthers = 0;
     var totalSubTotal = 0;
-    var totalSgstAmt = 0;
-    var totalCgstAmt = 0;
-    var totalIgstAmt = 0;
-    var totalNonGstAmt1 = 0;
-    var totalNonGstAmt2 = 0;
     var totalGtotal = 0;
 
     var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
 
     for (var i = 0; i < billlist.length; i++) {
       if (billlist[i].selected) {
-          totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
-          totalStatistical  = totalStatistical + (billlist[i].statisticalRs == ""? 0 : parseFloat(billlist[i].statisticalRs) );
-          totalFov          = totalFov         + (billlist[i].fovRs == ""? 0 : parseFloat(billlist[i].fovRs) );
-          totalDoorColl     = totalDoorColl    + (billlist[i].doorCollRs == ""? 0 : parseFloat(billlist[i].doorCollRs) );
-          totalHandling     = totalHandling    + (billlist[i].handlingRs == ""? 0 : parseFloat(billlist[i].handlingRs) );
-          totalLoadingDetn  = totalLoadingDetn + (billlist[i].loadingDetnRs == ""? 0 : parseFloat(billlist[i].loadingDetnRs) );
-          totalEnroute      = totalEnroute     + (billlist[i].enrouteRs == ""? 0 : parseFloat(billlist[i].enrouteRs) );
-          totalMisc         = totalMisc        + (billlist[i].miscRs == ""? 0 : parseFloat(billlist[i].miscRs) );
-          totalDoorDel      = totalDoorDel     + (billlist[i].doorDelRs == ""? 0 : parseFloat(billlist[i].doorDelRs) );
-          totalUnLoading    = totalUnLoading   + (billlist[i].unLoadingRs == ""? 0 : parseFloat(billlist[i].unLoadingRs) );
-          totalExtras       = totalExtras      + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS) );
-          totalOthers       = totalOthers      + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs) );
-          totalSubTotal     = totalSubTotal    + (billlist[i].subTotalRs == ""? 0 : parseFloat(billlist[i].subTotalRs) );
-          totalSgstAmt      = totalSgstAmt     + (billlist[i].sgstAmt == ""? 0 : parseFloat(billlist[i].sgstAmt) );
-          totalCgstAmt      = totalCgstAmt     + (billlist[i].cgstAmt == ""? 0 : parseFloat(billlist[i].cgstAmt) );
-          totalIgstAmt      = totalIgstAmt     + (billlist[i].igstAmt == ""? 0 : parseFloat(billlist[i].igstAmt) );
-          totalNonGstAmt1   = totalNonGstAmt1  + (billlist[i].nonGstAmt1 == ""? 0 : parseFloat(billlist[i].nonGstAmt1) );
-          totalNonGstAmt2   = totalNonGstAmt2  + (billlist[i].nonGstAmt2 == ""? 0 : parseFloat(billlist[i].nonGstAmt2)) ;
-          totalGtotal       = totalGtotal      + (billlist[i].gtotalRs == ""? 0 : parseFloat(billlist[i].gtotalRs) );
+        totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
+        totalStatistical  = totalStatistical + (billlist[i].statisticalRs == ""? 0 : parseFloat(billlist[i].statisticalRs) );
+        totalFov          = totalFov         + (billlist[i].fovRs == ""? 0 : parseFloat(billlist[i].fovRs) );
+        totalDoorColl     = totalDoorColl    + (billlist[i].doorCollRs == ""? 0 : parseFloat(billlist[i].doorCollRs) );
+        totalHandling     = totalHandling    + (billlist[i].handlingRs == ""? 0 : parseFloat(billlist[i].handlingRs) );
+        totalLoadingDetn  = totalLoadingDetn + (billlist[i].loadingDetnRs == ""? 0 : parseFloat(billlist[i].loadingDetnRs) );
+        totalEnroute      = totalEnroute     + (billlist[i].enrouteRs == ""? 0 : parseFloat(billlist[i].enrouteRs) );
+        totalMisc         = totalMisc        + (billlist[i].miscRs == ""? 0 : parseFloat(billlist[i].miscRs) );
+        totalDoorDel      = totalDoorDel     + (billlist[i].doorDelRs == ""? 0 : parseFloat(billlist[i].doorDelRs) );
+        totalUnLoading    = totalUnLoading   + (billlist[i].unLoadingRs == ""? 0 : parseFloat(billlist[i].unLoadingRs) );
+        totalExtras       = totalExtras      + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS) );
+        totalOthers       = totalOthers      + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs) );
+        totalSubTotal     = totalSubTotal    + (billlist[i].subTotalRs == ""? 0 : parseFloat(billlist[i].subTotalRs) );
       }
     }
 
@@ -527,15 +541,91 @@ export class BillsmasteraddComponent implements OnInit {
       totalExtras       : totalExtras.toFixed(2),
       totalOthers       : totalOthers.toFixed(2),
       totalSubTotal     : totalSubTotal.toFixed(2),
+      totalGtotal       : totalGtotal.toFixed(2),
+    });
+    this.pctChange();
+  }
+
+  onGstChange(){
+    var selectedDataVal = this.formBillsMaster.getRawValue();
+
+    if (selectedDataVal.gstType == "IG") {   
+      this.formBillsMaster.controls['sgstPct'].disable();
+      this.formBillsMaster.controls['cgstPct'].disable();  
+      this.formBillsMaster.controls['igstPct'].enable();    
+      this.formBillsMaster.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"0",
+        totalSgstAmt:"",
+        totalCgstAmt:"",
+        totalIgstAmt:"0",
+      });   
+    }    
+    else if (selectedDataVal.gstType == "SC")  {      
+      this.formBillsMaster.controls['sgstPct'].enable();
+      this.formBillsMaster.controls['cgstPct'].enable();  
+      this.formBillsMaster.controls['igstPct'].disable();   
+      this.formBillsMaster.patchValue({
+        sgstPct:"0",
+        cgstPct:"0",
+        igstPct:"",
+        totalSgstAmt:"0",
+        totalCgstAmt:"0",
+        totalIgstAmt:"",
+      });     
+    }
+    else{
+      this.formBillsMaster.controls['sgstPct'].disable();
+      this.formBillsMaster.controls['cgstPct'].disable();  
+      this.formBillsMaster.controls['igstPct'].disable();   
+      this.formBillsMaster.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        totalSgstAmt:"",
+        totalCgstAmt:"",
+        totalIgstAmt:"",
+      });   
+    }    
+  }
+
+  pctChange(){
+    var gstAmt = 0;
+    var totalSgstAmt = 0;
+    var totalCgstAmt = 0;
+    var totalIgstAmt = 0;
+    var totalGtotal = 0;
+    var selectedDataVal = this.formBillsMaster.getRawValue();
+
+    gstAmt = selectedDataVal.totalSubTotal == ""? 0 : parseFloat(selectedDataVal.totalSubTotal)
+
+    totalGtotal = gstAmt ;
+    
+    if(selectedDataVal.sgstPct!="") {
+      totalSgstAmt = gstAmt * parseFloat(selectedDataVal.sgstPct)/100;
+      totalGtotal = totalGtotal + totalSgstAmt;
+    }
+    if(selectedDataVal.cgstPct!="") {
+      totalCgstAmt = gstAmt * parseFloat(selectedDataVal.cgstPct)/100;
+      totalGtotal = totalGtotal + totalCgstAmt;
+    }
+    if(selectedDataVal.igstPct!="") {
+      totalIgstAmt = gstAmt * parseFloat(selectedDataVal.igstPct)/100;
+      totalGtotal = totalGtotal + totalIgstAmt;
+    }      
+
+    totalGtotal = totalGtotal 
+        + (selectedDataVal.totalNonGstAmt1 == ""? 0 : parseFloat(selectedDataVal.totalNonGstAmt1))
+        + (selectedDataVal.totalNonGstAmt2 == ""? 0 : parseFloat(selectedDataVal.totalNonGstAmt2)) ; 
+
+    this.formBillsMaster.patchValue({
       totalSgstAmt      : totalSgstAmt.toFixed(2),
       totalCgstAmt      : totalCgstAmt.toFixed(2),
       totalIgstAmt      : totalIgstAmt.toFixed(2),
-      totalNonGstAmt1   : totalNonGstAmt1.toFixed(2),
-      totalNonGstAmt2   : totalNonGstAmt2.toFixed(2),
       totalGtotal       : totalGtotal.toFixed(2),
     });
   }
-
 
 
   getUserTripRights(): void {
@@ -628,6 +718,7 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalUnLoading= selectedDataValue.totalUnLoading.toString();
     this.billsmastermodel.totalSubTotal = selectedDataValue.totalSubTotal.toString();
     this.billsmastermodel.gstType = selectedDataValue.gstType;
+    this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
     this.billsmastermodel.totalSgstAmt = selectedDataValue.totalSgstAmt.toString();
     this.billsmastermodel.totalCgstAmt = selectedDataValue.totalCgstAmt.toString();
     this.billsmastermodel.totalIgstAmt = selectedDataValue.totalIgstAmt.toString();
@@ -641,14 +732,8 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.yearId = this.year;
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
-    var gstType = '' ;
     for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
       if(this.billsmastersearchlistmodel.billsMasterSearchList[i].selected){
-        if(this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType == 'NA' ||
-          this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType == 'N'){
-            gstType = 'NA'
-          }        
-        
         this.billsmastermodel.billsMasterListData.push({
           'billDetailId': '',
           'billsMasterId': '',
@@ -675,12 +760,12 @@ export class BillsmasteraddComponent implements OnInit {
           'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
           'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
           'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
-          'sgstAmt':  this.billsmastersearchlistmodel.billsMasterSearchList[i].sgstAmt,
-          'cgstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].cgstAmt,
-          'igstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].igstAmt,
-          'nonGstAmt1': this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt1,
-          'nonGstAmt2':  this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt2,
-          'gtotal':  this.billsmastersearchlistmodel.billsMasterSearchList[i].gtotalRs,
+          'sgstAmt': "",
+          'cgstAmt': "",
+          'igstAmt': "",
+          'nonGstAmt1': "",
+          'nonGstAmt2':  "",
+          'gtotal':  this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
           'dedAmt':"" ,
           'yearId':  this.year,
           'suppBillDetRemarks': "",
@@ -689,12 +774,7 @@ export class BillsmasteraddComponent implements OnInit {
           'remarks3': "",          
         });
       }
-    } 
-    
-    if(gstType == 'NA' && this.billsmastermodel.gstType != 'NA' ){
-      this.toasterService.warning("Bill GST should not be applicable");   
-      return;
-    }
+    }   
     
     this.billsMasterService.saveBillsMasterDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

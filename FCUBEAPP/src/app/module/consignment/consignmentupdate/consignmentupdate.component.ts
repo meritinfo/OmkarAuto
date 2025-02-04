@@ -111,6 +111,7 @@ export class ConsignmentupdateComponent {
     this.getBranchList();
     this.getRateList();
     this.getLocationList();
+    this.getBillingPartyList();
     this.formSubmitted = false;
 
     this.sharedService.loading = false;
@@ -129,7 +130,7 @@ export class ConsignmentupdateComponent {
       chargewt : new FormControl('',),   
       cnorName: new FormControl('',), 
       cneeName: new FormControl('',),
-      party: new FormControl('',),
+      party: new FormControl('',[Validators.required]),
       rateType : new FormControl('',),   
       rateDesc : new FormControl('',),   
       gstBy : new FormControl('',),   
@@ -161,13 +162,13 @@ export class ConsignmentupdateComponent {
       extrasNarr: new FormControl('',),   
       othersNarr: new FormControl('',),   
       subTotalRs : new FormControl('',),   
-      gstType: new FormControl('',),   
-      sgstPct: new FormControl('',),   
-      sgstAmt: new FormControl('',),   
-      cgstPct : new FormControl('',),   
-      cgstAmt: new FormControl('',),   
-      igstPct: new FormControl('',),   
-      igstAmt: new FormControl('',),   
+      // gstType: new FormControl('',),   
+      // sgstPct: new FormControl('',),   
+      // sgstAmt: new FormControl('',),   
+      // cgstPct : new FormControl('',),   
+      // cgstAmt: new FormControl('',),   
+      // igstPct: new FormControl('',),   
+      // igstAmt: new FormControl('',),   
       nonGstAmt1 : new FormControl('',),   
       nonGstAmt1Desc: new FormControl('',),   
       nonGstAmt2: new FormControl('',),   
@@ -187,7 +188,6 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['actualWt'].disable();   
     this.formUser.controls['cnorName'].disable();  
     this.formUser.controls['cneeName'].disable();  
-    this.formUser.controls['party'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
     this.formUser.controls['ulDetentionDays'].disable(); 
@@ -255,13 +255,13 @@ export class ConsignmentupdateComponent {
       extrasNarr:  "", 
       othersNarr:  "", 
       subTotalRs :  "", 
-      gstType:  "", 
-      sgstPct:  "", 
-      sgstAmt:  "", 
-      cgstPct :  "", 
-      cgstAmt:  "", 
-      igstPct:  "", 
-      igstAmt:  "", 
+      // gstType:  "", 
+      // sgstPct:  "", 
+      // sgstAmt:  "", 
+      // cgstPct :  "", 
+      // cgstAmt:  "", 
+      // igstPct:  "", 
+      // igstAmt:  "", 
       nonGstAmt1 :  "", 
       nonGstAmt1Desc:  "", 
       nonGstAmt2:  "", 
@@ -299,7 +299,7 @@ export class ConsignmentupdateComponent {
             chargewt :  this.lrmodel.chargewt, 
             cnorName:  this.lrmodel.cnorName,
             cneeName:  this.lrmodel.cneeName, 
-            party:  this.lrmodel.billingParty, 
+            party: this.partyList.find(x => x.dataName = this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
             rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
@@ -331,13 +331,13 @@ export class ConsignmentupdateComponent {
             extrasNarr:  this.lrmodel.extrasNarr, 
             othersNarr:  this.lrmodel.othersNarr, 
             subTotalRs :  this.lrmodel.subTotalRs, 
-            gstType:  this.lrmodel.gstType, 
-            sgstPct:  this.lrmodel.sgstPct ,
-            sgstAmt:  this.lrmodel.sgstAmt ,
-            cgstPct :  this.lrmodel.cgstPct ,
-            cgstAmt:  this.lrmodel.cgstAmt ,
-            igstPct:  this.lrmodel.igstPct ,
-            igstAmt:  this.lrmodel.igstAmt ,
+            // gstType:  this.lrmodel.gstType, 
+            // sgstPct:  this.lrmodel.sgstPct ,
+            // sgstAmt:  this.lrmodel.sgstAmt ,
+            // cgstPct:  this.lrmodel.cgstPct ,
+            // cgstAmt:  this.lrmodel.cgstAmt ,
+            // igstPct:  this.lrmodel.igstPct ,
+            // igstAmt:  this.lrmodel.igstAmt ,
             nonGstAmt1 :  this.lrmodel.nonGstAmt1 ,
             nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
             nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
@@ -437,65 +437,67 @@ export class ConsignmentupdateComponent {
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs
    
-    var igst = 0;
-    var sgst = 0;
-    var cgst = 0;
-    if(selectedData.igstPct!=0){
-      igst = parseFloat(selectedData.igstPct)
-    }
-    if(selectedData.sgstPct!=0){
-      sgst = parseFloat(selectedData.sgstPct)
-    }
-    if(selectedData.cgstPct!=0){
-      cgst = parseFloat(selectedData.cgstPct)
-    }
+    // var igst = 0;
+    // var sgst = 0;
+    // var cgst = 0;
+    // if(selectedData.igstPct!=0){
+    //   igst = parseFloat(selectedData.igstPct)
+    // }
+    // if(selectedData.sgstPct!=0){
+    //   sgst = parseFloat(selectedData.sgstPct)
+    // }
+    // if(selectedData.cgstPct!=0){
+    //   cgst = parseFloat(selectedData.cgstPct)
+    // }
 
-    if (selectedData.gstType == "I") {   
-      selectedData.igstPct 
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct: igst,
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
-      });   
-    }    
-    else if (selectedData.gstType == "S")  {    
-      this.formUser.patchValue({
-        sgstPct: sgst,
-        cgstPct: cgst,
-        igstPct: "",
-        sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
-        cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
-        igstAmt: "",
-      });     
-    }
-    else{
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct:"",
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt:"",
-      });   
-    }    
-    gtotalRs = subTotalRs + 
-    Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
-    + nonGstAmt1 + nonGstAmt2
+    // if (selectedData.gstType == "I") {   
+    //   selectedData.igstPct 
+    //   this.formUser.patchValue({
+    //     sgstPct:"",
+    //     cgstPct:"",
+    //     igstPct: igst,
+    //     sgstAmt:"",
+    //     cgstAmt:"",
+    //     igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
+    //   });   
+    // }    
+    // else if (selectedData.gstType == "S")  {    
+    //   this.formUser.patchValue({
+    //     sgstPct: sgst,
+    //     cgstPct: cgst,
+    //     igstPct: "",
+    //     sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
+    //     cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
+    //     igstAmt: "",
+    //   });     
+    // }
+    // else{
+    //   this.formUser.patchValue({
+    //     sgstPct:"",
+    //     cgstPct:"",
+    //     igstPct:"",
+    //     sgstAmt:"",
+    //     cgstAmt:"",
+    //     igstAmt:"",
+    //   });   
+    // }    
+    // gtotalRs = subTotalRs + 
+    // Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
+    // + nonGstAmt1 + nonGstAmt2
+
+    gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2
 
     this.formUser.patchValue({
       subTotalRs: subTotalRs.toFixed(2),
       gtotalRs: gtotalRs.toFixed(2),
     });
   }  
+
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
     });
   }
-
   
   selectEvent(item: any) {
     // do something with selected item
@@ -553,6 +555,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
+    this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
     this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
@@ -584,13 +587,6 @@ export class ConsignmentupdateComponent {
     this.cnmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
     this.cnmodel.othersNarr= selectedDataValue.othersNarr ? selectedDataValue.othersNarr.toString().toUpperCase() : "";;
     this.cnmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
-    this.cnmodel.gstType = selectedDataValue.gstType ;
-    this.cnmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 
-    this.cnmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt : "0"; 
-    this.cnmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct : "0";   
-    this.cnmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt : "0"; 
-    this.cnmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
-    this.cnmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
     this.cnmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
     this.cnmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc ? selectedDataValue.nonGstAmt1Desc : "0"; 
     this.cnmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 

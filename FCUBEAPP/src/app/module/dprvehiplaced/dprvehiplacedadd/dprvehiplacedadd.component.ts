@@ -9,6 +9,7 @@ import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
 import { DprService } from 'src/app/services/dpr.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
@@ -37,6 +38,7 @@ export class DprvehiplacedaddComponent {
   minDate: string = '';
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
+  repo = new Reportmodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
@@ -150,6 +152,8 @@ export class DprvehiplacedaddComponent {
       vehicleRptDateTime : new FormControl('',),
       placementStatus : new FormControl('',),
       placementStatusRemarks: new FormControl('',),
+      adv1PaidYN: new FormControl('',),
+      adv2PaidYN: new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
@@ -172,7 +176,17 @@ export class DprvehiplacedaddComponent {
           vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
           vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
           brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
-        });            
+        });   
+        if(this.selectedDprDetails.adv1PaidYN=="N") {
+          this.formUser.patchValue({
+            adv1PaidYN: "",
+          });   
+        }        
+        if(this.selectedDprDetails.adv2PaidYN=="N") {
+          this.formUser.patchValue({
+            adv2PaidYN: "",
+          });   
+        }        
         this.getDprInnerGridList();
         this.formUser.controls["vehicleNo"].disable();
         this.editMode = true;
@@ -414,6 +428,26 @@ export class DprvehiplacedaddComponent {
     this.commonService.getEmpList().subscribe((res) => {
       this.empList = res;
     });
+  }
+  
+  advPaid(i:number,e:any)
+  {
+    this.repo.filterStr = this.selectedDprDetails.vehiclePlacedId;
+    this.repo.filterStr1 = i.toString();
+    this.repo.filterStr2 = e.target.checked?"Y":"N";
+    this.repo.filterStr3 = this.loggedInUserID;
+    this.dprvehiplacedService.dprVehiPlacedAdvUpd(this.repo).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/dprvehplacedlist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
+    });
+    
   }
    
   deleteDprVehiDetailsForm(): void {

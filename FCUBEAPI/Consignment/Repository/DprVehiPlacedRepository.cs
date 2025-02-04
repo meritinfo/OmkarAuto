@@ -85,6 +85,8 @@ namespace Consignment.Repository
                                 BalanceAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceAmt"]),
                                 AssignToStaff       = Convert.ToString(dataSet.Tables[0].Rows[i]["AssignToStaff"]),
                                 VehicleEngagedBy    = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleEngagedBy"]),
+                                Adv1PaidYN          = Convert.ToString(dataSet.Tables[0].Rows[i]["Adv1PaidYN"]),
+                                Adv2PaidYN          = Convert.ToString(dataSet.Tables[0].Rows[i]["Adv2PaidYN"]),
                                 NoofLr              = Convert.ToString(dataSet.Tables[0].Rows[i]["NoofLr"]),
                                 CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
@@ -160,7 +162,6 @@ namespace Consignment.Repository
                         dprVehi.CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[0]["CreatedDate"]);
                         dprVehi.ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
                         dprVehi.ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedDate"]);
-
                     }
                 }
             }
@@ -369,7 +370,6 @@ namespace Consignment.Repository
             }
             return contentList;
         }
-
         public async Task<ResponseModel> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
         {
             ResponseModel responseModel = new();
@@ -409,7 +409,7 @@ namespace Consignment.Repository
                             new SqlParameter("@AdvanceAmt"              , dprVehi.AdvanceAmt),
                             new SqlParameter("@BalanceAmt"              , dprVehi.BalanceAmt),
                             new SqlParameter("@AssignToStaff"           , dprVehi.AssignToStaff),
-                            new SqlParameter("@VehicleRptDateTime"      , dprVehi.VehicleRptDateTime),
+                            new SqlParameter("@VehicleRptDateTime"      , dprVehi.VehicleRptDateTime),                    
                             new SqlParameter("@PlacementStatus"         , dprVehi.PlacementStatus),
                             new SqlParameter("@PlacementStatusRemarks"  , dprVehi.PlacementStatusRemarks),
                             new SqlParameter("@LoggedInUser"            , dprVehi.LoggedInUser),
@@ -499,7 +499,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> DprVehiPlacedDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -517,6 +516,47 @@ namespace Consignment.Repository
                             new SqlParameter("@VehiclePlacedId", requestModel.strRequest),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiPlacedDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> DprVehiPlacedAdvUpd(ReportRequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehiclePlacedId",requestModel.FilterStr),
+                            new SqlParameter("@AdvNo",          requestModel.FilterStr1),
+                            new SqlParameter("@AdvPaidYN",      requestModel.FilterStr2),
+                            new SqlParameter("@UserId",         requestModel.FilterStr3),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiPlacedAdvUpd", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

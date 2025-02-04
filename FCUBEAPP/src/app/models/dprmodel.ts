@@ -32,7 +32,7 @@ export class Dprmodel {
     totFreightAmt   : string = "";   
     yearId  : string = "";   
     attachConfirmDoc : string = "";  
-    dPR_Status  : string = "";       
+    dpr_Status  : string = "";       
     vehicleNo  : string = "";  
     brokerName   : string = "";    
     driverName  : string = "";       

@@ -21,7 +21,6 @@ export class DashboardnccComponent {
   selectedUserID: string = '';
   loginDate: string = '';
 
-  formUser!: FormGroup;
   constructor(private route: Router, private formBuilder: FormBuilder,
     private commonService: CommonService ) 
     {   }

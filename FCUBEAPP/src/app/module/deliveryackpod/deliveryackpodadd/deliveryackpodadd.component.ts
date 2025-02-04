@@ -107,8 +107,6 @@ export class DeliveryackpodaddComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-  
 
     this.sharedService.loading=true;
 
@@ -147,8 +145,6 @@ export class DeliveryackpodaddComponent {
       podRecdYN: new FormControl('', ),
       podRecdDate: new FormControl('', ),
       podDelayDays: new FormControl('', ),
-      podAttach1 : new FormControl('', ),
-      podAttach2: new FormControl('', ),
       balancePayable: new FormControl('', ),
       handlingPayable: new FormControl('', ),
       detiontionPayable: new FormControl('', ),
@@ -204,11 +200,13 @@ export class DeliveryackpodaddComponent {
       if (this.selectedDeliveryackpod.ackId != '') {
         this.consignmentId = this.selectedDeliveryackpod.consignmentId;
         this.gcYear = this.selectedDeliveryackpod.gcYear;
-        
+        this.podAttach1Input.nativeElement.disabled = true;
+
         this.podAttach1 = Constants.UploadFolderPath + 'deliveryackpod/podattach1/' + this.selectedDeliveryackpod.podAttach1;
         this.podAttach2 = Constants.UploadFolderPath + 'deliveryackpod/podattach2/' + this.selectedDeliveryackpod.podAttach2;
         this.formUser.patchValue(this.selectedDeliveryackpod);  
         this.formUser.patchValue({
+          gcNoteNo: this.selectedDeliveryackpod.gcNoteNo,
           ackDate:this.commonService.formatDate(this.selectedDeliveryackpod.ackDate),
           gcDate:this.commonService.formatDate(this.selectedDeliveryackpod.gcDate),
           expectedRptdate:this.commonService.formatDate(this.selectedDeliveryackpod.expectedRptdate),
@@ -515,6 +513,8 @@ export class DeliveryackpodaddComponent {
   
   getConsignmentDetails(e: any) { 
     this.requestmodel.strRequest = e.target.value; 
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = this.year;
     this.deliveryackpodService.checkDeliveryAckDoneForLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
@@ -533,6 +533,7 @@ export class DeliveryackpodaddComponent {
       this.consignmentId = this.deliveryackpodmodel.consignmentId;
       this.gcYear = this.deliveryackpodmodel.gcYear;
       this.formUser.patchValue({
+        gcNoteNo:this.deliveryackpodmodel.gcNoteNo,
         gcBook: this.deliveryackpodmodel.gcBook,
         gcDate:this.commonService.formatDate(this.deliveryackpodmodel.gcDate),
         gcFrom: this.deliveryackpodmodel.gcFrom,
@@ -605,6 +606,17 @@ export class DeliveryackpodaddComponent {
         }
       } 
       return;
+    }
+    var file1 = this.podAttach1Input.nativeElement.files[0];
+
+    if(this.selectedDeliveryackpod.ackId==""){
+      if (typeof file1 !== 'undefined') {
+        //ignore
+      }
+      else{
+        this.toasterService.warning("POD Attach1 is mandatory")
+        return;
+      }
     }
 
     this.sharedService.loading = true;

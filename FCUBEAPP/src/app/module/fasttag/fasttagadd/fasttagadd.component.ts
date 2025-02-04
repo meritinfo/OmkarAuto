@@ -31,6 +31,7 @@ export class FasttagaddComponent {
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
+  vehicleList:Dropdownmodel[] = [];
   formFastTag!: FormGroup;
   selectedFasttag = new Fasttagmodel()
   seriesDoc: string = "";
@@ -104,6 +105,7 @@ export class FasttagaddComponent {
  
     this.getBranchList();
     this.getAcountList();
+    this.getVehicleNoList();
 
     this.selectedFasttag = this.fasttagService.getFasttagDetails();
     this.formFastTag = this.formBuilder.group({
@@ -174,6 +176,12 @@ export class FasttagaddComponent {
     });
   }
 
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
   selectEvent(item: any) {
     // do something with selected item
   }
@@ -182,10 +190,12 @@ export class FasttagaddComponent {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+ 
 
   onFocused(e: any) {
     // do something
   }
+
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
@@ -213,7 +223,7 @@ export class FasttagaddComponent {
       for (var i = 0; i < res.fastTagDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.fastTagDtlList[i].transRefNo);
-        this.formArray.controls[i].get("vehicleNo")?.setValue(res.fastTagDtlList[i].vehicleNo);
+        this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.fastTagDtlList[i].vehicleNo));
         this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
         this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
         this.formArray.controls[i].get("dtlRemarks")?.setValue(res.fastTagDtlList[i].dtlRemarks);
@@ -287,6 +297,28 @@ export class FasttagaddComponent {
       this.calculateTotal();
     }, 2000);
   }
+
+  
+  addItem(index: number): void {    
+    var selectedData= this.formFastTag.getRawValue();
+    var arr= selectedData.arrayList;   
+
+    if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" 
+      && arr[index].ftAmount != "") {
+     this.formArray.push(this.createInitialArray());
+     this.formArray.controls[index+1].get("amount")?.disable();
+    } 
+    else {
+     this.toasterService.warning("Please enter vehicle no & Amount");
+    }
+  }
+
+  removeItem(index: number){
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+    }
+    this.calculateTotal();
+  }
   
   calculateTotal() {
     var totalFtAmt= 0;
@@ -357,18 +389,28 @@ export class FasttagaddComponent {
 
     this.fasttagmodel.fastTagDtlList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].transRefNo!=''){
+    var arr=selectedDataVal.arrayList;
+
+    for (var i = 0; i < arr.length; i++) {
+      if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && arr[i].vehicleNo[i].ftAmount!=''){
         this.fasttagmodel.fastTagDtlList.push({
           'ftMasterID':"",
-          'transRefNo': selectedDataVal.arrayList[i].transRefNo.toString(),   
-          'vehicleNo': selectedDataVal.arrayList[i].vehicleNo.toString(),   
-          'transDateTime': selectedDataVal.arrayList[i].transDateTime.toString(),   
-          'ftAmount': selectedDataVal.arrayList[i].ftAmount.toString(),
-          'dtlRemarks': selectedDataVal.arrayList[i].dtlRemarks.toString(),
+          'transRefNo': arr[i].transRefNo.toString(),   
+          'vehicleNo': arr[i].vehicleNo?arr[i].vehicleNo.dataName:"", 
+          'transDateTime': arr[i].transDateTime,   
+          'ftAmount': arr[i].ftAmount.toString(),   
+          'dtlRemarks': arr[i].dtlRemarks.toString(),  
         });
       }
-    } 
+    }
+
+    const foundDuplicateName = this.fasttagmodel.fastTagDtlList.find((data, index) => {
+      return this.fasttagmodel.fastTagDtlList.find((x, ind) => x.vehicleNo === data.vehicleNo && index !== ind);
+    })
+    if (foundDuplicateName) {
+      this.toasterService.warning("Duplicate Vehicle No grid not allowed");
+      return;
+    }
 
     this.fasttagService.fasttagSave(this.fasttagmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

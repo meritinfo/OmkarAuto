@@ -328,7 +328,25 @@
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>   
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <input type="checkbox" formControlName="adv1PaidYN"  
+                            (change)="advPaid(1,$event)" 
+                                class="form-check-input" />
+                            <label for="adv1PaidYN">Advance1 Paid</label>
+                        </div>
+                    </div>     
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <input type="checkbox" formControlName="adv2PaidYN"  
+                            (change)="advPaid(2,$event)" 
+                                class="form-check-input" />
+                            <label for="adv2PaidYN">Advance2 Paid</label>
+                        </div>
+                    </div>     
+                </div>              
                 <div class="row">                    
                     <div class="col-lg-5">
                         <div class="mb-3">

@@ -121,7 +121,11 @@ export class Consignmentmodel {
     nonGstAmt1Desc : string = "";
     nonGstAmt2 : string = "";
     nonGstAmt2Desc : string = "";
-    gtotalRs : string = "";
+    gtotalRs : string = "";    
+    vehicleInDt:  string = "";
+    vehicleInTime:  string = "";
+    vehicleOutDt:  string = "";
+    vehicleOutTime:  string = "";
         advanceRs : string = "";
         amountRecd : string = "";
         tdsDeducted : string = "";

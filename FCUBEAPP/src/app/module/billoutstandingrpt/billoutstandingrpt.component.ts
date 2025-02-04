@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Reportagemodel } from 'src/app/models/reportagemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -33,7 +33,7 @@ export class BilloutstandingrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  filter: Reportmodel = {
+  filter: Reportagemodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'ExpectedReportingDt',
@@ -45,6 +45,11 @@ export class BilloutstandingrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+    age1:0,
+    age2:0,
+    age3:0,
+    age4:0,
+    age5:0,
   }
 
 
@@ -105,6 +110,11 @@ export class BilloutstandingrptComponent {
       incUnBilled: new FormControl('',),  
       submitYN: new FormControl('',),  
       rptType: new FormControl('AS',),
+      age1: new FormControl('30',), 
+      age2: new FormControl('60',), 
+      age3: new FormControl('90',), 
+      age4: new FormControl('120',), 
+      age5: new FormControl('150',), 
     });
 
     this.sharedService.loading=true;
@@ -140,59 +150,100 @@ export class BilloutstandingrptComponent {
 
   getRptExcel(): void {
     var selectedDataVal=this.formFilter.getRawValue();
+    if(selectedDataVal.age1=="" || selectedDataVal.age2=="" || selectedDataVal.age3=="" ||
+      selectedDataVal.age4=="" || selectedDataVal.age5=="" || selectedDataVal.age6==""){
+        this.toastrService.warning("Ageing should not be blank") ;
+        return;      
+      }
+
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.search        = selectedDataVal.asOnDate;
     this.filter.filterStr     = selectedDataVal.branch;
     this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
-    this.filter.filterStr2    = selectedDataVal.submitYN;
+    this.filter.filterStr2    = selectedDataVal.submitYN;    
+    this.filter.age1 = parseInt(selectedDataVal.age1)
+    this.filter.age2 = parseInt(selectedDataVal.age2) 
+    this.filter.age3 = parseInt(selectedDataVal.age3)
+    this.filter.age4 = parseInt(selectedDataVal.age4)
+    this.filter.age5 = parseInt(selectedDataVal.age5)
 
     if(selectedDataVal.rptType=="AS"){
       this.billoutstandingrptService.getAgeingSummRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "AgeingSummReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
     if(selectedDataVal.rptType=="ASB"){
       this.billoutstandingrptService.getAgeingSummBranchRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummBranchReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "AgeingSummBranchReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
     if(selectedDataVal.rptType=="ASP"){
       this.billoutstandingrptService.getAgeingSummPartyRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingSummPartyReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "AgeingSummPartyReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
     if(selectedDataVal.rptType=="AD"){
       this.billoutstandingrptService.getAgeingDetailRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "AgeingDetailReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "AgeingDetailReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
     if(selectedDataVal.rptType=="OS"){
       this.billoutstandingrptService.getOutStandingSummRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "OutstandingSummReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "OutstandingSummReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
     if(selectedDataVal.rptType=="OD"){
       this.billoutstandingrptService.getOutStandingDetailRptExcel(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        link.download = "OutstandingDetailReport" + "_" + new Date().getTime() + '.xlsx';
-        link.href = "assets\\reports\\Download\\" + resp.message;
-        link.click();
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "OutstandingDetailReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
       });
     }
   }

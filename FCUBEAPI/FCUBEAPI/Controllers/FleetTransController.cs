@@ -760,6 +760,27 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("DieselStatementDelete")]
+        public async Task<IActionResult> DieselStatementDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.DieselStatementDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)
         {

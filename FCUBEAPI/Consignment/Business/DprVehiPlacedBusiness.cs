@@ -36,5 +36,9 @@ namespace Consignment.Business
         {
             return await dprRepository.DprVehiPlacedDelete(requestModel);
         }
+        public async Task<ResponseModel> DprVehiPlacedAdvUpd(ReportRequestModel requestModel)
+        {
+            return await dprRepository.DprVehiPlacedAdvUpd(requestModel);
+        }
     }
 }

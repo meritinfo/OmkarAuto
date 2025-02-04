@@ -86,12 +86,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <!-- <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <input type="file" *ngIf="!editMode" (change)="onFileChange($event)" 
-                                                        multiple="false" />
+                                                        multiple="false"/>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -114,37 +114,63 @@
                                             <th><label for="formrow-inputZip">Trans Date Time</label></th>
                                             <th><label for="formrow-inputZip">Fasttag Amount</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>
+
                                         </tr>                                        
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input class="form-control" formControlName="transRefNo">
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <input class="form-control" formControlName="transRefNo">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <div class="ng-autocomplete">
+                                                            <ng-autocomplete [data]="vehicleList"
+                                                                [searchKeyword]="keywordLocation" 
+                                                                formControlName="vehicleNo"
+                                                                [itemTemplate]="itemTemplate"
+                                                                [notFoundTemplate]="notFoundTemplate"
+                                                                [customFilter]="startWithFilter">
+                                                            </ng-autocomplete>
+        
+                                                            <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item.dataName"></a>
+                                                            </ng-template>
+    
+                                                            <ng-template #notFoundTemplate let-notFound>
+                                                                <div [innerHTML]="notFound"></div>
+                                                            </ng-template>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <input type="date"  class="form-control" formControlName="transDateTime">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <input decimalonly   class="form-control" formControlName="ftAmount" (change)="calculateTotal()">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <input uppercaseonly class="form-control" formControlName="dtlRemarks">
+                                                    </div>
+                                                </td>
+    
+                                                <td class="mb-3">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                        class="btn btn-add" (click)="addItem(i)"></button>
+                                                    <button *ngIf="formArray.controls.length > 1"
+                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input class="form-control" formControlName="vehicleNo">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input  class="form-control" formControlName="transDateTime">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input decimalonly class="form-control" formControlName="ftAmount">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input decimalonly class="form-control" formControlName="dtlRemarks">
-                                                </div>
-                                            </td>
-                                            </div>
-                                        </tr>
+                                        </div>
+                                    </tr>
                                     </table>
                                     <div class="row">                                                                      
                                         <div class="col-lg-3">

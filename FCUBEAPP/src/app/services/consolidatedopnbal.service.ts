@@ -26,4 +26,8 @@ export class ConsolidatedopnbalService {
   updateConsolidateOpeningBal(req:Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/ConsolidateOpeningBalUpdate', req, this.httpOptions);
   }
+  
+  getConsolidateOpeningBalExcel(req:Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetConsolidateOpeningBalExcel', req, this.httpOptions);
+  }
 }

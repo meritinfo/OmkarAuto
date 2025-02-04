@@ -201,7 +201,6 @@ import { MomentModule } from 'angular2-moment';
 import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
 import { EmppaygenerationlistComponent } from './module/emppaygeneration/emppaygenerationlist/emppaygenerationlist.component';
-import { EmppaygenerationaddComponent } from './module/emppaygeneration/emppaygenerationadd/emppaygenerationadd.component';
 import { Emppaycalcmodel } from './models/emppaycalcmodel';
 import { Emploanpaymodel } from './models/emploanpaymodel';
 import { Empleavemodel } from './models/empleavemodel';
@@ -502,7 +501,7 @@ import { Ratesmasternewmodel } from './models/ratesmasternewmodel';
     EmploanrepaylistComponent, EmploanrepayaddComponent,
     TripstatusrptComponent, 
     HappaystatementlistComponent,  HappaystatementaddComponent,
-    EmppaygenerationlistComponent, EmppaygenerationaddComponent,
+    EmppaygenerationlistComponent, 
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
     CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
