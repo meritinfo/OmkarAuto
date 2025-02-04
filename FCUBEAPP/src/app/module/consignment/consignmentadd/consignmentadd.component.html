@@ -890,8 +890,42 @@
                                     <input type="text" decimalonly class="form-control" 
                                         formControlName="gtotalRs" [ngClass]=>
                                 </div>
-                            </div>                              
+                            </div>                                
                         </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">Vehicle In Date:</label><span style="color: red">*</span>  
+                                    <input type="date" class="form-control" 
+                                    formControlName="vehicleInDt" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInDt'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Vehicle In Time</label>
+                                    <input type="time" autoclose="false" 
+                                        formControlName="vehicleInTime" class="form-control"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInTime'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">Vehicle Out Date:</label><span style="color: red">*</span>  
+                                    <input type="date" class="form-control" 
+                                    formControlName="vehicleOutDt" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutDt'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Vehicle Out Time</label>
+                                    <input type="time" autoclose="false" 
+                                        formControlName="vehicleOutTime" class="form-control"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutTime'].invalid) }">
+                                </div>
+                            </div>
+                        </div> 
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">

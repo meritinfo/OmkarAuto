@@ -237,6 +237,10 @@ export class ConsignmentaddComponent implements OnInit {
       nonGstAmt2 : new FormControl('',),  
       nonGstAmt2Desc : new FormControl('',), 
       gtotalRs : new FormControl('',), 
+      vehicleInDt: new FormControl('',),
+      vehicleInTime: new FormControl('',),
+      vehicleOutDt: new FormControl('',),
+      vehicleOutTime: new FormControl('',),
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),    
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
@@ -244,6 +248,10 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls['ewayBillExpDate'].disable();    
+    this.formUser.controls["vehicleInDt"].disable();
+    this.formUser.controls["vehicleInTime"].disable();
+    this.formUser.controls["vehicleOutDt"].disable();
+    this.formUser.controls["vehicleOutTime"].disable();
     // this.formUser.controls['sgstPct'].disable();
     // this.formUser.controls['cgstPct'].disable();  
     // this.formUser.controls['igstPct'].disable();  
@@ -266,7 +274,9 @@ export class ConsignmentaddComponent implements OnInit {
           billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
           businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),           
           cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cnorId),
-          cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cneeId),             
+          cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cneeId),         
+          vehicleInDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleInDt),           
+          vehicleOutDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleOutDt),             
         })      
         
         if(this.selectedLrDetails.ownTruck=='Y'){

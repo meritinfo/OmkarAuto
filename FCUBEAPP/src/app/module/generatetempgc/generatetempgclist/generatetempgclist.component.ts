@@ -444,6 +444,10 @@ export class GeneratetempgclistComponent {
     this.lrmodel.nonGstAmt2Desc  =  "";
     this.lrmodel.generalRemarks =  "";
     this.lrmodel.gtotalRs =  tempgc.totFreightAmt;
+    this.lrmodel.vehicleInDt =  tempgc.vehicleInDt;
+    this.lrmodel.vehicleInTime = tempgc.vehicleInTime;
+    this.lrmodel.vehicleOutDt = tempgc.vehicleOutDt;
+    this.lrmodel.vehicleOutTime = tempgc.vehicleOutTime;
     this.lrmodel.yearId =  "";
     this.lrmodel.loggedInUser =  "";
 

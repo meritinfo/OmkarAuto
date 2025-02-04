@@ -107,8 +107,6 @@ export class DeliveryackpodaddComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-  
 
     this.sharedService.loading=true;
 
@@ -147,8 +145,6 @@ export class DeliveryackpodaddComponent {
       podRecdYN: new FormControl('', ),
       podRecdDate: new FormControl('', ),
       podDelayDays: new FormControl('', ),
-      podAttach1 : new FormControl('', ),
-      podAttach2: new FormControl('', ),
       balancePayable: new FormControl('', ),
       handlingPayable: new FormControl('', ),
       detiontionPayable: new FormControl('', ),
@@ -164,7 +160,6 @@ export class DeliveryackpodaddComponent {
       othDed :  new FormControl('0', ),
       netPayable : new FormControl('', ),
       remarks: new FormControl('', ),
-      podfile1:new FormControl('', ),
     });
 
     this.formUser.controls['ackBranch'].disable();
@@ -205,7 +200,7 @@ export class DeliveryackpodaddComponent {
       if (this.selectedDeliveryackpod.ackId != '') {
         this.consignmentId = this.selectedDeliveryackpod.consignmentId;
         this.gcYear = this.selectedDeliveryackpod.gcYear;
-        this.formUser.controls['podfile1'].disable();
+        this.podAttach1Input.nativeElement.disabled = true;
 
         this.podAttach1 = Constants.UploadFolderPath + 'deliveryackpod/podattach1/' + this.selectedDeliveryackpod.podAttach1;
         this.podAttach2 = Constants.UploadFolderPath + 'deliveryackpod/podattach2/' + this.selectedDeliveryackpod.podAttach2;
@@ -614,7 +609,7 @@ export class DeliveryackpodaddComponent {
     }
     var file1 = this.podAttach1Input.nativeElement.files[0];
 
-    if(this.selectedDeliveryackpod.ackId==""){
+    //if(this.selectedDeliveryackpod.ackId==""){
       if (typeof file1 !== 'undefined') {
         //ignore
       }
@@ -622,7 +617,7 @@ export class DeliveryackpodaddComponent {
         this.toasterService.warning("POD Attach1 is mandatory")
         return;
       }
-    }
+   // }
 
     this.sharedService.loading = true;
     this.formSubmitted = true;

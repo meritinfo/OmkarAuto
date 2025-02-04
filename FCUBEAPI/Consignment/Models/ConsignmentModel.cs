@@ -119,6 +119,10 @@ namespace Consignment.Models
         public string? NonGstAmt2               { get; set; }
         public string? NonGstAmt2Desc           { get; set; }
         public string? GtotalRs                 { get; set; }
+        public string? vehicleInDt              { get; set; }
+        public string? vehicleInTime            { get; set; }
+        public string? vehicleOutDt             { get; set; }
+        public string? vehicleOutTime           { get; set; }
         public string? AdvanceRs                { get; set; }
         public string? AmountRecd               { get; set; }
         public string? TdsDeducted              { get; set; }

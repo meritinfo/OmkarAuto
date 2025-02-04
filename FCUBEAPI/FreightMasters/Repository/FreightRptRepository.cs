@@ -1397,7 +1397,6 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-
         public async Task<ResponseModel> GetOutstandDetailExcelReport(DataSet ds, string rptheader, string filter)
         {
             ResponseModel responseModel = new();

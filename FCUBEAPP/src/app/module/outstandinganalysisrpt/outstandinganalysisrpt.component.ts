@@ -113,6 +113,7 @@ export class OutstandinganalysisrptComponent {
       toDate: new FormControl(this.loginDate,[Validators.required]),
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
       rptType: new FormControl('S',),
+      party: new FormControl('',),
     });
 
     this.filter.fromDate =  "";
