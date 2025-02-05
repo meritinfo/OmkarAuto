@@ -331,7 +331,41 @@ export class RatesmasternewaddComponent {
         
       }
     
-     
+      selectToLocationEvent(item: any,index:number) {
+        var ToPlace = item.dataId;
+        var selectedDataValue=this.formUser.getRawValue();
+        if(ToPlace == selectedDataValue.fromLocation.dataId)
+        {
+          this.toastrService.warning("Destination can not be same as From Location");
+          this.formRatesArray.controls[index].get("destination")?.setValue("");
+          return;
+        }
+        // for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+        //   if(ToPlace == selectedDataValue.arrayList[i].destination.dataId)
+        //   {
+        //     this.toastrService.warning("Destination already exits in grid");
+        //     this.formRatesArray.controls[index].get("destination")?.setValue("");
+        //     return;
+        //   }
+        // }
+      }
+      changeProduct(e: any,index:number){
+       // var ToPlace = item.dataId;
+       console.log(e.target.value);
+    var pr = e.target.value;
+        var selectedDataValue=this.formUser.getRawValue();
+        for (var i = 1; i < selectedDataValue.arrayList.length; i++) {
+          var t = i-1
+          if( selectedDataValue.arrayList[index].destination.dataId == selectedDataValue.arrayList[t].destination.dataId && selectedDataValue.arrayList[t].productId==e.target.value)
+          {
+            this.toastrService.warning("Destination with same product already exits in grid");
+           // this.formRatesArray.controls[index].get("destination")?.setValue("");
+            this.formRatesArray.controls[index].get("productId")?.setValue("");
+            return;
+          }
+        }
+
+      }
     
     
       ratesMasterDelete(): void {
