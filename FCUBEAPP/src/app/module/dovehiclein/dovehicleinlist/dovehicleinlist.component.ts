@@ -1,24 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dovehiplacedlistmodel  } from 'src/app/models/dovehiplacedlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DoentryService } from 'src/app/services/doentry.service';
+import { DovehicleinService } from 'src/app/services/dovehiclein.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
-import { Dovehiplacedmodel } from 'src/app/models/dovehiplacedmodel';
+import { Dovehicleinmodel } from 'src/app/models/dovehicleinmodel';
+import { Dovehicleinlistmodel  } from 'src/app/models/dovehicleinlistmodel';
   
  
 @Component({
-  selector: 'app-dovehiplacedlist',
-  templateUrl: './dovehiplacedlist.component.html',
-  styleUrls: ['./dovehiplacedlist.component.css']
+  selector: 'app-dovehicleinlist',
+  templateUrl: './dovehicleinlist.component.html',
+  styleUrls: ['./dovehicleinlist.component.css']
 })
-export class DovehiplacedlistComponent {
-  allDolist: Dovehiplacedlistmodel = new Dovehiplacedlistmodel();
+export class DovehicleinlistComponent {
+  allDolist: Dovehicleinlistmodel = new Dovehicleinlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -34,7 +34,7 @@ export class DovehiplacedlistComponent {
   }
 
   formFilter!: FormGroup;
-  brokerList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
   
   keywordLocation = 'dataName';
   loginDate: string = '';
@@ -55,7 +55,7 @@ export class DovehiplacedlistComponent {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private toasterService: ToastrService, private doentryService: DoentryService, 
+    private toasterService: ToastrService, private doentryService: DovehicleinService, 
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -65,7 +65,7 @@ export class DovehiplacedlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "DO Vehicle Placement"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "DO Vehicle IN"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -94,15 +94,14 @@ export class DovehiplacedlistComponent {
     this.fromDate = this.minDate ;
     
     
-    this.doentryService.clearDoVehiDetails();
+    this.doentryService.clearDoVehicleInDetails();
 
-    this.getBrokerList();
+    this.getVehicleNoList();
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       vehicleNo: new FormControl('',),
-      broker: new FormControl('',),
     });
     
     this.sharedService.loading=true;
@@ -119,11 +118,12 @@ export class DovehiplacedlistComponent {
     this.sharedService.loading=false;
   }
   
-  getBrokerList(): void {
-    this.commonService.getBrokerList().subscribe((res) => {
-      this.brokerList = res;
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
     });
-  } 
+  }
+
 
   doList(){
     this.dtOptions = {
@@ -143,7 +143,7 @@ export class DovehiplacedlistComponent {
           data: []
         });
         
-        this.doentryService.getDoVehiPlacedList(this.filter).subscribe(resp => {
+        this.doentryService.getDoVehicleInList(this.filter).subscribe(resp => {
           this.allDolist = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -154,52 +154,44 @@ export class DovehiplacedlistComponent {
       },
       columns: [
         {
-          title: 'DO Branch',
-          data: 'doBr',
+          title:' Entry Date',
+          data: 'entryDater',
         }, 
         {
-          title: 'Party DO No ',
-          data: 'partyDoNo',
+          title: 'Truck No  ',
+          data: 'truckNo',
         },
         {
-          title: 'DO Date ',
-          data: 'doDate',
+          title: '  Vehicle In Date.',
+          data: 'vehicleInDatetime',
         },
         {
-          title: 'Loading From',
-          data: 'loadingFr',
+          title: 'Owner Name ',
+          data: 'ownerName',
         },
         {
-          title: 'Destination',
-          data: 'dest',
+          title: 'Contact Name',
+          data: 'contactName',
         },
         {
-          title: 'Party Name',
-          data: 'partyName',
+          title: 'Mobile No ',
+          data: 'mobileNo',
         },  
         {
-          title: 'Cnor Name',
-          data: 'cnorName',
+          title: 'Driver Name ',
+          data: 'driverName',
         },   
         {
-          title: 'Cnee Name',
-          data: 'cneeName',
-        },   
-        {
-          title: 'Vehicle No',
-          data: 'vehicleNo',
-        },   
-        {
-          title: 'Broker Name',
-          data: 'brokerName',
-        },    
+          title: 'Driver Mobile ',
+          data: 'driverMobile1',
+        }, 
         {
           title: 'Action',
-          data: 'doVpId',
+          data: 'doViId',
         },   
         {
-          title: 'Vehical In',
-          data: 'doVpId',
+          title: 'Main LR',
+          data: 'doViId',
         },   
       ],
     };
@@ -209,16 +201,15 @@ export class DovehiplacedlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getdoVehiDetails(dos: Dovehiplacedmodel): void {
-    this.doentryService.setDoVehiDetails(dos);
-    this.route.navigate(['/dovehplacededit']);
+  getdoVehiDetails(dos: Dovehicleinmodel): void {
+    this.doentryService.setDoVehicleInDetails(dos);
+    this.route.navigate(['/dovehicleinedit']);
+  }  
+  genConsignment(dos: Dovehicleinmodel): void {
+    this.doentryService.setDoVehicleInDetails(dos);
+    this.route.navigate(['/dovehiclein']);
   }  
 
-  getdoVehiplaced(dpr: Dovehiplacedmodel): void {
-    var selecteddata = this.formFilter.getRawValue();
-    sessionStorage.setItem("doVpId", dpr.doVpId);
-    this.route.navigate(['/dovehicleinadd']);
-  }  
   get f() { return this.formFilter.controls; }
 
   search(): void {
@@ -237,8 +228,8 @@ export class DovehiplacedlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
-    this.filter.search = selecteddata.vehicleNo;
-    this.filter.filterStr1 = selecteddata.broker?selecteddata.broker.dataId:"";
+    this.filter.search = "";
+    this.filter.filterStr1 = selecteddata.vehicleNo?selecteddata.vehicleNo.dataId:"";
     this.filter.filterStr2 = this.branch;
     
     this.sharedService.loading = true;

@@ -299,7 +299,7 @@ export class ConsignmentupdateComponent {
             chargewt :  this.lrmodel.chargewt, 
             cnorName:  this.lrmodel.cnorName,
             cneeName:  this.lrmodel.cneeName, 
-            party: this.partyList.find(x => x.dataName = this.lrmodel.billingParty), 
+            party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
             rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
@@ -370,7 +370,7 @@ export class ConsignmentupdateComponent {
     console.log(e.target.value);
     var gsttype = e.target.value; 
    
-    if (gsttype == "I") {   
+    if (gsttype == "I" ) {   
       this.formUser.controls['sgstPct'].disable();
       this.formUser.controls['cgstPct'].disable();  
       this.formUser.controls['igstPct'].enable();    
@@ -548,6 +548,14 @@ export class ConsignmentupdateComponent {
     if(selectedDataValue.ulReportingDateTime.toString()!="" && selectedDataValue.deliveryDateTime.toString()=="")
     {      
       this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
+      return;
+    }
+    
+    if (selectedDataValue.party.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Party is Invalid");
       return;
     }
 

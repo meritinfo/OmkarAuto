@@ -52,13 +52,14 @@ export class ConsignmentaddComponent implements OnInit {
   eWayBillDetails = new Ewaybillmodel();
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
-  attach1: string = "";
   createdBy : string = "";
   modifiedBy: string = "";
 
   step1Active = true;
   step2Active = false;
   step3Active = false;
+  
+  attach1: string = "";
   
   @ViewChild('attachInput', {
     static: true
@@ -279,12 +280,7 @@ export class ConsignmentaddComponent implements OnInit {
           vehicleOutDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleOutDt),             
         })      
         
-        if(this.selectedLrDetails.ownTruck=='Y'){
-          this.formUser.patchValue({
-            ownTruck: 'Y'             
-          })      
-        }
-        else{
+        if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
             ownTruck: ''             
           })  

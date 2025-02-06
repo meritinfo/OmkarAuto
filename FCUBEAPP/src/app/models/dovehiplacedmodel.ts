@@ -15,6 +15,7 @@ export class Dovehiplacedmodel {
     doVpId : string = ""
     placementDate : string = ""
     vehicleNo : string = ""
+    vehicleIn : string = ""
     vehicleType : string = ""
     vehicleCapacity : string = ""
     ownMarket : string = ""

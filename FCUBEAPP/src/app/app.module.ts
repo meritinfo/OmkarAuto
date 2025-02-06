@@ -438,7 +438,10 @@ import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.com
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
 import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
 import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
-
+import { DovehicleinlistComponent } from './module/dovehiclein/dovehicleinlist/dovehicleinlist.component';
+import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dovehicleinadd.component';
+import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
+import { Dovehicleinmodel } from './models/dovehicleinmodel';
 
 
 @NgModule({
@@ -571,14 +574,18 @@ import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, SparesstockrptComponent, SpareshistoryrptComponent, 
+     TripmasteraddComponent, TripmasterlistComponent, 
+     SparesstockrptComponent, SpareshistoryrptComponent, 
      PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
      OutstandinganalysisrptComponent, PendingdelvackrptComponent, DprdashboardComponent,
      BenbanklistComponent, BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, MissingdocrptComponent, DashboardnccComponent,    
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, 
+     VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, 
+     MissingdocrptComponent, DashboardnccComponent,    
+     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
+     DovehicleinlistComponent, DovehicleinaddComponent, DovehicleineditComponent, 
   ],
   
   imports: [
@@ -645,6 +652,7 @@ import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
+    Dovehicleinmodel,
     
   ],
   bootstrap: [AppComponent]
