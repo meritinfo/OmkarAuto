@@ -143,6 +143,8 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@MrNo", req.strRequest),
+                            new SqlParameter("@Branch", req.strRequest1),
+                             new SqlParameter("@YearId", req.strRequest2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMrEnqDetails", param);
 
