@@ -287,6 +287,7 @@ export class GeneratetempgclistComponent {
         link.download = "LR_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/LrPrint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toasterService.warning(resp.message);   

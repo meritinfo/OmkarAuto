@@ -153,6 +153,10 @@ export class DeliveryackpodlistComponent {
           data: 'ackSlNo',
         },
         {
+          title: 'LR No',
+          data: 'gcNoteNo',
+        },
+        {
           title: 'Delivery Date ',
           data: 'deliveryDate'
         },

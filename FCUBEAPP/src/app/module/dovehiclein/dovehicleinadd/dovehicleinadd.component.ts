@@ -212,12 +212,7 @@ export class DovehicleinaddComponent {
           this.formUser.patchValue({
             itFiledYN:"",
           });  
-        }          
-        if(this.selectedDoDetails.driverLicValid=="N"){
-          this.formUser.patchValue({
-            driverLicValid:"",
-          });  
-        }     
+        }       
       }    
     });
 
@@ -345,7 +340,7 @@ export class DovehicleinaddComponent {
     this.dovehicleinmodel.driverMobile1   = selectedDataVal.driverMobile1  ;   
     this.dovehicleinmodel.driverMobile2   = selectedDataVal.driverMobile2  ;   
     this.dovehicleinmodel.driverLicense   = selectedDataVal.driverLicense  ;   
-    this.dovehicleinmodel.driverLicValid  = selectedDataVal.driverLicValid?"Y":"N" ;  
+    this.dovehicleinmodel.driverLicValid  = selectedDataVal.driverLicValid;  
     this.dovehicleinmodel.remarks         = selectedDataVal.remarks?selectedDataVal.remarks.toString().toUpperCase():"";      
     this.dovehicleinmodel.entryThrough    = this.apiUsed?"A":"M";      
     this.dovehicleinmodel.loggedInUser    = this.loggedInUserID;    

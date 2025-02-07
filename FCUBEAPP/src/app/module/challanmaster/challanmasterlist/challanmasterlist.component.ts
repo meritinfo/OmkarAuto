@@ -235,6 +235,7 @@ export class ChallanmasterlistComponent {
         link.download = "Challan_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/challanprint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toastrService.warning(resp.message);   

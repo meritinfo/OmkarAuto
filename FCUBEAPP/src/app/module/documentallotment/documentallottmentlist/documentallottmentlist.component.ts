@@ -112,6 +112,10 @@ export class Documentallottmentlistcomponent {
           data: 'docStatus',
         },
         {
+          title: 'Remarks',
+          data: 'remarks',
+        },
+        {
           title: 'Action',
           data: 'docAllotId',
         },   

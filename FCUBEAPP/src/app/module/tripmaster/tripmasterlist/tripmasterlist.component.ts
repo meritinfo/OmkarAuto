@@ -308,6 +308,7 @@ getTripMaster(){
         link.download = "TripPrint_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/tripprint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toasterService.warning(resp.message);   

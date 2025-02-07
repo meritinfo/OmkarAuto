@@ -198,6 +198,7 @@ export class BillsmasterlistComponent {
         link.download = "Bill_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/BillPrint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toasterService.warning(resp.message);   
