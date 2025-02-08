@@ -48,6 +48,7 @@ export class ConsignmentlistComponent implements OnInit  {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  year: string = ''; 
 
   lrfromDate: string = '';
   lrtoDate: string = '';
@@ -89,6 +90,10 @@ export class ConsignmentlistComponent implements OnInit  {
       this.route.navigate([this.dashboard]);
     }
     
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -188,7 +193,8 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr2 = this.lrdestination; 
     this.filter.filterStr3 = this.lrvehicleNo,  
     this.filter.sortColumn = this.lrlrNo ,
-    this.filter.sortOrder = this.branch,  
+    this.filter.sortOrder = this.branch,   
+    this.filter.search = this.year;    
     this.getConsignmentList();
   }
 
@@ -321,6 +327,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.filterStr3 = selectedDataVal.vehicleNo;
     this.filter.sortColumn = selectedDataVal.lrNo;
     this.filter.sortOrder = this.branch,  
+    this.filter.search = this.year;    
 
      this.getConsignmentList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -16,49 +16,42 @@
                         <div class="row">
                             <div class="col-md-1">
                                 <div class="mb-1">
-                                    <label for="formrow-inputState">Bill No : </label>
-                                   
+                                    <label for="formrow-inputState">Year: </label>                                   
                                 </div>
-                            </div>
+                            </div>                          
                             <div class="col-md-2">
-                                <div class="mb-2">
-                                    
-                                    <input class="form-control" formControlName="billNo" numbersonly >
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="mb-1">
-                                    <label for="formrow-inputState">Year: </label>
-                                   
-                                </div>
-                            </div>
-                          
-                            <div class="col-md-1">
                                 <div class="mb-1">
                                     <select class="form-control" formControlName="yearId">
-                                                                    <option *ngFor="let yr of yearList" value={{yr.dataId}}>
-                                                                        {{yr.dataName}}
-                                                                    </option>
-                                                                </select>
+                                        <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                            {{yr.dataName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="mb-1">
-                                    <label for="formrow-inputState">Branch: </label>
-                                   
+                                    <label for="formrow-inputState">Branch: </label>                                   
                                 </div>
-                            </div>
-                          
+                            </div>                          
                             <div class="col-md-2">
                                 <div class="mb-2">
                                     <select class="form-control" formControlName="branch">
-                                                                    <option *ngFor="let yr of branchList" value={{yr.dataId}}>
-                                                                        {{yr.dataName}}
-                                                                    </option>
-                                                                </select>
+                                        <option *ngFor="let yr of branchList" value={{yr.dataId}}>
+                                            {{yr.dataName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
-                          
+                            <div class="col-md-1">
+                                <div class="mb-1">
+                                    <label for="formrow-inputState">Bill No : </label>                                   
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-2">                                    
+                                    <input class="form-control" formControlName="billNo" numbersonly >
+                                </div>
+                            </div>                          
                             <div class="col-md-2">
                                 <div class="mb-2">
                                     <button class="btn btn-primary"   
