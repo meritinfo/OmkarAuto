@@ -159,7 +159,7 @@ namespace Consignment.Repository
             return responseModel;
         }
        
-    public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
+        public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -227,6 +227,7 @@ namespace Consignment.Repository
                             new SqlParameter("@VehicleNo",      request.FilterStr),
                             new SqlParameter("@ChallanNo",      request.FilterStr1),
                             new SqlParameter("@LoginBranch",    request.FilterStr2),
+                            new SqlParameter("@YearId",         request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
 

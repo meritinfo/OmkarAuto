@@ -22,7 +22,7 @@ export class BillsupplilistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allBillsMaster: Billsmasterlistmodel = new Billsmasterlistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: '',
@@ -30,8 +30,12 @@ export class BillsupplilistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    strRequest: ""
+    filterStr: "",    
+    filterStr1: "",    
+    filterStr2: "",
+    filterStr3: ""
   }
+
 
   editMode = false;
   createmode = true;
@@ -42,6 +46,7 @@ export class BillsupplilistComponent {
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
+  branch: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -72,6 +77,10 @@ export class BillsupplilistComponent {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+    }   
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
@@ -95,8 +104,12 @@ export class BillsupplilistComponent {
     this.sharedService.loading=true;     
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.strRequest = "Y";
+    this.filter.toDate = this.loginDate;    
+    this.filter.filterStr= "Y"; 
+    this.filter.filterStr1= ''; 
+    this.filter.filterStr2= '';
+    this.filter.filterStr3= '';
+    this.filter.sortOrder = this.branch;
     this.billsmasterList();
     this.sharedService.loading=false;
   }
@@ -117,8 +130,7 @@ export class BillsupplilistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.billsMasterService.getBillsSuppliList(this.filter)
-          .subscribe(resp => {
+        this.billsMasterService.getBillsSuppliList(this.filter).subscribe(resp => {
             this.allBillsMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -206,6 +218,11 @@ export class BillsupplilistComponent {
     this.filter.search = this.formFilter.value.bill_StmtNo;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.sortOrder = this.branch;      
+    this.filter.filterStr= 'Y'; 
+    this.filter.filterStr1= this.year; 
+    this.filter.filterStr2= '';
+    this.filter.filterStr3= '';
     this.sharedService.loading=true;
     this.billsmasterList();
     this.sharedService.loading=false;

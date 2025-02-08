@@ -288,7 +288,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
+        public async Task<BillsListModel> GetBillsMasterList(ReportRequestModel request)
         {
             BillsListModel billsMasterList = new();
             List<BillsMasterModel> billsList = new();
@@ -305,8 +305,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@SuppYN",     request.strRequest),
-                            new SqlParameter("@LoginBranch",     request.SortOrder),
+                            new SqlParameter("@SuppYN",     request.FilterStr),
+                            new SqlParameter("@LoginBranch",request.SortOrder),
+                            new SqlParameter("@YearId",     request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 

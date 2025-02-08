@@ -51,6 +51,7 @@ export class ChallanmasterlistComponent {
   deleteStatus = false;
   viewStatus = false;
   dashboard:string = ''; 
+  year:string = ''; 
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
@@ -93,6 +94,10 @@ export class ChallanmasterlistComponent {
     else {
       this.route.navigate(['/']);
     }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
@@ -127,6 +132,7 @@ export class ChallanmasterlistComponent {
     this.filter.filterStr = selectedDataVal.vehicleNo;
     this.filter.filterStr1 = selectedDataVal.challanNo;
     this.filter.filterStr2 = this.branch;    
+    this.filter.filterStr3 = this.year;    
     this.getChallanList();
   }
 
@@ -256,7 +262,8 @@ export class ChallanmasterlistComponent {
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr = selectedDataVal.vehicleNo;
     this.filter.filterStr1 = selectedDataVal.challanNo;
-    this.filter.filterStr2 = this.branch;    
+    this.filter.filterStr2 = this.branch;     
+    this.filter.filterStr3 = this.year;    
     
      this.getChallanList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

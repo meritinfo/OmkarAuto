@@ -39,10 +39,10 @@ export class BillsMasterService {
   getBillsMasterSearchList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterSearchList', request, this.httpOptions);
   }  
-  getBillsMasterList(filter: Pagerequestwithdatesmodel): Observable<Billsmasterlistmodel> {
+  getBillsMasterList(filter: Reportmodel): Observable<Billsmasterlistmodel> {
     return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterList', filter, this.httpOptions);
   }  
-  getBillsSuppliList(filter: Pagerequestwithdatesmodel): Observable<Billsmasterlistmodel> {
+  getBillsSuppliList(filter: Reportmodel): Observable<Billsmasterlistmodel> {
     return this.httpClient.post<Billsmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterList', filter, this.httpOptions);
   }  
   getBillsStmtCreditAcList(): Observable<Dropdownmodel[]> {

@@ -13,6 +13,34 @@
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-1">
+                                <div class="mb-1">
+                                    <label for="formrow-inputState">Year: </label>                                   
+                                </div>
+                            </div>                          
+                            <div class="col-md-2">
+                                <div class="mb-1">
+                                    <select class="form-control" formControlName="yearId">
+                                        <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                            {{yr.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="mb-1">
+                                    <label for="formrow-inputState">Branch: </label>                                   
+                                </div>
+                            </div>                          
+                            <div class="col-md-2">
+                                <div class="mb-2">
+                                    <select class="form-control" formControlName="branch">
+                                        <option *ngFor="let yr of branchList" value={{yr.dataId}}>
+                                            {{yr.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">CN No : </label>
                                 </div>
@@ -21,40 +49,7 @@
                                 <div class="mb-3">
                                     <input class="form-control" formControlName="cnno" >
                                 </div>
-                            </div>  
-                            <div class="col-md-1">
-                                <div class="mb-1">
-                                    <label for="formrow-inputState">Year: </label>
-                                   
-                                </div>
-                            </div>
-                          
-                            <div class="col-md-1">
-                                <div class="mb-1">
-                                    <select class="form-control" formControlName="yearId">
-                                                                    <option *ngFor="let yr of yearList" value={{yr.dataId}}>
-                                                                        {{yr.dataName}}
-                                                                    </option>
-                                                                </select>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="mb-1">
-                                    <label for="formrow-inputState">Branch: </label>
-                                   
-                                </div>
-                            </div>
-                          
-                            <div class="col-md-2">
-                                <div class="mb-2">
-                                    <select class="form-control" formControlName="branch">
-                                                                    <option *ngFor="let yr of branchList" value={{yr.dataId}}>
-                                                                        {{yr.dataName}}
-                                                                    </option>
-                                                                </select>
-                                </div>
-                            </div>
-                             
+                            </div>                               
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <button class="btn btn-primary"   

@@ -22,7 +22,7 @@ export class BillsmasterlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allBillsMaster: Billsmasterlistmodel = new Billsmasterlistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: '',
@@ -30,7 +30,10 @@ export class BillsmasterlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    strRequest: ""
+    filterStr: "",    
+    filterStr1: "",    
+    filterStr2: "",
+    filterStr3: ""
   }
 
   editMode = false;
@@ -99,8 +102,11 @@ export class BillsmasterlistComponent {
     this.sharedService.loading=true;     
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.strRequest = "N";
+    this.filter.toDate = this.loginDate;    
+    this.filter.filterStr= "N"; 
+    this.filter.filterStr1= ''; 
+    this.filter.filterStr2= '';
+    this.filter.filterStr3= '';
     this.filter.sortOrder = this.branch;
     this.billsmasterList();
     this.sharedService.loading=false;
@@ -210,7 +216,11 @@ export class BillsmasterlistComponent {
     this.filter.search = this.formFilter.value.bill_StmtNo;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.sortOrder = this.branch;
+    this.filter.sortOrder = this.branch;      
+    this.filter.filterStr= "N"; 
+    this.filter.filterStr1= this.year; 
+    this.filter.filterStr2= '';
+    this.filter.filterStr3= '';
     this.sharedService.loading=true;
     this.billsmasterList();
     this.sharedService.loading=false;
