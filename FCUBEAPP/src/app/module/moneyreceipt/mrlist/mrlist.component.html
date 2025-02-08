@@ -11,18 +11,18 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="mb-2">
+                                <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="mb-2">
+                                <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
@@ -73,7 +73,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">                    
+                <div class="col-sm-12 col-md-12 text-right">                   
                     <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                         (click)="mrAdd()"><span>New</span></button>
                 </div>
