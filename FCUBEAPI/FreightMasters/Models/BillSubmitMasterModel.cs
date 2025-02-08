@@ -29,6 +29,7 @@ namespace FreightMasters.Models
         public string? Sname { get; set; }
         public string? dname { get; set; }
         public string? Lname{ get; set; }
+        public string? party { get; set; }
 
 
         public List<BillSubmitMasterDtlListmodel> BillSubmitMasterDtlList { get; set; }

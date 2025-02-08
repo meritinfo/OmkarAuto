@@ -178,8 +178,8 @@ billSubmitList() {
         data: 'courierDocketNo',
       }, 
       {
-        title: 'Party Code',
-        data: 'partyCode',
+        title: 'Party',
+        data: 'party',
       }, 
       {
         title: 'Submit Location',
