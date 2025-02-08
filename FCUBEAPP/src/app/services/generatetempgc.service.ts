@@ -4,7 +4,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
-import { Dropdownmodel } from '../models/dropdownmodel';
+import { Repreqmodel } from '../models/repreqmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Tempgclistmodel } from 'src/app/models/tempgclistmodel';
 import { Tempgcmodel } from 'src/app/models/tempgcmodel';
@@ -33,7 +33,7 @@ export class GeneratetempgcService {
     this.selectedtempgcmodel = new Tempgcmodel();
   }
   
-  getTempgcList(filter: Reportmodel): Observable<Tempgclistmodel> {
+  getTempgcList(filter: Repreqmodel): Observable<Tempgclistmodel> {
     return this.httpClient.post<Tempgclistmodel>(Constants.API_ENDPOINT + 'Consignment/GetTempgcList', filter, this.httpOptions);
   }
   

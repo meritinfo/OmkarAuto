@@ -141,10 +141,10 @@ export class IntermediatescreenComponent {
         this.companyname = "FCUBE"
       }
       sessionStorage.setItem("companyname", this.companyname );
-    });
-     
+    });     
   }
 
+  
   getDashboard(){
     this.requestmodel.strRequest = this.loggedInUserID;
     this.sharedService.getDashboardDetail(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -156,6 +156,7 @@ export class IntermediatescreenComponent {
       else{
         this.dashboard = "/dashboard"
       }     
+      sessionStorage.setItem("dashboard", this.dashboard );
     });
   }
   

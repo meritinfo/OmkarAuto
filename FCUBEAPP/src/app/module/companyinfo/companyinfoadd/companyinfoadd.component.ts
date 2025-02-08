@@ -23,6 +23,7 @@ export class CompanyinfoaddComponent {
   branchname:string = '';
   branchid:string = '';
   year:string = '';
+  dashboard:string = ''; 
   
   formDocEntry!: FormGroup;
   fromDate: string = '';
@@ -91,6 +92,10 @@ export class CompanyinfoaddComponent {
     }
 
     
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -254,7 +259,7 @@ export class CompanyinfoaddComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formDocEntry.reset();
-        this.route.navigate(['/dashboard']);
+        this.route.navigate([this.dashboard]);
       
       }
       else {

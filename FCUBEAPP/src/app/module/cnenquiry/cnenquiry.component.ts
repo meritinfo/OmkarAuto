@@ -30,6 +30,7 @@ export class CnenquiryComponent {
   minDate: string = '';
   newDate: string = '';
   noPackages:string = '';
+  dashboard:string = ''; 
 
   formSubmitted = false;
   editMode = false;
@@ -90,6 +91,10 @@ export class CnenquiryComponent {
       }
     }
     
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
@@ -392,7 +397,7 @@ export class CnenquiryComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/dashboard']);
+    this.route.navigate([this.dashboard]);
   }
 
   search(): void {

@@ -15,6 +15,7 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls:['./finaccountsmasterlist.component.css'],
 })
 export class FinaccountsmasterlistComponent {
+  dashboard:string = ''; 
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -55,8 +56,13 @@ export class FinaccountsmasterlistComponent {
     }  
 
     
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     
     this.finsaccountmasterService.clearFinsaccountsDetails();

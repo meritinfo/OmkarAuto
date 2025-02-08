@@ -19,6 +19,7 @@ export class DovehicleinaddComponent {
   loggedInUserID: string = '';
   branch: string = '';
   formUser!: FormGroup;
+  dashboard:string = ''; 
   formSubmitted = false;
   editMode = false;
   createStatus = false;
@@ -123,6 +124,10 @@ export class DovehicleinaddComponent {
     
     this.fromDate = this.minDate ;
 
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     
     var doVpId = sessionStorage.getItem('doVpId')?.toString();
     if (typeof doVpId !== 'undefined' && doVpId !== null && doVpId !== '') {
@@ -130,7 +135,7 @@ export class DovehicleinaddComponent {
       sessionStorage.setItem("doVpId", "");
     }
     else {
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     
     this.sharedService.loading=true;

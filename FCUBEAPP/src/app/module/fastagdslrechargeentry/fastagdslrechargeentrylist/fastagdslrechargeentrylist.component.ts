@@ -21,6 +21,7 @@ export class FastagdslrechargeentrylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  dashboard:string = ''; 
   year: string = '';
   loginDate: string = '';
   branch: string = '';
@@ -74,8 +75,13 @@ export class FastagdslrechargeentrylistComponent {
       this.loginDate = loginDate;
     }
     
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
 
     

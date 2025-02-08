@@ -15,6 +15,7 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./consignmentlist.component.css']
 })
 export class ConsignmentlistComponent implements OnInit  {
+  dashboard:string = ''; 
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
   allConsignment: Consignmentlistmodel = new Consignmentlistmodel();
@@ -79,8 +80,13 @@ export class ConsignmentlistComponent implements OnInit  {
       }
     }
 
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     
     var userData = sessionStorage.getItem('uid')?.toString();

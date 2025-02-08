@@ -1,4 +1,4 @@
-export class Reportmodel {
+export class Repreqmodel {
     pageNumber: number = 0;
     pageSize : number = 0;
     sortColumn: string = "";
@@ -10,4 +10,6 @@ export class Reportmodel {
     filterStr1: string = "";
     filterStr2: string = "";
     filterStr3: string = "";
+    filterStr4: string = "";
+    filterStr5: string = "";
 }

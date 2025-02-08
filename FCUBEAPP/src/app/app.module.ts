@@ -584,8 +584,12 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
      BenbanklistComponent, BenbanklistaddComponent,
      VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
      DoentrylistComponent,DoentryaddComponent,
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, MissingdocrptComponent, DashboardnccComponent,    
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
+     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, 
+     VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, 
+     MissingdocrptComponent, DashboardnccComponent,    
+    GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
+    RatesmasternewaddComponent ,RatesmasternewlistComponent,
+    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent,
   ],
   
   imports: [

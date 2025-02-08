@@ -41,6 +41,7 @@ export class DovehiplacedaddComponent {
   doQtyLift: string = "";
   baldoQty: string = "";
   doid: string = "";
+  dashboard:string = ''; 
 
   selectedDoDetails = new Dovehiplacedmodel();
 
@@ -68,6 +69,10 @@ export class DovehiplacedaddComponent {
       }
     }
 
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -103,7 +108,7 @@ export class DovehiplacedaddComponent {
       sessionStorage.setItem("doid", "");
     }
     else {
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     
     this.sharedService.loading=true;

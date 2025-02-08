@@ -23,6 +23,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./cnorcneegstadd.component.css']
 })
 export class CnorcneegstaddComponent {
+  dashboard:string = ''; 
   loggedInUserID: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
@@ -82,6 +83,10 @@ ngOnInit(): void {
     }
     else {
       this.route.navigate(['/']);
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     
      this.formUser = this.formBuilder.group({    
@@ -150,7 +155,7 @@ deleteCnorCneeMasterForm(): void {
   }
 }
 exit(): void {
-  this.route.navigate(['/dashboard']);
+  this.route.navigate([this.dashboard]);
 }
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {

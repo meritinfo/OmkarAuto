@@ -15,6 +15,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
   styleUrls: ['./documentallottmentlist.component.css']
 })
 export class Documentallottmentlistcomponent {
+  dashboard:string = ''; 
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -52,8 +53,13 @@ export class Documentallottmentlistcomponent {
       }
     }
 
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     this.documentallotmentService.clearDocumentallotmentDetails();
    

@@ -30,6 +30,7 @@ export class ConsignmentupdateComponent {
   whatsappPOD1: string = '';
   whatsappPOD2: string = '';
   partyList: Dropdownmodel[] = [];
+  dashboard:string = ''; 
   formSubmitted = false;
   editMode = false;
   createStatus = false;
@@ -94,6 +95,10 @@ export class ConsignmentupdateComponent {
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -524,7 +529,7 @@ export class ConsignmentupdateComponent {
 
   
   exit(): void {
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
   }
 
   updateLrDetailsForm(): void {

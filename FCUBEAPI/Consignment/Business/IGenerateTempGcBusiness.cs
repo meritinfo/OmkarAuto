@@ -8,7 +8,7 @@ namespace Consignment.Business
     /// </summary>
     public interface IGenerateTempGcBusiness
     {
-        Task<TempGcListModel> GetTempgcList(ReportRequestModel request);
+        Task<TempGcListModel> GetTempgcList(RepReqModel request);
         Task<TempGcModel> GetTempgcInnerGridList(RequestModel request);
         Task<ResponseModel> TempgcSave(TempGcModel tempgc);
         Task<ResponseModel> TempGcDelete(RequestModel requestModel);

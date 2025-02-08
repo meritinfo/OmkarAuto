@@ -943,7 +943,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetTempgcList")]
-        public async Task<IActionResult> GetTempgcList(ReportRequestModel request)
+        public async Task<IActionResult> GetTempgcList(RepReqModel request)
         {
             if (request == null)
             {
