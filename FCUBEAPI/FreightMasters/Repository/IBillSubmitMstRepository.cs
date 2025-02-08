@@ -13,7 +13,7 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> BillSubmitMstSave(BillSubmitMasterModel billSubmitMasterModel);
         Task<BillSubmitMasterModel> GetBillSubmitMasterInnerGridList(RequestModel request);
-        Task<BillSubmitMasterList> GetBillSubmitMasterList(PageFromDtToDtRequest request);
+        Task<BillSubmitMasterList> GetBillSubmitMasterList(ReportRequestModel request);
         Task<ResponseModel> GetBillSubmitPrint(RequestModel request);
         Task<ResponseModel> BillSubmitMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetDeptList();

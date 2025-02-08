@@ -7,9 +7,11 @@ import { Billsubmitmastermodel } from 'src/app/models/billsubmitmastermodel';
 import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.service';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 
 @Component({
@@ -24,7 +26,7 @@ export class BillsubmitmasterlistComponent {
   loggedInUserID: string = '';
   allSubmitMaster: Billsubmitmasterlistmodel = new Billsubmitmasterlistmodel();
   request: Requestmodel = new Requestmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'groupname',
@@ -32,7 +34,10 @@ export class BillsubmitmasterlistComponent {
     search: '',
     fromDate:'',
     toDate:'',
-    strRequest:''
+    filterStr:'',
+    filterStr1:'',
+    filterStr2:'',
+    filterStr3:'',
   }
   
   formFilter!: FormGroup;
@@ -40,6 +45,8 @@ export class BillsubmitmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  keywordLocation = 'dataName';
+  partyList: Dropdownmodel[] = [];
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -94,12 +101,15 @@ ngOnInit(): void {
   this.formFilter = this.formBuilder.group({
     fromDate: new FormControl(this.fromDate),
     toDate: new FormControl(this.loginDate),
+    partyCode: new FormControl('',),
+    submitNo: new FormControl('',),
   });     
 
   this.sharedService.loading=true;   
   this.filter.fromDate = this.fromDate;
   this.filter.toDate = this.loginDate;
  this.billSubmitList();
+ this.getBillingPartyList();
   this.sharedService.loading=false;
 }
 
@@ -194,6 +204,12 @@ billSubmitList() {
 addBillSubmitMaster(): void {
   this.route.navigate(['/billsubmitmasteradd']);
 } 
+getBillingPartyList(): void {
+  this.commonService.getBillingPartyList().subscribe((res) => {
+    this.partyList = res;
+  });
+}
+
 
 //Open user details screen
 getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
@@ -223,6 +239,8 @@ search(): void {
   var selecteddata = this.formFilter.getRawValue();
   this.filter.fromDate = selecteddata.fromDate;
   this.filter.toDate = selecteddata.toDate;
+  this.filter.filterStr1 = this.formFilter.value.submitNo;
+  this.filter.filterStr2 = this.formFilter.value.partyCode.dataId;
   this.sharedService.loading=true;
   this.billSubmitList();
   this.sharedService.loading=false;

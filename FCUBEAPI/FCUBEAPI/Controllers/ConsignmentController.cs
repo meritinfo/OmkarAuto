@@ -1806,7 +1806,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetMrMstList")]
-        public async Task<IActionResult> GetMrMstList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetMrMstList(ReportRequestModel request)
         {
             if (request == null)
             {

@@ -354,7 +354,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<BillSubmitMasterList> GetBillSubmitMasterList(PageFromDtToDtRequest request)
+        public async Task<BillSubmitMasterList> GetBillSubmitMasterList(ReportRequestModel request)
         {
             BillSubmitMasterList billSubmitMasterList = new();
             List<BillSubmitMasterModel> submitList = new();
@@ -371,6 +371,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
+                             new SqlParameter("@SubmitNo",     request.FilterStr1),
+                               new SqlParameter("@PartyCode",     request.FilterStr2),
                            // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitList", param);

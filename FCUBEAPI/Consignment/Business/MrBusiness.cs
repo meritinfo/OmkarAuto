@@ -12,7 +12,7 @@ namespace Consignment.Business
         {
             mrRepository = _mrRepository;
         }
-        public async Task<MrListModel> GetMrMstList(PageFromDtToDtRequest request)
+        public async Task<MrListModel> GetMrMstList(ReportRequestModel request)
         {
             return await mrRepository.GetMrMstList(request);
         }

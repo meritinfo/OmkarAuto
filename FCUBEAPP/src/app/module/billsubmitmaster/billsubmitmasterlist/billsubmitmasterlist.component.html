@@ -27,7 +27,41 @@
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
-                            </div>  
+                            </div> 
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                   <label for="formrow-inputCity">Submit No</label>
+                                   <input numbersonly autoclose="false" 
+                                      class="form-control" formControlName="submitNo"
+                                     >
+                                </div>
+                             </div> 
+                             <div class="col-lg-4">
+                                <div class="mb-4">
+                                    <label for="formrow-inputZip">Party</label>                                             
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                       
+                                          
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                           
+                                            formControlName="partyCode" 
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            
+                            </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   (click)="search()">

@@ -14,26 +14,62 @@
                 <div class="col-sm-8 col-md-8">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="mb-3">
+                            <div class="col-md-2">
+                                <div class="mb-2">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
+                            <div class="col-md-2">
+                                <div class="mb-2">
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
+ 
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">Mr No : </label>
+                                    <input class="form-control" formControlName="mrNo" numbersonly >
+                                </div>
+                            </div>
+                           
+                            <div class="col-lg-4">
+                                <div class="mb-4">
+                                    <label for="formrow-inputZip">Party</label>                                             
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                       
+                                          
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                           
+                                            formControlName="partyCode" 
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                       
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
                             </div>
+                        
                         </div>
                     </form>
                 </div>
