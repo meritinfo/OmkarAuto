@@ -278,7 +278,7 @@ export class CommonService {
 
 
   formatDate(date: string) {
-    if(date == ''){
+    if(date == ''||date == null){
       return '';
     }
     var dateParts =[''];

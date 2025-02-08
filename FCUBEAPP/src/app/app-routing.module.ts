@@ -276,6 +276,9 @@ import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/
 import { DovehicleinlistComponent } from './module/dovehiclein/dovehicleinlist/dovehicleinlist.component';
 import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dovehicleinadd.component';
 import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
+import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmasternewadd/ratesmasternewadd.component';
+import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
+
 
 
 
@@ -325,7 +328,7 @@ const routes: Routes = [
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },
   { path: 'addratesmaster', component: AddratesmasterComponent },
   { path: 'ratesmasteredit', component: AddratesmasterComponent },
-  { path: 'ratesmasterlist', component: RatesmasterlistComponent },
+ // { path: 'ratesmasterlist', component: RatesmasterlistComponent },
   { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
   { path: 'addvehicletypegroupmaster', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
@@ -659,6 +662,12 @@ const routes: Routes = [
   { path: 'dovehiclein', component: DovehicleinlistComponent },
   { path: 'dovehicleinadd', component: DovehicleinaddComponent },
   { path: 'dovehicleinedit', component: DovehicleineditComponent },  
+  { path: 'ratesmasternewadd', component: RatesmasternewaddComponent },
+  { path: 'ratesmasternewedit', component: RatesmasternewaddComponent },
+  { path: 'ratesmasterlist', component: RatesmasternewlistComponent },
+  
+  
+  
 ];
 
 

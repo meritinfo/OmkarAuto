@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using FleetMasters.Business;
 
 
 namespace FCUBEAPI.Controllers
@@ -42,6 +43,7 @@ namespace FCUBEAPI.Controllers
         readonly IPanWiseTdsRateBusiness panWiseTdsRateBusiness;
         readonly IFreightRptBusiness freightRptBusiness;
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
+        readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -66,7 +68,8 @@ namespace FCUBEAPI.Controllers
             IAddCostRecBusiness _addCostRecorveryBusiness,
            IPanWiseTdsRateBusiness _panWiseTdsRateBusiness,
            IFreightRptBusiness _freightRptBusiness,
-           IGstPctValuesBusiness _gstPctValuesBusiness)
+           IGstPctValuesBusiness _gstPctValuesBusiness,
+           IRatesMasterNewBusiness _ratesMasterNewBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -93,6 +96,7 @@ namespace FCUBEAPI.Controllers
             panWiseTdsRateBusiness = _panWiseTdsRateBusiness;
             freightRptBusiness = _freightRptBusiness;
             gstPctValuesBusiness = _gstPctValuesBusiness;
+            ratesMasterNewBusiness = _ratesMasterNewBusiness;
         }
 
         /// <summary>
@@ -3350,6 +3354,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await gstPctValuesBusiness.GstPctValuesSave(gstPctValuesModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetRatesMasterNewList")]
+        public async Task<IActionResult> GetRatesMasterNewList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratesMasterNewBusiness.GetRatesMasterNewList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("RatesMasterNewSave")]
+        public async Task<IActionResult> RatesMasterNewSave(RatesMasterNewModel ratesMasterNewModel)
+        {
+            if (ratesMasterNewModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratesMasterNewBusiness.RatesMasterNewSave(ratesMasterNewModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("RatesMasterNewDelete")]
+        public async Task<IActionResult> RatesMasterNewDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratesMasterNewBusiness.RatesMasterNewDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetRatesMasterNewInnerGridList")]
+        public async Task<IActionResult> GetRatesMasterNewInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratesMasterNewBusiness.GetRatesMasterNewInnerGridList(request);
 
                 return Ok(result);
             }
