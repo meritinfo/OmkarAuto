@@ -30,7 +30,7 @@ namespace FreightMasters.Business
          {
             return await billSubmitMstRepository.BillSubmitMasterDelete(req);
         }
-        public async Task<BillSubmitMasterList> GetBillSubmitMasterList(PageFromDtToDtRequest request)
+        public async Task<BillSubmitMasterList> GetBillSubmitMasterList(ReportRequestModel request)
         {
             return await billSubmitMstRepository.GetBillSubmitMasterList(request);
         }

@@ -37,7 +37,7 @@ export class MrService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/MrMstSave', mr, this.httpOptions);
   }
 
-  getMrMstList(filter: Pagerequestwithdatesmodel): Observable<Mrlistmodel> {
+  getMrMstList(filter: Reportmodel): Observable<Mrlistmodel> {
     return this.httpClient.post<Mrlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetMrMstList', filter, this.httpOptions);
   }  
 

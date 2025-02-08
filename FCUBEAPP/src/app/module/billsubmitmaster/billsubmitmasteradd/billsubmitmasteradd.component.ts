@@ -183,6 +183,7 @@ export class BillsubmitmasteraddComponent {
       this.branchList = res;
     });
   }
+  
   getPartyGstLocationList(party:string): void {
     this.requestmodel.strRequest = party;
     this.commonService.getPartyGstLocationList(this.requestmodel).subscribe((res) => {

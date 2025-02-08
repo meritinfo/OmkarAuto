@@ -5,7 +5,7 @@ namespace Consignment.Repository
 {
     public interface IMrRepository
     {
-        Task<MrListModel> GetMrMstList(PageFromDtToDtRequest request);
+        Task<MrListModel> GetMrMstList(ReportRequestModel request);
         Task<ResponseModel> GetMrNo(RequestModel request);
         Task<List<DropDownListModel>> GetPartyGroupList();
         Task<MrModel> GetOnAcMrSearchList(DropDownListModel request);

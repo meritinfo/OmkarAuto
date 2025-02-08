@@ -34,7 +34,7 @@ namespace Consignment.Repository
             dbconnection = _dbconnection;
             sharedRepository = _sharedRepository;
         }
-        public async Task<MrListModel> GetMrMstList(PageFromDtToDtRequest request)
+        public async Task<MrListModel> GetMrMstList(ReportRequestModel request)
         {
             MrListModel mrListModel = new();
             List<MrModel> mrlist = new();
@@ -51,7 +51,10 @@ namespace Consignment.Repository
                         new SqlParameter("@Search",     request.Search),
                         new SqlParameter("@FromDate",   request.FromDate),
                         new SqlParameter("@ToDate",     request.ToDate),
-                        new SqlParameter("@LoginBranch",     request.strRequest),
+                        new SqlParameter("@LoginBranch",     request.FilterStr),
+                         new SqlParameter("@MrNo",     request.FilterStr1),
+                         new SqlParameter("@PartyCode",     request.FilterStr2),
+                          new SqlParameter("@YearId",     request.FilterStr3),
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMrMstList", param);
 

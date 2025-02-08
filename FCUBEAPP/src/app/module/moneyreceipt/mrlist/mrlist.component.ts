@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
   selector: 'app-mrlist',
@@ -20,13 +21,13 @@ export class MrlistComponent {
     editStatus = false;
     deleteStatus = false;
     viewStatus = false;
-
+    partyList: Dropdownmodel[] = [];
     dtOptions: DataTables.Settings = {};
     @ViewChild(DataTableDirective)
     dtElement!: DataTableDirective;
   
     allMrlist: Mrlistmodel = new Mrlistmodel();
-    filter: Pagerequestwithdatesmodel = {
+    filter: Reportmodel = {
       pageNumber: 1,
       pageSize: 10,
       sortColumn: 'MrMasterId',
@@ -34,7 +35,11 @@ export class MrlistComponent {
       search: '',
       fromDate:'',
       toDate:'',
-      strRequest:'',
+     // strRequest:'',
+     filterStr:'',
+     filterStr1:'',
+     filterStr2:'',
+     filterStr3:'',
     }
     
     keywordLocation = 'dataName';
@@ -92,13 +97,15 @@ export class MrlistComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.fromDate,),
         toDate: new FormControl(this.loginDate,),
+        partyCode: new FormControl('',),
+        mrNo: new FormControl('',),
         strRequest: new FormControl('',),
       });
-    
+    this.getBillingPartyList();
       this.sharedService.loading=true; 
       this.filter.fromDate = this.fromDate;
       this.filter.toDate = this.loginDate;
-      this.filter.strRequest = this.branchid;
+      this.filter.filterStr = this.branchid;
       this.mrlist();
       this.sharedService.loading=false;      
     }
@@ -165,6 +172,19 @@ export class MrlistComponent {
     mrAdd(): void {
       this.route.navigate(['/mrentryadd']);
     }
+    onFocused(e: any) {
+      // do something
+    }
+  
+    startWithFilter (e:any) {
+    
+    };
+    getBillingPartyList(): void {
+      this.commonService.getBillingPartyList().subscribe((res) => {
+        this.partyList = res;
+      });
+    }
+  
     
     getMrDetails(mr: Mrmodel): void {
       this.mrService.setMrDetails(mr);
@@ -174,7 +194,10 @@ export class MrlistComponent {
     search(): void {
       this.filter.fromDate = this.formFilter.value.fromDate;
       this.filter.toDate = this.formFilter.value.toDate;
-      this.filter.strRequest = this.branchid;
+      this.filter.filterStr = this.branchid;
+      this.filter.filterStr1 = this.formFilter.value.mrNo;
+      this.filter.filterStr2 = this.formFilter.value.partyCode.dataId;
+      this.filter.filterStr3 = this.year;
       this.sharedService.loading = true;
       this.mrlist();       
       this.sharedService.loading = false;
