@@ -254,6 +254,7 @@ export class BankbookrptComponent {
         link.download = "BankBook_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/BankBook/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toastrService.warning(resp.message);   

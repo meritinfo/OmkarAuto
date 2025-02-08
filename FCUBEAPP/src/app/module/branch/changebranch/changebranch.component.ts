@@ -14,6 +14,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class ChangebranchComponent {
   loggedInUserID: string = '';
+  dashboard:string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   branchList: Dropdownmodel[] = [];
@@ -40,9 +41,14 @@ export class ChangebranchComponent {
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
+    } 
+        
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
 
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -71,7 +77,7 @@ export class ChangebranchComponent {
   }
   
   exit(): void {
-    this.route.navigate(['/dashboard']);
+    this.route.navigate([this.dashboard]);
   }
   
   submitUserBranch(): void {
@@ -83,7 +89,7 @@ export class ChangebranchComponent {
     sessionStorage.setItem("userBranch", this.formUser.value.userBranch.dataId);
     sessionStorage.setItem("branchname", this.formUser.value.userBranch.dataName);  
     this.toastrService.success("Branch Changed Successfully");
-    this.route.navigate(['/dashboard']);  
+    this.route.navigate([this.dashboard]);
   }  
 }
 

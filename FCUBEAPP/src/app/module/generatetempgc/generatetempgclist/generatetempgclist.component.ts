@@ -6,7 +6,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Tempgcmodel } from 'src/app/models/tempgcmodel';
 import { Tempgclistmodel  } from 'src/app/models/tempgclistmodel';
 import { GeneratetempgcService } from 'src/app/services/generatetempgc.service';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class GeneratetempgclistComponent {
   alltempgclist: Tempgclistmodel = new Tempgclistmodel();
   lrmodel: Consignmentmodel = new Consignmentmodel();
 
-  filter: Reportmodel = {
+  filter: Repreqmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'dprBranch',
@@ -33,7 +33,9 @@ export class GeneratetempgclistComponent {
     filterStr: '',
     filterStr1: '',
     filterStr2:'',
-    filterStr3:''
+    filterStr3:'',
+    filterStr4:'',
+    filterStr5:''
   }
 
   formFilter!: FormGroup;
@@ -41,6 +43,7 @@ export class GeneratetempgclistComponent {
   locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
+  year: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -61,6 +64,7 @@ export class GeneratetempgclistComponent {
   gcdestination: string = '';
   gcvehicleNo: string = '';
   gcmainLr: string = '';  
+  gcNoteNo: string = '';  
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -90,6 +94,10 @@ export class GeneratetempgclistComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
     }
 
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -145,6 +153,10 @@ export class GeneratetempgclistComponent {
     if (typeof gcmainLr !== 'undefined' && gcmainLr !== null && gcmainLr !== '') {
       this.gcmainLr = gcmainLr;
     }
+    var gcNoteNo = sessionStorage.getItem('gcNoteNo')?.toString();
+    if (typeof gcNoteNo !== 'undefined' && gcNoteNo !== null && gcNoteNo !== '') {
+      this.gcNoteNo = gcNoteNo;
+    }
     
     this.generatetempgcService.clearTempgcDetails();
     
@@ -159,6 +171,7 @@ export class GeneratetempgclistComponent {
       origin: new FormControl('',),
       destination: new FormControl('',),
       mainLr:new FormControl('',),
+      gcNoteNo:new FormControl('',),
     });
     
     this.sharedService.loading=true;
@@ -172,6 +185,7 @@ export class GeneratetempgclistComponent {
         origin: this.locationList.find(e => e.dataId == this.gcorigin),
         destination: this.locationList.find(e => e.dataId == this.gcdestination),    
         mainLr:this.gcmainLr,
+        gcNoteNo: gcNoteNo
       })
     }, 2000);
     
@@ -184,6 +198,7 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr3 = this.gcvehicleNo;
     this.filter.sortColumn =  this.gcmainLr;
     this.filter.sortOrder =  this.branch;
+    this.filter.filterStr4 = this.gcNoteNo;
     
     this.tempgcList();    
     this.sharedService.loading=false;
@@ -287,6 +302,7 @@ export class GeneratetempgclistComponent {
         link.download = "LR_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/LrPrint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toasterService.warning(resp.message);   
@@ -480,6 +496,8 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr3 = selecteddata.vehicleNo;
     this.filter.sortColumn =  selecteddata.mainLr;
     this.filter.sortOrder =  this.branch;
+    this.filter.filterStr4 = selecteddata.gcNoteNo;
+    this.filter.filterStr5 = this.year;
 
     this.sharedService.loading=true;
     this.tempgcList();    

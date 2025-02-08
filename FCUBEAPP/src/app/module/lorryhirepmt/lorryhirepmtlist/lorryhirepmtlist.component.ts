@@ -40,6 +40,7 @@ export class LorryhirepmtlistComponent {
     filterStr3:"",
   }
 
+  dashboard:string = ''; 
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -71,8 +72,13 @@ export class LorryhirepmtlistComponent {
       }
     }
 
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -212,11 +218,12 @@ export class LorryhirepmtlistComponent {
     this.request.strRequest = ch.masterId;
         
     this.lorryhirepmtService.getLorryHirePrintPdf(this.request).subscribe(resp => {
-      if(resp.status){    
+      if(resp.status){     
         let link = document.createElement("a");
         link.download = "LH_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/lhprint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toastrService.warning(resp.message);   

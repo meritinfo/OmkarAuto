@@ -273,6 +273,9 @@ import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.com
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
 import { GstpctvalueslistComponent } from './module/gstpctvalues/gstpctvalueslist/gstpctvalueslist.component';
 import { GstpctvaluesaddComponent } from './module/gstpctvalues/gstpctvaluesadd/gstpctvaluesadd.component';
+import { DovehicleinlistComponent } from './module/dovehiclein/dovehicleinlist/dovehicleinlist.component';
+import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dovehicleinadd.component';
+import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
 import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmasternewadd/ratesmasternewadd.component';
 import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
 
@@ -656,6 +659,9 @@ const routes: Routes = [
   { path: 'gstpctvaluesedit', component: GstpctvaluesaddComponent },
   { path: 'missingdocrpt', component: MissingdocrptComponent },
   { path: 'dashboardncc', component: DashboardnccComponent },
+  { path: 'dovehiclein', component: DovehicleinlistComponent },
+  { path: 'dovehicleinadd', component: DovehicleinaddComponent },
+  { path: 'dovehicleinedit', component: DovehicleineditComponent },  
   { path: 'ratesmasternewadd', component: RatesmasternewaddComponent },
   { path: 'ratesmasternewedit', component: RatesmasternewaddComponent },
   { path: 'ratesmasterlist', component: RatesmasternewlistComponent },

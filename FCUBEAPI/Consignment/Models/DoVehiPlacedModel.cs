@@ -19,6 +19,7 @@
         public string? DoVpId { get; set; }
         public string? PlacementDate { get; set; }
         public string? VehicleNo { get; set; }
+        public string? VehicleIn{ get; set; }        
         public string? VehicleType { get; set; }
         public string? VehicleCapacity { get; set; }        
         public string? OwnMarket { get; set; }

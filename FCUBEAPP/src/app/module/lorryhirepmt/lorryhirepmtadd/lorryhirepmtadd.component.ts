@@ -344,7 +344,9 @@ export class LorryhirepmtaddComponent {
 
   addItem(i: number): void {
     var selectedDataVal= this.formUser.getRawValue()
-    if(selectedDataVal.arrayList[i].challanId!='' && selectedDataVal.arrayList[i].hireAmt !=''){
+    var arr = selectedDataVal.arrayList;
+    if(arr[i].challanId?arr[i].challanId.toString():""!="" && 
+          arr[i].hireAmt?arr[i].hireAmt.toString():""!=""){
       this.formArray.push(this.createInitialArray());   
       this.formArray.controls[i+1].get("challanId")?.disable();
       this.formArray.controls[i+1].get("dueAmt")?.disable();
@@ -493,6 +495,8 @@ export class LorryhirepmtaddComponent {
       else{
         this.toasterService.warning(this.responseDetails.message);
         this.formArray.controls[i].get("challanNo")?.setValue("");
+        this.formArray.controls[i].get("challanId")?.setValue("");
+        this.formArray.controls[i].get("hireAmt")?.setValue("");
         return;
       }
     });
@@ -506,6 +510,8 @@ export class LorryhirepmtaddComponent {
         else{
           this.toasterService.warning(this.responseDetails.message);
           this.formArray.controls[i].get("challanNo")?.setValue("");
+          this.formArray.controls[i].get("challanId")?.setValue("");
+          this.formArray.controls[i].get("hireAmt")?.setValue("");
           return;
         }
       });

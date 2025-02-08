@@ -154,6 +154,7 @@ export class CashbookreportComponent {
         link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/CashBook/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       });
   }
 }

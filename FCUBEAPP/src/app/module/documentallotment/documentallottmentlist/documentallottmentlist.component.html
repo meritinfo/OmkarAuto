@@ -27,6 +27,7 @@
                             <th>allotDate</th>
                             <th>rangeFrom</th>
                             <th>rangeTo</th>
+                            <th>docStatus</th>   
                             <th>docStatus</th>                       
                             <th>Action</th>
                         </tr>
@@ -38,7 +39,8 @@
                             <td>{{ ren.allotDate }}</td>
                             <td>{{ ren.rangeFrom }}</td>
                             <td>{{ ren.rangeTo }}</td>
-                            <td>{{ ren.docStatus }}</td>                  
+                            <td>{{ ren.docStatus }}</td>   
+                            <td>{{ ren.remarks }}</td>                  
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getdocumentallotmentdocuments(ren)"></button>             

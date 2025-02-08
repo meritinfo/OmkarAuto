@@ -45,6 +45,7 @@ export class DprvehiplacedaddComponent {
   empList: Dropdownmodel[] = [];
   createdBy: string = "";
   modifiedBy: string = "";
+  dashboard:string = ''; 
 
   @ViewChild('attachmentInput', {
     static: true
@@ -85,6 +86,10 @@ export class DprvehiplacedaddComponent {
     }
     else {
       this.route.navigate(['/']);
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {

@@ -34,9 +34,10 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
                                     <select class="form-control" formControlName="branch">
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
+                                        <option value="">ALL</option>
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
                                 </select>
                                 </div>
                             </div>

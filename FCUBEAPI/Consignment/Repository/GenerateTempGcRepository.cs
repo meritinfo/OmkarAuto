@@ -18,7 +18,7 @@ namespace Consignment.Repository
             dbconnection = _dbconnection;
         }
 
-        public async Task<TempGcListModel> GetTempgcList(ReportRequestModel request)
+        public async Task<TempGcListModel> GetTempgcList(RepReqModel request)
         {
             TempGcListModel tempGcList = new();
             List<TempGcModel> gcList = new();
@@ -41,6 +41,8 @@ namespace Consignment.Repository
                             new SqlParameter("@VehicleNo",  request.FilterStr3),
                             new SqlParameter("@MainLr",     request.SortColumn),
                             new SqlParameter("@LoginBranch",     request.SortOrder),
+                            new SqlParameter("@GcNoteNo",  request.FilterStr4),
+                            new SqlParameter("@YearId",  request.FilterStr5),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTempGcList", param);
 

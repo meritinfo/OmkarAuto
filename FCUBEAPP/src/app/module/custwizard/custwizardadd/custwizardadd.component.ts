@@ -17,6 +17,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./custwizardadd.component.css']
 })
 export class CustwizardaddComponent {
+  dashboard:string = ''; 
   loggedInUserID: string = '';
   formCustWizard!: FormGroup;
   formSubmitted = false;
@@ -69,6 +70,11 @@ export class CustwizardaddComponent {
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
+    }
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -271,7 +277,7 @@ export class CustwizardaddComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/dashboard']);
+    this.route.navigate([this.dashboard]);
   }
   
   //Submit user form details //

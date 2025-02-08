@@ -50,6 +50,7 @@ export class ChallanmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  dashboard:string = ''; 
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
@@ -73,8 +74,13 @@ export class ChallanmasterlistComponent {
       }
     }
     
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
 
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -235,6 +241,7 @@ export class ChallanmasterlistComponent {
         link.download = "Challan_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/challanprint/" + resp.message;
         link.click();
+        window.open(link.href, "_blank");
       }
       else{        
         this.toastrService.warning(resp.message);   

@@ -94,7 +94,7 @@ export class HeaderComponent {
   }
 
   dashboard(): void { 
-    this.route.navigate(['/dashboard']);
+    this.route.navigate([this.dashboard]);
   }
 
   getScheduleDetails(){

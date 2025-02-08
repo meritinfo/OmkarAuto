@@ -33,6 +33,7 @@ export class ExpensebudgetsaddComponent {
   editMode= false;
   formSubmitted = false;
   keywordLocation = 'dataName';
+  dashboard:string = ''; 
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -80,6 +81,10 @@ ngOnInit(): void {
   }
   else {
     this.route.navigate(['/']);
+  }
+  var dashboard = sessionStorage.getItem('dashboard')?.toString();
+  if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+    this.dashboard = dashboard;
   }
   var userData = sessionStorage.getItem('userBranch')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -201,7 +206,7 @@ expenseBudgetDelete(): void {
 }
   
 exit(): void {
-  this.route.navigate(['/dashboard']);
+  this.route.navigate([this.dashboard]);
 }   
   
 submitExpenseBudgetForm(): void {

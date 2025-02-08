@@ -30,6 +30,7 @@ export class ConsignmentupdateComponent {
   whatsappPOD1: string = '';
   whatsappPOD2: string = '';
   partyList: Dropdownmodel[] = [];
+  dashboard:string = ''; 
   formSubmitted = false;
   editMode = false;
   createStatus = false;
@@ -94,6 +95,10 @@ export class ConsignmentupdateComponent {
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -299,7 +304,7 @@ export class ConsignmentupdateComponent {
             chargewt :  this.lrmodel.chargewt, 
             cnorName:  this.lrmodel.cnorName,
             cneeName:  this.lrmodel.cneeName, 
-            party: this.partyList.find(x => x.dataName = this.lrmodel.billingParty), 
+            party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
             rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
@@ -370,7 +375,7 @@ export class ConsignmentupdateComponent {
     console.log(e.target.value);
     var gsttype = e.target.value; 
    
-    if (gsttype == "I") {   
+    if (gsttype == "I" ) {   
       this.formUser.controls['sgstPct'].disable();
       this.formUser.controls['cgstPct'].disable();  
       this.formUser.controls['igstPct'].enable();    
@@ -524,7 +529,7 @@ export class ConsignmentupdateComponent {
 
   
   exit(): void {
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
   }
 
   updateLrDetailsForm(): void {
@@ -548,6 +553,14 @@ export class ConsignmentupdateComponent {
     if(selectedDataValue.ulReportingDateTime.toString()!="" && selectedDataValue.deliveryDateTime.toString()=="")
     {      
       this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
+      return;
+    }
+    
+    if (selectedDataValue.party.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Party is Invalid");
       return;
     }
 

@@ -28,6 +28,7 @@ export class FinaccountmastergstComponent {
     deleteStatus = false;
     viewStatus = false;
     keywordLocation = 'dataName';
+    dashboard:string = ''; 
 
     responseDetails = new Responsemodel();
     accountList: Dropdownmodel[] = [];
@@ -72,6 +73,10 @@ export class FinaccountmastergstComponent {
     }
     else {
       this.route.navigate(['/']);
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
     }
     
      this.formAccountMaster = this.formBuilder.group({    
@@ -186,7 +191,7 @@ export class FinaccountmastergstComponent {
 
 
   exit(): void {
-    this.route.navigate(['/dashboard']);
+    this.route.navigate([this.dashboard]);
   }
 
   deleteFinAccountMasterForm(): void {

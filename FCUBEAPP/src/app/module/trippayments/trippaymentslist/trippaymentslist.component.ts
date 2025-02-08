@@ -35,6 +35,7 @@ export class TrippaymentslistComponent {
   formFilter!: FormGroup;
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  dashboard:string = '';
   keywordLocation = 'dataName';
   year: string = '';
   loginDate: string = '';
@@ -69,8 +70,13 @@ export class TrippaymentslistComponent {
       }
     }
 
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
 
 

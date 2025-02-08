@@ -45,7 +45,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
                                     <select class="form-control" formControlName="branch">
-                                        <option value="0">ALL</option>
+                                        <option value="">ALL</option>
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>

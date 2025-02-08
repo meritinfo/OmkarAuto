@@ -9,5 +9,5 @@ export class Reportmodel {
     filterStr : string = "";
     filterStr1: string = "";
     filterStr2: string = "";
-    filterStr3: string = "";   
+    filterStr3: string = "";
 }

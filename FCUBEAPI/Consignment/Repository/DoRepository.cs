@@ -280,6 +280,7 @@ namespace Consignment.Repository
                                 DoVpId          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoVpId"]),
                                 PlacementDate   = Convert.ToString(dataSet.Tables[0].Rows[i]["PlacementDate"]),
                                 VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                VehicleIn       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleIn"]),
                                 VehicleType     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleType"]),
                                 VehicleCapacity = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleCapacity"]),
                                 OwnMarket       = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnMarket"]),

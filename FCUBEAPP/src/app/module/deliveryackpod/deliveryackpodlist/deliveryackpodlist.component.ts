@@ -17,6 +17,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./deliveryackpodlist.component.css']
 })
 export class DeliveryackpodlistComponent {
+  dashboard:string = ''; 
   formSubmitted = false;
   createStatus = false;
   editStatus = false;
@@ -73,8 +74,13 @@ export class DeliveryackpodlistComponent {
       }
     }
     
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -151,6 +157,10 @@ export class DeliveryackpodlistComponent {
         {
           title: 'Sl No',
           data: 'ackSlNo',
+        },
+        {
+          title: 'LR No',
+          data: 'gcNoteNo',
         },
         {
           title: 'Delivery Date ',

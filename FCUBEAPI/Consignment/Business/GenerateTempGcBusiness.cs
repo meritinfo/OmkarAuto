@@ -12,7 +12,7 @@ namespace Consignment.Business
             tempGcRepository = _tempGcRepository;
         }
 
-        public async Task<TempGcListModel> GetTempgcList(ReportRequestModel request)
+        public async Task<TempGcListModel> GetTempgcList(RepReqModel request)
         {
             return await tempGcRepository.GetTempgcList(request);
         }

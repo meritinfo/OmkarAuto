@@ -1,0 +1,332 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">DO Vehicle IN</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Entry Branch: </label> 
+                                            <select id="scope" class="form-select" formControlName="entryBranch"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label >Entry Date: </label>
+                                            <input type="date" class="form-control" formControlName="entryDate">
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row">     
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label >Vehicle No: </label>
+                                            <input class="form-control" formControlName="truckNo">
+                                        </div>
+                                    </div>    
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label >Vehicle In Date: </label>
+                                            <input type="date" class="form-control" formControlName="vehicleInDatetime">
+                                        </div>
+                                    </div>                   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label>Own/Market: </label> 
+                                            <select id="scope" class="form-select" formControlName="ownMarket"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                                <option value="O">Own</option>
+                                                <option value="M">Market</option>
+                                            </select>                                   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">      
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Regn Date: </label>  
+                                            <input type="date" class="form-control" 
+                                            formControlName="regnDate" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Owner Name: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="ownerName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">contactName: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="contactName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Mobile No: </label>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="mobileNo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Chasis No: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="chasisNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Engine No: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="engineNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Address1: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="address1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Address2: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="address2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label> State </label>                                                 
+                                            <select class="form-control" formControlName="stateCode">
+                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                    {{state.dataName}}
+                                                </option>
+                                            </select>     
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Pincode: </label>
+                                            <input numbersonly maxlength="6" type="text" class="form-control" 
+                                            formControlName="pinCode">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Insurance Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="insuranceDt">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Permit Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="permitDt">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Fitness Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="fitnessDt">
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">PAN No: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="panNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Aadhar No: </label>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="aadharNo">
+                                        </div>
+                                    </div>                     
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <input type="checkbox"  formControlName="aadharLinkedYN" 
+                                             class="form-check-input" >
+                                            <label for="neft" class="form-check-label">Aadhar Linked YN </label>                                    
+                                        </div>
+                                    </div>                
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <input type="checkbox"  formControlName="panValidYN" 
+                                             class="form-check-input" >
+                                            <label for="neft" class="form-check-label">PAN Valid YN </label>                                    
+                                        </div>
+                                    </div>            
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <input type="checkbox"  formControlName="itFiledYN" 
+                                             class="form-check-input" >
+                                            <label for="neft" class="form-check-label">IT Filed YN </label>                                    
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Driver Name: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverName">
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Driver Address: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverAddress" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Driver Mobile1: </label>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="driverMobile1" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Driver Mobile2: </label>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="driverMobile2" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Driver License: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverLicense">
+                                        </div>
+                                    </div>             
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">                                            
+                                            <label for="formrow-inputZip">Driver LIC Valid: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="driverLicValid">                                 
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">RC Upload</label>                          
+                                            <input #rcUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.rcUpload" target="_blank"
+                                                        href={{rcUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Permit Upload </label>                          
+                                            <input #permitUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.permitUpload" target="_blank"
+                                                        href={{permitUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Ins Upload </label>                          
+                                            <input #insUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.insUpload" target="_blank"
+                                                        href={{insUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">PAN Upload </label>                          
+                                            <input #panUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.panUpload" target="_blank"
+                                                        href={{panUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Dec Upload </label>                          
+                                            <input #decUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.decUpload" target="_blank"
+                                                        href={{decUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Other Upload </label>                          
+                                            <input #otherUploadInput class="form-control" type="file" id="formAttach1File">
+                                            <a *ngIf="selectedDoDetails.otherUpload" target="_blank"
+                                                        href={{otherUpload}}>Download</a>
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label>Remarks: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="remarks" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>                  
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                                *ngIf="(editMode && editStatus) && !this.formSubmitted"
+                                (click)="submitDoVehiInDetails()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDprDetailsForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+
+
+

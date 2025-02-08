@@ -34,6 +34,7 @@ export class DriversalarypmtlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
+  dashboard:string = ''; 
   alldriver: Driversalarylistmodel = new Driversalarylistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
@@ -80,8 +81,13 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
     
 
     
+    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
     
     this.driversalarypaymentService.clearDriverSalaryPaymentDetails();

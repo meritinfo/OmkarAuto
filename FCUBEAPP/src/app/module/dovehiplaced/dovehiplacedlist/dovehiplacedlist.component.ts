@@ -195,7 +195,11 @@ export class DovehiplacedlistComponent {
         },    
         {
           title: 'Action',
-          data: 'dprId',
+          data: 'doVpId',
+        },   
+        {
+          title: 'Vehical In',
+          data: 'doVpId',
         },   
       ],
     };
@@ -210,6 +214,11 @@ export class DovehiplacedlistComponent {
     this.route.navigate(['/dovehplacededit']);
   }  
 
+  getdoVehiplaced(dpr: Dovehiplacedmodel): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("doVpId", dpr.doVpId);
+    this.route.navigate(['/dovehicleinadd']);
+  }  
   get f() { return this.formFilter.controls; }
 
   search(): void {

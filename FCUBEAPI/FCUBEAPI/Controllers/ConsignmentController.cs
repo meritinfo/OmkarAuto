@@ -34,6 +34,7 @@ namespace FCUBEAPI.Controllers
         readonly IMrBusiness mrBusiness;
         readonly IChallanReleaseBusiness challanReleaseBusiness;
         readonly IDoBusiness doBusiness;
+        readonly IDoVehiInBusiness doVehiInBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -48,7 +49,8 @@ namespace FCUBEAPI.Controllers
             ILorryHireAprvBusiness _lorryHireAprvBusiness,
             IMrBusiness _mrBusiness,
             IChallanReleaseBusiness _challanReleaseBusiness,
-            IDoBusiness _doBusiness)
+            IDoBusiness _doBusiness,
+            IDoVehiInBusiness _doVehiInBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -65,6 +67,7 @@ namespace FCUBEAPI.Controllers
             mrBusiness = _mrBusiness;
             challanReleaseBusiness = _challanReleaseBusiness;
             doBusiness = _doBusiness;
+            doVehiInBusiness = _doVehiInBusiness;
         }
         
 
@@ -940,7 +943,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetTempgcList")]
-        public async Task<IActionResult> GetTempgcList(ReportRequestModel request)
+        public async Task<IActionResult> GetTempgcList(RepReqModel request)
         {
             if (request == null)
             {
@@ -2347,7 +2350,218 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
 
+        [HttpPost("GetDoVehicleInList")]
+        public async Task<IActionResult> GetDoVehicleInList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doVehiInBusiness.GetDoVehicleInList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DoVehicleInSave")]
+        public async Task<IActionResult> DoVehicleInSave()
+        {
+
+            try
+            {
+                var rcUpload = HttpContext.Request.Form.Files["rcUpload"];
+                var permitUpload = HttpContext.Request.Form.Files["permitUpload"];
+                var insUpload = HttpContext.Request.Form.Files["insUpload"];
+                var panUpload = HttpContext.Request.Form.Files["panUpload"];
+                var decUpload = HttpContext.Request.Form.Files["decUpload"];
+                var otherUpload = HttpContext.Request.Form.Files["otherUpload"];
+
+                DoVehicleInModel dos = JsonConvert.DeserializeObject<DoVehicleInModel>(HttpContext.Request.Form["datadetails"]);
+                dos.RcUpload = "";
+                dos.PermitUpload = "";
+                dos.InsUpload = "";
+                dos.PanUpload = "";
+                dos.DecUpload = "";
+                dos.OtherUpload = "";
+
+                if (rcUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(rcUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(rcUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/rcUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await rcUpload.CopyToAsync(fileStream);
+                        dos.RcUpload = imageName;
+                    }
+                }
+                if (permitUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(permitUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(permitUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/permitUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await permitUpload.CopyToAsync(fileStream);
+                        dos.PermitUpload = imageName;
+                    }
+                }
+                if (insUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(insUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(insUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/insUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await insUpload.CopyToAsync(fileStream);
+                        dos.InsUpload = imageName;
+                    }
+                }
+                if (panUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(panUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(panUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/panUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await panUpload.CopyToAsync(fileStream);
+                        dos.PanUpload = imageName;
+                    }
+                }
+                if (decUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(decUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(decUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/decUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await panUpload.CopyToAsync(fileStream);
+                        dos.DecUpload = imageName;
+                    }
+                }
+                if (otherUpload != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(otherUpload.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(otherUpload.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/doVehicleIn/otherUpload");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await otherUpload.CopyToAsync(fileStream);
+                        dos.OtherUpload = imageName;
+                    }
+                }
+
+                var result = await doVehiInBusiness.DoVehicleInSave(dos);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DoVehicleInDelete")]
+        public async Task<IActionResult> DoVehicleInDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doVehiInBusiness.DoVehicleInDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }       
+
+        [HttpPost("GetDoVehiPlacedDetails")]
+        public async Task<IActionResult> GetDoVehiPlacedDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doVehiInBusiness.GetDoVehiPlacedDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDoVehiDetailsApi")]
+        public async Task<IActionResult> GetDoVehiDetailsApi(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doVehiInBusiness.GetTruckDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
 
     }

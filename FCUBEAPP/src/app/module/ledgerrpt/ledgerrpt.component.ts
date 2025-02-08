@@ -252,6 +252,7 @@ export class LedgerrptComponent {
           link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
           link.href = "assets/reports/Ledger/" + resp.message;
           link.click();
+          window.open(link.href, "_blank");
         }
         else{        
           this.toastrService.warning(resp.message);   
