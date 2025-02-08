@@ -56,6 +56,8 @@ export class CnenquiryComponent {
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();
+  branchList: Dropdownmodel[] = [];
+  yearList: Dropdownmodel[] = [];
   selectedLrDetails = new Consignmentmodel();
   selectedLrDoc = new Cnenqdocmodel();
   keywordLocation = 'dataName';
@@ -125,12 +127,15 @@ export class CnenquiryComponent {
     
     this.fromDate = this.minDate ;
     
-  
+  this.getBranchList();
+  this.getYearList();
     
     this.selectedLrDetails = this.lrentryService.getConsignmentDetails();
 
     this.formFilter = this.formBuilder.group({
       cnno: new FormControl('',),
+      yearId: new FormControl(this.year,),
+      branch: new FormControl(this.branch,),
     });
 
     this.formUser = this.formBuilder.group({
@@ -292,7 +297,8 @@ export class CnenquiryComponent {
       totalHire : ['', []],
       totalAdvance : ['', []],
     });
-  }  
+  } 
+   
 
   createLhpmInitialArray() {
     return this.formBuilder.group({
@@ -399,10 +405,24 @@ export class CnenquiryComponent {
   exit(): void {
     this.route.navigate([this.dashboard]);
   }
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+    
+  getYearList():void{
+    this.commonService.getYearList().subscribe((res) => {
+      this.yearList = res;
+    });
+  }   
+  
 
   search(): void {
     var selectedDataVal = this.formFilter.getRawValue();
     this.requestmodel.strRequest = selectedDataVal.cnno;
+    this.requestmodel.strRequest1 = selectedDataVal.branch;
+    this.requestmodel.strRequest2 = selectedDataVal.yearId;
     this.lrentryService.getCnEnqDetails(this.requestmodel).subscribe((res) => {
       this.selectedLrDetails = res;
       this.formFilter.controls["cnno"].disable();

@@ -40,6 +40,7 @@ export class MrenquiryComponent {
   deleteStatus = false;
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
+  yearList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -127,8 +128,12 @@ ngOnInit(): void {
 
   this.formFilter = this.formBuilder.group({
     mrNo: new FormControl('',),
+    yearId: new FormControl(this.year,),
+    branch: new FormControl(this.branch,),
+
   });
       this.getBranchList();
+      this.getYearList()
      this.getLocationList();
      this.getBillingPartyList();
   
@@ -247,6 +252,11 @@ getBrokerList(): void {
     this.brokerList = res;
   });
 }
+getYearList():void{
+  this.commonService.getYearList().subscribe((res) => {
+    this.yearList = res;
+  });
+}  
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
@@ -293,6 +303,8 @@ nextStep(index: number): void {
 search(): void {
   var selectedDataVal = this.formFilter.getRawValue();
   this.requestmodel.strRequest = selectedDataVal.mrNo;
+  this.requestmodel.strRequest1 = selectedDataVal.branch;
+  this.requestmodel.strRequest2 = selectedDataVal.yearId;
   this.mrService.getMrEnqDetails(this.requestmodel).subscribe((res) => {
     this.selectedMrDetails = res;
     this.formUser.patchValue(this.selectedMrDetails);

@@ -38,6 +38,7 @@ export class ChallanenquiryComponent {
   deleteStatus = false;
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
+  yearList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
 
@@ -115,10 +116,12 @@ ngOnInit(): void {
 
   this.formFilter = this.formBuilder.group({
     challanNo: new FormControl('',),
+    yearId: new FormControl(this.year,),
+    branch: new FormControl(this.branch,),
   });
       this.getBranchList();
       this.getLocationList();
-  
+      this.getYearList();
     this.getBrokerList();
   this.formUser = this.formBuilder.group({
     challanBranch: new FormControl(this.branch, [Validators.required]),
@@ -208,6 +211,13 @@ get formLhpmArray() {
   return this.formUser.get("arrayLhpmList") as FormArray;
 }
 
+
+getYearList():void{
+  this.commonService.getYearList().subscribe((res) => {
+    this.yearList = res;
+  });
+}   
+
 createCnInitialArray() {
   return this.formBuilder.group({
     bookingPlace :  ['', []],
@@ -246,6 +256,7 @@ getBranchList(): void {
     this.branchList = res;
   });
 }
+
 getLocationList(): void {
   this.commonService.getLocationList().subscribe((res) => {
     this.locationList = res;
@@ -302,10 +313,13 @@ nextStep(index: number): void {
 
 
 
-
+ 
 search(): void {
   var selectedDataVal = this.formFilter.getRawValue();
   this.requestmodel.strRequest = selectedDataVal.challanNo;
+  this.requestmodel.strRequest1 = selectedDataVal.branch;
+  this.requestmodel.strRequest2 = selectedDataVal.yearId;
+
   this.challanService.getChallanEnqDetails(this.requestmodel).subscribe((res) => {
     this.selectedChnDetails = res;
     this.formUser.patchValue(this.selectedChnDetails);
@@ -323,6 +337,8 @@ search(): void {
     this.getChallanEnqInnerGridList();
   });
 }
+
+
 
 getChallanEnqInnerGridList(): void {
   this.requestmodel.strRequest = this.selectedChnDetails.challanId;

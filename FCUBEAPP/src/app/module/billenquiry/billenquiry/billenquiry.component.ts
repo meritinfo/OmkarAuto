@@ -42,6 +42,7 @@ export class BillenquiryComponent {
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  yearList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
@@ -121,9 +122,12 @@ ngOnInit(): void {
 
   this.formFilter = this.formBuilder.group({
     billNo: new FormControl('',),
+    yearId: new FormControl(this.year,),
+    branch: new FormControl(this.branch,),
   });
   this.getBranchList();
  this.getLocationList();
+ this.getYearList();
  this.getBillingPartyList();
  setTimeout(() => { 
   this.getPartyGstLocationList(this.selectedBillDetails.partyCode);
@@ -246,6 +250,12 @@ createInitialBillArray() {
     
   });
 }  
+getYearList():void{
+  this.commonService.getYearList().subscribe((res) => {
+    this.yearList = res;
+  });
+}   
+
 
 getPartyGstLocationList(party:string): void {
   this.requestmodel.strRequest = party;
@@ -382,6 +392,8 @@ nextStep(index: number): void {
 search(): void {
   var selectedDataVal = this.formFilter.getRawValue();
   this.requestmodel.strRequest = selectedDataVal.billNo;
+  this.requestmodel.strRequest1 = selectedDataVal.branch;
+  this.requestmodel.strRequest2 = selectedDataVal.yearId;
   this.billService.getBillEnqDetails(this.requestmodel).subscribe((res) => {
     this.selectedBillDetails = res;
     this.formUser.patchValue(this.selectedBillDetails);
