@@ -403,6 +403,7 @@ namespace FreightMasters.Repository
                                 Sname = Convert.ToString(dataSet.Tables[0].Rows[i]["Sname"]),
                                 Lname = Convert.ToString(dataSet.Tables[0].Rows[i]["Lname"]),
                                 dname = Convert.ToString(dataSet.Tables[0].Rows[i]["dname"]),
+                                party = Convert.ToString(dataSet.Tables[0].Rows[i]["party"]),
                             });
                         }
 
