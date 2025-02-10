@@ -117,7 +117,10 @@ export class MrlistComponent {
         pageLength: 50,
         serverSide: true,
         processing: true,
-        searching: false,
+        searching: false,     
+        language: {
+          zeroRecords: ''
+        }, 
         ajax: (dataTablesParameters: any, callback) => {
           // Filter setting
           this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -131,42 +134,42 @@ export class MrlistComponent {
             data: []
           });     
           this.mrService.getMrMstList(this.filter).subscribe(resp => {
-              this.allMrlist = resp;  
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
+            this.allMrlist = resp;  
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
             });
-          },
+          });
+        },
            // Set column title and data field
-           columns: [    
-            {
-              title: 'MR Station',
-              data: 'mrStn',
-            },
-            {
-              title: 'MR No',
-              data: 'mrNo',
-            },
-            {
-              title: 'MR Date',
-              data: 'mrDate',
-            },
-            {
-              title: 'Party Name',
-              data: 'partyName',
-            },
-            {
-              title: 'Cheq Cash Amt',
-              data: 'cheqCashAmt',
-            },
-            {
-              title: 'Action',
-              data: 'masterid',
-            },
-          ],
-        };
+         columns: [    
+          {
+            title: 'MR Station',
+            data: 'mrStn',
+          },
+          {
+            title: 'MR No',
+            data: 'mrNo',
+          },
+          {
+            title: 'MR Date',
+            data: 'mrDate',
+          },
+          {
+            title: 'Party Name',
+            data: 'partyName',
+          },
+          {
+            title: 'Cheq Cash Amt',
+            data: 'cheqCashAmt',
+          },
+          {
+            title: 'Action',
+            data: 'masterid',
+          },
+        ],
+      };
     }    
      
     mrAdd(): void {

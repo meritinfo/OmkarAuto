@@ -797,7 +797,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetBillsMasterList")]
-        public async Task<IActionResult> GetBillsMasterList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         {
             if (request == null)
             {

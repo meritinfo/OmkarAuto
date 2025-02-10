@@ -22,7 +22,7 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillsMasterSearchList(request);
         }
-        public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
+        public async Task<BillsListModel> GetBillsMasterList(ReportRequestModel request)
         {
             return await billsRepository.GetBillsMasterList(request);
         }
