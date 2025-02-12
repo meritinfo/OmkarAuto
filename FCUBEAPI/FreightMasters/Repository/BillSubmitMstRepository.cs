@@ -68,18 +68,14 @@ namespace FreightMasters.Repository
                         {
                             for (int i = 0; i < billSubmitMasterModel.BillSubmitMasterDtlList.Count; i++)
                             {
-                                if (billSubmitMasterModel.BillSubmitMasterDtlList[i].Selected)
-                               {
-                                    billSubmitMasterModel.BillSubmitMasterDtlList[i].SubmitMstId = SubmitMstId;
+                                billSubmitMasterModel.BillSubmitMasterDtlList[i].SubmitMstId = SubmitMstId;
 
-
-                                    responseModel = await BillSubmitMstDetailSave(transaction, billSubmitMasterModel.BillSubmitMasterDtlList[i]);
-                                    if (!responseModel.Status)
-                                    {
-                                        transaction.Rollback();
-                                        i = billSubmitMasterModel.BillSubmitMasterDtlList.Count;
-                                    }
-                               }
+                                responseModel = await BillSubmitMstDetailSave(transaction, billSubmitMasterModel.BillSubmitMasterDtlList[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = billSubmitMasterModel.BillSubmitMasterDtlList.Count;
+                                }
                             }
                         }
                     }
@@ -194,22 +190,14 @@ namespace FreightMasters.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = 0;
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             billSubmitMasterDtlList.Add(new BillSubmitMasterDtlListmodel
                             {
-                               // SubmitDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDtlId"]),
-                             //   SubmitMstId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitMstId"]),
-                              //  SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
                                 BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillsMasterId"]),
                                 BillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalGtotal"]),
                                 BillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillNo"]),
                                 BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
-                                //   DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
-
-
-                                // Selected = false
                             });
                         }
 
@@ -219,16 +207,6 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return billSubmitMasterDtlLists;
         }
@@ -255,7 +233,6 @@ namespace FreightMasters.Repository
                         {
                             billSubmitMasterInnerGridList.BillSubmitMasterDtlList.Add(new BillSubmitMasterDtlListmodel
                             {
-                                SubmitDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDtlId"]),
                                 SubmitMstId = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitMstId"]),
                                 SubmitDt = Convert.ToString(resultData.Tables[0].Rows[i]["SubmitDt"]),
                                 BillsMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["BillsMasterId"]),
@@ -263,7 +240,6 @@ namespace FreightMasters.Repository
                                 BillNo = Convert.ToString(resultData.Tables[0].Rows[i]["BillNo"]),
                                 BillDate = Convert.ToString(resultData.Tables[0].Rows[i]["BillDate"]),
                                 DtlRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["DtlRemarks"]),
-                              
                             });
                         }
                     }
@@ -316,8 +292,7 @@ namespace FreightMasters.Repository
             }
             return cardAcList;
         }
-
-        public async Task<ResponseModel> BillSubmitMstDetailSave(SqlTransaction transaction, BillSubmitMasterDtlListmodel billSubmitMasterDtlListmodel)
+        public async Task<ResponseModel> BillSubmitMstDetailSave(SqlTransaction transaction, BillSubmitMasterDtlListmodel billSubmitDtlListmodel)
         {
             ResponseModel responseModel = new();
             try
@@ -326,12 +301,11 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@SubmitDtlId",             billSubmitMasterDtlListmodel.SubmitDtlId),
-                            new SqlParameter("@SubmitMstId",   billSubmitMasterDtlListmodel.SubmitMstId),
-                            new SqlParameter("@SubmitDt",       billSubmitMasterDtlListmodel.SubmitDt ),
-                            new SqlParameter("@BillsMasterId",            billSubmitMasterDtlListmodel.BillsMasterId),
-                            new SqlParameter("@BillAmt",             billSubmitMasterDtlListmodel.BillAmt),
-                            new SqlParameter("@DtlRemarks",        billSubmitMasterDtlListmodel.DtlRemarks ) ,
+                            new SqlParameter("@SubmitMstId",    billSubmitDtlListmodel.SubmitMstId),
+                            new SqlParameter("@SubmitDt",       billSubmitDtlListmodel.SubmitDt ),
+                            new SqlParameter("@BillsMasterId",  billSubmitDtlListmodel.BillsMasterId),
+                            new SqlParameter("@BillAmt",        billSubmitDtlListmodel.BillAmt),
+                            new SqlParameter("@DtlRemarks",     billSubmitDtlListmodel.DtlRemarks ) ,
                            
                         };
 
@@ -363,7 +337,7 @@ namespace FreightMasters.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
+                    {
                             new SqlParameter("@PageNumber", request.PageNumber),
                             new SqlParameter("@PageSize",   request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
@@ -371,10 +345,10 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                             new SqlParameter("@SubmitNo",     request.FilterStr1),
-                               new SqlParameter("@PartyCode",     request.FilterStr2),
+                            new SqlParameter("@SubmitNo",   request.FilterStr1),
+                            new SqlParameter("@PartyCode",  request.FilterStr2),
                            // new SqlParameter("@Type",       request.FilterStr)
-                        };
+                    };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)

@@ -291,24 +291,64 @@
                                                     <h6>Main /Inclusive<span style="color: red">*</span>  </h6>
                                                 </label>
                                             </td>
+                                            <td class="col-lg-2">
+                                            </td>
                                         </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="fromPlace">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toPlace">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </td>
+                                                <!-- <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
                                                     formControlName="fromStn">
-                                                    <input type="hidden" class="form-control" 
-                                                    formControlName="dprDtlId">
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
-                                                    formControlName="toStn">
-                                                </td>
+                                                    formControlName="toStn"> 
+                                                </td>-->
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
                                                     numbersonly maxlength="15" 
                                                     formControlName="gcNoteNo" (change)="chkLrDuplicate(i)">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="dprDtlId">
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly autoclose="false" class="form-control"
@@ -321,20 +361,46 @@
                                                             <option value="N">Inclusive </option>
                                                     </select>
                                                 </td>
+                                                <td class="col-lg-2">
+                                                    <div *ngIf="addlr" class="col-lg-4 details-button">
+                                                        <button *ngIf="(i === formArray.controls.length-1) && !this.formSubmitted " type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                    </div>                                        
+                                                </td>
                                             </div>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                        </div>      
-                        <div class="col-lg-2">
-                            <div class="mb-3">
+                        </div>
+                    </div>      
+                    <div class="row text-right">
+                        <div class="col-lg-10">
+                            <div class="tex">
                                 <button class="btn btn-primary w-md" 
-                                (click)="genLrNo()">Generate LR No</button>                                            
+                                *ngIf="addlr" (click)="addRow()"> Add LR</button>
                             </div>
-                        </div>  
+                        </div>
                     </div>
-                </div>      
+                </div>   
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <input type="checkbox" formControlName="adv1PaidYN"  
+                            (change)="advPaid(1,$event)" 
+                                class="form-check-input" />
+                            <label for="adv1PaidYN">Advance1 Paid</label>
+                        </div>
+                    </div>     
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <input type="checkbox" formControlName="adv2PaidYN"  
+                            (change)="advPaid(2,$event)" 
+                                class="form-check-input" />
+                            <label for="adv2PaidYN">Advance2 Paid</label>
+                        </div>
+                    </div>     
+                </div>              
                 <div class="row">                    
                     <div class="col-lg-5">
                         <div class="mb-3">
@@ -355,8 +421,10 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(!editMode && createStatus) && !this.formSubmitted"
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) && !this.formSubmitted"
                                 (click)="submitDprVehiDetails()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDprVehiDetailsForm()">Delete</button>&nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>

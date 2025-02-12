@@ -5,7 +5,7 @@ export class LoggedinUsermodel {
     message: string = "";
     scope: string = "";
     token: string = "";
-    companyName: string = "";
+    userType: string = "";
 }
 
 export class Menumodel {

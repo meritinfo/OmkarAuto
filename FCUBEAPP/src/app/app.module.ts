@@ -223,6 +223,7 @@ import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+import { DprvehiplacededitComponent } from './module/dprvehiplaced/dprvehiplacededit/dprvehiplacededit.component';
 import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
 import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
@@ -333,7 +334,6 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
-import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
@@ -511,7 +511,7 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     EwaybillexprptComponent, GstsalesregisterrptlistComponent,    
     DrpmasteraddComponent, DrpmasterlistComponent,
-    DprvehiplacedlistComponent, DprvehiplacedaddComponent,
+    DprvehiplacedlistComponent, DprvehiplacedaddComponent,DprvehiplacededitComponent,
     GeneratetempgclistComponent, GeneratetempgcaddComponent,
     AddtruckmasterComponent, TruckmasterlistComponent,
     ClassificationmasteraddComponent, ClassificationmasterlistComponent,
@@ -551,7 +551,7 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
-    DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent, 
+    GeneratetempgceditComponent, SparespurchaserptComponent, 
     LhpayablestatusrptComponent,  ChallanregisterrptComponent,
     VehiclerepairsrptComponent,  BillregisterrptComponent,
     MrregisterrptComponent,  BenificiarymasteraddComponent,
@@ -589,7 +589,7 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
      MissingdocrptComponent, DashboardnccComponent,    
     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
-    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent,
+    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
   ],
   
   imports: [

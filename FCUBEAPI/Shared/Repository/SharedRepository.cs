@@ -49,6 +49,7 @@ namespace Shared.Repository
                         userModel.Status    = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
                         userModel.Scope     = Convert.ToString(userData.Tables[0].Rows[0]["UserScope"]);
                         userModel.Message   = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                        userModel.UserType   = Convert.ToString(userData.Tables[0].Rows[0]["UserType"]);
                     }
                     else
                     {
@@ -57,6 +58,7 @@ namespace Shared.Repository
                         userModel.Status    = false;
                         userModel.Scope     = "";
                         userModel.Message   = "Account not found";
+                        userModel.UserType   = "";
                     }
                 }
             }

@@ -453,6 +453,8 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
                 transaction.Rollback();
             }
             return responseModel;
@@ -499,6 +501,54 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> DprVehiPlacedAddLr(DprVehiPlacedModel dprVehi)
+        {
+            ResponseModel responseModel = new();
+            var lrdtl = dprVehi.DprDtls[0];
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DprId",          lrdtl.DprId),
+                            new SqlParameter("@GcNoteNo",       lrdtl.GcNoteNo),
+                            new SqlParameter("@FromPlace",      lrdtl.FromPlace),
+                            new SqlParameter("@ToPlace",        lrdtl.ToPlace),
+                            new SqlParameter("@MainGcYN",       lrdtl.MainGcYN),
+                            new SqlParameter("@SpecialRemarks", lrdtl.SpecialRemarks),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiPlaceAddLr", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else { transaction.Rollback(); }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
         public async Task<ResponseModel> DprVehiPlacedDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

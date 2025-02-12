@@ -134,6 +134,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("token", this.selectedUserDetails.token);    
         sessionStorage.setItem("scope", this.selectedUserDetails.scope);
         sessionStorage.setItem("user", this.selectedUserDetails.userName);
+        sessionStorage.setItem("userType", this.selectedUserDetails.userType);
       
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/intermediatescreen']);

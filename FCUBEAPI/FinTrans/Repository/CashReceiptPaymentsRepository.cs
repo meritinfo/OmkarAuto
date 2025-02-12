@@ -49,6 +49,9 @@ namespace FinTrans.Repository
                         new SqlParameter("@UTRNo"           , cashReceiptPaymentsModel.UTRNo),
                         new SqlParameter("@YearID"          , cashReceiptPaymentsModel.YearID),
                         new SqlParameter("@BranchCode"      , cashReceiptPaymentsModel.BranchCode),
+                        new SqlParameter("@OnAcBranchYN"    , cashReceiptPaymentsModel.OnAcBranchYN),
+                        new SqlParameter("@OnAcBranchCode"  , cashReceiptPaymentsModel.OnAcBranchCode),
+                        new SqlParameter("@CreditAc"        , cashReceiptPaymentsModel.AccountOf),
                         new SqlParameter("@ModifyRemarks"   , cashReceiptPaymentsModel.ModifyRemarks),
                         new SqlParameter("@LoggedInUser"    , cashReceiptPaymentsModel.LoggedInUser),
                     };
@@ -80,7 +83,7 @@ namespace FinTrans.Repository
                                     new SqlParameter("@ChequeDate"      , cashReceiptPaymentsModel.DetailList[i].ChequeDate),
                                     new SqlParameter("@CostRefNo"       , ""),
                                     new SqlParameter("@Reference"       , cashReceiptPaymentsModel.DetailList[i].Reference),
-                                    new SqlParameter("@BranchCode"      , cashReceiptPaymentsModel.BranchCode),
+                                    new SqlParameter("@BranchCode"      , cashReceiptPaymentsModel.OnAcBranchYN=="Y"? cashReceiptPaymentsModel.OnAcBranchCode: cashReceiptPaymentsModel.BranchCode),
                                     new SqlParameter("@YearID"          , cashReceiptPaymentsModel.YearID),
 
                                 };
@@ -206,6 +209,8 @@ namespace FinTrans.Repository
                                 DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
                                 LinkedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedYN"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                OnAcBranchYN= Convert.ToString(dataSet.Tables[0].Rows[i]["OnAcBranchYN"]),
+                                OnAcBranchCode= Convert.ToString(dataSet.Tables[0].Rows[i]["OnAcBranchCode"]),
                                 ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
                                 AcHeader = Convert.ToString(dataSet.Tables[0].Rows[i]["AcHeader"]),

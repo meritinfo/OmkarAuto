@@ -9,15 +9,17 @@ export class bankreceiptentrymodel {
     refType: string = "";
     refNo: string = "";
     docAmount: string = "";
+    linkedYN  : string = "";
     neftPmt : string = "";
     uTRNo : string = "";
-    linkedYN  : string = "";
-    yearID    : string = "";
-    branchCode     : string = "";
     modifyRemarks     : string = "";
+    yearID    : string = "";
     acHeader:string = "";
     accountOf:string = "";
     narration:string = "";
+    branchCode     : string = "";
+    onAcBranchYN : string = "";
+    onAcBranchCode : string = "";
     loggedInUser:string = "";
    
     detailList: BankreceiptpaymentDetailmodel[] = [];
