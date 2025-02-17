@@ -1424,6 +1424,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDelvAckPodPrintPdf")]
+        public async Task<IActionResult> GetDelvAckPodPrintPdf(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.GetDelvAckPodPrintPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("GetConsignmentUpdateDetails")]
         public async Task<IActionResult> GetConsignmentUpdateDetails(RequestModel request)
         {

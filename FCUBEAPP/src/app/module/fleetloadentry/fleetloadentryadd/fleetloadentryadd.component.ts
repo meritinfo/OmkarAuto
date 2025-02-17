@@ -37,6 +37,7 @@ export class FleetloadentryaddComponent {
   locationList: Dropdownmodel[] = [];
   vehicleList : Dropdownmodel[] = [];
   branchList  : Dropdownmodel[] = [];
+  ccList : Dropdownmodel[] = [];
   productList : Dropdownmodel[] = [];
   creditAcList : Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -104,6 +105,7 @@ export class FleetloadentryaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getProductList();
+    this.getCneeCnorList();
     this.getCreditAcList();
 
     this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
@@ -115,9 +117,11 @@ export class FleetloadentryaddComponent {
       loadFor: new FormControl('',[Validators.required]),
       loadMemoNo: new FormControl('',[Validators.required]),
       loadingFrom: new FormControl('',[Validators.required]),
+      cnorID: new FormControl('',),
       consignorName: new FormControl('',[Validators.required]),
       consignorAdd: new FormControl('',),
       loadingTo: new FormControl('',[Validators.required]),
+      cneeID: new FormControl('',),
       consigneeName: new FormControl('',[Validators.required]),
       consigneeAdd: new FormControl('',),
       productId: new FormControl('',[Validators.required]),
@@ -205,6 +209,12 @@ export class FleetloadentryaddComponent {
     });
   }
 
+  getCneeCnorList(): void {
+    this.commonService.GetCneeCnorList().subscribe((res) => {
+      this.ccList = res;
+    });
+  }
+
   getProductList(): void {
     this.commonService.getProductList().subscribe((res) => {
       this.productList = res;
@@ -234,7 +244,29 @@ export class FleetloadentryaddComponent {
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+  
+  selectCnorEvent(item: any) {
+    // do something with selected item
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formFleetLoad.patchValue({       
+        consignorName: item.dataName,
+        consignorAdd: res.cneeAdd1 + " "+ res.cneeAdd2,
+      });
+    })
+  }
+  
 
+  selectCneeEvent(item: any) {
+    // do something with selected item  
+    this.requestmodel.strRequest = item.dataId;        
+    this.commonService.getCnorCneeDetails(this.requestmodel).subscribe((res: any) => {
+      this.formFleetLoad.patchValue({     
+        consigneeName: item.dataName,
+        consigneeAdd: res.cneeAdd1 + " "+ res.cneeAdd2,
+      });
+    })
+  }
   onRateChange(){
     var ItemQty = 0;
     var Itemrate = 0;

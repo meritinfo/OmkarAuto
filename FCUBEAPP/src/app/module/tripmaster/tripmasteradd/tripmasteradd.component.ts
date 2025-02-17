@@ -116,6 +116,8 @@ export class TripmasteraddComponent {
       tripStatus:  new FormControl('',),
       driverMasterID:  new FormControl('', [Validators.required]),
       definedMileage: new FormControl('',),
+      emptyMileage: new FormControl('',),
+      emptyKMs: new FormControl('',),
       closingKMR:new FormControl('',[Validators.required]),
       openingKMR: new FormControl('',),
       distanceTripKM: new FormControl('',[Validators.required]),
@@ -944,6 +946,8 @@ export class TripmasteraddComponent {
     this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus?"Y":"N";
     this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID.dataId;
     this.tripsheetmodel.definedMileage = selectedDataValue.definedMileage.toString();
+    this.tripsheetmodel.emptyMileage = selectedDataValue.emptyMileage.toString();
+    this.tripsheetmodel.emptyKMs = selectedDataValue.emptyKMs.toString();
     this.tripsheetmodel.closingKMR = selectedDataValue.closingKMR.toString();
     this.tripsheetmodel.openingKMR= selectedDataValue.openingKMR.toString();
     this.tripsheetmodel.distanceTripKM= selectedDataValue.distanceTripKM.toString();

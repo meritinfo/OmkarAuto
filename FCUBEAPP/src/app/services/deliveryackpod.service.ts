@@ -61,4 +61,7 @@ export class DeliveryackpodService {
   checkDeliveryAckDoneForLrNo(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDeliveryAckDoneForLrNo', request, this.httpOptions);
   }
+  getDelvAckPodPrint(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetDelvAckPodPrintPdf', request, this.httpOptions);
+  }
 }

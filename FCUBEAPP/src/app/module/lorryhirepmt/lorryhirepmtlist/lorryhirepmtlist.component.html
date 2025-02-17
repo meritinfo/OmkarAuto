@@ -11,14 +11,14 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
-                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                          min="{{minDate}}" max="{{maxDate}}"
                                         formControlName="fromDate" class="form-control">
                                 </div>
                             </div>       
@@ -26,8 +26,15 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">To Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
-                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                          min="{{minDate}}" max="{{maxDate}}"
                                         formControlName="toDate" class="form-control">
+                                </div>
+                            </div>        
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Pmt No</label> 
+                                    <input autoclose="false"                                         
+                                        formControlName="pmtNo" class="form-control">
                                 </div>
                             </div>                           
                             <div class="col-lg-2">

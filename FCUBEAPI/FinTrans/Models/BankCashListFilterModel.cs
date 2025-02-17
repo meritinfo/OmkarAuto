@@ -11,6 +11,7 @@ namespace FinTrans.Models
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public string Branch { get; set; }
+        public string YearId { get; set; }
         public string ReceiptOrPayment { get; set; }
         public string RefType { get; set; }
     }

@@ -183,6 +183,7 @@ namespace FinTrans.Repository
                         new SqlParameter("@FromDate",           request.FromDate),
                         new SqlParameter("@ToDate",             request.ToDate),
                         new SqlParameter("@Branch",             request.Branch),
+                        new SqlParameter("@YearId",             request.YearId),
                         new SqlParameter("@ReceiptOrPayment",   request.ReceiptOrPayment),
                         new SqlParameter("@RefType",            request.RefType),
                     };

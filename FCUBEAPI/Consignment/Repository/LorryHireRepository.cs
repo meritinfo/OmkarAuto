@@ -38,7 +38,9 @@ namespace Consignment.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@LoginBranch",     request.FilterStr)
+                            new SqlParameter("@LoginBranch",request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr1),
+                            new SqlParameter("@PmtNo",      request.FilterStr2)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHirePaymentList", param);
 

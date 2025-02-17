@@ -134,7 +134,7 @@
                                         <div class="col-lg-2">
                                             <label for="formrow-inputZip">Invoice Date</label><span style="color: red">*</span> 
                                             <input bsdatepicker="" type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy" max="{{maxDate}}"   
+                                                  max="{{maxDate}}"   
                                                 formControlName="vendorInvDt" class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
@@ -449,7 +449,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Cheque Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="dd-mm-yyyy" class="form-control"
+                                                      class="form-control"
                                                     formControlName="chequeDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid) }"> 
                                             </div>

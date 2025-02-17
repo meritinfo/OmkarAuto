@@ -42,6 +42,7 @@ export class JournalentrylistComponent {
     branch:'',
     receiptOrPayment: '',
     refType:'',
+    yearId:"",
   }
  
   
@@ -116,6 +117,7 @@ export class JournalentrylistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
+    this.filter.yearId = this.year;
     this.filter.refType = '';
     this.journalEntryList();       
     this.sharedService.loading = false;
@@ -201,6 +203,7 @@ export class JournalentrylistComponent {
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "JV" ;
     this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.yearId = this.year;
     this.filter.refType = selectedDataVal.refType;
     this.sharedService.loading=true;
     this.journalEntryList();

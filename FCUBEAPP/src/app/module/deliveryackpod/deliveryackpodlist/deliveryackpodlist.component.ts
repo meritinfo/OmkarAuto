@@ -9,6 +9,8 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class DeliveryackpodlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  request = new Requestmodel();
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -53,9 +56,8 @@ export class DeliveryackpodlistComponent {
 
   constructor(private formBuilder: FormBuilder, 
     private deliveryackpodService: DeliveryackpodService, 
-    private commonService: CommonService, 
-    private sharedService: SharedService,      
-    private route: Router) {
+    private commonService: CommonService, private toastrService: ToastrService,      
+    private sharedService: SharedService, private route: Router) {
   }
 
   ngOnInit(): void {
@@ -190,6 +192,24 @@ export class DeliveryackpodlistComponent {
   getDeliveryackpodDetails(dlvy: Deliveryackpodmodel): void {
     this.deliveryackpodService.setDeliveryackpodDetails(dlvy);
     this.route.navigate(['/delackedit']);
+  }
+
+  
+  download(pod: Deliveryackpodmodel): void {
+    this.request.strRequest = pod.ackId;
+        
+    this.deliveryackpodService.getDelvAckPodPrint(this.request).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "DelvAckPod_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/ackprint/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
   }
 
   search(): void {

@@ -103,7 +103,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row">                                    
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">       
+                                            <label for="formrow-inputState">Consignor</label>                                 
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="ccList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    formControlName="cnorID" [initialValue]=""
+                                                    (selected)='selectCnorEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter">      
+                                                </ng-autocomplete>
+        
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+ 
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>    
+                                        </div>
+                                    </div>  
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Name</label>
@@ -113,7 +138,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['consignorName'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Address</label>
                                             <input class="form-control" uppercaseonly maxlength="150"
@@ -181,7 +206,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row">                                   
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">         
+                                            <label for="formrow-inputState">Consignee</label>                            
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="ccList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    formControlName="cneeID" [initialValue]=""
+                                                    (selected)='selectCneeEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter">                                            
+                                                </ng-autocomplete>
+        
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+ 
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>    
+                                        </div>   
+                                    </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignee Name</label>
@@ -191,7 +241,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['consigneeName'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Consignee Address</label>
                                             <input type="text" class="form-control" uppercaseonly  maxlength="150"

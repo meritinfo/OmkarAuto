@@ -63,6 +63,7 @@
                                 <th>deliveryDate</th>
                                 <th>netPayable</th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allDeliveryackpod.ackList?.length != 0">
@@ -78,6 +79,12 @@
                                     (click)="getDeliveryackpodDetails(dly)"></button>    
                                              
                                 </td> 
+                                <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(dly)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDeliveryackpod.ackList?.length == 0">
