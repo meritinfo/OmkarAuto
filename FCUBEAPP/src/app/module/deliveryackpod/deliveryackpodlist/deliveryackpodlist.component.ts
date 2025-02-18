@@ -179,6 +179,10 @@ export class DeliveryackpodlistComponent {
           title: 'Action',
           data: 'ackId',
         },
+        {
+          title: 'Download',
+          data: 'ackId',
+        },
       ],
     };
   }

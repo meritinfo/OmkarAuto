@@ -273,13 +273,13 @@ namespace FCUBEAPI
             services.AddScoped<IGstPctValuesRepository, GstPctValuesRepository>();
             services.AddScoped<IGstPctValuesBusiness, GstPctValuesBusiness>();
             services.AddScoped<IDoBusiness, DoBusiness>();
-            services.AddScoped<IDoRepository, DoRepository>();
-          
+            services.AddScoped<IDoRepository, DoRepository>();          
             services.AddScoped<IRatesMasterNewBusiness, RatesMasterNewBusiness>();
             services.AddScoped<IRatesMasterNewRepository, RatesMasterNewRepository>();
-
             services.AddScoped<IDoVehiInBusiness, DoVehiInBusiness>();
             services.AddScoped<IDoVehiInRepository, DoVehiInRepository>();
+            services.AddScoped<IDoTempGcBusiness, DoTempGcBusiness>();
+            services.AddScoped<IDoTempGcRepository, DoTempGcRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

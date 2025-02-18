@@ -278,7 +278,9 @@ import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dov
 import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
 import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmasternewadd/ratesmasternewadd.component';
 import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
-
+import { DotempgclistComponent } from './module/dotempgc/dotempgclist/dotempgclist.component';
+import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.component';
+import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
 
 
 const routes: Routes = [
@@ -662,7 +664,9 @@ const routes: Routes = [
   { path: 'ratesmasternewadd', component: RatesmasternewaddComponent },
   { path: 'ratesmasternewedit', component: RatesmasternewaddComponent },
   { path: 'ratesmasterlist', component: RatesmasternewlistComponent },
-  
+  { path: 'dotempgclist', component: DotempgclistComponent },
+  { path: 'dotempgcadd', component: DotempgcaddComponent },
+  { path: 'dotempgcedit', component: DotempgceditComponent },
   
   
 ];

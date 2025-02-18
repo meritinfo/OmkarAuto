@@ -231,14 +231,14 @@ export class DprdashboardComponent {
           {
             title: 'Vehicle No',
             data: 'vehicleNo',
-          },            
+          },   
           {
-            title: 'Veh Owner Name',
-            data: 'vehOwnerName',
-          }, 
+            title: 'Traffic Person',
+            data: 'trafficPerson',
+          },   
           {
-            title: 'Driver Name',
-            data: 'driverName',
+            title: 'Vehicle Placed By',
+            data: 'vehiclePlacedBy',
           }, 
           {
             title: 'Driver Mob1',
@@ -271,10 +271,6 @@ export class DprdashboardComponent {
           {
             title: 'Broker Name',
             data: 'brokerName',
-          },   
-          {
-            title: 'Traffic Person',
-            data: 'trafficPerson',
           },   
           {
             title: 'Remarks',

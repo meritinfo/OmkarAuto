@@ -2,6 +2,7 @@ export class Dovehicleinmodel {
     doViId              :string = "";
     doVpId              :string = "";
     doId                :string = "";
+    doParty             : string = "";
     entryDate           :string = "";
     entryBranch         :string = "";
     vehicleInDatetime   :string = "";

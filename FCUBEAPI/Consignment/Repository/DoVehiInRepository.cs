@@ -51,6 +51,7 @@ namespace Consignment.Repository
                                 DoViId          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoViId"]),
                                 DoVpId          = Convert.ToString(dataSet.Tables[0].Rows[i]["DoVpId"]),
                                 DoId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DoId"]),
+                                DoParty         = Convert.ToString(dataSet.Tables[0].Rows[i]["DoParty"]),
                                 EntryDate       = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryDate"]),
                                 EntryBranch     = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryBranch"]),
                                 VehicleInDatetime = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleInDatetime"]),

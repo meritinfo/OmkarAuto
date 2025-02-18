@@ -18,5 +18,6 @@ export class Dprrptmodel {
     balanceAmt : string = "";
     brokerName : string = "";
     trafficPerson : string = "";
+    vehiclePlacedBy : string = "";
     remarks : string = "";
 }

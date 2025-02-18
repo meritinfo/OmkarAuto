@@ -10,6 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Dovehicleinmodel } from 'src/app/models/dovehicleinmodel';
 import { Dovehicleinlistmodel  } from 'src/app/models/dovehicleinlistmodel';
+import { Dotempgcmodel } from 'src/app/models/dotempgcmodel';
+import { DotempgcService } from 'src/app/services/dotempgc.service';
   
  
 @Component({
@@ -35,6 +37,8 @@ export class DovehicleinlistComponent {
 
   formFilter!: FormGroup;
   vehicleList: Dropdownmodel[] = [];
+
+  tempgc= new Dotempgcmodel();
   
   keywordLocation = 'dataName';
   loginDate: string = '';
@@ -56,6 +60,7 @@ export class DovehicleinlistComponent {
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
     private toasterService: ToastrService, private doentryService: DovehicleinService, 
+    private dotempgcService : DotempgcService,
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -190,7 +195,7 @@ export class DovehicleinlistComponent {
           data: 'doViId',
         },   
         {
-          title: 'Main LR',
+          title: 'Temp GC',
           data: 'doViId',
         },   
       ],
@@ -205,9 +210,74 @@ export class DovehicleinlistComponent {
     this.doentryService.setDoVehicleInDetails(dos);
     this.route.navigate(['/dovehicleinedit']);
   }  
-  genConsignment(dos: Dovehicleinmodel): void {
-    this.doentryService.setDoVehicleInDetails(dos);
-    this.route.navigate(['/dovehiclein']);
+
+  gentempGc(dos: Dovehicleinmodel): void {
+    this.tempgc.tempGcId = "";
+    this.tempgc.doId = dos.doId;
+    this.tempgc.vehiclePlacedId = dos.doVpId; 
+    this.tempgc.bookingPlace = dos.entryBranch;
+    this.tempgc.gcNoteNo = "";
+    this.tempgc.bookingDate = this.loginDate;
+    this.tempgc.bookStatus = "";
+    this.tempgc.vehiInDate = dos.vehicleInDatetime;
+    this.tempgc.partyName = "";
+    this.tempgc.fromPlace  = "";
+    this.tempgc.toPlace  = "";
+    this.tempgc.fplace  = "";
+    this.tempgc.tplace  = "";
+    this.tempgc.ewayBillType  = "A";
+    this.tempgc.ewayBillNo  = "";
+    this.tempgc.ewayBillDate  = "";
+    this.tempgc.ewayBillExpDate  = "";
+    this.tempgc.invoiceNo  = "";
+    this.tempgc.invoiceDt   = "";
+    this.tempgc.goodsValue   = "";
+    this.tempgc.cnorId  = "";
+    this.tempgc.cnorName  = "";
+    this.tempgc.cnorAdd1   = "";
+    this.tempgc.cnorAdd2   = "";
+    this.tempgc.cnorAdd3   = "";
+    this.tempgc.cnorState   = "";
+    this.tempgc.cnorPin   = "";
+    this.tempgc.cnorGst   = "";
+    this.tempgc.cneeId  = "";
+    this.tempgc.cneeName   = "";
+    this.tempgc.cneeAdd1   = "";
+    this.tempgc.cneeAdd2   = "";
+    this.tempgc.cneeAdd3   = "";
+    this.tempgc.cneeState   = "";
+    this.tempgc.cneePin   = "";
+    this.tempgc.cneeGst  = "";
+    this.tempgc.cneeMob   = "";
+    this.tempgc.classCode  = "";
+    this.tempgc.productCode  = "";
+    this.tempgc.noPackages  = "";
+    this.tempgc.actualWt  = "";
+    this.tempgc.chargewt  = "";
+    this.tempgc.vehicleInDt  = "";
+    this.tempgc.vehicleInTime  = "";
+    this.tempgc.vehicleOutDt  = "";
+    this.tempgc.vehicleOutTime  = "";
+    this.tempgc.cropDesc  = "";
+    this.tempgc.vehicleNo   = dos.truckNo;
+    this.tempgc.vehOwnerName   = dos.ownerName;
+    this.tempgc.ownerPan   = dos.panNo;
+    this.tempgc.vehOwnerMobile   = dos.mobileNo;
+    this.tempgc.driverName   = dos.driverName;
+    this.tempgc.driverMob1   = dos.driverMobile1;
+    this.tempgc.driverLicNo = dos.driverLicense;
+    this.tempgc.driverLicDt  = dos.driverLicValid;
+    this.tempgc.payStn   = dos.entryBranch;
+    this.tempgc.payParty   = dos.doParty;
+    this.tempgc.businessby  = "";
+    this.tempgc.gstBy = "E";
+    this.tempgc.remarks  = "";
+    this.tempgc.yearId = "";
+    this.tempgc.mainCn   = "";
+    this.tempgc.loggedInUser  = "";    
+
+    this.dotempgcService.setTempgcDetails(this.tempgc);
+    this.route.navigate(['/dotempgcadd']);
   }  
 
   get f() { return this.formFilter.controls; }

@@ -4338,6 +4338,7 @@ namespace FreightMasters.Repository
                                 BalanceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceAmt"]),
                                 BrokerName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 TrafficPerson = Convert.ToString(dataSet.Tables[0].Rows[i]["TrafficPerson"]),
+                                VehiclePlacedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["VehiclePlacedBy"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }

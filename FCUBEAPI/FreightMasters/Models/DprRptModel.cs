@@ -27,6 +27,7 @@ namespace FreightMasters.Models
         public string? BalanceAmt { get; set; }
         public string? BrokerName { get; set; }
         public string? TrafficPerson { get; set; }
+        public string? VehiclePlacedBy { get; set; }        
         public string? Remarks { get; set; }
     }
 }

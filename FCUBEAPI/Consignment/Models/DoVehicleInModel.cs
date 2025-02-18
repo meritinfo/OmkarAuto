@@ -7,6 +7,7 @@ namespace Consignment.Models
         public string? DoViId  { get; set; }  
         public string? DoVpId  { get; set; }
         public string? DoId  { get; set; }
+        public string? DoParty { get; set; }        
         public string? EntryDate { get; set; }
         public string? EntryBranch { get; set; }        
         public string? VehicleInDatetime { get; set; }

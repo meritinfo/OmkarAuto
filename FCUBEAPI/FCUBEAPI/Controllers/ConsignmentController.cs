@@ -35,6 +35,7 @@ namespace FCUBEAPI.Controllers
         readonly IChallanReleaseBusiness challanReleaseBusiness;
         readonly IDoBusiness doBusiness;
         readonly IDoVehiInBusiness doVehiInBusiness;
+        readonly IDoTempGcBusiness doTempGcBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -50,7 +51,8 @@ namespace FCUBEAPI.Controllers
             IMrBusiness _mrBusiness,
             IChallanReleaseBusiness _challanReleaseBusiness,
             IDoBusiness _doBusiness,
-            IDoVehiInBusiness _doVehiInBusiness)
+            IDoVehiInBusiness _doVehiInBusiness,
+            IDoTempGcBusiness _doTempGcBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -68,6 +70,7 @@ namespace FCUBEAPI.Controllers
             challanReleaseBusiness = _challanReleaseBusiness;
             doBusiness = _doBusiness;
             doVehiInBusiness = _doVehiInBusiness;
+            doTempGcBusiness = _doTempGcBusiness;
         }
         
 
@@ -2600,7 +2603,83 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        
+        [HttpPost("GetDoTempgcList")]
+        public async Task<IActionResult> GetDoTempgcList(RepReqModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doTempGcBusiness.GetDoTempgcList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDoTempgcInnerGridList")]
+        public async Task<IActionResult> GetDoTempgcInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doTempGcBusiness.GetDoTempgcInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DoTempgcSave")]
+        public async Task<IActionResult> DoTempgcSave(DoTempGcModel tempgc)
+        {
+            if (tempgc == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doTempGcBusiness.DoTempgcSave(tempgc);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DoTempGcDelete")]
+        public async Task<IActionResult> DoTempGcDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await doTempGcBusiness.DoTempGcDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

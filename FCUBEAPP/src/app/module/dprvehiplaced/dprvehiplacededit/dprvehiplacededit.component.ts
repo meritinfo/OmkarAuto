@@ -121,13 +121,7 @@ export class DprvehiplacededitComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
-
-    var dprid = sessionStorage.getItem('dprid')?.toString();
-    if (typeof dprid !== 'undefined' && dprid !== null && dprid !== '') {
-      this.dprid = dprid;
-    }
+    this.fromDate = this.minDate ;    
     
     this.sharedService.loading = true;
     this.getBranchList();
@@ -184,6 +178,7 @@ export class DprvehiplacededitComponent {
     
     setTimeout(() => {
       if (this.selectedDprDetails.vehiclePlacedId != '') {
+        this.dprid = this.selectedDprDetails.dprId;
         this.formUser.patchValue(this.selectedDprDetails);  
         this.formUser.patchValue({
           dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
@@ -284,7 +279,7 @@ export class DprvehiplacededitComponent {
       return;
     }  
     else{
-      for (var j=0; j<selectedData.arrayList.length;i++){
+      for (var j=0; j<selectedData.arrayList.length;j++){
         if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
           this.formArray.controls[i].get("gcNoteNo")?.setValue("");
           this.toasterService.warning("GC Note No Already Entered in Grid");

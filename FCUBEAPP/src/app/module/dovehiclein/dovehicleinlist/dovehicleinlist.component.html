@@ -94,11 +94,12 @@
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdoVehiDetails(dpr)"></button>                               
                                 </td> 
-                                <td>                                  
-                                    <button type="button"
+                                <td>
+                                    <button type="button"  
                                         class="btn btn-primary btn-floating"  
-                                        (click)="genConsignment(dpr)"></button>                               
-                                </td>
+                                        (click)="gentempGc(dpr)">
+                                        <i class="fas fa-file-invoice-dollar"></i></button>   
+                                </td> 
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDolist.doVehicleInList?.length == 0">
