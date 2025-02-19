@@ -108,7 +108,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">CN Weight</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autoclose="false" class="form-control"
                                                 formControlName="cnActWt" >
                                         </div>
                                     </div>  
@@ -172,7 +172,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Weight</label>
                                             <span style="color: red"> * </span>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autoclose="false" class="form-control"
                                                 formControlName="delActWt" (change)="onDelWtChange($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['delActWt'].invalid) }">
                                         </div>
@@ -180,7 +180,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Weight (Short/Excess)</label>
-                                            <input decimalonly autoclose="false" class="form-control"
+                                            <input threedecimalonly autoclose="false" class="form-control"
                                                 formControlName="shExpActWt" >
                                         </div>
                                     </div>  

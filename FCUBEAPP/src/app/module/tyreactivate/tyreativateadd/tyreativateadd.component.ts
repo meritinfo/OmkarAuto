@@ -255,7 +255,10 @@ export class TyreativateaddComponent {
         this.formTyreArray.controls[i].get("tyreId")?.setValue(this.tyreList.find(e=> e.dataId == res.tyreActivateDtlList[i].tyreId));  
         this.formTyreArray.controls[i].get("tyrePosID")?.setValue(res.tyreActivateDtlList[i].tyrePosID); 
         this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.tyreActivateDtlList[i].tyreCostAmt);  
-        this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreActivateDtlList[i].remarks);  
+        this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreActivateDtlList[i].remarks); 
+         
+        this.formTyreArray.controls[i].get("brandId")?.disable();
+        this.formTyreArray.controls[i].get("tyreId")?.disable(); 
       }     
     });
   }

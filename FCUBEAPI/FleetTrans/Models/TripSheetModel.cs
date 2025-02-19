@@ -70,6 +70,8 @@ namespace FleetTrans.Models
         public string? Food_Sal_FromDt { get; set; }
         public string? Food_Sal_ToDt { get; set; }
         public string? Food_Sal_Days { get; set; }
+        public string? Food_Sal_Less_Days { get; set; }
+        public string? Food_Sal_Less_Desc { get; set; }
         public string? Food_Sal_Amt { get; set; }
         public string? RtaChallanDesc { get; set; }
         public string? RtaChallanAmt { get; set; }

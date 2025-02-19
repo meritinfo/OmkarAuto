@@ -235,6 +235,8 @@ export class CnenquiryComponent {
       gtotalRs : new FormControl('',), 
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),    
+      whatsappPOD1 : new FormControl('',),    
+      whatsappPOD2 : new FormControl('',),    
       arrayInvList: this.formBuilder.array([this.createInvInitialArray()])  , 
       arrayChlnList: this.formBuilder.array([this.createChlnInitialArray()])  , 
       arrayLhpmList: this.formBuilder.array([this.createLhpmInitialArray()])  , 

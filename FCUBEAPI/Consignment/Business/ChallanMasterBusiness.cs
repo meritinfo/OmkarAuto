@@ -78,6 +78,10 @@ namespace Consignment.Business
         {
             return await challanRepository.GetLhPanTdsRate(request);
         }
+        public async Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel)
+        {
+            return await challanRepository.GetBranchPanApiUse(requestModel);
+        }
 
     }
 }

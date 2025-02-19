@@ -799,19 +799,20 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-2">
                                                             <label for="formrow-inputCity">Food Sal Per Day</label>
-                                                            <input class="form-control" numbersonly formControlName="food_Sal_PerDay" (change) ="getFoodCal()">
+                                                            <input class="form-control" numbersonly maxlength="3"
+                                                            formControlName="food_Sal_PerDay" (change) ="getFoodCal()">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <div class="mb-2">
-                                                            <label for="formrow-inputCity"> Food Sal FromDt </label>
+                                                            <label for="formrow-inputCity"> Food Sal From Dt </label>
                                                             <input type="date" class="form-control"   
                                                             formControlName="food_Sal_FromDt" (change) ="getSalDays()">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <div class="mb-2">
-                                                            <label for="formrow-inputCity">Food Sal ToDt</label>
+                                                            <label for="formrow-inputCity">Food Sal To Dt</label>
                                                             <input type="date" class="form-control"   
                                                             formControlName="food_Sal_ToDt" (change) ="getSalDays()">
                                                         </div>
@@ -819,7 +820,23 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-2">
                                                             <label for="formrow-inputCity">Food Sal Days </label>
-                                                            <input class="form-control" numbersonly formControlName="food_Sal_Days" (change) ="getFoodCal()">
+                                                            <input class="form-control" numbersonly  maxlength="3" 
+                                                            formControlName="food_Sal_Days" (change) ="getFoodCal()">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">No Pay Food Days </label>
+                                                            <input class="form-control" numbersonly maxlength="3" 
+                                                            formControlName="food_Sal_Less_Days" (change) ="getFoodCal()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-2">
+                                                            <label for="formrow-inputCity">No Pay Food Days Desc</label>
+                                                            <input class="form-control" uppercaseonly formControlName="food_Sal_Less_Desc" >
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">

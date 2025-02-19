@@ -449,6 +449,7 @@ import { DotempgclistComponent } from './module/dotempgc/dotempgclist/dotempgcli
 import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.component';
 import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
 import { Dotempgcmodel } from './models/dotempgcmodel';
+import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directive';
 
 
 @NgModule({
@@ -594,7 +595,7 @@ import { Dotempgcmodel } from './models/dotempgcmodel';
     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, 
   ],
   
   imports: [

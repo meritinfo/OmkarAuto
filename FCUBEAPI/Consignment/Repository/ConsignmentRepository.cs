@@ -8,6 +8,8 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.VariantTypes;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.VisualBasic;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Consignment.Repository
 {
@@ -1038,8 +1040,8 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@CnNo", req.strRequest),
-                              new SqlParameter("@Branch", req.strRequest1),
-                              new SqlParameter("@YearId", req.strRequest2),
+                            new SqlParameter("@Branch", req.strRequest1),
+                            new SqlParameter("@YearId", req.strRequest2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqDetails", param);
 
@@ -1160,6 +1162,8 @@ namespace Consignment.Repository
                         lrmodel.CnBillDate = Convert.ToString(dataSet.Tables[0].Rows[0]["CnBillDate"]);
                         lrmodel.IncludeCnYn = Convert.ToString(dataSet.Tables[0].Rows[0]["IncludeCnYn"]);
                         lrmodel.IncludeCnNo = Convert.ToString(dataSet.Tables[0].Rows[0]["IncludeCnNo"]);
+                        lrmodel.WhatsappPOD1= Convert.ToString(dataSet.Tables[0].Rows[0]["TrafficPerson"]);
+                        lrmodel.WhatsappPOD2= Convert.ToString(dataSet.Tables[0].Rows[0]["VehiclePlacedBy"]);
                     }
                 }
             }
@@ -1381,6 +1385,46 @@ namespace Consignment.Repository
 
             }
             return contentList;
+        }
+        public async Task<ResponseModel> GetLRPrint(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/MainLR/";
+
+                string UrlParam = "?MasterId=" + request.FilterStr;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
         }
     }
 }

@@ -88,4 +88,8 @@ export class ConsignmentService {
   getCnEnqInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqInnerGridList', req, this.httpOptions);
   }
+  getLrPrint(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLRPrint', filter, this.httpOptions);
+  }
+  
 }

@@ -21,7 +21,7 @@ using System.Transactions;
 
 namespace Consignment.Repository
 {
-    public class ChallanMasterRepository: IChallanMasterRepository
+    public class ChallanMasterRepository : IChallanMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
@@ -107,7 +107,7 @@ namespace Consignment.Repository
                             new SqlParameter("@CardAdvance",            challan.CardAdvance),
                             new SqlParameter("@TotalAdvance",           challan.TotalAdvance),
                             new SqlParameter("@Balance",                challan.Balance),
-                            new SqlParameter("@BalancePayAt",           challan.BalancePayAt),    
+                            new SqlParameter("@BalancePayAt",           challan.BalancePayAt),
                             new SqlParameter("@GeneralRemarks",         challan.GeneralRemarks),
                             new SqlParameter("@Photo1",                 challan.Photo1),
                             new SqlParameter("@Photo2",                 challan.Photo2),
@@ -158,7 +158,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-       
+
         public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
         {
             ResponseModel responseModel = new();
@@ -430,7 +430,7 @@ namespace Consignment.Repository
 
                 CnList = new List<ConsignmentModel>(),
                 LhpmList = new List<ConsignmentLhpmModel>(),
-              
+
             };
             try
             {
@@ -445,7 +445,7 @@ namespace Consignment.Repository
 
                     if (dataSet != null)
                     {
-                       
+
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             challan.CnList.Add(new ConsignmentModel
@@ -453,84 +453,84 @@ namespace Consignment.Repository
                                 ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
                                 BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
-                             //   BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingStatus"]),
+                                //   BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingStatus"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                              //  EwayBillEntryType = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillEntryType"]),
-                              //  EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
-                              //  EwayBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),
-                              //  EwayBillExpDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
+                                //  EwayBillEntryType = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillEntryType"]),
+                                //  EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
+                                //  EwayBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),
+                                //  EwayBillExpDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
-                              //  Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
-                             //   OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnTruck"]),
-                            //    TruckNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
-                              //  BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty"]),
-                            //    BillingBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingBranch"]),
-                             //   BusinessBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BusinessBranch"]),
-                             //   BusinessBy = Convert.ToString(dataSet.Tables[0].Rows[i]["BusinessBy"]),
-                              //  InvoiceNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceNo"]),
-                             //   InvoiceDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceDate"]),
-                             //   InvoiceValue = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceValue"]),
-                            //    DeclaredValue = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclaredValue"]),
-                            //    CnorId = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorId"]),
+                                //  Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
+                                //   OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnTruck"]),
+                                //    TruckNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
+                                //  BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty"]),
+                                //    BillingBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingBranch"]),
+                                //   BusinessBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BusinessBranch"]),
+                                //   BusinessBy = Convert.ToString(dataSet.Tables[0].Rows[i]["BusinessBy"]),
+                                //  InvoiceNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceNo"]),
+                                //   InvoiceDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceDate"]),
+                                //   InvoiceValue = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceValue"]),
+                                //    DeclaredValue = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclaredValue"]),
+                                //    CnorId = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorId"]),
                                 CnorName = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorName"]),
-                               // CnorAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd1"]),
-                               // CnorAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd2"]),
-                               // CnorAdd3 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd3"]),
+                                // CnorAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd1"]),
+                                // CnorAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd2"]),
+                                // CnorAdd3 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorAdd3"]),
                                 CnorPin = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorPin"]),
                                 CnorGst = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorGst"]),
-                              //  CnorMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorMobile"]),
-                              //  CnorEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorEmail"]),
+                                //  CnorMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorMobile"]),
+                                //  CnorEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorEmail"]),
                                 CneeId = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeId"]),
                                 CneeName = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeName"]),
-                               // CneeAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd1"]),
-                               // CneeAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd2"]),
-                              //  CneeAdd3 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd3"]),
-                              //  CneePin = Convert.ToString(dataSet.Tables[0].Rows[i]["CneePin"]),
-                              //  CneeGst = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeGst"]),
-                              //  CneeMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeMobile"]),
-                              //  CneeEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeEmail"]),
-                              //  ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentNo"]),
-                              //  ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentDt"]),
-                             //   ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
-                               // ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
-                               // ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
-                              //  NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
-                               // WeightType = Convert.ToString(dataSet.Tables[0].Rows[i]["WeightType"]),
+                                // CneeAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd1"]),
+                                // CneeAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd2"]),
+                                //  CneeAdd3 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd3"]),
+                                //  CneePin = Convert.ToString(dataSet.Tables[0].Rows[i]["CneePin"]),
+                                //  CneeGst = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeGst"]),
+                                //  CneeMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeMobile"]),
+                                //  CneeEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeEmail"]),
+                                //  ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentNo"]),
+                                //  ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentDt"]),
+                                //   ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
+                                // ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
+                                // ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
+                                //  NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
+                                // WeightType = Convert.ToString(dataSet.Tables[0].Rows[i]["WeightType"]),
                                 ActualWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 Chargewt = Convert.ToString(dataSet.Tables[0].Rows[i]["Chargewt"]),
-                             //   VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
-                             //   RateType = Convert.ToString(dataSet.Tables[0].Rows[i]["RateType"]),
-                              //  RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
-                              //  GstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["GstBy"]),
-                            //    FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                           //     StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
-                            //    FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
-                             //   DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollRs"]),
-                             //   HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
-                             //   LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
-                              //  EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
-                             //   MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
-                              //  DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDelRs"]),
-                             //   ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
-                             //   UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
-                              //  UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
-                             //   OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
-                              //  SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
-                              //  GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
-                             //   SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
-                            //    SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
-                             //   CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
-                              //  CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
-                              //  IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
-                              //  IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
-                               // CnBilledYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBilledYN"]),
+                                //   VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
+                                //   RateType = Convert.ToString(dataSet.Tables[0].Rows[i]["RateType"]),
+                                //  RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
+                                //  GstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["GstBy"]),
+                                //    FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                //     StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
+                                //    FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
+                                //   DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollRs"]),
+                                //   HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
+                                //   LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                //  EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
+                                //   MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
+                                //  DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDelRs"]),
+                                //   ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
+                                //   UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
+                                //  UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
+                                //   OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                //  SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
+                                //  GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                //   SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                //    SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                //   CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                //  CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                //  IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+                                //  IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                // CnBilledYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBilledYN"]),
                                 //CnBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CnBillDate"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                              //  GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
+                                //  GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
                                 //Attachedfile = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachedfile"]),
-                              //  YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                             
+                                //  YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+
 
                             });
                         }
@@ -558,7 +558,7 @@ namespace Consignment.Repository
                                 BenId = Convert.ToString(dataSet.Tables[1].Rows[i]["BenId"]),
                             });
                         }
-                       
+
                     }
                 }
             }
@@ -669,7 +669,7 @@ namespace Consignment.Repository
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);                       
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                     }
                     else
                     {
@@ -764,7 +764,7 @@ namespace Consignment.Repository
             {
 
             }
-            return challanModel;            
+            return challanModel;
         }
         public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
         {
@@ -857,7 +857,7 @@ namespace Consignment.Repository
                         Reslt res = new();
                         res.number = Convert.ToString(statusData.Tables[0].Rows[0]["PanNo"]);
                         res.name = Convert.ToString(statusData.Tables[0].Rows[0]["OwnerName"]);
-                        res.isValid = Convert.ToString(statusData.Tables[0].Rows[0]["ValidYN"])=="Y"? true:false;
+                        res.isValid = Convert.ToString(statusData.Tables[0].Rows[0]["ValidYN"])=="Y" ? true : false;
                         res.aadhaarSeedingStatusCode = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
 
                         panresult.result = res;
@@ -882,31 +882,37 @@ namespace Consignment.Repository
                         {
                             var result = await response.Content.ReadAsStringAsync();
 
-                            var root = JsonConvert.DeserializeObject<ApiRoot>(result);
-
-                            panresult.result = root.result;
-
-                            if (panresult.result.isValid==true)
+                            if (result.Contains("200"))
                             {
-                                if (panNo.Substring(3, 1)== "P" || panNo.Substring(3, 1) == "H") 
+                                var root = JsonConvert.DeserializeObject<ApiRoot>(result);
+
+                                panresult.result = root.result;
+
+                                if (panresult.result.isValid==true)
                                 {
-                                    if (panresult.result.aadhaarSeedingStatusCode=="Y")
+                                    if (panNo.Substring(3, 1)== "P" || panNo.Substring(3, 1) == "H")
+                                    {
+                                        if (panresult.result.aadhaarSeedingStatusCode=="Y")
+                                        {
+                                            responseModel = await PanDtlSave(request, panresult.result);
+                                        }
+                                    }
+                                    else
                                     {
                                         responseModel = await PanDtlSave(request, panresult.result);
                                     }
                                 }
-                                else
-                                {
-                                    responseModel = await PanDtlSave(request, panresult.result);
-                                }
-                            }                         
-                           
 
+                            }
+                            else {
+                                responseModel.Status = false;
+                                responseModel.Message = result;
+                            }
                             client.Dispose();
                         }
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -915,7 +921,7 @@ namespace Consignment.Repository
             return panresult;
         }
 
-        public async Task<ResponseModel> PanDtlSave(RequestModel request,Reslt res)
+        public async Task<ResponseModel> PanDtlSave(RequestModel request, Reslt res)
         {
             ResponseModel responseModel = new();
 
@@ -998,7 +1004,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        
+
         public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -1099,9 +1105,35 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
+        public async Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBranchPanApiUse", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
+        
+
+
     }
-
-
-
 
 }

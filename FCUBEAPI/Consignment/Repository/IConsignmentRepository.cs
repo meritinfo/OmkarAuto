@@ -29,5 +29,6 @@ namespace Consignment.Repository
         Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request);
         Task<ResponseModel> GetBillSubmitSeries(RequestModel request);
         Task<List<DropDownListModel>> GetGstByList();
+        Task<ResponseModel> GetLRPrint(ReportRequestModel request);
     }
 }

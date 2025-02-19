@@ -1,7 +1,6 @@
 import { Component, OnInit ,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -32,6 +31,7 @@ export class ChallanmasteraddComponent {
   minDate2: string = '';
   newDate: string = '';
   noPackages:string = '';
+  tdspct:string = '';
 
   formSubmitted = false;
   editMode = false;
@@ -210,15 +210,15 @@ export class ChallanmasteraddComponent {
 
     this.formUser.controls["challanBranch"].disable();
     this.formUser.controls["subTotal"].disable();
+    this.formUser.controls["panValid"].disable();  
+    this.formUser.controls["aadharLinked"].disable();  
+    this.formUser.controls["declarationYN"].disable();  
     this.formUser.controls["tdsPct"].disable();
     this.formUser.controls["tdsAmt"].disable();
     this.formUser.controls["totalHire"].disable();
     this.formUser.controls["totalAdvance"].disable();
     this.formUser.controls["balance"].disable();
     this.formUser.controls["modifyRemarks"].disable();
-    this.formUser.controls["panValid"].disable();  
-    this.formUser.controls["aadharLinked"].disable();  
-    this.formUser.controls["declarationYN"].disable();  
     this.formUser.controls["totPkgs"].disable();  
     this.formUser.controls["totActWt"].disable();  
 
@@ -253,7 +253,6 @@ export class ChallanmasteraddComponent {
         })   
      
      
-       // var date=  this.datepipe.transform(this.selectedChallanDetails.challanDateTime, 'yyyy-MM-dd');
         this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            
@@ -606,6 +605,7 @@ export class ChallanmasteraddComponent {
     var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
     var test = regexp.test(pan);
     var tdsPct = 0;
+    var decl = "";
 
     if(pan == "PANNOTREQD"){
       tdsPct = 0;
@@ -621,7 +621,8 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning("Invalid PAN No...!");
       return;
     }
-    else{
+    else
+    {
       this.requestmodel.strRequest = pan;
       this.requestmodel.strRequest1 = selectedData.challanDateTime;
       
@@ -638,60 +639,80 @@ export class ChallanmasteraddComponent {
             declarationYN:"",
           });   
         }
-       else{
-          this.requestmodel.strRequest = pan;
-          this.requestmodel.strRequest1 = this.loggedInUserID;
-          
-          this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
-            this.panDetails = res;
-            var panValid = "N";
-            var aadharLinked = "N";
-            if (this.panDetails.result.number!="") { 
-              if(this.panDetails.result.isValid){
-                panValid= "Y";
+        else
+        {
+          this.requestmodel.strRequest = this.branch;      
+          this.challanmasterService.getBranchPanApiUse(this.requestmodel).subscribe((res: Responsemodel) => {
+            if(res.status){
+              this.formUser.controls["panValid"].disable();  
+              this.formUser.controls["aadharLinked"].disable();  
+              this.formUser.controls["declarationYN"].disable();  
+              this.formUser.controls["tdsPct"].disable(); 
+              if(decl = "Y"){
+                this.formUser.controls["declarationYN"].enable();  
               }
-              if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
-                aadharLinked="Y";
-              }             
-              tdsPct = 20;
-
-              this.requestmodel.strRequest = pan.substring(3, 4) ;
-              this.requestmodel.strRequest1 = selectedData.challanDateTime;
-
-              this.challanmasterService.getLhPanTdsRate(this.requestmodel).subscribe((res: Reportmodel) => {
-                if(panValid == "Y"){
-                  tdsPct = parseFloat(res.filterStr);
-                  if(res.filterStr1=="Y" && aadharLinked!="Y")//Aadhar
-                  {
-                    tdsPct = 20;
+            }
+            else
+            {                 
+              this.formUser.controls["panValid"].enable();  
+              this.formUser.controls["aadharLinked"].enable();  
+              this.formUser.controls["tdsPct"].enable();
+              this.formUser.controls["declarationYN"].enable();  
+              
+              this.requestmodel.strRequest = pan;
+              this.requestmodel.strRequest1 = this.loggedInUserID;
+              
+              this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
+                this.panDetails = res;
+                var panValid = "N";
+                var aadharLinked = "N";
+                if (this.panDetails.result.number!="") { 
+                  if(this.panDetails.result.isValid){
+                    panValid= "Y";
                   }
-                }
-                else{                
+                  if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
+                    aadharLinked="Y";
+                  }             
                   tdsPct = 20;
+
+                  this.requestmodel.strRequest = pan.substring(3, 4) ;
+                  this.requestmodel.strRequest1 = selectedData.challanDateTime;
+
+                  this.challanmasterService.getLhPanTdsRate(this.requestmodel).subscribe((res: Reportmodel) => {
+                    if(panValid == "Y"){
+                      tdsPct = parseFloat(res.filterStr);
+                      if(res.filterStr1=="Y" && aadharLinked!="Y")//Aadhar
+                      {
+                        tdsPct = 20;
+                      }
+                    }
+                    else{                
+                      tdsPct = 20;
+                    }
+                    if(res.filterStr2=='Y'){            
+                      decl = "Y";              
+                    }
+                    else{            
+                      decl = "";  
+                    }
+                    this.formUser.patchValue({
+                      panValid: panValid,
+                      aadharLinked: aadharLinked,
+                      vehicleOwnerName: this.panDetails.result.name,
+                      tdsPct: tdsPct,
+                      declarationYN:"",
+                    });   
+                  });  
                 }
-                if(res.filterStr2=='Y'){            
-                  this.formUser.controls["declarationYN"].enable();              
-                }
-                else{            
-                  this.formUser.controls["declarationYN"].disable();  
-                }
-                this.formUser.patchValue({
-                  panValid: panValid,
-                  aadharLinked: aadharLinked,
-                  vehicleOwnerName: this.panDetails.result.name,
-                  tdsPct: tdsPct,
-                  declarationYN:"",
-                });   
-              });  
+                else{          
+                  this.toastrService.warning("Invalid PAN No...!");
+                  return;
+                }            
+              });                                       
             }
-            else{          
-              this.toastrService.warning("Invalid PAN No...!");
-              return;
-            }
-          }); 
+          });
         }
       });
-
     }
 
     setTimeout(() => {
@@ -706,9 +727,7 @@ export class ChallanmasteraddComponent {
       }); 
     }
     else {
-      this.formUser.patchValue({       
-        tdsPct: 20
-      }); 
+      this.onOwnerPanChange();
     }
     this.calculateTotalAmount();
   }

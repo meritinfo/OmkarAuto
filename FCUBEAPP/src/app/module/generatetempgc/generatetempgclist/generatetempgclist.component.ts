@@ -6,10 +6,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Tempgcmodel } from 'src/app/models/tempgcmodel';
 import { Tempgclistmodel  } from 'src/app/models/tempgclistmodel';
 import { GeneratetempgcService } from 'src/app/services/generatetempgc.service';
+import { ToastrService } from 'ngx-toastr';
 import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
-import { ToastrService } from 'ngx-toastr';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 

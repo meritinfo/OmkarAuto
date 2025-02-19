@@ -84,5 +84,8 @@ export class ChallanmasterService {
   getLhPanTdsRate(req: Requestmodel): Observable<Reportmodel> {
     return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'Consignment/GetLhPanTdsRate', req, this.httpOptions);
   }
+  getBranchPanApiUse(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetBranchPanApiUse', req, this.httpOptions);
+  }
   
 }

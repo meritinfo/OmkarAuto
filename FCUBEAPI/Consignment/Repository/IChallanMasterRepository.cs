@@ -25,5 +25,6 @@ namespace Consignment.Repository
         Task<ResponseModel> GetChallanPrintPdf(RequestModel request);
         Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel);
         Task<ReportRequestModel> GetLhPanTdsRate(RequestModel requestModel);
+        Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel);
     }
 }

@@ -109,5 +109,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetGstByList();
         }
+        public async Task<ResponseModel> GetLRPrint(ReportRequestModel request)
+        {
+            return await consignmentRepository.GetLRPrint(request);
+        }
     }
 }

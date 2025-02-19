@@ -180,7 +180,7 @@ export class TripmasteraddComponent {
     this.formTripsheet.controls['expensesByDriver'].disable();  
     this.formTripsheet.controls['totalBhattaDays'].disable();    
     this.formTripsheet.controls['bhattaRate'].disable();       
-    this.formTripsheet.controls['bhattaAmt'].disable();       
+    //this.formTripsheet.controls['bhattaAmt'].disable();       
     this.formTripsheet.controls['tripBalance'].disable();      
     this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     

@@ -8,6 +8,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consignmentlist',
@@ -63,7 +64,7 @@ export class ConsignmentlistComponent implements OnInit  {
 
   constructor(private formBuilder: FormBuilder,
     private consignmentService: ConsignmentService, private route: Router,
-    private commonService: CommonService,) {
+    private toastrService :ToastrService, private commonService: CommonService,) {
   }
 
   ngOnInit(): void {   
@@ -316,6 +317,23 @@ export class ConsignmentlistComponent implements OnInit  {
     this.route.navigate(['/consignmentedit']);
   }
 
+  download(cn: Consignmentmodel): void {
+    this.filter.filterStr   = cn.consignmentID;
+    
+    this.consignmentService.getLrPrint(this.filter).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "LR_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/LrPrint/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
+  
   search(): void {
     debugger;
     var selectedDataVal = this.formFilter.getRawValue();

@@ -408,6 +408,8 @@ export class TyrepurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("netTyreAmount")?.setValue(res.tyrePurchaseDtlList[i].netTyreAmount);  
         this.formTyreArray.controls[i].get("estLifeKM")?.setValue(res.tyrePurchaseDtlList[i].estLifeKM);  
       
+        this.formTyreArray.controls[i].get("brandID")?.disable();
+        this.formTyreArray.controls[i].get("tyreNo")?.disable(); 
         this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
         this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
         this.formTyreArray.controls[i].get("igstAmt")?.disable(); 

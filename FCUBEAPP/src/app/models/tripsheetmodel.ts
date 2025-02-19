@@ -64,6 +64,8 @@ export class Tripsheetmodel {
     food_Sal_FromDt: string = ""; 
     food_Sal_ToDt : string = ""; 
     food_Sal_Days : string = ""; 
+    food_Sal_Less_Days: string = ""; 
+    food_Sal_Less_Desc: string = ""; 
     food_Sal_Amt : string = ""; 
     rtaChallanDesc  : string = ""; 
     rtaChallanAmt   : string = ""; 

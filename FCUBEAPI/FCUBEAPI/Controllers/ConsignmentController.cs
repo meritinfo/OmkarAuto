@@ -1203,6 +1203,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLRPrint")]
+        public async Task<IActionResult> GetLRPrint(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetLRPrint(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
        
 
         [HttpPost("TempGcDelete")]
@@ -2136,7 +2155,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBranchPanApiUse")]
+        public async Task<IActionResult> GetBranchPanApiUse(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetBranchPanApiUse(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("GetMrEnqDetails")]
         public async Task<IActionResult> GetMrEnqDetails(RequestModel req)

@@ -120,7 +120,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label >Vehicle Capacity: </label><span style="color: red">*</span>  
-                                            <input class="form-control" formControlName="vehicleCapacity" 
+                                            <input threedecimalonly class="form-control" formControlName="vehicleCapacity" 
                                             (change)="onratepct()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleCapacity'].invalid) }">
                                         </div>

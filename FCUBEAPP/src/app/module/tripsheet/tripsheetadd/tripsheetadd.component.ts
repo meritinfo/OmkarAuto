@@ -161,6 +161,8 @@ export class TripsheetaddComponent {
       food_Sal_FromDt  : new FormControl('',),
       food_Sal_ToDt   : new FormControl('',),
       food_Sal_Days    : new FormControl('',),
+      food_Sal_Less_Days:new FormControl('',),
+      food_Sal_Less_Desc:new FormControl('',),
       food_Sal_Amt     : new FormControl('',),
       rtaChallanDesc     : new FormControl('',),
       rtaChallanAmt      : new FormControl('',),
@@ -478,14 +480,13 @@ export class TripsheetaddComponent {
    // var ltsDslToBe = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-    var fsp= selectedval.food_Sal_PerDay  ? parseFloat(selectedval.food_Sal_PerDay ) : 0
+    var fsp = selectedval.food_Sal_PerDay  ? parseFloat(selectedval.food_Sal_PerDay ) : 0
     var fsd = selectedval.food_Sal_Days  ? parseFloat(selectedval.food_Sal_Days ) : 0
+    var nfsd = selectedval.food_Sal_Less_Days  ? parseFloat(selectedval.food_Sal_Less_Days ) : 0
 
     totalamt = fsp*fsd;
     this.formTripsheet.patchValue({
-  
-      food_Sal_Amt: totalamt
-     
+      food_Sal_Amt: totalamt - nfsd
     });   
     this.calTotal(); 
   }
@@ -1170,13 +1171,15 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN?"Y":"N";
     this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
     this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
-    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
-    this.tripsheetmodel.detnRate= selectedDataValue.detnRate;
-    this.tripsheetmodel.detnAmount= selectedDataValue.detnAmount;
+    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays.toString(); 
+    this.tripsheetmodel.detnRate= selectedDataValue.detnRate.toString(); 
+    this.tripsheetmodel.detnAmount= selectedDataValue.detnAmount.toString(); 
     this.tripsheetmodel.food_Sal_PerDay = selectedDataValue.food_Sal_PerDay;
     this.tripsheetmodel.food_Sal_FromDt = selectedDataValue.food_Sal_FromDt;
     this.tripsheetmodel.food_Sal_ToDt  = selectedDataValue.food_Sal_ToDt;
-    this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days;
+    this.tripsheetmodel.food_Sal_Days  = selectedDataValue.food_Sal_Days.toString(); 
+    this.tripsheetmodel.food_Sal_Less_Days= selectedDataValue.food_Sal_Less_Days.toString(); 
+    this.tripsheetmodel.food_Sal_Less_Desc= selectedDataValue.food_Sal_Less_Desc.toString().toUpperCase();
     this.tripsheetmodel.food_Sal_Amt  = selectedDataValue.food_Sal_Amt.toString(); 
     this.tripsheetmodel.rtaChallanDesc   = selectedDataValue.rtaChallanDesc.toString().toUpperCase();
     this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt.toString(); 
