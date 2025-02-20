@@ -445,6 +445,9 @@ import { DovehicleinlistComponent } from './module/dovehiclein/dovehicleinlist/d
 import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dovehicleinadd.component';
 import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
 import { Dovehicleinmodel } from './models/dovehicleinmodel';
+import { ChcosttypesaddComponent } from './module/chcosttypes/chcosttypesadd/chcosttypesadd.component';
+import { ChcosttypeslistComponent } from './module/chcosttypes/chcosttypeslist/chcosttypeslist.component';
+import { ChcosttypesModel } from './models/chcosttypesmodel';
 import { DotempgclistComponent } from './module/dotempgc/dotempgclist/dotempgclist.component';
 import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.component';
 import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
@@ -595,6 +598,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
+    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, 
   ],
   
@@ -664,6 +668,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Dovehicleinmodel,Dotempgcmodel
+    Dovehicleinmodel,ChcosttypesModel
     
   ],
   bootstrap: [AppComponent]
