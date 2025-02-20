@@ -9,16 +9,18 @@ import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
 import { DprService } from 'src/app/services/dpr.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 
+
 @Component({
-  selector: 'app-dprplacevehicle',
-  templateUrl: './dprplacevehicle.component.html',
-  styleUrls: ['./dprplacevehicle.component.css']
+  selector: 'app-dprvehiplacededit',
+  templateUrl: './dprvehiplacededit.component.html',
+  styleUrls: ['./dprvehiplacededit.component.css']
 })
-export class DprplacevehicleComponent {
+export class DprvehiplacededitComponent {
   loggedInUserID: string = '';
   dprid: string = '';
   branch: string = '';
@@ -30,18 +32,23 @@ export class DprplacevehicleComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  addlr= false;
+  userType: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
+  repo = new Reportmodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   createdBy: string = "";
   modifiedBy: string = "";
+  dashboard:string = ''; 
 
   @ViewChild('attachmentInput', {
     static: true
@@ -83,6 +90,10 @@ export class DprplacevehicleComponent {
     else {
       this.route.navigate(['/']);
     }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -95,10 +106,16 @@ export class DprplacevehicleComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    var userType = sessionStorage.getItem('userType')?.toString();
+    if (typeof userType !== 'undefined' && userType !== null && userType !== '') {
+      this.userType = userType;
+    }
+    if(this.userType=="1"){
+      this.addlr= true;
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -111,15 +128,13 @@ export class DprplacevehicleComponent {
     if (typeof dprid !== 'undefined' && dprid !== null && dprid !== '') {
       this.dprid = dprid;
     }
-    else {      
-      this.route.navigate(['/dprindentlist']);
-    }
     
-    this.sharedService.loading=true;
+    this.sharedService.loading = true;
     this.getBranchList();
     this.getVehicleList();
     this.getBrokerList();
     this.getEmpList();
+    this.getLocationList();
 
 
     this.formUser = this.formBuilder.group({
@@ -152,6 +167,8 @@ export class DprplacevehicleComponent {
       vehicleRptDateTime : new FormControl('',),
       placementStatus : new FormControl('',),
       placementStatusRemarks: new FormControl('',),
+      adv1PaidYN: new FormControl('',),
+      adv2PaidYN: new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
@@ -163,25 +180,36 @@ export class DprplacevehicleComponent {
     this.formUser.controls['advanceAmt'].disable(); 
     this.formUser.controls['balanceAmt'].disable(); 
 
-    setTimeout(() => {        
-      if (this.dprid != '') {        
-        this.requestmodel.strRequest = this.dprid;
-        this.dprvehiplacedService.getDprVehiPlacedDetails(this.requestmodel).subscribe((res) => {
-          this.selectedDprDetails = res;
-          this.formUser.patchValue(this.selectedDprDetails);  
+    this.selectedDprDetails = this.dprvehiplacedService.getDprVehiDetails();
+    
+    setTimeout(() => {
+      if (this.selectedDprDetails.vehiclePlacedId != '') {
+        this.formUser.patchValue(this.selectedDprDetails);  
+        this.formUser.patchValue({
+          dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
+          vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
+          vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
+          vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
+          brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
+        });   
+        if(this.selectedDprDetails.adv1PaidYN=="N") {
           this.formUser.patchValue({
-            dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
-            vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
-            vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
-            vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
-            brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
-          });            
-          this.getDprInnerGridList();
-          this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
-          this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
-        });
-      }        
+            adv1PaidYN: "",
+          });   
+        }        
+        if(this.selectedDprDetails.adv2PaidYN=="N") {
+          this.formUser.patchValue({
+            adv2PaidYN: "",
+          });   
+        }        
+        this.getDprInnerGridList();
+        this.formUser.controls["vehicleNo"].disable();
+        this.editMode = true;
+        this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+        this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
+      }    
     }, 2000);
+
     this.sharedService.loading=false;
   }
 
@@ -193,9 +221,10 @@ export class DprplacevehicleComponent {
       for (var i = 0; i < res.dprDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("dprDtlId")?.setValue(res.dprDtls[i].dprDtlId);
-        this.formArray.controls[i].get("fromStn")?.setValue(res.dprDtls[i].fromStn);
-        this.formArray.controls[i].get("toStn")?.setValue(res.dprDtls[i].toStn);
+        this.formArray.controls[i].get("fromPlace")?.setValue(this.locationList.find(x=>x.dataName== res.dprDtls[i].fromStn));
+        this.formArray.controls[i].get("toPlace")?.setValue(this.locationList.find(x=>x.dataName== res.dprDtls[i].toStn));
         this.formArray.controls[i].get("gcNoteNo")?.setValue(res.dprDtls[i].gcNoteNo);
+        
         if(res.dprDtls[i].mainGcYN==""){
           this.formArray.controls[i].get("mainGcYN")?.setValue("Y");
         }
@@ -203,8 +232,8 @@ export class DprplacevehicleComponent {
           this.formArray.controls[i].get("mainGcYN")?.setValue(res.dprDtls[i].mainGcYN);
         }
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
-        this.formArray.controls[i].get("fromStn")?.disable();
-        this.formArray.controls[i].get("toStn")?.disable();
+        this.formArray.controls[i].get("fromPlace")?.disable();
+        this.formArray.controls[i].get("toPlace")?.disable();
         //this.formArray.controls[i].get("gcNoteNo")?.disable();
       }
     });
@@ -213,8 +242,8 @@ export class DprplacevehicleComponent {
   createInitialArray() {
     return this.formBuilder.group({
       dprDtlId: ['', []],
-      fromStn: ['', []],
-      toStn: ['', []],
+      fromPlace: ['', []],
+      toPlace: ['', []],
       gcNoteNo: ['', []],
       mainGcYN:['', []],
       specialRemarks: ['', []],
@@ -257,12 +286,14 @@ export class DprplacevehicleComponent {
     else{
       for (var j=0; j<selectedData.arrayList.length;i++){
         if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
+          this.formArray.controls[i].get("gcNoteNo")?.setValue("");
           this.toasterService.warning("GC Note No Already Entered in Grid");
           return;
         }
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+      this.requestmodel.strRequest2 = this.year;
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -292,7 +323,63 @@ export class DprplacevehicleComponent {
       }
     });
   }
+  
+  addItem(ind: number): void {   
+    var selectedDataVal = this.formUser.getRawValue();
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
+      this.formArray.controls[i].get("fromPlace")?.disable();
+      this.formArray.controls[i].get("toPlace")?.disable();
+      this.formArray.controls[i].get("gcNoteNo")?.disable();
+      this.formArray.controls[i].get("mainGcYN")?.disable();
+    }
+    this.formArray.push(this.createInitialArray());     
+    this.formArray.controls[ind+1].get("mainGcYN")?.setValue('N');
+    this.formArray.controls[ind+1].get("mainGcYN")?.disable(); 
+    this.formSubmitted=true;
+  }
 
+  addRow(){ 
+    var selectedDataVal = this.formUser.getRawValue();
+    this.dprvehiplacedmodel.dprDtls = [];
+    var l=selectedDataVal.arrayList.length-1;
+    var arr = selectedDataVal.arrayList[l];
+    if((arr.fromPlace?arr.fromPlace.dataId:"")==""){
+      this.toasterService.warning("From Place should not be blank ");
+      return;
+    }
+    if((arr.toPlace?arr.toPlace.dataId:"")==""){
+      this.toasterService.warning("To Place should not be blank ");
+      return;
+    }
+    if(arr.gcNoteNo==""){
+      this.toasterService.warning("LR No should not be blank ");
+      return;
+    }
+    
+    this.dprvehiplacedmodel.dprDtls.push({
+      'dprDtlId': "",
+      'dprId': this.dprid?this.dprid:"",
+      'fromPlace': arr.fromPlace?arr.fromPlace.dataId:"",
+      'toPlace': arr.toPlace?arr.toPlace.dataId:"",
+      'fromStn': '',
+      'toStn': '',
+      'gcNoteNo': arr.gcNoteNo.toString().toUpperCase(),
+      'mainGcYN':'N',
+      'specialRemarks': arr.specialRemarks.toString().toUpperCase(),
+    });
+
+    this.dprvehiplacedService.dprVehiPlacedAddLr(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/dprvehplacedlist']);            
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
+    });
+  }
 
   onVehicalChange(e:any){
     var truckno = e.target.value;
@@ -308,7 +395,7 @@ export class DprplacevehicleComponent {
         vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
         vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
         vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
-        
+
         if(vehInsValidDate!=""){
           vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
         }
@@ -414,11 +501,56 @@ export class DprplacevehicleComponent {
     this.commonService.getEmpList().subscribe((res) => {
       this.empList = res;
     });
-  }  
-
+  }
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+  
+  advPaid(i:number,e:any)
+  {
+    this.repo.filterStr = this.selectedDprDetails.vehiclePlacedId;
+    this.repo.filterStr1 = i.toString();
+    this.repo.filterStr2 = e.target.checked?"Y":"N";
+    this.repo.filterStr3 = this.loggedInUserID;
+    this.dprvehiplacedService.dprVehiPlacedAdvUpd(this.repo).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/dprvehplacedlist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
+    });
+    
+  }
+   
+  deleteDprVehiDetailsForm(): void {
+    if(this.selectedDprDetails.vehiclePlacedId != '' ){   
+      this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId 
+      if (confirm("Are you sure, you want to delete this?")) {   
+        this.sharedService.loading=true;
+        this.dprvehiplacedService.dprVehiPlacedDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/dprvehplacedlist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
+        });
+        this.sharedService.loading=false;
+      }      
+    }
+  }
 
   exit(): void {
-    this.route.navigate(['/dprindentlist']);
+    this.route.navigate(['/dprvehplacedlist']);    
   }
 
   submitDprVehiDetails(): void {
@@ -441,8 +573,7 @@ export class DprplacevehicleComponent {
       this.toasterService.warning(" Broker is Invalid");
       return;
     }
-    
-    this.dprvehiplacedmodel.vehiclePlacedId = "";
+    this.dprvehiplacedmodel.vehiclePlacedId = this.selectedDprDetails.vehiclePlacedId;
     this.dprvehiplacedmodel.dprId = this.dprid?this.dprid:"";
     this.dprvehiplacedmodel.vehicleEngagedBy = selectedDataVal.vehicleEngagedBy?selectedDataVal.vehicleEngagedBy.toString():"";
     this.dprvehiplacedmodel.brokerId = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
@@ -519,7 +650,7 @@ export class DprplacevehicleComponent {
 
       this.dprvehiplacedmodel.dprDtls.push({
         'dprDtlId': selectedDataVal.arrayList[i].dprDtlId,
-        'dprId': '',
+        'dprId': this.dprid?this.dprid:"",
         'fromPlace': '',
         'toPlace': '',
         'fromStn': '',
@@ -530,16 +661,16 @@ export class DprplacevehicleComponent {
       });
     }
 
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     setTimeout(() => {     
-      if(chkDuplicate){        
-        this.formSubmitted = true;
+      if(chkDuplicate){
         this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if(this.responseDetails.status){
             this.toasterService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/dprindentlist']);
+            this.route.navigate(['/dprvehplacedlist']);            
           }
           else{
             this.toasterService.warning(this.responseDetails.message);        

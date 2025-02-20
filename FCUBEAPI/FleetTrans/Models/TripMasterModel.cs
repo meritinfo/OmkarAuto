@@ -19,6 +19,8 @@ namespace FleetTrans.Models
         public string? TripStatus { get; set; }
         public string? DriverMasterID { get; set; }
         public string? DefinedMileage { get; set; }
+        public string? EmptyMileage { get; set; }
+        public string? EmptyKMs { get; set; }
         public string? ClosingKMR { get; set; }
         public string? OpeningKMR { get; set; }
         public string? DistanceTripKM { get; set; }

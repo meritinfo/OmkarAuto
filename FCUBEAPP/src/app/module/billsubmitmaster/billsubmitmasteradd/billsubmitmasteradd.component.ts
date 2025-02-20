@@ -120,7 +120,7 @@ export class BillsubmitmasteraddComponent {
       remarks : new FormControl('',),
       partyAcceptDt : new FormControl('',),
       partyAccceptRemarks : new FormControl('',),
-      totalSubmitAmt : new FormControl('',),
+      totalSubmitAmt : new FormControl('',[Validators.required]),
       yearID : new FormControl('',),  
       refDocAttachedImage : new FormControl('',),
       branchCode : new FormControl('',),   
@@ -132,7 +132,7 @@ export class BillsubmitmasteraddComponent {
     this.getBillingPartyList();
 
     this.formUser.controls['submitStn'].disable(); 
-    //this.formUser.controls['submitNo'].disable();   
+    this.formUser.controls['totalSubmitAmt'].disable();   
 
     if (this.selectedBillSubmitMasterDetail.submitMstId != '') {
       this.getPartyGstLocationList(this.selectedBillSubmitMasterDetail.partyCode);
@@ -266,9 +266,6 @@ export class BillsubmitmasteraddComponent {
       this.vehicleRepmaintMaster = res;
       for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
         this.formTyreArray.push(this.createSubmitArray());
-        this.formTyreArray.controls[i].get("submitDtlId")?.setValue(res.billSubmitMasterDtlList[i].submitDtlId);
-        this.formTyreArray.controls[i].get("submitMstId")?.setValue(res.billSubmitMasterDtlList[i].submitMstId);  
-        this.formTyreArray.controls[i].get("submitDt")?.setValue(res.billSubmitMasterDtlList[i].submitDt); 
         this.formTyreArray.controls[i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);  
         this.formTyreArray.controls[i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);   
         this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.billSubmitMasterDtlList[i].dtlRemarks);  
@@ -285,9 +282,6 @@ export class BillsubmitmasteraddComponent {
 
   createSubmitArray() {
     return this.formBuilder.group({
-      submitDtlId: [''],
-      submitMstId: [''],
-      submitDt: [''],
       billsMasterId: [''],
       billAmt: [''],
       dtlRemarks: [''],
@@ -368,29 +362,25 @@ export class BillsubmitmasteraddComponent {
     this.billsubmitmastermodel.loggedInUser=  this.loggedInUserID;
 
     this.billsubmitmastermodel.billSubmitMasterDtlList = [];
-      if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
-        this.toastrService.warning("Total Net Amount should not be zero");
-        return;
-      }
+    
+    if(selectedDataValue.totalSubmitAmt=="" || parseFloat(selectedDataValue.totalSubmitAmt)==0 ){    
+      this.toastrService.warning("Total Amount should not be zero");    
+      return;    
+    }
         
-      for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-        if (selectedDataValue.arrayList[i].billAmt == "" ) {
-          this.toastrService.warning("Please Enter Details Properly");
-          return;
-        } 
-        else{
-          this.billsubmitmastermodel.billSubmitMasterDtlList.push({        
-          'submitDtlId': "",
-          'submitMstId': "",
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(selectedDataValue.arrayList[i].selected)
+      {
+        this.billsubmitmastermodel.billSubmitMasterDtlList.push({  
+          'submitMstId':"",
           'submitDt': selectedDataValue.submitDt,
           'billsMasterId': selectedDataValue.arrayList[i].billsMasterId,        
           'billAmt': selectedDataValue.arrayList[i].billAmt,  
           'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks,
           'billNo': '',
-          'billDate': '',
-          'selected': selectedDataValue.arrayList[i].selected?true:false,
+          'billDate': ''
         }) 
-      }   
+      }
     } 
     
     if(this.billsubmitmastermodel.billSubmitMasterDtlList.length==0){

@@ -89,7 +89,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Valid From</label><span style="color: red">*</span>                                             
                                                 <input type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy" 
+                                                  
                                                 formControlName="validFromDt" class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validFromDt'].invalid) }" >
                                             </div>
@@ -98,7 +98,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Valid Upto</label><span style="color: red">*</span>                                                 
                                                 <input type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy"
+                                                 
                                                 formControlName="validToDt"  class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validToDt'].invalid) }" >
                                                 
@@ -359,7 +359,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Cheque Date  </label>
                                                 <input bsdatepicker="" type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy" formControlName="chequeDt"
+                                                  formControlName="chequeDt"
                                                 class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDt'].invalid) }"> 
                                             </div>

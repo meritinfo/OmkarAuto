@@ -1,5 +1,4 @@
 export class BillSubmitMstDtlListmodel {
-    submitDtlId: string = "";
     submitMstId: string = "";
     submitDt: string = "";
     billsMasterId: string = "";
@@ -7,6 +6,4 @@ export class BillSubmitMstDtlListmodel {
     dtlRemarks: string = "";
     billNo: string = "";
     billDate: string = "";
-    selected: boolean = false;
-
 }

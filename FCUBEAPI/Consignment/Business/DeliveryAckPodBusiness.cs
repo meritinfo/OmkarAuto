@@ -43,6 +43,10 @@ namespace Consignment.Business
         {
             return await deliveryAckPodRepository.CheckDeliveryAckDoneForLrNo(requestModel);
         }
+        public async Task<ResponseModel> GetDelvAckPodPrintPdf(RequestModel request)
+        {
+            return await deliveryAckPodRepository.GetDelvAckPodPrintPdf(request);
+        }
 
     }
 }

@@ -104,7 +104,7 @@ export class BillsmasterlistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;    
     this.filter.filterStr= "N"; 
-    this.filter.filterStr1= ''; 
+    this.filter.filterStr1= this.year; 
     this.filter.filterStr2= '';
     this.filter.filterStr3= '';
     this.filter.sortOrder = this.branch;

@@ -31,7 +31,29 @@
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
-                            </div>  
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>                                           
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="vehicleMasterId" 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>       
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   (click)="search()">

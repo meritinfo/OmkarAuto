@@ -152,7 +152,8 @@ export class AddjournalentryComponent{
       if (this.formArray.controls.length>0){
         this.formArray.removeAt(0);
       }      
-        
+      var totalAmount = 0;
+      
       for (var i = 0; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("typeSign")?.setValue(res.detailList[i].typeSign);
@@ -160,7 +161,14 @@ export class AddjournalentryComponent{
         this.formArray.controls[i].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i].get("reference")?.setValue(res.detailList[i].reference);
+        totalAmount = totalAmount + parseFloat(res.detailList[i].amount);
       }
+      totalAmount = (totalAmount/2)
+
+      this.formJournalEntry.patchValue({
+        credit: totalAmount.toFixed(2),
+        debit: totalAmount.toFixed(2),
+      });  
     });
   }
   

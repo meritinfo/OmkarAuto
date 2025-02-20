@@ -37,6 +37,7 @@ export class BankreceiptentrylistComponent {
     branch:'',
     receiptOrPayment: '',
     refType:'',
+    yearId:"",
   }
 
   
@@ -98,6 +99,7 @@ export class BankreceiptentrylistComponent {
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('BP',[Validators.required]),  
+      docSeriesNo: new FormControl('',),  
     });
     
     this.sharedService.loading=true;    
@@ -105,6 +107,7 @@ export class BankreceiptentrylistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
+    this.filter.yearId = this.year;
     this.bankReceiptEntry();
     this.sharedService.loading=false;
 
@@ -123,7 +126,6 @@ export class BankreceiptentrylistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search="";
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -195,7 +197,8 @@ export class BankreceiptentrylistComponent {
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
-    this.filter.search="";
+    this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.yearId = this.year;
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "BP" :selectedDataVal.receiptOrPayment ;
     this.sharedService.loading=true;
     this.bankReceiptEntry();

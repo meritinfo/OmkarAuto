@@ -104,12 +104,15 @@ export class LorryhirepmtlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
+      pmtNo: new FormControl('',),
     });     
      this.sharedService.loading=true; 
      
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = "";
     
     this.sharedService.loading=true;
     this.lorryhireList();
@@ -206,6 +209,8 @@ export class LorryhirepmtlistComponent {
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.formFilter.value.pmtNo;
     this.sharedService.loading=true;
     this.lorryhireList();
     this.sharedService.loading=false;

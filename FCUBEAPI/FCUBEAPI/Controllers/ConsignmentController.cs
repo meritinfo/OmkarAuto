@@ -923,7 +923,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
         [HttpPost("DprVehiPlacedAdvUpd")]
         public async Task<IActionResult> DprVehiPlacedAdvUpd(ReportRequestModel request)
         {
@@ -941,6 +941,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("DprVehiPlacedAddLr")]
+        public async Task<IActionResult> DprVehiPlacedAddLr(DprVehiPlacedModel dprVehi)
+        {
+            if (dprVehi == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiPlacedAddLr(dprVehi);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+            
 
         [HttpPost("GetTempgcList")]
         public async Task<IActionResult> GetTempgcList(RepReqModel request)
@@ -1404,6 +1423,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDelvAckPodPrintPdf")]
+        public async Task<IActionResult> GetDelvAckPodPrintPdf(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.GetDelvAckPodPrintPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("GetConsignmentUpdateDetails")]
         public async Task<IActionResult> GetConsignmentUpdateDetails(RequestModel request)

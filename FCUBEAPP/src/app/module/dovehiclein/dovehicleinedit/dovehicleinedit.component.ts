@@ -129,17 +129,7 @@ export class DovehicleineditComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-
-    
-    var doVpId = sessionStorage.getItem('doVpId')?.toString();
-    if (typeof doVpId !== 'undefined' && doVpId !== null && doVpId !== '') {
-      this.doVpId = doVpId;
-      sessionStorage.setItem("doVpId", "");
-    }
-    else {
-      this.route.navigate([this.dashboard]);
-    }
-    
+        
     this.sharedService.loading=true;
     this.getBranchList();
     this.getStateList();
@@ -203,7 +193,9 @@ export class DovehicleineditComponent {
         this.panUpload = Constants.UploadFolderPath + 'doVehicleIn/panUpload/' + this.selectedDoDetails.panUpload;
         this.decUpload = Constants.UploadFolderPath + 'doVehicleIn/decUpload/' + this.selectedDoDetails.decUpload;
         this.otherUpload = Constants.UploadFolderPath + 'doVehicleIn/otherUpload/' + this.selectedDoDetails.otherUpload;
-                
+        
+        this.editMode = true;
+
         this.formUser.patchValue(this.selectedDoDetails);  
         this.formUser.patchValue({
           entryDate:this.loginDate,

@@ -11,5 +11,7 @@
         public string Message { get; set; }
         public string Scope { get; set; }
         public string Token { get; set; }
+        public string UserType { get; set; }
+        
     }
 }

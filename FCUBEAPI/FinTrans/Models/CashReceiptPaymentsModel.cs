@@ -26,6 +26,8 @@ namespace FinTrans.Models
         public string? AccountOf { get; set; }
         public string? Narration { get; set; }
         public string? BranchCode { get; set; }
+        public string? OnAcBranchYN { get; set; }
+        public string? OnAcBranchCode { get; set; }
         public string? LoggedInUser { get; set; }
         public List<CashReceiptPaymentDetailModel>? DetailList { get; set; }
 

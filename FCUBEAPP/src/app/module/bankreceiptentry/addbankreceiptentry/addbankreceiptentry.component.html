@@ -109,6 +109,28 @@
                                                 <input uppercaseonly class="form-control" 
                                                  formControlName="utrNo">
                                             </div>
+                                        </div>  
+                                        <div class="col-lg-2">
+                                            <div class="mb-4">
+                                                <div class="form-check">
+                                                    <input type="checkbox"  formControlName="onAcBranchYN" id="neft" 
+                                                        (change)="onacChange($event)"
+                                                        value="Y" name="neft" class="form-check-input" >
+                                                    <label for="neft" class="form-check-label"> OnAc Branch</label>
+                                                </div>
+                                            </div>
+                                        </div>       
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">OnAccount Branch</label>
+                                                <select class="form-control" autoclose="false" 
+                                                    formControlName="onAcBranchCode" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['onAcBranchCode'].invalid) }">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>                                        
                                     </div>
                                 </div>

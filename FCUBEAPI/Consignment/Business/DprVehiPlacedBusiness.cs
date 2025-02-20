@@ -40,5 +40,9 @@ namespace Consignment.Business
         {
             return await dprRepository.DprVehiPlacedAdvUpd(requestModel);
         }
+        public async Task<ResponseModel> DprVehiPlacedAddLr(DprVehiPlacedModel dprVehi)
+        {
+            return await dprRepository.DprVehiPlacedAddLr(dprVehi);
+        }
     }
 }

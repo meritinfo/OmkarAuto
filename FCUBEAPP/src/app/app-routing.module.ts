@@ -118,6 +118,7 @@ import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/t
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+import { DprvehiplacededitComponent } from './module/dprvehiplaced/dprvehiplacededit/dprvehiplacededit.component';
 import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
@@ -190,7 +191,6 @@ import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivat
 import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
 import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
-import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
@@ -280,9 +280,6 @@ import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmastern
 import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
 import { ChcosttypesaddComponent } from './module/chcosttypes/chcosttypesadd/chcosttypesadd.component';
 import { ChcosttypeslistComponent } from './module/chcosttypes/chcosttypeslist/chcosttypeslist.component';
-
-
-
 
 
 
@@ -459,7 +456,8 @@ const routes: Routes = [
   { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
   { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
-  { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
+  { path: 'dprvehplacedadd', component: DprvehiplacedaddComponent },
+  { path: 'dprvehplacededit', component:  DprvehiplacededitComponent },
   { path: 'dprtempgclist', component:   GeneratetempgclistComponent},
   { path: 'dprtempgcadd', component: GeneratetempgcaddComponent },
   { path: 'dprtempgcedit', component: GeneratetempgceditComponent },
@@ -556,7 +554,6 @@ const routes: Routes = [
   { path: 'tyredeactrpt', component: TyredeactivatedrptComponent },   
   { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
   { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
-  { path: 'dprvehplacedadd', component: DprplacevehicleComponent },
   { path: 'vehiclerepmaintadd', component: VehiclerepmaintaddComponent }, 
   { path: 'vehiclerepmaintmasteredit', component: VehiclerepmaintaddComponent }, 
   { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  

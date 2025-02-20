@@ -149,7 +149,7 @@ export class DovehiplacededitComponent {
         });    
         this.doQty = this.selectedDoDetails.doQty?this.selectedDoDetails.doQty:"0";
         this.doQtyLift = this.selectedDoDetails.doQtyLift?this.selectedDoDetails.doQtyLift:"0";
-        this.baldoQty = (parseFloat(this.doQty) - parseFloat(this.doQtyLift)).toString();
+        this.baldoQty = (parseFloat(this.doQty) - parseFloat(this.doQtyLift)).toFixed(3);
         if(this.selectedDoDetails.hireRateType=="P"){
           this.formUser.controls['hireRate'].enable(); 
           this.formUser.controls['hireAmt'].disable();       

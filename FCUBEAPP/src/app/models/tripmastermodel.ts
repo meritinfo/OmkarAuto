@@ -10,6 +10,8 @@ export class Tripmastermodel {
     tripStatus: string = "";
     driverMasterID: string = "";
     definedMileage: string = "";
+    emptyMileage: string = "";
+    emptyKMs: string = "";
     closingKMR: string = "";
     openingKMR: string = "";
     distanceTripKM: string = "";

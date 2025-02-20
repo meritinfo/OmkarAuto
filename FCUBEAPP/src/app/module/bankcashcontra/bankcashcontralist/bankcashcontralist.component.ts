@@ -37,6 +37,7 @@ export class BankcashcontralistComponent {
     branch:'',
     receiptOrPayment: '',
     refType:'',
+    yearId:"",
   }
   
   formFilter!: FormGroup;
@@ -103,6 +104,7 @@ export class BankcashcontralistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
+    this.filter.yearId = this.year;
     this.bankContraList();
     this.sharedService.loading=false;
   }
@@ -194,6 +196,7 @@ export class BankcashcontralistComponent {
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "BC" ;
+    this.filter.yearId = this.year;
     this.filter.search = selectedDataVal.docSeriesNo;
     this.sharedService.loading=true;
     this.bankContraList();

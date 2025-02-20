@@ -31,6 +31,7 @@ export class AddbankreceiptentryComponent {
   mainAcList: Dropdownmodel[] = [];
   finRefTypes: Dropdownmodel[] = [];
   gridAccountList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   editMode = false;
   createmode = true;
@@ -93,6 +94,7 @@ export class AddbankreceiptentryComponent {
     this.getMainAcList();
     this.getGridAcList();
     this.getFinRefTypes();
+    this.getBranchList();
     this.selectedBankReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formBankRecEntry = this.formBuilder.group({
@@ -110,6 +112,8 @@ export class AddbankreceiptentryComponent {
       amount: new FormControl('',), 
       neftPmt: new FormControl('',), 
       accountid2: new FormControl('',[Validators.required]),
+      onAcBranchYN : new FormControl('',), 
+      onAcBranchCode: new FormControl('',), 
       arrayList: this.formBuilder.array([this.createInitialArray()]), 
     });
     this.neft="N";
@@ -118,6 +122,7 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
     this.formBankRecEntry.controls['refType'].disable();
+    this.formBankRecEntry.controls["onAcBranchCode"].disable();   
     
     setTimeout(() => {
       if (this.selectedBankReceiptEntryDetails.ftmID != '') {  
@@ -132,10 +137,18 @@ export class AddbankreceiptentryComponent {
           this.formBankRecEntry.controls['refNo'].disable();
         }
         if(this.selectedBankReceiptEntryDetails.neftPmt=="Y"){
-          this.neft=="Y";
+          this.neft="Y";
         }
         else{
-          this.neft=="N";
+          this.neft="N";
+        }
+        if(this.selectedBankReceiptEntryDetails.onAcBranchYN=="N"){
+          this.formBankRecEntry.patchValue({
+            onAcBranchYN: "",
+          });  
+        }
+        else{
+          this.editStatus=false;
         }
         this.editMode=true;
         this.formBankRecEntry.controls['modifyRemarks'].enable();
@@ -212,11 +225,20 @@ export class AddbankreceiptentryComponent {
     }
   }
 
-  changePType(selectedValue: string) { 
+  changePType(selectedVal: string) { 
     this.formBankRecEntry.patchValue({
-      docSeries: selectedValue,
+      docSeries: selectedVal,
+      onAcBranchYN: "",
+      onAcBranchCode:"",
     }); 
-    this.getdocno(selectedValue);   
+    this.getdocno(selectedVal);  
+    if(selectedVal=="BR"){
+      this.formBankRecEntry.controls["onAcBranchYN"].disable();  
+      this.formBankRecEntry.controls["onAcBranchCode"].disable();     
+    }
+    else{
+      this.formBankRecEntry.controls["onAcBranchYN"].enable();  
+    }
   }
 
   getdocno(doctp: string){
@@ -264,6 +286,11 @@ export class AddbankreceiptentryComponent {
     });
   }
 
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
   
   selectEvent(item: any) {
     // do something with selected item
@@ -298,6 +325,24 @@ export class AddbankreceiptentryComponent {
     else{      
     this.neft="N";
     }
+  }
+
+  onacChange(e:any){
+    if(e.target.checked){
+      this.formBankRecEntry.patchValue({
+        refType: "FUNDTFR",
+      });  
+      this.formBankRecEntry.controls["onAcBranchCode"].enable();
+      this.formBankRecEntry.controls['onAcBranchCode'].setValidators([Validators.required]); 
+    }
+    else{   
+      this.formBankRecEntry.patchValue({
+        refType: "OTHERS",
+      });     
+      this.formBankRecEntry.controls["onAcBranchCode"].disable();
+      this.formBankRecEntry.controls['onAcBranchCode'].clearValidators; 
+    }
+    this.formBankRecEntry.controls['onAcBranchCode'].updateValueAndValidity();
   }
 
   
@@ -342,10 +387,14 @@ export class AddbankreceiptentryComponent {
       this.toasterService.warning("Grid Should Not be Empty");
       return;
     }
-
-
     var selectedDataValue = this.formBankRecEntry.getRawValue();
-    this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID != '' ? this.selectedBankReceiptEntryDetails.ftmID : '';
+
+    if (selectedDataValue.onAcBranchCode == this.branchname){
+      this.toasterService.warning("On Account Branch should not to be same as login Branch");
+      return;
+    }
+
+    this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID;
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
     this.bankreceiptentryModel.docType        = selectedDataValue.docType;
     this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries;
@@ -357,15 +406,20 @@ export class AddbankreceiptentryComponent {
     this.bankreceiptentryModel.docAmount      = selectedDataValue.docAmount;
     this.bankreceiptentryModel.linkedYN       = 'N';
     this.bankreceiptentryModel.neftPmt        = selectedDataValue.neftPmt?"Y":"N";
+    this.bankreceiptentryModel.onAcBranchYN   = selectedDataValue.onAcBranchYN?"Y":"N";
+    this.bankreceiptentryModel.onAcBranchCode = selectedDataValue.onAcBranchCode;
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
     this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    this.bankreceiptentryModel.accountOf      = selectedDataValue.accountid2;
 
     this.bankreceiptentryModel.detailList = [];
 
     var tpsign =''
     var tpfirstsign =''
+    var slNo = 0
+    var narration =''
     if (selectedDataValue.docType == "BP") {
       var tpsign ='D'
       var tpfirstsign ='C'
@@ -374,14 +428,18 @@ export class AddbankreceiptentryComponent {
       var tpsign ='C'
       var tpfirstsign ='D'
     }
+    if(selectedDataValue.onAcBranchYN){
+      slNo = 1
+      narration = this.branchname;
+    }
 
     this.bankreceiptentryModel.detailList.push({
-      'slNo': '0' ,
+      'slNo': slNo.toString() ,
       'typeSign': tpfirstsign,
       'amount': selectedDataValue.docAmount,
       'chequeDate': '',
       'chequeNo': '',
-      'narration': '',
+      'narration': narration,
       'accountID': selectedDataValue.accountid2,
       'reference': selectedDataValue.refNo,
     })
@@ -424,9 +482,9 @@ export class AddbankreceiptentryComponent {
               return;
             }
           }         
-
+          slNo = slNo + 1;
           this.bankreceiptentryModel.detailList.push({
-          'slNo': (i+1).toString() ,
+          'slNo': slNo.toString() ,
           'typeSign': tpsign,
           'amount': this.formArray.value[i].amount,
           'chequeDate': this.formArray.value[i].chequeDate==''?selectedDataValue.ftmDate:this.formArray.value[i].chequeDate,
