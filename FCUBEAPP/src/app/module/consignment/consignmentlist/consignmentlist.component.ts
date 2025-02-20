@@ -253,6 +253,10 @@ export class ConsignmentlistComponent implements OnInit  {
           title: 'Action',
           data: 'consignmentID',
         }, 
+        {
+          title: 'Download',
+          data: 'consignmentID',
+        }, 
       ],
     };
   }

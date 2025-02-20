@@ -483,10 +483,10 @@ export class TripsheetaddComponent {
     var fsp = selectedval.food_Sal_PerDay  ? parseFloat(selectedval.food_Sal_PerDay ) : 0
     var fsd = selectedval.food_Sal_Days  ? parseFloat(selectedval.food_Sal_Days ) : 0
     var nfsd = selectedval.food_Sal_Less_Days  ? parseFloat(selectedval.food_Sal_Less_Days ) : 0
-
-    totalamt = fsp*fsd;
+    
+    totalamt = fsp*(fsd- nfsd);
     this.formTripsheet.patchValue({
-      food_Sal_Amt: totalamt - nfsd
+      food_Sal_Amt: totalamt 
     });   
     this.calTotal(); 
   }
