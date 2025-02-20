@@ -445,6 +445,9 @@ import { DovehicleinlistComponent } from './module/dovehiclein/dovehicleinlist/d
 import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dovehicleinadd.component';
 import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
 import { Dovehicleinmodel } from './models/dovehicleinmodel';
+import { ChcosttypesaddComponent } from './module/chcosttypes/chcosttypesadd/chcosttypesadd.component';
+import { ChcosttypeslistComponent } from './module/chcosttypes/chcosttypeslist/chcosttypeslist.component';
+import { ChcosttypesModel } from './models/chcosttypesmodel';
 
 
 @NgModule({
@@ -589,7 +592,7 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
      MissingdocrptComponent, DashboardnccComponent,    
     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
-    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent,
+    DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
   ],
   
   imports: [
@@ -657,7 +660,7 @@ import { Dovehicleinmodel } from './models/dovehicleinmodel';
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Dovehicleinmodel,
+    Dovehicleinmodel,ChcosttypesModel
     
   ],
   bootstrap: [AppComponent]

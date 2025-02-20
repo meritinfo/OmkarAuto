@@ -44,6 +44,7 @@ namespace FCUBEAPI.Controllers
         readonly IFreightRptBusiness freightRptBusiness;
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
         readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
+        readonly IChCostTypesBusiness chCostTypesBusiness;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -69,7 +70,8 @@ namespace FCUBEAPI.Controllers
            IPanWiseTdsRateBusiness _panWiseTdsRateBusiness,
            IFreightRptBusiness _freightRptBusiness,
            IGstPctValuesBusiness _gstPctValuesBusiness,
-           IRatesMasterNewBusiness _ratesMasterNewBusiness)
+           IRatesMasterNewBusiness _ratesMasterNewBusiness,
+           IChCostTypesBusiness _chCostTypesBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -97,6 +99,7 @@ namespace FCUBEAPI.Controllers
             freightRptBusiness = _freightRptBusiness;
             gstPctValuesBusiness = _gstPctValuesBusiness;
             ratesMasterNewBusiness = _ratesMasterNewBusiness;
+            chCostTypesBusiness = _chCostTypesBusiness;
         }
 
         /// <summary>
@@ -3434,5 +3437,79 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ChCostTypesSave")]
+        public async Task<IActionResult> ChCostTypesSave(ChCostTypesModel chCostTypesModel)
+        {
+            if (chCostTypesModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chCostTypesBusiness.ChCostTypesSave(chCostTypesModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChCostTypesList")]
+        public async Task<IActionResult> GetChCostTypesList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chCostTypesBusiness.GetChCostTypesList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChCostTypesDelete")]
+        public async Task<IActionResult> ChCostTypesDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chCostTypesBusiness.ChCostTypesDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDuplicateCostDesc")]
+        public async Task<IActionResult> CheckDuplicateCostDesc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chCostTypesBusiness.CheckDuplicateCostDesc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
+    
 }

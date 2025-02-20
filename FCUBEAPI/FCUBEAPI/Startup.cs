@@ -274,7 +274,9 @@ namespace FCUBEAPI
             services.AddScoped<IGstPctValuesBusiness, GstPctValuesBusiness>();
             services.AddScoped<IDoBusiness, DoBusiness>();
             services.AddScoped<IDoRepository, DoRepository>();
-          
+            services.AddScoped<IChCostTypesBusiness, ChCostTypesBusiness>();
+            services.AddScoped<IChCostTypesRepository, ChCostTypesRepository>();
+
             services.AddScoped<IRatesMasterNewBusiness, RatesMasterNewBusiness>();
             services.AddScoped<IRatesMasterNewRepository, RatesMasterNewRepository>();
 

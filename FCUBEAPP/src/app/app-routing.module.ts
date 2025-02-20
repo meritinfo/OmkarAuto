@@ -278,6 +278,8 @@ import { DovehicleinaddComponent } from './module/dovehiclein/dovehicleinadd/dov
 import { DovehicleineditComponent } from './module/dovehiclein/dovehicleinedit/dovehicleinedit.component';
 import { RatesmasternewaddComponent } from './module/ratesmasternew/ratesmasternewadd/ratesmasternewadd.component';
 import { RatesmasternewlistComponent } from './module/ratesmasternew/ratesmasternewlist/ratesmasternewlist.component';
+import { ChcosttypesaddComponent } from './module/chcosttypes/chcosttypesadd/chcosttypesadd.component';
+import { ChcosttypeslistComponent } from './module/chcosttypes/chcosttypeslist/chcosttypeslist.component';
 
 
 
@@ -665,6 +667,9 @@ const routes: Routes = [
   { path: 'ratesmasternewadd', component: RatesmasternewaddComponent },
   { path: 'ratesmasternewedit', component: RatesmasternewaddComponent },
   { path: 'ratesmasterlist', component: RatesmasternewlistComponent },
+  { path: 'chcosttypesadd', component: ChcosttypesaddComponent },
+  { path: 'chcosttypesedit', component: ChcosttypesaddComponent },
+  { path: 'chcosttypes', component: ChcosttypeslistComponent },
   
   
   
