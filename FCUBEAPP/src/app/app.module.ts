@@ -667,8 +667,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Dovehicleinmodel,Dotempgcmodel
-    Dovehicleinmodel,ChcosttypesModel
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel
     
   ],
   bootstrap: [AppComponent]

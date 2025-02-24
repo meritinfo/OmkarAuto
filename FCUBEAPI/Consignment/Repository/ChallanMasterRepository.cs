@@ -882,7 +882,7 @@ namespace Consignment.Repository
                         {
                             var result = await response.Content.ReadAsStringAsync();
 
-                            if (result.Contains("200"))
+                            if (result.Contains("number"))
                             {
                                 var root = JsonConvert.DeserializeObject<ApiRoot>(result);
 

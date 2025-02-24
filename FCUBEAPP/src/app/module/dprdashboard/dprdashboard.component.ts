@@ -253,6 +253,14 @@ export class DprdashboardComponent {
             data: 'totFreightAmt',
           }, 
           {
+            title: 'Upd Booking Amt',
+            data: 'updBookingAmt',
+          }, 
+          {
+            title: 'Tonnage',
+            data: 'tonnage',
+          }, 
+          {
             title: 'Rate Per Ton',
             data: 'ratePerTon',
           }, 

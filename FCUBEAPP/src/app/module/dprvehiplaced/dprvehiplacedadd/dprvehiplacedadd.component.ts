@@ -290,6 +290,9 @@ export class DprvehiplacedaddComponent {
           lrno = lrno + 1;
         }
       }
+      else{
+        this.toasterService.warning(res.message)
+      }
     });
   }
 

@@ -21,6 +21,8 @@ namespace FreightMasters.Models
         public string? RateRs { get; set; }
         public string? FreightRs { get; set; }
         public string? TotFreightAmt { get; set; }
+        public string? UpdBookingAmt { get; set; }
+        public string? Tonnage { get; set; }            
         public string? RatePerTon { get; set; }
         public string? LorryHire { get; set; }
         public string? AdvanceAmt { get; set; }

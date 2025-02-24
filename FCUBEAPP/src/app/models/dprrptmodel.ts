@@ -12,6 +12,8 @@ export class Dprrptmodel {
     rateRs : string = "";
     freightRs : string = "";
     totFreightAmt : string = "";
+    updBookingAmt: string = "";
+    tonnage: string = "";  
     ratePerTon : string = "";
     lorryHire : string = "";
     advanceAmt : string = "";

@@ -649,15 +649,8 @@ export class ChallanmasteraddComponent {
               this.formUser.controls["declarationYN"].disable();  
               this.formUser.controls["tdsPct"].disable(); 
               if(decl = "Y"){
-                this.formUser.controls["declarationYN"].enable();  
+               this.formUser.controls["declarationYN"].enable();  
               }
-            }
-            else
-            {                 
-              this.formUser.controls["panValid"].enable();  
-              this.formUser.controls["aadharLinked"].enable();  
-              this.formUser.controls["tdsPct"].enable();
-              this.formUser.controls["declarationYN"].enable();  
               
               this.requestmodel.strRequest = pan;
               this.requestmodel.strRequest1 = this.loggedInUserID;
@@ -700,7 +693,7 @@ export class ChallanmasteraddComponent {
                       aadharLinked: aadharLinked,
                       vehicleOwnerName: this.panDetails.result.name,
                       tdsPct: tdsPct,
-                      declarationYN:"",
+                      declarationYN: "",
                     });   
                   });  
                 }
@@ -708,7 +701,14 @@ export class ChallanmasteraddComponent {
                   this.toastrService.warning("Invalid PAN No...!");
                   return;
                 }            
-              });                                       
+              });      
+            }
+            else
+            {                 
+              this.formUser.controls["panValid"].enable();  
+              this.formUser.controls["aadharLinked"].enable();  
+              this.formUser.controls["tdsPct"].enable();
+              this.formUser.controls["declarationYN"].enable(); 
             }
           });
         }

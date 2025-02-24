@@ -4332,6 +4332,8 @@ namespace FreightMasters.Repository
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
                                 TotFreightAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
+                                UpdBookingAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdBookingAmt"]),
+                                Tonnage = Convert.ToString(dataSet.Tables[0].Rows[i]["Tonnage"]),
                                 RatePerTon = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerTon"]),
                                 LorryHire = Convert.ToString(dataSet.Tables[0].Rows[i]["LorryHire"]),
                                 AdvanceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceAmt"]),

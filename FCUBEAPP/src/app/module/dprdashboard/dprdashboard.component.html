@@ -131,7 +131,7 @@
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">
-                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
                         <thead>
                             <tr>
                                 <th>gcNoteNo </th>  
@@ -145,6 +145,8 @@
                                 <th>driverName </th> 
                                 <th>driverMob1 </th> 
                                 <th>rateRs </th>    
+                                <th>totFreightAmt </th> 
+                                <th>totFreightAmt </th> 
                                 <th>totFreightAmt </th> 
                                 <th>ratePerTon </th> 
                                 <th>lorryHire </th> 
@@ -167,7 +169,9 @@
                                 <td>{{ eta.vehiclePlacedBy }}</td>    
                                 <td>{{ eta.driverMob1 }}</td> 
                                 <td>{{ eta.rateRs }}</td>      
-                                <td>{{ eta.totFreightAmt }}</td>      
+                                <td>{{ eta.totFreightAmt }}</td>  
+                                <td>{{ eta.updBookingAmt }}</td>  
+                                <td>{{ eta.tonnage }}</td>  
                                 <td>{{ eta.ratePerTon }}</td>         
                                 <td>{{ eta.lorryHire }}</td>          
                                 <td>{{ eta.advanceAmt }}</td>          

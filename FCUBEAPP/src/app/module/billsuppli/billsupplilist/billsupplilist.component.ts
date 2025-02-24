@@ -169,10 +169,10 @@ export class BillsupplilistComponent {
           title: 'Action',
           data: 'masterId',
         },   
-        // {
-        //   title: 'Print',
-        //   data: 'masterId',
-        // },  
+        {
+          title: 'Print',
+          data: 'masterId',
+        },  
       ],
     };
   }
