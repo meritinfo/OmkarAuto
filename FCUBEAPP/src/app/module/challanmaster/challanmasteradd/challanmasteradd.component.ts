@@ -522,8 +522,19 @@ export class ChallanmasteraddComponent {
 
   onGcNoteChange(i:number,e: any) {
     var selectedData = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedData.arrayList[i].gcNoteNo;
-
+    var gcNoteNo = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+    this.requestmodel.strRequest = gcNoteNo;
+    if(gcNoteNo==""){
+      this.toastrService.warning("GC Note No should not be Blank");   
+      return;
+    }  
+    for (var j=0; j<selectedData.arrayList.length;j++){
+      if(i!=j && gcNoteNo==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
+        this.toastrService.warning("GC Note No Already Entered in Grid");    
+        this.formArray.controls[i].get("gcNoteNo")?.setValue("");
+        return;
+      }
+    }
     this.challanmasterService.checkChallanPrepForLr(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
