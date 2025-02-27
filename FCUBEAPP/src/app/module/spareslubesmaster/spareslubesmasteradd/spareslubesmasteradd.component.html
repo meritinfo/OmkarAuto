@@ -22,7 +22,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">SpareLub Name</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "  (change)="chkSpareDuplicate()"
+                                                <input uppercaseonly type="text" class="form-control"    (change)="chkSpareDuplicate()"
                                                 formControlName="spareLubName"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['spareLubName'].invalid) }">
                                             </div>
@@ -76,7 +76,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Life Expectancy</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" " numbersonly
+                                                <input uppercaseonly type="text" class="form-control"   numbersonly
                                                 formControlName="lifeExpectancy"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lifeExpectancy'].invalid) }">
                                             </div>
@@ -113,7 +113,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Opening Qty</label>
                                                
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" " decimalonly
+                                                <input uppercaseonly type="text" class="form-control"   decimalonly
                                                 formControlName="openingQty"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['openingQty'].invalid) }">
                                             </div>
@@ -122,7 +122,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Opening Value</label>
                                             
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" " decimalonly
+                                                <input uppercaseonly type="text" class="form-control"   decimalonly
                                                 formControlName="openingValue"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['openingValue'].invalid) }">
                                             </div>

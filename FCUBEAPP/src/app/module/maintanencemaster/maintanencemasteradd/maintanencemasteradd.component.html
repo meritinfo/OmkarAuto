@@ -22,7 +22,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Maintenance Desc</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "  (change)="chkMaintanenceDuplicate()"
+                                                <input uppercaseonly type="text" class="form-control"    (change)="chkMaintanenceDuplicate()"
                                                 formControlName="maintenanceDesc"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['maintenanceDesc'].invalid) }">
                                             </div>

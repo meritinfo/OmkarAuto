@@ -173,6 +173,8 @@ namespace Consignment.Repository
                             new SqlParameter("@GcBook", challanDtl.GcBook),
                             new SqlParameter("@GcNoteNo", challanDtl.GcNoteNo),
                             new SqlParameter("@ConsignmentId", challanDtl.ConsignmentId),
+                            new SqlParameter("@ChallanFromStn", challanDtl.Fplace),
+                            new SqlParameter("@ChallanToStn", challanDtl.Tplace),
                             new SqlParameter("@ChallanPkgs", challanDtl.ChallanPkgs),
                             new SqlParameter("@ChallanWT", challanDtl.ChallanWT),
                             new SqlParameter("@YearId", challanDtl.YearId),
@@ -736,8 +738,9 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                     {
-                        new SqlParameter("@Branch", requestModel.strRequest),
-                        new SqlParameter("@GCNoteNo",requestModel.strRequest1),
+                        new SqlParameter("@GcYear", requestModel.strRequest),
+                        new SqlParameter("@GcBook",requestModel.strRequest1),
+                        new SqlParameter("@GCNoteNo",requestModel.strRequest2),
                     };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentId", param);
@@ -980,7 +983,9 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                           new SqlParameter("@GCNoteNo",   request.strRequest),
+                            new SqlParameter("@GcYear", request.strRequest),
+                            new SqlParameter("@GcBook",request.strRequest1),
+                            new SqlParameter("@GCNoteNo",request.strRequest2),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
 

@@ -1222,7 +1222,44 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+        [HttpPost("GetFreightGstDetails")]
+        public async Task<IActionResult> GetFreightGstDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetFreightGstDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
+        [HttpPost("GetFreightList")]
+        public async Task<IActionResult> GetFreightList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetFreightList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
+
 
         [HttpPost("TempGcDelete")]
         public async Task<IActionResult> TempGcDelete(RequestModel request)

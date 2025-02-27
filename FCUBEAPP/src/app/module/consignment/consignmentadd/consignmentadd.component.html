@@ -237,7 +237,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Invoice Date</label><span style="color: red">*</span>
-                                    <input type="date" autoclose="false" placeholder="yyyy-mm-dd" (change)="fillgrid()"
+                                    <input type="date" autoclose="false"   (change)="fillgrid()"
                                         formControlName="invoiceDate" max="{{maxDate}}" class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceDate'].invalid) }">
                                 </div>
@@ -628,7 +628,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Qty/Pkgs</label><span style="color: red">*</span>
-                                    <input numbersonly autoclose="false" formControlName="noPackages" placeholder=" "
+                                    <input numbersonly autoclose="false" formControlName="noPackages"  
                                         class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                 </div>
@@ -692,7 +692,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="rateRs" (change)="calcFrt()">
                                 </div>
                             </div>
@@ -706,14 +706,14 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="statisticalRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">FOV</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="fovRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
@@ -722,42 +722,42 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Coll</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="doorCollRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Handling</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="handlingRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Loading Detn</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Enroute</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="enrouteRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Misc</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="miscRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Del</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="doorDelRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
@@ -766,28 +766,28 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="unLoadingRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading Detn</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="unLoadingDetnRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extras</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="extrasRS" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Others</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                    <input type="text" decimalonly class="form-control"  
                                         formControlName="othersRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>

@@ -113,5 +113,13 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLRPrint(request);
         }
+        public async Task<List<DropDownListModel>> GetFreightList()
+        {
+            return await consignmentRepository.GetFreightList();
+        }
+        public async Task<ConsignmentGstModel> GetFreightGstDetails(RequestModel request)
+        {
+            return await consignmentRepository.GetFreightGstDetails(request);
+        }
     }
 }

@@ -26,7 +26,7 @@
                                                     <input uppercaseonly type="text" class="form-control" 
                                                         (change)="chkAccountNameExits($event)" 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountName'].invalid) }"
-                                                        placeholder="Enter Account Name" formControlName="accountName">
+                                                          formControlName="accountName">
                                                 </div>
                                             </div>
                                         </div>
@@ -333,7 +333,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Contract Validity:</label>
                                                     <input bsdatepicker="" type="date" autoclose="false"
-                                                        placeholder="dd/MM/yyyy"  formControlName="contractValidity"
+                                                           formControlName="contractValidity"
                                                         class="form-control"> 
                                                 </div>
                                             </div>

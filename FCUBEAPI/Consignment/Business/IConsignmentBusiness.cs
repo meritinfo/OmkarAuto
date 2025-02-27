@@ -32,6 +32,8 @@ namespace Consignment.Business
         Task<ResponseModel> GetBillSubmitSeries(RequestModel request);
         Task<List<DropDownListModel>> GetGstByList();
         Task<ResponseModel> GetLRPrint(ReportRequestModel request);
+        Task<List<DropDownListModel>> GetFreightList();
+        Task<ConsignmentGstModel> GetFreightGstDetails(RequestModel request);
     }
 
 }

@@ -12,7 +12,8 @@ namespace FreightMasters.Repository
         Task<DocumentAllotmentListModel> GetDocumentAllotmentList(PageRequest request);
         Task<ResponseModel> DocumentAllotmentDelete(RequestModel requestModel);
         Task<ResponseModel> GetDocNumCode(RequestModel requestModel);
-        Task<ResponseModel> CheckDocumentRange(ScheduleModel req);
+        Task<ResponseModel> CheckDocumentRange(ReportRequestModel req);
         Task<List<DropDownListModel>> GetRangeList(RequestModel req);
+        Task<List<DropDownListModel>> GetSeriesllpList(RequestModel req);
     }
 }

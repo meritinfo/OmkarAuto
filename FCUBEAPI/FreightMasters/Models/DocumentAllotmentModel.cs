@@ -17,6 +17,7 @@
         public string? DocMaxNo { get; set; }
         public string? AutoGenYN { get; set; }
         public string? Remarks { get; set; }
+        public string? SeriesCode { get; set; }        
         public string? LoggedInUser { get; set; }
 
     }

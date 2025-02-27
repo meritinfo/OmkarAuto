@@ -453,6 +453,11 @@ import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.
 import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
 import { Dotempgcmodel } from './models/dotempgcmodel';
 import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directive';
+import { DocallotmentllplistComponent } from './module/docallotmentllp/docallotmentllplist/docallotmentllplist.component';
+import { DocallotmentllpaddComponent } from './module/docallotmentllp/docallotmentllpadd/docallotmentllpadd.component';
+import { ConsignmentllplistComponent } from './module/consignmentllp/consignmentllplist/consignmentllplist.component';
+import { ConsignmentllpaddComponent } from './module/consignmentllp/consignmentllpadd/consignmentllpadd.component';
+import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignmentllpupdate/consignmentllpupdate.component';
 
 
 @NgModule({
@@ -599,7 +604,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
   ],
   
   imports: [
