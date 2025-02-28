@@ -45,6 +45,8 @@ namespace FCUBEAPI.Controllers
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
         readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
         readonly IChCostTypesBusiness chCostTypesBusiness;
+        readonly IFreightGstMasterBusiness freightGstMasterBusiness;
+        readonly ILRBillSeriesBusiness lrBillSeriesBusiness;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -71,7 +73,9 @@ namespace FCUBEAPI.Controllers
            IFreightRptBusiness _freightRptBusiness,
            IGstPctValuesBusiness _gstPctValuesBusiness,
            IRatesMasterNewBusiness _ratesMasterNewBusiness,
-           IChCostTypesBusiness _chCostTypesBusiness)
+           IChCostTypesBusiness _chCostTypesBusiness,
+            IFreightGstMasterBusiness _freightGstMasterBusiness,
+             ILRBillSeriesBusiness _lrBillSeriesBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -100,6 +104,8 @@ namespace FCUBEAPI.Controllers
             gstPctValuesBusiness = _gstPctValuesBusiness;
             ratesMasterNewBusiness = _ratesMasterNewBusiness;
             chCostTypesBusiness = _chCostTypesBusiness;
+            freightGstMasterBusiness = _freightGstMasterBusiness;
+            lrBillSeriesBusiness = _lrBillSeriesBusiness;
         }
 
         /// <summary>
@@ -662,7 +668,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
         //[HttpPost("ChallanMasterSave")]
         //public async Task<IActionResult> ChallanMasterSave(ChallanMasterModel challanMasterModel)
         //{
@@ -2082,7 +2088,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
 
         [HttpPost("GetChallanRegisterRptList")]
         public async Task<IActionResult> GetChallanRegisterRptList(ReportRequestModel request)
@@ -2774,7 +2780,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
 
         [HttpPost("GetOutstandingAnalysisRptList")]
         public async Task<IActionResult> GetOutstandingAnalysisRptList(ReportRequestModel request)
@@ -3221,10 +3227,10 @@ namespace FCUBEAPI.Controllers
         {
             try
             {
-               // var driverPhoto = HttpContext.Request.Form.Files["driverPhoto"];
+                // var driverPhoto = HttpContext.Request.Form.Files["driverPhoto"];
                 var drivingLicense = HttpContext.Request.Form.Files["tdsCertUpload"];
 
-            
+
                 PanWiseTdsRateModel panWiseTdsRateModel = JsonConvert.DeserializeObject<PanWiseTdsRateModel>(HttpContext.Request.Form["datadetails"]);
 
                 if (drivingLicense != null)
@@ -3510,6 +3516,151 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetFreightGstMasterList")]
+        public async Task<IActionResult> GetFreightGstMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightGstMasterBusiness.GetFreightGstMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FreightGstMasterSave")]
+        public async Task<IActionResult> FreightGstMasterSave(FreightGstMasterModel freightGstMasterModel)
+        {
+            if (freightGstMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightGstMasterBusiness.FreightGstMasterSave(freightGstMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FreightGstMasterDelete")]
+        public async Task<IActionResult> FreightGstMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightGstMasterBusiness.FreightGstMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateFreightDesc")]
+        public async Task<IActionResult> CheckDuplicateFreightDesc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightGstMasterBusiness.CheckDuplicateFreightDesc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLRBillSeriesMasterList")]
+        public async Task<IActionResult> GetLRBillSeriesMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lrBillSeriesBusiness.GetLRBillSeriesMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LRBillSeriesSave")]
+        public async Task<IActionResult> LRBillSeriesSave(LRBillSeriesModel lRBillSeriesModel)
+        {
+            if (lRBillSeriesModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lrBillSeriesBusiness.LRBillSeriesSave(lRBillSeriesModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LRBillSeriesMasterDelete")]
+        public async Task<IActionResult> LRBillSeriesMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lrBillSeriesBusiness.LRBillSeriesMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateSeriesCode")]
+        public async Task<IActionResult> CheckDuplicateSeriesCode(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lrBillSeriesBusiness.CheckDuplicateSeriesCode(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
     
 }

@@ -453,6 +453,10 @@ import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.
 import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
 import { Dotempgcmodel } from './models/dotempgcmodel';
 import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directive';
+import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightgstmasteradd/freightgstmasteradd.component';
+import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
+import { Freightgstmastermodel } from './models/freightgstmastermodel';
+import { Freightgstmasterlistmodel } from './models/freightgstmasterlistmodel';
 
 
 @NgModule({
@@ -599,7 +603,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, 
   ],
   
   imports: [
@@ -667,7 +671,7 @@ import { ThreedecimalonlyDirective } from './directives/threedecimalonly.directi
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,
     
   ],
   bootstrap: [AppComponent]
