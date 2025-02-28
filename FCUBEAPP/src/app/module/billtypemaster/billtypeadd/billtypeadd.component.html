@@ -22,7 +22,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Bill Type Desc</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                <input uppercaseonly type="text" class="form-control"  
                                                 formControlName="billTypeDesc"   (change)="chkBillTypeDuplicate()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['billTypeDesc'].invalid) }">
                                             </div>
@@ -79,7 +79,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sac Code</label> <span style="color: red">*</span>
                                               
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                <input uppercaseonly type="text" class="form-control"  
                                                 formControlName="sacCode"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['sacCode'].invalid) }">
                                             </div>

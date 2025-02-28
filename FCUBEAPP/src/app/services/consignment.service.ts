@@ -9,6 +9,7 @@ import { Constants } from '../common/constants';
 import { Consignmentlistmodel } from '../models/consignmentlistmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Requestmodel } from '../models/requestmodel';
+import { Consignmentgstmodel } from '../models/consignmentgstmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +91,9 @@ export class ConsignmentService {
   }
   getLrPrint(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLRPrint', filter, this.httpOptions);
+  }  
+  getFreightGstDetails(req: Requestmodel): Observable<Consignmentgstmodel> {
+    return this.httpClient.post<Consignmentgstmodel>(Constants.API_ENDPOINT + 'Consignment/GetFreightGstDetails', req, this.httpOptions);
   }
   
 }

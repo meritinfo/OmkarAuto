@@ -283,8 +283,14 @@ import { ChcosttypeslistComponent } from './module/chcosttypes/chcosttypeslist/c
 import { DotempgclistComponent } from './module/dotempgc/dotempgclist/dotempgclist.component';
 import { DotempgcaddComponent } from './module/dotempgc/dotempgcadd/dotempgcadd.component';
 import { DotempgceditComponent } from './module/dotempgc/dotempgcedit/dotempgcedit.component';
+import { DocallotmentllplistComponent } from './module/docallotmentllp/docallotmentllplist/docallotmentllplist.component';
+import { DocallotmentllpaddComponent } from './module/docallotmentllp/docallotmentllpadd/docallotmentllpadd.component';
+import { ConsignmentllplistComponent } from './module/consignmentllp/consignmentllplist/consignmentllplist.component';
+import { ConsignmentllpaddComponent } from './module/consignmentllp/consignmentllpadd/consignmentllpadd.component';
+import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignmentllpupdate/consignmentllpupdate.component';
 import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightgstmasteradd/freightgstmasteradd.component';
 import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
+
 
 
 const routes: Routes = [
@@ -670,8 +676,7 @@ const routes: Routes = [
   { path: 'ratesmasterlist', component: RatesmasternewlistComponent },
   { path: 'chcosttypesadd', component: ChcosttypesaddComponent },
   { path: 'chcosttypesedit', component: ChcosttypesaddComponent },
-  { path: 'chcosttypes', component: ChcosttypeslistComponent },
-  
+  { path: 'chcosttypes', component: ChcosttypeslistComponent },  
   { path: 'dotempgclist', component: DotempgclistComponent },
   { path: 'dotempgcadd', component: DotempgcaddComponent },
   { path: 'dotempgcedit', component: DotempgceditComponent },
@@ -680,6 +685,14 @@ const routes: Routes = [
   { path: 'freightgstmasteredit', component: FreightgstmasteraddComponent },
   
   
+  { path: 'dotempgcedit', component: DotempgceditComponent },  
+  { path: 'docallotllp', component: DocallotmentllplistComponent },
+  { path: 'docallotllpadd', component: DocallotmentllpaddComponent },
+  { path: 'docallotllpedit', component: DocallotmentllpaddComponent },
+  { path: 'consignmentllp', component: ConsignmentllplistComponent },
+  { path: 'consignmentllpadd', component: ConsignmentllpaddComponent },
+  { path: 'consignmentllpedit', component: ConsignmentllpaddComponent },
+  { path: 'updatellpcnforbill', component:  ConsignmentllpupdateComponent },  
   
 ];
 

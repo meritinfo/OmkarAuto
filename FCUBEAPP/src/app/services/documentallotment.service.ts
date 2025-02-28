@@ -26,11 +26,9 @@ export class DocumentallotmentService {
   
   selectedDocumentallotmentdetails= new Documentallotmentmodel();
   constructor(private httpClient: HttpClient) { }
-  setDocumentallotmentDetails(documentallotment: Documentallotmentmodel) {
- 
+
+  setDocumentallotmentDetails(documentallotment: Documentallotmentmodel) { 
       this.selectedDocumentallotmentdetails = documentallotment;
-    
-  
   }
  
   getDocumentallotmentDetails() {
@@ -45,15 +43,14 @@ export class DocumentallotmentService {
   documentallotmentDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DocumentAllotmentDelete', req, this.httpOptions);
   } 
- 
   getDocumentallotmentList(filter: Filtermodel): Observable<Documentallotmentlistmodel> {
     return this.httpClient.post<Documentallotmentlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDocumentAllotmentList', filter, this.httpOptions);
   }    
   getDocumentNumcode(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDocumentNumcode', req, this.httpOptions);
   }
-  chkDocumentRange(req: Schedulemodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/chkDocumentRange', req, this.httpOptions);
+  chkDocumentRange(req: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDocumentRange', req, this.httpOptions);
   }
 }
 

@@ -8,8 +8,8 @@ import { DocumentallotmentService } from 'src/app/services/documentallotment.ser
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Schedulemodel } from 'src/app/models/schedulemodel';
 
 
 
@@ -34,7 +34,6 @@ export class AdddocumentallottmentComponent {
   deleteStatus = false;
   viewStatus = false;
   responseDetails = new Responsemodel();
-  docReqDetails = new Schedulemodel();
   branchList: Dropdownmodel[] = [];
   
   selectedDocumentallotmentDetails = new Documentallotmentmodel();
@@ -43,6 +42,7 @@ export class AdddocumentallottmentComponent {
     private documentallotmentmodel : Documentallotmentmodel, 
     private documentallotmentService: DocumentallotmentService, 
     private commonService: CommonService,private requestmodel:Requestmodel,
+    private report:Reportmodel,
     private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.documentallotmentmodel = new Documentallotmentmodel();
@@ -150,13 +150,16 @@ export class AdddocumentallottmentComponent {
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
       var selectedDataVal = this.formUser.getRawValue();
-      this.docReqDetails.warningTimeStart = selectedDataVal.docType;
-      this.docReqDetails.publishStart = selectedDataVal.rangeFrom;
-      this.docReqDetails.publishEnd = selectedDataVal.rangeTo;
+      this.requestmodel.strRequest = selectedDataVal.docType;
+      this.requestmodel.strRequest1  = selectedDataVal.rangeFrom;
+      this.requestmodel.strRequest2  = selectedDataVal.rangeTo;
       var docCount = 0;
       var doccode = selectedDataVal.docNumCode.toString();
-      var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString().substring(0, doccode.length) :"";
-      var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString().substring(0, doccode.length) :"";
+      var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
+      var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
+
+      rangeFrom = rangeFrom.substring(0,doccode.length);
+      rangeTo = rangeTo.substring(0,doccode.length);
 
       if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
         this.toasterService.warning("Range From sholud Start With DocNumCode");
@@ -187,7 +190,13 @@ export class AdddocumentallottmentComponent {
         }            
       } 
 
-      this.documentallotmentService.chkDocumentRange(this.docReqDetails).subscribe((res: Responsemodel) => {
+      
+      this.report.filterStr = selectedDataVal.branchCode;
+      this.report.filterStr1 = selectedDataVal.docType;
+      this.report.filterStr2 = selectedDataVal.rangeFrom;
+      this.report.filterStr3 = selectedDataVal.rangeTo;
+
+      this.documentallotmentService.chkDocumentRange(this.report).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formUser.patchValue({            
@@ -271,6 +280,7 @@ export class AdddocumentallottmentComponent {
     this.formSubmitted = true;
     this.documentallotmentmodel.docAllotId = this.selectedDocumentallotmentDetails.docAllotId ;
     this.documentallotmentmodel.branchCode= selectedDataVal.branchCode;
+    this.documentallotmentmodel.seriesCode = "";
     this.documentallotmentmodel.docType = selectedDataVal.docType.toString();
     this.documentallotmentmodel.docNumCode = selectedDataVal.docNumCode.toString();
     this.documentallotmentmodel.allotDate = selectedDataVal.allotDate;

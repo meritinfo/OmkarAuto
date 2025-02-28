@@ -265,7 +265,6 @@ export class CommonService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> {
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDocRenewalDetails', null, this.httpOptions);
   }
-  
   getNccDashBoardDetails(req: Requestmodel): Observable<Dashboardmodel> {
     return this.httpClient.post<Dashboardmodel>(Constants.API_ENDPOINT + 'Admin/GetDashboardNCC', req, this.httpOptions);
   }
@@ -275,6 +274,12 @@ export class CommonService {
   getRangeList(filter: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetRangeList', filter, this.httpOptions);
   }  
+  getSeriesllpList(filter: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetSeriesllpList', filter, this.httpOptions);
+  }  
+  getFreightList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetFreightList', null, this.httpOptions);
+  }
 
 
   formatDate(date: string) {

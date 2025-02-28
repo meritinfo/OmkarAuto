@@ -47,7 +47,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DocUsedCount", documentAllotmentModel.DocUsedCount),
                             new SqlParameter("@DocMaxNo", documentAllotmentModel.DocMaxNo),
                             new SqlParameter("@AutoGenYN", documentAllotmentModel.AutoGenYN),
-                               new SqlParameter("@Remarks", documentAllotmentModel.Remarks),
+                            new SqlParameter("@Remarks", documentAllotmentModel.Remarks),
+                            new SqlParameter("@SeriesCode", documentAllotmentModel.SeriesCode),
                             new SqlParameter("@LoggedInUser", documentAllotmentModel.LoggedInUser)
 
                         };
@@ -119,6 +120,7 @@ namespace FreightMasters.Repository
                                 DocMaxNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocMaxNo"]),
                                 AutoGenYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoGenYN"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
                             });
                         }
 
@@ -134,16 +136,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return documentAllotmentList;
         }
@@ -223,7 +216,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> CheckDocumentRange(ScheduleModel req)
+        public async Task<ResponseModel> CheckDocumentRange(ReportRequestModel req)
         {
             ResponseModel responseModel = new();
             try
@@ -232,12 +225,13 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DocType",    req.WarningTimeStart),
-                            new SqlParameter("@FromRange",  req.PublishStart),
-                            new SqlParameter("@ToRange",    req.PublishEnd)
+                            new SqlParameter("@Branch",    req.FilterStr),
+                            new SqlParameter("@DocType",    req.FilterStr1),
+                            new SqlParameter("@FromRange",  req.FilterStr2),
+                            new SqlParameter("@ToRange",    req.FilterStr3)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDocmentRange", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDocumentRange", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -252,16 +246,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
         }
@@ -279,6 +264,41 @@ namespace FreightMasters.Repository
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRangeList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return creditacList;
+        }
+
+        public async Task<List<DropDownListModel>> GetSeriesllpList(RequestModel req)
+        {
+            List<DropDownListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BranchCode", req.strRequest1),
+                            new SqlParameter("@DocType",    req.strRequest),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSeriesList", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

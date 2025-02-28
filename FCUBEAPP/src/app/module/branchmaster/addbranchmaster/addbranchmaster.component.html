@@ -61,7 +61,7 @@
                                             <div class="mb-6">
                                                 <label for="formrow-inputZip">Address 1</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                <input uppercaseonly type="text" class="form-control"  
                                                 formControlName="address1"   maxlength="49"        
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['address1'].invalid) }">
                                             </div>
@@ -73,7 +73,7 @@
                                                 <label for="formrow-inputZip">Address 2</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                placeholder=" "formControlName="address2"   maxlength="49"       
+                                                 formControlName="address2"   maxlength="49"       
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['address2'].invalid) }">
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                             <div class="mb-6">
                                                 <label for="formrow-inputZip">Address 3</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                placeholder=" "formControlName="address3" maxlength="49"    
+                                                 formControlName="address3" maxlength="49"    
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">City</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly autoclose="false" class="form-control" placeholder="Enter City" 
+                                                <input uppercaseonly autoclose="false" class="form-control"  ="Enter City" 
                                                 formControlName="city"    maxlength="50"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['city'].invalid) }">
                                             </div>
@@ -162,7 +162,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Name</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly autoclose="false" class="form-control"  placeholder=" "  
+                                                <input uppercaseonly autoclose="false" class="form-control"     
                                                 formControlName="managerName"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['managerName'].invalid) }">
                                             </div>

@@ -22,7 +22,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Model Desc</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "  (change)="chkTyreDuplicate()"
+                                                <input uppercaseonly type="text" class="form-control"    (change)="chkTyreDuplicate()"
                                                 formControlName="modelDesc"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['modelDesc'].invalid) }">
                                             </div>

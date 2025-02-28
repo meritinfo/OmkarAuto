@@ -45,6 +45,8 @@ namespace FCUBEAPI.Controllers
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
         readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
         readonly IChCostTypesBusiness chCostTypesBusiness;
+        
+
         readonly IFreightGstMasterBusiness freightGstMasterBusiness;
         readonly ILRBillSeriesBusiness lrBillSeriesBusiness;
 
@@ -632,8 +634,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("chkDocumentRange")]
-        public async Task<IActionResult> chkDocumentRange(ScheduleModel req)
+        [HttpPost("CheckDocumentRange")]
+        public async Task<IActionResult> CheckDocumentRange(ReportRequestModel req)
         {
             if (req == null)
             {
@@ -668,6 +670,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetSeriesllpList")]
+        public async Task<IActionResult> GetSeriesllpList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.GetSeriesllpList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
         //[HttpPost("ChallanMasterSave")]
         //public async Task<IActionResult> ChallanMasterSave(ChallanMasterModel challanMasterModel)

@@ -119,10 +119,10 @@ namespace Consignment.Models
         public string? NonGstAmt2               { get; set; }
         public string? NonGstAmt2Desc           { get; set; }
         public string? GtotalRs                 { get; set; }
-        public string? vehicleInDt              { get; set; }
-        public string? vehicleInTime            { get; set; }
-        public string? vehicleOutDt             { get; set; }
-        public string? vehicleOutTime           { get; set; }
+        public string? VehicleInDt              { get; set; }
+        public string? VehicleInTime            { get; set; }
+        public string? VehicleOutDt             { get; set; }
+        public string? VehicleOutTime           { get; set; }
         public string? AdvanceRs                { get; set; }
         public string? AmountRecd               { get; set; }
         public string? TdsDeducted              { get; set; }
@@ -155,6 +155,7 @@ namespace Consignment.Models
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser             { get; set; }
         public List<ConsignmentInvModel> InvList { get; set; }
+        public List<ConsignmentGstModel> GstList { get; set; }
         public List<ConsignmentChlnModel> ChlnList { get; set; }
         public List<ConsignmentLhpmModel> LhpmList { get; set; }
         public List<ConsignmentBillModel> BillList { get; set; }

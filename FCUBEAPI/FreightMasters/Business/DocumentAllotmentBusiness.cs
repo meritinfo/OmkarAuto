@@ -32,13 +32,17 @@ namespace FreightMasters.Business
         {
             return await documentAllotmentRepository.GetDocNumCode(requestModel);
         }
-        public async Task<ResponseModel> CheckDocumentRange(ScheduleModel req)
+        public async Task<ResponseModel> CheckDocumentRange(ReportRequestModel req)
         {
             return await documentAllotmentRepository.CheckDocumentRange(req);
         }
         public async Task<List<DropDownListModel>> GetRangeList(RequestModel req)
         {
             return await documentAllotmentRepository.GetRangeList(req);
+        }
+        public async Task<List<DropDownListModel>> GetSeriesllpList(RequestModel req)
+        {
+            return await documentAllotmentRepository.GetSeriesllpList(req);
         }
     }
 }

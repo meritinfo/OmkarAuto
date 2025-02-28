@@ -35,7 +35,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input">Payment Date</label>
                                                     <input type="date" autoclose="false"  max="{{maxDate}}"
-                                                        placeholder="yyyy-mm-dd" formControlName="pmtDate"
+                                                          formControlName="pmtDate"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }" 
                                                         class="form-control">
                                                 </div>
@@ -203,7 +203,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-email-input">Cheque Date </label>
                                                     <input bsdatepicker="" type="date" autoclose="false"
-                                                        placeholder="yyyy-mm-dd" formControlName="chequeDate"
+                                                          formControlName="chequeDate"
                                                         class="form-control"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid)}"  max="{{maxDate}}">
                                                 </div>

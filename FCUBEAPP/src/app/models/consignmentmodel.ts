@@ -4,6 +4,7 @@ import { Consignmentlhpmmodel } from './consignmentlhpmmodel';
 import { Consignmentbillmodel } from './consignmentbillmodel';
 import { Consignmentdprmodel } from './consignmentdprmodel';
 import { Consignmentdelvackmodel } from './consignmentdelvackmodel';
+import { Consignmentgstmodel } from './consignmentgstmodel';
 
 export class Consignmentmodel {
     consignmentID  : string = "";
@@ -158,6 +159,7 @@ export class Consignmentmodel {
     modifiedBy: string = "";
     modifiedDate: string = "";
     invList: Consignmentinvmodel[] = [];
+    gstList: Consignmentgstmodel[] = [];
     chlnList: Consignmentchlnmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];
     billList: Consignmentbillmodel[] = []; 

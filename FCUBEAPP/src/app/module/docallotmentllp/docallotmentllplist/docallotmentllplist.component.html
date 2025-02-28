@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Document Allotment</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">                
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus"
+                    (click)="adddocumentallotment()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>branch</th>
+                            <th>seriesCode</th>
+                            <th>docType</th>
+                            <th>allotDate</th>
+                            <th>rangeFrom</th>
+                            <th>rangeTo</th>
+                            <th>docStatus</th>   
+                            <th>docStatus</th>                       
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allDocumentAllotment.documentAllotmentLists?.length != 0">
+                        <tr *ngFor="let ren of allDocumentAllotment.documentAllotmentLists">
+                            <td>{{ ren.branch }}</td>                    
+                            <td>{{ ren.seriesCode }}</td>                    
+                            <td>{{ ren.docType }}</td>               
+                            <td>{{ ren.allotDate }}</td>
+                            <td>{{ ren.rangeFrom }}</td>
+                            <td>{{ ren.rangeTo }}</td>
+                            <td>{{ ren.docStatus }}</td>   
+                            <td>{{ ren.remarks }}</td>                  
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getdocumentallotmentdocuments(ren)"></button>             
+                            </td>  
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allDocumentAllotment.documentAllotmentLists?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

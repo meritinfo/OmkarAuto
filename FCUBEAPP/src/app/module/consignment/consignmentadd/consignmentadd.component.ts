@@ -253,6 +253,8 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls["vehicleInTime"].disable();
     this.formUser.controls["vehicleOutDt"].disable();
     this.formUser.controls["vehicleOutTime"].disable();
+    this.formUser.controls['subTotalRs'].disable(); 
+    this.formUser.controls['gtotalRs'].disable(); 
     // this.formUser.controls['sgstPct'].disable();
     // this.formUser.controls['cgstPct'].disable();  
     // this.formUser.controls['igstPct'].disable();  
@@ -443,6 +445,8 @@ export class ConsignmentaddComponent implements OnInit {
     else{
       this.requestmodel.strRequest = selectedData.bookingPlace;
     }
+    this.requestmodel.strRequest1 =this.year;
+    this.requestmodel.strRequest2 ="";
 
     this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
