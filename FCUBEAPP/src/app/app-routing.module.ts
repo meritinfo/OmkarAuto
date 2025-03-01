@@ -288,6 +288,8 @@ import { DocallotmentllpaddComponent } from './module/docallotmentllp/docallotme
 import { ConsignmentllplistComponent } from './module/consignmentllp/consignmentllplist/consignmentllplist.component';
 import { ConsignmentllpaddComponent } from './module/consignmentllp/consignmentllpadd/consignmentllpadd.component';
 import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignmentllpupdate/consignmentllpupdate.component';
+import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightgstmasteradd/freightgstmasteradd.component';
+import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
 
 
 
@@ -332,7 +334,7 @@ const routes: Routes = [
   { path: 'hrmasterlist', component: HrmasterlistComponent },
   { path: 'addlrbillseries', component: AddlrbillseriesComponent },
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
-  { path: 'lrbillserieslist', component: LrbillserieslistComponent },
+  { path: 'lrbillseriesmaster', component: LrbillserieslistComponent },
   { path: 'addratesmaster', component: AddratesmasterComponent },
   { path: 'ratesmasteredit', component: AddratesmasterComponent },
  // { path: 'ratesmasterlist', component: RatesmasterlistComponent },
@@ -677,6 +679,12 @@ const routes: Routes = [
   { path: 'chcosttypes', component: ChcosttypeslistComponent },  
   { path: 'dotempgclist', component: DotempgclistComponent },
   { path: 'dotempgcadd', component: DotempgcaddComponent },
+  { path: 'dotempgcedit', component: DotempgceditComponent },
+  { path: 'freightgstmaster', component: FreightgstmasterlistComponent },
+  { path: 'freightgstmasteradd', component: FreightgstmasteraddComponent },
+  { path: 'freightgstmasteredit', component: FreightgstmasteraddComponent },
+  
+  
   { path: 'dotempgcedit', component: DotempgceditComponent },  
   { path: 'docallotllp', component: DocallotmentllplistComponent },
   { path: 'docallotllpadd', component: DocallotmentllpaddComponent },

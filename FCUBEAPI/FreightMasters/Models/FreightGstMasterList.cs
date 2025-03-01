@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FreightMasters.Models
+{
+    public class FreightGstMasterList
+    {
+        public List<FreightGstMasterModel> GstList { get; set; }
+        public PaginationMetaData PageMetaData { get; set; }
+    }
+}

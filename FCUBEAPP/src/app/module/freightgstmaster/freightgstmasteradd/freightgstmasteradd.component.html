@@ -6,7 +6,7 @@
           <div class="row">
              <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">Challan Cost Types</h4>
+                   <h4 class="mb-sm-0 font-size-18">Freight Gst Master List</h4>
                 </div>
              </div>
           </div>
@@ -19,15 +19,15 @@
                                  
                          <div class="row">
                            <div class="col-lg-2">
-                               <div class="mb-4"><label for="formrow-inputCity">Challan Cost Desc</label> <span style="color: red">*</span>
+                               <div class="mb-4"><label for="formrow-inputCity">Freight Desc</label> <span style="color: red">*</span>
                                </div>
                               </div>
                               <div class="col-lg-4">
                                <div class="mb-4">
                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                   uppercaseonly formControlName="chCostDesc"  (change)="checkDuplicateDesc()"
+                                   uppercaseonly formControlName="freightDesc"  (change)="checkDuplicateDesc()"
  
-                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chCostDesc'].invalid) }">
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['freightDesc'].invalid) }">
                                </div>
                            </div>
                         </div>
@@ -39,7 +39,7 @@
                                <div class="col-lg-4">
                                 <div class="mb-4">
                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                    numbersonly formControlName="sacCode" 
+                                    uppercaseonly formControlName="sacCode" 
   
                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['sacCode'].invalid) }">
                                 </div>
@@ -47,15 +47,57 @@
                          </div>
                          <div class="row">
                             <div class="col-lg-2">
-                                <div class="mb-4"><label for="formrow-inputCity">Gst Pct</label> <span style="color: red">*</span>
+                                <div class="mb-4"><label for="formrow-inputCity">Sgst Pct</label> <span style="color: red">*</span>
                                 </div>
                                </div>
                                <div class="col-lg-4">
                                 <div class="mb-4">
                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                    decimalonly formControlName="gstPct" 
+                                    decimalonly formControlName="sgstPct" 
   
-                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['gstPct'].invalid) }">
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['sgstPct'].invalid) }">
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-4"><label for="formrow-inputCity">Cgst Pct</label> <span style="color: red">*</span>
+                                </div>
+                               </div>
+                               <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <input type="text"  autofocus="autofocus" class="form-control"
+                                    decimalonly formControlName="cgstPct" 
+  
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['cgstPct'].invalid) }">
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-4"><label for="formrow-inputCity">Igst Pct</label> <span style="color: red">*</span>
+                                </div>
+                               </div>
+                               <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <input type="text"  autofocus="autofocus" class="form-control"
+                                    decimalonly formControlName="igstPct" 
+  
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['igstPct'].invalid) }">
+                                </div>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-4"><label for="formrow-inputCity">Link Column</label> <span style="color: red">*</span>
+                                </div>
+                               </div>
+                               <div class="col-lg-4">
+                                <div class="mb-4">
+                                  <input type="text"  autofocus="autofocus" class="form-control"
+                                     formControlName="linkColumn" 
+  
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['linkColumn'].invalid) }">
                                 </div>
                             </div>
                          </div>
@@ -76,19 +118,18 @@
              <div class="row text-right">
                 <div class="col-lg-12">
                    <div class="tex">
-                   
+                     
 
 
 
                          <button class="btn btn-primary w-md"
                          *ngIf="((editMode && editStatus) || (!editMode && createStatus))"
-                            (click)="submitChCostTypesForm()">Save</button>&nbsp;
+                            (click)="submitfreightGstForm()">Save</button>&nbsp;
                          <button class="btn btn-danger w-md m-2" 
-                               (click)="chCostTypeDelete()" 
+                               (click)="freightGstMasterDelete()" 
                                *ngIf="editMode && deleteStatus">Delete</button>  &nbsp;                       
                          <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
 
-                         
                    </div>
                 </div>
              </div>

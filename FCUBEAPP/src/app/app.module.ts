@@ -458,6 +458,10 @@ import { DocallotmentllpaddComponent } from './module/docallotmentllp/docallotme
 import { ConsignmentllplistComponent } from './module/consignmentllp/consignmentllplist/consignmentllplist.component';
 import { ConsignmentllpaddComponent } from './module/consignmentllp/consignmentllpadd/consignmentllpadd.component';
 import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignmentllpupdate/consignmentllpupdate.component';
+import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightgstmasteradd/freightgstmasteradd.component';
+import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
+import { Freightgstmastermodel } from './models/freightgstmastermodel';
+import { Freightgstmasterlistmodel } from './models/freightgstmasterlistmodel';
 
 
 @NgModule({
@@ -605,6 +609,7 @@ import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignme
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, 
   ],
   
   imports: [
@@ -672,7 +677,7 @@ import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignme
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,
     
   ],
   bootstrap: [AppComponent]

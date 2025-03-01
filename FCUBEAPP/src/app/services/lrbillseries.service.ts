@@ -5,6 +5,9 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+
+
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Lrbillserieslistmodel } from '../models/lrbillserieslistmodel';
 
 @Injectable({
@@ -32,10 +35,17 @@ export class LRBillSeriesService {
   clearLrbillSeriesDetails() {
     this.selectedLrbillseries = new Lrbillseriesmodel();
   }
+    checkDuplicateDesc(req: Requestmodel): Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateSeriesCode', req, this.httpOptions);
+    }
+  
+    billSeriesDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillSeriesMasterDelete', req, this.httpOptions);
+    }
   LrbillseriesDetailsSubmitted(user: Lrbillseriesmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LR_Bill_SeriesDetailsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillSeriesSave', user, this.httpOptions);
   }
   getLrbillseriesList(filter: Filtermodel): Observable<Lrbillserieslistmodel> {
-    return this.httpClient.post<Lrbillserieslistmodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillSeriesList', filter, this.httpOptions);
+    return this.httpClient.post<Lrbillserieslistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetLRBillSeriesMasterList', filter, this.httpOptions);
   }
 }

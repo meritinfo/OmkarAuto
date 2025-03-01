@@ -7,14 +7,9 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">
-                            lr bill series Master</h4>
+                            Lr bill series Master</h4>
 
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">lr bill seriesMaster</li>
-                            </ol>
-                        </div>
+                        
 
                     </div>
                 </div>
@@ -30,6 +25,7 @@
                     </div>
                     <button class="btn btn-primary buttons-html5" type="button"
                     (click)="addLrBillSeries()"><span>New</span></button>
+                    
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -43,11 +39,11 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allLRBillSeries.lrbillseriesList?.length != 0">
-                        <tr *ngFor="let billseries of allLRBillSeries.lrbillseriesList">
+                    <tbody *ngIf="allLRBillSeries.seriesList?.length != 0">
+                        <tr *ngFor="let billseries of allLRBillSeries.seriesList">
                             <td>{{ billseries.seriesCode }}</td>
                     
-                            <td>{{ billseries.lr_Bill_type }}</td>
+                            <td>{{ billseries.lR_Bill_type }}</td>
                          
                             <td>
                                 <a (click)="getLrBillSeriesDetails(billseries)" class="actionicon"><i
@@ -56,7 +52,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allLRBillSeries.lrbillseriesList?.length == 0">
+                    <tbody *ngIf="allLRBillSeries.seriesList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
