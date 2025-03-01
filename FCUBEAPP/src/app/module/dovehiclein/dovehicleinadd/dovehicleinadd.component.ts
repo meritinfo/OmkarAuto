@@ -260,32 +260,31 @@ export class DovehicleinaddComponent {
     this.requestmodel.strRequest = selectedData.truckNo;
     this.doentryService.getDoVehiDetailsApi(this.requestmodel).subscribe((res) => {
       this.apiUsed = true;
-      this.selectedDoDetails = res
       this.formUser.patchValue({
-        regnDate: this.commonService.formatDate(this.selectedDoDetails.regnDate) ,
-        permitDt: this.commonService.formatDate(this.selectedDoDetails.permitDt) ,
-        fitnessDt: this.commonService.formatDate(this.selectedDoDetails.fitnessDt) ,
-        insuranceDt: this.commonService.formatDate(this.selectedDoDetails.insuranceDt) ,
-        ownerName: this.selectedDoDetails.ownerName,
-        address1: this.selectedDoDetails.address1,
-        address2: this.selectedDoDetails.address2,
-        stateCode: this.selectedDoDetails.stateCode,
-        pinCode: this.selectedDoDetails.pinCode,
-        mobileNo: this.selectedDoDetails.mobileNo,
-        chasisNo: this.selectedDoDetails.chasisNo,
-        engineNo: this.selectedDoDetails.engineNo,
+        regnDate: this.commonService.formatDate(res.regnDate) ,
+        permitDt: this.commonService.formatDate(res.permitDt) ,
+        fitnessDt: this.commonService.formatDate(res.fitnessDt) ,
+        insuranceDt: this.commonService.formatDate(res.insuranceDt) ,
+        ownerName: res.ownerName,
+        address1: res.address1,
+        address2: res.address2,
+        stateCode: res.stateCode,
+        pinCode: res.pinCode,
+        mobileNo: res.mobileNo,
+        chasisNo: res.chasisNo,
+        engineNo: res.engineNo,
       });  
-      if(this.selectedDoDetails.aadharLinkedYN=="N"){
+      if(res.aadharLinkedYN=="N"){
         this.formUser.patchValue({
           aadharLinkedYN:"",
         });  
       }     
-      if(this.selectedDoDetails.panValidYN=="N"){
+      if(res.panValidYN=="N"){
         this.formUser.patchValue({
           panValidYN:"",
         });  
       }     
-      if(this.selectedDoDetails.itFiledYN=="N"){
+      if(res.itFiledYN=="N"){
         this.formUser.patchValue({
           itFiledYN:"",
         });  
