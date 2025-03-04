@@ -4,7 +4,4 @@ export class Passwordmodel {
     userPassword : string = '';
     confirmPassword : string = '';
     oldPassword : string = '';
-
-
-
 }
