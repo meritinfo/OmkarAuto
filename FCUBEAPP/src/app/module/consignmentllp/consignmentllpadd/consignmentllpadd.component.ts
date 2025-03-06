@@ -1085,11 +1085,9 @@ export class ConsignmentllpaddComponent {
   }
 
   exit(): void {
-    if(this.selectedLrDetails.consignmentID=='0') {
-      this.route.navigate(['/dprtempgclist']);
-    }else{
+   
       this.route.navigate(['/consignmentllp']);
-    }
+    
   }
 
   submitLrDetailsForm(): void {
