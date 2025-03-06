@@ -134,7 +134,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Closing KMR</label>
-                                                <input class="form-control" decimalonly formControlName="closingKMR"  
+                                                <input class="form-control" numbersonly formControlName="closingKMR"  
                                                 (change)="onKmrChange()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['closingKMR'].invalid) }">
                                             </div>
@@ -142,14 +142,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Opening KMR</label>
-                                                <input class="form-control" decimalonly formControlName="openingKMR" 
+                                                <input class="form-control" numbersonly formControlName="openingKMR" 
                                                 (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Distance Trip KM</label>
-                                                <input class="form-control" decimalonly formControlName="distanceTripKM"
+                                                <input class="form-control" numbersonly formControlName="distanceTripKM"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['distanceTripKM'].invalid) }">
                                             </div>
                                         </div>

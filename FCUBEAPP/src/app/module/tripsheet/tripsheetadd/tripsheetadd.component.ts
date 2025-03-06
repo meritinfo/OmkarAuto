@@ -1185,6 +1185,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.rtaChallanAmt   = selectedDataValue.rtaChallanAmt.toString(); 
     this.tripsheetmodel.paidToDriver   = selectedDataValue.paidToDriver.toString(); 
     this.tripsheetmodel.remarks   = selectedDataValue.remarks.toString().toUpperCase();
+    this.tripsheetmodel.totalDriverAc = "";
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 
