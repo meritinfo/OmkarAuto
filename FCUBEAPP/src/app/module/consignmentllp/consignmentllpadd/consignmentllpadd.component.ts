@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
@@ -72,6 +73,7 @@ export class ConsignmentllpaddComponent {
     private commonService: CommonService,
     private sharedService: SharedService,
     private toastrService: ToastrService,
+    private reportmodel: Reportmodel,
     private requestmodel: Requestmodel) {
     this.lrmodel = new Consignmentmodel();
   }
@@ -229,6 +231,7 @@ export class ConsignmentllpaddComponent {
       vehicleOutTime: new FormControl('',),
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),    
+      gcSlNo : new FormControl('',),   
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
       arrayGstList: this.formBuilder.array([this.createGstArray()])  , 
     });
@@ -252,6 +255,7 @@ export class ConsignmentllpaddComponent {
     this.sharedService.loading = false;
 
     this.formUser.controls["bookingPlace"].disable();
+    this.formUser.controls["gcNoteNo"].disable();
     this.formUser.controls['ewayBillExpDate'].disable(); 
     // this.formUser.controls['sgstPct'].disable();
     // this.formUser.controls['cgstPct'].disable();  
@@ -500,7 +504,8 @@ export class ConsignmentllpaddComponent {
       this.formUser.patchValue({
         seriesCode: res[0].dataId
       });
-      this.onSeriesChange();
+      //this.onSeriesChange();
+      this.onSeriesChangeLLP();
     });
   }
 
@@ -509,7 +514,7 @@ export class ConsignmentllpaddComponent {
     this.getSeriesList(selectedData.bookingPlace);
   }
 
-  onSeriesChange() {
+  onSeriesChange() {//not used
     var selectedData = this.formUser.getRawValue();
     this.requestmodel.strRequest = selectedData.bookingPlace;
     this.requestmodel.strRequest1 = this.year;
@@ -527,9 +532,29 @@ export class ConsignmentllpaddComponent {
       }
     });
   }
+  onSeriesChangeLLP() {
+    var selectedData = this.formUser.getRawValue();
+    this.requestmodel.strRequest = selectedData.bookingPlace;
+    this.requestmodel.strRequest1 = this.year;
+    this.requestmodel.strRequest2 = selectedData.seriesCode;
+
+    this.lrentryService.getLrNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formUser.patchValue({
+          gcSlNo: this.responseDetails.message,
+          gcNoteNo: selectedData.seriesCode+this.responseDetails.message
+        });
+
+      }
+     else{
+        this.toastrService.warning(this.responseDetails.message);
+      }
+    });
+  }
 
 
-  chkLrDuplicate(){
+  chkLrDuplicate(){//not used
     var selectedData = this.formUser.getRawValue();
     if (selectedData.gcNoteNo==""){
       this.toastrService.warning("GC Note No should not be Blank");
@@ -542,6 +567,7 @@ export class ConsignmentllpaddComponent {
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
+    
           //ignore
         }
        else{
@@ -553,6 +579,36 @@ export class ConsignmentllpaddComponent {
       });
     }   
   }
+  chkLrDuplicateLLP(){
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.gcSlNo==""){
+      this.toastrService.warning(" gc sl no should not be Blank");
+      return;
+    }
+    else{
+      this.reportmodel.filterStr = selectedData.bookingPlace;
+      this.reportmodel.filterStr1 = selectedData.gcSlNo;
+      this.reportmodel.filterStr2 = selectedData.seriesCode;
+      this.reportmodel.filterStr3 = this.year;
+      this.lrentryService.checkDuplicateLrLLP(this.reportmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+          this.formUser.patchValue({
+           
+            gcNoteNo: selectedData.seriesCode + selectedData.gcSlNo
+          });
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            gcNoteNo:"",
+          }); 
+        }
+      });
+    }   
+  }
+
 
   chkTruckNo() {
     var selectedData = this.formUser.getRawValue();
@@ -1032,7 +1088,7 @@ export class ConsignmentllpaddComponent {
     if(this.selectedLrDetails.consignmentID=='0') {
       this.route.navigate(['/dprtempgclist']);
     }else{
-      this.route.navigate(['/consignmentlist']);
+      this.route.navigate(['/consignmentllp']);
     }
   }
 
@@ -1164,6 +1220,9 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.vehicleInDt= selectedDataValue.vehicleInDt?selectedDataValue.vehicleInDt.toString():"";
     this.lrmodel.vehicleInTime= selectedDataValue.vehicleInTime?selectedDataValue.vehicleInTime.toString():"";
     this.lrmodel.vehicleOutDt= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
+    //this.lrmodel.gcSlNo= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
+    this.lrmodel.gcSlNo = selectedDataValue.gcSlNo; 
+    this.lrmodel.gcSeries = selectedDataValue.seriesCode; 
     this.lrmodel.vehicleOutTime= selectedDataValue.vehicleOutTime?selectedDataValue.vehicleOutTime.toString():"";
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;

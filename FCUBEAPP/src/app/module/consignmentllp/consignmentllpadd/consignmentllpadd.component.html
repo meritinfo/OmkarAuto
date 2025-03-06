@@ -55,19 +55,30 @@
                                         </option>
                                     </select> 
                                 </div>
-                            </div>  
+                            </div> 
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">GC Sl No.</label>
+                                    <span style="color: red">*</span>
+                                    <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
+                                        numbersonly maxlength="12" 
+                                        formControlName="gcSlNo"  (change)="chkLrDuplicateLLP()"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }">
+                                </div>
+                            </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
                                         numbersonly maxlength="12" 
-                                        formControlName="gcNoteNo" (change)="chkLrDuplicate()"
+                                        formControlName="gcNoteNo" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
+                            
                             <div class="col-lg-2">
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="formrow-inputZip">Booking Date</label><span
                                         style="color: red">*</span>
                                     <input bsdatepicker="" type="date" autoclose="false" class="form-control"
@@ -76,7 +87,7 @@
                                 </div>
                             </div>  
                             <div class="col-lg-2">
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="formrow-inputState">Book Status</label><span style="color: red">*</span>
                                     <select id="formrow-inputState"
                                         class="form-control form-select ng-pristine ng-touched"

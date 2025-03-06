@@ -60,8 +60,14 @@ export class ConsignmentService {
   getLrNo(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLrNo', req, this.httpOptions);
   }
+  getLrNoLLP(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLrNoLLP', req, this.httpOptions);
+  }
   checkDuplicateLr(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', req, this.httpOptions);
+  }
+  checkDuplicateLrLLP(req: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLrLLP', req, this.httpOptions);
   }
   genLrNo(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GenerateLrNo', req, this.httpOptions);

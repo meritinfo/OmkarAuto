@@ -32,5 +32,7 @@ namespace Consignment.Repository
         Task<ResponseModel> GetLRPrint(ReportRequestModel request);
         Task<List<DropDownListModel>> GetFreightList();
         Task<ConsignmentGstModel> GetFreightGstDetails(RequestModel request);
+        Task<ResponseModel> GetLrNoLLP(RequestModel req);
+        Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request);
     }
 }

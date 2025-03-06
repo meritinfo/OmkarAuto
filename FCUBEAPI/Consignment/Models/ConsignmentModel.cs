@@ -149,6 +149,8 @@ namespace Consignment.Models
         public string? WhatsappPOD1             { get; set; }
         public string? WhatsappPOD2             { get; set; }
         public string? YearId                   { get; set; }
+        public string? GcSlNo { get; set; }
+        public string? GcSeries { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

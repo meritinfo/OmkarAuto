@@ -158,6 +158,8 @@ export class Consignmentmodel {
     createdDate: string = "";
     modifiedBy: string = "";
     modifiedDate: string = "";
+    gcSlNo : string = ""; 
+    gcSeries : string = ""; 
     invList: Consignmentinvmodel[] = [];
     gstList: Consignmentgstmodel[] = [];
     chlnList: Consignmentchlnmodel[] = [];

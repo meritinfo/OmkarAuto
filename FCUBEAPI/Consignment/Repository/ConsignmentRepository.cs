@@ -143,6 +143,8 @@ namespace Consignment.Repository
                                 BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                GcSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSlNo"]),
+                                GcSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSeries"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -378,6 +380,8 @@ namespace Consignment.Repository
                             new SqlParameter("@LdReportingDateTime", cn.VehicleInDt + " " + cn.VehicleInTime),
                             new SqlParameter("@DespatchDateTime",    cn.VehicleOutDt + " " +  cn.VehicleOutTime),
                             new SqlParameter("@Attachedfile",        cn.Attachedfile              ),
+                            new SqlParameter("@GcSlNo",              cn.GcSlNo                    ),
+                            new SqlParameter("@GcSeries",              cn.GcSeries                    ),
                             new SqlParameter("@YearId",              cn.YearId                    ),
                             new SqlParameter("@LoggedInUser",        cn.LoggedInUser),
                         };
@@ -537,6 +541,38 @@ namespace Consignment.Repository
                     {
                         response.Status     = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         response.Message    = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetLrNoLLP(RequestModel req)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch",     req.strRequest),
+                            new SqlParameter("@YearId",     req.strRequest1),
+                            new SqlParameter("@SeriesCode", req.strRequest2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLRNoLLP", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        response.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                     }
                     else
                     {
@@ -833,6 +869,39 @@ namespace Consignment.Repository
                             new SqlParameter("@YearId",   request.strRequest2),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkDuplicateLR", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@GcSlNo",   request.FilterStr1),
+                             new SqlParameter("@SeriesCode",   request.FilterStr2),
+                            new SqlParameter("@YearId",   request.FilterStr3),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkDuplicateLR_LLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

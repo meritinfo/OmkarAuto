@@ -105,7 +105,6 @@ export class DocallotmentllpaddComponent {
       branchCode  : new FormControl(this.branch,[Validators.required]),
       docType  : new FormControl('CN',[Validators.required]),
       seriesCode: new FormControl('',[Validators.required]),
-      docNumCode  : new FormControl('',[Validators.required]),
       allotDate  : new FormControl( this.loginDate,[Validators.required]),
       rangeFrom  : new FormControl('',[Validators.required]),
       rangeTo  : new FormControl('',[Validators.required]),
@@ -118,7 +117,7 @@ export class DocallotmentllpaddComponent {
 
     this.formUser.controls['docCount'].disable();   
     this.formUser.controls["docCloseDate"].disable();  
-    this.formUser.controls['docNumCode'].disable(); 
+    //this.formUser.controls['docNumCode'].disable(); 
 
     if (this.selectedDocumentallotmentDetails.docAllotId!= '') {
     this.formUser.controls['seriesCode'].disable(); 
@@ -163,33 +162,13 @@ export class DocallotmentllpaddComponent {
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
       var selectedDataVal = this.formUser.getRawValue();
-      var docCount = 0;
-      var doccode = selectedDataVal.seriesCode + selectedDataVal.docNumCode.toString();
+      var docCount=0;
       var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
       var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";
 
-      rangeFrom = rangeFrom.substring(0,doccode.length);
-      rangeTo = rangeTo.substring(0,doccode.length);
-
-      if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
-        this.toasterService.warning("Range From sholud Start With DocNumCode");
-        this.formUser.patchValue({
-          rangeFrom: "",
-          docCount:""
-        });       
-        return;       
-      }  
-      if(selectedDataVal.rangeTo!="" && doccode != rangeTo){
-        this.toasterService.warning("Range To sholud Start With DocNumCode");  
-        this.formUser.patchValue({
-          rangeTo:"",
-          docCount:""
-        });     
-        return;       
-      }  
       if(selectedDataVal.rangeFrom!="" && selectedDataVal.rangeTo!=""){
-        rangeFrom = selectedDataVal.rangeFrom.substring(doccode.length,selectedDataVal.rangeFrom.length);
-        rangeTo = selectedDataVal.rangeTo.substring(doccode.length,selectedDataVal.rangeTo.length);
+        rangeFrom = selectedDataVal.rangeFrom;
+        rangeTo = selectedDataVal.rangeTo;
         docCount = parseInt(rangeTo) - parseInt(rangeFrom);
         if(docCount > 1000){
           this.toasterService.warning("Doc Count sholud not be more than 1000");   
@@ -293,7 +272,7 @@ export class DocallotmentllpaddComponent {
     this.documentallotmentmodel.branchCode= selectedDataVal.branchCode;
     this.documentallotmentmodel.seriesCode = selectedDataVal.seriesCode.toString().toUpperCase();
     this.documentallotmentmodel.docType = selectedDataVal.docType.toString();
-    this.documentallotmentmodel.docNumCode = selectedDataVal.docNumCode.toString();
+    this.documentallotmentmodel.docNumCode = "";
     this.documentallotmentmodel.allotDate = selectedDataVal.allotDate;
     this.documentallotmentmodel.rangeFrom = selectedDataVal.rangeFrom.toString();
     this.documentallotmentmodel.rangeTo = selectedDataVal.rangeTo.toString();
