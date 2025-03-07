@@ -603,6 +603,7 @@ export class ConsignmentllpaddComponent {
           this.toastrService.warning(this.responseDetails.message);
           this.formUser.patchValue({
             gcNoteNo:"",
+            gcSlNo:"",
           }); 
         }
       });
@@ -834,10 +835,11 @@ export class ConsignmentllpaddComponent {
                 truckNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               this.formArray.controls[0].get("ewayBillNo")?.setValue(this.eWayBillDetails.result.message.eway_bill_number);
-              this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date)));
-              this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date)));
+             // this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date)));
+             this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date));
+              this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date));
               this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number);
-              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date)));
+              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date));
               this.formArray.controls[0].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
               this.formArray.push(this.createInitialArray());
             }
