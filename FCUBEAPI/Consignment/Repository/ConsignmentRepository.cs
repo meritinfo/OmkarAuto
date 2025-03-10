@@ -10,6 +10,7 @@ using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.ComponentModel;
 
 namespace Consignment.Repository
 {
@@ -145,6 +146,7 @@ namespace Consignment.Repository
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 GcSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSlNo"]),
                                 GcSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSeries"]),
+                                ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -379,10 +381,11 @@ namespace Consignment.Repository
                             new SqlParameter("@GtotalRs",            cn.GtotalRs                  ),
                             new SqlParameter("@LdReportingDateTime", cn.VehicleInDt + " " + cn.VehicleInTime),
                             new SqlParameter("@DespatchDateTime",    cn.VehicleOutDt + " " +  cn.VehicleOutTime),
-                            new SqlParameter("@Attachedfile",        cn.Attachedfile              ),
-                            new SqlParameter("@GcSlNo",              cn.GcSlNo                    ),
-                            new SqlParameter("@GcSeries",              cn.GcSeries                    ),
-                            new SqlParameter("@YearId",              cn.YearId                    ),
+                            new SqlParameter("@Attachedfile",        cn.Attachedfile),
+                            new SqlParameter("@GcSlNo",              cn.GcSlNo),
+                            new SqlParameter("@GcSeries",              cn.GcSeries),
+                            new SqlParameter("@ContainerNo",              cn.ContainerNo),
+                            new SqlParameter("@YearId",              cn.YearId),
                             new SqlParameter("@LoggedInUser",        cn.LoggedInUser),
                         };
 

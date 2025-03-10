@@ -232,6 +232,7 @@ export class ConsignmentllpaddComponent {
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),    
       gcSlNo : new FormControl('',),   
+      containerNo : new FormControl('',), 
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
       arrayGstList: this.formBuilder.array([this.createGstArray()])  , 
     });
@@ -1223,6 +1224,7 @@ export class ConsignmentllpaddComponent {
     //this.lrmodel.gcSlNo= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
     this.lrmodel.gcSlNo = selectedDataValue.gcSlNo; 
     this.lrmodel.gcSeries = selectedDataValue.seriesCode; 
+    this.lrmodel.containerNo = selectedDataValue.containerNo.toUpperCase().toString(); 
     this.lrmodel.vehicleOutTime= selectedDataValue.vehicleOutTime?selectedDataValue.vehicleOutTime.toString():"";
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;
