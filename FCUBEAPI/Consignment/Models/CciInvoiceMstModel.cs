@@ -19,7 +19,7 @@ namespace Consignment.Models
         public string? TotalIgstAmt { get; set; }
         public string? TotalInvAmt { get; set; }
         public string? YearId { get; set; }
-        public string? LoggedInUserID { get; set; }
+        public string? LoggedInUser { get; set; }
         public List<CciInvoiceDtlModel> CciInvoiceDetails { get; set; }
     }
     public class CciInvoiceDtlModel

@@ -129,12 +129,14 @@ export class ChallanmasteraddComponent {
     this.minDate2 = this.loginDate;
   
     this.sharedService.loading = true;
+
     this.getBranchList();
     this.getLocationList();
     this.getVehTypes();
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
+   this.onBranchChange();
 
     this.sharedService.loading = false;
     
@@ -336,6 +338,7 @@ export class ChallanmasteraddComponent {
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
         this.getChallanInnerGridList();   
+        
         this.editMode = true;        
         this.sharedService.loading = false;   
         
@@ -442,13 +445,14 @@ export class ChallanmasteraddComponent {
   }    
 
   onBranchChange() {
-    var selectedData = this.formUser.getRawValue();
-    if (selectedData.challanBranch==""){
+   // var selectedData = this.formUser.getRawValue();
+   // if (selectedData.challanBranch==""){
       this.requestmodel.strRequest = this.branch;
-    }
-    else{
-      this.requestmodel.strRequest = selectedData.challanBranch;
-    }
+   this.requestmodel.strRequest1 =  this.year;
+  //  }
+  //  else{
+     // this.requestmodel.strRequest = selectedData.challanBranch;
+   // }
 
     this.challanmasterService.getChallanNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

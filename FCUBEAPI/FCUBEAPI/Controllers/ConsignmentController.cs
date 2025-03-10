@@ -36,6 +36,7 @@ namespace FCUBEAPI.Controllers
         readonly IDoBusiness doBusiness;
         readonly IDoVehiInBusiness doVehiInBusiness;
         readonly IDoTempGcBusiness doTempGcBusiness;
+        readonly ICciInvoiceMstBusiness cciInvoiceMstBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -52,7 +53,8 @@ namespace FCUBEAPI.Controllers
             IChallanReleaseBusiness _challanReleaseBusiness,
             IDoBusiness _doBusiness,
             IDoVehiInBusiness _doVehiInBusiness,
-            IDoTempGcBusiness _doTempGcBusiness)
+            IDoTempGcBusiness _doTempGcBusiness,
+            ICciInvoiceMstBusiness _cciInvoiceMstBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -71,6 +73,7 @@ namespace FCUBEAPI.Controllers
             doBusiness = _doBusiness;
             doVehiInBusiness = _doVehiInBusiness;
             doTempGcBusiness = _doTempGcBusiness;
+            cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
         }
         
 
@@ -2781,6 +2784,60 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.CheckDuplicateLrLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCciInvoiceMstMasterList")]
+        public async Task<IActionResult> GetCciInvoiceMstMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetCciInvoiceMstMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CciInvoiceMstSave")]
+        public async Task<IActionResult> CciInvoiceMstSave(CciInvoiceMstModel tempgc)
+        {
+            if (tempgc == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.CciInvoiceMstSave(tempgc);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CciInvoiceMstDelete")]
+        public async Task<IActionResult> CciInvoiceMstDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.CciInvoiceMstDelete(request);
 
                 return Ok(result);
             }

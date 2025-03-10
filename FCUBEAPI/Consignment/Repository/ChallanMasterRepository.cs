@@ -664,7 +664,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Branch", requestModel.strRequest),
-                            new SqlParameter("@YearId", requestModel.strRequest),
+                            new SqlParameter("@YearId", requestModel.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
 
