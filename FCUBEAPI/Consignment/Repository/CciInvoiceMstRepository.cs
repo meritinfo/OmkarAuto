@@ -94,7 +94,7 @@ namespace Consignment.Repository
                             new SqlParameter("@CciInvMstId", request.strRequest),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCciInvoiceMstInnerGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCciInvoiceInnerGridList", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
@@ -259,7 +259,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@CciInvMstId", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvoiceMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvMstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

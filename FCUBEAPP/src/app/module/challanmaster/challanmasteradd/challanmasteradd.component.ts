@@ -429,6 +429,7 @@ export class ChallanmasteraddComponent {
     });
   }
 
+  
   getVehTypes(): void {
     this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicalList = res;
