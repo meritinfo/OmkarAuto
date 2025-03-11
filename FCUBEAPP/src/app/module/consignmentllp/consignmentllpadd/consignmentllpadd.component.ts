@@ -405,6 +405,7 @@ export class ConsignmentllpaddComponent {
         this.formGstArray.controls[i].get("igstAmt")?.setValue(res.gstList[i].igstAmt);
         this.formGstArray.controls[i].get("totalAmt")?.setValue(res.gstList[i].totalAmt);
         this.formGstArray.controls[i].get("remarks")?.setValue(res.gstList[i].remarks);
+        this.formGstArray.controls[i].get("linkColumn")?.setValue(res.gstList[i].linkColumn);
 
         this.formGstArray.controls[i].get("freightId")?.disable();
         this.formGstArray.controls[i].get("amount")?.disable();

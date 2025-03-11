@@ -219,6 +219,7 @@ namespace Consignment.Repository
                                 IgstAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["IgstAmt"]),
                                 TotalAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["TotalAmt"]),
                                 Remarks = Convert.ToString(dataSet.Tables[1].Rows[i]["Remarks"]),
+                                LinkColumn = Convert.ToString(dataSet.Tables[1].Rows[i]["LinkColumn"]),
                             });
                         }
                     }
