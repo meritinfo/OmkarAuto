@@ -356,7 +356,7 @@ export class ConsignmentaddComponent implements OnInit {
       for (var i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
-        this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
+             this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
         this.formArray.controls[i].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillExpDate));
         this.formArray.controls[i].get("invNo")?.setValue(res.invList[i].invoiceNo);
         this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invoiceDate));
@@ -740,10 +740,10 @@ export class ConsignmentaddComponent implements OnInit {
                 truckNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               this.formArray.controls[0].get("ewayBillNo")?.setValue(this.eWayBillDetails.result.message.eway_bill_number);
-              this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date)));
-              this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date)));
+              this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.eway_bill_date)));
+              this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.eway_bill_valid_date)));
               this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number);
-              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date)));
+              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate((this.eWayBillDetails.result.message.document_date)));
               this.formArray.controls[0].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
               this.formArray.push(this.createInitialArray());
             }
