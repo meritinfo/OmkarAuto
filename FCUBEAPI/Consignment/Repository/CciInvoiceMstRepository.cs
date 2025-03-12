@@ -38,7 +38,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ToDate",     request.ToDate),
                            // new SqlParameter("@Type",       request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleRepMaintMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCciInvMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -83,7 +83,7 @@ namespace Consignment.Repository
         {
             CciInvoiceMstModel cciInvoiceMstInnerGridList = new()
             {
-                CciInvoiceDetails = new List<CciInvoiceDtlModel>(),
+                CcinvmstDtlList = new List<CciInvoiceDtlModel>(),
             };
             try
             {
@@ -100,10 +100,10 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
                         {
-                            cciInvoiceMstInnerGridList.CciInvoiceDetails.Add(new CciInvoiceDtlModel
+                            cciInvoiceMstInnerGridList.CcinvmstDtlList.Add(new CciInvoiceDtlModel
                             {
                                 CciInvDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvDtlId"]),
-                                CciInvMstId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvMstId"]),
+                               // CciInvMstId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvMstId"]),
                                 ContainerNo = Convert.ToString(resultData.Tables[0].Rows[i]["ContainerNo"]),
                                 GcYear = Convert.ToString(resultData.Tables[0].Rows[i]["GcYear"]),
                                 GcBook = Convert.ToString(resultData.Tables[0].Rows[i]["GcBook"]),
@@ -131,6 +131,83 @@ namespace Consignment.Repository
             }
             return cciInvoiceMstInnerGridList;
         }
+        public async Task<CciInvoiceMstModel> GetCnDetail(RequestModel request)
+        {
+            CciInvoiceMstModel cciInvoiceMstInnerGridList = new()
+            {
+                CcinvmstDtlList = new List<CciInvoiceDtlModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ContainerNo", request.strRequest),
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnDetails", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            cciInvoiceMstInnerGridList.CcinvmstDtlList.Add(new CciInvoiceDtlModel
+                            {
+                              // CciInvDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvDtlId"]),
+                                // CciInvMstId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvMstId"]),
+                              //  ContainerNo = Convert.ToString(resultData.Tables[0].Rows[i]["ContainerNo"]),
+                                GcYear = Convert.ToString(resultData.Tables[0].Rows[i]["GcYear"]),
+                                GcBook = Convert.ToString(resultData.Tables[0].Rows[i]["GcBook"]),
+                                GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
+                        
+                            });
+                        }
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return cciInvoiceMstInnerGridList;
+        }
+        public async Task<ResponseModel> GetChCostDetail(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ChCostId", request.strRequest),
+                        };
+
+                   // var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChCostDetails", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChCostDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> CciInvoiceMstSave(CciInvoiceMstModel cciInvoiceMstModel)
         {
             ResponseModel responseModel = new();
@@ -152,13 +229,14 @@ namespace Consignment.Repository
                                  new SqlParameter("@GstType",cciInvoiceMstModel.GstType  ),
                                  new SqlParameter("@TotalTaxableAmt",cciInvoiceMstModel.TotalTaxableAmt  ),
                                  new SqlParameter("@TotalSgstAmt",cciInvoiceMstModel.TotalSgstAmt  ),
-                                 new SqlParameter("@TotalCgstAmt ",cciInvoiceMstModel.TotalCgstAmt  ),
-                                 new SqlParameter("@TotalIgstAmt ",cciInvoiceMstModel.TotalIgstAmt ),
+                                 new SqlParameter("@TotalCgstAmt",cciInvoiceMstModel.TotalCgstAmt  ),
+                                 new SqlParameter("@TotalIgstAmt",cciInvoiceMstModel.TotalIgstAmt ),
                                  new SqlParameter("@TotalInvAmt",cciInvoiceMstModel.TotalInvAmt),
+                                 new SqlParameter("@YearId",cciInvoiceMstModel.YearId),
                                  new SqlParameter("@LoggedInUser",cciInvoiceMstModel.LoggedInUser ),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvoiceMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvMstSave", param);
                     string CciInvMstId = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -168,16 +246,16 @@ namespace Consignment.Repository
 
                         if (responseModel.Status)
                         {
-                            for (int i = 0; i < cciInvoiceMstModel.CciInvoiceDetails.Count; i++)
+                            for (int i = 0; i < cciInvoiceMstModel.CcinvmstDtlList.Count; i++)
                             {
-                                cciInvoiceMstModel.CciInvoiceDetails[i].CciInvMstId = CciInvMstId;
+                                cciInvoiceMstModel.CcinvmstDtlList[i].CciInvMstId = CciInvMstId;
                               //  cciInvoiceMstModel.CciInvoiceDetails[i].TransDate = vehicleRepMaintMasterModel.TransDate;
 
-                                responseModel = await CciInvoiceDetailSave(transaction, cciInvoiceMstModel.CciInvoiceDetails[i]);
+                                responseModel = await CciInvoiceDetailSave(transaction, cciInvoiceMstModel.CcinvmstDtlList[i]);
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
-                                    i = cciInvoiceMstModel.CciInvoiceDetails.Count;
+                                    i = cciInvoiceMstModel.CcinvmstDtlList.Count;
                                 }
                             }
                         }
@@ -224,7 +302,7 @@ namespace Consignment.Repository
 
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvoiceDtllSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvoiceDtlSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

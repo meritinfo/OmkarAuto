@@ -6,6 +6,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Dropdownmodel } from '../models/dropdownmodel';
 import { CciInvmstlistmodel } from '../models/cciInvmstlistmodel';
 
 @Injectable({
@@ -49,12 +50,22 @@ export class CciInvoiceMstService {
   getCciInvoiceMasterInnerGridList(request: Requestmodel): Observable<Ccinvmstmodel> {
     return this.httpClient.post<Ccinvmstmodel>(Constants.API_ENDPOINT + 'Consignment/GetCciInvoiceDtlInnerGridList', request, this.httpOptions);
   }
+  getCnDetail(request: Requestmodel): Observable<Ccinvmstmodel> {
+    return this.httpClient.post<Ccinvmstmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnDetail', request, this.httpOptions);
+  }
+  getChCostDetail(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChCostDetail', request, this.httpOptions);
+  }
   cciInvoiceMasterSubmitted(user: Ccinvmstmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CciInvoiceMstSave', user, this.httpformOptions);
   }
   getCciInvoiceMasterList(filter: Filtermodel): Observable<CciInvmstlistmodel> {
-    return this.httpClient.post<CciInvmstlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCciinvoiceMasterList', filter, this.httpOptions);
+    return this.httpClient.post<CciInvmstlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCciInvoiceMstMasterList', filter, this.httpOptions);
   }  
+  getChCostList(): Observable<Dropdownmodel[]> {
+      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetChCostList', null, this.httpOptions);
+   }
+  
   getSpareStockAvailable(user: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSpareStockAvailable', user, this.httpformOptions);
   }

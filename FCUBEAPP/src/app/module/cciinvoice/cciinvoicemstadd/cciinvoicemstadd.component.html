@@ -184,9 +184,9 @@
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="containerNo"> 
+                                                        formControlName="containerNo" (change)="getCnDetail(i)"> 
                                                     </td>
                                                   
                                                        
@@ -201,12 +201,18 @@
                                                     </td>
                                                     
                                                     <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="chCostId">
+                                                        <select formControlName="chCostId"
+                                                        class="form-control form-select ng-pristine ng-touched"
+                                                       
+                                                       >
+                                                        <option *ngFor="let dl of chList" value={{dl.dataId}}>
+                                                            {{dl.dataName}}
+                                                        </option>
+                                                    </select> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="taxableAmt">
+                                                        formControlName="taxableAmt" (change)="getChCostDetail(i)">
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
