@@ -243,6 +243,34 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<List<DropDownListModel>> GetChCostList()
+        {
+            List<DropDownListModel> locationList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChCostList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            locationList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return locationList;
+        }
         public async Task<ResponseModel> CciInvoiceMstDelete(RequestModel req)
         {
             ResponseModel responseModel = new();

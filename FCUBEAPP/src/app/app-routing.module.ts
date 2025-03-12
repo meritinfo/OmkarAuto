@@ -290,6 +290,8 @@ import { ConsignmentllpaddComponent } from './module/consignmentllp/consignmentl
 import { ConsignmentllpupdateComponent } from './module/consignmentllp/consignmentllpupdate/consignmentllpupdate.component';
 import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightgstmasteradd/freightgstmasteradd.component';
 import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
+import { CciinvoicemstaddComponent } from './module/cciinvoice/cciinvoicemstadd/cciinvoicemstadd.component';
+import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlist/cciinvoicemstlist.component';
 
 
 
@@ -693,6 +695,9 @@ const routes: Routes = [
   { path: 'consignmentllpadd', component: ConsignmentllpaddComponent },
   { path: 'consignmentllpedit', component: ConsignmentllpaddComponent },
   { path: 'updatellpcnforbill', component:  ConsignmentllpupdateComponent },  
+  { path: 'ccinvoicelist', component: CciinvoicemstlistComponent },
+  { path: 'cciinvmstadd', component: CciinvoicemstaddComponent },
+  { path: 'cciinvmstedit', component: CciinvoicemstaddComponent },
   
 ];
 

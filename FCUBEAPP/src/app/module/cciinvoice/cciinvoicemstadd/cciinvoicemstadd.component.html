@@ -1,0 +1,345 @@
+
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18"> CCI Invoice Master</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <div class="row">                                    
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">                                           
+                                            <label >Cci Inv No: </label><span style="color: red">*</span>  
+                                            <input type="text"  autofocus="autofocus" class="form-control"
+                                                formControlName="cciInvNo"     uppercaseonly                                  
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cciInvNo'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">                                           
+                                            <label >Cci Inv Date: </label><span style="color: red">*</span>  
+                                            <input type="date"  autofocus="autofocus" class="form-control"
+                                                formControlName="cciInvDate" max="{{maxDate}}"                                         
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cciInvDate'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Gst Type </label><span style="color: red">*</span> 
+                                            <select id="formrow-inputState" class="form-control"
+                                            formControlName="gstType" 
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
+                                               <option value="N">NA</option>      
+                                               <option value="S">S/CGST</option> 
+                                               <option value="I">IGST</option>     
+                                       </select>
+                                        </div>
+                                    </div> 
+                                  
+                                                                   
+                                </div> 
+                                <div class="row"> 
+                                    <!-- <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Vendor</label> <span style="color: red">*</span>                                       
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vendorList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="vendorId" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>   -->    
+                                </div> 
+                                <div class="row">                                   
+                                     
+                                   
+                                    
+                                </div> 
+                                <div class="row">  
+                                    
+                                  
+                                                                        
+                                    
+                                   
+                                    
+                                                                 
+                                   
+                                      
+                                </div>             
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>  
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="overflow-x">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-tyre-width">
+                                            <tr>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Container No</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Gc Book</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Gc Note No</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Ch Cost</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Taxable Amt</h6>
+                                                    </label>
+                                                </td>
+                                               
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Sgst Pct</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Sgst Amt</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Cgst Pct</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Cgst Amt</h6>
+                                                    </label>
+                                                </td>
+                                               
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Igst Pct</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Igst Amt</h6>
+                                                    </label>
+                                                </td>
+                                                
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Total Amt</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Dtl Remarks</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                    *ngFor="let arrayData of formTyreArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2">
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="containerNo"> 
+                                                    </td>
+                                                  
+                                                       
+                                               
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="gcBook"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="gcNoteNo"  > 
+                                                    </td>
+                                                    
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="chCostId">
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="taxableAmt">
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="sgstPct" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="sgstAmt" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="cgstPct" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="cgstAmt"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="igstPct" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="igstAmt" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="totalAmt" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="dtlRemarks"> 
+                                                    </td>
+                                                    <td class="col-lg-4">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formTyreArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Taxable Amt:  </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalTaxableAmt">
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Sgst Amt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalSgstAmt">
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total CgstAmt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalCgstAmt">
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total IGST Amt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalIgstAmt">
+                            </div>
+                        </div> 
+                    </div>  
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Inv Amt:  </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalInvAmt">
+                            </div>
+                        </div> 
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label>Remarks:  </label>
+                                <input type="text" class="form-control" uppercaseonly
+                                formControlName="remarks">
+                            </div>
+                        </div> 
+                        
+                        
+                      
+                      
+                    </div>  
+                    <div class="row">   
+                                                                                           
+                                                          
+                             
+                       
+                     
+                   
+
+                    </div> 
+                    <div class="row">                                                               
+                                                
+                                                             
+                    </div>                     
+                </div>         
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                             <button class="btn btn-primary w-md"  
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitCciInvMasterForm()">Save</button>&nbsp;                            
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="cciInvoiceMstDelete()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+
+
