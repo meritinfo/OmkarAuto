@@ -117,7 +117,7 @@ export class UnbilledrptComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( '2022-04-01',[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        ack: new FormControl('',[Validators.required]),
+        ack: new FormControl('',),
         branch: new FormControl('',),  
         party: new FormControl('',),  
         origin: new FormControl('',),  
