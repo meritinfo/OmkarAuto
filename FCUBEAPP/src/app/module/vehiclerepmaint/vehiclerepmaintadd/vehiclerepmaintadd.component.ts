@@ -478,6 +478,7 @@ export class VehiclerepmaintaddComponent {
   exit(): void {
     this.route.navigate(['/vehiclerepairslist']);
   }  
+  
 
   getVehicleMaintMasterInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedvehiclerepmaintMasterDetail.vrmTransId; 
