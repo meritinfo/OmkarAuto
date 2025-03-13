@@ -146,11 +146,12 @@ ngOnInit(): void {
   // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
  // this.formTyreArray.controls[0].get("itemAmount")?.disable(); 
 
-  // this.formUser.controls["totItemAmount"].disable();
-  // this.formUser.controls["totCgstAmt"].disable();
-  // this.formUser.controls["totSgstAmt"].disable();
-  // this.formUser.controls["totIgstAmt"].disable();
-  // this.formUser.controls["netAmount"].disable();  
+  this.formUser.controls["totalSgstAmt"].disable();
+  this.formUser.controls["totalCgstAmt"].disable();
+  this.formUser.controls["totalIgstAmt"].disable();
+  this.formUser.controls["totalTaxableAmt"].disable();
+  this.formUser.controls["totalInvAmt"].disable();  
+
   // this.formUser.controls['totItemNetAmount'].disable(); 
   // if (this.selectedCciInvMstDetail.vrmTransId  != '') {      
   //   this.getCreditAcList(this.selectedvehiclerepmaintMasterDetail.pmtType);
@@ -255,7 +256,7 @@ get f() { return this.formUser.controls; }
           gcBook: [''],
           gcNoteNo: [''],
           chCostId: ['' ,[Validators.required]],
-          taxableAmt: ['',[Validators.required]],
+          taxableAmt: ['',],
           sgstPct: [''],
           sgstAmt: [''],
           cgstPct: [''],
@@ -323,8 +324,8 @@ get f() { return this.formUser.controls; }
       this.cciInvoiceMstService.getCnDetail(this.requestmodel).subscribe((res) => {
       // this.formTyreArray.clear();
         this.ccinvmstmodel = res;
-       for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
-          this.formTyreArray.push(this.createVehicleArray());
+      //  for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
+      //     this.formTyreArray.push(this.createVehicleArray());
           this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
           this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[i].gcBook);
          // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
@@ -336,7 +337,7 @@ get f() { return this.formUser.controls; }
            this.formTyreArray.controls[0].get("gcBook")?.disable();  
   
        
-        }     
+        // }     
       });
     }
     getChCostDetail(i:number): void {
@@ -364,6 +365,9 @@ get f() { return this.formUser.controls; }
         this.formTyreArray.controls[i].get("cgstPct")?.setValue(this.pct); 
         this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
         this.formTyreArray.controls[i].get("igstAmt")?.setValue("0");
+        let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
+        this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
+        
         this.formTyreArray.controls[i].get("totalAmt")?.disable();  
         this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
@@ -384,7 +388,7 @@ get f() { return this.formUser.controls; }
         this.formTyreArray.controls[i].get("igstPct")?.setValue(this.pct);
         this.formTyreArray.controls[i].get("igstAmt")?.setValue(p);
        let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
-       this.formTyreArray.controls[i].get("totalAmt")?.setValue(p);
+       this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
        this.formTyreArray.controls[i].get("totalAmt")?.disable();  
        this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
        this.formTyreArray.controls[i].get("cgstPct")?.disable();  
@@ -394,59 +398,54 @@ get f() { return this.formUser.controls; }
        this.formTyreArray.controls[i].get("igstPct")?.disable();  
 
        }
-       
+      this.calculateTotal();
 
           // this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
          //  this.formTyreArray.controls[0].get("gcBook")?.disable();  
   
-       
-       // }     
+      
      });
 
-     for (var i = 0; i < this.ccinvmstmodel.ccinvmstDtlList.length; i++) {
-      var igsttot = this.formTyreArray.value[i].igstAmt 
-      igsttot= igsttot+ this.formTyreArray.value[i].igstAmt ;
-      var cgsttot = this.formTyreArray.value[i].cgstAmt 
-      cgsttot= cgsttot+ this.formTyreArray.value[i].cgstAmt ;
-      var sgsttot = this.formTyreArray.value[i].sgstAmt 
-      sgsttot= sgsttot+ this.formTyreArray.value[i].sgstAmt ;
-      var taxAmt = this.formTyreArray.value[i].taxableAmt 
-     var taxAmt= taxAmt+ this.formTyreArray.value[i].taxableAmt ;
-      this.formUser.patchValue({
-        totalSgstAmt : sgsttot,
-        totalCgstAmt : cgsttot,
-        totalIgstAmt : igsttot,
-        TotalTaxableAmt : taxAmt,
 
-       // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
-       // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
-      })  
-     }
+    }
+    calculateTotal(){
+      var totalInvAm = 0;
+      var totalSgstAm = 0;
+      var totalCgstAm= 0;
+      var totalIgstAm = 0;
+      var totalTaxableAm = 0;
+      var selectedData = this.formUser.getRawValue();  
+   
+      for (let i = 0; i < this.ccinvmstmodel.ccinvmstDtlList.length; i++) {
+       totalSgstAm = totalSgstAm + parseFloat( selectedData.arrayList[i].sgstAmt);
+       totalCgstAm = totalCgstAm + parseFloat(selectedData.arrayList[i].cgstAmt);
+       totalIgstAm = totalIgstAm + parseFloat(selectedData.arrayList[i].igstAmt);
+       totalTaxableAm  = totalTaxableAm + parseFloat(selectedData.arrayList[i].taxableAmt);
+       totalInvAm = totalInvAm + parseFloat(selectedData.arrayList[i].totalAmt);
+      }
+   
+     
+        this.formUser.patchValue({
+          totalSgstAmt : totalSgstAm,
+          totalCgstAmt : totalCgstAm,
+          totalIgstAmt : totalIgstAm,
+          totalTaxableAmt : totalTaxableAm,
+          totalInvAmt: totalInvAm,
+  
+         // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
+         // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
+        })  
+       
+      
+
     }
    
     addItem(index: number): void {
-      if (this.formTyreArray.value[index].containerNo != "" && this.formTyreArray.value[index].chCostId != "" 
-   ) {
-        this.formTyreArray.push(this.createVehicleArray()); 
-           for (var i = 0; i < this.ccinvmstmodel.ccinvmstDtlList.length; i++) {
-            var igsttot = this.formTyreArray.value[index].igstAmt 
-            igsttot= igsttot+ this.formTyreArray.value[index].igstAmt ;
-            var cgsttot = this.formTyreArray.value[index].cgstAmt 
-            cgsttot= cgsttot+ this.formTyreArray.value[index].cgstAmt ;
-            var sgsttot = this.formTyreArray.value[index].sgstAmt 
-            sgsttot= sgsttot+ this.formTyreArray.value[index].sgstAmt ;
-            var taxAmt = this.formTyreArray.value[index].taxableAmt 
-           var taxAmt= taxAmt+ this.formTyreArray.value[index].taxableAmt ;
-            this.formUser.patchValue({
-              totalSgstAmt : sgsttot,
-              totalCgstAmt : cgsttot,
-              totalIgstAmt : igsttot,
-              TotalTaxableAmt : taxAmt,
-      
+      if (this.formTyreArray.value[index].containerNo != "" && this.formTyreArray.value[index].chCostId != "" )
+    {
+      this.formTyreArray.push(this.createVehicleArray());
              // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
-             // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
-            })  
-           }
+             this.calculateTotal();
       }
       else {
        this.toastrService.warning("Please select Required Fields ");
@@ -457,6 +456,7 @@ get f() { return this.formUser.controls; }
       if (confirm("Are you sure, you want to delete this row?")) {
         this.formTyreArray.removeAt(index);  
         //this.onPctChange();
+        this.calculateTotal();
       }
     }
     
