@@ -188,12 +188,18 @@
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="containerNo" (change)="getCnDetail(i)"> 
                                                     </td>
-                                                  
-                                                       
-                                               
                                                     <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="gcBook"> 
+                                                     
+                                                        <select formControlName="gcBook"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                   
+                                        >
+                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>       
+                                                        <input type="hidden" autoclose="false" class="form-control"
+                                                        formControlName="gcYear"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"

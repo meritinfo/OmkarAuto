@@ -292,6 +292,8 @@ import { FreightgstmasteraddComponent } from './module/freightgstmaster/freightg
 import { FreightgstmasterlistComponent } from './module/freightgstmaster/freightgstmasterlist/freightgstmasterlist.component';
 import { CciinvoicemstaddComponent } from './module/cciinvoice/cciinvoicemstadd/cciinvoicemstadd.component';
 import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlist/cciinvoicemstlist.component';
+import { ChallanmasterllpaddComponent } from './module/challanmasterllp/challanmasterllpadd/challanmasterllpadd.component';
+import { ChallanmasterlistllpComponent } from './module/challanmasterllp/challanmasterlistllp/challanmasterlistllp.component';
 
 
 
@@ -698,6 +700,9 @@ const routes: Routes = [
   { path: 'ccinvoicelist', component: CciinvoicemstlistComponent },
   { path: 'cciinvmstadd', component: CciinvoicemstaddComponent },
   { path: 'cciinvmstedit', component: CciinvoicemstaddComponent },
+  { path: 'challan_llplist', component:  ChallanmasterlistllpComponent },
+  { path: 'challanaddllp', component:  ChallanmasterllpaddComponent },
+  { path: 'challaneditllp', component:  ChallanmasterllpaddComponent },
 ];
 
 

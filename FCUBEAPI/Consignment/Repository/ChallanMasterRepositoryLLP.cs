@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {
-    internal class ChallanMasterRepositoryLLP: IChallanMasterRepositoryLLP
+    public class ChallanMasterRepositoryLLP: IChallanMasterRepositoryLLP
     {
         private readonly IOptions<DBModel> dbconnection;
 
@@ -21,7 +21,7 @@ namespace Consignment.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> ChallanMasterSave(ChallanMasterModel challan)
+        public async Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModel challan)
         {
             ResponseModel responseModel = new();
 
@@ -109,7 +109,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ModifyRemarks",          challan.ModifyRemarks),
                             new SqlParameter("@LoggedInUser",           challan.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSaveLLP", param);
                     var ChallanId = "0";
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -123,7 +123,7 @@ namespace Consignment.Repository
                             for (int i = 0; i < challan.ChallanDtls.Count; i++)
                             {
                                 challan.ChallanDtls[i].ChallanId = ChallanId.ToString();
-                                responseModel = await ChallanMasterDtlSave(transaction, challan.ChallanDtls[i]);
+                                responseModel = await ChallanMasterDtlSaveLLP(transaction, challan.ChallanDtls[i]);
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
@@ -151,7 +151,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
+        public async Task<ResponseModel> ChallanMasterDtlSaveLLP(SqlTransaction transaction, ChallanDetailModel challanDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -172,7 +172,7 @@ namespace Consignment.Repository
                             new SqlParameter("@YearId", challanDtl.YearId),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanDtlsSaveLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -201,7 +201,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ChallanListModel> GetChallanMasterList(ReportRequestModel request)
+        public async Task<ChallanListModel> GetChallanMasterListLLP(ReportRequestModel request)
         {
             ChallanListModel challanMasterList = new();
             List<ChallanMasterModel> challanList = new();
@@ -223,7 +223,7 @@ namespace Consignment.Repository
                             new SqlParameter("@LoginBranch",    request.FilterStr2),
                             new SqlParameter("@YearId",         request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterListLLP", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -324,7 +324,7 @@ namespace Consignment.Repository
             }
             return challanMasterList;
         }
-        public async Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req)
+        public async Task<ChallanMasterModel> GetChallanEnqDetailsLLP(RequestModel req)
         {
             ChallanMasterModel chlnmodel = new();
             try
@@ -417,7 +417,7 @@ namespace Consignment.Repository
             }
             return chlnmodel;
         }
-        public async Task<ChallanMasterModel> GetChallanEnqInnerGridList(RequestModel request)
+        public async Task<ChallanMasterModel> GetChallanEnqInnerGridListLLP(RequestModel request)
         {
             ChallanMasterModel challan = new()
             {
@@ -562,7 +562,7 @@ namespace Consignment.Repository
             }
             return challan;
         }
-        public async Task<ChallanMasterModel> GetChallanInnerGridList(RequestModel request)
+        public async Task<ChallanMasterModel> GetChallanInnerGridListLLP(RequestModel request)
         {
             ChallanMasterModel challanModel = new()
             {
@@ -578,7 +578,7 @@ namespace Consignment.Repository
                             new SqlParameter("@MasterId", request.strRequest)
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanInnerGrid", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanInnerGridLLP", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -608,7 +608,7 @@ namespace Consignment.Repository
             return challanModel;
         }
 
-        public async Task<ResponseModel> ChallanMasterDelete(RequestModel requestModel)
+        public async Task<ResponseModel> ChallanMasterDeleteLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
 
@@ -624,7 +624,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@ChallanId", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstDeleteLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -646,7 +646,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
+        public async Task<ResponseModel> GetChallanNoLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try
@@ -658,7 +658,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Branch", requestModel.strRequest),
                             new SqlParameter("@YearId", requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNoLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -677,7 +677,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel)
+        public async Task<ResponseModel> CheckDuplicateChallanLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
 
@@ -695,7 +695,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ChallanNo", requestModel.strRequest1),
                             new SqlParameter("@YearId", requestModel.strRequest2),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallan", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallanLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -717,7 +717,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel)
+        public async Task<ChallanMasterModel> GetConsignmentIdLLP(RequestModel requestModel)
         {
             ChallanMasterModel challanModel = new()
             {
@@ -735,7 +735,7 @@ namespace Consignment.Repository
                         new SqlParameter("@GCNoteNo",requestModel.strRequest2),
                     };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentId", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentIdLLP", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -761,7 +761,7 @@ namespace Consignment.Repository
             }
             return challanModel;
         }
-        public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
+        public async Task<ChallanMasterModel> GetChallanDetailsFromLRLLP(RequestModel request)
         {
             ChallanMasterModel challanModel = new()
             {
@@ -777,7 +777,7 @@ namespace Consignment.Repository
                             new SqlParameter("@GCNoteNo", request.strRequest)
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanDetailsFromLR", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanDetailsFromLRLLP", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -833,7 +833,7 @@ namespace Consignment.Repository
         }
 
 
-        public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
+        public async Task<PanApiResultModel> GetPanValidDetailsLLP(RequestModel request)
         {
             PanApiResultModel panresult = new();
             ResponseModel responseModel = new();
@@ -889,12 +889,12 @@ namespace Consignment.Repository
                                     {
                                         if (panresult.result.aadhaarSeedingStatusCode == "Y")
                                         {
-                                            responseModel = await PanDtlSave(request, panresult.result);
+                                            responseModel = await PanDtlSaveLLP(request, panresult.result);
                                         }
                                     }
                                     else
                                     {
-                                        responseModel = await PanDtlSave(request, panresult.result);
+                                        responseModel = await PanDtlSaveLLP(request, panresult.result);
                                     }
                                 }
 
@@ -917,7 +917,7 @@ namespace Consignment.Repository
             return panresult;
         }
 
-        public async Task<ResponseModel> PanDtlSave(RequestModel request, Reslt res)
+        public async Task<ResponseModel> PanDtlSaveLLP(RequestModel request, Reslt res)
         {
             ResponseModel responseModel = new();
 
@@ -962,7 +962,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
+        public async Task<ResponseModel> CheckChallanPrepForLrLLP(RequestModel request)
         {
             ResponseModel responseModel = new();
 
@@ -980,7 +980,7 @@ namespace Consignment.Repository
                             new SqlParameter("@GcBook",request.strRequest1),
                             new SqlParameter("@GCNoteNo",request.strRequest2),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLrLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -1003,7 +1003,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
+        public async Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -1045,7 +1045,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel)
+        public async Task<ResponseModel> GetPanwiseTdsRateLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try
@@ -1076,7 +1076,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ReportRequestModel> GetLhPanTdsRate(RequestModel requestModel)
+        public async Task<ReportRequestModel> GetLhPanTdsRateLLP(RequestModel requestModel)
         {
             ReportRequestModel responseModel = new();
             try
@@ -1104,7 +1104,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel)
+        public async Task<ResponseModel> GetBranchPanApiUseLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try

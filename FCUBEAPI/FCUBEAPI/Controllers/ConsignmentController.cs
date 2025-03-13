@@ -22,6 +22,7 @@ namespace FCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly IConsignmentBusiness consignmentBusiness;
         readonly IChallanMasterBusiness challanMasterBusiness;
+        readonly IChallanMasterBusinessLLP challanMasterBusinessLLP;
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
@@ -54,7 +55,8 @@ namespace FCUBEAPI.Controllers
             IDoBusiness _doBusiness,
             IDoVehiInBusiness _doVehiInBusiness,
             IDoTempGcBusiness _doTempGcBusiness,
-            ICciInvoiceMstBusiness _cciInvoiceMstBusiness)
+            ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
+            IChallanMasterBusinessLLP _challanMasterBusinessLLP)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -74,6 +76,7 @@ namespace FCUBEAPI.Controllers
             doVehiInBusiness = _doVehiInBusiness;
             doTempGcBusiness = _doTempGcBusiness;
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
+            challanMasterBusinessLLP= _challanMasterBusinessLLP;
         }
         
 
@@ -2906,6 +2909,331 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await cciInvoiceMstBusiness.GetChCostDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanMasterListLLP")]
+        public async Task<IActionResult> GetChallanMasterListLLP(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanMasterListLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanEnqDetailsLLP")]
+        public async Task<IActionResult> GetChallanEnqDetailsLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanEnqDetailsLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanEnqInnerGridListLLP")]
+        public async Task<IActionResult> GetChallanEnqInnerGridListLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanEnqInnerGridListLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanInnerGridListLLP")]
+        public async Task<IActionResult> GetChallanInnerGridListLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanInnerGridListLLP(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanMasterDeleteLLP")]
+        public async Task<IActionResult> ChallanMasterDeleteLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.ChallanMasterDeleteLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanNoLLP")]
+        public async Task<IActionResult> GetChallanNoLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanNoLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateChallanLLP")]
+        public async Task<IActionResult> CheckDuplicateChallanLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.CheckDuplicateChallanLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetConsignmentIdLLP")]
+        public async Task<IActionResult> GetConsignmentIdLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetConsignmentIdLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanDetailsFromLRLLP")]
+        public async Task<IActionResult> GetChallanDetailsFromLRLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanDetailsFromLRLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPanValidDetailsLLP")]
+        public async Task<IActionResult> GetPanValidDetailsLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetPanValidDetailsLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckChallanPrepForLrLLP")]
+        public async Task<IActionResult> CheckChallanPrepForLrLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.CheckChallanPrepForLrLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanPrintPdfLLP")]
+        public async Task<IActionResult> GetChallanPrintPdfLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetChallanPrintPdfLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPanwiseTdsRateLLP")]
+        public async Task<IActionResult> GetPanwiseTdsRateLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetPanwiseTdsRateLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("ChallanMasterSaveLLP")]
+        public async Task<IActionResult> ChallanMasterSaveLLP()
+        {
+            try
+            {
+                var photo1 = HttpContext.Request.Form.Files["photo1"];
+                var photo2 = HttpContext.Request.Form.Files["photo2"];
+                var photo3 = HttpContext.Request.Form.Files["photo3"];
+                var truckDriverImage = HttpContext.Request.Form.Files["truckDriverImage"];
+
+                ChallanMasterModel challanMasterModel = JsonConvert.DeserializeObject<ChallanMasterModel>(HttpContext.Request.Form["datadetails"]);
+                challanMasterModel.Photo1 = "";
+                challanMasterModel.Photo2 = "";
+                challanMasterModel.Photo3 = "";
+                challanMasterModel.TruckDriverImage = "";
+
+                if (photo1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo1.CopyToAsync(fileStream);
+                        challanMasterModel.Photo1 = imageName;
+                    }
+                }
+                if (photo2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo2.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo2.CopyToAsync(fileStream);
+                        challanMasterModel.Photo2 = imageName;
+                    }
+                }
+                if (photo3 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo3.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo3.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo3");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo3.CopyToAsync(fileStream);
+                        challanMasterModel.Photo3 = imageName;
+                    }
+                }
+                if (truckDriverImage != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(truckDriverImage.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(truckDriverImage.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/truckDriverImage");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await truckDriverImage.CopyToAsync(fileStream);
+                        challanMasterModel.TruckDriverImage = imageName;
+                    }
+                }
+
+                var result = await challanMasterBusinessLLP.ChallanMasterSaveLLP(challanMasterModel);
 
                 return Ok(result);
             }

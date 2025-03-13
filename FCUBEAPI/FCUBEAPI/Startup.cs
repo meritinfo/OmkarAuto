@@ -289,6 +289,8 @@ namespace FCUBEAPI
             services.AddScoped<ILRBillSeriesRepository, LRBillSeriesRepository>();
             services.AddScoped<ICciInvoiceMstBusiness, CciInvoiceMstBusiness>();
             services.AddScoped<ICciInvoiceMstRepository, CciInvoiceMstRepository>();
+            services.AddScoped<IChallanMasterBusinessLLP, ChallanMasterBusinessLLP>();
+            services.AddScoped<IChallanMasterRepositoryLLP, ChallanMasterRepositoryLLP>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
