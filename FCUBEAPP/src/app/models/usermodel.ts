@@ -10,6 +10,8 @@ export class Usermodel {
     userRoleType: string = "";
     centreName: string = "";
     activeYN: string = "";
+    benApproveBlock : string = "";
+    updateAdvancePaid: string = "";
     branchList: string = "";
     loggedInUser: string = "";
     imageName: string = "";

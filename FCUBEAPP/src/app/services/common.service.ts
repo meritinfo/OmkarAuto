@@ -8,6 +8,7 @@ import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Dashboardmodel } from '../models/dashboardmodel';
+import { Usermodel } from '../models/usermodel';
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +87,10 @@ export class CommonService {
   getRoleTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetRoleTypeList', null, this.httpOptions);
   }
+  getUserRights(req:Requestmodel): Observable<Usermodel> {
+    return this.httpClient.post<Usermodel>(Constants.API_ENDPOINT + 'Admin/GetUserRights', req, this.httpOptions);
+  }
+  
   getStateList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetStateList', null, this.httpOptions);
   }

@@ -172,11 +172,15 @@ export class DprvehiplacededitComponent {
     this.formUser.controls['fromPlace'].disable(); 
     this.formUser.controls['toPlace'].disable(); 
     this.formUser.controls['advanceAmt'].disable(); 
-    this.formUser.controls['balanceAmt'].disable(); 
+    this.formUser.controls['balanceAmt'].disable();   
+    this.formUser.controls['adv1PaidYN'].disable();   
+    this.formUser.controls['adv2PaidYN'].disable();   
+
 
     this.selectedDprDetails = this.dprvehiplacedService.getDprVehiDetails();
     
-    setTimeout(() => {
+    setTimeout(() => {      
+      this.getUserRights();
       if (this.selectedDprDetails.vehiclePlacedId != '') {
         this.dprid = this.selectedDprDetails.dprId;
         this.formUser.patchValue(this.selectedDprDetails);  
@@ -500,6 +504,16 @@ export class DprvehiplacededitComponent {
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
+    });
+  }
+
+  getUserRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
+      if(res.updateAdvancePaid=="Y"){
+        this.formUser.controls['adv1PaidYN'].enable();   
+        this.formUser.controls['adv2PaidYN'].enable();   
+      }
     });
   }
   

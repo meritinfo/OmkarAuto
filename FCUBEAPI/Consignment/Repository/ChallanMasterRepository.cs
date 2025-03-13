@@ -817,6 +817,9 @@ namespace Consignment.Repository
                         challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
                         challanModel.EngagedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
                         challanModel.LoadedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
+                        challanModel.Photo1             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance1"]);
+                        challanModel.Photo2             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance2"]);
+                        challanModel.Photo3             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance3"]);
 
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {

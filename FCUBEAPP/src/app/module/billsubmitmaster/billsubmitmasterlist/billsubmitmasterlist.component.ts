@@ -103,6 +103,7 @@ ngOnInit(): void {
     toDate: new FormControl(this.loginDate),
     partyCode: new FormControl('',),
     submitNo: new FormControl('',),
+    printSign:new FormControl('Y'),
   });     
 
   this.sharedService.loading=true;   
@@ -219,7 +220,7 @@ getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
 
 download(billsub: Billsubmitmastermodel): void {
   this.request.strRequest = billsub.submitMstId;
-  this.request.strRequest1 = "Y";
+  this.request.strRequest1 = this.formFilter.value.printSign;
 
   this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
     if(resp.status){    

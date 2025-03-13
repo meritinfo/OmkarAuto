@@ -207,6 +207,9 @@ export class ChallanmasteraddComponent {
       balancePayAt: new FormControl(this.branch,[Validators.required]),    
       generalRemarks: new FormControl('',),   
       modifyRemarks: new FormControl('',),    
+      advance1 : new FormControl('',),
+      advance2 : new FormControl('',),
+      advance3 : new FormControl('',),
       arrayList: this.formBuilder.array([this.createInitialArray()]), 
     });
 
@@ -223,6 +226,9 @@ export class ChallanmasteraddComponent {
     this.formUser.controls["modifyRemarks"].disable();
     this.formUser.controls["totPkgs"].disable();  
     this.formUser.controls["totActWt"].disable();  
+    this.formUser.controls["advance1"].disable();  
+    this.formUser.controls["advance2"].disable();  
+    this.formUser.controls["advance3"].disable();  
 
     
     this.formArray.controls[0].get("consignmentId")?.disable();
@@ -974,21 +980,22 @@ export class ChallanmasteraddComponent {
         return;
       }
       else{
-        this.formUser.patchValue({
-          driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
-          challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-          challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
-          brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
-        })  
-   
+       
         var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
         var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
         var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
         var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
         var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
         var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
-              
+
         this.formUser.patchValue({
+          driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
+          challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
+          challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
+          brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId), 
+          advance1: res.photo1  ,     
+          advance2: res.photo2  ,     
+          advance3: res.photo3  ,  
           ownTruckYN: ownTruckYN,
           panValid: panValid, 
           aadharLinked: aadharLinked, 

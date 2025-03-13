@@ -552,6 +552,32 @@ namespace AdminMasters.Repository
             return roleTypeList;
         }
 
+        public async Task<UserMasterModel> GetUserRights(RequestModel request)
+        {
+            UserMasterModel user = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = 
+                        {
+                            new SqlParameter("@UserId", request.strRequest)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUserRightDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        user.BenApproveBlock = Convert.ToString(statusData.Tables[0].Rows[0]["BenApproveBlock"]);
+                        user.UpdateAdvancePaid = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAdvancePaid"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return user;
+        }
+
         public async Task<DashBoardModel> GetDashboardNCC(RequestModel request)
         {
             DashBoardModel dashBoard = new();

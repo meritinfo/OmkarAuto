@@ -18,6 +18,7 @@ namespace AdminMasters.Business
         Task<ResponseModel> DeleteUserDetails(string request);
         Task<ResponseModel> UsernameValidation(RequestModel request);
         Task<List<DropDownListModel>> GetRoleTypeList();
+        Task<UserMasterModel> GetUserRights(RequestModel request);
         Task<DashBoardModel> GetDashboardNCC(RequestModel request);
     }
 }
