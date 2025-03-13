@@ -15,6 +15,9 @@ namespace Consignment.Repository
         Task<CciInvoiceMstModel> GetCciInvoiceDtlInnerGridList(RequestModel request);
         Task<ResponseModel> CciInvoiceMstSave(CciInvoiceMstModel cciInvoiceMstModel);
         Task<ResponseModel> CciInvoiceMstDelete(RequestModel req);
+        Task<List<DropDownListModel>> GetChCostList();
+        Task<CciInvoiceMstModel> GetCnDetail(RequestModel request);
+        Task<ResponseModel> GetChCostDetail(RequestModel request);
 
 
 

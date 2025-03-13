@@ -119,7 +119,7 @@ cciInvMstList() {
     },
     columns: [   
       {
-        title: 'CciInvNo ',
+        title: 'Cci Inv No',
         data: 'cciInvNo',
       },
       {
@@ -140,7 +140,7 @@ cciInvMstList() {
         data: 'totalTaxableAmt',
       }, 
       {
-        title: 'TotalInvAmt',
+        title: 'Total Inv Amt',
         data: 'totalInvAmt',
       },
       // {

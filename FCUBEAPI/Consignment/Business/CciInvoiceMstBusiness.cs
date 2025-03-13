@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 using System;
@@ -32,6 +33,18 @@ namespace Consignment.Business
         public async Task<ResponseModel> CciInvoiceMstDelete(RequestModel req)
         {
             return await cciInvoiceMstRepository.CciInvoiceMstDelete(req);
+        }
+        public async Task<List<DropDownListModel>> GetChCostList()
+        {
+            return await cciInvoiceMstRepository.GetChCostList();
+        }
+        public async Task<CciInvoiceMstModel> GetCnDetail(RequestModel request)
+        {
+            return await cciInvoiceMstRepository.GetCnDetail(request);
+        }
+        public async Task<ResponseModel> GetChCostDetail(RequestModel request)
+        {
+            return await cciInvoiceMstRepository.GetChCostDetail(request);
         }
     }
 }

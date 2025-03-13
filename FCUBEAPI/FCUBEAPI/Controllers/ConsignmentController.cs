@@ -2864,6 +2864,56 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetChCostList")]
+        public async Task<IActionResult> GetChCostList()
+        {
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetChCostList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCnDetail")]
+        public async Task<IActionResult> GetCnDetail(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetCnDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChCostDetail")]
+        public async Task<IActionResult> GetChCostDetail(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetChCostDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 

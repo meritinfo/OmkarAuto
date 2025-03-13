@@ -25,6 +25,8 @@ export class CciinvoicemstaddComponent {
     loginDate: string = '';
     fromDate: string = '';
     maxDate: string = '';
+    gcYear: string = '';
+    pct: string = '';
     minDate: string = '';
     createStatus = false;
     editStatus = false;
@@ -39,7 +41,7 @@ export class CciinvoicemstaddComponent {
     maintList: Dropdownmodel[] = [];
     branchList: Dropdownmodel[] = [];
     vehicleList : Dropdownmodel[] = [];
-    brandList: Dropdownmodel[] = [];
+    chList: Dropdownmodel[] = [];
     modelList: Dropdownmodel[] = [];
     vendorList: Dropdownmodel[] = [];
     locationList: Dropdownmodel[] = [];
@@ -129,7 +131,7 @@ ngOnInit(): void {
     arrayList: this.formBuilder.array([this.createVehicleArray()]),
   }); 
 
- // this.getBrandList();
+  this.getChCostList();
  // this.getVendorList();
   //this.getBranchList();
 
@@ -144,11 +146,12 @@ ngOnInit(): void {
   // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
  // this.formTyreArray.controls[0].get("itemAmount")?.disable(); 
 
-  // this.formUser.controls["totItemAmount"].disable();
-  // this.formUser.controls["totCgstAmt"].disable();
-  // this.formUser.controls["totSgstAmt"].disable();
-  // this.formUser.controls["totIgstAmt"].disable();
-  // this.formUser.controls["netAmount"].disable();  
+  this.formUser.controls["totalSgstAmt"].disable();
+  this.formUser.controls["totalCgstAmt"].disable();
+  this.formUser.controls["totalIgstAmt"].disable();
+  this.formUser.controls["totalTaxableAmt"].disable();
+  this.formUser.controls["totalInvAmt"].disable();  
+
   // this.formUser.controls['totItemNetAmount'].disable(); 
   // if (this.selectedCciInvMstDetail.vrmTransId  != '') {      
   //   this.getCreditAcList(this.selectedvehiclerepmaintMasterDetail.pmtType);
@@ -215,9 +218,9 @@ get f() { return this.formUser.controls; }
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getStateList(): void {
-    this.commonService.getStateList().subscribe((res) => {
-      this.stateList = res;
+  getChCostList(): void {
+    this.cciInvoiceMstService.getChCostList().subscribe((res) => {
+      this.chList = res;
     });
   }
 
@@ -230,7 +233,7 @@ get f() { return this.formUser.controls; }
               if (this.responseDetails.status) {
                 this.toastrService.success(this.responseDetails.message);
                 this.formUser.reset();
-                this.route.navigate(['/cclist']);
+                this.route.navigate(['/ccinvoicelist']);
               }
               else {
                 this.toastrService.warning(this.responseDetails.message);
@@ -241,7 +244,7 @@ get f() { return this.formUser.controls; }
     }
       
     exit(): void {
-      this.route.navigate(['/cclist']);
+      this.route.navigate(['/ccinvoicelist']);
     }  
 
      createVehicleArray() {
@@ -253,7 +256,7 @@ get f() { return this.formUser.controls; }
           gcBook: [''],
           gcNoteNo: [''],
           chCostId: ['' ,[Validators.required]],
-          taxableAmt: ['',[Validators.required]],
+          taxableAmt: ['',],
           sgstPct: [''],
           sgstAmt: [''],
           cgstPct: [''],
@@ -315,20 +318,145 @@ get f() { return this.formUser.controls; }
         }     
       });
     }
+    getCnDetail(i:number): void {
+      var selectedData = this.formUser.getRawValue();  
+      this.requestmodel.strRequest = selectedData.arrayList[i].containerNo; 
+      this.cciInvoiceMstService.getCnDetail(this.requestmodel).subscribe((res) => {
+      // this.formTyreArray.clear();
+        this.ccinvmstmodel = res;
+      //  for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
+      //     this.formTyreArray.push(this.createVehicleArray());
+          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
+          this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[i].gcBook);
+         // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
+        
+          this.gcYear = res.ccinvmstDtlList[i].gcYear;
+
+
+           this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
+           this.formTyreArray.controls[0].get("gcBook")?.disable();  
+  
+       
+        // }     
+      });
+    }
+    getChCostDetail(i:number): void {
+      var selectedData = this.formUser.getRawValue();  
+      this.requestmodel.strRequest = selectedData.arrayList[i].chCostId; 
+      this.cciInvoiceMstService.getChCostDetail(this.requestmodel).subscribe((res) => {
+      // this.formTyreArray.clear();
+        this.responseDetails = res;
+       //for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
+          //this.formTyreArray.push(this.createVehicleArray());
+         // this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
+         // this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[i].gcBook);
+         // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
+        
+          this.pct = this.responseDetails.message;
+          //this.formTyreArray.push(this.createVehicleArray());
+          //this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
+       if(selectedData.gstType='S'){
+        var p =   selectedData.arrayList[i].taxableAmt*parseFloat(this.pct)/100;
+        var p=p/2;
+
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(p); 
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(p); 
+        this.formTyreArray.controls[i].get("sgstPct")?.setValue(this.pct); 
+        this.formTyreArray.controls[i].get("cgstPct")?.setValue(this.pct); 
+        this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue("0");
+        let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
+        this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
+        
+        this.formTyreArray.controls[i].get("totalAmt")?.disable();  
+        this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
+        this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+        this.formTyreArray.controls[i].get("sgstAmt")?.disable();  
+        this.formTyreArray.controls[i].get("sgstPct")?.disable();  
+        this.formTyreArray.controls[i].get("igstAmt")?.disable();  
+        this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+
+       }
+       else{
+        var p =   selectedData.arrayList[i].taxableAmt*parseFloat(this.pct)/100;
+     
+        
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue("0"); 
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue("0"); 
+        this.formTyreArray.controls[i].get("sgstPct")?.setValue("0"); 
+        this.formTyreArray.controls[i].get("cgstPct")?.setValue("0"); 
+        this.formTyreArray.controls[i].get("igstPct")?.setValue(this.pct);
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue(p);
+       let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
+       this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
+       this.formTyreArray.controls[i].get("totalAmt")?.disable();  
+       this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
+       this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+       this.formTyreArray.controls[i].get("sgstAmt")?.disable();  
+       this.formTyreArray.controls[i].get("sgstPct")?.disable();  
+       this.formTyreArray.controls[i].get("igstAmt")?.disable();  
+       this.formTyreArray.controls[i].get("igstPct")?.disable();  
+
+       }
+      this.calculateTotal();
+
+          // this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
+         //  this.formTyreArray.controls[0].get("gcBook")?.disable();  
+  
+      
+     });
+
+
+    }
+    calculateTotal(){
+      var totalInvAm = 0;
+      var totalSgstAm = 0;
+      var totalCgstAm= 0;
+      var totalIgstAm = 0;
+      var totalTaxableAm = 0;
+      var selectedData = this.formUser.getRawValue();  
+   
+      for (let i = 0; i < this.ccinvmstmodel.ccinvmstDtlList.length; i++) {
+       totalSgstAm = totalSgstAm + parseFloat( selectedData.arrayList[i].sgstAmt);
+       totalCgstAm = totalCgstAm + parseFloat(selectedData.arrayList[i].cgstAmt);
+       totalIgstAm = totalIgstAm + parseFloat(selectedData.arrayList[i].igstAmt);
+       totalTaxableAm  = totalTaxableAm + parseFloat(selectedData.arrayList[i].taxableAmt);
+       totalInvAm = totalInvAm + parseFloat(selectedData.arrayList[i].totalAmt);
+      }
+   
+     
+        this.formUser.patchValue({
+          totalSgstAmt : totalSgstAm,
+          totalCgstAmt : totalCgstAm,
+          totalIgstAmt : totalIgstAm,
+          totalTaxableAmt : totalTaxableAm,
+          totalInvAmt: totalInvAm,
+  
+         // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
+         // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
+        })  
+       
+      
+
+    }
+   
     addItem(index: number): void {
-     // if (this.formArray.value[index].invNo != "" && this.formArray.value[index].invDate != "" 
-    //  && this.formArray.value[index].invValue != "") {
-        this.formTyreArray.push(this.createVehicleArray()); 
-    //  }
-     // else {
-       // this.toastrService.warning("Please select Required Fields ");
-       // return;
-     // } 
+      if (this.formTyreArray.value[index].containerNo != "" && this.formTyreArray.value[index].chCostId != "" )
+    {
+      this.formTyreArray.push(this.createVehicleArray());
+             // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
+             this.calculateTotal();
+      }
+      else {
+       this.toastrService.warning("Please select Required Fields ");
+        return;
+     } 
     }
     removeItem(index: number){ 
       if (confirm("Are you sure, you want to delete this row?")) {
         this.formTyreArray.removeAt(index);  
         //this.onPctChange();
+        this.calculateTotal();
       }
     }
     
@@ -349,15 +477,15 @@ get f() { return this.formUser.controls; }
   this.ccinvmstmodel.cciInvMstId = this.selectedCciInvMstDetail.cciInvMstId ;
   this.ccinvmstmodel.cciInvNo= selectedDataValue.cciInvNo;
   this.ccinvmstmodel.cciInvDate = selectedDataValue.cciInvDate
-  this.ccinvmstmodel.remarks= selectedDataValue.remarks;
+  this.ccinvmstmodel.remarks= selectedDataValue.remarks.toString();
   this.ccinvmstmodel.gstType= selectedDataValue.gstType;
   this.ccinvmstmodel.totalTaxableAmt= selectedDataValue.totalTaxableAmt.toString();
  // this.ccinvmstmodel.nonVendor= selectedDataValue.nonVendor?"Y":"N";
  // this.ccinvmstmodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
-  this.ccinvmstmodel.totalSgstAmt= selectedDataValue.totalSgstAmt;
-  this.ccinvmstmodel.totalCgstAmt= selectedDataValue.totalCgstAmt;
-  this.ccinvmstmodel.totalIgstAmt= selectedDataValue.totalIgstAmt;
-  this.ccinvmstmodel.totalInvAmt= selectedDataValue.totalInvAmt;
+  this.ccinvmstmodel.totalSgstAmt= selectedDataValue.totalSgstAmt.toString();;
+  this.ccinvmstmodel.totalCgstAmt= selectedDataValue.totalCgstAmt.toString();;
+  this.ccinvmstmodel.totalIgstAmt= selectedDataValue.totalIgstAmt.toString();;
+  this.ccinvmstmodel.totalInvAmt= selectedDataValue.totalInvAmt.toString();;
   
  // this.vehiclerepmaintMaster.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
 
@@ -372,7 +500,7 @@ get f() { return this.formUser.controls; }
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
+      if (selectedDataValue.arrayList[i].containerNo == ""  ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
@@ -380,13 +508,12 @@ get f() { return this.formUser.controls; }
         this.ccinvmstmodel.ccinvmstDtlList.push({
           'cciInvDtlId': "",
           'cciInvMstId': "",
-          'containerNo': selectedDataValue.containerNo,
-          'gcYear': selectedDataValue.arrayList[i].gcYear,
+          'containerNo': selectedDataValue.arrayList[i].containerNo,
+          'gcYear': this.gcYear,
           'gcBook': selectedDataValue.arrayList[i].gcBook,
-          'gcNoteNo':"",
+          'gcNoteNo':selectedDataValue.arrayList[i].gcNoteNo,
           'chCostId': selectedDataValue.arrayList[i].chCostId,
           'taxableAmt': selectedDataValue.arrayList[i].taxableAmt,
-         
           'sgstPct': selectedDataValue.arrayList[i].sgstPct,
           'sgstAmt': selectedDataValue.arrayList[i].sgstAmt,
           'cgstPct': selectedDataValue.arrayList[i].sgstPct,
@@ -414,7 +541,7 @@ get f() { return this.formUser.controls; }
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/vehiclerepairslist']);
+        this.route.navigate(['/ccinvoicelist']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

@@ -698,7 +698,6 @@ const routes: Routes = [
   { path: 'ccinvoicelist', component: CciinvoicemstlistComponent },
   { path: 'cciinvmstadd', component: CciinvoicemstaddComponent },
   { path: 'cciinvmstedit', component: CciinvoicemstaddComponent },
-  
 ];
 
 
