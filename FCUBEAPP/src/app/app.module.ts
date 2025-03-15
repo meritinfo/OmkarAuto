@@ -7,6 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
+import { ChallanlistmodelllP } from './models/challanmasterlistllp';
 import { Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -465,6 +466,9 @@ import { Ccinvmstmodel } from './models/cciInvmstmodel';
 import { Freightgstmasterlistmodel } from './models/freightgstmasterlistmodel';
 import { CciinvoicemstaddComponent } from './module/cciinvoice/cciinvoicemstadd/cciinvoicemstadd.component';
 import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlist/cciinvoicemstlist.component';
+import { ChallanmasterllpaddComponent } from './module/challanmasterllp/challanmasterllpadd/challanmasterllpadd.component';
+import { ChallanmasterlistllpComponent } from './module/challanmasterllp/challanmasterlistllp/challanmasterlistllp.component';
+import { ChallanmastermodelllP } from './models/challanmastermodelllp';
 
 
 @NgModule({
@@ -612,7 +616,7 @@ import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlis
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, 
   ],
   
   imports: [
@@ -681,6 +685,8 @@ import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlis
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Ccinvmstmodel, Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,
     Freightgstmastermodel,Freightgstmasterlistmodel,
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,
     
   ],
   bootstrap: [AppComponent]

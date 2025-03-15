@@ -133,7 +133,7 @@ ngOnInit(): void {
 
   this.getChCostList();
  // this.getVendorList();
-  //this.getBranchList();
+  this.getBranchList();
 
 
   // this.formTyreArray.controls[0].get("availQty")?.disable();
@@ -209,6 +209,12 @@ get f() { return this.formUser.controls; }
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+  
 
   onFocused(e: any) {
     // do something
@@ -326,11 +332,12 @@ get f() { return this.formUser.controls; }
         this.ccinvmstmodel = res;
       //  for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
       //     this.formTyreArray.push(this.createVehicleArray());
-          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
-          this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[i].gcBook);
+          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[0].gcNoteNo);
+          this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[0].gcBook);
+          this.formTyreArray.controls[i].get("gcYear")?.setValue(res.ccinvmstDtlList[0].gcYear);
          // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
         
-          this.gcYear = res.ccinvmstDtlList[i].gcYear;
+       
 
 
            this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
@@ -509,7 +516,7 @@ get f() { return this.formUser.controls; }
           'cciInvDtlId': "",
           'cciInvMstId': "",
           'containerNo': selectedDataValue.arrayList[i].containerNo,
-          'gcYear': this.gcYear,
+          'gcYear': selectedDataValue.arrayList[i].gcYear,
           'gcBook': selectedDataValue.arrayList[i].gcBook,
           'gcNoteNo':selectedDataValue.arrayList[i].gcNoteNo,
           'chCostId': selectedDataValue.arrayList[i].chCostId,

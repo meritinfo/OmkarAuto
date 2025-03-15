@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Consignment.Repository
+namespace Consignment.Business
 {
-    public interface IChallanMasterRepositoryLLP
+    public interface IChallanMasterBusinessLLP
     {
+
         Task<ChallanListModel> GetChallanMasterListLLP(ReportRequestModel request);
         Task<ChallanMasterModel> GetChallanInnerGridListLLP(RequestModel request);
         Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModel challanModel);
