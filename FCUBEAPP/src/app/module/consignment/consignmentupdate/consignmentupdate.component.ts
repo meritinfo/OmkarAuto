@@ -144,7 +144,6 @@ export class ConsignmentupdateComponent {
       cneeName: new FormControl('',),
       party: new FormControl('',[Validators.required]),
       rateType : new FormControl('',),   
-      rateDesc : new FormControl('',),   
       gstBy : new FormControl('',),   
       rateRs : new FormControl('',),   
       freightRs : new FormControl('',),   
@@ -191,6 +190,8 @@ export class ConsignmentupdateComponent {
       deliveryDateTime : new FormControl('',),      
       ulDetentionDays : new FormControl('',),     
     });
+    this.formUser.controls['rateType'].disable(); 
+    this.formUser.controls['rateRs'].disable(); 
     this.formUser.controls['freightRs'].disable();  
     this.formUser.controls['bookingPlace'].disable();
     this.formUser.controls['bookingDate'].disable();  
@@ -234,9 +235,13 @@ export class ConsignmentupdateComponent {
     this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
       if(res.updateCnFreight=="Y"){
         this.formUser.controls['freightRs'].enable();   
+        this.formUser.controls['rateType'].enable(); 
+        this.formUser.controls['rateRs'].enable(); 
       } 
       else{        
-        this.formUser.controls['freightRs'].disable();  
+        this.formUser.controls['freightRs'].disable(); 
+        this.formUser.controls['rateType'].disable(); 
+        this.formUser.controls['rateRs'].disable();  
       }     
     });
   }
@@ -256,7 +261,6 @@ export class ConsignmentupdateComponent {
       cneeName:  "", 
       party:  "", 
       rateType :  "", 
-      rateDesc :  "", 
       gstBy :  "", 
       rateRs :  "", 
       freightRs :  "", 
@@ -337,7 +341,6 @@ export class ConsignmentupdateComponent {
             cneeName:  this.lrmodel.cneeName, 
             party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
-            rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
             rateRs :  this.lrmodel.rateRs, 
             freightRs :  this.lrmodel.freightRs, 
@@ -602,8 +605,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
-    this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
-    this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
+    this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
     this.cnmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.cnmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
