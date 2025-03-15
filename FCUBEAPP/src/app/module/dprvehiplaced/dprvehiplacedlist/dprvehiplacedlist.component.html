@@ -153,6 +153,10 @@
                         </thead>
                         <tbody *ngIf="allDprlist.dprVehiList?.length != 0">
                             <tr *ngFor="let dpr of allDprlist.dprVehiList">
+                                <td>                                  
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getdprVehiDetails(dpr)"></button>                               
+                                </td>                            
                                 <td>{{ dpr.dprDate }}</td>  
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
@@ -162,11 +166,7 @@
                                 <td>{{ dpr.brokerName }}</td>                         
                                 <td>{{ dpr.lorryHire }}</td>                         
                                 <td>{{ dpr.adv1PaidYN }}</td>                       
-                                <td>{{ dpr.adv2PaidYN }}</td> 
-                                <td>                                  
-                                    <button type="button" class="btn btn-edit"
-                                        (click)="getdprVehiDetails(dpr)"></button>                               
-                                </td>                                
+                                <td>{{ dpr.adv2PaidYN }}</td>     
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDprlist.dprVehiList?.length == 0">

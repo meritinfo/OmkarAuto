@@ -246,6 +246,7 @@ export class GeneratetempgcaddComponent {
     this.formUser.controls['bookStatus'].disable(); 
     this.formUser.controls['fromPlace'].disable(); 
     this.formUser.controls['toPlace'].disable(); 
+    this.formUser.controls['vehicleNo'].disable(); 
 
     this.selectedTempgcDetails = this.generatetempgcService.getTempgcDetails();
     

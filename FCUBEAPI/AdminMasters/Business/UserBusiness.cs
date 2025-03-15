@@ -83,6 +83,10 @@ namespace AdminMasters.Business
         {
             return await userRepository.GetRoleTypeList();
         }
+        public async Task<UserMasterModel> GetUserRights(RequestModel request)
+        {
+            return await userRepository.GetUserRights(request);
+        }
         public async Task<DashBoardModel> GetDashboardNCC(RequestModel request)
         {
             return await userRepository.GetDashboardNCC(request);

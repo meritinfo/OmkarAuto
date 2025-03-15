@@ -217,7 +217,11 @@ export class DprvehiplacedlistComponent {
             });
           });
       },
-      columns: [
+      columns: [  
+        {
+          title: 'Action',
+          data: 'dprId',
+        },  
         {
           title: 'DPR Date',
           data: 'dprDate',
@@ -257,11 +261,7 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Advance2 Paid',
           data: 'adv2PaidYN',
-        },     
-        {
-          title: 'Action',
-          data: 'dprId',
-        },  
+        },   
       ],
     };
   }

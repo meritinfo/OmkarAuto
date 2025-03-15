@@ -93,6 +93,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CheckPassword")]
         public async Task<IActionResult> CheckPassword(PasswordModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.CheckPassword(request);
@@ -141,6 +145,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetUserMasterList")]
         public async Task<IActionResult> GetUserMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.GetUserMasterList(request);
@@ -158,6 +166,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetEWayBillDetails")]
         public async Task<IActionResult> GetEWayBillDetails(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.GetEWayBillDetails(request);
@@ -173,6 +185,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("DeleteUserDetails")]
         public async Task<IActionResult> DeleteUserDetails(string request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.DeleteUserDetails(request);
@@ -188,6 +204,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("UsernameValidation")]
         public async Task<IActionResult> UsernameValidation(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.UsernameValidation(request);
@@ -216,9 +236,33 @@ namespace FCUBEAPI.Controllers
             }
         }
        
+
+        [HttpPost("GetUserRights")]
+        public async Task<IActionResult> GetUserRights(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await userBusiness.GetUserRights(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDashboardNCC")]
         public async Task<IActionResult> GetDashboardNCC(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await userBusiness.GetDashboardNCC(request);
@@ -231,10 +275,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Controller method for Menutype master details save
-        /// </summary>
-        /// <param name="menuFormTypeModel"></param>
+
         [HttpPost("MenuFormTypeSave")]
         public async Task<IActionResult> MenuFormTypeMasterSave(MenuFormTypesModel menuFormTypeModel)
         {

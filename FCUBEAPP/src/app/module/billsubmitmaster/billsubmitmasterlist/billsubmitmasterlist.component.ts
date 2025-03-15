@@ -103,6 +103,7 @@ ngOnInit(): void {
     toDate: new FormControl(this.loginDate),
     partyCode: new FormControl('',),
     submitNo: new FormControl('',),
+    printSign:new FormControl('Y'),
   });     
 
   this.sharedService.loading=true;   
@@ -143,6 +144,14 @@ billSubmitList() {
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'submitMstId',
+      },
+      {
+        title: 'Print',
+        data: 'submitMstId',
+      },  
+      {
         title: 'Submit Stn',
         data: 'Sname',
       },
@@ -150,11 +159,6 @@ billSubmitList() {
         title: 'Submit No',
         data: 'submitNo',
       },
-     
-      // {
-      //   title: 'Maint Type',
-      //   data: 'maintType',
-      // }, 
       {
         title: 'Submit Date',
         data: 'submitDt',
@@ -163,12 +167,6 @@ billSubmitList() {
         title: 'Submit Type',
         data: 'submitType',
       },
-      // {
-      //   title: 'vehicleMasterId',
-      //   data: 'vehicleMasterId',
-      // }, 
-      
-      
       {
         title: 'Courier Co',
         data: 'courierCo',
@@ -188,14 +186,6 @@ billSubmitList() {
       {
         title: 'Dept',
         data: 'dname',
-      },  
-      {
-        title: 'Action',
-        data: 'submitMstId',
-      },
-      {
-        title: 'Print',
-        data: 'submitMstId',
       },  
     ],
   };
@@ -219,7 +209,7 @@ getBillSubmitMasterDetails(tyre: Billsubmitmastermodel): void {
 
 download(billsub: Billsubmitmastermodel): void {
   this.request.strRequest = billsub.submitMstId;
-  this.request.strRequest1 = "Y";
+  this.request.strRequest1 = this.formFilter.value.printSign;
 
   this.billSubmitMasterService.getBillSubmitPrint(this.request).subscribe(resp => {
     if(resp.status){    

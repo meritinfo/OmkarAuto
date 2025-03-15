@@ -165,6 +165,14 @@ export class ChallanmasterlistComponent {
      // Set column title and data field
       columns: [  
         {
+          title: 'Action',
+          data: 'challanId',
+        },
+        {
+          title: 'Print',
+          data: 'challanId',
+        },  
+        {
           title: 'Branch',
           data: 'cbranch',
         },
@@ -187,14 +195,6 @@ export class ChallanmasterlistComponent {
         {
           title: 'Vehicle No',
           data: 'truckNo',
-        },  
-        {
-          title: 'Action',
-          data: 'challanId',
-        },
-        {
-          title: 'Print',
-          data: 'challanId',
         },  
       ],
     };

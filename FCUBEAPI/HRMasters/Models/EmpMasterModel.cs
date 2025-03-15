@@ -63,6 +63,8 @@ namespace HRMasters.Models
         public string? LastPerks { get; set; }
         public string? RemoveDate { get; set; }
         public string? FullFinal { get; set; }
+        public string? EmpAttach1 { get; set; }
+        public string? EmpAttach2 { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

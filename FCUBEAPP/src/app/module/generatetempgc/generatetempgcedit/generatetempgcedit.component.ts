@@ -246,6 +246,8 @@ export class GeneratetempgceditComponent {
     
     this.formUser.controls['ewayBillNo'].disable(); 
     this.formUser.controls['gcNoteNo'].disable(); 
+    this.formUser.controls['vehicleNo'].disable(); 
+    
 
     setTimeout(() => {
         this.uploadedVehRcDoc = Constants.UploadFolderPath + 'tempGc/vehRcDoc/' + this.selectedTempgcDetails.vehRcDoc;

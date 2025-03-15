@@ -1,5 +1,6 @@
 export class Consignmentupdatemodel {
     consignmentID : string = "";
+    productId: string = "";
     poNo: string = "";
     shipmentNo: string = "";
     billingStatus : string = "";

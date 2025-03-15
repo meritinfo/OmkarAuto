@@ -369,6 +369,55 @@ namespace Consignment.Repository
                 
             }
             return contentList;
+        }        
+        public async Task<ResponseModel> DprVehiUpdateAdvance(DprVehiPlacedModel dprVehi)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehiclePlacedId"         , dprVehi.VehiclePlacedId),
+                            new SqlParameter("@Advance1"                , dprVehi.Advance1),
+                            new SqlParameter("@Advance2"                , dprVehi.Advance2),
+                            new SqlParameter("@Advance3"                , dprVehi.Advance3),
+                            new SqlParameter("@AdvanceAmt"              , dprVehi.AdvanceAmt),
+                            new SqlParameter("@BalanceAmt"              , dprVehi.BalanceAmt),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiUpdateAdvance", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+                transaction.Rollback();
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
         {

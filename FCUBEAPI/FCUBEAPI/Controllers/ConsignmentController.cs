@@ -914,7 +914,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpPost("DprVehiUpdateAdvance")]
+        public async Task<IActionResult> DprVehiUpdateAdvance(DprVehiPlacedModel dprVehi)
+        {
+            if (dprVehi == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiUpdateAdvance(dprVehi);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("DprVehiPlacedDelete")]
         public async Task<IActionResult> DprVehiPlacedDelete(RequestModel request)
         {

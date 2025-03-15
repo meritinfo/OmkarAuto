@@ -46,6 +46,7 @@ export class FingroupService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/chkActName', request, this.httpOptions);
   }
 
+
   getaccounttypes():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetAccountTypeList', null, this.httpOptions);
   }

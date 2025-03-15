@@ -39,8 +39,14 @@ export class ConsignmentupdateComponent {
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
+  contentList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   delvDetnDays: string="";
+  hamali: string="";
+  detiontion: string="";
+  others1: string="";
+  others2: string="";
+  totExt: string="";
 
   responseDetails = new Responsemodel();
   selectedLrDetails = new Consignmentmodel();
@@ -117,6 +123,7 @@ export class ConsignmentupdateComponent {
     this.getRateList();
     this.getLocationList();
     this.getBillingPartyList();
+    this.getContentList();
     this.formSubmitted = false;
 
     this.sharedService.loading = false;
@@ -137,7 +144,6 @@ export class ConsignmentupdateComponent {
       cneeName: new FormControl('',),
       party: new FormControl('',[Validators.required]),
       rateType : new FormControl('',),   
-      rateDesc : new FormControl('',),   
       gstBy : new FormControl('',),   
       rateRs : new FormControl('',),   
       freightRs : new FormControl('',),   
@@ -167,6 +173,7 @@ export class ConsignmentupdateComponent {
       extrasNarr: new FormControl('',),   
       othersNarr: new FormControl('',),   
       subTotalRs : new FormControl('',),   
+      productId : new FormControl('', ),
       // gstType: new FormControl('',),   
       // sgstPct: new FormControl('',),   
       // sgstAmt: new FormControl('',),   
@@ -183,8 +190,9 @@ export class ConsignmentupdateComponent {
       deliveryDateTime : new FormControl('',),      
       ulDetentionDays : new FormControl('',),     
     });
-
-    this.sharedService.loading = false;
+    this.formUser.controls['rateType'].disable(); 
+    this.formUser.controls['rateRs'].disable(); 
+    this.formUser.controls['freightRs'].disable();  
     this.formUser.controls['bookingPlace'].disable();
     this.formUser.controls['bookingDate'].disable();  
     this.formUser.controls['fromPlace'].disable();  
@@ -195,7 +203,9 @@ export class ConsignmentupdateComponent {
     this.formUser.controls['cneeName'].disable();  
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
-    this.formUser.controls['ulDetentionDays'].disable(); 
+    this.formUser.controls['ulDetentionDays'].disable();  
+
+    this.getUserRights();
     
       
   }
@@ -214,6 +224,27 @@ export class ConsignmentupdateComponent {
     });
   }
 
+  getContentList(): void {
+    this.commonService.getContentList().subscribe((res) => {
+      this.contentList = res;
+    });
+  }
+
+  getUserRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
+      if(res.updateCnFreight=="Y"){
+        this.formUser.controls['freightRs'].enable();   
+        this.formUser.controls['rateType'].enable(); 
+        this.formUser.controls['rateRs'].enable(); 
+      } 
+      else{        
+        this.formUser.controls['freightRs'].disable(); 
+        this.formUser.controls['rateType'].disable(); 
+        this.formUser.controls['rateRs'].disable();  
+      }     
+    });
+  }
   
   getConsignmentDetails(e: any) { 
     this.formUser.patchValue({
@@ -230,7 +261,6 @@ export class ConsignmentupdateComponent {
       cneeName:  "", 
       party:  "", 
       rateType :  "", 
-      rateDesc :  "", 
       gstBy :  "", 
       rateRs :  "", 
       freightRs :  "", 
@@ -291,12 +321,17 @@ export class ConsignmentupdateComponent {
           return;
         }
         else{
-          this.delvDetnDays = this.lrmodel.insPolicyNo;
+          this.delvDetnDays = this.lrmodel.insPolicyNo;          
+          this.hamali= this.lrmodel.tdsDeducted;        
+          this.detiontion= this.lrmodel.deduction1;        
+          this.others1= this.lrmodel.deduction2;        
+          this.others2= this.lrmodel.deduction3;        
+          this.totExt= this.lrmodel.extrasRecd1;        
           this.formUser.patchValue({
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
             billingStatus:this.lrmodel.billingStatus,
             fromPlace : this.lrmodel.fromPlace,
-            toPlace :  this.lrmodel.toPlace,    
+            toPlace :  this.lrmodel.toPlace, 
             poNo :  this.lrmodel.poNo,
             shipmentNo: this.lrmodel.poNo,
             noPackages :  this.lrmodel.noPackages,
@@ -306,7 +341,6 @@ export class ConsignmentupdateComponent {
             cneeName:  this.lrmodel.cneeName, 
             party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
             rateType :  this.lrmodel.rateType, 
-            rateDesc :  this.lrmodel.rateDesc, 
             gstBy :  this.lrmodel.gstBy, 
             rateRs :  this.lrmodel.rateRs, 
             freightRs :  this.lrmodel.freightRs, 
@@ -336,6 +370,7 @@ export class ConsignmentupdateComponent {
             extrasNarr:  this.lrmodel.extrasNarr, 
             othersNarr:  this.lrmodel.othersNarr, 
             subTotalRs :  this.lrmodel.subTotalRs, 
+            productId: this.lrmodel.productId, 
             // gstType:  this.lrmodel.gstType, 
             // sgstPct:  this.lrmodel.sgstPct ,
             // sgstAmt:  this.lrmodel.sgstAmt ,
@@ -564,13 +599,13 @@ export class ConsignmentupdateComponent {
       return;
     }
 
-    this.cnmodel.consignmentID = this.lrmodel.consignmentID;       
+    this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
+    this.cnmodel.productId = selectedDataValue.productId.toString();
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
-    this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
-    this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
+    this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
     this.cnmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.cnmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";

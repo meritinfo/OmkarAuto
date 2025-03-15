@@ -615,6 +615,7 @@ namespace Consignment.Repository
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
+                        lrmodel.ProductId = Convert.ToString(dataSet.Tables[0].Rows[0]["ProductId"]);
                         lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
                         lrmodel.ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentNo"]);
                         lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
@@ -665,6 +666,11 @@ namespace Consignment.Repository
                         lrmodel.DeliveryDateTime= Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDateTime"]);
                         lrmodel.UlDetentionDays= Convert.ToString(dataSet.Tables[0].Rows[0]["UlDetentionDays"]);
                         lrmodel.InsPolicyNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DetnDays"]);
+                        lrmodel.TdsDeducted = Convert.ToString(dataSet.Tables[0].Rows[0]["Hamali"]);
+                        lrmodel.Deduction1= Convert.ToString(dataSet.Tables[0].Rows[0]["Detiontion"]);
+                        lrmodel.Deduction2= Convert.ToString(dataSet.Tables[0].Rows[0]["Others1"]);
+                        lrmodel.Deduction3= Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
+                        lrmodel.ExtrasRecd1= Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);  
                     }
                 }
             }
@@ -689,6 +695,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),                            
+                            new SqlParameter("@ProductId",          ConsignmentModel.ProductId ),
                             new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
                             new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),

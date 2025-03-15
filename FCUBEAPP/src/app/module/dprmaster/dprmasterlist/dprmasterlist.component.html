@@ -166,7 +166,16 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allDprlist.dprList?.length != 0">
-                            <tr *ngFor="let dpr of allDprlist.dprList">
+                            <tr *ngFor="let dpr of allDprlist.dprList">                              
+                                <td>                                  
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getdprDetails(dpr)"></button>                               
+                                </td>
+                                <td>                                  
+                                    <button type="button" 
+                                        (click)="getdprVehiplaced(dpr)" *ngIf="dpr.vehicleNo==''" >
+                                        <i class="fas fa-truck"></i></button>
+                                </td>
                                 <td>{{ dpr.dprDate }}</td>  
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
@@ -178,17 +187,7 @@
                                 <td>{{ dpr.brokerName  }}</td>                      
                                 <td>{{ dpr.driverMob }}</td>                     
                                 <td>{{ dpr.vehTypeDesc }}</td>                  
-                                <td>{{ dpr.freightRs }}</td>
-                                
-                                <td>                                  
-                                    <button type="button" class="btn btn-edit"
-                                        (click)="getdprDetails(dpr)"></button>                               
-                                </td>
-                                <td>                                  
-                                    <button type="button" 
-                                        (click)="getdprVehiplaced(dpr)" *ngIf="dpr.vehicleNo==''" >
-                                        <i class="fas fa-truck"></i></button>
-                                </td>
+                                <td>{{ dpr.freightRs }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDprlist.dprList?.length == 0">

@@ -273,6 +273,34 @@ namespace FinanceMasters.Repository
             }
             return LedgerList;
         }
+        public async Task<List<DropDownListModel>> GetFinGroupList()
+        {
+            List<DropDownListModel> LedgerList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFinGroupList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            LedgerList.Add(new DropDownListModel
+                            {
+                                DataId      = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName    = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return LedgerList;
+        }
         public async Task<List<DropDownListModel>> GetEmpList()
         {
             List<DropDownListModel> EmpList = new();

@@ -1,4 +1,5 @@
 ﻿using AdminMasters.Models;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
@@ -52,6 +53,10 @@ namespace AdminMasters.Repository
                             new SqlParameter("@RoleId", userMasterModel.RoleId),
                             new SqlParameter("@Empbranch", userMasterModel.Empbranch),
                             new SqlParameter("@ActiveYN", userMasterModel.ActiveYN),
+                            new SqlParameter("@BenApproveBlock", userMasterModel.BenApproveBlock),
+                            new SqlParameter("@UpdateAdvancePaid", userMasterModel.UpdateAdvancePaid),
+                            new SqlParameter("@DprAdvanceUpdate", userMasterModel.DprAdvanceUpdate),
+                            new SqlParameter("@UpdateCnFreight", userMasterModel.UpdateCnFreight),
                             new SqlParameter("@OutOfOffReqOTP", userMasterModel.OutOfOffReqOTP),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
                             new SqlParameter("@ImageName", userMasterModel.ImageName),
@@ -290,6 +295,10 @@ namespace AdminMasters.Repository
                                 CentreName      = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 OutOfOffReqOTP  = Convert.ToString(dataSet.Tables[0].Rows[i]["OutOfOffReqOTP"]),
                                 ActiveYN        = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
+                                BenApproveBlock = Convert.ToString(dataSet.Tables[0].Rows[0]["BenApproveBlock"]),
+                                UpdateAdvancePaid = Convert.ToString(dataSet.Tables[0].Rows[0]["UpdateAdvancePaid"]),
+                                DprAdvanceUpdate = Convert.ToString(dataSet.Tables[0].Rows[0]["DprAdvanceUpdate"]),
+                                UpdateCnFreight = Convert.ToString(dataSet.Tables[0].Rows[0]["UpdateCnFreight"]),
                                 ImageName       = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
                                 BranchList      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
                             });
@@ -550,6 +559,34 @@ namespace AdminMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return roleTypeList;
+        }
+
+        public async Task<UserMasterModel> GetUserRights(RequestModel request)
+        {
+            UserMasterModel user = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = 
+                        {
+                            new SqlParameter("@UserId", request.strRequest)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUserRightDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        user.BenApproveBlock = Convert.ToString(statusData.Tables[0].Rows[0]["BenApproveBlock"]);
+                        user.UpdateAdvancePaid = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAdvancePaid"]);
+                        user.DprAdvanceUpdate = Convert.ToString(statusData.Tables[0].Rows[0]["DprAdvanceUpdate"]);
+                        user.UpdateCnFreight = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateCnFreight"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return user;
         }
 
         public async Task<DashBoardModel> GetDashboardNCC(RequestModel request)

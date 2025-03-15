@@ -44,7 +44,9 @@ export class UseraddComponent implements OnInit {
     static: true
   }) userPhotoInput: any;
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private userModel: Usermodel, private userService: UserService, private commonService: CommonService, private toastrService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private userModel: Usermodel, private userService: UserService, 
+    private commonService: CommonService, private toastrService: ToastrService) {
     this.userModel = new Usermodel();
   }
 
@@ -90,7 +92,10 @@ export class UseraddComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
       empbranch: new FormControl(''),
       formUserPhoto: new FormControl(''),
-      activeYN: new FormControl('Y', [Validators.required]),      
+      activeYN: new FormControl('Y', [Validators.required]), 
+      updateAdvancePaid: new FormControl(''),
+      dprAdvanceUpdate: new FormControl(''),
+      updateCnFreight: new FormControl(''),
       userBranch: new FormControl([], [Validators.required]),
       outOfOffReqOTP: new FormControl('N',[Validators.required]),
       imageName: new FormControl([], ),
@@ -232,7 +237,11 @@ export class UseraddComponent implements OnInit {
     this.userModel.userMobile = selecteddata.userMobile;
     this.userModel.userEmail = selecteddata.userEmail;
     this.userModel.userScope = selecteddata.userScope;
-    this.userModel.activeYN = selecteddata.activeYN?selecteddata.activeYN:'Y';
+    this.userModel.activeYN = selecteddata.activeYN?selecteddata.activeYN:'Y';  
+    this.userModel.benApproveBlock = 'N';    
+    this.userModel.updateAdvancePaid= selecteddata.updateAdvancePaid?selecteddata.updateAdvancePaid:'N';   
+    this.userModel.dprAdvanceUpdate= selecteddata.dprAdvanceUpdate?selecteddata.dprAdvanceUpdate:'N';   
+    this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';   
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.branchList = selecteddata.userBranch.toString();

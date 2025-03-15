@@ -513,6 +513,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">  
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <label for="formrow-inputZip">Attachment 1</label>                          
+                            <input #empAttach1Input class="form-control" type="file" id="formPhoto1">
+                            <a *ngIf="selectedEmployeemodelDetails.empAttach1" target="_blank"
+                                        href={{empAttach1}}>Download</a>
+                        </div>
+                    </div>  
+                    <div class="col-lg-3">
+                        <div class="mb-2">
+                            <label for="formrow-inputZip">Attachment 2</label>                          
+                            <input #empAttach2Input class="form-control" type="file" id="formPhoto2">
+                            <a *ngIf="selectedEmployeemodelDetails.empAttach2" target="_blank"
+                                        href={{empAttach2}}>Download</a>
+                        </div>
+                    </div>  
+                </div> 
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">

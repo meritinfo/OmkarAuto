@@ -33,6 +33,7 @@ export class DprvehiplacededitComponent {
   deleteStatus = false;
   viewStatus = false;
   addlr= false;
+  updAdv= false;
   userType: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -172,11 +173,14 @@ export class DprvehiplacededitComponent {
     this.formUser.controls['fromPlace'].disable(); 
     this.formUser.controls['toPlace'].disable(); 
     this.formUser.controls['advanceAmt'].disable(); 
-    this.formUser.controls['balanceAmt'].disable(); 
+    this.formUser.controls['balanceAmt'].disable();   
+    this.formUser.controls['adv1PaidYN'].disable();   
+    this.formUser.controls['adv2PaidYN'].disable(); 
 
     this.selectedDprDetails = this.dprvehiplacedService.getDprVehiDetails();
     
-    setTimeout(() => {
+    setTimeout(() => {      
+      this.getUserRights();
       if (this.selectedDprDetails.vehiclePlacedId != '') {
         this.dprid = this.selectedDprDetails.dprId;
         this.formUser.patchValue(this.selectedDprDetails);  
@@ -473,6 +477,34 @@ export class DprvehiplacededitComponent {
     });   
   }
 
+  updateAdv(): void {
+    var selectedDataVal =this.formUser.getRawValue();
+
+    this.dprvehiplacedmodel.vehiclePlacedId = this.selectedDprDetails.vehiclePlacedId;
+    this.dprvehiplacedmodel.advance1 = selectedDataVal.advance1?selectedDataVal.advance1.toString():"";
+    this.dprvehiplacedmodel.advance2 = selectedDataVal.advance2?selectedDataVal.advance2.toString():"";
+    this.dprvehiplacedmodel.advance3 = selectedDataVal.advance3?selectedDataVal.advance3.toString():"";
+    this.dprvehiplacedmodel.advanceAmt = selectedDataVal.advanceAmt?selectedDataVal.advanceAmt.toString():"";
+    this.dprvehiplacedmodel.balanceAmt = selectedDataVal.balanceAmt?selectedDataVal.balanceAmt.toString():"";
+    
+    if (this.dprvehiplacedmodel.advanceAmt=="") {
+      this.toasterService.warning("No Advance to Update");
+      return;
+    }
+
+    this.dprvehiplacedService.dprVehiUpdateAdvance(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/dprvehplacedlist']);            
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
+    });
+    this.sharedService.loading=false;
+  }
   
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -500,6 +532,19 @@ export class DprvehiplacededitComponent {
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
+    });
+  }
+
+  getUserRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
+      if(res.updateAdvancePaid=="Y"){
+        this.formUser.controls['adv1PaidYN'].enable();   
+        this.formUser.controls['adv2PaidYN'].enable();  
+      }
+      if(res.dprAdvanceUpdate=="Y"){
+        this.updAdv = true;
+      }
     });
   }
   

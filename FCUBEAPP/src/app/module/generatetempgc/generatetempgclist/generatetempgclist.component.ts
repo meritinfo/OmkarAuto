@@ -228,7 +228,23 @@ export class GeneratetempgclistComponent {
             });
           });
       },
-      columns: [
+      columns: [  
+        {
+          title: 'Action',
+          data: 'dprId',
+        },       
+        {
+          title: 'Download',
+          data: 'tempGcId',
+        },        
+        {
+          title: 'Mail',
+          data: 'dprId',
+        },          
+        {
+          title: 'Main LR',
+          data: 'tempGcId',
+        },  
         {
           title: 'DPR Date',
           data: 'dprDate',
@@ -260,23 +276,7 @@ export class GeneratetempgclistComponent {
         {
           title: 'Driver Mobile',
           data: 'driverMob1',
-        },     
-        {
-          title: 'Action',
-          data: 'dprId',
-        },       
-        {
-          title: 'Download',
-          data: 'tempGcId',
-        },        
-        {
-          title: 'Mail',
-          data: 'dprId',
-        },          
-        {
-          title: 'Main LR',
-          data: 'tempGcId',
-        },  
+        },   
       ],
     };
   }

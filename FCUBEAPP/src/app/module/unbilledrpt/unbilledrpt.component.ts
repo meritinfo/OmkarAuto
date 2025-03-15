@@ -117,7 +117,7 @@ export class UnbilledrptComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( '2022-04-01',[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        asOnDate: new FormControl(this.loginDate,[Validators.required]),
+        ack: new FormControl('',),
         branch: new FormControl('',),  
         party: new FormControl('',),  
         origin: new FormControl('',),  
@@ -128,7 +128,7 @@ export class UnbilledrptComponent {
 
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
-      this.filter.search = this.loginDate;
+      this.filter.search = '';
       this.filter.sortColumn = '';
       this.filter.sortOrder = 'D';
       this.filter.filterStr   = "";
@@ -273,7 +273,7 @@ export class UnbilledrptComponent {
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.sortColumn  = selectedDataVal.billingStatus;
       this.filter.sortOrder   = selectedDataVal.rptType;
-      this.filter.search      = selectedDataVal.asOnDate;
+      this.filter.search      = selectedDataVal.ack;
       this.filter.filterStr   = selectedDataVal.branch;
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
       this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
@@ -309,7 +309,7 @@ export class UnbilledrptComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.sortColumn  = selectedDataVal.billingStatus;
     this.filter.sortOrder   = 'D';
-    this.filter.search      = selectedDataVal.asOnDate;
+    this.filter.search      = selectedDataVal.ack;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
     this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";

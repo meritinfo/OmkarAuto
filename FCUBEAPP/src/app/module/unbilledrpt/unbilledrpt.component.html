@@ -32,10 +32,13 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">As On Date </label><span style="color: red">*</span>    
-                                    <input type="date" class="form-control" 
-                                    formControlName="asOnDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['asOnDate'].invalid) }">
+                                    <label for="formrow-inputState">ACk Received </label><span style="color: red">*</span>    
+                                    <select formControlName="ack"
+                                    class="form-control form-select ng-pristine ng-touched" >                                        
+                                        <option value="">All</option>                                       
+                                        <option value="Y">Yes</option>                                       
+                                        <option value="N">No</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -43,11 +46,11 @@
                                     <label for="formrow-inputState">Branch </label>
                                     <select formControlName="branch"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                    <option value="">All</option>
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
+                                        <option value="">All</option>
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

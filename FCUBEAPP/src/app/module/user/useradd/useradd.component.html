@@ -6,12 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">User</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item">User</li>
-                                <li class="breadcrumb-item active">User Add</li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -91,7 +85,7 @@
                                         <div class="mb-4">
                                             <label for="horizontal-email-input" class="col-form-label">Email</label>
                                             <span style="color: red">*</span>
-                                            <input type="text" class="form-control"  ="Enter email"
+                                            <input type="text" class="form-control"
                                                 formControlName="userEmail" maxlength="75"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['userEmail'].invalid) }">
                                         </div>
@@ -107,6 +101,38 @@
                                                 <option *ngFor="let roleType of roleTypeList" value={{roleType.dataId}}>
                                                     {{roleType.dataName}}
                                                 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">Update Advance Paid</label>
+                                            <select id="active" class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="updateAdvancePaid"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">DPR Advance Update</label>
+                                            <select id="active" class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="dprAdvanceUpdate"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">Update Cn Freight</label>
+                                            <select id="active" class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="updateCnFreight"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -135,6 +161,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label>User Photo</label>

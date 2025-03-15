@@ -139,7 +139,15 @@ export class BillsupplilistComponent {
             });
           });
       },
-      columns: [ 
+      columns: [  
+        {
+          title: 'Action',
+          data: 'masterId',
+        },   
+        {
+          title: 'Print',
+          data: 'masterId',
+        },  
         {
           title: 'Billing Station ',
           data: 'stationName',
@@ -164,14 +172,6 @@ export class BillsupplilistComponent {
         {
           title: 'Grand Total ',
           data: 'totalGtotal'
-        },   
-        {
-          title: 'Action',
-          data: 'masterId',
-        },   
-        {
-          title: 'Print',
-          data: 'masterId',
         },  
       ],
     };

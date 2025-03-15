@@ -148,14 +148,6 @@
                         </thead>
                         <tbody *ngIf="alltempgclist.tempGcList?.length != 0">
                             <tr *ngFor="let gc of alltempgclist.tempGcList">
-                                <td>{{ gc.dprDate }}</td>  
-                                <td>{{ gc.gcNoteNo }}</td>                        
-                                <td>{{ gc.partyName }}</td>    
-                                <td>{{ gc.fplace }}</td>                        
-                                <td>{{ gc.tplace }}</td>                        
-                                <td>{{ gc.vehicleNo }}</td>                          
-                                <td>{{ gc.driverName }}</td>                          
-                                <td>{{ gc.driverMob1 }}</td> 
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="gettempgcDetails(gc)"></button>                               
@@ -178,7 +170,14 @@
                                     (click)="genMainLrDetails(gc)" >
                                         <i class="fas fa-file-invoice-dollar"></i></button>   
                                 </td> 
-                                                                
+                                <td>{{ gc.dprDate }}</td>  
+                                <td>{{ gc.gcNoteNo }}</td>                        
+                                <td>{{ gc.partyName }}</td>    
+                                <td>{{ gc.fplace }}</td>                        
+                                <td>{{ gc.tplace }}</td>                        
+                                <td>{{ gc.vehicleNo }}</td>                          
+                                <td>{{ gc.driverName }}</td>                          
+                                <td>{{ gc.driverMob1 }}</td>                                                                 
                             </tr>
                         </tbody>
                         <tbody *ngIf="alltempgclist.tempGcList?.length == 0">

@@ -19,20 +19,25 @@ export class EmpmasterService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
   selectedEmployee = new Employeemodel();
   constructor(private httpClient: HttpClient) { }
 
   setEmployeeDetails(Employee: Employeemodel) { 
-      this.selectedEmployee = Employee;   
+    this.selectedEmployee = Employee;   
   }
   getEmployeeDetails() {
     return this.selectedEmployee;
   }
   clearEmployeeDetails() {
     this.selectedEmployee = new Employeemodel();
-  }
-  employeeSubmitted(user: Employeemodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpMasterSave', user, this.httpOptions);
+  }  
+  employeeSubmitted(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpMasterSave', user, this.httpformOptions);
   }
   getEmployeeList(filter: Filtermodel): Observable<Empmasterlistmodel> {
     return this.httpClient.post<Empmasterlistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpMasterList', filter, this.httpOptions);
