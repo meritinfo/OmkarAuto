@@ -363,7 +363,7 @@ get f() { return this.formUser.controls; }
           //this.formTyreArray.push(this.createVehicleArray());
           //this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
        if(selectedData.gstType='S'){
-        var p =   selectedData.arrayList[i].taxableAmt*parseFloat(this.pct)/100;
+        var p =   selectedData.arrayList[0].taxableAmt*parseFloat(this.pct)/100;
         var p=p/2;
 
         this.formTyreArray.controls[i].get("sgstAmt")?.setValue(p); 
@@ -372,7 +372,14 @@ get f() { return this.formUser.controls; }
         this.formTyreArray.controls[i].get("cgstPct")?.setValue(this.pct); 
         this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
         this.formTyreArray.controls[i].get("igstAmt")?.setValue("0");
-        let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
+        var sg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
+        var cg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
+        var ig = selectedData.arrayList[i].igstAmt ? parseFloat(selectedData.arrayList[i].igstAmt) : 0
+      //  let totamt = cg+sg+ parseFloat selectedData.arrayList[i].taxableAmt;
+
+        var totamt = cg+sg+ig
+    
+    + parseFloat(selectedData.arrayList[i].taxableAmt);
         this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
         
         this.formTyreArray.controls[i].get("totalAmt")?.disable();  
@@ -394,7 +401,14 @@ get f() { return this.formUser.controls; }
         this.formTyreArray.controls[i].get("cgstPct")?.setValue("0"); 
         this.formTyreArray.controls[i].get("igstPct")?.setValue(this.pct);
         this.formTyreArray.controls[i].get("igstAmt")?.setValue(p);
-       let totamt = selectedData.arrayList[i].sgstAmt+ selectedData.arrayList[i].cgstAmt+ selectedData.arrayList[i].igstAmt+ selectedData.arrayList[i].taxableAmt;
+        var sg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
+        var cg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
+        var ig = selectedData.arrayList[i].igstAmt ? parseFloat(selectedData.arrayList[i].igstAmt) : 0
+      //  let totamt = cg+sg+ parseFloat selectedData.arrayList[i].taxableAmt;
+
+        var totamt = cg+sg+ig
+    
+    + parseFloat(selectedData.arrayList[i].taxableAmt);
        this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
        this.formTyreArray.controls[i].get("totalAmt")?.disable();  
        this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
@@ -423,7 +437,7 @@ get f() { return this.formUser.controls; }
       var totalTaxableAm = 0;
       var selectedData = this.formUser.getRawValue();  
    
-      for (let i = 0; i < this.ccinvmstmodel.ccinvmstDtlList.length; i++) {
+      for (let i = 0; i < selectedData.arrayList.length; i++) {
        totalSgstAm = totalSgstAm + parseFloat( selectedData.arrayList[i].sgstAmt);
        totalCgstAm = totalCgstAm + parseFloat(selectedData.arrayList[i].cgstAmt);
        totalIgstAm = totalIgstAm + parseFloat(selectedData.arrayList[i].igstAmt);
@@ -561,4 +575,3 @@ get f() { return this.formUser.controls; }
 
 
   
-

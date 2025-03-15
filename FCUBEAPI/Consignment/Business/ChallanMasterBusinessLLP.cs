@@ -16,15 +16,15 @@ namespace Consignment.Business
         {
             challanRepository = _challanRepository;
         }
-        public async Task<ChallanListModel> GetChallanMasterListLLP(ReportRequestModel request)
+        public async Task<ChallanListModelLLP> GetChallanMasterListLLP(ReportRequestModel request)
         {
             return await challanRepository.GetChallanMasterListLLP(request);
         }
-        public async Task<ChallanMasterModel> GetChallanInnerGridListLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetChallanInnerGridListLLP(RequestModel request)
         {
             return await challanRepository.GetChallanInnerGridListLLP(request);
         }
-        public async Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModel challanModel)
+        public async Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModelLLP challanModel)
         {
             return await challanRepository.ChallanMasterSaveLLP(challanModel);
         }
@@ -40,11 +40,11 @@ namespace Consignment.Business
         {
             return await challanRepository.CheckDuplicateChallanLLP(request);
         }
-        public async Task<ChallanMasterModel> GetConsignmentIdLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetConsignmentIdLLP(RequestModel request)
         {
             return await challanRepository.GetConsignmentIdLLP(request);
         }
-        public async Task<ChallanMasterModel> GetChallanDetailsFromLRLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetChallanDetailsFromLRLLP(RequestModel request)
         {
             return await challanRepository.GetChallanDetailsFromLRLLP(request);
         }
@@ -56,11 +56,11 @@ namespace Consignment.Business
         {
             return await challanRepository.CheckChallanPrepForLrLLP(request);
         }
-        public async Task<ChallanMasterModel> GetChallanEnqInnerGridListLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetChallanEnqInnerGridListLLP(RequestModel request)
         {
             return await challanRepository.GetChallanEnqInnerGridListLLP(request);
         }
-        public async Task<ChallanMasterModel> GetChallanEnqDetailsLLP(RequestModel req)
+        public async Task<ChallanMasterModelLLP> GetChallanEnqDetailsLLP(RequestModel req)
         {
             return await challanRepository.GetChallanEnqDetailsLLP(req);
         }
@@ -79,6 +79,10 @@ namespace Consignment.Business
         public async Task<ResponseModel> GetBranchPanApiUseLLP(RequestModel requestModel)
         {
             return await challanRepository.GetBranchPanApiUseLLP(requestModel);
+        }
+        public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
+        {
+            return await challanRepository.GetCCIInviceDetailLLP(requestModel);
         }
 
     }

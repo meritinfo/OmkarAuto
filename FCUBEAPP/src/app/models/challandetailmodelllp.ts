@@ -1,4 +1,4 @@
-export class Challandetailmodel {
+export class ChallandetailmodelllP {
     challanId: string = "";
     gcYear : string = "";
     gcBook: string = "";
@@ -9,6 +9,6 @@ export class Challandetailmodel {
     bookingDate : string = "";
     challanPkgs: string = "";
     challanWT : string = "";
-    
+    containerNo : string = "";
     yearId : string = "";        
 }

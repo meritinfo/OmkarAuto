@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
+import { Userlistmodel } from './models/userlistmodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
@@ -222,6 +223,7 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { Dprmodel } from './models/dprmodel';
 import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
+import { Ccinvdetailmodel } from 'src/app/models/cciinvdetailmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { DprvehiplacededitComponent } from './module/dprvehiplaced/dprvehiplacededit/dprvehiplacededit.component';
@@ -686,7 +688,7 @@ import { ChallanmastermodelllP } from './models/challanmastermodelllp';
     Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,
     
   ],
   bootstrap: [AppComponent]

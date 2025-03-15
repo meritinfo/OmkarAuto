@@ -8,7 +8,7 @@ namespace Consignment.Models
 {
     public class ChallanListModelLLP
     {
-        public List<ChallanMasterModel> ChallanList { get; set; }
+        public List<ChallanMasterModelLLP> ChallanList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }
