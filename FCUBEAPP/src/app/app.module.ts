@@ -685,8 +685,8 @@ import { ChallanmastermodelllP } from './models/challanmastermodelllp';
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Ccinvmstmodel, Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,
     Freightgstmastermodel,Freightgstmasterlistmodel,
-    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,
+    ChallanmastermodelllP,ChallanlistmodelllP,
+    
     
   ],
   bootstrap: [AppComponent]
