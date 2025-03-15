@@ -220,7 +220,15 @@ export class DrpmasterlistComponent {
             });
           });
       },
-      columns: [
+      columns: [ 
+        {
+          title: 'Action',
+          data: 'dprId',
+        },    
+        {
+          title: 'Vehicle Place',
+          data: 'dprId',
+        },     
         {
           title: 'DPR Date',
           data: 'dprDate',
@@ -268,15 +276,7 @@ export class DrpmasterlistComponent {
         {
           title: 'Booking Freight',
           data: 'freightRs',
-        },   
-        {
-          title: 'Action',
-          data: 'dprId',
-        },    
-        {
-          title: 'Vehical Place',
-          data: 'dprId',
-        },     
+        }, 
       ],
     };
   }

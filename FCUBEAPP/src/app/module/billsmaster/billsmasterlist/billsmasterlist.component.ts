@@ -139,14 +139,21 @@ export class BillsmasterlistComponent {
       },
       columns: [ 
         {
+          title: 'Action',
+          data: 'masterId',
+        },   
+        {
+          title: 'Print',
+          data: 'masterId',
+        },  
+        {
           title: 'Billing Station ',
           data: 'stationName',
         },
         {
           title: 'Bill No',
           data: 'billNo',
-        },
-       
+        },       
         {
           title: 'Bill Date',
           data: 'billDate'
@@ -163,14 +170,6 @@ export class BillsmasterlistComponent {
           title: 'Grand Total ',
           data: 'totalGtotal'
         },   
-        {
-          title: 'Action',
-          data: 'masterId',
-        },   
-        {
-          title: 'Print',
-          data: 'masterId',
-        },  
       ],
     };
   }

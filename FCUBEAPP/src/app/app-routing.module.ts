@@ -295,6 +295,7 @@ import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlis
 
 
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -684,9 +685,7 @@ const routes: Routes = [
   { path: 'dotempgcedit', component: DotempgceditComponent },
   { path: 'freightgstmaster', component: FreightgstmasterlistComponent },
   { path: 'freightgstmasteradd', component: FreightgstmasteraddComponent },
-  { path: 'freightgstmasteredit', component: FreightgstmasteraddComponent },
-  
-  
+  { path: 'freightgstmasteredit', component: FreightgstmasteraddComponent },  
   { path: 'dotempgcedit', component: DotempgceditComponent },  
   { path: 'docallotllp', component: DocallotmentllplistComponent },
   { path: 'docallotllpadd', component: DocallotmentllpaddComponent },

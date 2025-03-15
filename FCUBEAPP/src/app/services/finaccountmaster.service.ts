@@ -38,6 +38,9 @@ export class FinsaccountmasterService {
   getFinsaccountsList(filter: Filtermodel): Observable<Finaccountlistmodel> {
     return this.httpClient.post<Finaccountlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinAccountsMasterList', filter, this.httpOptions);
   }  
+  getGroupList():  Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinGroupList', null, this.httpOptions);
+  }
   getledgerList():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinActLedgertype', null, this.httpOptions);
   }

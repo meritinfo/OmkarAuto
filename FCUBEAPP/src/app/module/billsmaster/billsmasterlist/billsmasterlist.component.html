@@ -84,12 +84,6 @@
                         </thead>
                         <tbody *ngIf="allBillsMaster.billsList?.length != 0">
                             <tr *ngFor="let renewalMaster of allBillsMaster.billsList">
-                                <td>{{ renewalMaster.stationName }}</td>                        
-                                <td>{{ renewalMaster.billNo}}</td>      
-                                <td>{{ renewalMaster.billDate}}</td>                        
-                                <td>{{ renewalMaster.party}}</td>
-                                <td>{{ renewalMaster.collectionBranch}}</td>
-                                <td>{{ renewalMaster.totalGtotal}}</td>  
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillsMasterDetails(renewalMaster)"></button>                               
@@ -99,6 +93,12 @@
                                         (click)="download(renewalMaster)">
                                         <i class="fas fa-download"></i></button>                            
                                 </td>
+                                <td>{{ renewalMaster.stationName }}</td>                        
+                                <td>{{ renewalMaster.billNo}}</td>      
+                                <td>{{ renewalMaster.billDate}}</td>                        
+                                <td>{{ renewalMaster.party}}</td>
+                                <td>{{ renewalMaster.collectionBranch}}</td>
+                                <td>{{ renewalMaster.totalGtotal}}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allBillsMaster.billsList?.length == 0">

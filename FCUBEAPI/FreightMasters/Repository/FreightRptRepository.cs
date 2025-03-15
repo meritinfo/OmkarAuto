@@ -1498,9 +1498,13 @@ namespace FreightMasters.Repository
                             {
                                 ws.Range(r, 1, r, colcnt).Value = "PENDING INVOICE LR";
                             }
-                            else
+                            else if(type=="B")
                             {
                                 ws.Range(r, 1, r, colcnt).Value = "INVOICES";
+                            }
+                            else
+                            {
+                                ws.Range(r, 1, r, colcnt).Value = "MR";
                             }
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 12;

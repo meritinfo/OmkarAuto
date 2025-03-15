@@ -136,13 +136,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allConsignment.cnList?.length != 0">
-                            <tr *ngFor="let cn of allConsignment.cnList">
-                                <td>{{ cn.bookedAt }}</td>
-                                <td>{{ cn.bookingDate }}</td>                        
-                                <td>{{ cn.gcNoteNo }}</td>
-                                <td>{{ cn.fPlace }}</td>
-                                <td>{{ cn.tPlace }}</td>
-                                <td>{{ cn.truckNo }}</td>                             
+                            <tr *ngFor="let cn of allConsignment.cnList">                          
                                 <td>                                   
                                     <button type="button" class="btn btn-edit" 
                                         (click)="getConsignmentDetails(cn)"></button>                               
@@ -153,6 +147,12 @@
                                     (click)="download(cn)" >
                                         <i class="fas fa-download"></i></button>   
                                 </td>  
+                                <td>{{ cn.bookedAt }}</td>
+                                <td>{{ cn.bookingDate }}</td>                        
+                                <td>{{ cn.gcNoteNo }}</td>
+                                <td>{{ cn.fPlace }}</td>
+                                <td>{{ cn.tPlace }}</td>
+                                <td>{{ cn.truckNo }}</td>   
                             </tr>
                         </tbody>
                         <tbody *ngIf="allConsignment.cnList?.length == 0">

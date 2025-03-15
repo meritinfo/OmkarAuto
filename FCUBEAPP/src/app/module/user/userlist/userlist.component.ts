@@ -115,10 +115,4 @@ export class UserlistComponent implements OnInit {
     this.route.navigate(['/useredit']);
   }
 
-  public deleteUser(user: Usermodel) {
-    console.log(user);
-    // this.confirmationdialogService.confirm('Please confirm..', 'Do you really want to delete ' + user.userName + '?')
-    //   .then((confirmed) => console.log('User confirmed:', confirmed))
-    //   .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  }
 }

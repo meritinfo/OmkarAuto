@@ -7,6 +7,7 @@ import { FinsaccountmasterService } from 'src/app/services/finaccountmaster.serv
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class FinaccountsmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  groupList : Dropdownmodel[] = []; 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -68,9 +70,11 @@ export class FinaccountsmasterlistComponent {
     this.finsaccountmasterService.clearFinsaccountsDetails();
     this.formFilter = this.formBuilder.group({
       accountName: new FormControl(''),
+      groupName: new FormControl(''),
     });
 
     this.sharedService.loading=true;
+    this.getGroupList();
     this.finaccountslist();
     this.sharedService.loading=false;
 
@@ -89,9 +93,6 @@ export class FinaccountsmasterlistComponent {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
       this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      // this.filter.search = '';      
       callback({
         recordsTotal: 0,
         recordsFiltered: 0,
@@ -130,6 +131,11 @@ export class FinaccountsmasterlistComponent {
       ],
     };
   }
+  getGroupList(): void {
+      this.finsaccountmasterService.getGroupList().subscribe((res) => {
+      this.groupList = res;
+    });
+  }
   
   //Open new driver master add screen
   addfinaccount(): void {
@@ -145,6 +151,7 @@ export class FinaccountsmasterlistComponent {
  
   search(): void {
     this.filter.search = this.formFilter.value.accountName;
+    this.filter.sortColumn = this.formFilter.value.groupName;
     this.sharedService.loading=true;
     this.finaccountslist();
     this.sharedService.loading=false;

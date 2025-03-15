@@ -120,6 +120,22 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetFinGroupList")]
+        public async Task<IActionResult> GetFinGroupList()
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinGroupList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
 
         [HttpPost("GetEmpList")]
         public async Task<IActionResult> GetEmpList()

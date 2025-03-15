@@ -44,7 +44,9 @@ export class UseraddComponent implements OnInit {
     static: true
   }) userPhotoInput: any;
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private userModel: Usermodel, private userService: UserService, private commonService: CommonService, private toastrService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private userModel: Usermodel, private userService: UserService, 
+    private commonService: CommonService, private toastrService: ToastrService) {
     this.userModel = new Usermodel();
   }
 

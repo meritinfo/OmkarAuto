@@ -25,6 +25,10 @@ namespace FinanceMasters.Business
         {
             return await finAccountsMasterRepository.GetFinAccountsMasterList(request);
         }
+        public async Task<List<DropDownListModel>> GetFinGroupList()
+        {
+            return await finAccountsMasterRepository.GetFinGroupList();
+        }
         public async Task<List<DropDownListModel>> GetFinActLedgertype()
         {
             return await finAccountsMasterRepository.GetFinActLedgertype();

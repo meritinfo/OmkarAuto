@@ -106,18 +106,7 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allSubmitMaster.submitList?.length != 0">
-                        <tr *ngFor="let tm of allSubmitMaster.submitList">
-                         
-                            <td>{{ tm.sname}}</td>
-                            <td>{{ tm.submitNo}}</td>
-                            <td>{{ tm.submitDt}}</td> 
-                            <td>{{ tm.submitType}}</td> 
-                            <td>{{ tm.courierCo}}</td>                         
-                            <td>{{ tm.courierDocketNo}}</td> 
-                            <td>{{ tm.party}}</td> 
-                            <td>{{ tm.lname}}</td> 
-                            <td>{{ tm.dname}}</td> 
-                                                    
+                        <tr *ngFor="let tm of allSubmitMaster.submitList">                                                     
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getBillSubmitMasterDetails(tm)"></button> 
@@ -128,6 +117,15 @@
                                 (click)="download(tm)" >
                                     <i class="fas fa-download"></i></button>   
                             </td>  
+                            <td>{{ tm.sname}}</td>
+                            <td>{{ tm.submitNo}}</td>
+                            <td>{{ tm.submitDt}}</td> 
+                            <td>{{ tm.submitType}}</td> 
+                            <td>{{ tm.courierCo}}</td>                         
+                            <td>{{ tm.courierDocketNo}}</td> 
+                            <td>{{ tm.party}}</td> 
+                            <td>{{ tm.lname}}</td> 
+                            <td>{{ tm.dname}}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allSubmitMaster.submitList?.length == 0">

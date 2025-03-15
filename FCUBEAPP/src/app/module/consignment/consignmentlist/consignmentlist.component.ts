@@ -226,6 +226,14 @@ export class ConsignmentlistComponent implements OnInit  {
      // Set column title and data field
       columns: [  
         {
+          title: 'Action',
+          data: 'consignmentID',
+        }, 
+        {
+          title: 'Download',
+          data: 'consignmentID',
+        }, 
+        {
           title: 'Booked At',
           data: 'bookedAt',
         },
@@ -249,14 +257,6 @@ export class ConsignmentlistComponent implements OnInit  {
           title: 'Vehicle No',
           data: 'truckNo',
         },  
-        {
-          title: 'Action',
-          data: 'consignmentID',
-        }, 
-        {
-          title: 'Download',
-          data: 'consignmentID',
-        }, 
       ],
     };
   }

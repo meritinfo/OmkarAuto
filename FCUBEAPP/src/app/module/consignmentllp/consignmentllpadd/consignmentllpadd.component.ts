@@ -714,7 +714,6 @@ export class ConsignmentllpaddComponent {
   calculateAmount(){
     var selectedData = this.formUser.getRawValue();
     var linkColumn = "";
-    var subTotalRs = 0, gtotalRs = 0;
     var amount = 0, totalAmt = 0;
     var sgstPct = 0, sgstAmt = 0;
     var cgstPct = 0, cgstAmt = 0;
@@ -754,15 +753,13 @@ export class ConsignmentllpaddComponent {
         this.formGstArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
         this.formGstArray.controls[i].get("totalAmt")?.setValue(totalAmt.toFixed(2));
 
-        this.formUser.controls[linkColumn].setValue(totalAmt.toFixed(2));
+        this.formUser.controls[linkColumn].setValue(amount.toFixed(2));
       }
     }  
     this.formUser.patchValue({
       sgstAmt : totsgst.toFixed(2),
       cgstAmt: totcgst.toFixed(2),
       igstAmt: totigst.toFixed(2),
-      subTotalRs: subTotalRs.toFixed(2),
-      gtotalRs: gtotalRs.toFixed(2),
     });
 
     this.calculateTotalAmount();   
@@ -787,12 +784,16 @@ export class ConsignmentllpaddComponent {
     var othersRs = selectedData.othersRs != ""? parseFloat(selectedData.othersRs) : 0;
     var nonGstAmt1 = selectedData.nonGstAmt1?selectedData.nonGstAmt1 != ""? parseFloat(selectedData.nonGstAmt1) : 0: 0;
     var nonGstAmt2 = selectedData.nonGstAmt2?selectedData.nonGstAmt2 != ""? parseFloat(selectedData.nonGstAmt2) : 0: 0;
+    var sgstAmt = selectedData.sgstAmt?selectedData.sgstAmt != ""? parseFloat(selectedData.sgstAmt) : 0: 0;
+    var cgstAmt = selectedData.cgstAmt?selectedData.cgstAmt != ""? parseFloat(selectedData.cgstAmt) : 0: 0;
+    var igstAmt = selectedData.igstAmt?selectedData.igstAmt != ""? parseFloat(selectedData.igstAmt) : 0: 0;
    
     subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
                     unLoadingDetnRs + extrasRS + othersRs;
    
-    gtotalRs = subTotalRs + nonGstAmt1 + nonGstAmt2;
+    gtotalRs = subTotalRs + sgstAmt + cgstAmt + igstAmt +
+                  nonGstAmt1 + nonGstAmt2;
    
     this.formUser.patchValue({
       subTotalRs: subTotalRs.toFixed(2),

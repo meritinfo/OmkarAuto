@@ -144,6 +144,14 @@ billSubmitList() {
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'submitMstId',
+      },
+      {
+        title: 'Print',
+        data: 'submitMstId',
+      },  
+      {
         title: 'Submit Stn',
         data: 'Sname',
       },
@@ -151,11 +159,6 @@ billSubmitList() {
         title: 'Submit No',
         data: 'submitNo',
       },
-     
-      // {
-      //   title: 'Maint Type',
-      //   data: 'maintType',
-      // }, 
       {
         title: 'Submit Date',
         data: 'submitDt',
@@ -164,12 +167,6 @@ billSubmitList() {
         title: 'Submit Type',
         data: 'submitType',
       },
-      // {
-      //   title: 'vehicleMasterId',
-      //   data: 'vehicleMasterId',
-      // }, 
-      
-      
       {
         title: 'Courier Co',
         data: 'courierCo',
@@ -189,14 +186,6 @@ billSubmitList() {
       {
         title: 'Dept',
         data: 'dname',
-      },  
-      {
-        title: 'Action',
-        data: 'submitMstId',
-      },
-      {
-        title: 'Print',
-        data: 'submitMstId',
       },  
     ],
   };
