@@ -37,7 +37,7 @@ export class EmpmasterService {
     this.selectedEmployee = new Employeemodel();
   }  
   employeeSubmitted(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/EmpMasterSave', user, this.httpformOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpMasterSave', user, this.httpformOptions);
   }
   getEmployeeList(filter: Filtermodel): Observable<Empmasterlistmodel> {
     return this.httpClient.post<Empmasterlistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpMasterList', filter, this.httpOptions);
