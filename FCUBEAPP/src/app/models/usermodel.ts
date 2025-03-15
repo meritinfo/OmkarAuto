@@ -12,6 +12,8 @@ export class Usermodel {
     activeYN: string = "";
     benApproveBlock : string = "";
     updateAdvancePaid: string = "";
+    dprAdvanceUpdate: string = "";
+    updateCnFreight: string = "";
     branchList: string = "";
     loggedInUser: string = "";
     imageName: string = "";

@@ -49,14 +49,53 @@
                                                 <option value="IB">Indemnity Bond</option>
                                             </select>
                                         </div>
-                                    </div>                                                                                                               
+                                    </div>   
+                                </div> 
+                                <div class="row">                                                                                                                
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label style="color: red"> 
                                                 <h6> {{ this.delvDetnDays}} </h6> 
                                             </label>                                                 
                                         </div>
-                                    </div>   
+                                    </div>                                                                                                               
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Hamali : {{ this.hamali}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Detiontion : {{ this.detiontion}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label style="color: red"> 
+                                                <h6> Other Payable1 : {{ this.others1}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                               
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Other Payable2 : {{ this.others1}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Extra Payable : {{ this.totExt}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>  
                                 </div> 
                                 <div class="row">   
                                     <div class="col-lg-2">
@@ -142,7 +181,18 @@
                                         </div>
                                     </div>  
                                 </div>                                  
-                                <div class="row">  
+                                <div class="row">                              
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Material Desc</label>
+                                            <select formControlName="productId"
+                                                class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let rate of contentList" value={{rate.dataId}}>
+                                                    {{rate.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">PO No</label>

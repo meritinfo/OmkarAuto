@@ -54,5 +54,7 @@ export class Employeemodel {
     lastPerks              : string = "";
     removeDate             : string = "";
     fullFinal              : string = "";
+    empAttach1: string = "";
+    empAttach2: string = "";
     loggedInUser           : string = "";
 }

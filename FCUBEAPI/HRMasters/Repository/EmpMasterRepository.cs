@@ -202,6 +202,8 @@ namespace HRMasters.Repository
                                 LastPerks               = Convert.ToString(dataSet.Tables[0].Rows[i]["LastPerks"]),
                                 RemoveDate              = Convert.ToString(dataSet.Tables[0].Rows[i]["RemoveDate"]),
                                 FullFinal               = Convert.ToString(dataSet.Tables[0].Rows[i]["FullFinal"]),
+                                EmpAttach1               = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpAttach1"]),
+                                EmpAttach2               = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpAttach2"]),
                                 LoggedInUser            = ""
 
                             });

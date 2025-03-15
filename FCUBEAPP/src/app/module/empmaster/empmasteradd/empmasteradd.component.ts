@@ -36,6 +36,17 @@ export class EmpmasteraddComponent {
   empList: Dropdownmodel[] = [];
   selectedEmployeemodelDetails = new Employeemodel();
 
+  empAttach1: string = "";  
+  empAttach2: string = "";
+
+  @ViewChild('empAttach1Input ', {
+    static: true
+  }) empAttach1Input: any;
+
+  @ViewChild('empAttach2Input', {
+    static: true
+  }) empAttach2Input: any;
+
   constructor(private route: Router, private formBuilder: FormBuilder,
     private employeemodel: Employeemodel, private empmasterService: EmpmasterService,
     private commonService: CommonService,
@@ -133,6 +144,8 @@ export class EmpmasteraddComponent {
 
     if (this.selectedEmployeemodelDetails.empId != '') {
       this.formEmployee.patchValue(this.selectedEmployeemodelDetails);
+      this.empAttach1 = Constants.UploadFolderPath + 'empmaster/empattach1/' + this.selectedEmployeemodelDetails.empAttach1;
+      this.empAttach2 = Constants.UploadFolderPath + 'empmaster/empattach2/' + this.selectedEmployeemodelDetails.empAttach2;
       this.formEmployee.patchValue({
         dateOfBirth: this.commonService.formatDate(this.selectedEmployeemodelDetails.dateOfBirth),
         dateOfAppoint: this.commonService.formatDate(this.selectedEmployeemodelDetails.dateOfAppoint), 
@@ -379,9 +392,15 @@ export class EmpmasteraddComponent {
     this.employeemodel.lastPerks          = selectedDataVal.lastPerks.toString()  ;  
     this.employeemodel.removeDate         = selectedDataVal.removeDate  ;      
     this.employeemodel.fullFinal          = selectedDataVal.fullFinal ;  
-    this.employeemodel.loggedInUser       = this.loggedInUserID;    
+    this.employeemodel.loggedInUser       = this.loggedInUserID;  
+    
+    
+    let formData = new FormData();
+    formData.append('empAttach1', this.empAttach1Input.nativeElement.files[0]);
+    formData.append('empAttach2', this.empAttach2Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.employeemodel));     
 
-    this.empmasterService.employeeSubmitted(this.employeemodel).subscribe((res: Responsemodel) => {
+    this.empmasterService.employeeSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);

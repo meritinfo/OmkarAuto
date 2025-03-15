@@ -193,7 +193,15 @@
                                             (change)="onAdvChange()" 
                                             formControlName="advance3" >
                                         </div>
-                                    </div>  
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <div class="tex">
+                                            <button class="btn btn-primary w-md" 
+                                            *ngIf="updAdv" (click)="updateAdv()">Update Adv</button>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">   
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Cash/Bank Adv: </label>

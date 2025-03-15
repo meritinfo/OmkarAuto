@@ -5,6 +5,12 @@ using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using Consignment.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 
 namespace FCUBEAPI.Controllers
@@ -14,6 +20,7 @@ namespace FCUBEAPI.Controllers
     [ApiController]
     public class HRMasterController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IHrMasterBusiness hrMasterBusiness;
         readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IEmpMasterBusiness empMasterBusiness;
@@ -22,13 +29,15 @@ namespace FCUBEAPI.Controllers
         readonly IEmpSalaryCalcBusiness empSalaryCalcBusiness;
 
 
-        public HRMasterController(IHrMasterBusiness _hrMasterBusiness, 
+        public HRMasterController(IOptions<DBModel> _dbconnection, 
+            IHrMasterBusiness _hrMasterBusiness, 
             IEmpMasterBusiness _empMasterBusiness,
             IEmpSalaryBusiness _empSalaryBusiness,
             IPtSlabMasterBusiness _ptSlabMasterBusiness,
             ILoanBusiness _loanBusiness,
             IEmpSalaryCalcBusiness _empSalaryCalcBusiness)
         {
+            dbconnection = _dbconnection;
             hrMasterBusiness = _hrMasterBusiness;
             ptSlabMasterBusiness = _ptSlabMasterBusiness;
             empMasterBusiness = _empMasterBusiness;
@@ -116,14 +125,49 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("EmpMasterSave")]
-        public async Task<IActionResult> EmpMasterSave(EmpMasterModel empMaster)
+        public async Task<IActionResult> EmpMasterSave()
         {
-            if (empMaster == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var empAttach1 = HttpContext.Request.Form.Files["empAttach1"];
+                var empAttach2 = HttpContext.Request.Form.Files["empAttach2"];
+
+                EmpMasterModel empMaster = JsonConvert.DeserializeObject<EmpMasterModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (empAttach1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(empAttach1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(empAttach1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/empmaster/empattach1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await empAttach1.CopyToAsync(fileStream);
+                        empMaster.EmpAttach1 = imageName;
+                    }
+                }
+                if (empAttach2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(empAttach2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(empAttach2.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/empmaster/empattach1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await empAttach2.CopyToAsync(fileStream);
+                        empMaster.EmpAttach2 = imageName;
+                    }
+                }
                 var result = await empMasterBusiness.EmpMasterSave(empMaster);
 
                 return Ok(result);
