@@ -667,10 +667,11 @@ namespace Consignment.Repository
                         lrmodel.UlDetentionDays= Convert.ToString(dataSet.Tables[0].Rows[0]["UlDetentionDays"]);
                         lrmodel.InsPolicyNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DetnDays"]);
                         lrmodel.TdsDeducted = Convert.ToString(dataSet.Tables[0].Rows[0]["Hamali"]);
-                        lrmodel.Deduction1= Convert.ToString(dataSet.Tables[0].Rows[0]["Detiontion"]);
-                        lrmodel.Deduction2= Convert.ToString(dataSet.Tables[0].Rows[0]["Others1"]);
-                        lrmodel.Deduction3= Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
-                        lrmodel.ExtrasRecd1= Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);  
+                        lrmodel.Deduction1 = Convert.ToString(dataSet.Tables[0].Rows[0]["Detiontion"]);
+                        lrmodel.Deduction2 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1"]);
+                        lrmodel.Deduction3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
+                        lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);  
+                        lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]); 
                     }
                 }
             }
