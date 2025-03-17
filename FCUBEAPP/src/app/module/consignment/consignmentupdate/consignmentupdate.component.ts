@@ -47,6 +47,7 @@ export class ConsignmentupdateComponent {
   others1: string="";
   others2: string="";
   totExt: string="";
+  modifiedBy: string = "";
 
   responseDetails = new Responsemodel();
   selectedLrDetails = new Consignmentmodel();
@@ -389,6 +390,7 @@ export class ConsignmentupdateComponent {
           });
           this.whatsappPOD1 = Constants.UploadFolderPath + 'Lr/whatsappPOD1/' + this.selectedLrDetails.whatsappPOD1;
           this.whatsappPOD2 = Constants.UploadFolderPath + 'Lr/whatsappPOD2/' + this.selectedLrDetails.whatsappPOD2;
+          this.modifiedBy = this.selectedLrDetails.modifiedBy ;      
         }
       });
       this.sharedService.loading = false;

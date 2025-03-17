@@ -478,6 +478,14 @@ export class LorryhirepmtaddComponent {
         return;
       }
     }
+    for (var j = 0; j < selectedData.arrayList.length; j++) {
+      if(i!=j && selectedData.arrayList[i].challanNo==selectedData.arrayList[j].challanNo){        
+        this.toasterService.warning("Challan already Exists in grid");
+        this.formArray.controls[i].get("challanNo")?.setValue("");
+        return;
+      }
+    }
+    
 
     this.challanInputDtls.search = selectedData.pmtType;
     this.challanInputDtls.filterStr = selectedData.arrayList[i].abType ;
