@@ -75,7 +75,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">LR NO : </label>
                                     <input  class="form-control" formControlName="lrNo" maxlength="15">   
@@ -86,7 +86,7 @@
                                     <button class="btn btn-primary" *ngIf="(!editMode && createStatus)"
                                         (click)="getDetails()"><span>Get Details</span></button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-lg-3">
@@ -295,7 +295,7 @@
                                                     </td>                                                  
                                                     <td class="col-lg-1">
                                                         <input uppercaseonly type="text" class="form-control" 
-                                                        numbersonly maxlength="15" 
+                                                        maxlength="15" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
                                                         <input type="hidden" class="form-control" 
                                                         formControlName="consignmentId">
@@ -613,12 +613,62 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row"> 
+                        <div class="row">
+                            <div class="col-lg-2"> 
+                                <div class="mb-3">                               
+                                <div class="form-check">
+                                    <input type="checkbox"  formControlName="cciInvoice"  (change)="onInvoiceChk($event)"
+                                       
+                                        class="form-check-input" >
+                                    <label for="cciInvoice"   class="form-check-label">Get From CCI Invoice Entry
+                                    </label>
+                                </div>   
+                            </div>                         
+                            </div>  
+                        </div>  
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Rate Per Ton</label>
+                                    <label for="formrow-inputZip">CCi Invoice No</label>
+                                    <input type="text" class="form-control" uppercaseonly
+                                        formControlName="cciInvNo" >
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-2">
+                                 <div class="mb-3">
+                                    <label for="formrow-inputZip">Container No</label>
+                                    <input type="text"  class="form-control" uppercaseonly
+                                        formControlName="containerNo">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" *ngIf="(!editMode && createStatus)" (click)="getCCIInvoiceMstDetail()"
+                                        ><span>Get Details</span></button>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Cgst Amt</label>
                                     <input type="text" decimalonly class="form-control" 
-                                    maxlength="15" formControlName="ratePerTon">
+                                        formControlName="cgstAmt">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Igst Amt</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="igstAmt">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Sgst Amt</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="sgstAmt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -629,6 +679,17 @@
                                         formControlName="lorryHire" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
+                           
+                        </div>  
+                        <div class="row"> 
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Rate Per Ton</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                    maxlength="15" formControlName="ratePerTon">
+                                </div>
+                            </div>
+                        
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Extra Hire1</label>
@@ -694,65 +755,13 @@
                                 </div>
                             </div>
                         </div>
+                     
+                         
+                    
                         <div class="row">
-                            <div class="col-lg-2"> 
-                                <div class="mb-3">                               
-                                <div class="form-check">
-                                    <input type="checkbox"  formControlName="cciInvoice" 
-                                       
-                                        class="form-check-input" >
-                                    <label for="cciInvoice" class="form-check-label">Get From CCI Invoice Entry
-                                    </label>
-                                </div>   
-                            </div>                         
-                            </div>  
-                        </div>  
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">CCi Invoice No</label>
-                                    <input type="text" decimalonly class="form-control" 
-                                        formControlName="cciInvNo" >
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-2">
-                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Container No</label>
-                                    <input type="text" decimalonly class="form-control" 
-                                        formControlName="containerNo">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mt-3">
-                                    <button class="btn btn-primary" *ngIf="(!editMode && createStatus)"
-                                        ><span>Get Details</span></button>
-                                </div>
-                            </div>
-                        </div>    
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Cgst Amt</label>
-                                    <input type="text" decimalonly class="form-control" 
-                                        formControlName="cgstAmt">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Igst Amt</label>
-                                    <input type="text" decimalonly class="form-control" 
-                                        formControlName="I">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Sgst Amt</label>
-                                    <input type="text" decimalonly class="form-control" 
-                                        formControlName="sgstAmt">
-                                </div>
-                            </div>
-                        </div>  
+                           
+                         
+                        </div>                       
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
@@ -761,8 +770,6 @@
                                         formControlName="totalHire" >
                                 </div>
                             </div>
-                        </div>                       
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cash Advance</label>
@@ -771,6 +778,7 @@
                                         formControlName="cashAdvance" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
+                          
                             <div class="col-lg-2" *ngIf="false">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Card Advance</label>

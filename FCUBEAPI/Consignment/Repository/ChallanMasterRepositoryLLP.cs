@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {
-    public class ChallanMasterRepositoryLLP: IChallanMasterRepositoryLLP
+    public class ChallanMasterRepositoryLLP : IChallanMasterRepositoryLLP
     {
         private readonly IOptions<DBModel> dbconnection;
 
@@ -21,7 +21,7 @@ namespace Consignment.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModel challan)
+        public async Task<ResponseModel> ChallanMasterSaveLLP(ChallanMasterModelLLP challan)
         {
             ResponseModel responseModel = new();
 
@@ -151,7 +151,7 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> ChallanMasterDtlSaveLLP(SqlTransaction transaction, ChallanDetailModel challanDtl)
+        public async Task<ResponseModel> ChallanMasterDtlSaveLLP(SqlTransaction transaction, ChallanDetailModelLLP challanDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -201,10 +201,10 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-        public async Task<ChallanListModel> GetChallanMasterListLLP(ReportRequestModel request)
+        public async Task<ChallanListModelLLP> GetChallanMasterListLLP(ReportRequestModel request)
         {
-            ChallanListModel challanMasterList = new();
-            List<ChallanMasterModel> challanList = new();
+            ChallanListModelLLP challanMasterList = new();
+            List<ChallanMasterModelLLP> challanList = new();
             try
             {
                 if (dbconnection != null)
@@ -230,7 +230,7 @@ namespace Consignment.Repository
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            challanList.Add(new ChallanMasterModel
+                            challanList.Add(new ChallanMasterModelLLP
                             {
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
                                 ChallanBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanBranch"]),
@@ -324,9 +324,9 @@ namespace Consignment.Repository
             }
             return challanMasterList;
         }
-        public async Task<ChallanMasterModel> GetChallanEnqDetailsLLP(RequestModel req)
+        public async Task<ChallanMasterModelLLP> GetChallanEnqDetailsLLP(RequestModel req)
         {
-            ChallanMasterModel chlnmodel = new();
+            ChallanMasterModelLLP chlnmodel = new();
             try
             {
                 if (dbconnection != null)
@@ -417,9 +417,9 @@ namespace Consignment.Repository
             }
             return chlnmodel;
         }
-        public async Task<ChallanMasterModel> GetChallanEnqInnerGridListLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetChallanEnqInnerGridListLLP(RequestModel request)
         {
-            ChallanMasterModel challan = new()
+            ChallanMasterModelLLP challan = new()
             {
 
                 CnList = new List<ConsignmentModel>(),
@@ -562,11 +562,11 @@ namespace Consignment.Repository
             }
             return challan;
         }
-        public async Task<ChallanMasterModel> GetChallanInnerGridListLLP(RequestModel request)
+        public async Task<ChallanMasterModelLLP> GetChallanInnerGridListLLP(RequestModel request)
         {
-            ChallanMasterModel challanModel = new()
+            ChallanMasterModelLLP challanModel = new()
             {
-                ChallanDtls = new List<ChallanDetailModel>(),
+                ChallanDtls = new List<ChallanDetailModelLLP>(),
             };
 
             try
@@ -584,7 +584,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            challanModel.ChallanDtls.Add(new ChallanDetailModel
+                            challanModel.ChallanDtls.Add(new ChallanDetailModelLLP
                             {
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
                                 GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
@@ -717,11 +717,11 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ChallanMasterModel> GetConsignmentIdLLP(RequestModel requestModel)
+        public async Task<ChallanMasterModelLLP> GetConsignmentIdLLP(RequestModel requestModel)
         {
-            ChallanMasterModel challanModel = new()
+            ChallanMasterModelLLP challanModel = new()
             {
-                ChallanDtls = new List<ChallanDetailModel>(),
+                ChallanDtls = new List<ChallanDetailModelLLP>(),
             };
 
             try
@@ -739,7 +739,7 @@ namespace Consignment.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        challanModel.ChallanDtls.Add(new ChallanDetailModelLLP
                         {
                             ChallanId = "",
                             GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
@@ -751,6 +751,7 @@ namespace Consignment.Repository
                             BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
                             ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
                             ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
+                            ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ContainerNo"]),
                         });
                     }
                 }
@@ -761,11 +762,51 @@ namespace Consignment.Repository
             }
             return challanModel;
         }
-        public async Task<ChallanMasterModel> GetChallanDetailsFromLRLLP(RequestModel request)
+        public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
         {
-            ChallanMasterModel challanModel = new()
+            CciInvDetailModel cciInvDetailModel = new();
+            try
             {
-                ChallanDtls = new List<ChallanDetailModel>(),
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                             new SqlParameter("@ContainerNo", requestModel.strRequest),
+                           new SqlParameter("@CciInvNo", requestModel.strRequest1),
+
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCCIInvoiceDetailLLP", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        cciInvDetailModel.SgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["SgstAmt"]);
+                        cciInvDetailModel.CgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["CgstAmt"]);
+                        cciInvDetailModel.IgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["IgstAmt"]);
+                        cciInvDetailModel.TotalAmt = Convert.ToString(userData.Tables[0].Rows[0]["TotalAmt"]);
+
+
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                        // tripKmsModel.RunKmsPerDay = Convert.ToString(userData.Tables[0].Rows[0]["RunKmsPerDay"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return cciInvDetailModel;
+        }
+      
+        public async Task<ChallanMasterModelLLP> GetChallanDetailsFromLRLLP(RequestModel request)
+        {
+            ChallanMasterModelLLP challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModelLLP>(),
             };
 
             try
@@ -810,7 +851,7 @@ namespace Consignment.Repository
                         challanModel.EngagedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
                         challanModel.LoadedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
 
-                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        challanModel.ChallanDtls.Add(new ChallanDetailModelLLP
                         {
                             GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
                             GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),

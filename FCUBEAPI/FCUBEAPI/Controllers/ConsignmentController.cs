@@ -3091,6 +3091,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCCIInviceDetailLLP")]
+        public async Task<IActionResult> GetCCIInviceDetailLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetCCIInviceDetailLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetPanValidDetailsLLP")]
         public async Task<IActionResult> GetPanValidDetailsLLP(RequestModel req)
         {
@@ -3175,7 +3193,7 @@ namespace FCUBEAPI.Controllers
                 var photo3 = HttpContext.Request.Form.Files["photo3"];
                 var truckDriverImage = HttpContext.Request.Form.Files["truckDriverImage"];
 
-                ChallanMasterModel challanMasterModel = JsonConvert.DeserializeObject<ChallanMasterModel>(HttpContext.Request.Form["datadetails"]);
+                ChallanMasterModelLLP challanMasterModel = JsonConvert.DeserializeObject<ChallanMasterModelLLP>(HttpContext.Request.Form["datadetails"]);
                 challanMasterModel.Photo1 = "";
                 challanMasterModel.Photo2 = "";
                 challanMasterModel.Photo3 = "";

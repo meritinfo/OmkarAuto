@@ -8,6 +8,7 @@ import { Constants } from '../common/constants';
 import { ChallanlistmodelllP } from '../models/challanmasterlistllp';
 import { ChallanmastermodelllP } from '../models/challanmastermodelllp';
 import { Panvalidapiresultmodel } from '../models/panvalidapiresultmodel';
+import { Ccinvdetailmodel } from '../models/cciinvdetailmodel';
 
 
 @Injectable({
@@ -59,6 +60,9 @@ export class ChallanmasterServiceLLP {
   }
   getConsignmentId(req: Requestmodel): Observable<ChallanmastermodelllP> {
     return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentIdLLP', req, this.httpOptions);
+  }
+  getGetCCIInviceDetail(req: Requestmodel): Observable<Ccinvdetailmodel> {
+    return this.httpClient.post<Ccinvdetailmodel>(Constants.API_ENDPOINT + 'Consignment/GetCCIInviceDetailLLP', req, this.httpOptions);
   }
   getPanValidDetails(req: Requestmodel): Observable<Panvalidapiresultmodel> {
     return this.httpClient.post<Panvalidapiresultmodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidDetailsLLP', req, this.httpOptions);

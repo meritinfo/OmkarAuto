@@ -9,6 +9,8 @@ import { SharedService } from 'src/app/services/shared.service';
 import { ChallanmastermodelllP } from 'src/app/models/challanmastermodelllp';
 import { ChallanmasterServiceLLP } from 'src/app/services/challanmasterllp.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
+
+import { Ccinvdetailmodel } from 'src/app/models/cciinvdetailmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -26,6 +28,7 @@ export class ChallanmasterllpaddComponent {
     year: string = '';
     branch: string = '';
     loginDate: string = '';
+    ctNo: string = '';
     fromDate: string = '';
     maxDate: string = '';
     minDate: string = '';
@@ -49,6 +52,7 @@ export class ChallanmasterllpaddComponent {
   
     responseDetails = new Responsemodel();
     selectedChallanDetails = new ChallanmastermodelllP();
+    invoiceDetails = new Ccinvdetailmodel
     panDetails = new Panvalidapiresultmodel();
     keywordLocation = 'dataName';
     photo1: string = "";
@@ -76,8 +80,8 @@ export class ChallanmasterllpaddComponent {
       static: true
     }) truckDriverImageInput: any;
   
-    constructor(private route: Router, private formBuilder: FormBuilder,
-      private challanmodel: ChallanmastermodelllP, private challanmasterService: ChallanmasterServiceLLP,
+    constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
+      private challanmasterService: ChallanmasterServiceLLP,
       private commonService: CommonService,  private sharedService: SharedService,
       private lrentryService: ConsignmentService,
       private toastrService: ToastrService, private requestmodel: Requestmodel) {
@@ -230,6 +234,11 @@ ngOnInit(): void {
     this.formUser.controls["modifyRemarks"].disable();
     this.formUser.controls["totPkgs"].disable();  
     this.formUser.controls["totActWt"].disable();  
+    this.formUser.controls["cgstAmt"].disable();
+    this.formUser.controls["igstAmt"].disable();
+    this.formUser.controls["sgstAmt"].disable();
+    this.formUser.controls["containerNo"].disable();
+    this.formUser.controls["cciInvNo"].disable();
 
     
     this.formArray.controls[0].get("consignmentId")?.disable();
@@ -530,6 +539,37 @@ ngOnInit(): void {
         }
       }
     }
+    getCCIInvoiceMstDetail(): void {
+      var selectedData = this.formUser.getRawValue();  
+      this.requestmodel.strRequest = selectedData.containerNo; 
+      this.requestmodel.strRequest1 = selectedData.cciInvNo; 
+      this.challanmasterService.getGetCCIInviceDetail(this.requestmodel).subscribe((res) => {
+      // this.formTyreArray.clear();
+        this.invoiceDetails = res;
+        if (this.invoiceDetails.cgstAmt === 'undefined' || this.invoiceDetails.cgstAmt === null || this.invoiceDetails.cgstAmt === '') {
+          this.toastrService.warning("Invoice Detail Not Found");
+          // this.formUser.patchValue({
+          //   lrNo: "",
+          // });
+          return;
+        }
+        else{
+          this.formUser.patchValue({
+            cgstAmt: this.invoiceDetails.cgstAmt,
+          sgstAmt: this.invoiceDetails.sgstAmt,
+          igstAmt: this.invoiceDetails.igstAmt,
+          lorryHire: this.invoiceDetails.totalAmt
+          })  
+     
+      
+       
+        
+
+  
+       
+         }     
+      });
+    }
   
     onGcNoteChange(i:number,e: any) {
       var selectedData = this.formUser.getRawValue();
@@ -574,6 +614,8 @@ ngOnInit(): void {
                 this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
                 this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
                 this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
+               // this.formArray.controls[i].get("containerNo")?.setValue(res.challanDtls[0].containerNo);
+                this.ctNo=  res.challanDtls[0].containerNo;
                 
                 this.formArray.controls[i].get("gcYear")?.disable();
                 this.formArray.controls[i].get("gcBook")?.disable();
@@ -610,6 +652,34 @@ ngOnInit(): void {
         totPkgs: totPkgs,
       });
     }
+     onInvoiceChk(e: any) {
+        if(e.target.checked){
+          // this.formTripPayment.controls['chequeNo'].clearValidators();      
+          // this.formTripPayment.controls['chequeDate'].clearValidators();   
+          
+          this.formUser.controls['containerNo'].enable();
+          this.formUser.controls['cciInvNo'].enable();
+          this.formUser.patchValue({
+            containerNo:this.ctNo,
+            
+          });   
+        }
+        else {
+          // this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+          // this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
+          this.formUser.controls['containerNo'].disable();
+          this.formUser.controls['cciInvNo'].disable();
+          this.formUser.patchValue({
+            containerNo:"",
+            cciInvNo:"",
+            
+          });   
+         
+        }
+        // this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+        // this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
+      }
+    
   
     onActWtChange(){
       var totActWt = 0
@@ -1013,7 +1083,8 @@ ngOnInit(): void {
             this.formArray.controls[0].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
             this.formArray.controls[0].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
             this.formArray.controls[0].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
-            
+            this.formArray.controls[0].get("containerNo")?.setValue(res.challanDtls[0].containerNo);
+            this.ctNo=  res.challanDtls[0].containerNo;
             this.formArray.controls[0].get("gcYear")?.disable();
             this.formArray.controls[0].get("gcBook")?.disable();
             this.formArray.controls[0].get("gcNoteNo")?.disable();
@@ -1268,6 +1339,7 @@ ngOnInit(): void {
             'bookingDate':"",
             'challanPkgs': selectedDataValue.arrayList[i].challanPkgs,
             'challanWT': selectedDataValue.arrayList[i].challanWT,
+            'containerNo': selectedDataValue.arrayList[i].containerNo,
             'yearId': this.year,
           });
         }
