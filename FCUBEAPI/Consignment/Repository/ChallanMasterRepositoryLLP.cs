@@ -107,6 +107,8 @@ namespace Consignment.Repository
                             new SqlParameter("@TruckDriverImage",       challan.TruckDriverImage),
                             new SqlParameter("@YearId",                 challan.YearId),
                             new SqlParameter("@ModifyRemarks",          challan.ModifyRemarks),
+                            new SqlParameter("@CciInvNo",          challan.CciInvNo),
+                            new SqlParameter("@ContainerNo",          challan.ContainerNo),
                             new SqlParameter("@LoggedInUser",           challan.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSaveLLP", param);
@@ -305,6 +307,8 @@ namespace Consignment.Repository
                                 Cbranch = Convert.ToString(dataSet.Tables[0].Rows[i]["Cbranch"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                CciInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CciInvNo"]),
+                                ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
                             });
                         }
 
@@ -782,7 +786,7 @@ namespace Consignment.Repository
                         cciInvDetailModel.SgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["SgstAmt"]);
                         cciInvDetailModel.CgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["CgstAmt"]);
                         cciInvDetailModel.IgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["IgstAmt"]);
-                        cciInvDetailModel.TotalAmt = Convert.ToString(userData.Tables[0].Rows[0]["TotalAmt"]);
+                        cciInvDetailModel.TaxableAmt = Convert.ToString(userData.Tables[0].Rows[0]["TaxableAmt"]);
 
 
                     }

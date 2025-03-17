@@ -165,17 +165,20 @@ ngOnInit(): void {
       this.formUser.patchValue({
         cciInvDate : this.commonService.formatDate(this.selectedCciInvMstDetail.cciInvDate ),
 
+
        // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
        // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
       })  
+      this.formUser.controls["cciInvDate"].disable();
+      this.formUser.controls["cciInvNo"].disable();
       // this.formTyreArray.controls[0].get("availQty")?.disable();
-      // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
-      // this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
-      // this.formTyreArray.controls[0].get("igstAmt")?.disable();  
-      // this.formTyreArray.controls[0].get("sgstPct")?.disable();   
-      // this.formTyreArray.controls[0].get("cgstPct")?.disable();  
-      // this.formTyreArray.controls[0].get("igstPct")?.disable();   
-      // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
+      this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
+      this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
+      this.formTyreArray.controls[0].get("igstAmt")?.disable();  
+      this.formTyreArray.controls[0].get("sgstPct")?.disable();   
+      this.formTyreArray.controls[0].get("cgstPct")?.disable();  
+      this.formTyreArray.controls[0].get("igstPct")?.disable();   
+       this.formTyreArray.controls[0].get("totalAmt")?.disable(); 
       // this.formTyreArray.controls[0].get("itemAmount")?.disable();       
                 
   
@@ -300,20 +303,23 @@ get f() { return this.formUser.controls; }
           this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.ccinvmstDtlList[i].dtlRemarks); 
         
           // this.formTyreArray.controls[i].get("availQty")?.disable();
-          // this.formTyreArray.controls[i].get("sgstAmt")?.disable();     
-          // this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
-          // this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
-          // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
+           this.formTyreArray.controls[i].get("sgstAmt")?.disable();     
+          this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
+          this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+          this.formTyreArray.controls[i].get("sgstPct")?.disable(); 
+          this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+          this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
+           this.formTyreArray.controls[i].get("totalAmt")?.disable(); 
           // this.formTyreArray.controls[0].get("itemAmount")?.disable();   
   
           if (this.selectedCciInvMstDetail.gstType == "I") {   
             this.formTyreArray.controls[i].get("sgstPct")?.disable();   
             this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-            this.formTyreArray.controls[i].get("igstPct")?.enable();  
+           // this.formTyreArray.controls[i].get("igstPct")?.enable();  
           }    
           else if (this.selectedCciInvMstDetail.gstType == "S" || this.selectedCciInvMstDetail.gstType == "C")  {      
-            this.formTyreArray.controls[i].get("sgstPct")?.enable();   
-            this.formTyreArray.controls[i].get("cgstPct")?.enable();  
+           // this.formTyreArray.controls[i].get("sgstPct")?.enable();   
+           // this.formTyreArray.controls[i].get("cgstPct")?.enable();  
             this.formTyreArray.controls[i].get("igstPct")?.disable();  
           }
           else{              
@@ -323,6 +329,11 @@ get f() { return this.formUser.controls; }
           } 
         }     
       });
+
+    }
+
+    gstChange(){
+
     }
     getCnDetail(i:number): void {
       var selectedData = this.formUser.getRawValue();  
@@ -419,6 +430,10 @@ get f() { return this.formUser.controls; }
        this.formTyreArray.controls[i].get("igstPct")?.disable();  
 
        }
+       if( this.pct!=="" && selectedData.gstType!="N"){
+        this.formUser.controls["gstType"].disable();
+
+       }
       this.calculateTotal();
 
           // this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
@@ -498,7 +513,7 @@ get f() { return this.formUser.controls; }
   this.ccinvmstmodel.cciInvMstId = this.selectedCciInvMstDetail.cciInvMstId ;
   this.ccinvmstmodel.cciInvNo= selectedDataValue.cciInvNo;
   this.ccinvmstmodel.cciInvDate = selectedDataValue.cciInvDate
-  this.ccinvmstmodel.remarks= selectedDataValue.remarks.toString();
+  this.ccinvmstmodel.remarks= selectedDataValue.remarks.toString().toUpperCase(),  
   this.ccinvmstmodel.gstType= selectedDataValue.gstType;
   this.ccinvmstmodel.totalTaxableAmt= selectedDataValue.totalTaxableAmt.toString();
  // this.ccinvmstmodel.nonVendor= selectedDataValue.nonVendor?"Y":"N";
@@ -534,14 +549,14 @@ get f() { return this.formUser.controls; }
           'gcBook': selectedDataValue.arrayList[i].gcBook,
           'gcNoteNo':selectedDataValue.arrayList[i].gcNoteNo,
           'chCostId': selectedDataValue.arrayList[i].chCostId,
-          'taxableAmt': selectedDataValue.arrayList[i].taxableAmt,
+          'taxableAmt': selectedDataValue.arrayList[i].taxableAmt.toString(),
           'sgstPct': selectedDataValue.arrayList[i].sgstPct,
-          'sgstAmt': selectedDataValue.arrayList[i].sgstAmt,
+          'sgstAmt': selectedDataValue.arrayList[i].sgstAmt.toString(),
           'cgstPct': selectedDataValue.arrayList[i].sgstPct,
-          'cgstAmt': selectedDataValue.arrayList[i].cgstAmt,
+          'cgstAmt': selectedDataValue.arrayList[i].cgstAmt.toString(),
           'igstPct': selectedDataValue.arrayList[i].igstPct,
-          'igstAmt': selectedDataValue.arrayList[i].igstAmt,
-          'totalAmt': selectedDataValue.arrayList[i].totalAmt,
+          'igstAmt': selectedDataValue.arrayList[i].igstAmt.toString(),
+          'totalAmt': selectedDataValue.arrayList[i].totalAmt.toString(),
           'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toLowerCase(),        
         }) 
       }   

@@ -354,6 +354,7 @@ ngOnInit(): void {
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
         this.getChallanInnerGridList();   
+        this.getCCIInvoiceMstDetail();  
         
         this.editMode = true;        
         this.sharedService.loading = false;   
@@ -558,7 +559,7 @@ ngOnInit(): void {
             cgstAmt: this.invoiceDetails.cgstAmt,
           sgstAmt: this.invoiceDetails.sgstAmt,
           igstAmt: this.invoiceDetails.igstAmt,
-          lorryHire: this.invoiceDetails.totalAmt
+          lorryHire: this.invoiceDetails.taxableAmt
           })  
      
       
@@ -1166,7 +1167,7 @@ ngOnInit(): void {
     }
   
     exit(): void {
-      this.route.navigate(['/challanlistllp']);
+      this.route.navigate(['/challan_llplist']);
     }
   
     submitChallanForm(): void {
@@ -1317,6 +1318,8 @@ ngOnInit(): void {
       this.challanmodel.cardAdvance = selectedDataValue.cardAdvance? selectedDataValue.cardAdvance.toString(): "0"; 
       this.challanmodel.totalAdvance = selectedDataValue.totalAdvance? selectedDataValue.totalAdvance.toString() : "0"; 
       this.challanmodel.balance = selectedDataValue.balance? selectedDataValue.balance.toString() : "0"; 
+      this.challanmodel.cciInvNo = selectedDataValue.cciInvNo;
+      this.challanmodel.containerNo = selectedDataValue.containerNo;
       this.challanmodel.balancePayAt = selectedDataValue.balancePayAt? selectedDataValue.balancePayAt : ""; 
       this.challanmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
       this.challanmodel.modifyRemarks = selectedDataValue.modifyRemarks?selectedDataValue.modifyRemarks.toString().toUpperCase():"";
@@ -1358,7 +1361,7 @@ ngOnInit(): void {
         if (res.status) {
           this.toastrService.success(this.responseDetails.message);
           this.formUser.reset();
-          this.route.navigate(['/challanlistllp']);
+          this.route.navigate(['/challan_llplist']);
         }
         else {
           this.toastrService.warning(this.responseDetails.message);

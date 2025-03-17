@@ -88,6 +88,8 @@ namespace Consignment.Models
         public string? Cbranch { get; set; }
         public string? FPlace { get; set; }
         public string? TPlace { get; set; }
+        public string? CciInvNo { get; set; }
+        public string? ContainerNo { get; set; }
         public List<ChallanDetailModelLLP> ChallanDtls { get; set; }
         public List<ConsignmentModel> CnList { get; set; }
         public List<ConsignmentLhpmModel> LhpmList { get; set; }

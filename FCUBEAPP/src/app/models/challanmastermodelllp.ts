@@ -81,6 +81,8 @@ export class ChallanmastermodelllP {
     cbranch: string = ""; 
     fPlace : string = ""; 
     tPlace : string = ""; 
+    cciInvNo: string = ""; 
+    containerNo: string = ""; 
     challanDtls: ChallandetailmodelllP[] = [];
     cnList: Consignmentmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];
