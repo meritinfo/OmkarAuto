@@ -430,10 +430,10 @@ get f() { return this.formUser.controls; }
        this.formTyreArray.controls[i].get("igstPct")?.disable();  
 
        }
-       if( this.pct!=="" && selectedData.gstType!="N"){
-        this.formUser.controls["gstType"].disable();
+      //  if( this.pct!=="" && selectedData.gstType!="N"){
+      //   this.formUser.controls["gstType"].disable();
 
-       }
+      //  }
       this.calculateTotal();
 
           // this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
