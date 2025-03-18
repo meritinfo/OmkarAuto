@@ -90,6 +90,8 @@ namespace HRMasters.Repository
                             new SqlParameter("@LastPerks",          empMaster.LastPerks             ),
                             new SqlParameter("@RemoveDate",         empMaster.RemoveDate            ),
                             new SqlParameter("@FullFinal",          empMaster.FullFinal             ),
+                            new SqlParameter("@EmpAttach1",         empMaster.EmpAttach1             ),
+                            new SqlParameter("@EmpAttach2",         empMaster.EmpAttach2             ),
                             new SqlParameter("@LoggedInUser",       empMaster.LoggedInUser          )
 
                         };

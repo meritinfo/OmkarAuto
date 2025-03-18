@@ -1154,7 +1154,11 @@ export class MraddComponent {
       return;
     }
 
-    if (cheqCashAmt - (totalExcess + totalOthers1) <= 0){
+    // if (cheqCashAmt - (totalExcess + totalOthers1) <= 0){
+    //   this.toasterService.warning("Total Excess Amt Should be less than Cheq Cash Amt");      
+    //   return;
+    // }
+    if (totalAmt - (totalExcess + totalOthers1) <= 0){
       this.toasterService.warning("Total Excess Amt Should be less than Cheq Cash Amt");      
       return;
     }

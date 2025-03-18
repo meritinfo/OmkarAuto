@@ -155,7 +155,7 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(empAttach2.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(empAttach2.FileName);
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/empmaster/empattach1");
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/empmaster/empattach2");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)
