@@ -93,21 +93,28 @@
                                </div>
                                <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <input type="text"  autofocus="autofocus" class="form-control"
-                                     formControlName="linkColumn" 
-  
-                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['linkColumn'].invalid) }">
+                                  <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                  formControlName="linkColumn"
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['linkColumn'].invalid) }"  
+                                  >
+                                  <option value="">Select</option>      
+                                  <option value="freightRs">Freight Rs</option> 
+                                  <option value="statisticalRs">Statistical Rs</option>
+                                  <option value="fovRs">Fov Rs</option>
+                                  <option value="doorCollRs">DoorColl Rs</option>     
+                                  <option value="handlingRs">Handling Rs</option> 
+                                  <option value="loadingDetnRs">Loading DetnRs</option> 
+                                  <option value="enrouteRs">EnrouteRs</option> 
+                                  <option value="miscRs">MiscRs</option> 
+                                  <option value="doorDelRs">DoorDelRs</option> 
+                                  <option value="unLoadingRs">UnLoadingRs</option> 
+                                  <option value="unLoadingDetnRs">UnLoading DetnRs</option> 
+                                  <option value="extrasRS">Extras RS</option> 
+                                  <option value="othersRs">Others Rs</option> 
+                              </select>
                                 </div>
                             </div>
                          </div>
-                        
-                                   
-                           
-                          
-                              
-                                 
-                           
-                 
                       </div>
                       <!-- end card body -->
                    </div>
