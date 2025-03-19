@@ -22,7 +22,7 @@
                                     <label for="basicpill-phoneno-input">HR Code </label>
                                        <input type="text" class="form-control"
                                           uppercaseonly formControlName="hrCode"
-                                          (change)="chkHrcode($event)"
+                                          (change)="chkHrcode($event)" maxlength="6"
                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['hrCode'].invalid) }">                                                
                                  </div>
                               </div>
@@ -32,7 +32,7 @@
                                    <div class="mb-3">
                                        <label for="basicpill-phoneno-input">Description </label>
                                        <input uppercaseonly type="text" class="form-control"
-                                       formControlName="description"
+                                       formControlName="description" maxlength="50"
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['description'].invalid) }">                                                
                                    </div>
                                </div>                                       
