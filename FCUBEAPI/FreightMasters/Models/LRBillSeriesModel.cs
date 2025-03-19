@@ -13,6 +13,8 @@ namespace FreightMasters.Models
         public string? LR_Bill_type { get; set; }
         public string? BranchCode { get; set; }
         public string? IsActive { get; set; }
+        public string? branch { get; set; }
+        public string? type { get; set; }
 
         public string? LoggedInUser { get; set; }
     }

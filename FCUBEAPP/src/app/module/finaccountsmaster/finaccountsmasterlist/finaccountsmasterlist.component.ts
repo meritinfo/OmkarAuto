@@ -29,7 +29,7 @@ export class FinaccountsmasterlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'accountName',
+    sortColumn: '',
     sortOrder: 'asc',
     search: ''
   }

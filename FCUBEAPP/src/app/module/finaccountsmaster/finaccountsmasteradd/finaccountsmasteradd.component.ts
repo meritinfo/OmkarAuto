@@ -129,7 +129,8 @@ export class FinaccountsmasteraddComponent {
       bankAcType: new FormControl('',),
       bankAcNo: new FormControl('',),
       bankIfsc: new FormControl('',),
-      statusColor: new FormControl('',),      
+      statusColor: new FormControl('',),   
+      accountShortname: new FormControl('',),    
     });    
 
     this.formAccountMaster.controls['username'].clearValidators();      
@@ -340,6 +341,7 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.bankIfsc           = selectedDataValue.bankIfsc.toString().toUpperCase();
     this.finaccountmodel.blockAct           = 'N';
     this.finaccountmodel.statusColor        = selectedDataValue.statusColor;
+    this.finaccountmodel.accountShortname        = selectedDataValue.accountShortname.toString().toUpperCase();
     // this.finaccountmodel.schID              = selectedDataValue.schID;
     this.finaccountmodel.schID              = '';
     this.finaccountmodel.loggedInUserID     = this.loggedInUserID;

@@ -140,9 +140,10 @@ export class AddproductmasterComponent {
       return;
     }
     this.formSubmitted = true;
+    var selectedDataVal = this.formUser.getRawValue();
     this.productMasterModel.productId = this.selectedProductMasterDetails.productId ;
-    this.productMasterModel.productName= this.formUser.value.productName.toString().toUpperCase();
-    this.productMasterModel.isActive = this.formUser.value.isActive.toString().toUpperCase();
+    this.productMasterModel.productName=selectedDataVal.productName.toString().toUpperCase();
+    this.productMasterModel.isActive = selectedDataVal.isActive.toString().toUpperCase();
 
     this.productmasterService.productmasterDetailsSubmitted(this.productMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
