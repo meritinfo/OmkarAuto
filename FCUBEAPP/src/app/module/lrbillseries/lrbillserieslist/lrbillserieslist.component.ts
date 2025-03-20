@@ -48,6 +48,7 @@ export class LrbillserieslistComponent {
  createStatus = false;
  editStatus = false;
  deleteStatus = false;
+  
  viewStatus = false;
  createmode = false;
  @ViewChild(DataTableDirective)
@@ -99,10 +100,10 @@ ngOnInit(): void {
     fromDate: new FormControl(this.fromDate,),
     toDate: new FormControl(this.loginDate,),
    // branch: new FormControl('',),
-    vehicle: new FormControl('',),
-    tripNo: new FormControl('',)
+   branchCode: new FormControl('',),
+   lR_Bill_type: new FormControl('',)
   });
- // this.getBranchList();
+ this.getBranchList();
  // this.getVehicleNoList();
 
   var selectedData = this.formFilter.getRawValue();
@@ -148,7 +149,11 @@ lrBillSeriesList(){
 
      {
       title: 'Lr Bill Type',
-      data: 'lR_Bill_type',
+      data: 'type',
+    },
+    {
+      title: 'Branch',
+      data: 'branch',
     },
    
   
@@ -178,6 +183,12 @@ addLrBillSeries(): void {
 this.route.navigate(['/addlrbillseries']);
 }
 
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  });
+}
+
 
 //Open user details screen
 getLrBillSeriesDetails(Destination: Lrbillseriesmodel): void {
@@ -190,8 +201,8 @@ search(): void {
  
   this.filter.fromDate = selectedData.fromDate;
   this.filter.toDate = selectedData.toDate;
- // this.filter.filterStr = selectedData.branch;
-  this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+  this.filter.filterStr1 = selectedData.branchCode;
+  this.filter.filterStr =  selectedData.lR_Bill_type;
 
   this.lrBillSeriesList();
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

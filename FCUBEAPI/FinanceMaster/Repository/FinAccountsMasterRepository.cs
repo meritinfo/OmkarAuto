@@ -95,6 +95,7 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@StatusColor"		    , finAccountsMasterModel.StatusColor            ),
                             new SqlParameter("@DeleteFlag"			, "N"                                           ),
                             new SqlParameter("@SchID"				, finAccountsMasterModel.SchID                  ),
+                            new SqlParameter("@AccountShortname" , finAccountsMasterModel.AccountShortname),
                             new SqlParameter("@CreatedBy"			, finAccountsMasterModel.LoggedInUserID         ),
 
                         };
@@ -207,6 +208,7 @@ namespace FinanceMasters.Repository
                                 BankAcType          = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcType"]),
                                 BankAcNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
                                 BankIfsc            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
+                                AccountShortname = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountShortname"]),
                             });
                         }
 

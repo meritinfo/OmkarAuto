@@ -63,6 +63,7 @@ export class Finaccountmodel {
     statusColor: string = "";
     ledgerName: string = "";
     createdBy: string = "";
+    accountShortname: string = "";
     loggedInUserID: string = "";  
 }
 

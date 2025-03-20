@@ -163,6 +163,7 @@ getBranchList(): void {
     this.branchList = res;
   });
 }
+
 getBillTypesList(): void {
   this.commonService.getBillTypesList().subscribe((res) => {
     this.billTypesList = res;

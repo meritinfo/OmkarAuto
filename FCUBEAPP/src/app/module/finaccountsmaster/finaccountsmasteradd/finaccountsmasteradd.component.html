@@ -31,6 +31,17 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
+                                                    <label for="basicpill-firstname-input" class="form-label">Account Short Name:</label>
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountShortname'].invalid) }"
+                                                          formControlName="accountShortname">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Main Group:</label><span style="color:red">*</span>
                                                     <select formControlName="accountType" 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountType'].invalid) }"

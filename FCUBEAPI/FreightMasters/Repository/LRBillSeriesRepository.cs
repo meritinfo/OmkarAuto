@@ -118,7 +118,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
-                           // new SqlParameter("@FromDate", request.FromDate),
+                             new SqlParameter("@LRBillType", request.FilterStr),
+                            new SqlParameter("@BranchCode", request.FilterStr1),
+                           
                            // new SqlParameter("@ToDate", request.ToDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_LRBillSeriesList", param);
@@ -135,7 +137,9 @@ namespace FreightMasters.Repository
                                 LR_Bill_type = Convert.ToString(dataSet.Tables[0].Rows[i]["LR_Bill_type"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
-                            
+                                branch = Convert.ToString(dataSet.Tables[0].Rows[i]["branch"]),
+                                type = Convert.ToString(dataSet.Tables[0].Rows[i]["type"]),
+
 
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),

@@ -64,6 +64,7 @@
         public string? BlockAct { get; set; }
         public string? StatusColor { get; set; }
         public string? LedgerName { get; set; }
+        public string? AccountShortname { get; set; }
         public string? CreatedBy { get; set; }
         public string? LoggedInUserID { get; set; }
     }

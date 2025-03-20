@@ -4,4 +4,6 @@ export class Lrbillseriesmodel {
     lR_Bill_type: string = "";
     branchCode: string = "";
     isActive: string = "";
+    branch: string = "";
+    type: string = "";
 }
