@@ -230,6 +230,10 @@ export class ConsignmentlistComponent implements OnInit  {
           data: 'consignmentID',
         }, 
         {
+          title: 'Download',
+          data: 'consignmentID',
+        }, 
+        {
           title: 'Booked At',
           data: 'bookedAt',
         },
