@@ -345,6 +345,7 @@ export class DprdashboardComponent {
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3 = selecteddata.vehicleNo;
     this.filter.sortOrder =  selecteddata.branch;
+    this.filter.sortColumn =  selecteddata.status;
 
     this.sharedService.loading=true;
     this.dprrptlist();
