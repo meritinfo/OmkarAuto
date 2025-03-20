@@ -254,10 +254,6 @@ export class ConsignmentllplistComponent {
           title: 'Action',
           data: 'consignmentID',
         }, 
-        {
-          title: 'Download',
-          data: 'consignmentID',
-        }, 
       ],
     };
   }

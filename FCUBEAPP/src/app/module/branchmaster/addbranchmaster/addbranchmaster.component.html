@@ -228,28 +228,22 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Zone Code</label>
-                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="3" autoclose="false" class="form-control" 
-                                                formControlName="znNumCode" (change)="onChange()"       
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['znNumCode'].invalid) }">
+                                                formControlName="znNumCode" (change)="onChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Code </label>
-                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="2" autoclose="false" class="form-control"
-                                                formControlName="brNumCode" (change)="onChange()"       
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['brNumCode'].invalid) }">
+                                                formControlName="brNumCode" (change)="onChange()">
                                             </div>
                                         </div>   
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Doc Num Code </label>
-                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="2" autoclose="false" class="form-control"
-                                                formControlName="docNumCode"        
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['docNumCode'].invalid) }">
+                                                formControlName="docNumCode">
                                             </div>
                                         </div>   
                                     </div>

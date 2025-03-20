@@ -96,9 +96,9 @@ export class AddbranchmasterComponent {
       gstNo: new FormControl('',),
       entryLockDays: new FormControl('',),   
       rcM_GstNo : new FormControl('',),     
-      znNumCode:new FormControl('',[Validators.required]),
-      brNumCode:new FormControl('',[Validators.required]),
-      docNumCode:new FormControl('',[Validators.required]),
+      znNumCode:new FormControl('',),
+      brNumCode:new FormControl('',),
+      docNumCode:new FormControl('',),
       branchAcLedger: new FormControl('',),     
     });
     this.formBranchMaster.controls['docNumCode'].disable();   
