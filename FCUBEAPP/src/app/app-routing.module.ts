@@ -307,7 +307,7 @@ const routes: Routes = [
   { path: 'adddestination', component: AdddestinationComponent },
   { path: 'destinationedit', component: AdddestinationComponent },
   { path: 'destinationlist', component: DestinationlistComponent },
-  { path: 'productgroupmasterlist', component: ProductgroupmasterlistComponent },
+  { path: 'productgroupmasterlist', component: ProductmasterlistComponent },
   { path: 'addproductgroupmaster', component: AddproductgroupmasterComponent },
   { path: 'productgroupmasteredit', component: AddproductgroupmasterComponent },
   { path: 'addproductmaster', component: AddproductmasterComponent },

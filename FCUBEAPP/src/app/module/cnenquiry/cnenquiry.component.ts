@@ -242,6 +242,7 @@ export class CnenquiryComponent {
       arrayLhpmList: this.formBuilder.array([this.createLhpmInitialArray()])  , 
       arrayBillList: this.formBuilder.array([this.createBillInitialArray()])  , 
       arrayDprList: this.formBuilder.array([this.createDprInitialArray()])  , 
+      arrayMrList: this.formBuilder.array([this.createMrInitialArray()])  , 
       arrayDelvAckList: this.formBuilder.array([this.createDelvAckInitialArray()])  , 
     });
     
@@ -268,6 +269,9 @@ export class CnenquiryComponent {
   get formDprArray() {
     return this.formUser.get("arrayDprList") as FormArray;
   }
+  get formMrArray() {
+    return this.formUser.get("arrayMrList") as FormArray;
+  }
   get formDelvAckArray() {
     return this.formUser.get("arrayDelvAckList") as FormArray;
   }
@@ -280,6 +284,20 @@ export class CnenquiryComponent {
       invNo: ['', []],
       invDate: ['', []],
       invValue: ['', []],
+    });
+  }  
+  createMrInitialArray() {
+    return this.formBuilder.group({
+      mrNo: ['', []],
+      mrDate: ['', []],
+      billlrno: ['', []],
+      recdAmt: ['', []],
+      freightDed: ['', []],
+      claimsDed: ['', []],
+      tdsDed: ['', []],
+      otherDed: ['', []],
+      excessRecd: ['', []],
+      dedRecovery: ['', []],
     });
   }  
 
@@ -479,6 +497,7 @@ export class CnenquiryComponent {
       this.formLhpmArray.clear();
       this.formBillArray.clear();
       this.formDprArray.clear();
+      this.formMrArray.clear();
       this.formDelvAckArray.clear();
 
       for (var i = 0; i < res.invList.length; i++) {
@@ -612,6 +631,29 @@ export class CnenquiryComponent {
         this.formDprArray.controls[i].get("payParty")?.disable();
         this.formDprArray.controls[i].get("chargeWt")?.disable();
         this.formDprArray.controls[i].get("totFreightAmt")?.disable();     
+      }    
+      for (var i = 0; i < res.dprList.length; i++) {
+        this.formMrArray.push(this.createMrInitialArray());
+        this.formMrArray.controls[i].get("mrNo")?.setValue(res.mrList[i].mrNo);
+        this.formMrArray.controls[i].get("mrDate")?.setValue(res.mrList[i].mrDate);
+        this.formMrArray.controls[i].get("billlrno")?.setValue(res.mrList[i].billlrno);
+        this.formMrArray.controls[i].get("recdAmt")?.setValue(res.mrList[i].recdAmt);
+        this.formMrArray.controls[i].get("freightDed")?.setValue(res.mrList[i].freightDed);
+        this.formMrArray.controls[i].get("claimsDed")?.setValue(res.mrList[i].claimsDed);
+        this.formMrArray.controls[i].get("tdsDed")?.setValue(res.mrList[i].tdsDed);
+        this.formMrArray.controls[i].get("otherDed")?.setValue(res.mrList[i].otherDed);
+        this.formMrArray.controls[i].get("excessRecd")?.setValue(res.mrList[i].excessRecd);
+        this.formMrArray.controls[i].get("dedRecovery")?.setValue(res.mrList[i].dedRecovery);
+        this.formMrArray.controls[i].get("mrNo")?.disable();
+        this.formMrArray.controls[i].get("mrDate")?.disable();
+        this.formMrArray.controls[i].get("billlrno")?.disable();
+        this.formMrArray.controls[i].get("recdAmt")?.disable();
+        this.formMrArray.controls[i].get("freightDed")?.disable();
+        this.formMrArray.controls[i].get("claimsDed")?.disable();   
+        this.formMrArray.controls[i].get("tdsDed")?.disable();    
+        this.formMrArray.controls[i].get("otherDed")?.disable(); 
+        this.formMrArray.controls[i].get("excessRecd")?.disable();  
+        this.formMrArray.controls[i].get("dedRecovery")?.disable();  
       }    
       for (var i = 0; i < res.delAckList.length; i++) {
         this.formDelvAckArray.push(this.createDelvAckInitialArray());
