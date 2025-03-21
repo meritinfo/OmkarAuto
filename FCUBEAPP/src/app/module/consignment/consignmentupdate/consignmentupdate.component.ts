@@ -133,6 +133,7 @@ export class ConsignmentupdateComponent {
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       gcNoteNo  : new FormControl('', [Validators.required]),
       billingStatus: new FormControl('', [Validators.required]),
+      vehicleNo: new FormControl('', [Validators.required]),
       bookingDate : new FormControl('', ),
       fromPlace : new FormControl('',),    
       toPlace : new FormControl('', ), 
@@ -251,6 +252,7 @@ export class ConsignmentupdateComponent {
     this.formUser.patchValue({
       bookingDate : "",
       billingStatus: "",
+      vehicleNo:"",
       fromPlace : "",
       toPlace :  "",   
       poNo:"",
@@ -331,6 +333,7 @@ export class ConsignmentupdateComponent {
           this.formUser.patchValue({
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
             billingStatus:this.lrmodel.billingStatus,
+            vehicleNo: this.lrmodel.invoiceNo,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
             poNo :  this.lrmodel.poNo,
@@ -606,6 +609,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
+    this.cnmodel.vehicleNo = selectedDataValue.vehicleNo;  
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 

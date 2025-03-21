@@ -145,7 +145,6 @@
                         <thead>
                             <tr>
                                 <th>gcNoteNo </th>  
-                                <th>orderPerson</th> 
                                 <th>dprDate </th> 
                                 <th>partyName </th> 
                                 <th>fplace </th> 
@@ -169,7 +168,6 @@
                         <tbody *ngIf="allDprrptlist.dprRptList?.length != 0">
                             <tr *ngFor="let eta of allDprrptlist.dprRptList">
                                 <td>{{ eta.gcNoteNo }}</td>
-                                <td>{{ eta.orderPerson }}</td> 
                                 <td>{{ eta.dprDate }}</td> 
                                 <td>{{ eta.partyName }}</td> 
                                 <td>{{ eta.fplace }}</td> 

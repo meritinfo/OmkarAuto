@@ -209,10 +209,6 @@ export class DprdashboardComponent {
             data: 'gcNoteNo',
           }, 
           {
-            title: 'Order Person',
-            data: 'orderPerson',
-          }, 
-          {
             title: 'DPR Date',
             data: 'dprDate',
           },
@@ -233,7 +229,7 @@ export class DprdashboardComponent {
             data: 'vehicleNo',
           },   
           {
-            title: 'Traffic Person',
+            title: 'Loading Staff',
             data: 'trafficPerson',
           },   
           {
