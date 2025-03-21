@@ -294,6 +294,8 @@ import { CciinvoicemstaddComponent } from './module/cciinvoice/cciinvoicemstadd/
 import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlist/cciinvoicemstlist.component';
 import { ChallanmasterllpaddComponent } from './module/challanmasterllp/challanmasterllpadd/challanmasterllpadd.component';
 import { ChallanmasterlistllpComponent } from './module/challanmasterllp/challanmasterlistllp/challanmasterlistllp.component';
+import { BillsmasterlistllpComponent } from './module/billsmasterllp/billsmasterlistllp/billsmasterlistllp.component';
+import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmasteraddllp/billsmasteraddllp.component';
 
 
 
@@ -702,6 +704,9 @@ const routes: Routes = [
   { path: 'challan_llplist', component:  ChallanmasterlistllpComponent },
   { path: 'challanaddllp', component:  ChallanmasterllpaddComponent },
   { path: 'challaneditllp', component:  ChallanmasterllpaddComponent },
+  { path: 'billmainlistLLP', component:  BillsmasterlistllpComponent },
+  { path: 'billsmasteraddllp', component:  BillsmasteraddllpComponent },
+  { path: 'billsmastereditllp', component:  BillsmasteraddllpComponent },
 ];
 
 

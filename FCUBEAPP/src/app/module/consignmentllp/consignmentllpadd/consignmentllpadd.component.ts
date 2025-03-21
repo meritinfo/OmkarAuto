@@ -37,9 +37,11 @@ export class ConsignmentllpaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  
   branchList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

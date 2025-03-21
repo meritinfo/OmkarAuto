@@ -471,6 +471,10 @@ import { CciinvoicemstlistComponent } from './module/cciinvoice/cciinvoicemstlis
 import { ChallanmasterllpaddComponent } from './module/challanmasterllp/challanmasterllpadd/challanmasterllpadd.component';
 import { ChallanmasterlistllpComponent } from './module/challanmasterllp/challanmasterlistllp/challanmasterlistllp.component';
 import { ChallanmastermodelllP } from './models/challanmastermodelllp';
+import { BillsmasterlistllpComponent } from './module/billsmasterllp/billsmasterlistllp/billsmasterlistllp.component';
+import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmasteraddllp/billsmasteraddllp.component';
+import { BillsmastermodelllP } from './models/billsmastermodelllp';
+import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
 
 
 @NgModule({
@@ -618,7 +622,7 @@ import { ChallanmastermodelllP } from './models/challanmastermodelllp';
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, 
   ],
   
   imports: [
@@ -690,7 +694,7 @@ import { ChallanmastermodelllP } from './models/challanmastermodelllp';
     ChallanmastermodelllP,ChallanlistmodelllP,
     
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel
     
   ],
   bootstrap: [AppComponent]
