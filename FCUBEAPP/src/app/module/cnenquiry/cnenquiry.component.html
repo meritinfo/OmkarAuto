@@ -1020,7 +1020,77 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                    
+                        </div>    
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> Mr Details</h4>
+                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Mr No</label></th> 
+                                                <th><label for="formrow-inputCity">Mr Date</label></th> 
+                                                <th><label for="formrow-inputCity">billlrno</label></th> 
+                                                <th><label for="formrow-inputCity">Recd Amt</label></th>
+                                                <th><label for="formrow-inputCity">Freight Ded</label></th> 
+                                                <th><label for="formrow-inputCity">Claims Ded</label></th> 
+                                                <th><label for="formrow-inputCity">TDS Ded</label></th> 
+                                                <th><label for="formrow-inputCity">Others Ded</label></th>  
+                                                <th><label for="formrow-inputCity">Excess Recd</label></th> 
+                                                <th><label for="formrow-inputCity">Ded Recovery</label></th> 
+                                            </tr>
+                                            <tr formArrayName="arrayMrList"
+                                                *ngFor="let arrayData of formMrArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrNo">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="mrDate">
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billlrno">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="recdAmt">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="freightDed">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="claimsDed">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="tdsDed">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="otherDed">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="excessRecd">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="dedRecovery">
+                                                    </td> 
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                   
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
