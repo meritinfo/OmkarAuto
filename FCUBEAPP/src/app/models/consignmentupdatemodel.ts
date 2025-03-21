@@ -3,6 +3,7 @@ export class Consignmentupdatemodel {
     productId: string = "";
     poNo: string = "";
     shipmentNo: string = "";
+    vehicleNo: string = "";
     billingStatus : string = "";
     billingParty : string = "";
     rateType : string = "";

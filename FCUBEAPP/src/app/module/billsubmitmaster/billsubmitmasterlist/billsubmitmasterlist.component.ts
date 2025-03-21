@@ -103,7 +103,7 @@ ngOnInit(): void {
     toDate: new FormControl(this.loginDate),
     partyCode: new FormControl('',),
     submitNo: new FormControl('',),
-    printSign:new FormControl('Y'),
+    printSign:new FormControl('N'),
   });     
 
   this.sharedService.loading=true;   

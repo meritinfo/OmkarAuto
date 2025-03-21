@@ -96,7 +96,7 @@ export class BillsmasterlistComponent {
       bill_StmtNo: new FormControl(''),
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
-      printSign:new FormControl('Y'),
+      printSign:new FormControl('N'),
     });     
 
     this.sharedService.loading=true;     
