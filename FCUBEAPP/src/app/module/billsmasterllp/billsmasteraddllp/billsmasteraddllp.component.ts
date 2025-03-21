@@ -223,7 +223,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         this.formBillsMaster.controls['partyCode'].disable();
       } 
       else{        
-        this.billSeriesChange();
+       // this.billSeriesChange();
       }  
     }, 2000);
     this.sharedService.loading = false;    
@@ -361,7 +361,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       this.formBillsMaster.patchValue({
         billingStation: this.branch
       });
-      this.getSeriesList(this.branch);
+     this.getSeriesList(this.branch);
     });
   }
 
