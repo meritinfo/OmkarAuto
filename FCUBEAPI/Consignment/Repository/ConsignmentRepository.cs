@@ -700,7 +700,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ProductId",          ConsignmentModel.ProductId ),
                             new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
                             new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
-                            new SqlParameter("@ShipmentNo",         ConsignmentModel.VehicleNo),
+                            new SqlParameter("@VehicleNo",          ConsignmentModel.VehicleNo),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
