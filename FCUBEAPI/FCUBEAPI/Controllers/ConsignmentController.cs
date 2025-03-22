@@ -229,6 +229,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ChkMandatoryRequired")]
+        public async Task<IActionResult> ChkMandatoryRequired(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.ChkMandatoryRequired(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }        
+
         [HttpPost("CheckVehicleNo")]
         public async Task<IActionResult> CheckVehicleNo(RequestModel request)
         {

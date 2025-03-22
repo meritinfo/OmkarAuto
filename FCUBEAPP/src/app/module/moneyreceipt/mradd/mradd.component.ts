@@ -174,7 +174,7 @@ export class MraddComponent {
     this.getBranchList();
     this.getBillingPartyList();
     this.getPartyGroupList();
-    this.getAccountList("BC");
+   // this.getAccountList("BC");
     this.getSdAccountList();
     this.getYearList();
 
@@ -584,7 +584,7 @@ export class MraddComponent {
       });
       this.formUser.controls['neftYN'].disable();
     }
-    if(selectedValue=='J') {selectedValue = 'BC'}
+    if(selectedValue=='J') {selectedValue = 'J'}
     if(selectedValue=='M') {selectedValue = 'C'}
 
     this.getAccountList(selectedValue);

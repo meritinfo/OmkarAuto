@@ -42,6 +42,9 @@ export class CommonService {
   getSparesBrandList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesBrandList', null, this.httpOptions);
   }
+  chkMandatoryRequired(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkMandatoryRequired', req, this.httpOptions);
+  }
   getSparesList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesList', null, this.httpOptions);
   }

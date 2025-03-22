@@ -19,7 +19,7 @@ import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service
   styleUrls: ['./lorryhirepmtadd.component.css']
 })
 export class LorryhirepmtaddComponent {
-
+  onAcBranchShow=true;
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
@@ -137,6 +137,7 @@ export class LorryhirepmtaddComponent {
     this.getBranchList();
     this.getYearList();
     this.getPaymentCreditAcList("M");
+    this.chkMandatoryRequired();
     this.selectedLorryhiremaster = this.lorryhirepmtService.getLorryhiremasterDetails(); 
 
     this.formUser.controls['pmtStation'].disable();
@@ -297,6 +298,41 @@ export class LorryhirepmtaddComponent {
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
     });
+  }
+
+  chkOnacMandatory(){
+    this.requestmodel.strRequest = "lorryhirepmtadd";
+    this.requestmodel.strRequest1 = "onAcBranchYN";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        if(res.message=="Y"){
+          this.onAcBranchShow =true; 
+        }
+        else{
+          this.onAcBranchShow =false; 
+        }
+      };
+    });
+
+  }
+
+  
+  chkMandatoryRequired(){
+    this.requestmodel.strRequest = "lorryhirepmtadd";
+    this.requestmodel.strRequest1 = "chequePayeeName";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        if(res.message=="Y"){
+          this.formUser.controls['chequePayeeName'].setValidators([Validators.required]);
+          this.formUser.controls['chequePayeeName'].updateValueAndValidity(); 
+        }
+        else{
+          this.formUser.controls['chequePayeeName'].clearValidators(); 
+          this.formUser.controls['chequePayeeName'].updateValueAndValidity(); 
+        }
+      };
+    });
+
   }
  
   getBranchList(): void {

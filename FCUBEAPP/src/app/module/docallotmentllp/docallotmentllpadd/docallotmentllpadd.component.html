@@ -15,7 +15,8 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputZip">Branch</label><span style="color: red">*</span>  
-                                <select class="form-control" formControlName="branchCode"
+                                <select formControlName="branchCode"
+                                class="form-control form-select ng-pristine ng-touched"
                                     (change)="getDocNumCode()"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }"> 
                                     <option *ngFor="let br of branchList" value={{br.dataId}}>

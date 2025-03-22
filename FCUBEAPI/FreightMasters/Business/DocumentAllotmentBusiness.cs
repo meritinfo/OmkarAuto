@@ -25,7 +25,7 @@ namespace FreightMasters.Business
             return await documentAllotmentRepository.GetDocumentAllotmentList(request);
         }
         public async Task<ResponseModel> DocumentAllotmentDelete(RequestModel requestModel)
-{
+        {
              return await documentAllotmentRepository.DocumentAllotmentDelete(requestModel);
          }
         public async  Task<ResponseModel> GetDocNumCode(RequestModel requestModel)
@@ -35,6 +35,11 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> CheckDocumentRange(ReportRequestModel req)
         {
             return await documentAllotmentRepository.CheckDocumentRange(req);
+        }
+
+        public async Task<ResponseModel> CheckDocumentllpRange(ReportRequestModel req)
+        {
+            return await documentAllotmentRepository.CheckDocumentllpRange(req);
         }
         public async Task<List<DropDownListModel>> GetRangeList(RequestModel req)
         {

@@ -180,13 +180,13 @@ export class DocallotmentllpaddComponent {
           return;
         }            
       } 
-
+      this.report.search = selectedDataVal.seriesCode;
       this.report.filterStr = selectedDataVal.branchCode;
       this.report.filterStr1 = selectedDataVal.docType;
       this.report.filterStr2 = selectedDataVal.rangeFrom;
       this.report.filterStr3 = selectedDataVal.rangeTo;
 
-      this.documentallotmentService.chkDocumentRange(this.report).subscribe((res: Responsemodel) => {
+      this.documentallotmentService.checkDocumentllpRange(this.report).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formUser.patchValue({            
@@ -205,9 +205,10 @@ export class DocallotmentllpaddComponent {
     }
   }
 
-  getDocNumCode(): void {
+  getDocNumCode(): void {    
     var selectedDataVal = this.formUser.getRawValue();
     this.requestmodel.strRequest = selectedDataVal.branchCode;
+    this.getSeriesList(selectedDataVal.branchCode);
     this.documentallotmentService.getDocumentNumcode(this.requestmodel).subscribe((res) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

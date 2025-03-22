@@ -230,8 +230,7 @@ namespace Consignment.Repository
                 
             }
             return consignment;
-        }
-        
+        }        
         public async Task<ResponseModel> ConsignmentDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
@@ -446,7 +445,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> InvDtlSave(SqlTransaction transaction, ConsignmentInvModel invModel)
         {
             ResponseModel responseModel = new();
@@ -590,7 +588,6 @@ namespace Consignment.Repository
             }
             return response;
         }
-
         public async Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req)
         {
             ConsignmentModel lrmodel = new();
@@ -700,7 +697,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ProductId",          ConsignmentModel.ProductId ),
                             new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
                             new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
-                            new SqlParameter("@ShipmentNo",         ConsignmentModel.VehicleNo),
+                            new SqlParameter("@VehicleNo",          ConsignmentModel.VehicleNo),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
@@ -782,7 +779,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetBillSeries(RequestModel request)
         {
             ResponseModel content = new();
@@ -947,6 +943,37 @@ namespace Consignment.Repository
                             new SqlParameter("@YearId",   request.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GenerateLrNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }        
+        public async Task<ResponseModel> ChkMandatoryRequired(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FormName",     request.strRequest),
+                            new SqlParameter("@ObjectName",   request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkMandatoryRequired", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

@@ -14,6 +14,7 @@ namespace Consignment.Repository
         Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<ResponseModel> GenerateLrNo(RequestModel request);
+        Task<ResponseModel> ChkMandatoryRequired(RequestModel request);
         Task<ResponseModel> CheckVehicleNo(RequestModel request);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
