@@ -16,7 +16,9 @@ namespace FreightMasters.Repository
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save product master details
+        /// Service method for 
+        /// 
+        /// product master details
         /// </summary>
         /// <param name="consigneeMasterModel"></param>
         /// <returns>ResponseModel</returns>

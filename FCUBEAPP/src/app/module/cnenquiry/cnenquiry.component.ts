@@ -632,7 +632,7 @@ export class CnenquiryComponent {
         this.formDprArray.controls[i].get("chargeWt")?.disable();
         this.formDprArray.controls[i].get("totFreightAmt")?.disable();     
       }    
-      for (var i = 0; i < res.dprList.length; i++) {
+      for (var i = 0; i < res.mrList.length; i++) {
         this.formMrArray.push(this.createMrInitialArray());
         this.formMrArray.controls[i].get("mrNo")?.setValue(res.mrList[i].mrNo);
         this.formMrArray.controls[i].get("mrDate")?.setValue(res.mrList[i].mrDate);

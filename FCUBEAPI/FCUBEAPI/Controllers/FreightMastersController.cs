@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FleetMasters.Business;
+using Consignment.Business;
 
 
 namespace FCUBEAPI.Controllers
@@ -45,10 +46,12 @@ namespace FCUBEAPI.Controllers
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
         readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
         readonly IChCostTypesBusiness chCostTypesBusiness;
+
         
 
         readonly IFreightGstMasterBusiness freightGstMasterBusiness;
         readonly ILRBillSeriesBusiness lrBillSeriesBusiness;
+        readonly IBillsMasterBusinessLLP billsMasterBusinessLLP;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -77,7 +80,8 @@ namespace FCUBEAPI.Controllers
            IRatesMasterNewBusiness _ratesMasterNewBusiness,
            IChCostTypesBusiness _chCostTypesBusiness,
             IFreightGstMasterBusiness _freightGstMasterBusiness,
-             ILRBillSeriesBusiness _lrBillSeriesBusiness)
+             ILRBillSeriesBusiness _lrBillSeriesBusiness,
+             IBillsMasterBusinessLLP _billsMasterBusinessLLP)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -108,6 +112,7 @@ namespace FCUBEAPI.Controllers
             chCostTypesBusiness = _chCostTypesBusiness;
             freightGstMasterBusiness = _freightGstMasterBusiness;
             lrBillSeriesBusiness = _lrBillSeriesBusiness;
+            billsMasterBusinessLLP = _billsMasterBusinessLLP;
         }
 
         /// <summary>
@@ -3682,7 +3687,194 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillsMasterListLLP")]
+        public async Task<IActionResult> GetBillsMasterListLLP(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillPdfLLP")]
+        public async Task<IActionResult> GetBillPdfLLP(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsMasterSearchListLLP")]
+        public async Task<IActionResult> GetBillsMasterSearchListLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillsMasterSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterSaveLLP")]
+        public async Task<IActionResult> BillsMasterSaveLLP(BillsMasterModelLLP billsMasterModel)
+        {
+            if (billsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.BillsMasterSaveLLP(billsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsInnerGridListLLP")]
+        public async Task<IActionResult> GetBillsInnerGridListLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillsInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterDeleteLLP")]
+        public async Task<IActionResult> BillsMasterDeleteLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.BillsMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+      
+
+        [HttpPost("GetBillPartyGstLocationListLLP")]
+        public async Task<IActionResult> GetBillPartyGstLocationListLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillPartyGstLocationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDuplicateBillsNoLLP")]
+        public async Task<IActionResult> CheckDuplicateBillsNoLLP(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.CheckDuplicateBillsNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillTypeSacHsnLLP")]
+        public async Task<IActionResult> GetBillTypeSacHsnLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillTypeSacHsn(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillNoLLP")]
+        public async Task<IActionResult> GetBillNoLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillNoLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
 
     }
-    
+
 }

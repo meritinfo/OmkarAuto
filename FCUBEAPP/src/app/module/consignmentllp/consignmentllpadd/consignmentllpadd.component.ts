@@ -37,9 +37,11 @@ export class ConsignmentllpaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  
   branchList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -499,7 +501,7 @@ export class ConsignmentllpaddComponent {
   }
   
   getSeriesList(br: string): void {
-    this.requestmodel.strRequest = "L";
+    this.requestmodel.strRequest = "BL";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
