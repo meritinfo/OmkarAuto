@@ -192,7 +192,7 @@ export class BillsupplilistComponent {
     this.reportmodel.pageSize = 10;
     this.reportmodel.sortColumn = '';
     this.reportmodel.sortOrder = '';
-    this.reportmodel.search = '';
+    this.reportmodel.search = 'S';
     this.reportmodel.fromDate = '';
     this.reportmodel.toDate = '';
     this.reportmodel.filterStr = bill.billingStation;
