@@ -159,7 +159,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
-    
+    this.formBillsMaster.controls['billNo'].disable();
     if (this.selectedBillsmasterDetails.billsMasterId != '') {
       this.getPartyGstLocationList(this.selectedBillsmasterDetails.partyCode);
     }
@@ -292,7 +292,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   chkBillDuplicateLLP(){
     var selectedData = this.formBillsMaster.getRawValue();
     if (selectedData.billSlNo==""){
-      this.toasterService.warning(" gc sl no should not be Blank");
+      this.toasterService.warning(" bill no should not be Blank");
       return;
     }
     else{
@@ -306,7 +306,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           //ignore
           this.formBillsMaster.patchValue({
            
-            billNo: selectedData.seriesCode + selectedData.billNo
+            billNo: selectedData.billSeries + selectedData.billSlNo
           });
         }
        else{

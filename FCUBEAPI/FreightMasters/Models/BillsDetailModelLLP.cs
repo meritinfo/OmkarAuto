@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Models
 {
-    public interface BillsDetailModelLLP
+    public class BillsDetailModelLLP
     {
         public string? BillDetailId { get; set; }
         public string? BillsMasterId { get; set; }

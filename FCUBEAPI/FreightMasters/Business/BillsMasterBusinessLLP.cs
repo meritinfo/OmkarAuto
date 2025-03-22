@@ -29,9 +29,9 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillsInnerGridList(request);
         }
-        public async Task<ResponseModel> BillsMasterSave(BillsMasterModelLLP billsModel)
+        public async Task<ResponseModel> BillsMasterSaveLLP(BillsMasterModelLLP billsModel)
         {
-            return await billsRepository.BillsMasterSave(billsModel);
+            return await billsRepository.BillsMasterSaveLLP(billsModel);
         }
         public async Task<ResponseModel> BillsMasterDelete(RequestModel request)
         {

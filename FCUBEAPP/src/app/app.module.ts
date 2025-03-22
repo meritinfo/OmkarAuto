@@ -474,6 +474,7 @@ import { ChallanmastermodelllP } from './models/challanmastermodelllp';
 import { BillsmasterlistllpComponent } from './module/billsmasterllp/billsmasterlistllp/billsmasterlistllp.component';
 import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmasteraddllp/billsmasteraddllp.component';
 import { BillsmastermodelllP } from './models/billsmastermodelllp';
+import { BillsDetailModelllP } from './models/billsdetailmodelllp';
 import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
 
 
@@ -694,7 +695,7 @@ import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
     ChallanmastermodelllP,ChallanlistmodelllP,
     
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     
   ],
   bootstrap: [AppComponent]

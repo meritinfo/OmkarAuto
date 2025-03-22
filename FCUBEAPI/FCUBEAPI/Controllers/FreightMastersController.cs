@@ -3751,7 +3751,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billsMasterBusinessLLP.BillsMasterSave(billsMasterModel);
+                var result = await billsMasterBusinessLLP.BillsMasterSaveLLP(billsMasterModel);
 
                 return Ok(result);
             }

@@ -22,7 +22,7 @@ namespace FreightMasters.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> BillsMasterSave(BillsMasterModelLLP billsModel)
+        public async Task<ResponseModel> BillsMasterSaveLLP(BillsMasterModelLLP billsModel)
         {
             ResponseModel responseModel = new();
 

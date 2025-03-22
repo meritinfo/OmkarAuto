@@ -12,7 +12,7 @@ namespace FreightMasters.Repository
     {
         Task<BillsListModelLLP> GetBillsMasterList(ReportRequestModel request);
         Task<BillsMasterSearchListModelLLP> GetBillsInnerGridList(RequestModel request);
-        Task<ResponseModel> BillsMasterSave(BillsMasterModelLLP challanModel);
+        Task<ResponseModel> BillsMasterSaveLLP(BillsMasterModelLLP challanModel);
         Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
         Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
         Task<BillsMasterSearchListModelLLP> GetBillsMasterSearchList(RequestModel request);
