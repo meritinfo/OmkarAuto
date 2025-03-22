@@ -67,7 +67,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2" *ngIf="onAcBranchShow">
                                             <div class="form-check">
                                                 <input type="checkbox"  formControlName="onAcBranchYN" 
                                                 class="form-check-input" value="Y" 
@@ -76,7 +76,7 @@
                                                 style="color: green;"> On A/c of Branch</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-3" *ngIf="onAcBranchShow">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">On A/c Branch</label>
                                                 <span style="color: red">*</span>
