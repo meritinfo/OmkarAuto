@@ -476,6 +476,8 @@ import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmastera
 import { BillsmastermodelllP } from './models/billsmastermodelllp';
 import { BillsDetailModelllP } from './models/billsdetailmodelllp';
 import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
+import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddllp/billsuppliaddllp.component';
+import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
 
 
 @NgModule({
@@ -623,7 +625,7 @@ import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, 
   ],
   
   imports: [

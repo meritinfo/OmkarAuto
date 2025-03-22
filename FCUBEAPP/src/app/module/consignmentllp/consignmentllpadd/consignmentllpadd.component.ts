@@ -166,7 +166,7 @@ export class ConsignmentllpaddComponent {
       cneeAdd3 : new FormControl('',),    
       cneePin : new FormControl('',),    
       cneeGst : new FormControl('',),
-      cneeMobile : new FormControl('', [Validators.required]),
+      cneeMobile : new FormControl('', ),
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    
       shipmentDt : new FormControl('',),    
@@ -501,7 +501,7 @@ export class ConsignmentllpaddComponent {
   }
   
   getSeriesList(br: string): void {
-    this.requestmodel.strRequest = "BL";
+    this.requestmodel.strRequest = "L";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
