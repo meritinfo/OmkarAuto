@@ -657,6 +657,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDocumentllpRange")]
+        public async Task<IActionResult> CheckDocumentllpRange(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.CheckDocumentllpRange(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetRangeList")]
         public async Task<IActionResult> GetRangeList(RequestModel req)
         {

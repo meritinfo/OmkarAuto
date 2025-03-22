@@ -4,6 +4,8 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using FreightMasters.Models;
 using Shared.Models;
+using System.Threading.Tasks;
+using System;
 
 namespace FreightMasters.Repository
 {
@@ -80,6 +82,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+       
         public async Task<DocumentAllotmentListModel> GetDocumentAllotmentList(PageRequest request)
         {
             DocumentAllotmentListModel documentAllotmentList = new();
@@ -140,10 +143,7 @@ namespace FreightMasters.Repository
             }
             return documentAllotmentList;
         }
-
-        
-
-
+       
         public async Task<ResponseModel> DocumentAllotmentDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -182,6 +182,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+       
         public async Task<ResponseModel> GetDocNumCode(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -216,6 +217,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+       
         public async Task<ResponseModel> CheckDocumentRange(ReportRequestModel req)
         {
             ResponseModel responseModel = new();
@@ -250,6 +252,43 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
+        public async Task<ResponseModel> CheckDocumentllpRange(ReportRequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch",    req.FilterStr),
+                            new SqlParameter("@DocType",    req.FilterStr1),
+                            new SqlParameter("@SeriesCode", req.Search),
+                            new SqlParameter("@FromRange",  req.FilterStr2),
+                            new SqlParameter("@ToRange",    req.FilterStr3)
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDocumentLlpRange", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
         public async Task<List<DropDownListModel>> GetRangeList(RequestModel req)
         {
             List<DropDownListModel> creditacList = new();

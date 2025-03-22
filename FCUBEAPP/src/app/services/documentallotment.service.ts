@@ -52,5 +52,10 @@ export class DocumentallotmentService {
   chkDocumentRange(req: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDocumentRange', req, this.httpOptions);
   }
+  
+  checkDocumentllpRange(req: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDocumentllpRange', req, this.httpOptions);
+  }
+  
 }
 
