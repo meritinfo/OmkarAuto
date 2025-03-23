@@ -45,8 +45,10 @@
                                 <label for="formrow-inputState">Series Code:</label>
                                 <span style="color: red">*</span>
                                 <select formControlName="seriesCode"
+                                    (change)="checkDocumentRange()"
                                     class="form-control form-select ng-pristine ng-touched"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['seriesCode'].invalid) }">
+                                    <option value=""> </option>
                                     <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
                                         {{dl.dataName}}
                                     </option>
