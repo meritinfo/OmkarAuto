@@ -3725,24 +3725,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetBillPdfLLP")]
-        public async Task<IActionResult> GetBillPdfLLP(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await billsMasterBusiness.GetBillPdf(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetBillsMasterSearchListLLP")]
         public async Task<IActionResult> GetBillsMasterSearchListLLP(RequestModel request)
         {
@@ -3872,6 +3854,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillLlpPdf")]
+        public async Task<IActionResult> GetBillLlpPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillLlpPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         [HttpPost("GetBillNoLLP")]
         public async Task<IActionResult> GetBillNoLLP(RequestModel request)
         {
