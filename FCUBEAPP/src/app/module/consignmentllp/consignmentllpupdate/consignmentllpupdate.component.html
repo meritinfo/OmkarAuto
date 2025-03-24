@@ -1,1 +1,675 @@
-<p>consignmentllpupdate works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+           <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Update Consignment for Bill</h4>
+                    </div>
+                </div>
+            </div>
+           <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Booked At</label>
+                                            <select class="form-control" autoclose="false" 
+                                            formControlName="bookingPlace">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">LR No</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" class="form-control"
+                                            maxlength="15" 
+                                                formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
+                                        </div>
+                                    </div>                                
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bill Status</label><span style="color: red">*</span>
+                                            <select formControlName="billingStatus"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStatus'].invalid) }">
+                                                <option value="NA">Not Applicable</option>
+                                                <option value="WP">With POD</option>
+                                                <option value="WO">Without POD</option>
+                                                <option value="IB">Indemnity Bond</option>
+                                            </select>
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle No</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" class="form-control"
+                                            numbersonly maxlength="15" 
+                                                formControlName="vehicleNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }">
+                                        </div>
+                                    </div>    
+                                </div> 
+                                <div class="row">                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label style="color: red"> 
+                                                <h6> {{ this.delvDetnDays}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                               
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Hamali : {{ this.hamali}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Detiontion : {{ this.detiontion}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Other Payable1 : {{ this.others1}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                               
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Other Payable2 : {{ this.others1}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>                                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label> 
+                                                <h6> Extra Payable : {{ this.totExt}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Booked Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="bookingDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">From</label>                                                                              
+                                            <input autoclose="false" class="form-control"
+                                                    formControlName="fromPlace" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">To</label>                                         
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="toPlace" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Pkgs</label>
+                                            <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="noPackages" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Actual Weight</label>
+                                            <input threedecimalonly autoclose="false" class="form-control"
+                                                formControlName="actualWt" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Charge Weight</label>
+                                            <input threedecimalonly autoclose="false" class="form-control"
+                                                formControlName="chargewt" >
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row">  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignor</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="cnorName" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignee</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="cneeName" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Party</label>
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="partyList" 
+                                                    formControlName="party"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    (selected)='selectEvent($event)' 
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate" 
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['party'].invalid) }">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>                                  
+                                <div class="row">                              
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Material Desc</label>
+                                            <select formControlName="productId"
+                                                class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let rate of contentList" value={{rate.dataId}}>
+                                                    {{rate.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">PO No</label>
+                                            <input type="text" uppercaseonly class="form-control" 
+                                                formControlName="poNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Shipment/Order No</label>
+                                            <input type="text" uppercaseonly class="form-control"  
+                                                formControlName="shipmentNo" >
+                                        </div>
+                                    </div>                                     
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
+                                            <select id="formrow-inputState" class="form-control"
+                                                formControlName="gstType"  (change)="changeGstType($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
+                                                    <option value="N">NA</option>      
+                                                    <option value="S">S/CGST</option> 
+                                                    <option value="I">IGST</option>     
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                                 
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title mb-4"></h4>
+                                                    <div class="overflow-x">
+                                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
+                                                            <tr>
+                                                                <th class="col-lg-2"><label for="formrow-inputZip">Freight Desc</label></th>
+                                                                <th><label for="formrow-inputZip">Amount</label></th>
+                                                                <th><label for="formrow-inputZip">SGST Pct</label></th>
+                                                                <th><label for="formrow-inputZip">SGST Amt</label></th>
+                                                                <th><label for="formrow-inputZip">CGST Pct</label></th>
+                                                                <th><label for="formrow-inputZip">CGST Amt</label></th>
+                                                                <th><label for="formrow-inputZip">IGST Pct</label></th>
+                                                                <th><label for="formrow-inputZip">IGST Amt</label></th>
+                                                                <th><label for="formrow-inputZip">Total Amt</label></th>
+                                                                <th class="col-lg-2"><label for="formrow-inputZip">Remarks</label></th>
+                                                                <th></th>                                                  
+                                                            </tr>
+                                                            <tr formArrayName="arrayGstList"
+                                                                *ngFor="let arrayData of formGstArray.controls; let i = index">
+                                                                <div [formGroupName]="i" class="grid-table">
+                                                                    <td  class="col-lg-2">
+                                                                        <select formControlName="freightId" (change)="onFreightChange(i)"
+                                                                            class="form-control form-select ng-pristine ng-touched">
+                                                                            <option *ngFor="let dl of freightList" value={{dl.dataId}}>
+                                                                                {{dl.dataName}}
+                                                                            </option>
+                                                                        </select>
+                                                                        <input type="hidden" class="form-control" 
+                                                                        formControlName="linkColumn" >
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="amount" (change)="calculateAmount()">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="sgstPct" (change)="calculateAmount()">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="sgstAmt">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="cgstPct" (change)="calculateAmount()">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="cgstAmt">
+                                                                    </td>   
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="igstPct" (change)="calculateAmount()">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="igstAmt">
+                                                                    </td>     
+                                                                    <td>
+                                                                        <input decimalonly class="form-control" maxlength="15"
+                                                                        formControlName="totalAmt">
+                                                                    </td>
+                                                                    <td class="col-lg-2">
+                                                                        <input uppercaseonly class="form-control"
+                                                                        formControlName="remarks">
+                                                                    </td>                                            
+                                                                    <td class="col-lg-1">
+                                                                        <div class="col-lg-4 details-button">
+                                                                            <button *ngIf="i === formGstArray.controls.length-1" type="button"
+                                                                                class="btn btn-add" (click)="addGstItem(i)"></button>
+                                                                            <button *ngIf="formGstArray.controls.length > 1"
+                                                                                (click)="removeGstItem(i)" class="btn btn-delete"></button>
+                                                                        </div>                                        
+                                                                    </td>
+                                                                </div>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                   
+                                <div class="row">                                      
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Freight</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="freightRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Freight Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="freightNarr" >
+                                        </div>
+                                    </div>  
+                                </div>                                                
+                                <div class="row">    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Statistical</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="statisticalRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Statistical Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="statisticalNarr" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">FOV</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="fovRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">FOV Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="fovNarr" >
+                                        </div>
+                                    </div>  
+                                </div>                                   
+                                <div class="row">    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Door Coll</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="doorCollRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Door Coll Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="doorCollNarr" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Handling</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="handlingRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Handling Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="handlingNarr" >
+                                        </div>
+                                    </div>  
+                                </div>                                    
+                                <div class="row">    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Loading Detn</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="loadingDetnRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Loading Detn Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="loadingDetnNarr" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Enroute</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="enrouteRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Enroute Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="enrouteNarr" >
+                                        </div>
+                                    </div>  
+                                </div>                                     
+                                <div class="row">    
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Misc</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="miscRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Misc Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="miscNarr" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Door Del</label>
+                                            <input type="text" decimalonly class="form-control"  
+                                                formControlName="doorDelRs">
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Door Del Narr</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="doorDelNarr" >
+                                        </div>
+                                    </div>                                    
+                                    <div class="row"> 
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading Date</label>
+                                                <input type="date" class="form-control"  
+                                                    formControlName="ulReportingDateTime" (change)="calcDetDays()">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Delivery Date</label>
+                                                <input type="date" class="form-control" 
+                                                    formControlName="deliveryDateTime" (change)="calcDetDays()">
+                                            </div>
+                                        </div>      
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Detn Days</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="ulDetentionDays">
+                                            </div>
+                                        </div> 
+                                    </div>                                           
+                                    <div class="row">    
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="unLoadingRs">
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading Narr</label>
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="unLoadingNarr" >
+                                            </div>
+                                        </div>  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading Detn</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="unLoadingDetnRs">
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">UnLoading Detn Narr</label>
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="unloadingDetenNarr" >
+                                            </div>
+                                        </div>  
+                                    </div>                                 
+                                    <div class="row">    
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Extras</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="extrasRS">
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Extras Narr</label>
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="extrasNarr" >
+                                            </div>
+                                        </div>  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Others </label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="othersRs">
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Others Narr</label>
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="othersNarr" >
+                                            </div>
+                                        </div>  
+                                    </div>                                
+                                    <div class="row">    
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Sub Total</label>
+                                                <input type="text" decimalonly class="form-control"  
+                                                    formControlName="subTotalRs" >
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    <div class="row">
+                                        <!-- <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">SGST Pct</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sgstPct">
+                                            </div>
+                                        </div> -->
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">SGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sgstAmt" >
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">CGST Pct</label>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstPct">
+                                        </div> -->
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">CGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstAmt" >
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">IGST Pct</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="igstPct">
+                                            </div>
+                                        </div> -->
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">IGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="igstAmt" >
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="row">                          
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Non Gst Amt1</label>
+                                                <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                                    formControlName="nonGstAmt1" [ngClass]=>
+                                            </div>
+                                        </div>                                  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Non Gst Amt Desc1</label>
+                                                <input type="text" uppercaseonly class="form-control"
+                                                    formControlName="nonGstAmt1Desc" [ngClass]=>
+                                            </div>
+                                        </div>                                  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Non Gst Amt2</label>
+                                                <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
+                                                    formControlName="nonGstAmt2" [ngClass]=>
+                                            </div>
+                                        </div>                                  
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Non Gst Amt Desc2</label>
+                                                <input type="text" uppercaseonly class="form-control" 
+                                                    formControlName="nonGstAmt2Desc" [ngClass]=>
+                                            </div>
+                                        </div>                                   
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Net Total</label>
+                                                <input type="text" decimalonly class="form-control" 
+                                                    formControlName="gtotalRs" [ngClass]=>
+                                            </div>
+                                        </div>                              
+                                    </div>                                    
+                                    <div class="row">  
+                                        <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Whatsapp POD1 </label>                          
+                                                <input #whatsappPOD1Input class="form-control" type="file" id="formAttach1File">
+                                                <a *ngIf="selectedLrDetails.whatsappPOD1" target="_blank"
+                                                            href={{whatsappPOD1}}>Download</a>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Whatsapp POD2 </label>                          
+                                                <input #whatsappPOD2Input class="form-control" type="file" id="formAttach1File">
+                                                <a *ngIf="selectedLrDetails.whatsappPOD1" target="_blank"
+                                                            href={{whatsappPOD2}}>Download</a>
+                                            </div>
+                                        </div>                                   
+                                    </div>                                    
+                                    <div class="row">         
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label style="color: blue"> 
+                                                    <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>
+                                    </div>         
+                                </div>                                                                                                                                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="updateLrDetailsForm()">Save</button>&nbsp;                            
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+     <!-- container-fluid -->
+    </div>
+  <!-- End Page-content -->
+ </div>
+

@@ -72,7 +72,7 @@ export class BillsMasterServiceLLP {
   getBillTypeSacHsn(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillTypeSacHsnLLP', request, this.httpOptions);
   }  
-  getBillPdf(filter: Reportmodel): Observable<Responsemodel> {
+  getBillllpPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPdfLLP', filter, this.httpOptions);
   }
   getBillEnqDetails(filter: Requestmodel): Observable<BillsmastermodelllP> {

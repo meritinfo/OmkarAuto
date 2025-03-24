@@ -118,6 +118,13 @@ export class DocallotmentllpaddComponent {
     this.formUser.controls['docCount'].disable();   
     this.formUser.controls["docCloseDate"].disable();  
     //this.formUser.controls['docNumCode'].disable(); 
+    if(this.selectedDocumentallotmentDetails.docType=="CH"){
+      this.formUser.controls['seriesCode'].clearValidators();
+    }
+    else{
+      this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
+    }
+    this.formUser.controls['seriesCode'].updateValueAndValidity();
 
     if (this.selectedDocumentallotmentDetails.docAllotId!= '') {
     this.formUser.controls['seriesCode'].disable(); 
@@ -129,6 +136,7 @@ export class DocallotmentllpaddComponent {
       if(this.selectedDocumentallotmentDetails.docStatus=="C"){
         this.formUser.controls["docCloseDate"].enable();
       }
+
       this.formUser.controls['branchCode'].disable();    
       this.formUser.controls['docType'].disable();    
       this.editMode = true;
@@ -159,9 +167,19 @@ export class DocallotmentllpaddComponent {
   }
   
   checkDocumentRange() { 
+    var selectedDataVal = this.formUser.getRawValue();
+    if(selectedDataVal.docType=="CH"){
+      this.formUser.controls['seriesCode'].clearValidators();
+      this.formUser.controls['seriesCode'].disable();
+    }
+    else{
+      this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
+      this.formUser.controls['seriesCode'].enable();
+    }
+    this.formUser.controls['seriesCode'].updateValueAndValidity();
+
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
-      var selectedDataVal = this.formUser.getRawValue();
       var docCount=0;
       var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString():"";
       var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString():"";

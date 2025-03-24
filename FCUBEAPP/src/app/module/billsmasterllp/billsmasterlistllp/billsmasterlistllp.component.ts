@@ -201,7 +201,7 @@ export class BillsmasterlistllpComponent {
     this.reportmodel.filterStr2 = bill.yearId;
     this.reportmodel.filterStr3 = this.formFilter.value.printSign;
     
-    this.billsMasterService.getBillPdf(this.reportmodel).subscribe(resp => {
+    this.billsMasterService.getBillllpPdf(this.reportmodel).subscribe(resp => {
       if(resp.status){    
         let link = document.createElement("a");
         link.download = "Bill_" + new Date().getTime() + '.pdf';

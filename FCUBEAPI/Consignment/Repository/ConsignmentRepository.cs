@@ -398,11 +398,6 @@ namespace Consignment.Repository
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         MasterID = Convert.ToString(responseModel.Message);
                     }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
                     if (responseModel.Status)
                     {
                         for (int i = 0; i < cn.InvList.Count; i++)
@@ -754,24 +749,33 @@ namespace Consignment.Repository
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsignmentUpdate", param);
-                   
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]); 
-                        if (responseModel.Status)
-                        {
-                            transaction.Commit();
-                        }
-                        else {  transaction.Rollback(); }
-                    }
-                    else
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }                   
+                    if (responseModel.Status)
                     {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+                        for (int i = 0; i < ConsignmentModel.GstList.Count; i++)
+                        {
+                            ConsignmentModel.GstList[i].ConsignmentID = ConsignmentModel.ConsignmentID;
+
+                            responseModel = await GstDtlSave(transaction, ConsignmentModel.GstList[i]);
+                            if (!responseModel.Status)
+                            {
+                                transaction.Rollback();
+                                i = ConsignmentModel.GstList.Count;
+                            }
+                        }
                     }
-                  
-                   
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                        responseModel.Message ="Consignment Updated Successfully";
+                    }
+                    else { transaction.Rollback(); }
+
+
                 }
             }
             catch (Exception ex)
