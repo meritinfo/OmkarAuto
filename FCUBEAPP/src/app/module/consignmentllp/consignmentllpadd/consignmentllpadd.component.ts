@@ -376,6 +376,7 @@ export class ConsignmentllpaddComponent {
   
   getLrInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedLrDetails.consignmentID;
+    var gsttype = this.selectedLrDetails.gstType;
     this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
       this.lrmodel = res;
       this.formArray.clear();
@@ -418,7 +419,15 @@ export class ConsignmentllpaddComponent {
         this.formGstArray.controls[i].get("igstPct")?.disable();
         this.formGstArray.controls[i].get("igstAmt")?.disable();
         this.formGstArray.controls[i].get("totalAmt")?.disable();
-        this.formGstArray.controls[i].get("remarks")?.disable();
+        this.formGstArray.controls[i].get("remarks")?.disable();        
+        
+        if (gsttype == "I") {  
+          this.formGstArray.controls[i].get("igstPct")?.enable();  
+        }     
+        else if (gsttype == "S")  {     
+          this.formGstArray.controls[i].get("sgstPct")?.enable();
+          this.formGstArray.controls[i].get("cgstPct")?.enable();
+        }   
       }      
     });
   }
@@ -647,6 +656,9 @@ export class ConsignmentllpaddComponent {
         this.formGstArray.controls[i].get("sgstPct")?.setValue("0");
         this.formGstArray.controls[i].get("cgstPct")?.setValue("0");
         this.formGstArray.controls[i].get("igstPct")?.setValue("0");
+        this.formGstArray.controls[i].get("sgstAmt")?.setValue("0");
+        this.formGstArray.controls[i].get("cgstAmt")?.setValue("0");
+        this.formGstArray.controls[i].get("igstAmt")?.setValue("0");
 
         this.formGstArray.controls[i].get("sgstPct")?.disable();
         this.formGstArray.controls[i].get("cgstPct")?.disable();
@@ -1261,10 +1273,10 @@ export class ConsignmentllpaddComponent {
           'amount': selectedDataValue.arrayGstList[i].amount.toString(),
           'sgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
           'sgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
-          'cgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
-          'cgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
-          'igstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
-          'igstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
+          'cgstPct': selectedDataValue.arrayGstList[i].cgstPct.toString(),
+          'cgstAmt': selectedDataValue.arrayGstList[i].cgstAmt.toString(),
+          'igstPct': selectedDataValue.arrayGstList[i].igstPct.toString(),
+          'igstAmt': selectedDataValue.arrayGstList[i].igstAmt.toString(),
           'totalAmt': selectedDataValue.arrayGstList[i].totalAmt.toString(),
           'linkColumn': '',
         });

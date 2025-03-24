@@ -1,3 +1,5 @@
+import { Consignmentgstmodel } from './consignmentgstmodel';
+
 export class Consignmentupdatemodel {
     consignmentID : string = "";
     productId: string = "";
@@ -54,5 +56,6 @@ export class Consignmentupdatemodel {
     ulDetentionDays: string = "";
     yearId : string = "";
     loggedInUser :  string = "";
+    gstList: Consignmentgstmodel[] = [];
  
 }
