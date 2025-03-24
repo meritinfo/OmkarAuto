@@ -664,7 +664,8 @@ namespace Consignment.Repository
                         lrmodel.Deduction2 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1"]);
                         lrmodel.Deduction3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2"]);
                         lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExt"]);  
-                        lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]); 
+                        lrmodel.ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
+                        lrmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
                     }
                 }
             }
