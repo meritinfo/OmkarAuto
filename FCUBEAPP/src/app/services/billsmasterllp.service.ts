@@ -73,7 +73,7 @@ export class BillsMasterServiceLLP {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillTypeSacHsnLLP', request, this.httpOptions);
   }  
   getBillllpPdf(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPdfLLP', filter, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillLlpPdf', filter, this.httpOptions);
   }
   getBillEnqDetails(filter: Requestmodel): Observable<BillsmastermodelllP> {
     return this.httpClient.post<BillsmastermodelllP>(Constants.API_ENDPOINT + 'FreightMasters/GetBillEnqDetailsLLP', filter, this.httpOptions);
