@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { LoginComponent } from './module/login/login.component';
+
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
@@ -296,6 +297,8 @@ import { ChallanmasterllpaddComponent } from './module/challanmasterllp/challanm
 import { ChallanmasterlistllpComponent } from './module/challanmasterllp/challanmasterlistllp/challanmasterlistllp.component';
 import { BillsmasterlistllpComponent } from './module/billsmasterllp/billsmasterlistllp/billsmasterlistllp.component';
 import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmasteraddllp/billsmasteraddllp.component';
+import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddllp/billsuppliaddllp.component';
+import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
 
 
 
@@ -707,6 +710,9 @@ const routes: Routes = [
   { path: 'billmainlistLLP', component:  BillsmasterlistllpComponent },
   { path: 'billsmasteraddllp', component:  BillsmasteraddllpComponent },
   { path: 'billsmastereditllp', component:  BillsmasteraddllpComponent },
+  { path: 'billentrysuppaddllp', component:  BillsuppliaddllpComponent },
+  { path: 'billentrysuppeditllp', component:  BillsuppliaddllpComponent },
+  { path: 'billsupplist_LLP', component:  BillsupplilistllpComponent },  
 ];
 
 

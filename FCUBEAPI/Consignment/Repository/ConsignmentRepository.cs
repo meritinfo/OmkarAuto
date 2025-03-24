@@ -679,6 +679,7 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
+
         public async Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             ResponseModel responseModel = new();
