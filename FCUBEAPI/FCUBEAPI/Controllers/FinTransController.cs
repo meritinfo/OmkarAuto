@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using System.Data.Common;
 
 
 
@@ -32,7 +33,8 @@ namespace FCUBEAPI.Controllers
         readonly IMonthlyStatementsBusiness monthlyStatementsBusiness;
 
 
-        public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
+        public FinTransController(IOptions<DBModel> _dbconnection,
+            ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
             IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
             IBankReconcilationBusiness _bankReconcilationBusiness,
             IOpBrsEntryBusiness _opBrsEntryBusiness, 
@@ -43,6 +45,7 @@ namespace FCUBEAPI.Controllers
             IBalanceBusiness _balanceBusiness,
             IMonthlyStatementsBusiness  _monthlyStatementsBusiness)
         {
+            dbconnection = _dbconnection;
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
             bankReconcilationBusiness =_bankReconcilationBusiness;
