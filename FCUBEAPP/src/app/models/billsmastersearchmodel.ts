@@ -32,5 +32,6 @@ export class Billsmastersearchmodel {
   remarks3:  string = "";
   suppBillDetRemarks:  string = "";
   otherAmt:  string = "";
+ // yearId:  string = "";
   selected: boolean = false;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -50,6 +51,7 @@ export class BillsuppliaddComponent {
   showButton = true;  
   formSubmitted = false;
   selectedBillsmasterDetails = new Billsmastermodel();
+  billsmastersearchlistmodel = new Billsmastersearchlistmodel(); 
   responseDetails = new Responsemodel();
   usertriprightsmodel = new Usertriprightsmodel();
   
@@ -122,7 +124,8 @@ export class BillsuppliaddComponent {
       billNo: new FormControl('',[Validators.required]),
       billDate: new FormControl(this.loginDate,[Validators.required]),
       dueDate: new FormControl(this.duedate,[Validators.required]),
-      suppYN: new FormControl('',[Validators.required]),
+      
+      suppYN: new FormControl('',),
       suppParticulars: new FormControl('',[Validators.required]),
       sacHsn: new FormControl('',),
       partyCode: new FormControl('',[Validators.required]),
@@ -130,7 +133,7 @@ export class BillsuppliaddComponent {
       billType: new FormControl('',[Validators.required]),
       collBranch: new FormControl(this.branch,[Validators.required]),
       gstType: new FormControl('N',[Validators.required]),
-      totalFreight: new FormControl('',[Validators.required]),
+      totalFreight: new FormControl('',),
       totalExtras: new FormControl(''),
       totalOthers: new FormControl(''),
       sgstPct: new FormControl(''),
@@ -211,7 +214,7 @@ export class BillsuppliaddComponent {
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
-        this.showButton = false;
+       // this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
         this.formBillsMaster.controls['suppYN'].disable();   
@@ -400,21 +403,28 @@ export class BillsuppliaddComponent {
    
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
+    this.formArray.clear();
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
+      this.billsmastersearchlistmodel= res;
+      this.formArray.clear();
       for(var i = 0; i < res.billsMasterSearchList.length; i++) {
-        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billsMasterSearchList[i].gcNoteNo);
-        this.formArray.controls[i].get("consignmentid")?.setValue(res.billsMasterSearchList[i].consignmentID);
-        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsMasterSearchList[i].bookingDate));
-        this.formArray.controls[i].get("fromPlace")?.setValue(res.billsMasterSearchList[i].fromPlace);
-        this.formArray.controls[i].get("toPlace")?.setValue(res.billsMasterSearchList[i].toPlace);
-        this.formArray.controls[i].get("freightRs")?.setValue(res.billsMasterSearchList[i].freightRs);
-        this.formArray.controls[i].get("others")?.setValue(res.billsMasterSearchList[i].othersRs);
-        this.formArray.controls[i].get("extras")?.setValue(res.billsMasterSearchList[i].extrasRS);
-        this.formArray.controls[i].get("nonGstAmt1")?.setValue(res.billsMasterSearchList[i].nonGstAmt1);
-        this.formArray.controls[i].get("remarks1")?.setValue(res.billsMasterSearchList[i].remarks1);
-        this.formArray.controls[i].get("remarks2")?.setValue(res.billsMasterSearchList[i].remarks2);
-        this.formArray.controls[i].get("remarks3")?.setValue(res.billsMasterSearchList[i].remarks3);
-        this.formArray.controls[i].get("suppBillDetRemarks")?.setValue(res.billsMasterSearchList[i].suppBillDetRemarks);
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("gcNoteNo")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gcNoteNo);
+        this.formArray.controls[i].get("consignmentid")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID);
+        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate( this.billsmastersearchlistmodel.billsMasterSearchList[i].bookingDate));
+        this.formArray.controls[i].get("fromPlace")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].fromPlace);
+        this.formArray.controls[i].get("toPlace")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].toPlace);
+        this.formArray.controls[i].get("freightRs")?.setValue (this.billsmastersearchlistmodel.billsMasterSearchList[i].freightRs);
+        this.formArray.controls[i].get("others")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs);
+        this.formArray.controls[i].get("extras")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS);
+        this.formArray.controls[i].get("nonGstAmt1")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt1);
+        this.formArray.controls[i].get("remarks1")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks1);
+        this.formArray.controls[i].get("remarks2")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks2);
+        this.formArray.controls[i].get("remarks3")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks3);
+        this.formArray.controls[i].get("suppBillDetRemarks")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].suppBillDetRemarks);
+        this.formArray.controls[i].get("gcBranch")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].bookingPlace);
+        this.formArray.controls[i].get("gtotal")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gtotalRs);
+        this.formArray.controls[i].get("gcYear")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].otherAmt);
         this.formArray.controls[i].get("gcNoteNo")?.disable();
         this.formArray.controls[i].get("bookingDate")?.disable();
         this.formArray.controls[i].get("fromPlace")?.disable();
@@ -442,6 +452,8 @@ export class BillsuppliaddComponent {
         this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.bookingDate));
         this.formArray.controls[i].get("fromPlace")?.setValue(res.fromPlace);
         this.formArray.controls[i].get("toPlace")?.setValue(res.toPlace);
+        this.formArray.controls[i].get("gcYear")?.setValue(res.yearId);
+        this.formArray.controls[i].get("gcBranch")?.setValue(res.bookingPlace);
         this.formArray.controls[i].get("gcNoteNo")?.disable();
         this.formArray.controls[i].get("bookingDate")?.disable();
         this.formArray.controls[i].get("fromPlace")?.disable();
@@ -548,18 +560,18 @@ export class BillsuppliaddComponent {
     var billlist = selectedDataVal.arrayList;
 
     for (var i = 0; i < billlist.length; i++) {
-      if (billlist[i].selected) {
-          gtotal  = (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) ) 
-                            + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS)) 
-                            + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs)) 
-                            + (billlist[i].nonGstAmt1 == ""? 0 : parseFloat(billlist[i].nonGstAmt1));
-          totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
-          totalExtras       = totalExtras      + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS) );
-          totalOthers       = totalOthers      + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs) );
-          totalNonGstAmt1   = totalNonGstAmt1  + (billlist[i].nonGstAmt1 == ""? 0 : parseFloat(billlist[i].nonGstAmt1) );
- 
-          this.formArray.controls[i].get("gtotal")?.setValue(gtotal);
-      }
+    //  if (billlist[i].selected) {
+      gtotal  = (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) ) 
+      + (billlist[i].extras == ""? 0 : parseFloat(billlist[i].extras)) 
+      + (billlist[i].others == ""? 0 : parseFloat(billlist[i].others)) 
+      + (billlist[i].nonGstAmt1 == ""? 0 : parseFloat(billlist[i].nonGstAmt1));
+      totalFreight      = totalFreight     + (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) );
+      totalExtras       = totalExtras      + (billlist[i].extras == ""? 0 : parseFloat(billlist[i].extras) );
+      totalOthers       = totalOthers      + (billlist[i].others == ""? 0 : parseFloat(billlist[i].others) );
+      totalNonGstAmt1   = totalNonGstAmt1  + (billlist[i].nonGstAmt1 == ""? 0 : parseFloat(billlist[i].nonGstAmt1) );
+
+      this.formArray.controls[i].get("gtotal")?.setValue(gtotal);
+     // }
     }
 
     gstAmt = totalFreight + totalExtras + totalOthers;
@@ -715,26 +727,26 @@ export class BillsuppliaddComponent {
           'gcNoteNo':billlist[i].gcNoteNo,
           'consignmentid': billlist[i].consignmentid,
           'freight': billlist[i].freightRs,
-          'statistical': "",
-          'fov': "",
-          'doorColl': "",
-          'handling': "",
-          'loadingDetn': "",
-          'enroute': "",
-          'misc': "",
-          'doorDel': "",
-          'unLoading':  "",
-          'detention': "",
+          'statistical': "0",
+          'fov': "0",
+          'doorColl': "0",
+          'handling': "0",
+          'loadingDetn': "0",
+          'enroute': "0",
+          'misc': "0",
+          'doorDel': "0",
+          'unLoading':  "0",
+          'detention': "0",
           'extras': billlist[i].extrasRS,
           'others': billlist[i].othersRs,
-          'subTotal':  "",
-          'sgstAmt':  "",
-          'cgstAmt':  "",
-          'igstAmt':  "",
+          'subTotal':  "0",
+          'sgstAmt':  "0",
+          'cgstAmt':  "0",
+          'igstAmt':  "0",
           'nonGstAmt1': billlist[i].nonGstAmt1,
-          'nonGstAmt2':   "",
-          'gtotal':   billlist[i].gtotal,
-          'dedAmt': "" ,
+          'nonGstAmt2':   "0",
+          'gtotal':   billlist[i].gtotal.toString(),
+          'dedAmt': "0" ,
           'yearId':  this.year,
           'suppBillDetRemarks':  billlist[i].suppBillDetRemarks,
           'remarks1':  billlist[i].remarks1,
