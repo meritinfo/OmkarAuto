@@ -199,6 +199,8 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
         })   
+        this.formBillsMaster.controls['billSeries'].disable();  
+        this.formBillsMaster.controls['billSlNo'].disable();  
         if (this.selectedBillsmasterDetails.gstType == "IG") {   
           this.formBillsMaster.controls['sgstPct'].disable();
           this.formBillsMaster.controls['cgstPct'].disable();  
@@ -277,15 +279,15 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     }); 
   }
   getSeriesList(br: string): void {
-    this.requestmodel.strRequest = "L";
+    this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
-      this.formBillsMaster.patchValue({
-        billSeries: res[0].dataId
-      });
+      // this.formBillsMaster.patchValue({
+      //   billSeries: res[0].dataId
+      // });
       //this.onSeriesChange();
-      this.onSeriesChangeLLP();
+     // this.onSeriesChangeLLP();
     });
   }
 
@@ -338,6 +340,10 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         }
        else{
           this.toasterService.warning(this.responseDetails.message);
+          this.formBillsMaster.patchValue({
+          billSlNo: "",
+          billNo: ""
+        });
         }
       });
     }
