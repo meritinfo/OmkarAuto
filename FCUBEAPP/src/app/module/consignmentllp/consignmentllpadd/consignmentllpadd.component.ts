@@ -521,22 +521,22 @@ export class ConsignmentllpaddComponent {
     });
   }
   
-  // changeSeriesList(): void {
-  //   var selectedDataValue = this.formUser.getRawValue();
-  //   this.requestmodel.strRequest = "L";
-  //   this.requestmodel.strRequest1 = selectedDataValue.bookingPlace;
-  //   this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-  //     this.seriesList = res;
-  //     this.formUser.patchValue({
-  //       seriesCode: res[0].dataId,
-  //     //  billSlNo:"",
-  //      // billNo:""
+  changeSeriesList(br:string): void {
+    var selectedDataValue = this.formUser.getRawValue();
+    this.requestmodel.strRequest = "L";
+    this.requestmodel.strRequest1 = br;
+    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+      this.seriesList = res;
+      // this.formUser.patchValue({
+      //   seriesCode: res[0].dataId,
+      // //  billSlNo:"",
+      //  // billNo:""
 
-  //     });
-  //     //this.onSeriesChange();
-  //     this.onSeriesChangeLLP();
-  //   });
-  // }
+      // });
+      //this.onSeriesChange();
+     //this.onSeriesChangeLLP();
+    });
+  }
 
   onBranchChange() {
     var selectedData = this.formUser.getRawValue();

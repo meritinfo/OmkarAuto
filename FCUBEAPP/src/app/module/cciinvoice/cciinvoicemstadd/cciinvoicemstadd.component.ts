@@ -374,13 +374,16 @@ get f() { return this.formUser.controls; }
           //this.formTyreArray.push(this.createVehicleArray());
           //this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
        if(selectedData.gstType='S'){
-        var p =   selectedData.arrayList[0].taxableAmt*parseFloat(this.pct)/100;
-        var p=p/2;
+       var ptval= parseFloat(this.pct)/2
+        var p =   selectedData.arrayList[0].taxableAmt*ptval/100;
+       
+        //var p=p/2;
+       var pt= parseFloat(this.pct)/2;
 
         this.formTyreArray.controls[i].get("sgstAmt")?.setValue(p); 
         this.formTyreArray.controls[i].get("cgstAmt")?.setValue(p); 
-        this.formTyreArray.controls[i].get("sgstPct")?.setValue(this.pct); 
-        this.formTyreArray.controls[i].get("cgstPct")?.setValue(this.pct); 
+        this.formTyreArray.controls[i].get("sgstPct")?.setValue(pt); 
+        this.formTyreArray.controls[i].get("cgstPct")?.setValue(pt); 
         this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
         this.formTyreArray.controls[i].get("igstAmt")?.setValue("0");
         var sg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
