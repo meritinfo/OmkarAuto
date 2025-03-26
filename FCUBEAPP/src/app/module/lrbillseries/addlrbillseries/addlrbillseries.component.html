@@ -1,163 +1,99 @@
 <div class="main-content">
-    <div class="page-content">
-       <div class="container-fluid">
+   <div class="page-content">
+      <div class="container-fluid">
           <!-- start page title -->
-          <div class="row">
-             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">LR Bill Series</h4>
-                  
-                </div>
-             </div>
-          </div>
+         <div class="row">
+            <div class="col-12">
+               <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">LR Bill Series</h4>                  
+               </div>
+            </div>
+         </div>
           <!-- end page title -->
-          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
-             <div class="row">
-                <div class="col-lg-12">
-                   <div class="card">
-                      <div class="card-body">
-                       
-                         <div class="row">
-                           <div class="col-lg-12">
-                              <div class="card">
-                              
-                                    <div class="row">
-                                      <div class="col-sm-2">
-                                         <label for="scope" class="col-form-label">Branch</label>  <span style="color: red">*</span>  
-                                         </div>
-                                         <div class="col-sm-4">
-                                         
-                            <select class="form-control" autoclose="false" 
-                            formControlName="branchCode" 
-                            [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
-                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                {{branch.dataName}}
-                            </option>
-                        </select>
-                                         </div>
-                                     
-                                    </div>
-                                
-                              </div>
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="card">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="scope" class="col-form-label">Branch</label>  <span style="color: red">*</span>  
                            </div>
-                            
-                            <div class="col-lg-12">
-                               <div class="card">
-                               
-                                     <div class="row">
-                                       <div class="col-sm-2">
-                                          <label for="scope" class="col-form-label">LR Bill Type</label>  <span style="color: red">*</span>  
-                                          </div>
-                                          <div class="col-sm-4">
-                                             <!-- <select class="form-control" autoclose="false" 
-                                             formControlName="lR_Bill_type" 
-                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['lR_Bill_type'].invalid) }">
-                                             <option *ngFor="let branch of billTypesList" value={{branch.dataId}}>
-                                                 {{branch.dataName}}
-                                             </option>
-                                         </select> -->
-                                         <select id="formrow-inputState" 
-                                         class="form-control form-select ng-pristine ng-touched"
-                                             formControlName="lR_Bill_type"
-                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['lR_Bill_type'].invalid) }">
-                                             <option selected="">Choose...</option>
-                                             <option value="L">LR</option>
-                                             <option value="B">BILL</option>
-                                            
-                                       </select>
-                                          </div>
-                                      
-                                     </div>
-                                 
-                               </div>
-                            </div>
-
-                        
-                           <div class="col-lg-12">
-                              <div class="card">
-                               
-                                    <div class="row">
-                                       <div class="col-sm-2">
-                                          <label for="horizontal-firstname-input" class="col-form-label">Series Code
-                                          </label>  <span style="color: red">*</span>  
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <input type="text" uppercaseonly class="form-control" (change)="checkDuplicateDesc()"
-                                         formControlName="seriesCode" [ngClass]="{ 'is-invalid': formSubmitted && (f['seriesCode'].invalid) }"
-                                          >
-                                       </div>
-                                    </div>
-                                
-                              </div>
+                           <div class="col-sm-4">                                        
+                              <select class="form-control" autoclose="false" 
+                                 formControlName="branchCode" 
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
+                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                    {{branch.dataName}}
+                                 </option>
+                              </select>
+                           </div>                                     
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="scope" class="col-form-label">LR Bill Type</label>  <span style="color: red">*</span>  
                            </div>
-
-
-                           <div class="col-lg-12">
-                              <div class="card">
-                              
-                                    <div class="row">
-                                      <div class="col-sm-2">
-                                         <label for="scope" class="col-form-label">Is Active</label>  <span style="color: red">*</span>  
-                                         </div>
-                                         <div class="col-sm-4">
-                                         
-                                          <select id="formrow-inputState" 
-                                          class="form-control form-select ng-pristine ng-touched"
-                                              formControlName="isActive"
-                                              [ngClass]="{ 'is-invalid': formSubmitted && (f['isActive'].invalid) }">
-                                              <option selected="">Choose...</option>
-                                              <option value="Y">Yes</option>
-                                              <option value="N">No</option>
-                                             
-                                        </select>
-                                         </div>
-                                     
-                                    </div>
-                                
-                              </div>
+                           <div class="col-sm-4">
+                              <select id="formrow-inputState" 
+                                 class="form-control form-select ng-pristine ng-touched"
+                                 formControlName="lR_Bill_type"
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lR_Bill_type'].invalid) }">
+                                    <option selected="">Choose...</option>
+                                    <option value="L">LR</option>
+                                    <option value="B">BILL</option>
+                              </select>
+                           </div> 
+                        </div>                               
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <label for="horizontal-firstname-input" class="col-form-label">Series Code
+                              </label>  <span style="color: red">*</span>  
                            </div>
-
-
-
-
-
-                   
-
-               
-                 
-                         </div>
-                      </div>
+                           <div class="col-sm-4">
+                              <input type="text" uppercaseonly class="form-control" (change)="checkDuplicateDesc()"
+                             formControlName="seriesCode" 
+                             [ngClass]="{ 'is-invalid': formSubmitted && (f['seriesCode'].invalid) }">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                             <label for="scope" class="col-form-label">Is Active</label>  <span style="color: red">*</span>  
+                           </div>
+                           <div class="col-sm-4">
+                              <select id="formrow-inputState" 
+                                 class="form-control form-select ng-pristine ng-touched"
+                                  formControlName="isActive"
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['isActive'].invalid) }">
+                                  <option selected="">Choose...</option>
+                                  <option value="Y">Yes</option>
+                                  <option value="N">No</option>                                 
+                              </select>
+                           </div>
+                        </div>
+                     </div>
                       <!-- end card body -->
-                   </div>
+                  </div>
                    <!-- end card -->
-                </div>
-             </div>
-             <div class="row text-right">
-                <div class="col-lg-12">
-                   <div class="tex">
-                     
-
-
-                 
-
-                         <button class="btn btn-primary w-md"
+               </div>
+            </div>
+            <div class="row text-right">
+               <div class="col-lg-12">
+                  <div class="tex">   
+                     <button class="btn btn-primary w-md"
                          *ngIf="((editMode && editStatus) || (!editMode && createStatus))"
                             (click)="submitLRBIllSeriesForm()">Save</button>&nbsp;
-                         <button class="btn btn-danger w-md m-2" 
+                     <button class="btn btn-danger w-md m-2" 
                                (click)="billseriesDelete()" 
                                *ngIf="editMode && deleteStatus">Delete</button>  &nbsp;                       
-                         <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
-
-
-                         
-                   </div>
-                </div>
-             </div>
-          </form>
+                     <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
+                  </div>
+               </div>
+            </div>
+         </form>
           <!-- end row -->
           <!-- end row -->
-       </div>
+      </div>
        <!-- container-fluid -->
-    </div>
+   </div>
     <!-- End Page-content -->
- </div>
+</div>

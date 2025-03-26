@@ -79,7 +79,7 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@SeriesCode", requestModel.strRequest),
-                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
+                            new SqlParameter("@LR_Bill_type",  requestModel.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CheckDuplicateSeriesCode", param);
 

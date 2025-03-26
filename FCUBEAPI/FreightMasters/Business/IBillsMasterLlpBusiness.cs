@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Business
 {
-    public interface IBillsMasterBusinessLLP
+    public interface IBillsMasterLlpBusiness
     {
         Task<BillsListModelLLP> GetBillsMasterList(ReportRequestModel request);
         Task<BillsMasterSearchListModelLLP> GetBillsInnerGridList(RequestModel request);
@@ -19,7 +19,7 @@ namespace FreightMasters.Business
         Task<List<DropDownListModel>> GetBillPartyGstLocationList(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateBillsNo(ReportRequestModel request);
         Task<ResponseModel> GetBillTypeSacHsn(RequestModel requestModel);
-        Task<ResponseModel> GetBillLlpPdf(ReportRequestModel request);
+        Task<ResponseModel> GetBillPdfLlp(ReportRequestModel request);
         Task<BillsMasterModelLLP> GetBillEnqDetails(RequestModel req);
         Task<BillsMasterModelLLP> GetBillEnqInnerGridList(RequestModel request);
         Task<ResponseModel> GetBillNoLLP(RequestModel req);

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Business
 {
-    public class BillsMasterBusinessLLP: IBillsMasterBusinessLLP
+    public class BillsMasterLlpBusiness: IBillsMasterLlpBusiness
     {
-        readonly IBillsMasterRepositoryLLP billsRepository;
-        public BillsMasterBusinessLLP(IBillsMasterRepositoryLLP _billsRepository)
+        readonly IBillsMasterLlpRepository billsRepository;
+        public BillsMasterLlpBusiness(IBillsMasterLlpRepository _billsRepository)
         {
             billsRepository = _billsRepository;
         }
@@ -53,9 +53,9 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillTypeSacHsn(requestModel);
         }
-        public async Task<ResponseModel> GetBillLlpPdf(ReportRequestModel request)
+        public async Task<ResponseModel> GetBillPdfLlp(ReportRequestModel request)
         {
-            return await billsRepository.GetBillLlpPdf(request);
+            return await billsRepository.GetBillPdfLlp(request);
         }
         public async Task<BillsMasterModelLLP> GetBillEnqDetails(RequestModel req)
         {

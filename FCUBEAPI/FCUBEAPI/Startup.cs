@@ -127,8 +127,6 @@ namespace FCUBEAPI
             services.AddScoped<IClassificationMasterBusiness, ClassificationMasterBusiness>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserBusiness, UserBusiness>();
-            services.AddScoped<ILR_Bill_SeriesRepository, LR_Bill_SeriesRepository>();
-            services.AddScoped<ILR_Bill_SeriesBusiness, LR_Bill_SeriesBusiness>();
             services.AddScoped<ITyrePositionMasterRepository, TyrePositionMasterRepository>();
             services.AddScoped<ITyrePositionMasterBusiness, TyrePositionMasterBusiness>();
             services.AddScoped<IRatetypesRepository, RatetypesRepository>();
@@ -291,8 +289,8 @@ namespace FCUBEAPI
             services.AddScoped<ICciInvoiceMstRepository, CciInvoiceMstRepository>();
             services.AddScoped<IChallanMasterBusinessLLP, ChallanMasterBusinessLLP>();
             services.AddScoped<IChallanMasterRepositoryLLP, ChallanMasterRepositoryLLP>();
-            services.AddScoped<IBillsMasterBusinessLLP, BillsMasterBusinessLLP>();
-            services.AddScoped<IBillsMasterRepositoryLLP, BillsMasterRepositoryLLP>();
+            services.AddScoped<IBillsMasterLlpBusiness, BillsMasterLlpBusiness>();
+            services.AddScoped<IBillsMasterLlpRepository, BillsMasterLlpRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
