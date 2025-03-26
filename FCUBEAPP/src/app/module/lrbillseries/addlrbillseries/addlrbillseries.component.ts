@@ -195,7 +195,7 @@ exit(): void {
 checkDuplicateDesc(){
   var selectedData = this.formUser.getRawValue();  
     this.requestmodel.strRequest = selectedData.seriesCode;
-  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.requestmodel.strRequest1 = selectedData.lR_Bill_type;
     this.lrbillseriesService.checkDuplicateDesc(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

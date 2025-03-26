@@ -30,7 +30,6 @@ namespace FCUBEAPI.Controllers
         readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly IBillsMasterBusiness billsMasterBusiness;
         readonly IBillsTypeBusiness billsTypeBusiness;
-        readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
@@ -51,7 +50,7 @@ namespace FCUBEAPI.Controllers
 
         readonly IFreightGstMasterBusiness freightGstMasterBusiness;
         readonly ILRBillSeriesBusiness lrBillSeriesBusiness;
-        readonly IBillsMasterBusinessLLP billsMasterBusinessLLP;
+        readonly IBillsMasterLlpBusiness billsMasterBusinessLLP;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -60,7 +59,6 @@ namespace FCUBEAPI.Controllers
             IDocumentAllotmentBusiness _documentAllotmentBusiness,
             IProductMasterBusiness _productMasterBusiness,
             IBillsTypeBusiness _billsTypeBusiness,
-            ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness,
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
             IBillsMasterBusiness _billsMasterBusiness,
@@ -81,14 +79,13 @@ namespace FCUBEAPI.Controllers
            IChCostTypesBusiness _chCostTypesBusiness,
             IFreightGstMasterBusiness _freightGstMasterBusiness,
              ILRBillSeriesBusiness _lrBillSeriesBusiness,
-             IBillsMasterBusinessLLP _billsMasterBusinessLLP)
+             IBillsMasterLlpBusiness _billsMasterBusinessLLP)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
             productGroupMastersBusiness = _productGroupMasterBusiness;
             productMasterBusiness = _productMasterBusiness;
-            lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
             billsMasterBusiness = _billsMasterBusiness;
             ratetypesBusiness = _ratetypesBusiness;
             classificationMasterBusiness = _classificationMasterBusiness;
@@ -483,25 +480,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await branchMastersBusiness.ChkBranchNameExits(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("LR_Bill_SeriesDetailsSave")]
-        public async Task<IActionResult> LR_Bill_SeriesDetailsSave(LR_Bill_SeriesModel lr_Bill_SeriesModel)
-        {
-            if (lr_Bill_SeriesModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await lr_Bill_SeriesBusiness.LR_Bill_SeriesDetailsSave(lr_Bill_SeriesModel);
 
                 return Ok(result);
             }
@@ -1725,24 +1703,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await productGroupMastersBusiness.GetProductGroupMasterList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("LRBillSeriesList")]
-        public async Task<IActionResult> LrBillSeriesList(PageRequest request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await lr_Bill_SeriesBusiness.LRBillSeriesList(request);
 
                 return Ok(result);
             }
@@ -3873,8 +3833,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBillLlpPdf")]
-        public async Task<IActionResult> GetBillLlpPdf(ReportRequestModel request)
+        [HttpPost("GetBillPdfLlp")]
+        public async Task<IActionResult> GetBillPdfLlp(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -3882,7 +3842,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await billsMasterBusinessLLP.GetBillLlpPdf(request);
+                var result = await billsMasterBusinessLLP.GetBillPdfLlp(request);
 
                 return Ok(result);
             }

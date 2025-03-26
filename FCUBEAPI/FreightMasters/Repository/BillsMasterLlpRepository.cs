@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Repository
 {
-    public class BillsMasterRepositoryLLP: IBillsMasterRepositoryLLP
+    public class BillsMasterLlpRepository: IBillsMasterLlpRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public BillsMasterRepositoryLLP(IOptions<DBModel> _dbconnection)
+        public BillsMasterLlpRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
@@ -878,7 +878,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetBillLlpPdf(ReportRequestModel request)
+        public async Task<ResponseModel> GetBillPdfLlp(ReportRequestModel request)
         {
             ResponseModel responseModel = new();
             try
