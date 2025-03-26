@@ -4,8 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angu
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BillsmasterlistmodelLLP } from 'src/app/models/billsmasterlistmodelllp';
-import { BillsmastermodelllP } from 'src/app/models/billsmastermodelllp';
+import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
+import { BillsmastermodelllP } from 'src/app/models/billsmastermodelllp';
+
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -34,6 +36,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   locationList: Dropdownmodel[] = [];
   seriesList: Dropdownmodel[] = [];
   partyLocationList: Dropdownmodel[] = [];
+  billsmastersearchlistmodel = new Billsmastersearchlistmodel();   
+  consignmentDetail = new Consignmentmodel();   
   yearList: Dropdownmodel[] = [];
   BillTypesList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -53,6 +57,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   showButton = true;  
   formSubmitted = false;
   selectedBillsmasterDetails = new BillsmastermodelllP();
+  
   responseDetails = new Responsemodel();
   reportmodel = new Reportmodel();
   usertriprightsmodel = new Usertriprightsmodel();
@@ -201,7 +206,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
           suppYN: suppYN,
         })  
-      
+        this.formBillsMaster.controls['billSeries'].disable();
+        this.formBillsMaster.controls['billSlNo'].disable();
         if (this.selectedBillsmasterDetails.gstType == "IG") {   
           this.formBillsMaster.controls['sgstPct'].disable();
           this.formBillsMaster.controls['cgstPct'].disable();  
@@ -220,7 +226,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
-        this.showButton = false;
+      //  this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
         this.formBillsMaster.controls['suppYN'].disable();   
@@ -240,15 +246,15 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   }  
   
   getSeriesList(br: string): void {
-    this.requestmodel.strRequest = "L";
+    this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
-      this.formBillsMaster.patchValue({
-        billSeries: res[0].dataId
-      });
+      // this.formBillsMaster.patchValue({
+      //   billSeries: res[0].dataId
+      // });
       //this.onSeriesChange();
-      this.onSeriesChangeLLP();
+     // this.onSeriesChangeLLP();
     });
   }
 
@@ -428,20 +434,26 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
+      this.billsmastersearchlistmodel= res;
+      this.formArray.clear();
       for(var i = 0; i < res.billsMasterSearchList.length; i++) {
-        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billsMasterSearchList[i].gcNoteNo);
-        this.formArray.controls[i].get("consignmentid")?.setValue(res.billsMasterSearchList[i].consignmentID);
-        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billsMasterSearchList[i].bookingDate));
-        this.formArray.controls[i].get("fromPlace")?.setValue(res.billsMasterSearchList[i].fromPlace);
-        this.formArray.controls[i].get("toPlace")?.setValue(res.billsMasterSearchList[i].toPlace);
-        this.formArray.controls[i].get("freightRs")?.setValue(res.billsMasterSearchList[i].freightRs);
-        this.formArray.controls[i].get("others")?.setValue(res.billsMasterSearchList[i].othersRs);
-        this.formArray.controls[i].get("extras")?.setValue(res.billsMasterSearchList[i].extrasRS);
-        this.formArray.controls[i].get("nonGstAmt1")?.setValue(res.billsMasterSearchList[i].nonGstAmt1);
-        this.formArray.controls[i].get("remarks1")?.setValue(res.billsMasterSearchList[i].remarks1);
-        this.formArray.controls[i].get("remarks2")?.setValue(res.billsMasterSearchList[i].remarks2);
-        this.formArray.controls[i].get("remarks3")?.setValue(res.billsMasterSearchList[i].remarks3);
-        this.formArray.controls[i].get("suppBillDetRemarks")?.setValue(res.billsMasterSearchList[i].suppBillDetRemarks);
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("gcNoteNo")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gcNoteNo);
+        this.formArray.controls[i].get("consignmentid")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID);
+        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate( this.billsmastersearchlistmodel.billsMasterSearchList[i].bookingDate));
+        this.formArray.controls[i].get("fromPlace")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].fromPlace);
+        this.formArray.controls[i].get("toPlace")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].toPlace);
+        this.formArray.controls[i].get("freightRs")?.setValue (this.billsmastersearchlistmodel.billsMasterSearchList[i].freightRs);
+        this.formArray.controls[i].get("others")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs);
+        this.formArray.controls[i].get("extras")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS);
+        this.formArray.controls[i].get("nonGstAmt1")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt1);
+        this.formArray.controls[i].get("remarks1")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks1);
+        this.formArray.controls[i].get("remarks2")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks2);
+        this.formArray.controls[i].get("remarks3")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].remarks3);
+        this.formArray.controls[i].get("suppBillDetRemarks")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].suppBillDetRemarks);
+        this.formArray.controls[i].get("gcBranch")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].bookingPlace);
+        this.formArray.controls[i].get("gtotal")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].gtotalRs);
+        this.formArray.controls[i].get("gcYear")?.setValue( this.billsmastersearchlistmodel.billsMasterSearchList[i].otherAmt);
         this.formArray.controls[i].get("gcNoteNo")?.disable();
         this.formArray.controls[i].get("bookingDate")?.disable();
         this.formArray.controls[i].get("fromPlace")?.disable();
@@ -456,6 +468,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.requestmodel.strRequest = selectedDataVal.arrayList[i].gcBranch;
     this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
      this.consignmentService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
+    
       var cn = res.fromPlace;
       if (typeof cn === 'undefined' || cn === null || cn === '') {
         this.toasterService.warning("LR No Doesn't Exists ");
@@ -680,13 +693,17 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
           }
          else{
             this.toasterService.warning(this.responseDetails.message);
+            this.formBillsMaster.patchValue({
+              billSlNo: "",
+              billNo: ""
+            });
           }
         });
       }
   
   
   exit(): void {
-    this.route.navigate(['/billentrysupplist']);
+    this.route.navigate(['/billsupplist_LLP']);
   }  
 
   billsMasterDelete(): void {
@@ -698,7 +715,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
             if (this.responseDetails.status) {
               this.toasterService.success(this.responseDetails.message);
               this.formBillsMaster.reset();
-              this.route.navigate(['/billentrysupplist']);
+              this.route.navigate(['/billsupplist_LLP']);
             }
             else {
               this.toasterService.warning(this.responseDetails.message);
@@ -833,7 +850,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       if (this.responseDetails.status) {
         this.toasterService.success("Bill saved Successfully");
         this.formBillsMaster.reset();
-        this.route.navigate(['/billentrysupplist']);
+        this.route.navigate(['/billsupplist_LLP']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

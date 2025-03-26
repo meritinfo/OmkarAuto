@@ -665,7 +665,7 @@ namespace FreightMasters.Repository
                                 BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
                                 ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                                GcNoteNo= Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
@@ -690,11 +690,11 @@ namespace FreightMasters.Repository
                                 NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                                Remarks1= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
-                                Remarks2= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
-                                Remarks3= Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
-                                SuppBillDetRemarks= Convert.ToString(dataSet.Tables[0].Rows[i]["SuppBillDetRemarks"]),
-                                Selected = true,
+                                Remarks1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
+                                Remarks2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
+                                Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
+                                OtherAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                // Selected = true,
                             });
                         }
 

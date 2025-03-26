@@ -241,7 +241,7 @@ export class ConsignmentllpaddComponent {
 
     
     this.sharedService.loading = true;
-    
+   // this.getSeriesList();
     this.getBranchList();
     this.getGstByList();
     this.getRateList();
@@ -290,6 +290,8 @@ export class ConsignmentllpaddComponent {
 
     setTimeout(() => {
       if (this.selectedLrDetails.consignmentID != '') {
+     
+        
         this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
         this.formUser.patchValue(this.selectedLrDetails);
         this.formUser.patchValue({
@@ -307,6 +309,8 @@ export class ConsignmentllpaddComponent {
           vehicleInDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleInDt),           
           vehicleOutDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleOutDt),             
         })      
+        this.formUser.controls['seriesCode'].disable();
+        this.formUser.controls['gcSlNo'].disable();
         
         if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
@@ -438,7 +442,7 @@ export class ConsignmentllpaddComponent {
       this.formUser.patchValue({
         bookingPlace: this.branch
       });
-      this.getSeriesList(this.branch);
+     this.getSeriesList(this.branch);
     });
   }
 
@@ -508,23 +512,35 @@ export class ConsignmentllpaddComponent {
       this.freightList = res;
     });
   }
-  
-  getSeriesList(br: string): void {
+  getSeriesList(b:string): void {
     this.requestmodel.strRequest = "L";
-    this.requestmodel.strRequest1 = br;
+    this.requestmodel.strRequest1 = b;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+      
       this.seriesList = res;
-      this.formUser.patchValue({
-        seriesCode: res[0].dataId
-      });
-      //this.onSeriesChange();
-      this.onSeriesChangeLLP();
     });
   }
+  
+  // changeSeriesList(): void {
+  //   var selectedDataValue = this.formUser.getRawValue();
+  //   this.requestmodel.strRequest = "L";
+  //   this.requestmodel.strRequest1 = selectedDataValue.bookingPlace;
+  //   this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+  //     this.seriesList = res;
+  //     this.formUser.patchValue({
+  //       seriesCode: res[0].dataId,
+  //     //  billSlNo:"",
+  //      // billNo:""
+
+  //     });
+  //     //this.onSeriesChange();
+  //     this.onSeriesChangeLLP();
+  //   });
+  // }
 
   onBranchChange() {
     var selectedData = this.formUser.getRawValue();
-    this.getSeriesList(selectedData.bookingPlace);
+    //this.getSeriesList(selectedData.bookingPlace);
   }
 
   onSeriesChange() {//not used
@@ -562,6 +578,10 @@ export class ConsignmentllpaddComponent {
       }
      else{
         this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          gcSlNo: "",
+          gcNoteNo: ""
+        });
       }
     });
   }
