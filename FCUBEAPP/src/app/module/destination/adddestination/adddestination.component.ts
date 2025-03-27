@@ -19,6 +19,7 @@ import { BranchMasterService } from 'src/app/services/branchmaster.service';
 export class AdddestinationComponent {
 
   loggedInUserID: string = '';
+  branch: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   editMode = false;
@@ -69,19 +70,23 @@ export class AdddestinationComponent {
       this.route.navigate(['/']);
     }
     
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+    }
+
     this.sharedService.loading=true;
 
     this.getBranchList();
     this.getStateList();
+    this.chkMandatoryRequired();
 
     this.selectedDestinationDetails = this.destinationService.getDestinationDetails();
     this.formUser = this.formBuilder.group({
       centreName: new FormControl('', [Validators.required]),
-      acctBranch: new FormControl('',[Validators.required]),
+      acctBranch: new FormControl(this.branch,[Validators.required]),
       stateCode: new FormControl('', [Validators.required]), 
       pinCode: new FormControl('', [Validators.required]),
-      controlBranch: new FormControl('',),
-
     });
     if (this.selectedDestinationDetails.centreid != '') {
       this.formUser.patchValue(this.selectedDestinationDetails);          
@@ -109,6 +114,22 @@ export class AdddestinationComponent {
   }
 
   
+  chkMandatoryRequired(){
+    this.requestmodel.strRequest = "adddestination";
+    this.requestmodel.strRequest1 = "pinCode";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        if(res.message=="Y"){
+          this.formUser.controls['pinCode'].setValidators([Validators.required]);
+        }
+        else{
+          this.formUser.controls['pinCode'].clearValidators(); 
+        }
+        this.formUser.controls['pinCode'].updateValueAndValidity(); 
+      };
+    });
+  }
+
   chkBranchNameExits(e: any) { 
     if (this.selectedDestinationDetails.centreid == "")
     {      

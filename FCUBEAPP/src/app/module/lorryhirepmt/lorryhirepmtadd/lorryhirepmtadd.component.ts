@@ -324,12 +324,11 @@ export class LorryhirepmtaddComponent {
       if(res.status){
         if(res.message=="Y"){
           this.formUser.controls['chequePayeeName'].setValidators([Validators.required]);
-          this.formUser.controls['chequePayeeName'].updateValueAndValidity(); 
         }
         else{
           this.formUser.controls['chequePayeeName'].clearValidators(); 
-          this.formUser.controls['chequePayeeName'].updateValueAndValidity(); 
         }
+        this.formUser.controls['chequePayeeName'].updateValueAndValidity(); 
       };
     });
 
