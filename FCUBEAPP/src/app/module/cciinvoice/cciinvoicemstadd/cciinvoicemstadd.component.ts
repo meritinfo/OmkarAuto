@@ -27,6 +27,7 @@ export class CciinvoicemstaddComponent {
     maxDate: string = '';
     gcYear: string = '';
     pct: string = '';
+    gtyp: string = '';
     minDate: string = '';
     createStatus = false;
     editStatus = false;
@@ -135,14 +136,14 @@ ngOnInit(): void {
  // this.getVendorList();
   this.getBranchList();
 
-
-  // this.formTyreArray.controls[0].get("availQty")?.disable();
-  // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
-  // this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
-  // this.formTyreArray.controls[0].get("igstAmt")?.disable();  
-  // this.formTyreArray.controls[0].get("sgstPct")?.disable();   
-  // this.formTyreArray.controls[0].get("cgstPct")?.disable();  
-  // this.formTyreArray.controls[0].get("igstPct")?.disable();   
+  this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
+  this.formTyreArray.controls[0].get("gcBook")?.disable();   
+  this.formTyreArray.controls[0].get("sgstAmt")?.disable(); 
+  this.formTyreArray.controls[0].get("sgstPct")?.disable(); 
+  this.formTyreArray.controls[0].get("cgstAmt")?.disable(); 
+  this.formTyreArray.controls[0].get("cgstPct")?.disable(); 
+  this.formTyreArray.controls[0].get("igstAmt")?.disable(); 
+  this.formTyreArray.controls[0].get("igstPct")?.disable();
   // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
  // this.formTyreArray.controls[0].get("itemAmount")?.disable(); 
 
@@ -169,9 +170,15 @@ ngOnInit(): void {
        // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
        // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
       })  
+     
+      this.formUser.controls["gstType"].disable();  
       this.formUser.controls["cciInvDate"].disable();
       this.formUser.controls["cciInvNo"].disable();
+   
       // this.formTyreArray.controls[0].get("availQty")?.disable();
+      this.formTyreArray.controls[0].get("containerNo")?.disable();   
+      this.formTyreArray.controls[0].get("gcNoteNo")?.disable(); 
+      this.formTyreArray.controls[0].get("gcYear")?.disable(); 
       this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
       this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
       this.formTyreArray.controls[0].get("igstAmt")?.disable();  
@@ -303,6 +310,10 @@ get f() { return this.formUser.controls; }
           this.formTyreArray.controls[i].get("dtlRemarks")?.setValue(res.ccinvmstDtlList[i].dtlRemarks); 
         
           // this.formTyreArray.controls[i].get("availQty")?.disable();
+          this.formTyreArray.controls[i].get("containerNo")?.disable();    
+          this.formTyreArray.controls[i].get("gcNoteNo")?.disable();  
+          this.formTyreArray.controls[i].get("gcBook")?.disable();  
+          this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
            this.formTyreArray.controls[i].get("sgstAmt")?.disable();     
           this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
           this.formTyreArray.controls[i].get("cgstPct")?.disable();  
@@ -343,57 +354,77 @@ get f() { return this.formUser.controls; }
         this.ccinvmstmodel = res;
       //  for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
       //     this.formTyreArray.push(this.createVehicleArray());
-          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[0].gcNoteNo);
-          this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[0].gcBook);
-          this.formTyreArray.controls[i].get("gcYear")?.setValue(res.ccinvmstDtlList[0].gcYear);
-         // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
-        
-       
-
-
-           this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
-           this.formTyreArray.controls[0].get("gcBook")?.disable();  
+       if( selectedData.arrayList[i].containerNo){
+           if (res.ccinvmstDtlList[0]) {
+            if(selectedData.gstType!=''){
+            this.formUser.controls["gstType"].disable(); 
+           }
+            this.formTyreArray.controls[i].get("chCostId")?.enable(); 
+            this.formTyreArray.controls[i].get("sgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("sgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("totalAmt")?.disable(); 
+          //  this.formTyreArray.controls[i].get("taxableAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[0].gcNoteNo);
+            this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[0].gcBook);
+            this.formTyreArray.controls[i].get("gcYear")?.setValue(res.ccinvmstDtlList[0].gcYear);
+           // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
+          
+         
+  
+  
+             this.formTyreArray.controls[i].get("gcNoteNo")?.disable();   
+             this.formTyreArray.controls[i].get("gcBook")?.disable();  
+          }
+         else{
+            this.toastrService.warning("invalid container no");
+            this.formTyreArray.controls[i].get("gcNoteNo")?.setValue('');
+            this.formTyreArray.controls[i].get("gcBook")?.setValue('');
+          }
   
        
-        // }     
+        }    else{
+          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue('');
+          this.formTyreArray.controls[i].get("gcBook")?.setValue('');
+
+        } 
       });
     }
     getChCostDetail(i:number): void {
-      var selectedData = this.formUser.getRawValue();  
-      this.requestmodel.strRequest = selectedData.arrayList[i].chCostId; 
-      this.cciInvoiceMstService.getChCostDetail(this.requestmodel).subscribe((res) => {
-      // this.formTyreArray.clear();
-        this.responseDetails = res;
-       //for (var i = 0; i < res.ccinvmstDtlList.length; i++) {
-          //this.formTyreArray.push(this.createVehicleArray());
-         // this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
-         // this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[i].gcBook);
-         // this.formTyreArray.controls[i].get("containerNo")?.setValue(res.ccinvmstDtlList[i].containerNo);
-        
-          this.pct = this.responseDetails.message;
-          //this.formTyreArray.push(this.createVehicleArray());
-          //this.formTyreArray.controls[i].get("gstPct")?.setValue(res.ccinvmstDtlList[i].gcNoteNo);
-       if(selectedData.gstType='S'){
-       var ptval= parseFloat(this.pct)/2
-        var p =   selectedData.arrayList[0].taxableAmt*ptval/100;
-       
-        //var p=p/2;
-       var pt= parseFloat(this.pct)/2;
-
-        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(p); 
-        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(p); 
-        this.formTyreArray.controls[i].get("sgstPct")?.setValue(pt); 
-        this.formTyreArray.controls[i].get("cgstPct")?.setValue(pt); 
-        this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
-        this.formTyreArray.controls[i].get("igstAmt")?.setValue("0");
-        var sg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
-        var cg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
-        var ig = selectedData.arrayList[i].igstAmt ? parseFloat(selectedData.arrayList[i].igstAmt) : 0
-      //  let totamt = cg+sg+ parseFloat selectedData.arrayList[i].taxableAmt;
-
-        var totamt = cg+sg+ig
+      var selectedDataval = this.formUser.getRawValue(); 
     
-    + parseFloat(selectedData.arrayList[i].taxableAmt);
+      if (selectedDataval.gstType!=""){
+      
+      this.requestmodel.strRequest = selectedDataval.arrayList[i].chCostId; 
+      this.cciInvoiceMstService.getChCostDetail(this.requestmodel).subscribe((res) => {
+        this.responseDetails = res;
+        this.pct = this.responseDetails.message;
+        var sgpct =0;
+        var igpct =0;
+        var sgamt =0;
+        var igamt =0;
+        if(selectedDataval.gstType=='S'){
+          sgpct = parseFloat(this.pct)/2;
+          sgamt = selectedDataval.arrayList[i].taxableAmt*sgpct/100;
+          igamt=0;
+        }
+        else if(selectedDataval.gstType=='I'){
+          igpct = parseFloat(this.pct);
+          igamt = selectedDataval.arrayList[i].taxableAmt*igpct/100;
+          sgamt=0;
+        }  
+        this.formTyreArray.controls[i].get("sgstPct")?.setValue(sgpct); 
+        this.formTyreArray.controls[i].get("cgstPct")?.setValue(sgpct); 
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(sgamt.toFixed(2)); 
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(sgamt.toFixed(2)); 
+        this.formTyreArray.controls[i].get("igstPct")?.setValue(igpct);
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue(igamt.toFixed(2)); 
+        
+        var totamt = 0
+        totamt = sgamt+sgamt+igamt+ parseFloat(selectedDataval.arrayList[i].taxableAmt);
         this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
         
         this.formTyreArray.controls[i].get("totalAmt")?.disable();  
@@ -402,51 +433,18 @@ get f() { return this.formUser.controls; }
         this.formTyreArray.controls[i].get("sgstAmt")?.disable();  
         this.formTyreArray.controls[i].get("sgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstAmt")?.disable();  
-        this.formTyreArray.controls[i].get("igstPct")?.disable(); 
-
-       }
-       else{
-        var p =   selectedData.arrayList[i].taxableAmt*parseFloat(this.pct)/100;
-     
-        
-        this.formTyreArray.controls[i].get("sgstAmt")?.setValue("0"); 
-        this.formTyreArray.controls[i].get("cgstAmt")?.setValue("0"); 
-        this.formTyreArray.controls[i].get("sgstPct")?.setValue("0"); 
-        this.formTyreArray.controls[i].get("cgstPct")?.setValue("0"); 
-        this.formTyreArray.controls[i].get("igstPct")?.setValue(this.pct);
-        this.formTyreArray.controls[i].get("igstAmt")?.setValue(p);
-        var sg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
-        var cg = selectedData.arrayList[i].sgstAmt ? parseFloat(selectedData.arrayList[i].sgstAmt) : 0
-        var ig = selectedData.arrayList[i].igstAmt ? parseFloat(selectedData.arrayList[i].igstAmt) : 0
-      //  let totamt = cg+sg+ parseFloat selectedData.arrayList[i].taxableAmt;
-
-        var totamt = cg+sg+ig
-    
-    + parseFloat(selectedData.arrayList[i].taxableAmt);
-       this.formTyreArray.controls[i].get("totalAmt")?.setValue(totamt);
-       this.formTyreArray.controls[i].get("totalAmt")?.disable();  
-       this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
-       this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-       this.formTyreArray.controls[i].get("sgstAmt")?.disable();  
-       this.formTyreArray.controls[i].get("sgstPct")?.disable();  
-       this.formTyreArray.controls[i].get("igstAmt")?.disable();  
-       this.formTyreArray.controls[i].get("igstPct")?.disable();  
-
-       }
-      //  if( this.pct!=="" && selectedData.gstType!="N"){
-      //   this.formUser.controls["gstType"].disable();
-
-      //  }
-      this.calculateTotal();
-
-          // this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
-         //  this.formTyreArray.controls[0].get("gcBook")?.disable();  
-  
-      
-     });
-
-
+        this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formTyreArray.controls[i].get("chCostId")?.enable(); 
+        this.calculateTotal();   
+      });
     }
+    else{
+      this.toastrService.warning("Please select gst Type");
+      this.formTyreArray.controls[i].get("taxableAmt")?.setValue('');
+    }
+    }
+    
+
     calculateTotal(){
       var totalInvAm = 0;
       var totalSgstAm = 0;
@@ -484,7 +482,16 @@ get f() { return this.formUser.controls; }
     {
       this.formTyreArray.push(this.createVehicleArray());
              // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
-             this.calculateTotal();
+            // this.calculateTotal();
+            var i= index+1;
+            this.formTyreArray.controls[i].get("gcNoteNo")?.disable();   
+            this.formTyreArray.controls[i].get("gcBook")?.disable();   
+            this.formTyreArray.controls[i].get("sgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("sgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("igstPct")?.disable();
       }
       else {
        this.toastrService.warning("Please select Required Fields ");
@@ -553,11 +560,11 @@ get f() { return this.formUser.controls; }
           'gcNoteNo':selectedDataValue.arrayList[i].gcNoteNo,
           'chCostId': selectedDataValue.arrayList[i].chCostId,
           'taxableAmt': selectedDataValue.arrayList[i].taxableAmt.toString(),
-          'sgstPct': selectedDataValue.arrayList[i].sgstPct,
+          'sgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
           'sgstAmt': selectedDataValue.arrayList[i].sgstAmt.toString(),
-          'cgstPct': selectedDataValue.arrayList[i].sgstPct,
+          'cgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
           'cgstAmt': selectedDataValue.arrayList[i].cgstAmt.toString(),
-          'igstPct': selectedDataValue.arrayList[i].igstPct,
+          'igstPct': selectedDataValue.arrayList[i].igstPct.toString(),
           'igstAmt': selectedDataValue.arrayList[i].igstAmt.toString(),
           'totalAmt': selectedDataValue.arrayList[i].totalAmt.toString(),
           'dtlRemarks': selectedDataValue.arrayList[i].dtlRemarks.toString().toLowerCase(),        
