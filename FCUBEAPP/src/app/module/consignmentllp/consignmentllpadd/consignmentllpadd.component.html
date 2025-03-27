@@ -34,7 +34,6 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="bookingPlace"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        (change)="onBranchChange()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingPlace'].invalid) }">
                                         <option *ngFor="let dl of branchList" value={{dl.dataId}}>
                                             {{dl.dataName}}

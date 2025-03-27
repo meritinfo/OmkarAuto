@@ -11,6 +11,7 @@ namespace Consignment.Repository
         Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
         Task<ResponseModel> GetLrNo(RequestModel req);
+        Task<ResponseModel> GetCnNoLength();
         Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<ResponseModel> GenerateLrNo(RequestModel request);

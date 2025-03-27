@@ -551,6 +551,33 @@ namespace Consignment.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetCnNoLength()
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnNoLength", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        response.Status     = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        response.Message    = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+            }
+            return response;
+        }
+        
         public async Task<ResponseModel> GetLrNoLLP(RequestModel req)
         {
             ResponseModel response = new();

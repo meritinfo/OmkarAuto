@@ -47,6 +47,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   keywordLocation = 'dataName';
   supp = false;
   canCancelBill = false;
+  seriesLength: string = "";
   seriesDoc: string = "";
   editMode = false;
   createmode = true;
@@ -124,6 +125,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.getLocationList();
     this.getYearList();
     this.getBillTypesList();
+    this.getCnNoLength();
 
     this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
     this.formBillsMaster = this.formBuilder.group({
@@ -200,12 +202,25 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
        
         }
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
+        
+        var str = this.selectedBillsmasterDetails.billSlNo;
+          
+        var x = "";
+        if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+        if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+        if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+        if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+        if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+        if (this.seriesLength == "6") x = ("000000" + str).slice(-6);          
+       
         this.formBillsMaster.patchValue({
+          billSlNo:x,
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
           suppYN: suppYN,
         })  
+        
         this.formBillsMaster.controls['billSeries'].disable();
         this.formBillsMaster.controls['billSlNo'].disable();
         if (this.selectedBillsmasterDetails.gstType == "IG") {   
@@ -250,11 +265,6 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
-      // this.formBillsMaster.patchValue({
-      //   billSeries: res[0].dataId
-      // });
-      //this.onSeriesChange();
-     // this.onSeriesChangeLLP();
     });
   }
 
@@ -347,27 +357,14 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     return branchList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
   
-
-  onBillNoChange(): void {    
-    var selectedDataValue = this.formBillsMaster.getRawValue();
-    this.billsmastermodel.billingStation = selectedDataValue.billingStation;
-    this.billsmastermodel.billNo = selectedDataValue.billNo;
-    this.billsmastermodel.yearId = this.year;
-
-    this.billsMasterService.checkDuplicateBillsNo(this.billsmastermodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if(this.responseDetails.status){
-        //ignore
+  getCnNoLength(){
+    this.commonService.getCnNoLength().subscribe((res: Responsemodel) => {
+      if(res.status){
+        this.seriesLength= res.message;
       }
-      else{
-        this.toasterService.warning(this.responseDetails.message);
-        this.formBillsMaster.patchValue({
-          billNo: "",
-        });
-      }    
     });
-  }  
-  
+  }
+
   onDueDtChange(e:any): void {
     var dueDate = new Date(e.target.value);
     var selectedData = this.formBillsMaster.getRawValue();
@@ -387,17 +384,6 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     }
   }  
     
-  // billSeriesChange(): void {
-  //   var selectedData = this.formBillsMaster.getRawValue();
-  //   this.requestmodel.strRequest = selectedData.billingStation;
-  //   this.requestmodel.strRequest1 = this.year;
-  //   this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
-  //     this.responseDetails = res;
-  //     this.formBillsMaster.patchValue({
-  //       billNo: res.message
-  //     });
-  //   });
-  // }  
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
@@ -590,7 +576,6 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     var billlist = selectedDataVal.arrayList;
 
     for (var i = 0; i < billlist.length; i++) {
-     // if (billlist[i].selected) {
           gtotal  = (billlist[i].freightRs == ""? 0 : parseFloat(billlist[i].freightRs) ) 
                             + (billlist[i].extras == ""? 0 : parseFloat(billlist[i].extras)) 
                             + (billlist[i].others == ""? 0 : parseFloat(billlist[i].others)) 
@@ -645,61 +630,71 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       }  
     });   
   }
-   chkBillDuplicateLLP(){
-      var selectedData = this.formBillsMaster.getRawValue();
-      if (selectedData.billSlNo==""){
-        this.toasterService.warning(" bill no should not be Blank");
-        return;
-      }
-      else{
-        this.reportmodel.filterStr = selectedData.billingStation;
-        this.reportmodel.filterStr1 = selectedData.billSlNo;
-        this.reportmodel.filterStr2 = selectedData.billSeries;
-        this.reportmodel.filterStr3 = this.year;
-        this.billsMasterService.checkDuplicateBillLLP(this.reportmodel).subscribe((res: Responsemodel) => {
-          this.responseDetails = res;
-          if (this.responseDetails.status) {
-            //ignore
-            this.formBillsMaster.patchValue({
-             
-              billNo: selectedData.billSeries + selectedData.billSlNo
-            });
-          }
-         else{
-            this.toasterService.warning(this.responseDetails.message);
-            this.formBillsMaster.patchValue({
-              billNo:"",
-              billSlNo:"",
-            }); 
-          }
-        });
-      }   
+
+  chkBillDuplicateLLP(){
+    var selectedData = this.formBillsMaster.getRawValue();
+    if (selectedData.billSlNo==""){
+      this.toasterService.warning(" bill no should not be Blank");
+      return;
     }
+    else{
+      this.reportmodel.filterStr = selectedData.billingStation;
+      this.reportmodel.filterStr1 = selectedData.billSlNo;
+      this.reportmodel.filterStr2 = selectedData.billSeries;
+      this.reportmodel.filterStr3 = this.year;
+      this.billsMasterService.checkDuplicateBillLLP(this.reportmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {          
+          var str = selectedData.billSlNo;
+          
+          var x = "";
+          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+          if (this.seriesLength == "6") x = ("000000" + str).slice(-6);          
+         
+          this.formBillsMaster.patchValue({
+            billSlNo:x,
+            billNo: selectedData.billSeries + x,
+          });
+        }
+       else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBillsMaster.patchValue({
+            billNo:"",
+            billSlNo:"",
+          }); 
+        }
+      });
+    }   
+  }
 
   onSeriesChangeLLP() {
-        var selectedData = this.formBillsMaster.getRawValue();
-        this.requestmodel.strRequest = selectedData.billingStation;
-        this.requestmodel.strRequest1 = this.year;
-        this.requestmodel.strRequest2 = selectedData.billSeries;
-    
-        this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
-          this.responseDetails = res;
-          if (this.responseDetails.status) {
-            this.formBillsMaster.patchValue({
-              billSlNo: this.responseDetails.message,
-              billNo: selectedData.billSeries+this.responseDetails.message
-            });
-    
-          }
-         else{
-            this.toasterService.warning(this.responseDetails.message);
-            this.formBillsMaster.patchValue({
-              billSlNo: "",
-              billNo: ""
-            });
-          }
+    var selectedData = this.formBillsMaster.getRawValue();
+    this.requestmodel.strRequest = selectedData.billingStation;
+    this.requestmodel.strRequest1 = this.year;
+    this.requestmodel.strRequest2 = selectedData.billSeries;
+
+    this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formBillsMaster.patchValue({
+          billSlNo: this.responseDetails.message,
+          billNo: selectedData.billSeries+this.responseDetails.message
+        });
+
+      }
+     else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formBillsMaster.patchValue({
+          billSlNo: "",
+          billNo: ""
         });
       }
+    });
+  }
   
   
   exit(): void {

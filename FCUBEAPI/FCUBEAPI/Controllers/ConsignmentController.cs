@@ -287,6 +287,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCnNoLength")]
+        public async Task<IActionResult> GetCnNoLength()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetCnNoLength();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
         /// </summary>
         [HttpPost("GetRateList")]
