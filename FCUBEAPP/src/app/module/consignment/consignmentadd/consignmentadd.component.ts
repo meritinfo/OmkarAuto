@@ -1001,6 +1001,11 @@ export class ConsignmentaddComponent implements OnInit {
       this.toastrService.warning(" Billing Party is Invalid");
       return;
     }
+    var indt = "", outdt ="";
+    indt = selectedDataValue.vehicleInDt?selectedDataValue.vehicleInDt :"";  
+    indt = indt + " " + (selectedDataValue.vehicleInTime?selectedDataValue.vehicleInTime:"");  
+    outdt = selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt :"";  
+    outdt = outdt + " " + (selectedDataValue.vehicleOutTime?selectedDataValue.vehicleOutTime:"");  
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
@@ -1087,7 +1092,10 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2.toString() : "0"; 
     this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc?selectedDataValue.nonGstAmt2Desc.toString().toUpperCase():"";
     this.lrmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
+    this.lrmodel.ldReportingDateTime = indt;
+    this.lrmodel.despatchDateTime = outdt;
     this.lrmodel.gtotalRs = selectedDataValue.gtotalRs?selectedDataValue.gtotalRs.toString():"";
+     
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;
 
