@@ -166,18 +166,30 @@ export class DocallotmentllpaddComponent {
     });
   }
   
-  checkDocumentRange() { 
+  chageDocument(){
+    this.formUser.patchValue({
+      seriesCode: "",
+      rangeFrom: "",
+      rangeTo:"",
+      docCount:""
+    }); 
     var selectedDataVal = this.formUser.getRawValue();
+    
     if(selectedDataVal.docType=="CH"){
       this.formUser.controls['seriesCode'].clearValidators();
       this.formUser.controls['seriesCode'].disable();
+        
     }
     else{
       this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
       this.formUser.controls['seriesCode'].enable();
     }
-    this.formUser.controls['seriesCode'].updateValueAndValidity();
+    this.formUser.controls['seriesCode'].updateValueAndValidity(); 
+  }
 
+  checkDocumentRange() { 
+    var selectedDataVal = this.formUser.getRawValue();
+    
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
       var docCount=0;
