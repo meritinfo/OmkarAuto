@@ -30,6 +30,7 @@ export class ConsignmentllpaddComponent {
   minDate: string = '';
   newDate: string = '';
   noPackages:string = '';
+  seriesLength:string = '';
 
   formSubmitted = false;
   editMode = false;
@@ -254,6 +255,8 @@ export class ConsignmentllpaddComponent {
     this.getVehTypes();
     this.getCnorCneeList();
     this.getFreightList();
+    this.getCnNoLength();    
+    this.getSeriesList(this.branch);
 
     this.sharedService.loading = false;
 
@@ -289,12 +292,23 @@ export class ConsignmentllpaddComponent {
     this.formGstArray.controls[0].get("totalAmt")?.disable();  
 
     setTimeout(() => {
-      if (this.selectedLrDetails.consignmentID != '') {
-     
-        
+      if (this.selectedLrDetails.consignmentID != '') { 
         this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
         this.formUser.patchValue(this.selectedLrDetails);
+        
+        var str = this.selectedLrDetails.gcSlNo;
+          
+        var x = "";
+        if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+        if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+        if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+        if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+        if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+        if (this.seriesLength == "6") x = ("000000" + str).slice(-6);       
+
         this.formUser.patchValue({
+          seriesCode: this.selectedLrDetails.gcSeries,
+          gcSlNo:x,
           bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
           ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
           ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
@@ -327,7 +341,6 @@ export class ConsignmentllpaddComponent {
       }
       else{
         this.changeEWay('A');
-        this.onBranchChange();
         this.formArray.controls[0].get("ewayBillNo")?.disable();
         this.formArray.controls[0].get("ewayBillDate")?.disable();
         this.formArray.controls[0].get("ewayBillExpDate")?.disable();
@@ -441,8 +454,7 @@ export class ConsignmentllpaddComponent {
       this.branchList = res;     
       this.formUser.patchValue({
         bookingPlace: this.branch
-      });
-     this.getSeriesList(this.branch);
+      });     
     });
   }
 
@@ -521,46 +533,14 @@ export class ConsignmentllpaddComponent {
     });
   }
   
-  changeSeriesList(br:string): void {
-    var selectedDataValue = this.formUser.getRawValue();
-    this.requestmodel.strRequest = "L";
-    this.requestmodel.strRequest1 = br;
-    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-      this.seriesList = res;
-      // this.formUser.patchValue({
-      //   seriesCode: res[0].dataId,
-      // //  billSlNo:"",
-      //  // billNo:""
-
-      // });
-      //this.onSeriesChange();
-     //this.onSeriesChangeLLP();
-    });
-  }
-
-  onBranchChange() {
-    var selectedData = this.formUser.getRawValue();
-    //this.getSeriesList(selectedData.bookingPlace);
-  }
-
-  onSeriesChange() {//not used
-    var selectedData = this.formUser.getRawValue();
-    this.requestmodel.strRequest = selectedData.bookingPlace;
-    this.requestmodel.strRequest1 = this.year;
-    this.requestmodel.strRequest2 = selectedData.seriesCode;
-
-    this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.formUser.patchValue({
-          gcNoteNo: this.responseDetails.message
-        });
-      }
-     else{
-        this.toastrService.warning(this.responseDetails.message);
+  getCnNoLength(){
+    this.commonService.getCnNoLength().subscribe((res: Responsemodel) => {
+      if(res.status){
+        this.seriesLength= res.message;
       }
     });
   }
+
   onSeriesChangeLLP() {
     var selectedData = this.formUser.getRawValue();
     this.requestmodel.strRequest = selectedData.bookingPlace;
@@ -587,31 +567,6 @@ export class ConsignmentllpaddComponent {
   }
 
 
-  chkLrDuplicate(){//not used
-    var selectedData = this.formUser.getRawValue();
-    if (selectedData.gcNoteNo==""){
-      this.toastrService.warning("GC Note No should not be Blank");
-      return;
-    }
-    else{
-      this.requestmodel.strRequest = selectedData.bookingPlace;
-      this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.requestmodel.strRequest2 = this.year;
-      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-    
-          //ignore
-        }
-       else{
-          this.toastrService.warning(this.responseDetails.message);
-          this.formUser.patchValue({
-            gcNoteNo:"",
-          }); 
-        }
-      });
-    }   
-  }
   chkLrDuplicateLLP(){
     var selectedData = this.formUser.getRawValue();
     if (selectedData.gcSlNo==""){
@@ -626,10 +581,20 @@ export class ConsignmentllpaddComponent {
       this.lrentryService.checkDuplicateLrLLP(this.reportmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
-          //ignore
+          var str = selectedData.gcSlNo;
+          
+          var x = "";
+          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+          if (this.seriesLength == "6") x = ("000000" + str).slice(-6);
+
+          
           this.formUser.patchValue({
-           
-            gcNoteNo: selectedData.seriesCode + selectedData.gcSlNo
+            gcSlNo: x,
+            gcNoteNo: selectedData.seriesCode + x,
           });
         }
        else{

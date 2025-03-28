@@ -33,6 +33,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLrNo(req);
         }
+        public async Task<ResponseModel> GetCnNoLength()
+        {
+            return await consignmentRepository.GetCnNoLength();
+        }
         public async Task<ResponseModel> CheckEwaybillExits(RequestModel req)
         {
             return await consignmentRepository.CheckEwaybillExits(req);

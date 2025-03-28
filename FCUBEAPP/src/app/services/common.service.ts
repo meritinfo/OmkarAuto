@@ -36,6 +36,9 @@ export class CommonService {
   getScopeBranchList(req:Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetScopeBranchList', req, this.httpOptions);
   }  
+  getCnNoLength(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCnNoLength', null, this.httpOptions);
+  }  
   getTyreBrandList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreBrandList', null, this.httpOptions);
   }
@@ -43,7 +46,7 @@ export class CommonService {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesBrandList', null, this.httpOptions);
   }
   chkMandatoryRequired(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkMandatoryRequired', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChkMandatoryRequired', req, this.httpOptions);
   }
   getSparesList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesList', null, this.httpOptions);

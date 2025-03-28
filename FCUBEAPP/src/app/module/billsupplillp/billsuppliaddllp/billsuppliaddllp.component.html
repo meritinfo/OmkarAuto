@@ -29,29 +29,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Bill No.</label><span style="color: red"> * </span>
-                                                <input autoclose="false" type="text" numbersonly class="form-control"
-                                                formControlName="billNo" (change)="onBillNoChange()" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
-                                            </div>
-                                        </div> -->
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Series</label><span style="color: red"> * </span>
-                                             
-
-
                                                 <select formControlName="billSeries"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        (change)="onSeriesChangeLLP()"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
-                                        <option selected="">Choose...</option>
-                                        <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select> 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    (change)="onSeriesChangeLLP()"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
+                                                    <option selected="">Choose...</option>
+                                                    <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
+                                                        {{dl.dataName}}
+                                                    </option>
+                                                </select> 
                                             </div>
                                         </div>
                                         <div class="col-lg-2">

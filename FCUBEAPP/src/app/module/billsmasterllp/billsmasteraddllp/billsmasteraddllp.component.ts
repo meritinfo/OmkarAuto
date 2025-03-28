@@ -31,6 +31,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   duedate: string = '';
   minDate : string = '';
   maxDate : string = '';
+  seriesLength : string = '';
   branchList: Dropdownmodel[] = [];
   seriesList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -115,6 +116,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.getBillingPartyList();
     this.getLocationList();
     this.getBillTypeSacHsn();
+    this.getCnNoLength();
     
     this.selectedBillsmasterDetails = this.billsMasterService.getBillsMasterDetails();
 
@@ -194,7 +196,19 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
+        
+        var str = this.selectedBillsmasterDetails.billSlNo;
+          
+        var x = "";
+        if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+        if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+        if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+        if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+        if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+        if (this.seriesLength == "6") x = ("000000" + str).slice(-6);       
+
         this.formBillsMaster.patchValue({
+          billSlNo:x,
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
@@ -278,16 +292,20 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       selected:  ['', []],
     }); 
   }
+
   getSeriesList(br: string): void {
     this.requestmodel.strRequest = "B";
     this.requestmodel.strRequest1 = br;
     this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
       this.seriesList = res;
-      // this.formBillsMaster.patchValue({
-      //   billSeries: res[0].dataId
-      // });
-      //this.onSeriesChange();
-     // this.onSeriesChangeLLP();
+    });
+  }
+
+  getCnNoLength(){
+    this.commonService.getCnNoLength().subscribe((res: Responsemodel) => {
+      if(res.status){
+        this.seriesLength= res.message;
+      }
     });
   }
 
@@ -304,11 +322,20 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       this.reportmodel.filterStr3 = this.year;
       this.billsMasterService.checkDuplicateBillLLP(this.reportmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
+        if (this.responseDetails.status) { 
+          var str = selectedData.billSlNo;
+          
+          var x = "";
+          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+          if (this.seriesLength == "6") x = ("000000" + str).slice(-6);          
+         
           this.formBillsMaster.patchValue({
-           
-            billNo: selectedData.billSeries + selectedData.billSlNo
+            billSlNo:x,
+            billNo: selectedData.billSeries + x,
           });
         }
        else{
