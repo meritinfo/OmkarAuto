@@ -3395,6 +3395,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("RatesMasterNewSave")]
         public async Task<IActionResult> RatesMasterNewSave(RatesMasterNewModel ratesMasterNewModel)
         {
@@ -3431,6 +3432,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetRatesMasterNewInnerGridList")]
         public async Task<IActionResult> GetRatesMasterNewInnerGridList(RequestModel request)
         {

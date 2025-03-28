@@ -79,6 +79,7 @@ namespace Consignment.Repository
             }
             return cciInvoiceMstList;
         }
+
         public async Task<CciInvoiceMstModel> GetCciInvoiceDtlInnerGridList(RequestModel request)
         {
             CciInvoiceMstModel cciInvoiceMstInnerGridList = new()
