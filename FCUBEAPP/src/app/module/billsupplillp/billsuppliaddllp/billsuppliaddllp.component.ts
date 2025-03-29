@@ -677,23 +677,34 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.requestmodel.strRequest1 = this.year;
     this.requestmodel.strRequest2 = selectedData.billSeries;
 
-    this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.formBillsMaster.patchValue({
-          billSlNo: this.responseDetails.message,
-          billNo: selectedData.billSeries+this.responseDetails.message
-        });
-
-      }
-     else{
-        this.toasterService.warning(this.responseDetails.message);
-        this.formBillsMaster.patchValue({
-          billSlNo: "",
-          billNo: ""
-        });
-      }
-    });
+    if(selectedData.seriesCode==""){
+      this.toasterService.warning("Please select Series Code");
+      this.formBillsMaster.patchValue({
+        billSlNo: "",
+        billNo: ""
+      });
+      return;
+    }
+    else{
+      this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formBillsMaster.patchValue({
+            billSlNo: this.responseDetails.message,
+            billNo: selectedData.billSeries+this.responseDetails.message
+          });
+  
+        }
+       else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBillsMaster.patchValue({
+            billSlNo: "",
+            billNo: ""
+          });
+        }
+      });
+    }
+    
   }
   
   

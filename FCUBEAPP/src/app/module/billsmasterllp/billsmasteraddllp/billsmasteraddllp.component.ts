@@ -351,11 +351,20 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   
   
   onSeriesChangeLLP() {
-      var selectedData = this.formBillsMaster.getRawValue();
-      this.requestmodel.strRequest = selectedData.billingStation;
-      this.requestmodel.strRequest1 = this.year;
-      this.requestmodel.strRequest2 = selectedData.billSeries;
-  
+    var selectedData = this.formBillsMaster.getRawValue();
+    this.requestmodel.strRequest = selectedData.billingStation;
+    this.requestmodel.strRequest1 = this.year;
+    this.requestmodel.strRequest2 = selectedData.billSeries;
+
+    if(selectedData.seriesCode==""){
+      this.toasterService.warning("Please select Series Code");
+      this.formBillsMaster.patchValue({
+        billSlNo: "",
+        billNo: ""
+      });
+      return;
+    }
+    else{
       this.billsMasterService.getBillNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -368,12 +377,13 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
        else{
           this.toasterService.warning(this.responseDetails.message);
           this.formBillsMaster.patchValue({
-          billSlNo: "",
-          billNo: ""
-        });
+            billSlNo: "",
+            billNo: ""
+          });
         }
       });
-    }
+    }      
+  }
 
 
   getBillTypeSacHsn():void{
