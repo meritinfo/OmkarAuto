@@ -299,6 +299,7 @@ export class RatesmasternewaddComponent {
        
     
       }
+ 
      
       addItem(i: number): void {    
         var selectedDate = this.formUser.getRawValue();

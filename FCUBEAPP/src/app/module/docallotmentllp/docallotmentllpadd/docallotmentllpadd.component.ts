@@ -98,7 +98,7 @@ export class DocallotmentllpaddComponent {
     
     
     this.getBranchList();
-    this.getSeriesList(this.branch);
+  //  this.getSeriesListNew(this.branch,);
 
     this.selectedDocumentallotmentDetails = this.documentallotmentService.getDocumentallotmentDetails();
     this.formUser = this.formBuilder.group({
@@ -118,6 +118,7 @@ export class DocallotmentllpaddComponent {
     this.formUser.controls['docCount'].disable();   
     this.formUser.controls["docCloseDate"].disable();  
     //this.formUser.controls['docNumCode'].disable(); 
+    
     if(this.selectedDocumentallotmentDetails.docType=="CH"){
       this.formUser.controls['seriesCode'].clearValidators();
     }
@@ -133,6 +134,7 @@ export class DocallotmentllpaddComponent {
         allotDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.allotDate),   
         docCloseDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.docCloseDate),         
       });  
+      this.getSeriesListNew(this.selectedDocumentallotmentDetails.branchCode,this.selectedDocumentallotmentDetails.docType);
       if(this.selectedDocumentallotmentDetails.docStatus=="C"){
         this.formUser.controls["docCloseDate"].enable();
       }
@@ -165,8 +167,45 @@ export class DocallotmentllpaddComponent {
       this.seriesList = res;
     });
   }
+  getSeriesListNew(br: string,r: string): void {
+    if(r == "BL"){
+    this.requestmodel.strRequest = "B";
+    this.requestmodel.strRequest1 = br;
+    this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+      this.seriesList = res;
+    });
+  }
+   else{
+      this.requestmodel.strRequest = "L";
+      this.requestmodel.strRequest1 = br;
+      this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
+        this.seriesList = res;
+      });
+  }
+  }
   
-  chageDocument(){
+  // chageDocument(){
+  //   this.formUser.patchValue({
+  //     seriesCode: "",
+  //     rangeFrom: "",
+  //     rangeTo:"",
+  //     docCount:""
+  //   }); 
+  //   var selectedDataVal = this.formUser.getRawValue();
+    
+  //   if(selectedDataVal.docType=="CH"){
+  //     this.formUser.controls['seriesCode'].clearValidators();
+  //     this.formUser.controls['seriesCode'].disable();
+        
+  //   }
+  //   else{
+  //     this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
+  //     this.formUser.controls['seriesCode'].enable();
+  //   }
+  //   this.formUser.controls['seriesCode'].updateValueAndValidity(); 
+  // }
+
+  changeDocument(){
     this.formUser.patchValue({
       seriesCode: "",
       rangeFrom: "",
@@ -180,12 +219,20 @@ export class DocallotmentllpaddComponent {
       this.formUser.controls['seriesCode'].disable();
         
     }
-    else{
+   else if(selectedDataVal.docType=="BL"){
+    this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
+    this.formUser.controls['seriesCode'].enable();
+      this.getSeriesListNew(selectedDataVal.branchCode,"BL")
+        
+    }
+    else {
       this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
       this.formUser.controls['seriesCode'].enable();
+      this.getSeriesListNew(selectedDataVal.billingStation,"CN")
     }
     this.formUser.controls['seriesCode'].updateValueAndValidity(); 
   }
+
 
   checkDocumentRange() { 
     var selectedDataVal = this.formUser.getRawValue();
@@ -238,7 +285,9 @@ export class DocallotmentllpaddComponent {
   getDocNumCode(): void {    
     var selectedDataVal = this.formUser.getRawValue();
     this.requestmodel.strRequest = selectedDataVal.branchCode;
-    this.getSeriesList(selectedDataVal.branchCode);
+   // this.getSeriesList(selectedDataVal.branchCode);
+   this.getSeriesListNew(selectedDataVal.branchCode,selectedDataVal.branchCode);
+    
     this.documentallotmentService.getDocumentNumcode(this.requestmodel).subscribe((res) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

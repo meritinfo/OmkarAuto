@@ -262,6 +262,10 @@ export class ConsignmentllpaddComponent {
 
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls["gcNoteNo"].disable();
+    this.formGstArray.controls[0].get("amount")?.disable();
+    this.formGstArray.controls[0].get("sgstPct")?.disable();
+    this.formGstArray.controls[0].get("cgstPct")?.disable();
+    this.formGstArray.controls[0].get("igstPct")?.disable();
     this.formUser.controls['ewayBillExpDate'].disable(); 
     // this.formUser.controls['sgstPct'].disable();
     // this.formUser.controls['cgstPct'].disable();  
@@ -648,13 +652,16 @@ export class ConsignmentllpaddComponent {
         this.formGstArray.controls[i].get("sgstPct")?.disable();
         this.formGstArray.controls[i].get("cgstPct")?.disable();
         this.formGstArray.controls[i].get("igstPct")?.disable(); 
+        this.formGstArray.controls[i].get("amount")?.disable();  
 
       if (gsttype == "I") {  
         this.formGstArray.controls[i].get("igstPct")?.enable();  
+        this.formGstArray.controls[i].get("amount")?.enable();  
       }     
       else if (gsttype == "S")  {     
         this.formGstArray.controls[i].get("sgstPct")?.enable();
         this.formGstArray.controls[i].get("cgstPct")?.enable();
+        this.formGstArray.controls[i].get("amount")?.enable();  
       }   
     }    
            
@@ -695,6 +702,9 @@ export class ConsignmentllpaddComponent {
     this.requestmodel.strRequest = freightId;
     this.lrentryService.getFreightGstDetails(this.requestmodel).subscribe((res) => {
       this.formGstArray.controls[j].get("freightId")?.disable();
+      if(selectedData.gstType!="N"){
+      this.formGstArray.controls[j].get("amount")?.enable();
+      }
       this.formGstArray.controls[j].get("linkColumn")?.setValue(res.linkColumn);
       this.formGstArray.controls[j].get("sgstPct")?.setValue("0");
       this.formGstArray.controls[j].get("cgstPct")?.setValue("0");
