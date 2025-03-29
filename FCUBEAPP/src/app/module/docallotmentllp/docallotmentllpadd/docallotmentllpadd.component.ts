@@ -228,7 +228,7 @@ export class DocallotmentllpaddComponent {
     else {
       this.formUser.controls['seriesCode'].setValidators([Validators.required]); 
       this.formUser.controls['seriesCode'].enable();
-      this.getSeriesListNew(selectedDataVal.billingStation,"CN")
+      this.getSeriesListNew(selectedDataVal.branchCode,"CN")
     }
     this.formUser.controls['seriesCode'].updateValueAndValidity(); 
   }
