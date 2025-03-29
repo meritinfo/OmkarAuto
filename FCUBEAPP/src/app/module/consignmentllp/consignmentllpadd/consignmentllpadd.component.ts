@@ -551,23 +551,32 @@ export class ConsignmentllpaddComponent {
     this.requestmodel.strRequest1 = this.year;
     this.requestmodel.strRequest2 = selectedData.seriesCode;
 
-    this.lrentryService.getLrNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.formUser.patchValue({
-          gcSlNo: this.responseDetails.message,
-          gcNoteNo: selectedData.seriesCode+this.responseDetails.message
-        });
-
-      }
-     else{
-        this.toastrService.warning(this.responseDetails.message);
-        this.formUser.patchValue({
-          gcSlNo: "",
-          gcNoteNo: ""
-        });
-      }
-    });
+    if(selectedData.seriesCode==""){
+      this.toastrService.warning("Please select Series Code");
+      this.formUser.patchValue({
+        gcSlNo: "",
+        gcNoteNo: ""
+      });
+      return;
+    }
+    else{
+      this.lrentryService.getLrNoLLP(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formUser.patchValue({
+            gcSlNo: this.responseDetails.message,
+            gcNoteNo: selectedData.seriesCode+this.responseDetails.message
+          });
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            gcSlNo: "",
+            gcNoteNo: ""
+          });
+        }
+      });
+    }    
   }
 
 

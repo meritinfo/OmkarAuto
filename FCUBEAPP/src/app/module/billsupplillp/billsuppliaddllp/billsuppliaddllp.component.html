@@ -36,7 +36,7 @@
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onSeriesChangeLLP()"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
-                                                    <option selected="">Choose...</option>
+                                                    <option value="">Choose...</option>
                                                     <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
                                                         {{dl.dataName}}
                                                     </option>
