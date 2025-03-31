@@ -136,7 +136,6 @@ export class ChallanmasteraddComponent {
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
-   this.onBranchChange();
 
     this.sharedService.loading = false;
     
@@ -242,6 +241,11 @@ export class ChallanmasteraddComponent {
     this.formUser.controls['mainChallanNo'].updateValueAndValidity();
     this.formUser.controls['mainChallanBranch'].disable();
     this.formUser.controls['mainChallanNo'].disable();
+
+    
+    if (this.selectedChallanDetails.challanId == ''){
+      this.onBranchChange();
+    }
 
     setTimeout(() => {      
       if (this.selectedChallanDetails.challanId != '') {
@@ -349,6 +353,7 @@ export class ChallanmasteraddComponent {
         this.sharedService.loading = false;   
         
       }   
+      
     }, 2000);   
   }
 

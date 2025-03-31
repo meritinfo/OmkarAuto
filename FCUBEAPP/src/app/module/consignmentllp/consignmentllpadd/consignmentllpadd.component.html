@@ -731,6 +731,7 @@
                                             <div class="overflow-x">
                                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
                                                     <tr>
+                                                        <th></th>   
                                                         <th class="col-lg-2"><label for="formrow-inputZip">Freight Desc</label></th>
                                                         <th><label for="formrow-inputZip">Amount</label></th>
                                                         <th><label for="formrow-inputZip">SGST Pct</label></th>
@@ -741,11 +742,19 @@
                                                         <th><label for="formrow-inputZip">IGST Amt</label></th>
                                                         <th><label for="formrow-inputZip">Total Amt</label></th>
                                                         <th class="col-lg-2"><label for="formrow-inputZip">Remarks</label></th>
-                                                        <th></th>                                                  
+                                                                                                      
                                                     </tr>
                                                     <tr formArrayName="arrayGstList"
                                                         *ngFor="let arrayData of formGstArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
+                                                            <td class="col-lg-1">
+                                                                <div class="col-lg-4 details-button">
+                                                                    <button *ngIf="i === formGstArray.controls.length-1" type="button"
+                                                                        class="btn btn-add" (click)="addGstItem(i)"></button>
+                                                                    <button *ngIf="formGstArray.controls.length > 1"
+                                                                        (click)="removeGstItem(i)" class="btn btn-delete"></button>
+                                                                </div>                                        
+                                                            </td>
                                                             <td  class="col-lg-2">
                                                                 <select formControlName="freightId" (change)="onFreightChange(i)"
                                                                     class="form-control form-select ng-pristine ng-touched">
@@ -792,14 +801,14 @@
                                                                 <input uppercaseonly class="form-control"
                                                                 formControlName="remarks">
                                                             </td>                                            
-                                                            <td class="col-lg-1">
+                                                            <!-- <td class="col-lg-1">
                                                                 <div class="col-lg-4 details-button">
                                                                     <button *ngIf="i === formGstArray.controls.length-1" type="button"
                                                                         class="btn btn-add" (click)="addGstItem(i)"></button>
                                                                     <button *ngIf="formGstArray.controls.length > 1"
                                                                         (click)="removeGstItem(i)" class="btn btn-delete"></button>
                                                                 </div>                                        
-                                                            </td>
+                                                            </td> -->
                                                         </div>
                                                     </tr>
                                                 </table>

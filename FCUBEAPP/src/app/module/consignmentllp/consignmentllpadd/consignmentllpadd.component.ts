@@ -584,6 +584,11 @@ export class ConsignmentllpaddComponent {
     var selectedData = this.formUser.getRawValue();
     if (selectedData.gcSlNo==""){
       this.toastrService.warning(" gc sl no should not be Blank");
+      this.formUser.patchValue({
+    
+        gcNoteNo: "",
+      });
+
       return;
     }
     else{
@@ -910,10 +915,13 @@ export class ConsignmentllpaddComponent {
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
-    this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
-    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
+   // this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
+   // this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
+       this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
+    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
     this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
-    this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
+   // this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
+   this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
@@ -1032,6 +1040,10 @@ export class ConsignmentllpaddComponent {
       this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
       this.formUser.controls['rateType'].clearValidators();
+      this.formUser.controls['invoiceNo'].enable();
+      this.formUser.controls['invoiceDate'].enable();
+      this.formUser.controls['invoiceValue'].enable();
+    
     }
     if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
@@ -1188,7 +1200,7 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.businessBy = selectedDataValue.businessBy?selectedDataValue.businessBy.dataId:"0";
     this.lrmodel.businessBranch = selectedDataValue.businessBranch;
     this.lrmodel.cnorId = selectedDataValue.cnorId? selectedDataValue.cnorId.dataId : "0";
-    this.lrmodel.cnorName = selectedDataValue.cnorName;
+    this.lrmodel.cnorName = selectedDataValue.cnorName.toString().toUpperCase();
     this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1;
     this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2;
     this.lrmodel.cnorAdd3 = selectedDataValue.cnorAdd3;
@@ -1256,6 +1268,12 @@ export class ConsignmentllpaddComponent {
     //this.lrmodel.gcSlNo= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
     this.lrmodel.gcSlNo = selectedDataValue.gcSlNo; 
     this.lrmodel.gcSeries = selectedDataValue.seriesCode; 
+    this.lrmodel.cgstAmt = selectedDataValue.cgstAmt.toString(); 
+    this.lrmodel.sgstAmt = selectedDataValue.sgstAmt.toString(); 
+    this.lrmodel.igstAmt = selectedDataValue.igstAmt.toString(); 
+    this.lrmodel.nonGstAmt2 = selectedDataValue.nonGstAmt2.toString(); 
+    this.lrmodel.nonGstAmt1 = selectedDataValue.nonGstAmt1.toString(); 
+    
     this.lrmodel.containerNo = selectedDataValue.containerNo.toUpperCase().toString(); 
     this.lrmodel.vehicleOutTime= selectedDataValue.vehicleOutTime?selectedDataValue.vehicleOutTime.toString():"";
     this.lrmodel.yearId = this.year;

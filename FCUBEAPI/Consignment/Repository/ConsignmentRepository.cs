@@ -147,6 +147,8 @@ namespace Consignment.Repository
                                 GcSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSlNo"]),
                                 GcSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["GcSeries"]),
                                 ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
+                                NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
+                                NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),

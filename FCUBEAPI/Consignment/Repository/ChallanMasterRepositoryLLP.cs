@@ -109,6 +109,9 @@ namespace Consignment.Repository
                             new SqlParameter("@ModifyRemarks",          challan.ModifyRemarks),
                             new SqlParameter("@CciInvNo",          challan.CciInvNo),
                             new SqlParameter("@ContainerNo",          challan.ContainerNo),
+                               new SqlParameter("@CgstAmt",          challan.CgstAmt),
+                                        new SqlParameter("@SgstAmt",          challan.SgstAmt),
+                                           new SqlParameter("@IgstAmt",          challan.IgstAmt),
                             new SqlParameter("@LoggedInUser",           challan.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSaveLLP", param);
@@ -309,6 +312,9 @@ namespace Consignment.Repository
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 CciInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CciInvNo"]),
                                 ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
                             });
                         }
 

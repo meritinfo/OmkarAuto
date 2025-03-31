@@ -126,7 +126,8 @@ ngOnInit(): void {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    
+
+
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -141,7 +142,6 @@ ngOnInit(): void {
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
-   this.onBranchChange();
 
     this.sharedService.loading = false;
     
@@ -355,11 +355,20 @@ ngOnInit(): void {
         this.formUser.controls["modifyRemarks"].enable();   
         this.getChallanInnerGridList();   
         this.getCCIInvoiceMstDetail();  
+        if(this.selectedChallanDetails.containerNo!=""){
+        this.formUser.patchValue({
+          cciInvoice:  "Y"
+        })  
+      }
+        
         
         this.editMode = true;        
         this.sharedService.loading = false;   
         
-      }   
+      }  
+      else{        
+        this.onBranchChange();
+      } 
     }, 2000);   
   }
   // convenience getter for easy access to contact form fields
@@ -1282,14 +1291,14 @@ ngOnInit(): void {
       this.challanmodel.vehicleOwnerAdd2 = selectedDataValue.vehicleOwnerAdd2? selectedDataValue.vehicleOwnerAdd2.toString().toUpperCase() : ""; 
       this.challanmodel.vehicleOwnerPanNo = selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo.toString().toUpperCase() : ""; 
       this.challanmodel.vehicleOwnerMblNo = selectedDataValue.vehicleOwnerMblNo? selectedDataValue.vehicleOwnerMblNo : ""; 
-      this.challanmodel.vehicleInsDetails = selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails : ""; 
+      this.challanmodel.vehicleInsDetails = selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails.toString().toUpperCase() : ""; 
       this.challanmodel.panValid = selectedDataValue.panValid?"Y":"N";
       this.challanmodel.aadharLinked = selectedDataValue.aadharLinked?"Y":"N";
       this.challanmodel.itFiled = selectedDataValue.itFiled?"Y":"N";
       this.challanmodel.permitValid = selectedDataValue.permitValid?"Y":"N";
       this.challanmodel.driverAddress = selectedDataValue.driverAddress? selectedDataValue.driverAddress.toString().toUpperCase() : ""; 
       this.challanmodel.driverLicNo = selectedDataValue.driverLicNo? selectedDataValue.driverLicNo.toString().toUpperCase() : ""; 
-      this.challanmodel.driverLicIssuedAt = selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt : ""; 
+      this.challanmodel.driverLicIssuedAt = selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt.toString().toUpperCase() : ""; 
       this.challanmodel.driverLicValid = selectedDataValue.driverLicValid? selectedDataValue.driverLicValid : ""; 
       this.challanmodel.driverMblNo = selectedDataValue.driverMblNo? selectedDataValue.driverMblNo : ""; 
       this.challanmodel.engagedBy = selectedDataValue.engagedBy? selectedDataValue.engagedBy : ""; 
@@ -1320,6 +1329,11 @@ ngOnInit(): void {
       this.challanmodel.balance = selectedDataValue.balance? selectedDataValue.balance.toString() : "0"; 
       this.challanmodel.cciInvNo = selectedDataValue.cciInvNo;
       this.challanmodel.containerNo = selectedDataValue.containerNo;
+      this.challanmodel.cgstAmt = selectedDataValue.cgstAmt.toString();
+      this.challanmodel.sgstAmt = selectedDataValue.sgstAmt.toString();
+      this.challanmodel.igstAmt = selectedDataValue.igstAmt.toString();
+      
+      this.challanmodel.driverName = selectedDataValue.driverName?selectedDataValue.driverName.toString().toUpperCase():"";
       this.challanmodel.balancePayAt = selectedDataValue.balancePayAt? selectedDataValue.balancePayAt : ""; 
       this.challanmodel.generalRemarks = selectedDataValue.generalRemarks?selectedDataValue.generalRemarks.toString().toUpperCase():"";
       this.challanmodel.modifyRemarks = selectedDataValue.modifyRemarks?selectedDataValue.modifyRemarks.toString().toUpperCase():"";
