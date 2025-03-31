@@ -1230,8 +1230,12 @@ export class MraddComponent {
     this.mrmodel.mrOnAcList = [];
     this.mrmodel.mrAdjList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
-      if (selectedDataVal.arrayList[i].recdAmt != "" && parseFloat(selectedDataVal.arrayList[i].recdAmt) > 0) {
+
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {       
+      var totDed = selectedDataVal.arrayList[i].totDed!= ""? parseFloat(selectedDataVal.arrayList[i].totDed) :0;
+      var recdAmt = selectedDataVal.arrayList[i].recdAmt!= ""? parseFloat(selectedDataVal.arrayList[i].recdAmt) :0;
+
+      if ((totDed + recdAmt) > 0) {
         if (selectedDataVal.arrayList[i].billLrMasterId != "") {
             //ignore
         }
