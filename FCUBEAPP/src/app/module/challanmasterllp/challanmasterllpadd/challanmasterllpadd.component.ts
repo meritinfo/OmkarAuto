@@ -354,7 +354,7 @@ ngOnInit(): void {
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
         this.getChallanInnerGridList();   
-        this.getCCIInvoiceMstDetail();  
+       // this.getCCIInvoiceMstDetail();  
         if(this.selectedChallanDetails.containerNo!=""){
         this.formUser.patchValue({
           cciInvoice:  "Y"
@@ -611,8 +611,9 @@ ngOnInit(): void {
           this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: ChallanmastermodelllP) => {
             this.challanmodel = res;
             if (this.responseDetails.status) { 
-              var cn= res.challanDtls[0].consignmentId;     
-              if (typeof cn === 'undefined' || cn === null || cn === '') {
+             // var cn= res.challanDtls[0].consignmentId;     
+             // if (typeof cn === 'undefined' || cn === null || cn === '') {
+             if (res.challanDtls.length==0) {
                 this.toastrService.warning("LR No Doesn't Exists ");
                 this.formArray.controls[i].get("gcNoteNo")?.setValue("");
                 return;
@@ -634,6 +635,8 @@ ngOnInit(): void {
                 this.formArray.controls[i].get("fplace")?.disable();
                 this.formArray.controls[i].get("tplace")?.disable();
                 this.formArray.controls[i].get("bookingDate")?.disable();
+                this.onPkgsChange();
+                this.onActWtChange();
               }        
             }
             else{
@@ -648,6 +651,10 @@ ngOnInit(): void {
           return;
         }
       });   
+    }
+    onBookChange(i:number){
+    
+      this.formArray.controls[i].get("gcNoteNo")?.setValue("");
     }
   
     onPkgsChange(){
