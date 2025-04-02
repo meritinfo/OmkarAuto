@@ -474,7 +474,7 @@ ngOnInit(): void {
      // var selectedData = this.formUser.getRawValue();
      // if (selectedData.challanBranch==""){
         this.requestmodel.strRequest = this.branch;
-     this.requestmodel.strRequest1 =  this.year;
+        this.requestmodel.strRequest1 =  this.year;
     //  }
     //  else{
        // this.requestmodel.strRequest = selectedData.challanBranch;

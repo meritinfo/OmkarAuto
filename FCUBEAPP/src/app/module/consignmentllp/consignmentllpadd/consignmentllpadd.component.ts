@@ -402,6 +402,10 @@ export class ConsignmentllpaddComponent {
       this.lrmodel = res;
       this.formArray.clear();
       this.formGstArray.clear();
+   
+      if(res.gstList.length==0){        
+        this.formGstArray.push(this.createGstArray());
+      }
       for (var i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
@@ -1200,19 +1204,19 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.businessBy = selectedDataValue.businessBy?selectedDataValue.businessBy.dataId:"0";
     this.lrmodel.businessBranch = selectedDataValue.businessBranch;
     this.lrmodel.cnorId = selectedDataValue.cnorId? selectedDataValue.cnorId.dataId : "0";
-    this.lrmodel.cnorName = selectedDataValue.cnorName.toString().toUpperCase();
-    this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1;
-    this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2;
-    this.lrmodel.cnorAdd3 = selectedDataValue.cnorAdd3;
+    this.lrmodel.cnorName = selectedDataValue.cnorName?selectedDataValue.cnorName.toString().toUpperCase():"";
+    this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1?selectedDataValue.cnorAdd1.toString().toUpperCase():"";
+    this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2?selectedDataValue.cnorAdd2.toString().toUpperCase():"";
+    this.lrmodel.cnorAdd3 = selectedDataValue.cnorAdd3?selectedDataValue.cnorAdd3.toString().toUpperCase():"";
     this.lrmodel.cnorPin = selectedDataValue.cnorPin?selectedDataValue.cnorPin.toString():"";
     this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
     this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
     this.lrmodel.cnorGst = selectedDataValue.cnorGst;
     this.lrmodel.cneeId = selectedDataValue.cneeId? selectedDataValue.cneeId.dataId : "0";
-    this.lrmodel.cneeName = selectedDataValue.cneeName;
-    this.lrmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
-    this.lrmodel.cneeAdd2 = selectedDataValue.cneeAdd2;
-    this.lrmodel.cneeAdd3 = selectedDataValue.cneeAdd3;
+    this.lrmodel.cneeName = selectedDataValue.cneeName?selectedDataValue.cneeName.toString().toUpperCase():"";
+    this.lrmodel.cneeAdd1 = selectedDataValue.cneeAdd1?selectedDataValue.cneeAdd1.toString().toUpperCase():"";
+    this.lrmodel.cneeAdd2 =  selectedDataValue.cneeAdd2?selectedDataValue.cneeAdd2.toString().toUpperCase():"";
+    this.lrmodel.cneeAdd3 =  selectedDataValue.cneeAdd3?selectedDataValue.cneeAdd3.toString().toUpperCase():"";
     this.lrmodel.cneePin = selectedDataValue.cneePin?selectedDataValue.cneePin.toString():"";
     this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
     this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
@@ -1221,7 +1225,8 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.shipmentDt = selectedDataValue.shipmentDt;
     this.lrmodel.classId = selectedDataValue.classId;
     this.lrmodel.productId = selectedDataValue.productId;
-    this.lrmodel.productDesc = selectedDataValue.productDesc;
+    this.lrmodel.productDesc = selectedDataValue.productDesc?selectedDataValue.productDesc.toString():"";
+    
     this.lrmodel.hsnSac = "";
     this.lrmodel.noPackages = selectedDataValue.noPackages.toString();
     this.lrmodel.looseFlag = "N";
@@ -1299,7 +1304,7 @@ export class ConsignmentllpaddComponent {
     }
 
     for (var i = 0; i < selectedDataValue.arrayGstList.length; i++) {
-      if (selectedDataValue.arrayGstList[i].freightId != "" && selectedDataValue.arrayGstList[i].totalAmt != "" ) {
+      if (selectedDataValue.arrayGstList[i].freightId != "" && selectedDataValue.arrayGstList[i].amount != "") {
         this.lrmodel.gstList.push({
           'consignmentID': '',
           'freightId': selectedDataValue.arrayGstList[i].freightId,
