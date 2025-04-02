@@ -16,6 +16,8 @@ namespace FreightMasters.Business
         Task<ResponseModel> GetAgeingDetailRptExcel(ReportAgeModel request);
         Task<ResponseModel> GetOutstandingSummRptExcel(ReportAgeModel request);
         Task<ResponseModel> GetOutstandingDetailRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetBillSubmittedSummRptExcel(ReportAgeModel request);
+        Task<ResponseModel> GetBillSubmittedDetailRptExcel(ReportAgeModel request);
         Task<ResponseModel> GetOutstandingAnalysisRptExcel(ReportRequestModel request);
         Task<OutstandingAnalRptListModel> GetOutstandingAnalysisRptList(ReportRequestModel request);
 

@@ -107,11 +107,11 @@ namespace Consignment.Repository
                             new SqlParameter("@TruckDriverImage",       challan.TruckDriverImage),
                             new SqlParameter("@YearId",                 challan.YearId),
                             new SqlParameter("@ModifyRemarks",          challan.ModifyRemarks),
-                            new SqlParameter("@CciInvNo",          challan.CciInvNo),
-                            new SqlParameter("@ContainerNo",          challan.ContainerNo),
-                               new SqlParameter("@CgstAmt",          challan.CgstAmt),
-                                        new SqlParameter("@SgstAmt",          challan.SgstAmt),
-                                           new SqlParameter("@IgstAmt",          challan.IgstAmt),
+                            new SqlParameter("@CciInvNo",               challan.CciInvNo),
+                            new SqlParameter("@ContainerNo",            challan.ContainerNo),
+                            new SqlParameter("@CgstAmt",                challan.CgstAmt),
+                            new SqlParameter("@SgstAmt",                challan.SgstAmt),
+                            new SqlParameter("@IgstAmt",                challan.IgstAmt),
                             new SqlParameter("@LoggedInUser",           challan.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSaveLLP", param);

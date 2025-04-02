@@ -554,30 +554,26 @@ ngOnInit(): void {
       this.requestmodel.strRequest = selectedData.containerNo; 
       this.requestmodel.strRequest1 = selectedData.cciInvNo; 
       this.challanmasterService.getGetCCIInviceDetail(this.requestmodel).subscribe((res) => {
-      // this.formTyreArray.clear();
         this.invoiceDetails = res;
         if (this.invoiceDetails.cgstAmt === 'undefined' || this.invoiceDetails.cgstAmt === null || this.invoiceDetails.cgstAmt === '') {
           this.toastrService.warning("Invoice Detail Not Found");
-          // this.formUser.patchValue({
-          //   lrNo: "",
-          // });
+          this.formUser.patchValue({
+            cciInvNo: "", 
+            cgstAmt: "",
+            sgstAmt:"",
+            igstAmt: "",
+            lorryHire: "",
+          });
           return;
         }
         else{
           this.formUser.patchValue({
             cgstAmt: this.invoiceDetails.cgstAmt,
-          sgstAmt: this.invoiceDetails.sgstAmt,
-          igstAmt: this.invoiceDetails.igstAmt,
-          lorryHire: this.invoiceDetails.taxableAmt
-          })  
-     
-      
-       
-        
-
-  
-       
-         }     
+            sgstAmt: this.invoiceDetails.sgstAmt,
+            igstAmt: this.invoiceDetails.igstAmt,
+            lorryHire: this.invoiceDetails.taxableAmt
+          })   
+        }     
       });
     }
   
@@ -611,9 +607,7 @@ ngOnInit(): void {
           this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: ChallanmastermodelllP) => {
             this.challanmodel = res;
             if (this.responseDetails.status) { 
-             // var cn= res.challanDtls[0].consignmentId;     
-             // if (typeof cn === 'undefined' || cn === null || cn === '') {
-             if (res.challanDtls.length==0) {
+              if (res.challanDtls.length==0) {
                 this.toastrService.warning("LR No Doesn't Exists ");
                 this.formArray.controls[i].get("gcNoteNo")?.setValue("");
                 return;
@@ -625,7 +619,6 @@ ngOnInit(): void {
                 this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
                 this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
                 this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
-               // this.formArray.controls[i].get("containerNo")?.setValue(res.challanDtls[0].containerNo);
                 this.ctNo=  res.challanDtls[0].containerNo;
                 
                 this.formArray.controls[i].get("gcYear")?.disable();
@@ -670,31 +663,21 @@ ngOnInit(): void {
       });
     }
      onInvoiceChk(e: any) {
-        if(e.target.checked){
-          // this.formTripPayment.controls['chequeNo'].clearValidators();      
-          // this.formTripPayment.controls['chequeDate'].clearValidators();   
-          
+        if(e.target.checked){ 
           this.formUser.controls['containerNo'].enable();
           this.formUser.controls['cciInvNo'].enable();
           this.formUser.patchValue({
-            containerNo:this.ctNo,
-            
+            containerNo:this.ctNo,            
           });   
         }
         else {
-          // this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
-          // this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
           this.formUser.controls['containerNo'].disable();
           this.formUser.controls['cciInvNo'].disable();
           this.formUser.patchValue({
             containerNo:"",
-            cciInvNo:"",
-            
-          });   
-         
+            cciInvNo:"",            
+          });            
         }
-        // this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
-        // this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
       }
     
   

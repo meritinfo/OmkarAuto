@@ -57,6 +57,12 @@ export class FreightreportsService {
   getOutStandingDetailRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingDetailRptExcel', filter, this.httpOptions);
   }
+  getBillSubmittedSummRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmittedSummRptExcel', filter, this.httpOptions);
+  }
+  getBillSubmittedDetailRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmittedDetailRptExcel', filter, this.httpOptions);
+  }
   getOutstandingAnalysisRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingAnalysisRptExcel', filter, this.httpOptions);
   }
