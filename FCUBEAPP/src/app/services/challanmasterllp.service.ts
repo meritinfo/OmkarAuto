@@ -83,13 +83,13 @@ export class ChallanmasterServiceLLP {
     return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqInnerGridListLLP', req, this.httpOptions);
   }
   getPanwiseTdsRate(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanwiseTdsRateLLP', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanwiseTdsRate', req, this.httpOptions);
   }
   getLhPanTdsRate(req: Requestmodel): Observable<Reportmodel> {
-    return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'Consignment/GetLhPanTdsRateLLP', req, this.httpOptions);
+    return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'Consignment/GetLhPanTdsRate', req, this.httpOptions);
   }
   getBranchPanApiUse(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetBranchPanApiUseLLP', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetBranchPanApiUse', req, this.httpOptions);
   }
   
 }
