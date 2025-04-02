@@ -168,22 +168,22 @@ ngOnInit(): void {
       vehicleModel: new FormControl('',),
       engineNo: new FormControl('',),    
       chassisNo: new FormControl('', ),    
-      vehicleOwnerName: new FormControl('',),
+      vehicleOwnerName: new FormControl('',[Validators.required]),
       vehicleOwnerAdd1: new FormControl('',),
       vehicleOwnerAdd2: new FormControl('',),
-      vehicleOwnerPanNo: new FormControl('',),
+      vehicleOwnerPanNo: new FormControl('', [Validators.required]),
       vehicleOwnerMblNo: new FormControl('',),    
       vehicleInsDetails: new FormControl('',),    
       panValid: new FormControl('',),    
       aadharLinked: new FormControl('',),    
       itFiled: new FormControl('',),
       permitValid: new FormControl('',),   
-      driverName : new FormControl('',),   
+      driverName : new FormControl('',[Validators.required]),   
       driverAddress: new FormControl('',),    
       driverLicNo: new FormControl('',),
       driverLicIssuedAt: new FormControl('',),    
       driverLicValid: new FormControl('',),    
-      driverMblNo: new FormControl('',),    
+      driverMblNo: new FormControl('',[Validators.required]),    
       engagedBy: new FormControl('',),    
       loadedBy: new FormControl('',),
       declarationYN: new FormControl('',),    
@@ -715,7 +715,12 @@ ngOnInit(): void {
       }
       else if(!test){
         this.toastrService.warning("Invalid PAN No...!");
+        // this.formUser.patchValue({
+        
+        //   vehicleOwnerPanNo: ''
+        // });
         return;
+         
       }
       else
       {

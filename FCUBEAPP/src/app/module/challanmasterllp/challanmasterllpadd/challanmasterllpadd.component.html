@@ -416,8 +416,8 @@
                         <div class="row">                
                             <div class="col-lg-3">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Vehi Owner Name</label>
-                                    <input uppercaseonly class="form-control" 
+                                    <label for="formrow-inputZip">Vehi Owner Name</label>   <span style="color: red">*</span>
+                                    <input uppercaseonly class="form-control"   [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOwnerName'].invalid) }"
                                     maxlength="75" formControlName="vehicleOwnerName">
                                 </div>
                             </div>
@@ -437,8 +437,8 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Vehi Owner Pan No</label>
-                                    <input uppercaseonly class="form-control" 
+                                    <label for="formrow-inputZip">Vehi Owner Pan No</label> <span style="color: red">*</span>
+                                    <input uppercaseonly class="form-control"   [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOwnerPanNo'].invalid) }"
                                     maxlength="10"  (change)="onOwnerPanChange()"
                                     formControlName="vehicleOwnerPanNo">
                                 </div>
@@ -496,8 +496,8 @@
                         <div class="row">   
                             <div class="col-lg-3">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Driver Name</label>
-                                    <input uppercaseonly class="form-control" maxlength="50" 
+                                    <label for="formrow-inputZip">Driver Name</label><span style="color: red">*</span>
+                                    <input uppercaseonly class="form-control" maxlength="50"   [ngClass]="{ 'is-invalid': formSubmitted && (f['driverName'].invalid) }"
                                     formControlName="driverName">
                                 </div>
                             </div>      
@@ -534,8 +534,8 @@
                             </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Driver Mobile No</label>
-                                    <input numbersonly maxlength="10" class="form-control" 
+                                    <label for="formrow-inputZip">Driver Mobile No</label><span style="color: red">*</span>
+                                    <input numbersonly maxlength="10" class="form-control"  [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMblNo'].invalid) }"
                                         formControlName="driverMblNo">
                                 </div>
                             </div> 
@@ -669,7 +669,7 @@
                         
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Extra Hire1</label>
+                                    <label for="formrow-inputZip">Detention</label>
                                     <input type="text" decimalonly class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire1" (change)="calculateTotalAmount()">
@@ -677,7 +677,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Extra Hire2</label>
+                                    <label for="formrow-inputZip">Extra Hire1</label>
                                     <input type="text" decimalonly class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire2" (change)="calculateTotalAmount()">
@@ -685,7 +685,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Extra Hire3</label>
+                                    <label for="formrow-inputZip">Extra Hire2</label>
                                     <input type="text" decimalonly class="form-control" 
                                     maxlength="15" 
                                         formControlName="extraHire3" (change)="calculateTotalAmount()">
