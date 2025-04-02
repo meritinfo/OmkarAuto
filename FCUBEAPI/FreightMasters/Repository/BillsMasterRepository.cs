@@ -693,8 +693,8 @@ namespace FreightMasters.Repository
                                 Remarks1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
                                 Remarks2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
                                 Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
-                                OtherAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                // Selected = true,
+                                //OtherAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAmt"]),
+                                Selected = true,
                             });
                         }
 

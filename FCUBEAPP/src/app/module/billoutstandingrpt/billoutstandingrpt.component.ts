@@ -246,6 +246,32 @@ export class BilloutstandingrptComponent {
         }        
       });
     }
+    if(selectedDataVal.rptType=="SS"){
+      this.billoutstandingrptService.getBillSubmittedSummRptExcel(this.filter).subscribe((resp: any) => {
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "BillSubmittedSummReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
+      });
+    }
+    if(selectedDataVal.rptType=="SD"){
+      this.billoutstandingrptService.getBillSubmittedDetailRptExcel(this.filter).subscribe((resp: any) => {
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "BillSubmittedDetailReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
+      });
+    }
   }
 }
 

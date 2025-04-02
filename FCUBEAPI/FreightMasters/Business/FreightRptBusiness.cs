@@ -41,6 +41,14 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetOutstandingDetailRptExcel(request);
         }
+        public async Task<ResponseModel> GetBillSubmittedSummRptExcel(ReportAgeModel request)
+        {
+            return await freightRptRepository.GetBillSubmittedSummRptExcel(request);
+        }
+        public async Task<ResponseModel> GetBillSubmittedDetailRptExcel(ReportAgeModel request)
+        {
+            return await freightRptRepository.GetBillSubmittedDetailRptExcel(request);
+        }
         public async Task<ResponseModel> GetOutstandingAnalysisRptExcel(ReportRequestModel request)
         {
             return await freightRptRepository.GetOutstandingAnalysisRptExcel(request);
