@@ -288,12 +288,18 @@ export class ConsignmentllpaddComponent {
         var str = this.selectedLrDetails.gcSlNo;
           
         var x = "";
-        if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-        if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-        if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-        if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-        if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-        if (this.seriesLength == "6") x = ("000000" + str).slice(-6);       
+        if(str.length<parseInt(this.seriesLength)){
+          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+          if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+        } 
+        else{
+          x = str;
+        }             
+       
 
         this.formUser.patchValue({
           seriesCode: this.selectedLrDetails.gcSeries,
@@ -369,7 +375,7 @@ export class ConsignmentllpaddComponent {
       freightId: ['', []],
       linkColumn: ['', []],
       remarks: ['', []],
-      rateType : ['', []],   
+      rateType : ['NA', []],   
       rate : ['', []],
       amount: ['', []],
       sgstPct: ['', []],
@@ -411,6 +417,8 @@ export class ConsignmentllpaddComponent {
       for (var i = 0; i < res.gstList.length; i++) {
         this.formGstArray.push(this.createGstArray());
         this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
+        this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
+        this.formGstArray.controls[i].get("rate")?.setValue(res.gstList[i].rate);
         this.formGstArray.controls[i].get("amount")?.setValue(res.gstList[i].amount);
         this.formGstArray.controls[i].get("sgstPct")?.setValue(res.gstList[i].sgstPct);
         this.formGstArray.controls[i].get("sgstAmt")?.setValue(res.gstList[i].sgstAmt);
@@ -603,12 +611,18 @@ export class ConsignmentllpaddComponent {
           var str = selectedData.gcSlNo;
           
           var x = "";
-          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-          if (this.seriesLength == "6") x = ("000000" + str).slice(-6);
+          if(str.length<parseInt(this.seriesLength)){
+            if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+            if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+            if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+            if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+            if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+            if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+          } 
+          else{
+            x = str;
+          }             
+         
 
           
           this.formUser.patchValue({
@@ -728,15 +742,32 @@ export class ConsignmentllpaddComponent {
     });
   }
 
-  onRateChange(i:number){    
+  onRateChange(i:number,e:any){    
     this.formGstArray.controls[i].get("amount")?.setValue("0");
-    this.formGstArray.controls[i].get("sgstPct")?.setValue("0");
-    this.formGstArray.controls[i].get("cgstPct")?.setValue("0");
-    this.formGstArray.controls[i].get("igstPct")?.setValue("0"); 
+    this.formGstArray.controls[i].get("rate")?.setValue("0");
+    if(e.target.value=="NA"){      
+      this.formGstArray.controls[i].get("rate")?.disable();
+      this.formGstArray.controls[i].get("amount")?.enable();
+    }
+    else{
+      this.formGstArray.controls[i].get("rate")?.enable();
+      this.formGstArray.controls[i].get("amount")?.disable();
+    }
   }
 
-  calAmount(i:number){
-
+  calAmount(i:number){    
+    var selectedData = this.formUser.getRawValue();
+    var rate = selectedData.arrayGstList[i].rate!=""?parseFloat(selectedData.arrayGstList[i].rate):0;
+    var amt = 0;
+    if(selectedData.arrayGstList[i].rateType=="RT"){
+      var chrgWt = selectedData.chargewt!=""?parseFloat(selectedData.chargewt):0;
+      amt = chrgWt * rate;
+    }
+    if(selectedData.arrayGstList[i].rateType=="RF"){
+      amt = rate;
+    }    
+    this.formGstArray.controls[i].get("amount")?.setValue(amt);
+    this.calculateAmount();
   }
 
   calculateAmount(){
@@ -927,13 +958,10 @@ export class ConsignmentllpaddComponent {
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
-   // this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
-   // this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
-       this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
+    this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
     this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
     this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
-   // this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
-   this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
+    this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
@@ -1046,9 +1074,6 @@ export class ConsignmentllpaddComponent {
       this.formUser.controls['ewayBillNo'].clearValidators();
       this.formUser.controls['ewayBillDate'].clearValidators();
       this.formUser.controls['ewayBillExpDate'].clearValidators();
-      this.formUser.controls['invoiceNo'].clearValidators();
-      this.formUser.controls['invoiceDate'].clearValidators();
-      this.formUser.controls['invoiceValue'].clearValidators();
       this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
       this.formUser.controls['invoiceNo'].enable();
@@ -1060,9 +1085,6 @@ export class ConsignmentllpaddComponent {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formUser.controls['ewayBillDate'].setValidators([Validators.required]);
       this.formUser.controls['ewayBillExpDate'].setValidators([Validators.required]);
-      this.formUser.controls['invoiceNo'].setValidators([Validators.required]);
-      this.formUser.controls['invoiceDate'].setValidators([Validators.required]);
-      this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
       this.formUser.controls['truckNo'].setValidators([Validators.required]);
       this.formUser.controls['productId'].setValidators([Validators.required]);
 
@@ -1111,9 +1133,6 @@ export class ConsignmentllpaddComponent {
     this.formUser.controls['ewayBillNo'].updateValueAndValidity();
     this.formUser.controls['ewayBillDate'].updateValueAndValidity();
     this.formUser.controls['ewayBillExpDate'].updateValueAndValidity();
-    this.formUser.controls['invoiceNo'].updateValueAndValidity();
-    this.formUser.controls['invoiceDate'].updateValueAndValidity();
-    this.formUser.controls['invoiceValue'].updateValueAndValidity();
     this.formUser.controls['truckNo'].updateValueAndValidity();
     this.formUser.controls['productId'].updateValueAndValidity();
   }
@@ -1230,14 +1249,13 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.shipmentDt = selectedDataValue.shipmentDt;
     this.lrmodel.classId = selectedDataValue.classId;
     this.lrmodel.productId = selectedDataValue.productId;
-    this.lrmodel.productDesc = selectedDataValue.productDesc?selectedDataValue.productDesc.toString():"";
-    
+    this.lrmodel.productDesc = selectedDataValue.productDesc?selectedDataValue.productDesc.toString():"";    
     this.lrmodel.hsnSac = "";
     this.lrmodel.noPackages = selectedDataValue.noPackages.toString();
     this.lrmodel.looseFlag = "N";
     this.lrmodel.weightType = selectedDataValue.weightType;
     this.lrmodel.actualWt = selectedDataValue.actualWt?selectedDataValue.actualWt.toString():"";
-    this.lrmodel.senderWt = selectedDataValue.senderWt?selectedDataValue.senderWt.toString():"";
+    this.lrmodel.senderWt = selectedDataValue.actualWt?selectedDataValue.actualWt.toString():"";
     this.lrmodel.chargewt = selectedDataValue.chargewt?selectedDataValue.chargewt.toString():"";
     this.lrmodel.wtDesc = "";  
     this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 
@@ -1314,6 +1332,8 @@ export class ConsignmentllpaddComponent {
           'consignmentID': '',
           'freightId': selectedDataValue.arrayGstList[i].freightId,
           'remarks': selectedDataValue.arrayGstList[i].remarks.toString().toUpperCase(),
+          'rateType':selectedDataValue.arrayGstList[i].rateType.toString(),
+          'rate':selectedDataValue.arrayGstList[i].rate.toString(),
           'amount': selectedDataValue.arrayGstList[i].amount.toString(),
           'sgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
           'sgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
