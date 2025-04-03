@@ -697,7 +697,7 @@ ngOnInit(): void {
   
     onOwnerPanChange() {
       var selectedData = this.formUser.getRawValue();
-      var pan = selectedData.vehicleOwnerPanNo ;
+      var pan = selectedData.vehicleOwnerPanNo.toString().toUpperCase() ;
       var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
       var test = regexp.test(pan);
       var tdsPct = 0;
@@ -760,7 +760,8 @@ ngOnInit(): void {
                   this.panDetails = res;
                   var panValid = "N";
                   var aadharLinked = "N";
-                  if (this.panDetails.result.number!="") { 
+                   if (this.panDetails.result!= null) { 
+                 // if (this.panDetails.result.number!="") { 
                     if(this.panDetails.result.isValid){
                       panValid= "Y";
                     }
@@ -800,6 +801,10 @@ ngOnInit(): void {
                   }
                   else{          
                     this.toastrService.warning("Invalid PAN No...!");
+                    this.formUser.patchValue({
+                      vehicleOwnerPanNo: "",
+                  
+                    });  
                     return;
                   }            
                 });      
