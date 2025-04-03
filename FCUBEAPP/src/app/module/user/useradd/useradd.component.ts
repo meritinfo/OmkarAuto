@@ -96,6 +96,7 @@ export class UseraddComponent implements OnInit {
       updateAdvancePaid: new FormControl(''),
       dprAdvanceUpdate: new FormControl(''),
       updateCnFreight: new FormControl(''),
+      showFreightDtls: new FormControl('Y'),
       userBranch: new FormControl([], [Validators.required]),
       outOfOffReqOTP: new FormControl('N',[Validators.required]),
       imageName: new FormControl([], ),
@@ -244,8 +245,9 @@ export class UseraddComponent implements OnInit {
     this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';   
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
+    this.userModel.showFreightDtls = selecteddata.showFreightDtls.toString();
     this.userModel.branchList = selecteddata.userBranch.toString();
-    this.userModel.imageName = this.userPhotoName;   
+    this.userModel.imageName = this.userPhotoName;            
     this.userModel.roleId = selecteddata.role;
     this.userModel.outOfOffReqOTP = selecteddata.outOfOffReqOTP.toString();
 
