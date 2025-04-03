@@ -20,5 +20,6 @@ export class Usermodel {
     imageName: string = "";
     empbranch : string = "";
     outOfOffReqOTP: string = "";
+    
   //  imageData: [] = [];
 }

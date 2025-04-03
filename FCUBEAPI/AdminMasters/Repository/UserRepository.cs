@@ -60,6 +60,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@OutOfOffReqOTP", userMasterModel.OutOfOffReqOTP),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
                             new SqlParameter("@ImageName", userMasterModel.ImageName),
+                            new SqlParameter("@ShowFreightDtls", userMasterModel.ShowFreightDtls),
                             new SqlParameter("@LoggedInUser", userMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_UserDetailsSave", param);
@@ -300,6 +301,7 @@ namespace AdminMasters.Repository
                                 DprAdvanceUpdate = Convert.ToString(dataSet.Tables[0].Rows[i]["DprAdvanceUpdate"]),
                                 UpdateCnFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateCnFreight"]),
                                 ImageName       = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
+                                ShowFreightDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["ShowFreightDtls"]),
                                 BranchList      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
                             });
                         }
