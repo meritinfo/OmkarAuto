@@ -60,6 +60,7 @@ export class ConsignmentllpaddComponent {
   keywordLocation = 'dataName';
   createdBy : string = "";
   modifiedBy: string = "";
+  showFreightDtls = false;
 
   step1Active = true;
   step2Active = false;
@@ -139,9 +140,9 @@ export class ConsignmentllpaddComponent {
       ewayBillNo : new FormControl('', [Validators.required]),
       ewayBillDate : new FormControl('', [Validators.required]),
       ewayBillExpDate: new FormControl(''),
-      invoiceNo        : new FormControl('', [Validators.required]),
-      invoiceDate : new FormControl('', [Validators.required]),
-      invoiceValue : new FormControl('', [Validators.required]),
+      invoiceNo        : new FormControl('', ),
+      invoiceDate : new FormControl('', ),
+      invoiceValue : new FormControl('', ),
       declaredValue : new FormControl('',),    
       fromPlace : new FormControl('', [Validators.required]),    
       toPlace : new FormControl('', [Validators.required]),    
@@ -171,35 +172,18 @@ export class ConsignmentllpaddComponent {
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    
       shipmentDt : new FormControl('',),    
-      // deliveryNo : new FormControl('',),    
-      // deliveryDt : new FormControl('',),    
-      // poNo : new FormControl('',),    
-      // poDt : new FormControl('',),    
-      // riskBy : new FormControl('',),    
-      // insCoName :new FormControl('',),    
-      // insPolicyNo : new FormControl('',),    
-      // insValidDt : new FormControl('',),    
-      // insuredValue : new FormControl('',),    
       classId : new FormControl('', [Validators.required]),
       productId : new FormControl('', [Validators.required]),
       productDesc : new FormControl('',),    
       hsnSac : new FormControl('',),    
       noPackages : new FormControl('',),    
       looseFlag : new FormControl('',),    
-      weightType : new FormControl('MT',[Validators.required]), 
-      actualWt : new FormControl('',[Validators.required]),    
-      senderWt : new FormControl('',[Validators.required]),    
-      chargewt : new FormControl('',[Validators.required]),    
+      weightType : new FormControl('MT',), 
+      actualWt : new FormControl('',),   
+      chargewt : new FormControl('',),    
       wtDesc :new FormControl('',),    
       vehicleTypeId :new FormControl('', [Validators.required]),
-      privateMark : new FormControl('',),    
-      bulkYN : new FormControl('',),    
-      loadLength : new FormControl('',),    
-      loadWidth : new FormControl('',),    
-      loadHeight : new FormControl('',),    
-      loadCFT : new FormControl('',),    
-      rateType : new FormControl('1',),    
-      rateDesc : new FormControl('',),    
+      privateMark : new FormControl('',),
       gstBy : new FormControl('N',[Validators.required]),
       rateRs : new FormControl('',),    
       freightRs : new FormControl('',),    
@@ -243,6 +227,7 @@ export class ConsignmentllpaddComponent {
     
     this.sharedService.loading = true;
    // this.getSeriesList();
+    this.getUserRights();
     this.getBranchList();
     this.getGstByList();
     this.getRateList();
@@ -384,6 +369,8 @@ export class ConsignmentllpaddComponent {
       freightId: ['', []],
       linkColumn: ['', []],
       remarks: ['', []],
+      rateType : ['', []],   
+      rate : ['', []],
       amount: ['', []],
       sgstPct: ['', []],
       sgstAmt: ['', []],
@@ -518,6 +505,16 @@ export class ConsignmentllpaddComponent {
   getVehTypes(): void {
     this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicalType = res;
+    });
+  }
+
+  
+  getUserRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
+      if(res.showFreightDtls=="Y"){
+        this.showFreightDtls = true;
+      } 
     });
   }
 
@@ -729,6 +726,17 @@ export class ConsignmentllpaddComponent {
       }   
       
     });
+  }
+
+  onRateChange(i:number){    
+    this.formGstArray.controls[i].get("amount")?.setValue("0");
+    this.formGstArray.controls[i].get("sgstPct")?.setValue("0");
+    this.formGstArray.controls[i].get("cgstPct")?.setValue("0");
+    this.formGstArray.controls[i].get("igstPct")?.setValue("0"); 
+  }
+
+  calAmount(i:number){
+
   }
 
   calculateAmount(){
@@ -1043,7 +1051,6 @@ export class ConsignmentllpaddComponent {
       this.formUser.controls['invoiceValue'].clearValidators();
       this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
-      this.formUser.controls['rateType'].clearValidators();
       this.formUser.controls['invoiceNo'].enable();
       this.formUser.controls['invoiceDate'].enable();
       this.formUser.controls['invoiceValue'].enable();
@@ -1058,7 +1065,6 @@ export class ConsignmentllpaddComponent {
       this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
       this.formUser.controls['truckNo'].setValidators([Validators.required]);
       this.formUser.controls['productId'].setValidators([Validators.required]);
-      this.formUser.controls['rateType'].setValidators([Validators.required]); 
 
       if (selectedValue === "A") {
         //Disable field
@@ -1110,7 +1116,6 @@ export class ConsignmentllpaddComponent {
     this.formUser.controls['invoiceValue'].updateValueAndValidity();
     this.formUser.controls['truckNo'].updateValueAndValidity();
     this.formUser.controls['productId'].updateValueAndValidity();
-    this.formUser.controls['rateType'].updateValueAndValidity();
   }
 
   
@@ -1237,12 +1242,12 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.wtDesc = "";  
     this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 
     this.lrmodel.privateMark = "";  
-    this.lrmodel.bulkYN = selectedDataValue.bulkYN?'Y':'N';
-    this.lrmodel.loadLength = selectedDataValue.loadLength?selectedDataValue.loadLength.toString():"";
-    this.lrmodel.loadWidth = selectedDataValue.loadWidth?selectedDataValue.loadWidth.toString():"";
-    this.lrmodel.loadHeight = selectedDataValue.loadHeight?selectedDataValue.loadHeight.toString():"";
-    this.lrmodel.loadCFT = selectedDataValue.loadCFT?selectedDataValue.loadCFT.toString():"";
-    this.lrmodel.rateType = selectedDataValue.rateType;  
+    this.lrmodel.bulkYN = "";  
+    this.lrmodel.loadLength = "";  
+    this.lrmodel.loadWidth ="";  
+    this.lrmodel.loadHeight = "";  
+    this.lrmodel.loadCFT = "";  
+    this.lrmodel.rateType = "";  
     this.lrmodel.rateDesc = "";  
     this.lrmodel.gstBy = selectedDataValue.gstBy;  
     this.lrmodel.gstType = selectedDataValue.gstType;   

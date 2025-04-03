@@ -580,6 +580,8 @@ namespace AdminMasters.Repository
                         user.UpdateAdvancePaid = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAdvancePaid"]);
                         user.DprAdvanceUpdate = Convert.ToString(statusData.Tables[0].Rows[0]["DprAdvanceUpdate"]);
                         user.UpdateCnFreight = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateCnFreight"]);
+                        user.ShowFreightDtls = Convert.ToString(statusData.Tables[0].Rows[0]["ShowFreightDtls"]);
+                        
                     }
                 }
             }

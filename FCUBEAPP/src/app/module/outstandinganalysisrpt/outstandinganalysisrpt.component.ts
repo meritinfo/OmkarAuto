@@ -114,10 +114,12 @@ export class OutstandinganalysisrptComponent {
       asOnDate: new FormControl(this.loginDate,[Validators.required]),
       rptType: new FormControl('S',),
       party: new FormControl('',),
+      submit: new FormControl('',),
     });
 
     this.filter.fromDate =  "";
     this.filter.toDate = this.loginDate;
+    this.filter.search = '';
     this.filter.filterStr   = this.loginDate;
     this.filter.filterStr1  = "S";
     this.filter.filterStr2  = "";
@@ -140,6 +142,7 @@ export class OutstandinganalysisrptComponent {
       this.partyList = res;
     });
   }
+  
   onrptchange(e:any){
     var rpt = e.target.value;
     if(rpt=="S"){
@@ -183,7 +186,6 @@ export class OutstandinganalysisrptComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = 'Branch';
         this.filter.sortOrder = 'asc';
-        this.filter.search = '';
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -236,13 +238,32 @@ export class OutstandinganalysisrptComponent {
     if(selectedDataVal.rptType=="D"){
       this.filter.filterStr2 = selectedDataVal.party?selectedDataVal.party.dataId:"";
     }
-
-    this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
-      let link = document.createElement("a");
-      link.download = "OutstandingAnalysisReport" + "_" + new Date().getTime() + '.xlsx';
-      link.href = "assets\\reports\\Download\\" + resp.message;
-      link.click();
-    });
+    if(selectedDataVal.submit){
+      if(selectedDataVal.rptType=="D"){
+        this.billoutstandingrptService.getBillSubmittedDetailRptExcel(this.filter).subscribe((resp: any) => {
+          let link = document.createElement("a");
+          link.download = "BillSubmittedDetailReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        });
+      }
+      else{
+        this.billoutstandingrptService.getBillSubmittedSummRptExcel(this.filter).subscribe((resp: any) => {
+          let link = document.createElement("a");
+          link.download = "BillSubmittedDetailReport" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        });
+      }
+    }
+    else{
+      this.billoutstandingrptService.getOutstandingAnalysisRptExcel(this.filter).subscribe((resp: any) => {
+        let link = document.createElement("a");
+        link.download = "OutstandingAnalysisReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      });
+    }
   }
 
   search(): void {

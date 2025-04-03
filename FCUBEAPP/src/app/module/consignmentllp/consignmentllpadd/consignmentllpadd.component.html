@@ -252,26 +252,23 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <div class="mb-3"><label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span>
+                                <div class="mb-3"><label for="formrow-inputZip">Invoice No</label>
                                     <input type="text" id="formrow-inputCity" class="form-control"  
-                                        formControlName="invoiceNo" (change)="fillgrid()"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceNo'].invalid) }">
+                                        formControlName="invoiceNo" (change)="fillgrid()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Invoice Value</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Invoice Value</label>
                                     <input type="text" decimalonly autoclose="false" class="form-control"
-                                        formControlName="invoiceValue" (change)="fillgrid()"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceValue'].invalid) }">
+                                        formControlName="invoiceValue" (change)="fillgrid()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Invoice Date</label><span style="color: red">*</span>
+                                    <label for="formrow-inputState">Invoice Date</label>
                                     <input type="date" autoclose="false"   (change)="fillgrid()"
-                                        formControlName="invoiceDate" max="{{maxDate}}" class="form-control"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceDate'].invalid) }">
+                                        formControlName="invoiceDate" max="{{maxDate}}" class="form-control">
                                 </div>
                             </div>
                         </div>      
@@ -590,47 +587,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">                                                     
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="bulkYN" 
-                                                    class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Is Bulk </label>                                    
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Length</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadLength">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Width</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadWidth">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Height</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadHeight">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load CFT</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadCFT">
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Weight Type</label><span style="color: red">*</span>
+                                    <label for="formrow-inputState">Weight Type</label>
                                     <select id="formrow-inputState"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        formControlName="weightType"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['weightType'].invalid) }">
+                                        formControlName="weightType">
                                         <option value="KG">KG</option>
                                         <option value="MT">MT</option>
                                     </select>
@@ -638,23 +601,14 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Actual Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="actualWt"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
+                                    <label for="formrow-inputZip">Actual Weight</label>
+                                    <input type="text" threedecimalonly class="form-control" formControlName="actualWt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Sender Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="senderWt"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['senderWt'].invalid) }">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Charged Weight</label><span style="color: red">*</span>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
+                                    <label for="formrow-inputZip">Charged Weight</label>
+                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -665,7 +619,140 @@
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                 </div>
                             </div>
-                        </div>        
+                        </div>      
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">Vehicle In Date:</label><span style="color: red">*</span>  
+                                    <input type="date" class="form-control" formControlName="vehicleInDt" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInDt'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Vehicle In Time</label>
+                                    <input type="time" autoclose="false" 
+                                        formControlName="vehicleInTime" class="form-control"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInTime'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">Vehicle Out Date:</label><span style="color: red">*</span>  
+                                    <input type="date" class="form-control" 
+                                    formControlName="vehicleOutDt" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutDt'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Vehicle Out Time</label>
+                                    <input type="time" autoclose="false" 
+                                        formControlName="vehicleOutTime" class="form-control"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutTime'].invalid) }">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Billing Stn</label><span style="color: red">*</span>
+                                    <select formControlName="billingBranch"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingBranch'].invalid) }">
+                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Billing Party </label><span style="color: red">*</span>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="billingParty"
+                                            [searchKeyword]="keywordLocation"  
+                                            (selected)='selectEvent($event)' 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                                            [customFilter]="startWithFilter"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['billingParty'].invalid) }">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Business Branch</label><span style="color: red">*</span>
+                                    <select formControlName="businessBranch"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['businessBranch'].invalid) }">
+                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Business By </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="businessByList" 
+                                            formControlName="businessBy"
+                                            [searchKeyword]="keywordLocation"  
+                                            (selected)='selectEvent($event)' 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Declared Value</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="declaredValue" >
+                                </div>
+                            </div> 
+                            <div class="col-lg-8">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Remarks</label>
+                                    <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                          formControlName="generalRemarks" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">  
+                            <div class="col-lg-4">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Attach File </label>                          
+                                    <input #attachInput class="form-control" type="file" id="formAttach1File">
+                                    <a *ngIf="selectedLrDetails.attachedfile" target="_blank"
+                                                href={{attach1}}>Download</a>
+                                </div>
+                            </div> 
+                        </div>           
                         <div class="row">                    
                             <div class="col-lg-5">
                                 <div class="mb-3">
@@ -690,12 +777,15 @@
                                         id="p-btn1" (click)="nextStep(1)">Previous</button>
                                     <button type="button" class="btn btn-primary w-md next-step ms-2" 
                                     id="n-btn2"  (click)="nextStep(3)">Save and continue</button>&nbsp;
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                    *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted "
+                                        (click)="submitLrDetailsForm()">Save</button>&nbsp;
                                     <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane mt-4"  [ngClass]="{'active' : step3Active}" role="tabpanel" id="step3">
+                    <div class="tab-pane mt-4"  [ngClass]="{'active' : step3Active}" role="tabpanel" id="step3" *ngIf="showFreightDtls">
                         <div class="row">                                                 
                             <div class="col-lg-2">
                                 <div class="mb-3">
@@ -748,7 +838,7 @@
                                                         *ngFor="let arrayData of formGstArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
                                                             <td class="col-lg-1">
-                                                                <div class="col-lg-4 details-button">
+                                                                <div class="col-lg-2 details-button">
                                                                     <button *ngIf="i === formGstArray.controls.length-1" type="button"
                                                                         class="btn btn-add" (click)="addGstItem(i)"></button>
                                                                     <button *ngIf="formGstArray.controls.length > 1"
@@ -764,6 +854,18 @@
                                                                 </select>
                                                                 <input type="hidden" class="form-control" 
                                                                 formControlName="linkColumn" >
+                                                            </td>
+                                                            <td>
+                                                                <select formControlName="rateType" (change)="onRateChange(i)"
+                                                                    class="form-control form-select ng-pristine ng-touched">
+                                                                    <option value="RT">Per TON</option>
+                                                                    <option value="RF">Fix</option>
+                                                                    <option value="NA">NA</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <input decimalonly class="form-control" maxlength="15"
+                                                                formControlName="rate" (change)="calAmount(i)">
                                                             </td>
                                                             <td>
                                                                 <input decimalonly class="form-control" maxlength="15"
@@ -1003,139 +1105,6 @@
                                 </div>
                             </div>                                
                         </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="formrow-inputState">Vehicle In Date:</label><span style="color: red">*</span>  
-                                    <input type="date" class="form-control" formControlName="vehicleInDt" 
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInDt'].invalid) }">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="formrow-inputZip">Vehicle In Time</label>
-                                    <input type="time" autoclose="false" 
-                                        formControlName="vehicleInTime" class="form-control"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleInTime'].invalid) }">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="formrow-inputState">Vehicle Out Date:</label><span style="color: red">*</span>  
-                                    <input type="date" class="form-control" 
-                                    formControlName="vehicleOutDt" 
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutDt'].invalid) }">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="formrow-inputZip">Vehicle Out Time</label>
-                                    <input type="time" autoclose="false" 
-                                        formControlName="vehicleOutTime" class="form-control"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOutTime'].invalid) }">
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Billing Stn</label><span style="color: red">*</span>
-                                    <select formControlName="billingBranch"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingBranch'].invalid) }">
-                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Billing Party </label><span style="color: red">*</span>
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="partyList" 
-                                            formControlName="billingParty"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate" 
-                                            [customFilter]="startWithFilter"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['billingParty'].invalid) }">
-                                        </ng-autocomplete>
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>                            
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Business Branch</label><span style="color: red">*</span>
-                                    <select formControlName="businessBranch"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['businessBranch'].invalid) }">
-                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Business By </label>
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="businessByList" 
-                                            formControlName="businessBy"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate" 
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">                            
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">Declared Value</label>
-                                    <input autoclose="false" type="text" class="form-control" 
-                                        formControlName="declaredValue" >
-                                </div>
-                            </div> 
-                            <div class="col-lg-8">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Remarks</label>
-                                    <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                          formControlName="generalRemarks" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">  
-                            <div class="col-lg-4">
-                                <div class="mb-2">
-                                    <label for="formrow-inputZip">Attach File </label>                          
-                                    <input #attachInput class="form-control" type="file" id="formAttach1File">
-                                    <a *ngIf="selectedLrDetails.attachedfile" target="_blank"
-                                                href={{attach1}}>Download</a>
-                                </div>
-                            </div> 
-                        </div>         
                         <div class="row">                    
                             <div class="col-lg-5">
                                 <div class="mb-3">

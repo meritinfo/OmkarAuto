@@ -14,6 +14,7 @@ export class Usermodel {
     updateAdvancePaid: string = "";
     dprAdvanceUpdate: string = "";
     updateCnFreight: string = "";
+    showFreightDtls:string = "";
     branchList: string = "";
     loggedInUser: string = "";
     imageName: string = "";
