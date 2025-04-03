@@ -19,7 +19,8 @@
         public string? BenApproveBlock { get; set; }
         public string? UpdateAdvancePaid { get; set; }
         public string? DprAdvanceUpdate { get; set; }
-        public string? UpdateCnFreight { get; set; } 
+        public string? UpdateCnFreight { get; set; }
+        public string? ShowFreightDtls { get; set; }        
         public string? BranchList { get; set; }
         public string? LoggedInUser { get; set; }
         public string? ImageName { get; set; }
