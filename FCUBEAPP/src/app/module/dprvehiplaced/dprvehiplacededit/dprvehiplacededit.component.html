@@ -236,7 +236,7 @@
                                     </div> 
                                 </div> 
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Assign To: </label><span style="color: red">*</span>
                                             <select id="scope" class="form-select" formControlName="assignToStaff"
@@ -248,7 +248,7 @@
                                             </select>
                                         </div>
                                     </div> 
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Engaged By: </label>
                                             <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
@@ -259,6 +259,16 @@
                                             </select>
                                         </div>
                                     </div> 
+                                    <div class="col-sm-3">
+                                        <div class="col-lg-10">
+                                            <label>.</label>
+                                            <div class="tex">
+                                                <button class="btn btn-primary w-md" 
+                                                *ngIf="addlr" (click)="updateAssign()"> Update</button>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    
                                 </div> 
                             </div>                  
                             <!-- end card body -->
