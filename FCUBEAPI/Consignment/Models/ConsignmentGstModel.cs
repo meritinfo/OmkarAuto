@@ -7,6 +7,8 @@ namespace Consignment.Models
         public string? ConsignmentID { get; set; }
         public string? FreightId { get; set; }
         public string? Remarks { get; set; }
+        public string? RateType { get; set; }
+        public string? Rate { get; set; }
         public string? Amount { get; set; }
         public string? SgstPct { get; set; }
         public string? SgstAmt { get; set; }

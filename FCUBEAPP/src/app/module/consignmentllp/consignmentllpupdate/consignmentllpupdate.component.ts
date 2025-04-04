@@ -245,6 +245,8 @@ export class ConsignmentllpupdateComponent {
       freightId: ['', []],
       linkColumn: ['', []],
       remarks: ['', []],
+      rateType : ['NA', []],   
+      rate : ['', []],
       amount: ['', []],
       sgstPct: ['', []],
       sgstAmt: ['', []],
@@ -255,7 +257,7 @@ export class ConsignmentllpupdateComponent {
       totalAmt: ['', []],
     });
   }
-
+  
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -469,6 +471,8 @@ export class ConsignmentllpupdateComponent {
       for (var i = 0; i < res.gstList.length; i++) {
         this.formGstArray.push(this.createGstArray());
         this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
+        this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
+        this.formGstArray.controls[i].get("rate")?.setValue(res.gstList[i].rate);
         this.formGstArray.controls[i].get("amount")?.setValue(res.gstList[i].amount);
         this.formGstArray.controls[i].get("sgstPct")?.setValue(res.gstList[i].sgstPct);
         this.formGstArray.controls[i].get("sgstAmt")?.setValue(res.gstList[i].sgstAmt);
@@ -589,6 +593,34 @@ export class ConsignmentllpupdateComponent {
         this.formGstArray.controls[j].get("cgstPct")?.setValue(res.cgstPct);
       }   
     });
+  }
+
+  onRateChange(i:number,e:any){    
+    this.formGstArray.controls[i].get("amount")?.setValue("0");
+    this.formGstArray.controls[i].get("rate")?.setValue("0");
+    if(e.target.value=="NA"){      
+      this.formGstArray.controls[i].get("rate")?.disable();
+      this.formGstArray.controls[i].get("amount")?.enable();
+    }
+    else{
+      this.formGstArray.controls[i].get("rate")?.enable();
+      this.formGstArray.controls[i].get("amount")?.disable();
+    }
+  }
+
+  calAmount(i:number){    
+    var selectedData = this.formUser.getRawValue();
+    var rate = selectedData.arrayGstList[i].rate!=""?parseFloat(selectedData.arrayGstList[i].rate):0;
+    var amt = 0;
+    if(selectedData.arrayGstList[i].rateType=="RT"){
+      var chrgWt = selectedData.chargewt!=""?parseFloat(selectedData.chargewt):0;
+      amt = chrgWt * rate;
+    }
+    if(selectedData.arrayGstList[i].rateType=="RF"){
+      amt = rate;
+    }    
+    this.formGstArray.controls[i].get("amount")?.setValue(amt);
+    this.calculateAmount();
   }
 
   calculateAmount(){
@@ -810,6 +842,8 @@ export class ConsignmentllpupdateComponent {
           'consignmentID': '',
           'freightId': selectedDataValue.arrayGstList[i].freightId,
           'remarks': selectedDataValue.arrayGstList[i].remarks.toString().toUpperCase(),
+          'rateType':selectedDataValue.arrayGstList[i].rateType.toString(),
+          'rate':selectedDataValue.arrayGstList[i].rate.toString(),
           'amount': selectedDataValue.arrayGstList[i].amount.toString(),
           'sgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
           'sgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),

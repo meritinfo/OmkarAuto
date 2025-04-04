@@ -19,7 +19,7 @@
                     <a class="nav-link" [ngClass]="{'active' : step2Active}" data-toggle="tab" aria-controls="step2" role="tab"
                     (click)="nextStep(2)"  title="Step 2">Cnor/Cnee</a>
                 </li>
-                <li role="presentation" class="nav-item">
+                <li role="presentation" class="nav-item" *ngIf="showFreightDtls">
                     <a class="nav-link" [ngClass]="{'active' : step3Active}" data-toggle="tab" aria-controls="step3" role="tab"
                     (click)="nextStep(3)" title="Step 3">Freight</a>
                 </li>
@@ -823,6 +823,8 @@
                                                     <tr>
                                                         <th></th>   
                                                         <th class="col-lg-2"><label for="formrow-inputZip">Freight Desc</label></th>
+                                                        <th><label for="formrow-inputZip">Rate Type</label></th>
+                                                        <th><label for="formrow-inputZip">Rate</label></th>
                                                         <th><label for="formrow-inputZip">Amount</label></th>
                                                         <th><label for="formrow-inputZip">SGST Pct</label></th>
                                                         <th><label for="formrow-inputZip">SGST Amt</label></th>
@@ -837,8 +839,8 @@
                                                     <tr formArrayName="arrayGstList"
                                                         *ngFor="let arrayData of formGstArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
-                                                            <td class="col-lg-1">
-                                                                <div class="col-lg-2 details-button">
+                                                            <td>
+                                                                <div class="details-button">
                                                                     <button *ngIf="i === formGstArray.controls.length-1" type="button"
                                                                         class="btn btn-add" (click)="addGstItem(i)"></button>
                                                                     <button *ngIf="formGstArray.controls.length > 1"
@@ -856,7 +858,7 @@
                                                                 formControlName="linkColumn" >
                                                             </td>
                                                             <td>
-                                                                <select formControlName="rateType" (change)="onRateChange(i)"
+                                                                <select formControlName="rateType" (change)="onRateChange(i,$event)"
                                                                     class="form-control form-select ng-pristine ng-touched">
                                                                     <option value="RT">Per TON</option>
                                                                     <option value="RF">Fix</option>

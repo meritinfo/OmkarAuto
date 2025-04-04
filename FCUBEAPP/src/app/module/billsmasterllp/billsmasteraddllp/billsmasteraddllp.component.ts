@@ -200,12 +200,17 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         var str = this.selectedBillsmasterDetails.billSlNo;
           
         var x = "";
-        if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-        if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-        if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-        if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-        if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-        if (this.seriesLength == "6") x = ("000000" + str).slice(-6);       
+        if(str.length<parseInt(this.seriesLength)){
+          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+          if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+        }  
+        else{
+          x = str;
+        }             
 
         this.formBillsMaster.patchValue({
           billSlNo:x,
@@ -326,12 +331,18 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           var str = selectedData.billSlNo;
           
           var x = "";
-          if (this.seriesLength == "1") x = ("0" + str).slice(-1);
-          if (this.seriesLength == "2") x = ("00" + str).slice(-2);
-          if (this.seriesLength == "3") x = ("000" + str).slice(-3);
-          if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
-          if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
-          if (this.seriesLength == "6") x = ("000000" + str).slice(-6);          
+          if(str.length<parseInt(this.seriesLength)){
+            if (this.seriesLength == "1") x = ("0" + str).slice(-1);
+            if (this.seriesLength == "2") x = ("00" + str).slice(-2);
+            if (this.seriesLength == "3") x = ("000" + str).slice(-3);
+            if (this.seriesLength == "4") x = ("0000" + str).slice(-4);
+            if (this.seriesLength == "5") x = ("00000" + str).slice(-5);
+            if (this.seriesLength == "6") x = ("000000" + str).slice(-6); 
+          } 
+          else{
+            x = str;
+          }             
+         
          
           this.formBillsMaster.patchValue({
             billSlNo:x,

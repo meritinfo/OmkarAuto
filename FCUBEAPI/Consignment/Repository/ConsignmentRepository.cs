@@ -213,6 +213,8 @@ namespace Consignment.Repository
                                 ConsignmentID = Convert.ToString(dataSet.Tables[1].Rows[i]["ConsignmentID"]),
                                 FreightId = Convert.ToString(dataSet.Tables[1].Rows[i]["FreightId"]),
                                 Amount = Convert.ToString(dataSet.Tables[1].Rows[i]["Amount"]),
+                                RateType = Convert.ToString(dataSet.Tables[1].Rows[i]["RateType"]),
+                                Rate = Convert.ToString(dataSet.Tables[1].Rows[i]["Rate"]),
                                 SgstPct = Convert.ToString(dataSet.Tables[1].Rows[i]["SgstPct"]),
                                 SgstAmt = Convert.ToString(dataSet.Tables[1].Rows[i]["SgstAmt"]),
                                 CgstPct = Convert.ToString(dataSet.Tables[1].Rows[i]["CgstPct"]),
@@ -493,6 +495,8 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@ConsignmentID",  gstModel.ConsignmentID),
                             new SqlParameter("@FreightId",      gstModel.FreightId),
+                            new SqlParameter("@RateType",       gstModel.RateType),
+                            new SqlParameter("@Rate",           gstModel.Rate),
                             new SqlParameter("@Amount",         gstModel.Amount),
                             new SqlParameter("@SgstPct",        gstModel.SgstPct),
                             new SqlParameter("@SgstAmt",        gstModel.SgstAmt),
