@@ -97,7 +97,7 @@ export class UseraddComponent implements OnInit {
       dprAdvanceUpdate: new FormControl(''),
       updateCnFreight: new FormControl(''),
       showFreightDtls: new FormControl('Y'),
-      userBranch: new FormControl([], [Validators.required]),
+      userBranch: new FormControl([], [Validators.required]), 
       outOfOffReqOTP: new FormControl('N',[Validators.required]),
       imageName: new FormControl([], ),
     });

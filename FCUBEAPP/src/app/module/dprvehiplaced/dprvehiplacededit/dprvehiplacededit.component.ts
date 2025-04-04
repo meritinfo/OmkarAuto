@@ -271,6 +271,27 @@ export class DprvehiplacededitComponent {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+  updateAssign(){
+    var selectedDataVal =this.formUser.getRawValue();
+    if(this.selectedDprDetails.assignToStaff != ''|| this.selectedDprDetails.vehicleEngagedBy != ''){   
+      this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId ;
+      this.requestmodel.strRequest1 = selectedDataVal.assignToStaff ;
+      this.requestmodel.strRequest2= selectedDataVal.vehicleEngagedBy ;
+        this.dprvehiplacedService.updateAssign(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
+           // this.formUser.reset();
+          // this.route.navigate(['/dprvehplacedlist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
+        });
+       
+      
+    }
+  }
 
   onFocused(e: any) {
     // do something
