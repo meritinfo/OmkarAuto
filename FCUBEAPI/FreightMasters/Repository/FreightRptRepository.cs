@@ -1423,7 +1423,7 @@ namespace FreightMasters.Repository
                             ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
                             ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                            for (int i = 2; i < colcnt; i++)
+                            for (int i = 2; i < dataSet.Tables[0].Columns.Count; i++)
                             {
                                 ws.Cell(5, i-1).Value = dataSet.Tables[0].Columns[i].ColumnName;
                             }
