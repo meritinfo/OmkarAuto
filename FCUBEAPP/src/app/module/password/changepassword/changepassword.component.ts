@@ -68,6 +68,7 @@ export class ChangepasswordComponent {
   }
 
   checkPassword() {
+    this.pwdModel.userId= this.loggedInUserID;
     this.pwdModel.oldPassword = this.formUser.value.oldPassword;
     this.commonService.checkPassword(this.pwdModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
