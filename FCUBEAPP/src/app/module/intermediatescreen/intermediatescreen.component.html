@@ -47,7 +47,8 @@
                                     </div>     
                                     <div class="mb-3">
                                         <label for="formrow-inputState">Login  Date</label>
-                                        <input type="date" [value]="currentServerTime" class="form-control col-md-8" formControlName="loginDate"  [ngClass]="{ 'is-invalid': formSubmitted && (f['loginDate'].invalid) }"
+                                        <input type="date" [value]="currentServerTime" class="form-control col-md-8" 
+                                        formControlName="loginDate"  [ngClass]="{ 'is-invalid': formSubmitted && (f['loginDate'].invalid) }"
                                         max="{{maxDate}}"/>
                                     </div>
                                     <div class="mb-3">
