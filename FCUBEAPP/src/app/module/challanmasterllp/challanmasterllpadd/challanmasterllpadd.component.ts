@@ -359,10 +359,16 @@ ngOnInit(): void {
         this.formUser.patchValue({
           cciInvoice:  "Y"
         })  
+        this.editMode = true; 
+        this.formUser.controls["cciInvoice"].disable();    
+      }
+      else{
+        this.editMode = false;  
+
       }
         
         
-        this.editMode = true;        
+       // this.editMode = true;        
         this.sharedService.loading = false;   
         
       }  
