@@ -649,7 +649,7 @@ export class ConsignmentupdateComponent {
     this.cnmodel.ulReportingDateTime = selectedDataValue.ulReportingDateTime.toString();
     this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
-    this.cnmodel.yearId = this.year;
+    //this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
 
     
