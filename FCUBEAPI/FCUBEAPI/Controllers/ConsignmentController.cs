@@ -37,6 +37,7 @@ namespace FCUBEAPI.Controllers
         readonly IDoBusiness doBusiness;
         readonly IDoVehiInBusiness doVehiInBusiness;
         readonly IDoTempGcBusiness doTempGcBusiness;
+        readonly IDeliveryDisputeEntryBusiness deliveryDisputeEntryBusiness;
         readonly ICciInvoiceMstBusiness cciInvoiceMstBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
@@ -56,7 +57,8 @@ namespace FCUBEAPI.Controllers
             IDoVehiInBusiness _doVehiInBusiness,
             IDoTempGcBusiness _doTempGcBusiness,
             ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
-            IChallanMasterBusinessLLP _challanMasterBusinessLLP)
+            IChallanMasterBusinessLLP _challanMasterBusinessLLP,
+             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -77,6 +79,7 @@ namespace FCUBEAPI.Controllers
             doTempGcBusiness = _doTempGcBusiness;
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
             challanMasterBusinessLLP= _challanMasterBusinessLLP;
+            deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
         }
         
 
@@ -3320,6 +3323,119 @@ namespace FCUBEAPI.Controllers
                 }
 
                 var result = await challanMasterBusinessLLP.ChallanMasterSaveLLP(challanMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DeliveryDisputeEntrySave")]
+        public async Task<IActionResult> DeliveryDisputeEntrySave()
+        {
+            try
+            {
+                var podAttach1 = HttpContext.Request.Form.Files["DispAttach"];
+
+
+                DeliveryDisputeEntryModel deliveryDisputeEntryModel = JsonConvert.DeserializeObject<DeliveryDisputeEntryModel>(HttpContext.Request.Form["datadetails"]);
+                deliveryDisputeEntryModel.DispAttach = "";
+            
+
+                if (podAttach1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(podAttach1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(podAttach1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/deliveryackpod/podattach1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await podAttach1.CopyToAsync(fileStream);
+                        deliveryDisputeEntryModel.DispAttach = imageName;
+                    }
+                }
+               
+
+                var result = await deliveryDisputeEntryBusiness.DeliveryDisputeEntrySave(deliveryDisputeEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDeliveryDisputeEntryList")]
+        public async Task<IActionResult> GetDeliveryDisputeEntryList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryDisputeEntryBusiness.GetDeliveryDisputeEntryList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DeliveryDisputeEntryDelete")]
+        public async Task<IActionResult> DeliveryDisputeEntryDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryDisputeEntryBusiness.DeliveryDisputeEntryDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDeliveryCnDetailsForDispute")]
+        public async Task<IActionResult> GetDeliveryCnDetailsForDispute(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryDisputeEntryBusiness.GetDeliveryCnDetailsForDispute(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateLRForDispute")]
+        public async Task<IActionResult> CheckDuplicateLRForDispute(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryDisputeEntryBusiness.CheckDuplicateLRForDispute(request);
 
                 return Ok(result);
             }

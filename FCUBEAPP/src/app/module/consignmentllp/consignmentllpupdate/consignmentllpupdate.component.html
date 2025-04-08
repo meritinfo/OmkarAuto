@@ -32,7 +32,7 @@
                                             <label for="formrow-inputZip">LR No</label>
                                             <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                            maxlength="15" 
+                                            maxlength="15" uppercaseonly
                                                 formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
