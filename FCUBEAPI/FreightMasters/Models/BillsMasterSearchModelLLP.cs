@@ -30,6 +30,7 @@ namespace FreightMasters.Models
         public string? OthersRs { get; set; }
         public string? SubTotalRs { get; set; }
         public string? GstType { get; set; }
+        public string? GstBy { get; set; }        
         public string? CgstAmt { get; set; }
         public string? SgstAmt { get; set; }
         public string? IgstAmt { get; set; }

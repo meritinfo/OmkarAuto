@@ -21,6 +21,7 @@ export class BillsmastersearchmodelllP {
     othersRs:  string = "";  
     subTotalRs:  string = "";  
     gstType:  string = "";  
+    gstBy:  string = "";  
     cgstAmt:  string = "";  
     sgstAmt:  string = "";  
     igstAmt:  string = "";  

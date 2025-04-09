@@ -380,12 +380,12 @@ export class SparespurchasemasteraddComponent {
         this.formTyreArray.controls[0].get("netAmount")?.disable(); 
         this.formTyreArray.controls[0].get("itemAmount")?.disable();   
 
-        if (this.selectedSparesPurchaseMasterDetail.gstType == "I") {   
+        if (this.selectedSparesPurchaseMasterDetail.gstType == "IG") {   
           this.formTyreArray.controls[i].get("sgstPct")?.disable();   
           this.formTyreArray.controls[i].get("cgstPct")?.disable();  
           this.formTyreArray.controls[i].get("igstPct")?.enable();  
         }    
-        else if (this.selectedSparesPurchaseMasterDetail.gstType == "S" || this.selectedSparesPurchaseMasterDetail.gstType == "C")  {      
+        else if (this.selectedSparesPurchaseMasterDetail.gstType == "SC")  {      
           this.formTyreArray.controls[i].get("sgstPct")?.enable();   
           this.formTyreArray.controls[i].get("cgstPct")?.enable();  
           this.formTyreArray.controls[i].get("igstPct")?.disable();  
@@ -408,12 +408,12 @@ export class SparespurchasemasteraddComponent {
     this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
     this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
       
-      if (selectedDate.gstType == "I") {   
+      if (selectedDate.gstType == "IG") {   
         this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.enable();  
       }    
-      else if (selectedDate.gstType == "S" || selectedDate.gstType == "C")  {      
+      else if (selectedDate.gstType == "SC")  {      
         this.formTyreArray.controls[i+1].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
@@ -472,13 +472,13 @@ export class SparespurchasemasteraddComponent {
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("0"); 
       this.formTyreArray.controls[i].get("itemAmt")?.setValue("0"); 
 
-      if (gsttype == "I") {   
+      if (gsttype == "IG") {   
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.enable();  
         this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }    
-      else if (gsttype == "S" || gsttype == "C")  {      
+      else if (gsttype == "SC")  {      
         this.formTyreArray.controls[i].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  

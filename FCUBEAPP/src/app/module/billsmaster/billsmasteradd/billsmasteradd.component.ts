@@ -107,6 +107,10 @@ export class BillsmasteraddComponent implements OnInit {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
+    var duedt = new Date(this.loginDate);
+    var mnth = duedt.getMonth();
+    duedt.setMonth(mnth + 1);
+    this.duedate = duedt.toLocaleDateString('en-CA').toString();    
     
     this.getBranchList();
     this.getGstByList();

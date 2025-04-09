@@ -415,7 +415,7 @@ export class ConsignmentupdateComponent {
     console.log(e.target.value);
     var gsttype = e.target.value; 
    
-    if (gsttype == "I" ) {   
+    if (gsttype == "IG" ) {   
       this.formUser.controls['sgstPct'].disable();
       this.formUser.controls['cgstPct'].disable();  
       this.formUser.controls['igstPct'].enable();    
@@ -428,7 +428,7 @@ export class ConsignmentupdateComponent {
         igstAmt:"0",
       });   
     }    
-    else if (gsttype == "S")  {      
+    else if (gsttype == "SC")  {      
       this.formUser.controls['sgstPct'].enable();
       this.formUser.controls['cgstPct'].enable();  
       this.formUser.controls['igstPct'].disable();   
@@ -495,7 +495,7 @@ export class ConsignmentupdateComponent {
     //   cgst = parseFloat(selectedData.cgstPct)
     // }
 
-    // if (selectedData.gstType == "I") {   
+    // if (selectedData.gstType == "IG") {   
     //   selectedData.igstPct 
     //   this.formUser.patchValue({
     //     sgstPct:"",
@@ -506,7 +506,7 @@ export class ConsignmentupdateComponent {
     //     igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
     //   });   
     // }    
-    // else if (selectedData.gstType == "S")  {    
+    // else if (selectedData.gstType == "SC")  {    
     //   this.formUser.patchValue({
     //     sgstPct: sgst,
     //     cgstPct: cgst,

@@ -110,6 +110,10 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
+    var duedt = new Date(this.loginDate);
+    var mnth = duedt.getMonth();
+    duedt.setMonth(mnth + 1);
+    this.duedate = duedt.toLocaleDateString('en-CA').toString();    
     
     this.getBranchList();
     this.getGstByList();
@@ -220,21 +224,21 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         })   
         this.formBillsMaster.controls['billSeries'].disable();  
         this.formBillsMaster.controls['billSlNo'].disable();  
-        if (this.selectedBillsmasterDetails.gstType == "IG") {   
-          this.formBillsMaster.controls['sgstPct'].disable();
-          this.formBillsMaster.controls['cgstPct'].disable();  
-          this.formBillsMaster.controls['igstPct'].enable(); 
-        }    
-        else if (this.selectedBillsmasterDetails.gstType == "SC")  {      
-          this.formBillsMaster.controls['sgstPct'].enable();
-          this.formBillsMaster.controls['cgstPct'].enable();  
-          this.formBillsMaster.controls['igstPct'].disable(); 
-        }
-        else{
-          this.formBillsMaster.controls['sgstPct'].disable();
-          this.formBillsMaster.controls['cgstPct'].disable();  
-          this.formBillsMaster.controls['igstPct'].disable(); 
-        }  
+        // if (this.selectedBillsmasterDetails.gstType == "IG") {   
+        //   this.formBillsMaster.controls['sgstPct'].disable();
+        //   this.formBillsMaster.controls['cgstPct'].disable();  
+        //   this.formBillsMaster.controls['igstPct'].enable(); 
+        // }    
+        // else if (this.selectedBillsmasterDetails.gstType == "SC")  {      
+        //   this.formBillsMaster.controls['sgstPct'].enable();
+        //   this.formBillsMaster.controls['cgstPct'].enable();  
+        //   this.formBillsMaster.controls['igstPct'].disable(); 
+        // }
+        // else{
+        //   this.formBillsMaster.controls['sgstPct'].disable();
+        //   this.formBillsMaster.controls['cgstPct'].disable();  
+        //   this.formBillsMaster.controls['igstPct'].disable(); 
+        // }  
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
@@ -288,6 +292,9 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       extras:  ['', []],
       others:  ['', []],
       subTotal:  ['', []],
+      sgstAmt:  ['', []],
+      cgstAmt:  ['', []],
+      igstAmt:  ['', []],
       dedAmt:  ['', []],
       yearId:  ['', []],
       suppBillDetRemarks:  ['', []],
@@ -499,6 +506,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
             'othersRs':res.billsMasterSearchList[i].othersRs,
             'subTotalRs':  res.billsMasterSearchList[i].subTotalRs,
             'gstType':  res.billsMasterSearchList[i].gstType, 
+            'gstBy':res.billsMasterSearchList[i].gstBy,
             'cgstAmt': res.billsMasterSearchList[i].cgstAmt, 
             'sgstAmt':  res.billsMasterSearchList[i].sgstAmt,  
             'igstAmt':  res.billsMasterSearchList[i].igstAmt, 
@@ -613,12 +621,12 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   
   selectedData(i: number, event: any) {
     this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = event.target.checked;      
-    var gst = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType;
-    if(event.target.checked && (gst == 'NA' ||gst == 'N')){
-      this.formBillsMaster.patchValue({
-        gstType: 'NA',
-      });
-    }
+    // var gst = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType;
+    // if(event.target.checked && (gst == 'NA' ||gst == 'N')){
+    //   this.formBillsMaster.patchValue({
+    //     gstType: 'NA',
+    //   });
+    // }
     this.calculateTotal();
   }  
 
@@ -637,6 +645,9 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     var totalExtras = 0;
     var totalOthers = 0;
     var totalSubTotal = 0;
+    var totalSgstAmt = 0;
+    var totalCgstAmt = 0;
+    var totalIgstAmt = 0;
     var totalGtotal = 0;
 
     var billlist = this.billsmastersearchlistmodel.billsMasterSearchList
@@ -656,8 +667,13 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         totalExtras       = totalExtras      + (billlist[i].extrasRS == ""? 0 : parseFloat(billlist[i].extrasRS) );
         totalOthers       = totalOthers      + (billlist[i].othersRs == ""? 0 : parseFloat(billlist[i].othersRs) );
         totalSubTotal     = totalSubTotal    + (billlist[i].subTotalRs == ""? 0 : parseFloat(billlist[i].subTotalRs) );
+        totalSgstAmt      = totalSgstAmt     + (billlist[i].sgstAmt == ""? 0 : parseFloat(billlist[i].sgstAmt) );
+        totalCgstAmt      = totalCgstAmt     + (billlist[i].cgstAmt == ""? 0 : parseFloat(billlist[i].cgstAmt) );
+        totalIgstAmt      = totalIgstAmt     + (billlist[i].igstAmt == ""? 0 : parseFloat(billlist[i].igstAmt) );
       }
     }
+
+    totalGtotal = totalSubTotal + totalSgstAmt + totalCgstAmt + totalIgstAmt;
 
     this.formBillsMaster.patchValue({
       totalFreight      : totalFreight.toFixed(2),
@@ -673,9 +689,12 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       totalExtras       : totalExtras.toFixed(2),
       totalOthers       : totalOthers.toFixed(2),
       totalSubTotal     : totalSubTotal.toFixed(2),
+      totalSgstAmt      : totalSgstAmt.toFixed(2),
+      totalCgstAmt      : totalCgstAmt.toFixed(2),
+      totalIgstAmt      : totalIgstAmt.toFixed(2),
       totalGtotal       : totalGtotal.toFixed(2),
     });
-    this.pctChange();
+    //this.pctChange();
   }
 
   onGstChange(){
@@ -849,8 +868,6 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.billsmastermodel.totalOthers = selectedDataValue.totalOthers.toString();
     this.billsmastermodel.totalUnLoading= selectedDataValue.totalUnLoading.toString();
     this.billsmastermodel.totalSubTotal = selectedDataValue.totalSubTotal.toString();
-    this.billsmastermodel.gstType = selectedDataValue.gstType;
-    this.billsmastermodel.gstBy = selectedDataValue.gstBy;    
     this.billsmastermodel.totalSgstAmt = selectedDataValue.totalSgstAmt.toString();
     this.billsmastermodel.totalCgstAmt = selectedDataValue.totalCgstAmt.toString();
     this.billsmastermodel.totalIgstAmt = selectedDataValue.totalIgstAmt.toString();
@@ -866,8 +883,19 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.billsmastermodel.billSlNo = selectedDataValue.billSlNo;   
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
-    for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
-      if(this.billsmastersearchlistmodel.billsMasterSearchList[i].selected){
+
+    var billList = this.billsmastersearchlistmodel.billsMasterSearchList;
+    var gstType = "NA"
+    var gstBy = "N";    
+    for (var i = 0; i < billList.length; i++) {
+      if(billList[i].selected){
+        gstType = billList[i].gstType!="NA"?billList[i].gstType:gstType;
+        gstBy = billList[i].gstBy!="N"?billList[i].gstBy:gstBy;
+
+        var gtotal =  (billList[i].subTotalRs?parseFloat(billList[i].subTotalRs):0) 
+                    +  (billList[i].sgstAmt?parseFloat(billList[i].sgstAmt):0)
+                    +  (billList[i].cgstAmt?parseFloat(billList[i].cgstAmt):0)
+                    +  (billList[i].igstAmt?parseFloat(billList[i].igstAmt):0)
         this.billsmastermodel.billsMasterListData.push({
           'billDetailId': '',
           'billsMasterId': '',
@@ -894,12 +922,12 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
           'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
           'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
-          'sgstAmt': "",
-          'cgstAmt': "",
-          'igstAmt': "",
+          'sgstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].sgstAmt,
+          'cgstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].cgstAmt,
+          'igstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].igstAmt,
           'nonGstAmt1': "",
           'nonGstAmt2':  "",
-          'gtotal':  this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
+          'gtotal':  gtotal.toFixed(2),
           'dedAmt':"" ,
           'yearId':  this.year,
           'suppBillDetRemarks': "",
@@ -910,6 +938,9 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       }
     }   
     
+    this.billsmastermodel.gstType = gstType;
+    this.billsmastermodel.gstBy = gstBy;    
+
     this.billsMasterService.saveBillsMasterDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

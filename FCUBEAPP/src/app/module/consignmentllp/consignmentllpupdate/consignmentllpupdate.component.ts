@@ -495,10 +495,10 @@ export class ConsignmentllpupdateComponent {
         this.formGstArray.controls[i].get("totalAmt")?.disable();
         this.formGstArray.controls[i].get("remarks")?.disable();
         
-        if (gsttype == "I") {  
+        if (gsttype == "IG") {  
           this.formGstArray.controls[i].get("igstPct")?.enable();  
         }     
-        else if (gsttype == "S")  {     
+        else if (gsttype == "SC")  {     
           this.formGstArray.controls[i].get("sgstPct")?.enable();
           this.formGstArray.controls[i].get("cgstPct")?.enable();
         }   
@@ -533,10 +533,10 @@ export class ConsignmentllpupdateComponent {
         this.formGstArray.controls[i].get("cgstPct")?.disable();
         this.formGstArray.controls[i].get("igstPct")?.disable(); 
 
-      if (gsttype == "I") {  
+      if (gsttype == "IG") {  
         this.formGstArray.controls[i].get("igstPct")?.enable();  
       }     
-      else if (gsttype == "S")  {     
+      else if (gsttype == "SC")  {     
         this.formGstArray.controls[i].get("sgstPct")?.enable();
         this.formGstArray.controls[i].get("cgstPct")?.enable();
       }   
@@ -585,10 +585,10 @@ export class ConsignmentllpupdateComponent {
       this.formGstArray.controls[j].get("cgstPct")?.setValue("0");
       this.formGstArray.controls[j].get("igstPct")?.setValue("0"); 
 
-      if (selectedData.gstType == "I") {  
+      if (selectedData.gstType == "IG") {  
         this.formGstArray.controls[j].get("igstPct")?.setValue(res.igstPct);  
       }     
-      else if (selectedData.gstType  == "S")  {     
+      else if (selectedData.gstType  == "SC")  {     
         this.formGstArray.controls[j].get("sgstPct")?.setValue(res.sgstPct);
         this.formGstArray.controls[j].get("cgstPct")?.setValue(res.cgstPct);
       }   
@@ -731,10 +731,10 @@ export class ConsignmentllpupdateComponent {
       this.formGstArray.controls[i+1].get("igstAmt")?.disable();  
       this.formGstArray.controls[i+1].get("totalAmt")?.disable();  
 
-      if (selectedDataVal.gstType == "I") {  
+      if (selectedDataVal.gstType == "IG") {  
         this.formGstArray.controls[i+1].get("igstPct")?.enable(); 
       }    
-      else if (selectedDataVal.gstType == "S")  {     
+      else if (selectedDataVal.gstType == "SC")  {     
         this.formGstArray.controls[i+1].get("sgstPct")?.enable();
         this.formGstArray.controls[i+1].get("cgstPct")?.enable();
       }

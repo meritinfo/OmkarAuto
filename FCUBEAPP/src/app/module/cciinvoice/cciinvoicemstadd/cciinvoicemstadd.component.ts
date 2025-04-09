@@ -120,7 +120,7 @@ ngOnInit(): void {
     cciInvNo : new FormControl('',[Validators.required]),
     cciInvDate  : new FormControl(this.loginDate,[Validators.required]),
     remarks  : new FormControl('',),
-    gstType : new FormControl('',[Validators.required]),
+    gstType : new FormControl('NA',[Validators.required]),
     totalTaxableAmt : new FormControl('',),
     totalSgstAmt : new FormControl('',[Validators.required]),
     totalCgstAmt : new FormControl('',[Validators.required]),
@@ -323,12 +323,12 @@ get f() { return this.formUser.controls; }
            this.formTyreArray.controls[i].get("totalAmt")?.disable(); 
           // this.formTyreArray.controls[0].get("itemAmount")?.disable();   
   
-          if (this.selectedCciInvMstDetail.gstType == "I") {   
+          if (this.selectedCciInvMstDetail.gstType == "IG") {   
             this.formTyreArray.controls[i].get("sgstPct")?.disable();   
             this.formTyreArray.controls[i].get("cgstPct")?.disable();  
            // this.formTyreArray.controls[i].get("igstPct")?.enable();  
           }    
-          else if (this.selectedCciInvMstDetail.gstType == "S" || this.selectedCciInvMstDetail.gstType == "C")  {      
+          else if (this.selectedCciInvMstDetail.gstType == "SC")  {      
            // this.formTyreArray.controls[i].get("sgstPct")?.enable();   
            // this.formTyreArray.controls[i].get("cgstPct")?.enable();  
             this.formTyreArray.controls[i].get("igstPct")?.disable();  
@@ -406,12 +406,12 @@ get f() { return this.formUser.controls; }
         var igpct =0;
         var sgamt =0;
         var igamt =0;
-        if(selectedDataval.gstType=='S'){
+        if(selectedDataval.gstType=='SC'){
           sgpct = parseFloat(this.pct)/2;
           sgamt = selectedDataval.arrayList[i].taxableAmt*sgpct/100;
           igamt=0;
         }
-        else if(selectedDataval.gstType=='I'){
+        else if(selectedDataval.gstType=='IG'){
           igpct = parseFloat(this.pct);
           igamt = selectedDataval.arrayList[i].taxableAmt*igpct/100;
           sgamt=0;

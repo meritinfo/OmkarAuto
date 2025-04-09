@@ -227,6 +227,7 @@ namespace FreightMasters.Repository
                                 OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
                                 SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                GstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["GstBy"]),
                                 CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
                                 SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
@@ -244,16 +245,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return billsMasterSearchList;
         }
@@ -727,6 +719,7 @@ namespace FreightMasters.Repository
                                 OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
                                 SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                GstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["GstBy"]),                                
                                 CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
                                 SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
@@ -738,7 +731,7 @@ namespace FreightMasters.Repository
                                 Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
                                 OtherAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                               //  YearId = Convert.ToString(dataSet.Tables[0].Rows[i][""]),
-                                // Selected = true,
+                                Selected = true,
                             });
                         }
 
