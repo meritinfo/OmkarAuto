@@ -1,0 +1,112 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Delivery Dispute Entry</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                        min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="fromDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                         min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="toDate" class="form-control">
+                                </div>
+                            </div>         
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">LR No</label> 
+                                    <input autoclose="false"                                         
+                                        formControlName="gcNoteNo" class="form-control">
+                                </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">                    
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
+                        (click)=" deliverydisputeAdd()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>dispBranch </th>                          
+                                <th>dispDate</th>                             
+                                <th>dispSlNo</th>                            
+                                <th>gcNoteNo</th>
+                              
+                                <th>consignmentId</th>
+                                <th>disputeStatus</th>
+                                <th>disputeRemarks</th>
+                                
+
+                                <!-- <th>Action</th> -->
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allDelivery.disputeList?.length != 0">
+                            <tr *ngFor="let dly of allDelivery.disputeList">
+                                <td>{{ dly.brname }}</td>                        
+                                <td>{{ dly.dispDate}}</td>
+                                <td>{{ dly.dispSlNo}}</td>
+                                <td>{{ dly.gcNoteNo}}</td>
+                               
+                                <td>{{ dly.consignmentId}}</td>         
+                                <td>{{ dly.disputeStatus}}</td> 
+                                <td>{{ dly.disputeRemarks}}</td>                
+                                        
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getDeliveryDisputeDetails(dly)"></button>    
+                                             
+                                </td> 
+                                <!-- <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(dly)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>   -->
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allDelivery.disputeList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

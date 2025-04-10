@@ -38,6 +38,7 @@ namespace Consignment.Repository
                              new SqlParameter("@DispBranch" , deliveryDisputeEntryModel.DispBranch  ),
                              new SqlParameter("@DispDate" , deliveryDisputeEntryModel.DispDate ),
                               new SqlParameter("@DispSlNo" , deliveryDisputeEntryModel.DispSlNo ),
+                                new SqlParameter("@GcYear" , deliveryDisputeEntryModel.GcYear  ),
                                 new SqlParameter("@GcBook" , deliveryDisputeEntryModel.GcBook  ),
                                   new SqlParameter("@GcNoteNo" , deliveryDisputeEntryModel.GcNoteNo   ),
                                       new SqlParameter("@ConsignmentId" , deliveryDisputeEntryModel.ConsignmentId    ),
@@ -110,7 +111,8 @@ namespace Consignment.Repository
                                 DisputeStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeStatus"]),
                                 DisputeRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeRemarks"]),
                                 DispAttach = Convert.ToString(dataSet.Tables[0].Rows[i]["DispAttach"]),
-                         
+                                brname = Convert.ToString(dataSet.Tables[0].Rows[i]["brname"]),
+
 
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
@@ -187,6 +189,40 @@ namespace Consignment.Repository
             }
             return deleveryAck;
         }
+        public async Task<ResponseModel> GetDispSlNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@YearID", requestModel.strRequest1),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryDisputeEntryDispSlNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> CheckDuplicateLRForDispute(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -201,10 +237,11 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@GcNoteNo ", requestModel.strRequest),
-                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
+                              new SqlParameter("@GcNoteNo ", requestModel.strRequest),
+                            new SqlParameter("@Branch", requestModel.strRequest1),
+                          
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateLRForDispute", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CheckDeliveryDisputeDoneForLrNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

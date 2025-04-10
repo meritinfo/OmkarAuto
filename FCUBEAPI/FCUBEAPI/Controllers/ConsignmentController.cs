@@ -1524,6 +1524,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
         [HttpPost("CheckDeliveryAckDoneForLrNo")]
         public async Task<IActionResult> CheckDeliveryAckDoneForLrNo(RequestModel request)
         {
@@ -3336,7 +3337,7 @@ namespace FCUBEAPI.Controllers
         {
             try
             {
-                var podAttach1 = HttpContext.Request.Form.Files["DispAttach"];
+                var podAttach1 = HttpContext.Request.Form.Files["podAttach1"];
 
 
                 DeliveryDisputeEntryModel deliveryDisputeEntryModel = JsonConvert.DeserializeObject<DeliveryDisputeEntryModel>(HttpContext.Request.Form["datadetails"]);
@@ -3436,6 +3437,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await deliveryDisputeEntryBusiness.CheckDuplicateLRForDispute(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDispSlNo")]
+        public async Task<IActionResult> GetDispSlNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryDisputeEntryBusiness.GetDispSlNo(request);
 
                 return Ok(result);
             }

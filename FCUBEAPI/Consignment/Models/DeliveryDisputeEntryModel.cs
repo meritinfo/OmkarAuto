@@ -20,6 +20,7 @@ namespace Consignment.Models
         public string? DisputeStatus { get; set; }
         public string? DisputeRemarks { get; set; }
         public string? DispAttach { get; set; }
+        public string? brname { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

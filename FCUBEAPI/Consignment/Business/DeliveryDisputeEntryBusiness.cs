@@ -38,5 +38,9 @@ namespace Consignment.Business
         {
             return await deliveryDisputeEntryRepository.DeliveryDisputeEntryDelete(requestModel);
         }
+        public async Task<ResponseModel> GetDispSlNo(RequestModel requestModel)
+        {
+            return await deliveryDisputeEntryRepository.GetDispSlNo(requestModel);
+        }
     }
 }
