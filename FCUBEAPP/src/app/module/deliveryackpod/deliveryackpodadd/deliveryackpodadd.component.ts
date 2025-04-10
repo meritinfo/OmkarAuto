@@ -458,8 +458,8 @@ export class DeliveryackpodaddComponent {
     }
 
     this.formUser.patchValue({   
-      delayDays:differenceInDays,  
-      detnDays: diffInDays,
+      delayDays:differenceInDays<0?0:differenceInDays,  
+      detnDays: diffInDays<0?0:diffInDays,
       latePodDed:latePodDed.toFixed(2),
     });
     this.calcTot();
@@ -661,7 +661,7 @@ export class DeliveryackpodaddComponent {
     this.deliveryackpodmodel.latePodDed         = selectedDataValue.latePodDed.toString();
     this.deliveryackpodmodel.othDed             = selectedDataValue.othDed?selectedDataValue.othDed.toString():"";
     this.deliveryackpodmodel.netPayable         = selectedDataValue.netPayable.toString();
-    this.deliveryackpodmodel.remarks         = selectedDataValue.remarks.toString().toUpperCase();    
+    this.deliveryackpodmodel.remarks            = selectedDataValue.remarks.toString().toUpperCase();    
     this.deliveryackpodmodel.yearId             = this.year;
     this.deliveryackpodmodel.loggedInUser       = this.loggedInUserID;
 
