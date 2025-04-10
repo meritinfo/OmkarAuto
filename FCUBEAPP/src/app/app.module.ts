@@ -21,6 +21,7 @@ import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
 import { Panwisetdsratemodel } from './models/panwisetdsratemodel';
 import { Billsubmitmastermodel } from './models/billsubmitmastermodel';
 import { Destinationmodel } from './models/destinationmodel';
+import { Deliverydisputeentrymodel } from './models/deliverydisputeentrymodel';
 import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
 import { Brandmastermodel } from './models/brandmastermodel';
 import { Ratetypesmodel } from './models/ratetypesmodel';
@@ -478,6 +479,8 @@ import { BillsDetailModelllP } from './models/billsdetailmodelllp';
 import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
 import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddllp/billsuppliaddllp.component';
 import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
+import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
+import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 
 
 @NgModule({
@@ -625,7 +628,7 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
   ],
   
   imports: [
@@ -697,7 +700,7 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
     ChallanmastermodelllP,ChallanlistmodelllP,
     
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
     
   ],
   bootstrap: [AppComponent]

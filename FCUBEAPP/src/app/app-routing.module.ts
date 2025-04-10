@@ -299,6 +299,9 @@ import { BillsmasterlistllpComponent } from './module/billsmasterllp/billsmaster
 import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmasteraddllp/billsmasteraddllp.component';
 import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddllp/billsuppliaddllp.component';
 import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
+import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
+import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
+
 
 
 
@@ -713,6 +716,9 @@ const routes: Routes = [
   { path: 'billentrysuppaddllp', component:  BillsuppliaddllpComponent },
   { path: 'billentrysuppeditllp', component:  BillsuppliaddllpComponent },
   { path: 'billsupplist_LLP', component:  BillsupplilistllpComponent },  
+  { path: 'disputelist', component: DeliverydisputeentrylistComponent },
+  { path: 'deliverydisputeentryadd', component: DeliverydisputeentryaddComponent },
+  { path: 'deliverydisputeentryedit', component: DeliverydisputeentryaddComponent },
 ];
 
 
