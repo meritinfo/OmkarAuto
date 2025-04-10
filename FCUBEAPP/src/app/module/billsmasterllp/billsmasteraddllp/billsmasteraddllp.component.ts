@@ -791,7 +791,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   }
   
   exit(): void {
-    this.route.navigate(['/billsupplist_LLP']);
+    this.route.navigate(['/billmainlistLLP']);
   }  
 
   billsMasterDelete(): void {
@@ -803,7 +803,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
             if (this.responseDetails.status) {
               this.toasterService.success(this.responseDetails.message);
               this.formBillsMaster.reset();
-              this.route.navigate(['/billsupplist_LLP']);
+              this.route.navigate(['/billmainlistLLP']);
             }
             else {
               this.toasterService.warning(this.responseDetails.message);
@@ -946,7 +946,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formBillsMaster.reset();
-        this.route.navigate(['/billsupplist_LLP']);
+        this.route.navigate(['/billmainlistLLP']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

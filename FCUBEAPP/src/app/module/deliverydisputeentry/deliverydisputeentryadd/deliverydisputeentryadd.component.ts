@@ -163,7 +163,7 @@ ngOnInit(): void {
   //   this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
 
     setTimeout(() => {
-      if (this.selectedDeliveryadispute.disputeId  != '') {
+      if (this.selectedDeliveryadispute.disputeId!='') {
        // this.consignmentId = this.selectedDeliveryackpod.consignmentId;
       //  this.gcYear = this.selectedDeliveryackpod.gcYear;
         this.podAttach1Input.nativeElement.disabled = true;
