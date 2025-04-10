@@ -264,7 +264,7 @@
                                             <label>.</label>
                                             <div class="tex">
                                                 <button class="btn btn-primary w-md" 
-                                                *ngIf="addlr" (click)="updateAssign()"> Update</button>
+                                                *ngIf="updPrepBy" (click)="updateAssign()"> Update</button>
                                             </div>
                                         </div>
                                     </div> 
@@ -383,6 +383,8 @@
                                                     <div *ngIf="addlr" class="col-lg-4 details-button">
                                                         <button *ngIf="(i === formArray.controls.length-1) && !this.formSubmitted " type="button"
                                                             class="btn btn-add" (click)="addItem(i)"></button>
+                                                         <button *ngIf="(formArray.controls.length > 1) "
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
                                                     </div>                                        
                                                 </td>
                                             </div>
@@ -396,7 +398,7 @@
                         <div class="col-lg-10">
                             <div class="tex">
                                 <button class="btn btn-primary w-md" 
-                                *ngIf="addlr" (click)="addRow()"> Add LR</button>
+                                *ngIf="addlr" (click)="addRow()"> Edit LRs</button>
                             </div>
                         </div>
                     </div>

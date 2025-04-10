@@ -56,6 +56,8 @@ namespace AdminMasters.Repository
                             new SqlParameter("@BenApproveBlock", userMasterModel.BenApproveBlock),
                             new SqlParameter("@UpdateAdvancePaid", userMasterModel.UpdateAdvancePaid),
                             new SqlParameter("@DprAdvanceUpdate", userMasterModel.DprAdvanceUpdate),
+                            new SqlParameter("@DprAddLr", userMasterModel.DprAddLr),
+                            new SqlParameter("@UpdateAssignBy", userMasterModel.UpdateAssignBy),
                             new SqlParameter("@UpdateCnFreight", userMasterModel.UpdateCnFreight),
                             new SqlParameter("@OutOfOffReqOTP", userMasterModel.OutOfOffReqOTP),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
@@ -299,6 +301,8 @@ namespace AdminMasters.Repository
                                 BenApproveBlock = Convert.ToString(dataSet.Tables[0].Rows[i]["BenApproveBlock"]),
                                 UpdateAdvancePaid = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateAdvancePaid"]),
                                 DprAdvanceUpdate = Convert.ToString(dataSet.Tables[0].Rows[i]["DprAdvanceUpdate"]),
+                                DprAddLr  = Convert.ToString(dataSet.Tables[0].Rows[i]["DprAddLr"]),
+                                UpdateAssignBy  = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateAssignBy"]),
                                 UpdateCnFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateCnFreight"]),
                                 ImageName       = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
                                 ShowFreightDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["ShowFreightDtls"]),
@@ -581,6 +585,8 @@ namespace AdminMasters.Repository
                         user.BenApproveBlock = Convert.ToString(statusData.Tables[0].Rows[0]["BenApproveBlock"]);
                         user.UpdateAdvancePaid = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAdvancePaid"]);
                         user.DprAdvanceUpdate = Convert.ToString(statusData.Tables[0].Rows[0]["DprAdvanceUpdate"]);
+                        user.DprAddLr = Convert.ToString(statusData.Tables[0].Rows[0]["DprAddLr"]);
+                        user.UpdateAssignBy= Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAssignBy"]);
                         user.UpdateCnFreight = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateCnFreight"]);
                         user.ShowFreightDtls = Convert.ToString(statusData.Tables[0].Rows[0]["ShowFreightDtls"]);
                         

@@ -174,6 +174,30 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">DPR Add/Remove LR</label>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="dprAddLr"
+                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['dprAddLr'].invalid) }"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">DPR Update Assigned BY</label>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="updateAssignBy"
+                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['updateAssignBy'].invalid) }"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label>User Photo</label>

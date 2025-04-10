@@ -1074,6 +1074,7 @@ namespace FreightMasters.Repository
                             var Party = "";
                             decimal tot = 0, brtot = 0, tottot = 0;
                             decimal onac = 0, bronac = 0, totonac = 0;
+                            decimal due = 0, brdue = 0, totdue = 0;
 
 
                             for (int j = 0; j < dataSet.Tables[0].Rows.Count; j++)
@@ -1087,7 +1088,7 @@ namespace FreightMasters.Repository
                                         ws.Range(r, 1, r, 4).Value = "Party Total";
                                         ws.Cell(r, 5).Value  = tot;
                                         ws.Cell(r, 6).Value  = onac;
-                                        ws.Cell(r, 7).Value  = tot - onac;
+                                        ws.Cell(r, 7).Value  = due;
 
                                         ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                                         ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1097,6 +1098,7 @@ namespace FreightMasters.Repository
                                         
                                         tot = 0;
                                         onac = 0;
+                                        due = 0;
                                     }
 
                                     if (BillStnName != dataSet.Tables[0].Rows[j][0].ToString())
@@ -1107,7 +1109,7 @@ namespace FreightMasters.Repository
                                             ws.Range(r, 1, r, 4).Value = "Branch Total";
                                             ws.Cell(r, 5).Value  = brtot;
                                             ws.Cell(r, 6).Value  = bronac;
-                                            ws.Cell(r, 7).Value  = brtot - bronac; 
+                                            ws.Cell(r, 7).Value  = brdue; 
 
                                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1116,6 +1118,7 @@ namespace FreightMasters.Repository
 
                                             brtot = 0;
                                             bronac = 0;
+                                            brdue = 0;
                                         }
 
                                         BillStnName = dataSet.Tables[0].Rows[j][0].ToString();
@@ -1145,12 +1148,15 @@ namespace FreightMasters.Repository
 
                                 tot     = tot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
                                 onac    = onac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                due     = due   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
 
                                 brtot       = brtot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
                                 bronac      = bronac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                brdue     = brdue   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
 
                                 tottot      = tottot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
                                 totonac     = totonac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                totdue     = totdue   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
 
                                 r++;
                             }
@@ -1158,7 +1164,7 @@ namespace FreightMasters.Repository
                             ws.Range(r, 1, r, 4).Value = "Party Total";
                             ws.Cell(r, 5).Value  = tot;
                             ws.Cell(r, 6).Value  = onac;
-                            ws.Cell(r, 7).Value  = tot - onac;
+                            ws.Cell(r, 7).Value  = due;
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1169,7 +1175,7 @@ namespace FreightMasters.Repository
                             ws.Range(r, 1, r, 4).Value = "Branch Total";
                             ws.Cell(r, 5).Value  = brtot;
                             ws.Cell(r, 6).Value  = bronac;
-                            ws.Cell(r, 7).Value  = brtot - bronac; 
+                            ws.Cell(r, 7).Value  = brdue; 
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1180,7 +1186,7 @@ namespace FreightMasters.Repository
                             ws.Range(r, 1, r, 4).Value = "Grand Total";
                             ws.Cell(r, 5).Value  = tottot;
                             ws.Cell(r, 6).Value  = totonac;
-                            ws.Cell(r, 7).Value  = tottot - totonac;
+                            ws.Cell(r, 7).Value  = totdue;
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
