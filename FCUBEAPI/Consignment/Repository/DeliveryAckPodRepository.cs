@@ -54,7 +54,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ShExpActWt", deleveryAckPodModel.ShExpActWt),
                             new SqlParameter("@ExpectedRptdate", deleveryAckPodModel.ExpectedRptdate + " " + deleveryAckPodModel.ExpectedRptTime ),
                             new SqlParameter("@ReportingDate", deleveryAckPodModel.ReportingDate+ " " + deleveryAckPodModel.ReportingTime ),
-                            new SqlParameter("@DelayDays", deleveryAckPodModel.LoggedInUser),
+                            new SqlParameter("@DelayDays", deleveryAckPodModel.DelayDays),
                             new SqlParameter("@DeliveryDate", deleveryAckPodModel.DeliveryDate + " " + deleveryAckPodModel.DeliveryTime),
                             new SqlParameter("@DetnDays", deleveryAckPodModel.DetnDays),
                             new SqlParameter("@PodRecdYN", deleveryAckPodModel.PodRecdYN),
