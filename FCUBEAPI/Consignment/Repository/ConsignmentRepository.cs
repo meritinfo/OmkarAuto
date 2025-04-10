@@ -778,6 +778,7 @@ namespace Consignment.Repository
                             new SqlParameter("@UlReportingDateTime",ConsignmentModel.UlReportingDateTime  ),
                             new SqlParameter("@DeliveryDateTime",   ConsignmentModel.DeliveryDateTime  ),
                             new SqlParameter("@UlDetentionDays",    ConsignmentModel.UlDetentionDays  ),
+                          //  new SqlParameter("@YearId",    ConsignmentModel.YearId),
                             new SqlParameter("@WhatsappPOD1",       ConsignmentModel.WhatsappPOD1   ),
                             new SqlParameter("@WhatsappPOD2",       ConsignmentModel.WhatsappPOD2   ),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
