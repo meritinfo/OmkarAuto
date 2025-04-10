@@ -401,11 +401,6 @@ search(): void {
       billDate:this.commonService.formatDate(this.selectedBillDetails.billDate), 
       dueDate:this.commonService.formatDate(this.selectedBillDetails.dueDate), 
       partyCode :this.partyList.find(e => e.dataId == this.selectedBillDetails.partyCode),
-     
-      // challanFromStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanFromStn),
-      // challanToStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanToStn), 
-    
-           
     })     
     this.getBillEnqInnerGridList();
     

@@ -32,18 +32,15 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Bill Series</label><span style="color: red"> * </span>
-                                             
-
-
                                                 <select formControlName="billSeries"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        (change)="onSeriesChangeLLP()"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
-                                        <option value="">Choose...</option>
-                                        <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select> 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    (change)="onSeriesChangeLLP()"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
+                                                    <option value="">Choose...</option>
+                                                    <option *ngFor="let dl of seriesList" value={{dl.dataId}}>
+                                                        {{dl.dataName}}
+                                                    </option>
+                                                </select> 
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -114,7 +111,7 @@
                                                 </select>
                                             </div>    
                                         </div>
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">GST By</label><span style="color: red"> * </span>                                            
                                                 <select id="formrow-inputState" class="form-control"
@@ -125,7 +122,7 @@
                                                     </option>          
                                                 </select>
                                             </div>
-                                        </div>    
+                                        </div>     -->
                                     </div>
                                     <div class="row">  
                                         <div class="col-lg-3">
@@ -196,6 +193,9 @@
                                             <th><label for="formrow-inputZip">Extras </label></th>
                                             <th><label for="formrow-inputZip">Others </label></th>
                                             <th><label for="formrow-inputZip">Sub Total</label></th>
+                                            <th><label for="formrow-inputZip">SGST Amt</label></th>
+                                            <th><label for="formrow-inputZip">CGST Amt</label></th>
+                                            <th><label for="formrow-inputZip">IGST Amt</label></th>
                                         </tr>
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
@@ -304,6 +304,21 @@
                                                     {{arrayData.subTotalRs}}
                                                 </div>
                                             </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.sgstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.cgstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.igstAmt}}
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
                                     </div>                               
@@ -379,7 +394,7 @@
                                                     formControlName="totalOthers" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">GST Type</label><span style="color: red"> * </span>                                           
                                                 <select id="formrow-inputState" class="form-control"
@@ -390,30 +405,30 @@
                                                         <option value="IG">IGST</option>     
                                                 </select>
                                             </div>
-                                        </div>   
+                                        </div>    -->
                                     </div>
                                     <div class="row">                             
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="sgstPct" (change)="pctChange()">
                                             </div>
-                                        </div>                                  
+                                        </div>                                   -->
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">SGST Amount</label>
+                                                <label for="formrow-inputCity">SGST Amt</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totalSgstAmt" >
                                             </div>
                                         </div>                            
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="cgstPct" (change)="pctChange()">
                                             </div>
-                                        </div>          
+                                        </div>           -->
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amt</label>
@@ -421,13 +436,13 @@
                                                     formControlName="totalCgstAmt">
                                             </div>
                                         </div>                            
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="igstPct" (change)="pctChange()">
                                             </div>
-                                        </div>          
+                                        </div>           -->
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amt</label>
