@@ -54,6 +54,9 @@ export class DprvehiplacedService {
   dprVehiPlacedAddLr(dpr: Dprvehiplacedmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DprVehiPlacedAddLr', dpr, this.httpOptions);
   }
+  dprVehiPlacedDeleteLr(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DprVehiPlacedDeleteLr', req, this.httpOptions);
+  }
   dprVehiPlacedDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DprVehiPlacedDelete', req, this.httpOptions);
   }

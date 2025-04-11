@@ -13,6 +13,8 @@ export class Usermodel {
     benApproveBlock : string = "";
     updateAdvancePaid: string = "";
     dprAdvanceUpdate: string = "";
+    dprAddLr: string = "";
+    updateAssignBy: string = "";
     updateCnFreight: string = "";
     showFreightDtls:string = "";
     branchList: string = "";

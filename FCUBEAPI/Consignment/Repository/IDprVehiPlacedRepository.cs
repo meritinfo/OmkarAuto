@@ -14,6 +14,7 @@ namespace Consignment.Repository
         Task<ResponseModel> DprVehiPlacedDelete(RequestModel requestModel);
         Task<ResponseModel> DprVehiPlacedAdvUpd(ReportRequestModel requestModel);
         Task<ResponseModel> DprVehiPlacedAddLr(DprVehiPlacedModel dprVehi);
+        Task<ResponseModel> DprVehiPlacedDeleteLr(RequestModel requestModel);
         Task<ResponseModel> UpdateAssign(RequestModel requestModel);
     }
 }

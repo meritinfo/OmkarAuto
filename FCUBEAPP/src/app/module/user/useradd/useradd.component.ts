@@ -93,10 +93,12 @@ export class UseraddComponent implements OnInit {
       empbranch: new FormControl(''),
       formUserPhoto: new FormControl(''),
       activeYN: new FormControl('Y', [Validators.required]), 
-      updateAdvancePaid: new FormControl(''),
-      dprAdvanceUpdate: new FormControl(''),
-      updateCnFreight: new FormControl(''),
-      showFreightDtls: new FormControl('Y'),
+      updateAdvancePaid: new FormControl('N', [Validators.required]), 
+      dprAdvanceUpdate: new FormControl('N', [Validators.required]), 
+      updateCnFreight: new FormControl('N', [Validators.required]), 
+      showFreightDtls: new FormControl('Y', [Validators.required]), 
+      dprAddLr:  new FormControl('Y', [Validators.required]), 
+      updateAssignBy:  new FormControl('Y', [Validators.required]), 
       userBranch: new FormControl([], [Validators.required]), 
       outOfOffReqOTP: new FormControl('N',[Validators.required]),
       imageName: new FormControl([], ),
@@ -242,7 +244,9 @@ export class UseraddComponent implements OnInit {
     this.userModel.benApproveBlock = 'N';    
     this.userModel.updateAdvancePaid= selecteddata.updateAdvancePaid?selecteddata.updateAdvancePaid:'N';   
     this.userModel.dprAdvanceUpdate= selecteddata.dprAdvanceUpdate?selecteddata.dprAdvanceUpdate:'N';   
-    this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';   
+    this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';  
+    this.userModel.dprAddLr= selecteddata.dprAddLr?selecteddata.dprAddLr:'N';  
+    this.userModel.updateAssignBy= selecteddata.updateAssignBy?selecteddata.updateAssignBy:'N';  
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.showFreightDtls = selecteddata.showFreightDtls.toString();

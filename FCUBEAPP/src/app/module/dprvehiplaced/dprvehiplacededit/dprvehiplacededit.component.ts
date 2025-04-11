@@ -34,6 +34,7 @@ export class DprvehiplacededitComponent {
   viewStatus = false;
   addlr= false;
   updAdv= false;
+  updPrepBy= false;
   userType: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -358,6 +359,29 @@ export class DprvehiplacededitComponent {
     this.formSubmitted=true;
   }
 
+  removeItem(ind: number): void {   
+    var selectedDataVal = this.formUser.getRawValue();
+    if(selectedDataVal.arrayList[ind].gcNoteNo==""){
+      this.formArray.removeAt(ind);
+      return;
+    }
+    if (confirm("Are you sure, you want to delete this row?")) {      
+      this.requestmodel.strRequest = selectedDataVal.arrayList[ind].gcNoteNo;
+
+      this.dprvehiplacedService.dprVehiPlacedDeleteLr(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          this.toasterService.success(this.responseDetails.message);
+          this.formUser.reset();
+          this.route.navigate(['/dprvehplacedlist']);            
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);        
+        }   
+      });
+    }
+  }
+
   addRow(){ 
     var selectedDataVal = this.formUser.getRawValue();
     this.dprvehiplacedmodel.dprDtls = [];
@@ -555,7 +579,6 @@ export class DprvehiplacededitComponent {
       this.locationList = res;
     });
   }
-
   getUserRights(): void {
     this.requestmodel.strRequest = this.loggedInUserID;
     this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
@@ -565,6 +588,12 @@ export class DprvehiplacededitComponent {
       }
       if(res.dprAdvanceUpdate=="Y"){
         this.updAdv = true;
+      }
+      if(res.dprAddLr=="Y"){
+        this.addlr= true;
+      }
+      if(res.updateAssignBy=="Y"){
+        this.updPrepBy = true;
       }
     });
   }
