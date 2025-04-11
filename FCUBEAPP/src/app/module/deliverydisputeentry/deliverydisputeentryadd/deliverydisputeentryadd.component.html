@@ -65,7 +65,7 @@
                                     </div> -->
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputState">Gc Note No </label>
+                                            <label for="formrow-inputState">Gc Note No </label>  <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control" 
                                           maxlength="15" 
                                                 formControlName="gcNoteNo"  uppercaseonly (change)="getConsignmentDetails($event)"
@@ -89,15 +89,87 @@
                                                     </select>
                                         </div>
                                     </div>  
-                                 
-                                    
-                                    
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label style="color: red"> 
+                                                <h6>Challan No: {{ this.challanNo}} </h6> 
+                                            </label>                                                 
+                                        </div>
+                                    </div> 
                                     
                                 </div>
-                            
-                                
-                               
-
+                                <div class="row">  
+                                   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Booked At</label>
+                                            <select class="form-control" autoclose="false" 
+                                            formControlName="gcBook">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Booked Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="gcDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">From</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="gcFrom" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">To</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="gcTo" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">CN Pkgs</label>
+                                            <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="cnPkgs" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">CN Weight</label>
+                                            <input threedecimalonly autoclose="false" class="form-control"
+                                                formControlName="cnActWt" >
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="row">  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignor</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="consignor" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignee</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="consignee" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Party</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="party" >
+                                        </div>
+                                    </div>  
+                                </div>  
                                 <div class="row"> 
                                     <div class="col-lg-5">
                                         <div class="mb-2">

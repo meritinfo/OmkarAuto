@@ -26,7 +26,7 @@ namespace Consignment.Business
         { 
             return await deliveryDisputeEntryRepository.GetDeliveryDisputeEntryList(request);
         }
-        public async Task<DeliveryAckPodModel> GetDeliveryCnDetailsForDispute(RequestModel request)
+        public async Task<DeliveryDisputeEntryModel> GetDeliveryCnDetailsForDispute(RequestModel request)
         {
             return await deliveryDisputeEntryRepository.GetDeliveryCnDetailsForDispute(request);
         }

@@ -14,7 +14,7 @@ namespace Consignment.Business
 
         Task<DeliveryDisputeEntryList> GetDeliveryDisputeEntryList(ReportRequestModel request);
         Task<ResponseModel> DeliveryDisputeEntryDelete(RequestModel requestModel);
-        Task<DeliveryAckPodModel> GetDeliveryCnDetailsForDispute(RequestModel request);
+        Task<DeliveryDisputeEntryModel> GetDeliveryCnDetailsForDispute(RequestModel request);
         Task<ResponseModel> CheckDuplicateLRForDispute(RequestModel requestModel);
         Task<ResponseModel> GetDispSlNo(RequestModel requestModel);
     }

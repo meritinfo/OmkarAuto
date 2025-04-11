@@ -178,10 +178,10 @@ export class DeliverydisputeentrylistComponent {
           //   title: 'GcNoteNo',
           //   data: 'gcNoteNo'
           // },
-          {
-            title: 'Consignment Id',
-            data: 'consignmentId'
-          },
+          // {
+          //   title: 'Consignment Id',
+          //   data: 'consignmentId'
+          // },
           {
             title: 'Dispute Status',
             data: 'disputeStatus'
