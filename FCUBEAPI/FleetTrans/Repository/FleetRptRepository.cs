@@ -3279,7 +3279,109 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<VehicleEngagementRptListModel> GetVehicleEngagementRptList(ReportRequestModel request)
+        {
+            VehicleEngagementRptListModel vehicleList = new();
+            List<VehicleEngagementRptModel> vehicles = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@EngagedBy",     request.FilterStr),
+                            new SqlParameter("@BrokerId",     request.FilterStr1),
+                            new SqlParameter("@VehicleNo",     request.FilterStr2),
+                        };
 
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleEngagementRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            vehicles.Add(new VehicleEngagementRptModel
+                            {
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                LrNo = Convert.ToString(dataSet.Tables[0].Rows[i]["LRNo"]),
+                                LrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LRDate"]),
+                                LrFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["LRFrom"]),
+                                LrTo = Convert.ToString(dataSet.Tables[0].Rows[i]["LRTo"]),
+                                PartyName = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]),
+                                BrokerName = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
+                                ChallanNumber = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNumber"]),
+                                ExpectedReportingDate= Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedReportingDate"]),
+                                ActualReportingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualReportingDate"]),
+                                LrFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["LRFreight"]),
+                                ChallanHire = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanHire"]),
+                                DeliveryAckStatus= Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryAckStatus"]),
+                                BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),  
+                            });
+                        }
+
+                        vehicleList.VehicleEngagementRptList = vehicles;
+
+                        vehicleList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return vehicleList;
+        }
+        public async Task<ResponseModel> GetVehicleEngagementRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@EngagedBy",     request.FilterStr),
+                            new SqlParameter("@BrokerId",     request.FilterStr1),
+                            new SqlParameter("@VehicleNo",     request.FilterStr2),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleEngagementRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Challan Date : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vehicle Engagement Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
 
     }
 

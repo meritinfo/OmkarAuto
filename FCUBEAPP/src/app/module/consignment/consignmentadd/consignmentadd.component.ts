@@ -115,10 +115,10 @@ export class ConsignmentaddComponent implements OnInit {
     }
     
     
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-  
-  this.fromDate = this.minDate ;
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
   
 
 

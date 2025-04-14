@@ -16,8 +16,8 @@ import { Vehiclefrtoutstandingrptlistmodel  } from 'src/app/models/vehiclefrtout
 import { Sparespurchaserptlistmodel  } from 'src/app/models/sparespurchaserptlistmodel';
 import { Sparesstockrptlistmodel  } from 'src/app/models/sparesstockrptlistmodel';
 import { Spareshistoryrptlistmodel  } from 'src/app/models/spareshistoryrptlistmodel';
-import { VehicleadvbalreceiptlistComponent } from '../module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 import { VehicleadvbalreceiptlistModel } from '../models/vehicleadvbalreceiptlistmodel';
+import { Vehicleengagementrptlistmodel } from '../models/vehicleengagementrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +96,12 @@ export class FleetreportsService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehiclefrtoutstandingRptExcel', filter, this.httpOptions);
   }   
   
+  getVehicleEngagementRptList(filter: Reportmodel): Observable<Vehicleengagementrptlistmodel> {
+    return this.httpClient.post<Vehicleengagementrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleEngagementRptList', filter, this.httpOptions);
+  }  
+  getVehicleEngagementRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleEngagementRptExcel', filter, this.httpOptions);
+  }   
   getSparespurchaserptList(filter: Reportmodel): Observable<Sparespurchaserptlistmodel> {
     return this.httpClient.post<Sparespurchaserptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseRptList', filter, this.httpOptions);
   }  

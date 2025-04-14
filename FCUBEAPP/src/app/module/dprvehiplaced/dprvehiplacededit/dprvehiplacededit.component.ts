@@ -203,7 +203,7 @@ export class DprvehiplacededitComponent {
           });   
         }        
         this.getDprInnerGridList();
-        this.formUser.controls["vehicleNo"].disable();
+        //this.formUser.controls["vehicleNo"].disable();
         this.editMode = true;
         this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
         this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;

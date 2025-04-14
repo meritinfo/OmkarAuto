@@ -301,6 +301,7 @@ import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddl
 import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
+import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
 
 
 
@@ -719,6 +720,9 @@ const routes: Routes = [
   { path: 'disputelist', component: DeliverydisputeentrylistComponent },
   { path: 'deliverydisputeentryadd', component: DeliverydisputeentryaddComponent },
   { path: 'deliverydisputeentryedit', component: DeliverydisputeentryaddComponent },
+  { path: 'vehicleengagementrpt', component: VehicleengagementrptComponent },
+
+  
 ];
 
 

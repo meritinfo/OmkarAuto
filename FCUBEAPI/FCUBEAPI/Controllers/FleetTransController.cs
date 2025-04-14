@@ -2739,6 +2739,44 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetVehicleEngagementRptList")]
+        public async Task<IActionResult> GetVehicleEngagementRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVehicleEngagementRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetVehicleEngagementRptExcel")]
+        public async Task<IActionResult> GetVehicleEngagementRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVehicleEngagementRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetTyrePurchaseRptExcel")]
         public async Task<IActionResult> GetTyrePurchaseRptExcel(ReportRequestModel request)
         {
