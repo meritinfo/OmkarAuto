@@ -3366,7 +3366,7 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(podAttach1.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(podAttach1.FileName);
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/deliveryackpod/podattach1");
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/deliverydispute/dispattach");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)

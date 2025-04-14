@@ -75,6 +75,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@EnlcosedDocs",       billsModel.EnlcosedDocs),
                             new SqlParameter("@BillSeries",       billsModel.BillSeries ),
                             new SqlParameter("@BillSlNo",       billsModel.BillSlNo),
+                            new SqlParameter("@CgstPct",       billsModel.CgstPct),
+                            new SqlParameter("@SgstPct",       billsModel.SgstPct),
+                            new SqlParameter("@IgstPct",       billsModel.IgstPct),
                             new SqlParameter("@YearId",             billsModel.YearId),
                             new SqlParameter("@LoggedInUser",       billsModel.LoggedInUser)
                         };
@@ -383,6 +386,9 @@ namespace FreightMasters.Repository
                                 BillSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["BillSeries"]),
                                 BillSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillSlNo"]),
                                 CollectionBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["CollectionBranch"]),
+                                CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+                                SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
                             });
                         }
 

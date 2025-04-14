@@ -24,6 +24,7 @@ export class ConsignmentllpaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
+  bdate: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -142,7 +143,7 @@ export class ConsignmentllpaddComponent {
       ewayBillExpDate: new FormControl(''),
       invoiceNo        : new FormControl('', ),
       invoiceDate : new FormControl('', ),
-      invoiceValue : new FormControl('', ),
+      invoiceValue : new FormControl('0', ),
       declaredValue : new FormControl('',),    
       fromPlace : new FormControl('', [Validators.required]),    
       toPlace : new FormControl('', [Validators.required]),    
@@ -366,7 +367,7 @@ export class ConsignmentllpaddComponent {
       ewayBillExpDate: ['', []],
       invNo: ['', []],
       invDate: ['', []],
-      invValue: ['', []],
+      invValue: ['0', []],
     });
   }
 
@@ -1311,15 +1312,23 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.gstList = [];
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].invNo != "" && selectedDataValue.arrayList[i].invDate != "" 
-        && selectedDataValue.arrayList[i].invValue != "") {
+      if (selectedDataValue.arrayList[i].invNo != "" ) {
+        // if (selectedDataValue.arrayList[i].invDate != "" ) {
+        //   this.bdate =  selectedDataValue.arrayList[i].invDate;
+
+        // }else{
+        //   this.bdate = selectedDataValue.bookingDate;
+
+        // }
+
         this.lrmodel.invList.push({
           'consignmentID': '',
           'ewayBillNo': selectedDataValue.arrayList[i].ewayBillNo,
           'ewayBillDate': selectedDataValue.arrayList[i].ewayBillDate,
           'ewayBillExpDate': selectedDataValue.arrayList[i].ewayBillExpDate,
           'invoiceNo': selectedDataValue.arrayList[i].invNo,
-          'invoiceDate': selectedDataValue.arrayList[i].invDate,
+         'invoiceDate': selectedDataValue.arrayList[i].invDate,
+      // 'invoiceDate':  this.bdate,
           'invoiceValue': selectedDataValue.arrayList[i].invValue,
           'deliveryNo': '',
         });

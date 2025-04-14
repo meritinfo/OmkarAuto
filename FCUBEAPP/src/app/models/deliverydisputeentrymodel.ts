@@ -14,4 +14,49 @@ export class Deliverydisputeentrymodel  {
     dispAttach :       string = "";
     brname:       string = "";
     loggedInUser:       string = "";
+//newadded
+    gcFrom:       string = ""; 
+    
+    gcTo:       string = "";
+    consignor:   string = "";
+    consignee:   string = "";
+    party:   string = "";    
+    cnPkgs:       string = "";
+    cnActWt:       string = "";
+    delPkgs:       string = "";
+    delActWt:       string = "";
+    shExPkgs:       string = "";
+    shExpActWt:       string = "";
+    expectedRptdate :       string = "";
+    expectedRptTime :       string = "";
+    reportingDate:       string = "";
+    reportingTime:       string = "";
+    delayDays:       string = "";
+    deliveryDate:       string = "";
+    deliveryTime:       string = "";
+    detnDays:       string = "";
+    bookingFrt:       string = "";
+    challanNo:       string = "";
+    podRecdYN:       string = "";
+    podRecdDate :       string = "";
+    podAttach1 :       string = "";
+    podAttach2:       string = "";
+    balancePayable:       string = "";
+    handlingPayable:       string = "";
+    detiontionPayable:       string = "";
+    others1Payable:       string = "";
+    others2Payable:       string = "";
+    totExtPayable:       string = "";
+    deliveryStatus:       string = "";
+    shortageDesc :       string = "";
+    damageDesc:       string = "";
+    shortageClaim:       string = "";
+    damageClaim :       string = "";
+    lateRptDed :       string = "";
+    latePodDed :       string = "";
+    othDed :       string = "";
+    netPayable :       string = "";
+    remarks:       string = "";
+    
+   
 }

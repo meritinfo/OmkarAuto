@@ -111,7 +111,7 @@ ngOnInit(): void {
 
   this.getBranchList();
 
-  this.deliverydisputeentrymodel = this.deliveryDisputeEntryService.getSelectedDeliverydisputeentryDetails();
+  this.selectedDeliveryadispute = this.deliveryDisputeEntryService.getSelectedDeliverydisputeentryDetails();
 
   this.formUser = this.formBuilder.group({
     dispBranch :   new FormControl(this.branch, [Validators.required]),
@@ -126,69 +126,91 @@ ngOnInit(): void {
     disputeStatus  : new FormControl('',[Validators.required] ),
     disputeRemarks : new FormControl('', ),
     dispAttach : new FormControl('', ),
+
+   
+    gcDate:   new FormControl('', ),
+   
+    gcFrom : new FormControl('', ),  
+    gcTo : new FormControl('', ),
+    consignor: new FormControl('', ),
+    consignee: new FormControl('', ),
+    party: new FormControl('', ),
+    cnPkgs: new FormControl('', ),
+    cnActWt: new FormControl('', ),
+    deliveryStatus: new FormControl('',  ),    
+    delPkgs: new FormControl('', ),    
+    delActWt: new FormControl('', ),    
+    shExPkgs: new FormControl('', ),
+    shExpActWt: new FormControl('', ),
+    expectedRptdate: new FormControl('',  ),   
+    expectedRptTime: new FormControl('',  ),   
+    reportingDate: new FormControl('',  ),   
+    reportingTime : new FormControl('',  ),
+    delayDays: new FormControl('', ),
+    deliveryDate: new FormControl('',  ),  
+    deliveryTime : new FormControl('',  ),   
+    detnDays: new FormControl('', ),
+    podRecdYN: new FormControl('', ),
+    podRecdDate: new FormControl('', ),
+    podDelayDays: new FormControl('', ),
+    balancePayable: new FormControl('', ),
+    handlingPayable: new FormControl('', ),
+    detiontionPayable: new FormControl('', ),
+    others1Payable: new FormControl('', ),
+    others2Payable: new FormControl('', ),      
+    totExtPayable: new FormControl('', ),      
+    shortageDesc: new FormControl('', ),
+    damageDesc: new FormControl('', ),
+    shortageClaim: new FormControl('', ),
+    damageClaim : new FormControl('', ),
+    lateRptDed : new FormControl('', ),
+    latePodDed : new FormControl('', ),
+    othDed :  new FormControl('0', ),
+    netPayable : new FormControl('', ),
+    remarks: new FormControl('', ),
  
   });
-  // this.formUser.controls['ackBranch'].disable();
-    this.formUser.controls['dispSlNo'].disable();    
-  //   this.formUser.controls['gcBook'].disable();
-  //   this.formUser.controls['gcDate'].disable();
-  //   this.formUser.controls['gcFrom'].disable();
-  //   this.formUser.controls['gcTo'].disable();
-  //   this.formUser.controls['cnPkgs'].disable();
-  //   this.formUser.controls['cnActWt'].disable();
-  //   this.formUser.controls['consignor'].disable();
-  //   this.formUser.controls['consignee'].disable();
-  //   this.formUser.controls['party'].disable();
-  //   this.formUser.controls['shExPkgs'].disable();
-  //   this.formUser.controls['shExpActWt'].disable();
-  //   this.formUser.controls['expectedRptdate'].disable();
-  //   this.formUser.controls['delayDays'].disable();
-  //   this.formUser.controls['detnDays'].disable();
-  //   this.formUser.controls['balancePayable'].disable();
-  //   this.formUser.controls['netPayable'].disable();
-  //   this.formUser.controls['podRecdDate'].disable();
-  //   this.formUser.controls['latePodDed'].disable();    
+  this.formUser.controls['dispBranch'].disable();
+    this.formUser.controls['dispSlNo'].disable();  
     
-  //   this.formUser.controls['damageDesc'].disable();
-  //   this.formUser.controls['damageClaim'].disable();
-  //   this.formUser.controls['shortageDesc'].disable();
-  //   this.formUser.controls['shortageClaim'].disable(); 
+    this.formUser.controls['gcBook'].disable();
+    this.formUser.controls['gcDate'].disable();
+    this.formUser.controls['gcFrom'].disable();
+    this.formUser.controls['gcTo'].disable();
+    this.formUser.controls['cnPkgs'].disable();
+    this.formUser.controls['cnActWt'].disable();
+    this.formUser.controls['consignor'].disable();
+    this.formUser.controls['consignee'].disable();
+    this.formUser.controls['party'].disable();
   //   this.formUser.controls['damageDesc'].clearValidators();
-  //   this.formUser.controls['damageClaim'].clearValidators();
-  //   this.formUser.controls['shortageDesc'].clearValidators();
-  //   this.formUser.controls['shortageClaim'].clearValidators();    
-  //   this.formUser.controls['damageDesc'].updateValueAndValidity(); 
-  //   this.formUser.controls['damageClaim'].updateValueAndValidity();  
-  //   this.formUser.controls['shortageDesc'].updateValueAndValidity();  
-  //   this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
 
+  //   this.formUser.controls['shortageClaim'].clearValidators();    
+  
     setTimeout(() => {
       if (this.selectedDeliveryadispute.disputeId!='') {
        // this.consignmentId = this.selectedDeliveryackpod.consignmentId;
       //  this.gcYear = this.selectedDeliveryackpod.gcYear;
-        this.podAttach1Input.nativeElement.disabled = true;
+      //  this.podAttach1Input.nativeElement.disabled = true;
 
-        this.podAttach1 = Constants.UploadFolderPath + 'deliveryackpod/podattach1/' + this.selectedDeliveryadispute.dispAttach ;
+        this.podAttach1 = Constants.UploadFolderPath + 'deliverydispute/dispattach/' + this.selectedDeliveryadispute.dispAttach ;
         //this.podAttach2 = Constants.UploadFolderPath + 'deliveryackpod/podattach2/' + this.selectedDeliveryackpod.podAttach2;
         this.formUser.patchValue(this.selectedDeliveryadispute);  
         this.formUser.patchValue({
-          // gcNoteNo: this.selectedDeliveryackpod.gcNoteNo,
+           gcNoteNo: this.selectedDeliveryadispute.gcNoteNo,
           dispDate:this.commonService.formatDate(this.selectedDeliveryadispute.dispDate),
-          // gcDate:this.commonService.formatDate(this.selectedDeliveryackpod.gcDate),
-          // expectedRptdate:this.commonService.formatDate(this.selectedDeliveryackpod.expectedRptdate),
-          // reportingDate:this.commonService.formatDate(this.selectedDeliveryackpod.reportingDate),
-          // deliveryDate:this.commonService.formatDate(this.selectedDeliveryackpod.deliveryDate),
-          // podRecdDate:this.commonService.formatDate(this.selectedDeliveryackpod.podRecdDate), 
+          // dispDate:this.commonService.formatDate(this.selectedDeliveryackpod.dispDate),
+       
         })   
-      
+        this.cnDetail(this.selectedDeliveryadispute.gcNoteNo);
         this.editMode = true;
         this.formUser.controls['gcNoteNo'].disable();   
-        this.formUser.controls['ackDate'].disable();      
+        this.formUser.controls['dispDate'].disable();      
       }  
       else{
        // this.getAckSlno();
+       this.getdispSlNo();
       }
-      this.getdispSlNo();
+     
     }, 2000); 
     this.sharedService.loading=false; 
   }
@@ -203,30 +225,19 @@ ngOnInit(): void {
     });
   }
 
-  // getAckSlno(): void {
-  //   this.requestmodel.strRequest = this.branch;
-  //   this.requestmodel.strRequest1 = this.year;
-  //   this.deliveryackpodService.getAckSlNo(this.requestmodel).subscribe((res: Responsemodel) => {
-  //     this.responseDetails = res;
-  //     if (this.responseDetails.status) {
-  //       this.formUser.patchValue({
-  //         ackSlNo: this.responseDetails.message
-  //       });
-  //     }
-  //    else{
-  //       this.toasterService.warning(this.responseDetails.message);
-  //     }
-  //   });
-  // }
+ 
   
   getConsignmentDetails(e: any) { 
     this.requestmodel.strRequest = e.target.value; 
     this.requestmodel.strRequest1 = this.branch;
-   // this.requestmodel.strRequest2 = this.year;
+   this.requestmodel.strRequest2 = this.year;
     this.deliveryDisputeEntryService.checkDuplicateLrForDispute(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
+
         //ignore
+        this.cnDetail(e.target.value);
+
       }
       else{
         this.toasterService.warning(this.responseDetails.message);
@@ -236,46 +247,68 @@ ngOnInit(): void {
         return;
       }
     });
+
+  }
+  cnDetail(e: any){
+    if(this.selectedDeliveryadispute.disputeId!=''){
+      this.requestmodel.strRequest = this.selectedDeliveryadispute.gcNoteNo; 
+      this.requestmodel.strRequest1 = this.selectedDeliveryadispute.dispBranch;
+     this.requestmodel.strRequest2 = this.year;
+
+    }
+    else{
+      this.requestmodel.strRequest = e; 
+      this.requestmodel.strRequest1 = this.branch;
+     this.requestmodel.strRequest2 = this.year;
+    }
+ 
+    
     this.deliveryDisputeEntryService.getConsignmentDetails(this.requestmodel).subscribe((res) => {
       this.deliverydisputeentrymodel = res;
       this.consignmentId = this.deliverydisputeentrymodel.consignmentId;
      // this.gcYear = this.deliveryackpodmodel.gcYear;
+     if( this.consignmentId==null){
+      this.toasterService.warning("Data not found");   
+
+     }
+     
       this.formUser.patchValue({
-        // gcNoteNo:this.deliveryackpodmodel.gcNoteNo,
-        // gcBook: this.deliveryackpodmodel.gcBook,
-        // gcDate:this.commonService.formatDate(this.deliveryackpodmodel.gcDate),
-        // gcFrom: this.deliveryackpodmodel.gcFrom,
-        // gcTo: this.deliveryackpodmodel.gcTo,
-        // cnPkgs: this.deliveryackpodmodel.cnPkgs,
-        // cnActWt: this.deliveryackpodmodel.cnActWt,           
-        // delPkgs: this.deliveryackpodmodel.cnPkgs,     
-        // delActWt: this.deliveryackpodmodel.cnActWt,     
-        // shExPkgs: "0",
-        // shExpActWt: "0",         
-        // consignor: this.deliveryackpodmodel.consignor,
-        // consignee: this.deliveryackpodmodel.consignee,
-        // party: this.deliveryackpodmodel.party,
-        // expectedRptdate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-        // expectedRptTime:this.deliveryackpodmodel.expectedRptTime,
-        // reportingDate:this.commonService.formatDate(this.deliveryackpodmodel.reportingDate),
-        // reportingTime:this.deliveryackpodmodel.reportingTime,
-        // deliveryDate:this.commonService.formatDate(this.deliveryackpodmodel.deliveryDate),
-        // deliveryTime:this.deliveryackpodmodel.deliveryTime,
-        // // delayDays:"0",
-        // detnDays:this.deliveryackpodmodel.detnDays,
-        // balancePayable:this.deliveryackpodmodel.balancePayable,
-        // handlingPayable:this.deliveryackpodmodel.handlingPayable,
-        // detiontionPayable:this.deliveryackpodmodel.detiontionPayable,
-        // others1Payable:this.deliveryackpodmodel.others1Payable,
-        // others2Payable:this.deliveryackpodmodel.others2Payable,
-        // totExtPayable:this.deliveryackpodmodel.totExtPayable,
-        // netPayable:this.deliveryackpodmodel.balancePayable,
+        gcNoteNo:this.deliverydisputeentrymodel.gcNoteNo,
+        gcBook: this.deliverydisputeentrymodel.gcBook,
+        gcDate:this.commonService.formatDate(this.deliverydisputeentrymodel.gcDate),
+        gcFrom: this.deliverydisputeentrymodel.gcFrom,
+        gcTo: this.deliverydisputeentrymodel.gcTo,
+        cnPkgs: this.deliverydisputeentrymodel.cnPkgs,
+        cnActWt: this.deliverydisputeentrymodel.cnActWt,           
+        delPkgs: this.deliverydisputeentrymodel.cnPkgs,     
+        delActWt: this.deliverydisputeentrymodel.cnActWt,     
+        shExPkgs: "0",
+        shExpActWt: "0",         
+        consignor: this.deliverydisputeentrymodel.consignor,
+        consignee: this.deliverydisputeentrymodel.consignee,
+        party: this.deliverydisputeentrymodel.party,
+        expectedRptdate:this.commonService.formatDate(this.deliverydisputeentrymodel.expectedRptdate),
+        expectedRptTime:this.deliverydisputeentrymodel.expectedRptTime,
+        reportingDate:this.commonService.formatDate(this.deliverydisputeentrymodel.reportingDate),
+        reportingTime:this.deliverydisputeentrymodel.reportingTime,
+        deliveryDate:this.commonService.formatDate(this.deliverydisputeentrymodel.deliveryDate),
+        deliveryTime:this.deliverydisputeentrymodel.deliveryTime,
+        delayDays:"0",
+        detnDays:this.deliverydisputeentrymodel.detnDays,
+        balancePayable:this.deliverydisputeentrymodel.balancePayable,
+        handlingPayable:this.deliverydisputeentrymodel.handlingPayable,
+        detiontionPayable:this.deliverydisputeentrymodel.detiontionPayable,
+        others1Payable:this.deliverydisputeentrymodel.others1Payable,
+        others2Payable:this.deliverydisputeentrymodel.others2Payable,
+        totExtPayable:this.deliverydisputeentrymodel.totExtPayable,
+        netPayable:this.deliverydisputeentrymodel.balancePayable,
       });
       
-      // this.bookingFrt = this.deliveryackpodmodel.bookingFrt;
-      // this.challanNo = this.deliveryackpodmodel.challanNo;
-      // this.formUser.controls["gcNoteNo"].disable();
+      this.bookingFrt = this.deliverydisputeentrymodel.bookingFrt;
+      this.challanNo = this.deliverydisputeentrymodel.challanNo;
+      this.gcYear = this.deliverydisputeentrymodel.gcYear;
     });
+    
   }
 
   deleteDeliveryDisputeForm(): void {
@@ -348,11 +381,11 @@ ngOnInit(): void {
     this.formSubmitted = true;
     var selectedDataValue = this.formUser.getRawValue();
     this.deliverydisputeentrymodel.disputeId               = this.selectedDeliveryadispute.disputeId  ;
-    this.deliverydisputeentrymodel.dispBranch           = selectedDataValue.dispBranch.toString().toUpperCase();
+    this.deliverydisputeentrymodel.dispBranch           = selectedDataValue.dispBranch.toString();
     this.deliverydisputeentrymodel.dispDate             = selectedDataValue.dispDate.toString();
     this.deliverydisputeentrymodel.dispSlNo             = selectedDataValue.dispSlNo.toString();
     this.deliverydisputeentrymodel.gcYear             = this.gcYear;
-    this.deliverydisputeentrymodel.gcBook             = selectedDataValue.gcBook.toString();
+    this.deliverydisputeentrymodel.gcBook             = selectedDataValue.dispBranch.toString();
     this.deliverydisputeentrymodel.gcNoteNo           = selectedDataValue.gcNoteNo.toString();
     this.deliverydisputeentrymodel.consignmentId      = this.consignmentId ;
     this.deliverydisputeentrymodel.yearId              = this.year;

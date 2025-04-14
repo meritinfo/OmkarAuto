@@ -114,6 +114,47 @@ namespace Consignment.Repository
                                 brname = Convert.ToString(dataSet.Tables[0].Rows[i]["brname"]),
 
 
+                                ////new added
+                                //GcFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["GcFrom"]),
+                                //GcTo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcTo"]),
+                                //Consignor = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignor"]),
+                                //Consignee = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignee"]),
+                                //Party = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
+                                //CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["CnPkgs"]),
+                                //CnActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["CnActWt"]),
+                                //DelPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["DelPkgs"]),
+                                //DelActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["DelActWt"]),
+                                //ShExPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExPkgs"]),
+                                //ShExpActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExpActWt"]),
+                                //ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedRptdate"]),
+                                //ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedRptTime"]),
+                                //ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDate"]),
+                                //ReportingTime = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingTime"]),
+                                //DelayDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayDays"]),
+                                //DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
+                                //DeliveryTime = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryTime"]),
+                                //DetnDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetnDays"]),
+                                //PodRecdYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdYN"]),
+                                //PodRecdDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdDate"]),
+                                //PodAttach1 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach1"]),
+                                //PodAttach2 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach2"]),
+                                //BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePayable"]),
+                                //HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingPayable"]),
+                                //DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["DetiontionPayable"]),
+                                //Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others1Payable"]),
+                                //Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others2Payable"]),
+                                //TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtPayable"]),
+                                //DeliveryStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryStatus"]),
+                                //ShortageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageDesc"]),
+                                //DamageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["DamageDesc"]),
+                                //ShortageClaim = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageClaim"]),
+                                //DamageClaim = Convert.ToString(dataSet.Tables[0].Rows[i]["DamageClaim"]),
+                                //LateRptDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LateRptDed"]),
+                                //LatePodDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LatePodDed"]),
+                                //NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+                                //Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+
+
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
@@ -136,9 +177,9 @@ namespace Consignment.Repository
             }
             return disputeEntryList;
         }
-        public async Task<DeliveryAckPodModel> GetDeliveryCnDetailsForDispute(RequestModel request)
+        public async Task<DeliveryDisputeEntryModel> GetDeliveryCnDetailsForDispute(RequestModel request)
         {
-            DeliveryAckPodModel deleveryAck = new();
+            DeliveryDisputeEntryModel deleveryAck = new();
             try
             {
                 if (dbconnection != null)
@@ -149,7 +190,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Branch", request.strRequest1),
                            // new SqlParameter("@Year", request.strRequest2),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryCnDetails", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryCnDetailsForDispute", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -165,22 +206,22 @@ namespace Consignment.Repository
                         deleveryAck.Party = Convert.ToString(dataSet.Tables[0].Rows[0]["Party"]);
                         deleveryAck.CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["CnPkgs"]);
                         deleveryAck.CnActWt = Convert.ToString(dataSet.Tables[0].Rows[0]["CnActWt"]);
-                        deleveryAck.ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptdate"]);
-                        deleveryAck.ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptTime"]);
-                        deleveryAck.ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingDate"]);
-                        deleveryAck.ReportingTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingTime"]);
-                        deleveryAck.DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDate"]);
-                        deleveryAck.DeliveryTime = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryTime"]);
-                        deleveryAck.DetnDays = Convert.ToString(dataSet.Tables[0].Rows[0]["DetnDays"]);
-                        deleveryAck.BookingFrt = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
+                        //deleveryAck.ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptdate"]);
+                        //deleveryAck.ExpectedRptTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptTime"]);
+                        //deleveryAck.ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingDate"]);
+                        //deleveryAck.ReportingTime = Convert.ToString(dataSet.Tables[0].Rows[0]["ReportingTime"]);
+                        //deleveryAck.DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDate"]);
+                        //deleveryAck.DeliveryTime = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryTime"]);
+                        //deleveryAck.DetnDays = Convert.ToString(dataSet.Tables[0].Rows[0]["DetnDays"]);
+                        //deleveryAck.BookingFrt = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
                         deleveryAck.ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanNo"]);
-                        deleveryAck.BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayable"]);
-                        deleveryAck.HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingPayable"]);
-                        deleveryAck.DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["DetiontionPayable"]);
-                        deleveryAck.Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1Payable"]);
-                        deleveryAck.Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2Payable"]);
-                        deleveryAck.TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExtPayable"]);
-                        deleveryAck.NetPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["NetPayable"]);
+                        //deleveryAck.BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayable"]);
+                        //deleveryAck.HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingPayable"]);
+                        //deleveryAck.DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["DetiontionPayable"]);
+                        //deleveryAck.Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1Payable"]);
+                        //deleveryAck.Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2Payable"]);
+                        //deleveryAck.TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExtPayable"]);
+                        //deleveryAck.NetPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["NetPayable"]);
                     }
                 }
             }
@@ -278,7 +319,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DisputeId ", requestModel.strRequest),
+                            new SqlParameter("@DisputeId", requestModel.strRequest),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DeliveryDisputeEntryDelete", param);
 
