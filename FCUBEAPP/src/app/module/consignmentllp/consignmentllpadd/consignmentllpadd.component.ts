@@ -201,7 +201,7 @@ export class ConsignmentllpaddComponent {
       extrasRS : new FormControl('',),    
       othersRs : new FormControl('',),    
       subTotalRs : new FormControl('',),    
-      gstType : new FormControl('NA',),    
+      gstType : new FormControl('NA', [Validators.required]),  
       //sgstPct : new FormControl('',),    
       sgstAmt : new FormControl('',),    
       //cgstPct : new FormControl('',),    
@@ -1203,6 +1203,10 @@ export class ConsignmentllpaddComponent {
       this.toastrService.warning(" Billing Party is Invalid");
       return;
     }
+    var gstType = "NA";
+    if(selectedDataValue.gstBy=="F"){
+      gstType = selectedDataValue.gstType;
+    }
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
@@ -1269,7 +1273,7 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.rateType = "";  
     this.lrmodel.rateDesc = "";  
     this.lrmodel.gstBy = selectedDataValue.gstBy;  
-    this.lrmodel.gstType = selectedDataValue.gstType;   
+    this.lrmodel.gstType = gstType;   
     this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs.toString() : "0";
     this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs.toString() : "0";
     this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs.toString() : "0";

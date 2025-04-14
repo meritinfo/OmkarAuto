@@ -110,7 +110,7 @@ export class TyresalesaddComponent {
       customerAdd : new FormControl('',),  
       customerGstNo: new FormControl('',),  
       pmtType: new FormControl('',),  
-      gstType : new FormControl('N',),  
+      gstType : new FormControl('NA',),  
       tyreAmount: new FormControl('',[Validators.required]),
       sgstPct : new FormControl('',),  
       sgstAmt : new FormControl('',),  
@@ -259,12 +259,12 @@ export class TyresalesaddComponent {
       igstAmt:"0",
     }) 
 
-    if (gsttype == "I") {   
+    if (gsttype == "IG") {   
       this.formUser.controls['sgstPct'].disable();  
       this.formUser.controls['cgstPct'].disable(); 
       this.formUser.controls['igstPct'].enable();  
     }    
-    else if (gsttype == "S" || gsttype == "C")  {   
+    else if (gsttype == "SC")  {   
       this.formUser.controls['sgstPct'].enable();  
       this.formUser.controls['cgstPct'].enable(); 
       this.formUser.controls['igstPct'].disable();  
