@@ -359,6 +359,7 @@ export class BillsubmitmasteraddComponent {
     this.billsubmitmastermodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
     this.billsubmitmastermodel.totalSubmitAmt= selectedDataValue.totalSubmitAmt;
     this.billsubmitmastermodel.yearID= this.year;
+    
     this.billsubmitmastermodel.loggedInUser=  this.loggedInUserID;
 
     this.billsubmitmastermodel.billSubmitMasterDtlList = [];

@@ -43,6 +43,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   partyList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
+  gstByList: Dropdownmodel[] = [];
   formBillsMaster!: FormGroup;
   keywordLocation = 'dataName';
   supp = false;
@@ -119,7 +120,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     var mnth = duedt.getMonth();
     duedt.setMonth(mnth + 1);
     this.duedate = duedt.toLocaleDateString('en-CA').toString();    
-   
+   this.getGstByList();
     this.getBranchList();
     this.getBillingPartyList();
     this.getLocationList();
@@ -144,9 +145,9 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       totalFreight: new FormControl('',[Validators.required]),
       totalExtras: new FormControl(''),
       totalOthers: new FormControl(''),
-      sgstPct: new FormControl(''),
-      cgstPct: new FormControl(''),
-      igstPct: new FormControl('',),
+      sgstPct: new FormControl('0'),
+      cgstPct: new FormControl('0'),
+      igstPct: new FormControl('0'),
       totalSgstAmt: new FormControl(''),
       totalCgstAmt: new FormControl(''),
       totalIgstAmt: new FormControl(''),
@@ -264,6 +265,31 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   get formArray() {
     return this.formBillsMaster.get("arrayList") as FormArray;
   }  
+
+  changeGstUnder(e: any) {
+    console.log(e.target.value);
+    var selectedValue = e.target.value;
+    if(selectedValue=='N'||selectedValue=="E"|| selectedValue=="R"){
+    this.formBillsMaster.patchValue({
+      gstType : "NA",
+    });
+    this.formBillsMaster.controls['gstType'].disable();
+    this.onGstChange();
+    }
+    else{
+      
+        this.formBillsMaster.patchValue({
+          gstType : "",
+         
+        });
+        this.onGstChange();
+        this.formBillsMaster.controls['gstType'].enable();
+
+    }
+    
+    //this.getCreditAcList(selectedValue);
+  }
+  
   
   getSeriesList(br: string): void {
     this.requestmodel.strRequest = "B";
@@ -272,6 +298,14 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       this.seriesList = res;
     });
   }
+
+
+  getGstByList(): void {
+    this.commonService.getGstByList().subscribe((res) => {
+      this.gstByList = res;
+    });
+  }  
+
 
   
   createInitialArray() {
@@ -492,8 +526,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       this.formBillsMaster.controls['cgstPct'].disable();  
       this.formBillsMaster.controls['igstPct'].enable();    
       this.formBillsMaster.patchValue({
-        sgstPct:"",
-        cgstPct:"",
+        sgstPct:"0",
+        cgstPct:"0",
         igstPct:"0",
         totalSgstAmt:"",
         totalCgstAmt:"",
@@ -507,7 +541,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       this.formBillsMaster.patchValue({
         sgstPct:"0",
         cgstPct:"0",
-        igstPct:"",
+        igstPct:"0",
         totalSgstAmt:"0",
         totalCgstAmt:"0",
         totalIgstAmt:"",
@@ -518,9 +552,9 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       this.formBillsMaster.controls['cgstPct'].disable();  
       this.formBillsMaster.controls['igstPct'].disable();   
       this.formBillsMaster.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct:"",
+        sgstPct:"0",
+        cgstPct:"0",
+        igstPct:"0",
         totalSgstAmt:"",
         totalCgstAmt:"",
         totalIgstAmt:"",
@@ -797,6 +831,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.billsmastermodel.totalUnLoading= "";
     this.billsmastermodel.totalSubTotal = "";
     this.billsmastermodel.gstType = selectedDataValue.gstType;
+
     this.billsmastermodel.totalSgstAmt = selectedDataValue.totalSgstAmt.toString();
     this.billsmastermodel.totalCgstAmt = selectedDataValue.totalCgstAmt.toString();
     this.billsmastermodel.totalIgstAmt = selectedDataValue.totalIgstAmt.toString();
@@ -810,6 +845,10 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
     this.billsmastermodel.yearId = this.year;
     this.billsmastermodel.billSeries = selectedDataValue.billSeries;
     this.billsmastermodel.billSlNo = selectedDataValue.billSlNo;   
+    this.billsmastermodel.cgstPct = selectedDataValue.cgstPct.toString();  
+    this.billsmastermodel.sgstPct = selectedDataValue.sgstPct.toString(); 
+    this.billsmastermodel.igstPct = selectedDataValue.igstPct.toString(); 
+    this.billsmastermodel.gstBy = selectedDataValue.gstBy; 
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
 
