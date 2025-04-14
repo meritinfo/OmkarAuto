@@ -70,6 +70,9 @@ export class BillsmastermodelllP {
     collectionBranch: string = "";  
     billSeries: string = "";  
     billSlNo: string = "";  
+    cgstPct: string = ""; 
+    sgstPct: string = ""; 
+    igstPct: string = ""; 
     loggedInUser: string = "";  
     billsMasterListData: BillsDetailModel[] = [];
    // billsEnqListData: Billsmastersearchmodel[] = [];
