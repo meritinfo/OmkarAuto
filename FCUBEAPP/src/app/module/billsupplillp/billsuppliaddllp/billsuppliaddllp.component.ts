@@ -157,6 +157,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
       enlcosedDocs: new FormControl('',),
       billSeries: new FormControl('',),
       billSlNo: new FormControl('',),
+      gstBy: new FormControl('',),
   
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
