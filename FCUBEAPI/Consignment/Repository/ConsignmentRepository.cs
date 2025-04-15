@@ -917,7 +917,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@Branch",     request.strRequest),
                             new SqlParameter("@GCNoteNo",   request.strRequest1),
-                            new SqlParameter("@YearId",   request.strRequest2),
+                            new SqlParameter("@DprId",    request.strRequest2),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkDuplicateLR", param);
 

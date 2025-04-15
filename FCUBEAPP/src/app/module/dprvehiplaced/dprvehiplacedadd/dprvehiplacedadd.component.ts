@@ -263,6 +263,7 @@ export class DprvehiplacedaddComponent {
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
+      this.requestmodel.strRequest2 = "";
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -508,6 +509,7 @@ export class DprvehiplacedaddComponent {
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+      this.requestmodel.strRequest2 = "";
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {

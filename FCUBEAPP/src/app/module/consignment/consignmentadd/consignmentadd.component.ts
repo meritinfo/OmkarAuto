@@ -470,7 +470,7 @@ export class ConsignmentaddComponent implements OnInit {
     else{
       this.requestmodel.strRequest = selectedData.bookingPlace;
       this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest2 = "";
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
