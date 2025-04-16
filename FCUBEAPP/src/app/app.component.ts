@@ -121,8 +121,13 @@ export class AppComponent implements OnInit {
   //Shortcut key for doc allot list -> Ctrl + M
   @HostListener('window:keydown.control.m', ['$event'])
   conFont(event: KeyboardEvent) {
-    event.preventDefault();
-    this.route.navigate(['/docallotlist']);
+    event.preventDefault(); 
+    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+      this.route.navigate(['/docallotllp']);
+    }
+    else{
+      this.route.navigate(['/docallotlist']);
+    }
   }
   //Shortcut key for Transport list -> Ctrl + T
   @HostListener('window:keydown.control.t', ['$event'])
@@ -134,23 +139,23 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.l', ['$event'])
   othertripFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="NETWORK CARRYING COMPANY PRIVATE LIMITED") {
-      this.route.navigate(['/consignmentlist']);
+    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+      this.route.navigate(['/consignmentllp']);
     }
     else{
-    this.route.navigate(['/consignmentllp']);
+      this.route.navigate(['/consignmentlist']);
     }
   }
   //Shortcut key for Challan list -> Ctrl + G
   @HostListener('window:keydown.control.g', ['$event'])
   dieselFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="NETWORK CARRYING COMPANY PRIVATE LIMITED") {
-    this.route.navigate(['/challanlist']);
+    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+      this.route.navigate(['/challan_llplist']);
     }
     else{
-      this.route.navigate(['/challan_llplist']);
-      }
+      this.route.navigate(['/challanlist']);
+    }
   }
   //Shortcut key for Lorry Hire Payments list -> Ctrl + H
   @HostListener('window:keydown.control.h', ['$event'])
@@ -168,7 +173,12 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.b', ['$event'])
   billFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/billstatementlist']);
+    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+      this.route.navigate(['/billmainlistLLP']);
+    }
+    else{
+      this.route.navigate(['/billstatementlist']);
+    }
   }
   //Shortcut key for Consignment Enquiry -> Ctrl + E
   @HostListener('window:keydown.control.e', ['$event'])
