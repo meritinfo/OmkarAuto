@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 
   showModalBox: boolean = false;
   user: string = '';
+  company: string = '';
 
   idleState = 'Not started.';
   timedOut = false;
@@ -36,6 +37,15 @@ export class AppComponent implements OnInit {
     if (typeof userName !== 'undefined' && userName !== null && userName !== '') {
       this.user = userName;
     }
+    var userName = sessionStorage.getItem('user')?.toString();
+    if (typeof userName !== 'undefined' && userName !== null && userName !== '') {
+      this.user = userName;
+    }
+    var userData5 = sessionStorage.getItem('companyname')?.toString();
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData !== '') {
+      this.company = userData5;
+    }
+    
     if (this.sharedService.loggedInStatus) {
       // sets an idle timeout of 1500 seconds.
       this.idle.setIdle(3000);
@@ -124,13 +134,23 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.l', ['$event'])
   othertripFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/consignmentlist']);
+    if(this.company =="NETWORK CARRYING COMPANY PRIVATE LIMITED") {
+      this.route.navigate(['/consignmentlist']);
+    }
+    else{
+    this.route.navigate(['/consignmentllp']);
+    }
   }
   //Shortcut key for Challan list -> Ctrl + G
   @HostListener('window:keydown.control.g', ['$event'])
   dieselFont(event: KeyboardEvent) {
     event.preventDefault();
+    if(this.company =="NETWORK CARRYING COMPANY PRIVATE LIMITED") {
     this.route.navigate(['/challanlist']);
+    }
+    else{
+      this.route.navigate(['/challan_llplist']);
+      }
   }
   //Shortcut key for Lorry Hire Payments list -> Ctrl + H
   @HostListener('window:keydown.control.h', ['$event'])
