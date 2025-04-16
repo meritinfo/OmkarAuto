@@ -314,7 +314,7 @@ export class DprvehiplacededitComponent {
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
-      this.requestmodel.strRequest2 = this.year;
+      this.requestmodel.strRequest2 = "";
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -431,10 +431,9 @@ export class DprvehiplacededitComponent {
       this.requestmodel.strRequest = truckno;
       this.requestmodel.strRequest1 = this.loggedInUserID;
       this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
-        this.selectedDprDetails = res; 
-        var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
-        var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
-        var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        var vehInsValidDate = res.vehInsValidDate;
+        var vehFitValidDate = res.vehFitValidDate;
+        var vehPermitValidDate = res.vehPermitValidDate;
         
         vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
         vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
@@ -451,11 +450,11 @@ export class DprvehiplacededitComponent {
         }
 
         this.formUser.patchValue({
-          vehOwnerName: this.selectedDprDetails.vehOwnerName,
-          vehAdd1 : this.selectedDprDetails.vehAdd1,
-          vehAdd2 : this.selectedDprDetails.vehAdd2,
-          ownerPan : this.selectedDprDetails.ownerPan,
-          vehOwnerMobile : this.selectedDprDetails.vehOwnerMobile,
+          vehOwnerName: res.vehOwnerName,
+          vehAdd1 : res.vehAdd1,
+          vehAdd2 : res.vehAdd2,
+          ownerPan : res.ownerPan,
+          vehOwnerMobile : res.vehOwnerMobile,
           vehInsValidDate : vehInsValidDate,
           vehFitValidDate : vehFitValidDate,
           vehPermitValidDate : vehPermitValidDate,
@@ -620,7 +619,7 @@ export class DprvehiplacededitComponent {
    
   deleteDprVehiDetailsForm(): void {
     if(this.selectedDprDetails.vehiclePlacedId != '' ){   
-      this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId 
+      this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId;
       if (confirm("Are you sure, you want to delete this?")) {   
         this.sharedService.loading=true;
         this.dprvehiplacedService.dprVehiPlacedDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -726,6 +725,7 @@ export class DprvehiplacededitComponent {
       }
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+      this.requestmodel.strRequest2 = this.dprid?this.dprid:"";
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
