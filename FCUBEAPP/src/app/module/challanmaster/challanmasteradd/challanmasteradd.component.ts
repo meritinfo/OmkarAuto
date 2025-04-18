@@ -981,7 +981,7 @@ export class ChallanmasteraddComponent {
 
       var chln = this.selectedChallanDetails.challanFromStn;
       if (typeof chln === 'undefined' || chln === null || chln === '') {
-        this.toastrService.warning("LR No Doesn't Exists ");
+        this.toastrService.warning("LR No Doesn't Exists or Challan Already Prepared ");
         this.formUser.patchValue({
           lrNo: "",
         });
