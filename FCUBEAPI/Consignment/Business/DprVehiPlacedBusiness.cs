@@ -12,7 +12,7 @@ namespace Consignment.Business
         {
             dprRepository = _dprRepository;
         }
-        public async Task<DprVehiPlacedListModel> GetDprVehiPlacedList(ReportRequestModel request)
+        public async Task<DprVehiPlacedListModel> GetDprVehiPlacedList(RepReqModel request)
         {
             return await dprRepository.GetDprVehiPlacedList(request);
         }

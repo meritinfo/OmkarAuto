@@ -35,7 +35,8 @@ export class DotempgclistComponent {
     filterStr2:'',
     filterStr3:'',
     filterStr4:'',
-    filterStr5:''
+    filterStr5:'',
+    filterStr6:'',
   }
 
   formFilter!: FormGroup;

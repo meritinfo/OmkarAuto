@@ -17,5 +17,6 @@ namespace Shared.Models
         public string FilterStr3 { get; set; }
         public string FilterStr4 { get; set; }
         public string FilterStr5 { get; set; }
+        public string FilterStr6 { get; set; }
     }
 }

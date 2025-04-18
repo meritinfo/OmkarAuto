@@ -5,7 +5,7 @@ namespace Consignment.Repository
 {
     public interface IDprVehiPlacedRepository
     {
-        Task<DprVehiPlacedListModel> GetDprVehiPlacedList(ReportRequestModel request);
+        Task<DprVehiPlacedListModel> GetDprVehiPlacedList(RepReqModel request);
         Task<DprVehiPlacedModel> GetDprVehiPlacedDetails(RequestModel request);
         Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request);
         Task<List<DropDownListModel>> GetBrokerList();

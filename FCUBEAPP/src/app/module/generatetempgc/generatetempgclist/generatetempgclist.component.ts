@@ -35,12 +35,14 @@ export class GeneratetempgclistComponent {
     filterStr2:'',
     filterStr3:'',
     filterStr4:'',
-    filterStr5:''
+    filterStr5:'',
+    filterStr6:'',
   }
 
   formFilter!: FormGroup;
   partyList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  empList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
   year: string = '';
@@ -63,6 +65,7 @@ export class GeneratetempgclistComponent {
   gcorigin: string = '';
   gcdestination: string = '';
   gcvehicleNo: string = '';
+  gcassign : string = '';
   gcmainLr: string = '';  
   gcNoteNo: string = '';  
 
@@ -140,6 +143,10 @@ export class GeneratetempgclistComponent {
     if (typeof gcvehicleNo !== 'undefined' && gcvehicleNo !== null && gcvehicleNo !== '') {
       this.gcvehicleNo = gcvehicleNo;
     }
+    var gcassign= sessionStorage.getItem('gcassign')?.toString();
+    if (typeof gcassign !== 'undefined' && gcassign !== null && gcassign !== '') {
+      this.gcassign = gcassign;
+    }
     var gcorigin = sessionStorage.getItem('gcorigin')?.toString();
     if (typeof gcorigin !== 'undefined' && gcorigin !== null && gcorigin !== '') {
       this.gcorigin = gcorigin;
@@ -175,6 +182,7 @@ export class GeneratetempgclistComponent {
       destination: new FormControl('',),
       mainLr:new FormControl('',),
       gcNoteNo:new FormControl('',),
+      assignToStaff:new FormControl('',),
     });
     
     this.sharedService.loading=true;
@@ -185,6 +193,7 @@ export class GeneratetempgclistComponent {
         toDate: this.gctoDate,
         payParty:this.partyList.find(e => e.dataId == this.gcpayParty),   
         vehicleNo :this.gcvehicleNo,
+        assignToStaff :this.gcassign,
         origin: this.locationList.find(e => e.dataId == this.gcorigin),
         destination: this.locationList.find(e => e.dataId == this.gcdestination),    
         mainLr:this.gcmainLr,
@@ -202,9 +211,18 @@ export class GeneratetempgclistComponent {
     this.filter.sortColumn =  this.gcmainLr;
     this.filter.sortOrder =  this.branch;
     this.filter.filterStr4 = this.gcNoteNo;
+    this.filter.filterStr6 = this.gcassign;
     
+    this.getEmpList();
     this.tempgcList();    
     this.sharedService.loading=false;
+  }
+
+  
+  getEmpList(): void {
+    this.commonService.getEmpList().subscribe((res) => {
+      this.empList = res;
+    });
   }
   
   tempgcList(){
@@ -340,6 +358,7 @@ export class GeneratetempgclistComponent {
     sessionStorage.setItem("gcorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("gcdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("gcvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("gcassign", selecteddata.assignToStaff);
     sessionStorage.setItem("gcmainLr", selecteddata.mainLr);
 
     this.generatetempgcService.setTempgcDetails(tempgc);
@@ -361,6 +380,7 @@ export class GeneratetempgclistComponent {
     sessionStorage.setItem("gcorigin", selecteddata.origin?selecteddata.origin.dataId:"");
     sessionStorage.setItem("gcdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("gcvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("gcassign", selecteddata.assignToStaff);    
     sessionStorage.setItem("gcmainLr", selecteddata.mainLr);
 
     this.filter.fromDate = selecteddata.fromDate;
@@ -370,6 +390,7 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
     this.filter.filterStr3 = selecteddata.vehicleNo;
+    this.filter.filterStr6 = selecteddata.assignToStaff;
     this.filter.sortColumn =  selecteddata.mainLr;
     
     this.lrmodel.consignmentID = "0";
@@ -496,11 +517,13 @@ export class GeneratetempgclistComponent {
     this.filter.filterStr = selecteddata.payParty?selecteddata.payParty.dataId:"";
     this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
     this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
-    this.filter.filterStr3 = selecteddata.vehicleNo;
-    this.filter.sortColumn =  selecteddata.mainLr;
+    this.filter.filterStr3 = selecteddata.vehicleNo?selecteddata.vehicleNo:"";
+    this.filter.sortColumn =  selecteddata.mainLr?selecteddata.mainLr:"";
     this.filter.sortOrder =  this.branch;
-    this.filter.filterStr4 = selecteddata.gcNoteNo;
+    this.filter.filterStr4 = selecteddata.gcNoteNo?selecteddata.gcNoteNo:"";
     this.filter.filterStr5 = this.year;
+    this.filter.filterStr6 = selecteddata.assignToStaff?selecteddata.assignToStaff:"";
+    
 
     this.sharedService.loading=true;
     this.tempgcList();    

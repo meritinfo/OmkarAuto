@@ -12,4 +12,5 @@ export class Repreqmodel {
     filterStr3: string = "";
     filterStr4: string = "";
     filterStr5: string = "";
+    filterStr6: string = "";
 }

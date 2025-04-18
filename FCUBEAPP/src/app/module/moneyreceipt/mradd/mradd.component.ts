@@ -195,6 +195,7 @@ export class MraddComponent {
          
     this.formUser.controls['onAcNewAmt'].disable();  
     this.formUser.controls['totalAmt'].disable();  
+    this.formUser.controls['billLrOthType'].disable();  
     
     this.formUser.controls['totalRecdAmt'].disable();
     this.formUser.controls['totalFreightDed'].disable();
@@ -244,7 +245,6 @@ export class MraddComponent {
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  
        // this.formUser.controls['mrDebitAc'].disable();  
-        this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
         this.formUser.controls['onAcAdjMrYn'].disable(); 
         //this.formUser.controls['groupMrYN'].disable();  

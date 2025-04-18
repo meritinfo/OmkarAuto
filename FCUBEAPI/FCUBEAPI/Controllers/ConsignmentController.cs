@@ -867,7 +867,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDprVehiPlacedList")]
-        public async Task<IActionResult> GetDprVehiPlacedList(ReportRequestModel request)
+        public async Task<IActionResult> GetDprVehiPlacedList(RepReqModel request)
         {
             if (request == null)
             {
