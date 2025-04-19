@@ -129,6 +129,12 @@ export class AppComponent implements OnInit {
       this.route.navigate(['/docallotlist']);
     }
   }
+  //Shortcut key for Transport list -> Ctrl + R
+  @HostListener('window:keydown.control.r', ['$event'])
+  mrFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/mrentrylist']);
+  }
   //Shortcut key for Transport list -> Ctrl + T
   @HostListener('window:keydown.control.t', ['$event'])
   trippayFont(event: KeyboardEvent) {

@@ -53,7 +53,7 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillTypeSacHsn(requestModel);
         }
-        public async Task<ResponseModel> GetBillPdfLlp(ReportRequestModel request)
+        public async Task<ResponseModel> GetBillPdfLlp(RepReqModel request)
         {
             return await billsRepository.GetBillPdfLlp(request);
         }
