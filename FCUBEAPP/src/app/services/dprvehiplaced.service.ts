@@ -4,7 +4,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
-import { Dropdownmodel } from '../models/dropdownmodel';
+import { Repreqmodel } from '../models/repreqmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dprvehiplacedmodel } from 'src/app/models/dprvehiplacedmodel';
 import { Dprvehiplacedlistmodel } from 'src/app/models/dprvehiplacedlistmodel';
@@ -36,7 +36,7 @@ export class DprvehiplacedService {
     this.selectedDprvehi = new Dprvehiplacedmodel();
   }
   
-  getDprVehiPlacedList(filter: Reportmodel): Observable<Dprvehiplacedlistmodel> {
+  getDprVehiPlacedList(filter: Repreqmodel): Observable<Dprvehiplacedlistmodel> {
     return this.httpClient.post<Dprvehiplacedlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetDprVehiPlacedList', filter, this.httpOptions);
   }  
   getDprVehiPlacedDetails(filter: Requestmodel): Observable<Dprvehiplacedmodel> {

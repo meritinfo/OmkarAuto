@@ -8,7 +8,7 @@ namespace Consignment.Business
     /// </summary>
     public interface IDprVehiPlacedBusiness
     {
-        Task<DprVehiPlacedListModel> GetDprVehiPlacedList(ReportRequestModel request);
+        Task<DprVehiPlacedListModel> GetDprVehiPlacedList(RepReqModel request);
         Task<DprVehiPlacedModel> GetDprVehiPlacedDetails(RequestModel request);
         Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request);
         Task<List<DropDownListModel>> GetBrokerList();

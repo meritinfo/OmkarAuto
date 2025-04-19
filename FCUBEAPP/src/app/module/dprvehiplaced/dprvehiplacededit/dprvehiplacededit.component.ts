@@ -78,8 +78,11 @@ export class DprvehiplacededitComponent {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
+    }
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
     }
 
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -512,6 +515,18 @@ export class DprvehiplacededitComponent {
     }
 
     advanceAmt = advance1 + advance2 + advance3;
+
+    if(advanceAmt>lorryHire){
+      this.toasterService.warning("Advance Amt Should not be more than Lorry Hire");
+      this.formUser.patchValue({
+        advance1: 0,
+        advance2: 0,
+        advance3: 0,
+        advanceAmt: 0,
+        balanceAmt: lorryHire,
+      });   
+      return;
+    }
 
     balanceAmt = lorryHire - advanceAmt;
 

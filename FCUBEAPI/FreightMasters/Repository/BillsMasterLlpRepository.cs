@@ -878,14 +878,17 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetBillPdfLlp(ReportRequestModel request)
+        public async Task<ResponseModel> GetBillPdfLlp(RepReqModel request)
         {
             ResponseModel responseModel = new();
             try
             {
                 string baseUrl = dbconnection.Value.apiPath + "api/BillLLP/";
 
-                string UrlParam = "?BillingStn=" + request.FilterStr +
+                string UrlParam = "?Copy " + request.FilterStr4 +
+                                    "&CnorCnee=" + request.FilterStr5 +
+                                    "&Format=" + request.FilterStr6 +
+                                    "&BillingStn=" + request.FilterStr +
                                     "&BillNo=" + request.FilterStr1 +
                                     "&YearId=" + request.FilterStr2 +
                                     "&PrintSign=" + request.FilterStr3;

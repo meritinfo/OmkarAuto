@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Dprvehiplacedmodel } from 'src/app/models/dprvehiplacedmodel';
 import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DprvehiplacedlistComponent {
   allDprlist: Dprvehiplacedlistmodel = new Dprvehiplacedlistmodel();
-  filter: Reportmodel = {
+  filter: Repreqmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'dprBranch',
@@ -31,7 +31,10 @@ export class DprvehiplacedlistComponent {
     filterStr: '',
     filterStr1: '',
     filterStr2:'',
-    filterStr3:''
+    filterStr3:'',
+    filterStr4:'',
+    filterStr5:'',
+    filterStr6:''
   }
 
   formFilter!: FormGroup;
@@ -58,7 +61,9 @@ export class DprvehiplacedlistComponent {
   vehorigin: string = '';
   engaged : string = '';
   assign : string = '';
+  brokerId : string = '';
   empList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   
   vehdestination: string = '';
   
@@ -79,13 +84,16 @@ export class DprvehiplacedlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "DPR   Placement"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "DPR Vehicle Placement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
+    }
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
     }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
@@ -145,6 +153,10 @@ export class DprvehiplacedlistComponent {
     if (typeof assign !== 'undefined' && assign !== null && assign !== '') {
       this.assign = assign;
     }
+    var brokerId = sessionStorage.getItem('brokerId')?.toString();
+    if (typeof brokerId !== 'undefined' && brokerId !== null && brokerId !== '') {
+      this.brokerId = brokerId;
+    }
 
 
     this.dprvehiService.clearDprVehiDetails();
@@ -157,9 +169,11 @@ export class DprvehiplacedlistComponent {
       origin: new FormControl('',),
       destination: new FormControl('',),
       assignToStaff: new FormControl('',),
+      brokerId: new FormControl('',),
       vehicleEngagedBy: new FormControl('',),
     });
 
+    this.getBrokerList();
     this.getPartyList();
     this.getLocationList();
     this.sharedService.loading=true;
@@ -173,7 +187,8 @@ export class DprvehiplacedlistComponent {
         origin: this.locationList.find(e => e.dataId == this.vehorigin),   
         destination: this.locationList.find(e => e.dataId == this.vehdestination), 
         assignToStaff: this.assign,
-        vehicleEngagedBy: this.engaged
+        vehicleEngagedBy: this.engaged,
+        brokerId:this.brokerList.find(e => e.dataId ==this.brokerId),
       })
     }, 2000);
 
@@ -186,6 +201,7 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr3= this.branch; 
     this.filter.sortColumn = this.engaged;
     this.filter.sortOrder = this.assign;
+    this.filter.filterStr4 = this.brokerId;
     this.getEmpList();
     this.dprVehiList(); 
        
@@ -280,6 +296,7 @@ export class DprvehiplacedlistComponent {
     sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
     sessionStorage.setItem("engaged", selecteddata.vehicleEngagedBy?selecteddata.vehicleEngagedBy:"");
     sessionStorage.setItem("assign", selecteddata.assignToStaff?selecteddata.assignToStaff:"");
+    sessionStorage.setItem("brokerId", selecteddata.brokerId?selecteddata.brokerId.dataId:"");
 
     this.dprvehiService.setDprVehiDetails(dpr);
     this.route.navigate(['/dprvehplacededit']);
@@ -300,6 +317,11 @@ export class DprvehiplacedlistComponent {
   getEmpList(): void {
     this.commonService.getEmpList().subscribe((res) => {
       this.empList = res;
+    });
+  }
+  getBrokerList(): void {
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
     });
   }
   get f() { return this.formFilter.controls; }
@@ -327,6 +349,7 @@ export class DprvehiplacedlistComponent {
     this.filter.filterStr3= this.branch;  
     this.filter.sortColumn = selecteddata.vehicleEngagedBy;
     this.filter.sortOrder = selecteddata.assignToStaff;
+    this.filter.filterStr4= selecteddata.brokerId?selecteddata.brokerId.dataId:"";
 
 
     this.sharedService.loading=true;

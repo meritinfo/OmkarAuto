@@ -22,7 +22,7 @@ namespace Consignment.Repository
             sharedRepository = _sharedRepository;
         }
        
-        public async Task<DprVehiPlacedListModel> GetDprVehiPlacedList(ReportRequestModel request)
+        public async Task<DprVehiPlacedListModel> GetDprVehiPlacedList(RepReqModel request)
         {
             DprVehiPlacedListModel dprVehiplacedList = new();
             List<DprVehiPlacedModel> dprVehiList = new();
@@ -43,6 +43,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Origin",     request.FilterStr1),
                             new SqlParameter("@Destination",request.FilterStr2),
                             new SqlParameter("@LoginBranch",request.FilterStr3),
+                            new SqlParameter("@BrokerId",request.FilterStr4),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDprVehiclePlacedList", param);
 

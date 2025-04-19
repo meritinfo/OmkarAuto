@@ -3881,7 +3881,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillPdfLlp")]
-        public async Task<IActionResult> GetBillPdfLlp(ReportRequestModel request)
+        public async Task<IActionResult> GetBillPdfLlp(RepReqModel request)
         {
             if (request == null)
             {

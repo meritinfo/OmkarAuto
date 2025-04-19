@@ -43,6 +43,7 @@ namespace Consignment.Repository
                             new SqlParameter("@LoginBranch",     request.SortOrder),
                             new SqlParameter("@GcNoteNo",  request.FilterStr4),
                             new SqlParameter("@YearId",  request.FilterStr5),
+                            new SqlParameter("@AssignToStaff",  request.FilterStr6),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTempGcList", param);
 

@@ -94,8 +94,11 @@ export class ChallanmasteraddComponent {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
+    }
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
     }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
@@ -978,7 +981,7 @@ export class ChallanmasteraddComponent {
 
       var chln = this.selectedChallanDetails.challanFromStn;
       if (typeof chln === 'undefined' || chln === null || chln === '') {
-        this.toastrService.warning("LR No Doesn't Exists ");
+        this.toastrService.warning("LR No Doesn't Exists or Challan Already Prepared ");
         this.formUser.patchValue({
           lrNo: "",
         });

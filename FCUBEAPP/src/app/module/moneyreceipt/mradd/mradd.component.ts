@@ -82,8 +82,11 @@ export class MraddComponent {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
+    }
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
     }    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -192,6 +195,7 @@ export class MraddComponent {
          
     this.formUser.controls['onAcNewAmt'].disable();  
     this.formUser.controls['totalAmt'].disable();  
+    this.formUser.controls['billLrOthType'].disable();  
     
     this.formUser.controls['totalRecdAmt'].disable();
     this.formUser.controls['totalFreightDed'].disable();
@@ -241,7 +245,6 @@ export class MraddComponent {
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  
        // this.formUser.controls['mrDebitAc'].disable();  
-        this.formUser.controls['billLrOthType'].disable();  
         this.formUser.controls['partyCode'].disable();  
         this.formUser.controls['onAcAdjMrYn'].disable(); 
         //this.formUser.controls['groupMrYN'].disable();  
