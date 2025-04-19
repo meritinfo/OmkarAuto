@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
+import {Branchcustomertargetmodel } from 'src/app//models/branchcustomertargetmstmodel';
 import { Userlistmodel } from './models/userlistmodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
@@ -90,6 +91,7 @@ import { IntermediatescreenComponent } from './module/intermediatescreen/interme
 import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
+import { Admingroupmastermodel } from 'src/app/models/admingroupmastermodel';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NumbersonlyDirective } from './directives/numbersonly.directive';
 import { DecimalonlyDirective } from './directives/decimalonly.directive';
@@ -482,6 +484,10 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
+import { AdminmastergroupaddComponent } from './module/admingroupmaster/adminmastergroupadd/adminmastergroupadd.component';
+import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminmastergrouplist/adminmastergrouplist.component';
+import { BranchcustomermstaddComponent } from './module/branchcustomertarget/branchcustomermstadd/branchcustomermstadd.component';
+import { BranchcustomertarmstlistComponent } from './module/branchcustomertarget/branchcustomertarmstlist/branchcustomertarmstlist.component';
 
 
 @NgModule({
@@ -629,7 +635,7 @@ import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/veh
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, VehicleengagementrptComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, VehicleengagementrptComponent, AdminmastergroupaddComponent, AdminmastergrouplistComponent, BranchcustomermstaddComponent, BranchcustomertarmstlistComponent, 
   ],
   
   imports: [
@@ -698,9 +704,9 @@ import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/veh
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Ccinvmstmodel, Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,
     Freightgstmastermodel,Freightgstmasterlistmodel,
-    ChallanmastermodelllP,ChallanlistmodelllP,
+    ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,
     
-    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,Admingroupmastermodel,
     Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
     
   ],

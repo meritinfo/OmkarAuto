@@ -45,6 +45,7 @@ export class DeliveryDisputeEntryService {
   getDispSlNo(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetDispSlNo', request, this.httpOptions);
   }  
+  
   getSelectedDeliverydisputeentryList(filter: Filtermodel): Observable<Deliverydisputeentrylistmodel> {
     return this.httpClient.post<Deliverydisputeentrylistmodel>(Constants.API_ENDPOINT + 'Consignment/GetDeliveryDisputeEntryList', filter, this.httpOptions);
   }

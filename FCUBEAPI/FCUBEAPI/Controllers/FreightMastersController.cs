@@ -45,12 +45,16 @@ namespace FCUBEAPI.Controllers
         readonly IGstPctValuesBusiness gstPctValuesBusiness;
         readonly IRatesMasterNewBusiness ratesMasterNewBusiness;
         readonly IChCostTypesBusiness chCostTypesBusiness;
+      
 
-        
+
+
 
         readonly IFreightGstMasterBusiness freightGstMasterBusiness;
         readonly ILRBillSeriesBusiness lrBillSeriesBusiness;
         readonly IBillsMasterLlpBusiness billsMasterBusinessLLP;
+        readonly IAdminGroupMasterBusiness adminGroupMasterBusiness;
+        readonly IBranchCustomerTargetBusiness branchCustomerTargetBusiness;
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -79,7 +83,9 @@ namespace FCUBEAPI.Controllers
            IChCostTypesBusiness _chCostTypesBusiness,
             IFreightGstMasterBusiness _freightGstMasterBusiness,
              ILRBillSeriesBusiness _lrBillSeriesBusiness,
-             IBillsMasterLlpBusiness _billsMasterBusinessLLP)
+             IBillsMasterLlpBusiness _billsMasterBusinessLLP,
+             IAdminGroupMasterBusiness _adminGroupMasterBusiness,
+             IBranchCustomerTargetBusiness _branchCustomerTargetBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -110,6 +116,8 @@ namespace FCUBEAPI.Controllers
             freightGstMasterBusiness = _freightGstMasterBusiness;
             lrBillSeriesBusiness = _lrBillSeriesBusiness;
             billsMasterBusinessLLP = _billsMasterBusinessLLP;
+            adminGroupMasterBusiness = _adminGroupMasterBusiness;
+            branchCustomerTargetBusiness = _branchCustomerTargetBusiness;
         }
 
         /// <summary>
@@ -3882,6 +3890,172 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusinessLLP.GetBillPdfLlp(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+       
+        [HttpPost("GetAdminGroupMasterList")]
+        public async Task<IActionResult> GetAdminGroupMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await adminGroupMasterBusiness.GetAdminGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("AdminGroupMasterDelete")]
+        public async Task<IActionResult> AdminGroupMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await adminGroupMasterBusiness.AdminGroupMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateAdminGrpDesc")]
+        public async Task<IActionResult> CheckDuplicateAdminGrpDesc(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await adminGroupMasterBusiness.CheckDuplicateAdminGrpDesc(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("AdminGroupMasterSave")]
+        public async Task<IActionResult> AdminGroupMasterSave(AdminGroupMasterModel adminGroupMasterModel)
+        {
+            if (adminGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await adminGroupMasterBusiness.AdminGroupMasterSave(adminGroupMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAdminSortSlNo")]
+        public async Task<IActionResult> GetAdminSortSlNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await adminGroupMasterBusiness.GetAdminSortSlNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBranchCustomerTargetMstList")]
+        public async Task<IActionResult> GetBranchCustomerTargetMstList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchCustomerTargetBusiness.GetBranchCustomerTargetMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BranchCustomerTargetSave")]
+        public async Task<IActionResult> BranchCustomerTargetSave(BranchCustomerTargetMstModel branchCustomerTargetMstModel)
+        {
+            if (branchCustomerTargetMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchCustomerTargetBusiness.BranchCustomerTargetSave(branchCustomerTargetMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BranchCustomerTargetDelete")]
+        public async Task<IActionResult> BranchCustomerTargetDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchCustomerTargetBusiness.BranchCustomerTargetDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("BranchCustomerTargetDtlInnerGridList")]
+        public async Task<IActionResult> BranchCustomerTargetDtlInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchCustomerTargetBusiness.BranchCustomerTargetDtlInnerGridList(request);
 
                 return Ok(result);
             }
