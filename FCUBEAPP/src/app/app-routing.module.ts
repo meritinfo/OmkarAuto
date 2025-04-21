@@ -302,6 +302,10 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
+import { BranchcustomermstaddComponent } from './module/branchcustomertarget/branchcustomermstadd/branchcustomermstadd.component';
+import { BranchcustomertarmstlistComponent } from './module/branchcustomertarget/branchcustomertarmstlist/branchcustomertarmstlist.component';
+import { AdminmastergroupaddComponent } from './module/admingroupmaster/adminmastergroupadd/adminmastergroupadd.component';
+import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminmastergrouplist/adminmastergrouplist.component';
 import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
 
 
@@ -722,6 +726,14 @@ const routes: Routes = [
   { path: 'deliverydisputeentryadd', component: DeliverydisputeentryaddComponent },
   { path: 'deliverydisputeentryedit', component: DeliverydisputeentryaddComponent },
   { path: 'vehicleengagementrpt', component: VehicleengagementrptComponent },
+  { path: 'branchcusttarget', component: BranchcustomertarmstlistComponent },
+  { path: 'branchcustomertargeteadd', component: BranchcustomermstaddComponent },
+  { path: 'branchcustomertargetedit', component: BranchcustomermstaddComponent },
+  { path: 'adminexpgrplist', component: AdminmastergrouplistComponent },
+  { path: 'admingroupmasteradd', component: AdminmastergroupaddComponent },
+  { path: 'admingroupmasteredit', component: AdminmastergroupaddComponent },
+
+  
   { path: 'billprintllp',component: BillprintllpComponent},
 ];
 

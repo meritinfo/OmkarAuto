@@ -35,6 +35,7 @@ export class AdditionalcostrecmasteraddComponent {
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  
   stateList: Dropdownmodel[] = [];
   ledgerAcList: Dropdownmodel[] = [];
   
@@ -90,6 +91,7 @@ ngOnInit(): void {
   
   this.sharedService.loading=true;
   this.getBankAcList();
+  
 
   this.selectedAdditionalcostrecDetails = this.additionalcostrecService.getAdditionalcostrecmasterModelDetails();
   this.formUser = this.formBuilder.group({

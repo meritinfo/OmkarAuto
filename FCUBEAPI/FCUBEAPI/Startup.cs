@@ -293,6 +293,10 @@ namespace FCUBEAPI
             services.AddScoped<IBillsMasterLlpRepository, BillsMasterLlpRepository>();
             services.AddScoped<IDeliveryDisputeEntryBusiness, DeliveryDisputeEntryBusiness>();
             services.AddScoped<IDeliveryDisputeEntryRepository,DeliveryDisputeEntryRepository>();
+            services.AddScoped<IAdminGroupMasterBusiness, AdminGroupMasterBusiness>();
+            services.AddScoped<IAdminGroupMasterRepository, AdminGroupMasterRepository>();
+            services.AddScoped<IBranchCustomerTargetBusiness, BranchCustomerTargetBusiness>();
+            services.AddScoped<IBranchCustomerTargetRepository, BranchCustomerTargetRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
