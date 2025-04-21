@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Print Sign</label> 
@@ -53,7 +53,7 @@
                                     </select>
                                 </div>
                             </div>     
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 text-right">
@@ -79,7 +79,7 @@
                                 <th>collectionBranch</th>    
                                 <th>totalGtotal</th>                        
                                 <th>Action</th>                        
-                                <th>Action</th> 
+                                <!-- <th>Action</th>  -->
                             </tr>
                         </thead>
                         <tbody *ngIf="allBillsMaster.billsList?.length != 0">
@@ -88,11 +88,11 @@
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillsMasterDetails(renewalMaster)"></button>                               
                                 </td> 
-                                <td>                                    
+                                <!-- <td>                                    
                                     <button type="button" class="btn btn-primary btn-floating"  
                                         (click)="download(renewalMaster)">
                                         <i class="fas fa-download"></i></button>                            
-                                </td>
+                                </td> -->
                                 <td>{{ renewalMaster.stationName }}</td>                        
                                 <td>{{ renewalMaster.billNo}}</td>      
                                 <td>{{ renewalMaster.billDate}}</td>                        

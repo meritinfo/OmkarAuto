@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     
     if (this.sharedService.loggedInStatus) {
       // sets an idle timeout of 1500 seconds.
-      this.idle.setIdle(3000);
+      this.idle.setIdle(3600);
       // sets a timeout period of 50 seconds. after 10 seconds of inactivity, the user will be considered timed out.
       this.idle.setTimeout(6000);
       // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
       });
 
       // sets the ping interval to 15 seconds
-      this.keepalive.interval(15);
+      this.keepalive.interval(25);
 
       this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
 

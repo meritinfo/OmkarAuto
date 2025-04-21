@@ -184,7 +184,7 @@ export class ConsignmentllpaddComponent {
       looseFlag : new FormControl('',),    
       weightType : new FormControl('MT',), 
       actualWt : new FormControl('',),   
-      chargewt : new FormControl('',),    
+      chargewt : new FormControl('', [Validators.required]),  
       wtDesc :new FormControl('',),    
       vehicleTypeId :new FormControl('', [Validators.required]),
       privateMark : new FormControl('',),
@@ -1210,6 +1210,19 @@ export class ConsignmentllpaddComponent {
     if(selectedDataValue.gstBy=="F"){
       gstType = selectedDataValue.gstType;
     }
+    
+    var actWt = "";
+
+    if(selectedDataValue.chargewt.toString()=="0"){
+      this.toastrService.warning(" Charge Weight is Invalid");
+      return;
+    }
+    if(selectedDataValue.actualWt.toString()=="0" || selectedDataValue.actualWt.toString()==""){
+      actWt = selectedDataValue.chargewt.toString();
+    }
+    else{
+      actWt = selectedDataValue.actualWt.toString();
+    }
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
@@ -1262,8 +1275,8 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.noPackages = selectedDataValue.noPackages.toString();
     this.lrmodel.looseFlag = "N";
     this.lrmodel.weightType = selectedDataValue.weightType;
-    this.lrmodel.actualWt = selectedDataValue.actualWt?selectedDataValue.actualWt.toString():"";
-    this.lrmodel.senderWt = selectedDataValue.actualWt?selectedDataValue.actualWt.toString():"";
+    this.lrmodel.actualWt = actWt;
+    this.lrmodel.senderWt = actWt;
     this.lrmodel.chargewt = selectedDataValue.chargewt?selectedDataValue.chargewt.toString():"";
     this.lrmodel.wtDesc = "";  
     this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 

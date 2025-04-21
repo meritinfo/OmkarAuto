@@ -146,10 +146,6 @@ export class BillsupplilistllpComponent { dtOptions: DataTables.Settings = {};
         {
           title: 'Action',
           data: 'masterId',
-        },   
-        {
-          title: 'Print',
-          data: 'masterId',
         },  
         {
           title: 'Billing Station ',
@@ -188,33 +184,6 @@ export class BillsupplilistllpComponent { dtOptions: DataTables.Settings = {};
   getBillsMasterDetails(bill: BillsmastermodelllP): void {
     this.billsMasterService.setBillsMasterDetails(bill);
     this.route.navigate(['/billentrysuppeditllp']);
-  }
-
-  download(bill: BillsmastermodelllP): void {
-    this.reportmodel.pageNumber = 1;
-    this.reportmodel.pageSize = 10;
-    this.reportmodel.sortColumn = '';
-    this.reportmodel.sortOrder = '';
-    this.reportmodel.search = 'S';
-    this.reportmodel.fromDate = '';
-    this.reportmodel.toDate = '';
-    this.reportmodel.filterStr = bill.billingStation;
-    this.reportmodel.filterStr1 = bill.billNo;
-    this.reportmodel.filterStr2 = bill.yearId;
-    this.reportmodel.filterStr3 = this.formFilter.value.printSign;
-    
-    this.billsMasterService.getBillllpPdf(this.reportmodel).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = "Bill_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/BillPrint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toasterService.warning(resp.message);   
-      }
-    });
   }
   
   search(): void {

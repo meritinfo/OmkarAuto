@@ -830,11 +830,11 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                     {
-                             new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@BillSlNo",   request.FilterStr1),
-                             new SqlParameter("@BillSeries",   request.FilterStr2),
-                            new SqlParameter("@YearId",   request.FilterStr3),
-                        };
+                        new SqlParameter("@Branch",     request.FilterStr),
+                        new SqlParameter("@BillSlNo",   request.FilterStr1),
+                        new SqlParameter("@BillSeries", request.FilterStr2),
+                        new SqlParameter("@YearId",     request.FilterStr3),
+                    };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateBillNoLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -885,13 +885,13 @@ namespace FreightMasters.Repository
             {
                 string baseUrl = dbconnection.Value.apiPath + "api/BillLLP/";
 
-                string UrlParam = "?Copy " + request.FilterStr4 +
-                                    "&CnorCnee=" + request.FilterStr5 +
-                                    "&Format=" + request.FilterStr6 +
-                                    "&BillingStn=" + request.FilterStr +
-                                    "&BillNo=" + request.FilterStr1 +
-                                    "&YearId=" + request.FilterStr2 +
-                                    "&PrintSign=" + request.FilterStr3;
+                string UrlParam = "?Copy=" + request.FilterStr +
+                                    "&CnorCnee=" + request.FilterStr1 +
+                                    "&Format=" + request.FilterStr2 +
+                                    "&BillingStn=" + request.FilterStr3 +
+                                    "&BillNo=" + request.FilterStr4 +
+                                    "&YearId=" + request.FilterStr5 +
+                                    "&PrintSign=" + request.FilterStr6;
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

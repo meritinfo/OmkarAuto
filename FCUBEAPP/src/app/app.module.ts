@@ -482,6 +482,7 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
+import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
 
 
 @NgModule({
@@ -629,7 +630,7 @@ import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/veh
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, ChcosttypesaddComponent, ChcosttypeslistComponent,
     DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, DocallotmentllplistComponent, DocallotmentllpaddComponent, ConsignmentllplistComponent, ConsignmentllpaddComponent, ConsignmentllpupdateComponent, 
-    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, VehicleengagementrptComponent, 
+    DotempgclistComponent, DotempgcaddComponent, DotempgceditComponent, ThreedecimalonlyDirective, FreightgstmasteraddComponent, FreightgstmasterlistComponent, CciinvoicemstaddComponent, CciinvoicemstlistComponent, ChallanmasterllpaddComponent, ChallanmasterlistllpComponent, BillsmasterlistllpComponent, BillsmasteraddllpComponent, BillsuppliaddllpComponent, BillsupplilistllpComponent, DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, VehicleengagementrptComponent, BillprintllpComponent, 
   ],
   
   imports: [

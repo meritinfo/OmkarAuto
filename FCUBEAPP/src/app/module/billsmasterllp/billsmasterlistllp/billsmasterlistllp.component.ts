@@ -101,7 +101,7 @@ export class BillsmasterlistllpComponent {
       bill_StmtNo: new FormControl(''),
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
-      printSign:new FormControl('Y'),
+      //printSign:new FormControl('Y'),
     });     
 
     this.sharedService.loading=true;     
@@ -147,10 +147,10 @@ export class BillsmasterlistllpComponent {
           title: 'Action',
           data: 'masterId',
         },   
-        {
-          title: 'Print',
-          data: 'masterId',
-        },  
+        // {
+        //   title: 'Print',
+        //   data: 'masterId',
+        // },  
         {
           title: 'Billing Station ',
           data: 'stationName',
@@ -191,33 +191,6 @@ export class BillsmasterlistllpComponent {
     this.route.navigate(['/billsmastereditllp']);
   }
 
-  download(bill: BillsmastermodelllP): void {
-    this.reportmodel.pageNumber = 1;
-    this.reportmodel.pageSize = 10;
-    this.reportmodel.sortColumn = '';
-    this.reportmodel.sortOrder = '';
-    this.reportmodel.search = '';
-    this.reportmodel.fromDate = '';
-    this.reportmodel.toDate = '';
-    this.reportmodel.filterStr = bill.billingStation;
-    this.reportmodel.filterStr1 = bill.billNo;
-    this.reportmodel.filterStr2 = bill.yearId;
-    this.reportmodel.filterStr3 = this.formFilter.value.printSign;
-    
-    this.billsMasterService.getBillllpPdf(this.reportmodel).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = "Bill_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/BillPrint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toasterService.warning(resp.message);   
-      }
-    });
-  }
-  
   search(): void {
     this.filter.search = this.formFilter.value.bill_StmtNo;
     this.filter.fromDate = this.formFilter.value.fromDate;

@@ -78,8 +78,7 @@
                                 <th>party</th>  
                                 <th>collectionBranch</th>    
                                 <th>totalGtotal</th>                        
-                                <th>Action</th>                        
-                                <th>Action</th> 
+                                <th>Action</th>   
                             </tr>
                         </thead>
                         <tbody *ngIf="allBillsMaster.billsList?.length != 0">
@@ -87,11 +86,6 @@
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillsMasterDetails(renewalMaster)"></button>                               
-                                </td> 
-                                <td>                                    
-                                    <button type="button" class="btn btn-primary btn-floating"  
-                                        (click)="download(renewalMaster)">
-                                        <i class="fas fa-download"></i></button>                            
                                 </td> 
                                 <td>{{ renewalMaster.stationName }}</td>                        
                                 <td>{{ renewalMaster.billNo}}</td>      

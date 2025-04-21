@@ -302,6 +302,7 @@ import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilis
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
 import { DeliverydisputeentrylistComponent } from './module/deliverydisputeentry/deliverydisputeentrylist/deliverydisputeentrylist.component';
 import { VehicleengagementrptComponent } from './module/vehicleengagementrpt/vehicleengagementrpt.component';
+import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
 
 
 
@@ -721,8 +722,7 @@ const routes: Routes = [
   { path: 'deliverydisputeentryadd', component: DeliverydisputeentryaddComponent },
   { path: 'deliverydisputeentryedit', component: DeliverydisputeentryaddComponent },
   { path: 'vehicleengagementrpt', component: VehicleengagementrptComponent },
-
-  
+  { path: 'billprintllp',component: BillprintllpComponent},
 ];
 
 

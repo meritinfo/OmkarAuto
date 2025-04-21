@@ -607,8 +607,9 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Charged Weight</label>
-                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt">
+                                    <label for="formrow-inputZip">Charged Weight</label><span style="color: red">*</span>
+                                    <input type="text" threedecimalonly class="form-control" formControlName="chargewt"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">

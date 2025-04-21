@@ -10,6 +10,7 @@ import { Requestmodel } from '../models/requestmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { BillsmastermodelllP } from '../models/billsmastermodelllp';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from '../models/repreqmodel';
 
 @Injectable({
     providedIn: 'root'
@@ -72,7 +73,7 @@ export class BillsMasterServiceLLP {
   getBillTypeSacHsn(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillTypeSacHsnLLP', request, this.httpOptions);
   }  
-  getBillllpPdf(filter: Reportmodel): Observable<Responsemodel> {
+  getBillllpPdf(filter: Repreqmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPdfLlp', filter, this.httpOptions);
   }
   getBillEnqDetails(filter: Requestmodel): Observable<BillsmastermodelllP> {
