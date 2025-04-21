@@ -732,8 +732,6 @@ const routes: Routes = [
   { path: 'adminexpgrplist', component: AdminmastergrouplistComponent },
   { path: 'admingroupmasteradd', component: AdminmastergroupaddComponent },
   { path: 'admingroupmasteredit', component: AdminmastergroupaddComponent },
-
-  
   { path: 'billprintllp',component: BillprintllpComponent},
 ];
 
