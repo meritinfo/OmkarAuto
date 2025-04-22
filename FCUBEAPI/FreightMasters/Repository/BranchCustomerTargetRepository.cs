@@ -233,7 +233,7 @@ namespace FreightMasters.Repository
                                 // Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
 
                                 // SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),
-                                DtlId = Convert.ToString(resultData.Tables[0].Rows[i]["RateDtlId"]),
+                                DtlId = Convert.ToString(resultData.Tables[0].Rows[i]["DtlId"]),
                                 Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
                                 BranchCode = Convert.ToString(resultData.Tables[0].Rows[i]["BranchCode"]),
                                 AccountId = Convert.ToString(resultData.Tables[0].Rows[i]["AccountId"]),

@@ -64,18 +64,18 @@
                                         <tr>
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
-                                                    <h6>AccountId</h6>
+                                                    <h6>Account</h6>
                                                 </label>
                                             </td>
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
-                                                    <h6>TargetAmt</h6>
+                                                    <h6>Target Amount</h6>
                                                 </label>
                                             </td>
                                             
                                         </tr>
                                         <tr formArrayName="arrayList"
-                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            *ngFor="let arrayData of formRatesArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
                                                     <select class="form-control form-select ng-pristine ng-touched"
@@ -96,9 +96,9 @@
                                                
                                                 <td class="col-lg-4">
                                                     <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                        <button *ngIf="i === formRatesArray.controls.length-1" type="button"
                                                             class="btn btn-add" (click)="addItem(i)"></button>
-                                                        <button *ngIf="formArray.controls.length > 1"
+                                                        <button *ngIf="formRatesArray.controls.length > 1"
                                                             (click)="removeItem(i)" class="btn btn-delete"></button>
                                                     </div>                                        
                                                 </td>

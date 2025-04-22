@@ -39,12 +39,14 @@ export class BranchCustomerTargetService {
   checkDuplicateSpare(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/checkDuplicateSpares', req, this.httpOptions);
   }
-  getBranchCustomertargetInnerGridList(request: Requestmodel): Observable<Ratesmasternewmodel> {
-    return this.httpClient.post<Ratesmasternewmodel>(Constants.API_ENDPOINT + 'FreightMasters/BranchCustomerTargetDtlInnerGridList', request, this.httpOptions);
+  getBranchCustomertargetInnerGridList(request: Requestmodel): Observable<Branchcustomertargetmodel> {
+    return this.httpClient.post<Branchcustomertargetmodel>(Constants.API_ENDPOINT + 'FreightMasters/BranchCustomerTargetDtlInnerGridList', request, this.httpOptions);
   }
   clearBranchCustomerTargetDetails() {
     this.selectedbranchmastertargetnew = new Branchcustomertargetmodel();
   }
+
+
   getBrandList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetBrandList', null, this.httpOptions);
   }

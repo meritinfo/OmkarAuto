@@ -12,6 +12,7 @@ export class Branchcustomertargetmodel {
 
 export class BranchcustomertargetDtl  {
     dtlId: string = "";
+    id: string = "";
     yearId : string = "";
     branchCode: string = "";
     accountId: string = "";
