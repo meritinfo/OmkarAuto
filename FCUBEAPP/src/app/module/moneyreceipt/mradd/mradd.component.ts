@@ -1156,6 +1156,16 @@ export class MraddComponent {
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataVal.mrDate?Date.parse(selectedDataVal.mrDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        mrDate: ''
+      });
+      this.toasterService.warning("Invalid mr date");
+      return
+    }
 
     // if (cheqCashAmt - (totalExcess + totalOthers1) <= 0){
     //   this.toasterService.warning("Total Excess Amt Should be less than Cheq Cash Amt");      
