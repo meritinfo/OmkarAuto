@@ -28,7 +28,7 @@ export class BranchcustomermstaddComponent {
     branchList: Dropdownmodel[] = [];
     vehicleGrpList: Dropdownmodel[] = [];
     formRatesMaster!: FormGroup;
-    selectedBranchCustomer = new Branchcustomertargetmodel();
+    selectedbranchmastertargetnew = new Branchcustomertargetmodel();
     branchcustomermstmodel = new Branchcustomertargetmodel();
     keywordLocation = 'dataName';
     formSubmitted = false;
@@ -42,6 +42,8 @@ export class BranchcustomermstaddComponent {
     maxDate: string = '';
     minDate: string = '';
     loginDate: string = '';
+
+     selectedCustomerTargetDetail = new Branchcustomertargetmodel();
   
     constructor(private branchcustomertargetmodel: Branchcustomertargetmodel, private sharedService: SharedService,
       private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
@@ -115,7 +117,7 @@ ngOnInit(): void {
  // this.getRateList();
  // this.getVehicleGrpList();
  // this.getCreditAcList();
-  this.selectedBranchCustomer = this.branchCustomerTargetService.getBranchCustomerDetails();
+  this.selectedbranchmastertargetnew = this.branchCustomerTargetService.getBranchCustomerDetails();
 
   // if (this.selectedBranchCustomer.id != '') {   
   //   this.formRatesMaster.controls['accountid'].disable();
@@ -124,28 +126,31 @@ ngOnInit(): void {
   // }
 
   setTimeout(() => {
-    if (this.selectedBranchCustomer.id!= '') {    
-      
+    if (this.selectedbranchmastertargetnew.id!= '') {    
+      this.formRatesMaster.patchValue(this.selectedbranchmastertargetnew);
       this.formRatesMaster.patchValue({
       //  validFrom: this.commonService.formatDate(this.selectedBranchCustomer.validFrom),
       //  validUpto: this.commonService.formatDate(this.selectedBranchCustomer.validUpto), 
-      //  accountid: this.creditacList.find(e => e.dataId == this.selectedRatesMaster.accountid),
+      //  accountid:  this.selectedBranchCustomer.branchCode
      //   fromPlace: this.locationList.find(e => e.dataId == this.selectedRatesMaster.fromPlace),
 
       });
       this.editMode = true;
-    //  this.formRatesMaster.controls['rateTypeId'].disable();
-    //  this.formRatesMaster.controls['vehicleTypeGroupId'].disable();
-     // this.getFreightRateInnerGridList();
+      this.formRatesMaster.controls['branchCode'].disable();
+      this.formRatesMaster.controls['yearId'].disable();
+      this.formRatesArray.controls[0].get("accountId")?.disable();
+     //this.formRatesMaster.controls['veId'].disable();
+      this. getCustomerTargetInnerGridList();
     }
   }, 2000);
   this.sharedService.loading=false;
 }
 
 get f() { return this.formRatesMaster.controls; }
-get formArray() {
-  return this.formRatesMaster.get("arrayList") as FormArray;
-}
+
+get formRatesArray() {
+  return this.formRatesMaster.get("arrayList") as FormArray;    
+  }
 
 onChangeSearch(search: string) {
   // fetch remote data from here
@@ -158,7 +163,7 @@ onFocused(e: any) {
 createInitialArray() {
   return this.formBuilder.group({
     dtlId : ['', []],
-  //  id : ['', []],
+    id : ['', []],
     yearId : ['', []],
     branchCode  : ['', []],
     accountId   : ['', []],
@@ -172,8 +177,8 @@ startWithFilter = function (locationList: Dropdownmodel[], query: string): any[]
 
 addItem(index: number): void {
   var selectedDataVal= this.formRatesMaster.getRawValue()
-  // if ((this.formArray.value[index].destState != "" || this.formArray.value[index].toPlace != "") 
-  // && this.formArray.value[index].rate) {
+ if (this.formRatesArray.value[index].accountId!= "" && this.formRatesArray.value[index].targetAmt!= "") 
+ {
   //   if (selectedDataVal.rateForStateOrToPlace == "P" && this.formArray.value[index].toPlace.dataId==selectedDataVal.fromPlace.dataId){
   //     this.toasterService.warning("From Point cannot be same as To Place in details grid");
   //     return;
@@ -183,14 +188,14 @@ addItem(index: number): void {
   //     return;
   //   }
   //   else {
-      this.formArray.push(this.createInitialArray()); 
+      this.formRatesArray.push(this.createInitialArray()); 
   //     this.formRatesMaster.controls['rateForStateOrToPlace'].disable();
   //   }    
-  // }
-  // else {
-  //   this.toasterService.warning("Please select Required Fields ");
-  //   return;
-  // }
+   }
+  else {
+    this.toasterService.warning("Please select Required Fields ");
+    return;
+  }
   
   // var i=0;
   // var selectedDataVal=this.formRatesMaster.getRawValue();
@@ -215,6 +220,38 @@ getBankAcList(): void {
     this.ledgerAcList = res;
   });
 }
+// createRatesArray() {
+//   return this.formBuilder.group({
+//     dtlId: [''],
+//   id: [''],
+//   yearId: [''],
+//   branchCode: [''],
+//   accountId: [''],
+//   targetAmt: [''],
+
+//   });//} 
+
+getCustomerTargetInnerGridList(): void {
+  this.requestmodel.strRequest = this.selectedbranchmastertargetnew.id; 
+  this.branchCustomerTargetService.getBranchCustomertargetInnerGridList(this.requestmodel).subscribe((res) => {
+    this.formRatesArray.clear();
+    this.branchcustomertargetmodel = res;
+    for (var i = 0; i < res.branchCustomerTargetDtlList.length; i++) {
+      this.formRatesArray.push(this.createInitialArray());
+      this.formRatesArray.controls[i].get("dtlId")?.setValue(res.branchCustomerTargetDtlList[i].dtlId);
+      this.formRatesArray.controls[i].get("id")?.setValue(res.branchCustomerTargetDtlList[i].id);  
+      this.formRatesArray.controls[i].get("yearId")?.setValue(res.branchCustomerTargetDtlList[i].yearId);
+   //  this.formRatesArray.controls[i].get("branchCode")?.setValue(this.locationList.find(e => e.dataId == res.ratesMasterNewDetailList[i].destination)), 
+      this.formRatesArray.controls[i].get("branchCode")?.setValue(res.branchCustomerTargetDtlList[i].branchCode);  
+      this.formRatesArray.controls[i].get("accountId")?.setValue(res.branchCustomerTargetDtlList[i].accountId);   
+        this.formRatesArray.controls[i].get("targetAmt")?.setValue(res.branchCustomerTargetDtlList[i].targetAmt);   
+        this.formRatesArray.controls[i].get("accountId")?.disable();  
+     
+    }   
+   
+  });
+}
+
 
 getYearList():void{
   this.commonService.getYearList().subscribe((res) => {
@@ -226,8 +263,8 @@ getYearList():void{
 
 removeItem(index: number){ 
   if (confirm("Are you sure, you want to delete this?")) {
-  this.formArray.removeAt(index);
-  if (this.formArray.length==1){
+  this.formRatesArray.removeAt(index);
+  if (this.formRatesArray.length==1){
     this.formRatesMaster.controls['rateForStateOrToPlace'].enable();
   }
 }
@@ -235,9 +272,9 @@ removeItem(index: number){
 
 
 deleteBranchCustomerForm(): void {
-  if (this.selectedBranchCustomer.id != '') {
+  if (this.selectedbranchmastertargetnew.id != '') {
     this.sharedService.loading=true;
-    this.requestmodel.strRequest = this.selectedBranchCustomer.id;
+    this.requestmodel.strRequest = this.selectedbranchmastertargetnew.id;
     if (confirm("Are you sure, you want to delete this?")) {
       this.branchCustomerTargetService.branchCustomerTargetDelete(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
@@ -286,7 +323,7 @@ submitBranchCustomerForm(): void {
   //   return;
   // }
   
-  this.branchcustomertargetmodel.id = this.selectedBranchCustomer.id ;
+  this.branchcustomertargetmodel.id = this.selectedbranchmastertargetnew.id ;
   this.branchcustomertargetmodel.yearId = selectedDataVal.yearId;
   this.branchcustomertargetmodel.branchCode  = selectedDataVal.branchCode?selectedDataVal.branchCode.dataId:0;
 
@@ -304,11 +341,11 @@ submitBranchCustomerForm(): void {
     if(selectedDataVal.arrayList[i].accountId!='' || selectedDataVal.arrayList[i].targetAmt !=''){
       this.branchcustomertargetmodel.branchCustomerTargetDtlList.push({
         'dtlId': '',
-       // 'id': '',
+        'id': '',
         'yearId': selectedDataVal.yearId,
         'branchCode': selectedDataVal.branchCode,
         'accountId': selectedDataVal.arrayList[i].accountId,
-        'targetAmt': selectedDataVal.arrayList[i].TargetAmt ,
+        'targetAmt': selectedDataVal.arrayList[i].targetAmt ,
         
       });
     }
@@ -321,12 +358,12 @@ submitBranchCustomerForm(): void {
   //   return;
   // }
 
-  // const found = this.branchcustomertargetmodel.branchCustomerTargetDtlList.some(el => el.rate === '');
-  //   if (found) {
-  //     this.toasterService.warning("Rate cannot be Empty in details grid");
-  //     this.sharedService.loading=false;
-  //     return;
-  //   }
+  const found = this.branchcustomertargetmodel.branchCustomerTargetDtlList.some(el => el.targetAmt === '');
+    if (found) {
+      this.toasterService.warning("Target Amt cannot be Empty in details grid");
+      this.sharedService.loading=false;
+      return;
+    }
 
   // if (this.branchcustomertargetmodel.rateForStateOrToPlace == "P") {     
   //   const found = this.branchcustomertargetmodel.freightRatesDetailsList.some(el => el.toPlace === this.ratesmastermodel.fromPlace);
@@ -335,16 +372,16 @@ submitBranchCustomerForm(): void {
   //     this.sharedService.loading=false;
   //     return;
   //   }
-  //   //Duplicate destination check
-  //   const foundDuplicateName = this.ratesmastermodel.freightRatesDetailsList.find((data, index) => {
-  //     return this.ratesmastermodel.freightRatesDetailsList.find((x, ind) => x.toPlace === data.toPlace && index !== ind);
-  //   });
-  //   if (foundDuplicateName) {
-  //     this.toasterService.warning(" To place in details grid not allowed");
-  //     this.sharedService.loading=false;
-  //     return;
-  //   }
-  // }
+    //Duplicate destination check
+    const foundDuplicateName = this.branchcustomertargetmodel.branchCustomerTargetDtlList.find((data, index) => {
+      return this.branchcustomertargetmodel.branchCustomerTargetDtlList.find((x, ind) => x.accountId === data.accountId && index !== ind);
+    });
+    if (foundDuplicateName) {
+      this.toasterService.warning(" Account in details grid not allowed");
+      this.sharedService.loading=false;
+      return;
+    }
+  
   // else {
   //   const found = this.ratesmastermodel.freightRatesDetailsList.some(el => el.destState === this.ratesmastermodel.fromPlace);
   //   if (found) {

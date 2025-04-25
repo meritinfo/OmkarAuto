@@ -1270,7 +1270,16 @@ ngOnInit(): void {
         this.toastrService.warning(" To Station is Invalid");
         return;
       }
-  
+      const d3 = this.minDate?Date.parse(this.minDate):0;
+      const d2 = this.maxDate?Date.parse(this.maxDate):0;
+      const d4 = selectedDataValue.challanDateTime?Date.parse(selectedDataValue.challanDateTime):0;
+      if (d3>d4 || d2<d4 ) {
+        this.formUser.patchValue({
+          challanDateTime: ''
+        });
+        this.toastrService.warning("Invalid challan date");
+        return
+      }
   
       this.formSubmitted = true;
       this.sharedService.loading = true;
