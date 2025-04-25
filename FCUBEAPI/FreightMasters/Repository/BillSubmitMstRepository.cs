@@ -53,8 +53,9 @@ namespace FreightMasters.Repository
                              //new SqlParameter("@PartyAcceptDt" , billSubmitMasterModel.PartyAcceptDt),
                             // new SqlParameter("@PartyAccceptRemarks" , billSubmitMasterModel.PartyAccceptRemarks),
                              new SqlParameter("@TotalSubmitAmt" , billSubmitMasterModel.TotalSubmitAmt),
+                             new SqlParameter("@SubmitPoNo" , billSubmitMasterModel.SubmitPoNo),                            
                              new SqlParameter("@YearID" , billSubmitMasterModel.YearID),
-                            new SqlParameter("@LoggedInUser",       billSubmitMasterModel.LoggedInUser)
+                             new SqlParameter("@LoggedInUser",       billSubmitMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillSubmitMstSave", param);
                     string SubmitMstId = "0";
@@ -374,6 +375,7 @@ namespace FreightMasters.Repository
                                 PartyAcceptDt = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyAcceptDt"]),
                                 PartyAccceptRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyAccceptRemarks"]),
                                 TotalSubmitAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSubmitAmt"]),
+                                SubmitPoNo= Convert.ToString(dataSet.Tables[0].Rows[i]["SubmitPoNo"]),
                                 Sname = Convert.ToString(dataSet.Tables[0].Rows[i]["Sname"]),
                                 Lname = Convert.ToString(dataSet.Tables[0].Rows[i]["Lname"]),
                                 dname = Convert.ToString(dataSet.Tables[0].Rows[i]["dname"]),

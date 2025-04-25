@@ -76,7 +76,7 @@
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['courierDocketNo'].invalid) }">
                                  </div>
                               </div>
-                              <div class="col-lg-6">
+                              <div class="col-lg-5">
                                  <div class="mb-3">
                                     <label for="formrow-inputCity">Party</label><span style="color: red"> * </span>
                                     <div class="ng-autocomplete">
@@ -97,6 +97,13 @@
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
                                     </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-2">
+                                 <div class="mb-3">
+                                    <label for="formrow-inputCity">PO No </label>
+                                    <input uppercaseonly autoclose="false" 
+                                       class="form-control" formControlName="submitPoNo">
                                  </div>
                               </div>
                            </div>

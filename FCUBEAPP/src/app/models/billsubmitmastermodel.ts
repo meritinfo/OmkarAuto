@@ -17,6 +17,7 @@ export class Billsubmitmastermodel {
     partyAcceptDt: string = "";
     partyAccceptRemarks: string = "";
     totalSubmitAmt: string = "";
+    submitPoNo: string = "";
     yearID: string = "";
     loggedInUser: string = "";
     sname: string = "";

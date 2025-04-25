@@ -124,9 +124,7 @@ export class BillsubmitmasteraddComponent {
       partyAcceptDt : new FormControl('',),
       partyAccceptRemarks : new FormControl('',),
       totalSubmitAmt : new FormControl('',[Validators.required]),
-      yearID : new FormControl('',),  
-      refDocAttachedImage : new FormControl('',),
-      branchCode : new FormControl('',),   
+      submitPoNo: new FormControl('',),
       arrayList: this.formBuilder.array([this.createSubmitArray()]),
     }); 
 
@@ -350,18 +348,19 @@ export class BillsubmitmasteraddComponent {
     this.billsubmitmastermodel.submitMstId = this.selectedBillSubmitMasterDetail.submitMstId ;
     this.billsubmitmastermodel.submitStn= selectedDataValue.submitStn;
     this.billsubmitmastermodel.submitNo = selectedDataValue.submitNo
-    this.billsubmitmastermodel.submitDt= selectedDataValue.submitDt;
-    this.billsubmitmastermodel.submitType= selectedDataValue.submitType;
-    this.billsubmitmastermodel.courierCo= selectedDataValue.courierCo;
-    this.billsubmitmastermodel.courierDocketNo= selectedDataValue.courierDocketNo;
-    this.billsubmitmastermodel.partyCode= selectedDataValue.partyCode.dataId;
-    this.billsubmitmastermodel.submitLocation= selectedDataValue.submitLocation;
-    this.billsubmitmastermodel.deptId= selectedDataValue.deptId;
-    this.billsubmitmastermodel.billsUptoDt= selectedDataValue.billsUptoDt;
-    this.billsubmitmastermodel.kindAttnTo= selectedDataValue.kindAttnTo.toString().toUpperCase();
-    this.billsubmitmastermodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
+    this.billsubmitmastermodel.submitDt = selectedDataValue.submitDt;
+    this.billsubmitmastermodel.submitType = selectedDataValue.submitType;
+    this.billsubmitmastermodel.courierCo = selectedDataValue.courierCo;
+    this.billsubmitmastermodel.courierDocketNo = selectedDataValue.courierDocketNo;
+    this.billsubmitmastermodel.partyCode = selectedDataValue.partyCode.dataId;
+    this.billsubmitmastermodel.submitLocation = selectedDataValue.submitLocation;
+    this.billsubmitmastermodel.deptId = selectedDataValue.deptId;
+    this.billsubmitmastermodel.billsUptoDt = selectedDataValue.billsUptoDt;
+    this.billsubmitmastermodel.kindAttnTo = selectedDataValue.kindAttnTo.toString().toUpperCase();
+    this.billsubmitmastermodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.billsubmitmastermodel.totalSubmitAmt= selectedDataValue.totalSubmitAmt;
-    this.billsubmitmastermodel.yearID= this.year;
+    this.billsubmitmastermodel.submitPoNo = selectedDataValue.submitPoNo.toString().toUpperCase();
+    this.billsubmitmastermodel.yearID = this.year;
     
     this.billsubmitmastermodel.loggedInUser=  this.loggedInUserID;
 

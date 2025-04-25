@@ -4310,7 +4310,7 @@ namespace FreightMasters.Repository
                 using (XLWorkbook wb = new XLWorkbook())
                 {
                     responseModel = await sharedRepository.GetCompanyDetail();
-                    int colcnt = 16;
+                    int colcnt = 17;
 
                     var ws = wb.Worksheets.Add("worksheet");
                     ws.Range(1, 1, 1, colcnt).Merge();
@@ -4358,6 +4358,7 @@ namespace FreightMasters.Repository
                     ws.Cell(5, 14).Value = "Broker Mobile";
                     ws.Cell(5, 15).Value = "Vehicle Engaged By";
                     ws.Cell(5, 16).Value = "Pod Recd";
+                    ws.Cell(5, 17).Value = "Challan No";
 
 
                     ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
@@ -4462,7 +4463,7 @@ namespace FreightMasters.Repository
                     ws.Range(row, 1, row, colcnt).Style.Font.Bold = true;
 
 
-                    for (int k = 1; k < colcnt; k++)
+                    for (int k = 1; k <= colcnt; k++)
                     {
                         ws.Column(k).AdjustToContents();
                     }

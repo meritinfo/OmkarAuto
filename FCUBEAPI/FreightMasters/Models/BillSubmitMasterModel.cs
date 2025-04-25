@@ -24,6 +24,7 @@ namespace FreightMasters.Models
         public string? PartyAcceptDt { get; set; }
         public string? PartyAccceptRemarks { get; set; }
         public string? TotalSubmitAmt { get; set; }
+        public string? SubmitPoNo { get; set; }        
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
         public string? Sname { get; set; }

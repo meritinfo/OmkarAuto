@@ -8,6 +8,7 @@ import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Schedulemodel } from 'src/app/models/schedulemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { formatDate } from "@angular/common";
 
 console.log();
@@ -22,11 +23,14 @@ export class HeaderComponent {
   branch: string = '';
   user: string = '';
   company: string = '';
+  loggedInUserID: string = '';
+  dashboard :string = '';
   branchname: string = '';
   yeardesc: string = '';
   shdled=false;
   shdlMsg:string ="";
   scheduleDetails = new Schedulemodel();
+  requestmodel = new Requestmodel();
 
   selectedScreenDetails = new Intermediatescreenmodel();
   timerSubscription !: Subscription;
@@ -66,6 +70,18 @@ export class HeaderComponent {
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData !== '') {
       this.company = userData5;
     }
+    
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
 
     this.getScheduleDetails();
 
@@ -92,9 +108,18 @@ export class HeaderComponent {
   changePwd():void { 
     this.route.navigate(['/changepassword']);
   }
-
-  dashboard(): void { 
-    this.route.navigate([this.dashboard]);
+  
+  getDashboard(){
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.sharedService.getDashboardDetail(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (res.status){        
+        this.dashboard = res.message;
+      }
+      else{
+        this.dashboard = "/dashboard"
+      }     
+      sessionStorage.setItem("dashboard", this.dashboard );
+    });
   }
 
   getScheduleDetails(){
