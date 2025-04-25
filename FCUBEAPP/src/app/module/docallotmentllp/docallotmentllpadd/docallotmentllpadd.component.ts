@@ -251,11 +251,11 @@ export class DocallotmentllpaddComponent {
         rangeTo = selectedDataVal.rangeTo;
         docCount = parseInt(rangeTo) - parseInt(rangeFrom);
         if(docCount > 5000){
-          this.toasterService.warning("Doc Count sholud not be more than 1000");   
+          this.toasterService.warning("Doc Count sholud not be more than 5000");   
           this.formUser.patchValue({
             rangeFrom: "",
-            rangeTo:"",
-            docCount:""
+            rangeTo: "",
+            docCount: ""
           });    
           return;
         }            
