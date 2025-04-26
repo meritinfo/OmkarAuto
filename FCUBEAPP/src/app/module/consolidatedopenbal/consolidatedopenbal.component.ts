@@ -137,7 +137,7 @@ export class ConsolidatedopenbalComponent {
         this.formArray.controls[i].get("crdr")?.disable();
 
         debitamount="0.00",creditamount="0.00";
-        if(res.consolidateopenballist[i].crdr=="C"){
+        if(res.consolidateopenballist[i].crdr=="C" || res.consolidateopenballist[i].crdr=="Credit"){
           creditamount=res.consolidateopenballist[i].balAmt;
           totcreditamount=totcreditamount+parseFloat(creditamount);
         }
