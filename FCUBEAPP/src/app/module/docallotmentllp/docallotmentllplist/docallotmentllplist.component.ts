@@ -7,7 +7,8 @@ import { DocumentallotmentService } from 'src/app/services/documentallotment.ser
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
-import { Requestmodel } from 'src/app/models/requestmodel';
+import { CommonService } from 'src/app/services/common.service';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-docallotmentllplist',
@@ -20,10 +21,12 @@ export class DocallotmentllplistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
+  branchList: Dropdownmodel[] = [];
   dtOptions: DataTables.Settings = {};
   dtElement!: DataTableDirective;
   allDocumentAllotment: Documentallotmentlistmodel = new Documentallotmentlistmodel();
+ 
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -34,13 +37,13 @@ dashboard: string ="";
 
   formFilter!: FormGroup;
   constructor(private documentallotmentService: DocumentallotmentService,
+    private commonService :CommonService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
      private route: Router) {
   }
 
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -54,14 +57,6 @@ dashboard: string ="";
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
     
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -70,8 +65,18 @@ dashboard: string ="";
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
+
+    this.formFilter = this.formBuilder.group({
+      branchCode: new FormControl('',),
+      docType: new FormControl('',),
+    });
+    
     this.documentallotmentService.clearDocumentallotmentDetails();
-   
+    this.getBranchList();
+
+    this.filter.search = "";
+    this.filter.sortColumn = "";
+
     this.sharedService.loading = true;
     this.documentallotmentList();
     this.sharedService.loading=false;   
@@ -88,8 +93,6 @@ dashboard: string ="";
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
 
         this.documentallotmentService.getDocumentallotmentList(this.filter)
           .subscribe(resp => {
@@ -151,8 +154,19 @@ dashboard: string ="";
     this.documentallotmentService.setDocumentallotmentDetails(destination);
     this.route.navigate(['/docallotllpedit']);
   }
+
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+
   search(): void {
     this.sharedService.loading = true;
+    var selecteddata = this.formFilter.getRawValue();
+    this.filter.search = selecteddata.branchCode;
+    this.filter.sortColumn = selecteddata.docType;
+
     this.documentallotmentList();
     this.sharedService.loading=false;   
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
