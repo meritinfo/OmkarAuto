@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Documentallotmentlistmodel  } from 'src/app/models/documentallotmentlistmodel';
@@ -24,7 +24,9 @@ export class DocallotmentllplistComponent {
   dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
+
   allDocumentAllotment: Documentallotmentlistmodel = new Documentallotmentlistmodel();
  
   filter: Filtermodel = {
@@ -162,15 +164,15 @@ export class DocallotmentllplistComponent {
   }
 
   search(): void {
-    this.sharedService.loading = true;
     var selecteddata = this.formFilter.getRawValue();
     this.filter.search = selecteddata.branchCode;
     this.filter.sortColumn = selecteddata.docType;
 
+    this.sharedService.loading=true;
     this.documentallotmentList();
-    this.sharedService.loading=false;   
+    this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
     });
-}
+  }
 }
