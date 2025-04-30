@@ -180,7 +180,7 @@ export class BilloutstandingrptComponent {
     this.filter.filterStr     = selectedDataVal.branch;
     this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
     this.filter.filterStr2    = selectedDataVal.submitYN;  
-    this.filter.filterStr3    = selectedDataVal.party;        
+    this.filter.filterStr3    = selectedDataVal.party?selectedDataVal.party.dataId:"";        
     this.filter.age1 = parseInt(selectedDataVal.age1)
     this.filter.age2 = parseInt(selectedDataVal.age2) 
     this.filter.age3 = parseInt(selectedDataVal.age3)
