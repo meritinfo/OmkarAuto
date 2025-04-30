@@ -24,6 +24,7 @@ export class VehicleengagementrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];

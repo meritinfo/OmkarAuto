@@ -24,6 +24,7 @@ export class SparespurchaserptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   locationList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

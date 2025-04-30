@@ -41,7 +41,8 @@ export class BillsmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -63,17 +64,21 @@ export class BillsmasterlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
+        .find((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
     
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {

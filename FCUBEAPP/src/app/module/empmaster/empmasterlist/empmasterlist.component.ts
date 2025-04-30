@@ -17,7 +17,8 @@ export class EmpmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -54,9 +55,13 @@ export class EmpmasterlistComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
 
     this.empmasterService.clearEmployeeDetails();
     this.formFilter = this.formBuilder.group({

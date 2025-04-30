@@ -24,6 +24,7 @@ export class DailyloadingrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

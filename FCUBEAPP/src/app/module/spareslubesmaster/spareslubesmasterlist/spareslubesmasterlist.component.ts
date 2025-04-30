@@ -18,7 +18,8 @@ export class SpareslubesmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)

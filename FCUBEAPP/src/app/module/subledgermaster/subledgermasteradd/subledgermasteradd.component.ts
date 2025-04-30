@@ -34,7 +34,8 @@ export class SubledgermasteraddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   
   editMode= false;
   formSubmitted = false;

@@ -28,7 +28,8 @@ export class DistancetripeditComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   formSubmitted = false;
   responseDetails = new Responsemodel();
   fromMasterId:string="";

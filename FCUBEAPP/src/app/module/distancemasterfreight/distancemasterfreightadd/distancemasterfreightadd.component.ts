@@ -32,7 +32,8 @@ export class DistancemasterfreightaddComponent implements OnInit {
   editStatus = false;
   createmode= true;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   formSubmitted = false;
   responseDetails = new Responsemodel();
   validationDetails = new Responsemodel();

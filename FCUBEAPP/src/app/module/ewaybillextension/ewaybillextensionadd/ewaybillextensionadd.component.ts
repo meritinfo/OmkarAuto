@@ -23,7 +23,8 @@ export class EwaybillextensionaddComponent {
     createStatus = false;
     editStatus = false;
     deleteStatus = false;
-    viewStatus = false;
+    viewStatus = false; 
+dashboard: string ="";
     responseDetails = new Responsemodel();
     stateList: Dropdownmodel[] = [];  
     pinDetails = new Dropdownmodel();  

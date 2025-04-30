@@ -27,7 +27,8 @@ export class PartygroupmasteraddComponent {
   editStatus = false;
   createmode= true;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
  
   responseDetails = new Responsemodel();
   selectedPartygroupmasterDetails = new Partygroupmastermodel();

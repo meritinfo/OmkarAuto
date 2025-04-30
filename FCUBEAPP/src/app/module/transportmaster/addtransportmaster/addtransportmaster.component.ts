@@ -36,7 +36,8 @@ export class AddtransportmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
   uploadedcancelChq: string = "";
   uploadedaddrProof: string = "";

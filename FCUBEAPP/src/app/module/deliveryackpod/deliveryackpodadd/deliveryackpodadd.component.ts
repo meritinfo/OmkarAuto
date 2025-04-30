@@ -27,7 +27,8 @@ export class DeliveryackpodaddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -78,9 +79,13 @@ export class DeliveryackpodaddComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -621,7 +626,10 @@ export class DeliveryackpodaddComponent {
         return;
       }
     }
-     const d3 = this.minDate?Date.parse(this.minDate):0;
+    
+    var selectedDataValue = this.formUser.getRawValue();
+
+    const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataValue.ackDate?Date.parse(selectedDataValue.ackDate):0;
     if (d3>d4 || d2<d4 ) {
@@ -634,7 +642,6 @@ export class DeliveryackpodaddComponent {
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
-    var selectedDataValue = this.formUser.getRawValue();
     this.deliveryackpodmodel.ackId              = this.selectedDeliveryackpod.ackId ;
     this.deliveryackpodmodel.ackBranch          = selectedDataValue.ackBranch.toString().toUpperCase();
     this.deliveryackpodmodel.ackDate            = selectedDataValue.ackDate.toString();

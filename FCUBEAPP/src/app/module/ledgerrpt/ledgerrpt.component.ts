@@ -25,6 +25,7 @@ export class LedgerrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   accountList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

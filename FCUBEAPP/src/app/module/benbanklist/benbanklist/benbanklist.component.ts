@@ -24,7 +24,8 @@ export class BenbanklistComponent {
   createStatus = false;
       editStatus = false;
       deleteStatus = false;
-      viewStatus = false;
+      viewStatus = false; 
+dashboard: string ="";
       year: string = '';
         yearList: Dropdownmodel[] = [];
     

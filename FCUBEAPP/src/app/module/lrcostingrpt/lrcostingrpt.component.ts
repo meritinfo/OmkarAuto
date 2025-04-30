@@ -23,6 +23,7 @@ export class LrcostingrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   partyList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   

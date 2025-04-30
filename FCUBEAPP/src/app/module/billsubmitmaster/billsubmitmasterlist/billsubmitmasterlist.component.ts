@@ -44,7 +44,8 @@ export class BillsubmitmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   keywordLocation = 'dataName';
   partyList: Dropdownmodel[] = [];
   loginDate: string = '';

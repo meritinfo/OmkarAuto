@@ -23,6 +23,7 @@ export class VehicleadvbalrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

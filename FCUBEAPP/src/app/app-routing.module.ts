@@ -532,7 +532,6 @@ const routes: Routes = [
   { path: 'mrentrylist', component: MrlistComponent},
   { path: 'mrentryadd', component: MraddComponent },
   { path: 'mrentryedit', component: MraddComponent },
-  { path: 'tbplbsrpt', component:  BalanacerptComponent},
   { path: 'companyinfo', component:  CompanyinfoaddComponent},
   { path: 'emipmtlist', component:  VehicleinstpmtlistComponent},
   { path: 'vehicleinstpmtadd', component:  VehicleinstpmtaddComponent},

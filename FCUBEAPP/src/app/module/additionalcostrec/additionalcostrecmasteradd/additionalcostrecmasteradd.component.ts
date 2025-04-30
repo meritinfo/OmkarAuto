@@ -3,13 +3,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Responsemodel } from 'src/app/models/responsemodel';
-
 import { AdditionalcostrecmasterModel  } from 'src/app/models/additionalcostrecmastermodel';
 import { Additionalcostrecmasterlistmodel } from 'src/app/models/additionalcostrecmasterlist';
-
 import { AdditionalcostrecService } from 'src/app/services/additionalcostrecmaster.service';
 import { CommonService } from 'src/app/services/common.service';
-
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -31,7 +28,8 @@ export class AdditionalcostrecmasteraddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

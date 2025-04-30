@@ -23,7 +23,8 @@ export class AdddocrenewalmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
 
@@ -53,9 +54,13 @@ export class AdddocrenewalmasterComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {

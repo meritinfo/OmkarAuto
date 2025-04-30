@@ -37,7 +37,7 @@ export class LrbillserieslistComponent {
  formFilter!: FormGroup;
  branchList: Dropdownmodel[] = [];
  vehicleList: Dropdownmodel[] = [];
- dashboard:string = '';
+  
  keywordLocation = 'dataName';
  year: string = '';
  loginDate: string = '';
@@ -49,7 +49,8 @@ export class LrbillserieslistComponent {
  editStatus = false;
  deleteStatus = false;
   
- viewStatus = false;
+ viewStatus = false; 
+dashboard: string ="";
  createmode = false;
  @ViewChild(DataTableDirective)
  dtElement!: DataTableDirective;

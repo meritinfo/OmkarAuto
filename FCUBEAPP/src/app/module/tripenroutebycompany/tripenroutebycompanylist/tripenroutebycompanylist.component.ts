@@ -38,7 +38,7 @@ branchList: Dropdownmodel[] = [];
 vehicleList: Dropdownmodel[] = [];
 expList: Dropdownmodel[] = [];
 keywordLocation = 'dataName';
-dashboard:string = '';
+ 
 year: string = '';
 loginDate: string = '';
 fromDate: string = '';
@@ -49,7 +49,8 @@ editMode = false;
 createStatus = false;
 editStatus = false;
 deleteStatus = false;
-viewStatus = false;
+viewStatus = false; 
+dashboard: string ="";
 createmode = false;
 @ViewChild(DataTableDirective)
 dtElement!: DataTableDirective;

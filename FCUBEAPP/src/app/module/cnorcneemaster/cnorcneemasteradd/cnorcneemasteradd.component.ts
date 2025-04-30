@@ -28,7 +28,8 @@ export class CnorcneemasteraddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

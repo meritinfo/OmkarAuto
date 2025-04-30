@@ -25,6 +25,7 @@ export class MissingdocrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   rangeFromList: Dropdownmodel[] = [];
   rangeToList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];

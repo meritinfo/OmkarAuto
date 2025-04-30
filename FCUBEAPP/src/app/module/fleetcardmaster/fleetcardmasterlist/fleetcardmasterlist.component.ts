@@ -28,7 +28,8 @@ createmode  = true;
 createStatus = false;
 editStatus = false;
 deleteStatus = false;
-viewStatus = false;
+viewStatus = false; 
+dashboard: string ="";
 constructor(private fleetcardmasterService: FleetCardMasterService, private route: Router) {
 }
 ngOnInit(): void {

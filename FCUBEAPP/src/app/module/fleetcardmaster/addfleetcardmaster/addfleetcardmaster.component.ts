@@ -35,7 +35,8 @@ export class AddfleetcardmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
 
   selectedFleetCardMasterDetails = new Fleetcardmastermodel();

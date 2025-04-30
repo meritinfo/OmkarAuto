@@ -38,7 +38,6 @@ export class AdminmastergrouplistComponent {
 formFilter!: FormGroup;
 branchList: Dropdownmodel[] = [];
 vehicleList: Dropdownmodel[] = [];
-dashboard:string = '';
 keywordLocation = 'dataName';
 year: string = '';
 loginDate: string = '';
@@ -49,7 +48,8 @@ editMode = false;
 createStatus = false;
 editStatus = false;
 deleteStatus = false;
-viewStatus = false;
+viewStatus = false; 
+dashboard: string ="";
 createmode = false;
 @ViewChild(DataTableDirective)
 dtElement!: DataTableDirective;

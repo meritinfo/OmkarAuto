@@ -32,7 +32,8 @@ createmode  = true;
 createStatus = false;
 editStatus = false;
 deleteStatus = false;
-viewStatus = false;
+viewStatus = false; 
+dashboard: string ="";
 constructor(private driversalarystatementService: DriversalarystatementService, private route: Router) {
 }
 ngOnInit(): void {

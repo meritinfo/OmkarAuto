@@ -38,7 +38,8 @@ export class ConsignmentllpaddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   
   branchList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
@@ -97,9 +98,13 @@ export class ConsignmentllpaddComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -1182,6 +1187,19 @@ export class ConsignmentllpaddComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
+
+    
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.bookingDate?Date.parse(selectedDataValue.bookingDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        bookingDate: ''
+      });
+      this.toastrService.warning("Invalid booking date");
+      return
+    }
+
 
     if (selectedDataValue.fromPlace.dataId) {
       //ignore

@@ -25,7 +25,8 @@ export class AddroletypeComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
 
   selectedRoleTypesDetails = new Roletypemodel();

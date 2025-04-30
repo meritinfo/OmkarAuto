@@ -36,7 +36,8 @@ export class ChallanenquiryComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];

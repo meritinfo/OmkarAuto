@@ -21,7 +21,8 @@ export class DriversalarypmtlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   year: string = '';
   loginDate: string = '';
   branch: string = '';
@@ -34,7 +35,7 @@ export class DriversalarypmtlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
-  dashboard:string = ''; 
+    
   alldriver: Driversalarylistmodel = new Driversalarylistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
@@ -72,9 +73,13 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }  
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }  
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();

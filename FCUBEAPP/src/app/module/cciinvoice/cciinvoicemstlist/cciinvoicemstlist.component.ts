@@ -35,7 +35,8 @@ export class CciinvoicemstlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';

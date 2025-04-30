@@ -19,12 +19,13 @@ import { Requestmodel } from 'src/app/models/requestmodel';
   styleUrls: ['./deliverydisputeentrylist.component.css']
 })
 export class DeliverydisputeentrylistComponent {
-  dashboard:string = ''; 
+    
     formSubmitted = false;
     createStatus = false;
     editStatus = false;
     deleteStatus = false;
-    viewStatus = false;
+    viewStatus = false; 
+dashboard: string ="";
     vendorList: Dropdownmodel[] = [];
     formFilter!: FormGroup;
     keywordLocation = 'dataName'; 

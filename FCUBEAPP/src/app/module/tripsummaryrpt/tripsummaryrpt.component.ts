@@ -23,6 +23,7 @@ export class TripsummaryrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   docRenewalList: Dropdownmodel[] = [];
     
   partyList: Dropdownmodel[] = [];

@@ -46,7 +46,8 @@ export class PartygroupmasterlistComponent {
   editStatus = false;
   createmode= true;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   
 
   dtOptions: DataTables.Settings = {};
@@ -72,9 +73,13 @@ export class PartygroupmasterlistComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {

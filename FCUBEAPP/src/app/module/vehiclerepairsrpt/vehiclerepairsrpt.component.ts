@@ -25,6 +25,7 @@ export class VehiclerepairsrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];

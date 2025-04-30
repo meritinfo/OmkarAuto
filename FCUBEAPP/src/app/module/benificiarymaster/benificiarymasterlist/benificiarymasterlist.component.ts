@@ -47,7 +47,8 @@ export class BenificiarymasterlistComponent {
   editStatus = false;
   createmode= true;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   formSubmitted = false;
 
   dtOptions: DataTables.Settings = {};

@@ -38,7 +38,8 @@ export class BillenquiryComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

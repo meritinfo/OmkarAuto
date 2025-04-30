@@ -34,7 +34,8 @@ createmode  = true;
 createStatus = false;
 editStatus = false;
 deleteStatus = false;
-viewStatus = false;
+viewStatus = false; 
+dashboard: string ="";
 constructor(private ptSlabMasterService: PtSlabMasterService, private route: Router) {
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {

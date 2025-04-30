@@ -26,6 +26,7 @@ export class DeductionrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
 
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

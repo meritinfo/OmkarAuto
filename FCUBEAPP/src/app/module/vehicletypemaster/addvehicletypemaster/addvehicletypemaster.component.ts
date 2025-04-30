@@ -32,7 +32,8 @@ export class AddvehicletypemasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
 
   selectedVehicleTypeMasterDetails = new Vehicletypemastermodel();

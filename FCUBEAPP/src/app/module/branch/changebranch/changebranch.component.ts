@@ -14,14 +14,14 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class ChangebranchComponent {
   loggedInUserID: string = '';
-  dashboard:string = '';
   formUser!: FormGroup;
   formSubmitted = false;
   branchList: Dropdownmodel[] = [];
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private commonService: CommonService, private toastrService: ToastrService) {
@@ -42,9 +42,13 @@ export class ChangebranchComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    } 
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        } 
         
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {

@@ -26,7 +26,8 @@ export class BilltypeaddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];

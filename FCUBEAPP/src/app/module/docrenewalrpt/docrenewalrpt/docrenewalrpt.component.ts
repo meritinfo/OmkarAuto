@@ -24,6 +24,7 @@ export class DocrenewalrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

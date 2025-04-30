@@ -26,6 +26,7 @@ export class GstsalesregisterrptlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];

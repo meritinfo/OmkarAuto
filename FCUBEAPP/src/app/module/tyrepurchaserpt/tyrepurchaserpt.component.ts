@@ -23,6 +23,7 @@ export class TyrepurchaserptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   vendorList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];

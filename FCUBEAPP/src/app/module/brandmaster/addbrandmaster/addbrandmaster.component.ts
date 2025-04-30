@@ -30,7 +30,8 @@ export class AddbrandmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   loginDate: string = '';
   year: string = '';
   branch: string = '';

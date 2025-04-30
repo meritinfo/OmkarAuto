@@ -30,7 +30,8 @@ export class PanwisetdsrateaddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   minDate:string = '';
   mDate:string = '';
   maxDate: string = '';

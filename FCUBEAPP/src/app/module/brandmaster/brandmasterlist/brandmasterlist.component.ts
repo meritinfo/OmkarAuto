@@ -22,7 +22,8 @@ export class BrandmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
 
   year: string = '';
   loginDate: string = '';

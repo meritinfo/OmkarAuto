@@ -23,7 +23,7 @@ export class CompanyinfoaddComponent {
   branchname:string = '';
   branchid:string = '';
   year:string = '';
-  dashboard:string = ''; 
+    
   
   formDocEntry!: FormGroup;
   fromDate: string = '';
@@ -36,7 +36,8 @@ export class CompanyinfoaddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   checkselected: boolean = false;
   responseDetails = new Responsemodel();
   VehicalExistDetails = new Responsemodel();
@@ -73,9 +74,13 @@ export class CompanyinfoaddComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     

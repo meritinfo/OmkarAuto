@@ -24,6 +24,7 @@ export class DriverlicrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+dashboard: string =""; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];

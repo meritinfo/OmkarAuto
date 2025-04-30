@@ -37,7 +37,7 @@ export class FreightgstmasterlistComponent {
   formFilter!: FormGroup;
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
-  dashboard:string = '';
+   
   keywordLocation = 'dataName';
   year: string = '';
   loginDate: string = '';
@@ -48,7 +48,8 @@ export class FreightgstmasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   createmode = false;
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;

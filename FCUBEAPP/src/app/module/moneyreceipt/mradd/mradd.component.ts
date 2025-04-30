@@ -36,7 +36,8 @@ export class MraddComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -85,9 +86,13 @@ export class MraddComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
-    }    
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -580,19 +585,39 @@ export class MraddComponent {
     });
     if(selectedValue=="B"){      
       this.formUser.controls['neftYN'].enable();
+      this.formUser.controls['chequeNo'].enable();
+      this.formUser.controls['chequeDt'].enable();
     }
     else{
       this.formUser.patchValue({
-        neftYN: ''
+        neftYN: '',
+        chequeNo:'',
+        chequeDt:selectedValueData.mrDate,
       });
       this.formUser.controls['neftYN'].disable();
+      this.formUser.controls['chequeNo'].disable();
+      this.formUser.controls['chequeDt'].disable();
     }
     if(selectedValue=='J') {selectedValue = 'J'}
     if(selectedValue=='M') {selectedValue = 'C'}
 
     this.getAccountList(selectedValue);
   }
-
+  onCheck(e:any){
+    var selectedValueData = this.formUser.getRawValue();
+    if(e.target.checked){
+      this.formUser.patchValue({
+        chequeNo:'',
+        chequeDt:selectedValueData.mrDate,
+      });
+      this.formUser.controls['chequeNo'].disable();
+      this.formUser.controls['chequeDt'].disable();
+    }
+    else{      
+      this.formUser.controls['chequeNo'].enable();
+      this.formUser.controls['chequeDt'].enable();
+    }
+  }
   getAccountList(tp:string): void {    
     this.requestmodel.strRequest= tp;
     this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
@@ -1156,6 +1181,7 @@ export class MraddComponent {
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }
+    
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataVal.mrDate?Date.parse(selectedDataVal.mrDate):0;

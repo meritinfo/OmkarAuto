@@ -24,7 +24,8 @@ export class CnorcneemasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false;
+  viewStatus = false; 
+dashboard: string ="";
   branchList: Dropdownmodel[] = [];
 
   dtOptions: DataTables.Settings = {};

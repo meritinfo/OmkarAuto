@@ -24,6 +24,7 @@ export class BalanacerptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  dashboard: string =""; 
 
   branchList: Dropdownmodel[]=[];
   
@@ -57,16 +58,20 @@ export class BalanacerptComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Trial Balacne / P&L / BS");
+        .find(((aa: { menuName: string; }) => aa.menuName === "Trial Balance / P&L / BS"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
     if(!this.viewStatus){      
-      this.route.navigate(['/dashboard']);
+      this.route.navigate([this.dashboard]);
     }
 
     var userData = sessionStorage.getItem('uid')?.toString();
