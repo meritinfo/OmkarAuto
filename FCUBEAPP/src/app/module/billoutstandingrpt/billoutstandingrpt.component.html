@@ -58,13 +58,16 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Party</label>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="partyList" 
-                                            formControlName="party"
-                                            [searchKeyword]="keywordLocation" 
-                                            [customFilter]="startWithFilter"
-                                            [notFoundTemplate]="notFoundTemplate">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="party" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
                                         </ng-autocomplete>
-
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>
                                         </ng-template>
