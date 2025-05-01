@@ -627,6 +627,7 @@ namespace Consignment.Repository
                         new SqlParameter("@ChequeNo",           mr.ChequeNo ),
                         new SqlParameter("@ChequeDt",           mr.ChequeDt ),
                         new SqlParameter("@ModifyRemarks",      mr.ModifyRemarks),
+                        new SqlParameter("@BillNoList",         mr.ChequeReturnRemarks),
                         new SqlParameter("@YearId",             mr.YearId),
                         new SqlParameter("@LoggedInUser",       mr.LoggedInUser),
 

@@ -203,13 +203,6 @@
                                             </select>
                                         </div>
                                     </div>  
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">PO No</label>
-                                            <input type="text" uppercaseonly class="form-control" 
-                                                formControlName="poNo">
-                                        </div>
-                                    </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Shipment/Order No</label>
@@ -217,7 +210,35 @@
                                                 formControlName="shipmentNo" >
                                         </div>
                                     </div> 
-                                </div>                                
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Shipment Date</label>
+                                            <input type="date" autoclose="false" 
+                                                formControlName="shipmentDt" max="{{maxDate}}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>                           
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">PO No</label>
+                                            <input uppercaseonly class="form-control" formControlName="poNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">PO Date</label>
+                                            <input type="date" autoclose="false" 
+                                                formControlName="poDt" max="{{maxDate}}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bid No</label>
+                                            <input uppercaseonly class="form-control" formControlName="privateMark">
+                                        </div>
+                                    </div>
+                                </div>                                 
                                 <div class="row">                                      
                                     <div class="col-lg-2">
                                         <div class="mb-3">

@@ -36,7 +36,7 @@ export class ConsignmentaddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -90,12 +90,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -191,8 +191,8 @@ dashboard: string ="";
       shipmentDt : new FormControl('',),    
       // deliveryNo : new FormControl('',),    
       // deliveryDt : new FormControl('',),    
-      // poNo : new FormControl('',),    
-      // poDt : new FormControl('',),    
+      poNo : new FormControl('',),    
+      poDt : new FormControl('',),    
       // riskBy : new FormControl('',),    
       // insCoName :new FormControl('',),    
       // insPolicyNo : new FormControl('',),    
@@ -1068,8 +1068,6 @@ dashboard: string ="";
     this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
     this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
     this.lrmodel.cneeGst = selectedDataValue.cneeGst;
-    this.lrmodel.shipmentNo = selectedDataValue.shipmentNo;
-    this.lrmodel.shipmentDt = selectedDataValue.shipmentDt;
     this.lrmodel.classId = selectedDataValue.classId;
     this.lrmodel.productId = selectedDataValue.productId;
     this.lrmodel.productDesc = selectedDataValue.productDesc;
@@ -1082,7 +1080,11 @@ dashboard: string ="";
     this.lrmodel.chargewt = selectedDataValue.chargewt?selectedDataValue.chargewt.toString():"";
     this.lrmodel.wtDesc = "";  
     this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 
-    this.lrmodel.privateMark = "";  
+    this.lrmodel.shipmentNo = selectedDataValue.shipmentNo;
+    this.lrmodel.shipmentDt = selectedDataValue.shipmentDt;        
+    this.lrmodel.poNo = selectedDataValue.poNo; 
+    this.lrmodel.poDt = selectedDataValue.poDt; 
+    this.lrmodel.privateMark = selectedDataValue.privateMark ;  
     this.lrmodel.bulkYN = selectedDataValue.bulkYN?'Y':'N';
     this.lrmodel.loadLength = selectedDataValue.loadLength?selectedDataValue.loadLength.toString():"";
     this.lrmodel.loadWidth = selectedDataValue.loadWidth?selectedDataValue.loadWidth.toString():"";

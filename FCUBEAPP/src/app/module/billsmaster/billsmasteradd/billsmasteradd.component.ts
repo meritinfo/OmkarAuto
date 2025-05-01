@@ -163,8 +163,7 @@ dashboard: string ="";
       billRemarks: new FormControl('',),
       enlcosedDocs: new FormControl('',),
       gstBy : new FormControl('N',[Validators.required]),
-  
-      loggedInUser :  new FormControl(''),
+      selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
     
@@ -488,6 +487,21 @@ dashboard: string ="";
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.billsmastersearchlistmodel = res; 
     });
+  }
+
+  
+  selectAll(e: any) {
+    if(e.target.checked){
+      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;
+      }
+    }
+    else{
+      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = false;
+      }
+    }
+    this.calculateTotal();
   }
 
   

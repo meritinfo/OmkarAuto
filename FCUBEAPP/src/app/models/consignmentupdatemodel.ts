@@ -4,7 +4,10 @@ export class Consignmentupdatemodel {
     consignmentID : string = "";
     productId: string = "";
     poNo: string = "";
+    poDt: string = "";
     shipmentNo: string = "";
+    shipmentDt: string = "";
+    privateMark: string = "";
     vehicleNo: string = "";
     billingStatus : string = "";
     billingParty : string = "";

@@ -13,7 +13,10 @@ namespace Consignment.Models
         public string? BillingParty { get; set; }
         public string? ProductId { get; set; }        
         public string? PoNo { get; set; }
+        public string? PoDt { get; set; }
         public string? ShipmentNo { get; set; }
+        public string? ShipmentDt { get; set; }
+        public string? PrivateMark { get; set; }
         public string? VehicleNo { get; set; }        
         public string? RateType { get; set; }
         public string? RateDesc { get; set; }

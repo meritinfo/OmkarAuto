@@ -170,7 +170,7 @@ dashboard: string ="";
       billSlNo: new FormControl('',),
       gstBy : new FormControl('N',[Validators.required]),
   
-      loggedInUser :  new FormControl(''),
+      selectedAll :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
     this.formBillsMaster.controls['billNo'].disable();
@@ -626,6 +626,19 @@ dashboard: string ="";
     });
   }
 
+  selectAll(e: any) {
+    if(e.target.checked){
+      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;
+      }
+    }
+    else{
+      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = false;
+      }
+    }
+    this.calculateTotal();
+  }
   
   selectedData(i: number, event: any) {
     this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = event.target.checked;      

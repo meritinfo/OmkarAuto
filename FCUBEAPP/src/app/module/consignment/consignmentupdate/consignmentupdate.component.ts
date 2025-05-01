@@ -146,7 +146,10 @@ dashboard: string ="";
       fromPlace : new FormControl('',),    
       toPlace : new FormControl('', ), 
       poNo:new FormControl('', ), 
+      poDt:new FormControl('', ), 
       shipmentNo:new FormControl('', ), 
+      shipmentDt:new FormControl('', ), 
+      privateMark:new FormControl('', ), 
       noPackages : new FormControl('',),  
       actualWt : new FormControl('',),   
       chargewt : new FormControl('',),   
@@ -262,9 +265,12 @@ dashboard: string ="";
       billingStatus: "",
       vehicleNo:"",
       fromPlace : "",
-      toPlace :  "",   
-      poNo:"",
-      shipmentNo:"",  
+      toPlace :  "", 
+      shipmentNo:  "", 
+      shipmentDt :  "",      
+      poNo :  "", 
+      poDt :  "", 
+      privateMark :  "", 
       noPackages :  "",
       actualWt :  "", 
       chargewt :  "", 
@@ -344,8 +350,11 @@ dashboard: string ="";
             vehicleNo: this.lrmodel.invoiceNo,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
-            poNo :  this.lrmodel.poNo,
             shipmentNo: this.lrmodel.poNo,
+            shipmentDt : this.lrmodel.shipmentDt,      
+            poNo : this.lrmodel.poNo,
+            poDt : this.lrmodel.poDt,
+            privateMark : this.lrmodel.privateMark,  
             noPackages :  this.lrmodel.noPackages,
             actualWt :  this.lrmodel.actualWt, 
             chargewt :  this.lrmodel.chargewt, 
@@ -613,9 +622,12 @@ dashboard: string ="";
     }
 
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
-    this.cnmodel.productId = selectedDataValue.productId.toString();
-    this.cnmodel.poNo = selectedDataValue.poNo.toString();
+    this.cnmodel.productId = selectedDataValue.productId.toString();    
     this.cnmodel.shipmentNo = selectedDataValue.shipmentNo.toString();
+    this.cnmodel.shipmentDt= selectedDataValue.shipmentDt;    
+    this.cnmodel.poNo = selectedDataValue.poNo.toString();
+    this.cnmodel.poDt = selectedDataValue.poDt;
+    this.cnmodel.privateMark = selectedDataValue.privateMark;
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.vehicleNo = selectedDataValue.vehicleNo;  
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
