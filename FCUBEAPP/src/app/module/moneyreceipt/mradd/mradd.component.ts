@@ -1268,7 +1268,7 @@ dashboard: string ="";
     this.mrmodel.mrDtlsList = [];
     this.mrmodel.mrOnAcList = [];
     this.mrmodel.mrAdjList = [];
-
+    var billnolist = "";
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {       
       var totDed = selectedDataVal.arrayList[i].totDed!= ""? parseFloat(selectedDataVal.arrayList[i].totDed) :0;
@@ -1282,6 +1282,8 @@ dashboard: string ="";
           this.toasterService.warning("Please Enter Valid Bill/LR in grid ");          
           return;
         }
+        billnolist = billnolist + "," + selectedDataVal.arrayList[i].billLrNo;
+
         this.mrmodel.mrDtlsList.push({
           "mrMasterId": "" ,
           "mrStation": selectedDataVal.mrStation,
@@ -1341,6 +1343,10 @@ dashboard: string ="";
         });
       }
     }
+    if(billnolist!=""){
+      billnolist = billnolist.substring(1);
+    }
+    this.mrmodel.chequeReturnRemarks = billnolist;
 
     this.sharedService.loading=true;
     this.formSubmitted = true;

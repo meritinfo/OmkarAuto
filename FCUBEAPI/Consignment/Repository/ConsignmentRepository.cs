@@ -102,6 +102,9 @@ namespace Consignment.Repository
                                 CneeEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeEmail"]),
                                 ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentNo"]),
                                 ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentDt"]),
+                                PoNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PoNo"]),
+                                PoDt = Convert.ToString(dataSet.Tables[0].Rows[i]["PoDt"]),
+                                PrivateMark = Convert.ToString(dataSet.Tables[0].Rows[i]["PrivateMark"]),
                                 ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
                                 ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc"]),
                                 ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
@@ -335,6 +338,9 @@ namespace Consignment.Repository
                             new SqlParameter("@CneeEmail",           cn.CneeEmail              ),
                             new SqlParameter("@ShipmentNo",          cn.ShipmentNo              ),
                             new SqlParameter("@ShipmentDt",          cn.ShipmentDt              ),
+                            new SqlParameter("@PoNo",                cn.PoNo              ),
+                            new SqlParameter("@PoDt",                cn.PoDt              ),
+                            new SqlParameter("@PrivateMark",         cn.PrivateMark              ),
                             new SqlParameter("@ClassId",             cn.ClassId                   ),
                             new SqlParameter("@ProductId",           cn.ProductId                 ),
                             new SqlParameter("@ProductDesc",         cn.ProductDesc               ),
@@ -347,7 +353,6 @@ namespace Consignment.Repository
                             new SqlParameter("@Chargewt",            cn.Chargewt                  ),
                             new SqlParameter("@WtDesc",              cn.WtDesc                    ),
                             new SqlParameter("@VehicleTypeId",       cn.VehicleTypeId             ),
-                            new SqlParameter("@PrivateMark",         cn.PrivateMark               ),
                             new SqlParameter("@BulkYN",              cn.BulkYN                    ),
                             new SqlParameter("@LoadLength",          cn.LoadLength                ),
                             new SqlParameter("@LoadWidth",           cn.LoadWidth                 ),
@@ -383,8 +388,8 @@ namespace Consignment.Repository
                             new SqlParameter("@NonGstAmt2",          cn.NonGstAmt2                ),
                             new SqlParameter("@NonGstAmt2Desc",      cn.NonGstAmt2Desc            ),
                             new SqlParameter("@GtotalRs",            cn.GtotalRs                  ),
-                            new SqlParameter("@LdReportingDateTime", cn.VehicleInDt + " " + cn.VehicleInTime),
-                            new SqlParameter("@DespatchDateTime",    cn.VehicleOutDt + " " +  cn.VehicleOutTime),
+                            new SqlParameter("@LdReportingDateTime", cn.LdReportingDateTime),
+                            new SqlParameter("@DespatchDateTime",    cn.DespatchDateTime),
                             new SqlParameter("@Attachedfile",        cn.Attachedfile),
                             new SqlParameter("@GcSlNo",              cn.GcSlNo),
                             new SqlParameter("@GcSeries",              cn.GcSeries),
@@ -644,8 +649,11 @@ namespace Consignment.Repository
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
                         lrmodel.ProductId = Convert.ToString(dataSet.Tables[0].Rows[0]["ProductId"]);
-                        lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
                         lrmodel.ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentNo"]);
+                        lrmodel.ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentDt"]);
+                        lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
+                        lrmodel.PoDt = Convert.ToString(dataSet.Tables[0].Rows[0]["PoDt"]);
+                        lrmodel.PrivateMark = Convert.ToString(dataSet.Tables[0].Rows[0]["PrivateMark"]);
                         lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
                         lrmodel.CneeName = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
                         lrmodel.NoPackages = Convert.ToString(dataSet.Tables[0].Rows[0]["NoPackages"]);
@@ -727,8 +735,11 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),                            
                             new SqlParameter("@ProductId",          ConsignmentModel.ProductId ),
-                            new SqlParameter("@PoNo",               ConsignmentModel.PoNo ),
-                            new SqlParameter("@ShipmentNo",         ConsignmentModel.ShipmentNo ),
+                            new SqlParameter("@ShipmentNo",          ConsignmentModel.ShipmentNo              ),
+                            new SqlParameter("@ShipmentDt",          ConsignmentModel.ShipmentDt              ),
+                            new SqlParameter("@PoNo",                ConsignmentModel.PoNo              ),
+                            new SqlParameter("@PoDt",                ConsignmentModel.PoDt              ),
+                            new SqlParameter("@PrivateMark",         ConsignmentModel.PrivateMark              ),
                             new SqlParameter("@VehicleNo",          ConsignmentModel.VehicleNo),
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
@@ -1319,10 +1330,11 @@ namespace Consignment.Repository
                         lrmodel.CneeEmail   = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeEmail"]);
                         lrmodel.ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentNo"]);
                         lrmodel.ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentDt"]);
-                        lrmodel.DeliveryNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryNo"]);
-                        lrmodel.DeliveryDt = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDt"]);
                         lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
                         lrmodel.PoDt = Convert.ToString(dataSet.Tables[0].Rows[0]["PoDt"]);
+                        lrmodel.PrivateMark = Convert.ToString(dataSet.Tables[0].Rows[0]["PrivateMark"]);
+                        lrmodel.DeliveryNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryNo"]);
+                        lrmodel.DeliveryDt = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDt"]);
                         lrmodel.RiskBy = Convert.ToString(dataSet.Tables[0].Rows[0]["RiskBy"]);
                         lrmodel.InsCoName = Convert.ToString(dataSet.Tables[0].Rows[0]["InsCoName"]);
                         lrmodel.InsPolicyNo = Convert.ToString(dataSet.Tables[0].Rows[0]["InsPolicyNo"]);

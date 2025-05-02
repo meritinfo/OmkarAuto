@@ -95,7 +95,7 @@ namespace FinTrans.Business
             headerTable = new Table(1);
             headerTable.SetWidth(UnitValue.CreatePercentValue(100));
 
-            headerCell = new Cell().Add(new Paragraph("Daily Loading Report"));
+            headerCell = new Cell().Add(new Paragraph("Accounts Ledger Report"));
             headerTable.AddCell(headerCell.SetFontSize(10F).SetBorder(Border.NO_BORDER));
             document.Add(headerTable);
 

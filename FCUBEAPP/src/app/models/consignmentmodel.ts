@@ -75,7 +75,7 @@ export class Consignmentmodel {
     chargewt : string = "";
         wtDesc : string = "";
     vehicleTypeId : string = "";
-        privateMark : string = "";
+    privateMark : string = "";
     bulkYN : string = "";
     loadLength : string = "";
     loadWidth : string = "";

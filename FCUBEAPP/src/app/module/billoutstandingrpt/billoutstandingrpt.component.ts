@@ -20,8 +20,9 @@ export class BilloutstandingrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   branchList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   formFilter!: FormGroup;
@@ -75,12 +76,13 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
+
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -117,6 +119,7 @@ dashboard: string ="";
       branch: new FormControl('',),  
       incUnBilled: new FormControl('',),  
       submitYN: new FormControl('',),  
+      party: new FormControl('',),  
       rptType: new FormControl('AS',),
       age1: new FormControl('30',), 
       age2: new FormControl('60',), 
@@ -127,12 +130,19 @@ dashboard: string ="";
 
     this.sharedService.loading=true;
     this.getBranchList();
+    this.getPartyList();
     this.sharedService.loading=false;
   }
   
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
     });
   }
 
@@ -169,7 +179,8 @@ dashboard: string ="";
     this.filter.search        = selectedDataVal.asOnDate;
     this.filter.filterStr     = selectedDataVal.branch;
     this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
-    this.filter.filterStr2    = selectedDataVal.submitYN;    
+    this.filter.filterStr2    = selectedDataVal.submitYN;  
+    this.filter.filterStr3    = selectedDataVal.party?selectedDataVal.party.dataId:"";        
     this.filter.age1 = parseInt(selectedDataVal.age1)
     this.filter.age2 = parseInt(selectedDataVal.age2) 
     this.filter.age3 = parseInt(selectedDataVal.age3)

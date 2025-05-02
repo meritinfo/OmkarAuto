@@ -10,7 +10,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Schedulemodel } from 'src/app/models/schedulemodel';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class DocallotmentllpaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
 
   branchList: Dropdownmodel[] = [];
