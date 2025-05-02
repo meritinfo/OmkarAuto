@@ -40,7 +40,7 @@
                                  <div class="mb-3">
                                     <label for="formrow-inputCity">Submit Date</label><span style="color: red"> * </span>
                                     <input autoclose="false" type="date"  
-                                       class="form-control" formControlName="submitDt"
+                                       class="form-control" formControlName="submitDt" min="{{minDate}}" max="{{maxDate}}"
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['submitDt'].invalid) }">
                                  </div>
                               </div>

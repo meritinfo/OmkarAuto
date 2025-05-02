@@ -792,7 +792,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">GST By</label><span style="color: red"> * </span>                                            
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="gstBy"  
+                                        formControlName="gstBy"  (change)="changeGstBy($event)"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
                                         <option *ngFor="let dl of gstByList" value={{dl.dataId}}>
                                             {{dl.dataName}}
