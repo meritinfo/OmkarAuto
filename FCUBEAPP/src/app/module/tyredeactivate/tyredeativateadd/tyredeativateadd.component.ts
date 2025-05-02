@@ -332,6 +332,16 @@ dashboard: string ="";
     }
 
     var selectedDataValue = this.formUser.getRawValue();
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.deActivateDate?Date.parse(selectedDataValue.deActivateDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        deActivateDate: ''
+      });
+      this.toastrService.warning("Invalid DeActivateDate date");
+      return
+    }
 
     if (selectedDataValue.vehicleMasterid.dataId) {
       //ignore

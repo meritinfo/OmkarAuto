@@ -552,6 +552,16 @@ dashboard: string ="";
       this.toasterService.warning("Invalid Vehicle");
       return;
     }
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataVal.transDate?Date.parse(selectedDataVal.transDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formDocEntry.patchValue({
+        transDate: ''
+      });
+      this.toasterService.warning("Invalid Trans date");
+      return
+    }
     var chqDt = this.loginDate;
     if (selectedDataVal.pmtType=="B"){
       chqDt = selectedDataVal.chequeDt == '' ? this.loginDate:selectedDataVal.chequeDt;
