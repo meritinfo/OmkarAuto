@@ -210,7 +210,7 @@
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
                                             <td>
-                                                <input type="checkbox"   class="form-check-input-small" 
+                                                <input type="checkbox"   class="form-check-input-small" *ngIf="!editMode"
                                                 (change)="selectedData(i, $event)" [checked]="arrayData.selected"  >                                               
                                             </td>
                                             <td>
