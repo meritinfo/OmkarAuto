@@ -283,6 +283,7 @@
                                 <div class="overflow-x">
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
                                         <tr>
+                                            <th><label for="formrow-inputZip"></label></th>               
                                             <th><label for="formrow-inputZip">Year</label></th>
                                             <th><label for="formrow-inputZip">Bill/LR Stn</label></th>
                                             <th><label for="formrow-inputZip">Bill/LR No</label></th>
@@ -303,12 +304,19 @@
                                             <th><label for="formrow-inputZip">Excess Recd</label></th>
                                             <th><label for="formrow-inputZip">Ded Recd</label></th>
                                             <th><label for="formrow-inputZip">Remarks</label></th>    
-                                            <!-- <th><label for="formrow-inputZip">Party</label></th> -->
-                                            <th><label for="formrow-inputZip"></label></th>                                                     
+                                            <!-- <th><label for="formrow-inputZip">Party</label></th> -->                                      
                                         </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
+                                                <td>
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>                                        
+                                                </td>
                                                 <td>
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="billLrYear"> 
@@ -409,14 +417,6 @@
                                                         </option>
                                                     </select>
                                                 </td>    -->
-                                                <td>
-                                                    <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
-                                                            class="btn btn-add" (click)="addItem(i)"></button>
-                                                        <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                    </div>                                        
-                                                </td>
                                             </div>
                                         </tr>
                                         <tr>
