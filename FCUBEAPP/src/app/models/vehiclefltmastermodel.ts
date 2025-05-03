@@ -54,6 +54,25 @@ export class Vehiclefltmastermodel {
     attach3Link: string = "";
     adBlueMileageLt: string = "";
     loggedInUser: string = "";
+    
+    fleetGroupId : string = ""; 
+    chassisFinCompId : string = "";
+    chassisLoanAcNo : string = "";
+    chassisLoanFromDt : string = "";
+    chassisLoanToDt : string = "";
+    chassisLoanTerminateYN : string = "";
+    chassisLoanTerminateDate : string = "";
+    chassisLoanLedger: string = ""; 
+    bodyFinCompId : string = "";
+    bodyLoanAcNo : string = "";
+    bodyLoanFromDt: string = "";
+    bodyLoanToDt : string = "";
+    bodyLoanTerminateYN : string = "";
+    bodyLoanTerminateDate : string = "";
+    bodyLoanLedger : string = "";
+    batterySlNo : string = "";
+
+
 
     vehiclefltDetailList: VehiclefltDetailmodel[] = [];
 }

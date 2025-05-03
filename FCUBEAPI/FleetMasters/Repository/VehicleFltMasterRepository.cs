@@ -88,6 +88,26 @@ namespace FleetMasters.Repository
                             new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
                             new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
                             new SqlParameter("@AdBlueMileageLt", vehicleFltMasterModel.AdBlueMileageLt),
+
+                            new SqlParameter("@FleetGroupId", vehicleFltMasterModel.FleetGroupId ),
+                            new SqlParameter("@ChassisFinCompId", vehicleFltMasterModel.ChassisFinCompId  ),
+                             new SqlParameter("@ChassisLoanAcNo", vehicleFltMasterModel.ChassisLoanAcNo  ),
+                                new SqlParameter("@ChassisLoanFromDt", vehicleFltMasterModel.ChassisLoanFromDt   ),
+                                 new SqlParameter("@ChassisLoanToDt", vehicleFltMasterModel.ChassisLoanToDt    ),
+                                  new SqlParameter("@ChassisLoanTerminateYN", vehicleFltMasterModel.ChassisLoanTerminateYN ),
+                                   new SqlParameter("@ChassisLoanTerminateDate", vehicleFltMasterModel.ChassisLoanTerminateDate ),
+                                    new SqlParameter("@ChassisLoanLedger", vehicleFltMasterModel.ChassisLoanLedger ),
+                                        new SqlParameter("@BodyFinCompId", vehicleFltMasterModel.BodyFinCompId  ),
+                                           new SqlParameter("@BodyLoanAcNo", vehicleFltMasterModel.BodyLoanAcNo   ),
+                                                new SqlParameter("@BodyLoanFromDt", vehicleFltMasterModel.BodyLoanFromDt ),
+                                                   new SqlParameter("@BodyLoanToDt", vehicleFltMasterModel.BodyLoanToDt ),
+                                                    new SqlParameter("@BodyLoanTerminateYN", vehicleFltMasterModel.BodyLoanTerminateYN  ),
+                                                      new SqlParameter("@BodyLoanTerminateDate", vehicleFltMasterModel.BodyLoanTerminateDate   ),
+                                                        new SqlParameter("@BodyLoanLedger", vehicleFltMasterModel.BodyLoanLedger    ),
+                                                           new SqlParameter("@BatterySlNo", vehicleFltMasterModel.BatterySlNo),
+
+
+
                             new SqlParameter("@DeleteFlag", 'N'),
                             new SqlParameter("@LoggedInUser", vehicleFltMasterModel.LoggedInUser)
 
@@ -326,6 +346,21 @@ namespace FleetMasters.Repository
                                 Attach3Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Desc"]),
                                 Attach3Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Link"]),
                                 AdBlueMileageLt = Convert.ToString(dataSet.Tables[0].Rows[i]["AdBlueMileageLt"]),
+                                ChassisFinCompId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisFinCompId"]),
+                                ChassisLoanAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanAcNo"]),
+                                ChassisLoanFromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanFromDt"]),
+                                ChassisLoanToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanToDt"]),
+                                ChassisLoanTerminateYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanTerminateYN"]),
+                                ChassisLoanTerminateDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanTerminateDate"]),
+                                ChassisLoanLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["ChassisLoanLedger"]),
+                                BodyFinCompId = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyFinCompId"]),
+                                BodyLoanAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanAcNo"]),
+                                BodyLoanFromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanFromDt"]),
+                                BodyLoanToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanToDt"]),
+                                BodyLoanTerminateYN = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanTerminateYN"]),
+                                BodyLoanTerminateDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanTerminateDate"]),
+                                BodyLoanLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanLedger"]),
+                                BatterySlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BatterySlNo"]),
                             });
                         }
 
@@ -359,6 +394,45 @@ namespace FleetMasters.Repository
         /// Service method for get Vehical Type List
         /// </summary>
         /// <returns>List<DropDownListModel></returns>
+        /// 
+        public async Task<List<DropDownListModel>> GetFinCompName()
+        {
+            List<DropDownListModel> VehicalTypeList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFinCompName", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            VehicalTypeList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return VehicalTypeList;
+        }
         public async Task<List<DropDownListModel>> GetVehicalTypeList()
         {
             List<DropDownListModel> VehicalTypeList = new();
@@ -474,6 +548,46 @@ namespace FleetMasters.Repository
             }
             return VehicalTypeGrpList;
         }
+        public async Task<List<DropDownListModel>> GetFltGroupList()
+        {
+            List<DropDownListModel> VehicalTypeGrpList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFltGroup", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            VehicalTypeGrpList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return VehicalTypeGrpList;
+        }
+
+
 
 
         /// <summary>
@@ -489,6 +603,44 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param = { };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleLedgerAccount", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            VehicalLedgerList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return VehicalLedgerList;
+        }
+        public async Task<List<DropDownListModel>> GetLoanLedgerAccountList()
+        {
+            List<DropDownListModel> VehicalLedgerList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLoanLedgerAccount", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

@@ -67,6 +67,22 @@ namespace FleetMasters.Models
         public string? ModifiedDate { get; set; }
         public string? DeleteFlag { get; set; }
         public string? AdBlueMileageLt { get; set; }
+        public string? FleetGroupId { get; set; }
+        public string? ChassisFinCompId { get; set; }
+        public string? ChassisLoanAcNo { get; set; }
+        public string? ChassisLoanFromDt { get; set; }
+        public string? ChassisLoanToDt { get; set; }
+        public string? ChassisLoanTerminateYN { get; set; }
+        public string? ChassisLoanTerminateDate { get; set; }
+        public string? ChassisLoanLedger { get; set; }
+        public string? BodyFinCompId { get; set; }
+        public string? BodyLoanAcNo { get; set; }
+        public string? BodyLoanFromDt { get; set; }
+        public string? BodyLoanToDt { get; set; }
+        public string? BodyLoanTerminateYN { get; set; }
+        public string? BodyLoanTerminateDate { get; set; }
+        public string? BodyLoanLedger { get; set; }
+        public string? BatterySlNo { get; set; }
 
         public string? LoggedInUser { get; set; }
         public List<VehicleFltDtlsModel> VehiclefltDetailList { get; set; }

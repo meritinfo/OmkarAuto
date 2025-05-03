@@ -746,6 +746,48 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLoanLedgerAccountList")]
+        public async Task<IActionResult> GetLoanLedgerAccountList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetLoanLedgerAccountList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFltGroupList")]
+        public async Task<IActionResult> GetFltGroupList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetFltGroupList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFinCompName")]
+        public async Task<IActionResult> GetFinCompName()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetFinCompName();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetVehicalLedgerAccountList")]
         public async Task<IActionResult> GetVehicalLedgerAccountList()
