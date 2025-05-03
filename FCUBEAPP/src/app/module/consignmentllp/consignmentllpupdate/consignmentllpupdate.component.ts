@@ -482,42 +482,44 @@ dashboard: string ="";
     this.requestmodel.strRequest = this.lrmodel.consignmentID;
     var gsttype = this.lrmodel.gstType;
     this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
-      this.formGstArray.clear();
-      for (var i = 0; i < res.gstList.length; i++) {
-        this.formGstArray.push(this.createGstArray());
-        this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
-        this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
-        this.formGstArray.controls[i].get("rate")?.setValue(res.gstList[i].rate);
-        this.formGstArray.controls[i].get("amount")?.setValue(res.gstList[i].amount);
-        this.formGstArray.controls[i].get("sgstPct")?.setValue(res.gstList[i].sgstPct);
-        this.formGstArray.controls[i].get("sgstAmt")?.setValue(res.gstList[i].sgstAmt);
-        this.formGstArray.controls[i].get("cgstPct")?.setValue(res.gstList[i].cgstPct);
-        this.formGstArray.controls[i].get("cgstAmt")?.setValue(res.gstList[i].cgstAmt);
-        this.formGstArray.controls[i].get("igstPct")?.setValue(res.gstList[i].igstPct);
-        this.formGstArray.controls[i].get("igstAmt")?.setValue(res.gstList[i].igstAmt);
-        this.formGstArray.controls[i].get("totalAmt")?.setValue(res.gstList[i].totalAmt);
-        this.formGstArray.controls[i].get("remarks")?.setValue(res.gstList[i].remarks);
-        this.formGstArray.controls[i].get("linkColumn")?.setValue(res.gstList[i].linkColumn);
-
-        this.formGstArray.controls[i].get("freightId")?.disable();
-        this.formGstArray.controls[i].get("amount")?.disable();
-        this.formGstArray.controls[i].get("sgstPct")?.disable();
-        this.formGstArray.controls[i].get("sgstAmt")?.disable();
-        this.formGstArray.controls[i].get("cgstPct")?.disable();
-        this.formGstArray.controls[i].get("cgstAmt")?.disable();
-        this.formGstArray.controls[i].get("igstPct")?.disable();
-        this.formGstArray.controls[i].get("igstAmt")?.disable();
-        this.formGstArray.controls[i].get("totalAmt")?.disable();
-        this.formGstArray.controls[i].get("remarks")?.disable();
-        
-        if (gsttype == "IG") {  
-          this.formGstArray.controls[i].get("igstPct")?.enable();  
-        }     
-        else if (gsttype == "SC")  {     
-          this.formGstArray.controls[i].get("sgstPct")?.enable();
-          this.formGstArray.controls[i].get("cgstPct")?.enable();
-        }   
-      }  
+      if((res.gstList?res.gstList.length:0)>0){
+        this.formGstArray.clear();
+        for (var i = 0; i < res.gstList.length; i++) {
+          this.formGstArray.push(this.createGstArray());
+          this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
+          this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);
+          this.formGstArray.controls[i].get("rate")?.setValue(res.gstList[i].rate);
+          this.formGstArray.controls[i].get("amount")?.setValue(res.gstList[i].amount);
+          this.formGstArray.controls[i].get("sgstPct")?.setValue(res.gstList[i].sgstPct);
+          this.formGstArray.controls[i].get("sgstAmt")?.setValue(res.gstList[i].sgstAmt);
+          this.formGstArray.controls[i].get("cgstPct")?.setValue(res.gstList[i].cgstPct);
+          this.formGstArray.controls[i].get("cgstAmt")?.setValue(res.gstList[i].cgstAmt);
+          this.formGstArray.controls[i].get("igstPct")?.setValue(res.gstList[i].igstPct);
+          this.formGstArray.controls[i].get("igstAmt")?.setValue(res.gstList[i].igstAmt);
+          this.formGstArray.controls[i].get("totalAmt")?.setValue(res.gstList[i].totalAmt);
+          this.formGstArray.controls[i].get("remarks")?.setValue(res.gstList[i].remarks);
+          this.formGstArray.controls[i].get("linkColumn")?.setValue(res.gstList[i].linkColumn);
+  
+          this.formGstArray.controls[i].get("freightId")?.disable();
+          this.formGstArray.controls[i].get("amount")?.disable();
+          this.formGstArray.controls[i].get("sgstPct")?.disable();
+          this.formGstArray.controls[i].get("sgstAmt")?.disable();
+          this.formGstArray.controls[i].get("cgstPct")?.disable();
+          this.formGstArray.controls[i].get("cgstAmt")?.disable();
+          this.formGstArray.controls[i].get("igstPct")?.disable();
+          this.formGstArray.controls[i].get("igstAmt")?.disable();
+          this.formGstArray.controls[i].get("totalAmt")?.disable();
+          this.formGstArray.controls[i].get("remarks")?.disable();
+          
+          if (gsttype == "IG") {  
+            this.formGstArray.controls[i].get("igstPct")?.enable();  
+          }     
+          else if (gsttype == "SC")  {     
+            this.formGstArray.controls[i].get("sgstPct")?.enable();
+            this.formGstArray.controls[i].get("cgstPct")?.enable();
+          }   
+        }  
+      }
     });
   }
 
