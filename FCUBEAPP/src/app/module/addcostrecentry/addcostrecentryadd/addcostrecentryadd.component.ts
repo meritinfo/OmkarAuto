@@ -30,7 +30,7 @@ export class AddcostrecentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   calc = true;
   loginDate: string = '';
   fromDate: string = '';
