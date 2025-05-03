@@ -157,6 +157,7 @@
                         <div class="overflow-x">
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
                                 <tr>
+                                    <th><label for="formrow-inputZip"></label></th>
                                     <th><label for="formrow-inputCity">Year</label></th>
                                     <th><label for="formrow-inputZip">Branch</label></th>
                                     <th><label for="formrow-inputZip">Type</label></th>
@@ -176,11 +177,18 @@
                                     <th><label for="formrow-inputZip">TDS Amt</label></th>
                                     <th><label for="formrow-inputZip">Extra Remarks</label></th>
                                     <th><label for="formrow-inputZip">Deduction Remarks</label></th>
-                                    <th><label for="formrow-inputZip"></label></th>
                                 </tr>
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                     <div [formGroupName]="i" class="grid-table">
+                                        <td>
+                                            <div class="col-lg-4 details-button">
+                                                <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addItem(i)"></button>
+                                                <button *ngIf="formArray.controls.length > 1"
+                                                    (click)="removeItem(i)" class="btn btn-delete"></button>
+                                            </div>                                        
+                                        </td>
                                         <td>
                                             <select class="form-control" formControlName="chYear">
                                                 <option *ngFor="let yr of yearList" value={{yr.dataId}}>
@@ -270,14 +278,6 @@
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 
                                                 formControlName="deductRemarks">
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-4 details-button">
-                                                <button *ngIf="i === formArray.controls.length-1" type="button"
-                                                    class="btn btn-add" (click)="addItem(i)"></button>
-                                                <button *ngIf="formArray.controls.length > 1"
-                                                    (click)="removeItem(i)" class="btn btn-delete"></button>
-                                            </div>                                        
                                         </td>
                                     </div>
                                 </tr>
