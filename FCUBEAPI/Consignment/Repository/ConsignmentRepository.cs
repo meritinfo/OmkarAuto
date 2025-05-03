@@ -675,6 +675,7 @@ namespace Consignment.Repository
                         lrmodel.UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingDetnRs"]);
                         lrmodel.OthersRs = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersRs"]);
                         lrmodel.SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotalRs"]);
+                        lrmodel.GstBy = Convert.ToString(dataSet.Tables[0].Rows[0]["GstBy"]);
                         lrmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
                         lrmodel.SgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstPct"]);
                         lrmodel.SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstAmt"]);
@@ -789,7 +790,6 @@ namespace Consignment.Repository
                             new SqlParameter("@UlReportingDateTime",ConsignmentModel.UlReportingDateTime  ),
                             new SqlParameter("@DeliveryDateTime",   ConsignmentModel.DeliveryDateTime  ),
                             new SqlParameter("@UlDetentionDays",    ConsignmentModel.UlDetentionDays  ),
-                          //  new SqlParameter("@YearId",    ConsignmentModel.YearId),
                             new SqlParameter("@WhatsappPOD1",       ConsignmentModel.WhatsappPOD1   ),
                             new SqlParameter("@WhatsappPOD2",       ConsignmentModel.WhatsappPOD2   ),
                             new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
