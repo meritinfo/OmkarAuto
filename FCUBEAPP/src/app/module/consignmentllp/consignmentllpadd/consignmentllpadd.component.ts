@@ -139,6 +139,27 @@ dashboard: string ="";
     
     this.selectedLrDetails = this.lrentryService.getConsignmentDetails();
 
+    
+    this.sharedService.loading = true;
+    // this.getSeriesList();
+     this.getUserRights();
+     this.getBranchList();
+     this.getGstByList();
+     this.getRateList();
+     this.getContentList();
+     this.getLocationList();
+     this.getClassList();
+     this.getBusiByList();
+     this.getVehicleNoList();
+     this.getBillingPartyList();
+     this.getVehTypes();
+     this.getCnorCneeList();
+     this.getFreightList();
+     this.getCnNoLength();    
+     this.getSeriesList(this.branch);
+
+    this.sharedService.loading = false;
+
     this.formUser = this.formBuilder.group({
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       seriesCode: new FormControl('', [Validators.required]),
@@ -234,25 +255,6 @@ dashboard: string ="";
     });
 
     
-    this.sharedService.loading = true;
-   // this.getSeriesList();
-    this.getUserRights();
-    this.getBranchList();
-    this.getGstByList();
-    this.getRateList();
-    this.getContentList();
-    this.getLocationList();
-    this.getClassList();
-    this.getBusiByList();
-    this.getVehicleNoList();
-    this.getBillingPartyList();
-    this.getVehTypes();
-    this.getCnorCneeList();
-    this.getFreightList();
-    this.getCnNoLength();    
-    this.getSeriesList(this.branch);
-
-    this.sharedService.loading = false;
 
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls["gcNoteNo"].disable();
@@ -329,6 +331,8 @@ dashboard: string ="";
         })      
         this.formUser.controls['seriesCode'].disable();
         this.formUser.controls['gcSlNo'].disable();
+        this.formUser.controls["gstType"].disable();
+        this.formUser.controls["gstBy"].disable();
         
         if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
@@ -651,6 +655,7 @@ dashboard: string ="";
   }
 
 
+
   chkTruckNo() {
     var selectedData = this.formUser.getRawValue();
     if (selectedData.truckNo==""){
@@ -674,10 +679,31 @@ dashboard: string ="";
       });
     }   
   }
+  changeGstBy(e: any) {
+    console.log(e.target.value);
+    var gstb = e.target.value; 
+    if(gstb!= "F"){
+      this.formUser.patchValue({
+        gstType: "NA"
+
+      })
+      
+    }
+  }
       
   changeGstType(e: any) {
     console.log(e.target.value);
     var gsttype = e.target.value; 
+    if(gsttype!= "NA"){
+      this.formUser.patchValue({
+        gstBy: "F"
+
+      })
+      
+    }
+
+    
+    
     var selectedData = this.formUser.getRawValue();
     for (var i = 0; i < selectedData.arrayGstList.length; i++) {
       this.formGstArray.controls[i].get("sgstPct")?.setValue("0");

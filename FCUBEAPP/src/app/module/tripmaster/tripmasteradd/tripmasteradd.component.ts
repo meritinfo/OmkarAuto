@@ -918,6 +918,16 @@ dashboard: string ="";
     }
     
     var selectedDataValue = this.formTripsheet.getRawValue();
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.stmtDate?Date.parse(selectedDataValue.stmtDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formTripsheet.patchValue({
+        stmtDate: ''
+      });
+      this.toastrService.warning("Invalid Stmt Date");
+      return
+    }
 
     // if (selectedDataValue.netTripBalance=="") {
     //   this.toastrService.warning(" Net Trip balance is Invalid");   

@@ -392,7 +392,7 @@ dashboard: string ="";
       this.formUser.controls['chequeDate'].enable(); 
     }
     this.formUser.controls['chequeNo'].updateValueAndValidity();
-    this.formUser.controls['chequeDt'].updateValueAndValidity();    
+    this.formUser.controls['chequeDate'].updateValueAndValidity();    
   }
     
   getTyrePurchaseMasterInnerGridList(): void {
@@ -640,6 +640,17 @@ dashboard: string ="";
     }
 
     var selectedDataValue = this.formUser.getRawValue();
+
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.purchaseDate?Date.parse(selectedDataValue.purchaseDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        purchaseDate: ''
+      });
+      this.toastrService.warning("Invalid Purchase Date");
+      return
+    }
 
     if(selectedDataValue.noVendor){
       if (selectedDataValue.vendorName=="") {

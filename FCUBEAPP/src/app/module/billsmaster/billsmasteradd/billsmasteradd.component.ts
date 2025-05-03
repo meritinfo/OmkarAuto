@@ -702,6 +702,16 @@ dashboard: string ="";
     }
 
     var selectedDataValue = this.formBillsMaster.getRawValue();
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formBillsMaster.patchValue({
+        billDate: ''
+      });
+      this.toasterService.warning("Invalid bill date");
+      return
+    }
 
     if (selectedDataValue.partyCode.dataId) {
       //ignore

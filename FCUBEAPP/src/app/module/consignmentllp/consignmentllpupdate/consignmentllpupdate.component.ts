@@ -44,6 +44,7 @@ dashboard: string ="";
   contentList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   freightList: Dropdownmodel[] = [];
+    gstByList: Dropdownmodel[] = [];
   delvDetnDays: string="";
   hamali: string="";
   detiontion: string="";
@@ -136,6 +137,7 @@ dashboard: string ="";
     this.getBillingPartyList();
     this.getContentList();
     this.getFreightList();
+    this.getGstByList();
     this.formSubmitted = false;
 
     this.sharedService.loading = false;
@@ -157,7 +159,7 @@ dashboard: string ="";
       cneeName: new FormControl('',),
       party: new FormControl('',[Validators.required]),
       //rateType : new FormControl('',),   
-      gstBy : new FormControl('',),   
+      gstBy : new FormControl('',[Validators.required]),
       //rateRs : new FormControl('',),   
       freightRs : new FormControl('',),   
       statisticalRs : new FormControl('',),   
@@ -187,7 +189,7 @@ dashboard: string ="";
       othersNarr: new FormControl('',),   
       subTotalRs : new FormControl('',),   
       productId : new FormControl('', ),
-      gstType: new FormControl('',),   
+      gstType: new FormControl('',[Validators.required]), 
       // sgstPct: new FormControl('',),   
       sgstAmt: new FormControl('',),   
       // cgstPct : new FormControl('',),   
@@ -271,6 +273,11 @@ dashboard: string ="";
       this.branchList = res;
     });
   }
+  getGstByList(): void {
+    this.commonService.getGstByList().subscribe((res) => {
+      this.gstByList = res;
+    });
+  }  
 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
@@ -795,6 +802,10 @@ dashboard: string ="";
       return;
     }
 
+    var gstType = "NA";
+    if(selectedDataValue.gstBy=="F"){
+      gstType = selectedDataValue.gstType;
+    }
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
     this.cnmodel.productId = selectedDataValue.productId.toString();
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
@@ -804,6 +815,7 @@ dashboard: string ="";
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
+    this.cnmodel.gstType=gstType;
     this.cnmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.cnmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
     this.cnmodel.freightNarr= selectedDataValue.freightNarr  ? selectedDataValue.freightNarr.toString().toUpperCase() : "";
@@ -840,6 +852,9 @@ dashboard: string ="";
     this.cnmodel.ulReportingDateTime = selectedDataValue.ulReportingDateTime.toString();
     this.cnmodel.deliveryDateTime = selectedDataValue.deliveryDateTime.toString();
     this.cnmodel.ulDetentionDays = selectedDataValue.ulDetentionDays.toString();
+    this.cnmodel.igstAmt =  selectedDataValue.igstAmt.toString(); 
+    this.cnmodel.sgstAmt =  selectedDataValue.sgstAmt.toString(); 
+    this.cnmodel.cgstAmt =  selectedDataValue.cgstAmt.toString(); 
     this.cnmodel.yearId = this.year;
     this.cnmodel.loggedInUser = this.loggedInUserID;
     this.cnmodel.gstList = [];

@@ -728,6 +728,16 @@ dashboard: string ="";
       this.toastrService.warning("Invalid Vehicle");
       return;
     }
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        transDate: ''
+      });
+      this.toastrService.warning("Invalid Trans date");
+      return
+    }
     
     
   this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;

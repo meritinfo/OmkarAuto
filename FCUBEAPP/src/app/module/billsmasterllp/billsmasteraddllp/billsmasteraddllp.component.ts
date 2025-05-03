@@ -862,9 +862,9 @@ dashboard: string ="";
     const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;
     if (d3>d4 || d2<d4 ) {
       this.formBillsMaster.patchValue({
-        mrDate: ''
+        billDate: ''
       });
-      this.toasterService.warning("Invalid mr date");
+      this.toasterService.warning("Invalid bill date");
       return
     }
     if(parseFloat(selectedDataValue.totalGtotal) > 0 ){
