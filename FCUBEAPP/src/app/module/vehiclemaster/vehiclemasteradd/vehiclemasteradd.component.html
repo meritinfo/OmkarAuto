@@ -509,9 +509,9 @@
 
 
                                                     <select class="form-control" formControlName="chassisFinCompId"   
-                                                    class="form-control form-select ng-pristine ng-touched"   
+                                                    class="form-control form-select ng-pristine ng-touched"   (change)="chesisFinChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisFinCompId'].invalid) }">
-                                                    <option selected="">Choose...</option>
+                                                    <option selected value ="">Choose...</option>
                                                         <option *ngFor="let vehi of finCompList" value={{vehi.dataId}}>
                                                            {{vehi.dataName}}
                                                         </option>
@@ -543,7 +543,7 @@
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Chassis Loan To Date</label>
                                                     <span style="color: red">*</span>
-                                                    <input autoclose="false" type="date"
+                                                    <input autoclose="false" type="date" 
                                                           class="form-control"
                                                         formControlName="chassisLoanToDt"                                                 
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanToDt'].invalid) }">
@@ -553,7 +553,7 @@
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
                                                         <label>Ch . Loan TerminateYN  </label><span style="color: red">*</span>
-                                                        <select class="form-control" formControlName="chassisLoanTerminateYN"
+                                                        <select class="form-control" formControlName="chassisLoanTerminateYN" (change)="terminateChesisChange($event)"
                                                             class="form-control form-select ng-pristine ng-touched" 
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanTerminateYN'].invalid) }">
                                                                 <option value="Y">Yes</option>
@@ -598,10 +598,11 @@
                                                        
 
 
-                                                            <select class="form-control" formControlName="bodyFinCompId"   
+                                                            <select class="form-control" formControlName="bodyFinCompId"   (change)="bodyFinChange($event)"
+                                                            
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyFinCompId'].invalid) }">
-                                                            <option selected="">Choose...</option>
+                                                            <option selected value ="">Choose...</option>
                                                                 <option *ngFor="let vehi of finCompList" value={{vehi.dataId}}>
                                                                    {{vehi.dataName}}
                                                                 </option>
@@ -641,7 +642,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label>BodyLoan Terminate YN </label><span style="color: red">*</span>
-                                                        <select class="form-control" formControlName="bodyLoanTerminateYN"
+                                                        <select class="form-control" formControlName="bodyLoanTerminateYN" (change)="terminateBodyChange($event)"
                                                             class="form-control form-select ng-pristine ng-touched" 
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanTerminateYN'].invalid) }">
                                                                 <option value="Y">Yes</option>

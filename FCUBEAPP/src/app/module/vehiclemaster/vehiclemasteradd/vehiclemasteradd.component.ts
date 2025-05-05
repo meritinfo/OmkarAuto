@@ -220,6 +220,13 @@ dashboard: string ="";
           regnDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.regnDate),
           soldDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.soldDate),
           tfrDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.tfrDate),
+          chassisLoanFromDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanFromDt),
+          chassisLoanToDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanToDt),
+          chassisLoanTerminateDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanTerminateDate),
+          bodyLoanFromDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanFromDt),
+          bodyLoanToDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanToDt),
+          bodyLoanTerminateDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanTerminateDate),
+
           vehicleLedgerAc: this.vehicleLedgerAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleLedgerAc),
           vehicleAssetAc: this.vehicleAssetAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
         })
@@ -482,6 +489,80 @@ dashboard: string ="";
     this.formVehicleMaster.controls['happayCardPin'].updateValueAndValidity();
 
   }
+  chesisFinChange(e:any){
+  //  var selectedDataValue = this.formVehicleMaster.getRawValue();
+    var selectedValue = e.target.value;
+  
+    if (selectedValue!=''){
+      this.formVehicleMaster.controls['chassisLoanAcNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['chassisLoanFromDt'].setValidators([Validators.required]);  
+      this.formVehicleMaster.controls['chassisLoanToDt'].setValidators([Validators.required]);  
+ 
+
+    }
+    else {
+      this.formVehicleMaster.controls['chassisLoanAcNo'].clearValidators();      
+      this.formVehicleMaster.controls['chassisLoanFromDt'].clearValidators(); 
+      this.formVehicleMaster.controls['chassisLoanToDt'].clearValidators(); 
+                 
+    }
+    this.formVehicleMaster.controls['chassisLoanAcNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['chassisLoanFromDt'].updateValueAndValidity();  
+    this.formVehicleMaster.controls['chassisLoanToDt'].updateValueAndValidity();  
+  }
+  bodyFinChange(e:any){
+   // var selectedDataValue = this.formVehicleMaster.getRawValue();
+    var selectedValue = e.target.value;
+    
+    if (selectedValue!=''){
+      this.formVehicleMaster.controls['bodyLoanAcNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['bodyLoanFromDt'].setValidators([Validators.required]);  
+      this.formVehicleMaster.controls['bodyLoanToDt'].setValidators([Validators.required]);  
+ 
+
+    }
+    else {
+      this.formVehicleMaster.controls['bodyLoanAcNo'].clearValidators();      
+      this.formVehicleMaster.controls['bodyLoanFromDt'].clearValidators(); 
+      this.formVehicleMaster.controls['bodyLoanToDt'].clearValidators(); 
+                 
+    }
+    this.formVehicleMaster.controls['bodyLoanAcNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['bodyLoanFromDt'].updateValueAndValidity();  
+    this.formVehicleMaster.controls['bodyLoanToDt'].updateValueAndValidity();  
+
+
+  }
+  terminateChesisChange(e:any){
+    // var selectedDataValue = this.formVehicleMaster.getRawValue();
+     var selectedValue = e.target.value;
+     if (selectedValue!='Y'){
+       this.formVehicleMaster.controls['chassisLoanTerminateDate'].setValidators([Validators.required]);
+     }
+     else {
+       this.formVehicleMaster.controls['chassisLoanTerminateDate'].clearValidators();  
+     }
+     this.formVehicleMaster.controls['chassisLoanTerminateDate'].updateValueAndValidity();
+ 
+   }
+   terminateBodyChange(e:any){
+    // var selectedDataValue = this.formVehicleMaster.getRawValue();
+     var selectedValue = e.target.value;
+     
+     if (selectedValue!='Y'){
+       this.formVehicleMaster.controls['bodyLoanTerminateDate'].setValidators([Validators.required]);
+     }
+     else {
+       this.formVehicleMaster.controls['bodyLoanTerminateDate'].clearValidators();    
+     }
+     this.formVehicleMaster.controls['bodyLoanTerminateDate'].updateValueAndValidity();
+ 
+   }
+ 
+
+  
+
+
 
   onFipChange(e: any) {
     var selectedValue = e.target.value;
@@ -579,7 +660,9 @@ dashboard: string ="";
       } 
       return;
     }
+   
     
+  
     this.sharedService.loading=true;
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID    = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';

@@ -361,6 +361,7 @@ namespace FleetMasters.Repository
                                 BodyLoanTerminateDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanTerminateDate"]),
                                 BodyLoanLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BodyLoanLedger"]),
                                 BatterySlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BatterySlNo"]),
+                                FleetGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["FleetGroupId"]),
                             });
                         }
 
