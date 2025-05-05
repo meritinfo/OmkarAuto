@@ -84,6 +84,15 @@ export class CommonService {
   getVehicleTypeGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeGroupList', null, this.httpOptions);
   } 
+  getFltGroupList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFltGroupList', null, this.httpOptions);
+  } 
+  getLoanLedgerAccountList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetLoanLedgerAccountList', null, this.httpOptions);
+  } 
+  getFinCompName(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFinCompName', null, this.httpOptions);
+  } 
   getVehicleTypeFltGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeFltGroupList', null, this.httpOptions);
   }  

@@ -53,6 +53,7 @@ export class VehicleFltMasterService {
   getVehicleLedgerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalLedgerAccountList', null, this.httpOptions);
   }  
+  
   getVehicleAssetList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalAssetAccountList', null, this.httpOptions);
   }  

@@ -18,6 +18,22 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Master Details</h4>
                                     <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Fleet Group</label>
+                                            <span style="color: red">*</span>
+                                            <select class="form-control" formControlName="fleetGroupId"   
+                                            class="form-control form-select ng-pristine ng-touched"   
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fleetGroupId'].invalid) }">
+                                                <option *ngFor="let vehi of fltGrpList" value={{vehi.dataId}}>
+                                                   {{vehi.dataName}}
+                                                </option>
+                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle No</label>
@@ -407,7 +423,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Transfer Date</label>
                                                 <span style="color: red">*</span>
@@ -483,6 +499,204 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Chassis Fin Comp </label>
+                                                <span style="color: red">*</span>
+                                            
+
+
+
+                                                    <select class="form-control" formControlName="chassisFinCompId"   
+                                                    class="form-control form-select ng-pristine ng-touched"   (change)="chesisFinChange($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisFinCompId'].invalid) }">
+                                                    <option selected value ="">Choose...</option>
+                                                        <option *ngFor="let vehi of finCompList" value={{vehi.dataId}}>
+                                                           {{vehi.dataName}}
+                                                        </option>
+                                                     </select>
+                                            </div>
+                                        </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">Chassis Loan AcNo </label>
+                                                    <span style="color: red">*</span>
+                                                    <input uppercaseonly autoclose="false"
+                                                          class="form-control"
+                                                        formControlName="chassisLoanAcNo"                                                 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanAcNo'].invalid) }">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">Chassis Loan From Date</label>
+                                                    <span style="color: red">*</span>
+                                                    <input autoclose="false" type="date"
+                                                          class="form-control"
+                                                        formControlName="chassisLoanFromDt"                                                 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanFromDt'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">Chassis Loan To Date</label>
+                                                    <span style="color: red">*</span>
+                                                    <input autoclose="false" type="date" 
+                                                          class="form-control"
+                                                        formControlName="chassisLoanToDt"                                                 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanToDt'].invalid) }">
+                                                </div>
+                                            </div>
+                                         
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label>Ch . Loan TerminateYN  </label><span style="color: red">*</span>
+                                                        <select class="form-control" formControlName="chassisLoanTerminateYN" (change)="terminateChesisChange($event)"
+                                                            class="form-control form-select ng-pristine ng-touched" 
+                                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanTerminateYN'].invalid) }">
+                                                                <option value="Y">Yes</option>
+                                                                <option value="N">NO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Chassis Loan TerminateDate</label>
+                                                        <span style="color: red">*</span>
+                                                        <input autoclose="false" type="date"
+                                                              class="form-control"
+                                                            formControlName="chassisLoanTerminateDate"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanTerminateDate'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Chassis Loan Ledger </label>
+                                                        <span style="color: red">*</span>
+                                                     
+
+
+                                                            <select class="form-control" formControlName="chassisLoanLedger"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanLedger'].invalid) }">
+                                                                <option *ngFor="let vehi of loanLedgerList" value={{vehi.dataId}}>
+                                                                   {{vehi.dataName}}
+                                                                </option>
+                                                             </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Body Fin Comp</label>
+                                                        <span style="color: red">*</span>
+                                                       
+
+
+                                                            <select class="form-control" formControlName="bodyFinCompId"   (change)="bodyFinChange($event)"
+                                                            
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyFinCompId'].invalid) }">
+                                                            <option selected value ="">Choose...</option>
+                                                                <option *ngFor="let vehi of finCompList" value={{vehi.dataId}}>
+                                                                   {{vehi.dataName}}
+                                                                </option>
+                                                             </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Body Loan AcNo </label>
+                                                        <span style="color: red">*</span>
+                                                        <input uppercaseonly autoclose="false"
+                                                              class="form-control"
+                                                            formControlName="bodyLoanAcNo"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanAcNo'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Body Loan From Date</label>
+                                                        <span style="color: red">*</span>
+                                                        <input autoclose="false" type="date"
+                                                              class="form-control"
+                                                            formControlName="bodyLoanFromDt"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanFromDt'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Body Loan To Date</label>
+                                                        <span style="color: red">*</span>
+                                                        <input autoclose="false" type="date"
+                                                              class="form-control"
+                                                            formControlName="bodyLoanToDt"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanToDt'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label>BodyLoan Terminate YN </label><span style="color: red">*</span>
+                                                        <select class="form-control" formControlName="bodyLoanTerminateYN" (change)="terminateBodyChange($event)"
+                                                            class="form-control form-select ng-pristine ng-touched" 
+                                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanTerminateYN'].invalid) }">
+                                                                <option value="Y">Yes</option>
+                                                                <option value="N">NO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">BodyLoan Terminate Date  </label>
+                                                        <span style="color: red">*</span>
+                                                        <input autoclose="false" type="date"
+                                                              class="form-control"
+                                                            formControlName="bodyLoanTerminateDate"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanTerminateDate'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                
+                                              
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Body Loan Ledger</label>
+                                                        <span style="color: red">*</span>
+                                                     
+
+
+
+                                                            <select class="form-control" formControlName="bodyLoanLedger"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanLedger'].invalid) }">
+                                                                <option *ngFor="let vehi of loanLedgerList" value={{vehi.dataId}}>
+                                                                   {{vehi.dataName}}
+                                                                </option>
+                                                             </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Battery SlNo</label>
+                                                    
+                                                        <input uppercaseonly autoclose="false"
+                                                              class="form-control"
+                                                            formControlName="batterySlNo"                                                 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['batterySlNo'].invalid) }">
+                                                    </div>
+                                                </div>
+                                                
+
+                                            
+                                       
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -520,6 +734,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">

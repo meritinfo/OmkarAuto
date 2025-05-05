@@ -7,6 +7,7 @@ namespace FleetMasters.Repository
     public interface IVehicleFltMasterRepository
     {
         Task<ResponseModel> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel);
+        Task<List<DropDownListModel>> GetFinCompName();
         Task<VehicleFltMasterList> GetVehicleFltMasterList(PageRequest request);
         Task<ResponseModel> VehicalMasterDetailsDelete(RequestModel req);
         Task<List<DropDownListModel>> GetVehicalTypeList();
@@ -16,6 +17,8 @@ namespace FleetMasters.Repository
         Task<ResponseModel> ChkVehicalNoExist(RequestModel req);
         Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetVehicalTypeGroupList();
+        Task<List<DropDownListModel>> GetFltGroupList();
+        Task<List<DropDownListModel>> GetLoanLedgerAccountList();
         Task<List<DropDownListModel>> GetVehicalTypeFltGroupList();
     }
 }

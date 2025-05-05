@@ -32,12 +32,16 @@ dashboard: string ="";
   vehicalfltmstmodel = new Vehiclefltmastermodel();
   keywordLocation = 'dataName';
   vehicleList: Dropdownmodel[] = [];
+  fltGrpList: Dropdownmodel[] = [];
+  finCompList: Dropdownmodel[] = [];
+  loanLedgerList: Dropdownmodel[] = [];
   vehicleGrpList: Dropdownmodel[] = [];
   vehicleFltGrpList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
   vehicleMfrList: Dropdownmodel[] = [];
   vehicleLedgerAcList: Dropdownmodel[] = [];
   vehicleAssetAcList: Dropdownmodel[] = [];
+ 
   attach1: string = "";
   attach2: string = "";
   attach3: string = "";
@@ -97,6 +101,10 @@ dashboard: string ="";
     
     this.sharedService.loading=true;
     this.getBranchList();
+    this.getFinCompName();
+    this.getFltGrpList();
+    this.getLoanLedgerAccountList();
+    this.getFinCompName();
     this.getVehicleNoList();
     this.getVehicleGrpList();
     this.getVehicleFltGrpList();
@@ -159,6 +167,22 @@ dashboard: string ="";
       attach3Link: new FormControl(''),
       userBranch: new FormControl(''),
       userBranch2: new FormControl(''),
+      fleetGroupId : new FormControl('',[Validators.required]),
+      chassisFinCompId  : new FormControl(''),
+      chassisLoanAcNo   : new FormControl(''),
+      chassisLoanFromDt    : new FormControl(''),
+      chassisLoanToDt     : new FormControl(''),
+      chassisLoanTerminateYN      : new FormControl('N'),
+      chassisLoanTerminateDate       : new FormControl(''),
+      chassisLoanLedger       : new FormControl(''),
+      bodyFinCompId : new FormControl(''),
+      bodyLoanAcNo  : new FormControl(''),
+      bodyLoanFromDt  : new FormControl(''),
+      bodyLoanToDt   : new FormControl(''),
+      bodyLoanTerminateYN : new FormControl('N'),
+      bodyLoanTerminateDate : new FormControl(''),
+      bodyLoanLedger  : new FormControl(''),
+      batterySlNo : new FormControl(''),
       adBlueMileageLt: new FormControl('',[Validators.required]),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])
@@ -196,6 +220,13 @@ dashboard: string ="";
           regnDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.regnDate),
           soldDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.soldDate),
           tfrDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.tfrDate),
+          chassisLoanFromDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanFromDt),
+          chassisLoanToDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanToDt),
+          chassisLoanTerminateDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.chassisLoanTerminateDate),
+          bodyLoanFromDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanFromDt),
+          bodyLoanToDt: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanToDt),
+          bodyLoanTerminateDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.bodyLoanTerminateDate),
+
           vehicleLedgerAc: this.vehicleLedgerAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleLedgerAc),
           vehicleAssetAc: this.vehicleAssetAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
         })
@@ -290,6 +321,22 @@ dashboard: string ="";
       this.vehicleGrpList = res;
     });
   }
+  getFltGrpList(): void {
+    this.commonService.getFltGroupList().subscribe((res) => {
+      this.fltGrpList = res;
+    });
+  }
+  getFinCompName(): void {
+    this.commonService.getFinCompName().subscribe((res) => {
+      this.finCompList = res;
+    });
+  }
+  getLoanLedgerAccountList(): void {
+    this.commonService.getLoanLedgerAccountList().subscribe((res) => {
+      this.loanLedgerList = res;
+    });
+  }
+  
   getVehicleFltGrpList(): void {
     this.commonService.getVehicleTypeFltGroupList().subscribe((res) => {
       this.vehicleFltGrpList = res;
@@ -442,6 +489,80 @@ dashboard: string ="";
     this.formVehicleMaster.controls['happayCardPin'].updateValueAndValidity();
 
   }
+  chesisFinChange(e:any){
+  //  var selectedDataValue = this.formVehicleMaster.getRawValue();
+    var selectedValue = e.target.value;
+  
+    if (selectedValue!=''){
+      this.formVehicleMaster.controls['chassisLoanAcNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['chassisLoanFromDt'].setValidators([Validators.required]);  
+      this.formVehicleMaster.controls['chassisLoanToDt'].setValidators([Validators.required]);  
+ 
+
+    }
+    else {
+      this.formVehicleMaster.controls['chassisLoanAcNo'].clearValidators();      
+      this.formVehicleMaster.controls['chassisLoanFromDt'].clearValidators(); 
+      this.formVehicleMaster.controls['chassisLoanToDt'].clearValidators(); 
+                 
+    }
+    this.formVehicleMaster.controls['chassisLoanAcNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['chassisLoanFromDt'].updateValueAndValidity();  
+    this.formVehicleMaster.controls['chassisLoanToDt'].updateValueAndValidity();  
+  }
+  bodyFinChange(e:any){
+   // var selectedDataValue = this.formVehicleMaster.getRawValue();
+    var selectedValue = e.target.value;
+    
+    if (selectedValue!=''){
+      this.formVehicleMaster.controls['bodyLoanAcNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['bodyLoanFromDt'].setValidators([Validators.required]);  
+      this.formVehicleMaster.controls['bodyLoanToDt'].setValidators([Validators.required]);  
+ 
+
+    }
+    else {
+      this.formVehicleMaster.controls['bodyLoanAcNo'].clearValidators();      
+      this.formVehicleMaster.controls['bodyLoanFromDt'].clearValidators(); 
+      this.formVehicleMaster.controls['bodyLoanToDt'].clearValidators(); 
+                 
+    }
+    this.formVehicleMaster.controls['bodyLoanAcNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['bodyLoanFromDt'].updateValueAndValidity();  
+    this.formVehicleMaster.controls['bodyLoanToDt'].updateValueAndValidity();  
+
+
+  }
+  terminateChesisChange(e:any){
+    // var selectedDataValue = this.formVehicleMaster.getRawValue();
+     var selectedValue = e.target.value;
+     if (selectedValue!='Y'){
+       this.formVehicleMaster.controls['chassisLoanTerminateDate'].setValidators([Validators.required]);
+     }
+     else {
+       this.formVehicleMaster.controls['chassisLoanTerminateDate'].clearValidators();  
+     }
+     this.formVehicleMaster.controls['chassisLoanTerminateDate'].updateValueAndValidity();
+ 
+   }
+   terminateBodyChange(e:any){
+    // var selectedDataValue = this.formVehicleMaster.getRawValue();
+     var selectedValue = e.target.value;
+     
+     if (selectedValue!='Y'){
+       this.formVehicleMaster.controls['bodyLoanTerminateDate'].setValidators([Validators.required]);
+     }
+     else {
+       this.formVehicleMaster.controls['bodyLoanTerminateDate'].clearValidators();    
+     }
+     this.formVehicleMaster.controls['bodyLoanTerminateDate'].updateValueAndValidity();
+ 
+   }
+ 
+
+  
+
+
 
   onFipChange(e: any) {
     var selectedValue = e.target.value;
@@ -539,7 +660,9 @@ dashboard: string ="";
       } 
       return;
     }
+   
     
+  
     this.sharedService.loading=true;
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID    = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
@@ -587,6 +710,25 @@ dashboard: string ="";
     this.vehiclefltmastermodel.tfrDate            = selectedDataValue.tfrDate;
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
+
+    this.vehiclefltmastermodel.fleetGroupId             = selectedDataValue.fleetGroupId ;
+    this.vehiclefltmastermodel.chassisFinCompId        = selectedDataValue.chassisFinCompId ;
+    this.vehiclefltmastermodel.chassisLoanAcNo        = selectedDataValue.chassisLoanAcNo ;
+    this.vehiclefltmastermodel.chassisLoanFromDt         = selectedDataValue.chassisLoanFromDt  ;
+    this.vehiclefltmastermodel.chassisLoanFromDt         = selectedDataValue.chassisLoanFromDt ;
+    this.vehiclefltmastermodel.chassisLoanToDt          = selectedDataValue.chassisLoanToDt  ;
+    this.vehiclefltmastermodel.chassisLoanTerminateYN           = selectedDataValue.chassisLoanTerminateYN ; 
+    this.vehiclefltmastermodel.chassisLoanTerminateDate            = selectedDataValue.chassisLoanTerminateDate  ;  
+    this.vehiclefltmastermodel.chassisLoanLedger             = selectedDataValue.chassisLoanLedger;  
+    this.vehiclefltmastermodel.bodyFinCompId              = selectedDataValue.bodyFinCompId ; 
+    this.vehiclefltmastermodel.bodyLoanAcNo               = selectedDataValue.bodyLoanAcNo  ; 
+    this.vehiclefltmastermodel.bodyLoanFromDt                = selectedDataValue.bodyLoanFromDt; 
+    this.vehiclefltmastermodel.bodyLoanToDt                 = selectedDataValue.bodyLoanToDt; 
+    this.vehiclefltmastermodel.bodyLoanTerminateYN                  = selectedDataValue.bodyLoanTerminateYN; 
+    this.vehiclefltmastermodel.bodyLoanTerminateDate                   = selectedDataValue.bodyLoanTerminateDate ;  
+    this.vehiclefltmastermodel.bodyLoanLedger                    = selectedDataValue.bodyLoanLedger; 
+    this.vehiclefltmastermodel.batterySlNo                     = selectedDataValue.batterySlNo; 
+
     this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc?selectedDataValue.vehicleLedgerAc.dataId:'';
     this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc?selectedDataValue.vehicleAssetAc.dataId:'';
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
