@@ -87,30 +87,19 @@
                             <th>sch_Oth</th>
                             <th>lifeType</th>
                             <th>lifeType</th>
-                            <!-- <th>lifeExpectancy</th>
                             <th>lifeType</th>
                             <th>lifeType</th>
-                            <th>lifeExpectancy</th> -->
-                            <!-- <th>lifeType</th>
                             <th>lifeType</th>
-                            <th>lifeExpectancy</th>
-                            <th>lifeType</th> -->
-                            <th>lifeType</th>
-                    
-                            <th>lifeType</th>
-                            <th>lifeType</th>
-                            <!-- <th>lifeExpectancy</th>
-                            <th>lifeExpectancy</th> -->
-                            <th>lifeExpectancy</th>
-                         
-                    
-                        
-                                              
+                            <th>lifeExpectancy</th>                                              
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allFleetLoadMaster.loadEntryList?.length != 0">
-                        <tr *ngFor="let branch  of allFleetLoadMaster.loadEntryList">
+                        <tr *ngFor="let branch  of allFleetLoadMaster.loadEntryList">                                           
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="fleetLoadEntryDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.tripBrName }}</td>
                             <td>{{ branch.loadDate }}</td>
                             <td>{{ branch.loadType }}</td>
@@ -118,26 +107,8 @@
                             <td>{{ branch.ldFor }}</td>
                             <td>{{ branch.loadMemoNo }}</td>
                             <td>{{ branch.loadingFrom }}</td>
-                            <!-- <td>{{ branch.consignorName }}</td>
-                            <td>{{ branch.consignorAdd }}</td> -->
                             <td>{{ branch.loadingTo }}</td>
-                            <!-- <td>{{ branch.consigneeName }}</td>
-                            <td>{{ branch.consigneeAdd }}</td> -->
-                            <!-- <td>{{ branch.productId }}</td>
-                            <td>{{ branch.qtyWt }}</td>
-                            <td>{{ branch.qtyPkgs }}</td>
-                            <td>{{ branch.ratePerTon }}</td> -->
                             <td>{{ branch.hireAmt }}</td>
-                            <!-- <td>{{ branch.advAmt }}</td>
-                            <td>{{ branch.remarks }}</td> -->
-                            <!-- <td>{{ branch.attachMemocopy }}</td> -->
-                    
-                   
-                                           
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="fleetLoadEntryDetails(branch)"></button>             
-                            </td>  
                         </tr>
                     </tbody>
                     <tbody *ngIf="allFleetLoadMaster.loadEntryList?.length == 0">

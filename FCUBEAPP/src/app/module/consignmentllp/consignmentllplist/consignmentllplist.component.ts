@@ -235,6 +235,10 @@ dashboard: string ="";
      // Set column title and data field
       columns: [  
         {
+          title: 'Action',
+          data: 'consignmentID',
+        }, 
+        {
           title: 'Booked At',
           data: 'bookedAt',
         },
@@ -258,10 +262,6 @@ dashboard: string ="";
           title: 'Vehicle No',
           data: 'truckNo',
         },  
-        {
-          title: 'Action',
-          data: 'consignmentID',
-        }, 
       ],
     };
   }

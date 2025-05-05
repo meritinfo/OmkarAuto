@@ -176,7 +176,15 @@ dashboard: string ="";
             });
           });
       },
-      columns: [
+      columns: [    
+        {
+          title: 'Action',
+          data: 'dprId',
+        },        
+        {
+          title: 'Main LR',
+          data: 'tempGcId',
+        },  
         {
           title: 'Vehicle In Date',
           data: 'vehiInDate',
@@ -208,15 +216,7 @@ dashboard: string ="";
         {
           title: 'Driver Mobile',
           data: 'driverMob1',
-        },     
-        {
-          title: 'Action',
-          data: 'dprId',
-        },        
-        {
-          title: 'Main LR',
-          data: 'tempGcId',
-        },  
+        }, 
       ],
     };
   }

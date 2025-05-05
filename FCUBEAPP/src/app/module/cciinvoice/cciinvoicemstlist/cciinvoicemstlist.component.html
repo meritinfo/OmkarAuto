@@ -1,7 +1,3 @@
-
-
-
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -52,33 +48,24 @@
                     <thead>
                         <tr>
                             <th>tptName</th>
-                            <th>address1</th>
-                           
+                            <th>address1</th>                           
                             <th>address3</th> 
-                            <th>address1</th>
-                      
-                            <th>address3</th> 
-                        
-                                            
+                            <th>address1</th>                      
+                            <th>address3</th>   
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf=" allInvoiceMaster.invoiceList?.length != 0">
-                        <tr *ngFor="let tm of  allInvoiceMaster.invoiceList">
-                         
-                            <td>{{ tm.cciInvNo}}</td>
-                            <td>{{ tm.cciInvDate}}</td>
-                            <!-- <td>{{ tm.vendor}}</td>  -->
-                            <!-- <td>{{ tm.maintType}}</td>  -->
-                            <td>{{ tm.remarks}}</td> 
-                            <td>{{ tm.totalTaxableAmt}}</td> 
-                            <td>{{ tm.totalInvAmt}}</td> 
-                          
-                                                    
+                        <tr *ngFor="let tm of  allInvoiceMaster.invoiceList">  
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getCciInvMstDetails(tm)"></button> 
                             </td>
+                            <td>{{ tm.cciInvNo}}</td>
+                            <td>{{ tm.cciInvDate}}</td>
+                            <td>{{ tm.remarks}}</td> 
+                            <td>{{ tm.totalTaxableAmt}}</td> 
+                            <td>{{ tm.totalInvAmt}}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allInvoiceMaster.invoiceList?.length == 0">

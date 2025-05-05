@@ -170,8 +170,11 @@ dashboard: string ="";
         this.sharedService.loading = false;
       },
        // Set column title and data field
-       columns: [     
-
+       columns: [        
+        {
+          title: 'Action',
+          data: 'transId',
+        },
         {
           title: 'Trans Branch',
           data: 'branch',
@@ -187,11 +190,7 @@ dashboard: string ="";
         {
           title: 'Recharge Amount',
           data: 'rechargeAmt',
-        },       
-        {
-          title: 'Action',
-          data: 'transId',
-        },
+        }, 
       ],
     };
   }

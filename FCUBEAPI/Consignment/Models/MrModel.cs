@@ -46,6 +46,7 @@
         public string? ChequeReturnRemarks { get; set; }
         public string? Ftmid { get; set; }
         public string? FtmidJv { get; set; }
+        public string? FtmidOnAcAdj_LR { get; set; }
         public string? NeftYN { get; set; }
         public string? MrDebitAc { get; set; }
         public string? MrSdEmdAc { get; set; }

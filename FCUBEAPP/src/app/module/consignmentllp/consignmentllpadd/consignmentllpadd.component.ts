@@ -331,8 +331,6 @@ dashboard: string ="";
         })      
         this.formUser.controls['seriesCode'].disable();
         this.formUser.controls['gcSlNo'].disable();
-        this.formUser.controls["gstType"].disable();
-        this.formUser.controls["gstBy"].disable();
         
         if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
@@ -409,8 +407,14 @@ dashboard: string ="";
       this.formArray.clear();
       this.formGstArray.clear();
    
-      if(res.gstList.length==0){        
-        this.formGstArray.push(this.createGstArray());
+      if((res.gstList?res.gstList.length:0)==0){        
+        this.formGstArray.push(this.createGstArray()); 
+        this.formUser.controls["gstType"].enable();
+        this.formUser.controls["gstBy"].enable();   
+      }
+      else{            
+        this.formUser.controls["gstType"].disable();
+        this.formUser.controls["gstBy"].disable();
       }
       for (var i = 0; i < res.invList.length; i++) {
         this.formArray.push(this.createInitialArray());
@@ -427,7 +431,7 @@ dashboard: string ="";
         this.formArray.controls[i].get("invDate")?.disable();
         this.formArray.controls[i].get("invValue")?.disable();     
       }        
-      for (var i = 0; i < res.gstList.length; i++) {
+      for (var i = 0; i < res.gstList.length; i++) {    
         this.formGstArray.push(this.createGstArray());
         this.formGstArray.controls[i].get("freightId")?.setValue(res.gstList[i].freightId);
         this.formGstArray.controls[i].get("rateType")?.setValue(res.gstList[i].rateType);

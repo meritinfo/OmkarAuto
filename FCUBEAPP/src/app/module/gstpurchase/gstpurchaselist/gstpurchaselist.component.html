@@ -54,15 +54,15 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allGstpurchaselist.gstpurchaseList">
-                        <tr *ngFor="let gst of allGstpurchaselist.gstpurchaseList">
-                            <td>{{ gst.branchName }}</td>
-                            <td>{{ gst.transDate }}</td>
-                            <td>{{ gst.vendorName }}</td>
-                            <td>{{ gst.netAmount }}</td>                       
+                        <tr *ngFor="let gst of allGstpurchaselist.gstpurchaseList">                 
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getGstPurchageDetails(gst)"></button>             
                             </td> 
+                            <td>{{ gst.branchName }}</td>
+                            <td>{{ gst.transDate }}</td>
+                            <td>{{ gst.vendorName }}</td>
+                            <td>{{ gst.netAmount }}</td>      
                         </tr>
                     </tbody>
                     <tbody *ngIf="allGstpurchaselist.gstpurchaseList?.length == 0">

@@ -57,13 +57,13 @@
                     </thead>
                     <tbody *ngIf="allFinaccounts.finaccountList">
                         <tr *ngFor="let actlist of allFinaccounts.finaccountList">
-                            <td>{{ actlist.accountName }}</td>
-                            <td>{{ actlist.ledgerName }}</td>
-                            <td>{{ actlist.subAccountName }}</td> 
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getFinsaccountsDetails(actlist)"></button>             
                             </td>    
+                            <td>{{ actlist.accountName }}</td>
+                            <td>{{ actlist.ledgerName }}</td>
+                            <td>{{ actlist.subAccountName }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allFinaccounts.finaccountList?.length == 0">

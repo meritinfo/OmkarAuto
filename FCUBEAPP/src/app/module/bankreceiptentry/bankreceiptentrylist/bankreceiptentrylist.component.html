@@ -72,7 +72,11 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allBankReceiptEntry.recPaymentsList?.length != 0">
-                            <tr *ngFor="let br of allBankReceiptEntry.recPaymentsList">
+                            <tr *ngFor="let br of allBankReceiptEntry.recPaymentsList">                       
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getBankReceiptEntryDetails(br)" ></button>             
+                                </td>
                                 <td>{{ br.seriesDoc }}</td>                    
                                 <td>{{ br.ftmDate }}</td>                   
                                 <td style="width:80px; word-wrap:break-word;">{{ br.acHeader }}</td>                   
@@ -80,11 +84,7 @@
                                 <td>{{ br.refType }}</td>                   
                                 <td>{{ br.refNo }}</td>                   
                                 <td style="width:80px; word-wrap:break-word;">{{ br.accountOf }}</td>                   
-                                <td>{{ br.narration }}</td>                         
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getBankReceiptEntryDetails(br)" ></button>             
-                                </td>
+                                <td>{{ br.narration }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allBankReceiptEntry.recPaymentsList?.length == 0">

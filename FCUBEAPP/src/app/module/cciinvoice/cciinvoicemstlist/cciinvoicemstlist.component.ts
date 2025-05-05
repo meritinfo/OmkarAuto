@@ -120,6 +120,10 @@ cciInvMstList() {
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'cciInvMstId ',
+      },
+      {
         title: 'Cci Inv No',
         data: 'cciInvNo',
       },
@@ -127,11 +131,6 @@ cciInvMstList() {
         title: 'Cci Inv Date',
         data: 'cciInvDate',
       },
-     
-      // {
-      //   title: 'Maint Type',
-      //   data: 'maintType',
-      // }, 
       {
         title: 'Remarks',
         data: 'remarks',
@@ -143,17 +142,6 @@ cciInvMstList() {
       {
         title: 'Total Inv Amt',
         data: 'totalInvAmt',
-      },
-      // {
-      //   title: 'vehicleMasterId',
-      //   data: 'vehicleMasterId',
-      // }, 
-      
-      
-    
-      {
-        title: 'Action',
-        data: 'cciInvMstId ',
       },
     ],
   };

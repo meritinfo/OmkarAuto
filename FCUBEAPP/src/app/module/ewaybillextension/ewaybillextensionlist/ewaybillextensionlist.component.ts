@@ -121,6 +121,10 @@ dashboard: string ="";
          // Set column title and data field
          columns: [  
           {
+            title: 'Action',
+            data: 'ewayBillNo',
+          },
+          {
             title: 'Booked At',
             data: 'bookedAt',
           },
@@ -129,36 +133,32 @@ dashboard: string ="";
             data: 'bookingDate',
           },
           {
-          title: 'GcNote No',
-          data: 'gcNoteNo',
+            title: 'GcNote No',
+            data: 'gcNoteNo',
           },
           {
-          title: 'Vehicle No',
-          data: 'vehicleNo',
+            title: 'Vehicle No',
+            data: 'vehicleNo',
           },
           {
-          title: 'From Location',
-          data: 'fromLocation',
+            title: 'From Location',
+            data: 'fromLocation',
           },
           {
-          title: 'Destination',
-          data: 'destination',
+            title: 'Destination',
+            data: 'destination',
           },
           {
-          title: 'EwayBill No',
-          data: 'ewayBillNo',
-          },
-          {
-          title: 'EwayBill Date',
-          data: 'ewayBillDate',
-          },
-          {
-          title: 'EwayBill Exp Date',
-          data: 'ewayBillExpDate',
-          },
-          {
-            title: 'Action',
+            title: 'EwayBill No',
             data: 'ewayBillNo',
+          },
+          {
+            title: 'EwayBill Date',
+            data: 'ewayBillDate',
+          },
+          {
+            title: 'EwayBill Exp Date',
+            data: 'ewayBillExpDate',
           },
         ],
       };

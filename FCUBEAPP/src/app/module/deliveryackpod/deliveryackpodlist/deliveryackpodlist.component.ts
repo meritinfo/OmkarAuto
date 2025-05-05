@@ -160,6 +160,14 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'ackId',
+        },
+        {
+          title: 'Download',
+          data: 'ackId',
+        },
+        {
           title: 'Branch ',
           data: 'ackBr',
         },
@@ -182,14 +190,6 @@ dashboard: string ="";
         {
           title: 'Net Payable ',
           data: 'netPayable'
-        },
-        {
-          title: 'Action',
-          data: 'ackId',
-        },
-        {
-          title: 'Download',
-          data: 'ackId',
         },
       ],
     };

@@ -103,7 +103,11 @@ export class Documentallottmentlistcomponent {
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'docAllotId',
+        },    
         {
           title: 'Branch',
           data: 'branch',
@@ -132,43 +136,8 @@ export class Documentallottmentlistcomponent {
           title: 'Remarks',
           data: 'remarks',
         },
-        {
-          title: 'Action',
-          data: 'docAllotId',
-        },   
       ],
     };
-    //   columns: [  
-    //     {
-    //       title: 'Branch',
-    //       data: 'branch',
-    //     },
-    //     {
-    //       title: 'Doc Type',
-    //       data: 'docType',
-    //     },
-    //     {
-    //       title: 'Allot Date',
-    //       data: 'allotDate',
-    //     },
-    //     // {
-    //     //   title: 'Range From',
-    //     //   data: 'rangeFrom',
-    //     // },
-    //     // {
-    //     //   title: 'Range To',
-    //     //   data: 'rangeTo',
-    //     // },
-    //     // {
-    //     //   title: 'Doc Status',
-    //     //   data: 'docStatus',
-    //     // },
-    //     {
-    //       title: 'Action',
-    //       data: 'docAllotId',
-    //     }, 
-    //   ],
-    // };
   }
   //Open new destination add screen
   adddocumentallotment(): void {

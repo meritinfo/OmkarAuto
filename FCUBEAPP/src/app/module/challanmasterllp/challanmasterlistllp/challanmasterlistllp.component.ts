@@ -174,6 +174,14 @@ ngOnInit(): void {
      // Set column title and data field
       columns: [  
         {
+          title: 'Action',
+          data: 'challanId',
+        },
+        {
+          title: 'Print',
+          data: 'challanId',
+        },   
+        {
           title: 'Branch',
           data: 'cbranch',
         },
@@ -196,15 +204,7 @@ ngOnInit(): void {
         {
           title: 'Vehicle No',
           data: 'truckNo',
-        },  
-        {
-          title: 'Action',
-          data: 'challanId',
-        },
-        {
-          title: 'Print',
-          data: 'challanId',
-        },  
+        }, 
       ],
     };
   }

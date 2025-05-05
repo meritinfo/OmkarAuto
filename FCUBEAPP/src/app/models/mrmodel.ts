@@ -46,6 +46,7 @@ export class Mrmodel {
     chequeReturnRemarks : string = ""
     ftmid : string = ""
     ftmidJv : string = ""
+    ftmidOnAcAdj_LR: string = ""
     neftYN : string = ""
     mrDebitAc : string = ""
     mrSdEmdAc : string = ""

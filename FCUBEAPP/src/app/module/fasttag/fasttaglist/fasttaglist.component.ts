@@ -144,6 +144,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'ftMasterID',
+        },
+        {
           title: 'Account ',
           data: 'accountName',
         },
@@ -158,10 +162,6 @@ dashboard: string ="";
         {
           title: 'To Date ',
           data: 'toDate'
-        },
-        {
-          title: 'Action',
-          data: 'ftMasterID',
         },
       ],
     };

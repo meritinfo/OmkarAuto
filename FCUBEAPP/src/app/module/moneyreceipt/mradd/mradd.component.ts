@@ -47,6 +47,8 @@ dashboard: string ="";
   sdaccountList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
   seriesDoc: string = "";
+  seriesDocJV: string = "";
+  seriesDocOA: string = "";
 
   selectedParty = new Dropdownmodel(); 
   selectedBillLR = new Reportmodel();
@@ -258,7 +260,13 @@ dashboard: string ="";
     
         this.formUser.patchValue(this.selectedMrDetails);        
         if(this.selectedMrDetails.ftmid!="0"){
-          this.getFinDocDetails(this.selectedMrDetails.ftmid);
+          this.getFinDocDetails(this.selectedMrDetails.ftmid,"BC");
+        }
+        if(this.selectedMrDetails.ftmidJv!="0"){
+          this.getFinDocDetails(this.selectedMrDetails.ftmidJv,"JV");
+        }
+        if(this.selectedMrDetails.ftmidOnAcAdj_LR!="0"){
+          this.getFinDocDetails(this.selectedMrDetails.ftmidOnAcAdj_LR,"OA");
         }
         this.formUser.patchValue({
           mrDate: this.commonService.formatDate(this.selectedMrDetails.mrDate),
@@ -313,19 +321,6 @@ dashboard: string ="";
   }
 
   
-  getFinDocDetails(finId: string){
-    this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.seriesDoc = res.message;
-      } 
-      else{
-        this.seriesDoc = '';
-      }
-    });
-  }
-
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -382,6 +377,41 @@ dashboard: string ="";
     }); 
   }
   
+
+  getFinDocDetails(finId: string,reftype:string){
+    this.requestmodel.strRequest = finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        if(reftype =="BC")
+        {
+          this.seriesDoc = res.message;
+        }
+        else if(reftype =="JV")
+        {
+          this.seriesDocJV = res.message;
+        }
+        else
+        {
+          this.seriesDocOA = res.message;
+        }
+      } 
+      else{
+        if(reftype =="BC")
+        {
+          this.seriesDoc = '';
+        }
+        else if(reftype =="JV")
+        {
+          this.seriesDocJV = "";
+        }
+        else
+        {
+          this.seriesDocOA = "";
+        }
+      }
+    });
+  }
 
   
   createInitialArray() {

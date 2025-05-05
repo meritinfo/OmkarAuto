@@ -16,6 +16,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from 'src/app/common/constants';
 import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-challanmasterllpadd',
@@ -36,6 +37,7 @@ export class ChallanmasterllpaddComponent {
     newDate: string = '';
     noPackages:string = '';
     tdspct:string = '';
+    seriesDoc: string = "";
   
     formSubmitted = false;
     editMode = false;
@@ -85,6 +87,7 @@ dashboard: string ="";
       private challanmasterService: ChallanmasterServiceLLP,
       private commonService: CommonService,  private sharedService: SharedService,
       private lrentryService: ConsignmentService,
+          private cashReceiptEntryService: CashReceiptEntryService,
       private toastrService: ToastrService, private requestmodel: Requestmodel) {
       this.challanmodel = new ChallanmastermodelllP();
 
@@ -361,6 +364,7 @@ ngOnInit(): void {
         this.formUser.controls['challanNo'].disable();  
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
+        this.getFinDocDetails(this.selectedChallanDetails.ftmid);
         this.getChallanInnerGridList();   
        // this.getCCIInvoiceMstDetail();  
         if(this.selectedChallanDetails.containerNo!=""){
@@ -407,6 +411,19 @@ ngOnInit(): void {
     }
   
     
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
+
     getChallanInnerGridList(): void {
       this.requestmodel.strRequest = this.selectedChallanDetails.challanId;
       this.challanmasterService.getChallanInnerGridList(this.requestmodel).subscribe((res) => {

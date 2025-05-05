@@ -105,6 +105,10 @@ dashboard: string ="";
 
       columns: [
         {
+          title: 'Action',
+          data: 'masterId',
+        },
+        {
           title: 'Sal From Date',
           data: 'fromDate',
         },
@@ -119,10 +123,6 @@ dashboard: string ="";
         {
           title: 'Gross Salary',
           data: 'grossSalary',
-        },
-        {
-          title: 'Action',
-          data: 'masterId',
         },
       ],
     };

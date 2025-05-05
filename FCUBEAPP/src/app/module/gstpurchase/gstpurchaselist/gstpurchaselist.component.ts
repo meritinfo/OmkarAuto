@@ -147,7 +147,11 @@ dashboard: string ="";
             });
           },
            // Set column title and data field
-           columns: [    
+           columns: [   
+            {
+              title: 'Action',
+              data: 'masterid',
+            }, 
             {
               title: 'Branch',
               data: 'branchName',
@@ -163,10 +167,6 @@ dashboard: string ="";
             {
               title: 'Net Amount',
               data: 'netAmount',
-            },
-            {
-              title: 'Action',
-              data: 'masterid',
             },
           ],
         };

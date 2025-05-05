@@ -152,6 +152,10 @@ dashboard: string ="";
         },
         columns: [
           {
+            title: 'Action',
+            data: 'disputeId',
+          },
+          {
             title: 'Branch  ',
             data: 'brname ',
           },
@@ -163,26 +167,10 @@ dashboard: string ="";
             title: 'Disp SlNo',
             data: 'dispSlNo',
           },
-          // {
-          //   title: 'GcBook',
-          //   data: 'gcBook',
-          // },
           {
             title: 'LR No',
             data: 'gcNoteNo',
           },
-          // {
-          //   title: 'Delivery Date ',
-          //   data: 'deliveryDate'
-          // },
-          // {
-          //   title: 'GcNoteNo',
-          //   data: 'gcNoteNo'
-          // },
-          // {
-          //   title: 'Consignment Id',
-          //   data: 'consignmentId'
-          // },
           {
             title: 'Dispute Status',
             data: 'disputeStatus'
@@ -191,14 +179,6 @@ dashboard: string ="";
             title: 'Dispute Remarks',
             data: 'disputeRemarks'
           },
-          {
-            title: 'Action',
-            data: 'disputeId',
-          },
-          // {
-          //   title: 'Download',
-          //   data: 'ackId',
-          // },
         ],
       };
     }

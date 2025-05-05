@@ -104,17 +104,17 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length != 0">
-                            <tr *ngFor="let renentry of allDocRenewalEntry.docRenewalList">
+                            <tr *ngFor="let renentry of allDocRenewalEntry.docRenewalList">                     
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getRenewalEntryDetails(renentry)"></button>             
+                                </td> 
                                 <td>{{ renentry.transDate }}</td>                        
                                 <td>{{ renentry.docDescription }}</td>                        
                                 <td>{{ renentry.vehicleNo }}</td>                     
                                 <td>{{ renentry.validFromDt }}</td>                     
                                 <td>{{ renentry.validToDt }}</td>                        
-                                <td>{{ renentry.netAmount }}</td>                       
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getRenewalEntryDetails(renentry)"></button>             
-                                </td> 
+                                <td>{{ renentry.netAmount }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length == 0">

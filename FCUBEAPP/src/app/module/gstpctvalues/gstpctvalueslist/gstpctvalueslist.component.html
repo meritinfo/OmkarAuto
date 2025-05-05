@@ -6,12 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Define GST Pct</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Rates  Master Freight </li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -23,16 +17,14 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
-                                    <input bsdatepicker="" type="date" autoclose="false" 
-                                         
+                                    <input bsdatepicker="" type="date" autoclose="false"                                          
                                         formControlName="fromDate" class="form-control">
                                 </div>
                             </div>       
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">To Date</label> 
-                                    <input bsdatepicker="" type="date" autoclose="false" 
-                                          
+                                    <input bsdatepicker="" type="date" autoclose="false"                                           
                                         formControlName="toDate" class="form-control">
                                 </div>
                             </div>                   
@@ -46,12 +38,6 @@
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 text-right">
-                    <div class="dt-buttons btn-group flex-wrap export-button">
-                        <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
-                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
-                    </div>
                     <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus"
                         (click)="gstpctvaluesAdd()"><span>New</span></button>
                 </div>
@@ -62,29 +48,28 @@
                         <thead>
                             <tr>
                                 <th>Driver Name </th>
-                            <th>Father Name </th>
-                            <th>Date Of Appoint </th>
-                            <th>License No</th>
-                            <th>licValidUpto</th>
-                            <th>driverMobile1</th>
-                            <th>driverMobile1</th>
-                            <th>Action</th>
-
+                                <th>Father Name </th>
+                                <th>Date Of Appoint </th>
+                                <th>License No</th>
+                                <th>licValidUpto</th>
+                                <th>driverMobile1</th>
+                                <th>driverMobile1</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allPctValues.pctList?.length != 0">
-                            <tr *ngFor="let drvr of allPctValues.pctList">
-                                <td>{{ drvr.validFrom }}</td>
-                            <td>{{ drvr.roadFrtGst }}</td>
-                            <td>{{ drvr.railFrtGst }}</td>
-                            <td>{{ drvr.coastalFrtGst }}</td>
-                            <td>{{ drvr.hamaliGst }}</td>
-                            <td>{{ drvr.detentionGst }}</td>   
-                            <td>{{ drvr.otherChargesGst }}</td>                   
+                            <tr *ngFor="let drvr of allPctValues.pctList">                 
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="setGstPctValuesDetails(drvr)" ></button>             
                                 </td> 
+                                <td>{{ drvr.validFrom }}</td>
+                                <td>{{ drvr.roadFrtGst }}</td>
+                                <td>{{ drvr.railFrtGst }}</td>
+                                <td>{{ drvr.coastalFrtGst }}</td>
+                                <td>{{ drvr.hamaliGst }}</td>
+                                <td>{{ drvr.detentionGst }}</td>   
+                                <td>{{ drvr.otherChargesGst }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allPctValues.pctList?.length == 0">

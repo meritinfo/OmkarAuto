@@ -70,7 +70,11 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allDocumentAllotment.documentAllotmentLists?.length != 0">
-                        <tr *ngFor="let ren of allDocumentAllotment.documentAllotmentLists">
+                        <tr *ngFor="let ren of allDocumentAllotment.documentAllotmentLists">                
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getdocumentallotmentdocuments(ren)"></button>             
+                            </td>  
                             <td>{{ ren.branch }}</td>                    
                             <td>{{ ren.seriesCode }}</td>                    
                             <td>{{ ren.docType }}</td>               
@@ -78,11 +82,7 @@
                             <td>{{ ren.rangeFrom }}</td>
                             <td>{{ ren.rangeTo }}</td>
                             <td>{{ ren.docStatus }}</td>   
-                            <td>{{ ren.remarks }}</td>                  
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="getdocumentallotmentdocuments(ren)"></button>             
-                            </td>  
+                            <td>{{ ren.remarks }}</td>  
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDocumentAllotment.documentAllotmentLists?.length == 0">

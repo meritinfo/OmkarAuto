@@ -176,6 +176,10 @@ dashboard: string ="";
       }, 
       columns: [ 
         {
+          title: 'Action',
+          data: 'masterID',
+        }, 
+        {
           title: 'Branch',
           data: 'branch',
         }, 

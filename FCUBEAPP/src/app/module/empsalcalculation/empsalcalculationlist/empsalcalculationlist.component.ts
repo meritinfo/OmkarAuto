@@ -134,6 +134,10 @@ dashboard: string ="";
 
       columns: [
         {
+          title: 'Action',
+          data: 'transId',
+        },
+        {
           title: 'Month',
           data: 'monthYear',
         },
@@ -149,10 +153,6 @@ dashboard: string ="";
         {
           title: 'Net Pay',
           data: 'netPay',
-        },
-        {
-          title: 'Action',
-          data: 'transId',
         },
       ],
     };

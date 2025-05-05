@@ -101,7 +101,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'empId',
+        },    
         {
           title: 'Emp Code',
           data: 'empCode',
@@ -130,10 +134,6 @@ dashboard: string ="";
           title: 'Mobile',
           data: 'mobile',
         },
-        {
-          title: 'Action',
-          data: 'empId',
-        },   
       ],
     };
   }

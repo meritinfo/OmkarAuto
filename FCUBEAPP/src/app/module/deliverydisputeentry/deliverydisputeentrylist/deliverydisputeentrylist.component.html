@@ -60,38 +60,24 @@
                                 <th>dispDate</th>                             
                                 <th>dispSlNo</th>                            
                                 <th>gcNoteNo</th>
-                              
-                                <!-- <th>consignmentId</th> -->
                                 <th>disputeStatus</th>
                                 <th>disputeRemarks</th>
-                                
-
-                                <!-- <th>Action</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allDelivery.disputeList?.length != 0">
-                            <tr *ngFor="let dly of allDelivery.disputeList">
-                                <td>{{ dly.brname }}</td>                        
-                                <td>{{ dly.dispDate}}</td>
-                                <td>{{ dly.dispSlNo}}</td>
-                                <td>{{ dly.gcNoteNo}}</td>
-                               
-                                <!-- <td>{{ dly.consignmentId}}</td>          -->
-                                <td>{{ dly.disputeStatus}}</td> 
-                                <td>{{ dly.disputeRemarks}}</td>                
-                                        
+                            <tr *ngFor="let dly of allDelivery.disputeList"> 
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getDeliveryDisputeDetails(dly)"></button>    
                                              
                                 </td> 
-                                <!-- <td>
-                                    <button type="button" 
-                                        class="btn btn-primary btn-floating"  
-                                    (click)="download(dly)" >
-                                        <i class="fas fa-download"></i></button>   
-                                </td>   -->
+                                <td>{{ dly.brname }}</td>                        
+                                <td>{{ dly.dispDate}}</td>
+                                <td>{{ dly.dispSlNo}}</td>
+                                <td>{{ dly.gcNoteNo}}</td>
+                                <td>{{ dly.disputeStatus}}</td> 
+                                <td>{{ dly.disputeRemarks}}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDelivery.disputeList?.length == 0">

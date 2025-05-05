@@ -82,16 +82,16 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allFasttag.fastTagList?.length != 0">
-                            <tr *ngFor="let ft of allFasttag.fastTagList">
-                                <td>{{ ft.accountName }}</td>                        
-                                <td>{{ ft.stmtDate}}</td>
-                                <td>{{ ft.fromDate}}</td>
-                                <td>{{ ft.toDate}}</td>                    
+                            <tr *ngFor="let ft of allFasttag.fastTagList">                  
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getFasttagDetails(ft)"></button>    
                                              
                                 </td> 
+                                <td>{{ ft.accountName }}</td>                        
+                                <td>{{ ft.stmtDate}}</td>
+                                <td>{{ ft.fromDate}}</td>
+                                <td>{{ ft.toDate}}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allFasttag.fastTagList?.length == 0">

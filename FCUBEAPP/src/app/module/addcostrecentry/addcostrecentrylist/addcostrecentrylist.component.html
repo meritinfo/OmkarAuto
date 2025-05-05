@@ -81,7 +81,11 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allAddcostreclist.addCostRecMstList">
-                            <tr *ngFor="let br of allAddcostreclist.addCostRecMstList">
+                            <tr *ngFor="let br of allAddcostreclist.addCostRecMstList">          
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getAddcostrecDetails(br)" ></button>             
+                                </td> 
                                 <td>{{ br.branch }}</td>
                                 <td>{{ br.transNo }}</td> 
                                 <td>{{ br.transDate }}</td> 
@@ -90,11 +94,7 @@
                                 <td>{{ br.costTot }}</td> 
                                 <td>{{ br.othTot }}</td>
                                 <td>{{ br.grossTot }}</td>
-                                <td>{{ br.netTot }}</td>            
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getAddcostrecDetails(br)" ></button>             
-                                </td> 
+                                <td>{{ br.netTot }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allAddcostreclist.addCostRecMstList?.length == 0">

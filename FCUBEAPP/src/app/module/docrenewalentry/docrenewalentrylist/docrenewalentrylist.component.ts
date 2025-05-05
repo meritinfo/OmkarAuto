@@ -172,6 +172,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'docRenewalEntryId',
+        },  
+        {
           title: 'Trans Date',
           data: 'transDate',
         },
@@ -195,11 +199,6 @@ dashboard: string ="";
           title: 'Net Amount',
           data: 'netAmount',
         },
-        {
-          title: 'Action',
-          data: 'docRenewalEntryId',
-        },  
-
       ],
     };
   }

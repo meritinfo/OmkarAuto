@@ -25,31 +25,27 @@
                                        </div>
                                    </div>
                                    <div class="col-lg-4">
-                                   <div class="mb-3">
-                                    
-                                 <div class="ng-autocomplete">
-                                    <ng-autocomplete [data]="ccList"
-                                        [searchKeyword]="keywordLocation"  
-                                        formControlName="cnorCneeID" [initialValue]=""
-                                        (selected)='selectEvent($event)'
-                                        (inputChanged)='onChangeSearch($event)'
-                                        (inputFocused)='onFocused($event)' 
-                                        [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate"
-                                        [customFilter]="startWithFilter"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorCneeID'].invalid) }">                                            </ng-autocomplete>
+                                        <div class="mb-3">                                            
+                                        <div class="ng-autocomplete">
+                                            <ng-autocomplete [data]="ccList"
+                                                [searchKeyword]="keywordLocation"  
+                                                formControlName="cnorCneeID" [initialValue]=""
+                                                (selected)='selectEvent($event)'
+                                                (inputChanged)='onChangeSearch($event)'
+                                                (inputFocused)='onFocused($event)' 
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="notFoundTemplate"
+                                                [customFilter]="startWithFilter"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorCneeID'].invalid) }">                                            </ng-autocomplete>
 
-                                    <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.dataName"></a>
-                                    </ng-template>
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.dataName"></a>
+                                            </ng-template>
 
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                    </ng-template>
-                                </div>
-                                 
-                                 
-
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                        </div>
 
                                    </div>
                               </div>

@@ -151,6 +151,10 @@ dashboard: string ="";
             });
         },
         columns: [ 
+          {
+            title: 'Action',
+            data: 'ftmID',
+          },
         {
           title: 'Doc Series No ',
           data: 'seriesDoc',
@@ -182,10 +186,6 @@ dashboard: string ="";
         {
           title: 'Remarks',
           data: 'narration',
-        },
-        {
-          title: 'Action',
-          data: 'ftmID',
         },
       ],
     };

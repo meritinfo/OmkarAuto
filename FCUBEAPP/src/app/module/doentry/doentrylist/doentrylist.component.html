@@ -133,7 +133,16 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allDolist.doList?.length != 0">
-                            <tr *ngFor="let dpr of allDolist.doList">
+                            <tr *ngFor="let dpr of allDolist.doList"> 
+                                <td>                                  
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getdoDetails(dpr)"></button>                               
+                                </td>
+                                <td>                                  
+                                    <button type="button" 
+                                        (click)="getdoVehiplaced(dpr)" *ngIf="dpr.doStatus=='O'" >
+                                        <i class="fas fa-truck"></i></button>
+                                </td>
                                 <td>{{ dpr.doBr }}</td> 
                                 <td>{{ dpr.doNo }}</td>   
                                 <td>{{ dpr.doDate }}</td>                        
@@ -144,16 +153,7 @@
                                 <td>{{ dpr.cneeName }}</td>                          
                                 <td>{{ dpr.doQty }}</td>                          
                                 <td>{{ dpr.balQty }}</td>  
-                                <td>{{ dpr.doStatus  }}</td>   
-                                <td>                                  
-                                    <button type="button" class="btn btn-edit"
-                                        (click)="getdoDetails(dpr)"></button>                               
-                                </td>
-                                <td>                                  
-                                    <button type="button" 
-                                        (click)="getdoVehiplaced(dpr)" *ngIf="dpr.doStatus=='O'" >
-                                        <i class="fas fa-truck"></i></button>
-                                </td>
+                                <td>{{ dpr.doStatus  }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDolist.doList?.length == 0">

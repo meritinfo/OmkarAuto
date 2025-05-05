@@ -102,6 +102,10 @@ dashboard: string ="";
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'loanRepayId',
+        },   
+        {
           title: 'Emp Code',
           data: 'empCode',
         },
@@ -133,10 +137,6 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         },
-        {
-          title: 'Action',
-          data: 'loanRepayId',
-        },   
       ],
     };
   }

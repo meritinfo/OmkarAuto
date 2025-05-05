@@ -167,6 +167,14 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'doViId',
+        },   
+        {
+          title: 'Temp GC',
+          data: 'doViId',
+        },   
+        {
           title:' Entry Date',
           data: 'entryDater',
         }, 
@@ -198,14 +206,6 @@ dashboard: string ="";
           title: 'Driver Mobile ',
           data: 'driverMobile1',
         }, 
-        {
-          title: 'Action',
-          data: 'doViId',
-        },   
-        {
-          title: 'Temp GC',
-          data: 'doViId',
-        },   
       ],
     };
   }

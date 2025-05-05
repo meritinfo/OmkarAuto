@@ -141,6 +141,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'masterId',
+        },
+        {
           title: 'Bill Stmt No ',
           data: 'billStmtNo',
         },
@@ -155,10 +159,6 @@ dashboard: string ="";
         {
           title: 'Location ',
           data: 'location',
-        },
-        {
-          title: 'Action',
-          data: 'masterId',
         },
       ],
     };

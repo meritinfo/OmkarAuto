@@ -11,6 +11,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -41,12 +42,17 @@ export class LorryhirepmtaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
+  seriesDoc: string ="";
+  seriesDocJV: string ="";
+  seriesDocOpp: string ="";
+
   responseDetails = new Responsemodel();
   challanInputDtls= new Reportmodel();
   constructor(private lorryhiremastermodel: Lorryhiremastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
     private commonService: CommonService, private lorryhirepmtService: LorryhirepmtService,
+        private cashReceiptEntryService: CashReceiptEntryService,
     private docrenewalEntryService: DocRenewalEntryService,private toasterService: ToastrService) {
     this.lorryhiremaster = new Lorryhiremastermodel();
   }
@@ -204,7 +210,16 @@ dashboard: string ="";
         this.formUser.controls['pmtType'].disable(); 
         this.formUser.controls['onAcBranchYN'].disable();
         this.formUser.controls['onAcBranch'].disable();
-        this.formUser.controls['modifyRemarks'].enable();
+        this.formUser.controls['modifyRemarks'].enable();                
+        if(this.selectedLorryhiremaster.finDocid!="0"){
+          this.getFinDocDetails(this.selectedLorryhiremaster.finDocid,"BC");
+        }
+        if(this.selectedLorryhiremaster.finDocidJV!="0"){
+          this.getFinDocDetails(this.selectedLorryhiremaster.finDocidJV,"JV");
+        }
+        if(this.selectedLorryhiremaster.findocIdOpp!="0"){
+          this.getFinDocDetails(this.selectedLorryhiremaster.findocIdOpp,"OP");
+        }
         this.getLorryHirePmtInnerGridList();        
       }
       else{
@@ -291,7 +306,41 @@ dashboard: string ="";
       }
     });
   }
-  
+  getFinDocDetails(finId: string,reftype:string){
+    this.requestmodel.strRequest = finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        if(reftype =="BC")
+        {
+          this.seriesDoc = res.message;
+        }
+        else if(reftype =="JV")
+        {
+          this.seriesDocJV = res.message;
+        }
+        else
+        {
+          this.seriesDocOpp = res.message;
+        }
+      } 
+      else{
+        if(reftype =="BC")
+        {
+          this.seriesDoc = '';
+        }
+        else if(reftype =="JV")
+        {
+          this.seriesDocJV = "";
+        }
+        else
+        {
+          this.seriesDocOpp = "";
+        }
+      }
+    });
+  }
+
   getYearList():void{
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;

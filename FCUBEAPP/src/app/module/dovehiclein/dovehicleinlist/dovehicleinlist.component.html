@@ -82,14 +82,6 @@
                         </thead>
                         <tbody *ngIf="allDolist.doVehicleInList?.length != 0">
                             <tr *ngFor="let dpr of allDolist.doVehicleInList">
-                                <td>{{ dpr.entryDate }}</td>  
-                                <td>{{ dpr.truckNo }}</td>  
-                                <td>{{ dpr.vehicleInDatetime }}</td>                        
-                                <td>{{ dpr.ownerName }}</td>                          
-                                <td>{{ dpr.contactName }}</td>                         
-                                <td>{{ dpr.mobileNo }}</td>                        
-                                <td>{{ dpr.driverName }}</td>                          
-                                <td>{{ dpr.driverMobile1 }}</td>  
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdoVehiDetails(dpr)"></button>                               
@@ -100,6 +92,14 @@
                                         (click)="gentempGc(dpr)">
                                         <i class="fas fa-file-invoice-dollar"></i></button>   
                                 </td> 
+                                <td>{{ dpr.entryDate }}</td>  
+                                <td>{{ dpr.truckNo }}</td>  
+                                <td>{{ dpr.vehicleInDatetime }}</td>                        
+                                <td>{{ dpr.ownerName }}</td>                          
+                                <td>{{ dpr.contactName }}</td>                         
+                                <td>{{ dpr.mobileNo }}</td>                        
+                                <td>{{ dpr.driverName }}</td>                          
+                                <td>{{ dpr.driverMobile1 }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDolist.doVehicleInList?.length == 0">

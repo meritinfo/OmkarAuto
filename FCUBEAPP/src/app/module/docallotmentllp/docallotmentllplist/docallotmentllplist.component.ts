@@ -108,6 +108,10 @@ export class DocallotmentllplistComponent {
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'docAllotId',
+        },   
+        {
           title: 'Branch',
           data: 'branch',
         },
@@ -139,10 +143,6 @@ export class DocallotmentllplistComponent {
           title: 'Remarks',
           data: 'remarks',
         },
-        {
-          title: 'Action',
-          data: 'docAllotId',
-        },   
       ],
     };
   }

@@ -77,14 +77,14 @@
                     </thead>
                     <tbody *ngIf="allFasttag.fastList">
                         <tr *ngFor="let actlist of allFasttag.fastList">
-                            <td>{{ actlist.branch }}</td>
-                            <td>{{ actlist.rechargeDate }}</td>
-                            <td>{{ actlist.rechargeType }}</td> 
-                            <td>{{ actlist.rechargeAmt }}</td> 
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getfastagdslrechargeentryDetails(actlist)"></button>             
                             </td>    
+                            <td>{{ actlist.branch }}</td>
+                            <td>{{ actlist.rechargeDate }}</td>
+                            <td>{{ actlist.rechargeType }}</td> 
+                            <td>{{ actlist.rechargeAmt }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allFasttag.fastList?.length == 0">

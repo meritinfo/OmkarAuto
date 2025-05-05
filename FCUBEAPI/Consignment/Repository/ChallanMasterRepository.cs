@@ -305,6 +305,7 @@ namespace Consignment.Repository
                                 Balance = Convert.ToString(dataSet.Tables[0].Rows[i]["Balance"]),
                                 BalancePayAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePayAt"]),
                                 GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
+                                Ftmid = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
                                 Photo1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo1"]),
                                 Photo2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo2"]),
                                 Photo3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo3"]),

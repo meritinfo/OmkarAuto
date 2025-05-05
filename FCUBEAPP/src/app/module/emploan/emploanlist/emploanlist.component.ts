@@ -101,7 +101,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [ 
+        {
+          title: 'Action',
+          data: 'loanId',
+        },     
         {
           title: 'Emp Code',
           data: 'empCode',
@@ -130,10 +134,6 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         },
-        {
-          title: 'Action',
-          data: 'loanId',
-        },   
       ],
     };
   }

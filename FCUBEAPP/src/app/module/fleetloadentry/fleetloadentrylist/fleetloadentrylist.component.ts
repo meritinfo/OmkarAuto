@@ -172,7 +172,11 @@ dashboard: string ="";
           this.sharedService.loading = false;
       },
       // Set column title and data field
-      columns: [
+      columns: [     
+        {
+          title: 'Action',
+          data: 'loadId',
+        },
         {
           title: 'Branch',
           data: 'tripBrName',
@@ -208,11 +212,7 @@ dashboard: string ="";
         {
           title: 'Hire Amt',
           data: 'hireAmt',
-        },       
-        {
-          title: 'Action',
-          data: 'loadId',
-        },
+        },  
       ],
     };
   }

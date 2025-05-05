@@ -95,7 +95,11 @@ cnorcneeGstList(){
           });
         });
     },
-    columns: [   
+    columns: [ 
+      {
+        title: 'Action',
+        data: 'cnorCneeDetID',
+      },     
       {
         title: 'Location',
         data: 'centrename',
@@ -120,11 +124,6 @@ cnorcneeGstList(){
         title: 'Mobile No',
         data: 'mobileNo',
       },
-
-      {
-        title: 'Action',
-        data: 'cnorCneeDetID',
-      },   
     ],
   };
 }

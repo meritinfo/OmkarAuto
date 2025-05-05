@@ -103,8 +103,11 @@ dashboard: string ="";
           });
         },
          // Set column title and data field
-         columns: [     
-  
+         columns: [ 
+          {
+            title: 'Action',
+            data: 'accountId',
+          },
           {
             title: 'Group Name',
             data: 'groupName',
@@ -116,10 +119,6 @@ dashboard: string ="";
           {
           title: 'Sub Account Name',
           data: 'subAccountName',
-          },
-          {
-            title: 'Action',
-            data: 'accountId',
           },
         ],
       };

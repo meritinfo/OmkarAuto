@@ -118,8 +118,11 @@ dashboard: string ="";
         this.sharedService.loading = false;
       },
        // Set column title and data field
-       columns: [     
-
+       columns: [  
+        {
+          title: 'Action',
+          data: 'accountId',
+        },
         {
           title: 'Account Name',
           data: 'accountName',
@@ -131,10 +134,6 @@ dashboard: string ="";
         {
           title: 'Sub Account Name',
           data: 'subAccountName',
-        },
-        {
-          title: 'Action',
-          data: 'accountId',
         },
       ],
     };

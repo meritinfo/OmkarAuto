@@ -67,13 +67,7 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allDeliveryackpod.ackList?.length != 0">
-                            <tr *ngFor="let dly of allDeliveryackpod.ackList">
-                                <td>{{ dly.ackBr }}</td>                        
-                                <td>{{ dly.ackDate}}</td>
-                                <td>{{ dly.ackSlNo}}</td>
-                                <td>{{ dly.gcNoteNo}}</td>
-                                <td>{{ dly.deliveryDate}}</td>
-                                <td>{{ dly.netPayable}}</td>                    
+                            <tr *ngFor="let dly of allDeliveryackpod.ackList">                  
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getDeliveryackpodDetails(dly)"></button>    
@@ -85,6 +79,12 @@
                                     (click)="download(dly)" >
                                         <i class="fas fa-download"></i></button>   
                                 </td>  
+                                <td>{{ dly.ackBr }}</td>                        
+                                <td>{{ dly.ackDate}}</td>
+                                <td>{{ dly.ackSlNo}}</td>
+                                <td>{{ dly.gcNoteNo}}</td>
+                                <td>{{ dly.deliveryDate}}</td>
+                                <td>{{ dly.netPayable}}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDeliveryackpod.ackList?.length == 0">

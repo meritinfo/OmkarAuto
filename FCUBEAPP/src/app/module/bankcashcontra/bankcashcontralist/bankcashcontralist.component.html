@@ -72,7 +72,11 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allBankCashcontra.recPaymentsList">
-                            <tr *ngFor="let br of allBankCashcontra.recPaymentsList">
+                            <tr *ngFor="let br of allBankCashcontra.recPaymentsList">                     
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getBankCashContraDetails(br)" ></button>             
+                                </td> 
                                 <td>{{ br.seriesDoc }}</td>                    
                                 <td>{{ br.ftmDate }}</td>                   
                                 <td style="width:80px; word-wrap:break-word;">{{ br.acHeader }}</td>                   
@@ -80,11 +84,7 @@
                                 <td>{{ br.refType }}</td>                   
                                 <td>{{ br.refNo }}</td>                   
                                 <td style="width:80px; word-wrap:break-word;">{{ br.accountOf }}</td>                   
-                                <td>{{ br.narration }}</td>                       
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getBankCashContraDetails(br)" ></button>             
-                                </td> 
+                                <td>{{ br.narration }}</td>  
                             </tr>
                         </tbody>
                         <tbody *ngIf="allBankCashcontra.recPaymentsList?.length == 0">

@@ -1620,7 +1620,7 @@ namespace FreightMasters.Repository
                             var filter = "To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
                             filter = filter  + " As on Date " + Convert.ToDateTime(request.FilterStr).ToString("dd/MM/yyyy");
 
-                            responseModel = await GetOutstandDetailExcelReport(dataSet, "OUTSTANDING ANALYSIS DETAIL REPORT", filter);
+                            responseModel = await GetOutstandDetailExcelReport(dataSet, "OUTSTANDING ANALYSIS DETAIL REPORT", filter, request.FilterStr2);
                         }
                         else
                         {
@@ -1738,7 +1738,7 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GetOutstandDetailExcelReport(DataSet ds, string rptheader, string filter)
+        public async Task<ResponseModel> GetOutstandDetailExcelReport(DataSet ds, string rptheader, string filter, string rpttype)
         {
             ResponseModel responseModel = new();
             try
@@ -1878,6 +1878,31 @@ namespace FreightMasters.Repository
 
                         ws.Range(r, 1, r, colcnt).Merge();
                         r++;
+                    }
+
+                    if (rpttype != "")
+                    {
+                        var TotSum = dt1.AsEnumerable().Where(row => row.Field<string>("Party") == "Total");
+                        DataTable totd = TotSum.CopyToDataTable<DataRow>();
+
+                        if (totd.Rows.Count > 0)
+                        {
+                            ws.Cell(r, 1).Value = "BILLS DUE";
+                            ws.Cell(r, 2).Value = totd.Rows[0]["BilledDueAmt"];
+                            ws.Cell(r, 3).Value = "UNBILLED";
+                            ws.Cell(r, 4).Value = totd.Rows[0]["UnbilledAmt"];
+                            ws.Cell(r, 5).Value = "ADHOC";
+                            ws.Cell(r, 6).Value = totd.Rows[0]["AdhocRecd"];
+                            ws.Cell(r, 7).Value = "NET DUE";
+                            ws.Cell(r, 8).Value = totd.Rows[0]["NetDue"];
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, colcnt).Style.Font.FontColor = XLColor.Maroon;
+
+                            r++;
+
+                            ws.Range(r, 1, r, colcnt).Merge();
+                            r++;
+                        }
                     }
 
                     for (int k = 1; k <= colcnt; k++)
@@ -4017,7 +4042,14 @@ namespace FreightMasters.Repository
                     }
                     else
                     {
-                        colcnt = 16;
+                        if (responseModel.Message == "LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED")
+                        {
+                            colcnt = 17;
+                        }
+                        else
+                        {
+                            colcnt = 16;
+                        }
                     }
 
 
@@ -4073,6 +4105,10 @@ namespace FreightMasters.Repository
                         ws.Cell(5, 14).Value = "Broker Mobile";
                         ws.Cell(5, 15).Value = "Vehicle Engaged By";
                         ws.Cell(5, 16).Value = "Pod Recd";
+                        if (responseModel.Message == "LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED")
+                        {
+                            ws.Cell(5, 17).Value = "Container No";
+                        }
                     }
 
 

@@ -129,6 +129,10 @@ cnorcneeMasterList(){
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'cnorCneeID',
+      },   
+      {
         title: 'Branch',
         data: 'bname',
       },
@@ -147,8 +151,7 @@ cnorcneeMasterList(){
       {
         title: 'Address 1',
         data: 'address1',
-      },
-      
+      },      
       {
         title: 'Phone',
         data: 'phone',
@@ -157,11 +160,6 @@ cnorcneeMasterList(){
         title: 'Email',
         data: 'email',
       },
-
-      {
-        title: 'Action',
-        data: 'cnorCneeID',
-      },   
     ],
   };
 }

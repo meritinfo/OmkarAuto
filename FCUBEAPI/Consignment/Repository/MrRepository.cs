@@ -109,6 +109,7 @@ namespace Consignment.Repository
                                 ChequeReturnRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeReturnRemarks"]),
                                 Ftmid               = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
                                 FtmidJv             = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmidJv"]),
+                                FtmidOnAcAdj_LR     = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmidOnAcAdj_LR"]),
                                 NeftYN              = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftYN"]),
                                 MrDebitAc           = Convert.ToString(dataSet.Tables[0].Rows[i]["MrDebitAc"]),
                                 MrSdEmdAc           = Convert.ToString(dataSet.Tables[0].Rows[i]["MrSdEmdAc"]),

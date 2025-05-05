@@ -109,6 +109,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'driverMasterID',
+        },
+        {
           title: 'Driver Name ',
           data: 'driverName',
         },
@@ -135,10 +139,6 @@ dashboard: string ="";
         {
           title: 'Intro By ',
           data: 'introBy',
-        },
-        {
-          title: 'Action',
-          data: 'driverMasterID',
         },
 
       ],

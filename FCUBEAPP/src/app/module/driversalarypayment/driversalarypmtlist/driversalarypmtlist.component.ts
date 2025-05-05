@@ -162,14 +162,13 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
       },
        // Set column title and data field
        columns: [     
-
         {
           title: 'Branch',
           data: 'branch',
         },
         {
-        title: 'Salary Date ',
-        data: 'salaryDate ',
+          title: 'Salary Date ',
+          data: 'salaryDate ',
         },
         {
           title: 'Driver ',
@@ -178,9 +177,7 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
         {
           title: 'Vehicle ',
           data: 'vehicle',
-        },
-       
-       
+        },       
         {
           title: 'Action',
           data: 'masterid ',

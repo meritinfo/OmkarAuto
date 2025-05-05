@@ -13,6 +13,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from 'src/app/common/constants';
 import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-challanmasteradd',
@@ -32,6 +33,7 @@ export class ChallanmasteraddComponent {
   newDate: string = '';
   noPackages:string = '';
   tdspct:string = '';
+  seriesDoc: string = "";
 
   formSubmitted = false;
   editMode = false;
@@ -80,6 +82,7 @@ dashboard: string ="";
     private challanmodel: Challanmastermodel, private challanmasterService: ChallanmasterService,
     private commonService: CommonService,  private sharedService: SharedService,
     private lrentryService: ConsignmentService,
+    private cashReceiptEntryService: CashReceiptEntryService,
     private toastrService: ToastrService, private requestmodel: Requestmodel) {
     this.challanmodel = new Challanmastermodel();
   }
@@ -355,6 +358,7 @@ dashboard: string ="";
         this.formUser.controls['challanNo'].disable();  
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
+        this.getFinDocDetails(this.selectedChallanDetails.ftmid);
         this.getChallanInnerGridList();   
         
         this.editMode = true;        
@@ -421,6 +425,19 @@ dashboard: string ="";
         totActWt: wt, 
         totChrgWt: wt, 
       })      
+    });
+  }
+
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
     });
   }
 

@@ -58,7 +58,11 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="allEwayBillExtlist.ewaybillextList">
-                            <tr *ngFor="let eway of allEwayBillExtlist.ewaybillextList">
+                            <tr *ngFor="let eway of allEwayBillExtlist.ewaybillextList">                            
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getEwayBillExtDetails(eway)"></button>             
+                                </td>
                                 <td>{{ eway.bookedAt }}</td>
                                 <td>{{ eway.bookingDate }}</td>
                                 <td>{{ eway.gcNoteNo }}</td>  
@@ -67,11 +71,7 @@
                                 <td>{{ eway.destination }}</td>     
                                 <td>{{ eway.ewayBillNo }}</td>      
                                 <td>{{ eway.ewayBillDate }}</td>       
-                                <td>{{ eway.ewayBillExpDate }}</td>                             
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getEwayBillExtDetails(eway)"></button>             
-                                </td>
+                                <td>{{ eway.ewayBillExpDate }}</td> 
                             </tr>
                         </tbody>
                         <tbody *ngIf="allEwayBillExtlist.ewaybillextList?.length == 0">

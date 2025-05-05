@@ -156,7 +156,15 @@ dashboard: string ="";
             });
           });
       },
-      columns: [
+      columns: [ 
+        {
+          title: 'Action',
+          data: 'dprId',
+        },    
+        {
+          title: 'Vehical Place',
+          data: 'dprId',
+        },     
         {
           title: 'DO Branch',
           data: 'doBr',
@@ -200,15 +208,7 @@ dashboard: string ="";
         {
           title: 'DO Status',
           data: 'doStatus',
-        },    
-        {
-          title: 'Action',
-          data: 'dprId',
-        },    
-        {
-          title: 'Vehical Place',
-          data: 'dprId',
-        },     
+        },   
       ],
     };
   }

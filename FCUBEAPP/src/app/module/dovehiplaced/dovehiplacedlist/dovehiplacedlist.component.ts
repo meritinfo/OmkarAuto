@@ -160,7 +160,15 @@ dashboard: string ="";
             });
           });
       },
-      columns: [
+      columns: [ 
+        {
+          title: 'Action',
+          data: 'doVpId',
+        },   
+        {
+          title: 'Vehical In',
+          data: 'doVpId',
+        },   
         {
           title: 'DO Branch',
           data: 'doBr',
@@ -200,14 +208,6 @@ dashboard: string ="";
         {
           title: 'Broker Name',
           data: 'brokerName',
-        },    
-        {
-          title: 'Action',
-          data: 'doVpId',
-        },   
-        {
-          title: 'Vehical In',
-          data: 'doVpId',
         },   
       ],
     };
