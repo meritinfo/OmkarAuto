@@ -157,6 +157,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'masterID',
+        },
+        {
           title: 'Print',
           data: 'masterID',
         },
@@ -196,10 +200,7 @@ dashboard: string ="";
           title: 'Total Recovery Amt',
           data: 'totalRecoveryAmt',
         },
-        {
-          title: 'Action',
-          data: 'masterID',
-        },
+       
      
       ],
     };

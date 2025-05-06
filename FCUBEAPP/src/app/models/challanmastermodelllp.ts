@@ -86,6 +86,10 @@ export class ChallanmastermodelllP {
     cgstAmt: string = ""; 
     sgstAmt: string = ""; 
     igstAmt: string = ""; 
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     challanDtls: ChallandetailmodelllP[] = [];
     cnList: Consignmentmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];

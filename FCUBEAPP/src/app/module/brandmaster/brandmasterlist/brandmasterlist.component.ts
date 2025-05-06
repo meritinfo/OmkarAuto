@@ -95,6 +95,10 @@ brandMasterList(){
         });
     },
     columns: [
+      {
+        title: 'Action',
+        data: 'brandID',
+      },
       
 
       {
@@ -109,10 +113,7 @@ brandMasterList(){
    
   
   
-    {
-      title: 'Action',
-      data: 'brandID',
-    },
+   
   ],
 };
 }

@@ -105,6 +105,10 @@ dashboard: string ="";
       },
       // Set column title and data field
       columns: [
+        {
+          title: 'Action',
+          data: 'classId',
+        },
        
        
         {
@@ -116,10 +120,7 @@ dashboard: string ="";
           data: 'isActive',
         },
        
-        {
-          title: 'Action',
-          data: 'classId',
-        },
+        
       ],
     };
   }

@@ -64,16 +64,17 @@
                     </thead>
                     <tbody *ngIf="allBranchMaster.branchMasterList?.length != 0">
                         <tr *ngFor="let branch  of allBranchMaster.branchMasterList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="branchmasterDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.code }}</td>
                             <td>{{ branch.centreName }}</td>
                             <td>{{ branch.zoneCode }}</td>
                             <td>{{ branch.stateName }}</td>
                             <td>{{ branch.managerName }}</td>
                             <td>{{ branch.managerMobileNo }}</td>                         
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="branchmasterDetails(branch)"></button>             
-                            </td>  
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allBranchMaster.branchMasterList?.length == 0">

@@ -67,6 +67,10 @@
                     </thead>
                     <tbody *ngIf="allLhpmSlabMaster.slabList?.length != 0">
                         <tr *ngFor="let branch  of allLhpmSlabMaster.slabList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="lhpmslabmasterDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.vcode }}</td>
                             <td>{{ branch.fromDt }}</td>
                             <td>{{ branch.toDt }}</td>
@@ -76,10 +80,7 @@
                             <td>{{ branch.hireTo }}</td>
                             <td>{{ branch.lhpmAmt }}</td>
                                            
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="lhpmslabmasterDetails(branch)"></button>             
-                            </td>  
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allLhpmSlabMaster.slabList?.length == 0">

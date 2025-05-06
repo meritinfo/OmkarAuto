@@ -62,13 +62,14 @@
                     </thead>
                     <tbody *ngIf="allDestination.destinationList?.length != 0">
                         <tr *ngFor="let destination of allDestination.destinationList">
-                            <td>{{ destination.centreName }}</td>
-                            <td>{{ destination.stateName }}</td>
-                            <td>{{ destination.controlBranch}}</td>                        
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="destinationDetails(destination)"></button>             
-                            </td>                           
+                            </td>    
+                            <td>{{ destination.centreName }}</td>
+                            <td>{{ destination.stateName }}</td>
+                            <td>{{ destination.controlBranch}}</td>                        
+                                                  
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDestination.destinationList?.length == 0">

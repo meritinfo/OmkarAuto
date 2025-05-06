@@ -43,16 +43,17 @@
                     </thead>
                     <tbody *ngIf="allBrandMaster.brandList?.length != 0">
                         <tr *ngFor="let brandmaster of allBrandMaster.brandList">
+                            <td>
+                                
+                                <button type="button" class="btn btn-edit"
+                                (click)="getBrandMasterDetails(brandmaster)"></button>  
+                       
+                        </td>
                             <td>{{ brandmaster.brandName }}</td>
                     
                             <td>{{ brandmaster.brandType }}</td>
                          
-                            <td>
-                                
-                                    <button type="button" class="btn btn-edit"
-                                    (click)="getBrandMasterDetails(brandmaster)"></button>  
-                           
-                            </td>
+                          
                         </tr>
                     </tbody>
                     <tbody *ngIf="allBrandMaster.brandList?.length == 0">

@@ -77,16 +77,17 @@
                         </thead>
                         <tbody *ngIf="allAdditionalMaster.additionalList?.length != 0">
                             <tr *ngFor="let ren of allAdditionalMaster.additionalList">
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getdditionalcostrecmasterDetails(ren)"></button>             
+                                </td>  
                                 <td>{{ ren.addCostCode }}</td>                    
                                 <td>{{ ren.addCostType }}</td>               
                                 <td>{{ ren.addCostDescription }}</td>       
                                 <!-- <td>{{ ren.accountID }}</td>      -->
                                 <td>{{ ren.affectCosting }}</td>       
                                              
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getdditionalcostrecmasterDetails(ren)"></button>             
-                                </td>  
+                               
                             </tr>
                         </tbody>
                         <tbody *ngIf="allAdditionalMaster.additionalList?.length == 0">

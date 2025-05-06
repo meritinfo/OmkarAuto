@@ -118,6 +118,10 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
       },
       columns: [
         {
+          title: 'Action',
+          data: 'bankId',
+        },
+        {
           title: 'Bank Short Code',
           data: 'bankShortCode',
         },
@@ -133,10 +137,7 @@ if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '
           title: 'Verify Available',
           data: 'verifyAvailYN',
         },
-        {
-          title: 'Action',
-          data: 'bankId',
-        },
+       
 
       ],
     };

@@ -53,6 +53,7 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
+                            
                             <th>classDesc</th>
                             <th>isActive</th>
                         
@@ -62,13 +63,14 @@
                     </thead>
                     <tbody *ngIf="allClassificationMaster.classificationMastersList?.length != 0">
                         <tr *ngFor="let branch  of allClassificationMaster.classificationMastersList">
-                            <td>{{ branch.classDesc }}</td>
-                            <td>{{ branch.isActive }}</td>
-                                           
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="classificationmasterDetails(branch)"></button>             
                             </td>  
+                            <td>{{ branch.classDesc }}</td>
+                            <td>{{ branch.isActive }}</td>
+                                           
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allClassificationMaster.classificationMastersList?.length == 0">
