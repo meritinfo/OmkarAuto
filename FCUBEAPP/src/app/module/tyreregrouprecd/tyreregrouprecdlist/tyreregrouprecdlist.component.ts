@@ -124,6 +124,10 @@ dashboard: string ="";
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'regroupRecdMasterID ',
+        },
+        {
           title: 'Recd Date',
           data: 'recdDate',
         },
@@ -143,10 +147,7 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         }, 
-        {
-          title: 'Action',
-          data: 'regroupRecdMasterID ',
-        },
+       
       ],
     };
   }

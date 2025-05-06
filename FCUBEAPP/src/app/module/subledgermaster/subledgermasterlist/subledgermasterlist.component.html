@@ -66,6 +66,10 @@
                     </thead>
                     <tbody *ngIf="allLedgerMaster.subList?.length != 0">
                         <tr *ngFor="let tm of allLedgerMaster.subList">
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getSubledgerMasterDetails(tm)"></button> 
+                            </td>
                          
                             <td>{{ tm.acname}}</td>
                             <td>{{ tm.createOrPredefined}}</td>
@@ -77,10 +81,7 @@
                             <td>{{ tm.fName}}</td> 
                  
                                                     
-                            <td>                                
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getSubledgerMasterDetails(tm)"></button> 
-                            </td>
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allLedgerMaster.subList?.length == 0">

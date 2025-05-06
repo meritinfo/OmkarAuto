@@ -46,11 +46,12 @@
                     </thead>
                     <tbody *ngIf="allTripExpMaster.expTypeList?.length != 0">
                         <tr *ngFor="let branch  of allTripExpMaster.expTypeList">
-                            <td>{{ branch.expDesc  }}</td>
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="tripExpTypeMasterDetails(branch)"></button>             
                             </td>  
+                            <td>{{ branch.expDesc  }}</td>
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTripExpMaster.expTypeList?.length == 0">

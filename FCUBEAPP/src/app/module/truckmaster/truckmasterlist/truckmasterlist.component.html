@@ -47,6 +47,12 @@
                     </thead>
                     <tbody *ngIf="allTruckMaster.truckList?.length != 0">
                         <tr *ngFor="let brandmaster of allTruckMaster.truckList">
+                            <td>
+                               
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getTruckMasterDetails(brandmaster)"></button>    
+                       
+                        </td>
                             <td>{{ brandmaster.truckNo }}</td>
                             <td>{{ brandmaster.regnDate }}</td>
                             <td>{{ brandmaster.ownerName }}</td>
@@ -54,12 +60,7 @@
                     
                          
                          
-                            <td>
-                               
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getTruckMasterDetails(brandmaster)"></button>    
                            
-                            </td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTruckMaster.truckList?.length == 0">

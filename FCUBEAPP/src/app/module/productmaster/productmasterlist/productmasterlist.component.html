@@ -29,13 +29,14 @@
                     </thead>
                     <tbody *ngIf="allProductMaster.productmasterList?.length != 0">
                         <tr *ngFor="let productmaster of allProductMaster.productmasterList">
-                            <td>{{ productmaster.productName }}</td>                    
-                            <td>{{ productmaster.isActive }}</td>                         
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getproductMasterDetails(productmaster)"></button>      
                            
                             </td>
+                            <td>{{ productmaster.productName }}</td>                    
+                            <td>{{ productmaster.isActive }}</td>                         
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allProductMaster.productmasterList?.length == 0">

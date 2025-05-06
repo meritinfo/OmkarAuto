@@ -60,6 +60,10 @@
                     </thead>
                     <tbody *ngIf="allRatesMaster.newList?.length != 0">
                         <tr *ngFor="let tm of allRatesMaster.newList">
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getRatesMasterNewDetails(tm)"></button> 
+                            </td>
                          
                             <td>{{ tm.party}}</td>
                             <td>{{ tm.validFrom}}</td>
@@ -70,10 +74,7 @@
                             <!-- <td>{{ tm.fromLocationType}}</td>  -->
                             <td>{{ tm.location}}</td> 
                                                     
-                            <td>                                
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getRatesMasterNewDetails(tm)"></button> 
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allRatesMaster.newList?.length == 0">

@@ -28,11 +28,12 @@
                     </thead>
                     <tbody *ngIf="allPartygroupmaster.partyGroupMasterLists?.length != 0">
                         <tr *ngFor="let pg of allPartygroupmaster.partyGroupMasterLists">
-                            <td>{{ pg.partyGroupDesc }}</td>                        
-                           
                             <td>                                  
                                 <button type="button" class="btn btn-edit" (click)="getpartygroupDetails(pg)"></button>                               
                             </td>
+                            <td>{{ pg.partyGroupDesc }}</td>                        
+                           
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allPartygroupmaster.partyGroupMasterLists?.length == 0">

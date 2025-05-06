@@ -160,7 +160,11 @@ dashboard: string ="";
               });
           });
       },
-        columns: [         
+        columns: [    
+          {
+            title: 'Action',
+            data: 'ftmID',
+          },     
           {
             title: 'Doc Series No ',
             data: 'seriesDoc',
@@ -181,10 +185,7 @@ dashboard: string ="";
             title: 'Ref.No',
             data: 'refNo',
           },
-          {
-            title: 'Action',
-            data: 'ftmID',
-          },
+         
         ],
     };
   }

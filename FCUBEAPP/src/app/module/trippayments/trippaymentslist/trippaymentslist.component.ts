@@ -152,6 +152,10 @@ dashboard: string ="";
         // Set column title and data field
       columns: [    
         {
+          title: 'Action',
+          data: 'pmtId',
+        },
+        {
           title: 'Branch',
           data: 'bName',
         },
@@ -175,10 +179,7 @@ dashboard: string ="";
           title: 'Amount',
           data: 'amtPaid',
         },   
-        {
-          title: 'Action',
-          data: 'pmtId',
-        },
+      
       ],
     };
   }

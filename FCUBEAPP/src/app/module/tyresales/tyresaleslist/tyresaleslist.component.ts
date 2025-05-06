@@ -122,7 +122,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'masterID',
+        }, 
         {
           title: 'Trans Date',
           data: 'transDate',
@@ -143,10 +147,7 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         }, 
-        {
-          title: 'Action',
-          data: 'masterID',
-        },
+        
       ],
     };
   }

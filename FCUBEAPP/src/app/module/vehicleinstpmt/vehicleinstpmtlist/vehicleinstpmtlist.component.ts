@@ -95,8 +95,10 @@ vehicleInstList(){
         });
     },
     columns: [
-      
-
+      {
+        title: 'Action',
+        data: 'pmtId',
+      },
      
       {
         title: 'Pmt Date',
@@ -163,10 +165,7 @@ vehicleInstList(){
       //   title: 'findocid',
       //   data: 'findocid',
       // }, 
-      {
-        title: 'Action',
-        data: 'pmtId',
-      },
+     
 
   ],
 };

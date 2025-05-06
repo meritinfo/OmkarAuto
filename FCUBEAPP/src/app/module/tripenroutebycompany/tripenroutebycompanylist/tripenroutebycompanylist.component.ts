@@ -149,7 +149,11 @@ tripenroutebycompanyList(){
     },
 
       // Set column title and data field
-    columns: [    
+    columns: [  
+      {
+        title: 'Action',
+        data: 'enrouteExpId',
+      },  
       {
         title: 'Branch',
         data: 'bname',
@@ -178,10 +182,7 @@ tripenroutebycompanyList(){
       //   title: 'Amount',
       //   data: 'amtPaid',
       // },   
-      {
-        title: 'Action',
-        data: 'enrouteExpId',
-      },
+     
     ],
   };
 }

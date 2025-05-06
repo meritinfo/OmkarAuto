@@ -56,14 +56,15 @@
                     </thead>
                     <tbody *ngIf="allTyreMaster.tyreActivateList?.length != 0">
                         <tr *ngFor="let tm of allTyreMaster.tyreActivateList">
-                            <td>{{ tm.activateDate}}</td>
-                            <td>{{ tm.vehicleNo}}</td>
-                            <td>{{ tm.refNo}}</td>
-                            <td>{{ tm.netAmt}}</td> 
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getTyreActivateDetails(tm)"></button> 
                             </td>
+                            <td>{{ tm.activateDate}}</td>
+                            <td>{{ tm.vehicleNo}}</td>
+                            <td>{{ tm.refNo}}</td>
+                            <td>{{ tm.netAmt}}</td> 
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyreMaster.tyreActivateList?.length == 0">

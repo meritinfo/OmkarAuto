@@ -130,6 +130,10 @@ dashboard: string ="";
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'spTransId',
+        },
+        {
           title: 'Trans Date',
           data: 'transDate',
         },
@@ -162,10 +166,7 @@ dashboard: string ="";
           title: 'Net Amount',
           data: 'netAmount',
         }, 
-        {
-          title: 'Action',
-          data: 'spTransId',
-        },
+       
       ],
     };
   }

@@ -124,6 +124,10 @@ ngOnInit(): void {
       },
       columns: [
         {
+          title: 'Action',
+          data: 'rateid',
+        },
+        {
           title: 'Pan No',
           data: 'panNo',
         },
@@ -148,10 +152,7 @@ ngOnInit(): void {
           data: 'isActive',
         },
        
-        {
-          title: 'Action',
-          data: 'rateid',
-        },
+        
 
       ],
     };

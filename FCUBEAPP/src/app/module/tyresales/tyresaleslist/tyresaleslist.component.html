@@ -56,15 +56,16 @@
                     </thead>
                     <tbody *ngIf="allTyreMaster.tyreSalesList?.length != 0">
                         <tr *ngFor="let tm of allTyreMaster.tyreSalesList">
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getTyresaleDetails(tm)"></button> 
+                            </td>
                             <td>{{ tm.transDate}}</td>
                             <td>{{ tm.saleIncharge}}</td>
                             <td>{{ tm.customerName}}</td>
                             <td>{{ tm.netAmount}}</td>
                             <td>{{ tm.remarks}}</td>
-                            <td>                                
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getTyresaleDetails(tm)"></button> 
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyreMaster.tyreSalesList?.length == 0">

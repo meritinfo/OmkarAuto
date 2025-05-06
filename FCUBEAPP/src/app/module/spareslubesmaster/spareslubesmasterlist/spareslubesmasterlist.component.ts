@@ -98,6 +98,10 @@ sparesLubesMasterList(){
     },
     // Set column title and data field
     columns: [
+      {
+        title: 'Action',
+        data: 'spareLubId',
+      },
      
      
       {
@@ -126,10 +130,7 @@ sparesLubesMasterList(){
         data: 'isActive',
       },
      
-      {
-        title: 'Action',
-        data: 'spareLubId',
-      },
+      
     ],
   };
 }

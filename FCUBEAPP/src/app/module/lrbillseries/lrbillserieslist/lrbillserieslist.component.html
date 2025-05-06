@@ -81,16 +81,17 @@
                     </thead>
                     <tbody *ngIf="allLRBillSeries.seriesList?.length != 0">
                         <tr *ngFor="let billseries of allLRBillSeries.seriesList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getLrBillSeriesDetails(billseries)"></button>     
+                       
+                        </td>
                             <td>{{ billseries.seriesCode }}</td>
                     
                             <td>{{ billseries.type }}</td>
                             <td>{{ billseries.branch }}</td>
                          
-                            <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getLrBillSeriesDetails(billseries)"></button>     
-                           
-                            </td>
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allLRBillSeries.seriesList?.length == 0">

@@ -164,6 +164,10 @@ dashboard: string ="";
       },
       columns: [ 
         {
+          title: 'Action',
+          data: 'masterID',
+        },  
+        {
           title: 'Vehicle No ',
           data: 'vehicleNo',
         },
@@ -187,10 +191,7 @@ dashboard: string ="";
           title: 'Total Loan Amt ',
           data: 'totalLoanAmt'
         },   
-        {
-          title: 'Action',
-          data: 'masterID',
-        },  
+       
       ],
     };
   }

@@ -107,7 +107,11 @@ ngOnInit(): void {
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'tptCode',
+        }, 
       {
         title: 'Tpt Name ',
         data: 'tptName',
@@ -136,10 +140,7 @@ ngOnInit(): void {
         title: 'Pin Code ',
         data: 'pinCode',
       },
-      {
-        title: 'Action',
-        data: 'tptCode',
-      },
+    
     ],
   };
 }

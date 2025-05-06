@@ -123,7 +123,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'deActivateMasterID ',
+        }, 
         {
           title: 'De-Activate Date  ',
           data: 'deActivateDate',
@@ -140,10 +144,7 @@ dashboard: string ="";
           title: 'Usable Tyre Amt',
           data: 'usableTyreAmt',
         }, 
-        {
-          title: 'Action',
-          data: 'deActivateMasterID ',
-        },
+       
       ],
     };
   }

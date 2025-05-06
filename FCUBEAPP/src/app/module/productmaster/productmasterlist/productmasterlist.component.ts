@@ -84,6 +84,10 @@ dashboard: string ="";
       // Set column title and data field
       columns: [ 
         {
+          title: 'Action',
+          data: 'productId',
+        },
+        {
           title: 'Product Name',
           data: 'productName',
         },
@@ -91,10 +95,7 @@ dashboard: string ="";
           title: 'IsActive',
           data: 'isActive',
         },
-        {
-          title: 'Action',
-          data: 'productId',
-        },
+        
       ],
     };
   }

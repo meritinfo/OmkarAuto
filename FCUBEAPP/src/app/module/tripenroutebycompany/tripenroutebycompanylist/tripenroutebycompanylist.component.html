@@ -95,16 +95,17 @@
                     </thead>
                     <tbody *ngIf="allEnrouteTypes.companyList?.length != 0">
                         <tr *ngFor="let trip of allEnrouteTypes.companyList">
+                            <td>                               
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="gettripenroutebycompanyDetails(trip)" ></button>                           
+                            </td>
                             <td>{{ trip.bname }}</td> 
                             <td>{{ trip.vehicleNo }}</td>
                             <td>{{ trip.expDate }}</td>
                             <td>{{ trip.exp}}</td>
                             <td>{{ trip.expAmount }}</td>
                                                
-                            <td>                               
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="gettripenroutebycompanyDetails(trip)" ></button>                           
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allEnrouteTypes.companyList?.length == 0">

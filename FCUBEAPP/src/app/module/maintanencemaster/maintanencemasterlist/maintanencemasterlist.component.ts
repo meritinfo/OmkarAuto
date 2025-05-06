@@ -99,6 +99,10 @@ maintanenceMasterList(){
     },
     // Set column title and data field
     columns: [
+      {
+        title: 'Action',
+        data: 'maintId',
+      },
      
      
       {
@@ -117,10 +121,7 @@ maintanenceMasterList(){
         data: 'isActive',
       },
      
-      {
-        title: 'Action',
-        data: 'maintId',
-      },
+     
     ],
   };
 }

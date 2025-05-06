@@ -53,9 +53,10 @@ ngOnInit(): void {
         });
     },
     columns: [
-      
-
-     
+      {
+        title: 'Action',
+        data: 'vehicleTypeGroupId',
+      },
 
      {
       title: 'vehicleTypeGroupName ',
@@ -64,10 +65,7 @@ ngOnInit(): void {
    
   
   
-    {
-      title: 'Action',
-      data: 'vehicleTypeGroupId',
-    },
+   
   ],
 };
 }

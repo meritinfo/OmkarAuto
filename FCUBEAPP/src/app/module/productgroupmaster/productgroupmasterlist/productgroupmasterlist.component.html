@@ -44,15 +44,16 @@
                     </thead>
                     <tbody *ngIf="allProductGroupMaster.productGroupList?.length != 0">
                         <tr *ngFor="let productgroupmaster of allProductGroupMaster.productGroupList">
-                            <td>{{ productgroupmaster.groupName }}</td>
-                    
-                            <td>{{ productgroupmaster.gstHSN }}</td>
-                         
                             <td>
                                 <a (click)="getproductGroupMasterDetails(productgroupmaster)" class="actionicon"><i
                                     class="bx bx-pencil"></i></a>
                            
                             </td>
+                            <td>{{ productgroupmaster.groupName }}</td>
+                    
+                            <td>{{ productgroupmaster.gstHSN }}</td>
+                         
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allProductGroupMaster.productGroupList?.length == 0">

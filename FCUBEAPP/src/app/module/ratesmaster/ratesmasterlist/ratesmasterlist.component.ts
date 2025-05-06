@@ -103,6 +103,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'masterID',
+        },
+        {
           title: 'Account Name',
           data: 'accountName',
         },
@@ -123,10 +127,7 @@ dashboard: string ="";
           title: 'Rate Method',
           data: 'rateMethod',
         },
-        {
-          title: 'Action',
-          data: 'masterID',
-        },
+       
 
       ],
     };

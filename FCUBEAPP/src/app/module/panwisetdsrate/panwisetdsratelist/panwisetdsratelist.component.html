@@ -72,6 +72,11 @@
                     </thead>
                     <tbody *ngIf="allPanRate.panList?.length != 0">
                         <tr *ngFor="let drvr of allPanRate.panList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="setPanwisetdsrateDetails(drvr)"></button>    
+                                         
+                            </td> 
                          
                             <td>{{ drvr.panNo }}</td>
                             <td>{{ drvr.ownerName }}</td>
@@ -79,11 +84,7 @@
                             <td>{{ drvr.validUpto }}</td>
                             <td>{{ drvr.tdsRate }}</td>
                             <td>{{ drvr.isActive }}</td>                        
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="setPanwisetdsrateDetails(drvr)"></button>    
-                                         
-                            </td> 
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allPanRate.panList?.length == 0">

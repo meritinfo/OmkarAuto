@@ -119,7 +119,11 @@ ratesMasterNewList() {
           });
         });
     },
-    columns: [   
+    columns: [ 
+      {
+        title: 'Action',
+        data: 'rateId',
+      },  
       {
         title: 'Party',
         data: 'party',
@@ -150,10 +154,7 @@ ratesMasterNewList() {
         data: 'location',
       }, 
 
-      {
-        title: 'Action',
-        data: 'rateId',
-      },
+      
     ],
   };
 }

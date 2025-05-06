@@ -157,6 +157,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Print',
+          data: 'masterID',
+        },
+        {
           title: 'Payment Stn',
           data: 'pmtStn',
         },
@@ -196,10 +200,7 @@ dashboard: string ="";
           title: 'Action',
           data: 'masterID',
         },
-        {
-          title: 'Print',
-          data: 'masterID',
-        },
+     
       ],
     };
   }

@@ -54,13 +54,14 @@
                     </thead>
                     <tbody *ngIf="allTyreMaster.tyreRegroupIssueList?.length != 0">
                         <tr *ngFor="let tm of allTyreMaster.tyreRegroupIssueList">
-                            <td>{{ tm.regroupIssDate}}</td>
-                            <td>{{ tm.vendorName}}</td>
-                            <td>{{ tm.remarks}}</td>
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getTyreregroupissueDetails(tm)"></button> 
                             </td>
+                            <td>{{ tm.regroupIssDate}}</td>
+                            <td>{{ tm.vendorName}}</td>
+                            <td>{{ tm.remarks}}</td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyreMaster.tyreRegroupIssueList?.length == 0">
