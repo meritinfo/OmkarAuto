@@ -14,11 +14,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
-  selector: 'app-bookingregister',
-  templateUrl: './bookingregister.component.html',
-  styleUrls: ['./bookingregister.component.css']
+  selector: 'app-billgstrpt',
+  templateUrl: './billgstrpt.component.html',
+  styleUrls: ['./billgstrpt.component.css']
 })
-export class BookingregisterComponent {
+export class BillgstrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -112,7 +112,6 @@ export class BookingregisterComponent {
       
     
       this.getBranchList();
-      this.getLocationList(); 
       this.getPartyList(); 
       this.getSeriesList("");
       
@@ -121,9 +120,6 @@ export class BookingregisterComponent {
         toDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
         party: new FormControl('',),  
-        origin: new FormControl('',),  
-        destination: new FormControl('',), 
-        vehicleNo: new FormControl('',), 
         gcSeries: new FormControl('',), 
       });
 
@@ -133,8 +129,6 @@ export class BookingregisterComponent {
       this.filter.filterStr1  = "";
       this.filter.filterStr2  = "";
       this.filter.filterStr3  = "";
-      this.filter.search  = "";
-      this.filter.sortColumn  = "";
   
       this.sharedService.loading=true;
 
@@ -147,11 +141,7 @@ export class BookingregisterComponent {
         this.branchList = res;
       });
     }
-    getLocationList(): void {
-      this.commonService.getLocationList().subscribe((res) => {
-        this.locationList = res;
-      });
-    }
+    
     getPartyList(): void {
       this.commonService.getPartyList().subscribe((res) => {
         this.partyList = res;
@@ -303,15 +293,12 @@ export class BookingregisterComponent {
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.filterStr   = selectedDataVal.branch;
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-      this.filter.search  = selectedDataVal.vehicleNo;
-      this.filter.sortColumn  = selectedDataVal.gcSeries;
+      this.filter.filterStr2  = selectedDataVal.gcSeries;
 
       this.bookingregisterService.getBookingregisterrptExcel(this.filter).subscribe(resp => {      
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "BookingRegister" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "BillGst" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

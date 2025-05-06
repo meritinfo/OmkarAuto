@@ -2181,9 +2181,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@Party",     request.FilterStr1),
+                            new SqlParameter("@Party",      request.FilterStr1),
                             new SqlParameter("@Origin",     request.FilterStr2),
-                            new SqlParameter("@Destination",     request.FilterStr3),
+                            new SqlParameter("@Destination",request.FilterStr3),
+                            new SqlParameter("@VehicleNo",  request.Search),
+                            new SqlParameter("@GcSeries",   request.SortColumn),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBookingRegisterRptExcel", param);
 
@@ -5562,6 +5564,45 @@ namespace FreightMasters.Repository
                         var filter = "Document Type : " + request.FilterStr2;
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Missing Document Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetBillGstRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@BillSeries", request.FilterStr2),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillGstRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
                     }
                     else
                     {

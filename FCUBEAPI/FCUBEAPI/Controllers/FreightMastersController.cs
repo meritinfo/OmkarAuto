@@ -422,6 +422,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBillGstRptExcel")]
+        public async Task<IActionResult> GetBillGstRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetBillGstRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("BranchMasterDetailsSave")]
         public async Task<IActionResult> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)
         {

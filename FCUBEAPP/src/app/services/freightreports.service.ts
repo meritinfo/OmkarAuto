@@ -216,4 +216,7 @@ export class FreightreportsService {
   getMissingDocRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetMissingDocRptExcel', filter, this.httpOptions);
   }   
+  getBillGstRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillGstRptExcel', filter, this.httpOptions);
+  }   
 }

@@ -76,10 +76,8 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private lrmodel: Consignmentmodel, private lrentryService: ConsignmentService,
-    private commonService: CommonService,
-    private sharedService: SharedService,
-    private toastrService: ToastrService,
-    private reportmodel: Reportmodel,
+    private commonService: CommonService, private sharedService: SharedService,
+    private toastrService: ToastrService, private reportmodel: Reportmodel,
     private requestmodel: Requestmodel) {
     this.lrmodel = new Consignmentmodel();
   }
@@ -284,13 +282,14 @@ dashboard: string ="";
     this.formUser.controls['othersRs'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
+    this.formUser.controls['ownTruck'].disable();   
          
  
     this.formGstArray.controls[0].get("sgstAmt")?.disable();
     this.formGstArray.controls[0].get("cgstAmt")?.disable();
     this.formGstArray.controls[0].get("igstAmt")?.disable();  
     this.formGstArray.controls[0].get("totalAmt")?.disable();  
-
+    
     setTimeout(() => {
       if (this.selectedLrDetails.consignmentID != '') { 
         this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
@@ -658,31 +657,28 @@ dashboard: string ="";
     }   
   }
 
-
-
   chkTruckNo() {
     var selectedData = this.formUser.getRawValue();
     if (selectedData.truckNo==""){
       this.toastrService.warning("Vehicle No should not be Blank");
       return;
     }
-    if(selectedData.ownTruck)
-    {
-      this.requestmodel.strRequest = selectedData.truckNo;
-      this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-       else{
-          this.toastrService.warning(this.responseDetails.message);
-          this.formUser.patchValue({
-            truckNo:"",
-          });   
-        }
-      });
-    }   
+    this.requestmodel.strRequest = selectedData.truckNo;
+    this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formUser.patchValue({
+          ownTruck:"Y",
+        });  
+      }
+      else{
+        this.formUser.patchValue({
+          ownTruck:"",
+        });   
+      }
+    });
   }
+
   changeGstBy(e: any) {
     console.log(e.target.value);
     var gstb = e.target.value; 

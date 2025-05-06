@@ -68,60 +68,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Origin </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="locationList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="origin" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Destination </label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="locationList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="destination" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Series </label>
@@ -134,19 +80,7 @@
                                     </select> 
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Vehicle No </label>
-                                    <input class="form-control" formControlName="vehicleNo">
-                                </div>
-                            </div>
                         </div>
-                        <!-- <div class="col-lg-1">
-                            <div class="mt-3">
-                                <button class="btn btn-primary"   
-                                (click)="search()"><span>Search</span></button>
-                            </div>
-                        </div> -->
                     </form>
                 </div>
                 <div class="col-sm-2 col-md-2 text-right">
@@ -213,6 +147,7 @@
     </div>
     <!-- End Page-content -->
 </div>
+
 
 
 
