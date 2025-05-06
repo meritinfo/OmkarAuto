@@ -97,6 +97,10 @@ additionalcostrecMasterList(){
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'addCostID',
+      },  
+      {
         title: 'Add Cost Code',
         data: 'addCostCode',
       },
@@ -118,10 +122,7 @@ additionalcostrecMasterList(){
       },
      
 
-      {
-        title: 'Action',
-        data: 'addCostID',
-      },   
+       
     ],
   };
 }

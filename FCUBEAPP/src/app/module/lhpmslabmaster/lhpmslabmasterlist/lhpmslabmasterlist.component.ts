@@ -98,6 +98,10 @@ lhpmSlabMasterMasterList(){
     },
     // Set column title and data field
     columns: [
+      {
+        title: 'Action',
+        data: 'lhpmSlabID',
+      },
      
      
       {
@@ -127,10 +131,7 @@ lhpmSlabMasterMasterList(){
       
      
      
-      {
-        title: 'Action',
-        data: 'lhpmSlabID',
-      },
+     
     ],
   };
 }

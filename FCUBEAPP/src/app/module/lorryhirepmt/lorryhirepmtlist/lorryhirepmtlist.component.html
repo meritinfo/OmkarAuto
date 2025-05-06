@@ -76,6 +76,12 @@
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getLorryHirePmtDetails(lrhr)"></button> 
                                 </td> 
+                                <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(lrhr)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>  
                                 <td>{{ lrhr.pmtStn}}</td>
                                 <td>{{ lrhr.pmtNo}}</td>
                                 <td>{{ lrhr.pmtDate}}</td>
@@ -86,12 +92,7 @@
                                 <td>{{ lrhr.totalOtherAmt}}</td>   
                                 <td>{{ lrhr.totalRecoveryAmt}}</td>            
                              
-                                <td>
-                                    <button type="button" 
-                                        class="btn btn-primary btn-floating"  
-                                    (click)="download(lrhr)" >
-                                        <i class="fas fa-download"></i></button>   
-                                </td>  
+                               
                             </tr>
                         </tbody>
                         <tbody *ngIf="allLorryhirelist.lorryHireList?.length == 0">

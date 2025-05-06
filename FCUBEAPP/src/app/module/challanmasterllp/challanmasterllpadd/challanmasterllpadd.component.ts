@@ -59,6 +59,8 @@ export class ChallanmasterllpaddComponent {
     invoiceDetails = new Ccinvdetailmodel
     panDetails = new Panvalidapiresultmodel();
     keywordLocation = 'dataName';
+    createdBy : string = "";
+    modifiedBy: string = "";
     photo1: string = "";
     photo2: string = "";
     photo3: string = "";
@@ -230,6 +232,7 @@ ngOnInit(): void {
       cgstAmt: new FormControl('',),  
       sgstAmt: new FormControl('',), 
       igstAmt: new FormControl('',), 
+      
       arrayList: this.formBuilder.array([this.createInitialArray()]), 
     });
 
@@ -369,7 +372,9 @@ ngOnInit(): void {
         this.formUser.controls["modifyRemarks"].enable();   
         this.getFinDocDetails(this.selectedChallanDetails.ftmid);
         this.getChallanInnerGridList();   
-       // this.getCCIInvoiceMstDetail();  
+       // this.getCCIInvoiceMstDetail(); 
+       this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
+       this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;   
         this.editMode = true; 
         if(this.selectedChallanDetails.containerNo!=""){
           this.formUser.patchValue({

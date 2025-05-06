@@ -93,6 +93,11 @@ namespace Consignment.Models
         public string? CgstAmt { get; set; }
         public string? SgstAmt { get; set; }
         public string? IgstAmt { get; set; }
+
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public List<ChallanDetailModelLLP> ChallanDtls { get; set; }
         public List<ConsignmentModel> CnList { get; set; }
         public List<ConsignmentLhpmModel> LhpmList { get; set; }

@@ -106,6 +106,10 @@ dashboard: string ="";
       // Set column title and data field
       columns: [
         {
+          title: 'Action',
+          data: 'centreId',
+        },
+        {
           title: 'Code',
           data: 'code',
         },
@@ -130,10 +134,7 @@ dashboard: string ="";
           title: 'Manager Mobile No',
           data: 'managerMobileNo',
         },    
-        {
-          title: 'Action',
-          data: 'centreId',
-        },
+        
       ],
     };
   }

@@ -93,14 +93,15 @@
                     </thead>
                     <tbody *ngIf="allAdmin.adminList?.length != 0">
                         <tr *ngFor="let branch  of allAdmin.adminList">
-                            <td>{{ branch.adminGrpDesc }}</td>
-                            <td>{{ branch.sortId }}</td>
-                            <td>{{ branch.activeYN }}</td>
-                                
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getAdminGroupList(branch)"></button>             
                             </td>  
+                            <td>{{ branch.adminGrpDesc }}</td>
+                            <td>{{ branch.sortId }}</td>
+                            <td>{{ branch.activeYN }}</td>
+                                
+                          
                         </tr>
                     </tbody>
                     <tbody *ngIf="allAdmin.adminList?.length == 0">

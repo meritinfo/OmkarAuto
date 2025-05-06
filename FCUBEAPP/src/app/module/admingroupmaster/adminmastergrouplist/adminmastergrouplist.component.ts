@@ -140,7 +140,11 @@ constructor(private formBuilder: FormBuilder,private adminGroupMasterService: Ad
               },
         
                 // Set column title and data field
-              columns: [    
+              columns: [   
+                {
+                  title: 'Action',
+                  data: 'adminGrpId ',
+                }, 
                 {
                   title: 'Admin Group Desc ',
                   data: 'adminGrpDesc ',
@@ -154,10 +158,7 @@ constructor(private formBuilder: FormBuilder,private adminGroupMasterService: Ad
                   data: 'activeYN ',
                 },
             
-                {
-                  title: 'Action',
-                  data: 'adminGrpId ',
-                },
+               
               ],
             };
           }
