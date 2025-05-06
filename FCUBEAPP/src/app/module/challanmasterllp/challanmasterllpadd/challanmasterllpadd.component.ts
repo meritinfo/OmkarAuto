@@ -24,78 +24,71 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
   styleUrls: ['./challanmasterllpadd.component.css']
 })
 export class ChallanmasterllpaddComponent {
-    formUser!: FormGroup;
-    loggedInUserID: string = '';
-    year: string = '';
-    branch: string = '';
-    loginDate: string = '';
-    ctNo: string = '';
-    fromDate: string = '';
-    maxDate: string = '';
-    minDate: string = '';
-    minDate2: string = '';
-    newDate: string = '';
-    noPackages:string = '';
-    tdspct:string = '';
-    seriesDoc: string = "";
-    declYn = false;
+  formUser!: FormGroup;
+  loggedInUserID: string = '';
+  year: string = '';
+  branch: string = '';
+  loginDate: string = '';
+  ctNo: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  minDate2: string = '';
+  newDate: string = '';
+  noPackages:string = '';
+  tdspct:string = '';
+  seriesDoc: string = "";
+  declYn = false;
+   formSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+  branchList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
+  vehicalList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
+  yearList: Dropdownmodel[] = [];
+  empList: Dropdownmodel[] = [];
+  responseDetails = new Responsemodel();
+  selectedChallanDetails = new ChallanmastermodelllP();
+  invoiceDetails = new Ccinvdetailmodel
+  panDetails = new Panvalidapiresultmodel();
+  keywordLocation = 'dataName';
+  createdBy : string = "";
+  modifiedBy: string = "";
+  photo1: string = "";
+  photo2: string = "";
+  photo3: string = "";
+  truckDriverImage: string = "";
+  step1Active = true;
+  step2Active = false;
+  step3Active = false;
   
-    formSubmitted = false;
-    editMode = false;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-    dashboard: string ="";
-    branchList: Dropdownmodel[] = [];
-    locationList: Dropdownmodel[] = [];
-    vehicalList: Dropdownmodel[] = [];
-    brokerList: Dropdownmodel[] = [];
-    yearList: Dropdownmodel[] = [];
-    empList: Dropdownmodel[] = [];
-  
-    responseDetails = new Responsemodel();
-    selectedChallanDetails = new ChallanmastermodelllP();
-    invoiceDetails = new Ccinvdetailmodel
-    panDetails = new Panvalidapiresultmodel();
-    keywordLocation = 'dataName';
-    createdBy : string = "";
-    modifiedBy: string = "";
-    photo1: string = "";
-    photo2: string = "";
-    photo3: string = "";
-    truckDriverImage: string = "";
-  
-    step1Active = true;
-    step2Active = false;
-    step3Active = false;
-    
-    @ViewChild('photo1Input', {
-      static: true
-    }) photo1Input: any;
-  
-    @ViewChild('photo2Input', {
-      static: true
-    }) photo2Input: any;
-  
-    @ViewChild('photo3Input', {
-      static: true
-    }) photo3Input: any;
-  
-    @ViewChild('truckDriverImageInput', {
-      static: true
-    }) truckDriverImageInput: any;
-  
-    constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
-      private challanmasterService: ChallanmasterServiceLLP,
-      private commonService: CommonService,  private sharedService: SharedService,
-      private lrentryService: ConsignmentService,
-          private cashReceiptEntryService: CashReceiptEntryService,
-      private toastrService: ToastrService, private requestmodel: Requestmodel) {
-      this.challanmodel = new ChallanmastermodelllP();
+  @ViewChild('photo1Input', {
+    static: true
+  }) photo1Input: any;
+   @ViewChild('photo2Input', {
+    static: true
+  }) photo2Input: any;
+   @ViewChild('photo3Input', {
+    static: true
+  }) photo3Input: any;
+   @ViewChild('truckDriverImageInput', {
+    static: true
+  }) truckDriverImageInput: any;
+   constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
+    private challanmasterService: ChallanmasterServiceLLP,
+    private commonService: CommonService,  private sharedService: SharedService,
+    private lrentryService: ConsignmentService,
+    private cashReceiptEntryService: CashReceiptEntryService,
+    private toastrService: ToastrService, private requestmodel: Requestmodel) {
+    this.challanmodel = new ChallanmastermodelllP();
 
-}
-ngOnInit(): void {
+  }
+  ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);

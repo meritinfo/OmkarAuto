@@ -68,17 +68,9 @@ namespace Consignment.Business
         {
             return await challanRepository.GetChallanPrintPdfLLP(request);
         }
-        public async Task<ResponseModel> GetPanwiseTdsRateLLP(RequestModel request)
+        public async Task<ResponseModel> ChkPanDeclaration(RequestModel request)
         {
-            return await challanRepository.GetPanwiseTdsRateLLP(request);
-        }
-        public async Task<ReportRequestModel> GetLhPanTdsRateLLP(RequestModel request)
-        {
-            return await challanRepository.GetLhPanTdsRateLLP(request);
-        }
-        public async Task<ResponseModel> GetBranchPanApiUseLLP(RequestModel requestModel)
-        {
-            return await challanRepository.GetBranchPanApiUseLLP(requestModel);
+            return await challanRepository.ChkPanDeclaration(request);
         }
         public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
         {

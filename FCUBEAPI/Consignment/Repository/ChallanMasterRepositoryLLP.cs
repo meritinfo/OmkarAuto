@@ -155,7 +155,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> ChallanMasterDtlSaveLLP(SqlTransaction transaction, ChallanDetailModelLLP challanDtl)
         {
             ResponseModel responseModel = new();
@@ -205,7 +204,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ChallanListModelLLP> GetChallanMasterListLLP(ReportRequestModel request)
         {
             ChallanListModelLLP challanMasterList = new();
@@ -555,7 +553,6 @@ namespace Consignment.Repository
             }
             return challanModel;
         }
-
         public async Task<ResponseModel> ChallanMasterDeleteLLP(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -749,7 +746,6 @@ namespace Consignment.Repository
             }
             return cciInvDetailModel;
         }
-      
         public async Task<ChallanMasterModelLLP> GetChallanDetailsFromLRLLP(RequestModel request)
         {
             ChallanMasterModelLLP challanModel = new()
@@ -820,7 +816,6 @@ namespace Consignment.Repository
             }
             return challanModel;
         }
-
 
         public async Task<PanApiResultModel> GetPanValidDetailsLLP(RequestModel request)
         {
@@ -905,7 +900,6 @@ namespace Consignment.Repository
             }
             return panresult;
         }
-
         public async Task<ResponseModel> PanDtlSaveLLP(RequestModel request, Reslt res)
         {
             ResponseModel responseModel = new();
@@ -950,7 +944,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> CheckChallanPrepForLrLLP(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -991,7 +984,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request)
         {
             ResponseModel responseModel = new();

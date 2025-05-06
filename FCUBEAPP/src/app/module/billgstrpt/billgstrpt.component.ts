@@ -130,10 +130,6 @@ export class BillgstrptComponent {
       this.filter.filterStr2  = "";
       this.filter.filterStr3  = "";
   
-      this.sharedService.loading=true;
-
-     // this.bookingregisterList();
-      this.sharedService.loading=false;
     }
 
     getBranchList(): void {
@@ -178,137 +174,8 @@ export class BillgstrptComponent {
       });
     }
 
-    bookingregisterList(){
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 50,
-        serverSide: true,
-        processing: true,
-        searching:false,
-        ajax: (dataTablesParameters: any, callback) => {
-          // Filter setting
-          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-          this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'Branch';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = '';
-          callback({
-            recordsTotal: 0,
-            recordsFiltered: 0,
-            data: []
-          });
-          this.bookingregisterService.getBookingregisterrptList(this.filter).subscribe(resp => {
-            this.allBookingregisterrptlist = resp; 
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
-            });
-        }, 
-        columns: [ 
-          {
-            title: 'Booking Branch',
-            data: 'bookedAt',
-          }, 
-          {
-            title: 'LR No',
-            data: 'gcNoteNo',
-          }, 
-          {
-            title: 'LR Date',
-            data: 'bookingDate',
-          }, 
-          {
-            title: 'Status',
-            data: 'bookingStatus',
-          }, 
-          
-          {
-            title: 'From Place ',
-            data: 'fromLocation',
-          },  
-          {
-            title: 'To Place ',
-            data: 'toLocation',
-          },    
-          {
-            title: 'Consignor',
-            data: 'cnorName',
-          },
-          {
-            title: 'Consignee',
-            data: 'cneeName',
-          },
-          {
-            title: 'ewayBillNo ',
-            data: 'ewayBillNo',
-          }, 
-          {
-            title: 'EWayBill Exp Date ',
-            data: 'ewayBillExpDate',
-          }, 
-          {
-            title: 'Product Name ',
-            data: 'productName',
-          }, 
-          {
-            title: 'Freight Amt ',
-            data: 'freightRs',
-          }, 
-          {
-            title: 'Sub Total Amt ',
-            data: 'subTotalRs',
-          }, 
-          {
-            title: 'Grand Total ',
-            data: 'gtotalRs',
-          }, 
-          {
-            title: 'Business Inchrg ',
-            data: 'businessIncharge',
-          }, 
-          {
-            title: 'Party Name ',
-            data: 'billingParty',
-          },  
-        ],
-      };
-    }
-      
-    exportExcel(): void {      
-      this.formSubmitted = true;
-      if (this.formFilter.invalid) {
-        this.toastrService.warning("Please Enter Mandatory Fields");   
-        const controls = this.formFilter.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toastrService.warning(name + " Fields is Invalid");   
-          }
-        }     
-        return;
-      }
-      var selectedDataVal=this.formFilter.getRawValue();
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.branch;
-      this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.gcSeries;
-
-      this.bookingregisterService.getBookingregisterrptExcel(this.filter).subscribe(resp => {      
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "BillGst" + "_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
-  
-  search(): void {
+        
+  exportExcel(): void {      
     this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
@@ -325,16 +192,21 @@ export class BillgstrptComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-    this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-    this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-    this.sharedService.loading=true;
-    this.bookingregisterList();
-    this.sharedService.loading=false;
-    
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
+    this.filter.filterStr2  = selectedDataVal.gcSeries;
+    this.bookingregisterService.getBillGstRptExcel(this.filter).subscribe(resp => {      
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "BillGst" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
     });
   }
+  
+ 
 } 
 
 

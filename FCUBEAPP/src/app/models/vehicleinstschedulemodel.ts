@@ -17,6 +17,10 @@ export class Vehicleinstschedulemodel {
     totalInterest   : string = "";  
     totalLoanAmt    : string = "";  
     remarks         : string = "";  
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser    : string = "";  
     instScheduleDtls: Vehicleinstscheduledtlmodel[] = [];
 }

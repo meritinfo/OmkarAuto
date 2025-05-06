@@ -34,7 +34,9 @@ export class VehicleinstscheduleaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
+  createdBy : string = "";
+  modifiedBy: string = "";
   importTrue= false;
   autoCalTrue= true;
   rowaddTrue = false;
@@ -111,6 +113,8 @@ dashboard: string ="";
 
     setTimeout(() => {
       if (this.selectedVehicleinsts.masterID != '') {    
+        this.createdBy = this.selectedVehicleinsts.createdBy + " " + this.selectedVehicleinsts.createdDate;
+        this.modifiedBy = this.selectedVehicleinsts.modifiedBy + " " + this.selectedVehicleinsts.modifiedDate;   
         this.formUser.patchValue(this.selectedVehicleinsts);
         this.formUser.patchValue({
           startDate: this.commonService.formatDate(this.selectedVehicleinsts.startDate),
