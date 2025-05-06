@@ -24,7 +24,7 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
   styleUrls: ['./challanmasterllpadd.component.css']
 })
 export class ChallanmasterllpaddComponent {
-   formUser!: FormGroup;
+    formUser!: FormGroup;
     loggedInUserID: string = '';
     year: string = '';
     branch: string = '';
@@ -38,6 +38,7 @@ export class ChallanmasterllpaddComponent {
     noPackages:string = '';
     tdspct:string = '';
     seriesDoc: string = "";
+    declYn = false;
   
     formSubmitted = false;
     editMode = false;
@@ -45,7 +46,7 @@ export class ChallanmasterllpaddComponent {
     editStatus = false;
     deleteStatus = false;
     viewStatus = false; 
-dashboard: string ="";
+    dashboard: string ="";
     branchList: Dropdownmodel[] = [];
     locationList: Dropdownmodel[] = [];
     vehicalList: Dropdownmodel[] = [];
@@ -297,7 +298,9 @@ ngOnInit(): void {
         var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
         var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
         var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
-              
+        if(declarationYN=="Y") {
+          this.declYn = true;   
+        } 
         this.formUser.patchValue({
           ownTruckYN: ownTruckYN,
           panValid: panValid, 
@@ -740,15 +743,19 @@ ngOnInit(): void {
       }
       else if(!test){
         this.toastrService.warning("Invalid PAN No...!");
-        // this.formUser.patchValue({
-        
-        //   vehicleOwnerPanNo: ''
-        // });
-        return;
-         
+        return;         
       }
       else
       {
+        this.requestmodel.strRequest = pan;
+        this.requestmodel.strRequest1 = this.year;
+
+        this.challanmasterService.chkPanDeclaration(this.requestmodel).subscribe((res: Responsemodel) => {
+          if (res.status) {
+            this.declYn = true;
+          }
+        });
+
         this.requestmodel.strRequest = pan;
         this.requestmodel.strRequest1 = selectedData.challanDateTime;
         
@@ -855,7 +862,7 @@ ngOnInit(): void {
       if (e.target.checked) {
         this.formUser.patchValue({       
           tdsPct: 0
-        }); 
+        });     
       }
       else {
         this.onOwnerPanChange();
@@ -1241,7 +1248,7 @@ ngOnInit(): void {
         this.toastrService.warning(" Broker is Invalid");
         return;
       }
-      if(selectedDataValue.declarationYN){
+      if(selectedDataValue.declarationYN && !this.declYn){
         if(this.photo1Input.nativeElement.files[0]?this.photo1Input.nativeElement.files[0]:""!="" || 
           this.selectedChallanDetails.photo1?this.selectedChallanDetails.photo1:""!=""){
           //ignore

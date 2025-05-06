@@ -85,6 +85,9 @@ export class ChallanmasterServiceLLP {
   getPanwiseTdsRate(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanwiseTdsRate', req, this.httpOptions);
   }
+  chkPanDeclaration(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChkPanDeclaration', req, this.httpOptions);
+  }
   getLhPanTdsRate(req: Requestmodel): Observable<Reportmodel> {
     return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'Consignment/GetLhPanTdsRate', req, this.httpOptions);
   }

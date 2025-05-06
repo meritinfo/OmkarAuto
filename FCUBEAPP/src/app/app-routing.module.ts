@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { LoginComponent } from './module/login/login.component';
-
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
@@ -307,6 +306,7 @@ import { BranchcustomertarmstlistComponent } from './module/branchcustomertarget
 import { AdminmastergroupaddComponent } from './module/admingroupmaster/adminmastergroupadd/adminmastergroupadd.component';
 import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminmastergrouplist/adminmastergrouplist.component';
 import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
+import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
 
 
 
@@ -732,6 +732,9 @@ const routes: Routes = [
   { path: 'admingroupmasteradd', component: AdminmastergroupaddComponent },
   { path: 'admingroupmasteredit', component: AdminmastergroupaddComponent },
   { path: 'billprintllp',component: BillprintllpComponent},
+  { path: 'gtsreg',component: BillgstrptComponent},
+
+  
 ];
 
 

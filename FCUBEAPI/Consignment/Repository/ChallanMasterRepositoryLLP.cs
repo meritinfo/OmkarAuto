@@ -344,9 +344,9 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ChallanNo", req.strRequest),
-                             new SqlParameter("@Branch", req.strRequest1),
-                              new SqlParameter("@YearId", req.strRequest2),
+                            new SqlParameter("@ChallanNo",  req.strRequest),
+                            new SqlParameter("@Branch",     req.strRequest1),
+                            new SqlParameter("@YearId",     req.strRequest2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanEnqDetails", param);
 
@@ -1028,8 +1028,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
-        public async Task<ResponseModel> GetPanwiseTdsRateLLP(RequestModel requestModel)
+        public async Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try
@@ -1039,9 +1038,9 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PanNo", requestModel.strRequest),
-                            new SqlParameter("@Date", requestModel.strRequest1),
+                            new SqlParameter("@YearId",  requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanWiseTdsRate", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkPanDeclaration", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -1060,62 +1059,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ReportRequestModel> GetLhPanTdsRateLLP(RequestModel requestModel)
-        {
-            ReportRequestModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PanChar", requestModel.strRequest),
-                            new SqlParameter("@TdsDt", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPanTdsRate", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.FilterStr = Convert.ToString(statusData.Tables[0].Rows[0]["TdsRate"]);
-                        responseModel.FilterStr1 = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
-                        responseModel.FilterStr2 = Convert.ToString(statusData.Tables[0].Rows[0]["DecApplicable"]);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return responseModel;
-        }
-
-        public async Task<ResponseModel> GetBranchPanApiUseLLP(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBranchPanApiUse", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return responseModel;
-        }
-
-
-
     }
 
 }
