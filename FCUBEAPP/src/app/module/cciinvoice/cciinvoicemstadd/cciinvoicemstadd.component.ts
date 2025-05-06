@@ -38,6 +38,8 @@ dashboard: string ="";
     formSubmitted = false;
     keywordLocation = 'dataName';
     responseDetails = new Responsemodel();
+    createdBy : string = "";
+    modifiedBy: string = "";
     stateList: Dropdownmodel[] = [];
     sparesList: Dropdownmodel[] = [];
     maintList: Dropdownmodel[] = [];
@@ -163,6 +165,8 @@ ngOnInit(): void {
     setTimeout(() => {
     
      // this.refDocAttachedImage = Constants.UploadFolderPath + 'vehicleRepairs/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
+     this.createdBy = this.selectedCciInvMstDetail.createdBy + " " + this.selectedCciInvMstDetail.createdDate;
+     this.modifiedBy = this.selectedCciInvMstDetail.modifiedBy + " " + this.selectedCciInvMstDetail.modifiedDate;   
       this.formUser.patchValue(this.selectedCciInvMstDetail);
       this.formUser.patchValue({
         cciInvDate : this.commonService.formatDate(this.selectedCciInvMstDetail.cciInvDate ),

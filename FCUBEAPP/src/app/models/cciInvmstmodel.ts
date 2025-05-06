@@ -9,6 +9,10 @@ export class Ccinvmstmodel {
     totalCgstAmt : string ="";
     totalIgstAmt : string ="";
     totalInvAmt : string ="";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     yearId : string ="";
     loggedInUser: string = "";  
     ccinvmstDtlList: Ccinvdtlmodel[] = [];

@@ -28,6 +28,8 @@ export class DeliveryackpodaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  createdBy : string = "";
+  modifiedBy: string = "";
 dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
@@ -276,6 +278,9 @@ dashboard: string ="";
           this.formUser.controls['shortageClaim'].updateValueAndValidity(); 
         }
         this.editMode = true;
+        this.createdBy = this.selectedDeliveryackpod.createdBy + " " + this.selectedDeliveryackpod.createdDate;
+        this.modifiedBy = this.selectedDeliveryackpod.modifiedBy + " " + this.selectedDeliveryackpod.modifiedDate;      
+        
         this.formUser.controls['gcNoteNo'].disable();   
         this.formUser.controls['ackDate'].disable();      
       }  
