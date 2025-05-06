@@ -122,7 +122,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'regroupIssMasterID ',
+        }, 
         {
           title: 'Issue Date',
           data: 'regroupIssDate',
@@ -135,10 +139,7 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         }, 
-        {
-          title: 'Action',
-          data: 'regroupIssMasterID ',
-        },
+        
       ],
     };
   }

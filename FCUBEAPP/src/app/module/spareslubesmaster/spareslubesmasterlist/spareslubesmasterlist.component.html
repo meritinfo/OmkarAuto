@@ -67,6 +67,10 @@
                     </thead>
                     <tbody *ngIf="allSparesMaster.sparesList?.length != 0">
                         <tr *ngFor="let branch  of allSparesMaster.sparesList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="sparesLubesMasterDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.spareLubName }}</td>
                             <td>{{ branch.stype }}</td>
                             <td>{{ branch.sch_Oth }}</td>
@@ -74,10 +78,7 @@
                             <td>{{ branch.lifeExpectancy }}</td>
                             <td>{{ branch.isActive }}</td>
                                            
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="sparesLubesMasterDetails(branch)"></button>             
-                            </td>  
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allSparesMaster.sparesList?.length == 0">

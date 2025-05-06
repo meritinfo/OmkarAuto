@@ -59,6 +59,10 @@
                     </thead>
                     <tbody *ngIf="allInstPmtMaster.pmtList?.length != 0">
                         <tr *ngFor="let branch  of allInstPmtMaster.pmtList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="vehicleInstDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.pmtDate }}</td>
                             <td>{{ branch.branch }}</td>
                             <td>{{ branch.vehicleNo }}</td>
@@ -75,10 +79,7 @@
                          <td>{{ branch.cheqDate }}</td>   
                             <td>{{ branch.creditAc }}</td>      
                             <td>{{ branch.findocid }}</td>        -->
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="vehicleInstDetails(branch)"></button>             
-                            </td>  
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allInstPmtMaster.pmtList?.length == 0">

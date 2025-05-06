@@ -57,6 +57,10 @@
                     </thead>
                     <tbody *ngIf="allTransportMaster.transportMastersList?.length != 0">
                         <tr *ngFor="let brandmaster of allTransportMaster.transportMastersList">
+                            <td>                               
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getTransportMasterDetails(brandmaster)"></button> 
+                            </td>
                             <td>{{ brandmaster.tptName }}</td>
                             <td>{{ brandmaster.address1 }}</td>
                             <td>{{ brandmaster.address2 }}</td>
@@ -64,10 +68,7 @@
                             <td>{{ brandmaster.address4 }}</td>
                             <td>{{ brandmaster.stateCode }}</td>
                             <td>{{ brandmaster.pinCode }}</td> 
-                            <td>                               
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getTransportMasterDetails(brandmaster)"></button> 
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTransportMaster.transportMastersList?.length == 0">

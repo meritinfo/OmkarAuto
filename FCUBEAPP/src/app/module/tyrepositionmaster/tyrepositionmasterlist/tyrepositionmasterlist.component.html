@@ -27,11 +27,12 @@
                     </thead>
                     <tbody *ngIf="allTyrepositionMaster.tyrePositionMasterList?.length != 0">
                         <tr *ngFor="let tyremaster of allTyrepositionMaster.tyrePositionMasterList">
-                            <td>{{ tyremaster.fitmentPosition }}</td>
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getTyrepositionMasterDetails(tyremaster)"></button>  
                             </td>
+                            <td>{{ tyremaster.fitmentPosition }}</td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyrepositionMaster.tyrePositionMasterList?.length == 0">

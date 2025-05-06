@@ -123,6 +123,10 @@ vehicleMaintList() {
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'spTransId',
+      },
+      {
         title: 'Trans Date',
         data: 'transDate',
       },
@@ -161,10 +165,7 @@ vehicleMaintList() {
         title: 'Vendor Name',
         data: 'vendorName',
       }, 
-      {
-        title: 'Action',
-        data: 'spTransId',
-      },
+     
     ],
   };
 }

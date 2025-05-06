@@ -135,6 +135,10 @@ dashboard: string ="";
       // Set column title and data field
       columns: [ 
         {
+          title: 'Action',
+          data: 'id',
+        },
+        {
           title: 'Req Branch',
           data: 'reqBr',
         },
@@ -166,10 +170,7 @@ dashboard: string ="";
           title: 'Remarks',
           data: 'remarks',
         },
-        {
-          title: 'Action',
-          data: 'id',
-        },
+        
       ],
     };
   }

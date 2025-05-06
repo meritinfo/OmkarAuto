@@ -121,6 +121,10 @@ subLedgerList() {
     },
     columns: [   
       {
+        title: 'Action',
+        data: 'subLedgerId',
+      },
+      {
         title: 'Ledger Ac',
         data: 'acname',
       },
@@ -157,10 +161,7 @@ subLedgerList() {
       }, 
       
      
-      {
-        title: 'Action',
-        data: 'subLedgerId',
-      },
+     
     ],
   };
 }

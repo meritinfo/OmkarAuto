@@ -198,6 +198,10 @@ getTripMaster(){
       // Set column title and data field
       columns: [
         {
+          title: 'Action',
+          data: 'tripId',
+        },
+        {
           title: 'Trip Branch',
           data: 'tripBr',
         },
@@ -238,10 +242,7 @@ getTripMaster(){
           title: 'Trip Print',
           data: 'tripId',
         },
-        {
-          title: 'Action',
-          data: 'tripId',
-        },
+       
       ],
     };
     this.sharedService.loading = false;

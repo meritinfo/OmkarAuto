@@ -88,15 +88,16 @@
                     </thead>
                     <tbody *ngIf="allJournalEntry.recPaymentsList?.length != 0">
                         <tr *ngFor="let jv of allJournalEntry.recPaymentsList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getJournalEntryDetails(jv)"  ></button>             
+                            </td>  
                             <td>{{ jv.seriesDoc }}</td>                    
                             <td>{{ jv.ftmDate }}</td>                                 
                             <td>{{ jv.docAmount }}</td>                   
                             <td>{{ jv.refType }}</td>                   
                             <td>{{ jv.refNo }}</td>                          
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="getJournalEntryDetails(jv)"  ></button>             
-                            </td>  
+                        
                         </tr>
                     </tbody>
                     <tbody *ngIf="allJournalEntry.recPaymentsList?.length == 0">

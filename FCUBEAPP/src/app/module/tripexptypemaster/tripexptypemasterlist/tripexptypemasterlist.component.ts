@@ -105,15 +105,16 @@ dashboard: string ="";
           this.sharedService.loading = false;
       },
       // Set column title and data field
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'expId',
+        }, 
         {
           title: 'Exp Desc',
           data: 'expDesc',
         },      
-        {
-          title: 'Action',
-          data: 'expId',
-        },
+       
       ],
     };
   }

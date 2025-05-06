@@ -367,20 +367,14 @@ ngOnInit(): void {
         this.getFinDocDetails(this.selectedChallanDetails.ftmid);
         this.getChallanInnerGridList();   
        // this.getCCIInvoiceMstDetail();  
-        if(this.selectedChallanDetails.containerNo!=""){
-        this.formUser.patchValue({
-          cciInvoice:  "Y"
-        })  
         this.editMode = true; 
-        this.formUser.controls["cciInvoice"].disable();    
-      }
-      else{
-        this.editMode = false;  
-
-      }
-        
-        
-       // this.editMode = true;        
+        if(this.selectedChallanDetails.containerNo!=""){
+          this.formUser.patchValue({
+            cciInvoice:  "Y"
+          })  
+         // this.formUser.controls["cciInvoice"].disable();    
+        }        
+         
         this.sharedService.loading = false;   
         
       }  

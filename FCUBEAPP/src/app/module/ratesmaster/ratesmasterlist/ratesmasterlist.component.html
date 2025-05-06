@@ -61,15 +61,16 @@
                         </thead>
                         <tbody *ngIf="allRatesMaster.ratesMasterList?.length != 0">
                             <tr *ngFor="let rt of allRatesMaster.ratesMasterList">
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getRatesMasterDetails(rt)" ></button>             
+                                </td> 
                                 <td>{{ rt.accountName}}</td>
                                 <td>{{ rt.fromPoint }}</td>
                                 <td>{{ rt.validFrom }}</td>
                                 <td>{{ rt.validUpto }}</td>
                                 <td>{{ rt.rateDesc }}</td>                       
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getRatesMasterDetails(rt)" ></button>             
-                                </td> 
+                                
                             </tr>
                         </tbody>
                         <tbody *ngIf="allRatesMaster.ratesMasterList?.length == 0">

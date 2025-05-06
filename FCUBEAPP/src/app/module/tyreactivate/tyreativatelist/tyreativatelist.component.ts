@@ -126,6 +126,10 @@ dashboard: string ="";
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'activateMasterID ',
+        },
+        {
           title: 'Activate Date  ',
           data: 'activateDate',
         },
@@ -141,10 +145,7 @@ dashboard: string ="";
           title: 'Net Amount',
           data: 'netAmt',
         }, 
-        {
-          title: 'Action',
-          data: 'activateMasterID ',
-        },
+       
       ],
     };
   }

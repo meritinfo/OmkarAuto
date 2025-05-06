@@ -87,6 +87,10 @@ export class HrmasterlistComponent {
     // Set column title and data field
     columns: [  
       {
+        title: 'Action',
+        data: 'hrId',
+      },
+      {
         title: 'HR Code',
         data: 'hrCode',
       },
@@ -98,10 +102,6 @@ export class HrmasterlistComponent {
         title: 'HR Type',
         data: 'hrTypeDesc',
       }, 
-      {
-        title: 'Action',
-        data: 'hrId',
-      },
     ],
   };
   }

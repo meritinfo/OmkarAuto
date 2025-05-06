@@ -65,14 +65,15 @@
                     </thead>
                     <tbody *ngIf="allTyreMaster.tyreList?.length != 0">
                         <tr *ngFor="let branch  of allTyreMaster.tyreList">
-                            <td>{{ branch.modelDesc }}</td>
-                            <td>{{ branch.activeYN }}</td>
-                   
-                                           
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="tyreModelMasterDetails(branch)"></button>             
                             </td>  
+                            <td>{{ branch.modelDesc }}</td>
+                            <td>{{ branch.activeYN }}</td>
+                   
+                                           
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyreMaster.tyreList?.length == 0">

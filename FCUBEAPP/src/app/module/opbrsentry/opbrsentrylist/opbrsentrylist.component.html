@@ -31,14 +31,15 @@
                     </thead>
                     <tbody *ngIf="allBrsEntry.brsEntryList?.length != 0">
                         <tr *ngFor="let brandmaster of allBrsEntry.brsEntryList">
-                            <td>{{ brandmaster.docNo }}</td>
-                            <td>{{ brandmaster.transDate }}</td>
-                            <td>{{ brandmaster.bankAc }}</td>
-                            <td>{{ brandmaster.amountRs}}</td>                         
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getBrsEntryDetails(brandmaster)"></button>  
                             </td>
+                            <td>{{ brandmaster.docNo }}</td>
+                            <td>{{ brandmaster.transDate }}</td>
+                            <td>{{ brandmaster.bankAc }}</td>
+                            <td>{{ brandmaster.amountRs}}</td>                         
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allBrsEntry.brsEntryList?.length == 0">

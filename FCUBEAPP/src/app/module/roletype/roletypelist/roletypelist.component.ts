@@ -73,6 +73,10 @@ constructor(private roleTypeService: RoleTypeService, private route: Router) {
     },
 
 columns: [
+  {
+    title: 'Action',
+    data: 'roleId',
+  },
       
 
   {
@@ -87,10 +91,7 @@ columns: [
 
 
 
-{
-  title: 'Action',
-  data: 'roleId',
-},
+
 ],
 };
 }

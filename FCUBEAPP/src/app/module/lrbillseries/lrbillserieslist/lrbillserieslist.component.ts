@@ -142,7 +142,11 @@ lrBillSeriesList(){
     },
 
       // Set column title and data field
-    columns: [    
+    columns: [ 
+      {
+        title: 'Action',
+        data: 'seriesId',
+      },   
       {
         title: 'Series Code ',
         data: 'seriesCode',
@@ -159,10 +163,7 @@ lrBillSeriesList(){
    
   
   
-    {
-      title: 'Action',
-      data: 'seriesId',
-    },
+   
     ],
   };
 }

@@ -81,6 +81,10 @@ dashboard: string ="";
       // Set column title and data field
       columns: [
         {
+          title: 'Action',
+          data: 'userId',
+        },
+        {
           title: 'User Name',
           data: 'userName',
         },
@@ -105,10 +109,7 @@ dashboard: string ="";
           data: 'activeYN',
         },
       
-        {
-          title: 'Action',
-          data: 'userId',
-        },
+        
       ],
     };
   }

@@ -91,10 +91,10 @@ truckmstlist(){
         });
     },
     columns: [
-      
-
-     
-
+      {
+        title: 'Action',
+        data: 'truckID',
+      },
      {
       title: 'Truck No ',
       data: 'truckNo',
@@ -115,10 +115,7 @@ truckmstlist(){
    
   
   
-    {
-      title: 'Action',
-      data: 'truckID',
-    },
+   
   ],
 };
 }

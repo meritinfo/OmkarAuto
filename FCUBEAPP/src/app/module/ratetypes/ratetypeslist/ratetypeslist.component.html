@@ -43,16 +43,17 @@
                     </thead>
                     <tbody *ngIf="allRateTypes.rateTypesList?.length != 0">
                         <tr *ngFor="let ratetype of allRateTypes.rateTypesList">
+                            <td>
+                              
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getRateTypesDetails(ratetype)"></button>     
+                       
+                        </td>
                             <td>{{ ratetype.rateDesc }}</td>
                     
                             <td>{{ ratetype.rateMethod }}</td>
                          
-                            <td>
-                              
-                                    <button type="button" class="btn btn-edit" 
-                                        (click)="getRateTypesDetails(ratetype)"></button>     
                            
-                            </td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allRateTypes.rateTypesList?.length == 0">

@@ -72,6 +72,10 @@
                         </thead>
                         <tbody *ngIf="allLorryhirelist.lorryHireList?.length != 0">
                             <tr *ngFor="let lrhr of allLorryhirelist.lorryHireList">
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getLorryHirePmtDetails(lrhr)"></button> 
+                                </td> 
                                 <td>{{ lrhr.pmtStn}}</td>
                                 <td>{{ lrhr.pmtNo}}</td>
                                 <td>{{ lrhr.pmtDate}}</td>
@@ -81,10 +85,7 @@
                                 <td>{{ lrhr.totalDetenAmt}}</td> 
                                 <td>{{ lrhr.totalOtherAmt}}</td>   
                                 <td>{{ lrhr.totalRecoveryAmt}}</td>            
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getLorryHirePmtDetails(lrhr)"></button> 
-                                </td> 
+                             
                                 <td>
                                     <button type="button" 
                                         class="btn btn-primary btn-floating"  

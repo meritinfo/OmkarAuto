@@ -125,7 +125,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'purchaseMasterID',
+        }, 
         {
           title: 'Purchase Date',
           data: 'purchaseDate',
@@ -142,10 +146,7 @@ dashboard: string ="";
           title: 'Vendor Address',
           data: 'vendorAddress',
         }, 
-        {
-          title: 'Action',
-          data: 'purchaseMasterID ',
-        },
+       
       ],
     };
   }

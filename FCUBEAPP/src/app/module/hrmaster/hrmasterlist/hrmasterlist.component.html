@@ -28,14 +28,14 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allHrmaster.hrList?.length != 0">
-                        <tr *ngFor="let ratetype of allHrmaster.hrList">
-                            <td>{{ ratetype.hrCode }}</td>                    
-                            <td>{{ ratetype.description }}</td>  
-                            <td>{{ ratetype.hrTypeDesc}}</td>      
+                        <tr *ngFor="let ratetype of allHrmaster.hrList">     
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getHrMasterDetails(ratetype)"></button>             
                             </td>  
+                            <td>{{ ratetype.hrCode }}</td>                    
+                            <td>{{ ratetype.description }}</td>  
+                            <td>{{ ratetype.hrTypeDesc}}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allHrmaster.hrList?.length == 0">

@@ -61,14 +61,15 @@
                     </thead>
                     <tbody *ngIf="allVehicleFltMaster.vehicleFltMasterList?.length != 0">
                         <tr *ngFor="let vehi of allVehicleFltMaster.vehicleFltMasterList">
-                            <td>{{ vehi.vehicleNo }}</td>  
-                            <td>{{ vehi.regnDate }}</td>
-                            <td>{{ vehi.mfrModelName }}</td>
-                            <td>{{ vehi.makeYear }}</td>                   
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getvehicleFltDetails(vehi)" ></button>             
                             </td> 
+                            <td>{{ vehi.vehicleNo }}</td>  
+                            <td>{{ vehi.regnDate }}</td>
+                            <td>{{ vehi.mfrModelName }}</td>
+                            <td>{{ vehi.makeYear }}</td>                   
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allVehicleFltMaster.vehicleFltMasterList?.length == 0">

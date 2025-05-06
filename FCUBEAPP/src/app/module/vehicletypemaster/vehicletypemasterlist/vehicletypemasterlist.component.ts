@@ -84,6 +84,10 @@ ngOnInit(): void {
     },
      // Set column title and data field
     columns: [
+      {
+        title: 'Action',
+        data: 'vehicleTypeId',
+      },
       
 
         {
@@ -98,10 +102,7 @@ ngOnInit(): void {
      
     
     
-      {
-        title: 'Action',
-        data: 'vehicleTypeId',
-      },
+     
     ],
   };
 }

@@ -38,13 +38,14 @@
                     </thead>
                     <tbody *ngIf="allVehicleTypeMasterTypes.vehicleTypeMasterList?.length != 0">
                         <tr *ngFor="let ratetype of allVehicleTypeMasterTypes.vehicleTypeMasterList">
-                            <td>{{ ratetype.vehicleTypeDesc }}</td>
-                            <td>{{ ratetype.vehicleTypeGroupId }}</td>
                             <td>
                                 
-                                        <button type="button" class="btn btn-edit" 
-                                        (click)="getvehicleTypesDetails(ratetype)"></button>  
-                            </td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getvehicleTypesDetails(ratetype)"></button>  
+                             </td>
+                            <td>{{ ratetype.vehicleTypeDesc }}</td>
+                            <td>{{ ratetype.vehicleTypeGroupId }}</td>
+                          
                         </tr>
                     </tbody>
                     <tbody *ngIf="allVehicleTypeMasterTypes.vehicleTypeMasterList?.length == 0">

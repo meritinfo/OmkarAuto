@@ -59,14 +59,15 @@
                     </thead>
                     <tbody *ngIf="allTyreMaster.tyreList?.length != 0">
                         <tr *ngFor="let tm of allTyreMaster.tyreList">
-                            <td>{{ tm.purchaseDate}}</td>
-                            <td>{{ tm.purchaseTp}}</td>
-                            <td>{{ tm.vendorName}}</td>
-                            <td>{{ tm.vendorAddress}}</td> 
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getTyrePurchaseMasterDetails(tm)"></button> 
                             </td>
+                            <td>{{ tm.purchaseDate}}</td>
+                            <td>{{ tm.purchaseTp}}</td>
+                            <td>{{ tm.vendorName}}</td>
+                            <td>{{ tm.vendorAddress}}</td> 
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTyreMaster.tyreList?.length == 0">

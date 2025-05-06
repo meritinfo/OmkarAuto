@@ -31,16 +31,17 @@
                     </thead>
                     <tbody *ngIf="allUsers.userList?.length != 0">
                       <tr *ngFor="let user of allUsers.userList">
+                        <td>                         
+                          <button type="button" class="btn btn-edit" 
+                          (click)="userDetails(user)"></button>   
+                        </td>
                         <td>{{ user.userName }}</td>
                         <td>{{ user.userDescription }}</td>
                         <td>{{ user.userScope }}</td>
                         <td>{{ user.userRoleType }}</td>
                         <td>{{ user.centreName }}</td>
                         <td>{{ user.activeYN }}</td>
-                        <td>                         
-                          <button type="button" class="btn btn-edit" 
-                          (click)="userDetails(user)"></button>   
-                        </td>
+                       
                       </tr>
                     </tbody>
                     <tbody *ngIf="allUsers.userList?.length == 0">

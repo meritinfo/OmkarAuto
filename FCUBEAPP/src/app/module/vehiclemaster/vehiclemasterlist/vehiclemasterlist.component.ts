@@ -104,6 +104,10 @@ dashboard: string ="";
      // Set column title and data field
       columns: [
         {
+          title: 'Action',
+          data: 'vehicleMasterID',
+        },
+        {
           title: 'Vehicle No',
           data: 'vehicleNo',
         },     
@@ -119,10 +123,7 @@ dashboard: string ="";
           title: 'Make Year ',
           data: 'makeYear ',
         },
-        {
-          title: 'Action',
-          data: 'vehicleMasterID',
-        },
+       
       ],
     };
   }

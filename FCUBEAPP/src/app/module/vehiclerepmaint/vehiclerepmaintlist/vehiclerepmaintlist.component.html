@@ -66,6 +66,10 @@
                     </thead>
                     <tbody *ngIf="allVehicleMaster.maintList?.length != 0">
                         <tr *ngFor="let tm of allVehicleMaster.maintList">
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getVehicleMaintMasterDetails(tm)"></button> 
+                            </td>
                          
                             <td>{{ tm.transDate}}</td>
                             <td>{{ tm.stype}}</td>
@@ -77,10 +81,7 @@
                             <td>{{ tm.vendorInvNo}}</td> 
                             <td>{{ tm.vendorName}}</td> 
                                                     
-                            <td>                                
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getVehicleMaintMasterDetails(tm)"></button> 
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allVehicleMaster.maintList?.length == 0">

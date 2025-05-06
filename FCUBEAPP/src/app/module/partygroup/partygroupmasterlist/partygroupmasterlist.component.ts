@@ -140,16 +140,17 @@ dashboard: string ="";
         });
       },
       columns: [
+        {
+          title: 'Action',
+          data: 'partyGroupId',
+        },
         
         {
           title: 'PartyGroup Desc',
           data: 'partyGroupDesc',
         },
 
-        {
-          title: 'Action',
-          data: 'partyGroupId',
-        },
+       
         
       ],
     };

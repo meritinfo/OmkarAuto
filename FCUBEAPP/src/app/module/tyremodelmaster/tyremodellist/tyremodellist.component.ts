@@ -100,8 +100,10 @@ tyreModelMasterList(){
     },
     // Set column title and data field
     columns: [
-     
-     
+      {
+        title: 'Action',
+        data: 'tyreModID',
+      },
       {
         title: 'Model Desc',
         data: 'modelDesc',
@@ -112,10 +114,7 @@ tyreModelMasterList(){
       },
      
      
-      {
-        title: 'Action',
-        data: 'tyreModID',
-      },
+      
     ],
   };
 }

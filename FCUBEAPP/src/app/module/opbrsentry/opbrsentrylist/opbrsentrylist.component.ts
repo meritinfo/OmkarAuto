@@ -105,7 +105,11 @@ dashboard: string ="";
               });
             });
         },
-        columns: [      
+        columns: [ 
+          {
+            title: 'Action',
+            data: 'transId',
+          },     
         {
           title: 'Doc No',
           data: 'docNo',
@@ -122,10 +126,7 @@ dashboard: string ="";
           title: 'Amount Rs',
           data: 'amountRs',
         },
-        {
-          title: 'Action',
-          data: 'transId',
-        },
+       
       ],
     };
   }

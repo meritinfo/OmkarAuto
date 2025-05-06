@@ -65,15 +65,16 @@
                     </thead>
                     <tbody *ngIf="allMaintanenceMaster.maintanenceList?.length != 0">
                         <tr *ngFor="let branch  of allMaintanenceMaster.maintanenceList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="maintanenceMasterDetails(branch)"></button>             
+                            </td>  
                             <td>{{ branch.maintenanceDesc  }}</td>
                             <td>{{ branch.maintType  }}</td>
                     
                             <td>{{ branch.isActive }}</td>
                                            
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="maintanenceMasterDetails(branch)"></button>             
-                            </td>  
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allMaintanenceMaster.maintanenceList?.length == 0">

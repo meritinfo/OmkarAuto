@@ -84,16 +84,17 @@
                         </thead>
                         <tbody *ngIf="allVehicleinstschedule.vehicleInstSchedulelist">
                             <tr *ngFor="let inst of allVehicleinstschedule.vehicleInstSchedulelist">
+                                <td>                                    
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getVehicleinstscheduleDetails(inst)"></button>                               
+                                </td>
                                 <td>{{ inst.vehicleNo }}</td>                        
                                 <td>{{ inst.loanTp}}</td>      
                                 <td>{{ inst.startDate}}</td>                        
                                 <td>{{ inst.endDate}}</td>
                                 <td>{{ inst.noOfMonths}}</td>
                                 <td>{{ inst.totalLoanAmt}}</td>
-                                <td>                                    
-                                    <button type="button" class="btn btn-edit"
-                                        (click)="getVehicleinstscheduleDetails(inst)"></button>                               
-                                </td>
+                               
                             </tr>
                         </tbody>
                         <tbody *ngIf="allVehicleinstschedule.vehicleInstSchedulelist?.length == 0">

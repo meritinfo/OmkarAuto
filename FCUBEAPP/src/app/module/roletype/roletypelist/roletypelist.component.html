@@ -44,15 +44,16 @@
                     </thead>
                     <tbody *ngIf="allRoleTypes.roleList?.length != 0">
                         <tr *ngFor="let ratetype of allRoleTypes.roleList">
-                            <td>{{ ratetype.roleName }}</td>
-                    
-                            <td>{{ ratetype.roleDesc }}</td>
-                         
                             <td>
                                 <a (click)="getRoleTypesDetails(ratetype)" class="actionicon"><i
                                     class="bx bx-pencil"></i></a>
                            
                             </td>
+                            <td>{{ ratetype.roleName }}</td>
+                    
+                            <td>{{ ratetype.roleDesc }}</td>
+                         
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allRoleTypes.roleList?.length == 0">

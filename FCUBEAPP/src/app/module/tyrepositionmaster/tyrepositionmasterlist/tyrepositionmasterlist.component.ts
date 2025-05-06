@@ -85,13 +85,14 @@ dashboard: string ="";
       },
       columns: [  
         {
-          title: 'Position Desc',
-          data: 'fitmentPosition',
-        },
-        {
           title: 'Action',
           data: 'productGroupId',
         },
+        {
+          title: 'Position Desc',
+          data: 'fitmentPosition',
+        },
+       
       ],
     };
   }
