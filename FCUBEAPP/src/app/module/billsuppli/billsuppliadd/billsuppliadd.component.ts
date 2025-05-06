@@ -140,7 +140,7 @@ dashboard: string ="";
       partyGstLocation: new FormControl('',[Validators.required]),
       billType: new FormControl('',[Validators.required]),
       collBranch: new FormControl(this.branch,[Validators.required]),
-      gstType: new FormControl('N',[Validators.required]),
+      gstType: new FormControl('NA',[Validators.required]),
       totalFreight: new FormControl('',),
       totalExtras: new FormControl(''),
       totalOthers: new FormControl(''),

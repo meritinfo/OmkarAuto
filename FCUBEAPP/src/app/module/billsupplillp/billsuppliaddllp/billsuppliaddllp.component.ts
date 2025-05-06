@@ -149,7 +149,7 @@ dashboard: string ="";
       partyGstLocation: new FormControl('',[Validators.required]),
       billType: new FormControl('',[Validators.required]),
       collBranch: new FormControl(this.branch,[Validators.required]),
-      gstType: new FormControl('N',[Validators.required]),
+      gstType: new FormControl('NA',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
       totalExtras: new FormControl(''),
       totalOthers: new FormControl(''),
@@ -278,22 +278,19 @@ dashboard: string ="";
   changeGstUnder(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
-    if(selectedValue=='N'||selectedValue=="E"|| selectedValue=="R"){
-    this.formBillsMaster.patchValue({
-      gstType : "NA",
-    });
-    this.formBillsMaster.controls['gstType'].disable();
-    this.onGstChange();
+    if(selectedValue!='F'){
+      this.formBillsMaster.patchValue({
+        gstType : "NA",
+      });
+      this.formBillsMaster.controls['gstType'].disable();
+      this.onGstChange();
     }
     else{
-      
-        this.formBillsMaster.patchValue({
-          gstType : "",
-         
-        });
-        this.onGstChange();
-        this.formBillsMaster.controls['gstType'].enable();
-
+      this.formBillsMaster.patchValue({
+         gstType : "",         
+      });
+      this.onGstChange();
+      this.formBillsMaster.controls['gstType'].enable();
     }
     
     //this.getCreditAcList(selectedValue);

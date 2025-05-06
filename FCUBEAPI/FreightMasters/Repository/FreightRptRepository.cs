@@ -4260,7 +4260,7 @@ namespace FreightMasters.Repository
 
                     }
 
-                    for (int k = 1; k < colcnt; k++)
+                    for (int k = 1; k <= colcnt; k++)
                     {
                         ws.Column(k).AdjustToContents();
                     }
