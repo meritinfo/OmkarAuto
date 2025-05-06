@@ -85,5 +85,7 @@ namespace FreightMasters.Business
 
         Task<DocumentAllotmentListModel> GetMissingDocRptList(ReportRequestModel request);
         Task<ResponseModel> GetMissingDocRptExcel(ReportRequestModel request);
+
+        Task<ResponseModel> GetBillGstRptExcel(ReportRequestModel request);
     }
 }
