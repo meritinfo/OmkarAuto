@@ -84,6 +84,10 @@ namespace Consignment.Models
         public string? Ftmid { get; set; }
         public string? YearId { get; set; }
         public string? ModifyRemarks { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public string? Cbranch { get; set; }
         public string? FPlace { get; set; }
@@ -93,11 +97,6 @@ namespace Consignment.Models
         public string? CgstAmt { get; set; }
         public string? SgstAmt { get; set; }
         public string? IgstAmt { get; set; }
-
-        public string? CreatedBy { get; set; }
-        public string? CreatedDate { get; set; }
-        public string? ModifiedBy { get; set; }
-        public string? ModifiedDate { get; set; }
         public List<ChallanDetailModelLLP> ChallanDtls { get; set; }
         public List<ConsignmentModel> CnList { get; set; }
         public List<ConsignmentLhpmModel> LhpmList { get; set; }

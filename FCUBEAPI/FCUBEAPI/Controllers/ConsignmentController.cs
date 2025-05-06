@@ -3219,8 +3219,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetPanwiseTdsRateLLP")]
-        public async Task<IActionResult> GetPanwiseTdsRateLLP(RequestModel request)
+        [HttpPost("ChkPanDeclaration")]
+        public async Task<IActionResult> ChkPanDeclaration(RequestModel request)
         {
             if (request == null)
             {
@@ -3228,7 +3228,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await challanMasterBusinessLLP.GetPanwiseTdsRateLLP(request);
+                var result = await challanMasterBusinessLLP.ChkPanDeclaration(request);
 
                 return Ok(result);
             }
@@ -3237,6 +3237,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
         [HttpPost("UpdateAssign")]
         public async Task<IActionResult> UpdateAssign(RequestModel request)
         {

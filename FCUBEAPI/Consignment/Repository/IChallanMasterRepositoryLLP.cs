@@ -23,9 +23,7 @@ namespace Consignment.Repository
         Task<ChallanMasterModelLLP> GetChallanEnqDetailsLLP(RequestModel req);
         Task<ChallanMasterModelLLP> GetChallanEnqInnerGridListLLP(RequestModel request);
         Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request);
-        Task<ResponseModel> GetPanwiseTdsRateLLP(RequestModel requestModel);
-        Task<ReportRequestModel> GetLhPanTdsRateLLP(RequestModel requestModel);
-        Task<ResponseModel> GetBranchPanApiUseLLP(RequestModel requestModel);
+        Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel);
         Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel);
     }
 }

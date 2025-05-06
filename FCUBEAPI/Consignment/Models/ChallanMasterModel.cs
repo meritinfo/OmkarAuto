@@ -81,6 +81,10 @@ namespace Consignment.Models
         public string? Ftmid { get; set; }
         public string? YearId { get; set; }
         public string? ModifyRemarks { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public string? Cbranch { get; set; }
         public string? FPlace { get; set; }
