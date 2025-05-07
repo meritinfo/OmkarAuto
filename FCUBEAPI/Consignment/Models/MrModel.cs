@@ -56,6 +56,11 @@
         public string? ChequeDt { get; set; }
         public string? ModifyRemarks { get; set; }
         public string? YearId { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
         public string? LoggedInUser { get; set; }
         public List<MrDtlsModel> MrDtlsList { get; set; }
         public List<MrOnAcModel> MrOnAcList { get; set; }

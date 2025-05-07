@@ -67,5 +67,10 @@ namespace Consignment.Models
         public string? Remarks { get; set; }
 
         public string? GcDate { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
     }
 }

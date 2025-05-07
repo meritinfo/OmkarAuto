@@ -28,7 +28,8 @@ export class LorryhirepmtaddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-
+  createdBy : string = "";
+  modifiedBy: string = "";
   yearList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
@@ -188,6 +189,7 @@ export class LorryhirepmtaddComponent {
     setTimeout(() => {
       if (this.selectedLorryhiremaster.masterId != '') {  
         this.formUser.controls['pmtNo'].disable();
+        
         this.formUser.patchValue(this.selectedLorryhiremaster);
         var onAcBranchYN = this.selectedLorryhiremaster.onAcBranchYN=="Y"?"Y":"";
         var neftPmt = this.selectedLorryhiremaster.neftPmt=="Y"?"Y":"";
@@ -206,6 +208,8 @@ export class LorryhirepmtaddComponent {
           this.formUser.controls['chequeDt'].disable();
         }
         this.editMode = true;
+        this.createdBy = this.selectedLorryhiremaster.createdBy + " " + this.selectedLorryhiremaster.createdDate;
+        this.modifiedBy = this.selectedLorryhiremaster.modifiedBy + " " + this.selectedLorryhiremaster.modifiedDate;  
         this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['pmtType'].disable(); 
         this.formUser.controls['onAcBranchYN'].disable();

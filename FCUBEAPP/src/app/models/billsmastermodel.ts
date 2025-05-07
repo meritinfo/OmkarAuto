@@ -69,6 +69,10 @@ export class Billsmastermodel {
     party: string = "";  
     collectionBranch: string = "";  
     loggedInUser: string = "";  
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     billsMasterListData: BillsDetailModel[] = [];
    // billsEnqListData: Billsmastersearchmodel[] = [];
     billsEnqListData: Billsmastersearchmodel[] = [];

@@ -72,6 +72,10 @@ namespace FreightMasters.Models
         public string? Party { get; set; }
         public string? CollectionBranch { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public List<BillsDetailModel> BillsMasterListData { get; set; }
         public List<BillsMasterSearchModel> BillsEnqListData { get; set; }
         public List<BillSubmitMasterModel> BillSubmitList { get; set; }

@@ -24,7 +24,10 @@ export class Billsubmitmastermodel {
     lname: string = "";
     dname: string = "";
     party: string = "";
-
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 
     billSubmitMasterDtlList: BillSubmitMstDtlListmodel[] = [];
 }

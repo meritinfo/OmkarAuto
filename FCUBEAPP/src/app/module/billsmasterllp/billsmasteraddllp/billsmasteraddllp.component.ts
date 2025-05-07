@@ -57,6 +57,8 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 dashboard: string ="";
   showButton = true;  
   formSubmitted = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
   selectedBillsmasterDetails = new BillsmastermodelllP();
   responseDetails = new Responsemodel();
   usertriprightsmodel = new Usertriprightsmodel();
@@ -246,6 +248,8 @@ dashboard: string ="";
         //   this.formBillsMaster.controls['sgstPct'].disable();
         //   this.formBillsMaster.controls['cgstPct'].disable();  
         //   this.formBillsMaster.controls['igstPct'].disable(); 
+        this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
+        this.modifiedBy = this.selectedBillsmasterDetails.modifiedBy + " " + this.selectedBillsmasterDetails.modifiedDate; 
         // }  
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();

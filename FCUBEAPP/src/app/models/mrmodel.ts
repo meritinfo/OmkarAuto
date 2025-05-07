@@ -62,6 +62,11 @@ export class Mrmodel {
     othersDed1 : string = ""
     othersDed2 : string = ""
     othersDed3 : string = ""
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
     
 
     

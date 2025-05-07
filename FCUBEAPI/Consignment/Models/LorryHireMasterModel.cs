@@ -36,7 +36,11 @@
         public string? ModifyRemarks { get; set; }
         public string? PmtStn { get; set; }
         public string? PmtTp { get; set; }
-        
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
         public string? LoggedInUserID { get; set; }
         public List<LorryHireDetailModel> LhpmDetails { get; set; }
 

@@ -29,6 +29,8 @@ export class BillsuppliaddComponent {
   duedate: string = '';
   minDate : string = '';
   maxDate : string = '';
+  createdBy : string = "";
+    modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   partyLocationList: Dropdownmodel[] = [];
@@ -222,6 +224,9 @@ dashboard: string ="";
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
+        
+  this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
+  this.modifiedBy = this.selectedBillsmasterDetails.modifiedBy + " " + this.selectedBillsmasterDetails.modifiedDate; 
        // this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();

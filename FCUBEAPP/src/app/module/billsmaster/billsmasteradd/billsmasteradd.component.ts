@@ -51,6 +51,8 @@ export class BillsmasteraddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  createdBy : string = "";
+  modifiedBy: string = "";
 dashboard: string ="";
   showButton = true;  
   formSubmitted = false;
@@ -223,6 +225,8 @@ dashboard: string ="";
         }  
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
+        this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
+        this.modifiedBy = this.selectedBillsmasterDetails.modifiedBy + " " + this.selectedBillsmasterDetails.modifiedDate;  
         this.editMode = true;
         this.appendMode = true; 
         this.showButton = false;

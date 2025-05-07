@@ -389,6 +389,10 @@ namespace FreightMasters.Repository
                                 CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
                                 IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
                                 SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

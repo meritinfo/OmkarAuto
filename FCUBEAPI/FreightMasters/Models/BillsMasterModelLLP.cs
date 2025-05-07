@@ -76,7 +76,12 @@ namespace FreightMasters.Models
         public string? SgstPct { get; set; }
         public string?CgstPct { get; set; }
         public string? IgstPct { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
+   
         public List<BillsDetailModelLLP> BillsMasterListData { get; set; }
         public List<BillsMasterSearchModelLLP> BillsEnqListData { get; set; }
         public List<BillSubmitMasterModel> BillSubmitList { get; set; }

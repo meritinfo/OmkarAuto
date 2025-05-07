@@ -42,6 +42,10 @@ export class Addcostrecmstmodel {
     loggedInUser :string = ""; 
     branch :string = "";
     addCostTp :string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
         
     addCostRecDtlList: Addcostrecdtlmodel[] = [];
 }

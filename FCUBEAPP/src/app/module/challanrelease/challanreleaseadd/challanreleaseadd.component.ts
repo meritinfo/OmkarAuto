@@ -30,6 +30,8 @@ export class ChallanreleaseaddComponent {
   locationList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   editMode = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -124,6 +126,8 @@ dashboard: string ="";
       this.formUser.controls["challanNo"].disable();
       this.formUser.patchValue(this.selectedChallanReleaseDetails);   
       this.editMode = true; 
+      this.createdBy = this.selectedChallanReleaseDetails.createdBy + " " + this.selectedChallanReleaseDetails.createdDate;
+      this.modifiedBy = this.selectedChallanReleaseDetails.modifiedBy + " " + this.selectedChallanReleaseDetails.modifiedDate;   
       this.editStatus = false;
       this.searchChallan();
       this.formUser.patchValue({

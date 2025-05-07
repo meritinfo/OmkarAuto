@@ -48,6 +48,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   keywordLocation = 'dataName';
   supp = false;
   canCancelBill = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
   seriesLength: string = "";
   seriesDoc: string = "";
   editMode = false;
@@ -59,6 +61,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
 dashboard: string ="";
   showButton = true;  
   formSubmitted = false;
+  
   selectedBillsmasterDetails = new BillsmastermodelllP();
   
   responseDetails = new Responsemodel();
@@ -256,6 +259,8 @@ dashboard: string ="";
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
         this.editMode = true;
+        this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
+        this.modifiedBy = this.selectedBillsmasterDetails.modifiedBy + " " + this.selectedBillsmasterDetails.modifiedDate; 
       //  this.showButton = false;
         this.formBillsMaster.controls['billNo'].disable();
         this.formBillsMaster.controls['partyCode'].disable();
