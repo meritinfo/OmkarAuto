@@ -307,6 +307,8 @@ import { AdminmastergroupaddComponent } from './module/admingroupmaster/adminmas
 import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminmastergrouplist/adminmastergrouplist.component';
 import { BillprintllpComponent } from './module/billprintllp/billprintllp.component';
 import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
+import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymentsllpadd/trippaymentsllpadd.component';
+import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
 
 
 
@@ -733,8 +735,9 @@ const routes: Routes = [
   { path: 'admingroupmasteredit', component: AdminmastergroupaddComponent },
   { path: 'billprintllp',component: BillprintllpComponent},
   { path: 'gtsreg',component: BillgstrptComponent},
-
-  
+  { path: 'trippaymentlistllp',component: TrippaymentsllplistComponent},
+  { path: 'trippaymentllpadd',component: TrippaymentsllpaddComponent },
+  { path: 'trippaymentllpedit',component: TrippaymentsllpaddComponent },
 ];
 
 

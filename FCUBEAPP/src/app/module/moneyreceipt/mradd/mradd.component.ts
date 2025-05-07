@@ -1072,9 +1072,9 @@ dashboard: string ="";
 
   getBillLrDtls(index: number){
     var selectedDataVal = this.formUser.getRawValue();
-    var billLrId = selectedDataVal.arrayList[index].billLrMasterId;
+    var billLrNo = selectedDataVal.arrayList[index].billLrNo;
     for (var i = 0; i < selectedDataVal.arrayList.length - 1; i++) { 
-      if(selectedDataVal.arrayList[i].billLrMasterId==billLrId){
+      if(selectedDataVal.arrayList[i].billLrNo==billLrNo){
         this.toasterService.warning("Bill / Lr Already Exists in Grid ");      
         return;
       }

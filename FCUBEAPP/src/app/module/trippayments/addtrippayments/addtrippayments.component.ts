@@ -34,9 +34,11 @@ export class AddtrippaymentsComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
   createmode = false;
+  dashboard: string ="";
   seriesDoc: string = "";
+  createdBy:string = "";
+  modifiedBy:string = "";
 
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -73,12 +75,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -197,6 +199,8 @@ dashboard: string ="";
           this.formTripPayment.controls['chequeNo'].disable();      
           this.formTripPayment.controls['chequeDate'].disable(); 
         }  
+        this.createdBy = this.selectedTripPaymentsDetails.createdBy + " " + this.selectedTripPaymentsDetails.createdDate;
+        this.modifiedBy = this.selectedTripPaymentsDetails.modifiedBy + " " + this.selectedTripPaymentsDetails.modifiedDate;   
         this.editMode = true;
         this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['transType'].disable();
@@ -488,7 +492,10 @@ dashboard: string ="";
     this.trippaymentsmodel.yearId = this.year;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
 
-    this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+    let formData = new FormData();
+    formData.append('datadetails', JSON.stringify(this.trippaymentsmodel));
+     
+    this.tripPaymentsService.trippaymentSaveSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);

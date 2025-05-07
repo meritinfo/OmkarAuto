@@ -1,4 +1,7 @@
-﻿namespace Consignment.Models
+﻿
+using Shared.Models;
+
+namespace Consignment.Models
 {
     public class MrListModel
     {

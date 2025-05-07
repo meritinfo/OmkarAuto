@@ -1,4 +1,6 @@
-﻿using FleetTrans.Business;
+﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetTrans.Business;
 using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
@@ -16,10 +18,6 @@ namespace FleetTrans.Business
             tripPaymentsRepository = _tripPaymentsRepository;
         }
 
-        /// <summary>
-        /// Business method for save Branch master details
-        /// </summary>
-        /// <param name="BranchMasterModel"></param>
         public async Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {
             return await tripPaymentsRepository.TripPaymentsSave(tripPaymentsModel);
@@ -57,7 +55,10 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetCreditAcList2(request);
         }
-
+        public async Task<ConsignmentModel> GetLrDtlsForTripPmts(RequestModel request)
+        {
+            return await tripPaymentsRepository.GetLrDtlsForTripPmts(request);
+        }
 
     }
 }

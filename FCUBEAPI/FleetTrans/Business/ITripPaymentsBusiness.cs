@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shared.Models;
+using Consignment.Models;
 
 namespace FleetTrans.Business
 {
@@ -19,7 +20,7 @@ namespace FleetTrans.Business
         Task<List<DropDownListModel>> GetCreditAcList();
         Task<List<DropDownListModel>> GetCrAcListForCustWizard();
         Task<List<DropDownListModel>> GetCreditAcList2(RequestModel request);
-
+        Task<ConsignmentModel> GetLrDtlsForTripPmts(RequestModel req);
 
     }
 }

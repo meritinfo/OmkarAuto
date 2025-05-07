@@ -490,6 +490,8 @@ import { AdminmastergrouplistComponent } from './module/admingroupmaster/adminma
 import { BranchcustomermstaddComponent } from './module/branchcustomertarget/branchcustomermstadd/branchcustomermstadd.component';
 import { BranchcustomertarmstlistComponent } from './module/branchcustomertarget/branchcustomertarmstlist/branchcustomertarmstlist.component';
 import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
+import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymentsllpadd/trippaymentsllpadd.component';
+import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
 
 
 @NgModule({
@@ -647,7 +649,7 @@ import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
     BillsmasterlistllpComponent, BillsmasteraddllpComponent, 
     BillsuppliaddllpComponent, BillsupplilistllpComponent, 
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
-    VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
+    VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
   ],
   
   imports: [

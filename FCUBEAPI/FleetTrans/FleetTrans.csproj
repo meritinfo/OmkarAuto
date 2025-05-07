@@ -29,6 +29,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\SqlHelper\SqlHelper.csproj" />
 		<ProjectReference Include="..\Shared\Shared.csproj" />
+		<ProjectReference Include="..\Consignment\Consignment.csproj" />
 	</ItemGroup>
 
 </Project>
