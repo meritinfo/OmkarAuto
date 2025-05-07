@@ -19,6 +19,10 @@ namespace Consignment.Models
         public string? TotalIgstAmt { get; set; }
         public string? TotalInvAmt { get; set; }
         public string? YearId { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public List<CciInvoiceDtlModel> CcinvmstDtlList { get; set; }
     }

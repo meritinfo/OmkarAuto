@@ -51,5 +51,9 @@ export class Deliveryackpodmodel {
     netPayable :       string = "";
     remarks:       string = "";
     yearId:       string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser:       string = "";
 }
