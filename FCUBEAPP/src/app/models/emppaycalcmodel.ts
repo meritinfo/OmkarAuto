@@ -21,6 +21,11 @@ export class Emppaycalcmodel {
     netPay: string = "";
     remarks : string = "";
     branchCode : string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
     loggedInUser: string = "";
     empSalaryDtlList:Empsalarydtlmodel[] = []; 
     empLeavesList:Empleavemodel[]=[];

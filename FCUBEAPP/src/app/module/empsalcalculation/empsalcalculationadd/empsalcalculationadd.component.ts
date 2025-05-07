@@ -43,7 +43,10 @@ export class EmpsalcalculationaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
+  createdBy:string = "";
+  modifiedBy:string = "";
+
   responseDetails = new Responsemodel();
 
   constructor(private empsalarymstmodel: Empsalarymstmodel, private sharedService: SharedService,
@@ -69,12 +72,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -155,6 +158,9 @@ dashboard: string ="";
           totadjLeaves: this.selectedEmpSalary.adjLeaves,
         });
         this.formUser.controls['branchCode'].disable();
+        this.createdBy = this.selectedEmpSalary.createdBy + " " + this.selectedEmpSalary.createdDate;
+        this.modifiedBy = this.selectedEmpSalary.modifiedBy + " " + this.selectedEmpSalary.modifiedDate;   
+      
         this.editMode = true;  
         this.getEmpPayEarnList();
         this.getEmpPayDedList();

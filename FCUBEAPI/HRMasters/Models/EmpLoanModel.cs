@@ -20,5 +20,10 @@ namespace HRMasters.Models
         public string? BalAmt { get; set; }
         public string? MonthYear { get; set; }
         public string? LoanAdjAmt { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
     }
 }

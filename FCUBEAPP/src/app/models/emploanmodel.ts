@@ -15,5 +15,10 @@ export class Emploanmodel {
     loanPayAmt: string = "";
     yearId : string = "";
     remarks : string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
     loggedInUser : string = "";
 }
