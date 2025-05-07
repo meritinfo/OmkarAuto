@@ -31,6 +31,10 @@ namespace FreightMasters.Models
         public string? dname { get; set; }
         public string? Lname{ get; set; }
         public string? party { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public List<BillSubmitMasterDtlListmodel> BillSubmitMasterDtlList { get; set; }
     }
     public class BillSubmitMasterDtlListmodel

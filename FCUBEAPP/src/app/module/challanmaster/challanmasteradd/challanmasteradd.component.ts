@@ -42,6 +42,8 @@ export class ChallanmasteraddComponent {
   deleteStatus = false;
   viewStatus = false; 
 dashboard: string ="";
+createdBy : string = "";
+modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicalList: Dropdownmodel[] = [];
@@ -140,6 +142,8 @@ dashboard: string ="";
     this.minDate2 = this.loginDate;
   
     this.sharedService.loading = true;
+    this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
+    this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;   
 
     this.getBranchList();
     this.getLocationList();
@@ -359,7 +363,9 @@ dashboard: string ="";
         this.formUser.controls['lrNo'].disable();  
         this.formUser.controls["modifyRemarks"].enable();   
         this.getFinDocDetails(this.selectedChallanDetails.ftmid);
-        this.getChallanInnerGridList();   
+        this.getChallanInnerGridList(); 
+        this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
+        this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;     
         
         this.editMode = true;        
         this.sharedService.loading = false;   

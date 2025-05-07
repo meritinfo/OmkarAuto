@@ -85,6 +85,10 @@ namespace Consignment.Repository
                                 ModifyRemarks       = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                                 PmtStn              = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtStn"]),
                                 PmtTp               = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtTp"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

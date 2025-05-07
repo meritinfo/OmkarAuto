@@ -10,5 +10,9 @@ export class ChallanreleaseModel {
     year: string = "";
     branch: string = "";
     loggedInUser: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
      
   }

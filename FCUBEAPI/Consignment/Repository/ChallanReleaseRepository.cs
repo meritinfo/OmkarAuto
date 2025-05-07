@@ -57,6 +57,10 @@ namespace Consignment.Repository
                                 ReleaseForPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ReleaseForPmt"]),
                                 Year = Convert.ToString(dataSet.Tables[0].Rows[i]["Year"]),
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                                 //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 

@@ -32,6 +32,8 @@ export class MrenquiryComponent {
   minDate: string = '';
   newDate: string = '';
   noPackages:string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   formSubmitted = false;
   editMode = false;

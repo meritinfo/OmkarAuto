@@ -30,6 +30,8 @@ export class BillsubmitmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  createdBy : string = "";
+  modifiedBy: string = "";
 dashboard: string ="";
   editMode= false;
   formSubmitted = false;
@@ -156,6 +158,8 @@ dashboard: string ="";
         })  
       
         this.getBillSubmitMasterInnerGridList();
+        this.createdBy = this.selectedBillSubmitMasterDetail.createdBy + " " + this.selectedBillSubmitMasterDetail.createdDate;
+        this.modifiedBy = this.selectedBillSubmitMasterDetail.modifiedBy + " " + this.selectedBillSubmitMasterDetail.modifiedDate;   
         this.editMode =true;     
       }, 2000);  
     }

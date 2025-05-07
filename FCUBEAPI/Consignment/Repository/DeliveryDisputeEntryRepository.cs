@@ -112,6 +112,10 @@ namespace Consignment.Repository
                                 DisputeRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeRemarks"]),
                                 DispAttach = Convert.ToString(dataSet.Tables[0].Rows[i]["DispAttach"]),
                                 brname = Convert.ToString(dataSet.Tables[0].Rows[i]["brname"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
 
                                 ////new added

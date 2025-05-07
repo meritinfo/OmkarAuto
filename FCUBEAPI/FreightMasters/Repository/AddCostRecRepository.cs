@@ -98,6 +98,11 @@ namespace FreightMasters.Repository
                                 ModifyRemarks       = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                                 Branch              = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 AddCostTp           = Convert.ToString(dataSet.Tables[0].Rows[i]["AddCostTp"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
                             });
                         }
 

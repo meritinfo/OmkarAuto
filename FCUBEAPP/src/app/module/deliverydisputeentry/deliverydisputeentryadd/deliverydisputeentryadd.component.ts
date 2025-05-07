@@ -30,6 +30,8 @@ export class DeliverydisputeentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  createdBy : string = "";
+  modifiedBy: string = "";
 dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
@@ -204,6 +206,8 @@ ngOnInit(): void {
         })   
         this.cnDetail(this.selectedDeliveryadispute.gcNoteNo);
         this.editMode = true;
+        this.createdBy = this.selectedDeliveryadispute.createdBy + " " + this.selectedDeliveryadispute.createdDate;
+        this.modifiedBy = this.selectedDeliveryadispute.modifiedBy + " " + this.selectedDeliveryadispute.modifiedDate; 
         this.formUser.controls['gcNoteNo'].disable();   
         this.formUser.controls['dispDate'].disable();      
       }  

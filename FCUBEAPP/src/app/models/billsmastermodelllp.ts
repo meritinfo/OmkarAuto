@@ -74,6 +74,10 @@ export class BillsmastermodelllP {
     sgstPct: string = ""; 
     igstPct: string = ""; 
     loggedInUser: string = "";  
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     billsMasterListData: BillsDetailModel[] = [];
    // billsEnqListData: Billsmastersearchmodel[] = [];
     billsEnqListData: Billsmastersearchmodel[] = [];

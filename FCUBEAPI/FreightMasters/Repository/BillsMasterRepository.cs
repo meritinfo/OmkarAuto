@@ -381,6 +381,10 @@ namespace FreightMasters.Repository
                                 StationName = Convert.ToString(dataSet.Tables[0].Rows[i]["StationName"]),
                                 Party = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
                                 CollectionBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["CollectionBranch"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

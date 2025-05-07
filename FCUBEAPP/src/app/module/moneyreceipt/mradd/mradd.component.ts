@@ -49,6 +49,8 @@ dashboard: string ="";
   seriesDoc: string = "";
   seriesDocJV: string = "";
   seriesDocOA: string = "";
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   selectedParty = new Dropdownmodel(); 
   selectedBillLR = new Reportmodel();
@@ -312,6 +314,8 @@ dashboard: string ="";
           this.formUser.controls['mrSdEmdAc'].clearValidators();    
         }
         this.formUser.controls['mrSdEmdAc'].updateValueAndValidity();
+        this.createdBy = this.selectedMrDetails.createdBy + " " + this.selectedMrDetails.createdDate;
+        this.modifiedBy = this.selectedMrDetails.modifiedBy + " " + this.selectedMrDetails.modifiedDate;   
         
         this.editMode = true;
         this.getMrInnerGridList(); 

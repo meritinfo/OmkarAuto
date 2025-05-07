@@ -57,6 +57,8 @@ export class Deliverydisputeentrymodel  {
     othDed :       string = "";
     netPayable :       string = "";
     remarks:       string = "";
-    
-   
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 }

@@ -30,6 +30,8 @@ export class AddcostrecentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  createdBy : string = "";
+    modifiedBy: string = "";
   dashboard: string =""; 
   calc = true;
   loginDate: string = '';
@@ -221,6 +223,9 @@ export class AddcostrecentryaddComponent {
           this.showDateRange = true;
           this.formUser.controls['totalAmount'].enable();      
         }     
+        
+  this.createdBy = this.selectedAddcostrecmst.createdBy + " " + this.selectedAddcostrecmst.createdDate;
+  this.modifiedBy = this.selectedAddcostrecmst.modifiedBy + " " + this.selectedAddcostrecmst.modifiedDate; 
         this.editMode = true;
         this.formUser.controls['transNo'].disable();   
         this.formUser.controls['transDate'].disable();     
