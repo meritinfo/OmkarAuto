@@ -278,7 +278,11 @@ namespace FinTrans.Repository
                                 InputEligible   = Convert.ToString(dataSet.Tables[0].Rows[i]["InputEligible"]),
                                 AttatchFile1    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile1"]),
                                 AttatchFile2    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile2"]),
-                                ModifyRemarks   = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                             });
                         }
 

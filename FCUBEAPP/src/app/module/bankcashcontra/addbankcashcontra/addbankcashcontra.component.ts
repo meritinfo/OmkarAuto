@@ -39,7 +39,10 @@ export class AddbankcashcontraComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
+  createdBy:string = "";
+  modifiedBy:string = "";
+
   
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel,  private sharedService: SharedService,
@@ -64,12 +67,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -139,6 +142,8 @@ dashboard: string ="";
         this.formBankContra.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate),
         }); 
+        this.createdBy = this.selectedBankCashContraDetails.createdBy + " " + this.selectedBankCashContraDetails.createdDate;
+        this.modifiedBy = this.selectedBankCashContraDetails.modifiedBy + " " + this.selectedBankCashContraDetails.modifiedDate;   
         this.editMode=true;
         this.formBankContra.controls['modifyRemarks'].enable();
         this.formBankContra.controls['modifyRemarks'].setValidators([Validators.required]);

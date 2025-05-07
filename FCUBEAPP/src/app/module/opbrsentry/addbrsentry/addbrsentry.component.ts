@@ -36,9 +36,11 @@ export class AddbrsentryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
+  createdBy:string = "";
+  modifiedBy:string = "";
   selectedBrsEntryDetails = new Brsentrymodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
@@ -115,6 +117,8 @@ dashboard: string ="";
           chequeDate: this.commonService.formatDate(this.selectedBrsEntryDetails.chequeDate),
           typeSign: this.selectedBrsEntryDetails.typesign
         })     
+        this.createdBy = this.selectedBrsEntryDetails.createdBy + " " + this.selectedBrsEntryDetails.createdDate;
+        this.modifiedBy = this.selectedBrsEntryDetails.modifiedBy + " " + this.selectedBrsEntryDetails.modifiedDate;  
         this.editMode = true;
         this.sharedService.loading = false;
       }

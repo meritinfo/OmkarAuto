@@ -25,10 +25,13 @@ export class AddcashreceiptentryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branchname: string = '';
   loginDate: string = '';
   year: string = '';
+  createdBy:string = "";
+  modifiedBy:string = "";
+
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
@@ -138,6 +141,8 @@ dashboard: string ="";
           this.formCashRRecEntry.controls['refType'].disable();
           this.formCashRRecEntry.controls['refNo'].disable();
         }
+        this.createdBy = this.selectedCashReceiptEntryDetails.createdBy + " " + this.selectedCashReceiptEntryDetails.createdDate;
+        this.modifiedBy = this.selectedCashReceiptEntryDetails.modifiedBy + " " + this.selectedCashReceiptEntryDetails.modifiedDate;   
         this.editMode=true;
         this.formCashRRecEntry.controls['modifyRemarks'].enable();
         this.getCashReceiptPaymentInnerGridList();

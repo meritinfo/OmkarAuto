@@ -217,6 +217,10 @@ namespace FinTrans.Repository
                                 AcHeader = Convert.ToString(dataSet.Tables[0].Rows[i]["AcHeader"]),
                                 AccountOf = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountOf"]),
                                 Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             }) ;
                         }
 

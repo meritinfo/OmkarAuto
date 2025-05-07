@@ -208,7 +208,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "OpBrsEntryList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOpBrsEntryList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -219,13 +219,10 @@ namespace FinTrans.Repository
                             {
                                 TransId = Convert.ToString(dataSet.Tables[0].Rows[i]["TransId"]),
                                 TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
-
                                 DebitRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DebitRs"]),
                                 BankAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAc"]),
-                                DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
-                           
+                                DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),                           
                                 CreditRs = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditRs"]),
-
                                 ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
                                 ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
                                 Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
@@ -234,10 +231,10 @@ namespace FinTrans.Repository
                                 OtherAc = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAc"]),
                                 AmountRs = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountRs"]),
                                 Typesign = Convert.ToString(dataSet.Tables[0].Rows[i]["Typesign"]),
-                               // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-
-
-
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

@@ -8,8 +8,7 @@ export class Brsentrymodel {
     debitRs: string = "";
     creditRs: string = "";
     chequeNo: string = "";
-    chequeDate: string = "";
-   
+    chequeDate: string = "";   
     narration: string = "";
     clearDate: string = "";
     yearId: string = "";
@@ -17,6 +16,11 @@ export class Brsentrymodel {
     typesign: string = "";
     otherAc: string = "";
     branchCode: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
   
     loggedInUser: string = "";
 

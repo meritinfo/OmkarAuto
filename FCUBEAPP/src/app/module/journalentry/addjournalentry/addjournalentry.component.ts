@@ -25,10 +25,13 @@ export class AddjournalentryComponent{
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branchname: string = '';
   loginDate: string = '';
   year: string = '';
+  createdBy:string = "";
+  modifiedBy:string = "";
+
   locationList: Dropdownmodel[] = [];
   finRefTypes: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -65,12 +68,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -134,7 +137,10 @@ dashboard: string ="";
         }); 
         if(this.selectedJournalEntryDetails.linkedYN=='Y'){     
           this.formJournalEntry.controls['refNo'].disable();
-        }
+        } 
+        this.createdBy = this.selectedJournalEntryDetails.createdBy + " " + this.selectedJournalEntryDetails.createdDate;
+        this.modifiedBy = this.selectedJournalEntryDetails.modifiedBy + " " + this.selectedJournalEntryDetails.modifiedDate;   
+        
         this.editMode=true;
         this.formJournalEntry.controls['modifyRemarks'].enable();
         this.getCashReceiptPaymentInnerGridList();
