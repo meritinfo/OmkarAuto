@@ -4,7 +4,6 @@ export class Trippaymentsmodel {
     pmtDate: string = "";
     vehicleMasterID: string = "";
     transType: string = "";
-    amountPaid: string = "";
     remarks: string = "";
     pmtType: string = "";
     neftPmt: string = "";
@@ -16,9 +15,22 @@ export class Trippaymentsmodel {
     adjInTrip: string = "";
     qtyLtrs: string = "";
     ratePerLtr: string = "";
-        
+    amountPaid: string = "";
+    withLRYN: string = "";
+    consignmentId: string = "";
+    gcNoteNo: string = "";
+    bookingDate: string = "";
+    fromPlace: string = "";
+    toPlace: string = "";
+    kmr: string = "";
+    attachment1: string = "";
+    attachment2: string = "";        
     bName: string = "";
     vehicleNo: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     
     yearId: string = "";
     loggedInUser: string = "";

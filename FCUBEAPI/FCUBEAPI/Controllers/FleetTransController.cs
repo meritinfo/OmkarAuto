@@ -30,26 +30,14 @@ namespace FCUBEAPI.Controllers
         readonly ITyreActivateMasterBusiness tyreActivateMasterBusiness;
         readonly ITyreDeActivateMasterBusiness tyreDeActivateMasterBusiness;
         readonly ITyreRegroupIssueMasterBusiness tyreRegroupIssueMasterBusiness;
-        readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
-
-     
-     
-   
-   
+        readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;  
         readonly IVehiEmiBusiness vehiEmiBusiness;
         readonly ITyreRegroupRecdMasterBusiness tyreRegroupRecdMasterBusiness;
         readonly IFleetLoadEntryBusiness fleetLoadEntryBusiness;
         readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
-        readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
-   
-        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
-    
-   
-  
-      
-    
-   
+        readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;   
+        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness; 
         readonly IFastTagBusiness fastTagBusiness;
         readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
@@ -63,14 +51,9 @@ namespace FCUBEAPI.Controllers
             IDieselStatementBusiness _dieselStatementBusiness, 
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
-    
-        
             ITyrePurchaseMasterBusiness _tyrePurchaseMasterBusiness,
             ITyreActivateMasterBusiness _tyreActivateMasterBusiness,
-            ITyreDeActivateMasterBusiness _tyreDeActivateMasterBusiness,
-          
-        
-        
+            ITyreDeActivateMasterBusiness _tyreDeActivateMasterBusiness,        
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
             ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
@@ -79,12 +62,7 @@ namespace FCUBEAPI.Controllers
             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
-            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
-      
-          
-      
-         
-     
+            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,     
             IFastTagBusiness _fastTagBusiness,
             ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness,
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
@@ -98,14 +76,10 @@ namespace FCUBEAPI.Controllers
             tripSheetBusiness = _tripSheetBusiness;
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
-            driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
-        
-       
+            driverSalaryStmtBusiness = _driverSalaryStmtBusiness;   
             tyrePurchaseMasterBusiness = _tyrePurchaseMasterBusiness;
             tyreActivateMasterBusiness = _tyreActivateMasterBusiness;
             tyreDeActivateMasterBusiness = _tyreDeActivateMasterBusiness;
-        
-         
             vehiEmiBusiness = _vehiEmiBusiness;
             vehicleInstPmtBusiness = _vehicleInstPmtBusiness;
             tyreRegroupIssueMasterBusiness = _tyreRegroupIssueMasterBusiness;
@@ -115,11 +89,7 @@ namespace FCUBEAPI.Controllers
             tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
-         
-            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
-          
-        
-  
+            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;  
             fastTagBusiness = _fastTagBusiness;
             tripEnrouteExpByCompanyBusiness= _tripEnrouteExpByCompanyBusiness;
             fastagDslRechargeEntryBusiness = _fastagDslRechargeEntryBusiness;
@@ -146,6 +116,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLrDtlsForTripPmts")]
+        public async Task<IActionResult> GetLrDtlsForTripPmts(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsBusiness.GetLrDtlsForTripPmts(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }       
 
 
         [HttpPost("TripPaymentsDelete")]
@@ -197,14 +186,52 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("TripPaymentsSave")]
-        public async Task<IActionResult> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
+        public async Task<IActionResult> TripPaymentsSave()
         {
-            if (tripPaymentsModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var attachment1 = HttpContext.Request.Form.Files["attachment1"];
+                var attachment2 = HttpContext.Request.Form.Files["attachment2"];
+
+                TripPaymentsModel tripPaymentsModel = JsonConvert.DeserializeObject<TripPaymentsModel>(HttpContext.Request.Form["datadetails"]);
+                tripPaymentsModel.Attachment1 = "";
+                tripPaymentsModel.Attachment2 = "";
+
+                if (attachment1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachment1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachment1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/trippayments/attachment1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachment1.CopyToAsync(fileStream);
+                        tripPaymentsModel.Attachment1 = imageName;
+                    }
+                }
+                if (attachment2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachment2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachment2.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/trippayments/attachment2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachment2.CopyToAsync(fileStream);
+                        tripPaymentsModel.Attachment2 = imageName;
+                    }
+                }
+
                 var result = await tripPaymentsBusiness.TripPaymentsSave(tripPaymentsModel);
 
                 return Ok(result);
@@ -214,6 +241,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTripPaymentsList")]
         public async Task<IActionResult> GetTripPaymentsList(ReportRequestModel request)
         {

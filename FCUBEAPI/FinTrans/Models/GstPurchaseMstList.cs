@@ -1,4 +1,6 @@
 ﻿
+using Shared.Models;
+
 namespace FinTrans.Models
 {
     public class GstPurchaseMstList

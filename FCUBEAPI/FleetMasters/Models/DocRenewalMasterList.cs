@@ -1,4 +1,6 @@
 ﻿
+using Shared.Models;
+
 namespace FleetMasters.Models
 {
     public class DocRenewalMasterList

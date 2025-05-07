@@ -47,10 +47,11 @@ export class TrippaymentslistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   createmode = false;
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
+
   constructor(private formBuilder: FormBuilder,private trippaymentService: TripPaymentsService, 
     private commonService: CommonService, private route: Router) {
   }
@@ -71,13 +72,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -87,7 +87,6 @@ dashboard: string ="";
       this.route.navigate([this.dashboard]);
     }
 
-
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
@@ -95,10 +94,7 @@ dashboard: string ="";
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
     this.fromDate = this.minDate ;
-
-
 
     this.trippaymentService.clearTripPaymentsDetails();
     this.formFilter = this.formBuilder.group({
@@ -148,7 +144,6 @@ dashboard: string ="";
           });
         });
       },
-
         // Set column title and data field
       columns: [    
         {
@@ -226,8 +221,7 @@ dashboard: string ="";
 
   search(): void {
     debugger;
-    var selectedData = this.formFilter.getRawValue();
-   
+    var selectedData = this.formFilter.getRawValue();   
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
    // this.filter.filterStr = selectedData.branch;

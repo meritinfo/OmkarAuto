@@ -25,9 +25,22 @@ namespace FleetTrans.Models
         public string? AdjInTrip { get; set; }
         public string? QtyLtrs { get; set; }
         public string? RatePerLtr { get; set; }
-        public string? YearId { get; set; }
+        public string? WithLRYN { get; set; }
+        public string? ConsignmentId { get; set; }
+        public string? GcNoteNo { get; set; }
+        public string? BookingDate { get; set; }
+        public string? FromPlace { get; set; }
+        public string? ToPlace { get; set; }
+        public string? Kmr { get; set; }
+        public string? Attachment1 { get; set; }
+        public string? Attachment2 { get; set; }
         public string? BName { get; set; }
         public string? VehicleNo { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+        public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
      
     }

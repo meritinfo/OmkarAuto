@@ -1,8 +1,8 @@
-﻿namespace AdminMasters.Models
-{
-    /// <summary>
-    ///User List class
-    /// </summary>
+﻿
+using Shared.Models;
+
+namespace AdminMasters.Models
+{ 
     public class UserMasterList
     {
         public List<UserMasterModel> UserList { get; set; }

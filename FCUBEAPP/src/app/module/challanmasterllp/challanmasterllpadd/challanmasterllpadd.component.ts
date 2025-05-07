@@ -79,7 +79,8 @@ export class ChallanmasterllpaddComponent {
    @ViewChild('truckDriverImageInput', {
     static: true
   }) truckDriverImageInput: any;
-   constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
+
+  constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
     private challanmasterService: ChallanmasterServiceLLP,
     private commonService: CommonService,  private sharedService: SharedService,
     private lrentryService: ConsignmentService,
@@ -365,9 +366,9 @@ export class ChallanmasterllpaddComponent {
         this.formUser.controls["modifyRemarks"].enable();   
         this.getFinDocDetails(this.selectedChallanDetails.ftmid);
         this.getChallanInnerGridList();   
-       // this.getCCIInvoiceMstDetail(); 
-       this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
-       this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;   
+        // this.getCCIInvoiceMstDetail(); 
+        this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
+        this.modifiedBy = this.selectedChallanDetails.modifiedBy + " " + this.selectedChallanDetails.modifiedDate;   
         this.editMode = true; 
         if(this.selectedChallanDetails.containerNo!=""){
           this.formUser.patchValue({

@@ -1,7 +1,7 @@
 ﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using System.Collections.Generic;
+using Consignment.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 
@@ -43,6 +43,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ChequeDate", tripPaymentsModel.ChequeDate),
                             new SqlParameter("@QtyLtrs", tripPaymentsModel.QtyLtrs),
                             new SqlParameter("@RatePerLtr", tripPaymentsModel.RatePerLtr),
+                            new SqlParameter("@WithLRYN", tripPaymentsModel.WithLRYN),
+                            new SqlParameter("@ConsignmentId", tripPaymentsModel.ConsignmentId),
+                            new SqlParameter("@Kmr", tripPaymentsModel.Kmr),
+                            new SqlParameter("@Attachment1", tripPaymentsModel.Attachment1),
+                            new SqlParameter("@Attachment2", tripPaymentsModel.Attachment2),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
@@ -69,6 +74,87 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request)
+        {
+            TripPaymentsList tripPaymentsList = new();
+            List<TripPaymentsModel> tripPayList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                          //  new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Vehicle",    request.FilterStr1)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tripPayList.Add(new TripPaymentsModel
+                            {
+                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+                                PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                                TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
+                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
+                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
+                                ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
+                                ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
+                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
+                                AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
+                                QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+                                RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
+                                WithLRYN = Convert.ToString(dataSet.Tables[0].Rows[i]["WithLRYN"]),
+                                ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                Kmr = Convert.ToString(dataSet.Tables[0].Rows[i]["Kmr"]),
+                                Attachment1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachment1"]),
+                                Attachment2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachment2"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                            });
+                        }
+
+                        tripPaymentsList.tripPaymentsList = tripPayList;
+
+                        tripPaymentsList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tripPaymentsList;
         }
         public async Task<TripModel> GetTripDetail(TripVehicleModel request)
         {
@@ -97,8 +183,6 @@ namespace FleetTrans.Repository
                     else
                     {
 
-                        //tripKmsModel.Status = false;
-                        // tripKmsModel.Message = "data not found";
                     }
                 }
             }
@@ -118,9 +202,6 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@TripId", request.strRequest),
-                           // new SqlParameter("@TripStatus", request.TripStatus),
-                           // new SqlParameter("@TripNo", request.TripNo),
-
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripFromAndToDetail", param);
 
@@ -131,17 +212,12 @@ namespace FleetTrans.Repository
                         tripModel.FP = Convert.ToString(userData.Tables[0].Rows[0]["FP"]);
                         tripModel.TP = Convert.ToString(userData.Tables[0].Rows[0]["TP"]);
                         tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
-                        //tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
                         tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
                         tripModel.TripId = Convert.ToString(userData.Tables[0].Rows[0]["TripId"]);
-                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
-                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
                     }
                     else
                     {
 
-                        //tripKmsModel.Status = false;
-                        // tripKmsModel.Message = "data not found";
                     }
                 }
             }
@@ -316,117 +392,37 @@ namespace FleetTrans.Repository
             }
             return creditacList;
         }
-        /// <summary>
-        /// Service method for get branch list
-        /// </summary>
-        /// <returns>List<BranchListModel></returns>
-        //public async Task<ResponseModel> TripPaymentsDelete(Request req)
-        //{
-        //    ResponseModel responseModel = new();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@MasterID", req.strRequest),
-        //                };
-        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_TripPaymentsDelete", param);
-
-        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-        //            {
-        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-        //            }
-        //            else
-        //            {
-        //                responseModel.Status = false;
-        //                responseModel.Message = "Unable to process";
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception on database
-        //        //ExceptionModel exceptionModel = new()
-        //        //{
-        //        //    ExceptionMessage = Convert.ToString(ex.Message),
-        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
-        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
-        //        //};
-
-        //        //ExceptionRepository exception = new(dbconnection);
-        //        //await exception.SaveExceptionDetails(exceptionModel);
-        //    }
-        //    return responseModel;
-        //}
-        public async Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request)
+        public async Task<ConsignmentModel> GetLrDtlsForTripPmts(RequestModel req)
         {
-            TripPaymentsList tripPaymentsList = new();
-            List<TripPaymentsModel> tripPayList = new();
+            ConsignmentModel lrmodel = new();
             try
             {
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize",   request.PageSize),
-                            new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder",  request.SortOrder),
-                            new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                          //  new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@Vehicle",    request.FilterStr1)
+                            new SqlParameter("@TruckNo", req.strRequest),
+                            new SqlParameter("@PmtDate", req.strRequest1),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLrDetailsForTripPmt", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                        {
-                            tripPayList.Add(new TripPaymentsModel
-                            {
-                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
-                                PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
-                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
-                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
-                                TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
-                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
-                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
-                                NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
-                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
-                                ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
-                                ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
-                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
-                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
-                                AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
-                                QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
-                                RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
-                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                            });
-                        }
-
-                        tripPaymentsList.tripPaymentsList = tripPayList;
-
-                        tripPaymentsList.PageMetaData = new PaginationMetaData
-                        {
-                            TotalCount = totalRecords,
-                            CurrentPage = request.PageNumber
-                        };
+                        lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
+                        lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
+                        lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.FPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FPlace"]);
+                        lrmodel.TPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["TPlace"]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
-            return tripPaymentsList;
+            return lrmodel;
         }
+
     }
 }
