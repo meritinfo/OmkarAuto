@@ -37,5 +37,6 @@ namespace FleetTrans.Models
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DieselStatementSearchModel> DieselStatementListData { get; set; }
+        public List<DieselStmtDtlsModel> DieselStmtDtlsList { get; set; }
     }
 }

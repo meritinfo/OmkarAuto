@@ -83,8 +83,8 @@
                         </thead>
                         <tbody *ngIf="allDieselStatement.dieselList?.length != 0">
                             <tr *ngFor="let dsl of allDieselStatement.dieselList">
-                                <td>{{ dsl.accountName }}</td>                        
-                                <td>{{ dsl.stmtDate}}</td>
+                                <td>{{ dsl.vendor }}</td>                        
+                                <td>{{ dsl.billStmtDate}}</td>
                                 <td>{{ dsl.fromDate}}</td>
                                 <td>{{ dsl.toDate}}</td>                    
                                 <td>

@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dieselstmtmodel } from 'src/app/models/dieselstmtmodel';
-import { Dieselstmtlistmodel } from 'src/app/models/dieselstmtlistmodel';
+import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
+import { Dieselstatementlistmodel } from 'src/app/models/dieselstatementlistmodel';
 import { DieselstmtService } from 'src/app/services/dieselstmt.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
@@ -37,7 +37,7 @@ dashboard: string ="";
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
-  allDieselStatement: Dieselstmtlistmodel = new Dieselstmtlistmodel();
+  allDieselStatement: Dieselstatementlistmodel = new Dieselstatementlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -97,7 +97,7 @@ dashboard: string ="";
     
     
 
-    this.dieselStatementService.clearDieselStatementDetails();
+    this.dieselStatementService.clearDieselImportDetails();
     this.formFilter = this.formBuilder.group({
       dfAccount: new FormControl(''),
       fromDate: new FormControl(this.fromDate,),
@@ -135,7 +135,7 @@ dashboard: string ="";
           recordsFiltered: 0,
           data: []
         });
-        this.dieselStatementService.getDieselStatementList(this.filter)
+        this.dieselStatementService.getDieselImportList(this.filter)
           .subscribe(resp => {
             this.allDieselStatement = resp;
             callback({
@@ -148,11 +148,11 @@ dashboard: string ="";
       columns: [
         {
           title: 'Account ',
-          data: 'accountName',
+          data: 'vendor',
         },
         {
           title: 'Stmt Date ',
-          data: 'stmtDate',
+          data: 'billStmtDate',
         },
         {
           title: 'From Date ',
@@ -164,7 +164,7 @@ dashboard: string ="";
         },
         {
           title: 'Action',
-          data: 'dfMasterID',
+          data: 'masterID',
         },
       ],
     };
@@ -200,8 +200,8 @@ dashboard: string ="";
   }
 
   //Open user details screen
-  getDieselStatementDetails(dieselstmt: Dieselstmtmodel): void {
-    this.dieselStatementService.setDieselStatementDetails(dieselstmt);
+  getDieselStatementDetails(dieselstmt: Dieselstatementmodel): void {
+    this.dieselStatementService.setDieselImportDetails(dieselstmt);
     this.route.navigate(['/dieselimpedit']);
   }
 
