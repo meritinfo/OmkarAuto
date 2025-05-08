@@ -20,6 +20,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-firstname-input">Payment Branch</label>
+                                                <span style="color: red">*</span>
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="pmtBranch"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtBranch'].invalid) }">
@@ -33,6 +34,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-lastname-input">Payment Date</label>
+                                                <span style="color: red">*</span>
                                                 <input type="date" autoclose="false"  max="{{maxDate}}"
                                                       formControlName="pmtDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }" 
@@ -42,6 +44,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="basicpill-firstname-input">LR</label>
+                                                <span style="color: red">*</span>
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="withLRYN"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['withLRYN'].invalid) }">
@@ -53,6 +56,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-firstname-input">Vehicle</label>
+                                                <span style="color: red">*</span>
                                                 <ng-autocomplete [data]="vehicleList"
                                                     [searchKeyword]="keywordLocation"  
                                                     formControlName="vehicleMasterID" [initialValue]=""
@@ -107,6 +111,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Trans Type</label>
+                                                <span style="color: red">*</span>
                                                 <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="transType"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }"
@@ -150,6 +155,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-email-input">Amount</label>
+                                                <span style="color: red">*</span>
                                                 <input type="text" class="form-control" decimalonly
                                                     (change)="calculateTotalAmount()"
                                                     formControlName="amountPaid"  
@@ -161,6 +167,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Payment Type</label>
+                                                <span style="color: red">*</span>
                                                 <select formControlName="pmtType" 
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"  
@@ -175,7 +182,8 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Credit Ac </label>          
+                                                <label for="basicpill-phoneno-input">Credit Ac </label>    
+                                                <span style="color: red">*</span>      
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="creditAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
@@ -186,7 +194,7 @@
                                             </select>
                                             </div>
                                         </div>                                            
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label style="color: red"> 
                                                     <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 

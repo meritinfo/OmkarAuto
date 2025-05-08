@@ -37,6 +37,10 @@ namespace FinTrans.Models
         public string? AttatchFile1 { get; set; }
         public string? AttatchFile2 { get; set; }
         public string? ModifyRemarks { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public List<GstPurchaseDtlModel> GstPurchaseDetailsList { get; set; }
 

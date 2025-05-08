@@ -62,6 +62,11 @@ namespace HRMasters.Repository
                                 NetPay          = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPay"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
                             });
                         }
 
@@ -746,6 +751,11 @@ namespace HRMasters.Repository
                                 LoanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAmt"]),
                                 BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
                                 LoanAdjAmt =Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAdjAmt"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
                             });
                         }
                     }

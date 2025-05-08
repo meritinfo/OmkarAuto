@@ -38,6 +38,11 @@ export class Emppaygenmodel {
     balLoanAmt: string = "";
     balEL: string = "";
     balCL : string = "";
-    balSL: string = "";        
+    balSL: string = "";       
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+ 
     loggedInUser: string = "";
 }

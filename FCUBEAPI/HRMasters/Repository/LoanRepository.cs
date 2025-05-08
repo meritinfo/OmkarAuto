@@ -52,6 +52,10 @@ namespace HRMasters.Repository
                                 AmountCleared   = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountCleared"]),
                                 RepaymentMonths = Convert.ToString(dataSet.Tables[0].Rows[i]["RepaymentMonths"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 
@@ -208,6 +212,10 @@ namespace HRMasters.Repository
                                 AmountCleared   = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountCleared"]),
                                 LoanPayAmt      = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanPayAmt"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["PayDetails"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

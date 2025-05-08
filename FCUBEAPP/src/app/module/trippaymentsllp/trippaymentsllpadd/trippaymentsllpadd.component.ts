@@ -164,6 +164,13 @@ export class TrippaymentsllpaddComponent {
     setTimeout(() => {
      this.createmode = true;
      this.formTripPayment.controls['pmtBranch'].disable();
+     this.formTripPayment.controls['pmtDate'].disable();
+     this.formTripPayment.controls['bookingDate'].disable();
+     this.formTripPayment.controls['gcNoteNo'].disable();
+     this.formTripPayment.controls['fromPlace'].disable();
+     this.formTripPayment.controls['toPlace'].disable();
+     this.formTripPayment.controls['withLRYN'].disable();
+
       if (this.selectedTripPaymentsDetails.pmtId != '') {
         this.attachment1 = Constants.UploadFolderPath + 'trippayments/attachment1/' + this.selectedTripPaymentsDetails.attachment1;
         this.attachment2 = Constants.UploadFolderPath + 'trippayments/attachment2/' + this.selectedTripPaymentsDetails.attachment2;
@@ -266,28 +273,7 @@ export class TrippaymentsllpaddComponent {
     });
   }
 
-  tripPaymentsDelete(): void {    
-    if(this.selectedTripPaymentsDetails.pmtId != '' ){
-    this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
-      if (confirm("Are you sure, you want to delete this?")) {
-            this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formTripPayment.reset();
-              this.route.navigate(['/trippaymentlist']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-            }
-        });
-      }
-    }
-  }
-
-  exit(): void {
-    this.route.navigate(['/trippaymentlist']);
-  }
+  
   
   getCreditAcList(pmttp:string): void {
     this.requestmodel.strRequest= pmttp;
@@ -444,7 +430,28 @@ export class TrippaymentsllpaddComponent {
     this.getCreditAcList(selectedValue);
   }
   
- 
+  tripPaymentsDelete(): void {    
+    if(this.selectedTripPaymentsDetails.pmtId != '' ){
+    this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formTripPayment.reset();
+              this.route.navigate(['/trippaymentlistllp']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
+        });
+      }
+    }
+  }
+
+  exit(): void {
+    this.route.navigate(['/trippaymentlistllp']);
+  }
    
   submitTripPaymentsForm(): void {  
     if (this.formTripPayment.invalid) {
@@ -517,6 +524,9 @@ export class TrippaymentsllpaddComponent {
     this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs.toString();
     this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr.toString();
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();  
+    this.trippaymentsmodel.kmr = selectedDataValue.kmr.toString();    
+    this.trippaymentsmodel.withLRYN = selectedDataValue.withLRYN.toString();  
+    this.trippaymentsmodel.consignmentId = this.consignmentId;  
 
     this.trippaymentsmodel.yearId = this.year;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
@@ -531,7 +541,7 @@ export class TrippaymentsllpaddComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formTripPayment.reset();
-        this.route.navigate(['/trippaymentlist']);
+        this.route.navigate(['/trippaymentlistllp']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

@@ -39,8 +39,11 @@ export class AddbankreceiptentryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   neft: string="";
+  createdBy:string = "";
+  modifiedBy:string = "";
+
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel, private sharedService: SharedService,
@@ -65,12 +68,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
 
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -158,6 +161,9 @@ dashboard: string ="";
         else{
           this.editStatus=false;
         }
+        this.createdBy = this.selectedBankReceiptEntryDetails.createdBy + " " + this.selectedBankReceiptEntryDetails.createdDate;
+        this.modifiedBy = this.selectedBankReceiptEntryDetails.modifiedBy + " " + this.selectedBankReceiptEntryDetails.modifiedDate;   
+         
         this.editMode=true;
         this.formBankRecEntry.controls['modifyRemarks'].enable();
         this.getBankReceiptPaymentInnerGridList();

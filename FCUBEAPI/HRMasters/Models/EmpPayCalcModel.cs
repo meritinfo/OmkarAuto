@@ -26,6 +26,11 @@ namespace HRMasters.Models
         public string? NetPay { get; set; }
         public string? Remarks { get; set; }
         public string? BranchCode { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
         public string? LoggedInUser { get; set; }
         public List<EmpSalaryDtlModel> empSalaryDtlList { get; set; }
         public List<EmpLeaveModel> empLeavesList { get; set; }

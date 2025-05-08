@@ -52,7 +52,8 @@ dashboard: string ="";
     strRequest:'',
   }
 
-  formFilter!: FormGroup;
+  formFilter!: FormGroup;  
+  createdBy: string = "";
 
   constructor(private emppaygenerationService: EmppaygenerationService,
     private toasterService: ToastrService,private requestmodel: Requestmodel,
@@ -75,12 +76,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -161,6 +162,8 @@ dashboard: string ="";
         this.emppaygenerationService.getEmpPayGenerationList(this.filter).subscribe(resp => {
           this.allEmpsalaryMaster = resp;
           if(this.allEmpsalaryMaster.payGenMstList[0].psId!=""){
+            this.createdBy = this.allEmpsalaryMaster.payGenMstList[0].createdBy + 
+                  " " + this.allEmpsalaryMaster.payGenMstList[0].createdDate;
             this.editMode = true;
           }
           callback({

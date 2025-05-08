@@ -26,13 +26,15 @@ export class EmploanaddComponent{
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   branch: string = '';
+  createdBy:string = "";
+  modifiedBy:string = "";
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   empList: Dropdownmodel[] = [];
@@ -61,12 +63,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -99,8 +101,6 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-
 
     setTimeout(() => {
       this.getEmpList();
@@ -123,6 +123,8 @@ dashboard: string ="";
           loanDate: this.commonService.formatDate(this.selectedEmploanmodelDetails.loanDate),        
           empId: this.empList.find(e => e.dataId == this.selectedEmploanmodelDetails.empId),
         })
+        this.createdBy = this.selectedEmploanmodelDetails.createdBy + " " + this.selectedEmploanmodelDetails.createdDate;
+        this.modifiedBy = this.selectedEmploanmodelDetails.modifiedBy + " " + this.selectedEmploanmodelDetails.modifiedDate;   
 
         this.formEmployee.controls['empId'].disable(); 
         this.editMode = true;

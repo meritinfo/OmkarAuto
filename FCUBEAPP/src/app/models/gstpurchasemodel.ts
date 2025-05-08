@@ -32,6 +32,11 @@ export class Gstpurchasemodel {
     attatchFile1:       string = "";
     attatchFile2:       string = "";
     modifyRemarks:      string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
     loggedInUser:       string = "";
 
     gstPurchaseDetailsList: Gstaccountdetailsmodel[] = [];  

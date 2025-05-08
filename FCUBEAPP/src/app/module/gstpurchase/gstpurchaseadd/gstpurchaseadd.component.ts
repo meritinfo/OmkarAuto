@@ -36,7 +36,7 @@ export class GstpurchaseaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -46,6 +46,9 @@ dashboard: string ="";
   stateList: Dropdownmodel[] = [];
   paymentTypes:Dropdownmodel[]=[];
   seriesDoc: string = "";
+  createdBy:string = "";
+  modifiedBy:string = "";
+
 
   selectedGstpurchaseDetails = new Gstpurchasemodel(); 
   attach1: string = "";
@@ -84,12 +87,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }    
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -124,8 +127,6 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-
-
     
     this.formGSTPurchase = this.formBuilder.group({
       branchCode: new FormControl(this.branchid,[Validators.required]),
@@ -351,7 +352,9 @@ dashboard: string ="";
           }
           this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
           this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
-        }        
+        }      
+        this.createdBy = this.selectedGstpurchaseDetails.createdBy + " " + this.selectedGstpurchaseDetails.createdDate;
+        this.modifiedBy = this.selectedGstpurchaseDetails.modifiedBy + " " + this.selectedGstpurchaseDetails.modifiedDate;    
         this.editMode = true;
         this.getGstPurchageInnerGridList(); 
         this.formGSTPurchase.controls['noVender'].disable();

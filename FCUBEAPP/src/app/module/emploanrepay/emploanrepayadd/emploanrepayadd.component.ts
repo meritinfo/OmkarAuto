@@ -26,13 +26,16 @@ export class EmploanrepayaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   branch: string = '';
+  createdBy: string = "";
+  modifiedBy: string = "";
+
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   empList: Dropdownmodel[] = [];
@@ -48,7 +51,6 @@ dashboard: string ="";
   }
 
   ngOnInit(): void {
-
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -63,12 +65,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -95,34 +97,31 @@ dashboard: string ="";
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
+    this.fromDate = this.minDate ;    
 
     //setTimeout(() => {
       this.getEmpList();
     //}, 2000);   
 
-      this.selectedEmploanmodelDetails = this.emploanService.getEmpLoanDetails();
-      this.formEmployee = this.formBuilder.group({
-        empId : new FormControl('', [Validators.required]),         
-        paymentDate : new FormControl(this.loginDate, [Validators.required]),             
-        loanId : new FormControl('', [Validators.required]),          
-        loanAmt : new FormControl('',),          
-        amountCleared : new FormControl('',),        
-        balance : new FormControl('',),        
-        loanPayAmt : new FormControl('', [Validators.required]),           
-        remarks : new FormControl('',[Validators.required]),       
-      });
-
-      
-      this.formEmployee.controls["loanAmt"].disable(); 
-      this.formEmployee.controls["amountCleared"].disable(); 
-      this.formEmployee.controls["balance"].disable(); 
+    this.selectedEmploanmodelDetails = this.emploanService.getEmpLoanDetails();
+    this.formEmployee = this.formBuilder.group({
+      empId : new FormControl('', [Validators.required]),         
+      paymentDate : new FormControl(this.loginDate, [Validators.required]),             
+      loanId : new FormControl('', [Validators.required]),          
+      loanAmt : new FormControl('',),          
+      amountCleared : new FormControl('',),        
+      balance : new FormControl('',),        
+      loanPayAmt : new FormControl('', [Validators.required]),           
+      remarks : new FormControl('',[Validators.required]),       
+    });
+    
+    this.formEmployee.controls["loanAmt"].disable(); 
+    this.formEmployee.controls["amountCleared"].disable(); 
+    this.formEmployee.controls["balance"].disable(); 
 
 
     setTimeout(() => {
@@ -138,6 +137,9 @@ dashboard: string ="";
 
         this.formEmployee.controls['empId'].disable(); 
         this.formEmployee.controls['loanId'].disable(); 
+        this.createdBy = this.selectedEmploanmodelDetails.createdBy + " " + this.selectedEmploanmodelDetails.createdDate;
+        this.modifiedBy = this.selectedEmploanmodelDetails.modifiedBy + " " + this.selectedEmploanmodelDetails.modifiedDate;   
+
         this.editMode = true;
       }
     }, 2000);

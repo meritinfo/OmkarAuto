@@ -36,9 +36,11 @@ export class AddbrsentryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
+  createdBy:string = "";
+  modifiedBy:string = "";
   selectedBrsEntryDetails = new Brsentrymodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
@@ -64,12 +66,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -115,6 +117,8 @@ dashboard: string ="";
           chequeDate: this.commonService.formatDate(this.selectedBrsEntryDetails.chequeDate),
           typeSign: this.selectedBrsEntryDetails.typesign
         })     
+        this.createdBy = this.selectedBrsEntryDetails.createdBy + " " + this.selectedBrsEntryDetails.createdDate;
+        this.modifiedBy = this.selectedBrsEntryDetails.modifiedBy + " " + this.selectedBrsEntryDetails.modifiedDate;  
         this.editMode = true;
         this.sharedService.loading = false;
       }

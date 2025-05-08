@@ -82,6 +82,8 @@ namespace HRMasters.Repository
                                 BalEL           = Convert.ToString(dataSet.Tables[0].Rows[i]["BalEL"]),
                                 BalCL           = Convert.ToString(dataSet.Tables[0].Rows[i]["BalCL"]),
                                 BalSL           = Convert.ToString(dataSet.Tables[0].Rows[i]["BalSL"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                             });
                         }
 
