@@ -26,6 +26,10 @@ export class Fleetloadentrymodel {
     tripId: string = "";
     tripBrName: string = "";
     vehicleNo: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser: string = "";
 
 }

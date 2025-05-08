@@ -24,6 +24,12 @@ export class VehicleadvbalreceiptModel {
   vehicleNo: string = "";
   branchName: string = "";
   loggedInUser: string = "";
+  
+  createdBy: string = "";
+  createdDate: string = "";
+  modifiedBy: string = "";
+  modifiedDate: string = "";
+
 
   vehicleAdvBalReceiptDtlList: VehicleadvbalreceiptdtllistModel[] = [];
 }

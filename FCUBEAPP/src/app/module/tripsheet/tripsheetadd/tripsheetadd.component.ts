@@ -33,6 +33,8 @@ export class TripsheetaddComponent {
 dashboard: string ="";
   editMode = false;
   detailMode = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   formTripsheet!: FormGroup;
   formSubmitted = false;
@@ -255,6 +257,8 @@ dashboard: string ="";
           this.formTripsheet.controls['clBalDsl'].disable();           
         }
         this.editMode = true;
+        this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
+        this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate;   
         this.getTripSheetInnerGridList();
       }  
       else{        

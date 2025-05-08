@@ -25,6 +25,8 @@ export class TyresalesaddComponent {
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   customerid = '';
   minDate: string = '';
   createStatus = false;
@@ -166,6 +168,8 @@ dashboard: string ="";
         }
         this.getSalesInnerGridList();
         this.editMode =true;
+        this.createdBy = this.selectedTyresalesDetail.createdBy + " " + this.selectedTyresalesDetail.createdDate;
+        this.modifiedBy = this.selectedTyresalesDetail.modifiedBy + " " + this.selectedTyresalesDetail.modifiedDate;   
       }, 2000);  
     }
   }

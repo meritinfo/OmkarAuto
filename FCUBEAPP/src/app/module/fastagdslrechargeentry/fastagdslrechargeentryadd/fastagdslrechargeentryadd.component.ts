@@ -32,6 +32,9 @@ export class FastagdslrechargeentryaddComponent {
 dashboard: string ="";
   maxDate: string = '';
   loginDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
+
   branch: string = '';
   minDate: string = '';
   fromDate: string = '';
@@ -136,6 +139,8 @@ dashboard: string ="";
       if (this.selectedFastagdslrechargeentryDetails.transId != '') {
         this.formFasttagDsl.patchValue(this.selectedFastagdslrechargeentryDetails);   
         this.editMode=true;    
+        this.createdBy = this.selectedFastagdslrechargeentryDetails.createdBy + " " + this.selectedFastagdslrechargeentryDetails.createdDate;
+        this.modifiedBy = this.selectedFastagdslrechargeentryDetails.modifiedBy + " " + this.selectedFastagdslrechargeentryDetails.modifiedDate;  
         this.formFasttagDsl.controls["transType"].disable();
         this.formFasttagDsl.controls["paymentType"].disable();
         this.formFasttagDsl.controls["creditAc"].disable();

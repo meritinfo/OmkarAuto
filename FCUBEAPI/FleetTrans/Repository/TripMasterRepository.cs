@@ -362,6 +362,12 @@ namespace FleetTrans.Repository
                                 DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
                                 NextTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["NextTrip"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
+
                             });
                         }
 

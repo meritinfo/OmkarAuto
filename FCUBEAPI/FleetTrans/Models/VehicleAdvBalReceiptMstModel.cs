@@ -32,6 +32,11 @@ namespace FleetTrans.Models
         public string? YearId { get; set; }
         public string? VehicleNo { get; set; }
         public string? BranchName{ get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
+
         public string? LoggedInUser { get; set; }
       
         public List<VehicleAdvBalReceiptDtlListmodel>? VehicleAdvBalReceiptDtlList { get; set; }

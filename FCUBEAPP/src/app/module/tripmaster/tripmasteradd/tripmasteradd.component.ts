@@ -23,6 +23,10 @@ export class TripmasteraddComponent {
   loginDate: string = '';
   branch:string = '';
   minDate: string = '';
+  
+  createdBy : string = "";
+    modifiedBy: string = "";
+
   maxDate: string = '';
   fromDate: string = '';
 
@@ -235,6 +239,10 @@ dashboard: string ="";
           this.formTripsheet.controls['clBalDsl'].disable();           
         }
         this.editMode = true;
+        
+
+  this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
+  this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate; 
         this.getTripSheetInnerGridList();
       }  
       else{        

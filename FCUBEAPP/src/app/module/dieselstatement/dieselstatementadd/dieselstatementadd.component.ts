@@ -28,6 +28,8 @@ export class DieselstatementaddComponent implements OnInit {
   minDate: string = '';
   maxDate: string = '';
   branch: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   branchList: Dropdownmodel[] = [];
   vendorList:Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
@@ -151,6 +153,9 @@ dashboard: string ="";
         if(this.selectedDieselStmtDetails.findocid!="0"){
           this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
         }
+        
+  this.createdBy = this.selectedDieselStmtDetails.createdBy + " " + this.selectedDieselStmtDetails.createdDate;
+  this.modifiedBy = this.selectedDieselStmtDetails.modifiedBy + " " + this.selectedDieselStmtDetails.modifiedDate;  
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  

@@ -17,6 +17,10 @@ export class Driversalarypaymentmodel {
     driver: string = "";
     vehicle: string = "";
     loggedInUser: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 }
    
    

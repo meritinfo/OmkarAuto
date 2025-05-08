@@ -31,6 +31,10 @@ namespace FleetTrans.Models
         public string? TotalNetAmount { get; set; }      
         public string? BranchCode { get; set; }
         public string? YearId { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DieselStatementSearchModel> DieselStatementListData { get; set; }
     }

@@ -46,4 +46,8 @@ export class Custwizardmodel {
     flt_FrtDedAc: string = "";
     flt_TdsDedAc: string = "";
     flt_OthDedAc: string= "";
+    hsdAc: string = "";
+    dslDiscAc: string = "";
+    dslTdsAc: string= "";
+    
 }

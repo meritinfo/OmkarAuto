@@ -44,6 +44,8 @@ dashboard: string ="";
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
  
 
   createmode = false;
@@ -138,10 +140,15 @@ this.createmode = true;
 setTimeout(() => {
 if (this.selectedVehicleInstPmtDetail.pmtId != '') {
   this.editMode = true;
+  
+  this.createdBy = this.selectedVehicleInstPmtDetail.createdBy + " " + this.selectedVehicleInstPmtDetail.createdDate;
+     this.modifiedBy = this.selectedVehicleInstPmtDetail.modifiedBy + " " + this.selectedVehicleInstPmtDetail.modifiedDate; 
+
   this.formUser.patchValue(this.selectedVehicleInstPmtDetail);
   
   //this.formUser.controls['tripNo'].disable();
  // this.formUser.controls['truckNo'].disable();
+
 this.formUser.patchValue({
   //isActive: this.selectedTruckMasterDetail.isActive,
   pmtDate: this.commonService.formatDate(this.selectedVehicleInstPmtDetail.pmtDate),

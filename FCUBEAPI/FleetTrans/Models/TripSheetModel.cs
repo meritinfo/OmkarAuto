@@ -77,6 +77,10 @@ namespace FleetTrans.Models
         public string? RtaChallanAmt { get; set; }
         public string? PaidToDriver { get; set; }
         public string? Remarks { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DriverDetails> DriverList { get; set; }
         public List<RouteDetails> RouteList { get; set; }

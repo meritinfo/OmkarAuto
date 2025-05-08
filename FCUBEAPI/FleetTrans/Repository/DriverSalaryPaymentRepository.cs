@@ -156,6 +156,10 @@ namespace FleetTrans.Repository
                                 branch = Convert.ToString(dataSet.Tables[0].Rows[i]["branch"]),
                                 driver = Convert.ToString(dataSet.Tables[0].Rows[i]["driver"]),
                                 vehicle = Convert.ToString(dataSet.Tables[0].Rows[i]["vehicle"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

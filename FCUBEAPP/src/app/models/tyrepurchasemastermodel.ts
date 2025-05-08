@@ -29,6 +29,10 @@ export class Tyrepurchasemastermodel {
     chequeDate : string ="";
     findocid : string ="";
     findocidJV : string ="";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     refDocAttachedImage : string ="";
     yearID : string ="";
     loggedInUser : string ="";

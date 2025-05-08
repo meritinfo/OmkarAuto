@@ -31,6 +31,8 @@ export class VehiclerepmaintaddComponent {
 dashboard: string ="";
   editMode= false;
   formSubmitted = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -46,6 +48,7 @@ dashboard: string ="";
   creditAcList: Dropdownmodel[] = [];
   vehicleRepmaintMaster = new VehiclerepmaintMaster();
   refDocAttachedImage: string = "";
+
 
   @ViewChild('attachmentInput', {
     static: true
@@ -220,6 +223,8 @@ dashboard: string ="";
       
         this.getVehicleMaintMasterInnerGridList();
         this.editMode =true;
+        this.createdBy = this.selectedvehiclerepmaintMasterDetail.createdBy + " " + this.selectedvehiclerepmaintMasterDetail.createdDate;
+        this.modifiedBy = this.selectedvehiclerepmaintMasterDetail.modifiedBy + " " + this.selectedvehiclerepmaintMasterDetail.modifiedDate; 
       }, 2000);  
     }
   }

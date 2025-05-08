@@ -9,6 +9,11 @@ export class Tyreregroupissuemastermodel {
   branchCode : string ="";
   yearID : string ="";
   loggedInUser : string ="";
+  
+  createdBy: string = "";
+  createdDate: string = "";
+  modifiedBy: string = "";
+  modifiedDate: string = "";
   tyreRegroupIssueDtlList: TyreRegroupIssueDtlListmodel[] = [];
 }
 

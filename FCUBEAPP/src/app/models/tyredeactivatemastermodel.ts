@@ -13,6 +13,10 @@ export class Tyredeactivatemastermodel {
     findocid : string = "";
     yearID : string = "";
     loggedInUser : string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     tyreDeActivateDtlList: Tyredeactivatedtlmodel[] = [];
 }
 

@@ -28,6 +28,8 @@ export class TripenroutebycompanyaddComponent {
   year: string = '';
   ptype: string = '';
   trip: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   formTripPayment!: FormGroup;
   formSubmitted = false;
   keywordLocation = 'dataName';
@@ -147,6 +149,8 @@ dashboard: string ="";
           vehicleID: this.vehicleList.find(e => e.dataId == this.selectedTripenrouteexpbycompanyDetails.vehicleID),
         }) 
         this.editMode=true;
+        this.createdBy = this.selectedTripenrouteexpbycompanyDetails.createdBy + " " + this.selectedTripenrouteexpbycompanyDetails.createdDate;
+        this.modifiedBy = this.selectedTripenrouteexpbycompanyDetails.modifiedBy + " " + this.selectedTripenrouteexpbycompanyDetails.modifiedDate;   
       } 
     }, 2000);
     this.sharedService.loading = false;

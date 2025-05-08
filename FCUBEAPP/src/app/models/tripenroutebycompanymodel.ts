@@ -19,5 +19,9 @@ export class TripenrouteexpbycompanyModel {
     bname : string = "";
     exp : string = "";
     loggedInUser  : string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 
 }

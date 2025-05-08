@@ -32,6 +32,10 @@ export class Sparespurchasemastermodel {
   yearID:  string="";
   gstInputTaken: string="";
   loggedInUser:  string="";
+  createdBy: string = "";
+  createdDate: string = "";
+  modifiedBy: string = "";
+  modifiedDate: string = "";
  
   sparesPurchaseDtlList: SparesPurchaseDtlListmodel[] = [];
 

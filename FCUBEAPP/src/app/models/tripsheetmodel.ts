@@ -71,6 +71,10 @@ export class Tripsheetmodel {
     rtaChallanAmt   : string = ""; 
     paidToDriver: string = "";
     loggedInUser: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 
     driverList: DriverDetails[] = [];
     routeList: RouteDetails[] = [];

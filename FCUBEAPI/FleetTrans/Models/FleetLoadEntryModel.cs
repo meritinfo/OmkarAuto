@@ -34,6 +34,10 @@ namespace FleetTrans.Models
         public string? TripId { get; set; }
         public string? TripBrName { get; set; }
         public string? VehicleNo { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

@@ -23,6 +23,8 @@ export class FleetloadentryaddComponent {
   formSubmitted = false;
   editMode = false;
   createStatus = false;
+  createdBy : string = "";
+  modifiedBy: string = "";
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
@@ -156,6 +158,8 @@ dashboard: string ="";
           loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
         });
         this.editMode = true;
+        this.createdBy = this.selectedFleetLoadEntryDetails.createdBy + " " + this.selectedFleetLoadEntryDetails.createdDate;
+        this.modifiedBy = this.selectedFleetLoadEntryDetails.modifiedBy + " " + this.selectedFleetLoadEntryDetails.modifiedDate; 
         this.formFleetLoad.controls['loadType'].disable();  
         if(this.selectedFleetLoadEntryDetails.loadType == "E"){
           this.formFleetLoad.controls['qtyWt'].clearValidators();
