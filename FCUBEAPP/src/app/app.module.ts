@@ -308,7 +308,6 @@ import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloaden
 import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
-import { Dieselstmtmodel } from './models/dieselstmtmodel';
 import { VehiclerepmaintMaster } from './models/vehiclerepmaintmastermodel';
 import { TyresaleslistComponent } from './module/tyresales/tyresaleslist/tyresaleslist.component';
 import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresalesadd.component';
@@ -649,7 +648,8 @@ import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippayme
     BillsmasterlistllpComponent, BillsmasteraddllpComponent, 
     BillsuppliaddllpComponent, BillsupplilistllpComponent, 
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
-    VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
+    VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
+    TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
   ],
   
   imports: [
@@ -703,7 +703,7 @@ import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippayme
     Billsmastermodel,Billstypemodel, Companyinfomodel, Mrmodel,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
+    Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
     Lhpayablestatusrptmodel,Challanregisterrptmodel, Vehiclerepairsrptmodel,
@@ -718,10 +718,12 @@ import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippayme
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Ccinvmstmodel, Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,
     Freightgstmastermodel,Freightgstmasterlistmodel,
-    ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,
-    
-    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,Admingroupmastermodel,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
+    ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
+    Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
+    Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,Admingroupmastermodel,
+    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,
+    Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
     
   ],
   bootstrap: [AppComponent]

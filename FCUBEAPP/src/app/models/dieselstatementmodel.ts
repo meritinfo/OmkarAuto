@@ -1,3 +1,6 @@
+
+import { Dieselstmtdtlsmodel } from "./dieselstmtdtlsmodel";
+
 export class Dieselstatementmodel {
     masterID: string = "";
     dfVendor: string = "";
@@ -26,6 +29,7 @@ export class Dieselstatementmodel {
     loggedInUser: string = "";
     
     dieselStatementListData: Dieselstatementsearchmodel[]=[];
+    dieselStmtDtlsList: Dieselstmtdtlsmodel[]=[];
 }
 
 export class Dieselstatementsearchmodel {

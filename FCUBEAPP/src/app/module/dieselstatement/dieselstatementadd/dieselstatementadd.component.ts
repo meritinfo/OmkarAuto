@@ -122,7 +122,7 @@ dashboard: string ="";
       toDate: new FormControl(this.loginDate, [Validators.required]),
       //location: new FormControl('', [Validators.required]),
       vendorId: new FormControl('', [Validators.required]),
-      rate:new FormControl('0', [Validators.required]),
+      //rate:new FormControl('0', [Validators.required]),
       totalDslLtrs: new FormControl(''),
       grossDslAmt: new FormControl(''),
       discRateLtr:new FormControl('0'),
@@ -478,18 +478,18 @@ dashboard: string ="";
       return;
     }
 
-    if (selectedDataVal.rate=='')
-    {
-      this.toasterService.warning(" Rate can not be empty");  
-      return; 
-    }
-    if (parseFloat(selectedDataVal.rate)>0){
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Rate can not be zero");  
-      return; 
-    }  
+    // if (selectedDataVal.rate=='')
+    // {
+    //   this.toasterService.warning(" Rate can not be empty");  
+    //   return; 
+    // }
+    // if (parseFloat(selectedDataVal.rate)>0){
+    //   //ignore
+    // }
+    // else{
+    //   this.toasterService.warning(" Rate can not be zero");  
+    //   return; 
+    // }  
           
     this.sharedService.loading=true;
     this.formSubmitted = true;
@@ -501,7 +501,7 @@ dashboard: string ="";
     this.DieselStatementmodel.toDate          = selectedDataVal.toDate;
     this.DieselStatementmodel.location        = selectedDataVal.location?selectedDataVal.location.dataId:'';
     this.DieselStatementmodel.dfVendor        = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
-    this.DieselStatementmodel.rate            = selectedDataVal.rate;
+    //this.DieselStatementmodel.rate            = selectedDataVal.rate;
     this.DieselStatementmodel.statementFlag   = 'D'  ;       
     this.DieselStatementmodel.remarks         = selectedDataVal.remarks;  
     this.DieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;

@@ -47,21 +47,17 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetHappayDieselSearchList(request);
         }
-        public async Task<ResponseModel> DieselStatementSave(DieselStmtModel dieselStmtModel)
+        public async Task<ResponseModel> DieselImportSave(DieselStatementModel dieselStmtModel)
         {
-            return await dieselStatementRepository.DieselStatementSave(dieselStmtModel);
+            return await dieselStatementRepository.DieselImportSave(dieselStmtModel);
         }
-        public async Task<DieselStmtListModel> GetDieselStmtList(ReportRequestModel request)
+        public async Task<DieselStatementList> GetDieselImportList(ReportRequestModel request)
         {
-            return await dieselStatementRepository.GetDieselStmtList(request);
+            return await dieselStatementRepository.GetDieselImportList(request);
         }
-        public async Task<DieselStmtModel> GetDieselStmtInnerGridList(RequestModel request)
+        public async Task<DieselStatementModel> GetDieselImportInnerGridList(RequestModel request)
         {
-            return await dieselStatementRepository.GetDieselStmtInnerGridList(request);
-        }
-        public async Task<ResponseModel> DieselStatementDelete(RequestModel request)
-        {
-            return await dieselStatementRepository.DieselStatementDelete(request);
+            return await dieselStatementRepository.GetDieselImportInnerGridList(request);
         }
     }
 }

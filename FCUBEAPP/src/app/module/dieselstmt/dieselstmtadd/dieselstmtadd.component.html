@@ -35,8 +35,8 @@
                                                     <label for="formrow-inputCity">Statement Date</label>
                                                     <span style="color: red"> * </span>
                                                     <input autoclose="false" type="date"  
-                                                        class="form-control" formControlName="stmtDate"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['stmtDate'].invalid) }">
+                                                        class="form-control" formControlName="billStmtDate"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billStmtDate'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -72,8 +72,8 @@
                                                             [itemTemplate]="itemTemplate"
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
-                                                            formControlName="dfAccount" 
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['dfAccount'].invalid) }">
+                                                            formControlName="dfVendor" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['dfVendor'].invalid) }">
                                                         </ng-autocomplete>
     
                                                         <ng-template #itemTemplate let-item>

@@ -731,8 +731,8 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("DieselStatementSave")]
-        public async Task<IActionResult> DieselStatementSave(DieselStmtModel dieselStmtModel)
+        [HttpPost("DieselImportSave")]
+        public async Task<IActionResult> DieselImportSave(DieselStatementModel dieselStmtModel)
         {
             if (dieselStmtModel == null)
             {
@@ -740,7 +740,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStatementBusiness.DieselStatementSave(dieselStmtModel);
+                var result = await dieselStatementBusiness.DieselImportSave(dieselStmtModel);
 
                 return Ok(result);
             }
@@ -750,8 +750,8 @@ namespace FCUBEAPI.Controllers
             }
         }
         
-        [HttpPost("GetDieselStmtList")]
-        public async Task<IActionResult> GetDieselStmtList(ReportRequestModel request)
+        [HttpPost("GetDieselImportList")]
+        public async Task<IActionResult> GetDieselImportList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -759,7 +759,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStatementBusiness.GetDieselStmtList(request);
+                var result = await dieselStatementBusiness.GetDieselImportList(request);
 
                 return Ok(result);
             }
@@ -769,8 +769,8 @@ namespace FCUBEAPI.Controllers
             }
         }
        
-        [HttpPost("GetDieselStmtInnerGridList")]
-        public async Task<IActionResult> GetDieselStmtInnerGridList(RequestModel request)
+        [HttpPost("GetDieselImportInnerGridList")]
+        public async Task<IActionResult> GetDieselImportInnerGridList(RequestModel request)
         {
             if (request == null)
             {
@@ -778,7 +778,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await dieselStatementBusiness.GetDieselStmtInnerGridList(request);
+                var result = await dieselStatementBusiness.GetDieselImportInnerGridList(request);
 
                 return Ok(result);
             }
@@ -787,27 +787,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
-        [HttpPost("DieselStatementDelete")]
-        public async Task<IActionResult> DieselStatementDelete(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await dieselStatementBusiness.DieselStatementDelete(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        
+                
 
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)

@@ -8,7 +8,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DieselstmtService } from 'src/app/services/dieselstmt.service';
-import { Dieselstmtmodel } from 'src/app/models/dieselstmtmodel';
+import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import * as XLSX from 'xlsx';
@@ -33,7 +33,7 @@ export class DieselstmtaddComponent {
   branchList: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
-  selectedDieselStmtDetails = new Dieselstmtmodel()
+  selectedDieselStmtDetails = new Dieselstatementmodel()
   seriesDoc: string = "";
 
   keywordLocation = 'dataName';
@@ -50,12 +50,12 @@ dashboard: string ="";
   responseDetails = new Responsemodel();
  
   constructor(private reportmodel: Reportmodel, 
-    private requestmodel:Requestmodel,private dieselStatementmodel:Dieselstmtmodel,
+    private requestmodel:Requestmodel,private dieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private sharedService: SharedService,
     private cashReceiptEntryService: CashReceiptEntryService,
     private dieselstatementService: DieselstmtService, private toasterService: ToastrService) {
-      this.dieselStatementmodel= new Dieselstmtmodel();
+      this.dieselStatementmodel= new Dieselstatementmodel();
   }
 
   ngOnInit(): void {
@@ -116,13 +116,13 @@ dashboard: string ="";
     this.getVehicleNoList();
     this.getAcountList();
 
-    this.selectedDieselStmtDetails = this.dieselstatementService.getDieselStatementDetails();
+    this.selectedDieselStmtDetails = this.dieselstatementService.getDieselImportDetails();
     this.formDieselStatement = this.formBuilder.group({
       branchCode: new FormControl(this.branch, [Validators.required]),
-      stmtDate: new FormControl(this.loginDate, [Validators.required]),
+      billStmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      dfAccount: new FormControl('', [Validators.required]),
+      dfVendor: new FormControl('', [Validators.required]),
       totalDslLtrs: new FormControl(''),
       totalDslAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
@@ -133,23 +133,23 @@ dashboard: string ="";
     this.sharedService.loading=false;       
     setTimeout(() => {
       this.formArray.controls[0].get("amount")?.disable();
-      if (this.selectedDieselStmtDetails.dfMasterID != '') {
+      if (this.selectedDieselStmtDetails.masterID != '') {
         this.formDieselStatement.patchValue(this.selectedDieselStmtDetails);
         this.formDieselStatement.patchValue({
-          stmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.stmtDate),
+          billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          dfAccount: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfAccount),  
+          dfVendor: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),  
         })
-        if(this.selectedDieselStmtDetails.ftmidHsd!="0"){
-          this.getFinDocDetails(this.selectedDieselStmtDetails.ftmidHsd);
+        if(this.selectedDieselStmtDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
         }
         this.editMode=true;
         this.getDieselStmtInnerGridList();
-        this.formDieselStatement.controls['stmtDate'].disable();     
+        this.formDieselStatement.controls['billStmtDate'].disable();     
         this.formDieselStatement.controls['fromDate'].disable();  
         this.formDieselStatement.controls['toDate'].disable();  
-        this.formDieselStatement.controls['dfAccount'].disable();     
+        this.formDieselStatement.controls['dfVendor'].disable();     
       }    
     }, 2000);
    
@@ -245,15 +245,15 @@ dashboard: string ="";
   }
 
   getDieselStmtInnerGridList(): void {
-    this.requestmodel.strRequest = this.selectedDieselStmtDetails.dfMasterID;
-    this.dieselstatementService.getDieselStatementInnerGridList(this.requestmodel).subscribe((res) => {
+    this.requestmodel.strRequest = this.selectedDieselStmtDetails.masterID;
+    this.dieselstatementService.getDieselImportInnerGridList(this.requestmodel).subscribe((res) => {
       this.dieselStatementmodel = res;
       this.formArray.clear();
       
       for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
-        this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.dieselStmtDtlsList[i].vehicleNo));
+        this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataId == res.dieselStmtDtlsList[i].vehicleMasterId));
         this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
@@ -363,11 +363,11 @@ dashboard: string ="";
   }
 
   deleteDieselStatementForm(): void {
-    if(this.selectedDieselStmtDetails.dfMasterID != '' ){      
+    if(this.selectedDieselStmtDetails.masterID != '' ){      
     this.sharedService.loading=true;
-     this.requestmodel.strRequest =this.selectedDieselStmtDetails.dfMasterID;
+     this.requestmodel.strRequest =this.selectedDieselStmtDetails.masterID;
       if (confirm("Are you sure, you want to delete this?")) {
-            this.dieselstatementService.dieselStatementDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.dieselstatementService.dieselImportDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message);
@@ -401,12 +401,12 @@ dashboard: string ="";
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
-    this.dieselStatementmodel.dfMasterID      = this.selectedDieselStmtDetails.dfMasterID ;
+    this.dieselStatementmodel.masterID      = this.selectedDieselStmtDetails.masterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
-    this.dieselStatementmodel.stmtDate        = selectedDataVal.stmtDate;
+    this.dieselStatementmodel.billStmtDate        = selectedDataVal.billStmtDate;
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
-    this.dieselStatementmodel.dfAccount       = selectedDataVal.dfAccount?selectedDataVal.dfAccount.dataId:'';
+    this.dieselStatementmodel.dfVendor       = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks;  
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
@@ -421,14 +421,15 @@ dashboard: string ="";
       if(arr[i].vehicleNo?arr[i].vehicleNo.dataId:""!='' && 
           arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({
-          'dfMasterID':"",
-          'transRefNo': arr[i].transRefNo.toString(),   
-          'vehicleNo': arr[i].vehicleNo?arr[i].vehicleNo.dataName:"", 
-          'transDateTime': arr[i].transDateTime,   
-      // 'transDateTime':  this.commonService.formatDate(selectedDataVal.arrayList[i].transDateTime),
+          'masterID':"",
+          'vehicleMasterId': arr[i].vehicleMasterId?arr[i].vehicleMasterId.dataId:"", 
+          'transRefNo': arr[i].transRefNo.toString(),
+          'transDateTime': arr[i].transDateTime,
+          'hsdAdvTyps': "",
           'dslQty': arr[i].dslQty.toString(),   
           'dslRate': arr[i].dslRate.toString(),   
-          'amount': arr[i].amount.toString(), 
+          'amount': arr[i].amount.toString(),  
+          'tripPmtId': "", 
         });
       }
       else{
@@ -438,13 +439,13 @@ dashboard: string ="";
     }
 
     const foundDuplicateName = this.dieselStatementmodel.dieselStmtDtlsList.find((data, index) => {
-      return this.dieselStatementmodel.dieselStmtDtlsList.find((x, ind) => x.vehicleNo === data.vehicleNo && index !== ind);
+      return this.dieselStatementmodel.dieselStmtDtlsList.find((x, ind) => x.vehicleMasterId === data.vehicleMasterId && index !== ind);
     })
     if (foundDuplicateName) {
       this.toasterService.warning("Duplicate Vehicle No grid not allowed");
       return;
     }
-    this.dieselstatementService.dieselStatementSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
+    this.dieselstatementService.dieselImportSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);

@@ -82,7 +82,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@MasterId", request.strRequest)
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselInnergrid", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementInnergrid", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
@@ -544,7 +544,9 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> DieselStatementSave(DieselStmtModel dieselStmtModel)
+       
+        
+        public async Task<ResponseModel> DieselImportSave(DieselStatementModel dieselStmtModel)
         {
             ResponseModel responseModel = new();
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
@@ -557,11 +559,11 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DfMasterID"      , dieselStmtModel.DfMasterID),
-                            new SqlParameter("@DfAccount"       , dieselStmtModel.DfAccount),
+                            new SqlParameter("@MasterID"      , dieselStmtModel.MasterID),
+                            new SqlParameter("@DfVendor"       , dieselStmtModel.DfVendor),
                             new SqlParameter("@FromDate"        , dieselStmtModel.FromDate),
                             new SqlParameter("@ToDate"          , dieselStmtModel.ToDate),
-                            new SqlParameter("@StmtDate"        , dieselStmtModel.StmtDate),
+                            new SqlParameter("@BillStmtDate"    , dieselStmtModel.BillStmtDate),
                             new SqlParameter("@Remarks"         , dieselStmtModel.Remarks),
                             new SqlParameter("@TotalDslLtrs"    , dieselStmtModel.TotalDslLtrs),
                             new SqlParameter("@TotalDslAmt"     , dieselStmtModel.TotalDslAmt),
@@ -570,15 +572,15 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser"    , dieselStmtModel.LoggedInUser)
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselImpMstSave", param);
 
-                    string DfMasterID = "";
+                    string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        DfMasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         if (responseModel.Status)
                         {
@@ -586,15 +588,16 @@ namespace FleetTrans.Repository
                             {
                                 SqlParameter[] paramMisc =
                                 {
-                                    new SqlParameter("@DfMasterID"      , DfMasterID),
+                                    new SqlParameter("@MasterID"      , MasterID),
+                                    new SqlParameter("@VehicleMasterId"      , dieselStmtModel.DieselStmtDtlsList[i].VehicleMasterId),
                                     new SqlParameter("@TransRefNo"      , dieselStmtModel.DieselStmtDtlsList[i].TransRefNo),
-                                    new SqlParameter("@VehicleNo"       , dieselStmtModel.DieselStmtDtlsList[i].VehicleNo),
-                                    new SqlParameter("@TransDateTime"   , dieselStmtModel.DieselStmtDtlsList[i].TransDateTime),
+                                    new SqlParameter("@TransDateTime"      , dieselStmtModel.DieselStmtDtlsList[i].TransDateTime),
+                                    new SqlParameter("@HsdAdvTyps"       , dieselStmtModel.DieselStmtDtlsList[i].HsdAdvTyps),
                                     new SqlParameter("@DslQty"          , dieselStmtModel.DieselStmtDtlsList[i].DslQty),
                                     new SqlParameter("@DslRate"         , dieselStmtModel.DieselStmtDtlsList[i].DslRate),
                                     new SqlParameter("@Amount"          , dieselStmtModel.DieselStmtDtlsList[i].Amount),
                                 };
-                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDtlsSave", paramMisc);
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselImpDtlsSave", paramMisc);
                                 if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0 )
                                 {
                                     responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
@@ -634,10 +637,10 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<DieselStmtListModel> GetDieselStmtList(ReportRequestModel request)
+        public async Task<DieselStatementList> GetDieselImportList(ReportRequestModel request)
         {
-            DieselStmtListModel dieselStatementList = new();
-            List<DieselStmtModel> dieselList = new();
+            DieselStatementList dieselStatementList = new();
+            List<DieselStatementModel> dieselList = new();
             try
             {
                 if (dbconnection != null)
@@ -652,22 +655,22 @@ namespace FleetTrans.Repository
                             new SqlParameter("@fromDate", request.FromDate),
                             new SqlParameter("@toDate", request.ToDate)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementMstList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselImpMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            dieselList.Add(new DieselStmtModel
+                            dieselList.Add(new DieselStatementModel
                             {
-                                DfMasterID      = Convert.ToString(dataSet.Tables[0].Rows[i]["DfMasterID"]),
-                                DfAccount       = Convert.ToString(dataSet.Tables[0].Rows[i]["DfAccount"]),
-                                AccountName     = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountName"]),
-                                StmtDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["StmtDate"]),
+                                MasterID        = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
+                                DfVendor        = Convert.ToString(dataSet.Tables[0].Rows[i]["DfVendor"]),
+                                Vendor          = Convert.ToString(dataSet.Tables[0].Rows[i]["Vendor"]),
+                                BillStmtDate    = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
                                 FromDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
                                 ToDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
-                                FtmidHsd        = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmidHsd"]),
+                                Findocid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 TotalDslLtrs    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
                                 TotalDslAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
@@ -692,10 +695,9 @@ namespace FleetTrans.Repository
             }
             return dieselStatementList;
         }
-
-        public async Task<DieselStmtModel> GetDieselStmtInnerGridList(RequestModel request)
+        public async Task<DieselStatementModel> GetDieselImportInnerGridList(RequestModel request)
         {
-            DieselStmtModel dieselStatementList = new();
+            DieselStatementModel dieselStatementList = new();
             List<DieselStmtDtlsModel> dieselList = new();
             try
             {
@@ -703,9 +705,9 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DfMasterID", request.strRequest),
+                            new SqlParameter("@MasterID", request.strRequest),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStmtInnerGridList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselImpInnerGridList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -713,13 +715,15 @@ namespace FleetTrans.Repository
                         {
                             dieselList.Add(new DieselStmtDtlsModel
                             {
-                                DfMasterID      = Convert.ToString(dataSet.Tables[0].Rows[i]["DfMasterID"]),
+                                MasterID        = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
+                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
-                                VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TransDateTime   = Convert.ToDateTime(dataSet.Tables[0].Rows[i]["TransDateTime"]).ToString("dd-MM-yyyy hh:mm:ss"),
+                                TransDateTime   = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDateTime"]),
+                                HsdAdvTyps      = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
                                 DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["DslQty"]),
                                 DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["DslRate"]),
                                 Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["Amount"]),
+                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["TripPmtId"]),
                             });
                         }
 
@@ -733,47 +737,6 @@ namespace FleetTrans.Repository
 
             }
             return dieselStatementList;
-        }
-
-        public async Task<ResponseModel> DieselStatementDelete(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                    {
-                            new SqlParameter("@MasterID", request.strRequest),
-                    };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDelete", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                    if (responseModel.Status)
-                    {
-                        transaction.Commit();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
         }
     }
 }

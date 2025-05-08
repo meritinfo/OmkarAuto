@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Reportmodel } from '../models/reportmodel';
 import { Responsemodel } from '../models/responsemodel';
-import { Dieselstmtlistmodel } from '../models/dieselstmtlistmodel';
-import { Dieselstmtmodel } from '../models/dieselstmtmodel';
+import { Dieselstatementlistmodel } from '../models/dieselstatementlistmodel';
+import { Dieselstatementmodel } from '../models/dieselstatementmodel';
 import { Requestmodel } from '../models/requestmodel';
 
 
@@ -21,33 +21,33 @@ export class DieselstmtService {
     })
   }
 
-  selectedDieselStatement = new Dieselstmtmodel();
+  selectedDieselStatement = new Dieselstatementmodel();
 
   constructor(private httpClient: HttpClient) { }
-  setDieselStatementDetails(docrenewalmaster: Dieselstmtmodel) { 
+
+  setDieselImportDetails(docrenewalmaster: Dieselstatementmodel) { 
     this.selectedDieselStatement = docrenewalmaster; 
   }
 
-  clearDieselStatementDetails() {
-    this.selectedDieselStatement= new Dieselstmtmodel();
+  clearDieselImportDetails() {
+    this.selectedDieselStatement= new Dieselstatementmodel();
   }
 
-  getDieselStatementDetails() {
+  getDieselImportDetails() {
     return this.selectedDieselStatement;
   }
 
-  getDieselStatementList(filter: Reportmodel): Observable<Dieselstmtlistmodel> {
-    return this.httpClient.post<Dieselstmtlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStmtList', filter, this.httpOptions);
+  getDieselImportList(filter: Reportmodel): Observable<Dieselstatementlistmodel> {
+    return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselImportList', filter, this.httpOptions);
   }
-  dieselStatementSave(request: Dieselstmtmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementSave', request, this.httpOptions);
+  dieselImportSave(request: Dieselstatementmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselImportSave', request, this.httpOptions);
+  }
+  dieselImportDelete(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementDetailsDelete', request, this.httpOptions);
   }
 
-  dieselStatementDelete(request: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementDelete', request, this.httpOptions);
-  }
-
-  getDieselStatementInnerGridList(request: Requestmodel): Observable<Dieselstmtmodel> {
-    return this.httpClient.post<Dieselstmtmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStmtInnerGridList', request, this.httpOptions);
+  getDieselImportInnerGridList(request: Requestmodel): Observable<Dieselstatementmodel> {
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselImportInnerGridList', request, this.httpOptions);
   }
 }

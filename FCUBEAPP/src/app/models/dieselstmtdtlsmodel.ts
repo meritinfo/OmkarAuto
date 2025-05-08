@@ -1,9 +1,11 @@
 export class Dieselstmtdtlsmodel {
-    dfMasterID: string = "";
-    transRefNo: string = "";
-    vehicleNo: string = "";
-    transDateTime: string = "";
+    masterID: string = "";
+    vehicleMasterId: string = "";
+    transRefNo : string = "";
+    transDateTime: string = "";        
+    hsdAdvTyps: string = "";
     dslQty: string = "";
     dslRate: string = "";
-    amount: string = "";        
+    amount: string = ""; 
+    tripPmtId: string = "";    
 }
