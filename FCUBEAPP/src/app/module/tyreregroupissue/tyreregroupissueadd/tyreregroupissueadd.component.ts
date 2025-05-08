@@ -24,6 +24,8 @@ export class TyreregroupissueaddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -135,6 +137,9 @@ dashboard: string ="";
         })      
         this.getRegroupIssInnerGridList();
         this.editMode =true;
+        this.createdBy = this.selectedTyreregroupissueDetail.createdBy + " " + this.selectedTyreregroupissueDetail.createdDate;
+        this.modifiedBy = this.selectedTyreregroupissueDetail.modifiedBy + " " + this.selectedTyreregroupissueDetail.modifiedDate;   
+
       }, 2000);  
     }
   }

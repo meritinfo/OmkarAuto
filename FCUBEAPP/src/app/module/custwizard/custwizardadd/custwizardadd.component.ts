@@ -150,6 +150,10 @@ dashboard: string ="";
       flt_FrtDedAc: new FormControl('',[]), 
       flt_TdsDedAc: new FormControl('',[]), 
       flt_OthDedAc: new FormControl('',[]), 
+      hsdAc: new FormControl('',[]), 
+      dslDiscAc: new FormControl('',[]), 
+      dslTdsAc: new FormControl('',[]), 
+
     });
     this.getCrAcListForCustWizard();
     this.getCustWizardDetails();
@@ -352,6 +356,9 @@ dashboard: string ="";
     this.custWizardModel.flt_FrtDedAc = selectedDataValue.flt_FrtDedAc ;    
     this.custWizardModel.flt_TdsDedAc = selectedDataValue.flt_TdsDedAc ;    
     this.custWizardModel.flt_OthDedAc= selectedDataValue.flt_OthDedAc;
+    this.custWizardModel.hsdAc = selectedDataValue.hsdAc ;    
+    this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc ;    
+    this.custWizardModel.dslTdsAc= selectedDataValue.dslTdsAc;
   
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

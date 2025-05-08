@@ -24,6 +24,8 @@ export class TyredeativateaddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -143,6 +145,9 @@ dashboard: string ="";
         this.getTyreDeActivateInnerGridList();
         this.formUser.controls["vehicleMasterid"].disable();
         this.editMode =true;
+        
+        this.createdBy = this.selectedTyredeactivateDetail.createdBy + " " + this.selectedTyredeactivateDetail.createdDate;
+     this.modifiedBy = this.selectedTyredeactivateDetail.modifiedBy + " " + this.selectedTyredeactivateDetail.modifiedDate;  
       }, 2000);  
     }
   }

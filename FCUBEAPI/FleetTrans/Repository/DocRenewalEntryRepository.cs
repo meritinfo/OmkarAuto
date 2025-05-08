@@ -210,7 +210,11 @@ namespace FleetTrans.Repository
                                 Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 BranchCode          = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID              = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
-       
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
                             });
                         }
 

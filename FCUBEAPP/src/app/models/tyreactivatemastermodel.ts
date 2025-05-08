@@ -15,6 +15,10 @@ export class Tyreactivatemastermodel {
     findocid : string = "";
     yearID : string = "";
     loggedInUser : string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     tyreActivateDtlList: Tyreactivatedtlmodel[] = [];
 }
 

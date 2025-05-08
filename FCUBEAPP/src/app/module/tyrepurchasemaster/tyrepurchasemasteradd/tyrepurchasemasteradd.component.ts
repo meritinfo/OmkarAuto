@@ -25,6 +25,8 @@ export class TyrepurchasemasteraddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -250,7 +252,9 @@ dashboard: string ="";
           })
         }   
         this.getTyrePurchaseMasterInnerGridList();
-        this.formUser.controls['purchaseType'].disable();         
+        this.formUser.controls['purchaseType'].disable(); 
+        this.createdBy = this.selectedTyrePurchaseMasterDetail.createdBy + " " + this.selectedTyrePurchaseMasterDetail.createdDate;
+        this.modifiedBy = this.selectedTyrePurchaseMasterDetail.modifiedBy + " " + this.selectedTyrePurchaseMasterDetail.modifiedDate;          
         this.editMode =true;
       }, 2000);  
     }

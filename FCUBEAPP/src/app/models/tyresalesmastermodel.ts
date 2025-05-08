@@ -23,6 +23,10 @@ export class Tyresalesmastermodel {
     approvedYN : string ="";
     branchCode : string ="";
     yearID: string ="";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser : string ="";   
     tyreSalesDtlList: Tyresalesdtllistmodel[] = [];     
 }

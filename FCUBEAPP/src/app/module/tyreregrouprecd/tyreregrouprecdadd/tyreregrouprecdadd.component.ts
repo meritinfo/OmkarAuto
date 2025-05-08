@@ -22,6 +22,8 @@ export class TyreregrouprecdaddComponent {
   year: string = '';
   branch: string = '';
   loginDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -171,6 +173,10 @@ dashboard: string ="";
         this.formUser.controls["vendorBillNo"].disable();
         this.formUser.controls["vendorBillDt"].disable();
         this.editMode =true;
+        
+        this.createdBy = this.selectedTyreregrouprecdMasterDetail.createdBy + " " + this.selectedTyreregrouprecdMasterDetail.createdDate;
+        this.modifiedBy = this.selectedTyreregrouprecdMasterDetail.modifiedBy + " " + this.selectedTyreregrouprecdMasterDetail.modifiedDate;   
+
       }, 2000);  
     }
   }

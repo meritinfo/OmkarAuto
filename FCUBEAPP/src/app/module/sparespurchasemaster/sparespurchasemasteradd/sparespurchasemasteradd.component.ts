@@ -31,6 +31,8 @@ export class SparespurchasemasteraddComponent {
   deleteStatus = false;
   viewStatus = false; 
 dashboard: string ="";
+createdBy : string = "";
+modifiedBy: string = "";
   editMode= false;
   userSubmitted = false;
   keywordLocation = 'dataName';
@@ -226,6 +228,8 @@ dashboard: string ="";
       
         this.getSparesPurchaseMasterInnerGridList();
         this.editMode =true;
+        this.createdBy = this.selectedSparesPurchaseMasterDetail.createdBy + " " + this.selectedSparesPurchaseMasterDetail.createdDate;
+        this.modifiedBy = this.selectedSparesPurchaseMasterDetail.modifiedBy + " " + this.selectedSparesPurchaseMasterDetail.modifiedDate;
       }, 2000);  
     }
   }

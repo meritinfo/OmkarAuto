@@ -42,6 +42,9 @@ dashboard: string ="";
   creditAcList: Dropdownmodel[] = [];
   subAccountTypeList: Dropdownmodel[] = []; 
   vehicleList: Dropdownmodel[] = [];
+  
+  createdBy : string = "";
+    modifiedBy: string = "";
    
   ledgerList: Dropdownmodel[] = [];
   statelist: Dropdownmodel[] = [];
@@ -142,7 +145,9 @@ dashboard: string ="";
     setTimeout(() => {  
       if (this.selectedDriversalarypaymentDetails.masterid != '') {
         this.formSalary.patchValue(this.selectedDriversalarypaymentDetails);   
-        this.editMode=true;    
+        this.editMode=true;  
+        this.createdBy = this.selectedDriversalarypaymentDetails.createdBy + " " + this.selectedDriversalarypaymentDetails.createdDate;
+        this.modifiedBy = this.selectedDriversalarypaymentDetails.modifiedBy + " " + this.selectedDriversalarypaymentDetails.modifiedDate;   
         this.formSalary.controls["salaryFromDt"].disable();
         this.formSalary.controls["creditAc"].disable();
         this.formSalary.controls["salaryToDt"].disable();

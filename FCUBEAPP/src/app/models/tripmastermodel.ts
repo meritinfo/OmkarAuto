@@ -56,6 +56,10 @@ export class Tripmastermodel {
     nextTrip: string = "";  
     remarks: string = "";  
     loggedInUser: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 
     driverList: DriverDetails[] = [];
     routeList: RouteDetails[] = [];

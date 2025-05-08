@@ -28,6 +28,9 @@ export class TyreativateaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  
+  createdBy : string = "";
+    modifiedBy: string = "";
 dashboard: string ="";
   editMode= false;
   formSubmitted = false;
@@ -160,6 +163,8 @@ dashboard: string ="";
         this.getVehicleTyreNos(this.selectedTyreactivateDetail.vehicleMasterid);
         this.getTyreActivateInnerGridList();
         this.editMode =true;
+        this.createdBy = this.selectedTyreactivateDetail.createdBy + " " + this.selectedTyreactivateDetail.createdDate;
+        this.modifiedBy = this.selectedTyreactivateDetail.modifiedBy + " " + this.selectedTyreactivateDetail.modifiedDate; 
       }, 3000);  
     }
   }

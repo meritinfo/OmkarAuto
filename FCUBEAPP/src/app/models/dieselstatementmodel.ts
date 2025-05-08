@@ -26,6 +26,11 @@ export class Dieselstatementmodel {
     totalNetAmount: string = ""; 
     branchCode: string = "";
     yearId: string = "";
+    
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser: string = "";
     
     dieselStatementListData: Dieselstatementsearchmodel[]=[];

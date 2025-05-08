@@ -34,6 +34,9 @@ export class VehicleadvbalreceiptaddComponent {
 dashboard: string ="";
   editMode= false;
   formSubmitted = false;
+  
+  createdBy : string = "";
+    modifiedBy: string = "";
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -176,6 +179,12 @@ dashboard: string ="";
         this.getVehicleadvbalreceiptInnerGridList();
         this.showButton = false;
         this.editMode = true;
+        
+
+
+  this.createdBy = this.selectedvehicleAdvBalReceiptDetail.createdBy + " " + this.selectedvehicleAdvBalReceiptDetail.createdDate;
+  this.modifiedBy = this.selectedvehicleAdvBalReceiptDetail.modifiedBy + " " + this.selectedvehicleAdvBalReceiptDetail.modifiedDate;   
+
       }, 2000);  
     }
   }

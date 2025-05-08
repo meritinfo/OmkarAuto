@@ -185,6 +185,13 @@ namespace FleetTrans.Repository
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 bname = Convert.ToString(dataSet.Tables[0].Rows[i]["bname"]),
                                 exp = Convert.ToString(dataSet.Tables[0].Rows[i]["exp"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
+
+
                             });
                         }
 

@@ -10,5 +10,9 @@ export class Fastagdslrechargeentrymodel {
     paymentType: string = ""; 
     creditAc: string = ""; 
     branch: string = ""; 
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     loggedInUser: string = ""; 
 }

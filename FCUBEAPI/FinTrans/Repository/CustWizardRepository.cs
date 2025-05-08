@@ -258,6 +258,9 @@ namespace FinTrans.Repository
                  new SqlParameter("@Flt_OthDedAc" , custWizardModel.Flt_OthDedAc ),
                  new SqlParameter("@MR_Others1RecdAc" , custWizardModel.MR_Others1RecdAc),
                  new SqlParameter("@MR_Others2RecdAc" , custWizardModel.MR_Others2RecdAc),
+                   new SqlParameter("@HsdAc" , custWizardModel.HsdAc),
+                    new SqlParameter("@DslDiscAc" , custWizardModel.DslDiscAc),
+                     new SqlParameter("@DslTdsAc" , custWizardModel.DslTdsAc),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);

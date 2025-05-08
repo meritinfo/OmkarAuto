@@ -19,6 +19,11 @@ export class Vehicleinstpmtmodel {
     yearid: string = "";
     vehicleNo: string = "";
     branch: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
+
     loggedInUser: string = "";
    
    

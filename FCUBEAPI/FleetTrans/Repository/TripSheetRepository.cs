@@ -448,6 +448,11 @@ namespace FleetTrans.Repository
                                 RtaChallanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["RtaChallanAmt"]),
                                 PaidToDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidToDriver"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
                             });
                         }
 

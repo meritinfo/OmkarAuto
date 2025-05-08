@@ -28,6 +28,8 @@ export class AdddocrenewalentryComponent {
     minDate: string = '';
     maxDate: string = '';
     loginDate: string = '';
+    createdBy : string = "";
+    modifiedBy: string = "";
     formSubmitted = false;
     editMode = false;
     createStatus = false;
@@ -206,6 +208,8 @@ dashboard: string ="";
         if(this.selectedDocRenewalEntryDetails.findocid1!="0"){
           this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid1);
         }  
+        this.createdBy = this.selectedDocRenewalEntryDetails.createdBy + " " + this.selectedDocRenewalEntryDetails.createdDate;
+        this.modifiedBy = this.selectedDocRenewalEntryDetails.modifiedBy + " " + this.selectedDocRenewalEntryDetails.modifiedDate;   
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();
         this.formDocEntry.controls['vehicleMasterID'].disable();

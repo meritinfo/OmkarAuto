@@ -184,6 +184,10 @@ namespace FleetTrans.Repository
                                 PaymentType = Convert.ToString(dataSet.Tables[0].Rows[i]["PaymentType"]),
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 branch = Convert.ToString(dataSet.Tables[0].Rows[i]["branch"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

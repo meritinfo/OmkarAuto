@@ -43,6 +43,10 @@ export class VehiclerepmaintMaster  {
     mtype : string = ""; 
     vehicle : string = ""; 
     gstInputTaken : string = ""; 
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     vehicleRepMaintDtlList: vehicleRepMaintDtlList[] = [];
 }
 export class vehicleRepMaintDtlList {

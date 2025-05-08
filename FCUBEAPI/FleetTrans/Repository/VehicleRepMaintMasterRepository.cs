@@ -88,6 +88,12 @@ namespace FleetTrans.Repository
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
                                 Stype = Convert.ToString(dataSet.Tables[0].Rows[i]["Stype"]),
                                 GstInputTaken = Convert.ToString(dataSet.Tables[0].Rows[i]["GstInputTaken"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+
+
                                 // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }

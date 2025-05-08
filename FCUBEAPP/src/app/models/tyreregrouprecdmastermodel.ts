@@ -23,6 +23,10 @@ export class Tyreregrouprecdmastermodel {
   chequeDt : string ="";
   creditAc : string ="";
   attatchFile : string ="";
+  createdBy: string = "";
+  createdDate: string = "";
+  modifiedBy: string = "";
+  modifiedDate: string = "";
   yearID : string ="";
   loggedInUser : string ="";
   tyreRegroupRecdDtlList: TyreRegroupRecdDtlListmodel[] = [];
