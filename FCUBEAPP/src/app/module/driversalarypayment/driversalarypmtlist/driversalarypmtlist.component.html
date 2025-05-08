@@ -56,14 +56,15 @@
                     </thead>
                     <tbody *ngIf="alldriver.salaryList">
                         <tr *ngFor="let actlist of alldriver.salaryList">
-                            <td>{{ actlist.branch }}</td>
-                            <td>{{ actlist.salaryDate }}</td>
-                            <td>{{ actlist.driver }}</td> 
-                            <td>{{ actlist.vehicle }}</td> 
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getdriversalarypmtDetails(actlist)"></button>             
                             </td>    
+                            <td>{{ actlist.branch }}</td>
+                            <td>{{ actlist.salaryDate }}</td>
+                            <td>{{ actlist.driver }}</td> 
+                            <td>{{ actlist.vehicle }}</td> 
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="alldriver.salaryList?.length == 0">

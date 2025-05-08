@@ -76,6 +76,10 @@ export class FleetcardmasterlistComponent {
       },
       columns: [
         {
+          title: 'Action',
+          data: 'cardId',
+        },
+        {
           title: 'Card Type',
           data: 'cardType',
         },
@@ -83,10 +87,7 @@ export class FleetcardmasterlistComponent {
           title: 'Card Code',
           data: 'cardCode',
         },  
-        {
-          title: 'Action',
-          data: 'cardId',
-        },
+       
       ],
     };
   }

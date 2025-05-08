@@ -103,7 +103,11 @@ dashboard: string ="";
             });
           });
       },
-      columns: [   
+      columns: [  
+        {
+          title: 'Action',
+          data: 'docRenewalID',
+        },    
         {
           title: 'Doc Code',
           data: 'docCode',
@@ -116,10 +120,7 @@ dashboard: string ="";
           title: 'Reminder Days',
           data: 'reminderDays',
         },
-        {
-          title: 'Action',
-          data: 'docRenewalID',
-        },   
+      
       ],
     };
   }

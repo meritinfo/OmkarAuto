@@ -51,6 +51,7 @@
                      <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
+                                
                                 <th>accountName </th>
                                 <th>fromPoint</th>
                               
@@ -59,13 +60,14 @@
                         </thead>
                         <tbody *ngIf="allBranchCustomer.targetList?.length != 0">
                             <tr *ngFor="let rt of allBranchCustomer.targetList">
-                                <td>{{ rt.yeardesc}}</td>
-                                <td>{{ rt.branch }}</td>
-                                                   
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getBranchCustomerTargetDetails(rt)" ></button>             
                                 </td> 
+                                <td>{{ rt.yeardesc}}</td>
+                                <td>{{ rt.branch }}</td>
+                                                   
+                               
                             </tr>
                         </tbody>
                         <tbody *ngIf="allBranchCustomer.targetList?.length == 0">

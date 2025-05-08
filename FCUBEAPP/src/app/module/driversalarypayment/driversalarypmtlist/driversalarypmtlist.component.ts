@@ -161,7 +161,11 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
         this.sharedService.loading = false;
       },
        // Set column title and data field
-       columns: [     
+       columns: [  
+        {
+          title: 'Action',
+          data: 'masterid ',
+        },   
         {
           title: 'Branch',
           data: 'branch',
@@ -178,10 +182,7 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
           title: 'Vehicle ',
           data: 'vehicle',
         },       
-        {
-          title: 'Action',
-          data: 'masterid ',
-        },
+       
       ],
     };
   }

@@ -92,6 +92,10 @@ billsTypeMasterList(){
     },
     // Set column title and data field
     columns: [
+      {
+        title: 'Action',
+        data: 'billTypeId',
+      },
      
      
       {
@@ -119,10 +123,7 @@ billsTypeMasterList(){
         data: 'sasCode',
       },
      
-      {
-        title: 'Action',
-        data: 'billTypeId',
-      },
+      
     ],
   };
 }

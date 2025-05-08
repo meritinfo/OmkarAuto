@@ -47,13 +47,14 @@
                     </thead>
                     <tbody *ngIf="allDocRenewalMaster.docRenewalMasterList?.length != 0">
                         <tr *ngFor="let ren of allDocRenewalMaster.docRenewalMasterList">
-                            <td>{{ ren.docCode }}</td>                    
-                            <td>{{ ren.docDescription }}</td>               
-                            <td>{{ ren.reminderDays }}</td>                       
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getRenewalMasterDetails(ren)"></button>             
                             </td>  
+                            <td>{{ ren.docCode }}</td>                    
+                            <td>{{ ren.docDescription }}</td>               
+                            <td>{{ ren.reminderDays }}</td>                       
+                            
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDocRenewalMaster.docRenewalMasterList?.length == 0">
