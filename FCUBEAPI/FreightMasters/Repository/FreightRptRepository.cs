@@ -1032,7 +1032,7 @@ namespace FreightMasters.Repository
                         using (XLWorkbook wb = new XLWorkbook())
                         {
                             responseModel = await sharedRepository.GetCompanyDetail();
-                            int colcnt = 7;
+                            int colcnt = 8;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -1070,6 +1070,7 @@ namespace FreightMasters.Repository
                             ws.Cell(5, 5).Value  = dataSet.Tables[0].Columns[6].ColumnName;
                             ws.Cell(5, 6).Value  = dataSet.Tables[0].Columns[7].ColumnName;
                             ws.Cell(5, 7).Value  = dataSet.Tables[0].Columns[8].ColumnName;
+                            ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[9].ColumnName;
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -1151,6 +1152,7 @@ namespace FreightMasters.Repository
                                 ws.Cell(r, 5).Value  = dataSet.Tables[0].Rows[j][6].ToString();
                                 ws.Cell(r, 6).Value  = dataSet.Tables[0].Rows[j][7].ToString();
                                 ws.Cell(r, 7).Value  = dataSet.Tables[0].Rows[j][8].ToString();
+                                ws.Cell(r, 8).Value = dataSet.Tables[0].Rows[j][9].ToString();
 
                                 tot     = tot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
                                 onac    = onac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());

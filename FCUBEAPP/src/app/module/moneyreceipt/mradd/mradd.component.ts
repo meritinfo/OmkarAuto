@@ -849,22 +849,22 @@ dashboard: string ="";
 
    
     this.formUser.patchValue({
-      totalRecdAmt: recdAmt,
-      totalFreightDed:freightDed,
-      totalClaimsDed:claimsDed,
-      totalBankChrgDed:bankChrgDed,
-      totalOthersDed:othersDed,
-      totalOthersDed1:othersDed1,
-      totalOthersDed2:othersDed2,
-      totalOthersDed3:othersDed3,
+      totalRecdAmt: recdAmt.toFixed(2),
+      totalFreightDed:freightDed.toFixed(2),
+      totalClaimsDed:claimsDed.toFixed(2),
+      totalBankChrgDed:bankChrgDed.toFixed(2),
+      totalOthersDed:othersDed.toFixed(2),
+      totalOthersDed1:othersDed1.toFixed(2),
+      totalOthersDed2:othersDed2.toFixed(2),
+      totalOthersDed3:othersDed3.toFixed(2),
       // totalRecoverable:recoverable,
-      totalTDSDed:tdsDed,
-      totalSdEmdDed:sdEmdDed,
-      totalDed:totalDed,
-      totalExcess:excessRecd,    
-      totalOthers1:others1Recd ,   
-      totalAmt: cheqCashAmt + onAcAdjAmt,
-      onAcNewAmt: cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd,  
+      totalTDSDed:tdsDed.toFixed(2),
+      totalSdEmdDed:sdEmdDed.toFixed(2),
+      totalDed:totalDed.toFixed(2),
+      totalExcess:excessRecd.toFixed(2),    
+      totalOthers1:others1Recd.toFixed(2) ,   
+      totalAmt: (cheqCashAmt + onAcAdjAmt).toFixed(2),
+      onAcNewAmt: (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd).toFixed(2),  
     });
   }
 

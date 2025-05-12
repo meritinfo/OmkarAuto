@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BillsmasterlistmodelLLP } from 'src/app/models/billsmasterlistmodelllp';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { BillsmastersearchlistmodelLLP} from 'src/app/models/billsmastersearchlistmodelllp';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -54,7 +52,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   showButton = true;  
   formSubmitted = false;
   createdBy : string = "";
@@ -143,7 +141,7 @@ dashboard: string ="";
       partyCode: new FormControl('',[Validators.required]),
       partyGstLocation: new FormControl('',[Validators.required]),
       collBranch: new FormControl(this.branch,[Validators.required]),
-      gstType: new FormControl('NA',[Validators.required]),
+      gstType: new FormControl('',[Validators.required]),
       totalFreight: new FormControl('',[Validators.required]),
       totalStatistical: new FormControl(''),
       totalFov: new FormControl(''),
@@ -170,12 +168,15 @@ dashboard: string ="";
       enlcosedDocs: new FormControl('',),
       billSeries: new FormControl('',),
       billSlNo: new FormControl('',),
-      gstBy : new FormControl('N',[Validators.required]),
+      gstBy : new FormControl('',[Validators.required]),
   
       selectedAll :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
     this.formBillsMaster.controls['billNo'].disable();
+    this.formBillsMaster.controls['gstType'].disable();
+    this.formBillsMaster.controls['gstBy'].disable();
+
     if (this.selectedBillsmasterDetails.billsMasterId != '') {
       this.getPartyGstLocationList(this.selectedBillsmasterDetails.partyCode);
     }
@@ -631,13 +632,18 @@ dashboard: string ="";
   }
 
   selectAll(e: any) {
+    var billdtls = this.billsmastersearchlistmodel.billsMasterSearchList;
     if(e.target.checked){
-      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
-        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;
+      this.formBillsMaster.patchValue({
+        gstType: billdtls[0]?billdtls[0].gstType:"",
+        gstBy: billdtls[0]?billdtls[0].gstBy:"",
+      });
+      for (var i = 0; i < billdtls.length; i++) {
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;        
       }
     }
     else{
-      for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
+      for (var i = 0; i < billdtls.length; i++) {
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = false;
       }
     }
@@ -645,13 +651,15 @@ dashboard: string ="";
   }
   
   selectedData(i: number, event: any) {
-    this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = event.target.checked;      
-    // var gst = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType;
-    // if(event.target.checked && (gst == 'NA' ||gst == 'N')){
-    //   this.formBillsMaster.patchValue({
-    //     gstType: 'NA',
-    //   });
-    // }
+    this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = event.target.checked; 
+    var gst = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstType;     
+    var gstby = this.billsmastersearchlistmodel.billsMasterSearchList[i].gstBy;
+    if(event.target.checked && gst != 'NA' && gst != 'N'){
+      this.formBillsMaster.patchValue({
+        gstType: gst,
+        gstBy: gstby
+      });
+    }     
     this.calculateTotal();
   }  
 

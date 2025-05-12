@@ -350,7 +350,7 @@ dashboard: string ="";
             vehicleNo: this.lrmodel.invoiceNo,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
-            shipmentNo: this.lrmodel.poNo,
+            shipmentNo: this.lrmodel.shipmentNo,
             shipmentDt : this.lrmodel.shipmentDt,      
             poNo : this.lrmodel.poNo,
             poDt : this.lrmodel.poDt,
