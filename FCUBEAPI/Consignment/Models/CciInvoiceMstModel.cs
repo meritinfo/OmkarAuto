@@ -28,7 +28,6 @@ namespace Consignment.Models
     }
     public class CciInvoiceDtlModel
     {
-        public string? CciInvDtlId { get; set; }
         public string? CciInvMstId { get; set; }
         public string? ContainerNo { get; set; }
         public string? GcYear { get; set; }

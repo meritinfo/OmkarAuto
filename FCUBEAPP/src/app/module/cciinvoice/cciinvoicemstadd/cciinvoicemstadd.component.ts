@@ -464,7 +464,6 @@ export class CciinvoicemstaddComponent {
       } 
       else{
         this.ccinvmstmodel.ccinvmstDtlList.push({
-          'cciInvDtlId': "",
           'cciInvMstId': "",
           'containerNo': selectedDataValue.arrayList[i].containerNo,
           'gcYear': selectedDataValue.arrayList[i].gcYear,
