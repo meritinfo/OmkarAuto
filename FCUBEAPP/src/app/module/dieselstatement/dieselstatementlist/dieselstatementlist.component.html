@@ -89,15 +89,16 @@
                         </thead>
                         <tbody *ngIf="allDieselStatement.dieselList?.length != 0">
                             <tr *ngFor="let dsl of allDieselStatement.dieselList">
-                                <td>{{ dsl.vendor }}</td>                        
-                                <td>{{ dsl.billStmtNo}}</td>
-                                <td>{{ dsl.billStmtDate}}</td>
-                                <td>{{ dsl.fromDate}}</td>                    
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getDieselStatementDetails(dsl)"></button>    
                                              
                                 </td> 
+                                <td>{{ dsl.vendor }}</td>                        
+                                <td>{{ dsl.billStmtNo}}</td>
+                                <td>{{ dsl.billStmtDate}}</td>
+                                <td>{{ dsl.fromDate}}</td>                    
+                               
                             </tr>
                         </tbody>
                         <tbody *ngIf="allDieselStatement.dieselList?.length == 0">

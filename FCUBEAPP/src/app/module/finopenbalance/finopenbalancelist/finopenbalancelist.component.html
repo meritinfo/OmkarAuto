@@ -27,11 +27,12 @@
                     </thead>
                     <tbody *ngIf="allOpeningbalancelist.openbalList">
                         <tr *ngFor="let opbl of allOpeningbalancelist.openbalList">
-                            <td>{{ opbl.branchName }}</td>                        
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getfinOpeningbalanceDetails(opbl)"></button>             
                             </td>
+                            <td>{{ opbl.branchName }}</td>                        
+                          
                         </tr>
                     </tbody>
                     <tbody *ngIf="allOpeningbalancelist.openbalList?.length == 0">

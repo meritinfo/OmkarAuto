@@ -155,6 +155,10 @@ dashboard: string ="";
       },
       columns: [   
         {
+          title: 'Action',
+          data: 'transId',
+        },
+        {
           title: 'Trans Date',
           data: 'transDate',
         },
@@ -193,10 +197,7 @@ dashboard: string ="";
           title: 'Total Amt Recd',
           data: 'totalAmtRecd',
         },
-        {
-          title: 'Action',
-          data: 'transId',
-        },
+       
       ],
     };
   }

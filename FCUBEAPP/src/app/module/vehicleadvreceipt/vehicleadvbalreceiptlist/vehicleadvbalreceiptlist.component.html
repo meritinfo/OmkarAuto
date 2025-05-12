@@ -90,6 +90,10 @@
                     </thead>
                     <tbody *ngIf="allAdvanceMaster.advanceList?.length != 0">
                         <tr *ngFor="let tm of allAdvanceMaster.advanceList">
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getVehicleAdvBalreceiptasterDetails(tm)"></button> 
+                            </td>
                          
                             <td>{{ tm.transDate}}</td>
                             <td>{{ tm.branchName}}</td>
@@ -106,10 +110,7 @@
                             <td>{{ tm.amtExtras}}</td>
                             
                                                     
-                            <td>                                
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getVehicleAdvBalreceiptasterDetails(tm)"></button> 
-                            </td>
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allAdvanceMaster.advanceList?.length == 0">

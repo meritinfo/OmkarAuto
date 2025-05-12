@@ -299,7 +299,7 @@ dashboard: string ="";
       const controls = this.formCustWizard.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");
+          this.toastrService.warning(name + "Fields is Invalid");
         }
       }
       return;

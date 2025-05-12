@@ -28,12 +28,13 @@
                     </thead>
                     <tbody *ngIf="allCardMaster.cardList?.length != 0">
                         <tr *ngFor="let brandmaster of allCardMaster.cardList">
-                            <td>{{ brandmaster.cardType }}</td>                    
-                            <td>{{ brandmaster.cardCode }}</td>                         
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getFleetCardMasterDetails(brandmaster)"></button>                             
                             </td>
+                            <td>{{ brandmaster.cardType }}</td>                    
+                            <td>{{ brandmaster.cardCode }}</td>                         
+                         
                         </tr>
                     </tbody>
                     <tbody *ngIf="allCardMaster.cardList?.length == 0">

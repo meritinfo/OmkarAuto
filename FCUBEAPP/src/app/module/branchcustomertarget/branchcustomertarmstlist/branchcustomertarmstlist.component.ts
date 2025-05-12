@@ -97,6 +97,10 @@ branchCustomerList(){
       },
       columns: [
         {
+          title: 'Action',
+          data: 'id',
+        },
+        {
           title: 'Year Id',
           data: 'yeardesc',
         },
@@ -105,10 +109,7 @@ branchCustomerList(){
           data: 'branch',
         },
         
-        {
-          title: 'Action',
-          data: 'id',
-        },
+       
 
       ],
     };

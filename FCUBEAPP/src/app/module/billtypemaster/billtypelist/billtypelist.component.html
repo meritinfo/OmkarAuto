@@ -66,17 +66,19 @@
                     </thead>
                     <tbody *ngIf="allBillsTypeMaster.typeList?.length != 0">
                         <tr *ngFor="let branch  of allBillsTypeMaster.typeList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getBillsTypeDetails(branch)"></button>             
+                            </td>  
+                            <td>{{ branch.sacCode}}</td>
                             <td>{{ branch.billTypeDesc }}</td>
                             <!-- <td>{{ branch.mainAc }}</td>
                             <td>{{ branch.otherAc }}</td>
                             <td>{{ branch.otherAc2 }}</td>
                             <td>{{ branch.otherAc3 }}</td> -->
-                            <td>{{ branch.sacCode}}</td>
+                           
                                            
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="getBillsTypeDetails(branch)"></button>             
-                            </td>  
+                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allBillsTypeMaster.typeList?.length == 0">
