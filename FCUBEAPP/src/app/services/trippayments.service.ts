@@ -51,4 +51,7 @@ export class TripPaymentsService {
   getLrDtlsForTripPmts(request: Requestmodel):Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetLrDtlsForTripPmts', request, this.httpOptions);
   }
+  getVoucherPrint(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVoucherPrint', req, this.httpOptions);
+  }
 }

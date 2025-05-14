@@ -4,6 +4,8 @@ using SqlHelper.Models;
 using Consignment.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace FleetTrans.Repository
 {
@@ -423,6 +425,47 @@ namespace FleetTrans.Repository
             }
             return lrmodel;
         }
+        public async Task<ResponseModel> GetVoucherPrint(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/Voucher/";
+
+                string UrlParam = "?PmtId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
 
     }
 }

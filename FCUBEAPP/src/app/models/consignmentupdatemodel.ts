@@ -8,6 +8,8 @@ export class Consignmentupdatemodel {
     shipmentNo: string = "";
     shipmentDt: string = "";
     privateMark: string = "";
+    actualWt : string = "";
+    chargewt : string = "";
     vehicleNo: string = "";
     billingStatus : string = "";
     billingParty : string = "";

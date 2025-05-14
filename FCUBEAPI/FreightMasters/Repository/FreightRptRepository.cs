@@ -1032,7 +1032,7 @@ namespace FreightMasters.Repository
                         using (XLWorkbook wb = new XLWorkbook())
                         {
                             responseModel = await sharedRepository.GetCompanyDetail();
-                            int colcnt = 8;
+                            int colcnt = 12;
 
                             var ws = wb.Worksheets.Add("worksheet");
                             ws.Range(1, 1, 1, colcnt).Merge();
@@ -1071,6 +1071,10 @@ namespace FreightMasters.Repository
                             ws.Cell(5, 6).Value  = dataSet.Tables[0].Columns[7].ColumnName;
                             ws.Cell(5, 7).Value  = dataSet.Tables[0].Columns[8].ColumnName;
                             ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[9].ColumnName;
+                            ws.Cell(5, 9).Value = dataSet.Tables[0].Columns[10].ColumnName;
+                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[11].ColumnName;
+                            ws.Cell(5, 11).Value = dataSet.Tables[0].Columns[12].ColumnName;
+                            ws.Cell(5, 12).Value = dataSet.Tables[0].Columns[13].ColumnName;
 
                             ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
                             ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
@@ -1079,10 +1083,13 @@ namespace FreightMasters.Repository
                             int r = 6;
                             var BillStnName = "";
                             var Party = "";
-                            decimal tot = 0, brtot = 0, tottot = 0;
-                            decimal onac = 0, bronac = 0, totonac = 0;
-                            decimal due = 0, brdue = 0, totdue = 0;
-
+                            decimal tot = 0,    brtot = 0,      tottot = 0;
+                            decimal onac = 0,   bronac = 0,     totonac = 0;
+                            decimal due = 0,    brdue = 0,      totdue = 0;
+                            decimal recv = 0,   brrecv = 0,     totrecv = 0;
+                            decimal ded = 0,    brded = 0,      totded = 0;
+                            decimal tds = 0,    brtds = 0,      tottds = 0;
+                            decimal netdue = 0, brnetdue = 0,   totnetdue = 0;
 
                             for (int j = 0; j < dataSet.Tables[0].Rows.Count; j++)
                             {
@@ -1093,19 +1100,27 @@ namespace FreightMasters.Repository
                                     {
                                         ws.Range(r, 1, r, 4).Merge();
                                         ws.Range(r, 1, r, 4).Value = "Party Total";
-                                        ws.Cell(r, 5).Value  = tot;
-                                        ws.Cell(r, 6).Value  = onac;
-                                        ws.Cell(r, 7).Value  = due;
+                                        ws.Cell(r, 6).Value = tot;
+                                        ws.Cell(r, 7).Value = recv;
+                                        ws.Cell(r, 8).Value = ded;
+                                        ws.Cell(r, 9).Value = tds;
+                                        ws.Cell(r, 10).Value = due;
+                                        ws.Cell(r, 11).Value = onac;
+                                        ws.Cell(r, 12).Value = netdue;
 
                                         ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                                         ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 
                                         r++;
 
-                                        
                                         tot = 0;
                                         onac = 0;
                                         due = 0;
+                                        recv = 0;
+                                        ded = 0;
+                                        tds = 0;
+                                        netdue = 0;   
+                                        
                                     }
 
                                     if (BillStnName != dataSet.Tables[0].Rows[j][0].ToString())
@@ -1114,18 +1129,27 @@ namespace FreightMasters.Repository
                                         {
                                             ws.Range(r, 1, r, 4).Merge();
                                             ws.Range(r, 1, r, 4).Value = "Branch Total";
-                                            ws.Cell(r, 5).Value  = brtot;
-                                            ws.Cell(r, 6).Value  = bronac;
-                                            ws.Cell(r, 7).Value  = brdue; 
+                                            ws.Cell(r, 6).Value  = brtot;
+                                            ws.Cell(r, 7).Value  = brrecv;
+                                            ws.Cell(r, 8).Value  = brded;
+                                            ws.Cell(r, 9).Value  = brtds;
+                                            ws.Cell(r, 10).Value = brdue;
+                                            ws.Cell(r, 11).Value = bronac;
+                                            ws.Cell(r, 12).Value = brnetdue;
 
                                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 
                                             r++;
 
+
                                             brtot = 0;
                                             bronac = 0;
                                             brdue = 0;
+                                            brrecv = 0;
+                                            brded = 0;
+                                            brtds = 0;
+                                            brnetdue = 0;
                                         }
 
                                         BillStnName = dataSet.Tables[0].Rows[j][0].ToString();
@@ -1153,26 +1177,47 @@ namespace FreightMasters.Repository
                                 ws.Cell(r, 6).Value  = dataSet.Tables[0].Rows[j][7].ToString();
                                 ws.Cell(r, 7).Value  = dataSet.Tables[0].Rows[j][8].ToString();
                                 ws.Cell(r, 8).Value = dataSet.Tables[0].Rows[j][9].ToString();
+                                ws.Cell(r, 9).Value = dataSet.Tables[0].Rows[j][10].ToString();
+                                ws.Cell(r, 10).Value = dataSet.Tables[0].Rows[j][11].ToString();
+                                ws.Cell(r, 11).Value = dataSet.Tables[0].Rows[j][12].ToString();
+                                ws.Cell(r, 12).Value = dataSet.Tables[0].Rows[j][13].ToString();
 
-                                tot     = tot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
-                                onac    = onac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
-                                due     = due   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
 
-                                brtot       = brtot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
-                                bronac      = bronac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
-                                brdue     = brdue   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                tot     = tot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                recv    = recv + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                ded     = ded + Convert.ToDecimal(dataSet.Tables[0].Rows[j][9].ToString());
+                                tds     = tds + Convert.ToDecimal(dataSet.Tables[0].Rows[j][10].ToString());
+                                due     = due + Convert.ToDecimal(dataSet.Tables[0].Rows[j][11].ToString());
+                                onac    = onac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][12].ToString());
+                                netdue  = netdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][13].ToString());
 
-                                tottot      = tottot    + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
-                                totonac     = totonac   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
-                                totdue     = totdue   + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                brtot       = brtot + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                brrecv      = brrecv + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                brded       = brded + Convert.ToDecimal(dataSet.Tables[0].Rows[j][9].ToString());
+                                brtds       = brtds + Convert.ToDecimal(dataSet.Tables[0].Rows[j][10].ToString());
+                                brdue       = brdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][11].ToString());
+                                bronac      = bronac + Convert.ToDecimal(dataSet.Tables[0].Rows[j][12].ToString());
+                                brnetdue    = brnetdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][13].ToString());
+
+                                tottot      = tottot + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                totrecv     = totrecv + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                totded      = totded + Convert.ToDecimal(dataSet.Tables[0].Rows[j][9].ToString());
+                                tottds      = tottds + Convert.ToDecimal(dataSet.Tables[0].Rows[j][10].ToString());
+                                totdue      = totdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][11].ToString());
+                                totonac     = totonac + Convert.ToDecimal(dataSet.Tables[0].Rows[j][12].ToString());
+                                totnetdue   = totnetdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][13].ToString());
 
                                 r++;
                             }
                             ws.Range(r, 1, r, 4).Merge();
                             ws.Range(r, 1, r, 4).Value = "Party Total";
-                            ws.Cell(r, 5).Value  = tot;
-                            ws.Cell(r, 6).Value  = onac;
-                            ws.Cell(r, 7).Value  = due;
+                            ws.Cell(r, 6).Value     = tot;
+                            ws.Cell(r, 7).Value     = recv;
+                            ws.Cell(r, 8).Value     = ded;
+                            ws.Cell(r, 9).Value     = tds;
+                            ws.Cell(r, 10).Value    = due;
+                            ws.Cell(r, 11).Value    = onac;
+                            ws.Cell(r, 12).Value    = netdue;
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1181,9 +1226,13 @@ namespace FreightMasters.Repository
 
                             ws.Range(r, 1, r, 4).Merge();
                             ws.Range(r, 1, r, 4).Value = "Branch Total";
-                            ws.Cell(r, 5).Value  = brtot;
-                            ws.Cell(r, 6).Value  = bronac;
-                            ws.Cell(r, 7).Value  = brdue; 
+                            ws.Cell(r, 6).Value     = brtot;
+                            ws.Cell(r, 7).Value     = brrecv;
+                            ws.Cell(r, 8).Value     = brded;
+                            ws.Cell(r, 9).Value     = brtds;
+                            ws.Cell(r, 10).Value    = brdue;
+                            ws.Cell(r, 11).Value    = bronac;
+                            ws.Cell(r, 12).Value    = brnetdue;
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1192,9 +1241,13 @@ namespace FreightMasters.Repository
 
                             ws.Range(r, 1, r, 4).Merge();
                             ws.Range(r, 1, r, 4).Value = "Grand Total";
-                            ws.Cell(r, 5).Value  = tottot;
-                            ws.Cell(r, 6).Value  = totonac;
-                            ws.Cell(r, 7).Value  = totdue;
+                            ws.Cell(r, 6).Value  = tottot;
+                            ws.Cell(r, 7).Value  = totrecv;
+                            ws.Cell(r, 8).Value  = totded;
+                            ws.Cell(r, 9).Value  = tottds;
+                            ws.Cell(r, 10).Value = totdue;
+                            ws.Cell(r, 11).Value = totonac;
+                            ws.Cell(r, 12).Value = totnetdue;
 
                             ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
                             ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -1207,8 +1260,9 @@ namespace FreightMasters.Repository
                             ws.Column(2).Width = 12;
                             ws.Column(3).Width = 12;
                             ws.Column(4).Width = 12;
+                            ws.Column(5).Width = 12;
 
-                            ws.Range(6, 5, r, 7).Style.NumberFormat.Format = "0.00";
+                            ws.Range(6, 6, r, 12).Style.NumberFormat.Format = "0.00";
 
                             ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;

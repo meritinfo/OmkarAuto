@@ -3,11 +3,14 @@ import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Responsemodel } from 'src/app/models/responsemodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trippaymentslist',
@@ -51,8 +54,10 @@ export class TrippaymentslistComponent {
   createmode = false;
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
+  responseDetails = new Responsemodel();
 
   constructor(private formBuilder: FormBuilder,private trippaymentService: TripPaymentsService, 
+    private toastrService : ToastrService,private requestmodel:Requestmodel,
     private commonService: CommonService, private route: Router) {
   }
   
@@ -149,6 +154,10 @@ export class TrippaymentslistComponent {
         {
           title: 'Action',
           data: 'pmtId',
+        }, 
+        {
+          title: 'Action',
+          data: 'pmtId',
         },
         {
           title: 'Branch',
@@ -173,8 +182,7 @@ export class TrippaymentslistComponent {
         {
           title: 'Amount',
           data: 'amtPaid',
-        },   
-      
+        },         
       ],
     };
   }
@@ -220,11 +228,9 @@ export class TrippaymentslistComponent {
 
 
   search(): void {
-    debugger;
     var selectedData = this.formFilter.getRawValue();   
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-   // this.filter.filterStr = selectedData.branch;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
 
     this.tripPaymentList();
@@ -232,6 +238,22 @@ export class TrippaymentslistComponent {
       dtInstance.ajax.reload(); 
     });
   }
-  
+
+  getVoucherPrint(trippayments: Trippaymentsmodel): void {
+    this.requestmodel.strRequest = trippayments.pmtId;
+
+    this.trippaymentService.getVoucherPrint(this.requestmodel).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "Voucher_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/voucher/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
 
 }
