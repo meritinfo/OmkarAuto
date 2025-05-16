@@ -560,9 +560,7 @@ dashboard: string ="";
     });
   }
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;

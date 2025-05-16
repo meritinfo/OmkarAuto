@@ -1,7 +1,8 @@
 export class Vehicleinstpmtmodel {
     pmtId: string = "";
-    pmtDate: string = "";
     branchCode: string = "";
+    pmtDate: string = "";
+    loanType: string = "";
     vehicleMasterid: string = "";
     instId: string = "";
     instNo: string = "";

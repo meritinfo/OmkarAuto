@@ -263,6 +263,10 @@ dashboard: string ="";
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
+
   getStateList(): void {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;

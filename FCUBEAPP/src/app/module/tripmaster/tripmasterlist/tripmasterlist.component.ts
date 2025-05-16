@@ -281,9 +281,7 @@ getTripMaster(){
     });
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onFocused(e: any) {
     // do something
@@ -296,6 +294,10 @@ getTripMaster(){
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
   search(): void {   
     var selectData =  this.formFilter.getRawValue();
     this.filter.fromDate = selectData.fromDate;

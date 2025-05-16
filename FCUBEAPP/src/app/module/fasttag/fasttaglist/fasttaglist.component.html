@@ -20,7 +20,6 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="accountList"
                                             [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)'
                                             [itemTemplate]="itemTemplate"

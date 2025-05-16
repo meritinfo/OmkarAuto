@@ -171,16 +171,14 @@ dashboard: string ="";
   }
 
   getAcountList(): void {    
-    this.requestmodel.strRequest="BC"
+    this.requestmodel.strRequest="D"
     this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
   }
 
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here

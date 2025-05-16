@@ -9,6 +9,8 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { VehicleinstscheduleService } from 'src/app/services/vehicleinstschedule.service';
 import { Vehicleinstschedulemodel } from 'src/app/models/vehicleinstschedulemodel';
+import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
+
 import * as XLSX from 'xlsx';
 const { read, write, utils } = XLSX;
 type AOA = any[][];
@@ -45,7 +47,7 @@ export class VehicleinstscheduleaddComponent {
   constructor(private vehicleinstschedulemodel: Vehicleinstschedulemodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
     private commonService: CommonService, private vehicleinstscheduleService: VehicleinstscheduleService,
-    private toasterService: ToastrService) {
+    private vehicleInstPmtService: VehicleInstPmtService, private toasterService: ToastrService) {
     this.vehicleinstschedulemodel = new Vehicleinstschedulemodel();
   }
 
@@ -164,10 +166,31 @@ export class VehicleinstscheduleaddComponent {
       this.vehicleList = res;
     });
   }
-
+ 
   selectEvent(item: any) {
-    // do something with selected item
-   // this.GetOpeningBal();
+    var vehi = item.dataId;
+    var selectedData = this.formUser.getRawValue();
+    if(selectedData.loanType==""){
+      this.toasterService.warning("Please select Loan Type");
+      this.formUser.patchValue({
+        vehicleMasterId: "",
+      })
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = vehi;
+      this.requestmodel.strRequest1 = selectedData.loanType;
+
+      this.vehicleInstPmtService.checkVehicleLoanType(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formUser.controls["loanType"].disable();
+        }
+        else {
+          this.toasterService.warning(this.responseDetails.message);
+        }      
+      });
+    }
   }
 
   onChangeSearch(search: string) {
@@ -183,6 +206,10 @@ export class VehicleinstscheduleaddComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
   calNoOfMonths(){
     var selectedDataVal = this.formUser.getRawValue();
     var nomon = "";

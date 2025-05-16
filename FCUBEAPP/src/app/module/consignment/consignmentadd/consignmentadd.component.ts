@@ -829,9 +829,7 @@ export class ConsignmentaddComponent implements OnInit {
       });
     })
   }
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // do something with selected item

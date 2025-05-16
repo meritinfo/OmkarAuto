@@ -49,8 +49,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="party" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="party"  
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -76,8 +75,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="origin" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="origin"  
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -101,8 +99,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="destination" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="destination"  
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -120,9 +117,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Series </label>
                                     <select formControlName="gcSeries"
@@ -134,19 +129,19 @@
                                     </select> 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Vehicle No </label>
                                     <input class="form-control" formControlName="vehicleNo">
                                 </div>
                             </div>
-                        </div>
-                        <!-- <div class="col-lg-1">
-                            <div class="mt-3">
-                                <button class="btn btn-primary"   
-                                (click)="search()"><span>Search</span></button>
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
                             </div>
-                        </div> -->
+                        </div>
                     </form>
                 </div>
                 <div class="col-sm-2 col-md-2 text-right">
@@ -157,6 +152,106 @@
                     </div>
                 </div>
             </div>
+            <!-- <div class="overflow-x"> -->
+            <div class="table-container"> 
+                <table class="table table-bordered table-striped dt-responsive nowrap w-100 no-border-table full-grid-rpt-width">
+                    <thead>
+                        <tr>
+                            <th>Booked At	    </th>
+                            <th>Booking Date	</th>
+                            <th>Booking Status	</th>
+                            <th>LR No	</th>
+                            <th>From Location	</th>
+                            <th>To Location	</th>
+                            <th>Kms	</th>
+                            <th>Consignor	</th>
+                            <th>Cnor Gst	</th>
+                            <th>Invoice No	</th>
+                            <th>Eway Bill No	</th>
+                            <th>Eway Bill Exp Date	</th>
+                            <th>Consignee	</th>
+                            <th>Cnee Gst	</th>
+                            <th>Cnee Mobile	</th>
+                            <th>Truck No	</th>
+                            <th>Actual Wt	</th>
+                            <th>Charge wt	</th>
+                            <th>Product Name	</th>
+                            <th>Product Desc	</th>
+                            <th>Packing Type	</th>
+                            <th>No Packages	</th>
+                            <th>Veh Type	</th>
+                            <th>Freight	</th>
+                            <th>Statistical	</th>
+                            <th>Fov	</th>
+                            <th>Door Coll	</th>
+                            <th>Handling	</th>
+                            <th>Loading Detn	</th>
+                            <th>Enroute	</th>
+                            <th>Misc	</th>
+                            <th>Door Delv	</th>
+                            <th>UnLoading	</th>
+                            <th>UnLoading Detn	</th>
+                            <th>Extras	</th>
+                            <th>Others	</th>
+                            <th>Sub Total	</th>
+                            <th>Grand Total	</th>
+                            <th>Business Incharge	</th>
+                            <th>Billing Party	</th>
+                            <th>Billed YN	</th>
+                            <th>Bill No	</th>
+                            <th>Bill Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  
+                            *ngFor="let eta of allBookingregisterrptlist.bookingRegisterRptList;">                        
+                            <td>{{ eta.bookedAt }}</td>
+                            <td>{{ eta.bookingDate }}</td>
+                            <td>{{ eta.bookingStatus }}</td>
+                            <td>{{ eta.gcNoteNo }}</td>
+                            <td>{{ eta.fromLocation }}</td>
+                            <td>{{ eta.toLocation }}</td>
+                            <td>{{ eta.kms }}</td>
+                            <td>{{ eta.consignor }}</td>
+                            <td>{{ eta.cnorGst }}</td>
+                            <td>{{ eta.invoiceNo }}</td>
+                            <td>{{ eta.ewayBillNo }}</td>
+                            <td>{{ eta.ewayBillExpDate }}</td>
+                            <td>{{ eta.consignee }}</td>
+                            <td>{{ eta.cneeGst }}</td>
+                            <td>{{ eta.cneeMobile }}</td>
+                            <td>{{ eta.truckNo }}</td>
+                            <td>{{ eta.actualWt }}</td>
+                            <td>{{ eta.chargewt }}</td>
+                            <td>{{ eta.productName }}</td>
+                            <td>{{ eta.productDesc }}</td>
+                            <td>{{ eta.packingType }}</td>
+                            <td>{{ eta.noPackages }}</td>
+                            <td>{{ eta.vehType }}</td>        
+                            <td>{{ eta.freight }}</td>
+                            <td>{{ eta.statistical }}</td>
+                            <td>{{ eta.fov }}</td>
+                            <td>{{ eta.doorColl }}</td>
+                            <td>{{ eta.handling }}</td>
+                            <td>{{ eta.loadingDetn }}</td>
+                            <td>{{ eta.enroute }}</td>
+                            <td>{{ eta.misc }}</td>
+                            <td>{{ eta.doorDelv }}</td>
+                            <td>{{ eta.unLoading }}</td>
+                            <td>{{ eta.unLoadingDetn }}</td>
+                            <td>{{ eta.extras }}</td>
+                            <td>{{ eta.others }}</td>
+                            <td>{{ eta.subTotal }}</td>
+                            <td>{{ eta.grandTotal }}</td>
+                            <td>{{ eta.businessIncharge }}</td>
+                            <td>{{ eta.billingParty }}</td>
+                            <td>{{ eta.billedYN }}</td>
+                            <td>{{ eta.billNo }}</td>
+                            <td>{{ eta.billDate }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>                      
             <!-- <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">

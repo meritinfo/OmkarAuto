@@ -191,9 +191,11 @@ export class TrippaymentslistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
 
   onFocused(e: any) {
     // do something

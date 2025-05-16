@@ -2,6 +2,7 @@ export class Trippaymentsmodel {
     pmtId: string = "";
     pmtBranch: string = "";
     pmtDate: string = "";
+    paidToDesc: string = "";
     vehicleMasterID: string = "";
     transType: string = "";
     remarks: string = "";

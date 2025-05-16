@@ -72,7 +72,6 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList"
                                                         formControlName="challanFromStn" 
-                                                        (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                        [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
@@ -94,8 +93,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">To Place : </label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="challanToStn"
-                                                       (selected)='selectEvent($event)' 
+                                                    <ng-autocomplete [data]="locationList" 
+                                                    formControlName="challanToStn"
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate" 
                                                         [customFilter]="startWithFilter"
@@ -114,8 +113,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Broker : </label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="brokerList" formControlName="brokerId"
-                                                        (selected)='selectEvent($event)' 
+                                                    <ng-autocomplete [data]="brokerList" 
+                                                    formControlName="brokerId"
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate" 
                                                         [customFilter]="startWithFilter"

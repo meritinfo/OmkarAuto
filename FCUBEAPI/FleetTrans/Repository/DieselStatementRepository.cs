@@ -711,7 +711,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@MasterID", request.strRequest),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselImpInnerGridList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementInnergrid", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -724,10 +724,10 @@ namespace FleetTrans.Repository
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
                                 TransDateTime   = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDateTime"]),
                                 HsdAdvTyps      = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
-                                DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["DslQty"]),
-                                DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["DslRate"]),
-                                Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["Amount"]),
-                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["TripPmtId"]),
+                                DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+                                DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
+                                Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                             });
                         }
 

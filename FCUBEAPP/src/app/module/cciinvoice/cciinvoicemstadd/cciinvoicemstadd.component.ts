@@ -447,7 +447,7 @@ export class CciinvoicemstaddComponent {
     this.ccinvmstmodel.totalCgstAmt= selectedDataValue.totalCgstAmt.toString();
     this.ccinvmstmodel.totalIgstAmt= selectedDataValue.totalIgstAmt.toString();
     this.ccinvmstmodel.totalInvAmt= selectedDataValue.totalInvAmt.toString();
-    this.ccinvmstmodel.yearId= this.year;
+    this.ccinvmstmodel.yearId = this.year;
     this.ccinvmstmodel.loggedInUser=  this.loggedInUserID;
 
     this.ccinvmstmodel.ccinvmstDtlList = [];

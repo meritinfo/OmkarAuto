@@ -181,8 +181,7 @@
                                     <label for="formrow-inputZip">From Place</label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
+                                            [searchKeyword]="keywordLocation" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -205,7 +204,6 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="toPlace"
                                             [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -674,7 +672,6 @@
                                         <ng-autocomplete [data]="partyList" 
                                             formControlName="billingParty"
                                             [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -712,7 +709,6 @@
                                         <ng-autocomplete [data]="businessByList" 
                                             formControlName="businessBy"
                                             [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

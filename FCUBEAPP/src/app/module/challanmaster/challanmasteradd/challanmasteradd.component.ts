@@ -944,11 +944,7 @@ modifiedBy: string = "";
       balance: balance.toFixed(2),
     });
   }  
-  
-  selectEvent(item: any) {
-    // do something with selected item
-  }
-  
+   
 
   onChangeSearch(search: string) {
     // do something with selected item

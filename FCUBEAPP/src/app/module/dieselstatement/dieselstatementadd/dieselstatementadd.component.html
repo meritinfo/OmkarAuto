@@ -61,7 +61,6 @@
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="branchList"
                                                             [searchKeyword]="keywordLocation"  
-                                                            (selected)='selectEvent($event)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'
                                                             [itemTemplate]="itemTemplate"
@@ -87,7 +86,6 @@
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="vendorList"
                                                             [searchKeyword]="keywordLocation"  
-                                                            (selected)='selectEvent($event)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'
                                                             [itemTemplate]="itemTemplate"

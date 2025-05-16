@@ -177,6 +177,9 @@ dashboard: string ="";
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
   
+    endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+      return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    };
     dieselStmt(){
       this.dtOptions = {
           pagingType: 'full_numbers',

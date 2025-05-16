@@ -44,11 +44,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList" [searchKeyword]="keywordLocation"
-                                              formControlName="vehicle" (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
+                                        <ng-autocomplete [data]="vehicleList" 
+                                            [searchKeyword]="keywordLocation"
+                                            formControlName="vehicle" 
+                                            (inputChanged)='onChangeSearch($event)' 
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="endWithFilter">
                                         </ng-autocomplete>
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>

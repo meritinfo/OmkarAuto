@@ -43,7 +43,7 @@ export class DieselstmtaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   importTrue= false;
 
   formSubmitted = false;
@@ -214,9 +214,7 @@ dashboard: string ="";
     });
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -229,6 +227,10 @@ dashboard: string ="";
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
   };
  
   getFinDocDetails(finId: string){
@@ -407,7 +409,7 @@ dashboard: string ="";
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
     this.dieselStatementmodel.dfVendor       = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
-    this.dieselStatementmodel.remarks         = selectedDataVal.remarks;  
+    this.dieselStatementmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
     this.dieselStatementmodel.yearId          = this.year;
@@ -422,7 +424,7 @@ dashboard: string ="";
           arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({
           'masterID':"",
-          'vehicleMasterId': arr[i].vehicleMasterId?arr[i].vehicleMasterId.dataId:"", 
+          'vehicleMasterId': arr[i].vehicleNo?arr[i].vehicleNo.dataId:"", 
           'transRefNo': arr[i].transRefNo.toString(),
           'transDateTime': arr[i].transDateTime,
           'hsdAdvTyps': "",

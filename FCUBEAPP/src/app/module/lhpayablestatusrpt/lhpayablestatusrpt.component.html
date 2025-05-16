@@ -49,8 +49,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="brokerList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="broker" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="broker"  
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

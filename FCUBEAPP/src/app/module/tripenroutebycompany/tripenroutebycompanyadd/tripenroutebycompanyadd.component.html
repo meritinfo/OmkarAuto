@@ -38,7 +38,7 @@
                                                     <label for="basicpill-firstname-input">Vehicle</label><span style="color: red">*</span> 
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation"  
-                                                        formControlName="vehicleID" [initialValue]=""
+                                                        formControlName="vehicleID"  
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"

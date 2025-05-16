@@ -411,9 +411,7 @@ dashboard: string ="";
     });  
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -428,6 +426,10 @@ dashboard: string ="";
     return vehicleList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };  
   
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
+
   getDslMileage(e:any) {
     this.requestmodel.strRequest= e;
     this.commonService.getDslMileage(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -1008,7 +1010,7 @@ dashboard: string ="";
     this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
     this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
     this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
-    this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase(),
+    this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
 

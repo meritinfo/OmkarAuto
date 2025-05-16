@@ -40,8 +40,7 @@
                                             <label>Vendor</label> <span style="color: red">*</span>                                       
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vendorList"
-                                                    [searchKeyword]="keywordLocation"  
-                                                    (selected)='selectEvent($event)'
+                                                    [searchKeyword]="keywordLocation" 
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)'
                                                     [itemTemplate]="itemTemplate"
@@ -129,8 +128,7 @@
                                                     <td class="col-lg-2"> 
                                                         <div class="ng-autocomplete">
                                                             <ng-autocomplete [data]="tyreList"
-                                                                [searchKeyword]="keywordLocation"  
-                                                                (selected)='selectEvent($event)'
+                                                                [searchKeyword]="keywordLocation" 
                                                                 (inputChanged)='onChangeSearch($event)'
                                                                 (inputFocused)='onFocused($event)'
                                                                 [itemTemplate]="itemTemplate"

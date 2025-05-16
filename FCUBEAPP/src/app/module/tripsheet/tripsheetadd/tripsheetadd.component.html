@@ -67,7 +67,7 @@
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"
+                                                        [customFilter]="endWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterID'].invalid) }" >
                                                     </ng-autocomplete>
 
@@ -95,7 +95,6 @@
                                                     <ng-autocomplete [data]="driverLists"
                                                         [searchKeyword]="keywordLocation" 
                                                         formControlName="driverMasterID"
-                                                        (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"

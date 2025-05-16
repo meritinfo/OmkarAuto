@@ -7,6 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Reportagemodel } from 'src/app/models/reportagemodel';
+import { Billoutstandingdetailrptlistmodel } from 'src/app/models/billoutstandingdetailrptlistmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -25,6 +26,7 @@ export class BilloutstandingrptComponent {
   partyList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
+  alloutstandingrptlist: Billoutstandingdetailrptlistmodel = new Billoutstandingdetailrptlistmodel();
   formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
@@ -120,7 +122,7 @@ export class BilloutstandingrptComponent {
       incUnBilled: new FormControl('',),  
       submitYN: new FormControl('',),  
       party: new FormControl('',),  
-      rptType: new FormControl('AS',),
+      rptType: new FormControl('ODP',),
       age1: new FormControl('30',), 
       age2: new FormControl('60',), 
       age3: new FormControl('90',), 
@@ -147,11 +149,7 @@ export class BilloutstandingrptComponent {
   }
 
   get f() { return this.formFilter.controls; }
-
-  selectEvent(item: any) {
-    // do something with selected item
-   // this.GetOpeningBal();
-  }
+ 
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -265,6 +263,41 @@ export class BilloutstandingrptComponent {
         }        
       });
     }
+    if(selectedDataVal.rptType=="ODP"){
+      this.billoutstandingrptService.getOutStandingDetailPartyRptExcel(this.filter).subscribe((resp: any) => {
+        if(resp.status){
+          let link = document.createElement("a");
+          link.download = "OutstandingDetailPartywise" + "_" + new Date().getTime() + '.xlsx';
+          link.href = "assets\\reports\\Download\\" + resp.message;
+          link.click();
+        }
+        else{
+          this.toastrService.warning(resp.message)
+        }        
+      });
+    }
+  }
+
+  
+  getShowDetails(): void {
+    var selectedDataVal=this.formFilter.getRawValue();    
+
+    this.filter.fromDate      = selectedDataVal.fromDate;
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.search        = selectedDataVal.asOnDate;
+    this.filter.filterStr     = selectedDataVal.branch;
+    this.filter.filterStr1    = selectedDataVal.incUnBilled?"Y":"N";
+    this.filter.filterStr2    = selectedDataVal.submitYN;  
+    this.filter.filterStr3    = selectedDataVal.party?selectedDataVal.party.dataId:"";        
+    this.filter.age1 = parseInt(selectedDataVal.age1)
+    this.filter.age2 = parseInt(selectedDataVal.age2) 
+    this.filter.age3 = parseInt(selectedDataVal.age3)
+    this.filter.age4 = parseInt(selectedDataVal.age4)
+    this.filter.age5 = parseInt(selectedDataVal.age5)
+    
+    this.billoutstandingrptService.getOutStandingDetailPartyRptList(this.filter).subscribe((resp: any) => {
+      this.alloutstandingrptlist = resp;
+    });
   }
 }
 

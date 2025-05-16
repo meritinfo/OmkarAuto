@@ -1302,6 +1302,313 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetOutstandingDetailPartyRptExcel(ReportAgeModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
+                            new SqlParameter("@Branch",         request.FilterStr),
+                            new SqlParameter("@IncUnBilled",    request.FilterStr1),
+                            new SqlParameter("@SubmitYN",       request.FilterStr2),
+                            new SqlParameter("@Party",          request.FilterStr3),
+                            new SqlParameter("@RptType",        "ODP"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            responseModel = await sharedRepository.GetCompanyDetail();
+                            int colcnt = 12;
+
+                            var ws = wb.Worksheets.Add("worksheet");
+                            ws.Range(1, 1, 1, colcnt).Merge();
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                            ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(2, 1, 2, colcnt).Merge();
+                            ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                            ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                            ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                            ws.Range(3, 1, 3, colcnt).Merge();
+                            ws.Range(3, 1, 3, colcnt).Value = "OUTSTANDING DETAIL PARTYWISE";
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                            ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(4, 1, 4, colcnt).Merge();
+                            ws.Range(4, 1, 4, colcnt).Value = filter;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                            ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Cell(5, 1).Value = "Ref";
+                            ws.Cell(5, 2).Value = "Ref No";
+                            ws.Cell(5, 3).Value = "Ref Date";
+                            ws.Cell(5, 4).Value = "Sub Date";
+                            ws.Cell(5, 5).Value = dataSet.Tables[0].Columns[5].ColumnName;
+                            ws.Cell(5, 6).Value = dataSet.Tables[0].Columns[6].ColumnName;
+                            ws.Cell(5, 7).Value = dataSet.Tables[0].Columns[7].ColumnName;
+                            ws.Cell(5, 8).Value = dataSet.Tables[0].Columns[8].ColumnName;
+                            ws.Cell(5, 9).Value = dataSet.Tables[0].Columns[9].ColumnName;
+                            ws.Cell(5, 10).Value = dataSet.Tables[0].Columns[10].ColumnName;
+                            ws.Cell(5, 11).Value = dataSet.Tables[0].Columns[11].ColumnName;
+                            ws.Cell(5, 12).Value = dataSet.Tables[0].Columns[12].ColumnName;
+
+                            ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                            int r = 6;
+                            var Party = "";
+                            decimal tot = 0, tottot = 0;
+                            decimal onac = 0, totonac = 0;
+                            decimal due = 0, totdue = 0;
+                            decimal recv = 0, totrecv = 0;
+                            decimal ded = 0, totded = 0;
+                            decimal tds = 0, tottds = 0;
+                            decimal netdue = 0, totnetdue = 0;
+
+                            for (int j = 0; j < dataSet.Tables[0].Rows.Count; j++)
+                            {
+
+                                if (Party != dataSet.Tables[0].Rows[j][1].ToString())
+                                {
+                                    if (j > 0)
+                                    {
+                                        ws.Range(r, 1, r, 4).Merge();
+                                        ws.Range(r, 1, r, 4).Value = "Party Total";
+                                        ws.Cell(r, 6).Value = tot;
+                                        ws.Cell(r, 7).Value = recv;
+                                        ws.Cell(r, 8).Value = ded;
+                                        ws.Cell(r, 9).Value = tds;
+                                        ws.Cell(r, 10).Value = due;
+                                        ws.Cell(r, 11).Value = onac;
+                                        ws.Cell(r, 12).Value = netdue;
+
+                                        ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                        ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                                        r++;
+
+                                        tot = 0;
+                                        onac = 0;
+                                        due = 0;
+                                        recv = 0;
+                                        ded = 0;
+                                        tds = 0;
+                                        netdue = 0;
+
+                                    }                                   
+
+                                    Party = dataSet.Tables[0].Rows[j][1].ToString();
+                                    ws.Range(r, 1, r, colcnt).Merge();
+                                    ws.Range(r, 1, r, colcnt).Value = Party;
+                                    ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 11;
+                                    ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                                    r++;
+                                }
+
+                                ws.Cell(r, 1).Value = dataSet.Tables[0].Rows[j][1].ToString();
+                                ws.Cell(r, 2).Value = dataSet.Tables[0].Rows[j][2].ToString();
+                                ws.Cell(r, 3).Value = dataSet.Tables[0].Rows[j][3].ToString();
+                                ws.Cell(r, 4).Value = dataSet.Tables[0].Rows[j][4].ToString();
+                                ws.Cell(r, 5).Value = dataSet.Tables[0].Rows[j][5].ToString();
+                                ws.Cell(r, 6).Value = dataSet.Tables[0].Rows[j][6].ToString();
+                                ws.Cell(r, 7).Value = dataSet.Tables[0].Rows[j][7].ToString();
+                                ws.Cell(r, 8).Value = dataSet.Tables[0].Rows[j][8].ToString();
+                                ws.Cell(r, 9).Value = dataSet.Tables[0].Rows[j][9].ToString();
+                                ws.Cell(r, 10).Value = dataSet.Tables[0].Rows[j][10].ToString();
+                                ws.Cell(r, 11).Value = dataSet.Tables[0].Rows[j][11].ToString();
+                                ws.Cell(r, 12).Value = dataSet.Tables[0].Rows[j][12].ToString();
+
+
+                                tot = tot + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
+                                recv = recv + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                ded = ded + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                tds = tds + Convert.ToDecimal(dataSet.Tables[0].Rows[j][9].ToString());
+                                due = due + Convert.ToDecimal(dataSet.Tables[0].Rows[j][10].ToString());
+                                onac = onac + Convert.ToDecimal(dataSet.Tables[0].Rows[j][11].ToString());
+                                netdue = netdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][12].ToString());
+
+                                tottot = tottot + Convert.ToDecimal(dataSet.Tables[0].Rows[j][6].ToString());
+                                totrecv = totrecv + Convert.ToDecimal(dataSet.Tables[0].Rows[j][7].ToString());
+                                totded = totded + Convert.ToDecimal(dataSet.Tables[0].Rows[j][8].ToString());
+                                tottds = tottds + Convert.ToDecimal(dataSet.Tables[0].Rows[j][9].ToString());
+                                totdue = totdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][10].ToString());
+                                totonac = totonac + Convert.ToDecimal(dataSet.Tables[0].Rows[j][11].ToString());
+                                totnetdue = totnetdue + Convert.ToDecimal(dataSet.Tables[0].Rows[j][12].ToString());
+
+                                r++;
+                            }
+                            ws.Range(r, 1, r, 4).Merge();
+                            ws.Range(r, 1, r, 4).Value = "Party Total";
+                            ws.Cell(r, 6).Value = tot;
+                            ws.Cell(r, 7).Value = recv;
+                            ws.Cell(r, 8).Value = ded;
+                            ws.Cell(r, 9).Value = tds;
+                            ws.Cell(r, 10).Value = due;
+                            ws.Cell(r, 11).Value = onac;
+                            ws.Cell(r, 12).Value = netdue;
+
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            r++;
+
+                            ws.Range(r, 1, r, 4).Merge();
+                            ws.Range(r, 1, r, 4).Value = "Grand Total";
+                            ws.Cell(r, 6).Value = tottot;
+                            ws.Cell(r, 7).Value = totrecv;
+                            ws.Cell(r, 8).Value = totded;
+                            ws.Cell(r, 9).Value = tottds;
+                            ws.Cell(r, 10).Value = totdue;
+                            ws.Cell(r, 11).Value = totonac;
+                            ws.Cell(r, 12).Value = totnetdue;
+
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                            ws.Range(r, 1, r, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            for (int m = 1; m <= colcnt; m++)
+                            {
+                                ws.Column(m).AdjustToContents();
+                            }
+                            ws.Column(1).Width = 12;
+                            ws.Column(2).Width = 12;
+                            ws.Column(3).Width = 12;
+                            ws.Column(4).Width = 12;
+                            ws.Column(5).Width = 12;
+
+                            ws.Range(6, 6, r, 12).Style.NumberFormat.Format = "0.00";
+
+                            ws.Range(5, 1, r, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, r, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                            var foldername = System.IO.Path.Combine("reports", "Download");
+                            var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                            var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                            var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                            bool exists = System.IO.Directory.Exists(pathToSave);
+
+                            if (!exists)
+                            {
+                                Directory.CreateDirectory(pathToSave);
+                            }
+
+                            if (File.Exists(fullPath))
+                                File.Delete(fullPath);
+
+                            wb.SaveAs(fullPath);
+
+                            responseModel.Status = true;
+                            responseModel.Message = filename;
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+        public async Task<BillOutstandingRptListModel> GetOutstandingDetailPartyRptList(ReportAgeModel request)
+        {
+            BillOutstandingRptListModel billRegisterRpt = new();
+
+            List<BillOutstandingRptModel> billRegisterRptList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@AsOnDate",       request.Search),
+                            new SqlParameter("@Branch",         request.FilterStr),
+                            new SqlParameter("@IncUnBilled",    request.FilterStr1),
+                            new SqlParameter("@SubmitYN",       request.FilterStr2),
+                            new SqlParameter("@Party",          request.FilterStr3),
+                            new SqlParameter("@RptType",        "ODP"),
+                            new SqlParameter("@Age1",           request.Age1),
+                            new SqlParameter("@Age2",           request.Age2),
+                            new SqlParameter("@Age3",           request.Age3),
+                            new SqlParameter("@Age4",           request.Age4),
+                            new SqlParameter("@Age5",           request.Age5),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillOutstandingRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            billRegisterRptList.Add(new BillOutstandingRptModel
+                            {
+                                PartyName = Convert.ToString(dataSet.Tables[0].Rows[i][0]),
+                                Ref = Convert.ToString(dataSet.Tables[0].Rows[i][1]),
+                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i][2]),
+                                RefDate = Convert.ToString(dataSet.Tables[0].Rows[i][3]) != "" ? Convert.ToDateTime(dataSet.Tables[0].Rows[i][3]).ToString("dd/MM/yyyy") : "",
+                                SubDate = Convert.ToString(dataSet.Tables[0].Rows[i][4]) != "" ? Convert.ToDateTime(dataSet.Tables[0].Rows[i][4]).ToString("dd/MM/yyyy") : "",
+                                BillAge = Convert.ToString(dataSet.Tables[0].Rows[i][5]),
+                                BillAmount = Convert.ToString(dataSet.Tables[0].Rows[i][6]),
+                                RecdAmount = Convert.ToString(dataSet.Tables[0].Rows[i][7]),
+                                DedAmount = Convert.ToString(dataSet.Tables[0].Rows[i][8]),
+                                TdsAmount = Convert.ToString(dataSet.Tables[0].Rows[i][9]),
+                                DueAmount = Convert.ToString(dataSet.Tables[0].Rows[i][10]),
+                                OnAccount = Convert.ToString(dataSet.Tables[0].Rows[i][11]),
+                                NetDue = Convert.ToString(dataSet.Tables[0].Rows[i][12]),
+                            });
+                        }
+
+                        billRegisterRpt.BillOutstandingRptList = billRegisterRptList;
+
+                        billRegisterRpt.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = 0,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return billRegisterRpt;
+        }
+
         public async Task<ResponseModel> GetBillSubmittedSummRptExcel(ReportAgeModel request)
         {
             ResponseModel responseModel = new();
@@ -1693,7 +2000,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetOutstandSummExcelReport(DataTable dt, string rptheader, string filter)
         {
             ResponseModel responseModel = new();
@@ -1793,7 +2099,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetOutstandDetailExcelReport(DataSet ds, string rptheader, string filter, string rpttype)
         {
             ResponseModel responseModel = new();
@@ -1998,9 +2303,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
-
-
         public async Task<OutstandingAnalRptListModel> GetOutstandingAnalysisRptList(ReportRequestModel request)
         {
             OutstandingAnalRptListModel ledgerRptListModel = new();
@@ -2161,7 +2463,6 @@ namespace FreightMasters.Repository
         public async Task<BookingRegisterRptListModel> GetBookingRegisterRptList(ReportRequestModel request)
         {
             BookingRegisterRptListModel bookingRegisterRpt = new();
-
             List<BookingRegisterRptModel> bookingRegisterRptList = new();
             try
             {
@@ -2169,43 +2470,67 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@PageNumber",     request.PageNumber),
-                            new SqlParameter("@PageSize",       request.PageSize),
-                            new SqlParameter("@SortColumn",     request.SortColumn),
-                            new SqlParameter("@SortOrder",      request.SortOrder),
-                            new SqlParameter("@Search",         request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@Party",     request.FilterStr1),
+                            new SqlParameter("@Party",      request.FilterStr1),
                             new SqlParameter("@Origin",     request.FilterStr2),
-                            new SqlParameter("@Destination",     request.FilterStr3),
-
+                            new SqlParameter("@Destination",request.FilterStr3),
+                            new SqlParameter("@VehicleNo",  request.Search),
+                            new SqlParameter("@GcSeries",   request.SortColumn),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBookingRegisterRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBookingRegisterRptExcel", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        int totalRecords = 0;
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             bookingRegisterRptList.Add(new BookingRegisterRptModel
                             {
-                                BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
-                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                                BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
-                                FromLocation = Convert.ToString(dataSet.Tables[0].Rows[i]["FromLocation"]),
-                                ToLocation = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocation"]),
-                                CnorName = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorName"]),
-                                EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
-                                EwayBillExpDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
-                                CneeName = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeName"]),
-                                ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
-                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                                SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
-                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                                BusinessIncharge = Convert.ToString(dataSet.Tables[0].Rows[i]["BusinessIncharge"]),
-                                BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty"]),
+                                BookedAt            = Convert.ToString(dataSet.Tables[0].Rows[i][0]),
+                                BookingDate         = Convert.ToDateTime(dataSet.Tables[0].Rows[i][1]).ToString("dd/MM/yyyy"),
+                                BookingStatus       = Convert.ToString(dataSet.Tables[0].Rows[i][2]),
+                                GcNoteNo            = Convert.ToString(dataSet.Tables[0].Rows[i][3]),
+                                FromLocation        = Convert.ToString(dataSet.Tables[0].Rows[i][4]),
+                                ToLocation          = Convert.ToString(dataSet.Tables[0].Rows[i][5]),
+                                Kms                 = Convert.ToString(dataSet.Tables[0].Rows[i][6]),
+                                Consignor           = Convert.ToString(dataSet.Tables[0].Rows[i][7]),
+                                CnorGst             = Convert.ToString(dataSet.Tables[0].Rows[i][8]),
+                                InvoiceNo           = Convert.ToString(dataSet.Tables[0].Rows[i][9]),
+                                EwayBillNo          = Convert.ToString(dataSet.Tables[0].Rows[i][10]),
+                                EwayBillExpDate     = Convert.ToString(dataSet.Tables[0].Rows[i][11])!=""?Convert.ToDateTime(dataSet.Tables[0].Rows[i][11]).ToString("dd/MM/yyyy"):"",
+                                Consignee           = Convert.ToString(dataSet.Tables[0].Rows[i][12]),
+                                CneeGst             = Convert.ToString(dataSet.Tables[0].Rows[i][13]),
+                                CneeMobile          = Convert.ToString(dataSet.Tables[0].Rows[i][14]),
+                                TruckNo             = Convert.ToString(dataSet.Tables[0].Rows[i][15]),
+                                ActualWt            = Convert.ToString(dataSet.Tables[0].Rows[i][16]),
+                                Chargewt            = Convert.ToString(dataSet.Tables[0].Rows[i][17]),
+                                ProductName         = Convert.ToString(dataSet.Tables[0].Rows[i][18]),
+                                ProductDesc         = Convert.ToString(dataSet.Tables[0].Rows[i][19]),
+                                PackingType         = Convert.ToString(dataSet.Tables[0].Rows[i][20]),
+                                NoPackages          = Convert.ToString(dataSet.Tables[0].Rows[i][21]),
+                                VehType             = Convert.ToString(dataSet.Tables[0].Rows[i][22]),
+                                Freight             = Convert.ToString(dataSet.Tables[0].Rows[i][23]),
+                                Statistical         = Convert.ToString(dataSet.Tables[0].Rows[i][24]),
+                                Fov                 = Convert.ToString(dataSet.Tables[0].Rows[i][25]),
+                                DoorColl            = Convert.ToString(dataSet.Tables[0].Rows[i][26]),
+                                Handling            = Convert.ToString(dataSet.Tables[0].Rows[i][27]),
+                                LoadingDetn         = Convert.ToString(dataSet.Tables[0].Rows[i][28]),
+                                Enroute             = Convert.ToString(dataSet.Tables[0].Rows[i][29]),
+                                Misc                = Convert.ToString(dataSet.Tables[0].Rows[i][30]),
+                                DoorDelv            = Convert.ToString(dataSet.Tables[0].Rows[i][31]),
+                                UnLoading           = Convert.ToString(dataSet.Tables[0].Rows[i][32]),
+                                UnLoadingDetn       = Convert.ToString(dataSet.Tables[0].Rows[i][33]),
+                                Extras              = Convert.ToString(dataSet.Tables[0].Rows[i][34]),
+                                Others              = Convert.ToString(dataSet.Tables[0].Rows[i][35]),
+                                SubTotal            = Convert.ToString(dataSet.Tables[0].Rows[i][36]),
+                                GrandTotal          = Convert.ToString(dataSet.Tables[0].Rows[i][37]),
+                                BusinessIncharge    = Convert.ToString(dataSet.Tables[0].Rows[i][38]),
+                                BillingParty        = Convert.ToString(dataSet.Tables[0].Rows[i][39]),
+                                BilledYN            = Convert.ToString(dataSet.Tables[0].Rows[i][40]),
+                                BillNo              = Convert.ToString(dataSet.Tables[0].Rows[i][41]),
+                                BillDate            = Convert.ToString(dataSet.Tables[0].Rows[i][42]) != "" ? Convert.ToDateTime(dataSet.Tables[0].Rows[i][42]).ToString("dd/MM/yyyy") : "",
                             });
                         }
 

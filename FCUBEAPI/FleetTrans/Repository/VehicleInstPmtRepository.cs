@@ -34,8 +34,9 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PmtId", vehicleInstPmtModel.PmtId),
-                            new SqlParameter("@PmtDate", vehicleInstPmtModel.PmtDate),
                             new SqlParameter("@BranchCode", vehicleInstPmtModel.BranchCode),
+                            new SqlParameter("@PmtDate", vehicleInstPmtModel.PmtDate),
+                            new SqlParameter("@LoanType", vehicleInstPmtModel.LoanType),
                             new SqlParameter("@VehicleMasterid", vehicleInstPmtModel.VehicleMasterid),
                             new SqlParameter("@InstNo", vehicleInstPmtModel.InstNo),
                             new SqlParameter("@InstId", vehicleInstPmtModel.InstId),
@@ -48,10 +49,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@CheqNo", vehicleInstPmtModel.CheqNo),
                             new SqlParameter("@CheqDate", vehicleInstPmtModel.CheqDate),
                             new SqlParameter("@CreditAc", vehicleInstPmtModel.CreditAc),
-                            new SqlParameter("@Findocid", vehicleInstPmtModel.Findocid),
                             new SqlParameter("@Yearid", vehicleInstPmtModel.Yearid),
-
-
                             new SqlParameter("@LoggedInUser", vehicleInstPmtModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleInstPmtSave", param);
@@ -104,8 +102,9 @@ namespace FleetTrans.Repository
                             pmtList.Add(new VehicleInstPmtModel
                             {
                                 PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
-                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+                                LoanType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanType"]),
                                 VehicleMasterid = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterid"]),
                                 InstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InstNo"]),
                                 InstId = Convert.ToString(dataSet.Tables[0].Rows[i]["InstId"]),
@@ -186,6 +185,39 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> checkVehicleLoanType(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
 
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterid", requestModel.strRequest),
+                            new SqlParameter("@LoanType", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckVehicleLoanType", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);                       
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
+        
     }
 }

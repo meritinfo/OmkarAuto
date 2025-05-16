@@ -166,10 +166,6 @@ constructor(private formBuilder: FormBuilder,private adminGroupMasterService: Ad
             return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
           };
         
-          selectEvent(item: any) {
-            // do something with selected item
-          }
-        
           onFocused(e: any) {
             // do something
           }

@@ -46,7 +46,7 @@
                                                     (inputFocused)='onFocused($event)'
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="startWithFilter"
+                                                    [customFilter]="endWithFilter"
                                                     formControlName="vehicleMasterid" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterid'].invalid) }">
                                                 </ng-autocomplete>

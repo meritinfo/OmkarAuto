@@ -21,11 +21,9 @@ export class VehicleInstPmtService {
   }
   selectedvehicleinstpmt = new Vehicleinstpmtmodel();
   constructor(private httpClient: HttpClient) { }
+
   setVehicleInstPmtDetails(vehicleinstpmtmodel:Vehicleinstpmtmodel) {
- 
-      this.selectedvehicleinstpmt = vehicleinstpmtmodel;
-    
-  
+    this.selectedvehicleinstpmt = vehicleinstpmtmodel;
   }
   getVehicleInstPmtDetails() {
     return this.selectedvehicleinstpmt;
@@ -36,10 +34,13 @@ export class VehicleInstPmtService {
   checkDuplicateTyre(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkDuplicateTyre', req, this.httpOptions);
   }
+  checkVehicleLoanType(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkVehicleLoanType', req, this.httpOptions);
+  }
   clearVehicleInstPmtDetails() {
     this.selectedvehicleinstpmt = new Vehicleinstpmtmodel();
   }
- vehicleInstPmtSubmitted(user:Vehicleinstpmtmodel): Observable<Responsemodel> {
+  vehicleInstPmtSubmitted(user:Vehicleinstpmtmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleInstPmtSave', user, this.httpOptions);
   }
   getVehicleInstPmtList(filter: Filtermodel): Observable<Vehicleinstpmtlistmodel> {

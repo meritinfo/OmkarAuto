@@ -236,6 +236,10 @@ dashboard: string ="";
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
+  
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;  

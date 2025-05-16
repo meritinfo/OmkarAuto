@@ -59,13 +59,13 @@
                                                 <span style="color: red">*</span>
                                                 <ng-autocomplete [data]="vehicleList"
                                                     [searchKeyword]="keywordLocation"  
-                                                    formControlName="vehicleMasterID" [initialValue]=""
+                                                    formControlName="vehicleMasterID"  
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' 
                                                     (selected)='selectEvent($event)'
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="startWithFilter"
+                                                    [customFilter]="endWithFilter"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterID'].invalid) }">
                                                 </ng-autocomplete>
                                                 <ng-template #itemTemplate let-item>

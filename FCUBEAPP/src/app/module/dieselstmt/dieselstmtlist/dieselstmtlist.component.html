@@ -19,8 +19,7 @@
                                     <label for="formrow-inputZip">Account</label>                                                
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="accountList"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)'
+                                            [searchKeyword]="keywordLocation" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)'
                                             [itemTemplate]="itemTemplate"

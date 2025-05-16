@@ -45,7 +45,7 @@
                                                 (inputFocused)='onFocused($event)' 
                                                 [itemTemplate]="itemTemplate"
                                                 [notFoundTemplate]="notFoundTemplate"
-                                                [customFilter]="startWithFilter"
+                                                [customFilter]="endWithFilter"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
                                             </ng-autocomplete>
                                             <ng-template #itemTemplate let-item>
@@ -110,7 +110,7 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="ccList"
                                                     [searchKeyword]="keywordLocation"  
-                                                    formControlName="cnorID" [initialValue]=""
+                                                    formControlName="cnorID"  
                                                     (selected)='selectCnorEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' 
@@ -213,7 +213,7 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="ccList"
                                                     [searchKeyword]="keywordLocation"  
-                                                    formControlName="cneeID" [initialValue]=""
+                                                    formControlName="cneeID"  
                                                     (selected)='selectCneeEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' 

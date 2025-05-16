@@ -121,6 +121,7 @@ export class AddtrippaymentsComponent {
     this.formTripPayment = this.formBuilder.group({
       pmtBranch: new FormControl(this.branch , [Validators.required]),
       pmtDate: new FormControl(this.loginDate , [Validators.required]),
+      paidToDesc: new FormControl('',),
       vehicleMasterID: new FormControl('', [Validators.required]),
       transType: new FormControl('', [Validators.required]),
       amountPaid: new FormControl('', [Validators.required]),
@@ -288,9 +289,7 @@ export class AddtrippaymentsComponent {
   }
 
  
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -305,6 +304,9 @@ export class AddtrippaymentsComponent {
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
 
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
@@ -344,7 +346,7 @@ export class AddtrippaymentsComponent {
       var qtyLtrs = selectedData.qtyLtrs ? parseFloat(selectedData.qtyLtrs) : 0;
       var ratePerLtr = selectedData.ratePerLtr ? parseFloat(selectedData.ratePerLtr) : 0;
       var amountPaid = selectedData.paidAmount ? parseFloat(selectedData.paidAmount) : 0;
-      total = (qtyLtrs * ratePerLtr).toString() ;      
+      total = (qtyLtrs * ratePerLtr).toFixed(2) ;      
     }
     this.formTripPayment.patchValue({
       amountPaid: total,    
@@ -478,6 +480,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId ;
     this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
+    this.trippaymentsmodel.paidToDesc = selectedDataValue.paidToDesc.toString().toUpperCase();    
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
     this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();

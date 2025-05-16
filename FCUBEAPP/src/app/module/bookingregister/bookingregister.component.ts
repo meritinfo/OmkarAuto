@@ -161,10 +161,7 @@ export class BookingregisterComponent {
     
     get f() { return this.formFilter.controls; }
   
-    selectEvent(item: any) {
-      // do something with selected item
-     // this.GetOpeningBal();
-    }
+     
   
     onChangeSearch(search: string) {
       // fetch remote data from here
@@ -182,8 +179,7 @@ export class BookingregisterComponent {
     getSeriesList(b:string): void {
       this.requestmodel.strRequest = "L";
       this.requestmodel.strRequest1 = b;
-      this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {
-        
+      this.commonService.getSeriesllpList(this.requestmodel).subscribe((res) => {        
         this.seriesList = res;
       });
     }
@@ -341,7 +337,10 @@ export class BookingregisterComponent {
     this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
-    this.bookingregisterList();
+    
+    this.bookingregisterService.getBookingregisterrptList(this.filter).subscribe(resp => {
+      this.allBookingregisterrptlist = resp; 
+    });
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

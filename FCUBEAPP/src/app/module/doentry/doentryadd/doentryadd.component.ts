@@ -150,9 +150,7 @@ dashboard: string ="";
     this.sharedService.loading=false;
   }
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // do something with selected item
