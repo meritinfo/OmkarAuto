@@ -35,7 +35,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fatherName'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Date of Birth</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfBirth"
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Blood Group</label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="bloodGroup"
@@ -79,7 +79,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['introBy'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Mobile No</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control"
@@ -87,14 +87,37 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['introByMobileNo'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Date of Appointment</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfAppoint"
-                                                     
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['dateOfAppoint'].invalid) }">
                                             </div>
-                                        </div>
+                                        </div>                                        
+                                        <div class="col-md-2">
+                                            <div class="mb-3">                                    
+                                                <label for="formrow-inputCity">Vehicle No</label>  
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation"  
+                                                        formControlName="vehicleMasterId" 
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="endWithFilter">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -127,8 +150,7 @@
                                             <div class="mb-3">
                                                 <label>Valid Upto</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="licValidUpto"
-                                                     
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['licValidUpto'].invalid) }">
+                                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['licValidUpto'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">

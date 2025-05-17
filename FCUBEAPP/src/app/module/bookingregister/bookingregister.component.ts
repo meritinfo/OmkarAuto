@@ -336,6 +336,8 @@ export class BookingregisterComponent {
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
     this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.search  = selectedDataVal.vehicleNo;
+    this.filter.sortColumn  = selectedDataVal.gcSeries;
     this.sharedService.loading=true;
     
     this.bookingregisterService.getBookingregisterrptList(this.filter).subscribe(resp => {

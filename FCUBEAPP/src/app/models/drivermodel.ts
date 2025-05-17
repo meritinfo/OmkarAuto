@@ -7,6 +7,7 @@ export class Drivermodel {
     introBy: string = "";
     introByMobileNo: string = "";
     dateOfAppoint: string = "";
+    vehicleMasterId: string = "";
     licenseNo: string = "";
     licValidUpto: string = "";
     licenseIssuAuth: string = "";
