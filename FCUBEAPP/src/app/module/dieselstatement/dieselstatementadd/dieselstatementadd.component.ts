@@ -154,8 +154,8 @@ dashboard: string ="";
           this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
         }
         
-  this.createdBy = this.selectedDieselStmtDetails.createdBy + " " + this.selectedDieselStmtDetails.createdDate;
-  this.modifiedBy = this.selectedDieselStmtDetails.modifiedBy + " " + this.selectedDieselStmtDetails.modifiedDate;  
+        this.createdBy = this.selectedDieselStmtDetails.createdBy + " " + this.selectedDieselStmtDetails.createdDate;
+        this.modifiedBy = this.selectedDieselStmtDetails.modifiedBy + " " + this.selectedDieselStmtDetails.modifiedDate;  
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
@@ -339,7 +339,8 @@ dashboard: string ="";
   }
   
   getVendorList(){
-    this.gstpurchaseService.getVendorList().subscribe((res) => {
+    this.requestmodel.strRequest= 'D';
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.vendorList = res;
     });
   }
@@ -519,6 +520,8 @@ dashboard: string ="";
     this.DieselStatementmodel.branchCode      = this.branch;
     this.DieselStatementmodel.yearId          = this.year;
     this.DieselStatementmodel.loggedInUser    = this.loggedInUserID;
+
+    this.DieselStatementmodel.dieselStmtDtlsList = [];
 
     this.dieselstatementService.saveDieselStatementDetails(this.DieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

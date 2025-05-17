@@ -5924,6 +5924,12 @@ background-color: #fbff00 !important
     width: fit-content;
 }
 
+.full-mr-width{
+    width: 1800px !important;
+}
+.full-mr-width tr td {
+    width: fit-content;
+}
 
 .full-grid-rpt-width{
     width: 6000px !important;

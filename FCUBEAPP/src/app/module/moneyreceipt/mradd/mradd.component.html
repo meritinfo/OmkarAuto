@@ -50,6 +50,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">    
                         <div class="col-lg-2">
                             <div class="mb-3">
                                 <label for="formrow-inputZip">MR Type</label>
@@ -94,10 +96,10 @@
                                     General
                                 </label>
                             </div>
-                        </div> -->
+                        </div> 
                     </div>
                     <div class="row">                                        
-                        <!-- <div class="col-lg-2">
+                        <div class="col-lg-2">
                             <div class="mb-3">
                                 <div class="form-check mt-4">
                                     <input type="checkbox"  (change)="onChkGroup($event)"
@@ -262,40 +264,42 @@
                             <label for="formrow-inputState">Remarks</label>
                             <input uppercaseonly class="form-control"    
                                     formControlName="mrRemarks" >
-                        </div> 
+                        </div>                                   
+                    </div>          
+                    <div class="row">
                     </div>        
                     <div class="ng-untouched ng-pristine ng-valid">
                         <div class="row">                     
                             <div class="overflow-x">
-                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-mr-width">
                                     <tr>
-                                        <th><label for="formrow-inputZip"></label></th>               
-                                        <th><label for="formrow-inputZip">Year</label></th>
-                                        <th><label for="formrow-inputZip">Bill/LR Stn</label></th>
-                                        <th style="width: 5px;"><label for="formrow-inputZip">Bill/LR No</label></th>
-                                        <th><label for="formrow-inputZip">Bill/LR Date</label></th>
-                                        <th><label for="formrow-inputZip">Amt Due</label></th>
-                                        <th><label for="formrow-inputZip">Amt Recd</label></th>
-                                        <th><label for="formrow-inputZip">Frt / NR</label></th>
-                                        <th><label for="formrow-inputZip">TDS</label></th>
-                                        <th><label for="formrow-inputZip">Claims</label></th>
-                                        <th><label for="formrow-inputZip">Bank Chrg</label></th>
-                                        <th><label for="formrow-inputZip">Other Ded</label></th>
-                                        <th><label for="formrow-inputZip">Other Ded1</label></th>
-                                        <th><label for="formrow-inputZip">Other Ded2</label></th>
-                                        <th><label for="formrow-inputZip">Other Ded3</label></th>
+                                        <th style="width: 20px;"><label for="formrow-inputZip"></label></th>               
+                                        <th style="width: 150px;"><label for="formrow-inputZip">Year</label></th>
+                                        <th style="width: 200px;"><label for="formrow-inputZip">Bill/LR Stn</label></th>
+                                        <th style="width: 150px;"><label for="formrow-inputZip">Bill/LR No</label></th>
+                                        <th style="width: 120px;"><label for="formrow-inputZip">Bill/LR Date</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Due</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Recd</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Frt / NR</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">TDS</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Claims</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Bank Chrg</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded1</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded2</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded3</label></th>
                                         <!-- <th><label for="formrow-inputZip">Recoverable</label></th> -->
-                                        <th><label for="formrow-inputZip">Tot Ded</label></th>
-                                        <th><label for="formrow-inputZip">Sec.Deposit</label></th>
-                                        <th><label for="formrow-inputZip">Excess Recd</label></th>
-                                        <th><label for="formrow-inputZip">Ded Recd</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Tot Ded</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Sec.Deposit</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Excess Recd</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Ded Recd</label></th>
                                         <th><label for="formrow-inputZip">Remarks</label></th>    
                                         <!-- <th><label for="formrow-inputZip">Party</label></th> -->                                      
                                     </tr>
                                     <tr formArrayName="arrayList"
                                         *ngFor="let arrayData of formArray.controls; let i = index">
                                         <div [formGroupName]="i" class="grid-table">
-                                            <td>
+                                            <td style="width: 20px;">
                                                 <div class="col-lg-2 details-button">
                                                     <button *ngIf="i === formArray.controls.length-1" type="button"
                                                         class="btn btn-add" (click)="addItem(i)"></button>
@@ -303,7 +307,7 @@
                                                         (click)="removeItem(i)" class="btn btn-delete"></button>
                                                 </div>                                        
                                             </td>
-                                            <td>
+                                            <td style="width: 150px;">
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="billLrYear"> 
                                                     <option *ngFor="let gp of yearList" value={{gp.dataId}}>
@@ -311,7 +315,7 @@
                                                     </option>
                                                 </select>
                                             </td>
-                                            <td>                                                  
+                                            <td style="width: 200px;">                                             
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="billLrStn"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
@@ -319,80 +323,80 @@
                                                     </option>
                                                 </select>
                                             </td>
-                                            <td>
+                                            <td style="width: 150px;">
                                                 <input uppercaseonly autoclose="false" class="form-control"
-                                                    formControlName="billLrNo" style="width: 5px;"
+                                                    formControlName="billLrNo" 
                                                     (change)="getBillLrDtls(i)">
                                                 <input type="hidden" autoclose="false" class="form-control"
                                                     formControlName="billLrMasterId">
-                                            </td>                                                    
-                                            <td>
+                                            </td>  
+                                            <td style="width: 120px;">
                                                 <input type="date" autoclose="false" class="form-control"
                                                     formControlName="billLrDate">
-                                            </td>                                               
-                                            <td>
+                                            </td> 
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="dueAmt">
                                                 <input type="hidden" autoclose="false" class="form-control"
                                                     formControlName="oldDueAmt">
-                                            </td>                                                 
-                                            <td>
+                                            </td> 
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="recdAmt" (change)="amtcheck(i,'recdAmt')">
-                                            </td>                                                
-                                            <td>
+                                            </td>  
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="freightDed" (change)="amtcheck(i,'freightDed')">
-                                            </td>                                                  
-                                            <td>
+                                            </td> 
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="tdsDed" (change)="amtcheck(i,'tdsDed')">
-                                            </td>                                                  
-                                            <td>
+                                            </td>   
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="claimsDed" (change)="amtcheck(i,'claimsDed')">
-                                            </td>                                                
-                                            <td>
+                                            </td>   
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="bankChrgDed" (change)="amtcheck(i,'bankChrgDed')">
-                                            </td>                                                
-                                            <td>
+                                            </td>    
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="othersDed" (change)="amtcheck(i,'othersDed')">
-                                            </td>                                                
-                                            <td>
+                                            </td> 
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
-                                            </td>                                                
-                                            <td>
+                                            </td>   
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="othersDed2" (change)="amtcheck(i,'othersDed2')">
-                                            </td>                                               
-                                            <td>
+                                            </td>   
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="othersDed3" (change)="amtcheck(i,'othersDed3')">
                                             </td>                                               
                                             <!-- <td>
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="recoverable" (change)="amtcheck(i,'recoverable')">
-                                            </td>                                              -->
-                                            <td>
+                                            </td>                                              -->                                            
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="totDed" >
-                                            </td>                                             
-                                            <td>
+                                            </td>   
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="sdEmdDed" (change)="amtcheck(i,'sdEmdDed')">
-                                            </td>                                               
-                                            <td>
+                                            </td>  
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="excessRecd" (change)="calTot()">
-                                            </td>                                                 
-                                            <td>
+                                            </td> 
+                                            <td style="width: 100px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="others1Recd" (change)="calTot()">
-                                            </td>                                     
-                                            <td>
+                                            </td>  
+                                            <td style="width: 100px;">
                                                 <input uppercaseonly autoclose="false" class="form-control"
                                                     formControlName="remarks">
                                             </td> 
@@ -411,48 +415,49 @@
                                         <td></td>
                                         <td></td>                                                    
                                         <td></td>                                                   
-                                        <td></td>                                                 
-                                        <td>                                                        
+                                        <td></td>                                                  
+                                        <td></td>  
+                                        <td style="width: 100px;">                                                
                                             <label for="formrow-inputZip">Tot Recd </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalRecdAmt">
-                                        </td>                                                
-                                        <td>       
+                                        </td>     
+                                        <td style="width: 100px;">  
                                             <label for="formrow-inputZip">Tot FRT </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalFreightDed">
-                                        </td>                                               
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot TDS </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalTDSDed">
-                                        </td>                                                   
-                                        <td>       
+                                        </td> 
+                                        <td style="width: 100px;">      
                                             <label for="formrow-inputZip">Tot Claim </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalClaimsDed">
-                                        </td>                                                
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Bank Chrg </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalBankChrgDed">
-                                        </td>                                                
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Oth Ded </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed">
-                                        </td>                                                
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Oth Ded1 </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed1">
-                                        </td>                                                
-                                        <td>       
+                                        </td> 
+                                        <td style="width: 100px;">       
                                             <label for="formrow-inputZip">Tot Oth Ded2 </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed2">
-                                        </td>                                               
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Oth Ded3 </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalOthersDed3">
@@ -462,22 +467,22 @@
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalRecoverable">
                                         </td>                                                 -->
-                                        <td>       
+                                        <td style="width: 100px;"> 
                                             <label for="formrow-inputZip">Tot Ded </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalDed">
-                                        </td>                                             
-                                        <td>       
+                                        </td>    
+                                        <td style="width: 100px;">   
                                             <label for="formrow-inputZip">Tot Sd Emd Ded </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalSdEmdDed">
-                                        </td>                                               
-                                        <td>       
+                                        </td>   
+                                        <td style="width: 100px;">    
                                             <label for="formrow-inputZip">Tot Excess </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalExcess">
-                                        </td>                                              
-                                        <td>       
+                                        </td>    
+                                        <td style="width: 100px;">   
                                             <label for="formrow-inputZip">Tot Ded Recd </label>
                                             <input decimalonly autoclose="false" class="form-control"
                                                 formControlName="totalOthers1">

@@ -96,9 +96,10 @@
                                 <button type="button" class="btn btn-edit" 
                                     (click)="gettrippaymentsDetails(trip)" ></button>                           
                             </td>                       
-                            <td>                               
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="getVoucherPrint(trip)" ></button>                           
+                            <td>                    
+                                <button type="button" class="btn btn-primary btn-floating"  
+                                    (click)="getVoucherPrint(trip)" >
+                                    <i class="fas fa-download"></i></button>                           
                             </td>
                             <td>{{ trip.bName }}</td>
                             <td>{{ trip.pmtDate }}</td>

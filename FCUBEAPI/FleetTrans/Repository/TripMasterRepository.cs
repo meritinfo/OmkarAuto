@@ -562,7 +562,6 @@ namespace FleetTrans.Repository
                                 ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
-                                ExtDetention = Convert.ToString(resultData.Tables[1].Rows[i]["ExtDetention"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });

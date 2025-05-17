@@ -367,7 +367,7 @@ export class AddtrippaymentsComponent {
     else {
       this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
       this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
-      this.formTripPayment.controls['chequeNo'].enable();
+      this.formTripPayment.controls['chequeNo'].enable(); 
       this.formTripPayment.controls['chequeDate'].enable();
     }
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
@@ -375,40 +375,19 @@ export class AddtrippaymentsComponent {
   }
 
   changePmtType(e: any) {
-    // console.log(e.target.value);
-    // var selectedValue = e.target.value;
-     
-    // if (selectedValue == 'B'){
-    //   this.formTripPayment.controls['neftPmt'].enable();
-    //   this.formTripPayment.controls['chequeNo'].enable();
-    //   this.formTripPayment.controls['chequeDate'].enable();
-    //   this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
-    //   this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
-    //  // this.getCreditAcList2(selectedValue); 
-    // }
-    // else {
-    //   this.formTripPayment.controls['neftPmt'].disable();
-    //   this.formTripPayment.controls['chequeNo'].disable();
-    //   this.formTripPayment.controls['chequeDate'].disable();
-    //   this.formTripPayment.controls['chequeNo'].clearValidators();      
-    //   this.formTripPayment.controls['chequeDate'].clearValidators();   
-    //   // this.getCreditAcList2(selectedValue); 
-    // }
-
-    // this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
-    // this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
-
-    // this.ptype = e.target.value;
-    // if (selectedValue == 'B' ||selectedValue == 'C' ||selectedValue == 'A'){
-    //   this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
-    // }
-    // else{
-    //   this.formTripPayment.controls['amountPaid'].clearValidators();  
-    // }
-    // this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-    // this.getCreditAcList(selectedValue);   
-    console.log(e.target.value);
     var selectedValue = e.target.value;
+     
+    if (selectedValue == 'B'){
+      this.formTripPayment.controls['neftPmt'].enable();
+      this.formTripPayment.controls['chequeNo'].enable();
+      this.formTripPayment.controls['chequeDate'].enable();
+    }
+    else {
+      this.formTripPayment.controls['neftPmt'].disable();
+      this.formTripPayment.controls['chequeNo'].disable();
+      this.formTripPayment.controls['chequeDate'].disable(); 
+    }
+   
     this.formTripPayment.patchValue({
       neftPmt : "",
       chequeNo: "",

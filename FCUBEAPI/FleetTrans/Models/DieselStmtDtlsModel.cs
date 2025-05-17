@@ -11,7 +11,6 @@ namespace FleetTrans.Models
         public string DslQty { get; set; }
         public string DslRate { get; set; }
         public string Amount { get; set; }
-        public string TripPmtId { get; set; }
-
+        public string TripPmtId { get; set; }        
     }
 }
