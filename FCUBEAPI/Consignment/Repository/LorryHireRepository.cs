@@ -409,6 +409,7 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@MasterId", requestModel.strRequest),
+                            new SqlParameter("@LoggedInUser", requestModel.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_LorryHireMasterDelete", param);
 

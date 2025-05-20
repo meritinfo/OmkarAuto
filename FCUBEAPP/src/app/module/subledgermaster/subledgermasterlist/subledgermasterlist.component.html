@@ -1,7 +1,3 @@
-
-
-
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -52,15 +48,7 @@
                     <thead>
                         <tr>
                             <th>tptName</th>
-                            <th>address1</th>
-                           
-                            <!-- <th>address3</th>  -->
-                            <th>address1</th>
-                      
-                            <th>address3</th> 
                             <th>tptName</th>
-                           
-                                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -69,19 +57,9 @@
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getSubledgerMasterDetails(tm)"></button> 
-                            </td>
-                         
+                            </td>                         
                             <td>{{ tm.acname}}</td>
-                            <td>{{ tm.createOrPredefined}}</td>
-                            <!-- <td>{{ tm.vendor}}</td>  -->
-                            <!-- <td>{{ tm.maintType}}</td>  -->
-                            <!-- <td>{{ tm.preDefinedQuery}}</td>  -->
-                            <td>{{ tm.validateWithDocNo}}</td> 
-                            <td>{{ tm.tName}}</td> 
-                            <td>{{ tm.fName}}</td> 
-                 
-                                                    
-                            
+                            <td>{{ tm.createOrPredefined}}</td>  
                         </tr>
                     </tbody>
                     <tbody *ngIf="allLedgerMaster.subList?.length == 0">

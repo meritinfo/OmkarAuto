@@ -58,4 +58,7 @@ export class CashReceiptEntryService {
   getFinDocDetails(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetFinDocDetails', req, this.httpOptions);
   }  
+  checkSubLedgerExists(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CheckSubLedgerExists', req, this.httpOptions);
+  }  
 }

@@ -717,6 +717,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckSubLedgerExists")]
+        public async Task<IActionResult> CheckSubLedgerExists(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.CheckSubLedgerExists(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
 
         [HttpPost("GetOpeningBalanceExcel")]
         public async Task<IActionResult> GetOpeningBalanceExcel(ReportRequestModel req)

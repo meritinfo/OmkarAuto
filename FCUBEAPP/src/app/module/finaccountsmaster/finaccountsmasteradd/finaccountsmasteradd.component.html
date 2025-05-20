@@ -14,7 +14,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div id="basic-example">
-                                <!-- Personal Details -->
                                 <section>
                                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formAccountMaster">
                                         <div class="row">
@@ -27,20 +26,17 @@
                                                           formControlName="accountName">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input" class="form-label">Account Short Name:</label>
                                                     <input uppercaseonly type="text" class="form-control" 
-                                                    
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountShortname'].invalid) }"
                                                           formControlName="accountShortname">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Main Group:</label><span style="color:red">*</span>
                                                     <select formControlName="accountType" 
@@ -53,9 +49,7 @@
                                                     </select>      
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-5">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Sub Group:</label><span style="color:red">*</span>
                                                     <select formControlName="subAccountType" 
@@ -67,9 +61,7 @@
                                                     </select>   
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ledger Type:</label><span style="color:red">*</span>
                                                     <select formControlName="accountLedgerType" 
@@ -81,9 +73,7 @@
                                                     </select>   
                                                 </div>
                                             </div>
-                                        </div>  
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Status:</label>
                                                     <select formControlName="statusColor" 
@@ -110,8 +100,6 @@
                                                     <input uppercaseonly type="text" class="form-control" formControlName="accountAddress2">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <input uppercaseonly type="text" class="form-control" formControlName="accountAddress3">
@@ -119,14 +107,13 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">City:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="accountAddress4">
                                                 </div>
                                             </div>
-                                        </div>                                        
-                                        <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">State:</label>
                                                     <select formControlName="stateCode" 
@@ -144,15 +131,13 @@
                                                     formControlName="pinCode"> 
                                                 </div>
                                             </div>
-                                        </div>                                       
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label numbersonly for="basicpill-lastname-input" class="form-label">Phone No:</label>
                                                     <input type="text" maxlength="10" class="form-control" formControlName="accountPhone"> 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label numbersonly for="basicpill-lastname-input" class="form-label">Mobile No:</label>
                                                     <input type="text" maxlength="10" class="form-control" formControlName="accountMobile1"> 
@@ -160,23 +145,19 @@
                                             </div>
                                         </div>                                        
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">A/c Contact:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="accountContact1"> 
                                                 </div>
                                             </div>
-                                        </div>                                   
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Email:</label>
                                                     <input type="text" class="form-control" formControlName="accountEmail1"> 
                                                 </div>
                                             </div>
-                                        </div>                                         
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Url:</label>
                                                     <input type="text" class="form-control" formControlName="accountUrl"> 
@@ -200,49 +181,43 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input" class="form-label">Security Deposit:</label>
-                                                    <input decimalonly type="text" class="form-control" formControlName="accountSecurityDep"> 
-                                                </div>
-                                            </div>
-                                        </div>                                       
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Credit Days:</label>
                                                     <input numbersonly type="text" class="form-control" formControlName="accountCreditDays"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input" class="form-label">AccountBG:</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Security Deposit:</label>
+                                                    <input decimalonly type="text" class="form-control" formControlName="accountSecurityDep"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Account BG:</label>
                                                     <input decimalonly type="text" class="form-control" formControlName="accountBG"> 
                                                 </div>
                                             </div>
                                         </div>                                    
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Interest Rate:</label>
                                                     <input type="text" class="form-control" formControlName="accountInterestRate"> 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">TDS Rate:</label>
                                                     <input type="text" class="form-control" formControlName="tDSRate"> 
                                                 </div>
                                             </div>
-                                        </div>                                          
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account Rem.Ref:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="accountRemRef"> 
                                                 </div>
                                             </div>
-                                        </div>                                           
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Vendor Code:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="vendorCode"> 
@@ -250,29 +225,27 @@
                                             </div>
                                         </div>                                            
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Bank Name:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="bankName"> 
                                                 </div>
                                             </div>
-                                        </div>                                  
-                                        <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Bank Branch:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="bankBranch"> 
                                                 </div>
                                             </div>
+                                        </div>                               
+                                        <div class="row">
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ifsc Code:</label>
                                                     <input uppercaseonly type="text" class="form-control" formControlName="bankIfsc"> 
                                                 </div>
                                             </div>
-                                        </div>                                  
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account Type:</label>
                                                     <select formControlName="bankAcType" 
@@ -439,9 +412,7 @@
                                                             <option value="N">NO</option>
                                                     </select>
                                                 </div>
-                                            </div>               
-                                        </div>                                                                    
-                                        <div class="row">                                        
+                                            </div>                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Sub Ledger Applicable</label><span style="color: red">*</span>
@@ -451,12 +422,6 @@
                                                         <option value="Y">Yes</option>
                                                         <option value="N">NO</option>
                                                 </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">  
-                                                    <label>Sub Ledger query</label>                            
-                                                    <input type="text" class="form-control" formControlName="subLedgerQry"> 
                                                 </div>
                                             </div>
                                         </div>       

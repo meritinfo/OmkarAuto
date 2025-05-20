@@ -77,7 +77,7 @@
                                     <div class="row">                                        
                                         <div class="col-lg-4">
                                             <div class="mb-4">
-                                                <label for="formrow-inputZip">Select Cash Account</label><span style="color: red">*</span>    
+                                                <label for="formrow-inputZip">Cash Account</label><span style="color: red">*</span>    
                                                 <select class="form-control"
                                                     formControlName="accountid2" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['accountid2'].invalid) }">
@@ -101,12 +101,13 @@
                                                 <h4 class="card-title mb-4" style="color: red;"> Details</h4>
                                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                                     <tr>
-                                                        <td class="col-lg-3">
+                                                        <td class="col-lg-1"></td>
+                                                        <td class="col-lg-5">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Account Name<span style="color: red">*</span>    </h6>
                                                             </label>
                                                         </td>
-                                                        <td class="col-lg-2">
+                                                        <td class="col-lg-1">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Amount<span style="color: red">*</span> </h6>   
                                                             </label>
@@ -125,28 +126,36 @@
                                                     <tr formArrayName="arrayList" 
                                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
-                                                            <td class="col-lg-3">
+                                                            <td class="col-lg-1">
+                                                                <div class="col-lg-4 details-button">
+                                                                    <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                                        class="btn btn-add" (click)="addItem(i)"></button>
+                                                                    <button *ngIf="formArray.controls.length > 1"
+                                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                                </div>     
+                                                            </td>
+                                                            <td class="col-lg-5">
                                                                 <div class="ng-autocomplete">
                                                                     <ng-autocomplete [data]="gridAccountList"
                                                                         [searchKeyword]="keywordLocation"
                                                                         (inputChanged)='onChangeSearch($event)'
                                                                         (inputFocused)='onFocused($event)'
+                                                                        (selected)="selectEvent($event,i)"
                                                                         [itemTemplate]="itemTemplate"
                                                                         [notFoundTemplate]="notFoundTemplate"
                                                                         [customFilter]="startWithFilter"
                                                                         formControlName="accountID">
-                                                                    </ng-autocomplete>
-        
+                                                                    </ng-autocomplete>        
                                                                     <ng-template #itemTemplate let-item>
                                                                         <a [innerHTML]="item.dataName"></a>
-                                                                    </ng-template>
-        
+                                                                    </ng-template>        
                                                                     <ng-template #notFoundTemplate let-notFound>
                                                                         <div [innerHTML]="notFound"></div>
                                                                     </ng-template> 
                                                                 </div> 
+                                                                <input type="hidden" formControlName="subLedger">    
                                                             </td>
-                                                            <td class="col-lg-2">
+                                                            <td class="col-lg-1">
                                                                 <input decimalonly class="form-control"    
                                                                 (change)="updateAmount()"
                                                                     formControlName="amount">
@@ -161,21 +170,13 @@
                                                                               class="form-control"
                                                                             formControlName="reference">                                                                
                                                             </td>
-                                                            <td class="col-lg-2">
-                                                                <div class="col-lg-4 details-button">
-                                                                    <button *ngIf="i === formArray.controls.length-1" type="button"
-                                                                        class="btn btn-add" (click)="addItem(i)"></button>
-                                                                    <button *ngIf="formArray.controls.length > 1"
-                                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                                </div>     
-                                                            </td>
                                                         </div>
                                                     </tr>
                                                     <tr>
-                                                        <td class="col-lg-3 text-right">
+                                                        <td colspan="3" class="text-right">
                                                             <label for="formrow-inputZip"><h6>Total Amt. </h6></label>
                                                         </td>
-                                                        <td class="col-lg-2">
+                                                        <td colspan="2" class="col-lg-2">
                                                             <div class="mb-3">
                                                                 <input autoclose="false" type="text"
                                                                   class="form-control" formControlName="docAmount"

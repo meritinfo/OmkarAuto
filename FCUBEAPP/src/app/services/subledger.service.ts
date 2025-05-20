@@ -12,15 +12,9 @@ import { Subledgerlistmodel } from '../models/subledgerlistmodel';
   providedIn: 'root'
 })
 export class SubledgerService {
-
   httpOptions = {
     headers: new HttpHeaders({
-       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
-    })
-  }
-
-  httpformOptions = {
-    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
@@ -50,7 +44,7 @@ export class SubledgerService {
     return this.httpClient.post<Subledgermodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubLedgerMasterInnerGridList', request, this.httpOptions);
   }
   subledgerMasterSubmitted(user: Subledgermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/SubLedgerMasterSave', user, this.httpformOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/SubLedgerMasterSave', user, this.httpOptions);
   }
   getSubledgerMasterList(filter: Filtermodel): Observable<Subledgerlistmodel> {
     return this.httpClient.post<Subledgerlistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubLedgerMasterList', filter, this.httpOptions);

@@ -230,7 +230,7 @@
                                     <div class="col-sm-5">
                                         <div class="mb-3">
                                             <label>Assign To: </label><span style="color: red">*</span>
-                                            <select id="scope" class="form-select" formControlName="assignToStaff"
+                                            <select id="scope"  formControlName="assignToStaff"
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['assignToStaff'].invalid) }">
                                                 <option *ngFor="let emp of empList" value={{emp.dataId}}>
@@ -242,7 +242,7 @@
                                     <div class="col-sm-5">
                                         <div class="mb-3">
                                             <label>Engaged By: </label>
-                                            <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
+                                            <select id="scope"  formControlName="vehicleEngagedBy"
                                             class="form-control form-select ng-pristine ng-touched">
                                                 <option *ngFor="let emp of empList" value={{emp.dataId}}>
                                                     {{emp.dataName}}
@@ -314,7 +314,7 @@
                                                         formControlName="specialRemarks">
                                                 </td>
                                                 <td class="col-lg-2">
-                                                    <select id="scope" class="form-select" formControlName="mainGcYN"
+                                                    <select id="scope"  formControlName="mainGcYN"
                                                         class="form-control form-select ng-pristine ng-touched">
                                                             <option value="Y">Main </option>
                                                             <option value="N">Inclusive </option>

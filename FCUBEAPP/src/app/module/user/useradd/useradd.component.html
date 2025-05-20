@@ -42,7 +42,8 @@
                                         <div class="mb-4">
                                             <label for="scope" class="col-form-label">Scope</label>
                                             <span style="color: red">*</span>
-                                            <select id="scope" class="form-select" formControlName="userScope"
+                                            <select id="scope" class="form-control form-select ng-pristine ng-touched" 
+                                            formControlName="userScope"
                                                 (change)="onScopeChange()">
                                                 <option value="BO">Branch office</option>
                                                 <option value="HO">Headoffice</option>
@@ -53,7 +54,7 @@
                                         <div class="mb-4">
                                             <label for="branch" class="col-form-label">Employee Branch</label>
                                             <span style="color: red">*</span>
-                                            <select id="empbranch" class="form-select" formControlName="empbranch">
+                                            <select id="empbranch" class="form-control form-select ng-pristine ng-touched" formControlName="empbranch">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>

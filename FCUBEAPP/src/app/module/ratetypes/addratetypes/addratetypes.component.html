@@ -39,7 +39,8 @@
                          
                              <div class="col-lg-4">
                                 <div class="mb-4">
-                                  <select id="scope"  class="form-select" formControlName="rateMethod"  [ngClass]="{ 'is-invalid': formSubmitted && (f['rateDesc'].invalid) }">
+                                  <select id="scope"  class="form-control form-select ng-pristine ng-touched" formControlName="rateMethod"  
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['rateDesc'].invalid) }">
                                    <option value="RTF">Rate = Freight</option>
                                    <option value="CRF">Charge Wt * Rate = Freight </option>
                                    <option value="PRF">Package * Rate = Freight </option>

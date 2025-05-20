@@ -19,7 +19,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Booked At: </label><span style="color: red">*</span> 
-                                            <select id="scope" class="form-select" formControlName="dprBranch"
+                                            <select id="scope"  formControlName="dprBranch"
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['dprBranch'].invalid) }">
                                                 <option *ngFor="let br of branchList" value={{br.dataId}}>
@@ -128,7 +128,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Vehical Type: </label><span style="color: red">*</span>  
-                                            <select id="scope" class="form-select" formControlName="vehicleTypeId"
+                                            <select id="scope"  formControlName="vehicleTypeId"
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeId'].invalid) }">
                                                 <option *ngFor="let veh of vehicalTypeList" value={{veh.dataId}}>
@@ -180,7 +180,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Rate Type: </label><span style="color: red">*</span>  
-                                            <select id="scope" class="form-select" formControlName="rateType"
+                                            <select id="scope"  formControlName="rateType"
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['rateType'].invalid) }">
                                                 <option *ngFor="let rate of rateTypeList" value={{rate.dataId}}>

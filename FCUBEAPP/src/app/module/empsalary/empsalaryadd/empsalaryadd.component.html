@@ -88,7 +88,7 @@
                                                         *ngFor="let mst of formErnArray.controls; let e = index">
                                                         <div [formGroupName]="e" class="grid-table">
                                                             <td  class="col-lg-2">   
-                                                                <select id="scope" class="form-select" formControlName="edCode"
+                                                                <select id="scope"  formControlName="edCode"
                                                                 class="form-control form-select ng-pristine ng-touched"
                                                                 (change)="earningSelect(e,$event)">
                                                                     <option *ngFor="let ern of earningList" 
@@ -135,7 +135,7 @@
                                                         *ngFor="let mst of formDedArray.controls; let d = index">
                                                         <div [formGroupName]="d" class="grid-table">
                                                             <td  class="col-lg-2">   
-                                                                <select id="scope" class="form-select" formControlName="edCode"
+                                                                <select id="scope"  formControlName="edCode"
                                                                 (change)="deductionSelect(d,$event)">
                                                                 class="form-control form-select ng-pristine ng-touched">
                                                                     <option *ngFor="let ded of deductionList" 

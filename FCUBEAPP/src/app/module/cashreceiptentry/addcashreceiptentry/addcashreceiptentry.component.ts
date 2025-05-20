@@ -173,6 +173,7 @@ export class AddcashreceiptentryComponent {
         this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
+        this.checkSubLedgerExists(res.detailList[i].accountID,i-1);
       }
     });
   }
@@ -183,6 +184,7 @@ export class AddcashreceiptentryComponent {
       reference: [''],
       accountID: [''],
       narration: [''],
+      subLedger: [''],
     });
   }
 
@@ -192,7 +194,22 @@ export class AddcashreceiptentryComponent {
     });
   }
 
-   
+  checkSubLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("subLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("subLedger")?.setValue("N");
+      }
+    });
+  }
+
+  selectEvent(item: any,i:number) {
+    this.checkSubLedgerExists(item.dataId,i);
+  }
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -231,9 +248,6 @@ export class AddcashreceiptentryComponent {
     if (confirm("Are you sure, you want to delete this?")) {
     this.formArray.removeAt(index);
     this.updateAmount(); 
-    // if(this.formArray.value.length==0){
-    //   this.formArray.push(this.createInitialArray());
-    // }
     }
   }
 
@@ -387,25 +401,25 @@ export class AddcashreceiptentryComponent {
         if (this.formArray.value[i].accountID.dataId!="" ){
           if ((this.formArray.value[i].amount=="") ){
             this.toasterService.warning("Amount cannot be Empty in details grid");
-            this.sharedService.loading=false;
             return;
           }
           if (parseFloat(this.formArray.value[i].amount)==0) {
             this.toasterService.warning("Amount cannot be Zero in details grid");
-            this.sharedService.loading=false;
             return;
           }
         }
         if (parseFloat(this.formArray.value[i].amount)>0) {
           if (this.formArray.value[i].accountID.dataId=="") {
             this.toasterService.warning("Account cannot be Empty in details grid");
-            this.sharedService.loading=false;
             return;
           }
         }
         if (this.formArray.value[i].narration=="") {
           this.toasterService.warning("Narration cannot be Empty in details grid");
-          this.sharedService.loading=false;
+          return;
+        }
+        if(this.formArray.value[i].subLedger && this.formArray.value[i].reference =="") {
+          this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;
         }
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
@@ -424,7 +438,6 @@ export class AddcashreceiptentryComponent {
     }
     if(this.bankrecEntrymodel.detailList.length<2) {
       this.toasterService.warning("Grid Should Not be Empty");
-      this.sharedService.loading=false;
       return;
     }
     this.formSubmitted = true;

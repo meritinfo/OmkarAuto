@@ -90,7 +90,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">                                           
                                             <label >Rate Type </label><span style="color: red">*</span>  
-                                            <select id="scope" class="form-select" formControlName="rateTypeId"
+                                            <select id="scope"  formControlName="rateTypeId"
                                             class="form-control form-select ng-pristine ng-touched">
                                            
                                                 <option *ngFor="let br of rateList" value={{br.dataId}}>
@@ -182,7 +182,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <select id="scope" class="form-select" formControlName="productId" (change)='changeProduct($event,i)' 
+                                                        <select id="scope"  formControlName="productId" (change)='changeProduct($event,i)' 
                                             class="form-control form-select ng-pristine ng-touched">
                                             <option selected="0">All</option>
                                                 <option *ngFor="let br of productList" value={{br.dataId}}  >
