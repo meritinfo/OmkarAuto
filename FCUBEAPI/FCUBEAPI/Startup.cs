@@ -287,8 +287,8 @@ namespace FCUBEAPI
             services.AddScoped<ILRBillSeriesRepository, LRBillSeriesRepository>();
             services.AddScoped<ICciInvoiceMstBusiness, CciInvoiceMstBusiness>();
             services.AddScoped<ICciInvoiceMstRepository, CciInvoiceMstRepository>();
-            services.AddScoped<IChallanMasterBusinessLLP, ChallanMasterBusinessLLP>();
-            services.AddScoped<IChallanMasterRepositoryLLP, ChallanMasterRepositoryLLP>();
+            services.AddScoped<IChallanMasterLLPBusiness, ChallanMasterLLPBusiness>();
+            services.AddScoped<IChallanMasterLLPRepository, ChallanMasterLLPRepository>();
             services.AddScoped<IBillsMasterLlpBusiness, BillsMasterLlpBusiness>();
             services.AddScoped<IBillsMasterLlpRepository, BillsMasterLlpRepository>();
             services.AddScoped<IDeliveryDisputeEntryBusiness, DeliveryDisputeEntryBusiness>();

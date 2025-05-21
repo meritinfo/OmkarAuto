@@ -22,7 +22,7 @@ namespace FCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly IConsignmentBusiness consignmentBusiness;
         readonly IChallanMasterBusiness challanMasterBusiness;
-        readonly IChallanMasterBusinessLLP challanMasterBusinessLLP;
+        readonly IChallanMasterLLPBusiness challanMasterBusinessLLP;
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
@@ -57,7 +57,7 @@ namespace FCUBEAPI.Controllers
             IDoVehiInBusiness _doVehiInBusiness,
             IDoTempGcBusiness _doTempGcBusiness,
             ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
-            IChallanMasterBusinessLLP _challanMasterBusinessLLP,
+            IChallanMasterLLPBusiness _challanMasterBusinessLLP,
              IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness)
         {
             dbconnection = _dbconnection;

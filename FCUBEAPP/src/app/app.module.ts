@@ -724,9 +724,7 @@ import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehic
     Freightgstmastermodel,Freightgstmasterlistmodel,
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,Admingroupmastermodel,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,
-    Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,
+    Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
     
   ],

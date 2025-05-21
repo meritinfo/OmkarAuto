@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Consignment.Business
 {
-    public class ChallanMasterBusinessLLP: IChallanMasterBusinessLLP
+    public class ChallanMasterLLPBusiness: IChallanMasterLLPBusiness
     {
-        readonly IChallanMasterRepositoryLLP challanRepository;
-        public ChallanMasterBusinessLLP(IChallanMasterRepositoryLLP _challanRepository)
+        readonly IChallanMasterLLPRepository challanRepository;
+        public ChallanMasterLLPBusiness(IChallanMasterLLPRepository _challanRepository)
         {
             challanRepository = _challanRepository;
         }
