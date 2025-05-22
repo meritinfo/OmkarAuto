@@ -22,7 +22,7 @@ export class CashreceiptentrylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -73,12 +73,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -98,10 +98,10 @@ dashboard: string ="";
     }
     
     
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-  
-  this.fromDate = this.minDate ;
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
   
 
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
@@ -123,7 +123,6 @@ dashboard: string ="";
   }
 
   cashReceiptEntry(){
-
     this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 50,

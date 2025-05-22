@@ -6,6 +6,7 @@ export class Trippaymentsmodel {
     vehicleMasterID: string = "";
     transType: string = "";
     remarks: string = "";
+    vendorRefNo: string = "";
     pmtType: string = "";
     neftPmt: string = "";
     creditAc: string = "";
