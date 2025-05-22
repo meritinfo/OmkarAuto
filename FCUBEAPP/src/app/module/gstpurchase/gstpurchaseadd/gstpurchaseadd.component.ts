@@ -394,7 +394,7 @@ export class GstpurchaseaddComponent {
 
   getVendorList(){
     this.requestmodel.strRequest= 'D';
-    this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.vendorList = res;
     });
   }
@@ -411,10 +411,7 @@ export class GstpurchaseaddComponent {
     });
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-  // this.GetOpeningBal();
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here

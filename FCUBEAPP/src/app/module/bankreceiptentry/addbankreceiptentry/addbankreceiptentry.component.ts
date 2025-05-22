@@ -44,7 +44,6 @@ export class AddbankreceiptentryComponent {
   createdBy:string = "";
   modifiedBy:string = "";
 
-
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel, private sharedService: SharedService,
     private cashreceiptentryService: CashReceiptEntryService,
@@ -196,6 +195,7 @@ export class AddbankreceiptentryComponent {
         this.formArray.controls[i-1].get("chequeDate")?.setValue(this.commonService.formatDate(res.detailList[i].chequeDate));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
+        this.checkSubLedgerExists(res.detailList[i].accountID,i-1);
       }
     });
   }
@@ -208,6 +208,7 @@ export class AddbankreceiptentryComponent {
       chequeNo: [''],
       chequeDate: [''],
       narration:[],
+      subLedger:[],
     });
   }
   
@@ -231,11 +232,8 @@ export class AddbankreceiptentryComponent {
 
   removeItem(index: number){ 
     if (confirm("Are you sure, you want to delete this row?")) {
-    this.formArray.removeAt(index);
-    this.updateAmount(); 
-    // if(this.formArray.value.length==0){
-    //   this.formArray.push(this.createInitialArray());
-    // }
+      this.formArray.removeAt(index);
+      this.updateAmount(); 
     }
   }
 
@@ -305,10 +303,22 @@ export class AddbankreceiptentryComponent {
       this.branchList = res;
     });
   }
-  
-  selectEvent(item: any) {
-    // do something with selected item
-  // this.GetOpeningBal();
+     
+  checkSubLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("subLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("subLedger")?.setValue("N");
+      }
+    });
+  }
+
+  selectEvent(item: any,i:number) {
+    this.checkSubLedgerExists(item.dataId,i);
   }
 
   onChangeSearch(search: string) {
@@ -463,25 +473,25 @@ export class AddbankreceiptentryComponent {
         if (this.formArray.value[i].accountID.dataId!="" ){
           if ((this.formArray.value[i].amount=="") ){
             this.toasterService.warning("Amount cannot be Empty in details grid");
-            this.sharedService.loading=false;
             return;
           }
           if (parseFloat(this.formArray.value[i].amount)==0) {
             this.toasterService.warning("Amount cannot be Zero in details grid");
-            this.sharedService.loading=false;
             return;
           }
         }
         if (parseFloat(this.formArray.value[i].amount)>0) {
           if (this.formArray.value[i].accountID.dataId=="") {
             this.toasterService.warning("Account cannot be Empty in details grid");
-            this.sharedService.loading=false;
             return;
           }
         }
         if (this.formArray.value[i].narration =="") {
           this.toasterService.warning("Narration cannot be Empty in details grid");
-          this.sharedService.loading=false;
+          return;
+        }
+        if(this.formArray.value[i].subLedger && this.formArray.value[i].reference =="") {
+          this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;
         }
         
@@ -491,7 +501,7 @@ export class AddbankreceiptentryComponent {
               this.toasterService.warning("Cheque No cannot be Empty in details grid");
               return;
             }
-            if (this.formArray.value[i].chequeDate==='') {
+            if (this.formArray.value[i].chequeDate==="") {
               this.toasterService.warning("Cheque Date cannot be Empty in details grid");
               return;
             }

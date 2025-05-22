@@ -25,8 +25,7 @@ export class DeliverydisputeentrylistComponent {
     editStatus = false;
     deleteStatus = false;
     viewStatus = false; 
-dashboard: string ="";
-    vendorList: Dropdownmodel[] = [];
+    dashboard: string ="";
     formFilter!: FormGroup;
     keywordLocation = 'dataName'; 
     year: string = '';

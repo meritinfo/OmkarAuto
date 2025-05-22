@@ -211,7 +211,6 @@ dashboard: string ="";
     this.formUser.controls['fromPlace'].disable();  
     this.formUser.controls['toPlace'].disable();
     this.formUser.controls['noPackages'].disable(); 
-    this.formUser.controls['actualWt'].disable();   
     this.formUser.controls['cnorName'].disable();  
     this.formUser.controls['cneeName'].disable();  
     this.formUser.controls['subTotalRs'].disable(); 
@@ -350,7 +349,7 @@ dashboard: string ="";
             vehicleNo: this.lrmodel.invoiceNo,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
-            shipmentNo: this.lrmodel.poNo,
+            shipmentNo: this.lrmodel.shipmentNo,
             shipmentDt : this.lrmodel.shipmentDt,      
             poNo : this.lrmodel.poNo,
             poDt : this.lrmodel.poDt,
@@ -561,9 +560,7 @@ dashboard: string ="";
     });
   }
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
@@ -628,6 +625,8 @@ dashboard: string ="";
     this.cnmodel.poNo = selectedDataValue.poNo.toString();
     this.cnmodel.poDt = selectedDataValue.poDt;
     this.cnmodel.privateMark = selectedDataValue.privateMark;
+    this.cnmodel.actualWt = selectedDataValue.actualWt.toString();
+    this.cnmodel.chargewt = selectedDataValue.chargewt.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.vehicleNo = selectedDataValue.vehicleNo;  
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  

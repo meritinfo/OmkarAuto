@@ -190,6 +190,10 @@ tripenroutebycompanyList(){
 startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
   return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
 getExpList(): void {
   this.commonService.getExpTypeList().subscribe((res) => {
     this.expList = res;

@@ -491,6 +491,8 @@ import { BranchcustomertarmstlistComponent } from './module/branchcustomertarget
 import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
 import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymentsllpadd/trippaymentsllpadd.component';
 import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
+import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllpadd/vehicleinstpmtllpadd.component';
+import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
 
 
 @NgModule({
@@ -650,6 +652,8 @@ import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippayme
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
+    
   ],
   
   imports: [
@@ -720,9 +724,7 @@ import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippayme
     Freightgstmastermodel,Freightgstmasterlistmodel,
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Ccinvmstmodel,ChallanmastermodelllP,ChallanlistmodelllP,Admingroupmastermodel,
-    Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,Freightgstmastermodel,
-    Freightgstmasterlistmodel,Userlistmodel,Ccinvdetailmodel,
+    Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
     
   ],

@@ -2795,6 +2795,46 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
+        [HttpPost("GetOutstandingDetailPartyRptExcel")]
+        public async Task<IActionResult> GetOutstandingDetailPartyRptExcel(ReportAgeModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetOutstandingDetailPartyRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+       
+        [HttpPost("GetOutstandingDetailPartyRptList")]
+        public async Task<IActionResult> GetOutstandingDetailPartyRptList(ReportAgeModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetOutstandingDetailPartyRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetBillSubmittedSummRptExcel")]
         public async Task<IActionResult> GetBillSubmittedSummRptExcel(ReportAgeModel request)
         {

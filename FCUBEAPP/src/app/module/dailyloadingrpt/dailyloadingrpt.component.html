@@ -46,13 +46,12 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="vehicleMasterID" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="vehicleMasterID"
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
+                                            [customFilter]="endWithFilter">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>

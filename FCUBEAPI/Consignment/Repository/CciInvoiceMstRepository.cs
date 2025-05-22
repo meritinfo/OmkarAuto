@@ -83,7 +83,6 @@ namespace Consignment.Repository
             }
             return cciInvoiceMstList;
         }
-
         public async Task<CciInvoiceMstModel> GetCciInvoiceDtlInnerGridList(RequestModel request)
         {
             CciInvoiceMstModel cciInvoiceMstInnerGridList = new()
@@ -107,8 +106,6 @@ namespace Consignment.Repository
                         {
                             cciInvoiceMstInnerGridList.CcinvmstDtlList.Add(new CciInvoiceDtlModel
                             {
-                                CciInvDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvDtlId"]),
-                               // CciInvMstId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvMstId"]),
                                 ContainerNo = Convert.ToString(resultData.Tables[0].Rows[i]["ContainerNo"]),
                                 GcYear = Convert.ToString(resultData.Tables[0].Rows[i]["GcYear"]),
                                 GcBook = Convert.ToString(resultData.Tables[0].Rows[i]["GcBook"]),
@@ -242,7 +239,7 @@ namespace Consignment.Repository
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvMstSave", param);
-                    string CciInvMstId = "0";
+                    string CciInvMstId = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
@@ -254,8 +251,7 @@ namespace Consignment.Repository
                             for (int i = 0; i < cciInvoiceMstModel.CcinvmstDtlList.Count; i++)
                             {
                                 cciInvoiceMstModel.CcinvmstDtlList[i].CciInvMstId = CciInvMstId;
-                              //  cciInvoiceMstModel.CciInvoiceDetails[i].TransDate = vehicleRepMaintMasterModel.TransDate;
-
+                            
                                 responseModel = await CciInvoiceDetailSave(transaction, cciInvoiceMstModel.CcinvmstDtlList[i]);
                                 if (!responseModel.Status)
                                 {
@@ -286,28 +282,25 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                             new SqlParameter("@CciInvDtlId",cciInvoiceDtlModel.CciInvDtlId ),
-                             new SqlParameter("@CciInvMstId",cciInvoiceDtlModel.CciInvMstId ),
-                             new SqlParameter("@ContainerNo",cciInvoiceDtlModel.ContainerNo),
-                             new SqlParameter("@GcYear",cciInvoiceDtlModel.GcYear ),
-                             new SqlParameter("@GcBook ",cciInvoiceDtlModel.GcBook ),
-                             new SqlParameter("@GcNoteNo",cciInvoiceDtlModel.GcNoteNo),
-                             new SqlParameter("@ChCostId",cciInvoiceDtlModel.ChCostId),
-                             new SqlParameter("@TaxableAmt",cciInvoiceDtlModel.TaxableAmt),
-                             new SqlParameter("@SgstPct",cciInvoiceDtlModel.SgstPct),
-                             new SqlParameter("@SgstAmt",cciInvoiceDtlModel.SgstAmt),
-                             new SqlParameter("@CgstPct",cciInvoiceDtlModel.CgstPct),
-                             new SqlParameter("@CgstAmt",cciInvoiceDtlModel.CgstAmt),
-                             new SqlParameter("@IgstPct",cciInvoiceDtlModel.IgstPct),
-                             new SqlParameter("@IgstAmt",cciInvoiceDtlModel.IgstAmt),
-                             new SqlParameter("@TotalAmt ",cciInvoiceDtlModel.TotalAmt ),
-                             new SqlParameter("@DtlRemarks",cciInvoiceDtlModel.DtlRemarks),
+                    {
+                        new SqlParameter("@CciInvMstId",cciInvoiceDtlModel.CciInvMstId ),
+                        new SqlParameter("@ContainerNo",cciInvoiceDtlModel.ContainerNo),
+                        new SqlParameter("@GcYear",cciInvoiceDtlModel.GcYear ),
+                        new SqlParameter("@GcBook ",cciInvoiceDtlModel.GcBook ),
+                        new SqlParameter("@GcNoteNo",cciInvoiceDtlModel.GcNoteNo),
+                        new SqlParameter("@ChCostId",cciInvoiceDtlModel.ChCostId),
+                        new SqlParameter("@TaxableAmt",cciInvoiceDtlModel.TaxableAmt),
+                        new SqlParameter("@SgstPct",cciInvoiceDtlModel.SgstPct),
+                        new SqlParameter("@SgstAmt",cciInvoiceDtlModel.SgstAmt),
+                        new SqlParameter("@CgstPct",cciInvoiceDtlModel.CgstPct),
+                        new SqlParameter("@CgstAmt",cciInvoiceDtlModel.CgstAmt),
+                        new SqlParameter("@IgstPct",cciInvoiceDtlModel.IgstPct),
+                        new SqlParameter("@IgstAmt",cciInvoiceDtlModel.IgstAmt),
+                        new SqlParameter("@TotalAmt ",cciInvoiceDtlModel.TotalAmt ),
+                        new SqlParameter("@DtlRemarks",cciInvoiceDtlModel.DtlRemarks),
+                    };
 
-
-                        };
-
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvoiceDtlSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvDtlSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

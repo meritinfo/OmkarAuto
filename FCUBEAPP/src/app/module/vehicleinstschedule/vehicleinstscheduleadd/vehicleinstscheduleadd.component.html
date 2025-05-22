@@ -16,7 +16,19 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row">                   
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Loan Type</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="loanType"   
+                                                class="form-control form-select ng-pristine ng-touched"   
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['loanType'].invalid) }">
+                                                    <option value="C">Chassis </option>
+                                                    <option value="B">Body </option>
+                                                 </select>
+                                            </div>
+                                        </div>
                                         <div class="col-md-3">
                                             <div class="mb-3">                                    
                                                 <label for="formrow-inputCity">Vehicle No</label> 
@@ -30,7 +42,7 @@
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"  
+                                                        [customFilter]="endWithFilter"  
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
                                                     </ng-autocomplete>
             
@@ -43,19 +55,7 @@
                                                     </ng-template>
                                                 </div>
                                             </div>     
-                                        </div>                        
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Loan Type</label>
-                                                <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="loanType"   
-                                                class="form-control form-select ng-pristine ng-touched"   
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['loanType'].invalid) }">
-                                                    <option value="C">Chassis </option>
-                                                    <option value="B">Body </option>
-                                                 </select>
-                                            </div>
-                                        </div>
+                                        </div>     
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Start Date</label>

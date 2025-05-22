@@ -18,7 +18,6 @@ export class Ccinvmstmodel {
     ccinvmstDtlList: Ccinvdtlmodel[] = [];
 }
 export class Ccinvdtlmodel {
-    cciInvDtlId : string ="";
     cciInvMstId: string ="";
     containerNo : string ="";
     gcYear  : string ="";

@@ -172,8 +172,7 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="partyList" 
                                                     formControlName="party"
-                                                    [searchKeyword]="keywordLocation"  
-                                                    (selected)='selectEvent($event)' 
+                                                    [searchKeyword]="keywordLocation" 
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' 
                                                     [itemTemplate]="itemTemplate"

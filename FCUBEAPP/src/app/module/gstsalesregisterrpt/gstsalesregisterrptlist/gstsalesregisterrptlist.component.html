@@ -46,8 +46,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="branchList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="tripBranch" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="tripBranch" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

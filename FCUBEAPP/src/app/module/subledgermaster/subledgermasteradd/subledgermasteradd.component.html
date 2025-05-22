@@ -16,126 +16,63 @@
                         <div class="card">
                             <div class="card-body"> 
                                 <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label  for="formrow-inputState">Ledger Ac</label>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">                                            
+                                            <label for="formrow-inputState">Ledger Ac</label>
                                             <span style="color: red">*</span>
-                                            <select class="form-control" formControlName="ledgerAc"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['ledgerAc'].invalid) }">
-
-                                            <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
-
-                                                {{branch.dataName}}
-                                            </option>
-                                        </select>
                                         </div>
                                     </div>
-                                    
-                                    
-                                                                       
-                                </div> 
-                                <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label  for="formrow-inputState">Create Or Predefined</label>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="ledgerAc"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['ledgerAc'].invalid) }">
+                                                <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3"> 
+                                            <label  for="formrow-inputState">Create/Predefined</label>
                                             <span style="color: red">*</span>
-                                            <select id="formrow-inputState" class="form-select"  formControlName="createOrPredefined"  (change)="changePreType($event)"  
-                                            class="form-control form-select ng-pristine ng-touched"                                            
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['createOrPredefined'].invalid) }"
-                                               >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <select id="formrow-inputState" formControlName="createOrPredefined"  
+                                                (change)="changePreType($event)"  
+                                                class="form-control form-select ng-pristine ng-touched"                                            
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['createOrPredefined'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option value="C">Create</option>
-                                                <option value="P">Predefined</option>
-                                            
+                                                <option value="P">Pre-Defined</option>                                            
                                             </select>
                                         </div>
-                                    </div>   
-                                    
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label  for="formrow-inputState">Validate With DocNo</label>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="!gridview">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3"> 
+                                            <label  for="formrow-inputState">Pre-Defined</label>
                                             <span style="color: red">*</span>
-                                           
-
-                                                <select id="formrow-inputState" class="form-select"  formControlName="validateWithDocNo"    
-                                                class="form-control form-select ng-pristine ng-touched"                                            
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['validateWithDocNo'].invalid) }"
-                                                   >
-                                                    <option value="">Choose...</option>
-                                                    <option value="Y">Yes</option>
-                                                    <option value="N">No</option>
-                                                
-                                                </select>
                                         </div>
-                                    </div>   
-                                    <div class="col-lg-3">
+                                    </div>
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label  for="formrow-inputState">Validate Table</label>
-                                            <span style="color: red">*</span>
-                                           
-
-                                                <select class="form-control" formControlName="validateTable" (change)="changeTableType($event)"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['validateTable'].invalid) }">
-    
-                                                <option *ngFor="let branch of validateList" value={{branch.dataId}}>
-    
-                                                    {{branch.dataName}}
-                                                </option>
+                                            <select id="formrow-inputState" formControlName="preDefinedQuery"  
+                                                class="form-control form-select ng-pristine ng-touched">
+                                                <option value="">Choose...</option>
+                                                <option value="Employee">Employee</option>
+                                                <option value="Vehicle">Vehicle</option>                                            
                                             </select>
                                         </div>
-                                    </div>      
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label  for="formrow-inputState">Validate TableField</label>
-                                            <span style="color: red">*</span>
-                                           
-
-                                                <select class="form-control" formControlName="validateTableField" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['validateTableField'].invalid) }">
-    
-                                                <option *ngFor="let branch of fieldList" value={{branch.dataId}}>
-    
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <!-- <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label  for="formrow-inputState">Pre Defined Query</label>
-                                            <span style="color: red">*</span>
-                                            <select class="form-control" formControlName="preDefinedQuery" 
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['preDefinedQuery'].invalid) }">
-
-                                            <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
-
-                                                {{branch.dataName}}
-                                            </option>
-                                        </select>
-                                        </div>
-                                    </div>                                     -->
-                                    
-                                    
-                                  
-                                </div> 
-                                <div class="row">   
-                                    
-                                    
-                                    <!-- <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Vendor State </label><span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="vendorState"      
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
-                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
-                                                   {{state.dataName}}
-                                                </option>
-                                             </select>
-                                        </div>
-                                    </div>   -->
-                                   
-                                   
-                                    
-                                   
+                                    </div>
+                                </div>
+                                <div class="row">  
                                 </div>             
                             </div>                  
                             <!-- end card body -->
@@ -143,28 +80,27 @@
                         <!-- end card -->
                     </div>
                 </div>  
-                <div class="ng-untouched ng-pristine ng-valid">
+                <div class="ng-untouched ng-pristine ng-valid" *ngIf="gridview">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="overflow-x">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
-                                            <tr>
-                                               
-                                                <th><label for="formrow-inputCity">Sub Ledger Desc</label></th>   
-                                                <th><label for="formrow-inputCity">Action</label></th> 
+                                            <tr>       
+                                                <th class="col-lg-4"><label for="formrow-inputCity">Sub Ledger Desc</label></th>   
+                                                <th class="col-lg-4"><label for="formrow-inputCity">Action</label></th> 
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formSubArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                   
-                                                    <td>                                     
+                                                    <td class="col-lg-4">                                     
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="subLedgerDesc" uppercaseonly  maxlength="25"> 
+                                                        formControlName="subLedgerDesc" uppercaseonly  
+                                                        maxlength="25"> 
                                                     </td>
                                                     <td>                                     
-                                                        <div class="col-lg-4 details-button">
+                                                        <div class="details-button">
                                                             <button *ngIf="i === formSubArray.controls.length-1" type="button"
                                                                 class="btn btn-add" (click)="addItem(i)"></button>
                                                             <button *ngIf="formSubArray.controls.length > 1"
@@ -179,36 +115,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                       
-                         
-                    </div>  
-                    <div class="row">
-                       
-                       
-                       
-                       
-                      
-                    </div>  
-                    <div class="row">                                                                        
-                      
-                      
-                    </div> 
-                    <div class="row">                                                               
-                         
-                        <!-- <div class="col-sm-3">
-                            <div class="mb-3">
-                                <label>Branch Code: </label>
-                                <select class="form-control" formControlName="branchCode"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
-                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                        {{branch.dataName}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>                                -->
-                                                            
-                    </div>                     
                 </div>         
                 <div class="row text-right">
                     <div class="col-lg-12">

@@ -59,7 +59,7 @@
                            </div>
                            <div class="col-sm-4">
                               <div class="mb-3">
-                                 <select id="scope" class="form-select" formControlName="recurring_Onetime"
+                                 <select id="scope" formControlName="recurring_Onetime"
                                     class="form-control form-select ng-pristine ng-touched"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['recurring_Onetime'].invalid) }">
                                     <option value="R">Recurring</option>
@@ -90,7 +90,7 @@
                            </div>
                            <div class="col-sm-4">
                               <div class="mb-3">
-                                 <select id="scope" class="form-select" formControlName="debitAc"
+                                 <select id="scope" formControlName="debitAc"
                                  class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
                                     <option *ngFor="let dbt of debitAcList" value={{dbt.dataId}}>
@@ -108,7 +108,7 @@
                            </div>
                            <div class="col-sm-4">
                               <div class="mb-3">
-                                 <select id="scope" class="form-select" formControlName="debitType"
+                                 <select id="scope" formControlName="debitType"
                                  class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['debitType'].invalid) }">
                                     <option value="V">Vehicle Ledger</option>
@@ -125,7 +125,7 @@
                            </div>
                            <div class="col-sm-4">
                               <div class="mb-3">
-                                 <select id="scope" class="form-select" formControlName="isActive"
+                                 <select id="scope"  formControlName="isActive"
                                  class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['isActive'].invalid) }">
                                     <option value="Y">Yes</option>

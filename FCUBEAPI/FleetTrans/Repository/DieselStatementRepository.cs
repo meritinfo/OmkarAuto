@@ -35,7 +35,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
                             new SqlParameter("@Vendor", request.FilterStr),
-                            new SqlParameter("@PmtType", "V")
+                            new SqlParameter("@PmtType", "D")
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselSearchGridList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
@@ -49,7 +49,7 @@ namespace FleetTrans.Repository
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvType"]),
+                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
                                 TransDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDesc"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
@@ -93,7 +93,7 @@ namespace FleetTrans.Repository
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvType"]),
+                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
                                 TransDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDesc"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
@@ -169,13 +169,14 @@ namespace FleetTrans.Repository
                                 {
                                     SqlParameter[] paramMisc =
                                     {
-                                        new SqlParameter("@MasterID"    , MasterID),
-                                        new SqlParameter("@TripPmtId"   , dieselStatementModel.DieselStatementListData[i].PmtId),
-                                        new SqlParameter("@VehicleNo"   , dieselStatementModel.DieselStatementListData[i].VehicleNo),
-                                        new SqlParameter("@HsdAdvTyps"  , dieselStatementModel.DieselStatementListData[i].HsdAdvType),
-                                        new SqlParameter("@DslQty"      , dieselStatementModel.DieselStatementListData[i].QtyLtrs),
-                                        new SqlParameter("@DslRate"     , dieselStatementModel.DieselStatementListData[i].RatePerLtr),
-                                        new SqlParameter("@Amount"      , dieselStatementModel.DieselStatementListData[i].AmountPaid),
+                                        new SqlParameter("@MasterID"        , MasterID),
+                                        new SqlParameter("@TripPmtId"       , dieselStatementModel.DieselStatementListData[i].PmtId),
+                                        new SqlParameter("@VehicleNo"       , dieselStatementModel.DieselStatementListData[i].VehicleNo),
+                                        new SqlParameter("@TransDateTime"   , dieselStatementModel.DieselStatementListData[i].PmtDate),
+                                        new SqlParameter("@HsdAdvTyps"      , dieselStatementModel.DieselStatementListData[i].HsdAdvType),
+                                        new SqlParameter("@DslQty"          , dieselStatementModel.DieselStatementListData[i].QtyLtrs),
+                                        new SqlParameter("@DslRate"         , dieselStatementModel.DieselStatementListData[i].RatePerLtr),
+                                        new SqlParameter("@Amount"          , dieselStatementModel.DieselStatementListData[i].AmountPaid),
                                     };
                                     var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDtlsSave", paramMisc);
                                     if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0)
@@ -430,7 +431,7 @@ namespace FleetTrans.Repository
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvType"]),
+                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
                                 TransDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDesc"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
@@ -711,7 +712,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@MasterID", request.strRequest),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselImpInnerGridList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementInnergrid", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -724,10 +725,10 @@ namespace FleetTrans.Repository
                                 TransRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["TransRefNo"]),
                                 TransDateTime   = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDateTime"]),
                                 HsdAdvTyps      = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
-                                DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["DslQty"]),
-                                DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["DslRate"]),
-                                Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["Amount"]),
-                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["TripPmtId"]),
+                                DslQty          = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+                                DslRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
+                                Amount          = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+                                TripPmtId       = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                             });
                         }
 

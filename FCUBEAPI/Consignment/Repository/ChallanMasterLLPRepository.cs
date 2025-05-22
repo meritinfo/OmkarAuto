@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {
-    public class ChallanMasterRepositoryLLP : IChallanMasterRepositoryLLP
+    public class ChallanMasterLLPRepository : IChallanMasterLLPRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public ChallanMasterRepositoryLLP(IOptions<DBModel> _dbconnection)
+        public ChallanMasterLLPRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }

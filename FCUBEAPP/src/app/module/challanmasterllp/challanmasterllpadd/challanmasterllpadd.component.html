@@ -95,7 +95,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="challanFromStn" [initialValue]=""
+                                            formControlName="challanFromStn" 
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -648,21 +648,19 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-2"> 
+                            <div class="col-lg-4"> 
                                 <div class="mb-3">                               
-                                <div class="form-check">
-                                    <input type="checkbox"  formControlName="cciInvoice"  
-                                        (change)="onInvoiceChk($event)" class="form-check-input" >
-                                        <label for="cciInvoice"   class="form-check-label">Get From CCI Invoice Entry
-                                    </label>
-                                </div>   
-                            </div>                         
+                                    <div class="form-check">
+                                        <input type="checkbox"  formControlName="cciInvoice"  
+                                            (change)="onInvoiceChk($event)" class="form-check-input" >
+                                            <label for="cciInvoice"   class="form-check-label">Get From CCI Invoice Entry
+                                        </label>
+                                    </div>   
+                                </div>                         
                             </div>  
-                        </div>  
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">CCi Invoice No</label>
+                                    <label for="formrow-inputZip">CCI Invoice No</label>
                                     <input type="text" class="form-control" uppercaseonly
                                         formControlName="cciInvNo" >
                                 </div>

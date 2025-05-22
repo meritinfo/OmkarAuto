@@ -48,8 +48,7 @@
                                     <label>Vendor</label>                                     
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vendorList"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)'
+                                            [searchKeyword]="keywordLocation" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)'
                                             [itemTemplate]="itemTemplate"

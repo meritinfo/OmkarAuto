@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Booked At: </label><span style="color: red">*</span> 
-                                            <select id="scope" class="form-select" formControlName="doBranch"
+                                            <select id="scope"  formControlName="doBranch"
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['doBranch'].invalid) }">
                                                 <option *ngFor="let br of branchList" value={{br.dataId}}>
@@ -161,7 +161,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Product: </label>
-                                            <select id="scope" class="form-select" formControlName="productId"
+                                            <select id="scope"  formControlName="productId"
                                             class="form-control form-select ng-pristine ng-touched">
                                                 <option *ngFor="let br of productList" value={{br.dataId}}>
                                                     {{br.dataName}}

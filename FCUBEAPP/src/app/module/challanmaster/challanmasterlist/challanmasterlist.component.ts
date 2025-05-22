@@ -228,9 +228,7 @@ dashboard: string ="";
   onChangeSearch(search: string) {
   }
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));

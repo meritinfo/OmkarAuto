@@ -46,8 +46,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="accountList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="accountID" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="accountID" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

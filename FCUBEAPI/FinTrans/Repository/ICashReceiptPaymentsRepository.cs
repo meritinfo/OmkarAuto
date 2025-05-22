@@ -19,5 +19,6 @@ namespace FinTrans.Repository
         Task<List<DropDownListModel>> GetFinRefTypes();
         Task<DataSet> CashBookReport(ReportRequestModel request);
         Task<ResponseModel> GetFinDocDetails(RequestModel request);
+        Task<ResponseModel> CheckSubLedgerExists(RequestModel request);
     }
 }

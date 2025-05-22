@@ -61,7 +61,7 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label>Engaged By: </label>
-                                    <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
+                                    <select id="scope"  formControlName="vehicleEngagedBy"
                                     class="form-control form-select ng-pristine ng-touched">
                                         <option *ngFor="let emp of empList" value={{emp.dataId}}>
                                             {{emp.dataName}}
@@ -74,7 +74,7 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <label>Assign To: </label>
-                                    <select id="scope" class="form-select"
+                                    <select id="scope" 
                                      formControlName="assignToStaff"
                                     class="form-control form-select ng-pristine ng-touched" >
                                         <option *ngFor="let emp of empList" value={{emp.dataId}}>

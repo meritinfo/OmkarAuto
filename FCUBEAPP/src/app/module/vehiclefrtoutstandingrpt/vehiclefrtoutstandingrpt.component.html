@@ -52,13 +52,12 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="vehicleMasterId" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="vehicleMasterId" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
+                                            [customFilter]="endWithFilter">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -78,8 +77,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="partyList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="party" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="party" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -117,8 +115,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="sparesList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="spareLubId" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="spareLubId" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

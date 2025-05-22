@@ -116,11 +116,7 @@ dashboard: string ="";
       this.vehicleList = res;
     });
   }
-
-  selectEvent(item: any) {
-    // do something with selected item
-   // this.GetOpeningBal();
-  }
+ 
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -135,6 +131,10 @@ dashboard: string ="";
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
   vehicleinstscheduleList() {
     this.dtOptions = {
       pagingType: 'full_numbers',

@@ -210,9 +210,7 @@ dashboard: string ="";
     this.getCreditAcList(selectedValue);
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -227,6 +225,10 @@ dashboard: string ="";
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
 
   deleteFastagdslrechargeentryForm(): void {
     if(this.selectedFastagdslrechargeentryDetails.transId != '' ){

@@ -5924,3 +5924,38 @@ background-color: #fbff00 !important
     width: fit-content;
 }
 
+.full-mr-width{
+    width: 1800px !important;
+}
+.full-mr-width tr td {
+    width: fit-content;
+}
+
+.full-grid-rpt-width{
+    width: 6000px !important;
+}
+.full-grid-rpt-width tr td {
+    width: fit-content;
+}
+
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+    z-index: 1;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid #ddd;
+}

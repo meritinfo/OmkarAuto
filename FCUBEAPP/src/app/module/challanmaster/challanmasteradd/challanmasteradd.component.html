@@ -95,8 +95,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="challanFromStn" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="challanFromStn" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
@@ -119,8 +118,7 @@
                                     <label for="formrow-inputZip">To Place : </label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="challanToStn"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
+                                            [searchKeyword]="keywordLocation" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -200,8 +198,7 @@
                                     <span style="color: red">*</span>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="brokerList" formControlName="brokerId"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
+                                            [searchKeyword]="keywordLocation"
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"

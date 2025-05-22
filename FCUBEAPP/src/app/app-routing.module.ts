@@ -28,8 +28,8 @@ import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbr
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
-import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
-import {AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
+import { AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
+import { AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
@@ -309,7 +309,8 @@ import { BillprintllpComponent } from './module/billprintllp/billprintllp.compon
 import { BillgstrptComponent } from './module/billgstrpt/billgstrpt.component';
 import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymentsllpadd/trippaymentsllpadd.component';
 import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
-
+import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllpadd/vehicleinstpmtllpadd.component';
+import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
 
 
 
@@ -738,6 +739,9 @@ const routes: Routes = [
   { path: 'trippaymentlistllp',component: TrippaymentsllplistComponent},
   { path: 'trippaymentllpadd',component: TrippaymentsllpaddComponent },
   { path: 'trippaymentllpedit',component: TrippaymentsllpaddComponent },
+  { path: 'emipmtllpadd',component: VehicleinstpmtllpaddComponent },
+  { path: 'emipmtllpedit',component: VehicleinstpmtllpaddComponent },
+  { path: 'emipmtllplist',component: VehicleinstpmtllplistComponent},
 ];
 
 

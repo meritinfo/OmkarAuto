@@ -159,6 +159,10 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
+
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
     expTripStatus(){
       this.dtOptions = {
         pagingType: 'full_numbers',

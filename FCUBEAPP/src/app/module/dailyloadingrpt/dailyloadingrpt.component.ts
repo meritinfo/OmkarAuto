@@ -24,7 +24,7 @@ export class DailyloadingrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -146,10 +146,7 @@ dashboard: string ="";
     
     get f() { return this.formFilter.controls; }
   
-    selectEvent(item: any) {
-      // do something with selected item
-     // this.GetOpeningBal();
-    }
+     
   
     onChangeSearch(search: string) {
       // fetch remote data from here
@@ -164,6 +161,9 @@ dashboard: string ="";
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
+    endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+      return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    };
     dailyloadingList(){
       this.dtOptions = {
         pagingType: 'full_numbers',

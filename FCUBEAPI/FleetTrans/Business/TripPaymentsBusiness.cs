@@ -59,6 +59,10 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetLrDtlsForTripPmts(request);
         }
+        public async Task<ResponseModel> GetVoucherPrint(RequestModel request)
+        {
+            return await tripPaymentsRepository.GetVoucherPrint(request);
+        }
 
     }
 }

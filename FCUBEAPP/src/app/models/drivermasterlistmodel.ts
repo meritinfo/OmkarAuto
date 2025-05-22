@@ -3,5 +3,5 @@ import { Drivermodel } from "./drivermodel";
 
 export class Drivermasterlistmodel {
   driverList: Drivermodel[] = [];
-    pageMetaData: Paginationmodel = new Paginationmodel;
+  pageMetaData: Paginationmodel = new Paginationmodel;
 }

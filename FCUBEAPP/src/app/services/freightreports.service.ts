@@ -25,6 +25,7 @@ import { Driverlicrptlistmodel  } from 'src/app/models/driverlicrptlistmodel';
 import { Detentionrptlistmodel  } from 'src/app/models/detentionrptlistmodel';
 import { Mrlistmodel  } from 'src/app/models/mrlistmodel';
 import { Documentallotmentlistmodel  } from 'src/app/models/documentallotmentlistmodel';
+import { Billoutstandingdetailrptlistmodel  } from 'src/app/models/billoutstandingdetailrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,12 @@ export class FreightreportsService {
   }
   getOutStandingDetailRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingDetailRptExcel', filter, this.httpOptions);
+  }  
+  getOutStandingDetailPartyRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingDetailPartyRptExcel', filter, this.httpOptions);
+  }
+  getOutStandingDetailPartyRptList(filter: Reportmodel): Observable<Billoutstandingdetailrptlistmodel> {
+    return this.httpClient.post<Billoutstandingdetailrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOutstandingDetailPartyRptList', filter, this.httpOptions);
   }
   getBillSubmittedSummRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillSubmittedSummRptExcel', filter, this.httpOptions);

@@ -135,10 +135,12 @@ export class BalanacerptComponent {
     this.formFilter.patchValue({
       balanceSheet: "",
       profitLoss: "",
+      fromDate:this.minDate,
+      toDate: this.maxDate
     });
 
     var selectedData  = this.formFilter.getRawValue(); 
-    if(selectedData.rptType=='GP'){
+    if(selectedData.rptType!='OP'){
       this.formFilter.controls["fromDate"].enable();
       this.formFilter.controls["toDate"].enable();
       this.profitLossEnable = true;

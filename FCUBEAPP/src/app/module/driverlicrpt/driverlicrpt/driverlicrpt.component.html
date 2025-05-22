@@ -29,8 +29,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="branchList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="tripBranch" [initialValue]=""
-                                            (selected)='selectEvent($event)'
+                                            formControlName="tripBranch" 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -69,7 +68,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="driverList"
                                             [searchKeyword]="keywordLocation"  
-                                            formControlName="driverName" [initialValue]=""  
+                                            formControlName="driverName"    
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"  [ngClass]="">

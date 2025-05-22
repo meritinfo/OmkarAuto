@@ -8,7 +8,6 @@ import { Finaccountmodel  } from 'src/app/models/finaccountmodel';
 import { FinsaccountmasterService } from 'src/app/services/finaccountmaster.service';
 import { FingroupService } from 'src/app/services/fingroup.service';
 import { CommonService } from 'src/app/services/common.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -19,52 +18,47 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls:['./finaccountsmasteradd.component.css']
 })
 export class FinaccountsmasteraddComponent { 
-    loggedInUserID: string = '';
-    userlogindate:string="";
-    formAccountMaster!: FormGroup;
-    formSubmitted = false;
-    editMode = false;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-dashboard: string ="";
+  loggedInUserID: string = '';
+  userlogindate:string="";
+  formAccountMaster!: FormGroup;
+  formSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
 
-    responseDetails = new Responsemodel();
-    accountTypeList: Dropdownmodel[] = [];
-    subAccountTypeList: Dropdownmodel[] = []; 
-    // scheduleList: Dropdownmodel[] = [];
-    ledgerList: Dropdownmodel[] = [];
-    statelist: Dropdownmodel[] = [];
-
-    selectedFinaccountMasterDetails = new Finaccountmodel();
+  responseDetails = new Responsemodel();
+  accountTypeList: Dropdownmodel[] = [];
+  subAccountTypeList: Dropdownmodel[] = []; 
+  ledgerList: Dropdownmodel[] = [];
+  statelist: Dropdownmodel[] = [];
+  selectedFinaccountMasterDetails = new Finaccountmodel();
   
-    constructor(private route: Router, private formBuilder: FormBuilder, 
-       private finaccountmodel: Finaccountmodel, private sharedService: SharedService,
-       private finsaccountmasterService: FinsaccountmasterService,
-       private commonService: CommonService, private requestmodel:Requestmodel,
-       private fingroupService :FingroupService, private toasterService: ToastrService) {
-      this.finaccountmodel = new Finaccountmodel();
-   
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private finaccountmodel: Finaccountmodel, private sharedService: SharedService,
+    private finsaccountmasterService: FinsaccountmasterService,
+    private commonService: CommonService, private requestmodel:Requestmodel,
+    private fingroupService :FingroupService, private toasterService: ToastrService) {
+    this.finaccountmodel = new Finaccountmodel();
+  
   }
   
   ngOnInit(): void {    
-
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);      
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
     .find((aa: { menuName: string; }) => aa.menuName === "Accounts/Ledger Master");
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
-
 
     var userData = sessionStorage.getItem('uid')?.toString();
     
@@ -78,7 +72,7 @@ dashboard: string ="";
       this.route.navigate(['/']);
     }
     
-     this.formAccountMaster = this.formBuilder.group({    
+    this.formAccountMaster = this.formBuilder.group({    
       accountName: new FormControl('',[Validators.required]),
       accountType: new FormControl('',[Validators.required]),
       subAccountType: new FormControl('',[Validators.required]),
@@ -342,7 +336,7 @@ dashboard: string ="";
     this.finaccountmodel.bankIfsc           = selectedDataValue.bankIfsc.toString().toUpperCase();
     this.finaccountmodel.blockAct           = 'N';
     this.finaccountmodel.statusColor        = selectedDataValue.statusColor;
-    this.finaccountmodel.accountShortname        = selectedDataValue.accountShortname.toString().toUpperCase();
+    this.finaccountmodel.accountShortname   = selectedDataValue.accountShortname.toString().toUpperCase();
     // this.finaccountmodel.schID              = selectedDataValue.schID;
     this.finaccountmodel.schID              = '';
     this.finaccountmodel.loggedInUserID     = this.loggedInUserID;

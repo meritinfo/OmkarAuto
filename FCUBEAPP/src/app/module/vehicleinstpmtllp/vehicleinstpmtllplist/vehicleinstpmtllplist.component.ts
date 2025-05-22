@@ -1,0 +1,134 @@
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Filtermodel } from 'src/app/models/filtermodel';
+import { Vehicleinstpmtlistmodel } from 'src/app/models/vehicleinstpmtlistmodel';
+import { Vehicleinstpmtmodel } from 'src/app/models/vehicleinstpmtmodel';
+import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+
+
+@Component({
+  selector: 'app-vehicleinstpmtllplist',
+  templateUrl: './vehicleinstpmtllplist.component.html',
+  styleUrls: ['./vehicleinstpmtllplist.component.css']
+})
+export class VehicleinstpmtllplistComponent {
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  allInstPmtMaster: Vehicleinstpmtlistmodel = new Vehicleinstpmtlistmodel();
+
+  filter: Filtermodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'groupname',
+    sortOrder: 'asc',
+    search: ''
+  }
+
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  createmode= true;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+  constructor(private vehicleInstaService: VehicleInstPmtService, private route: Router) {
+  }
+
+
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Vehicle EMI Payment"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
+    
+    this.vehicleInstaService.clearVehicleInstPmtDetails();
+    this.vehicleInstList();
+  }
+
+  vehicleInstList(){
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      searching: false,     
+          language: {
+            zeroRecords: ''
+          }, 
+      ajax: (dataTablesParameters: any, callback) => {
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = dataTablesParameters.search.value;
+        this.vehicleInstaService.getVehicleInstPmtList(this.filter).subscribe(resp => {
+          this.allInstPmtMaster = resp;
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
+          });
+        });
+      },
+      columns: [
+        {
+          title: 'Action',
+          data: 'pmtId',
+        },     
+        {
+          title: 'Branch',
+          data: 'branch',
+        },      
+        {
+          title: 'Pmt Date',
+          data: 'pmtDate',
+        },
+        {
+          title: 'Vehicle No',
+          data: 'vehicleNo',
+        },
+        {
+          title: 'Total Amt',
+          data: 'totAmt',
+        }, 
+        {
+          title: 'Remarks',
+          data: 'remarks',
+        }, 
+      ],
+    };
+  }
+
+//Open new user add screen
+  AddVehicleInstmaster(): void {
+    this.route.navigate(['/emipmtllpadd']);
+  }
+
+  //Open user details screen
+  vehicleInstDetails(Branch: Vehicleinstpmtmodel): void {
+    this.vehicleInstaService.setVehicleInstPmtDetails(Branch);
+    this.route.navigate(['/emipmtllpedit']);
+  }
+
+}
+
+

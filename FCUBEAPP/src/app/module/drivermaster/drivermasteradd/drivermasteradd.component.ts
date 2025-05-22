@@ -8,6 +8,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DrivermasterService } from 'src/app/services/drivermaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-drivermasteradd',
@@ -23,16 +24,18 @@ export class DrivermasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
   fromDate: string = '';
+  vehicleList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
   driverPhotoData: [] = [];
   driverPhotoPreview: any;
   driverPhotoName: string = '';
+  keywordLocation = 'dataName';
   
   uploadedDrLic: string = "";
   uploadedDrHazLic: string = "";
@@ -86,12 +89,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -109,6 +112,7 @@ dashboard: string ="";
     else {
       this.route.navigate(['/']);
     }
+    this.getVehicleNoList();
 
     this.selectedDriverMasterDetails = this.drivermasterService.getDriverMasterDetails();
     this.formDriverMaster = this.formBuilder.group({
@@ -120,6 +124,7 @@ dashboard: string ="";
       introBy: new FormControl('', [Validators.required]),
       introByMobileNo: new FormControl('', [Validators.required]),
       dateOfAppoint: new FormControl('', [Validators.required]),
+      vehicleMasterId: new FormControl('',),
       licenseNo: new FormControl('', [Validators.required]),
       licValidUpto: new FormControl('', [Validators.required]),
       licenseIssuAuth: new FormControl('', [Validators.required]),
@@ -185,6 +190,7 @@ dashboard: string ="";
         hazLicValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
         inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
         removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
+        vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedDriverMasterDetails.vehicleMasterId),
       })
      // this.formDriverMaster.controls['driverName'].disable();
       this.editMode = true;
@@ -193,6 +199,28 @@ dashboard: string ="";
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formDriverMaster.controls; }
+
+  
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
+  
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  onFocused(e: any) {
+    // do something
+  }
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
 
   // Convert file to base64 string
   convertDataUrlToBlob(dataUrl: any): Blob {
@@ -354,6 +382,7 @@ dashboard: string ="";
     this.driverModel.introBy = selectedDataVal.introBy.toString().toUpperCase();
     this.driverModel.introByMobileNo = selectedDataVal.introByMobileNo;
     this.driverModel.dateOfAppoint = selectedDataVal.dateOfAppoint;
+    this.driverModel.vehicleMasterId = selectedDataVal.vehicleMasterId?selectedDataVal.vehicleMasterId.dataId:"";
     this.driverModel.licenseNo = selectedDataVal.licenseNo;
     this.driverModel.licValidUpto = selectedDataVal.licValidUpto;
     this.driverModel.licenseIssuAuth = selectedDataVal.licenseIssuAuth;

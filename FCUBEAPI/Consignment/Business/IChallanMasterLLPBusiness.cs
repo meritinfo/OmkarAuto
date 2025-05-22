@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Consignment.Business
 {
-    public interface IChallanMasterBusinessLLP
+    public interface IChallanMasterLLPBusiness
     {
 
         Task<ChallanListModelLLP> GetChallanMasterListLLP(ReportRequestModel request);

@@ -63,8 +63,8 @@ export class CciInvoiceMstService {
     return this.httpClient.post<CciInvmstlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCciInvoiceMstMasterList', filter, this.httpOptions);
   }  
   getChCostList(): Observable<Dropdownmodel[]> {
-      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetChCostList', null, this.httpOptions);
-   }
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetChCostList', null, this.httpOptions);
+  }
   
   getSpareStockAvailable(user: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSpareStockAvailable', user, this.httpformOptions);

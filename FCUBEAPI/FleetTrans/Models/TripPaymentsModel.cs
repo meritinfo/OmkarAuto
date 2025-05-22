@@ -11,6 +11,7 @@ namespace FleetTrans.Models
         public string? PmtId { get; set; }
         public string? PmtBranch { get; set; }
         public string? PmtDate { get; set; }
+        public string? PaidToDesc { get; set; }        
         public string? VehicleMasterID { get; set; }       
         public string? TransType { get; set; }
         public string? AmountPaid { get; set; }

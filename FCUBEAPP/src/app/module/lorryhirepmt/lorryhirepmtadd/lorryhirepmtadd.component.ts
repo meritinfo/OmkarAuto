@@ -785,6 +785,7 @@ export class LorryhirepmtaddComponent {
     if (this.selectedLorryhiremaster.masterId != '') {
       this.sharedService.loading=true;
       this.requestmodel.strRequest = this.selectedLorryhiremaster.masterId;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
       if (confirm("Are you sure, you want to delete this?")) {
         this.lorryhirepmtService.lorryhiremasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;

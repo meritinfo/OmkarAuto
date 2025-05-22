@@ -34,12 +34,12 @@
                                     <label for="formrow-inputZip">Vehicle No</label> 
                                     <ng-autocomplete [data]="vehicleList"
                                         [searchKeyword]="keywordLocation"  
-                                        formControlName="vehicleID" [initialValue]=""
+                                        formControlName="vehicleID"  
                                         (inputChanged)='onChangeSearch($event)'
                                         (inputFocused)='onFocused($event)' 
                                         [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate"
-                                        [customFilter]="startWithFilter">                                              
+                                        [customFilter]="endWithFilter">                                              
                                     </ng-autocomplete>
 
                                     <ng-template #itemTemplate let-item>

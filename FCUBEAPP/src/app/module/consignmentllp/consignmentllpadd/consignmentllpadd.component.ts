@@ -137,6 +137,9 @@ dashboard: string ="";
     
     this.selectedLrDetails = this.lrentryService.getConsignmentDetails();
 
+    if (this.selectedLrDetails.consignmentID != '') { 
+      this.formSubmitted=true;
+    }
     
     this.sharedService.loading = true;
     // this.getSeriesList();
@@ -212,7 +215,7 @@ dashboard: string ="";
       wtDesc :new FormControl('',),    
       vehicleTypeId :new FormControl('', [Validators.required]),
       privateMark : new FormControl('',),
-      gstBy : new FormControl('N',[Validators.required]),
+      gstBy : new FormControl('',[Validators.required]),
       rateRs : new FormControl('',),    
       freightRs : new FormControl('',),    
       statisticalRs : new FormControl('',),    
@@ -228,7 +231,7 @@ dashboard: string ="";
       extrasRS : new FormControl('',),    
       othersRs : new FormControl('',),    
       subTotalRs : new FormControl('',),    
-      gstType : new FormControl('NA', [Validators.required]),  
+      gstType : new FormControl('', [Validators.required]),  
       //sgstPct : new FormControl('',),    
       sgstAmt : new FormControl('',),    
       //cgstPct : new FormControl('',),    
@@ -338,7 +341,8 @@ dashboard: string ="";
         }        
         this.formUser.controls['gcNoteNo'].disable();    
         this.getLrInnerGridList();   
-        this.editMode = true;  
+        this.editMode = true; 
+        this.formSubmitted=false; 
         this.createdBy = this.selectedLrDetails.createdBy + " " + this.selectedLrDetails.createdDate;
         this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;      
         
@@ -753,6 +757,7 @@ dashboard: string ="";
       this.formGstArray.controls[j].get("freightId")?.disable();
       this.formGstArray.controls[j].get("amount")?.enable();
       this.formUser.controls["gstType"].disable();
+      this.formUser.controls["gstBy"].disable();
       
       this.formGstArray.controls[j].get("linkColumn")?.setValue(res.linkColumn);
       this.formGstArray.controls[j].get("sgstPct")?.setValue("0");
@@ -1033,9 +1038,7 @@ dashboard: string ="";
       });
     })
   }
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // do something with selected item
@@ -1100,7 +1103,14 @@ dashboard: string ="";
 
   removeGstItem(index: number){ 
     if (confirm("Are you sure, you want to delete this row?")) {
-    this.formGstArray.removeAt(index);   }
+      this.formGstArray.removeAt(index); 
+      var selectedData = this.formUser.getRawValue();
+      if(this.formGstArray.length==1 && selectedData.arrayGstList[0].freightId == ""){
+        this.formUser.controls["gstType"].enable();
+        this.formUser.controls["gstBy"].enable();
+      }     
+      this.calculateAmount();   
+    }
   }
 
   changeEWay(selectedValue: string) {
@@ -1183,7 +1193,7 @@ dashboard: string ="";
             if (this.responseDetails.status) {
               this.toastrService.success(this.responseDetails.message);
               this.formUser.reset();
-              this.route.navigate(['/consignmentlist']);
+              this.route.navigate(['/consignmentllp']);
             }
             else {
               this.toastrService.warning(this.responseDetails.message);
@@ -1377,48 +1387,63 @@ dashboard: string ="";
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].invNo != "" ) {
-        // if (selectedDataValue.arrayList[i].invDate != "" ) {
-        //   this.bdate =  selectedDataValue.arrayList[i].invDate;
-
-        // }else{
-        //   this.bdate = selectedDataValue.bookingDate;
-
-        // }
-
         this.lrmodel.invList.push({
           'consignmentID': '',
           'ewayBillNo': selectedDataValue.arrayList[i].ewayBillNo,
           'ewayBillDate': selectedDataValue.arrayList[i].ewayBillDate,
           'ewayBillExpDate': selectedDataValue.arrayList[i].ewayBillExpDate,
           'invoiceNo': selectedDataValue.arrayList[i].invNo,
-         'invoiceDate': selectedDataValue.arrayList[i].invDate,
-      // 'invoiceDate':  this.bdate,
+          'invoiceDate': selectedDataValue.arrayList[i].invDate,
           'invoiceValue': selectedDataValue.arrayList[i].invValue,
           'deliveryNo': '',
         });
       }
     }
+    var igst = 0;
+    var sgst = 0;
+    var cgst = 0;
+    var gstarr = selectedDataValue.arrayGstList
 
-    for (var i = 0; i < selectedDataValue.arrayGstList.length; i++) {
-      if (selectedDataValue.arrayGstList[i].freightId != "" && selectedDataValue.arrayGstList[i].amount != "") {
+    for (var i = 0; i < gstarr.length; i++) {
+      if (gstarr[i].freightId != "" && gstarr[i].amount != "") {
+        if(gstarr[i].sgstAmt!=""){
+          sgst = parseFloat(gstarr[i].sgstAmt);
+        } 
+        if(gstarr[i].cgstAmt!=""){
+          cgst = parseFloat(gstarr[i].cgstAmt);
+        } 
+        if(gstarr[i].igstAmt!=""){
+          igst = parseFloat(gstarr[i].igstAmt);
+        }
+
         this.lrmodel.gstList.push({
           'consignmentID': '',
-          'freightId': selectedDataValue.arrayGstList[i].freightId,
-          'remarks': selectedDataValue.arrayGstList[i].remarks.toString().toUpperCase(),
-          'rateType':selectedDataValue.arrayGstList[i].rateType.toString(),
-          'rate':selectedDataValue.arrayGstList[i].rate.toString(),
-          'amount': selectedDataValue.arrayGstList[i].amount.toString(),
-          'sgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
-          'sgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
-          'cgstPct': selectedDataValue.arrayGstList[i].cgstPct.toString(),
-          'cgstAmt': selectedDataValue.arrayGstList[i].cgstAmt.toString(),
-          'igstPct': selectedDataValue.arrayGstList[i].igstPct.toString(),
-          'igstAmt': selectedDataValue.arrayGstList[i].igstAmt.toString(),
-          'totalAmt': selectedDataValue.arrayGstList[i].totalAmt.toString(),
+          'freightId': gstarr[i].freightId,
+          'remarks': gstarr[i].remarks.toString().toUpperCase(),
+          'rateType':gstarr[i].rateType.toString(),
+          'rate':gstarr[i].rate.toString(),
+          'amount': gstarr[i].amount.toString(),
+          'sgstPct': gstarr[i].sgstPct.toString(),
+          'sgstAmt': gstarr[i].sgstAmt.toString(),
+          'cgstPct': gstarr[i].cgstPct.toString(),
+          'cgstAmt': gstarr[i].cgstAmt.toString(),
+          'igstPct': gstarr[i].igstPct.toString(),
+          'igstAmt': gstarr[i].igstAmt.toString(),
+          'totalAmt': gstarr[i].totalAmt.toString(),
           'linkColumn': '',
         });
       }
     }
+
+    if(igst > 0){
+      this.lrmodel.gstBy = "F";
+      this.lrmodel.gstType = "IG";
+    }
+    if(sgst > 0 || cgst > 0){
+      this.lrmodel.gstBy = "F";
+      this.lrmodel.gstType = "SC";
+    }
+
     let formData = new FormData();
     formData.append('attachedfile', this.attachInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.lrmodel));

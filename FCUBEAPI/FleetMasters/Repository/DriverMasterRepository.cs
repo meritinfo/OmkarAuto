@@ -14,11 +14,7 @@ namespace FleetMasters.Repository
         {
             dbconnection = _dbconnection;
         }
-        /// <summary>
-        /// Service method for save vehicle type master details
-        /// </summary>
-        /// <param name="TyrePositionMasterModel"></param>
-        /// <returns>ResponseModel</returns>
+
         public async Task<ResponseModel> DriverMasterSave(DriverMasterModel driverMasterModel)
         {
             ResponseModel responseModel = new();
@@ -41,6 +37,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@IntroBy", driverMasterModel.IntroBy),
                             new SqlParameter("@IntroByMobileNo", driverMasterModel.IntroByMobileNo),
                             new SqlParameter("@DateOfAppoint", driverMasterModel.DateOfAppoint),
+                            new SqlParameter("@VehicleMasterId", driverMasterModel.VehicleMasterId),                            
                             new SqlParameter("@@LicenseNo", driverMasterModel.LicenseNo),
                             new SqlParameter("@LicValidUpto", driverMasterModel.LicValidUpto),
                             new SqlParameter("@LicenseIssuAuth", driverMasterModel.LicenseIssuAuth),
@@ -188,7 +185,6 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-
         public async Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request)
         {
             DriverMasterList driverMasterList = new();
@@ -219,11 +215,11 @@ namespace FleetMasters.Repository
                                 DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 FatherName = Convert.ToString(dataSet.Tables[0].Rows[i]["FatherName"]),
                                 DateOfBirth = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfBirth"]),
-                                Age = Convert.ToString(dataSet.Tables[0].Rows[i]["Age"]),
-                                
+                                Age = Convert.ToString(dataSet.Tables[0].Rows[i]["Age"]),                                
                                 IntroBy = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroBy"]),
                                 IntroByMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroByMobileNo"]),
                                 DateOfAppoint = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfAppoint"]),
+                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
                                 LicenseNo = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseNo"]),
                                 LicValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["LicValidUpto"]),
                                 LicenseIssuAuth = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseIssuAuth"]),
@@ -288,16 +284,7 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return driverMasterList;
         }

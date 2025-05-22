@@ -13,608 +13,596 @@
             <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">MR Station </label><span style="color: red">*</span>  
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="formrow-inputZip">MR Station </label><span style="color: red">*</span>  
+                                <select class="form-control form-select ng-pristine ng-touched"
+                                 formControlName="mrStation"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mrStation'].invalid) }"> 
+                                    <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                        {{br.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>                                        
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label for="formrow-inputZip">MR No</label><span style="color: red">*</span> 
+                                <input uppercaseonly class="form-control" formControlName="mrNo" 
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrNo'].invalid) }">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="mb-2">
+                                <label for="formrow-inputZip">MR Date</label><span style="color: red">*</span>    
+                                <input bsdatepicker="" type="date" autoclose="false" 
+                                min="{{minDate}}" max="{{maxDate}}"   
+                                formControlName="mrDate" class="form-control"
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrDate'].invalid) }">
+                            </div>
+                        </div>            
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <div class="form-check mt-4">
+                                    <input type="checkbox"  (change)="onChkCancel($event)"
+                                        class="form-check-input mt-10" formControlName="mrStatus" >
+                                    <label for="formrow-inputZip"> Cancel </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label for="formrow-inputZip">MR Type</label>
+                                <span style="color: red">*</span>
+                                <select class="form-control" formControlName="mrType" (change)="onMrTypeChange($event)"     
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrType'].invalid) }">
+                                    <option value="B">Bill</option>
+                                    <!-- <option value="L">LR</option> -->
+                                    <option value="N">NR/TDS</option>
+                                    <option value="A">Adj on A/C</option>
+                                    <option value="S">SD</option>
+                                    <!-- <option value="O">Other/General</option> -->
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="form-check mb-3">
+                                <input type="radio" formControlName="billLrOthType" 
+                                    id="formRadios1" value="B" class="form-check-input" 
+                                    (change)="change('B')" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    Bill
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="form-check">
+                                <input type="radio" formControlName="billLrOthType" 
+                                    id="formRadios2" value="L" class="form-check-input" 
+                                    (change)="change('L')" />
+                                <label for="formRadios2" class="form-check-label" style="color:green">
+                                    LR
+                                </label>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-1">
+                            <div class="form-check">
+                                <input type="radio" formControlName="billLrOthType" 
+                                id="formRadios3" value="G" class="form-check-input" 
+                                    (change)="change('G')" >
+                                <label for="formRadios3" class="form-check-label" style="color:green">
+                                    General
+                                </label>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">                                        
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <div class="form-check mt-4">
+                                    <input type="checkbox"  (change)="onChkGroup($event)"
+                                        class="form-check-input mt-10" formControlName="groupMrYN" >
+                                    <label for="formrow-inputZip"> Group MR </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label for="formrow-inputZip">Party Group </label><span style="color: red">*</span>  
+                                <select class="form-control form-select ng-pristine ng-touched"
+                                 formControlName="partyGroupId"  (change)="partychange()"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['partyGroupId'].invalid) }"> 
+                                    <option *ngFor="let gp of partyGroupList" value={{gp.dataId}}>
+                                        {{gp.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>             -->
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label for="formrow-inputZip">Party</label><span style="color: red">*</span>                                                
+                                <div class="ng-autocomplete">
+                                    <ng-autocomplete [data]="partyList"
+                                        [searchKeyword]="keywordLocation"  
+                                        (selected)='selectpartyEvent($event)'
+                                        (inputChanged)='onChangeSearch($event)'
+                                        (inputFocused)='onFocused($event)'
+                                        [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate"
+                                        [customFilter]="startWithFilter"
+                                        formControlName="partyCode" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['partyCode'].invalid) }">
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.dataName"></a>
+                                    </ng-template>
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Cash / Chq Amt</label>
+                                        <input decimalonly class="form-control" formControlName="cheqCashAmt" 
+                                        (change)="adjAmtChange()"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <div class="form-check mt-4">
+                                            <input type="checkbox"  (change)="onTotAc($event)"
+                                                class="form-check-input mt-10" formControlName="onAcStatus" >
+                                            <label for="formrow-inputZip"> Total On Ac </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Total Amt</label>
+                                        <input decimalonly class="form-control" formControlName="totalAmt" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">On A/C Amt</label>
+                                        <input decimalonly class="form-control" formControlName="onAcNewAmt" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <input type="checkbox"  (change)="onAcAdjusted($event)"
+                                        class="form-check-input mt-10" formControlName="onAcAdjMrYn" >
+                                        <label for="formrow-inputZip"> Adj On Account</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mb-5">
+                                            <tr>
+                                                <th><label for="formrow-inputCity"></label></th>
+                                                <th><label for="formrow-inputCity">MR No</label></th>
+                                                <th><label for="formrow-inputZip">MR Date</label></th>
+                                                <th><label for="formrow-inputZip">UnAdj Amt</label></th>
+                                                <th><label for="formrow-inputZip">Adj Amt</label></th>
+                                            </tr>
+                                            <tr formArrayName="mrarrayList"
+                                                *ngFor="let arrayData of formMrArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <div class="mb-3">
+                                                            <input type="checkbox"  name="select" 
+                                                                class="form-check-input"
+                                                                (change)="selectedData(i, $event)" 
+                                                                formControlName="selected">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="mb-3">
+                                                            <input class="form-control" formControlName="adjMrNo">
+                                                            <input type="hidden" class="form-control" formControlName="adjMrMasterID">
+                                                            <input type="hidden" class="form-control" formControlName="adjMrYear">
+                                                            <input type="hidden" class="form-control" formControlName="adjMrStn">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="mb-3">
+                                                            <input class="form-control" type="date" formControlName="mrDate">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="mb-3">
+                                                            <input class="form-control" formControlName="onAcAmt">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="mb-3">
+                                                            <input class="form-control" decimalonly (change)="adjAmtChange()" 
+                                                            formControlName="adjAmt">
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                            </tr>  
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Adj Total Amt</label>
+                                                        <input decimalonly class="form-control" formControlName="onAcAdjAmt" >
+                                                    </div>
+                                                </td>
+                                            </tr>                                     
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                     
+                    </div>          
+                    <div class="row">
+                        <div class="col-lg-6">                                            
+                            <label for="formrow-inputState">Remarks</label>
+                            <input uppercaseonly class="form-control"    
+                                    formControlName="mrRemarks" >
+                        </div>                                   
+                    </div>          
+                    <div class="row">
+                    </div>        
+                    <div class="ng-untouched ng-pristine ng-valid">
+                        <div class="row">                     
+                            <div class="overflow-x">
+                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-mr-width">
+                                    <tr>
+                                        <th style="width: 20px;"><label for="formrow-inputZip"></label></th>               
+                                        <th style="width: 150px;"><label for="formrow-inputZip">Year</label></th>
+                                        <th style="width: 200px;"><label for="formrow-inputZip">Bill/LR Stn</label></th>
+                                        <th style="width: 150px;"><label for="formrow-inputZip">Bill/LR No</label></th>
+                                        <th style="width: 120px;"><label for="formrow-inputZip">Bill/LR Date</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Due</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Recd</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Frt / NR</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">TDS</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Claims</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Bank Chrg</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded1</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded2</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Other Ded3</label></th>
+                                        <!-- <th><label for="formrow-inputZip">Recoverable</label></th> -->
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Tot Ded</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Sec.Deposit</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Excess Recd</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Ded Recd</label></th>
+                                        <th><label for="formrow-inputZip">Remarks</label></th>    
+                                        <!-- <th><label for="formrow-inputZip">Party</label></th> -->                                      
+                                    </tr>
+                                    <tr formArrayName="arrayList"
+                                        *ngFor="let arrayData of formArray.controls; let i = index">
+                                        <div [formGroupName]="i" class="grid-table">
+                                            <td style="width: 20px;">
+                                                <div class="col-lg-2 details-button">
+                                                    <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                        class="btn btn-add" (click)="addItem(i)"></button>
+                                                    <button *ngIf="formArray.controls.length > 1"
+                                                        (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                </div>                                        
+                                            </td>
+                                            <td style="width: 150px;">
                                                 <select class="form-control form-select ng-pristine ng-touched"
-                                                 formControlName="mrStation"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mrStation'].invalid) }"> 
+                                                formControlName="billLrYear"> 
+                                                    <option *ngFor="let gp of yearList" value={{gp.dataId}}>
+                                                        {{gp.dataName}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td style="width: 200px;">                                             
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="billLrStn"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
                                                 </select>
-                                            </div>
-                                        </div>                                        
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">MR No</label><span style="color: red">*</span> 
-                                                <input uppercaseonly class="form-control" formControlName="mrNo" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrNo'].invalid) }">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">MR Date</label><span style="color: red">*</span>    
-                                                <input bsdatepicker="" type="date" autoclose="false" 
-                                                min="{{minDate}}" max="{{maxDate}}"   
-                                                formControlName="mrDate" class="form-control"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrDate'].invalid) }">
-                                            </div>
-                                        </div>            
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <div class="form-check mt-4">
-                                                    <input type="checkbox"  (change)="onChkCancel($event)"
-                                                        class="form-check-input mt-10" formControlName="mrStatus" >
-                                                    <label for="formrow-inputZip"> Cancel </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">MR Type</label>
-                                                <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="mrType" (change)="onMrTypeChange($event)"     
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mrType'].invalid) }">
-                                                    <option value="B">Bill</option>
-                                                    <!-- <option value="L">LR</option> -->
-                                                    <option value="N">NR/TDS</option>
-                                                    <option value="A">Adj on A/C</option>
-                                                    <option value="S">SD</option>
-                                                    <!-- <option value="O">Other/General</option> -->
-                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-1">
-                                            <div class="form-check mb-3">
-                                                <input type="radio" formControlName="billLrOthType" 
-                                                    id="formRadios1" value="B" class="form-check-input" 
-                                                    (change)="change('B')" />
-                                                <label for="formRadios1" class="form-check-label" style="color:green">
-                                                    Bill
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <div class="form-check">
-                                                <input type="radio" formControlName="billLrOthType" 
-                                                    id="formRadios2" value="L" class="form-check-input" 
-                                                    (change)="change('L')" />
-                                                <label for="formRadios2" class="form-check-label" style="color:green">
-                                                    LR
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-lg-1">
-                                            <div class="form-check">
-                                                <input type="radio" formControlName="billLrOthType" 
-                                                id="formRadios3" value="G" class="form-check-input" 
-                                                    (change)="change('G')" >
-                                                <label for="formRadios3" class="form-check-label" style="color:green">
-                                                    General
-                                                </label>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                    <div class="row">                                        
-                                        <!-- <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <div class="form-check mt-4">
-                                                    <input type="checkbox"  (change)="onChkGroup($event)"
-                                                        class="form-check-input mt-10" formControlName="groupMrYN" >
-                                                    <label for="formrow-inputZip"> Group MR </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Party Group </label><span style="color: red">*</span>  
+                                            </td>
+                                            <td style="width: 150px;">
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="billLrNo" 
+                                                    (change)="getBillLrDtls(i)">
+                                                <input type="hidden" autoclose="false" class="form-control"
+                                                    formControlName="billLrMasterId">
+                                            </td>  
+                                            <td style="width: 120px;">
+                                                <input type="date" autoclose="false" class="form-control"
+                                                    formControlName="billLrDate">
+                                            </td> 
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="dueAmt">
+                                                <input type="hidden" autoclose="false" class="form-control"
+                                                    formControlName="oldDueAmt">
+                                            </td> 
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="recdAmt" (change)="amtcheck(i,'recdAmt')">
+                                            </td>  
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="freightDed" (change)="amtcheck(i,'freightDed')">
+                                            </td> 
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="tdsDed" (change)="amtcheck(i,'tdsDed')">
+                                            </td>   
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="claimsDed" (change)="amtcheck(i,'claimsDed')">
+                                            </td>   
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="bankChrgDed" (change)="amtcheck(i,'bankChrgDed')">
+                                            </td>    
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="othersDed" (change)="amtcheck(i,'othersDed')">
+                                            </td> 
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
+                                            </td>   
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="othersDed2" (change)="amtcheck(i,'othersDed2')">
+                                            </td>   
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="othersDed3" (change)="amtcheck(i,'othersDed3')">
+                                            </td>                                               
+                                            <!-- <td>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="recoverable" (change)="amtcheck(i,'recoverable')">
+                                            </td>                                              -->                                            
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="totDed" >
+                                            </td>   
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="sdEmdDed" (change)="amtcheck(i,'sdEmdDed')">
+                                            </td>  
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="excessRecd" (change)="calTot()">
+                                            </td> 
+                                            <td style="width: 100px;">
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                    formControlName="others1Recd" (change)="calTot()">
+                                            </td>  
+                                            <td style="width: 100px;">
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="remarks">
+                                            </td> 
+                                            <!-- <td>                                                  
                                                 <select class="form-control form-select ng-pristine ng-touched"
-                                                 formControlName="partyGroupId"  (change)="partychange()"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['partyGroupId'].invalid) }"> 
-                                                    <option *ngFor="let gp of partyGroupList" value={{gp.dataId}}>
-                                                        {{gp.dataName}}
+                                                formControlName="partyCode"> 
+                                                    <option *ngFor="let br of partyList" value={{br.dataId}}>
+                                                        {{br.dataName}}
                                                     </option>
                                                 </select>
-                                            </div>
-                                        </div>             -->
-                                        <div class="col-lg-4">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Party</label><span style="color: red">*</span>                                                
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="partyList"
-                                                        [searchKeyword]="keywordLocation"  
-                                                        (selected)='selectpartyEvent($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)'
-                                                        [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"
-                                                        formControlName="partyCode" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['partyCode'].invalid) }">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputZip">Cash / Chq Amt</label>
-                                                        <input decimalonly class="form-control" formControlName="cheqCashAmt" 
-                                                        (change)="adjAmtChange()"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <div class="form-check mt-4">
-                                                            <input type="checkbox"  (change)="onTotAc($event)"
-                                                                class="form-check-input mt-10" formControlName="onAcStatus" >
-                                                            <label for="formrow-inputZip"> Total On Ac </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputZip">Total Amt</label>
-                                                        <input decimalonly class="form-control" formControlName="totalAmt" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputZip">On A/C Amt</label>
-                                                        <input decimalonly class="form-control" formControlName="onAcNewAmt" >
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </td>    -->
                                         </div>
-                                        <div class="col-lg-8">
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <input type="checkbox"  (change)="onAcAdjusted($event)"
-                                                        class="form-check-input mt-10" formControlName="onAcAdjMrYn" >
-                                                        <label for="formrow-inputZip"> Adj On Account</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mb-5">
-                                                            <tr>
-                                                                <th><label for="formrow-inputCity"></label></th>
-                                                                <th><label for="formrow-inputCity">MR No</label></th>
-                                                                <th><label for="formrow-inputZip">MR Date</label></th>
-                                                                <th><label for="formrow-inputZip">UnAdj Amt</label></th>
-                                                                <th><label for="formrow-inputZip">Adj Amt</label></th>
-                                                            </tr>
-                                                            <tr formArrayName="mrarrayList"
-                                                                *ngFor="let arrayData of formMrArray.controls; let i = index">
-                                                                <div [formGroupName]="i" class="grid-table">
-                                                                    <td>
-                                                                        <div class="mb-3">
-                                                                            <input type="checkbox"  name="select" 
-                                                                                class="form-check-input"
-                                                                                (change)="selectedData(i, $event)" 
-                                                                                formControlName="selected">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="mb-3">
-                                                                            <input class="form-control" formControlName="adjMrNo">
-                                                                            <input type="hidden" class="form-control" formControlName="adjMrMasterID">
-                                                                            <input type="hidden" class="form-control" formControlName="adjMrYear">
-                                                                            <input type="hidden" class="form-control" formControlName="adjMrStn">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="mb-3">
-                                                                            <input class="form-control" type="date" formControlName="mrDate">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="mb-3">
-                                                                            <input class="form-control" formControlName="onAcAmt">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="mb-3">
-                                                                            <input class="form-control" decimalonly (change)="adjAmtChange()" 
-                                                                            formControlName="adjAmt">
-                                                                        </div>
-                                                                    </td>
-                                                                </div>
-                                                            </tr>  
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <div class="mb-3">
-                                                                        <label for="formrow-inputZip">Adj Total Amt</label>
-                                                                        <input decimalonly class="form-control" formControlName="onAcAdjAmt" >
-                                                                    </div>
-                                                                </td>
-                                                            </tr>                                     
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                     
-                                    </div>                                   
-                                </div>                                   
-                            </div>                                   
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">                                            
-                                <label for="formrow-inputState">Remarks</label>
-                                <input uppercaseonly class="form-control"    
-                                        formControlName="mrRemarks" >
-                            </div> 
-                        </div>                        
-                        <div class="row">
-                            <div class="col-lg-6">&nbsp;&nbsp;&nbsp; </div> 
-                        </div>
-                        <div class="ng-untouched ng-pristine ng-valid">
-                            <div class="row">                     
-                                <div class="overflow-x">
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
-                                        <tr>
-                                            <th><label for="formrow-inputZip"></label></th>               
-                                            <th><label for="formrow-inputZip">Year</label></th>
-                                            <th><label for="formrow-inputZip">Bill/LR Stn</label></th>
-                                            <th><label for="formrow-inputZip">Bill/LR No</label></th>
-                                            <th><label for="formrow-inputZip">Bill/LR Date</label></th>
-                                            <th><label for="formrow-inputZip">Amt Due</label></th>
-                                            <th><label for="formrow-inputZip">Amt Recd</label></th>
-                                            <th><label for="formrow-inputZip">Frt / NR</label></th>
-                                            <th><label for="formrow-inputZip">Claims</label></th>
-                                            <th><label for="formrow-inputZip">Bank Chrg</label></th>
-                                            <th><label for="formrow-inputZip">Other Ded</label></th>
-                                            <th><label for="formrow-inputZip">Other Ded1</label></th>
-                                            <th><label for="formrow-inputZip">Other Ded2</label></th>
-                                            <th><label for="formrow-inputZip">Other Ded3</label></th>
-                                            <!-- <th><label for="formrow-inputZip">Recoverable</label></th> -->
-                                            <th><label for="formrow-inputZip">Tot Ded</label></th>
-                                            <th><label for="formrow-inputZip">TDS</label></th>
-                                            <th><label for="formrow-inputZip">Sec.Deposit</label></th>
-                                            <th><label for="formrow-inputZip">Excess Recd</label></th>
-                                            <th><label for="formrow-inputZip">Ded Recd</label></th>
-                                            <th><label for="formrow-inputZip">Remarks</label></th>    
-                                            <!-- <th><label for="formrow-inputZip">Party</label></th> -->                                      
-                                        </tr>
-                                        <tr formArrayName="arrayList"
-                                            *ngFor="let arrayData of formArray.controls; let i = index">
-                                            <div [formGroupName]="i" class="grid-table">
-                                                <td>
-                                                    <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
-                                                            class="btn btn-add" (click)="addItem(i)"></button>
-                                                        <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                    </div>                                        
-                                                </td>
-                                                <td>
-                                                    <select class="form-control form-select ng-pristine ng-touched"
-                                                    formControlName="billLrYear"> 
-                                                        <option *ngFor="let gp of yearList" value={{gp.dataId}}>
-                                                            {{gp.dataName}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td>                                                  
-                                                    <select class="form-control form-select ng-pristine ng-touched"
-                                                    formControlName="billLrStn"> 
-                                                        <option *ngFor="let br of branchList" value={{br.dataId}}>
-                                                            {{br.dataName}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="billLrNo" (change)="getBillLrDtls(i)">
-                                                    <input type="hidden" autoclose="false" class="form-control"
-                                                        formControlName="billLrMasterId">
-                                                </td>                                                    
-                                                <td>
-                                                    <input type="date" autoclose="false" class="form-control"
-                                                        formControlName="billLrDate">
-                                                </td>                                               
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="dueAmt">
-                                                    <input type="hidden" autoclose="false" class="form-control"
-                                                        formControlName="oldDueAmt">
-                                                </td>                                                 
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="recdAmt" (change)="amtcheck(i,'recdAmt')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="freightDed" (change)="amtcheck(i,'freightDed')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="claimsDed" (change)="amtcheck(i,'claimsDed')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="bankChrgDed" (change)="amtcheck(i,'bankChrgDed')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="othersDed" (change)="amtcheck(i,'othersDed')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="othersDed1" (change)="amtcheck(i,'othersDed1')">
-                                                </td>                                                
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="othersDed2" (change)="amtcheck(i,'othersDed2')">
-                                                </td>                                               
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="othersDed3" (change)="amtcheck(i,'othersDed3')">
-                                                </td>                                               
-                                                <!-- <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="recoverable" (change)="amtcheck(i,'recoverable')">
-                                                </td>                                              -->
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="totDed" >
-                                                </td>                                                  
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="tdsDed" (change)="amtcheck(i,'tdsDed')">
-                                                </td>                                               
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="sdEmdDed" (change)="amtcheck(i,'sdEmdDed')">
-                                                </td>                                               
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="excessRecd" (change)="calTot()">
-                                                </td>                                                 
-                                                <td>
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="others1Recd" (change)="calTot()">
-                                                </td>                                     
-                                                <td>
-                                                    <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="remarks">
-                                                </td> 
-                                                <!-- <td>                                                  
-                                                    <select class="form-control form-select ng-pristine ng-touched"
-                                                    formControlName="partyCode"> 
-                                                        <option *ngFor="let br of partyList" value={{br.dataId}}>
-                                                            {{br.dataName}}
-                                                        </option>
-                                                    </select>
-                                                </td>    -->
-                                            </div>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>                                                    
-                                            <td></td>                                                   
-                                            <td></td>                                                 
-                                            <td>                                                        
-                                                <label for="formrow-inputZip">Tot Recd </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalRecdAmt">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot FRT </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalFreightDed">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Claim </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalClaimsDed">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Bank Chrg </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalBankChrgDed">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Oth Ded </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalOthersDed">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Oth Ded1 </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalOthersDed1">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Oth Ded2 </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalOthersDed2">
-                                            </td>                                               
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Oth Ded3 </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalOthersDed3">
-                                            </td>                                               
-                                            <!-- <td>       
-                                                <label for="formrow-inputZip">Tot Recov </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalRecoverable">
-                                            </td>                                                 -->
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Ded </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalDed">
-                                            </td>                                                
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot TDS </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalTDSDed">
-                                            </td>                                               
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Sd Emd Ded </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalSdEmdDed">
-                                            </td>                                               
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Excess </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalExcess">
-                                            </td>                                              
-                                            <td>       
-                                                <label for="formrow-inputZip">Tot Ded Recd </label>
-                                                <input decimalonly autoclose="false" class="form-control"
-                                                    formControlName="totalOthers1">
-                                            </td>  
-                                        </tr>
-                                    </table>
-                                </div>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>                                                    
+                                        <td></td>                                                   
+                                        <td></td>                                                  
+                                        <td></td>  
+                                        <td style="width: 100px;">                                                
+                                            <label for="formrow-inputZip">Tot Recd </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalRecdAmt">
+                                        </td>     
+                                        <td style="width: 100px;">  
+                                            <label for="formrow-inputZip">Tot FRT </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalFreightDed">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot TDS </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalTDSDed">
+                                        </td> 
+                                        <td style="width: 100px;">      
+                                            <label for="formrow-inputZip">Tot Claim </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalClaimsDed">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot Bank Chrg </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalBankChrgDed">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot Oth Ded </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalOthersDed">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot Oth Ded1 </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalOthersDed1">
+                                        </td> 
+                                        <td style="width: 100px;">       
+                                            <label for="formrow-inputZip">Tot Oth Ded2 </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalOthersDed2">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot Oth Ded3 </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalOthersDed3">
+                                        </td>                                               
+                                        <!-- <td>       
+                                            <label for="formrow-inputZip">Tot Recov </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalRecoverable">
+                                        </td>                                                 -->
+                                        <td style="width: 100px;"> 
+                                            <label for="formrow-inputZip">Tot Ded </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalDed">
+                                        </td>    
+                                        <td style="width: 100px;">   
+                                            <label for="formrow-inputZip">Tot Sd Emd Ded </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalSdEmdDed">
+                                        </td>   
+                                        <td style="width: 100px;">    
+                                            <label for="formrow-inputZip">Tot Excess </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalExcess">
+                                        </td>    
+                                        <td style="width: 100px;">   
+                                            <label for="formrow-inputZip">Tot Ded Recd </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalOthers1">
+                                        </td>  
+                                    </tr>
+                                </table>
                             </div>
-                        </div>                                               
-                        <div class="row">
-                            <div class="col-lg-6">&nbsp;&nbsp;&nbsp; </div> 
                         </div>
-                        <div class="row">                                                                                                            
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label style="color: red"> 
-                                        <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
-                                    </label>                                                 
-                                </div>
-                            </div>                                                                                                             
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label style="color: red"> 
-                                        <h6>Fin Doc JV: {{ this.seriesDocJV}} </h6> 
-                                    </label>                                                 
-                                </div>
-                            </div>                                                                                                             
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label style="color: red"> 
-                                        <h6>Fin Doc On Ac Adj: {{ this.seriesDocOA}} </h6> 
-                                    </label>                                                 
-                                </div>
-                            </div>    
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">                                                
-                                    <label for="formrow-inputCity">Recpt. Type</label><span style="color: red">*</span>    
-                                    <select id="formrow-inputState" class="form-control" 
-                                        formControlName="mrReceiptType" (change)="changeRecptType()"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['mrReceiptType'].invalid) }"> 
-                                            <option value="M">Cash</option>      
-                                            <option value="B">Bank</option>     
-                                            <option value="R">Branch</option> 
-                                            <option value="J">Jv</option>                                      
-                                    </select>   
-                                </div>
+                    </div>       
+                    <div class="row">                                                                                                            
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label style="color: red"> 
+                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                </label>                                                 
                             </div>
-                            <div class="col-lg-2">                                
-                                <div class="form-check">
-                                    <input type="checkbox"  formControlName="neftYN" (change)="onCheck($event)"                                        
-                                        class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Neft/Rtgs
-                                    </label>
-                                </div>                          
-                            </div>    
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Account</label><span style="color:red">*</span>
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="accountList"
-                                            [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)'
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter"
-                                            formControlName="mrDebitAc" 
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['mrDebitAc'].invalid) }">
-                                        </ng-autocomplete>
-                                         <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-                                         <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
+                        </div>                                                                                                             
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label style="color: red"> 
+                                    <h6>Fin Doc JV: {{ this.seriesDocJV}} </h6> 
+                                </label>                                                 
                             </div>
-                            <div class="col-lg-2">
-                                <label for="formrow-inputZip">SD Account</label>
-                                <select class="form-control form-select ng-pristine ng-touched"
-                                formControlName="mrSdEmdAc"> 
-                                    <option *ngFor="let gp of sdaccountList" value={{gp.dataId}}>
-                                        {{gp.dataName}}
-                                    </option>
-                                </select>
-                            </div>  
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3">                                            
-                                <label for="formrow-inputState">Cheque No</label>
-                                <input numbersonly class="form-control"    
-                                    formControlName="chequeNo" maxlength="6" >
-                            </div>                 
-                            <div class="col-lg-2">                             
-                                <label for="formrow-inputState">Cheque Date</label>
-                                <input type="date" class="form-control" 
-                                      formControlName="chequeDt">
-                            </div>  
-                            <div class="col-lg-3">                                            
-                                <label for="formrow-inputState">Party Bank Det</label>
-                                <input uppercaseonly class="form-control"    
-                                    formControlName="partyBankDet" >
-                            </div>   
-                            <div class="col-lg-2">                                            
-                                <label for="formrow-inputState">Sd Ref No:</label> 
-                                <input uppercaseonly class="form-control" 
-                                    formControlName="sdEmdRefNo" >
-                            </div>   
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">                                            
-                                <label for="formrow-inputState">Modify/Remarks</label>
-                                <input uppercaseonly class="form-control"
-                                    formControlName="modifyRemarks" 
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['modifyRemarks'].invalid) }">
-                            </div> 
-                        </div>
+                        </div>                                                                                                             
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label style="color: red"> 
+                                    <h6>Fin Doc On Ac Adj: {{ this.seriesDocOA}} </h6> 
+                                </label>                                                 
+                            </div>
+                        </div>    
                     </div>
-                </div>     
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="mb-3">                                                
+                                <label for="formrow-inputCity">Recpt. Type</label><span style="color: red">*</span>    
+                                <select id="formrow-inputState" class="form-control" 
+                                    formControlName="mrReceiptType" (change)="changeRecptType()"
+                                    class="form-control form-select ng-pristine ng-touched"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mrReceiptType'].invalid) }"> 
+                                        <option value="M">Cash</option>      
+                                        <option value="B">Bank</option>     
+                                        <option value="R">Branch</option> 
+                                        <option value="J">Jv</option>                                      
+                                </select>   
+                            </div>
+                        </div>
+                        <div class="col-lg-2">                                
+                            <div class="form-check">
+                                <input type="checkbox"  formControlName="neftYN" (change)="onCheck($event)"                                        
+                                    class="form-check-input" >
+                                <label for="neft" class="form-check-label">Neft/Rtgs
+                                </label>
+                            </div>                          
+                        </div>    
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="formrow-inputState">Account</label><span style="color:red">*</span>
+                                <div class="ng-autocomplete">
+                                    <ng-autocomplete [data]="accountList"
+                                        [searchKeyword]="keywordLocation"  
+                                        (selected)='selectEvent($event)'
+                                        (inputChanged)='onChangeSearch($event)'
+                                        (inputFocused)='onFocused($event)'
+                                        [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate"
+                                        [customFilter]="startWithFilter"
+                                        formControlName="mrDebitAc" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['mrDebitAc'].invalid) }">
+                                    </ng-autocomplete>
+                                     <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.dataName"></a>
+                                    </ng-template>
+                                     <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <label for="formrow-inputZip">SD Account</label>
+                            <select class="form-control form-select ng-pristine ng-touched"
+                            formControlName="mrSdEmdAc"> 
+                                <option *ngFor="let gp of sdaccountList" value={{gp.dataId}}>
+                                    {{gp.dataName}}
+                                </option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">                                            
+                            <label for="formrow-inputState">Cheque No</label>
+                            <input numbersonly class="form-control"    
+                                formControlName="chequeNo" maxlength="6" >
+                        </div>                 
+                        <div class="col-lg-2">                             
+                            <label for="formrow-inputState">Cheque Date</label>
+                            <input type="date" class="form-control" 
+                                  formControlName="chequeDt">
+                        </div>  
+                        <div class="col-lg-3">                                            
+                            <label for="formrow-inputState">Party Bank Det</label>
+                            <input uppercaseonly class="form-control"    
+                                formControlName="partyBankDet" >
+                        </div>   
+                        <div class="col-lg-2">                                            
+                            <label for="formrow-inputState">Sd Ref No:</label> 
+                            <input uppercaseonly class="form-control" 
+                                formControlName="sdEmdRefNo" >
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">                                            
+                            <label for="formrow-inputState">Modify/Remarks</label>
+                            <input uppercaseonly class="form-control"
+                                formControlName="modifyRemarks" 
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['modifyRemarks'].invalid) }">
+                        </div> 
+                    </div>
+                </div>
                 <div class="row">                    
                     <div class="col-lg-5">
                         <div class="mb-3">

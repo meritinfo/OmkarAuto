@@ -16,6 +16,7 @@ namespace FleetMasters.Models
         public string? IntroBy { get; set; }
         public string? IntroByMobileNo { get; set; }
         public string? DateOfAppoint { get; set; }
+        public string? VehicleMasterId { get; set; }        
         public string? LicenseNo { get; set; }
         public string? LicValidUpto { get; set; }
         public string? LicenseIssuAuth { get; set; }

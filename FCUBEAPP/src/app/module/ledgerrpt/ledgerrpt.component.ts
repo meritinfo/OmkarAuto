@@ -146,10 +146,7 @@ dashboard: string ="";
     
     get f() { return this.formFilter.controls; }
   
-    selectEvent(item: any) {
-      // do something with selected item
-     // this.GetOpeningBal();
-    }
+     
   
     onChangeSearch(search: string) {
       // fetch remote data from here

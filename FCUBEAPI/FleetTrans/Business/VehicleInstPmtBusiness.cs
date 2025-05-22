@@ -29,7 +29,10 @@ namespace FleetTrans.Business
         {
             return await vehicleInstPmtRepository.VehicleInstPmtMasterDelete(requestModel);
         }
-
+        public async Task<ResponseModel> checkVehicleLoanType(RequestModel requestModel)
+        {
+            return await vehicleInstPmtRepository.checkVehicleLoanType(requestModel);
+        }
 
     }
 }

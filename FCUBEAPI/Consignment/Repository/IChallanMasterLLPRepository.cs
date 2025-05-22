@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {
-    public interface IChallanMasterRepositoryLLP
+    public interface IChallanMasterLLPRepository
     {
         Task<ChallanListModelLLP> GetChallanMasterListLLP(ReportRequestModel request);
         Task<ChallanMasterModelLLP> GetChallanInnerGridListLLP(RequestModel request);

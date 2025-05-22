@@ -10,6 +10,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 
 @Component({
@@ -54,7 +55,7 @@ dashboard: string ="";
 
   constructor(private formBuilder: FormBuilder, 
     private dieselStatementService: DieselstatementService, 
-    private commonService: CommonService, 
+    private commonService: CommonService, private requestmodel:Requestmodel,
     private sharedService: SharedService, private gstpurchaseService: GstpurchaseService,      
     private route: Router) {
   }
@@ -170,9 +171,7 @@ dashboard: string ="";
 
 
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -188,8 +187,10 @@ dashboard: string ="";
   };
 
   
+  
   getVendorList(){
-    this.gstpurchaseService.getVendorList().subscribe((res) => {
+    this.requestmodel.strRequest= 'D';
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.vendorList = res;
     });
   }

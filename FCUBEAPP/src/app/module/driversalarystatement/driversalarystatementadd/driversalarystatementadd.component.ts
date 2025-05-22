@@ -46,7 +46,7 @@ export class DriversalarystatementaddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  
     private route: Router,private driverSalaryStatementService: DriversalarystatementService, 
@@ -71,12 +71,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -120,9 +120,8 @@ dashboard: string ="";
      // netPayable: new FormControl(''),
       totalNetPayAmt: new FormControl(''),
       creditAc: new FormControl(''),
-     pmtType: new FormControl(''),
-    // selected: new FormControl(''),
-     arrayList: this.formBuilder.array([this.createInitialArray()]) 
+      pmtType: new FormControl(''),
+      arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
   
     this.getCreditAcList2("B");

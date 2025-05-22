@@ -1023,8 +1023,7 @@ export class ChallanmasterllpaddComponent {
     selectEvent(item: any) {
       // do something with selected item
     }
-    
-  
+      
     onChangeSearch(search: string) {
       // do something with selected item
     }
@@ -1195,7 +1194,7 @@ export class ChallanmasterllpaddComponent {
               if (this.responseDetails.status) {
                 this.toastrService.success(this.responseDetails.message);
                 this.formUser.reset();
-                this.route.navigate(['/challanlistllp']);
+                this.route.navigate(['/challan_llplist']);
               }
               else {
                 this.toastrService.warning(this.responseDetails.message);

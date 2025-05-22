@@ -4,6 +4,8 @@ using SqlHelper.Models;
 using Consignment.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace FleetTrans.Repository
 {
@@ -32,6 +34,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PmtId", tripPaymentsModel.PmtId),
                             new SqlParameter("@PmtBranch", tripPaymentsModel.PmtBranch),
                             new SqlParameter("@PmtDate", tripPaymentsModel.PmtDate),
+                            new SqlParameter("@PaidToDesc", tripPaymentsModel.PaidToDesc),                            
                             new SqlParameter("@VehicleMasterID", tripPaymentsModel.VehicleMasterID),
                             new SqlParameter("@TransType", tripPaymentsModel.TransType),
                             new SqlParameter("@AmountPaid", tripPaymentsModel.AmountPaid),
@@ -107,6 +110,7 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                                 PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+                                PaidToDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidToDesc"]),
                                 VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
@@ -423,6 +427,47 @@ namespace FleetTrans.Repository
             }
             return lrmodel;
         }
+        public async Task<ResponseModel> GetVoucherPrint(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/Voucher/";
+
+                string UrlParam = "?PmtId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+
 
     }
 }

@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Entry Branch: </label> 
-                                            <select id="scope" class="form-select" formControlName="entryBranch"
+                                            <select id="scope"  formControlName="entryBranch"
                                             class="form-control form-select ng-pristine ng-touched">
                                                 <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                     {{br.dataName}}
@@ -50,7 +50,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label>Own/Market: </label> 
-                                            <select id="scope" class="form-select" formControlName="ownMarket"
+                                            <select id="scope"  formControlName="ownMarket"
                                             class="form-control form-select ng-pristine ng-touched">
                                                 <option value="O">Own</option>
                                                 <option value="M">Market</option>

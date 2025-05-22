@@ -85,7 +85,8 @@
                                             [searchKeyword]="keywordLocation" 
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['partyCode'].invalid) }">

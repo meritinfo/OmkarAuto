@@ -18,51 +18,50 @@ import { Requestmodel } from 'src/app/models/requestmodel';
   styleUrls: ['./challanmasterlistllp.component.css']
 })
 export class ChallanmasterlistllpComponent {
-   loggedInUserID: string = '';
-    dtOptions: DataTables.Settings = {};
-    allChallan: ChallanlistmodelllP = new ChallanlistmodelllP();
-    request: Requestmodel = new Requestmodel();
-    filter: Reportmodel = {
-      pageNumber: 1,
-      pageSize: 10,
-      sortColumn: 'brandname',
-      sortOrder: 'asc',
-      search: '',
-      fromDate: '',
-      toDate: '',
-      filterStr: '',
-      filterStr1: '',
-      filterStr2:'',
-      filterStr3:''
-    }
-  
-    formFilter!: FormGroup;
-    branchList: Dropdownmodel[] = [];
-    vehicleList: Dropdownmodel[] = [];
-    keywordLocation = 'dataName';
-    loginDate: string = '';
-    branch: string = '';
-    fromDate: string = '';
-    maxDate: string = '';
-    minDate: string = '';
-    editMode = false;
-    createmode  = true;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-dashboard: string ="";
-      
-    year:string = ''; 
-    @ViewChild(DataTableDirective)
-    dtElement!: DataTableDirective;
-  
-    constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
-      private challanmasterService: ChallanmasterServiceLLP, private route: Router,
-      private commonService: CommonService,) {
+  loggedInUserID: string = '';
+  dtOptions: DataTables.Settings = {};
+  allChallan: ChallanlistmodelllP = new ChallanlistmodelllP();
+  request: Requestmodel = new Requestmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'brandname',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
+  }
 
-}
-ngOnInit(): void {   
+  formFilter!: FormGroup;
+  branchList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
+  loginDate: string = '';
+  branch: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  editMode = false;
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+    
+  year:string = ''; 
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+
+  constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
+    private challanmasterService: ChallanmasterServiceLLP, private route: Router,
+    private commonService: CommonService,) {
+  }
+  ngOnInit(): void {   
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -77,12 +76,12 @@ ngOnInit(): void {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
@@ -229,9 +228,7 @@ ngOnInit(): void {
   onChangeSearch(search: string) {
   }
   
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));

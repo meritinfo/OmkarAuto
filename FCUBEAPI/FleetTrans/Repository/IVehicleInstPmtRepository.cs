@@ -13,5 +13,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> VehicleInstPmtSave(VehicleInstPmtModel vehicleInstPmtModel);
         Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(ReportRequestModel request);
         Task<ResponseModel> VehicleInstPmtMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> checkVehicleLoanType(RequestModel requestModel);
     }
 }

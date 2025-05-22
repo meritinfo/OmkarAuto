@@ -24,7 +24,7 @@
                                                     <label for="formrow-inputCity">Trans Date Date</label>
                                                     <input autoclose="false" type="date"  
                                                         class="form-control" formControlName="transDt"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['transDt'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -48,7 +48,7 @@
                                                     <label for="formrow-inputCity">Pmt Type</label>
                                                     <select id="formrow-inputState" class="form-control"
                                                     formControlName="pmtType"
-                                                    [ngClass]=""   (change)="changePmtType($event)">
+                                                    [ngClass]="" (change)="changePmtType($event)">
                                                     <option selected="">Choose...</option>
                                                     <option value="C">Cash</option>
                                                     <option value="B"> Bank</option>                                                

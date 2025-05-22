@@ -133,7 +133,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Fule Type</label>
                                                 <span style="color: red">*</span>
-                                                <select id="formrow-inputState" class="form-select"  formControlName="fuelType"    
+                                                <select id="formrow-inputState"   formControlName="fuelType"    
                                                 class="form-control form-select ng-pristine ng-touched"                                            
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['fuelType'].invalid) }"
                                                     formControlName="fuelType">
@@ -452,8 +452,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleLedgerAcList"
                                                         [searchKeyword]="keywordLocation"  
-                                                        formControlName="vehicleLedgerAc" [initialValue]=""
-                                                        (selected)='selectEvent($event)'
+                                                        formControlName="vehicleLedgerAc" 
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"
@@ -479,8 +478,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleAssetAcList"
                                                         [searchKeyword]="keywordLocation"  
-                                                        formControlName="vehicleAssetAc" [initialValue]=""
-                                                        (selected)='selectEvent($event)'
+                                                        formControlName="vehicleAssetAc" 
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"

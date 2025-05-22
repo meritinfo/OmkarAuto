@@ -298,9 +298,7 @@ dashboard: string ="";
   }
 
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
   
   onChangeSearch(search: string) {
     // do something with selected item
@@ -764,7 +762,9 @@ dashboard: string ="";
 
   removeGstItem(index: number){ 
     if (confirm("Are you sure, you want to delete this row?")) {
-    this.formGstArray.removeAt(index);   }
+      this.formGstArray.removeAt(index); 
+      this.calculateAmount();   
+    }
   }
 
   
@@ -861,26 +861,51 @@ dashboard: string ="";
     this.cnmodel.loggedInUser = this.loggedInUserID;
     this.cnmodel.gstList = [];
 
-    for (var i = 0; i < selectedDataValue.arrayGstList.length; i++) {
-      if (selectedDataValue.arrayGstList[i].freightId != "" && selectedDataValue.arrayGstList[i].totalAmt != "" ) {
+    var igst = 0;
+    var sgst = 0;
+    var cgst = 0;
+    var gstarr = selectedDataValue.arrayGstList
+
+    for (var i = 0; i < gstarr.length; i++) {
+      if (gstarr[i].freightId != "" && gstarr[i].amount != "") {
+        if(gstarr[i].sgstAmt!=""){
+          sgst = parseFloat(gstarr[i].sgstAmt);
+        } 
+        if(gstarr[i].cgstAmt!=""){
+          cgst = parseFloat(gstarr[i].cgstAmt);
+        } 
+        if(gstarr[i].igstAmt!=""){
+          igst = parseFloat(gstarr[i].igstAmt);
+        }
+      
         this.cnmodel.gstList.push({
           'consignmentID': '',
-          'freightId': selectedDataValue.arrayGstList[i].freightId,
-          'remarks': selectedDataValue.arrayGstList[i].remarks.toString().toUpperCase(),
-          'rateType':selectedDataValue.arrayGstList[i].rateType.toString(),
-          'rate':selectedDataValue.arrayGstList[i].rate.toString(),
-          'amount': selectedDataValue.arrayGstList[i].amount.toString(),
-          'sgstPct': selectedDataValue.arrayGstList[i].sgstPct.toString(),
-          'sgstAmt': selectedDataValue.arrayGstList[i].sgstAmt.toString(),
-          'cgstPct': selectedDataValue.arrayGstList[i].cgstPct.toString(),
-          'cgstAmt': selectedDataValue.arrayGstList[i].cgstAmt.toString(),
-          'igstPct': selectedDataValue.arrayGstList[i].igstPct.toString(),
-          'igstAmt': selectedDataValue.arrayGstList[i].igstAmt.toString(),
-          'totalAmt': selectedDataValue.arrayGstList[i].totalAmt.toString(),
+          'freightId': gstarr[i].freightId,
+          'remarks': gstarr[i].remarks.toString().toUpperCase(),
+          'rateType':gstarr[i].rateType.toString(),
+          'rate': gstarr[i].rate.toString(),
+          'amount': gstarr[i].amount.toString(),
+          'sgstPct': gstarr[i].sgstPct.toString(),
+          'sgstAmt': gstarr[i].sgstAmt.toString(),
+          'cgstPct': gstarr[i].cgstPct.toString(),
+          'cgstAmt': gstarr[i].cgstAmt.toString(),
+          'igstPct': gstarr[i].igstPct.toString(),
+          'igstAmt': gstarr[i].igstAmt.toString(),
+          'totalAmt': gstarr[i].totalAmt.toString(),
           'linkColumn': '',
         });
       }
     }
+    
+    if(igst > 0){
+      this.cnmodel.gstBy = "F";
+      this.cnmodel.gstType = "IG";
+    }
+    if(sgst > 0 || cgst > 0){
+      this.cnmodel.gstBy = "F";
+      this.cnmodel.gstType = "SC";
+    }
+
     
     this.sharedService.loading = true;
     let formData = new FormData();

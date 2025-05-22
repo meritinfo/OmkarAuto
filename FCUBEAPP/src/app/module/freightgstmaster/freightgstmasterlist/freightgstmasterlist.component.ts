@@ -167,9 +167,7 @@ export class FreightgstmasterlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  selectEvent(item: any) {
-    // do something with selected item
-  }
+   
 
   onFocused(e: any) {
     // do something
