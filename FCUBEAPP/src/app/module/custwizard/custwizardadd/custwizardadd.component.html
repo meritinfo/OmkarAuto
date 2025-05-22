@@ -156,7 +156,7 @@
                                 <div class="mb-3">
                                     <label for="neft" >Lorry Hire Ac</label>
                                     <span style="color: red">*</span>
-                                    <select formControlName="sgstInputAc"
+                                    <select formControlName="lH_LorryHireAc"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lH_LorryHireAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
@@ -169,7 +169,7 @@
                                 <div class="mb-3">
                                     <label for="neft" >Lorry Hire Payable Ac</label>
                                     <span style="color: red">*</span>
-                                    <select formControlName="sgstInputAc"
+                                    <select formControlName="lH_LorryHirePayableAc"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lH_LorryHirePayableAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
@@ -182,7 +182,7 @@
                                 <div class="mb-3">
                                     <label for="neft" >Tds On Lorry Hire Ac</label>
                                     <span style="color: red">*</span>
-                                    <select formControlName="sgstInputAc"
+                                    <select formControlName="lH_TdsOnLorryHireAc"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lH_TdsOnLorryHireAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
@@ -195,7 +195,7 @@
                                 <div class="mb-3">
                                     <label for="neft" >LHP Hamali Ac</label>
                                     <span style="color: red">*</span>
-                                    <select formControlName="sgstInputAc"
+                                    <select formControlName="lhP_HamaliAc"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lhP_HamaliAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
@@ -495,7 +495,7 @@
                             </div> 
                         </div> 
                             <div class="row">  
-                            <div class="col-lg-2">   
+                            <!-- <div class="col-lg-2">   
                                 <div class="mb-3">
                                     <label for="neft" >Veh Maint Exp Ac</label>
                                     <span style="color: red">*</span>
@@ -507,7 +507,7 @@
                                         </option>
                                     </select>                
                                 </div>                    
-                            </div> 
+                            </div>  -->
                             <div class="col-lg-2">   
                                 <div class="mb-3">
                                     <label for="neft" >Veh Maint Exp Ac</label>

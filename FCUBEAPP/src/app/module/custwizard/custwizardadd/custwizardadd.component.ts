@@ -230,6 +230,10 @@ dashboard: string ="";
     flt_FrtDedAc:  this.selectedCustWizardDetails.flt_FrtDedAc,
     flt_TdsDedAc:  this.selectedCustWizardDetails.flt_TdsDedAc,
     flt_OthDedAc: this.selectedCustWizardDetails.flt_OthDedAc,
+
+       hsdAc: this.selectedCustWizardDetails.hsdAc,
+         dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
+           dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,
                
       });
     });    
