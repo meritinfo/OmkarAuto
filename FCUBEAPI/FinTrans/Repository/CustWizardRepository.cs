@@ -187,6 +187,9 @@ namespace FinTrans.Repository
                         custWizardModel.Flt_OthDedAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_OthDedAc"]);
                         custWizardModel.MR_Others1RecdAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_Others1RecdAc"]);
                         custWizardModel.MR_Others2RecdAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_Others2RecdAc"]);
+                        custWizardModel.HsdAc = Convert.ToString(userData.Tables[0].Rows[0]["HsdAc"]);
+                        custWizardModel.DslDiscAc = Convert.ToString(userData.Tables[0].Rows[0]["DslDiscAc"]);
+                        custWizardModel.DslTdsAc = Convert.ToString(userData.Tables[0].Rows[0]["DslTdsAc"]);
                     }
                     else
                     {
