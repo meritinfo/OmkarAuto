@@ -32,7 +32,7 @@ export class CustwizardaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   year: string = '';
   
@@ -66,12 +66,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -99,60 +99,60 @@ dashboard: string ="";
 
     this.selectedCustWizardDetails = this.CustWizardService.getCustWizardDetails();
     this.formCustWizard = this.formBuilder.group({
-      cashAc: new FormControl('',),
-      frtIncomeAc: new FormControl('',),
-      sgstOutputAc: new FormControl('',),
-      cgstOutputAc: new FormControl('',),
-      igstOutputAc: new FormControl('',),
-      sgstInputAc: new FormControl('',),
-      cgstInputAc: new FormControl('',),
-      igstInputAc: new FormControl('',),
+      cashAc: new FormControl('',[Validators.required]),
+      frtIncomeAc: new FormControl('',[Validators.required]),
+      sgstOutputAc: new FormControl('',[Validators.required]),
+      cgstOutputAc: new FormControl('',[Validators.required]),
+      igstOutputAc: new FormControl('',[Validators.required]),
+      sgstInputAc: new FormControl('',[Validators.required]),
+      cgstInputAc: new FormControl('',[Validators.required]),
+      igstInputAc: new FormControl('',[Validators.required]),
       
-      lH_LorryHireAc: new FormControl('',[]),
-      lH_LorryHirePayableAc: new FormControl('',[]),
-      lH_TdsOnLorryHireAc: new FormControl('',[]),
-      lhP_HamaliAc: new FormControl('',),
-      lhP_DetentionAc: new FormControl('',[]),
-      lhP_OtherChargesAc: new FormControl('',[]),
-      lhP_LhpmAc: new FormControl('',[]),
-      lhP_RecoveryAc: new FormControl('',[]),
-      lhP_OthDedAc: new FormControl('',[]),
+      lH_LorryHireAc: new FormControl('',[Validators.required]),
+      lH_LorryHirePayableAc: new FormControl('',[Validators.required]),
+      lH_TdsOnLorryHireAc: new FormControl('',[Validators.required]),
+      lhP_HamaliAc: new FormControl('',[Validators.required]),
+      lhP_DetentionAc: new FormControl('',[Validators.required]),
+      lhP_OtherChargesAc: new FormControl('',[Validators.required]),
+      lhP_LhpmAc: new FormControl('',[Validators.required]),
+      lhP_RecoveryAc: new FormControl('',[Validators.required]),
+      lhP_OthDedAc: new FormControl('',[Validators.required]),
 
-      mR_FrtDeductionAc: new FormControl('',[]),
-      mR_ClaimsByPartyAc: new FormControl('',[]),
-      mR_BadDebtsAc: new FormControl('',[]),
-      mR_MiscDedAc: new FormControl('',[]),
-      mR_BankChargesAc: new FormControl('',[]),
-      mR_CashDiscAc: new FormControl('',[]),
-      mR_ExcessRecdAc: new FormControl('',[]),
-      mR_TdsDedAc: new FormControl('',[]),
-      mR_OthDedAc: new FormControl('',[]),    
+      mR_FrtDeductionAc: new FormControl('',[Validators.required]),
+      mR_ClaimsByPartyAc: new FormControl('',[Validators.required]),
+      mR_BadDebtsAc: new FormControl('',[Validators.required]),
+      mR_MiscDedAc: new FormControl('',[Validators.required]),
+      mR_BankChargesAc: new FormControl('',[Validators.required]),
+      mR_CashDiscAc: new FormControl('',[Validators.required]),
+      mR_ExcessRecdAc: new FormControl('',[Validators.required]),
+      mR_TdsDedAc: new FormControl('',[Validators.required]),
+      mR_OthDedAc: new FormControl('',[Validators.required]),    
 
-      flt_TyreStockAc: new FormControl('',[]),   
-      flt_TyreExpAc: new FormControl('',[]),   
-      //Flt_TyreExpAc : new FormControl('',[]),   
-      flt_TyreSalesAc: new FormControl('',[]),   
-      flt_SparesStockAc: new FormControl('',[]),  
-      flt_LubesStockAc: new FormControl('',[]),  
-      flt_VehMaintExpAc: new FormControl('',[]),  
-     // Flt_VehMaintExpAc: new FormControl('',[]),  
-      flt_TripDrAdvanceAc: new FormControl('',[]),  
-      flt_TripFrtIncomeAc: new FormControl('',[]),  
-      flt_FltFrtReceivableAc: new FormControl('',[]), 
-      flt_TripExpensesAc: new FormControl('',[]), 
-      flt_DslPetroCardAc: new FormControl('',[]), 
-      flt_HappayCardAc: new FormControl('',[]), 
-      flt_TripDslExpAc: new FormControl('',[]), 
-      flt_TripAdblueExpAc: new FormControl('',[]), 
-      flt_DriverSalaryAc: new FormControl('',[]), 
-      flt_TripSuspenseAc: new FormControl('',[]), 
-      flt_ExtraChargesAc: new FormControl('',[]), 
-      flt_FrtDedAc: new FormControl('',[]), 
-      flt_TdsDedAc: new FormControl('',[]), 
-      flt_OthDedAc: new FormControl('',[]), 
-      hsdAc: new FormControl('',[]), 
-      dslDiscAc: new FormControl('',[]), 
-      dslTdsAc: new FormControl('',[]), 
+      flt_TyreStockAc: new FormControl('',[Validators.required]),   
+      flt_TyreExpAc: new FormControl('',[Validators.required]),   
+      //Flt_TyreExpAc : new FormControl('',[Validators.required]),   
+      flt_TyreSalesAc: new FormControl('',[Validators.required]),   
+      flt_SparesStockAc: new FormControl('',[Validators.required]),  
+      flt_LubesStockAc: new FormControl('',[Validators.required]),  
+      flt_VehMaintExpAc: new FormControl('',[Validators.required]),  
+     // Flt_VehMaintExpAc: new FormControl('',[Validators.required]),  
+      flt_TripDrAdvanceAc: new FormControl('',[Validators.required]),  
+      flt_TripFrtIncomeAc: new FormControl('',[Validators.required]),  
+      flt_FltFrtReceivableAc: new FormControl('',[Validators.required]), 
+      flt_TripExpensesAc: new FormControl('',[Validators.required]), 
+      flt_DslPetroCardAc: new FormControl('',[Validators.required]), 
+      flt_HappayCardAc: new FormControl('',[Validators.required]), 
+      flt_TripDslExpAc: new FormControl('',[Validators.required]), 
+      flt_TripAdblueExpAc: new FormControl('',[Validators.required]), 
+      flt_DriverSalaryAc: new FormControl('',[Validators.required]), 
+      flt_TripSuspenseAc: new FormControl('',[Validators.required]), 
+      flt_ExtraChargesAc: new FormControl('',[Validators.required]), 
+      flt_FrtDedAc: new FormControl('',[Validators.required]), 
+      flt_TdsDedAc: new FormControl('',[Validators.required]), 
+      flt_OthDedAc: new FormControl('',[Validators.required]), 
+      hsdAc: new FormControl('',[Validators.required]), 
+      dslDiscAc: new FormControl('',[Validators.required]), 
+      dslTdsAc: new FormControl('',[Validators.required]), 
 
     });
     this.getCrAcListForCustWizard();
@@ -183,58 +183,56 @@ dashboard: string ="";
     this.commonService.getCustWizardDetails(this.selectedCustWizardDetails).subscribe((res: Custwizardmodel) => {
       this.selectedCustWizardDetails = res;
       this.formCustWizard.patchValue({
-     custwizId:  this.selectedCustWizardDetails.custwizId,
-    cashAc:  this.selectedCustWizardDetails.cashAc,
-    frtIncomeAc:  this.selectedCustWizardDetails.frtIncomeAc,
-    sgstOutputAc:  this.selectedCustWizardDetails.sgstOutputAc,
-    cgstOutputAc:  this.selectedCustWizardDetails.cgstOutputAc,
-    igstOutputAc:  this.selectedCustWizardDetails.igstOutputAc,
-    sgstInputAc:  this.selectedCustWizardDetails.sgstInputAc,
-    cgstInputAc:  this.selectedCustWizardDetails.cgstInputAc,
-    igstInputAc:  this.selectedCustWizardDetails.igstInputAc,
-    lH_LorryHireAc:  this.selectedCustWizardDetails.lH_LorryHireAc,
-    lH_LorryHirePayableAc:  this.selectedCustWizardDetails.lH_LorryHirePayableAc,
-    lH_TdsOnLorryHireAc:  this.selectedCustWizardDetails.lH_TdsOnLorryHireAc,
-    lhP_HamaliAc:  this.selectedCustWizardDetails.lhP_HamaliAc,
-    lhP_DetentionAc:  this.selectedCustWizardDetails.lhP_DetentionAc,
-    lhP_OtherChargesAc:  this.selectedCustWizardDetails.lhP_OtherChargesAc,
-    lhP_LhpmAc:  this.selectedCustWizardDetails.lhP_LhpmAc,
-    lhP_RecoveryAc:  this.selectedCustWizardDetails.lhP_RecoveryAc,
-    lhP_OthDedAc:  this.selectedCustWizardDetails.lhP_OthDedAc,
-    mR_FrtDeductionAc:  this.selectedCustWizardDetails.mR_FrtDeductionAc,
-    mR_ClaimsByPartyAc:  this.selectedCustWizardDetails.mR_ClaimsByPartyAc,
-    mR_BadDebtsAc:  this.selectedCustWizardDetails.mR_BadDebtsAc,
-    mR_MiscDedAc:  this.selectedCustWizardDetails.mR_MiscDedAc,
-    mR_BankChargesAc:  this.selectedCustWizardDetails.mR_BankChargesAc,
-    mR_CashDiscAc:  this.selectedCustWizardDetails.mR_CashDiscAc,
-    mR_ExcessRecdAc:  this.selectedCustWizardDetails.mR_ExcessRecdAc,
-    mR_TdsDedAc:  this.selectedCustWizardDetails.mR_TdsDedAc,
-    mR_OthDedAc:  this.selectedCustWizardDetails.mR_OthDedAc,
-    flt_TyreStockAc:  this.selectedCustWizardDetails.flt_TyreStockAc,
-    flt_TyreExpAc:  this.selectedCustWizardDetails.flt_TyreExpAc,
-    flt_TyreSalesAc:  this.selectedCustWizardDetails.flt_TyreSalesAc,
-    flt_SparesStockAc:  this.selectedCustWizardDetails.flt_SparesStockAc,
-    flt_LubesStockAc:  this.selectedCustWizardDetails.flt_LubesStockAc,
-    flt_VehMaintExpAc:  this.selectedCustWizardDetails.flt_VehMaintExpAc,
-    flt_TripDrAdvanceAc:  this.selectedCustWizardDetails.flt_TripDrAdvanceAc,
-    flt_TripFrtIncomeAc:  this.selectedCustWizardDetails.flt_TripFrtIncomeAc,
-    flt_FltFrtReceivableAc:  this.selectedCustWizardDetails.flt_FltFrtReceivableAc,
-    flt_TripExpensesAc:  this.selectedCustWizardDetails.flt_TripExpensesAc,
-    flt_DslPetroCardAc:  this.selectedCustWizardDetails.flt_DslPetroCardAc,
-    flt_HappayCardAc:  this.selectedCustWizardDetails.flt_HappayCardAc,
-    flt_TripDslExpAc:  this.selectedCustWizardDetails.flt_TripDslExpAc,
-    flt_TripAdblueExpAc:  this.selectedCustWizardDetails.flt_TripAdblueExpAc,
-    flt_DriverSalaryAc:  this.selectedCustWizardDetails.flt_DriverSalaryAc,
-    flt_TripSuspenseAc:  this.selectedCustWizardDetails.flt_TripSuspenseAc,
-    flt_ExtraChargesAc:  this.selectedCustWizardDetails.flt_ExtraChargesAc,
-    flt_FrtDedAc:  this.selectedCustWizardDetails.flt_FrtDedAc,
-    flt_TdsDedAc:  this.selectedCustWizardDetails.flt_TdsDedAc,
-    flt_OthDedAc: this.selectedCustWizardDetails.flt_OthDedAc,
-
-       hsdAc: this.selectedCustWizardDetails.hsdAc,
-         dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
-           dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,
-               
+        custwizId:  this.selectedCustWizardDetails.custwizId,
+        cashAc:  this.selectedCustWizardDetails.cashAc,
+        frtIncomeAc:  this.selectedCustWizardDetails.frtIncomeAc,
+        sgstOutputAc:  this.selectedCustWizardDetails.sgstOutputAc,
+        cgstOutputAc:  this.selectedCustWizardDetails.cgstOutputAc,
+        igstOutputAc:  this.selectedCustWizardDetails.igstOutputAc,
+        sgstInputAc:  this.selectedCustWizardDetails.sgstInputAc,
+        cgstInputAc:  this.selectedCustWizardDetails.cgstInputAc,
+        igstInputAc:  this.selectedCustWizardDetails.igstInputAc,
+        lH_LorryHireAc:  this.selectedCustWizardDetails.lH_LorryHireAc,
+        lH_LorryHirePayableAc:  this.selectedCustWizardDetails.lH_LorryHirePayableAc,
+        lH_TdsOnLorryHireAc:  this.selectedCustWizardDetails.lH_TdsOnLorryHireAc,
+        lhP_HamaliAc:  this.selectedCustWizardDetails.lhP_HamaliAc,
+        lhP_DetentionAc:  this.selectedCustWizardDetails.lhP_DetentionAc,
+        lhP_OtherChargesAc:  this.selectedCustWizardDetails.lhP_OtherChargesAc,
+        lhP_LhpmAc:  this.selectedCustWizardDetails.lhP_LhpmAc,
+        lhP_RecoveryAc:  this.selectedCustWizardDetails.lhP_RecoveryAc,
+        lhP_OthDedAc:  this.selectedCustWizardDetails.lhP_OthDedAc,
+        mR_FrtDeductionAc:  this.selectedCustWizardDetails.mR_FrtDeductionAc,
+        mR_ClaimsByPartyAc:  this.selectedCustWizardDetails.mR_ClaimsByPartyAc,
+        mR_BadDebtsAc:  this.selectedCustWizardDetails.mR_BadDebtsAc,
+        mR_MiscDedAc:  this.selectedCustWizardDetails.mR_MiscDedAc,
+        mR_BankChargesAc:  this.selectedCustWizardDetails.mR_BankChargesAc,
+        mR_CashDiscAc:  this.selectedCustWizardDetails.mR_CashDiscAc,
+        mR_ExcessRecdAc:  this.selectedCustWizardDetails.mR_ExcessRecdAc,
+        mR_TdsDedAc:  this.selectedCustWizardDetails.mR_TdsDedAc,
+        mR_OthDedAc:  this.selectedCustWizardDetails.mR_OthDedAc,
+        flt_TyreStockAc:  this.selectedCustWizardDetails.flt_TyreStockAc,
+        flt_TyreExpAc:  this.selectedCustWizardDetails.flt_TyreExpAc,
+        flt_TyreSalesAc:  this.selectedCustWizardDetails.flt_TyreSalesAc,
+        flt_SparesStockAc:  this.selectedCustWizardDetails.flt_SparesStockAc,
+        flt_LubesStockAc:  this.selectedCustWizardDetails.flt_LubesStockAc,
+        flt_VehMaintExpAc:  this.selectedCustWizardDetails.flt_VehMaintExpAc,
+        flt_TripDrAdvanceAc:  this.selectedCustWizardDetails.flt_TripDrAdvanceAc,
+        flt_TripFrtIncomeAc:  this.selectedCustWizardDetails.flt_TripFrtIncomeAc,
+        flt_FltFrtReceivableAc:  this.selectedCustWizardDetails.flt_FltFrtReceivableAc,
+        flt_TripExpensesAc:  this.selectedCustWizardDetails.flt_TripExpensesAc,
+        flt_DslPetroCardAc:  this.selectedCustWizardDetails.flt_DslPetroCardAc,
+        flt_HappayCardAc:  this.selectedCustWizardDetails.flt_HappayCardAc,
+        flt_TripDslExpAc:  this.selectedCustWizardDetails.flt_TripDslExpAc,
+        flt_TripAdblueExpAc:  this.selectedCustWizardDetails.flt_TripAdblueExpAc,
+        flt_DriverSalaryAc:  this.selectedCustWizardDetails.flt_DriverSalaryAc,
+        flt_TripSuspenseAc:  this.selectedCustWizardDetails.flt_TripSuspenseAc,
+        flt_ExtraChargesAc:  this.selectedCustWizardDetails.flt_ExtraChargesAc,
+        flt_FrtDedAc:  this.selectedCustWizardDetails.flt_FrtDedAc,
+        flt_TdsDedAc:  this.selectedCustWizardDetails.flt_TdsDedAc,
+        flt_OthDedAc: this.selectedCustWizardDetails.flt_OthDedAc,
+        hsdAc: this.selectedCustWizardDetails.hsdAc,
+        dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
+        dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,               
       });
     });    
   }
@@ -311,8 +309,7 @@ dashboard: string ="";
 
     var selectedDataValue = this.formCustWizard.getRawValue();
 
-    this.custWizardModel.custwizId = this.selectedCustWizardDetails.custwizId ;    
-   
+    this.custWizardModel.custwizId = this.selectedCustWizardDetails.custwizId ;     
   
     this.custWizardModel.cashAc = selectedDataValue.cashAc ;    
     this.custWizardModel.frtIncomeAc = selectedDataValue.frtIncomeAc ;    
