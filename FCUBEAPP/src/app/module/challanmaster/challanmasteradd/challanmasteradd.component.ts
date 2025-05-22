@@ -595,8 +595,7 @@ modifiedBy: string = "";
         this.requestmodel.strRequest2 =  selectedData.arrayList[i].gcNoteNo;
     
         this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: Challanmastermodel) => {
-          this.challanmodel = res;
-          if (this.responseDetails.status) { 
+          if (res?.challanDtls.length>0) { 
             var cn= res.challanDtls[0].consignmentId;     
             if (typeof cn === 'undefined' || cn === null || cn === '') {
               this.toastrService.warning("LR No Doesn't Exists ");
@@ -622,7 +621,7 @@ modifiedBy: string = "";
           }
           else{
             this.formArray.controls[i].get("gcNoteNo")?.setValue("");
-            this.toastrService.warning(this.responseDetails.message);
+            this.toastrService.warning("LR No Doesn't Exists ");
           }
         });
       }

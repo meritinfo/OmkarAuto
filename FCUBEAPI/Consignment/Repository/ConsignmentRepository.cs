@@ -1511,11 +1511,13 @@ namespace Consignment.Repository
                                 ToStn = Convert.ToString(dataSet.Tables[1].Rows[i]["ToStn"]),
                                 OwnTruckYN = Convert.ToString(dataSet.Tables[1].Rows[i]["OwnTruckYN"]),
                                 TruckNo = Convert.ToString(dataSet.Tables[1].Rows[i]["TruckNo"]),
+                                ContainerNo = Convert.ToString(dataSet.Tables[1].Rows[i]["ContainerNo"]),
                                 TptName = Convert.ToString(dataSet.Tables[1].Rows[i]["TptName"]),
                                 TotPkgs = Convert.ToString(dataSet.Tables[1].Rows[i]["TotPkgs"]),
                                 TotChrgWt = Convert.ToString(dataSet.Tables[1].Rows[i]["TotChrgWt"]),
                                 TotalHire= Convert.ToString(dataSet.Tables[1].Rows[i]["TotalHire"]),
                                 TotalAdvance= Convert.ToString(dataSet.Tables[1].Rows[i]["TotalAdvance"]),
+                                Balance = Convert.ToString(dataSet.Tables[1].Rows[i]["Balance"]),
                             });
                         }
                         for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)

@@ -59,6 +59,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@DprAddLr", userMasterModel.DprAddLr),
                             new SqlParameter("@UpdateAssignBy", userMasterModel.UpdateAssignBy),
                             new SqlParameter("@UpdateCnFreight", userMasterModel.UpdateCnFreight),
+                            new SqlParameter("@SameLrChallan", userMasterModel.SameLrChallan),                            
                             new SqlParameter("@OutOfOffReqOTP", userMasterModel.OutOfOffReqOTP),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
                             new SqlParameter("@ImageName", userMasterModel.ImageName),
@@ -304,6 +305,7 @@ namespace AdminMasters.Repository
                                 DprAddLr  = Convert.ToString(dataSet.Tables[0].Rows[i]["DprAddLr"]),
                                 UpdateAssignBy  = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateAssignBy"]),
                                 UpdateCnFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["UpdateCnFreight"]),
+                                SameLrChallan = Convert.ToString(dataSet.Tables[0].Rows[i]["SameLrChallan"]),
                                 ImageName       = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
                                 ShowFreightDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["ShowFreightDtls"]),
                                 BranchList      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
@@ -588,8 +590,10 @@ namespace AdminMasters.Repository
                         user.DprAddLr = Convert.ToString(statusData.Tables[0].Rows[0]["DprAddLr"]);
                         user.UpdateAssignBy= Convert.ToString(statusData.Tables[0].Rows[0]["UpdateAssignBy"]);
                         user.UpdateCnFreight = Convert.ToString(statusData.Tables[0].Rows[0]["UpdateCnFreight"]);
+                        user.SameLrChallan = Convert.ToString(statusData.Tables[0].Rows[0]["SameLrChallan"]);
                         user.ShowFreightDtls = Convert.ToString(statusData.Tables[0].Rows[0]["ShowFreightDtls"]);
-                        
+                        user.ShowFreightDtls = Convert.ToString(statusData.Tables[0].Rows[0]["ShowFreightDtls"]);
+
                     }
                 }
             }

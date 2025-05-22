@@ -12,10 +12,12 @@ namespace Consignment.Models
         public string? ToStn { get; set; }
         public string? OwnTruckYN { get; set; }
         public string? TruckNo { get; set; }
+        public string? ContainerNo { get; set; }
         public string? TptName { get; set; }
         public string? TotPkgs { get; set; }
         public string? TotChrgWt { get; set; }
         public string? TotalHire { get; set; }
         public string? TotalAdvance { get; set; }
+        public string? Balance { get; set; }
     }
 }

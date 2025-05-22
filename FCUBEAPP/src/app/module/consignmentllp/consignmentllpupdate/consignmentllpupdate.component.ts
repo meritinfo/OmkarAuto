@@ -239,8 +239,8 @@ dashboard: string ="";
     this.formGstArray.controls[0].get("sgstAmt")?.disable();
     this.formGstArray.controls[0].get("cgstAmt")?.disable();
     this.formGstArray.controls[0].get("igstAmt")?.disable();  
-    this.formGstArray.controls[0].get("totalAmt")?.disable();     
-      
+    this.formGstArray.controls[0].get("totalAmt")?.disable();  
+    this.formGstArray.controls[0].get("rate")?.disable();         
   }
 
   get f() { return this.formUser.controls; }  
@@ -479,6 +479,12 @@ dashboard: string ="";
   getLrInnerGridList(): void {
     this.requestmodel.strRequest = this.lrmodel.consignmentID;
     var gsttype = this.lrmodel.gstType;
+    this.formGstArray.controls[0].get("sgstAmt")?.disable();
+    this.formGstArray.controls[0].get("cgstAmt")?.disable();
+    this.formGstArray.controls[0].get("igstAmt")?.disable();  
+    this.formGstArray.controls[0].get("totalAmt")?.disable();  
+    this.formGstArray.controls[0].get("rate")?.disable();
+
     this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
       if((res.gstList?res.gstList.length:0)>0){
         this.formGstArray.clear();
@@ -499,7 +505,6 @@ dashboard: string ="";
           this.formGstArray.controls[i].get("linkColumn")?.setValue(res.gstList[i].linkColumn);
   
           this.formGstArray.controls[i].get("freightId")?.disable();
-          this.formGstArray.controls[i].get("amount")?.disable();
           this.formGstArray.controls[i].get("sgstPct")?.disable();
           this.formGstArray.controls[i].get("sgstAmt")?.disable();
           this.formGstArray.controls[i].get("cgstPct")?.disable();
@@ -508,7 +513,15 @@ dashboard: string ="";
           this.formGstArray.controls[i].get("igstAmt")?.disable();
           this.formGstArray.controls[i].get("totalAmt")?.disable();
           this.formGstArray.controls[i].get("remarks")?.disable();
-          
+
+          if(res.gstList[i].rateType=="NA"){      
+            this.formGstArray.controls[i].get("rate")?.disable();
+            this.formGstArray.controls[i].get("amount")?.enable();
+          }
+          else{
+            this.formGstArray.controls[i].get("rate")?.enable();
+            this.formGstArray.controls[i].get("amount")?.disable();
+          }   
           if (gsttype == "IG") {  
             this.formGstArray.controls[i].get("igstPct")?.enable();  
           }     
@@ -610,9 +623,13 @@ dashboard: string ="";
     });
   }
 
-  onRateChange(i:number,e:any){    
+  onRateChange(i:number,e:any){   
     this.formGstArray.controls[i].get("amount")?.setValue("0");
     this.formGstArray.controls[i].get("rate")?.setValue("0");
+    this.formGstArray.controls[i].get("sgstAmt")?.setValue("0");
+    this.formGstArray.controls[i].get("cgstAmt")?.setValue("0");
+    this.formGstArray.controls[i].get("igstAmt")?.setValue("0");
+    this.formGstArray.controls[i].get("totalAmt")?.setValue("0");
     if(e.target.value=="NA"){      
       this.formGstArray.controls[i].get("rate")?.disable();
       this.formGstArray.controls[i].get("amount")?.enable();
@@ -621,6 +638,7 @@ dashboard: string ="";
       this.formGstArray.controls[i].get("rate")?.enable();
       this.formGstArray.controls[i].get("amount")?.disable();
     }
+    this.calAmount(i);
   }
 
   calAmount(i:number){    

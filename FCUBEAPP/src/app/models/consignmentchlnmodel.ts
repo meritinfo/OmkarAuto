@@ -7,9 +7,11 @@ export class Consignmentchlnmodel {
     toStn : string = "";
     ownTruckYN : string = "";
     truckNo : string = "";
+    containerNo: string = "";
     tptName : string = "";
     totPkgs : string = "";
     totChrgWt : string = "";
     totalHire : string = "";
     totalAdvance : string = "";
+    balance: string = "";
 }
