@@ -201,7 +201,6 @@ constructor(private formBuilder: FormBuilder,private chCostTypesService: ChCostT
   
   
     search(): void {
-      debugger;
       var selectedData = this.formFilter.getRawValue();
      
       this.filter.fromDate = selectedData.fromDate;

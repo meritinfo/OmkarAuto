@@ -222,7 +222,6 @@ export class TrippaymentsllplistComponent {
 
 
   search(): void {
-    debugger;
     var selectedData = this.formFilter.getRawValue();   
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;

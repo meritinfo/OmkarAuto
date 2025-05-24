@@ -201,7 +201,6 @@ export class FreightgstmasterlistComponent {
   }
 
   search(): void {
-    debugger;
     var selectedData = this.formFilter.getRawValue();
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;

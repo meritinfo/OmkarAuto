@@ -83,15 +83,6 @@ export class ChallanmasterlistllpComponent {
       this.route.navigate([this.dashboard]);
     }
     
-    
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-      this.dashboard = dashboard;
-    }
-    if(!this.viewStatus){      
-      this.route.navigate([this.dashboard]);
-    }
-
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -262,7 +253,6 @@ export class ChallanmasterlistllpComponent {
   }
 
   search(): void {
-    debugger;
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;

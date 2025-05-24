@@ -198,7 +198,6 @@ this.lrbillseriesService.setLrBillSeriesDetails(Destination);
 this.route.navigate(['/lrbillseriesedit']);
 }
 search(): void {
-  debugger;
   var selectedData = this.formFilter.getRawValue();
  
   this.filter.fromDate = selectedData.fromDate;

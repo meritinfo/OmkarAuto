@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Challanlistmodel  } from 'src/app/models/challanlistmodel';
 import { Challanmastermodel } from 'src/app/models/challanmastermodel';
-import { ChallanmasterService } from 'src/app/services/challanmaster.service';
+import { ChallansuppliService } from 'src/app/services/challansuppli.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
@@ -12,11 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
-  selector: 'app-challanmasterlist',
-  templateUrl: './challanmasterlist.component.html',
-  styleUrls: ['./challanmasterlist.component.css']
+  selector: 'app-challansupplilist',
+  templateUrl: './challansupplilist.component.html',
+  styleUrls: ['./challansupplilist.component.css']
 })
-export class ChallanmasterlistComponent {
+export class ChallansupplilistComponent {
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
   allChallan: Challanlistmodel = new Challanlistmodel();
@@ -57,7 +57,7 @@ export class ChallanmasterlistComponent {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
-    private challanmasterService: ChallanmasterService, private route: Router,
+    private challanmasterService: ChallansuppliService, private route: Router,
     private commonService: CommonService,) {
   }
 
@@ -67,7 +67,7 @@ export class ChallanmasterlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Challan Entry"));
+        .find((aa: { menuName: string; }) => aa.menuName === "Supp. Challan Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -75,7 +75,6 @@ export class ChallanmasterlistComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
       this.dashboard = dashboard;
@@ -83,7 +82,7 @@ export class ChallanmasterlistComponent {
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
-
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -102,16 +101,16 @@ export class ChallanmasterlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
-    }
-    
+    }   
+
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
+    this.fromDate = this.minDate ;   
   
 
     this.challanmasterService.clearChallanDetails();
@@ -169,10 +168,6 @@ export class ChallanmasterlistComponent {
           data: 'challanId',
         },
         {
-          title: 'Print',
-          data: 'challanId',
-        },  
-        {
           title: 'Branch',
           data: 'cbranch',
         },
@@ -227,31 +222,13 @@ export class ChallanmasterlistComponent {
   };
   
   challanAdd(): void {
-    this.route.navigate(['/challanadd']);
+    this.route.navigate(['/suppchallanadd']);
   }
 
   getChallanDetails(Challan: Challanmastermodel): void {
     this.challanmasterService.setChallanDetails(Challan);
-    this.route.navigate(['/challanedit']);
+    this.route.navigate(['/suppchallanedit']);
   }  
-
-  download(ch: Challanmastermodel): void {
-    this.request.strRequest = ch.challanId;
-    this.request.strRequest1 = this.loggedInUserID;
-        
-    this.challanmasterService.getChallanPrintPdf(this.request).subscribe(resp => {
-      if(resp.status){    
-        let link = document.createElement("a");
-        link.download = "Challan_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/challanprint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      }
-      else{        
-        this.toastrService.warning(resp.message);   
-      }
-    });
-  }
 
   search(): void {
     var selectedDataVal = this.formFilter.getRawValue();

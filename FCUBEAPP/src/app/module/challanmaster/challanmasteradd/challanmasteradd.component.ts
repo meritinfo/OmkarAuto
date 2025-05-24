@@ -29,10 +29,6 @@ export class ChallanmasteraddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-  minDate2: string = '';
-  newDate: string = '';
-  noPackages:string = '';
-  tdspct:string = '';
   seriesDoc: string = "";
 
   formSubmitted = false;
@@ -139,7 +135,6 @@ modifiedBy: string = "";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    this.minDate2 = this.loginDate;
   
     this.sharedService.loading = true;
     this.createdBy = this.selectedChallanDetails.createdBy + " " + this.selectedChallanDetails.createdDate;
@@ -279,8 +274,6 @@ modifiedBy: string = "";
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
      
-     
-        this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            
           this.formUser.controls["declarationYN"].enable();              
@@ -1187,13 +1180,6 @@ modifiedBy: string = "";
       }
     }
    
-    if (selectedDataValue.challanFromStn.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" From station is Invalid");
-      return;
-    }
     let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
     let arrdate = new Date(selectedDataValue.expArrivalDate).toLocaleDateString('en-CA').toString(); 
     if (arrdate>=chdate) {
@@ -1204,15 +1190,6 @@ modifiedBy: string = "";
       return;
 
     }
-
-    if (selectedDataValue.challanToStn.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" To Station is Invalid");
-      return;
-    }
-
 
     this.formSubmitted = true;
     this.sharedService.loading = true;

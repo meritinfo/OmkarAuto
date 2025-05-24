@@ -22,7 +22,6 @@ namespace FCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly IConsignmentBusiness consignmentBusiness;
         readonly IChallanMasterBusiness challanMasterBusiness;
-        readonly IChallanMasterLLPBusiness challanMasterBusinessLLP;
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
@@ -37,8 +36,11 @@ namespace FCUBEAPI.Controllers
         readonly IDoBusiness doBusiness;
         readonly IDoVehiInBusiness doVehiInBusiness;
         readonly IDoTempGcBusiness doTempGcBusiness;
-        readonly IDeliveryDisputeEntryBusiness deliveryDisputeEntryBusiness;
         readonly ICciInvoiceMstBusiness cciInvoiceMstBusiness;
+        readonly IChallanMasterLLPBusiness challanMasterBusinessLLP;
+        readonly IDeliveryDisputeEntryBusiness deliveryDisputeEntryBusiness;
+        readonly IChallanSuppliBusiness challanSuppliBusiness;
+
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -58,7 +60,8 @@ namespace FCUBEAPI.Controllers
             IDoTempGcBusiness _doTempGcBusiness,
             ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
             IChallanMasterLLPBusiness _challanMasterBusinessLLP,
-             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness)
+            IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
+            IChallanSuppliBusiness _challanSuppliBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -80,6 +83,7 @@ namespace FCUBEAPI.Controllers
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
             challanMasterBusinessLLP= _challanMasterBusinessLLP;
             deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
+            challanSuppliBusiness = _challanSuppliBusiness;
         }
         
 
@@ -2990,48 +2994,91 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetChallanSuppliList")]
+        public async Task<IActionResult> GetChallanSuppliList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanSuppliBusiness.GetChallanSuppliList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanSuppliSave")]
+        public async Task<IActionResult> ChallanSuppliSave(ChallanMasterModel challanModel)
+        {
+            if (challanModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanSuppliBusiness.ChallanSuppliSave(challanModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }        
+
+        [HttpPost("CheckDuplicateChallanSuppli")]
+        public async Task<IActionResult> CheckDuplicateChallanSuppli(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanSuppliBusiness.CheckDuplicateChallanSuppli(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ChallanSuppliDelete")]
+        public async Task<IActionResult> ChallanSuppliDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanSuppliBusiness.ChallanSuppliDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetChallanMasterListLLP")]
         public async Task<IActionResult> GetChallanMasterListLLP(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await challanMasterBusinessLLP.GetChallanMasterListLLP(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetChallanEnqDetailsLLP")]
-        public async Task<IActionResult> GetChallanEnqDetailsLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetChallanEnqDetailsLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetChallanEnqInnerGridListLLP")]
-        public async Task<IActionResult> GetChallanEnqInnerGridListLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetChallanEnqInnerGridListLLP(req);
 
                 return Ok(result);
             }
@@ -3075,78 +3122,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetChallanNoLLP")]
-        public async Task<IActionResult> GetChallanNoLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetChallanNoLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("CheckDuplicateChallanLLP")]
-        public async Task<IActionResult> CheckDuplicateChallanLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.CheckDuplicateChallanLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetConsignmentIdLLP")]
-        public async Task<IActionResult> GetConsignmentIdLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetConsignmentIdLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetChallanDetailsFromLRLLP")]
-        public async Task<IActionResult> GetChallanDetailsFromLRLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetChallanDetailsFromLRLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetCCIInviceDetailLLP")]
         public async Task<IActionResult> GetCCIInviceDetailLLP(RequestModel req)
         {
@@ -3157,42 +3132,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await challanMasterBusinessLLP.GetCCIInviceDetailLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetPanValidDetailsLLP")]
-        public async Task<IActionResult> GetPanValidDetailsLLP(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.GetPanValidDetailsLLP(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("CheckChallanPrepForLrLLP")]
-        public async Task<IActionResult> CheckChallanPrepForLrLLP(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.CheckChallanPrepForLrLLP(request);
 
                 return Ok(result);
             }
@@ -3219,25 +3158,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("ChkPanDeclaration")]
-        public async Task<IActionResult> ChkPanDeclaration(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await challanMasterBusinessLLP.ChkPanDeclaration(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         
         [HttpPost("UpdateAssign")]
         public async Task<IActionResult> UpdateAssign(RequestModel request)

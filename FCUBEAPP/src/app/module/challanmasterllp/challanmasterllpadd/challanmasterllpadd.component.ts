@@ -9,7 +9,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { ChallanmastermodelllP } from 'src/app/models/challanmastermodelllp';
 import { ChallanmasterServiceLLP } from 'src/app/services/challanmasterllp.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
-
 import { Ccinvdetailmodel } from 'src/app/models/cciinvdetailmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
@@ -33,13 +32,9 @@ export class ChallanmasterllpaddComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-  minDate2: string = '';
-  newDate: string = '';
-  noPackages:string = '';
-  tdspct:string = '';
   seriesDoc: string = "";
   declYn = false;
-   formSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -105,12 +100,12 @@ export class ChallanmasterllpaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -140,9 +135,7 @@ export class ChallanmasterllpaddComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    this.minDate2 = this.loginDate;
-  
+    this.fromDate = this.minDate ;  
     this.sharedService.loading = true;
 
     this.getBranchList();
@@ -281,8 +274,6 @@ export class ChallanmasterllpaddComponent {
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
      
-     
-        this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            
           this.formUser.controls["declarationYN"].enable();              
@@ -1276,13 +1267,6 @@ export class ChallanmasterllpaddComponent {
         }
       }
      
-      if (selectedDataValue.challanFromStn.dataId) {
-        //ignore
-      }
-      else{
-        this.toastrService.warning(" From station is Invalid");
-        return;
-      }
       let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
       let arrdate = new Date(selectedDataValue.expArrivalDate).toLocaleDateString('en-CA').toString(); 
       if (arrdate>=chdate) {
@@ -1294,13 +1278,6 @@ export class ChallanmasterllpaddComponent {
   
       }
   
-      if (selectedDataValue.challanToStn.dataId) {
-        //ignore
-      }
-      else{
-        this.toastrService.warning(" To Station is Invalid");
-        return;
-      }
       const d3 = this.minDate?Date.parse(this.minDate):0;
       const d2 = this.maxDate?Date.parse(this.maxDate):0;
       const d4 = selectedDataValue.challanDateTime?Date.parse(selectedDataValue.challanDateTime):0;

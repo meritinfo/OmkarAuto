@@ -158,7 +158,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
         {
             ResponseModel responseModel = new();
@@ -208,7 +207,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ChallanListModel> GetChallanMasterList(ReportRequestModel request)
         {
             ChallanListModel challanMasterList = new();
@@ -337,6 +335,568 @@ namespace Consignment.Repository
             }
             return challanMasterList;
         }
+        public async Task<ChallanMasterModel> GetChallanInnerGridList(RequestModel request)
+        {
+            ChallanMasterModel challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModel>(),
+            };
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@MasterId", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanInnerGrid", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            challanModel.ChallanDtls.Add(new ChallanDetailModel
+                            {
+                                ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
+                                GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
+                                GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                Fplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Fplace"]),
+                                Tplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Tplace"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanPkgs"]),
+                                ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanWT"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return challanModel;
+        }
+        public async Task<ResponseModel> ChallanMasterDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ChallanId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@YearId", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@ChallanNo", requestModel.strRequest1),
+                            new SqlParameter("@YearId", requestModel.strRequest2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallan", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel)
+        {
+            ChallanMasterModel challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModel>(),
+            };
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@GcYear", requestModel.strRequest),
+                        new SqlParameter("@GcBook",requestModel.strRequest1),
+                        new SqlParameter("@GCNoteNo",requestModel.strRequest2),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentId", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        {
+                            ChallanId ="",
+                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
+                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
+                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
+                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
+                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
+                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
+                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
+                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
+                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return challanModel;
+        }
+        public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
+        {
+            ChallanMasterModel challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModel>(),
+            };
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GCNoteNo", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanDetailsFromLR", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        challanModel.ChallanFromStn     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
+                        challanModel.ChallanToStn       = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
+                        challanModel.DistanceKms        = Convert.ToString(dataSet.Tables[0].Rows[0]["DistanceKms"]);
+                        challanModel.BrokerId           = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
+                        challanModel.OwnTruckYN         = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruckYN"]);
+                        challanModel.TruckNo            = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        challanModel.VehicleType        = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleType"]);
+                        challanModel.VehicleOwnerName   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerName"]);
+                        challanModel.VehicleOwnerAdd1   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd1"]);
+                        challanModel.VehicleOwnerAdd2   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd2"]);
+                        challanModel.VehicleOwnerPanNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
+                        challanModel.VehicleOwnerMblNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerMblNo"]);
+                        challanModel.DriverLicNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicNo"]);
+                        challanModel.DriverLicValid     = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicValid"]);
+                        challanModel.DriverMblNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverMblNo"]);
+                        challanModel.OdcCFT             = Convert.ToString(dataSet.Tables[0].Rows[0]["OdcCFT"]);
+                        challanModel.TotPkgs            = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]);
+                        challanModel.TotActWt           = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]);
+                        challanModel.RatePerTon         = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
+                        challanModel.LorryHire          = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
+                        challanModel.SubTotal           = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
+                        challanModel.CashAdvance        = Convert.ToString(dataSet.Tables[0].Rows[0]["cashAdvance"]);
+                        challanModel.Balance            = Convert.ToString(dataSet.Tables[0].Rows[0]["Balance"]);
+                        challanModel.VehicleModel       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleModel"]);
+                        challanModel.EngineNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
+                        challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
+                        challanModel.EngagedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
+                        challanModel.LoadedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
+                        challanModel.Photo1             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance1"]);
+                        challanModel.Photo2             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance2"]);
+                        challanModel.Photo3             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance3"]);
+
+                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        {
+                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
+                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
+                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
+                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
+                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
+                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
+                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
+                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
+                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return challanModel;
+        }
+        public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
+        {
+            PanApiResultModel panresult = new();
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanUsedDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        Reslt res = new();
+                        res.number = Convert.ToString(statusData.Tables[0].Rows[0]["PanNo"]);
+                        res.name = Convert.ToString(statusData.Tables[0].Rows[0]["OwnerName"]);
+                        res.isValid = Convert.ToString(statusData.Tables[0].Rows[0]["ValidYN"])=="Y" ? true : false;
+                        res.aadhaarSeedingStatusCode = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
+
+                        panresult.result = res;
+                    }
+                    else
+                    {
+                        var panNo = request.strRequest;
+                        string URL = "https://fcube.net/panapi/api.php";
+
+                        string urlParameters = "?pan=" + panNo;
+
+                        HttpClient client = new()
+                        {
+                            BaseAddress = new Uri(URL)
+                        };
+
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = await response.Content.ReadAsStringAsync();
+
+                            if (result.Contains("number"))
+                            {
+                                var root = JsonConvert.DeserializeObject<ApiRoot>(result);
+
+                                panresult.result = root.result;
+
+                                if (panresult.result.isValid==true)
+                                {
+                                    if (panNo.Substring(3, 1)== "P" || panNo.Substring(3, 1) == "H")
+                                    {
+                                        if (panresult.result.aadhaarSeedingStatusCode=="Y")
+                                        {
+                                            responseModel = await PanDtlSave(request, panresult.result);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        responseModel = await PanDtlSave(request, panresult.result);
+                                    }
+                                }
+
+                            }
+                            else {
+                                responseModel.Status = false;
+                                responseModel.Message = result;
+                            }
+                            client.Dispose();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return panresult;
+        }
+        public async Task<ResponseModel> PanDtlSave(RequestModel request, Reslt res)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo",          res.number),
+                            new SqlParameter("@ValidYN",        res.isValid==true? "Y" : "N"),
+                            new SqlParameter("@AadharYN",       res.aadhaarSeedingStatusCode),
+                            new SqlParameter("@ItFiledYN",      "N"),
+                            new SqlParameter("@OwnerName",      res.name),
+                            new SqlParameter("@EntryThrough",   "A"),
+                            new SqlParameter("@LoggedInUser",   request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PanUsedSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GcYear", request.strRequest),
+                            new SqlParameter("@GcBook",request.strRequest1),
+                            new SqlParameter("@GCNoteNo",request.strRequest2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = dbconnection.Value.apiPath + "api/Challan/";
+
+                string UrlParam = "?ChallanId=" + request.strRequest;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = "Error Fetching Report";
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo", requestModel.strRequest),
+                            new SqlParameter("@Date", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanWiseTdsRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+        public async Task<ReportRequestModel> GetLhPanTdsRate(RequestModel requestModel)
+        {
+            ReportRequestModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanChar", requestModel.strRequest),
+                            new SqlParameter("@TdsDt", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPanTdsRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.FilterStr = Convert.ToString(statusData.Tables[0].Rows[0]["TdsRate"]);
+                        responseModel.FilterStr1 = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
+                        responseModel.FilterStr2 = Convert.ToString(statusData.Tables[0].Rows[0]["DecApplicable"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBranchPanApiUse", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
+
         public async Task<ChallanMasterModel> GetChallanEnqDetails(RequestModel req)
         {
             ChallanMasterModel chlnmodel = new();
@@ -575,577 +1135,6 @@ namespace Consignment.Repository
             }
             return challan;
         }
-        public async Task<ChallanMasterModel> GetChallanInnerGridList(RequestModel request)
-        {
-            ChallanMasterModel challanModel = new()
-            {
-                ChallanDtls = new List<ChallanDetailModel>(),
-            };
-
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                    {
-                            new SqlParameter("@MasterId", request.strRequest)
-                        };
-
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanInnerGrid", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                        {
-                            challanModel.ChallanDtls.Add(new ChallanDetailModel
-                            {
-                                ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
-                                GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
-                                GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
-                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
-                                ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
-                                Fplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Fplace"]),
-                                Tplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Tplace"]),
-                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                                ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanPkgs"]),
-                                ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanWT"]),
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return challanModel;
-        }
-
-        public async Task<ResponseModel> ChallanMasterDelete(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@ChallanId", requestModel.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstDelete", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                            new SqlParameter("@YearId", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanNo", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                            new SqlParameter("@ChallanNo", requestModel.strRequest1),
-                            new SqlParameter("@YearId", requestModel.strRequest2),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallan", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
-        public async Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel)
-        {
-            ChallanMasterModel challanModel = new()
-            {
-                ChallanDtls = new List<ChallanDetailModel>(),
-            };
-
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                    {
-                        new SqlParameter("@GcYear", requestModel.strRequest),
-                        new SqlParameter("@GcBook",requestModel.strRequest1),
-                        new SqlParameter("@GCNoteNo",requestModel.strRequest2),
-                    };
-
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentId", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        challanModel.ChallanDtls.Add(new ChallanDetailModel
-                        {
-                            ChallanId ="",
-                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
-                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
-                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
-                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
-                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
-                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
-                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
-                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
-                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return challanModel;
-        }
-        public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
-        {
-            ChallanMasterModel challanModel = new()
-            {
-                ChallanDtls = new List<ChallanDetailModel>(),
-            };
-
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@GCNoteNo", request.strRequest)
-                        };
-
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanDetailsFromLR", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        challanModel.ChallanFromStn     = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
-                        challanModel.ChallanToStn       = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
-                        challanModel.DistanceKms        = Convert.ToString(dataSet.Tables[0].Rows[0]["DistanceKms"]);
-                        challanModel.BrokerId           = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
-                        challanModel.OwnTruckYN         = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruckYN"]);
-                        challanModel.TruckNo            = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
-                        challanModel.VehicleType        = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleType"]);
-                        challanModel.VehicleOwnerName   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerName"]);
-                        challanModel.VehicleOwnerAdd1   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd1"]);
-                        challanModel.VehicleOwnerAdd2   = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd2"]);
-                        challanModel.VehicleOwnerPanNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
-                        challanModel.VehicleOwnerMblNo  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerMblNo"]);
-                        challanModel.DriverLicNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicNo"]);
-                        challanModel.DriverLicValid     = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicValid"]);
-                        challanModel.DriverMblNo        = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverMblNo"]);
-                        challanModel.OdcCFT             = Convert.ToString(dataSet.Tables[0].Rows[0]["OdcCFT"]);
-                        challanModel.TotPkgs            = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]);
-                        challanModel.TotActWt           = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]);
-                        challanModel.RatePerTon         = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
-                        challanModel.LorryHire          = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
-                        challanModel.SubTotal           = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
-                        challanModel.CashAdvance        = Convert.ToString(dataSet.Tables[0].Rows[0]["cashAdvance"]);
-                        challanModel.Balance            = Convert.ToString(dataSet.Tables[0].Rows[0]["Balance"]);
-                        challanModel.VehicleModel       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleModel"]);
-                        challanModel.EngineNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
-                        challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
-                        challanModel.EngagedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
-                        challanModel.LoadedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
-                        challanModel.Photo1             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance1"]);
-                        challanModel.Photo2             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance2"]);
-                        challanModel.Photo3             = Convert.ToString(dataSet.Tables[0].Rows[0]["Advance3"]);
-
-                        challanModel.ChallanDtls.Add(new ChallanDetailModel
-                        {
-                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
-                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
-                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
-                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
-                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
-                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
-                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
-                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
-                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return challanModel;
-        }
-
-
-        public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
-        {
-            PanApiResultModel panresult = new();
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PanNo", request.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanUsedDetails", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        Reslt res = new();
-                        res.number = Convert.ToString(statusData.Tables[0].Rows[0]["PanNo"]);
-                        res.name = Convert.ToString(statusData.Tables[0].Rows[0]["OwnerName"]);
-                        res.isValid = Convert.ToString(statusData.Tables[0].Rows[0]["ValidYN"])=="Y" ? true : false;
-                        res.aadhaarSeedingStatusCode = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
-
-                        panresult.result = res;
-                    }
-                    else
-                    {
-                        var panNo = request.strRequest;
-                        string URL = "https://fcube.net/panapi/api.php";
-
-                        string urlParameters = "?pan=" + panNo;
-
-                        HttpClient client = new()
-                        {
-                            BaseAddress = new Uri(URL)
-                        };
-
-                        client.DefaultRequestHeaders.Accept.Add(
-                            new MediaTypeWithQualityHeaderValue("application/json"));
-
-                        HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var result = await response.Content.ReadAsStringAsync();
-
-                            if (result.Contains("number"))
-                            {
-                                var root = JsonConvert.DeserializeObject<ApiRoot>(result);
-
-                                panresult.result = root.result;
-
-                                if (panresult.result.isValid==true)
-                                {
-                                    if (panNo.Substring(3, 1)== "P" || panNo.Substring(3, 1) == "H")
-                                    {
-                                        if (panresult.result.aadhaarSeedingStatusCode=="Y")
-                                        {
-                                            responseModel = await PanDtlSave(request, panresult.result);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        responseModel = await PanDtlSave(request, panresult.result);
-                                    }
-                                }
-
-                            }
-                            else {
-                                responseModel.Status = false;
-                                responseModel.Message = result;
-                            }
-                            client.Dispose();
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return panresult;
-        }
-
-        public async Task<ResponseModel> PanDtlSave(RequestModel request, Reslt res)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PanNo",          res.number),
-                            new SqlParameter("@ValidYN",        res.isValid==true? "Y" : "N"),
-                            new SqlParameter("@AadharYN",       res.aadhaarSeedingStatusCode),
-                            new SqlParameter("@ItFiledYN",      "N"),
-                            new SqlParameter("@OwnerName",      res.name),
-                            new SqlParameter("@EntryThrough",   "A"),
-                            new SqlParameter("@LoggedInUser",   request.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PanUsedSave", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
-
-        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@GcYear", request.strRequest),
-                            new SqlParameter("@GcBook",request.strRequest1),
-                            new SqlParameter("@GCNoteNo",request.strRequest2),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
-
-        public async Task<ResponseModel> GetChallanPrintPdf(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                string baseUrl = dbconnection.Value.apiPath + "api/Challan/";
-
-                string UrlParam = "?ChallanId=" + request.strRequest;
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    dynamic data = JsonConvert.DeserializeObject(result);
-                    if (data!="500")
-                    {
-                        responseModel.Status = true;
-                        responseModel.Message = data;
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        responseModel.Message = data;
-                    }
-
-
-                    client.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-                responseModel.Message = "Error Fetching Report";
-            }
-            return responseModel;
-        }
-
-        public async Task<ResponseModel> GetPanwiseTdsRate(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PanNo", requestModel.strRequest),
-                            new SqlParameter("@Date", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanWiseTdsRate", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-            }
-            return responseModel;
-        }
-        public async Task<ReportRequestModel> GetLhPanTdsRate(RequestModel requestModel)
-        {
-            ReportRequestModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PanChar", requestModel.strRequest),
-                            new SqlParameter("@TdsDt", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLhPanTdsRate", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.FilterStr = Convert.ToString(statusData.Tables[0].Rows[0]["TdsRate"]);
-                        responseModel.FilterStr1 = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
-                        responseModel.FilterStr2 = Convert.ToString(statusData.Tables[0].Rows[0]["DecApplicable"]);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return responseModel;
-        }
-
-        public async Task<ResponseModel> GetBranchPanApiUse(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBranchPanApiUse", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return responseModel;
-        }
-        
-
 
     }
 
