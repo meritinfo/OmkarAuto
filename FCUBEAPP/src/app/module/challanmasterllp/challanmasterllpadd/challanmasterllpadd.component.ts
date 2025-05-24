@@ -66,6 +66,7 @@ export class ChallanmasterllpaddComponent {
   step1Active = true;
   step2Active = false;
   step3Active = false;
+  sameLrChallan = false;
   
   @ViewChild('photo1Input', {
     static: true
@@ -150,6 +151,7 @@ export class ChallanmasterllpaddComponent {
     this.getBrokerList();
     this.getEmpList();  
     this.getYearList(); 
+    this.getUserRights();
 
     this.sharedService.loading = false;
     
@@ -186,12 +188,12 @@ export class ChallanmasterllpaddComponent {
       aadharLinked: new FormControl('',),    
       itFiled: new FormControl('',),
       permitValid: new FormControl('',),   
-      driverName : new FormControl('',[Validators.required]),   
+      driverName : new FormControl('',),   
       driverAddress: new FormControl('',),    
       driverLicNo: new FormControl('',),
       driverLicIssuedAt: new FormControl('',),    
       driverLicValid: new FormControl('',),    
-      driverMblNo: new FormControl('',[Validators.required]),    
+      driverMblNo: new FormControl('',),    
       engagedBy: new FormControl('',),    
       loadedBy: new FormControl('',),
       declarationYN: new FormControl('',),    
@@ -497,6 +499,15 @@ export class ChallanmasterllpaddComponent {
      });
     }    
   
+    getUserRights(): void {
+      this.requestmodel.strRequest = this.loggedInUserID;
+      this.commonService.getUserRights(this.requestmodel).subscribe((res) => {
+        if(res.sameLrChallan=="Y"){
+          this.sameLrChallan = true;  
+        } 
+      });
+    }
+
     onBranchChange() {
      // var selectedData = this.formUser.getRawValue();
      // if (selectedData.challanBranch==""){
@@ -626,14 +637,13 @@ export class ChallanmasterllpaddComponent {
   
       this.challanmasterService.checkChallanPrepForLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if (this.responseDetails.status) {
+        if (this.responseDetails.status || (this.sameLrChallan && selectedData.chStatus=="L")) {
           this.requestmodel.strRequest =  selectedData.arrayList[i].gcYear;
           this.requestmodel.strRequest1 = selectedData.arrayList[i].gcBook;
           this.requestmodel.strRequest2 =  selectedData.arrayList[i].gcNoteNo;
       
           this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: ChallanmastermodelllP) => {
-            this.challanmodel = res;
-            if (this.responseDetails.status) { 
+            if (res) { 
               if (res.challanDtls.length==0) {
                 this.toastrService.warning("LR No Doesn't Exists ");
                 this.formArray.controls[i].get("gcNoteNo")?.setValue("");
@@ -661,7 +671,7 @@ export class ChallanmasterllpaddComponent {
             }
             else{
               this.formArray.controls[i].get("gcNoteNo")?.setValue("");
-              this.toastrService.warning(this.responseDetails.message);
+              this.toastrService.warning("LR No Doesn't Exists ");
             }
           });
         }

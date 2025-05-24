@@ -70,6 +70,7 @@
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chStatus'].invalid) }">
                                         <option value="N">Normal</option>
                                         <option value="I">Include</option>
+                                        <option value="L">Same LR</option>
                                         <option value="C">Cancel</option>
                                         <option value="S">Stop</option>
                                     </select>
@@ -242,7 +243,7 @@
                                                         <h6>CN Booked At<span style="color: red">*</span></h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-1">
+                                                <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>LR NO :<span style="color: red">*</span></h6>
                                                     </label>
@@ -272,7 +273,7 @@
                                                         <h6>Wt <span style="color: red">*</span></h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-1"></td>
+                                                <td></td>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                 *ngFor="let arrayData of formArray.controls; let i = index">
@@ -293,7 +294,7 @@
                                                             </option>
                                                         </select>       
                                                     </td>                                                  
-                                                    <td class="col-lg-1">
+                                                    <td class="col-lg-2">
                                                         <input uppercaseonly type="text" class="form-control" 
                                                         maxlength="15" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
@@ -320,7 +321,7 @@
                                                         <input threedecimalonly type="text" class="form-control" 
                                                         formControlName="challanWT" (change)="onActWtChange()">
                                                     </td>                                                
-                                                    <td class="col-lg-1">
+                                                    <td>
                                                         <div class="col-lg-4 details-button">
                                                             <button *ngIf="i === formArray.controls.length-1" type="button"
                                                                 class="btn btn-add" (click)="addItem(i)"></button>
@@ -513,8 +514,8 @@
                         <div class="row">   
                             <div class="col-lg-3">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Driver Name</label><span style="color: red">*</span>
-                                    <input uppercaseonly class="form-control" maxlength="50"   [ngClass]="{ 'is-invalid': formSubmitted && (f['driverName'].invalid) }"
+                                    <label for="formrow-inputZip">Driver Name</label>
+                                    <input uppercaseonly class="form-control" maxlength="50" 
                                     formControlName="driverName">
                                 </div>
                             </div>      
@@ -551,8 +552,8 @@
                             </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Driver Mobile No</label><span style="color: red">*</span>
-                                    <input numbersonly maxlength="10" class="form-control"  [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMblNo'].invalid) }"
+                                    <label for="formrow-inputZip">Driver Mobile No</label>
+                                    <input numbersonly maxlength="10" class="form-control" 
                                         formControlName="driverMblNo">
                                 </div>
                             </div> 

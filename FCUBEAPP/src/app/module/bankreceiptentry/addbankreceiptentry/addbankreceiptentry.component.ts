@@ -490,7 +490,7 @@ export class AddbankreceiptentryComponent {
           this.toasterService.warning("Narration cannot be Empty in details grid");
           return;
         }
-        if(this.formArray.value[i].subLedger && this.formArray.value[i].reference =="") {
+        if(this.formArray.value[i].subLedger=="Y" && this.formArray.value[i].reference =="") {
           this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;
         }

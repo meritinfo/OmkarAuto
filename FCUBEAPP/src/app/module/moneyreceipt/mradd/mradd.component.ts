@@ -359,7 +359,6 @@ dashboard: string ="";
     this.requestmodel.strRequest = selectedData.mrStation;
     this.requestmodel.strRequest1 = this.year;
     this.mrService.getMrNo(this.requestmodel).subscribe((res) => {
-      this.responseDetails = res;
       if(res.status){
         this.formUser.patchValue({
           mrNo: res.message
@@ -385,8 +384,7 @@ dashboard: string ="";
   getFinDocDetails(finId: string,reftype:string){
     this.requestmodel.strRequest = finId;
     this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
+      if (res.status) {
         if(reftype =="BC")
         {
           this.seriesDoc = res.message;
@@ -462,7 +460,6 @@ dashboard: string ="";
   getMrInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedMrDetails.mrMasterId;
     this.mrService.getMrInnerGridList(this.requestmodel).subscribe((res) => {
-      this.mrmodel = res;
       this.formArray.clear();
       for (var i = 0; i < res.mrDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray()); 
@@ -695,6 +692,7 @@ dashboard: string ="";
   amtcheck(i:number, clm:string){
     var amtDue = 0;
     var dedTot = 0;
+    var tds = 0;
     var amtrecv = 0;
 
     var selectedDataVal=this.formUser.getRawValue();
@@ -731,14 +729,14 @@ dashboard: string ="";
     // if(selectedDataVal.arrayList[i].recoverable!=""){
     //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].recoverable) ;
     // }
-    // if(selectedDataVal.arrayList[i].tdsDed!=""){
-    //   dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
-    // }      
+    if(selectedDataVal.arrayList[i].tdsDed!=""){
+      tds = tds + parseFloat(selectedDataVal.arrayList[i].tdsDed) ;
+    }      
     if(selectedDataVal.arrayList[i].sdEmdDed!=""){
       dedTot = dedTot + parseFloat(selectedDataVal.arrayList[i].sdEmdDed) ;
     }
     
-    if(dedTot + amtrecv > amtDue){
+    if((dedTot + tds + amtrecv) > amtDue){
       this.toasterService.warning("Recvd & Deduction Should be less than or equal to Due Amount ");
       this.formArray.controls[i].get(clm)?.setValue("");
       return;
@@ -1015,8 +1013,6 @@ dashboard: string ="";
       }
       else{
         this.mrService.getOnAcMrSearchList(this.selectedParty).subscribe((res) => {
-          this.mrmodel = res;
-
           this.formMrArray.clear();
           for (var i = 0; i < res.mrOnAcList.length; i++) {
             this.formMrArray.push(this.createInitialMrArray()); 
@@ -1093,8 +1089,7 @@ dashboard: string ="";
     this.selectedBillLR.sortColumn = selectedDataVal.billLrOthType;
 
     this.mrService.getBillLRSearchDtls(this.selectedBillLR).subscribe((res) => {
-      this.mrmodel = res;
-      if(this.mrmodel.mrDtlsList.length > 0){
+      if(res.mrDtlsList.length > 0){
         this.formArray.controls[index].get("billLrMasterId")?.setValue(res.mrDtlsList[0].billLrMasterId);
         this.formArray.controls[index].get("billLrYear")?.setValue(res.mrDtlsList[0].billLrYear);
         this.formArray.controls[index].get("billLrStn")?.setValue(res.mrDtlsList[0].billLrStn);
@@ -1307,13 +1302,14 @@ dashboard: string ="";
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {       
       var totDed = selectedDataVal.arrayList[i].totDed!= ""? parseFloat(selectedDataVal.arrayList[i].totDed) :0;
       var recdAmt = selectedDataVal.arrayList[i].recdAmt!= ""? parseFloat(selectedDataVal.arrayList[i].recdAmt) :0;
+      var tdsDed = selectedDataVal.arrayList[i].tdsDed!= ""? parseFloat(selectedDataVal.arrayList[i].tdsDed) :0;
 
-      if ((totDed + recdAmt) > 0) {
+      if ((totDed + tdsDed + recdAmt) > 0) {
         if (selectedDataVal.arrayList[i].billLrMasterId != "") {
             //ignore
         }
         else{
-          this.toasterService.warning("Please Enter Valid Bill/LR in grid ");          
+          this.toasterService.warning("Please Enter Valid Bill/LR Details in grid ");          
           return;
         }
         billnolist = billnolist + "," + selectedDataVal.arrayList[i].billLrNo;

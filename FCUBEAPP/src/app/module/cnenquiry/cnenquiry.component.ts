@@ -319,11 +319,13 @@ dashboard: string ="";
       toStn : ['', []],
       ownTruckYN : ['', []],
       truckNo : ['', []],
+      containerNo: ['', []],
       tptName : ['', []],
       totPkgs : ['', []],
       totChrgWt : ['', []],
       totalHire : ['', []],
       totalAdvance : ['', []],
+      balance: ['', []],
     });
   } 
    
@@ -453,15 +455,7 @@ dashboard: string ="";
     this.requestmodel.strRequest2 = selectedDataVal.yearId;
     this.lrentryService.getCnEnqDetails(this.requestmodel).subscribe((res) => {
       this.selectedLrDetails = res;
-      this.formFilter.controls["cnno"].disable();
       this.formUser.patchValue(this.selectedLrDetails);
-      // this.formUser.patchValue({
-      //   bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
-      //   ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
-      //   ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
-      //   invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
-      //   shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),               
-      // })     
       if (this.selectedLrDetails.ownTruck!="Y"){
         this.formUser.patchValue({
           ownTruck : "",               
@@ -534,11 +528,13 @@ dashboard: string ="";
         this.formChlnArray.controls[i].get("toStn")?.setValue(res.chlnList[i].toStn);
         this.formChlnArray.controls[i].get("ownTruckYN")?.setValue(res.chlnList[i].ownTruckYN);
         this.formChlnArray.controls[i].get("truckNo")?.setValue(res.chlnList[i].truckNo);
+        this.formChlnArray.controls[i].get("containerNo")?.setValue(res.chlnList[i].containerNo);        
         this.formChlnArray.controls[i].get("tptName")?.setValue(res.chlnList[i].tptName);
         this.formChlnArray.controls[i].get("totPkgs")?.setValue(res.chlnList[i].totPkgs);
         this.formChlnArray.controls[i].get("totChrgWt")?.setValue(res.chlnList[i].totChrgWt);
         this.formChlnArray.controls[i].get("totalHire")?.setValue(res.chlnList[i].totalHire);
         this.formChlnArray.controls[i].get("totalAdvance")?.setValue(res.chlnList[i].totalAdvance);
+        this.formChlnArray.controls[i].get("balance")?.setValue(res.chlnList[i].balance);
         this.formChlnArray.controls[i].get("challanNo")?.disable();
         this.formChlnArray.controls[i].get("challanDate")?.disable();
         this.formChlnArray.controls[i].get("expArrivalDate")?.disable();
@@ -547,11 +543,13 @@ dashboard: string ="";
         this.formChlnArray.controls[i].get("toStn")?.disable();
         this.formChlnArray.controls[i].get("ownTruckYN")?.disable();
         this.formChlnArray.controls[i].get("truckNo")?.disable();
+        this.formChlnArray.controls[i].get("containerNo")?.disable(); 
         this.formChlnArray.controls[i].get("tptName")?.disable();
         this.formChlnArray.controls[i].get("totPkgs")?.disable();
         this.formChlnArray.controls[i].get("totChrgWt")?.disable();
         this.formChlnArray.controls[i].get("totalHire")?.disable();
         this.formChlnArray.controls[i].get("totalAdvance")?.disable();
+        this.formChlnArray.controls[i].get("balance")?.disable();
       }         
       
       for (var i = 0; i < res.lhpmList.length; i++) {

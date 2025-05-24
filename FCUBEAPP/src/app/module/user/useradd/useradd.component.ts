@@ -39,7 +39,7 @@ export class UseraddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   @ViewChild('userPhotoInput', {
     static: true
@@ -66,12 +66,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -104,6 +104,7 @@ dashboard: string ="";
       updateAdvancePaid: new FormControl('N', [Validators.required]), 
       dprAdvanceUpdate: new FormControl('N', [Validators.required]), 
       updateCnFreight: new FormControl('N', [Validators.required]), 
+      sameLrChallan: new FormControl('N', [Validators.required]), 
       showFreightDtls: new FormControl('Y', [Validators.required]), 
       dprAddLr:  new FormControl('Y', [Validators.required]), 
       updateAssignBy:  new FormControl('Y', [Validators.required]), 
@@ -252,7 +253,8 @@ dashboard: string ="";
     this.userModel.benApproveBlock = 'N';    
     this.userModel.updateAdvancePaid= selecteddata.updateAdvancePaid?selecteddata.updateAdvancePaid:'N';   
     this.userModel.dprAdvanceUpdate= selecteddata.dprAdvanceUpdate?selecteddata.dprAdvanceUpdate:'N';   
-    this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';  
+    this.userModel.updateCnFreight= selecteddata.updateCnFreight?selecteddata.updateCnFreight:'N';   
+    this.userModel.sameLrChallan= selecteddata.sameLrChallan?selecteddata.sameLrChallan:'N'; 
     this.userModel.dprAddLr= selecteddata.dprAddLr?selecteddata.dprAddLr:'N';  
     this.userModel.updateAssignBy= selecteddata.updateAssignBy?selecteddata.updateAssignBy:'N';  
     this.userModel.loggedInUser = this.loggedInUserID;

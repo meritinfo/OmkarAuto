@@ -16,6 +16,7 @@ namespace FleetTrans.Models
         public string? TransType { get; set; }
         public string? AmountPaid { get; set; }
         public string? Remarks { get; set; }
+        public string? VendorRefNo { get; set; }        
         public string? PmtType { get; set; }
         public string? NeftPmt { get; set; }
         public string? CreditAc { get; set; }

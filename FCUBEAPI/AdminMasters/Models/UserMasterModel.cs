@@ -22,6 +22,7 @@
         public string? DprAddLr { get; set; }
         public string? UpdateAssignBy { get; set; }        
         public string? UpdateCnFreight { get; set; }
+        public string? SameLrChallan { get; set; }
         public string? ShowFreightDtls { get; set; }        
         public string? BranchList { get; set; }
         public string? LoggedInUser { get; set; }

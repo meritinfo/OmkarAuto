@@ -164,12 +164,10 @@ export class TrippaymentsllpaddComponent {
     setTimeout(() => {
      this.createmode = true;
      this.formTripPayment.controls['pmtBranch'].disable();
-     this.formTripPayment.controls['pmtDate'].disable();
      this.formTripPayment.controls['bookingDate'].disable();
      this.formTripPayment.controls['gcNoteNo'].disable();
      this.formTripPayment.controls['fromPlace'].disable();
      this.formTripPayment.controls['toPlace'].disable();
-     this.formTripPayment.controls['withLRYN'].disable();
 
       if (this.selectedTripPaymentsDetails.pmtId != '') {
         this.attachment1 = Constants.UploadFolderPath + 'trippayments/attachment1/' + this.selectedTripPaymentsDetails.attachment1;
@@ -229,9 +227,9 @@ export class TrippaymentsllpaddComponent {
         this.modifiedBy = this.selectedTripPaymentsDetails.modifiedBy + " " + this.selectedTripPaymentsDetails.modifiedDate;   
         this.editMode = true;
         this.formTripPayment.controls['pmtBranch'].disable();
+        this.formTripPayment.controls['withLRYN'].disable();
         this.formTripPayment.controls['transType'].disable();
         this.formTripPayment.controls['loadorempty'].disable();
-        this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['dsltobe'].disable();
         this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable(); 
@@ -295,6 +293,7 @@ export class TrippaymentsllpaddComponent {
  
   selectEvent(item: any) {
     var selectedData = this.formTripPayment.getRawValue();
+    this.consignmentId = "";
     if(selectedData.withLRYN=="Y"){
       this.getLRDetails(item.dataName);
     }
@@ -348,7 +347,7 @@ export class TrippaymentsllpaddComponent {
       else{
         this.toasterService.warning("LR Details Does not Exists")
         this.formTripPayment.patchValue({
-          vehicleMasterID: "" 
+          withLRYN: "N" 
         });
       }
     });
@@ -519,6 +518,7 @@ export class TrippaymentsllpaddComponent {
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
+    this.trippaymentsmodel.vendorRefNo = selectedDataValue.vendorRefNo.toString().toUpperCase();    
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";
