@@ -40,6 +40,10 @@ namespace Consignment.Business
         {
             return await challanRepository.GetCCIInviceDetailLLP(requestModel);
         }
+        public async Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel)
+        {
+            return await challanRepository.ChkPanDeclaration(requestModel);
+        }
 
     }
 

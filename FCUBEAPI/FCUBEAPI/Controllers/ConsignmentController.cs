@@ -3140,6 +3140,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("ChkPanDeclaration")]
+        public async Task<IActionResult> ChkPanDeclaration(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.ChkPanDeclaration(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetChallanPrintPdfLLP")]
         public async Task<IActionResult> GetChallanPrintPdfLLP(RequestModel request)
         {

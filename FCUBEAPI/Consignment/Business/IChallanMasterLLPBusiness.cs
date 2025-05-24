@@ -17,5 +17,6 @@ namespace Consignment.Business
         Task<ResponseModel> ChallanMasterDeleteLLP(RequestModel requestModel);
         Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request);
         Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel);
+        Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel);
     }
 }
