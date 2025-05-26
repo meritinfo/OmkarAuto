@@ -153,6 +153,7 @@ export class CustwizardaddComponent {
       hsdAc: new FormControl('',[Validators.required]), 
       dslDiscAc: new FormControl('',[Validators.required]), 
       dslTdsAc: new FormControl('',[Validators.required]), 
+      brokerAdvAc: new FormControl('',[Validators.required]), 
 
     });
     this.getCrAcListForCustWizard();
@@ -232,7 +233,8 @@ export class CustwizardaddComponent {
         flt_OthDedAc: this.selectedCustWizardDetails.flt_OthDedAc,
         hsdAc: this.selectedCustWizardDetails.hsdAc,
         dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
-        dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,               
+        dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,  
+         brokerAdvAc: this.selectedCustWizardDetails.brokerAdvAc,              
       });
     });    
   }
@@ -360,6 +362,7 @@ export class CustwizardaddComponent {
     this.custWizardModel.hsdAc = selectedDataValue.hsdAc ;    
     this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc ;    
     this.custWizardModel.dslTdsAc= selectedDataValue.dslTdsAc;
+      this.custWizardModel.brokerAdvAc= selectedDataValue.brokerAdvAc;
   
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

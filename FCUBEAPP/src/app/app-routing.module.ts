@@ -313,6 +313,11 @@ import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicl
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
 import { ChallansupplilistComponent } from './module/challansuppli/challansupplilist/challansupplilist.component';
 import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
+import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
+import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
+
+
+
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 
 const routes: Routes = [
@@ -746,6 +751,9 @@ const routes: Routes = [
   { path: 'suppchallanlist',component: ChallansupplilistComponent},
   { path: 'suppchallanadd',component: ChallansuppliaddComponent },
   { path: 'suppchallanedit',component: ChallansuppliaddComponent },
+  { path: 'brokeradvpmtadd',component: BrokeradvancepmtaddComponent },
+  { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
+  { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
 ];
 
 

@@ -10,6 +10,8 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
+using FleetMasters.Business;
+using System.Net.Mail;
 
 
 namespace FCUBEAPI.Controllers
@@ -41,6 +43,7 @@ namespace FCUBEAPI.Controllers
         readonly IDeliveryDisputeEntryBusiness deliveryDisputeEntryBusiness;
         readonly IChallanSuppliBusiness challanSuppliBusiness;
 
+        readonly IBrokerAdvancePmtBusiness brokerAdvancePmtBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -61,7 +64,9 @@ namespace FCUBEAPI.Controllers
             ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
             IChallanMasterLLPBusiness _challanMasterBusinessLLP,
             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
-            IChallanSuppliBusiness _challanSuppliBusiness)
+            IChallanSuppliBusiness _challanSuppliBusiness,
+            // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
+            IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -82,8 +87,9 @@ namespace FCUBEAPI.Controllers
             doTempGcBusiness = _doTempGcBusiness;
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
             challanMasterBusinessLLP= _challanMasterBusinessLLP;
-            deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
+          //  deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
             challanSuppliBusiness = _challanSuppliBusiness;
+            brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
         }
         
 
@@ -161,6 +167,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetLrInnerGridList")]
         public async Task<IActionResult> GetLrInnerGridList(RequestModel request)
         {
@@ -3422,9 +3429,108 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("BrokerAdvancePmtSave")]
+        public async Task<IActionResult> BrokerAdvancePmtSave()
+        {
+            try
+            {
+               // var driverPhoto = HttpContext.Request.Form.Files["driverPhoto"];
+                var attach1 = HttpContext.Request.Form.Files["attach1"];
+             
+
+                BrokerAdvancePmtModel brokerAdvancePmtModel = JsonConvert.DeserializeObject<BrokerAdvancePmtModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attach1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/broker/attachment");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach1.CopyToAsync(fileStream);
+                        brokerAdvancePmtModel.Attachment1 = imageName;
+                    }
+                }
+               
+               
+               
+
+                var result = await brokerAdvancePmtBusiness.BrokerAdvancePmtSave(brokerAdvancePmtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBrokerAdvancePmtList")]
+        public async Task<IActionResult> GetBrokerAdvancePmtList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brokerAdvancePmtBusiness.GetBrokerAdvancePmtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BrokerAdvancePmtDelete")]
+        public async Task<IActionResult> BrokerAdvancePmtDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brokerAdvancePmtBusiness.BrokerAdvancePmtDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPmtNo")]
+        public async Task<IActionResult> GetPmtNo(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brokerAdvancePmtBusiness.GetPmtNo(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
 
 
     }
+
+
 }
 

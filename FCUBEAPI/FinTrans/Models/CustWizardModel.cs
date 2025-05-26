@@ -63,9 +63,10 @@ namespace FinTrans.Models
         public string? HsdAc { get; set; }
         public string? DslDiscAc { get; set; }
         public string? DslTdsAc { get; set; }
+        public string? BrokerAdvAc { get; set; }
 
 
 
-
+      
     }
 }

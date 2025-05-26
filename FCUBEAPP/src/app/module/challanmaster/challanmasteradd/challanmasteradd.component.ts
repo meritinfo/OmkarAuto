@@ -273,6 +273,7 @@ modifiedBy: string = "";
           challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
+        
      
         var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
         if(ch == "P"){            

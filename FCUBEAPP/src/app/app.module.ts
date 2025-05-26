@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser';
+import { BrokeradvancepmtModel } from './models/brokeradvancepmtmodel';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -495,6 +496,8 @@ import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicl
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
 import { ChallansupplilistComponent } from './module/challansuppli/challansupplilist/challansupplilist.component';
 import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
+import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
+import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 
 
@@ -655,6 +658,9 @@ import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
+    ChallansupplilistComponent, ChallansuppliaddComponent, 
+    BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent
     VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, CashbookrptComponent, 
     
   ],
@@ -728,7 +734,7 @@ import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
-    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,
     
   ],
   bootstrap: [AppComponent]
