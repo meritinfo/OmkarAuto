@@ -749,7 +749,7 @@ const routes: Routes = [
   { path: 'suppchallanlist',component: ChallansupplilistComponent},
   { path: 'suppchallanadd',component: ChallansuppliaddComponent },
   { path: 'suppchallanedit',component: ChallansuppliaddComponent },
-   { path: 'brokeradvpmtadd',component: BrokeradvancepmtaddComponent },
+  { path: 'brokeradvpmtadd',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
 ];

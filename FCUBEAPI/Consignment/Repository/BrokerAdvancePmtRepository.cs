@@ -163,9 +163,14 @@ namespace Consignment.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search),
-                            new SqlParameter("@@LoginBranch", request.Search),
-                            
+                            new SqlParameter("@Search", request.Search), 
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@PmtNo",      request.FilterStr),
+                     
+                            new SqlParameter("@LoginBranch",    request.FilterStr1),
+                            new SqlParameter("@YearId",         request.FilterStr2),
+
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrokerAdvancePmtList", param);

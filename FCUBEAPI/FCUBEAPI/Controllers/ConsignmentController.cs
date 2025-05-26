@@ -64,8 +64,8 @@ namespace FCUBEAPI.Controllers
             ICciInvoiceMstBusiness _cciInvoiceMstBusiness,
             IChallanMasterLLPBusiness _challanMasterBusinessLLP,
             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
-            IChallanSuppliBusiness _challanSuppliBusiness)
-             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
+            IChallanSuppliBusiness _challanSuppliBusiness,
+            // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness)
         {
             dbconnection = _dbconnection;
@@ -87,7 +87,7 @@ namespace FCUBEAPI.Controllers
             doTempGcBusiness = _doTempGcBusiness;
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
             challanMasterBusinessLLP= _challanMasterBusinessLLP;
-            deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
+          //  deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
             challanSuppliBusiness = _challanSuppliBusiness;
             brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
         }
@@ -3530,5 +3530,7 @@ namespace FCUBEAPI.Controllers
 
 
     }
+
+
 }
 

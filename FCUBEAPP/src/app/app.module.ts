@@ -657,7 +657,9 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
-    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
+    ChallansupplilistComponent, ChallansuppliaddComponent, 
+    BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent
     
   ],
   

@@ -135,8 +135,8 @@ dashboard: string ="";
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.fromDate,),
         toDate: new FormControl(this.loginDate,),
-        vehicleNo: new FormControl("",),
-        challanNo: new FormControl("",),
+  
+        pmtNo: new FormControl("",),
       });
       
     //  this.getBranchList();
@@ -190,11 +190,11 @@ dashboard: string ="";
             data: 'branch',
           },
           {
-            title: 'Pmt No',
+            title: 'Payment No',
             data: 'pmtNo',
           },  
           {
-            title: 'Pmt Date',
+            title: 'Payment Date',
             data: 'pmtDate',
           },       
           {
@@ -252,10 +252,10 @@ dashboard: string ="";
       var selectedDataVal = this.formFilter.getRawValue();
       this.filter.fromDate = selectedDataVal.fromDate;
       this.filter.toDate = selectedDataVal.toDate;
-      this.filter.filterStr = selectedDataVal.vehicleNo;
-      this.filter.filterStr1 = selectedDataVal.challanNo;
-      this.filter.filterStr2 = this.branch;     
-      this.filter.filterStr3 = this.year;    
+      this.filter.filterStr = selectedDataVal.pmtNo;
+ 
+      this.filter.filterStr1 = this.branch;     
+      this.filter.filterStr2 = this.year;    
       
        this.getAdvanceList();
        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
