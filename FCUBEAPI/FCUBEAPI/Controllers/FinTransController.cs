@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.Common;
+using Org.BouncyCastle.Ocsp;
 
 
 
@@ -26,11 +27,8 @@ namespace FCUBEAPI.Controllers
         readonly IBankReconcilationBusiness bankReconcilationBusiness;
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
         readonly ICustWizardBusiness custWizardBusiness;
-        readonly ILedgerRptBusiness ledgerRptBusiness;
-        readonly IGstSalesRegisterRptBusiness gstSalesRegisterRptBusiness;
-        readonly IBankBookRptBusiness bankBookRptBusiness;
+        readonly IFinRptBusiness ledgerRptBusiness;
         readonly IBalanceBusiness balanceBusiness;
-        readonly IMonthlyStatementsBusiness monthlyStatementsBusiness;
 
 
         public FinTransController(IOptions<DBModel> _dbconnection,
@@ -39,11 +37,8 @@ namespace FCUBEAPI.Controllers
             IBankReconcilationBusiness _bankReconcilationBusiness,
             IOpBrsEntryBusiness _opBrsEntryBusiness, 
             ICustWizardBusiness _custWizardBusiness,
-            ILedgerRptBusiness _ledgerRptBusiness,
-            IBankBookRptBusiness _bankBookRptBusiness,
-            IGstSalesRegisterRptBusiness _gstSalesRegisterRptBusiness,
-            IBalanceBusiness _balanceBusiness,
-            IMonthlyStatementsBusiness  _monthlyStatementsBusiness)
+            IFinRptBusiness _ledgerRptBusiness,
+            IBalanceBusiness _balanceBusiness)
         {
             dbconnection = _dbconnection;
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
@@ -52,10 +47,7 @@ namespace FCUBEAPI.Controllers
             opBrsEntryBusiness = _opBrsEntryBusiness;
             custWizardBusiness = _custWizardBusiness;
             ledgerRptBusiness = _ledgerRptBusiness;
-            gstSalesRegisterRptBusiness = _gstSalesRegisterRptBusiness;
-            bankBookRptBusiness = _bankBookRptBusiness;
             balanceBusiness = _balanceBusiness;
-            monthlyStatementsBusiness = _monthlyStatementsBusiness;
         }
         /// <summary>
 
@@ -519,9 +511,13 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CashBookReport")]
         public async Task<IActionResult> CashBookReport(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
-                var result = await cashReceiptPaymentsBusiness.CashBookReport(request);
+                var result = await ledgerRptBusiness.CashBookReport(request);
 
                 return Ok(result);
             }
@@ -555,7 +551,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await gstSalesRegisterRptBusiness.GetGstSalesRegisterRptList(req);
+                var result = await ledgerRptBusiness.GetGstSalesRegisterRptList(req);
 
                 return Ok(result);
             }
@@ -573,7 +569,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await gstSalesRegisterRptBusiness.GetGstSalesRegisterRptExcel(req);
+                var result = await ledgerRptBusiness.GetGstSalesRegisterRptExcel(req);
 
                 return Ok(result);
             }
@@ -650,7 +646,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await bankBookRptBusiness.GetBankBookRptList(req);
+                var result = await ledgerRptBusiness.GetBankBookRptList(req);
 
                 return Ok(result);
             }
@@ -669,7 +665,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await bankBookRptBusiness.GetBankBookRptExcel(req);
+                var result = await ledgerRptBusiness.GetBankBookRptExcel(req);
 
                 return Ok(result);
             }
@@ -689,7 +685,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await bankBookRptBusiness.GetBankBookRptPdf(req);
+                var result = await ledgerRptBusiness.GetBankBookRptPdf(req);
 
                 return Ok(result);
             }
@@ -841,7 +837,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await monthlyStatementsBusiness.GetMonthlyBookingRptExcel(req);
+                var result = await ledgerRptBusiness.GetMonthlyBookingRptExcel(req);
 
                 return Ok(result);
             }
@@ -860,7 +856,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await monthlyStatementsBusiness.GetMonthlyLorryHireRptExcel(req);
+                var result = await ledgerRptBusiness.GetMonthlyLorryHireRptExcel(req);
 
                 return Ok(result);
             }
@@ -879,7 +875,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await monthlyStatementsBusiness.GetMonthlyAdminExpRptExcel(req);
+                var result = await ledgerRptBusiness.GetMonthlyAdminExpRptExcel(req);
 
                 return Ok(result);
             }

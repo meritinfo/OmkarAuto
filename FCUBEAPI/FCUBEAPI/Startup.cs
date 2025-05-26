@@ -153,8 +153,6 @@ namespace FCUBEAPI
             services.AddScoped<IEwayBillBusiness, EwayBillBusiness>();
             services.AddScoped<IRolePrivilegesRepository, RolePrivilegesRepository>();
             services.AddScoped<IRolePrivilegesBusiness, RolePrivilegesBusiness>();
-            services.AddScoped<IGstSalesRegisterRptRepository, GstSalesRegisterRptRepository>();
-            services.AddScoped<IGstSalesRegisterRptBusiness, GstSalesRegisterRptBusiness>();
             services.AddScoped<IEmpSalaryBusiness, EmpSalaryBusiness>();
             services.AddScoped<IEmpSalaryRepository, EmpSalaryRepository>();
             services.AddScoped<IVehiEmiBusiness, VehiEmiBusiness>();
@@ -163,10 +161,8 @@ namespace FCUBEAPI
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IEmpSalaryCalcBusiness, EmpSalaryCalcBusiness>();
             services.AddScoped<IEmpSalaryCalcRepository, EmpSalaryCalcRepository>();        
-            services.AddScoped<ILedgerRptBusiness, LedgerRptBusiness>();
-            services.AddScoped<ILedgerRptRepository, LedgerRptRepository>();
-            services.AddScoped<IBankBookRptBusiness, BankBookRptBusiness>();
-            services.AddScoped<IBankBookRptRepository, BankBookRptRepository>();
+            services.AddScoped<IFinRptBusiness, FinRptBusiness>();
+            services.AddScoped<IFinRptRepository, FinRptRepository>();
             services.AddScoped<IEwayBillExpRptBusiness, EwayBillExpRptBusiness>();
             services.AddScoped<IEwayBillExpRptRepository, EwayBillExpRptRepository>();
             services.AddScoped<IDprBusiness, DprBusiness>();
@@ -235,8 +231,6 @@ namespace FCUBEAPI
             services.AddScoped<ICnorCneeGstRepository, CnorCneeGstRepository>();         
             services.AddScoped<IExpenseBudgetsBusiness, ExpenseBudgetsBusiness>();
             services.AddScoped<IExpenseBudgetsRepository, ExpenseBudgetsRepository>();
-            services.AddScoped<IMonthlyStatementsBusiness, MonthlyStatementsBusiness>();
-            services.AddScoped<IMonthlyStatementsRepository, MonthlyStatementsRepository>();
             services.AddScoped<IPartyGroupMasterBusiness, PartyGroupMasterBusiness>();
             services.AddScoped<IPartyGroupMasterRepository, PartyGroupMasterRepository>();  
             services.AddScoped<ISubLedgerMasterBusiness, SubLedgerMasterBusiness>();

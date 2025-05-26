@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using FinTrans.Models;
 using FinTrans.Repository;
 using iText.Kernel.Colors;
@@ -17,23 +11,20 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using iText.Kernel.Geom;
 using iText.Layout;
 using Microsoft.Extensions.Options;
-using Org.BouncyCastle.Asn1.Ocsp;
 using Shared.Repository;
 using SqlHelper.Models;
-using System.Collections;
 
 namespace FinTrans.Business
 {
-    public class LedgerRptBusiness : ILedgerRptBusiness
+    public class FinRptBusiness : IFinRptBusiness
     {
-        readonly ILedgerRptRepository ledgerRptRepository;
+        readonly IFinRptRepository ledgerRptRepository;
         private readonly IOptions<DBModel> dbconnection;
         private readonly ISharedRepository sharedRepository;
-        public LedgerRptBusiness(ILedgerRptRepository _ledgerRptRepository,
+        public FinRptBusiness(IFinRptRepository _ledgerRptRepository,
             IOptions<DBModel> _dbconnection,
             ISharedRepository _sharedRepository)
         {
@@ -41,7 +32,15 @@ namespace FinTrans.Business
             dbconnection = _dbconnection;
             sharedRepository = _sharedRepository;
         }
-       
+
+
+        public async Task<ResponseModel> CashBookReport(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.CashBookReport(request);
+        }
+
+
+
         public async Task<List<DropDownListModel>> GetLedgerList()
         {
             return await ledgerRptRepository.GetLedgerList();
@@ -240,5 +239,193 @@ namespace FinTrans.Business
             }
         }
 
+
+        public async Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetBankBookRptList(request);
+        }
+        public async Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetBankBookRptExcel(request);
+        }
+        public async Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request)
+        {
+            ResponseModel res = new ResponseModel();
+            DataSet reportData = await ledgerRptRepository.bankBookReport(request);
+
+            if (reportData != null && reportData.Tables[0].Rows.Count > 0)
+            {
+                ResponseModel response = new ResponseModel();
+                response = await sharedRepository.GetCompanyDetail();
+
+                string path = CreateBankBookReportAsync(request, reportData, response);
+
+                res.Status = true;
+                res.Message = path;
+            }
+            else
+            {
+                res.Status = false;
+                res.Message = "No Data Found";
+            }
+
+            return res;
+        }
+
+        private string CreateBankBookReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
+        {
+            var folderName = System.IO.Path.Combine("reports", "BankBook");
+            var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
+            string fileName = "BankBook_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
+            var filePath = folderName + "//" + fileName;
+            var fullPath = System.IO.Path.Combine(pathToSave, fileName);
+            bool exists = System.IO.Directory.Exists(pathToSave);
+            if (!exists)
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+            PdfWriter writer = new PdfWriter(fullPath);
+            var pdf = new PdfDocument(writer);
+            pdf.SetDefaultPageSize(PageSize.A4);
+            var document = new Document(pdf);
+
+            // Header table
+            var headerTable = new Table(1);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+            var headerCell = new Cell().Add(new Paragraph(response.Message));
+            headerTable.AddCell(headerCell.SetFontSize(12F).SetBorder(Border.NO_BORDER));
+            document.Add(headerTable);
+
+            headerTable = new Table(1);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+            headerCell = new Cell().Add(new Paragraph("Bank Book Report"));
+            headerTable.AddCell(headerCell.SetFontSize(10F).SetBorder(Border.NO_BORDER));
+            document.Add(headerTable);
+
+            headerTable = new Table(2);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+            headerCell = new Cell().Add(new Paragraph("From : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy")));
+            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            headerCell = new Cell().Add(new Paragraph("To : " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy")));
+            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
+
+            document.Add(headerTable);
+
+            headerTable = new Table(1);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+            headerCell = new Cell().Add(new Paragraph("Account : " + reportData.Tables[0].Rows[0]["MainAccount"].ToString()));
+            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
+
+            document.Add(headerTable);
+
+            // Invoice details table
+            var detailsTable = new Table(6);
+            detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(12)).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(10)).Add(new Paragraph("Doc No")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(45)).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Debit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Credit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+
+            // Add more details as needed
+
+            // Line separator
+            LineSeparator ls = new LineSeparator(new SolidLine());
+            ls.SetMarginTop(20);
+            document.Add(ls);
+
+            Decimal Balance = 0;
+            Decimal receipts = 0;
+            Decimal totReceipts = 0;
+            Decimal payments = 0;
+            Decimal totPayments = 0;
+            var DocNo = "";
+
+            for (int i = 0; i < reportData.Tables[0].Rows.Count; i++)
+            {
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToDateTime(reportData.Tables[0].Rows[i]["FtmDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                DocNo = reportData.Tables[0].Rows[i]["DocNo"].ToString();
+                if (DocNo == "0") { DocNo = ""; }
+                detailsTable.AddCell(new Cell().Add(new Paragraph(DocNo)).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToString(reportData.Tables[0].Rows[i]["Narration"]))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                receipts = Convert.ToDecimal(reportData.Tables[0].Rows[i]["DrAmt"]);
+                detailsTable.AddCell(new Cell().Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                payments = Convert.ToDecimal(reportData.Tables[0].Rows[i]["CrAmt"]);
+                detailsTable.AddCell(new Cell().Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                totReceipts = totReceipts + receipts;
+                totPayments = totPayments + payments;
+                Balance = totReceipts - totPayments;
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+
+                if (reportData.Tables[0].Rows[i]["CheqNo"].ToString() != "x")
+                {
+                    detailsTable.AddCell(new Cell().Add(new Paragraph()).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().Add(new Paragraph()).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().Add(new Paragraph(reportData.Tables[0].Rows[i]["CheqNo"].ToString() + "/" + Convert.ToDateTime(reportData.Tables[0].Rows[i]["CheqDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().Add(new Paragraph()).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().Add(new Paragraph()).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().Add(new Paragraph()).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                }
+            }
+
+
+            document.Add(detailsTable);
+
+            // Line separator
+            ls = new LineSeparator(new SolidLine());
+            document.Add(ls);
+
+            detailsTable = new Table(3);
+            detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Debits : " + totReceipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Credits : " + totPayments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            Balance = totReceipts - totPayments;
+            detailsTable.AddCell(new Cell().Add(new Paragraph("Closing Balance : " + Balance.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+
+
+            document.Add(detailsTable);
+
+            // Line separator
+            ls = new LineSeparator(new SolidLine());
+            document.Add(ls);
+
+            Footer footerHandler = new Footer();
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);
+            footerHandler.WriteTotal(pdf);
+
+            document.Close();
+
+            //return filePath;
+            return fileName;
+        }
+
+
+        public async Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetGstSalesRegisterRptList(request);
+        }
+        public async Task<ResponseModel> GetGstSalesRegisterRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetGstSalesRegisterRptExcel(request);
+        }
+
+
+        public async Task<ResponseModel> GetMonthlyBookingRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetMonthlyBookingRptExcel(request);
+        }
+        public async Task<ResponseModel> GetMonthlyLorryHireRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetMonthlyLorryHireRptExcel(request);
+        }
+        public async Task<ResponseModel> GetMonthlyAdminExpRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetMonthlyAdminExpRptExcel(request);
+        }
     }
 }

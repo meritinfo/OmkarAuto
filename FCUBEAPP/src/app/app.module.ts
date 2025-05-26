@@ -495,6 +495,7 @@ import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicl
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
 import { ChallansupplilistComponent } from './module/challansuppli/challansupplilist/challansupplilist.component';
 import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
+import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 
 
 @NgModule({
@@ -654,7 +655,7 @@ import { ChallansuppliaddComponent } from './module/challansuppli/challansupplia
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
-    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, CashbookrptComponent, 
     
   ],
   
