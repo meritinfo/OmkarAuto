@@ -53,34 +53,28 @@ export class ChallanmasterServiceLLP {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChallanMasterDeleteLLP', req, this.httpOptions);
   }  
   getChallanNo(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanNoLLP', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanNo', req, this.httpOptions);
   }
   checkDuplicateChallan(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateChallanLLP', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateChallan', req, this.httpOptions);
   }
   getConsignmentId(req: Requestmodel): Observable<ChallanmastermodelllP> {
-    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentIdLLP', req, this.httpOptions);
+    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentId', req, this.httpOptions);
   }
   getGetCCIInviceDetail(req: Requestmodel): Observable<Ccinvdetailmodel> {
     return this.httpClient.post<Ccinvdetailmodel>(Constants.API_ENDPOINT + 'Consignment/GetCCIInviceDetailLLP', req, this.httpOptions);
   }
   getPanValidDetails(req: Requestmodel): Observable<Panvalidapiresultmodel> {
-    return this.httpClient.post<Panvalidapiresultmodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidDetailsLLP', req, this.httpOptions);
+    return this.httpClient.post<Panvalidapiresultmodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidDetails', req, this.httpOptions);
   }
   getDetails(req: Requestmodel): Observable<ChallanmastermodelllP> {
-    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetChallanDetailsFromLRLLP', req, this.httpOptions);
+    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetChallanDetailsFromLR', req, this.httpOptions);
   }
   checkChallanPrepForLr(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanPrepForLrLLP', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanPrepForLr', req, this.httpOptions);
   }
   getChallanPrintPdf(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanPrintPdfLLP', req, this.httpOptions);
-  }
-  getChallanEnqDetails(filter: Requestmodel): Observable<ChallanmastermodelllP> {
-    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqDetailsLLP', filter, this.httpOptions);
-  }
-  getChallanEnqInnerGridList(req: Requestmodel): Observable<ChallanmastermodelllP> {
-    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetChallanEnqInnerGridListLLP', req, this.httpOptions);
   }
   getPanwiseTdsRate(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetPanwiseTdsRate', req, this.httpOptions);

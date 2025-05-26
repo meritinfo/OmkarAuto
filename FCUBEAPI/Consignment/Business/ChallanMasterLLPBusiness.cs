@@ -32,49 +32,17 @@ namespace Consignment.Business
         {
             return await challanRepository.ChallanMasterDeleteLLP(request);
         }
-        public async Task<ResponseModel> GetChallanNoLLP(RequestModel request)
-        {
-            return await challanRepository.GetChallanNoLLP(request);
-        }
-        public async Task<ResponseModel> CheckDuplicateChallanLLP(RequestModel request)
-        {
-            return await challanRepository.CheckDuplicateChallanLLP(request);
-        }
-        public async Task<ChallanMasterModelLLP> GetConsignmentIdLLP(RequestModel request)
-        {
-            return await challanRepository.GetConsignmentIdLLP(request);
-        }
-        public async Task<ChallanMasterModelLLP> GetChallanDetailsFromLRLLP(RequestModel request)
-        {
-            return await challanRepository.GetChallanDetailsFromLRLLP(request);
-        }
-        public async Task<PanApiResultModel> GetPanValidDetailsLLP(RequestModel request)
-        {
-            return await challanRepository.GetPanValidDetailsLLP(request);
-        }
-        public async Task<ResponseModel> CheckChallanPrepForLrLLP(RequestModel request)
-        {
-            return await challanRepository.CheckChallanPrepForLrLLP(request);
-        }
-        public async Task<ChallanMasterModelLLP> GetChallanEnqInnerGridListLLP(RequestModel request)
-        {
-            return await challanRepository.GetChallanEnqInnerGridListLLP(request);
-        }
-        public async Task<ChallanMasterModelLLP> GetChallanEnqDetailsLLP(RequestModel req)
-        {
-            return await challanRepository.GetChallanEnqDetailsLLP(req);
-        }
         public async Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request)
         {
             return await challanRepository.GetChallanPrintPdfLLP(request);
         }
-        public async Task<ResponseModel> ChkPanDeclaration(RequestModel request)
-        {
-            return await challanRepository.ChkPanDeclaration(request);
-        }
         public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
         {
             return await challanRepository.GetCCIInviceDetailLLP(requestModel);
+        }
+        public async Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel)
+        {
+            return await challanRepository.ChkPanDeclaration(requestModel);
         }
 
     }

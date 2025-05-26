@@ -342,7 +342,6 @@ dashboard: string ="";
   }
   
   search(): void {
-    debugger;
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;

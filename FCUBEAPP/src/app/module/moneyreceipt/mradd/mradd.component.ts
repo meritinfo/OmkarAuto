@@ -249,7 +249,7 @@ dashboard: string ="";
 
       if (this.selectedMrDetails.mrMasterId != '') {  
         this.formUser.controls['mrNo'].disable();  
-        this.formUser.controls['mrDate'].disable();  
+       //this.formUser.controls['mrDate'].disable();  
         this.formUser.controls['mrStatus'].disable();  
         this.formUser.controls['mrType'].disable();  
         this.formUser.controls['mrReceiptType'].disable();  

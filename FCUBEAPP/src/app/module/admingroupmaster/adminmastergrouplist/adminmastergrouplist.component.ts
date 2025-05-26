@@ -199,7 +199,6 @@ constructor(private formBuilder: FormBuilder,private adminGroupMasterService: Ad
         
         
           search(): void {
-            debugger;
             var selectedData = this.formFilter.getRawValue();
            
             this.filter.fromDate = selectedData.fromDate;

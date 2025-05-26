@@ -494,6 +494,8 @@ import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymen
 import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
 import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllpadd/vehicleinstpmtllpadd.component';
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
+import { ChallansupplilistComponent } from './module/challansuppli/challansupplilist/challansupplilist.component';
+import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 
@@ -655,7 +657,7 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
-    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, BrokeradvancepmtaddComponent, BrokeradvancepmtlistComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, 
     
   ],
   
