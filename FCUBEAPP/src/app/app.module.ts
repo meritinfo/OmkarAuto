@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser';
+import { BrokeradvancepmtModel } from './models/brokeradvancepmtmodel';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -493,6 +494,8 @@ import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymen
 import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
 import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllpadd/vehicleinstpmtllpadd.component';
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
+import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
+import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 
 
 @NgModule({
@@ -652,7 +655,7 @@ import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehic
     DeliverydisputeentryaddComponent, DeliverydisputeentrylistComponent, 
     VehicleengagementrptComponent, BillprintllpComponent, BillgstrptComponent, 
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
-    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
+    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, BrokeradvancepmtaddComponent, BrokeradvancepmtlistComponent, 
     
   ],
   
@@ -725,7 +728,7 @@ import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehic
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
-    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,
     
   ],
   bootstrap: [AppComponent]

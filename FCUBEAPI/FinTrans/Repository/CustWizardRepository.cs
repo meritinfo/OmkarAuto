@@ -190,6 +190,7 @@ namespace FinTrans.Repository
                         custWizardModel.HsdAc = Convert.ToString(userData.Tables[0].Rows[0]["HsdAc"]);
                         custWizardModel.DslDiscAc = Convert.ToString(userData.Tables[0].Rows[0]["DslDiscAc"]);
                         custWizardModel.DslTdsAc = Convert.ToString(userData.Tables[0].Rows[0]["DslTdsAc"]);
+                        custWizardModel.BrokerAdvAc = Convert.ToString(userData.Tables[0].Rows[0]["BrokerAdvAc"]);
                     }
                     else
                     {
@@ -264,6 +265,7 @@ namespace FinTrans.Repository
                    new SqlParameter("@HsdAc" , custWizardModel.HsdAc),
                     new SqlParameter("@DslDiscAc" , custWizardModel.DslDiscAc),
                      new SqlParameter("@DslTdsAc" , custWizardModel.DslTdsAc),
+                     new SqlParameter("@BrokerAdvAc" , custWizardModel.BrokerAdvAc),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);

@@ -49,5 +49,5 @@ export class Custwizardmodel {
     hsdAc: string = "";
     dslDiscAc: string = "";
     dslTdsAc: string= "";
-    
+    brokerAdvAc : string= "";
 }

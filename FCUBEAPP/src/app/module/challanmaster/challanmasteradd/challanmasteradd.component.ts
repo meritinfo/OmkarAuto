@@ -278,6 +278,7 @@ modifiedBy: string = "";
           challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
+        
      
      
         this.minDate2 =this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) 

@@ -311,6 +311,8 @@ import { TrippaymentsllpaddComponent } from './module/trippaymentsllp/trippaymen
 import { TrippaymentsllplistComponent } from './module/trippaymentsllp/trippaymentsllplist/trippaymentsllplist.component';
 import { VehicleinstpmtllpaddComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllpadd/vehicleinstpmtllpadd.component';
 import { VehicleinstpmtllplistComponent } from './module/vehicleinstpmtllp/vehicleinstpmtllplist/vehicleinstpmtllplist.component';
+import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
+import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 
 
 
@@ -742,6 +744,9 @@ const routes: Routes = [
   { path: 'emipmtllpadd',component: VehicleinstpmtllpaddComponent },
   { path: 'emipmtllpedit',component: VehicleinstpmtllpaddComponent },
   { path: 'emipmtllplist',component: VehicleinstpmtllplistComponent},
+   { path: 'brokeradvpmtadd',component: BrokeradvancepmtaddComponent },
+  { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
+  { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
 ];
 
 

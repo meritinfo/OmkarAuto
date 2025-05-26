@@ -746,6 +746,19 @@
                                     </select>                
                                 </div>                    
                             </div> 
+                            <div class="col-lg-2">   
+                                <div class="mb-3">
+                                    <label for="neft" >Broker AdvAc</label>
+                                    <span style="color: red">*</span>
+                                    <select formControlName="brokerAdvAc"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerAdvAc'].invalid) }">
+                                        <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>                
+                                </div>                    
+                            </div> 
                         </div>                
                         <div class="row text-right">
                             <div class="col-lg-12">

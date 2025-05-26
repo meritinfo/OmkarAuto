@@ -297,6 +297,8 @@ namespace FCUBEAPI
             services.AddScoped<IAdminGroupMasterRepository, AdminGroupMasterRepository>();
             services.AddScoped<IBranchCustomerTargetBusiness, BranchCustomerTargetBusiness>();
             services.AddScoped<IBranchCustomerTargetRepository, BranchCustomerTargetRepository>();
+            services.AddScoped<IBrokerAdvancePmtBusiness, BrokerAdvancePmtBusiness>();
+            services.AddScoped<IBrokerAdvancePmtRepository, BrokerAdvancePmtRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
