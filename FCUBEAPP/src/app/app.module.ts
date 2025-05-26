@@ -660,8 +660,8 @@ import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component
     TrippaymentsllpaddComponent, TrippaymentsllplistComponent, 
     VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
     ChallansupplilistComponent, ChallansuppliaddComponent, 
-    BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent
-    VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, ChallansupplilistComponent, ChallansuppliaddComponent, CashbookrptComponent, 
+    BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
+    CashbookrptComponent, 
     
   ],
   

@@ -315,9 +315,6 @@ import { ChallansupplilistComponent } from './module/challansuppli/challansuppli
 import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
-
-
-
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 
 const routes: Routes = [
