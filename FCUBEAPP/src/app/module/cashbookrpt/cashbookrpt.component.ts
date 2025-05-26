@@ -191,7 +191,12 @@ export class CashbookrptComponent {
 
     this.cashbookreportService.getCashBookReport(this.filter).subscribe((resp: any) => {
         let link = document.createElement("a");
-        link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
+        if(format=="XL"){
+          link.download = "CashbookReport_" + new Date().getTime() + '.xls';
+        }
+        else{
+          link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
+        }
         link.href = "assets/reports/CashBook/" + resp.message;
         link.click();
         window.open(link.href, "_blank");
