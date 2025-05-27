@@ -30,6 +30,7 @@ export class ConsignmentupdateComponent {
   whatsappPOD1: string = '';
   whatsappPOD2: string = '';
   partyList: Dropdownmodel[] = [];
+  vehicalType: Dropdownmodel[] = [];
     
   formSubmitted = false;
   editMode = false;
@@ -37,7 +38,7 @@ export class ConsignmentupdateComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -83,13 +84,6 @@ dashboard: string ="";
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -133,6 +127,7 @@ dashboard: string ="";
     this.getLocationList();
     this.getBillingPartyList();
     this.getContentList();
+    this.getVehTypes();
     this.formSubmitted = false;
 
     this.sharedService.loading = false;
@@ -142,6 +137,7 @@ dashboard: string ="";
       gcNoteNo  : new FormControl('', [Validators.required]),
       billingStatus: new FormControl('', [Validators.required]),
       vehicleNo: new FormControl('', [Validators.required]),
+      vehicleTypeId: new FormControl('', [Validators.required]),
       bookingDate : new FormControl('', ),
       fromPlace : new FormControl('',),    
       toPlace : new FormControl('', ), 
@@ -263,6 +259,7 @@ dashboard: string ="";
       bookingDate : "",
       billingStatus: "",
       vehicleNo:"",
+      vehicleTypeId:"",
       fromPlace : "",
       toPlace :  "", 
       shipmentNo:  "", 
@@ -347,6 +344,7 @@ dashboard: string ="";
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
             billingStatus:this.lrmodel.billingStatus,
             vehicleNo: this.lrmodel.invoiceNo,
+            vehicleTypeId:this.lrmodel.vehicleTypeId,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
             shipmentNo: this.lrmodel.shipmentNo,
@@ -554,6 +552,13 @@ dashboard: string ="";
     });
   }  
 
+  
+  getVehTypes(): void {
+    this.commonService.getVehicleTypeList().subscribe((res) => {
+      this.vehicalType = res;
+    });
+  }
+
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
@@ -629,6 +634,7 @@ dashboard: string ="";
     this.cnmodel.chargewt = selectedDataValue.chargewt.toString();
     this.cnmodel.billingStatus = selectedDataValue.billingStatus;  
     this.cnmodel.vehicleNo = selectedDataValue.vehicleNo;  
+    this.cnmodel.vehicleTypeId = selectedDataValue.vehicleTypeId;
     this.cnmodel.billingParty = selectedDataValue.party ?  selectedDataValue.party.dataId : "0";  
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0"; 
     this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 

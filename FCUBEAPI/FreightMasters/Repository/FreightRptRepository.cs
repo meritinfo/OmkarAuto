@@ -5899,6 +5899,7 @@ namespace FreightMasters.Repository
                             {
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 DocNumCode = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 

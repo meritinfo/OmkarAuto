@@ -11,6 +11,7 @@ export class Consignmentupdatemodel {
     actualWt : string = "";
     chargewt : string = "";
     vehicleNo: string = "";
+    vehicleTypeId: string = "";
     billingStatus : string = "";
     billingParty : string = "";
     rateType : string = "";

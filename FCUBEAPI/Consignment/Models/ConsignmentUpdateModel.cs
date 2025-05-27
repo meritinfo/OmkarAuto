@@ -19,7 +19,8 @@ namespace Consignment.Models
         public string? PrivateMark { get; set; }
         public string? ActualWt { get; set; }
         public string? Chargewt { get; set; }
-        public string? VehicleNo { get; set; }        
+        public string? VehicleNo { get; set; }
+        public string? VehicleTypeId { get; set; }        
         public string? RateType { get; set; }
         public string? RateDesc { get; set; }
         public string? GstBy { get; set; }

@@ -4,11 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
-import { Drivermodel } from 'src/app/models/drivermodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BrokeradvancepmtModel } from 'src/app/models/brokeradvancepmtmodel';
-import { Brokeradvancepmtlistmodel} from 'src/app/models/brokeradvancemodellist';
 import { BrokerAdvancePmtService } from 'src/app/services/brokeradvancepmt.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';

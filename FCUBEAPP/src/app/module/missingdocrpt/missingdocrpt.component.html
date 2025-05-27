@@ -86,12 +86,14 @@
                         <tr>
                             <th>RenewalDocName</th>
                             <th>TransDate</th>
+                            <th>TransDate</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allDocRptlist.documentAllotmentLists?.length != 0">
                         <tr *ngFor="let eta of allDocRptlist.documentAllotmentLists">
                             <td>{{ eta.branch }}</td>
                             <td>{{ eta.docNumCode }}</td> 
+                            <td>{{ eta.remarks }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDocRptlist.documentAllotmentLists?.length == 0">

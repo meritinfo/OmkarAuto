@@ -644,6 +644,7 @@ namespace Consignment.Repository
                         lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
                         lrmodel.InvoiceNo= Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        lrmodel.VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleTypeId"]);
                         lrmodel.BillingStatus= Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
@@ -744,6 +745,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ActualWt",           ConsignmentModel.ActualWt              ),
                             new SqlParameter("@Chargewt",           ConsignmentModel.Chargewt             ),                            
                             new SqlParameter("@VehicleNo",          ConsignmentModel.VehicleNo),
+                            new SqlParameter("@VehicleTypeId",      ConsignmentModel.VehicleTypeId),                            
                             new SqlParameter("@BillingStatus",      ConsignmentModel.BillingStatus ),
                             new SqlParameter("@BillingParty",       ConsignmentModel.BillingParty),
                             new SqlParameter("@RateType",           ConsignmentModel.RateType ),
