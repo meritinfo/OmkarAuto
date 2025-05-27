@@ -164,7 +164,8 @@ namespace Consignment.Models
         public List<ConsignmentBillModel> BillList { get; set; }
         public List<ConsignmentDprModel> DprList { get; set; }
         public List<ConsignmentMrModel> MrList { get; set; }
-        public List<ConsignmentDelvAckModel> DelAckList { get; set; }     
+        public List<ConsignmentDelvAckModel> DelAckList { get; set; }
+        public List<ConsignmentBillSubmitModel> BillSubmitList { get; set; }
 
     }
 }

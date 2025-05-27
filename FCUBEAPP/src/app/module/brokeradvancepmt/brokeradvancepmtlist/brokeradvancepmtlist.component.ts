@@ -145,10 +145,10 @@ dashboard: string ="";
       var selectedDataVal = this.formFilter.getRawValue();
       this.filter.fromDate = selectedDataVal.fromDate;
       this.filter.toDate = selectedDataVal.toDate; 
-      this.filter.filterStr = selectedDataVal.vehicleNo;
-      this.filter.filterStr1 = selectedDataVal.challanNo;
-      this.filter.filterStr2 = this.branch;    
-      this.filter.filterStr3 = this.year;    
+     // this.filter.filterStr = selectedDataVal.vehicleNo;
+      this.filter.filterStr = selectedDataVal.pmtNo;
+      this.filter.filterStr1= this.branch;    
+      this.filter.filterStr2 = this.year;    
       this.getAdvanceList();
     }
   
@@ -253,7 +253,6 @@ dashboard: string ="";
       this.filter.fromDate = selectedDataVal.fromDate;
       this.filter.toDate = selectedDataVal.toDate;
       this.filter.filterStr = selectedDataVal.pmtNo;
- 
       this.filter.filterStr1 = this.branch;     
       this.filter.filterStr2 = this.year;    
       

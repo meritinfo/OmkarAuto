@@ -1472,6 +1472,7 @@ namespace Consignment.Repository
               
                 DelAckList = new List<ConsignmentDelvAckModel>(),
                 MrList = new List<ConsignmentMrModel>(),
+                BillSubmitList = new List<ConsignmentBillSubmitModel>(),
             };
             try
             {
@@ -1615,6 +1616,23 @@ namespace Consignment.Repository
                                 PodRecdDate = Convert.ToString(dataSet.Tables[6].Rows[i]["PodRecdDate"]),
                                 PodDelayDays = Convert.ToString(dataSet.Tables[6].Rows[i]["PodDelayDays"]),
                                 NetPayable = Convert.ToString(dataSet.Tables[6].Rows[i]["NetPayable"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[7].Rows.Count; i++)
+                        {
+                            consignment.BillSubmitList.Add(new ConsignmentBillSubmitModel
+                            {
+                                BillSubmitNo = Convert.ToString(dataSet.Tables[7].Rows[i]["BillSubmitNo"]),
+                                SubmitNo = Convert.ToString(dataSet.Tables[7].Rows[i]["SubmitNo"]),
+                                KindAttnTo = Convert.ToString(dataSet.Tables[7].Rows[i]["KindAttnTo"]),
+                                BillNo = Convert.ToString(dataSet.Tables[7].Rows[i]["BillNo"]),
+                                BillDate = Convert.ToString(dataSet.Tables[7].Rows[i]["BillDate"]),
+                                BillAmt = Convert.ToString(dataSet.Tables[7].Rows[i]["BillAmt"]),
+                                //  ShExPkgs = Convert.ToString(dataSet.Tables[6].Rows[i]["ShExPkgs"]),
+                                // ShExpActWt = Convert.ToString(dataSet.Tables[6].Rows[i]["ShExpActWt"]),
+                                // ExpectedRptDate = Convert.ToString(dataSet.Tables[6].Rows[i]["ExpectedRptDate"]) + " " + Convert.ToString(dataSet.Tables[6].Rows[i]["ExpectedRptTime"]),
+                                // ReportingDate = Convert.ToString(dataSet.Tables[6].Rows[i]["ReportingDate"]) + " " + Convert.ToString(dataSet.Tables[6].Rows[i]["ReportingTime"]),
+
                             });
                         }
                     }

@@ -1031,6 +1031,57 @@
                                 </div>
                             </div>
                         </div>    
+                         <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x">
+                                            <h4 class="card-title mb-4" style="color: red;"> Bill Submit Details</h4>
+                                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Bill Submit No</label></th> 
+                                                <th><label for="formrow-inputCity">Submit No</label></th> 
+                                                <th><label for="formrow-inputCity">Kind Attn To</label></th> 
+                                                <th><label for="formrow-inputCity">Bill No</label></th>
+                                                <th><label for="formrow-inputCity">Bill Date</label></th> 
+                                                <th><label for="formrow-inputCity">Bill Amt</label></th> 
+                                               
+                                            </tr>
+                                            <tr formArrayName="arrayBillSubmitList"
+                                                *ngFor="let arrayData of formBillSubmitArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billSubmitNo">
+                                                    </td> 
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="submitNo">
+                                                    </td>
+                                                    <td >
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="kindAttnTo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billNo">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billDate">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="billAmt">
+                                                    </td> 
+                                                </div>
+                                            </tr>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
