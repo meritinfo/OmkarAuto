@@ -315,9 +315,7 @@ import { ChallansupplilistComponent } from './module/challansuppli/challansuppli
 import { ChallansuppliaddComponent } from './module/challansuppli/challansuppliadd/challansuppliadd.component';
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
-
-
-
+import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -440,7 +438,8 @@ const routes: Routes = [
   { path: 'changepassword', component: ChangepasswordComponent},
   { path: 'exparrivals', component: ExptruckarrivalreportComponent}, 
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
-  { path: 'cashbookrpt', component: CashbookreportComponent},
+  // { path: 'cashbookrpt', component: CashbookreportComponent}, // old
+   { path: 'cashbookrpt', component: CashbookrptComponent},
   { path: 'docrenewalrpt', component: DocrenewalrptComponent},
   { path: 'tripstatusrpt', component: TripstatusrptComponent},
   { path: 'distancemasterfrtrpt', component: DistancemasterfrtrptComponent},
