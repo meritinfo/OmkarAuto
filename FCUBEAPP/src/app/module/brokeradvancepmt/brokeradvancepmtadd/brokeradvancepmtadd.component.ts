@@ -141,7 +141,7 @@ ngOnInit(): void {
       remarks: new FormControl('', ),
       attachment1: new FormControl('',),
       pmtType: new FormControl('', [Validators.required]),
-      neftYN: new FormControl('', ),
+      neftYN: new FormControl('N', ),
       creditAc: new FormControl('', [Validators.required]),
       chequeNo: new FormControl('',),
       chequeDt: new FormControl('',),
@@ -260,7 +260,7 @@ ngOnInit(): void {
   }
 
     onNeftChk(e: any) {
-      if(e.target.value= "N"){
+      if(e.target.value=="N"){
         this.formDriverMaster.controls['chequeNo'].clearValidators();      
         this.formDriverMaster.controls['chequeDt'].clearValidators();   
         this.formDriverMaster.controls['chequeNo'].disable();

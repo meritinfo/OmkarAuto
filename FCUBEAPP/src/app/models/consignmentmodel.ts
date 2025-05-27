@@ -2,6 +2,7 @@ import { Consignmentinvmodel } from './consignmentinvmodel';
 import { Consignmentchlnmodel } from './consignmentchlnmodel';
 import { Consignmentlhpmmodel } from './consignmentlhpmmodel';
 import { Consignmentbillmodel } from './consignmentbillmodel';
+import { Consignmentbillsubmitmodel } from './consignmentbillsubmitmodel';
 import { Consignmentdprmodel } from './consignmentdprmodel';
 import { Consignmentmrmodel } from './consignmentmrmodel';
 import { Consignmentdelvackmodel } from './consignmentdelvackmodel';
@@ -167,6 +168,7 @@ export class Consignmentmodel {
     chlnList: Consignmentchlnmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];
     billList: Consignmentbillmodel[] = []; 
+    billSubmitList: Consignmentbillsubmitmodel[] = []; 
     dprList: Consignmentdprmodel[] = []; 
     mrList: Consignmentmrmodel[] = []; 
     delAckList: Consignmentdelvackmodel[] = []; 

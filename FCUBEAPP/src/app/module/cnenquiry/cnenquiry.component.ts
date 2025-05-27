@@ -249,6 +249,7 @@ dashboard: string ="";
       arrayChlnList: this.formBuilder.array([this.createChlnInitialArray()])  , 
       arrayLhpmList: this.formBuilder.array([this.createLhpmInitialArray()])  , 
       arrayBillList: this.formBuilder.array([this.createBillInitialArray()])  , 
+      arrayBillSubmitList: this.formBuilder.array([this.createBillSubmitInitialArray()])  , 
       arrayDprList: this.formBuilder.array([this.createDprInitialArray()])  , 
       arrayMrList: this.formBuilder.array([this.createMrInitialArray()])  , 
       arrayDelvAckList: this.formBuilder.array([this.createDelvAckInitialArray()])  , 
@@ -273,6 +274,9 @@ dashboard: string ="";
   }
   get formBillArray() {
     return this.formUser.get("arrayBillList") as FormArray;
+  }
+   get formBillSubmitArray() {
+    return this.formUser.get("arrayBillSubmitList") as FormArray;
   }
   get formDprArray() {
     return this.formUser.get("arrayDprList") as FormArray;
@@ -380,6 +384,16 @@ dashboard: string ="";
       payParty:  ['', []],
       chargeWt:  ['', []],
       totFreightAmt:  ['', []],
+    });
+  }  
+  createBillSubmitInitialArray() {
+    return this.formBuilder.group({
+      billSubmitNo : ['', []],
+      submitNo:  ['', []],
+      kindAttnTo:  ['', []],
+      billNo:  ['', []],
+      billDate:  ['', []],
+      billAmt:  ['', []],
     });
   }  
 
@@ -498,6 +512,7 @@ dashboard: string ="";
       this.formChlnArray.clear();
       this.formLhpmArray.clear();
       this.formBillArray.clear();
+      this.formBillSubmitArray.clear();
       this.formDprArray.clear();
       this.formMrArray.clear();
       this.formDelvAckArray.clear();
@@ -697,8 +712,25 @@ dashboard: string ="";
         this.formDelvAckArray.controls[i].get("podRecdDate")?.disable(); 
         this.formDelvAckArray.controls[i].get("podDelayDays")?.disable(); 
         this.formDelvAckArray.controls[i].get("netPayable")?.disable(); 
-      }               
+      }  
+       for (var i = 0; i < res.billSubmitList.length; i++) {
+        this.formDprArray.push(this.createBillSubmitInitialArray());
+        this.formDprArray.controls[i].get("billSubmitNo")?.setValue(res.billSubmitList[i].billSubmitNo);
+        this.formDprArray.controls[i].get("submitNo")?.setValue(res.billSubmitList[i].submitNo);
+        this.formDprArray.controls[i].get("kindAttnTo")?.setValue(res.billSubmitList[i].kindAttnTo);
+        this.formDprArray.controls[i].get("billNo")?.setValue(res.billSubmitList[i].billNo);
+        this.formDprArray.controls[i].get("billDate")?.setValue(res.billSubmitList[i].billDate);
+        this.formDprArray.controls[i].get("billAmt")?.setValue(res.billSubmitList[i].billAmt);
+        this.formDprArray.controls[i].get("billSubmitNo")?.disable();
+        this.formDprArray.controls[i].get("submitNo")?.disable();
+        this.formDprArray.controls[i].get("kindAttnTo")?.disable();
+        this.formDprArray.controls[i].get("billNo")?.disable();
+        this.formDprArray.controls[i].get("billDate")?.disable();
+        this.formDprArray.controls[i].get("billAmt")?.disable();     
+      }                 
     });
+    
+
   }
   
 }
