@@ -499,6 +499,7 @@ import { ChallansuppliaddComponent } from './module/challansuppli/challansupplia
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
+import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 
 
 @NgModule({
@@ -661,7 +662,8 @@ import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component
     VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
     ChallansupplilistComponent, ChallansuppliaddComponent, 
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
-    CashbookrptComponent, 
+    CashbookrptComponent,
+    LedgerreportComponent, 
     
   ],
   
