@@ -316,6 +316,7 @@ import { ChallansuppliaddComponent } from './module/challansuppli/challansupplia
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
+import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -471,7 +472,8 @@ const routes: Routes = [
   { path: 'customwizard', component: CustwizardaddComponent },  
   { path: 'custwizardedit', component: CustwizardaddComponent }, 
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
-  { path: 'acledgerrpt', component:  LedgerrptComponent },  
+  //{ path: 'acledgerrpt', component:  LedgerrptComponent },  
+  { path: 'acledgerrpt', component:  LedgerreportComponent },    
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
   { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   

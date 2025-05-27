@@ -106,15 +106,23 @@ dashboard: string ="";
     
     this.fromDate = this.minDate ;
   
-    this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.minDate,[Validators.required]),
-      toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountID: new FormControl('',[Validators.required]),
-    });
     this.sharedService.loading=true;
     this.getBranchList();
     this.getAccountList();  
     this.sharedService.loading=false;
+    
+    this.formFilter = this.formBuilder.group({
+      fromDate: new FormControl(this.minDate,[Validators.required]),
+      toDate: new FormControl(this.loginDate,[Validators.required]),
+      accountID: new FormControl('',[Validators.required]),
+      branchorCon: new FormControl('C',),
+      branch: new FormControl('',),
+      groupYN: new FormControl('',),
+      subType:new FormControl('',),
+      subLedger:new FormControl('',),
+    });
+    
+    this.formFilter.controls['branch'].disable();  
   }
 
   getBranchList(): void {
@@ -174,58 +182,6 @@ dashboard: string ="";
     }
     var selectedDataVal=this.formFilter.getRawValue();
 
-    if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
-      this.toastrService.warning("Please select Branch");
-      return;
-    }
-    this.filter.fromDate      = selectedDataVal.fromDate;
-    this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
-    this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = selectedDataVal.accountId;
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "CS";
-    }
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "CD";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "BS";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "BD";
-    }
-    this.filter.search = format;
-
-    this.ledgerrptService.getLedgerrptPdf(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        if(format=="XL"){
-          link.download = "CashbookReport_" + new Date().getTime() + '.xls';
-        }
-        else{
-          link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
-        }
-        link.href = "assets/reports/CashBook/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
-      });
-  }
-
-    
-  exportPdf(): void {      
-    this.formSubmitted = true;
-    if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields");   
-      const controls = this.formFilter.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");   
-        }
-      }     
-      return;
-    }
-    var selectedDataVal=this.formFilter.getRawValue();
-    
     var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
     if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
             fromLoc.dataId!="" && fromLoc.dataId!="0") {
@@ -235,13 +191,46 @@ dashboard: string ="";
       this.toastrService.warning("Please Enter Valid Account ");          
       return;
     }
-  
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.accountID.dataId;
-      this.filter.filterStr1  = this.year;
-      this.filter.filterStr2  = "";
-      
+    if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
+      this.toastrService.warning("Please select Branch");
+      return;
+    }
+    if((selectedDataVal.subType?selectedDataVal.subType:"") != "" && 
+            (selectedDataVal.subLedger?selectedDataVal.subLedger:"")==""){
+      this.toastrService.warning("Please Enter Sub Ledger");
+      return;
+    }
+    this.filter.fromDate      = selectedDataVal.fromDate;
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
+    this.filter.filterStr1    = this.year;
+    this.filter.filterStr2    = selectedDataVal.accountID.dataId;
+    this.filter.sortColumn = selectedDataVal.subType;
+    this.filter.sortOrder = selectedDataVal.subLedger;
+
+    if(selectedDataVal.branchorCon == "C"){
+      this.filter.filterStr3    = "C";
+    }
+    if(selectedDataVal.branchorCon == "B"){
+      this.filter.filterStr3    = "B";
+    }
+    
+    this.filter.search = selectedDataVal.groupYN?"Y":"N" ;
+
+    if(format=="XL"){
+      this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
+        if(resp.status){      
+          let link = document.createElement("a");
+          link.download = "LedgerReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/Ledger/" + resp.message;
+          link.click();
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
+    else{
       this.ledgerrptService.getLedgerrptPdf(this.filter).subscribe(resp => {
         if(resp.status){    
           let link = document.createElement("a");
@@ -254,52 +243,9 @@ dashboard: string ="";
           this.toastrService.warning(resp.message);   
         }
       });
-    }
-      
-    exportExcel(): void {      
-      this.formSubmitted = true;
-      if (this.formFilter.invalid) {
-        this.toastrService.warning("Please Enter Mandatory Fields");   
-        const controls = this.formFilter.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toastrService.warning(name + " Fields is Invalid");   
-          }
-        }     
-        return;
-      }
-      var selectedDataVal=this.formFilter.getRawValue();
-      
-      var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-      if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-              fromLoc.dataId!="" && fromLoc.dataId!="0") {
-          //ignore
-      }
-      else{
-        this.toastrService.warning("Please Enter Valid Account ");          
-        return;
-      }
-  
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.accountID.dataId;
-      this.filter.filterStr1  = this.year;
-      this.filter.filterStr2  = "";
-      
-      this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "LedgerReport_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
-  
-  
+    }        
+  }
+ 
 } 
 
 
