@@ -501,6 +501,7 @@ import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokerad
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
+import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
 
@@ -666,6 +667,8 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     ChallansupplilistComponent, ChallansuppliaddComponent, 
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
     CashbookrptComponent,
+    LedgerreportComponent,
+    DeliverydisputerptComponent, 
     LedgerreportComponent,
     PartymislocationsaddComponent,
     PartymislocationlistComponent, 

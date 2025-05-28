@@ -51,17 +51,45 @@ namespace FinTrans.Business
         }
         public async Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request)
         {
-            return await ledgerRptRepository.GetLedgerRptExcel(request);
+            RepReqModel req = new RepReqModel();
+            req.FromDate = request.FromDate;
+            req.ToDate = request.ToDate;
+            req.SortColumn = request.SortColumn==""?"N": request.SortColumn;
+            req.SortOrder = request.SortOrder == "" ? "N" : request.SortOrder;
+            req.Search = request.Search;
+            req.FilterStr = request.FilterStr;
+            req.FilterStr1 = request.FilterStr1;
+            req.FilterStr2 = request.FilterStr2;
+            req.FilterStr3 = request.FilterStr3;
+            req.FilterStr4 = "XL";
+
+            return await ledgerRptRepository.LedgerPrintPdf(req);
+
+            //return await ledgerRptRepository.GetLedgerRptExcel(request);
         }
         public async Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request)
         {
-            DataSet reportData = await ledgerRptRepository.ledgerReport(request);
+            RepReqModel req = new RepReqModel();
+            req.FromDate = request.FromDate;
+            req.ToDate = request.ToDate;
+            req.SortColumn = request.SortColumn == "" ? "N" : request.SortColumn;
+            req.SortOrder = request.SortOrder == "" ? "N" : request.SortOrder;
+            req.Search = request.Search;
+            req.FilterStr = request.FilterStr;
+            req.FilterStr1 = request.FilterStr1;
+            req.FilterStr2 = request.FilterStr2;
+            req.FilterStr3 = request.FilterStr3;
+            req.FilterStr4 = "PDF";
 
-            ResponseModel response = new ResponseModel();
-            response = await sharedRepository.GetCompanyDetail();
+            return await ledgerRptRepository.LedgerPrintPdf(req);
 
-            string path = CreateLedgerReportAsync(request, reportData, response);
-            return new ResponseModel { Status = true, Message = path };
+            //DataSet reportData = await ledgerRptRepository.ledgerReport(request);
+
+            //ResponseModel response = new ResponseModel();
+            //response = await sharedRepository.GetCompanyDetail();
+
+            //string path = CreateLedgerReportAsync(request, reportData, response);
+            //return new ResponseModel { Status = true, Message = path };
         }
 
         private string CreateLedgerReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
@@ -238,7 +266,6 @@ namespace FinTrans.Business
                 canvas.Close();
             }
         }
-
 
         public async Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request)
         {

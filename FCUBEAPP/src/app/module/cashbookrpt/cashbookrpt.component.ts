@@ -193,13 +193,15 @@ export class CashbookrptComponent {
         let link = document.createElement("a");
         if(format=="XL"){
           link.download = "CashbookReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/CashBook/" + resp.message;
+          link.click();
         }
         else{
           link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/CashBook/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
         }
-        link.href = "assets/reports/CashBook/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
       });
   }
 }

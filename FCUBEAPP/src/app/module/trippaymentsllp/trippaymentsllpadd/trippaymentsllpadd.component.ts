@@ -260,34 +260,20 @@ export class TrippaymentsllpaddComponent {
       this.branchList = res;
     });
   }
+
   getCreditAcList2(e: any){
     this.requestmodel.strRequest = e;
 
     this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
-      this.creditacList = res;   
-      this.formTripPayment.patchValue({
-        //creditAc:this.creditacList[0].dataId
-      });  
+      this.creditacList = res;  
     });
-  }
-
-  
+  }  
   
   getCreditAcList(pmttp:string): void {
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
-    // if (pmttp == 'B'){
-    //   this.formUser.controls['neftPmt'].enable();
-    //   this.formUser.controls['chequeNo'].enable();
-    //   this.formUser.controls['chequeDate'].enable();
-    // }
-    // else {
-    //   this.formUser.controls['neftPmt'].disable();
-    //   this.formUser.controls['chequeNo'].disable();
-    //   this.formUser.controls['chequeDate'].disable();
-    // }
   }
 
  
@@ -480,7 +466,7 @@ export class TrippaymentsllpaddComponent {
       return
     }
     
-    if (selectedDataValue.transType == "DA") {
+    if (selectedDataValue.transType != "DL") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore
       }
@@ -518,7 +504,7 @@ export class TrippaymentsllpaddComponent {
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
-    this.trippaymentsmodel.vendorRefNo = selectedDataValue.vendorRefNo.toString().toUpperCase();    
+    this.trippaymentsmodel.vendorRefNo = selectedDataValue.vendorRefNo?selectedDataValue.vendorRefNo.toString().toUpperCase():"";    
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";

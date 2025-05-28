@@ -213,6 +213,10 @@ formFilter!: FormGroup;
             title: 'Document No',
             data: 'docNumCode',
           },         
+          {
+            title: 'Remarks',
+            data: 'remarks',
+          },     
         ],
       };
     }

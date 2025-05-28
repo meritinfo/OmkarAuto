@@ -54,12 +54,23 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Vehicle No</label>
                                             <span style="color: red">*</span>
-                                            <input autoclose="false" class="form-control"
-                                        maxlength="15" 
+                                            <input autoclose="false" class="form-control"  maxlength="15" 
                                                 formControlName="vehicleNo"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }">
                                         </div>
-                                    </div>    
+                                    </div>                                             
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle Type</label><span style="color: red">*</span>
+                                            <select formControlName="vehicleTypeId"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeId'].invalid) }">
+                                                <option *ngFor="let dl of vehicalType" value={{dl.dataId}}>
+                                                    {{dl.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> 
                                 </div> 
                                 <div class="row">                                                                                                                
                                     <div class="col-lg-3">

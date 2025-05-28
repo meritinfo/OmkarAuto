@@ -5899,6 +5899,7 @@ namespace FreightMasters.Repository
                             {
                                 Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 DocNumCode = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                             });
                         }
 
@@ -5984,6 +5985,51 @@ namespace FreightMasters.Repository
                         filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Bill GST Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ResponseModel> GetDeliveryDisputeRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@Broker",     request.FilterStr2),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryDisputeRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Delivery Dispute Report", filter);
                     }
                     else
                     {

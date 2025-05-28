@@ -90,5 +90,7 @@ namespace FreightMasters.Repository
 
         Task<ResponseModel> GetBillGstRptExcel(ReportRequestModel request);
 
+        Task<ResponseModel> GetDeliveryDisputeRptExcel(ReportRequestModel request);
+
     }
 }

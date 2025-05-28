@@ -41,7 +41,8 @@
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
+                                            [customFilter]="startWithFilter"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -54,7 +55,26 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                               
+                        </div>                       
+                        <div class="row"> 
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Sub Ledger</label>
+                                    <select class="form-control" formControlName="subType">
+                                        <option value=""></option>
+                                        <option value="L">Like</option>
+                                        <option value="E">Equal</option>
+                                        <option value="H">Having</option>
+                                    </select>
+                                </div>
+                            </div>  
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity"></label>
+                                    <input uppercaseonly class="form-control" formControlName="subLedger" >
+                                </div>
+                            </div>                                 
+                        </div>                                                  
                         <div class="row">                        
                             <div class="col-lg-2">
                                 <div class="form-check mb-3">
@@ -91,7 +111,7 @@
                                     <label for="neft" class="form-check-label">Group All Branches
                                     </label>
                                 </div>                          
-                            </div>    
+                            </div>   
                         </div>                          
                         <div class="row">   
                             <div class="col-lg-3">
