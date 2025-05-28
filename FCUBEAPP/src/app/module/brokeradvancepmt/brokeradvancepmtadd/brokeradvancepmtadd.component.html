@@ -49,7 +49,8 @@
                                         <div class="mb-3">                                    
                                             <label for="formrow-inputCity">Broker</label>  
                                             <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="brokerList" formControlName="brokerId"
+                                                <ng-autocomplete [data]="brokerList" 
+                                                    formControlName="brokerId"
                                                     [searchKeyword]="keywordLocation"                                                  
                                                     (inputChanged)='onChangeSearch($event)'
                                                     (inputFocused)='onFocused($event)' 

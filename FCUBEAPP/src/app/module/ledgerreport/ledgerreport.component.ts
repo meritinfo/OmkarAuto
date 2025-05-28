@@ -70,7 +70,7 @@ dashboard: string ="";
       
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Daily Loading Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Accounts Ledger Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

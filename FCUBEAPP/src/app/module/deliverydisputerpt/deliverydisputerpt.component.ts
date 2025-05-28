@@ -1,17 +1,14 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/common/constants';
-import { CashbookreportService } from 'src/app/services/cashbookreport.service';
-import { PdfService } from 'src/app/services/pdf.service';
+import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { ToastrService } from 'ngx-toastr';
-import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-deliverydisputerpt',
@@ -25,25 +22,17 @@ export class DeliverydisputerptComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string =""; 
-  branchList: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
-  keywordLocation = 'dataName';
 
-  formFilter!: FormGroup;
-  formSubmitted = false;
-  year: string = '';
-  loginDate: string = '';
-  fromDate: string = '';
-  maxDate: string = '';
-  minDate: string = '';
-  branch:string ='';
-  responseDetails = new Responsemodel();
-  requestmodel = new Requestmodel();
+  accountList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'ExpectedReportingDt',
+    sortColumn: 'fromPlace',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -54,34 +43,37 @@ export class DeliverydisputerptComponent {
     filterStr3:'',
   }
 
+  formFilter!: FormGroup;
+  formSubmitted = false;
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  branch:string ='';
+  responseDetails = new Responsemodel();
 
-  constructor(private cashbookreportService: CashbookreportService,private toastrService:ToastrService,
+  constructor(private freightreportsService: FreightreportsService, 
+    private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
-    private pdfService : PdfService, private route: Router) {
+    private route: Router) {
   }
 
-  ngOnInit(): void {   
-
+  ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Cash Book Report");
+      
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Delivery Dispute Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-    }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-      this.dashboard = dashboard;
-    }
-    if(!this.viewStatus){      
-      this.route.navigate([this.dashboard]);
     }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -109,99 +101,91 @@ export class DeliverydisputerptComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;    
+    this.fromDate = this.minDate ;
   
+    this.sharedService.loading=true;
     this.getBranchList();
-    this.getPaymentCreditAcList();
-      
+    this.getBrokerList();
+    this.getPartyList();
+    this.sharedService.loading=false;
+    
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      branch: new FormControl('',),  
-      accountId: new FormControl('34',[Validators.required]),
-      rptType: new FormControl('D',[Validators.required]),
-      branchorCon: new FormControl('C',[Validators.required]),
+      branch: new FormControl('',),
+      party: new FormControl('',),
+      brokerId:new FormControl('',),
     });
     
-    this.formFilter.controls['branch'].disable();  
   }
-  
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
   
-  getPaymentCreditAcList(){
-    this.requestmodel.strRequest = "M";
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditacList = res;
+  getBrokerList(): void {
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
     });
   }
-
-  get f() { return this.formFilter.controls; } 
   
-  change(selectedValue: string) {
-    if (selectedValue === "C") {
-      this.formFilter.controls['branch'].disable();  
-      this.formFilter.patchValue({      
-        branch:""
-      });
-    }
-    else{
-      this.formFilter.controls['branch'].enable(); 
-    }   
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+  
+  get f() { return this.formFilter.controls; }
+  
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
   }
 
-  search(format: string): void {
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  
+  exportExcel(): void {      
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields ");
+      this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");
+          this.toastrService.warning(name + " Fields is Invalid");   
         }
-      }
+      }     
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
+    this.filter.fromDate    = selectedDataVal.fromDate;
+    this.filter.toDate      = selectedDataVal.toDate;
+    this.filter.filterStr   = selectedDataVal.branch;
+    this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
 
-    if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
-      this.toastrService.warning("Please select Branch");
-      return;
-    }
-    this.filter.fromDate      = selectedDataVal.fromDate;
-    this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
-    this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = selectedDataVal.accountId;
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "CS";
-    }
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "CD";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "BS";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "BD";
-    }
-    this.filter.search = format;
-
-    this.cashbookreportService.getCashBookReport(this.filter).subscribe((resp: any) => {
+    this.freightreportsService.getDeliveryDisputeRptExcel(this.filter).subscribe(resp => {      
+      if(resp.status){      
         let link = document.createElement("a");
-        if(format=="XL"){
-          link.download = "CashbookReport_" + new Date().getTime() + '.xls';
-          link.href = "assets/reports/CashBook/" + resp.message;
-          link.click();
-        }
-        else{
-          link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/CashBook/" + resp.message;
-          link.click();
-          window.open(link.href, "_blank");
-        }
-      });
+        link.download = "DelvDispute" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
   }
-}
+  
+ 
+} 
+
+
+

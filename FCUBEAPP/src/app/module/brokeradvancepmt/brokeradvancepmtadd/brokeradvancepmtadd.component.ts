@@ -19,53 +19,46 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
   styleUrls: ['./brokeradvancepmtadd.component.css']
 })
 export class BrokeradvancepmtaddComponent {
-    loggedInUserID: string = '';
+  loggedInUserID: string = '';
   formDriverMaster!: FormGroup;
   formSubmitted = false;
   editMode = false;
-    branch: string = '';
-      year: string = '';
+  branch: string = '';
+  year: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-   seriesDoc: string = "";
+  seriesDoc: string = "";
   dashboard: string ="";
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
   fromDate: string = '';
   vehicleList: Dropdownmodel[] = [];
-   branchList: Dropdownmodel[] = [];
-      brokerList: Dropdownmodel[] = [];
-    creditAcList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
+  creditAcList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   selectedBrokerAdvanceDetails = new BrokeradvancepmtModel();
   driverPhotoData: [] = [];
   driverPhotoPreview: any;
   driverPhotoName: string = '';
-  keywordLocation = 'dataName';
-  
+  keywordLocation = 'dataName';  
   uploadedDrLic: string = "";
-
 
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
-
- 
-
-
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private brokeradvancepmtModel: BrokeradvancepmtModel, private brokerAdvancePmtService: BrokerAdvancePmtService,
     private commonService: CommonService,  private cashReceiptEntryService: CashReceiptEntryService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.brokeradvancepmtModel = new BrokeradvancepmtModel();
+  }
 
-}
-ngOnInit(): void {
-
+  ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -124,9 +117,8 @@ ngOnInit(): void {
       this.route.navigate(['/']);
     }
     this.getBranchList();
-     this.getBrokerList();
+    this.getBrokerList();
    
-
     this.selectedBrokerAdvanceDetails = this.brokerAdvancePmtService.getBrokerAdvanceDetails();
     this.formDriverMaster = this.formBuilder.group({
       advPmtid: new FormControl('',),
@@ -222,13 +214,14 @@ ngOnInit(): void {
       this.branchList = res;
     });
   }
+  
   getBrokerList(): void {
-  this.commonService.getBrokerList().subscribe((res) => {
-    this.brokerList = res;
-  });
-}
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
+    });
+  }
 
- getFinDocDetails(finId: string){
+  getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
     this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

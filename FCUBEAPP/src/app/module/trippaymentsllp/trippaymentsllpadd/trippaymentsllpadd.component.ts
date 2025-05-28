@@ -466,7 +466,7 @@ export class TrippaymentsllpaddComponent {
       return
     }
     
-    if (selectedDataValue.transType == "DA") {
+    if (selectedDataValue.transType != "DL") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore
       }
@@ -504,7 +504,7 @@ export class TrippaymentsllpaddComponent {
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
-    this.trippaymentsmodel.vendorRefNo = selectedDataValue.vendorRefNo.toString().toUpperCase();    
+    this.trippaymentsmodel.vendorRefNo = selectedDataValue.vendorRefNo?selectedDataValue.vendorRefNo.toString().toUpperCase():"";    
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";
