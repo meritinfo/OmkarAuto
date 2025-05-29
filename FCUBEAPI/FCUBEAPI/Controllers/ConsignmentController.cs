@@ -87,7 +87,7 @@ namespace FCUBEAPI.Controllers
             doTempGcBusiness = _doTempGcBusiness;
             cciInvoiceMstBusiness = _cciInvoiceMstBusiness;
             challanMasterBusinessLLP= _challanMasterBusinessLLP;
-          //  deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
+            deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
             challanSuppliBusiness = _challanSuppliBusiness;
             brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
         }
