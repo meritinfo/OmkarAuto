@@ -90,5 +90,8 @@ namespace FreightMasters.Business
 
         Task<ResponseModel> GetBillGstRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetDeliveryDisputeRptExcel(ReportRequestModel request);
+
+        Task<ResponseModel> GetPartyMISRptExcel(ReportRequestModel request);
+        Task<List<DropDownListModel>> GetPartyMisList();
     }
 }

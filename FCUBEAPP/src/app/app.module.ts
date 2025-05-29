@@ -501,6 +501,7 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
+import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 
 
 @NgModule({
@@ -665,7 +666,8 @@ import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliver
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
     CashbookrptComponent,
     LedgerreportComponent,
-    DeliverydisputerptComponent, 
+    DeliverydisputerptComponent,
+    PartymisrptComponent, 
     
   ],
   

@@ -11,7 +11,7 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-10 col-md-10">
+                <div class="col-sm-10 col-md-10" style="height: 400px;">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
@@ -70,7 +70,7 @@
                             </div>  
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity"></label>
+                                    <label for="formrow-inputCity">&nbsp;</label>
                                     <input uppercaseonly class="form-control" formControlName="subLedger" >
                                 </div>
                             </div>                                 

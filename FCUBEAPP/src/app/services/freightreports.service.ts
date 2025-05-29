@@ -228,6 +228,9 @@ export class FreightreportsService {
   }   
   getDeliveryDisputeRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDeliveryDisputeRptExcel', filter, this.httpOptions);
+  }    
+  getPartyMISRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetPartyMISRptExcel', filter, this.httpOptions);
   }   
   
 }

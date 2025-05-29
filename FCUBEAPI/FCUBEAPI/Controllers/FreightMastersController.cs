@@ -460,6 +460,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("GetPartyMISRptExcel")]
+        public async Task<IActionResult> GetPartyMISRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetPartyMISRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetPartyMisList")]
+        public async Task<IActionResult> GetPartyMisList()
+        {
+            try
+            {
+                var result = await freightRptBusiness.GetPartyMisList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost("BranchMasterDetailsSave")]
@@ -1464,6 +1500,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+                
 
         [HttpPost("GetRateTypeMethod")]
         public async Task<IActionResult> GetRateTypeMethod(RequestModel req)
@@ -4144,6 +4181,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
 
     }

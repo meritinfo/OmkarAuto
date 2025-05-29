@@ -318,6 +318,7 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
+import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -755,6 +756,8 @@ const routes: Routes = [
   { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
   { path: 'deldisputerpt',component: DeliverydisputerptComponent },
+  { path: 'partymisrpt',component: PartymisrptComponent },
+  
 ];
 
 
