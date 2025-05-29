@@ -55,6 +55,8 @@ namespace FCUBEAPI.Controllers
         readonly IBillsMasterLlpBusiness billsMasterBusinessLLP;
         readonly IAdminGroupMasterBusiness adminGroupMasterBusiness;
         readonly IBranchCustomerTargetBusiness branchCustomerTargetBusiness;
+        readonly IPartyMisLocationBusiness partyMisLocationBusiness;
+
 
         public FreightMastersController(IOptions<DBModel> _dbconnection,
             IDestinationMasterBusiness _freightMastersBusiness,
@@ -85,7 +87,8 @@ namespace FCUBEAPI.Controllers
              ILRBillSeriesBusiness _lrBillSeriesBusiness,
              IBillsMasterLlpBusiness _billsMasterBusinessLLP,
              IAdminGroupMasterBusiness _adminGroupMasterBusiness,
-             IBranchCustomerTargetBusiness _branchCustomerTargetBusiness)
+             IBranchCustomerTargetBusiness _branchCustomerTargetBusiness,
+             IPartyMisLocationBusiness _partyMisLocationBusiness)
         {
             dbconnection = _dbconnection;
             branchMastersBusiness = _branchMastersBusiness;
@@ -118,6 +121,7 @@ namespace FCUBEAPI.Controllers
             billsMasterBusinessLLP = _billsMasterBusinessLLP;
             adminGroupMasterBusiness = _adminGroupMasterBusiness;
             branchCustomerTargetBusiness = _branchCustomerTargetBusiness;
+            partyMisLocationBusiness = _partyMisLocationBusiness;
         }
 
         /// <summary>
@@ -4173,6 +4177,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await branchCustomerTargetBusiness.BranchCustomerTargetDtlInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPartyMisLocationList")]
+        public async Task<IActionResult> GetPartyMisLocationList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyMisLocationBusiness.GetPartyMisLocationList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPartyMisLocationInnerGridList")]
+        public async Task<IActionResult> GetPartyMisLocationInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyMisLocationBusiness.GetPartyMisLocationInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("PartyMisLocationDelete")]
+        public async Task<IActionResult> PartyMisLocationDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyMisLocationBusiness.PartyMisLocationDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("PartyMisLocationSave")]
+        public async Task<IActionResult> PartyMisLocationSave(PartyMisLocationModel partyMisLocationModel)
+        {
+            if (partyMisLocationModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await partyMisLocationBusiness.PartyMisLocationSave(partyMisLocationModel);
 
                 return Ok(result);
             }

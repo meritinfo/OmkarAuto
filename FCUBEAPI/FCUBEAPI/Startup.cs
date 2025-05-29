@@ -295,6 +295,8 @@ namespace FCUBEAPI
             services.AddScoped<IChallanSuppliRepository, ChallanSuppliRepository>();
             services.AddScoped<IBrokerAdvancePmtBusiness, BrokerAdvancePmtBusiness>();
             services.AddScoped<IBrokerAdvancePmtRepository, BrokerAdvancePmtRepository>();
+            services.AddScoped<IPartyMisLocationBusiness, PartyMisLocationBusiness>();
+            services.AddScoped<IPartyMisLocationRepository, PartyMisLocationRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

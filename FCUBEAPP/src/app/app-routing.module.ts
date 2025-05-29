@@ -316,6 +316,8 @@ import { ChallansuppliaddComponent } from './module/challansuppli/challansupplia
 import { BrokeradvancepmtaddComponent } from './module/brokeradvancepmt/brokeradvancepmtadd/brokeradvancepmtadd.component';
 import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokeradvancepmtlist/brokeradvancepmtlist.component';
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
+import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
+import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
@@ -758,6 +760,9 @@ const routes: Routes = [
   { path: 'deldisputerpt',component: DeliverydisputerptComponent },
   { path: 'partymisrpt',component: PartymisrptComponent },
   
+   { path: 'partymislocadd',component: PartymislocationsaddComponent },
+  { path: 'partymislocedit',component: PartymislocationsaddComponent },
+  { path: 'partymisloc',component: PartymislocationlistComponent},
 ];
 
 

@@ -307,6 +307,7 @@ import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel'
 import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
+import {Partymislocationmodel } from './models/partymislocationsmodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 import { VehiclerepmaintMaster } from './models/vehiclerepmaintmastermodel';
@@ -502,6 +503,8 @@ import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
+import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
+import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
 
 
 @NgModule({
@@ -666,6 +669,10 @@ import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
     CashbookrptComponent,
     LedgerreportComponent,
+    DeliverydisputerptComponent, 
+    LedgerreportComponent,
+    PartymislocationsaddComponent,
+    PartymislocationlistComponent, 
     DeliverydisputerptComponent,
     PartymisrptComponent, 
     
@@ -740,7 +747,7 @@ import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
-    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,178 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Party Mis Locations</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label>Party </label> <span style="color: red">*</span>                                          
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="partyList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="partyId" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['partyId'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                 
+                                                  
+                                </div> 
+                               
+                                <div class="row">   
+                                   
+                                    
+                                    <!-- <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Vendor State </label><span style="color: red">*</span> 
+                                            <select class="form-control" formControlName="vendorState"      
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
+                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
+                                        </div>
+                                    </div>   -->
+                                   
+                                  
+                                   
+                                </div>             
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>  
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                   
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Location</h6>
+                                                    </label>
+                                                </td>
+                                          
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                *ngFor="let arrayData of formRatesArray.controls;  let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2">
+                                                       
+                                                        <div class="ng-autocomplete">
+                                                           
+                                                            <ng-autocomplete [data]="locationList"
+                                                            (selected)='selectToLocationEvent($event,i)'
+                                                                [searchKeyword]="keywordLocation"  
+                                                                [itemTemplate]="itemTemplate"
+                                                                [notFoundTemplate]="notFoundTemplate"
+                                                                [customFilter]="startWithFilter"
+                                                                formControlName="locationId"  
+                                                               >
+                                                            </ng-autocomplete>
+    
+                                                            <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item.dataName"></a>
+                                                            </ng-template>
+    
+                                                            <ng-template #notFoundTemplate let-notFound>
+                                                                <div [innerHTML]="notFound"></div>
+                                                            </ng-template>
+                                                        </div>
+                                                    </td>
+                                             
+                                                 
+                                                    <td class="col-lg-4">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formRatesArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formRatesArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+      
+                   
+                    <div class="row">                                                               
+                        
+                        <!-- <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label>Branch Code: </label>
+                                <select class="form-control" formControlName="branchCode"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>                                -->
+                                                              
+                    </div>                     
+                </div>         
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !userSubmitted"
+                                (click)="submitpartyMislocationForm()">Save</button>&nbsp;                            
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="Delete()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+
+
