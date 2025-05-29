@@ -34,6 +34,10 @@ export class PartyMisLocationsService {
   partyMisLocationDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/PartyMisLocationDelete', req, this.httpOptions);
   }
+
+  checkDuplicateLocation(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateLocation', req, this.httpOptions);
+  }
   
   checkDuplicateparty(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/checkDuplicateSpares', req, this.httpOptions);

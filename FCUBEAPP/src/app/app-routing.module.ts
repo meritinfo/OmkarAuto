@@ -477,7 +477,7 @@ const routes: Routes = [
   { path: 'custwizardedit', component: CustwizardaddComponent }, 
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
   //{ path: 'acledgerrpt', component:  LedgerrptComponent },  
-  { path: 'acledgerrpt', component:  LedgerreportComponent },    
+//  { path: 'acledgerrpt', component:  LedgerreportComponent },    
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
   { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   
