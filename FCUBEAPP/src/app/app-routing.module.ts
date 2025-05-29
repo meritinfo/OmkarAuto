@@ -476,8 +476,8 @@ const routes: Routes = [
   { path: 'customwizard', component: CustwizardaddComponent },  
   { path: 'custwizardedit', component: CustwizardaddComponent }, 
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
-  //{ path: 'acledgerrpt', component:  LedgerrptComponent },  
-//  { path: 'acledgerrpt', component:  LedgerreportComponent },    
+  //{ path: 'acledgerrpt', component:  LedgerrptComponent },   //old
+  { path: 'acledgerrpt', component:  LedgerreportComponent },    
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
   { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   
@@ -758,9 +758,8 @@ const routes: Routes = [
   { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
   { path: 'deldisputerpt',component: DeliverydisputerptComponent },
-  { path: 'partymisrpt',component: PartymisrptComponent },
-  
-   { path: 'partymislocadd',component: PartymislocationsaddComponent },
+  { path: 'partymisrpt',component: PartymisrptComponent },  
+  { path: 'partymislocadd',component: PartymislocationsaddComponent },
   { path: 'partymislocedit',component: PartymislocationsaddComponent },
   { path: 'partymisloc',component: PartymislocationlistComponent},
 ];

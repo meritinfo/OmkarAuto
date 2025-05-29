@@ -667,13 +667,9 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
     ChallansupplilistComponent, ChallansuppliaddComponent, 
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
-    CashbookrptComponent,
-    LedgerreportComponent,
-    DeliverydisputerptComponent, 
-    LedgerreportComponent,
-    PartymislocationsaddComponent,
-    PartymislocationlistComponent, 
-    DeliverydisputerptComponent,
+    CashbookrptComponent, LedgerreportComponent,
+    DeliverydisputerptComponent,     
+    PartymislocationsaddComponent,PartymislocationlistComponent, 
     PartymisrptComponent, 
     
   ],
@@ -747,7 +743,8 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
-    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     
   ],
   bootstrap: [AppComponent]
