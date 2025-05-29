@@ -502,6 +502,7 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
+import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
 
@@ -666,12 +667,10 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     VehicleinstpmtllpaddComponent, VehicleinstpmtllplistComponent, 
     ChallansupplilistComponent, ChallansuppliaddComponent, 
     BrokeradvancepmtaddComponent,BrokeradvancepmtlistComponent,
-    CashbookrptComponent,
-    LedgerreportComponent,
-    DeliverydisputerptComponent, 
-    LedgerreportComponent,
-    PartymislocationsaddComponent,
-    PartymislocationlistComponent, 
+    CashbookrptComponent, LedgerreportComponent,
+    DeliverydisputerptComponent,     
+    PartymislocationsaddComponent,PartymislocationlistComponent, 
+    PartymisrptComponent, 
     
   ],
   
@@ -744,7 +743,8 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
-    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
+    BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     
   ],
   bootstrap: [AppComponent]

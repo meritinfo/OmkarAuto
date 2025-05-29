@@ -318,6 +318,9 @@ import { BrokeradvancepmtlistComponent } from './module/brokeradvancepmt/brokera
 import { CashbookrptComponent } from './module/cashbookrpt/cashbookrpt.component';
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
+import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
+import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
+import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -473,8 +476,8 @@ const routes: Routes = [
   { path: 'customwizard', component: CustwizardaddComponent },  
   { path: 'custwizardedit', component: CustwizardaddComponent }, 
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
-  //{ path: 'acledgerrpt', component:  LedgerrptComponent },  
-//  { path: 'acledgerrpt', component:  LedgerreportComponent },    
+  //{ path: 'acledgerrpt', component:  LedgerrptComponent },   //old
+  { path: 'acledgerrpt', component:  LedgerreportComponent },    
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
   { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   
@@ -754,8 +757,9 @@ const routes: Routes = [
   { path: 'brokeradvpmtadd',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvpmtedit',component: BrokeradvancepmtaddComponent },
   { path: 'brokeradvlist',component: BrokeradvancepmtlistComponent},
-//  { path: 'deldisputerpt',component: DeliverydisputerptComponent },
-   { path: 'partymislocadd',component: PartymislocationsaddComponent },
+  { path: 'deldisputerpt',component: DeliverydisputerptComponent },
+  { path: 'partymisrpt',component: PartymisrptComponent },  
+  { path: 'partymislocadd',component: PartymislocationsaddComponent },
   { path: 'partymislocedit',component: PartymislocationsaddComponent },
   { path: 'partymisloc',component: PartymislocationlistComponent},
 ];

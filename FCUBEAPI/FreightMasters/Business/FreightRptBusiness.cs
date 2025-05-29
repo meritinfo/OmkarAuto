@@ -1,4 +1,5 @@
-﻿using FreightMasters.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FreightMasters.Models;
 using FreightMasters.Repository;
 using Shared.Models;
 using System;
@@ -263,6 +264,15 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> GetDeliveryDisputeRptExcel(ReportRequestModel request)
         {
             return await freightRptRepository.GetDeliveryDisputeRptExcel(request);
+        }
+
+        public async Task<ResponseModel> GetPartyMISRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetPartyMISRptExcel(request);
+        }
+        public async Task<List<DropDownListModel>> GetPartyMisList()
+        {
+            return await freightRptRepository.GetPartyMisList();
         }
     }
 }
