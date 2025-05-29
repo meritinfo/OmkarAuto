@@ -96,7 +96,13 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@DeleteFlag"			, "N"                                           ),
                             new SqlParameter("@SchID"				, finAccountsMasterModel.SchID                  ),
                             new SqlParameter("@AccountShortname" , finAccountsMasterModel.AccountShortname),
-                            new SqlParameter("@CreatedBy"			, finAccountsMasterModel.LoggedInUserID         ),
+                            new SqlParameter("@AccountEmail2"           , finAccountsMasterModel.AccountEmail2),
+                            new SqlParameter("@OverdueEmail"           , finAccountsMasterModel.OverdueEmail),
+                            new SqlParameter("@Esc1Email"           , finAccountsMasterModel.Esc1Email),
+                            new SqlParameter("@CnRefYN"           , finAccountsMasterModel.CnRefYN),
+                            new SqlParameter("@BillTargetDays"           , finAccountsMasterModel.BillTargetDays),
+                          
+                            new SqlParameter("@CreatedBy"            , finAccountsMasterModel.LoggedInUserID         ),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinAccountSave", param);
@@ -209,6 +215,12 @@ namespace FinanceMasters.Repository
                                 BankAcNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
                                 BankIfsc            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
                                 AccountShortname = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountShortname"]),
+                                AccountEmail2 = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountEmail2"]),
+                                OverdueEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueEmail"]),
+                                Esc1Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Esc1Email"]),
+                                CnRefYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnRefYN"]),
+                                BillTargetDays = Convert.ToString(dataSet.Tables[0].Rows[i]["BillTargetDays"]),
+                               
                             });
                         }
 

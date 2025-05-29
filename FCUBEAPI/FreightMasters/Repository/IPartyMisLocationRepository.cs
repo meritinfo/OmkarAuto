@@ -15,5 +15,6 @@ namespace FreightMasters.Repository
 
         Task<ResponseModel> PartyMisLocationDelete(RequestModel requestModel);
         Task<PartyMisLocationsList> GetPartyMisLocationList(ReportRequestModel request);
+        Task<ResponseModel> CheckDuplicateLocation(RequestModel requestModel);
     }
 }

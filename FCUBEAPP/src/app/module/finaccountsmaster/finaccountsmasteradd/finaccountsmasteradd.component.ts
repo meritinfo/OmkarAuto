@@ -126,6 +126,13 @@ export class FinaccountsmasteraddComponent {
       bankIfsc: new FormControl('',),
       statusColor: new FormControl('',),   
       accountShortname: new FormControl('',),    
+      accountEmail2: new FormControl('',),    
+         overdueEmail: new FormControl('',),   
+          esc1Email: new FormControl('',),  
+           billTargetDays: new FormControl('',),   
+          cnRefYN: new FormControl('N',),  
+           blockAct: new FormControl('N',), 
+           costCodeYN: new FormControl('N',),
     });    
 
     this.formAccountMaster.controls['username'].clearValidators();      
@@ -262,6 +269,7 @@ export class FinaccountsmasteraddComponent {
   }
   
   
+  
   //Submit user form details //
   submitFinAccountMasterForm(): void {
     if (this.formAccountMaster.invalid) {
@@ -287,10 +295,10 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.groupSortId        = "0";
     this.finaccountmodel.accountLedgerType  = selectedDataValue.accountLedgerType.toString().toUpperCase();
     this.finaccountmodel.printName          = selectedDataValue.printName.toString().toUpperCase();
-    this.finaccountmodel.accountAddress1    = selectedDataValue.accountAddress1;
-    this.finaccountmodel.accountAddress2    = selectedDataValue.accountAddress2;
-    this.finaccountmodel.accountAddress3    = selectedDataValue.accountAddress3;
-    this.finaccountmodel.accountAddress4    = selectedDataValue.accountAddress4;
+    this.finaccountmodel.accountAddress1    = selectedDataValue.accountAddress1.toString().toUpperCase();
+    this.finaccountmodel.accountAddress2    = selectedDataValue.accountAddress2.toString().toUpperCase();
+    this.finaccountmodel.accountAddress3    = selectedDataValue.accountAddress3.toString().toUpperCase();;
+    this.finaccountmodel.accountAddress4    = selectedDataValue.accountAddress4.toString().toUpperCase();;
     this.finaccountmodel.stateCode          = selectedDataValue.stateCode.toString().toUpperCase();
     this.finaccountmodel.pinCode            = selectedDataValue.pinCode;
     this.finaccountmodel.accountPhone       = selectedDataValue.accountPhone;
@@ -315,7 +323,7 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.isExpForLiabilityYN= selectedDataValue.isExpForLiabilityYN;
     this.finaccountmodel.subLedgerYN        = selectedDataValue.subLedgerYN? selectedDataValue.subLedgerYN :"N";
     this.finaccountmodel.subLedgerQry       = selectedDataValue.subLedgerQry?selectedDataValue.subLedgerQry:'';
-    this.finaccountmodel.costCodeYN         = "N";
+    this.finaccountmodel.costCodeYN         = selectedDataValue.costCodeYN//"N";
     this.finaccountmodel.manualJv           = "N";
     this.finaccountmodel.isAdminExpYN       = selectedDataValue.isAdminExpYN? selectedDataValue.isAdminExpYN :"N";
     this.finaccountmodel.hideBranch         = selectedDataValue.hideBranch? selectedDataValue.hideBranch :"N";
@@ -334,9 +342,14 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.bankAcNo           = selectedDataValue.bankAcNo;
     this.finaccountmodel.bankAcType         = selectedDataValue.bankAcType;
     this.finaccountmodel.bankIfsc           = selectedDataValue.bankIfsc.toString().toUpperCase();
-    this.finaccountmodel.blockAct           = 'N';
+    this.finaccountmodel.blockAct           = selectedDataValue.blockAct; //'N';
     this.finaccountmodel.statusColor        = selectedDataValue.statusColor;
     this.finaccountmodel.accountShortname   = selectedDataValue.accountShortname.toString().toUpperCase();
+    this.finaccountmodel.accountEmail2         = selectedDataValue.accountEmail2;
+    this.finaccountmodel.overdueEmail         = selectedDataValue.overdueEmail;
+    this.finaccountmodel.esc1Email         = selectedDataValue.esc1Email;
+    this.finaccountmodel.cnRefYN         = selectedDataValue.cnRefYN;
+        this.finaccountmodel.billTargetDays         = selectedDataValue.billTargetDays;
     // this.finaccountmodel.schID              = selectedDataValue.schID;
     this.finaccountmodel.schID              = '';
     this.finaccountmodel.loggedInUserID     = this.loggedInUserID;

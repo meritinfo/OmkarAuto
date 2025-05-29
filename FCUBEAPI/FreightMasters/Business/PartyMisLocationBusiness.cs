@@ -33,6 +33,10 @@ namespace FreightMasters.Business
            {
             return await partyMisLocationRepository.GetPartyMisLocationList(request);
     }
+        public async Task<ResponseModel> CheckDuplicateLocation(RequestModel requestModel)
+        {
+            return await partyMisLocationRepository.CheckDuplicateLocation(requestModel);
+        }
 
-}
+    }
 }

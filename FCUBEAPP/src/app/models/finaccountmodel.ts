@@ -64,6 +64,11 @@ export class Finaccountmodel {
     ledgerName: string = "";
     createdBy: string = "";
     accountShortname: string = "";
+    accountEmail2: string = "";
+    overdueEmail: string = "";
+    esc1Email: string = "";
+      cnRefYN: string = "";
+    billTargetDays: string = "";
     loggedInUserID: string = "";  
 }
 

@@ -159,12 +159,31 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Email 2:</label>
+                                                    <input type="text" class="form-control" formControlName="accountEmail2"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Over due Email:</label>
+                                                    <input type="text" class="form-control" formControlName="overdueEmail"> 
+                                                </div>
+                                            </div>
+                                           
+                                        </div>                                         
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Esc1 Email:</label>
+                                                    <input type="text" class="form-control" formControlName="esc1Email"> 
+                                                </div>
+                                            </div>
+                                             <div class="col-lg-3">
+                                                <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Url:</label>
                                                     <input type="text" class="form-control" formControlName="accountUrl"> 
                                                 </div>
                                             </div>
-                                        </div>                                         
-                                        <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Print Name:</label>
@@ -419,6 +438,46 @@
                                                     <select class="form-control" formControlName="subLedgerYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['subLedgerYN'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                               <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label>Cn Ref YN</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="cnRefYN"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnRefYN'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label>CostCode YN</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="costCodeYN"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['costCodeYN'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                             <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Bill Target Days:</label>
+                                                    <input type="text" class="form-control" formControlName="billTargetDays" numbersonly
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billTargetDays'].invalid) }">
+                                                </div>
+                                            </div>
+                                              <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label>Block Act</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="blockAct"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['blockAct'].invalid) }">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">NO</option>
                                                 </select>

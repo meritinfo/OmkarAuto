@@ -225,7 +225,7 @@ ngOnInit(): void {
       selectToLocationEvent(item: any,index:number) {
         var ToPlace = item.dataId;
         var selectedDataValue=this.formUser.getRawValue();
-       
+      // this.chkLocationDuplicate(ToPlace);
         for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
           if(ToPlace == selectedDataValue.arrayList[i].locationId.dataId)
           {
@@ -235,6 +235,30 @@ ngOnInit(): void {
           }
         }
       }
+
+
+  
+
+  chkLocationDuplicate(id:any){
+  var selectedData = this.formUser.getRawValue();
+    this.requestmodel.strRequest = id;
+     this.requestmodel.strRequest1 = selectedData.locationId.dataId;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.partyMisLocationsService.checkDuplicateLocation(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          locationId: ''
+  
+        });
+        
+      }
+    });
+  }
    
     
       Delete(): void {

@@ -202,6 +202,36 @@ namespace FreightMasters.Repository
             }
             return partyMisLocationsList;
         }
+        public async Task<ResponseModel> CheckDuplicateLocation(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PartyId", requestModel.strRequest),
+                            new SqlParameter("@LocationId",         requestModel.strRequest1),
+                         
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateLocation", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
 
         public async Task<ResponseModel> PartyMisLocationDetailSave(SqlTransaction transaction, PartyMisLocationDtlModel partyMisLocationDtlModel)
         {
