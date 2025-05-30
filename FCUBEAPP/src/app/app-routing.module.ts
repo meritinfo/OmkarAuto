@@ -321,6 +321,7 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
 import { LedgerreportComponent } from './module/ledgerreport/ledgerreport.component';
 import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliverydisputerpt.component';
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
+import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -762,6 +763,8 @@ const routes: Routes = [
   { path: 'partymislocadd',component: PartymislocationsaddComponent },
   { path: 'partymislocedit',component: PartymislocationsaddComponent },
   { path: 'partymisloc',component: PartymislocationlistComponent},
+  { path: 'billintloss',component: BillinterestlossrptComponent},
+  
 ];
 
 

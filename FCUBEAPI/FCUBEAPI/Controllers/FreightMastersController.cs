@@ -484,7 +484,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
         [HttpPost("GetPartyMisList")]
         public async Task<IActionResult> GetPartyMisList()
         {
@@ -500,6 +499,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetBillInterestLossRptExcel")]
+        public async Task<IActionResult> GetBillInterestLossRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetBillInterestLossRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("BranchMasterDetailsSave")]

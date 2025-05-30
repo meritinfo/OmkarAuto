@@ -6073,7 +6073,7 @@ namespace FreightMasters.Repository
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Delivery Dispute Report", filter);
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Party MIS Report", filter);
                     }
                     else
                     {
@@ -6118,6 +6118,180 @@ namespace FreightMasters.Repository
 
             }
             return partyList;
+        }
+        public async Task<ResponseModel> GetBillInterestLossRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            ResponseModel responseModel = new();            
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Party",      request.FilterStr1),
+                            new SqlParameter("@IntPct",     request.FilterStr2),
+                            new SqlParameter("@DaysAfter",  request.FilterStr3),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillInterestLossRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            DataTable dt = dataSet.Tables[0];
+                            DataTable dt1 = dataSet.Tables[1];
+                            responseModel = await sharedRepository.GetCompanyDetail();
+                            int colcnt = dt.Columns.Count;
+
+                            var ws = wb.Worksheets.Add("worksheet");
+                            ws.Range(1, 1, 1, colcnt).Merge();
+                            ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                            ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(2, 1, 2, colcnt).Merge();
+                            ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                            ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                            ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                            ws.Range(3, 1, 3, colcnt).Merge();
+                            ws.Range(3, 1, 3, colcnt).Value = "BILL INTEREST LOSS REPORT";
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                            ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(4, 1, 4, colcnt).Merge();
+                            ws.Range(4, 1, 4, colcnt).Value = filter;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                            ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            for (int i = 0; i < colcnt; i++)
+                            {
+                                ws.Cell(5, i + 1).Value = dt.Columns[i].ColumnName;
+                            }
+
+                            ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                            int k = 6; Int64 intAmt = 0;
+
+                            for (int j = 0; j < dt.Rows.Count; j++)
+                            {
+                                for (int i = 0; i < colcnt; i++)
+                                {
+                                    if(dt.Columns[i].ColumnName!="MR Date")
+                                    {
+                                        ws.Cell(k, i + 1).Value = Convert.ToString(dt.Rows[j][i]);
+                                    }
+                                    else if (Convert.ToDateTime(dt.Rows[j][i]).ToString("dd-MM-yyyy") != "01-01-1900")
+                                    {
+                                        ws.Cell(k, i + 1).Value = Convert.ToString(dt.Rows[j][i]);
+                                    }
+                                    intAmt = intAmt + Convert.ToInt64(dt.Rows[j][9]);
+                                }
+                                k++;
+                            }
+                            ws.Cell(k, 10).Value = intAmt;
+                            ws.Range(k, 1, k, colcnt).Style.Font.Bold = true;
+                            k++;
+
+                            ws.Range(5, 1, k, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, k, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                            k++;
+
+
+                            var colct = dt1.Columns.Count;
+
+                            ws.Range(k, 1, k, colct).Merge();
+                            ws.Range(k, 1, k, colct).Value = "Unadjusted on a/c MRs";
+                            ws.Range(k, 1, k, colct).Style.Font.Bold = true;
+                            ws.Range(k, 1, k, colct).Style.Font.FontSize = 12;
+                            ws.Range(k, 1, k, colct).Style.Font.FontColor = XLColor.Red;
+                            k++;
+                            
+                            for (int i = 0; i < colct; i++)
+                            {
+                                ws.Cell(k, i + 1).Value = dt1.Columns[i].ColumnName;
+                            }
+
+                            ws.Range(k, 1, k, colct).Style.Font.Bold = true;
+                            ws.Range(k, 1, k, colct).Style.Font.FontSize = 12;
+                            ws.Range(k, 1, k, colct).Style.Font.FontColor = XLColor.DarkBlue;
+
+                            k++;
+
+                            for (int j = 0; j < dt1.Rows.Count; j++)
+                            {
+                                for (int i = 0; i < colct; i++)
+                                {
+                                    ws.Cell(k, i + 1).Value = Convert.ToString(dt1.Rows[j][i]);
+                                }
+                               
+                                k++;
+                            }
+
+                            ws.Range(6, 5, k, colct).Style.NumberFormat.Format = "0.00";
+
+                            ws.Range(5, 1, k, colct).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, k, colct).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+
+                            for (int l = 1; l <= colcnt; l++)
+                            {
+                                ws.Column(l).AdjustToContents();
+                            }
+
+                            var foldername = System.IO.Path.Combine("reports", "Download");
+                            var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                            var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                            var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                            bool exists = System.IO.Directory.Exists(pathToSave);
+
+                            if (!exists)
+                            {
+                                Directory.CreateDirectory(pathToSave);
+                            }
+
+                            if (File.Exists(fullPath))
+                                File.Delete(fullPath);
+
+                            wb.SaveAs(fullPath);
+
+                            response.Status = true;
+                            response.Message = filename;
+                        }
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
         }
     }
 }
