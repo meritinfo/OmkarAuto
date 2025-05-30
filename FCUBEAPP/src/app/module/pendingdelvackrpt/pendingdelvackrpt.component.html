@@ -50,6 +50,29 @@
                                     </div>
                                 </div>
                             </div>
+                             <div class="col-lg-6"> 
+                                        <div class="mb-6">                                    
+                                            <label for="formrow-inputCity">Broker</label>  
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="brokerList" 
+                                                    formControlName="brokerId"
+                                                    [searchKeyword]="keywordLocation"                                                  
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate" 
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>                                     
+                                    </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">

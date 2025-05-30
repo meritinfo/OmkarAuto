@@ -505,6 +505,7 @@ import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliver
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
+import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 
 
 @NgModule({
@@ -670,7 +671,7 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
     CashbookrptComponent, LedgerreportComponent,
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
-    PartymisrptComponent, 
+    PartymisrptComponent, OpeningbalupdateComponent, 
     
   ],
   

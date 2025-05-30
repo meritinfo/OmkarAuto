@@ -28,6 +28,7 @@ dashboard: string ="";
 
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -121,11 +122,13 @@ dashboard: string ="";
     this.getBranchList();
     this.getLocationList(); 
     this.getPartyList(); 
+    this.getBrokerList();
     
     this.formFilter = this.formBuilder.group({
       ageing: new FormControl('30',),
       branch: new FormControl('',),  
       party: new FormControl('',),  
+         brokerId: new FormControl('',),  
       origin: new FormControl('',),  
       destination: new FormControl('',), 
       billingStatus: new FormControl('',), 
@@ -174,6 +177,12 @@ dashboard: string ="";
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
+  getBrokerList(): void {
+  this.commonService.getBrokerList().subscribe((res) => {
+    this.brokerList = res;
+  });
+}
           
   exportExcel(): void {      
     this.formSubmitted = true;
@@ -191,6 +200,7 @@ dashboard: string ="";
     this.filter.sortColumn  = selectedDataVal.billingStatus;
     this.filter.sortOrder   = selectedDataVal.ageing.toString();
     this.filter.filterStr   = selectedDataVal.branch;
+    this.filter.search = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
     this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";

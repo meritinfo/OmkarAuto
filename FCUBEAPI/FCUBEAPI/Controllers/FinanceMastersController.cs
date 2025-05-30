@@ -504,6 +504,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("OpeningBalUpdate")]
+        public async Task<IActionResult> OpeningBalUpdate(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.OpeningBalUpdate(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetConsolidateOpeningBalList")]
         public async Task<IActionResult> GetConsolidateOpeningBalList(RequestModel req)
@@ -523,6 +541,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("GetConsolidateOpeningBalExcel")]
         public async Task<IActionResult> GetConsolidateOpeningBalExcel(RequestModel req)

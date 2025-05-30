@@ -342,6 +342,7 @@ getBrokerList(): void {
     this.brokerList = res;
   });
 }
+
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
