@@ -44,5 +44,9 @@ namespace FinanceMasters.Business
         {
             return await openBalanceMasterRepository.GetConsolidateOpeningBalExcel(req);
         }
+        public async Task<ResponseModel> OpeningBalUpdate(RequestModel req)
+        {
+            return await openBalanceMasterRepository.OpeningBalUpdate(req);
+        }
     }
 }

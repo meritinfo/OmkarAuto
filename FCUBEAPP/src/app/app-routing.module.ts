@@ -323,6 +323,7 @@ import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliver
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
+import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -768,6 +769,7 @@ const routes: Routes = [
   { path: 'brokerledger',component: BrokerledgerprtComponent},
   
   
+  { path: 'carryopbal',component: OpeningbalupdateComponent},
 ];
 
 

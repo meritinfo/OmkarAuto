@@ -5,7 +5,7 @@ import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@ang
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
-import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel'
 import { Mrregisterrptlistmodel} from 'src/app/models/mrregisterrptlistmodel';
 import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';

@@ -505,6 +505,7 @@ import { DeliverydisputerptComponent } from './module/deliverydisputerpt/deliver
 import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component';
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
+import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
 
@@ -672,6 +673,7 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
     CashbookrptComponent, LedgerreportComponent,
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
+    PartymisrptComponent, OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, 
     
   ],

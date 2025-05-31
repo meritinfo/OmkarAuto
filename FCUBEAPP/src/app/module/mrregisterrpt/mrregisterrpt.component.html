@@ -74,6 +74,9 @@
                                         class="form-control form-select ng-pristine ng-touched">
                                         <option value="S"> Summary</option>
                                         <option value="D"> Details </option>
+                                        <option value="TS"> Tds Summary</option>
+                                        <option value="TD">Tds Statement</option>
+                                         <option value="TP">Tds Sum Party Wise</option>
                                          
                                     </select>
                                 </div>
@@ -102,22 +105,29 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-lg-1"  *ngIf="rptType">
+                            <!-- <div class="col-lg-1"  *ngIf="rptType">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
+                            </div> -->
+                              <div class="col-lg-1" >
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="exportExcel()"><span>Excel</span></button>
+                                </div>
                             </div>
+             
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-2 col-md-2 text-right">
+                <!-- <div class="col-sm-2 col-md-2 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
                             (click)="exportExcel()"><span>Excel</span></button>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">

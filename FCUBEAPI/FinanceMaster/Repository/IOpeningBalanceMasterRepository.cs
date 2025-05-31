@@ -16,6 +16,7 @@ namespace FinanceMasters.Repository
         Task<ResponseModel> ConsolidateOpeningBalUpdate(RequestModel req);
         Task<ConsolidatedOpenBalListModel> GetConsolidateOpeningBalList(RequestModel req);
         Task<ResponseModel> GetConsolidateOpeningBalExcel(RequestModel req);
+        Task<ResponseModel> OpeningBalUpdate(RequestModel req);
 
     }
 }

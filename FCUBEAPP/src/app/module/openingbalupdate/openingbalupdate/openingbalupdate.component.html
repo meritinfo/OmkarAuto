@@ -1,0 +1,34 @@
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Carry Forward Opening</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBankRecEntry">
+                         
+   
+                 <div class="col-md-3">
+                                <div class="mb-3">
+                                    <button class="btn btn-primary w-md" 
+                           
+                            (click)="updateForm()" >Update</button> 
+                                   
+                                </div>
+                            </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>
+
