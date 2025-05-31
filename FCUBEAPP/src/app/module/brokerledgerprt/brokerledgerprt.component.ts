@@ -14,11 +14,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
-  selector: 'app-cashbookrpt',
-  templateUrl: './cashbookrpt.component.html',
-  styleUrls: ['./cashbookrpt.component.css']
+  selector: 'app-brokerledgerprt',
+  templateUrl: './brokerledgerprt.component.html',
+  styleUrls: ['./brokerledgerprt.component.css']
 })
-export class CashbookrptComponent {
+export class BrokerledgerprtComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -26,7 +26,7 @@ export class CashbookrptComponent {
   viewStatus = false; 
   dashboard: string =""; 
   branchList: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   formFilter!: FormGroup;
@@ -68,7 +68,7 @@ export class CashbookrptComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Cash Book Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Broker Ledger");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -111,48 +111,36 @@ export class CashbookrptComponent {
     
     this.fromDate = this.minDate ;    
   
-    this.getBranchList();
-    this.getPaymentCreditAcList();
+    this.getBrokerList();
       
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      branch: new FormControl('',),  
-      accountId: new FormControl('34',[Validators.required]),
-      rptType: new FormControl('D',[Validators.required]),
-      branchorCon: new FormControl('C',[Validators.required]),
+      brokerId: new FormControl('',[Validators.required]),
     });
     
     this.formFilter.controls['branch'].disable();  
   }
-  
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
+   
+  getBrokerList(): void {
+    this.commonService.getBrokerList().subscribe((res) => {
+      this.brokerList = res;
     });
   }
-  
-  getPaymentCreditAcList(){
-    this.requestmodel.strRequest = "M";
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditacList = res;
-    });
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
   }
+  onFocused(e: any) {
+    // do something
+  }
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   get f() { return this.formFilter.controls; } 
   
-  change(selectedValue: string) {
-    if (selectedValue === "C") {
-      this.formFilter.controls['branch'].disable();  
-      this.formFilter.patchValue({      
-        branch:""
-      });
-    }
-    else{
-      this.formFilter.controls['branch'].enable(); 
-    }   
-  }
-
   search(format: string): void {
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
@@ -165,40 +153,31 @@ export class CashbookrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-
-    if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
-      this.toastrService.warning("Please select Branch");
+    if(selectedDataVal.brokerId.dataId){
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Broker is Invalid");
       return;
     }
+
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
+    this.filter.filterStr     = "0";
     this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = selectedDataVal.accountId;
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "CS";
-    }
-    if(selectedDataVal.branchorCon == "C" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "CD";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="S"){
-      this.filter.filterStr3    = "BS";
-    }
-    if(selectedDataVal.branchorCon == "B" && selectedDataVal.rptType =="D"){
-      this.filter.filterStr3    = "BD";
-    }
+    this.filter.filterStr2    = selectedDataVal.brokerId.dataId;
     this.filter.search = format;
 
-    this.cashbookreportService.getCashBookReport(this.filter).subscribe((resp: any) => {
+    this.cashbookreportService.getBrokerLedgerReport(this.filter).subscribe((resp: any) => {
         let link = document.createElement("a");
         if(format=="XL"){
-          link.download = "CashbookReport_" + new Date().getTime() + '.xls';
-          link.href = "assets/reports/CashBook/" + resp.message;
+          link.download = "BrokerLedgerReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/broker/" + resp.message;
           link.click();
         }
         else{
-          link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/CashBook/" + resp.message;
+          link.download = "BrokerLedgerReport_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/broker/" + resp.message;
           link.click();
           window.open(link.href, "_blank");
         }

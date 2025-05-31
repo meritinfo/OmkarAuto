@@ -138,7 +138,6 @@ ngOnInit(): void {
 }, 2000);  
 
 
- this.getBrokerList();
 
   this.formUser = this.formBuilder.group({
   billingStation: new FormControl(this.branch,[Validators.required]),
@@ -337,11 +336,6 @@ createInitialMrArray() {
   });
 }  
 
-getBrokerList(): void {
-  this.commonService.getBrokerList().subscribe((res) => {
-    this.brokerList = res;
-  });
-}
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;

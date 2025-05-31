@@ -506,6 +506,7 @@ import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component
 import { PartymislocationsaddComponent } from './module/partymislocations/partymislocationsadd/partymislocationsadd.component';
 import { PartymislocationlistComponent } from './module/partymislocations/partymislocationlist/partymislocationlist.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
+import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
 
 
 @NgModule({
@@ -671,7 +672,7 @@ import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billi
     CashbookrptComponent, LedgerreportComponent,
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, 
     
   ],
   

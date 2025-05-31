@@ -18,12 +18,13 @@ namespace FinTrans.Business
         Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request);
+        Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 
 
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
-
+        Task<ResponseModel> BankBookPrint(ReportRequestModel request);
 
         Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request);
         Task<ResponseModel> GetGstSalesRegisterRptExcel(ReportRequestModel request);

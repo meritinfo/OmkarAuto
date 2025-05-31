@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { LedgerrptService } from 'src/app/services/ledgerrpt.service';
+import { FinreportsService } from 'src/app/services/finreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -56,7 +56,7 @@ dashboard: string ="";
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private ledgerrptService: LedgerrptService, 
+  constructor(private ledgerrptService: FinreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 

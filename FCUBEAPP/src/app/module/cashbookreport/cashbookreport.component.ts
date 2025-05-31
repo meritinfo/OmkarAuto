@@ -2,7 +2,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/common/constants';
-import { CashbookreportService } from 'src/app/services/cashbookreport.service';
+import { FinreportsService } from 'src/app/services/finreports.service';
 import { PdfService } from 'src/app/services/pdf.service';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
@@ -25,7 +25,7 @@ export class CashbookreportComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -54,7 +54,7 @@ dashboard: string ="";
   }
 
 
-  constructor(private cashbookreportService: CashbookreportService,private toastrService:ToastrService,
+  constructor(private cashbookreportService: FinreportsService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private pdfService : PdfService, private route: Router) {

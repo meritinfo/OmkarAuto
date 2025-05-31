@@ -599,6 +599,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("BrokerLedgerPrint")]
+        public async Task<IActionResult> BrokerLedgerPrint(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.BrokerLedgerPrint(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetLedgerRptExcel")]
         public async Task<IActionResult> GetLedgerRptExcel(ReportRequestModel req)
         {
@@ -674,7 +693,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        
+        [HttpPost("BankBookPrint")]
+        public async Task<IActionResult> BankBookPrint(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.BankBookPrint(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetBankBookRptPdf")]
         public async Task<IActionResult> GetBankBookRptPdf(ReportRequestModel req)

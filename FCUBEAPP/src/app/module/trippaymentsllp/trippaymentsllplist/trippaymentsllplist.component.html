@@ -90,17 +90,17 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allTripPaymentsTypes.tripPaymentsList?.length != 0">
-                        <tr *ngFor="let trip of allTripPaymentsTypes.tripPaymentsList">
+                        <tr *ngFor="let trip of allTripPaymentsTypes.tripPaymentsList">                        
+                            <td>                               
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="gettrippaymentsDetails(trip)" ></button>                           
+                            </td>
                             <td>{{ trip.bName }}</td>
                             <td>{{ trip.pmtDate }}</td>
                             <td>{{ trip.vehicleNo }}</td>
                             <td>{{ trip.transType }}</td>
                             <td>{{ trip.qtyLtrs }}</td>
-                            <td>{{ trip.amountPaid }}</td>                         
-                            <td>                               
-                                <button type="button" class="btn btn-edit" 
-                                    (click)="gettrippaymentsDetails(trip)" ></button>                           
-                            </td>
+                            <td>{{ trip.amountPaid }}</td> 
                         </tr>
                     </tbody>
                     <tbody *ngIf="allTripPaymentsTypes.tripPaymentsList?.length == 0">

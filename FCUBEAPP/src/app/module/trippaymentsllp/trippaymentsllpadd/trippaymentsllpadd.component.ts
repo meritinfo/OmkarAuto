@@ -413,7 +413,7 @@ export class TrippaymentsllpaddComponent {
     this.formTripPayment.patchValue({
       neftPmt : "",
       chequeNo: "",
-      chequeDate: this.loginDate,
+      chequeDate: "",
     });
     
     this.getCreditAcList(selectedValue);
@@ -492,10 +492,6 @@ export class TrippaymentsllpaddComponent {
     else{
       this.toasterService.warning("Please Enter Valid Vehicle No ");          
       return;
-    }
-    var chqDt = this.loginDate;
-    if (selectedDataValue.pmtType=="B"){
-      chqDt = selectedDataValue.chequeDate == '' ? this.loginDate:selectedDataValue.chequeDate;
     }
     
     this.formSubmitted = true; 

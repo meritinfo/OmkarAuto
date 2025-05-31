@@ -1396,7 +1396,7 @@ namespace FreightMasters.Repository
                             for (int j = 0; j < dataSet.Tables[0].Rows.Count; j++)
                             {
 
-                                if (Party != dataSet.Tables[0].Rows[j][1].ToString())
+                                if (Party != dataSet.Tables[0].Rows[j][0].ToString())
                                 {
                                     if (j > 0)
                                     {
@@ -1425,7 +1425,7 @@ namespace FreightMasters.Repository
 
                                     }                                   
 
-                                    Party = dataSet.Tables[0].Rows[j][1].ToString();
+                                    Party = dataSet.Tables[0].Rows[j][0].ToString();
                                     ws.Range(r, 1, r, colcnt).Merge();
                                     ws.Range(r, 1, r, colcnt).Value = Party;
                                     ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 11;

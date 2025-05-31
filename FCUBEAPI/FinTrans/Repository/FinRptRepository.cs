@@ -324,6 +324,52 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> BankBookPrint(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                baseUrl = dbconnection.Value.apiPath + "api/BankBook/";
+
+                string UrlParam = "?FromDate=" + request.FromDate +
+                                    "&ToDate=" + request.ToDate +
+                                    "&Branch=" + request.FilterStr +
+                                    "&YearId=" + request.FilterStr1 +
+                                    "&AccountID=" + request.FilterStr2 +
+                                    "&format=" + request.Search;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
 
         public async Task<List<DropDownListModel>> GetLedgerList()
         {
@@ -497,6 +543,52 @@ namespace FinTrans.Repository
                                     "&SubLedger=" + request.SortOrder +
                                     "&GroupYn=" + request.Search +
                                     "&format=" + request.FilterStr4;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                baseUrl = dbconnection.Value.apiPath + "api/BrokerLedger/";
+
+                string UrlParam = "?FromDate=" + request.FromDate +
+                                    "&ToDate=" + request.ToDate +
+                                    "&Branch=1" +
+                                    "&YearId=" + request.FilterStr1 +
+                                    "&BrokerId=" + request.FilterStr2 +
+                                    "&format=" + request.FilterStr3;
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

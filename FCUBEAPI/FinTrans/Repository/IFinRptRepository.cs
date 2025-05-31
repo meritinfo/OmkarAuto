@@ -19,13 +19,14 @@ namespace FinTrans.Repository
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<DataSet> bankBookReport(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
-
+        Task<ResponseModel> BankBookPrint(ReportRequestModel request);
 
         Task<List<DropDownListModel>> GetLedgerList();
         Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
         Task<DataSet> ledgerReport(ReportRequestModel request);
         Task<ResponseModel> LedgerPrintPdf(RepReqModel request);
+        Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 
 
         Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request);
