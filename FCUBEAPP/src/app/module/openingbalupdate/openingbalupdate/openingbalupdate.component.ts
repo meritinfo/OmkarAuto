@@ -52,12 +52,12 @@ export class OpeningbalupdateComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -74,9 +74,6 @@ export class OpeningbalupdateComponent {
     }
     this.getYearList();
 
-    this.formBankRecEntry = this.formBuilder.group({
-
-    });
   }
 
   getYearList():void{
@@ -91,7 +88,7 @@ export class OpeningbalupdateComponent {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message); 
-       //this.getBankrecData();
+        this.route.navigate([this.dashboard]);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

@@ -12,23 +12,21 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBankRecEntry">
-                         
-   
-                 <div class="col-md-3">
-                                <div class="mb-3">
-                                    <button class="btn btn-primary w-md" 
-                           
-                            (click)="updateForm()" >Update</button> 
-                                   
-                                </div>
+            <div class="row top-controls" style="height: 400px;">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBankRecEntry"> 
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <button class="btn btn-primary w-md" (click)="updateForm()" >Update</button> 
                             </div>
-            </form>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- end row -->
         </div>
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
-
 </div>
 
