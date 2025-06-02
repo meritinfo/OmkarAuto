@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label>
-                                            <select class="form-control" formControlName="transBranch"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="transBranch"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['transBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -106,7 +106,7 @@
                                                 *ngFor="let arrayData of formAdvanceArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td>                                     
-                                                        <select class="form-control" formControlName="loadBranch"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="loadBranch"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
                                                             <option *ngFor="let vehi of branchList" value={{vehi.dataId}}>
@@ -212,7 +212,7 @@
                         <div class="col-lg-2">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Receipt Type</label><span style="color: red"> * </span>
-                                <select class="form-control" formControlName="receiptType" 
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="receiptType" 
                                     (change)="changePmtType($event)"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['receiptType'].invalid) }">
                                     <option value="M">Cash</option>      
@@ -224,7 +224,7 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Dedit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" formControlName="debitAc"
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="debitAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
                                     <option value="">Choose..</option>
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>

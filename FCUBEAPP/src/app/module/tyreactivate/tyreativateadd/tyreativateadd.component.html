@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label><span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="branchCode"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -161,7 +161,7 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2"> 
-                                                        <select class="form-control" formControlName="brandId"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="brandId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             (change)="getTyreNo(i,$event)">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
@@ -192,7 +192,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="col-lg-2"> 
-                                                        <select class="form-control" formControlName="tyrePosID"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="tyrePosID"   
                                                             class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of positionList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}

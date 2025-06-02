@@ -80,7 +80,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">On A/c Branch</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="onAcBranch" 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="onAcBranch" 
                                                     (change)="onAcBrSelected($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['onAcBranch'].invalid) }">
                                                     <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
@@ -111,7 +111,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Credit Account</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="creditAc" 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                                     <option selected="">Choose...</option>
                                                     <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
@@ -190,21 +190,21 @@
                                             </div>                                        
                                         </td>
                                         <td>
-                                            <select class="form-control" formControlName="chYear">
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="chYear">
                                                 <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                                     {{yr.dataName}}
                                                 </option>
                                             </select>
                                         </td> 
                                         <td>
-                                            <select class="form-control" formControlName="challanBranch">
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="challanBranch">
                                                 <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
                                                     {{ac.dataName}}
                                                 </option>
                                             </select>
                                         </td>     
                                         <td>
-                                            <select class="form-control" formControlName="abType">
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="abType">
                                                 <option value="A">Advance</option>
                                                 <option value="F">Final</option>
                                                 <option value="O">Other</option>

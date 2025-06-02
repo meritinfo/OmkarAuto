@@ -73,7 +73,7 @@
                         <div class="mb-3">
                            <label for="basicpill-phoneno-input">Branch</label><span style="color:red">*</span>
                              
-                              <select class="form-control" autoclose="false" formControlName="branchCode" 
+                              <select class="form-control form-select ng-pristine ng-touched"autoclose="false" formControlName="branchCode" 
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                               <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                   {{branch.dataName}}
@@ -113,7 +113,7 @@
                 <div class="col-lg-3">
                     <div class="mb-3">
                        <label for="basicpill-phoneno-input">State Code </label>
-                       <select class="form-control" formControlName="stateCode" autoclose="false"
+                       <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode" autoclose="false"
                                              [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
                                              <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                  {{state.dataName}}

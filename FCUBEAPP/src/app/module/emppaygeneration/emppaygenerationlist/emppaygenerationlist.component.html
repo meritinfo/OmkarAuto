@@ -18,7 +18,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
                                     <span style="color: red">*</span>
-                                    <select class="form-control" formControlName="branch"
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="branch"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['branch'].invalid) }">
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
@@ -39,7 +39,7 @@
                                 <div class="mb-2">
                                     <label for="formrow-inputCity">Year to Affect</label>
                                     <span style="color: red">*</span>
-                                    <select class="form-control" formControlName="affectYear"
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="affectYear"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['affectYear'].invalid) }">
                                         <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                             {{yr.dataName}}

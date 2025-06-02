@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label><span style="color: red">*</span>  
-                                            <select class="form-control" formControlName="branchCode"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -139,7 +139,7 @@
                                                             formControlName="regroupIssueDtlId">                                                   
                                                     </td>
                                                     <td class="col-lg-2"> 
-                                                        <select class="form-control" formControlName="brandId"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="brandId"   
                                                             class="form-control form-select ng-pristine ng-touched" >
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
@@ -168,7 +168,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="col-lg-2">                                                          
-                                                        <select class="form-control" formControlName="regroupDoneYN">
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="regroupDoneYN">
                                                             <option value="Y">Regrouped</option>
                                                             <option value="N">Non-Regrouped</option>
                                                         </select> 
@@ -284,7 +284,7 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" formControlName="creditAc"
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                     <option value="">Choose...</option>      
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>

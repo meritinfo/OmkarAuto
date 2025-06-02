@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label>
-                                            <select class="form-control" formControlName="branchCode"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -194,7 +194,7 @@
                                                         formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)">  
                                                     </td>
                                                     <td> 
-                                                        <select class="form-control" formControlName="brandID"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="brandID"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
@@ -207,7 +207,7 @@
                                                         formControlName="tyrePattern"> 
                                                     </td> -->
                                                     <td> 
-                                                        <select class="form-control" formControlName="tyreModel"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="tyreModel"   
                                                             class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of modelList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
@@ -338,7 +338,7 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" 
+                                <select class="form-control form-select ng-pristine ng-touched"
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                     <option value="">Choose</option>

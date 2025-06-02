@@ -60,7 +60,7 @@
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Sub Ledger</label>
-                                    <select class="form-control" formControlName="subType">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="subType">
                                         <option value=""></option>
                                         <option value="L">Like</option>
                                         <option value="E">Equal</option>
@@ -97,7 +97,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
-                                    <select class="form-control" formControlName="branch">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="branch">
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>

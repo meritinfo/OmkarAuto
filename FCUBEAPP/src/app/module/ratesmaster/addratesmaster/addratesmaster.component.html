@@ -111,7 +111,7 @@
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">State Or ToPlace</label>
                                                     <span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="rateForStateOrToPlace"   
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="rateForStateOrToPlace"   
                                                     class="form-control form-select ng-pristine ng-touched" 
                                                     (change)="onStateorPlaceChange($event)"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }">

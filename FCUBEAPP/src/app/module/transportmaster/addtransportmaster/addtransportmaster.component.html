@@ -27,7 +27,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Branch Code: </label>
-                                            <select class="form-control" formControlName="branchCode"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -73,7 +73,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>State Code: </label><span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="stateCode"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                    {{state.dataName}}
@@ -287,7 +287,7 @@
                                         *ngFor="let miscData of formLocationArray.controls; let k = index">
                                         <div [formGroupName]="k">
                                             <td class="col-lg-5">                                         
-                                                <select class="form-control" formControlName="locId">
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="locId">
                                                     <option *ngFor="let branch of locationList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
@@ -325,7 +325,7 @@
                                         *ngFor="let miscData of formStateArray.controls; let k = index">
                                         <div [formGroupName]="k">
                                             <td class="col-lg-5">
-                                                <select class="form-control" formControlName="stateCode"      
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode"      
                                                 [ngClass]="">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                     {{state.dataName}}
@@ -364,7 +364,7 @@
                                         *ngFor="let miscData of formVehArray.controls; let k = index">
                                         <div [formGroupName]="k">
                                             <td class="col-lg-5">
-                                                <select class="form-control" formControlName="vehTypeId">
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="vehTypeId">
                                                     <option *ngFor="let branch of vehicleTypeList"
                                                         value={{branch.dataId}}>  
                                                         {{branch.dataName}}

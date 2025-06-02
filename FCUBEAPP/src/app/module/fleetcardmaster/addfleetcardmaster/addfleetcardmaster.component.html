@@ -69,7 +69,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">CardLedger Ac</label>
-                                                <select class="form-control" formControlName="cardLedgerAc"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="cardLedgerAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cardLedgerAc'].invalid) }">
 
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>

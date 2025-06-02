@@ -132,7 +132,7 @@
                               <div class="col-sm-2">
                                  <label for="horizontal-firstname-input"  
                                     class="col-form-label"> State Code</label><span style="color: red">*</span> 
-                                 <select class="form-control" formControlName="stateCode" >
+                                 <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode" >
                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                         {{state.dataName}}
                                     </option>

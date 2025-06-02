@@ -22,7 +22,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Fleet Group</label>
                                             <span style="color: red">*</span>
-                                            <select class="form-control" formControlName="fleetGroupId"   
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="fleetGroupId"   
                                             class="form-control form-select ng-pristine ng-touched"   
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['fleetGroupId'].invalid) }">
                                                 <option *ngFor="let vehi of fltGrpList" value={{vehi.dataId}}>
@@ -86,7 +86,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Type</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="vehicleTypeGroupId"   
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="vehicleTypeGroupId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeGroupId'].invalid) }">
                                                     <option *ngFor="let vehi of vehicleFltGrpList" value={{vehi.dataId}}>
@@ -100,7 +100,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Mfr</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="vehMfrId"   
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="vehMfrId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vehMfrId'].invalid) }">
                                                     <option *ngFor="let mfr of vehicleMfrList" value={{mfr.dataId}}>
@@ -240,7 +240,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">FastTag Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="fastTagYN" 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="fastTagYN" 
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onFastTagChange($event)"                                                 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fastTagYN'].invalid) }">
@@ -273,7 +273,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Petro Card Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="petroCardYN"    
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="petroCardYN"    
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onPetroCardChange($event)"                                                    
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['petroCardYN'].invalid) }">
@@ -314,7 +314,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Happay Card Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="happayCardYN"  
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="happayCardYN"  
                                                     class="form-control form-select ng-pristine ng-touched"  
                                                     (change)="onHappayCardChange($event)"                                                                       
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['happayCardYN'].invalid) }">
@@ -346,7 +346,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">FIP Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="fipYN"      
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="fipYN"      
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onFipChange($event)"                                                                      
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fipYN'].invalid) }">
@@ -370,7 +370,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Sold Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control"     
+                                                <select class="form-control form-select ng-pristine ng-touched"    
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onSoldChange($event)"                                                                        
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['soldYN'].invalid) }"
@@ -413,7 +413,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Transfer Y/N</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" 
+                                                <select class="form-control form-select ng-pristine ng-touched"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onTransferChange($event)"                                                       
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['tfrYN'].invalid) }"
@@ -506,7 +506,7 @@
 
 
 
-                                                    <select class="form-control" formControlName="chassisFinCompId"   
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="chassisFinCompId"   
                                                     class="form-control form-select ng-pristine ng-touched"   (change)="chesisFinChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisFinCompId'].invalid) }">
                                                     <option selected value ="">Choose...</option>
@@ -551,7 +551,7 @@
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
                                                         <label>Ch . Loan TerminateYN  </label><span style="color: red">*</span>
-                                                        <select class="form-control" formControlName="chassisLoanTerminateYN" (change)="terminateChesisChange($event)"
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="chassisLoanTerminateYN" (change)="terminateChesisChange($event)"
                                                             class="form-control form-select ng-pristine ng-touched" 
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanTerminateYN'].invalid) }">
                                                                 <option value="Y">Yes</option>
@@ -579,7 +579,7 @@
                                                      
 
 
-                                                            <select class="form-control" formControlName="chassisLoanLedger"   
+                                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="chassisLoanLedger"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['chassisLoanLedger'].invalid) }">
                                                                 <option *ngFor="let vehi of loanLedgerList" value={{vehi.dataId}}>
@@ -596,7 +596,7 @@
                                                        
 
 
-                                                            <select class="form-control" formControlName="bodyFinCompId"   (change)="bodyFinChange($event)"
+                                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="bodyFinCompId"   (change)="bodyFinChange($event)"
                                                             
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyFinCompId'].invalid) }">
@@ -640,7 +640,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label>BodyLoan Terminate YN </label><span style="color: red">*</span>
-                                                        <select class="form-control" formControlName="bodyLoanTerminateYN" (change)="terminateBodyChange($event)"
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="bodyLoanTerminateYN" (change)="terminateBodyChange($event)"
                                                             class="form-control form-select ng-pristine ng-touched" 
                                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanTerminateYN'].invalid) }">
                                                                 <option value="Y">Yes</option>
@@ -670,7 +670,7 @@
 
 
 
-                                                            <select class="form-control" formControlName="bodyLoanLedger"   
+                                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="bodyLoanLedger"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['bodyLoanLedger'].invalid) }">
                                                                 <option *ngFor="let vehi of loanLedgerList" value={{vehi.dataId}}>

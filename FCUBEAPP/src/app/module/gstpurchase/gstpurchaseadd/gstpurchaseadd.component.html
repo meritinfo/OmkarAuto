@@ -92,7 +92,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">State</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="vendorState"      
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="vendorState"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorState'].invalid) }">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                        {{state.dataName}}
@@ -409,7 +409,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Credit Account</label>
-                                                <select class="form-control" formControlName="creditAc"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc"
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }"> 
                                                     <option value="">SELECT</option>

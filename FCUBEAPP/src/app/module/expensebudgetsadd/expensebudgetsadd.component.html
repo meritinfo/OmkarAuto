@@ -19,7 +19,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch  </label> <span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="branchCode" (change)="getDetail($event)"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode" (change)="getDetail($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -57,7 +57,7 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td> 
-                                                        <select class="form-control" formControlName="accountId">
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="accountId">
                                                             <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                                 {{branch.dataName}}
                                                             </option>

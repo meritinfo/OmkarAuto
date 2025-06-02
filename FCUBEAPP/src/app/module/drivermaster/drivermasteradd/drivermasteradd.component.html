@@ -57,7 +57,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Blood Group</label><span style="color: red">*</span>
-                                                <select class="form-control" formControlName="bloodGroup"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="bloodGroup"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bloodGroup'].invalid) }">
                                                     <option value="A+">A+</option>
@@ -166,7 +166,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Hazardous Lic Y/N </label><span style="color: red">*</span>
-                                                <select class="form-control" formControlName="isHazardousLicYN"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="isHazardousLicYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onHazardousChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['isHazardousLicYN'].invalid) }">
@@ -317,7 +317,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Active Y/N </label><span style="color: red">*</span>
-                                                <select class="form-control" formControlName="isActive"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="isActive"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onActiveChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['isActive'].invalid) }">
@@ -337,7 +337,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Removed Y/N </label><span style="color: red">*</span>
-                                                <select class="form-control" formControlName="removedYN"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="removedYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onRemovedChange($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['removedYN'].invalid) }">
@@ -414,7 +414,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Account Status</label>
-                                                    <select class="form-control" formControlName="bankAccountStatus"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="bankAccountStatus"
                                                         class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAccountStatus'].invalid) }">
                                                         <option value="S">Savings Ac</option>

@@ -98,7 +98,7 @@
                                     <!-- <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor State </label><span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="vendorState"      
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="vendorState"      
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                    {{state.dataName}}
@@ -169,7 +169,7 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td>                                                        
-                                                        <select class="form-control" formControlName="spareLubId"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="spareLubId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
                                                             <option *ngFor="let vehi of sparesList" value={{vehi.dataId}}>
@@ -179,7 +179,7 @@
                                                     
                                                     </td>
                                                     <td>                                     
-                                                        <select class="form-control" formControlName="brandId"   
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="brandId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
@@ -330,7 +330,7 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" 
+                                <select class="form-control form-select ng-pristine ng-touched"
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
                                     <option value="">Choose</option> 
@@ -361,7 +361,7 @@
                         <!-- <div class="col-sm-3">
                             <div class="mb-3">
                                 <label>Branch Code: </label>
-                                <select class="form-control" formControlName="branchCode"
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="branchCode"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                         {{branch.dataName}}

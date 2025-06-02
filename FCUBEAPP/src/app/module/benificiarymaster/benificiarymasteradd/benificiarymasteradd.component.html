@@ -90,7 +90,7 @@
                            <div class="col-sm-4">
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label"> State </label><span style="color: red">*</span>                                                     
-                                 <select class="form-control" formControlName="stateCode" autoclose="false"
+                                 <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode" autoclose="false"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
                                  <option *ngFor="let state of stateList" value={{state.dataId}}>
                                      {{state.dataName}}

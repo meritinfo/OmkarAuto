@@ -20,7 +20,7 @@
                               <div class="col-lg-3">
                                  <div class="mb-3">
                                     <label for="formrow-inputCity">Submit Station</label><span style="color: red"> * </span>
-                                    <select class="form-control" formControlName="submitStn" 
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="submitStn" 
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['submitStn'].invalid) }">
                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                           {{branch.dataName}}
@@ -113,7 +113,7 @@
                                  <div class="mb-3">
                                     <label for="formrow-inputCity">Submit Location </label>
                                     <span style="color: red"> * </span>
-                                       <select class="form-control" formControlName="submitLocation" 
+                                       <select class="form-control form-select ng-pristine ng-touched"formControlName="submitLocation" 
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['submitLocation'].invalid) }">
                                        <option *ngFor="let branch of partyLocationList" value={{branch.dataId}}>
                                            {{branch.dataName}}
@@ -124,7 +124,7 @@
                               <div class="col-lg-2">
                                  <div class="mb-3">
                                     <label for="formrow-inputCity">Dept </label><span style="color: red"> * </span>
-                                    <select class="form-control" formControlName="deptId" 
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="deptId" 
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['deptId'].invalid) }">
                                        <option *ngFor="let branch of deptList" value={{branch.dataId}}>
                                           {{branch.dataName}}

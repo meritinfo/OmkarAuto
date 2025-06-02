@@ -55,7 +55,7 @@
                                     <div class="col-lg-5">
                                         <div class="mb-3">
                                             <label>Type of Loan</label><span style="color: red">*</span>
-                                            <select class="form-control" formControlName="loanType"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="loanType"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['loanType'].invalid) }"
                                                 class="form-control form-select ng-pristine ng-touched" >
                                                     <option value="SSA">Staff Salary Advance</option>

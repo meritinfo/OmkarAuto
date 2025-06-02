@@ -33,7 +33,7 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">Vehicle Type</label>
                                             <span style="color: red">*</span>                                            
-                                            <select class="form-control" formControlName="vehicleTypeGroupId"      
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="vehicleTypeGroupId"      
                                             [ngClass]="">
                                                 <option *ngFor="let state of vehicleTypeList" value={{state.dataId}}>
                                                    {{state.dataName}}

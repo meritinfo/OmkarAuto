@@ -19,7 +19,7 @@
                             </div>                          
                             <div class="col-md-2">
                                 <div class="mb-1">
-                                    <select class="form-control" formControlName="yearId">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="yearId">
                                         <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                             {{yr.dataName}}
                                         </option>
@@ -33,7 +33,7 @@
                             </div>                          
                             <div class="col-md-2">
                                 <div class="mb-2">
-                                    <select class="form-control" formControlName="branch">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="branch">
                                         <option *ngFor="let yr of branchList" value={{yr.dataId}}>
                                             {{yr.dataName}}
                                         </option>

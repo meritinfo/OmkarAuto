@@ -56,7 +56,7 @@
                             <div class="mb-3">
                                 <label for="formrow-inputZip">MR Type</label>
                                 <span style="color: red">*</span>
-                                <select class="form-control" formControlName="mrType" (change)="onMrTypeChange($event)"     
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="mrType" (change)="onMrTypeChange($event)"     
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mrType'].invalid) }">
                                     <option value="B">Bill</option>
                                     <!-- <option value="L">LR</option> -->

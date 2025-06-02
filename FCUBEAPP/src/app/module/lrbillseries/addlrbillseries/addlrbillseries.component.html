@@ -20,7 +20,7 @@
                               <label for="scope" class="col-form-label">Branch</label>  <span style="color: red">*</span>  
                            </div>
                            <div class="col-sm-4">                                        
-                              <select class="form-control" autoclose="false" 
+                              <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                  formControlName="branchCode" 
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                  <option *ngFor="let branch of branchList" value={{branch.dataId}}>

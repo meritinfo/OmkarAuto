@@ -74,7 +74,7 @@
                                                     *ngFor="let mst of formArray.controls; let i = index">
                                                     <div [formGroupName]="i" class="grid-table">
                                                         <td>   
-                                                            <select class="form-control" formControlName="location">
+                                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="location">
                                                                 <option *ngFor="let state of branchList" value={{state.dataId}}>
                                                                 {{state.dataName}}
                                                                 </option>
@@ -105,7 +105,7 @@
                                                             formControlName="city">                                                       
                                                         </td>
                                                         <td>   
-                                                            <select class="form-control" formControlName="stateCode">
+                                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode">
                                                                 <option *ngFor="let state of statelist" value={{state.dataId}}>
                                                                 {{state.dataName}}
                                                                 </option>

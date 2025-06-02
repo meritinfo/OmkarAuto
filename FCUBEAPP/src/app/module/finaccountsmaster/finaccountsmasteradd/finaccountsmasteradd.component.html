@@ -337,7 +337,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3"> 
                                                      <label>Active (Y/N)</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="accountStatus"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="accountStatus"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['accountStatus'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -350,7 +350,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Online Active Y/N</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="onlineActiveYn"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="onlineActiveYn"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                         (change)="onOnlineActiveChk($event)"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['onlineActiveYn'].invalid) }">
@@ -378,7 +378,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Hide Branch Login</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="hideBranch"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="hideBranch"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['hideBranch'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -389,7 +389,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">                                                   
                                                     <label>Hide For Non-Admin Users</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="hideNonAdmin"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="hideNonAdmin"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['hideNonAdmin'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -400,7 +400,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>TDS Ledger Y/N</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="tdsLedgerYN"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="tdsLedgerYN"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['tdsLedgerYN'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -413,7 +413,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Is Admin Exp?</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="isAdminExpYN"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="isAdminExpYN"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['isAdminExpYN'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -424,7 +424,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Send Email</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="sendEmail"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="sendEmail"
                                                         class="form-control form-select ng-pristine ng-touched" 
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['sendEmail'].invalid) }">
                                                             <option value="Y">Yes</option>
@@ -435,7 +435,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Sub Ledger Applicable</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="subLedgerYN"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="subLedgerYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['subLedgerYN'].invalid) }">
                                                         <option value="Y">Yes</option>
@@ -446,7 +446,7 @@
                                                <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Cn Ref YN</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="cnRefYN"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="cnRefYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cnRefYN'].invalid) }">
                                                         <option value="Y">Yes</option>
@@ -457,7 +457,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>CostCode YN</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="costCodeYN"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="costCodeYN"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['costCodeYN'].invalid) }">
                                                         <option value="Y">Yes</option>
@@ -475,7 +475,7 @@
                                               <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Block Act</label><span style="color: red">*</span>
-                                                    <select class="form-control" formControlName="blockAct"
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="blockAct"
                                                     class="form-control form-select ng-pristine ng-touched"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['blockAct'].invalid) }">
                                                         <option value="Y">Yes</option>

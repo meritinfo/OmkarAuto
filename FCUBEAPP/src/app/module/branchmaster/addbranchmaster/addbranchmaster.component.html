@@ -104,7 +104,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">State</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="stateCode"      
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="stateCode"      
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                        {{state.dataName}}
@@ -216,7 +216,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Ac Ledger</label>
-                                                <select class="form-control" formControlName="branchAcLedger" >
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="branchAcLedger" >
                                                     <option *ngFor="let a of accountList" value={{a.dataId}}>
                                                        {{a.dataName}}
                                                     </option>

@@ -20,7 +20,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Branch</label><span style="color: red">*</span>    
-                                                <select class="form-control" formControlName="tripBranch" 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="tripBranch" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['tripBranch'].invalid) }" >
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
@@ -575,7 +575,7 @@
                                             *ngFor="let drv of formDrExpTypeArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
                                                 <td>                                                   
-                                                    <select class="form-control" formControlName="expId">
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="expId">
                                                         <option *ngFor="let branch of expmstList" value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>
@@ -623,7 +623,7 @@
                                             *ngFor="let drv of formCmpExpTypeArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
                                                 <td>                                                   
-                                                    <select class="form-control" formControlName="expId">
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="expId">
                                                         <option *ngFor="let branch of expmstList" value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>

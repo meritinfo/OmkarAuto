@@ -34,7 +34,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Main Ac</label> <span style="color: red">*</span>
                                          
-                                                <select class="form-control" formControlName="mainAc"  
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="mainAc"  
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mainAc'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
@@ -46,7 +46,7 @@
                                                 <label for="formrow-inputZip">Other Ac</label> <span style="color: red">*</span>
                                                 
                                                 
-                                                <select class="form-control" formControlName="otherAc"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="otherAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Other Ac2</label> 
-                                                <select class="form-control" formControlName="otherAc2"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="otherAc2"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc2'].invalid)}">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
@@ -68,7 +68,7 @@
                                                 <label for="formrow-inputZip">Other Ac3</label> 
                                                
                                                 
-                                                <select class="form-control" formControlName="otherAc3"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="otherAc3"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc3'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>

@@ -30,7 +30,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Vehicle Type</label>
                                     <span style="color: red">*</span>
-                                    <select class="form-control" formControlName="vehicleTypeGroupId"   
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="vehicleTypeGroupId"   
                                     class="form-control form-select ng-pristine ng-touched">
                                         <option *ngFor="let vehi of vehicleFltGrpList" value={{vehi.dataId}}>
                                            {{vehi.dataName}}
@@ -68,7 +68,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Report Type</label>
                                     <span style="color: red">*</span>
-                                    <select class="form-control" (change)="changerpttype($event)" 
+                                    <select class="form-control form-select ng-pristine ng-touched"(change)="changerpttype($event)" 
                                     formControlName="rptType"   
                                     class="form-control form-select ng-pristine ng-touched">
                                         <option value="S">Summary</option>

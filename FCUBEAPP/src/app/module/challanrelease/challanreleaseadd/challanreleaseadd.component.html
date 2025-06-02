@@ -34,7 +34,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-lastname-input">Challan Year</label> <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="chYear" [ngClass]="{ 'is-invalid': formSubmitted && (f['chYear'].invalid) }" >
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="chYear" [ngClass]="{ 'is-invalid': formSubmitted && (f['chYear'].invalid) }" >
                                                     <option *ngFor="let branch of yearList" value={{branch.dataId}}>
                                                        {{branch.dataName}}
                                                     </option>

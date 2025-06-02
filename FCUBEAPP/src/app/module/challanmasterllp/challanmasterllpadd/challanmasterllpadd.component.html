@@ -279,7 +279,7 @@
                                                 *ngFor="let arrayData of formArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-1">
-                                                        <select class="form-control" formControlName="gcYear"  (change)="onBookChange(i)"
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="gcYear"  (change)="onBookChange(i)"
                                                         class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                                                 {{yr.dataName}}

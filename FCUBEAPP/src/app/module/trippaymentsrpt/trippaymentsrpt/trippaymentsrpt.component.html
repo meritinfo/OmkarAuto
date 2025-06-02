@@ -34,7 +34,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
-                                    <select class="form-control" formControlName="branch">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="branch">
                                         <option value="">All</option>
                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                         {{branch.dataName}}
@@ -105,7 +105,7 @@
                             <!-- <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label for="basicpill-phoneno-input">CreditAc </label>          
-                                    <select class="form-control" formControlName="creditAc">
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc">
                                     <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                         {{branch.dataName}}
                                     </option>

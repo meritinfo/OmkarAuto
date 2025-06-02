@@ -172,7 +172,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Credit Ac</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="creditAc" 
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                                     <option *ngFor="let branch of mainAcList" value={{branch.dataId}}>
                                                         {{branch.dataName}}

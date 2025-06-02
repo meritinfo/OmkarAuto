@@ -20,7 +20,7 @@
                                         <div class="mb-4">
                                             <label for="formrow-inputZip"> Branch </label>
                                             <span style="color: red"> * </span>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="branchCode" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
@@ -53,7 +53,7 @@
                                         <div class="mb-4">
                                             <label for="formrow-inputZip"> Add Cost/Rec Code </label>
                                             <span style="color: red"> * </span>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="addCostID" (change)="onaddCostchange($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostID'].invalid) }">
                                                 <option *ngFor="let branch of addCostRecList" value={{branch.dataId}}>
@@ -66,7 +66,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Add Cost/Rec Type</label>
                                             <span style="color: red"> * </span>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="addCostType" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostType'].invalid) }">
                                                 <option value="I">Income</option>
@@ -78,7 +78,7 @@
                                         <div class="mb-4">
                                             <label for="formrow-inputZip"> Document Type </label>
                                             <span style="color: red"> * </span>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="documentType" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['documentType'].invalid) }">
                                                 <option value="LR">LR</option>
@@ -110,7 +110,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Doc Branch</label>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="docBranch" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['docBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
@@ -144,7 +144,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Division Option </label>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="divisionOption" (change)="onDivOptChange($event)" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['divisionOption'].invalid) }">
                                                 <option value="DF">Divide on Freight</option>
@@ -198,14 +198,14 @@
                                                                 (change)="selectedData(i, $event)" formControlName="selected">                                               
                                                             </td>
                                                             <td>
-                                                                <select class="form-control" formControlName="docYear">
+                                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="docYear">
                                                                     <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                                                         {{yr.dataName}}
                                                                     </option>
                                                                 </select>
                                                             </td> 
                                                             <td>
-                                                                <select class="form-control" formControlName="docBranch">
+                                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="docBranch">
                                                                     <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
                                                                         {{ac.dataName}}
                                                                     </option>
@@ -219,7 +219,7 @@
                                                                     formControlName="docId">
                                                             </td>                                           
                                                             <td>
-                                                                <select class="form-control" autoclose="false" 
+                                                                <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                                     formControlName="costCode">
                                                                     <option *ngFor="let ac of costCodeList" value={{ac.dataId}}>
                                                                         {{ac.dataName}}
@@ -267,7 +267,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Party Option</label>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="partyOption" >
                                                 <option value="S">Single Party</option>
                                                 <option value="A">ALL Party</option>
@@ -277,7 +277,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Party</label>                                            
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="partyCode">
                                                 <option *ngFor="let ac of partyList" value={{ac.dataId}}>
                                                     {{ac.dataName}}
@@ -332,7 +332,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Other Db/Cr Ac</label>
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="othDbCrAc" >
                                                 <option *ngFor="let ac of othDbCrAcList" value={{ac.dataId}}>
                                                     {{ac.dataName}}
@@ -343,7 +343,7 @@
                                     <!-- <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">TDS Account</label>                                            
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="tdsAc">
                                                 <option *ngFor="let ac of tdsAcList" value={{ac.dataId}}>
                                                     {{ac.dataName}}
@@ -369,7 +369,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Credit Ac</label>                                            
-                                            <select class="form-control" autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
                                                 formControlName="creditAc">
                                                 <option *ngFor="let ac of accountList" value={{ac.dataId}}>
                                                     {{ac.dataName}}

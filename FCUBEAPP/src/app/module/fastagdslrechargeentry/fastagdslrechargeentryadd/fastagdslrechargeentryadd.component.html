@@ -22,7 +22,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
-                                                <select class="form-control" formControlName="transBranch"
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="transBranch"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['transBranch'].invalid) }"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}

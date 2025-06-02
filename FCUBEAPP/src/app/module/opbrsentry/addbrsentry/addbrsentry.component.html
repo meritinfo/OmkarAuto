@@ -28,7 +28,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                         <label for="basicpill-phoneno-input">bank Ac</label>
-                                        <select class="form-control" formControlName="bankAc"
+                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="bankAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['bankAc'].invalid) }">
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
@@ -93,7 +93,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-6">
                                             <label for="basicpill-phoneno-input">Db/Cr Ac</label>
-                                            <select class="form-control" formControlName="otherAc"
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="otherAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['otherAc'].invalid) }">
                                                 <option *ngFor="let branch of debitAcList" value={{branch.dataId}}>
                                                     {{branch.dataName}}

@@ -231,7 +231,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Branch</h4>
                                 <div class="mb-3">
-                                    <select class="form-control" multiple="multiple" formControlName="userBranch"
+                                    <select class="form-control form-select ng-pristine ng-touched"multiple="multiple" formControlName="userBranch"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
@@ -246,7 +246,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Module</h4>
                                 <div class="mb-3">
-                                    <select class="form-control" multiple="multiple" formControlName="userModule"
+                                    <select class="form-control form-select ng-pristine ng-touched"multiple="multiple" formControlName="userModule"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['userModule'].invalid) }">
                                         <option *ngFor="let module of moduleList" value={{module.dataId}}>
                                             {{module.dataName}}
