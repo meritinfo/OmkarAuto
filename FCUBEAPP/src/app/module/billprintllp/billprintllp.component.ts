@@ -23,7 +23,7 @@ export class BillprintllpComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];

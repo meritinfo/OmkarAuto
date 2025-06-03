@@ -7,6 +7,7 @@ namespace FinTrans.Business
 {
     public interface IBalanceBusiness
     {
+        Task<ResponseModel> TrailBalancePrint(RepReqModel request);
         Task<ResponseModel> GetOpeningBalanceExcel(ReportRequestModel request);
         Task<ResponseModel> GetAsOnDateExcel(ReportRequestModel request);
         Task<ResponseModel> GetAsOnDateDetailsExcel(ReportRequestModel request);

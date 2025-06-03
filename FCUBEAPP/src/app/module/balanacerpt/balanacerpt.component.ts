@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 
 
 @Component({
@@ -44,7 +45,22 @@ export class BalanacerptComponent {
   keywordLocation = 'dataName';
   balanceSheetEnable = false;
   profitLossEnable= false;
-
+  filter: Repreqmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'fromPlace',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr:'',
+    filterStr1:'',
+    filterStr2:'',
+    filterStr3:'',
+    filterStr4:'',
+    filterStr5:'',
+    filterStr6:'',
+  }
  
   constructor(private formBuilder: FormBuilder,
     private reportService: ReportService, private route: Router,
@@ -250,5 +266,73 @@ export class BalanacerptComponent {
       });
     }
   }
-}
-              
+  
+  search(format: string): void {
+    if (this.formFilter.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");
+        }
+      }
+      return;
+    }
+    var selectedDataVal=this.formFilter.getRawValue();
+
+    this.filter.fromDate      = selectedDataVal.fromDate;
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
+    this.filter.filterStr1    = this.year;
+    this.filter.filterStr2    = selectedDataVal.balanceSheet?"Y":"N";
+    this.filter.filterStr3    = selectedDataVal.profitLoss?"Y":"N";
+    if(selectedDataVal.rptType=="OP"){
+      if(selectedDataVal.branch ==""){
+        this.filter.filterStr4 = "OPC";
+      }
+      else{        
+        this.filter.filterStr4 = "OPB";
+      }
+    }
+    if(selectedDataVal.rptType=="OD"){
+      if(selectedDataVal.branch ==""){
+        this.filter.filterStr4 = "ADC";
+      }
+      else{        
+        this.filter.filterStr4 = "ADB";
+      }
+    }
+    if(selectedDataVal.rptType=="DD"){
+      if(selectedDataVal.branch ==""){
+        this.filter.filterStr4 = "ACD";
+      }
+      else{        
+        this.filter.filterStr4 = "ABD";
+      }
+    }
+    if(selectedDataVal.rptType=="GP"){
+      if(selectedDataVal.branch ==""){
+        this.filter.filterStr4 = "GCD";
+      }
+      else{        
+        this.filter.filterStr4 = "GBD";
+      }
+    }
+    this.filter.search = format;
+
+    this.reportService.getTrailBalancePrint(this.filter).subscribe((resp: any) => {
+      let link = document.createElement("a");
+      if(format=="XL"){
+        link.download = "TrailBalance_" + new Date().getTime() + '.xls';
+        link.href = "assets/reports/trailbal/" + resp.message;
+        link.click();
+      }
+      else{
+        link.download = "TrailBalance_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/trailbal/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+    });
+  }
+}       

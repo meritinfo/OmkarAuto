@@ -18,7 +18,10 @@ namespace FinTrans.Business
             _configuration = configuration;
             balanceRepository = _balanceRepository;
         }
-       
+        public async Task<ResponseModel> TrailBalancePrint(RepReqModel request)
+        {
+            return await balanceRepository.TrailBalancePrint(request);
+        }
         public async Task<ResponseModel> GetOpeningBalanceExcel(ReportRequestModel request)
         {
             return await balanceRepository.GetOpeningBalanceExcel(request);

@@ -10,6 +10,7 @@ namespace FinTrans.Repository
     /// </summary>
     public interface IBalanceRepository
     {
+        Task<ResponseModel> TrailBalancePrint(RepReqModel request);
         Task<ResponseModel> GetOpeningBalanceExcel(ReportRequestModel request);
         Task<ResponseModel> GetAsOnDateExcel(ReportRequestModel request);
         Task<ResponseModel> GetAsOnDateDetailsExcel(ReportRequestModel request);

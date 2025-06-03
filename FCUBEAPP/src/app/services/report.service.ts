@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
-import { Requestmodel } from 'src/app/models/requestmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { Reportmodel } from '../models/reportmodel';
 
 @Injectable({
@@ -33,5 +33,8 @@ export class ReportService {
   }   
   getGivenPeriodExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetGivenPeriodExcel', filter, this.httpOptions);
+  }   
+  getTrailBalancePrint(filter: Repreqmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/TrailBalancePrint', filter, this.httpOptions);
   }   
 }

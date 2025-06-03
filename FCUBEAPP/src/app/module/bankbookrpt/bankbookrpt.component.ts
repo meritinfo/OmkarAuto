@@ -310,45 +310,41 @@ export class BankbookrptComponent {
     });
   }
   
-  search(): void {
-    this.formSubmitted = true;
+  search(format: string): void {
     if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields");   
+      this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formFilter.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");   
+          this.toastrService.warning(name + " Fields is Invalid");
         }
-      }     
+      }
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    
-    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-            fromLoc.dataId!="" && fromLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toastrService.warning("Please Enter Valid Account ");          
-      return;
-    }
 
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.accountID.dataId;
-    this.filter.filterStr1  = this.year;
-    this.filter.filterStr2  = selectedDataVal.branch;
-    this.sharedService.loading=true;
-    this.ledgerList();
-    this.sharedService.loading=false;
-    
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
+    this.filter.fromDate      = selectedDataVal.fromDate;
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
+    this.filter.filterStr1    = this.year;
+    this.filter.filterStr2    = selectedDataVal.accountID;
+    this.filter.search = format;
+
+    this.bankbookrptService.getBankBookPrint(this.filter).subscribe((resp: any) => {
+      let link = document.createElement("a");
+      if(format=="XL"){
+        link.download = "BankbookReport_" + new Date().getTime() + '.xls';
+        link.href = "assets/reports/BankBook/" + resp.message;
+        link.click();
+      }
+      else{
+        link.download = "BankbookReport_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/BankBook/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
     });
   }
-} 
-
-
+}
 
 

@@ -2241,7 +2241,7 @@ namespace FreightMasters.Repository
                         r++;
                     }
 
-                    if (rpttype != "")
+                    if (rpttype == "")
                     {
                         var TotSum = dt1.AsEnumerable().Where(row => row.Field<string>("Party") == "Total");
                         DataTable totd = TotSum.CopyToDataTable<DataRow>();

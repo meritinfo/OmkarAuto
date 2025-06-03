@@ -1,15 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
-using FinTrans.Models;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using Shared.Repository;
 using ClosedXML.Excel;
 using System.Data;
-using DocumentFormat.OpenXml.Drawing;
-using System.Diagnostics;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System.Runtime.ConstrainedExecution;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace FinTrans.Repository
 {
@@ -23,7 +20,54 @@ namespace FinTrans.Repository
             dbconnection = _dbconnection;
             sharedRepository = _sharedRepository;
         }
-                  
+
+        public async Task<ResponseModel> TrailBalancePrint(RepReqModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                baseUrl = dbconnection.Value.apiPath + "api/TrailBalance/";
+
+                string UrlParam = "?FromDate=" + request.FromDate +
+                                    "&ToDate=" + request.ToDate +
+                                    "&Branch=" + request.FilterStr +
+                                    "&YearId=" + request.FilterStr1 +
+                                    "&BalanceSheet=" + request.FilterStr2 +
+                                    "&ProfitLoss=" + request.FilterStr3 +
+                                    "&RptType=" + request.FilterStr4 +
+                                    "&format=" + request.Search;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetOpeningBalanceExcel(ReportRequestModel request)
         {
             ResponseModel responseModel = new();

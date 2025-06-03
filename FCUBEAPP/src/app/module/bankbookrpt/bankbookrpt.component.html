@@ -42,75 +42,30 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Account </label>                                    
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="accountList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="accountID" 
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
+                                    <label for="formrow-inputState">Account </label> 
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="accountID">
+                                        <option *ngFor="let branch of accountList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>        
                                 </div>
                             </div>
-                            <div class="col-lg-1">
+                        </div>                        
+                        <div class="row">   
+                            <div class="col-lg-3">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary"   
-                                    (click)="search()"><span>Search</span></button>
+                                    <button class="btn btn-primary" 
+                                        (click)="search('PDF')"><span>Generate PDF</span></button>
+                                </div>
+                            </div> 
+                            <div class="col-lg-3">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" 
+                                        (click)="search('XL')"><span>Export Excel</span></button>
                                 </div>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-sm-2 col-md-2 text-right">
-                    <div class="dt-buttons btn-group flex-wrap export-button">
-                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button" 
-                            (click)="exportExcel()"><span>Excel</span></button>&nbsp;
-                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button" 
-                            (click)="exportPdf()"><span>PDF</span></button> 
-                    </div>
-                </div>
-            </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
-                <div class="overflow-x">
-                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
-                        <thead>
-                            <tr>
-                                <th>ftmDate</th>
-                                <th>docNo </th>   
-                                <th>narration</th>
-                                <th>drAmt </th>   
-                                <th>crAmt</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="allLedgerrptlist.ledgersList?.length != 0">
-                            <tr *ngFor="let eta of allLedgerrptlist.ledgersList">
-                                <td>{{ eta.ftmDate }}</td>
-                                <td>{{ eta.docNo }}</td> 
-                                <td>{{ eta.narration }}</td> 
-                                <td>{{ eta.drAmt }}</td> 
-                                <td>{{ eta.crAmt }}</td>                   
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="allLedgerrptlist.ledgersList?.length == 0">
-                            <tr>
-                                <td colspan="3" class="no-data-available">No data!</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

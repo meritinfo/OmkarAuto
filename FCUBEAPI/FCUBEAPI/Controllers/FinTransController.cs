@@ -768,8 +768,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        
+        [HttpPost("TrailBalancePrint")]
+        public async Task<IActionResult> TrailBalancePrint(RepReqModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.TrailBalancePrint(req);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetOpeningBalanceExcel")]
         public async Task<IActionResult> GetOpeningBalanceExcel(ReportRequestModel req)
         {
