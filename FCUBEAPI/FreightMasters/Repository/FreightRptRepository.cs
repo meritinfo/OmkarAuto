@@ -6247,7 +6247,8 @@ namespace FreightMasters.Repository
                                 k++;
                             }
 
-                            ws.Range(6, 5, k, colct).Style.NumberFormat.Format = "0.00";
+                            //ws.Range(6, 4, k, 5).Style.NumberFormat.Format = "0.00";
+                            //ws.Range(6, 9, k, 9).Style.NumberFormat.Format = "0.00";
 
                             ws.Range(5, 1, k, colct).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                             ws.Range(5, 1, k, colct).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;

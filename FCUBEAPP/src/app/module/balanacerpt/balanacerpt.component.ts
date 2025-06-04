@@ -158,15 +158,15 @@ export class BalanacerptComponent {
     var selectedData  = this.formFilter.getRawValue(); 
     if(selectedData.rptType!='OP'){
       this.formFilter.controls["fromDate"].enable();
-      this.formFilter.controls["toDate"].enable();
-      this.profitLossEnable = true;
+      this.formFilter.controls["toDate"].enable();     
+      this.balanceSheetEnable = true;
+      if(selectedData.rptType=='GP'){   
+        this.profitLossEnable = true;
+      }
     }
     else{      
       this.formFilter.controls["fromDate"].disable();
       this.formFilter.controls["toDate"].disable();
-      if(selectedData.rptType=='OD'){        
-        this.balanceSheetEnable = true;
-      }
     }
   }
   
