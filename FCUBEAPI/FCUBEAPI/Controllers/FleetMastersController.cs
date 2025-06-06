@@ -454,6 +454,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
         [HttpPost("TransportMasterSave")]
         public async Task<IActionResult> TransportMasterSave()
         {
@@ -580,6 +581,39 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleTypeMasterBusiness.VehicleTypeMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleTypeInnerGridList")]
+        public async Task<IActionResult> GetVehicleTypeInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.GetVehicleTypeInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDuplicateAlias")]
+        public async Task<IActionResult> CheckDuplicateAlias(RequestModel request)
+        {
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.CheckDuplicateAlias(request);
 
                 return Ok(result);
             }

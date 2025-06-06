@@ -69,6 +69,8 @@ export class Finaccountmodel {
     esc1Email: string = "";
       cnRefYN: string = "";
     billTargetDays: string = "";
+    overdueCreditLimit: string = "";
+    applyCreditLimit: string = "";
     loggedInUserID: string = "";  
 }
 

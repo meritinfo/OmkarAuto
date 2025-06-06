@@ -40,6 +40,12 @@ export class VehicleTypeMasterService {
   checkDuplicateVehTypeDesc(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateVehicleDesc', req, this.httpOptions);
   }
+  checkDuplicateAlias(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateAlias', req, this.httpOptions);
+  }
+    getVehicleTypeInnerGridList(request: Requestmodel): Observable<Vehicletypemastermodel> {
+      return this.httpClient.post<Vehicletypemastermodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicleTypeInnerGridList', request, this.httpOptions);
+    }
   vehicleTypeMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicleTypeMasterDelete', req, this.httpOptions);
   }

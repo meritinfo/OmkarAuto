@@ -5,4 +5,12 @@ export class Vehicletypemastermodel {
     tonCap: string = "";
     runPerDayKM: string = "";
     loggedInUser: string = "";
+
+  vehicletypeDetailList: VehicleTypeDetailModel[] = [];
+
 }
+export class VehicleTypeDetailModel {
+    vehTypeId :  string="";
+      vehTypeAlias :  string="";
+ 
+  }

@@ -198,10 +198,29 @@
                                                     <input decimalonly type="text" class="form-control" formControlName="accountCreditLimit"> 
                                                 </div>
                                             </div>
+                                             
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Credit Days:</label>
                                                     <input numbersonly type="text" class="form-control" formControlName="accountCreditDays"> 
+                                                </div>
+                                            </div>
+                                             <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Overdue Credit Limit:</label>
+                                                    <input type="text" class="form-control" formControlName="overdueCreditLimit" numbersonly
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['overdueCreditLimit'].invalid) }">
+                                                </div>
+                                            </div>
+                                                 <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label>Apply Credit Limit</label><span style="color: red">*</span>
+                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="applyCreditLimit"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['applyCreditLimit'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -472,6 +491,9 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['billTargetDays'].invalid) }">
                                                 </div>
                                             </div>
+                                             
+                                        
+                                            
                                               <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Block Act</label><span style="color: red">*</span>

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using FreightMasters.Models;
 
 namespace FleetMasters.Repository
 {
@@ -15,6 +16,50 @@ namespace FleetMasters.Repository
             dbconnection = _dbconnection;
         }
 
+        //public async Task<ResponseModel> VehicleTypeMasterSave(VehicleTypeMasterModel vehicleTypeMasterModel)
+        //{
+        //    ResponseModel responseModel = new();
+
+        //    var connection = new SqlConnection(dbconnection.Value.DBConnection);
+        //    connection.Open();
+        //    SqlTransaction transaction;
+        //    transaction = connection.BeginTransaction();
+        //    try
+        //    {
+        //        if (dbconnection != null)
+        //        {
+        //            SqlParameter[] param =
+        //                {
+        //                    new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
+        //                    new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
+        //                    new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
+        //                    new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),                     
+        //                    new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
+        //                    new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
+
+        //                };
+        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "VehicleTypeMaster_Insert", param);
+
+        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+        //            {
+        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+        //                if (responseModel.Status) { transaction.Commit(); }
+        //                else { transaction.Rollback(); }
+        //            }
+        //            else
+        //            {
+        //                responseModel.Status = false;
+        //                transaction.Rollback();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //    }
+        //    return responseModel;
+        //}
         public async Task<ResponseModel> VehicleTypeMasterSave(VehicleTypeMasterModel vehicleTypeMasterModel)
         {
             ResponseModel responseModel = new();
@@ -29,33 +74,152 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
-                            new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
-                            new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
-                            new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),                     
-                            new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
-                            new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
+                                    new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
+                               new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
+                               new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
+                               new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),                     
+                              new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
+                                new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
 
-                        };
+
+
+                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "VehicleTypeMaster_Insert", param);
-
+                    string RateId = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
+                        RateId = Convert.ToString(responseModel.Message);
+
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < vehicleTypeMasterModel.vehicletypeDetailList.Count; i++)
+                            {
+                                vehicleTypeMasterModel.vehicletypeDetailList[i].VehTypeId = RateId;
+                                // ratesMasterNewModel.RatesMasterNewDetailList[i].TransDate = ratesMasterNewModel.TransDate;
+
+                                responseModel = await VehicleTypeDetailSave(transaction, vehicleTypeMasterModel.vehicletypeDetailList[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = vehicleTypeMasterModel.vehicletypeDetailList.Count;
+                                }
+                            }
+                        }
                     }
-                    else
+                    if (responseModel.Status)
                     {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+                        transaction.Commit();
                     }
+                    else { transaction.Rollback(); }
                 }
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<VehicleTypeMasterModel> GetVehicleTypeInnerGridList(RequestModel request)
+        {
+            VehicleTypeMasterModel getVehicleTypeInnerGridList = new()
+            {
+                vehicletypeDetailList = new List<VehicleTypeDetailModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@VehTypeId", request.strRequest)
+                    };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleTypeDetailInnerGridList", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            getVehicleTypeInnerGridList.vehicletypeDetailList.Add(new VehicleTypeDetailModel
+                            {
+                                // Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
+
+                                // SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),
+                                VehTypeAlias = Convert.ToString(resultData.Tables[0].Rows[i]["VehTypeAlias"]),
+
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return getVehicleTypeInnerGridList;
+        }
+        public async Task<ResponseModel> CheckDuplicateAlias(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehTypeDesc", requestModel.strRequest),
+                            new SqlParameter("@VehTypeAlias",         requestModel.strRequest1),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateAlias", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> VehicleTypeDetailSave(SqlTransaction transaction, VehicleTypeDetailModel vehicleTypeDetailModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehTypeId",               vehicleTypeDetailModel.VehTypeId ),
+                             new SqlParameter("@VehTypeAlias", vehicleTypeDetailModel.VehTypeAlias),
+
+                    };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleTypeDetailSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return responseModel;
         }

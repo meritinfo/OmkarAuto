@@ -38,6 +38,14 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeMasterRepository.GetVehiCapacity(request);
         }
+        public async Task<ResponseModel> CheckDuplicateAlias(RequestModel requestModel)
+        {
+            return await vehicleTypeMasterRepository.CheckDuplicateAlias(requestModel);
+        }
+        public async Task<VehicleTypeMasterModel> GetVehicleTypeInnerGridList(RequestModel request)
+        {
+            return await vehicleTypeMasterRepository.GetVehicleTypeInnerGridList(request);
+        }
 
     }
 }

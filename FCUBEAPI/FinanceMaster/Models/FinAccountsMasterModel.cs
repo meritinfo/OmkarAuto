@@ -73,7 +73,10 @@
         public string? Esc1Email { get; set; }
         public string? CnRefYN { get; set; }
         public string? BillTargetDays { get; set; }
+        public string? OverdueCreditLimit { get; set; }
+        public string? ApplyCreditLimit { get; set; }
         public string? LoggedInUserID { get; set; }
+
     }
 
 }
