@@ -146,6 +146,10 @@ dashboard: string ="";
            // Set column title and data field
          columns: [    
           {
+            title: 'Action',
+            data: 'masterid',
+          },
+          {
             title: 'MR Station',
             data: 'mrStn',
           },
@@ -164,10 +168,6 @@ dashboard: string ="";
           {
             title: 'Cheq Cash Amt',
             data: 'cheqCashAmt',
-          },
-          {
-            title: 'Action',
-            data: 'masterid',
           },
         ],
       };

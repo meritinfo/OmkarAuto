@@ -83,25 +83,25 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                            <thead>
                         <tr>
+                            <th>action</th>
                             <th>mrStn </th>
                             <th>mrNo </th>
                             <th>mrDate </th>
                             <th>partyName </th>
                             <th>cheqCashAmt</th>
-                            <th>action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allMrlist.mrList">
-                        <tr *ngFor="let mr of allMrlist.mrList">
-                            <td>{{ mr.mrStn }}</td>
-                            <td>{{ mr.mrNo }}</td>
-                            <td>{{ mr.mrDate }}</td>
-                            <td>{{ mr.partyName}}</td>
-                            <td>{{ mr.cheqCashAmt }}</td>                       
+                        <tr *ngFor="let mr of allMrlist.mrList">                    
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getMrDetails(mr)"></button>             
                             </td> 
+                            <td>{{ mr.mrStn }}</td>
+                            <td>{{ mr.mrNo }}</td>
+                            <td>{{ mr.mrDate }}</td>
+                            <td>{{ mr.partyName}}</td>
+                            <td>{{ mr.cheqCashAmt }}</td>   
                         </tr>
                     </tbody>
                     <tbody *ngIf="allMrlist.mrList?.length == 0">

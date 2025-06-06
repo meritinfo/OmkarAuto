@@ -934,8 +934,9 @@ dashboard: string ="";
     this.lrentryService.updateConsignmentDetails(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (res.status) {
-        this.formUser.reset();
         this.toastrService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/consignmentllp']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);
