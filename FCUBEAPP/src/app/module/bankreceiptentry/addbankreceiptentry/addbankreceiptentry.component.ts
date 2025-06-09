@@ -21,6 +21,7 @@ export class AddbankreceiptentryComponent {
   formBankRecEntry!: FormGroup;
   formSubmitted = false;
   branchname: string = '';
+  branch: string = '';
   year: string = '';
   loginDate: string = '';
   locationList: Dropdownmodel[] = [];
@@ -90,10 +91,17 @@ export class AddbankreceiptentryComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    var userData5 = sessionStorage.getItem('userBranch')?.toString();
+    var userData5 = sessionStorage.getItem('branchname')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
       //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
     }
     else {
       this.route.navigate(['/']);
@@ -196,6 +204,7 @@ export class AddbankreceiptentryComponent {
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
         this.checkSubLedgerExists(res.detailList[i].accountID,i-1);
+        this.checkCnLedgerExists(res.detailList[i].accountID,i-1);
       }
     });
   }
@@ -209,6 +218,8 @@ export class AddbankreceiptentryComponent {
       chequeDate: [''],
       narration:[],
       subLedger:[],
+      cnRefNo: [''],
+      cnLedger: [''],
     });
   }
   
@@ -254,7 +265,7 @@ export class AddbankreceiptentryComponent {
   }
 
   getdocno(doctp: string){
-    this.docNoFilter.branchCode = this.branchname;
+    this.docNoFilter.branchCode = this.branch;
     this.docNoFilter.yearID     = this.year;
     this.docNoFilter.docSeries  = doctp;
     this.docNoFilter.docType    = doctp;
@@ -304,18 +315,51 @@ export class AddbankreceiptentryComponent {
     });
   }
      
+  
   checkSubLedgerExists(ac:string,i:number){
     this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "S";
     this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
       if(res.status)
       {
         this.formArray.controls[i].get("subLedger")?.setValue("Y");
       }
       else{
-        this.formArray.controls[i].get("subLedger")?.setValue("N");
+        this.formArray.controls[i].get("subLedger")?.setValue("N");        
       }
     });
   }
+  
+  checkCnLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "C";
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("cnLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("cnLedger")?.setValue("N");
+      }
+    });
+  }
+  
+  checkLrExists(e: any,i: number){
+    this.requestmodel.strRequest = this.year;
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = e.target.value;
+
+    this.commonService.checkLrExits(this.requestmodel).subscribe((res: Responsemodel) => {
+      if(res.status){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(res.message);
+        this.formArray.controls[i].get("cnRefNo")?.setValue("");
+      }
+    });
+  }
+
 
   selectEvent(item: any,i:number) {
     this.checkSubLedgerExists(item.dataId,i);
@@ -413,7 +457,7 @@ export class AddbankreceiptentryComponent {
     }
     var selectedDataValue = this.formBankRecEntry.getRawValue();
 
-    if (selectedDataValue.onAcBranchCode == this.branchname){
+    if (selectedDataValue.onAcBranchCode == this.branch){
       this.toasterService.warning("On Account Branch should not to be same as login Branch");
       return;
     }
@@ -433,7 +477,7 @@ export class AddbankreceiptentryComponent {
     this.bankreceiptentryModel.onAcBranchYN   = selectedDataValue.onAcBranchYN?"Y":"N";
     this.bankreceiptentryModel.onAcBranchCode = selectedDataValue.onAcBranchCode;
     this.bankreceiptentryModel.yearID         = this.year;
-    this.bankreceiptentryModel.branchCode     = this.branchname;
+    this.bankreceiptentryModel.branchCode     = this.branch;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
     this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
     this.bankreceiptentryModel.accountOf      = selectedDataValue.accountid2;
@@ -465,7 +509,8 @@ export class AddbankreceiptentryComponent {
       'chequeNo': '',
       'narration': narration,
       'accountID': selectedDataValue.accountid2,
-      'reference': selectedDataValue.refNo,
+      'reference': selectedDataValue.refNo.toString().toUpperCase(),
+      'cnRefNo': ""
     })
     
     if (this.formArray.value != undefined) {
@@ -494,6 +539,10 @@ export class AddbankreceiptentryComponent {
           this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;
         }
+        if(this.formArray.value[i].cnLedger=="Y" && this.formArray.value[i].cnRefNo =="") {
+          this.toasterService.warning("CN/LR Ref No cannot be Empty for " + this.formArray.value[i].accountID.dataName);
+          return;
+        }
         
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           if(this.bankreceiptentryModel.neftPmt =="N"){
@@ -508,14 +557,15 @@ export class AddbankreceiptentryComponent {
           }         
           slNo = slNo + 1;
           this.bankreceiptentryModel.detailList.push({
-          'slNo': slNo.toString() ,
-          'typeSign': tpsign,
-          'amount': this.formArray.value[i].amount,
-          'chequeDate': this.formArray.value[i].chequeDate==''?selectedDataValue.ftmDate:this.formArray.value[i].chequeDate,
-          'chequeNo': this.formArray.value[i].chequeNo,
-          'narration': this.formArray.value[i].narration.toString().toUpperCase(),
-          'accountID': this.formArray.value[i].accountID.dataId,
-          'reference': this.formArray.value[i].reference,
+            'slNo': slNo.toString() ,
+            'typeSign': tpsign,
+            'amount': this.formArray.value[i].amount,
+            'chequeDate': this.formArray.value[i].chequeDate==''?selectedDataValue.ftmDate:this.formArray.value[i].chequeDate,
+            'chequeNo': this.formArray.value[i].chequeNo,
+            'narration': this.formArray.value[i].narration.toString().toUpperCase(),
+            'accountID': this.formArray.value[i].accountID.dataId,
+            'reference': this.formArray.value[i].reference,
+            'cnRefNo': this.formArray.value[i].cnRefNo.toString().toUpperCase(),
           })
         }
       }

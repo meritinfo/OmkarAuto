@@ -175,6 +175,8 @@ export class AddjournalentryComponent{
         this.formArray.controls[i].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i].get("reference")?.setValue(res.detailList[i].reference);
+        this.checkSubLedgerExists(res.detailList[i].accountID,i-1);
+        this.checkCnLedgerExists(res.detailList[i].accountID,i-1);
         totalAmount = totalAmount + parseFloat(res.detailList[i].amount);
       }
       totalAmount = (totalAmount/2)
@@ -193,11 +195,63 @@ export class AddjournalentryComponent{
       reference: [''],
       accountID: [''],
       narration: [''],
+      subLedger: [''],
+      cnRefNo: [''],
+      cnLedger: [''],
     });
   }
   
 
   
+  checkSubLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "S";
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("subLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("subLedger")?.setValue("N");
+      }
+    });
+  }
+  
+  checkCnLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "C";
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("cnLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("cnLedger")?.setValue("N");
+      }
+    });
+  }
+  
+  checkLrExists(e: any,i: number){
+    this.requestmodel.strRequest = this.year;
+    this.requestmodel.strRequest1 = this.branchname;
+    this.requestmodel.strRequest2 = e.target.value;
+
+    this.commonService.checkLrExits(this.requestmodel).subscribe((res: Responsemodel) => {
+      if(res.status){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(res.message);
+        this.formArray.controls[i].get("cnRefNo")?.setValue("");
+      }
+    });
+  }
+
+
+  selectEvent(item: any,i:number) {
+    this.checkSubLedgerExists(item.dataId,i);
+    this.checkCnLedgerExists(item.dataId,i);
+  }
    
 
   onChangeSearch(search: string) {
@@ -363,17 +417,26 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.detailList = [];
     
     if (this.formArray.value != undefined) {
-      for (var i = 0; i < this.formArray.value.length; i++) {
+      for (var i = 0; i < this.formArray.value.length; i++) {        
+        if(this.formArray.value[i].subLedger=="Y" && this.formArray.value[i].reference =="") {
+          this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
+          return;
+        }
+        if(this.formArray.value[i].cnLedger=="Y" && this.formArray.value[i].cnRefNo =="") {
+          this.toasterService.warning("CN/LR Ref No cannot be Empty for " + this.formArray.value[i].accountID.dataName);
+          return;
+        }
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           this.bankrecEntrymodel.detailList.push({
-          'slNo': (i+1).toString() ,
-          'typeSign': this.formArray.value[i].typeSign,
-          'amount': this.formArray.value[i].amount,
-          'chequeDate': this.formArray.value[i].chequeDate,
-          'chequeNo': this.formArray.value[i].chequeNo,
-          'narration': this.formArray.value[i].narration,
-          'accountID': this.formArray.value[i].accountID.dataId ,
-          'reference': this.formArray.value[i].reference,
+            'slNo': (i+1).toString() ,
+            'typeSign': this.formArray.value[i].typeSign,
+            'amount': this.formArray.value[i].amount,
+            'chequeDate': this.formArray.value[i].chequeDate,
+            'chequeNo': this.formArray.value[i].chequeNo,
+            'narration': this.formArray.value[i].narration.toString().toUpperCase(),
+            'accountID': this.formArray.value[i].accountID.dataId ,
+            'reference': this.formArray.value[i].reference.toString().toUpperCase(),
+            'cnRefNo': this.formArray.value[i].cnRefNo.toString().toUpperCase(),
           })
         }
       }

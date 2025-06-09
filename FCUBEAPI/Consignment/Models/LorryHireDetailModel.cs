@@ -9,6 +9,7 @@
         public string? ChallanBranch { get; set; }
         public string? ChallanNo { get; set; }
         public string? ChallanId { get; set; }
+        public string? BenId { get; set; }        
         public string? DueAmt { get; set; }
         public string? HireAmt { get; set; }
         public string? HamaliAmt { get; set; }

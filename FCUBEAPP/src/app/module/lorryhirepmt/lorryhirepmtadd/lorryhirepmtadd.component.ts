@@ -32,6 +32,7 @@ export class LorryhirepmtaddComponent {
   modifiedBy: string = "";
   yearList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  benList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   formUser!: FormGroup;
   selectedLorryhiremaster = new Lorryhiremastermodel();
@@ -150,6 +151,7 @@ export class LorryhirepmtaddComponent {
 
     this.sharedService.loading=true;
     this.getBranchList();
+    this.getBenList();
     this.getYearList();
     this.getPaymentCreditAcList("M");
     this.chkMandatoryRequired();
@@ -176,6 +178,7 @@ export class LorryhirepmtaddComponent {
     this.formArray.controls[0].get("challanBranch")?.disable();
     this.formArray.controls[0].get("dueAmt")?.disable();
     this.formArray.controls[0].get("netAmt")?.disable();
+    this.formArray.controls[0].get("benId")?.disable();    
     
     this.formArray.controls[0].get("challanBranch")?.setValue(this.branch);
 
@@ -256,6 +259,7 @@ export class LorryhirepmtaddComponent {
       totPaid:  ['0', []],
       extraRemarks :  ['', []],
       deductRemarks:  ['', []],
+      benId:  ['', []],
     });
   }
 
@@ -288,6 +292,7 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("totPaid")?.setValue(res.lhpmDetails[i].totPaid);
         this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[i].extraRemarks); 
         this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[i].deductRemarks);
+        this.formArray.controls[i].get("benId")?.setValue(res.lhpmDetails[i].benId);        
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
@@ -296,6 +301,7 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("challanId")?.disable();
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
+        this.formArray.controls[i].get("benId")?.disable();        
 
         if(res.lhpmDetails[i].abType=='O'){
           this.formArray.controls[i].get("totPaid")?.disable();
@@ -307,7 +313,11 @@ export class LorryhirepmtaddComponent {
           this.formArray.controls[i].get("oth2DedAmt")?.disable();
           this.formArray.controls[i].get("tdsAmt")?.disable();
         }
-      }
+        if(this.selectedLorryhiremaster.pmtType=='T'){     
+          this.formArray.controls[i].get("abType")?.disable();
+          this.formArray.controls[i].get("benId")?.enable();  
+        }
+      }     
     });
   }
   getFinDocDetails(finId: string,reftype:string){
@@ -355,7 +365,7 @@ export class LorryhirepmtaddComponent {
   }    
 
   getPaymentCreditAcList(e: any){
-    this.requestmodel.strRequest= e.toString();
+    this.requestmodel.strRequest= e.toString()=="T"?"B":e.toString();
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
     });
@@ -398,6 +408,11 @@ export class LorryhirepmtaddComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }  
+  getBenList(): void {
+    this.commonService.getBenList().subscribe((res) => {
+      this.benList = res;
     });
   }  
 
@@ -450,6 +465,12 @@ export class LorryhirepmtaddComponent {
       this.formArray.controls[i+1].get("challanBranch")?.disable();
 
       this.formUser.controls['onAcBranch'].disable();
+
+      if(selectedDataVal.pmtType=='T'){        
+        this.formArray.controls[i+1].get("abType")?.setValue("F");
+        this.formArray.controls[i+1].get("abType")?.disable();
+        this.formArray.controls[i+1].get("benId")?.enable();
+      }
       
       if(selectedDataVal.onAcBranch!='' && selectedDataVal.onAcBranch!='0'){        
         this.formArray.controls[i+1].get("challanBranch")?.setValue(selectedDataVal.onAcBranch);
@@ -480,6 +501,7 @@ export class LorryhirepmtaddComponent {
     console.log(e.target.value);
     var ptype = e.target.value;
     this.getPaymentCreditAcList(ptype);
+    var selectedData = this.formUser.getRawValue();
 
     this.formUser.patchValue({
       neftPmt: "",
@@ -494,8 +516,7 @@ export class LorryhirepmtaddComponent {
       this.formUser.controls['onAcBranchYN'].enable();      
     }
 
-
-    if (ptype == 'B'){
+    if (ptype == 'B' || ptype == 'T'){
       this.formUser.controls['neftPmt'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDt'].enable();
@@ -512,6 +533,21 @@ export class LorryhirepmtaddComponent {
 
     this.formUser.controls['chequeNo'].updateValueAndValidity();
     this.formUser.controls['chequeDt'].updateValueAndValidity();   
+    
+    if(ptype=='T'){     
+      for (var j = 0; j < selectedData.arrayList.length; j++) {          
+          this.formArray.controls[j].get("abType")?.setValue("F");
+          this.formArray.controls[j].get("abType")?.disable();
+          this.formArray.controls[j].get("benId")?.enable();
+      } 
+    }
+    else{     
+      for (var j = 0; j < selectedData.arrayList.length; j++) {          
+          this.formArray.controls[j].get("abType")?.setValue("");
+          this.formArray.controls[j].get("abType")?.enable();
+          this.formArray.controls[j].get("benId")?.disable();
+      } 
+    }
   }
 
   onAcChk(e: any) {    
@@ -914,6 +950,11 @@ export class LorryhirepmtaddComponent {
             return;
           }
         }
+        if(selectedDataVal.pmtType == "T" && selectedDataVal.arrayList[i].benId==''){            
+          this.toasterService.warning("Please Select Beneficiary");
+          this.sharedService.loading = false;
+          return;
+        }
         
         this.lorryhiremastermodel.lhpmDetails.push({
           'masterId': '',
@@ -939,14 +980,9 @@ export class LorryhirepmtaddComponent {
           'totPaid':'0',
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
+          'benId': selectedDataVal.arrayList[i].benId,
         });
       }
-    }
-
-    if(this.lorryhiremastermodel.lhpmDetails.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
-      this.sharedService.loading=false;
-      return;
     }
 
     if(this.lorryhiremastermodel.lhpmDetails.length==0){

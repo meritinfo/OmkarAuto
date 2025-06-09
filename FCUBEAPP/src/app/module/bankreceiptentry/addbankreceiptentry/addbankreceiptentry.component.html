@@ -172,6 +172,11 @@
                                                          <h6>Reference/SubLedger</h6>
                                                     </label>
                                                 </td>
+                                                <td class="col-lg-1">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>CN/LR Ref No</h6>
+                                                    </label>
+                                                </td>
                                             </tr>
                                             <tr formArrayName="arrayList" 
                                             *ngFor="let arrayData of formArray.controls; let i = index">
@@ -204,13 +209,14 @@
                                                             </ng-template> 
                                                         </div>                                                         
                                                         <input type="hidden" formControlName="subLedger">    
+                                                        <input type="hidden" formControlName="cnLedger">    
                                                     </td>
                                                     <td class="col-lg-1">
                                                         <input decimalonly class="form-control"    
                                                         (change)="updateAmount()"
                                                             formControlName="amount">                                                
                                                     </td>
-                                                    <td  class="col-lg-2">   
+                                                    <td  class="col-lg-1">   
                                                         <input uppercaseonly autoclose="false" type="text"   class="form-control"
                                                             formControlName="narration">                                                        
                                                     </td>
@@ -225,7 +231,12 @@
                                                     <td  class="col-lg-1"> 
                                                         <input autoclose="false" type="text"  
                                                         class="form-control" formControlName="reference">
-                                                    </td>                                 
+                                                    </td> 
+                                                    <td class="col-lg-1">
+                                                        <input autoclose="false" type="text"
+                                                            class="form-control" (change)="checkLrExists($event,i)"
+                                                            formControlName="cnRefNo">                                                                
+                                                    </td>                                
                                                 </div>
                                             </tr>
                                             <tr>

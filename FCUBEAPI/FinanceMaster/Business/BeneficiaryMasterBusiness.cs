@@ -47,5 +47,9 @@ namespace FinanceMaster.Business
         {
             return await beneficiaryMasterRepository.GetBenBankList();
         }
+        public async Task<List<DropDownListModel>> GetBeneficiaryList()
+        {
+            return await beneficiaryMasterRepository.GetBeneficiaryList();
+        }
     }
 }

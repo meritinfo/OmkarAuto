@@ -18,5 +18,6 @@ namespace FinanceMaster.Repository
         Task<ResponseModel> GetBankAccountVerify(ReportRequestModel request);
         Task<ResponseModel> GetUserBenApproveBlock(RequestModel requestModel);
         Task<List<DropDownListModel>> GetBenBankList();
+        Task<List<DropDownListModel>> GetBeneficiaryList();
     }
 }

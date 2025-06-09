@@ -1,0 +1,125 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Download Direct Bank</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">From Date</label> 
+                                                <input bsdatepicker="" type="date" autoclose="false" 
+                                                    min="{{minDate}}" max="{{maxDate}}"
+                                                    formControlName="fromDate" class="form-control">
+                                            </div>
+                                        </div>       
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">To Date</label> 
+                                                <input bsdatepicker="" type="date" autoclose="false" 
+                                                    min="{{minDate}}" max="{{maxDate}}"
+                                                    formControlName="toDate" class="form-control">
+                                            </div>
+                                        </div>                         
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Bank</label> 
+                                                <select class="form-control"
+                                                    formControlName="directBankId" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['directBankId'].invalid) }">
+                                                    <option *ngFor="let role of directBankList"  value={{role.dataId}}>
+                                                        {{role.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary"   
+                                                (click)="search()"><span>Search</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="overflow-x">
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
+                                                    <tr>
+                                                        <td colspan="3"><input type="checkbox"  name="select" 
+                                                            class="form-check-input"
+                                                            (change)="selectAll($event)" formControlName="selectedAll">  
+                                                            <label for="formrow-inputCity">  SELECT ALL</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><label for="formrow-inputZip"></label></th>
+                                                        <th><label for="formrow-inputZip">Payment No </label></th>
+                                                        <th><label for="formrow-inputZip">Payment Date</label></th>
+                                                        <th><label for="formrow-inputZip">Hire Amt</label></th>
+                                                        <th><label for="formrow-inputZip">Net Amt</label></th>
+                                                        <th><label for="formrow-inputZip">Benificiary Name</label></th>
+                                                        <th><label for="formrow-inputZip">Ben IFSC Code </label></th>
+                                                        <th><label for="formrow-inputZip">Ben A/C No</label></th>
+                                                        <th><label for="formrow-inputZip">Narration</label></th>
+                                                        <th><label for="formrow-inputZip">Remarks</label></th>
+                                                    </tr>
+                                                    <tr  
+                                                        *ngFor="let arrayData of alldirectpmtlist.pmtList; let i = index">
+                                                        <td>
+                                                            <input type="checkbox"   class="form-check-input-small" 
+                                                            (change)="selectedData(i, $event)" [checked]="arrayData.selected" >                                            
+                                                        </td>
+                                                        <td>{{arrayData.pmtNo}}</td>
+                                                        <td>{{arrayData.pmtDate}}</td>
+                                                        <td>{{arrayData.hireAmt}}</td>
+                                                        <td>{{arrayData.netAmt}}</td>
+                                                        <td>{{arrayData.benName}}</td>
+                                                        <td>{{arrayData.benBankIfsc}}</td>
+                                                        <td>{{arrayData.benBankAcNo}}</td>
+                                                        <td>{{arrayData.narr}}</td>
+                                                        <td>{{arrayData.remarks}}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>                 
+                                    </div>
+                                </div>  
+                            </div>  
+                            <!-- end card body -->
+                        </div>
+                    <!-- end card -->
+                    </div>               
+                </div>              
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="(createStatus) && !formSubmitted"
+                                (click)="downloadDirectExcel()">Save</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                <!-- end col -->
+                </div> 
+            </form>
+          <!-- end row -->
+          <!-- end row -->
+        </div>
+       <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+ 

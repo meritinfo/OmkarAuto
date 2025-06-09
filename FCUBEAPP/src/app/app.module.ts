@@ -508,7 +508,10 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
-
+import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload/directpmtdownload.component';
+import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
+import { Directpmtlistmodel } from './models/directpmtlistmodel';
+import { Directpmtmodel } from './models/directpmtmodel';
 
 @NgModule({
   declarations: [
@@ -673,8 +676,9 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
     CashbookrptComponent, LedgerreportComponent,
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
-    PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, 
+    OpeningbalupdateComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, 
+    BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent, 
     
   ],
   
@@ -749,7 +753,7 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
-    
+    Directpmtlistmodel, Directpmtmodel
   ],
   bootstrap: [AppComponent]
 })

@@ -670,8 +670,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-       
+              
 
         [HttpPost("GetBenBankList")]
         public async Task<IActionResult> GetBenBankList()
@@ -688,6 +687,21 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBeneficiaryList")]
+        public async Task<IActionResult> GetBeneficiaryList()
+        {
+            try
+            {
+                var result = await beneficiaryMasterBusiness.GetBeneficiaryList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetUserBenApproveBlock")]
         public async Task<IActionResult> GetUserBenApproveBlock(RequestModel req)
         {

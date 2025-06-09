@@ -299,7 +299,7 @@ dashboard: string ="";
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Lorry Hire Payable" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "LorryHirePayable" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

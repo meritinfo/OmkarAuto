@@ -36,5 +36,6 @@ namespace Consignment.Repository
         Task<ConsignmentGstModel> GetFreightGstDetails(RequestModel request);
         Task<ResponseModel> GetLrNoLLP(RequestModel req);
         Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request);
+        Task<ResponseModel> CheckLrExits(RequestModel request);
     }
 }

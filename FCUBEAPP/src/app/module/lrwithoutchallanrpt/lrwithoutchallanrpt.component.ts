@@ -281,7 +281,7 @@ dashboard: string ="";
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "CN Not Dispatched" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "CNNotDispatched" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

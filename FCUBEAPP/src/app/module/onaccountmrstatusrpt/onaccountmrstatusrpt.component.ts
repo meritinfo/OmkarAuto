@@ -293,7 +293,7 @@ dashboard: string ="";
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "On A/c MR Status Report" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "OnAcMRStatusReport" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
