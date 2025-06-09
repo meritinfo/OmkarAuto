@@ -101,7 +101,10 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@Esc1Email"           , finAccountsMasterModel.Esc1Email),
                             new SqlParameter("@CnRefYN"           , finAccountsMasterModel.CnRefYN),
                             new SqlParameter("@BillTargetDays"           , finAccountsMasterModel.BillTargetDays),
-                          
+
+                            new SqlParameter("@OverdueCreditLimit"           , finAccountsMasterModel.OverdueCreditLimit),
+                            new SqlParameter("@ApplyCreditLimit"           , finAccountsMasterModel.ApplyCreditLimit),
+
                             new SqlParameter("@CreatedBy"            , finAccountsMasterModel.LoggedInUserID         ),
 
                         };
@@ -220,7 +223,9 @@ namespace FinanceMasters.Repository
                                 Esc1Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Esc1Email"]),
                                 CnRefYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnRefYN"]),
                                 BillTargetDays = Convert.ToString(dataSet.Tables[0].Rows[i]["BillTargetDays"]),
-                               
+                                OverdueCreditLimit = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueCreditLimit"]),
+                                ApplyCreditLimit = Convert.ToString(dataSet.Tables[0].Rows[i]["ApplyCreditLimit"]),
+
                             });
                         }
 

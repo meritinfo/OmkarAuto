@@ -11,5 +11,7 @@ namespace FleetMasters.Business
         Task<ResponseModel> VehicleTypeMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateVehicleDesc(RequestModel requestModel);
         Task<ResponseModel> GetVehiCapacity(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateAlias(RequestModel requestModel);
+        Task<VehicleTypeMasterModel> GetVehicleTypeInnerGridList(RequestModel request);
     }
 }

@@ -133,6 +133,8 @@ export class FinaccountsmasteraddComponent {
           cnRefYN: new FormControl('N',),  
            blockAct: new FormControl('N',), 
            costCodeYN: new FormControl('N',),
+                overdueCreditLimit: new FormControl('',), 
+         applyCreditLimit: new FormControl('N',),
     });    
 
     this.formAccountMaster.controls['username'].clearValidators();      
@@ -349,7 +351,9 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.overdueEmail         = selectedDataValue.overdueEmail;
     this.finaccountmodel.esc1Email         = selectedDataValue.esc1Email;
     this.finaccountmodel.cnRefYN         = selectedDataValue.cnRefYN;
-        this.finaccountmodel.billTargetDays         = selectedDataValue.billTargetDays;
+    this.finaccountmodel.billTargetDays         = selectedDataValue.billTargetDays;
+    this.finaccountmodel.overdueCreditLimit         = selectedDataValue.overdueCreditLimit;
+    this.finaccountmodel.applyCreditLimit         = selectedDataValue.applyCreditLimit;
     // this.finaccountmodel.schID              = selectedDataValue.schID;
     this.finaccountmodel.schID              = '';
     this.finaccountmodel.loggedInUserID     = this.loggedInUserID;

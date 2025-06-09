@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FreightMasters.Models
 {
-    public class VehicleTypeMasterModel
+    public class VehicleTypeMasterModels
     {
         public string? VehTypeId { get; set; }
         public string? VehTypeDesc { get; set; }

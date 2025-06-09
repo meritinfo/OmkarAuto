@@ -12,8 +12,14 @@ namespace FleetMasters.Models
         public string? IsActive { get; set; }
         public string? TonCap { get; set; }
         public string? RunPerDayKM { get; set; }
-      
+
         public string? LoggedInUser { get; set; }
+        public List<VehicleTypeDetailModel> vehicletypeDetailList { get; set; }
+    }
+    public class VehicleTypeDetailModel
+    {
+        public string? VehTypeId { get; set; }
+        public string? VehTypeAlias { get; set; }
     }
 }
 
