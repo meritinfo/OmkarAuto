@@ -27,6 +27,9 @@ export class CommonService {
   getBranchList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetBranchList', null, this.httpOptions);
   }
+  getBenList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetBeneficiaryList', null, this.httpOptions);
+  }
   getPartyGstLocationList(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetBillPartyGstLocationList', req, this.httpOptions);
   }
@@ -223,6 +226,9 @@ export class CommonService {
   }
   checkEwaybillExits(req: Requestmodel): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckEwaybillExits', req, this.httpOptions);
+  }
+  checkLrExits(req: Requestmodel): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckLrExits', req, this.httpOptions);
   }
   getOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetOpeningBal', payload, this.httpOptions);

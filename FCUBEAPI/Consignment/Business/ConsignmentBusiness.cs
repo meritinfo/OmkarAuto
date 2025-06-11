@@ -134,8 +134,12 @@ namespace Consignment.Business
             return await consignmentRepository.GetLrNoLLP(req);
         }
         public async Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request)
-         {
+        {
             return await consignmentRepository.CheckDuplicateLrLLP(request);
+        }
+        public async Task<ResponseModel> CheckLrExits(RequestModel request)
+        {
+            return await consignmentRepository.CheckLrExits(request);
+        }
     }
-}
 }

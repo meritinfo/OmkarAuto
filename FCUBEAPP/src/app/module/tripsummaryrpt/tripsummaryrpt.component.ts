@@ -303,7 +303,7 @@ formFilter!: FormGroup;
       this.tripSummaryRptService.getTripSummaryRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Trip Vehicle Summary" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "TripVehicleSummary" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

@@ -45,6 +45,7 @@ namespace FCUBEAPI.Controllers
         readonly IUnBillProvisionMstBusiness unBillProvisionMstBusiness;
 
         readonly IBrokerAdvancePmtBusiness brokerAdvancePmtBusiness;
+        readonly IDirectPmtBusiness directPmtBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -69,6 +70,8 @@ namespace FCUBEAPI.Controllers
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
             IUnBillProvisionMstBusiness _unBillProvisionMstBusiness)
+            IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
+            IDirectPmtBusiness _directPmtBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -92,6 +95,7 @@ namespace FCUBEAPI.Controllers
             deliveryDisputeEntryBusiness = _deliveryDisputeEntryBusiness;
             challanSuppliBusiness = _challanSuppliBusiness;
             brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
+            directPmtBusiness = _directPmtBusiness;
             unBillProvisionMstBusiness = _unBillProvisionMstBusiness;
         }
         
@@ -2882,6 +2886,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckLrExits")]
+        public async Task<IActionResult> CheckLrExits(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.CheckLrExits(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         [HttpPost("GetCciInvoiceMstMasterList")]
         public async Task<IActionResult> GetCciInvoiceMstMasterList(ReportRequestModel request)
         {
@@ -3621,10 +3644,95 @@ namespace FCUBEAPI.Controllers
         }
 
 
+        [HttpPost("GetDirectBankList")]
+        public async Task<IActionResult> GetDirectBankList()
+        {
+            try
+            {
+                var result = await directPmtBusiness.GetDirectBankList();
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDirectPaymentList")]
+        public async Task<IActionResult> GetDirectPaymentList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await directPmtBusiness.GetDirectPaymentList(req);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [HttpPost("DownLoadDirectExcel")]
+        public async Task<IActionResult> DownLoadDirectExcel(DirectPmtListModel directPmtList)
+        {
+            if (directPmtList == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await directPmtBusiness.DownLoadDirectExcel(directPmtList);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDirectPmtDownloadedList")]
+        public async Task<IActionResult> GetDirectPmtDownloadedList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await directPmtBusiness.GetDirectPmtDownloadedList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("UpdateDirectPmt")]
+        public async Task<IActionResult> UpdateDirectPmt(DirectPmtListModel directPmtList)
+        {
+            if (directPmtList == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await directPmtBusiness.UpdateDirectPmt(directPmtList);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 
 

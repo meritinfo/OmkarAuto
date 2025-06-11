@@ -1774,6 +1774,38 @@ namespace Consignment.Repository
             }
             return gst;
         }
-        
+        public async Task<ResponseModel> CheckLrExits(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@YearId",     request.strRequest),
+                            new SqlParameter("@Branch",     request.strRequest1),
+                            new SqlParameter("@GcNoteNo",     request.strRequest2),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckLrNoExists", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+
     }
 }

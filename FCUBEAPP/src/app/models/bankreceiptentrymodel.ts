@@ -39,4 +39,5 @@ export class BankreceiptpaymentDetailmodel {
     chequeDate : string = "";  
     narration : string = "";
     reference : string = "";  
+    cnRefNo: string = ""; 
 }

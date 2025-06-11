@@ -324,6 +324,8 @@ import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
+import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload/directpmtdownload.component';
+import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
 import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 
@@ -769,9 +771,9 @@ const routes: Routes = [
   { path: 'partymisloc',component: PartymislocationlistComponent},
   { path: 'billintloss',component: BillinterestlossrptComponent},
   { path: 'brokerledger',component: BrokerledgerprtComponent},
-  
-  
   { path: 'carryopbal',component: OpeningbalupdateComponent},
+  { path: 'directbankdload',component: DirectpmtdownloadComponent},
+  { path: 'updatedirectbank',component: DirectpmtupdateComponent },
    { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
   { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
     { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},

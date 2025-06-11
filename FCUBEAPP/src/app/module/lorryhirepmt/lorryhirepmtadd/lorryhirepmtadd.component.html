@@ -59,6 +59,7 @@
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <!-- <option value="P">Card</option> -->
+                                                    <option value="T">Direct</option>
                                                     <option value="H">Happay</option>
                                                     <option value="D">Vendor</option>
                                                     <option value="A">Adjust</option>                                                        
@@ -177,6 +178,7 @@
                                     <th><label for="formrow-inputZip">TDS Amt</label></th>
                                     <th><label for="formrow-inputZip">Extra Remarks</label></th>
                                     <th><label for="formrow-inputZip">Deduction Remarks</label></th>
+                                    <th><label for="formrow-inputZip">Beneficiary</label></th>
                                 </tr>
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
@@ -278,6 +280,14 @@
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 
                                                 formControlName="deductRemarks">
+                                        </td>                                     
+                                        <td>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="benId">
+                                                <option *ngFor="let ac of benList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>
                                         </td>
                                     </div>
                                 </tr>

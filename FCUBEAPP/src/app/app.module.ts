@@ -509,9 +509,12 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
+import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload/directpmtdownload.component';
+import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
+import { Directpmtlistmodel } from './models/directpmtlistmodel';
+import { Directpmtmodel } from './models/directpmtmodel';
 import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
-
 
 @NgModule({
   declarations: [
@@ -676,6 +679,9 @@ import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisi
     CashbookrptComponent, LedgerreportComponent,
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
+    OpeningbalupdateComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, 
+    BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent, 
     PartymisrptComponent, OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
     
@@ -751,6 +757,8 @@ import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisi
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
+    Directpmtlistmodel, Directpmtmodel
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,
     
   ],

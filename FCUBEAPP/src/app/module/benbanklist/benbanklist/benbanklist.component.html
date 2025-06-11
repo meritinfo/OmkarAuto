@@ -69,11 +69,8 @@
                         <tr *ngFor="let drvr of allBenBank.benList">
                             <td>
                                 <button type="button" class="btn btn-edit" 
-                                (click)="setBenBankDetails(drvr)"></button>    
-                                         
-                            </td> 
-                         
-                        
+                                (click)="setBenBankDetails(drvr)"></button>  
+                            </td>                         
                             <td>{{ drvr.bankShortCode }}</td>
                             <td>{{ drvr.bankName }}</td>
                             <td>{{ drvr.activeYN }}</td>

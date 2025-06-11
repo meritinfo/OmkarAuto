@@ -307,7 +307,7 @@ dashboard: string ="";
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LH Extra Pmt Reconciliation" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "LHExtraPmtReconciliation" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

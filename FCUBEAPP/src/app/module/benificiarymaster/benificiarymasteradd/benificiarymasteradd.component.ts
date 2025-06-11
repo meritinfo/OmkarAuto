@@ -28,7 +28,7 @@ export class BenificiarymasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   minDate:string = '';
   maxDate: string = '';
   loginDate:string = '';
@@ -74,13 +74,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -172,7 +171,6 @@ dashboard: string ="";
 
   benTypeChange(e:any): void {
     this.requestmodel.strRequest = e.target.value;
-
     this.benificiaryMasterService.getBenCode(this.requestmodel).subscribe((res) => {
       if(res.status){
         this.formBenMaster.patchValue({      
@@ -221,7 +219,8 @@ dashboard: string ="";
         this.formBenMaster.patchValue({      
           bankName: res.message
         });
-      }
+        this.apvblk = false;
+      }      
     });
   }
 
@@ -297,7 +296,6 @@ dashboard: string ="";
     formData.append('cancelCheqAttach', this.cancelCheqAttachInput.nativeElement.files[0]);
     formData.append('vendorAttachedfile', this.vendorAttachedfileInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.benificiarymastermodel));
-
 
     this.benificiaryMasterService.benificiarymasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

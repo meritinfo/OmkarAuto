@@ -27,6 +27,7 @@ export class AddcashreceiptentryComponent {
   viewStatus = false; 
   dashboard: string ="";
   branchname: string = '';
+  branch: string = '';
   loginDate: string = '';
   year: string = '';
   createdBy:string = "";
@@ -66,13 +67,12 @@ export class AddcashreceiptentryComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -89,9 +89,17 @@ export class AddcashreceiptentryComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    var userData5 = sessionStorage.getItem('userBranch')?.toString();
+    var userData5 = sessionStorage.getItem('branchname')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
+      //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
     }
     else {
       this.route.navigate(['/']);
@@ -174,6 +182,7 @@ export class AddcashreceiptentryComponent {
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
         this.checkSubLedgerExists(res.detailList[i].accountID,i-1);
+        this.checkCnLedgerExists(res.detailList[i].accountID,i-1);
       }
     });
   }
@@ -185,6 +194,8 @@ export class AddcashreceiptentryComponent {
       accountID: [''],
       narration: [''],
       subLedger: [''],
+      cnRefNo: [''],
+      cnLedger: [''],
     });
   }
 
@@ -196,6 +207,7 @@ export class AddcashreceiptentryComponent {
 
   checkSubLedgerExists(ac:string,i:number){
     this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "S";
     this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
       if(res.status)
       {
@@ -206,9 +218,41 @@ export class AddcashreceiptentryComponent {
       }
     });
   }
+  
+  checkCnLedgerExists(ac:string,i:number){
+    this.requestmodel.strRequest = ac;
+    this.requestmodel.strRequest1 = "C";
+    this.cashreceiptentryService.checkSubLedgerExists(this.requestmodel).subscribe((res) => {
+      if(res.status)
+      {
+        this.formArray.controls[i].get("cnLedger")?.setValue("Y");
+      }
+      else{
+        this.formArray.controls[i].get("cnLedger")?.setValue("N");
+      }
+    });
+  }
+  
+  checkLrExists(e: any,i: number){
+    this.requestmodel.strRequest = this.year;
+    this.requestmodel.strRequest1 = this.branch;
+    this.requestmodel.strRequest2 = e.target.value;
+
+    this.commonService.checkLrExits(this.requestmodel).subscribe((res: Responsemodel) => {
+      if(res.status){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(res.message);
+        this.formArray.controls[i].get("cnRefNo")?.setValue("");
+      }
+    });
+  }
+
 
   selectEvent(item: any,i:number) {
     this.checkSubLedgerExists(item.dataId,i);
+    this.checkCnLedgerExists(item.dataId,i);
   }
 
   onChangeSearch(search: string) {
@@ -259,7 +303,7 @@ export class AddcashreceiptentryComponent {
   }
 
   getdocno(doctp: string){
-    this.docNoFilter.branchCode = this.branchname;
+    this.docNoFilter.branchCode = this.branch;
     this.docNoFilter.yearID     = this.year;
     this.docNoFilter.docSeries  = doctp;
     this.docNoFilter.docType    = doctp;
@@ -271,7 +315,7 @@ export class AddcashreceiptentryComponent {
       }); 
     });
   }
-
+  
   updateAmount() {
     var selectedDataValue = this.formCashRRecEntry.getRawValue();
     var totalAmount = 0;
@@ -368,7 +412,7 @@ export class AddcashreceiptentryComponent {
     this.bankrecEntrymodel.neftPmt        = "";
     this.bankrecEntrymodel.uTRNo          = "";
     this.bankrecEntrymodel.yearID         = this.year;
-    this.bankrecEntrymodel.branchCode     = this.branchname;
+    this.bankrecEntrymodel.branchCode     = this.branch;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
     this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
     
@@ -394,6 +438,7 @@ export class AddcashreceiptentryComponent {
       'chequeDate': '',
       'accountID': selectedDataValue.accountid2,
       'reference': selectedDataValue.refNo,
+      'cnRefNo': ""
     })
 
     if (this.formArray.value != undefined) {
@@ -422,6 +467,10 @@ export class AddcashreceiptentryComponent {
           this.toasterService.warning("SubLedger cannot be Empty for " + this.formArray.value[i].accountID.dataName);
           return;
         }
+        if(this.formArray.value[i].cnLedger=="Y" && this.formArray.value[i].cnRefNo =="") {
+          this.toasterService.warning("CN/LR Ref No cannot be Empty for " + this.formArray.value[i].accountID.dataName);
+          return;
+        }
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
             this.bankrecEntrymodel.detailList.push({
             'slNo': (i+1).toString() ,
@@ -432,6 +481,7 @@ export class AddcashreceiptentryComponent {
             'chequeDate': '',
             'accountID': this.formArray.value[i].accountID.dataId ,
             'reference': this.formArray.value[i].reference.toString().toUpperCase(),
+            'cnRefNo': this.formArray.value[i].cnRefNo.toString().toUpperCase(),
           })
         }
       }

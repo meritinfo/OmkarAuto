@@ -53,7 +53,7 @@ export class BillsmasteraddComponent implements OnInit {
   viewStatus = false; 
   createdBy : string = "";
   modifiedBy: string = "";
-dashboard: string ="";
+  dashboard: string ="";
   showButton = true;  
   formSubmitted = false;
   selectedBillsmasterDetails = new Billsmastermodel();
@@ -84,12 +84,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;

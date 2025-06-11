@@ -330,6 +330,7 @@ export class AddbankcashcontraComponent {
       'narration': selectedDataValue.narration.toString().toUpperCase(),
       'accountID': selectedDataValue.accountid2,
       'reference': selectedDataValue.refNo,
+      'cnRefNo': ""
     })
 
     this.bankreceiptentryModel.detailList.push({
@@ -341,6 +342,7 @@ export class AddbankcashcontraComponent {
       'narration': selectedDataValue.narration.toString().toUpperCase(),
       'accountID': selectedDataValue.accountID.dataId,
       'reference': selectedDataValue.refNo,
+      'cnRefNo': ""
     })
     
     this.sharedService.loading=true;

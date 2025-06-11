@@ -46,8 +46,7 @@ namespace Consignment.Repository
                             new SqlParameter("@NeftYN", brokerAdvancePmtModel.NeftYN),
                             new SqlParameter("@CreditAc", brokerAdvancePmtModel.CreditAc),
                             new SqlParameter("@ChequeNo", brokerAdvancePmtModel.ChequeNo),
-                            new SqlParameter("@ChequeDt", brokerAdvancePmtModel.ChequeDt),
-                         
+                            new SqlParameter("@ChequeDt", brokerAdvancePmtModel.ChequeDt),                         
                             new SqlParameter("@YearId", brokerAdvancePmtModel.YearId),
                             new SqlParameter("@ModifyRemarks", brokerAdvancePmtModel.ModifyRemarks),
                             new SqlParameter("@AdvanceAdjAmt", "0"),
