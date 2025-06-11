@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
+import {Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
 import { ChallanlistmodelllP } from './models/challanmasterlistllp';
@@ -508,6 +509,8 @@ import { PartymislocationlistComponent } from './module/partymislocations/partym
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
+import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
+import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 
 
 @NgModule({
@@ -674,7 +677,7 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
     DeliverydisputerptComponent,     
     PartymislocationsaddComponent,PartymislocationlistComponent, 
     PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
     
   ],
   
@@ -748,7 +751,7 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
-    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,
     
   ],
   bootstrap: [AppComponent]

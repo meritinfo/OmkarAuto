@@ -324,6 +324,8 @@ import { PartymisrptComponent } from './module/partymisrpt/partymisrpt.component
 import { BillinterestlossrptComponent } from './module/billinterestlossrpt/billinterestlossrpt.component';
 import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerprt.component';
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
+import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
+import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -770,6 +772,9 @@ const routes: Routes = [
   
   
   { path: 'carryopbal',component: OpeningbalupdateComponent},
+   { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
+  { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
+    { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
 ];
 
 
