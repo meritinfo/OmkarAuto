@@ -758,8 +758,8 @@ import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisi
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
-    Directpmtlistmodel, Directpmtmodel
-    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,
+    Directpmtlistmodel, Directpmtmodel,
+    Unbilledprovisionmstmodel,
     
   ],
   bootstrap: [AppComponent]
