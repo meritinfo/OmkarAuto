@@ -4735,7 +4735,7 @@ namespace FreightMasters.Repository
                 using (XLWorkbook wb = new XLWorkbook())
                 {
                     responseModel = await sharedRepository.GetCompanyDetail();
-                    int colcnt = 17;
+                    int colcnt = 18;
 
                     var ws = wb.Worksheets.Add("worksheet");
                     ws.Range(1, 1, 1, colcnt).Merge();
@@ -4784,6 +4784,7 @@ namespace FreightMasters.Repository
                     ws.Cell(5, 15).Value = "Vehicle Engaged By";
                     ws.Cell(5, 16).Value = "Pod Recd";
                     ws.Cell(5, 17).Value = "Challan No";
+                    ws.Cell(5, 18).Value = "Driver Mobile";
 
 
                     ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;

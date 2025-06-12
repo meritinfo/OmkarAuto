@@ -83,10 +83,11 @@ namespace FinTrans.Repository
                                     new SqlParameter("@ChequeDate"      , cashReceiptPaymentsModel.DetailList[i].ChequeDate),
                                     new SqlParameter("@CostRefNo"       , ""),
                                     new SqlParameter("@Reference"       , cashReceiptPaymentsModel.DetailList[i].Reference),
+                                    new SqlParameter("@CnRefNo"         , cashReceiptPaymentsModel.DetailList[i].CnRefNo),
                                     new SqlParameter("@BranchCode"      , cashReceiptPaymentsModel.OnAcBranchYN=="Y"? cashReceiptPaymentsModel.OnAcBranchCode: cashReceiptPaymentsModel.BranchCode),
                                     new SqlParameter("@YearID"          , cashReceiptPaymentsModel.YearID),
 
-                                };
+                                }; 
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
                                 responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                                 responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
@@ -280,6 +281,7 @@ namespace FinTrans.Repository
                                 ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
                                 ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
                                 Reference = Convert.ToString(dataSet.Tables[0].Rows[i]["Reference"]),
+                                CnRefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CnRefNo"]),
                             });
                         }
                     }
@@ -287,16 +289,6 @@ namespace FinTrans.Repository
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return cashReceiptPaymentsModel;
         }
