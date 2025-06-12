@@ -326,6 +326,8 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload/directpmtdownload.component';
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
+import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
+import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -772,6 +774,9 @@ const routes: Routes = [
   { path: 'carryopbal',component: OpeningbalupdateComponent},
   { path: 'directbankdload',component: DirectpmtdownloadComponent},
   { path: 'updatedirectbank',component: DirectpmtupdateComponent },
+   { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
+  { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
+    { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
 ];
 
 

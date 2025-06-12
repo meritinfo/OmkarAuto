@@ -300,6 +300,10 @@ namespace FCUBEAPI
             services.AddScoped<IDirectPmtBusiness, DirectPmtBusiness>();
             services.AddScoped<IDirectPmtRepository, DirectPmtRepository>();
 
+            services.AddScoped<IPartyMisLocationBusiness, PartyMisLocationBusiness>();
+            services.AddScoped<IPartyMisLocationRepository, PartyMisLocationRepository>();
+            services.AddScoped<IUnBillProvisionMstRepository,UnBillProvisionMstRepository>();
+            services.AddScoped<IUnBillProvisionMstBusiness, UnBillProvisionMstBusiness>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

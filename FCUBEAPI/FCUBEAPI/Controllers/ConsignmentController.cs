@@ -42,6 +42,8 @@ namespace FCUBEAPI.Controllers
         readonly IChallanMasterLLPBusiness challanMasterBusinessLLP;
         readonly IDeliveryDisputeEntryBusiness deliveryDisputeEntryBusiness;
         readonly IChallanSuppliBusiness challanSuppliBusiness;
+        readonly IUnBillProvisionMstBusiness unBillProvisionMstBusiness;
+
         readonly IBrokerAdvancePmtBusiness brokerAdvancePmtBusiness;
         readonly IDirectPmtBusiness directPmtBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
@@ -66,6 +68,8 @@ namespace FCUBEAPI.Controllers
             IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IChallanSuppliBusiness _challanSuppliBusiness,
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
+            IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
+            IUnBillProvisionMstBusiness _unBillProvisionMstBusiness)
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
             IDirectPmtBusiness _directPmtBusiness)
         {
@@ -92,6 +96,7 @@ namespace FCUBEAPI.Controllers
             challanSuppliBusiness = _challanSuppliBusiness;
             brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
             directPmtBusiness = _directPmtBusiness;
+            unBillProvisionMstBusiness = _unBillProvisionMstBusiness;
         }
         
 
@@ -3545,6 +3550,99 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetUnBillProvisionMstList")]
+        public async Task<IActionResult> GetUnBillProvisionMstList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBillProvisionMstBusiness.GetUnBillProvisionMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("UnBillProvisionMstDelete")]
+        public async Task<IActionResult> UnBillProvisionMstDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBillProvisionMstBusiness.UnBillProvisionMstDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetUnBillProvisionMstGridList")]
+        public async Task<IActionResult> GetUnBillProvisionMstGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBillProvisionMstBusiness.GetUnBillProvisionMstGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetUnBillProvisonSearchList")]
+        public async Task<IActionResult> GetUnBillProvisonSearchList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBillProvisionMstBusiness.GetUnBillProvisonSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("UnBillProvisionMstSave")]
+        public async Task<IActionResult> UnBillProvisionMstSave(UnBillProvisionMstModel unBillProvisionMstModel)
+        {
+            if (unBillProvisionMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBillProvisionMstBusiness.UnBillProvisionMstSave(unBillProvisionMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("GetDirectBankList")]
         public async Task<IActionResult> GetDirectBankList()

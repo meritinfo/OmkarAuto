@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
+import {Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
 import { ChallanlistmodelllP } from './models/challanmasterlistllp';
@@ -512,6 +513,8 @@ import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
 import { Directpmtlistmodel } from './models/directpmtlistmodel';
 import { Directpmtmodel } from './models/directpmtmodel';
+import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
+import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 
 @NgModule({
   declarations: [
@@ -679,6 +682,8 @@ import { Directpmtmodel } from './models/directpmtmodel';
     OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent, 
+    PartymisrptComponent, OpeningbalupdateComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
     
   ],
   
@@ -754,6 +759,8 @@ import { Directpmtmodel } from './models/directpmtmodel';
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,
+    
   ],
   bootstrap: [AppComponent]
 })
