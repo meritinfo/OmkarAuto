@@ -69,8 +69,7 @@ namespace FCUBEAPI.Controllers
             IChallanSuppliBusiness _challanSuppliBusiness,
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
-            IUnBillProvisionMstBusiness _unBillProvisionMstBusiness)
-            IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
+            IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
             IDirectPmtBusiness _directPmtBusiness)
         {
             dbconnection = _dbconnection;
