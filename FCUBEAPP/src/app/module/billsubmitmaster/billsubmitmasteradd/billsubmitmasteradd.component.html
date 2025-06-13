@@ -146,13 +146,18 @@
                                     <input uppercaseonly autoclose="false" 
                                        class="form-control" formControlName="kindAttnTo">
                                  </div>
-                              </div>
-                             
+                              </div>                             
                               <div class="col-lg-2">
                                  <div class="mb-3">
                                     <button (click)="searchStatement()" *ngIf="!editMode"
                                     class="btn btn-primary w-md mt-4">Search</button>
                                  </div>
+                              </div>                          
+                              <div class="col-lg-2">
+                                  <div class="mb-3">
+                                      <button (click)="append()" *ngIf="appendMode"
+                                          class="btn btn-primary w-md mt-4">Append</button>
+                                  </div>
                               </div>
                            </div>
                         </div>
