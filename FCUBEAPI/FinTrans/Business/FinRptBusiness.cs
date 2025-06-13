@@ -53,6 +53,10 @@ namespace FinTrans.Business
         {
             return await ledgerRptRepository.BrokerLedgerPrint(request);
         }
+        public Task<List<MenuReportAccessModel>> GetReportMenuList()
+        {
+            return ledgerRptRepository.GetReportMenuList();
+        }
         public async Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request)
         {
             RepReqModel req = new RepReqModel();
@@ -86,6 +90,30 @@ namespace FinTrans.Business
             req.FilterStr4 = "PDF";
 
             return await ledgerRptRepository.LedgerPrintPdf(req);
+
+            //DataSet reportData = await ledgerRptRepository.ledgerReport(request);
+
+            //ResponseModel response = new ResponseModel();
+            //response = await sharedRepository.GetCompanyDetail();
+
+            //string path = CreateLedgerReportAsync(request, reportData, response);
+            //return new ResponseModel { Status = true, Message = path };
+        }
+        public async Task<ResponseModel> GetMultipleLedgerRptPdf(ReportRequestModel request)
+        {
+            RepReqModel req = new RepReqModel();
+            req.FromDate = request.FromDate;
+            req.ToDate = request.ToDate;
+            req.SortColumn = request.SortColumn == "" ? "N" : request.SortColumn;
+            req.SortOrder = request.SortOrder == "" ? "N" : request.SortOrder;
+            req.Search = request.Search;
+            req.FilterStr = request.FilterStr;
+            req.FilterStr1 = request.FilterStr1;
+            req.FilterStr2 = request.FilterStr2;
+            req.FilterStr3 = request.FilterStr3;
+            req.FilterStr4 = "PDF";
+
+            return await ledgerRptRepository.LedgerMultiplePrintPdf(req);
 
             //DataSet reportData = await ledgerRptRepository.ledgerReport(request);
 

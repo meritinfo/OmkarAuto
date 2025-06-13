@@ -328,6 +328,7 @@ import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
 import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
+import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -777,6 +778,7 @@ const routes: Routes = [
    { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
   { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
     { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
+      { path: 'multiledgerrpt',component: MultipleledgerreportComponent},
 ];
 
 

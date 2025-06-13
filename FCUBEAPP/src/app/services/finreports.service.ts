@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Reportmodel } from '../models/reportmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
+import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
 import { Gstsalesrptlistmodel  } from 'src/app/models/gstsalesregisterrptlistmodel';
 
 @Injectable({
@@ -49,9 +50,19 @@ export class FinreportsService {
   getLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptExcel', filter, this.httpOptions);
   } 
+  getMultipleLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptExcel', filter, this.httpOptions);
+  } 
   getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
   } 
+   getMultipleLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptPdf', filter, this.httpOptions);
+  } 
+   getReportMenuList(menuList: Menureportaccessrightsmodel[]): Observable<Menureportaccessrightsmodel[]> {
+    return this.httpClient.post<Menureportaccessrightsmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetReportMenuList', menuList,this.httpOptions
+    );
+  }
   getLedgerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerList', null, this.httpOptions);
   }   

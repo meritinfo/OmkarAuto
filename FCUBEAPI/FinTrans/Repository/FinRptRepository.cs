@@ -462,6 +462,69 @@ namespace FinTrans.Repository
             }
             return ledgerRptListModel;
         }
+        public async Task<List<MenuReportAccessModel>> GetReportMenuList()
+        {
+            var result = new List<MenuReportAccessModel>();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Usp_GetReportMenuList", null);
+
+                    if (statusData != null && statusData.Tables.Count > 0 && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        var table = statusData.Tables[0];
+
+                        // Build flat list
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            var row = table.Rows[i];
+                            result.Add(new MenuReportAccessModel
+                            {
+                                AccountID = row["AccountID"].ToString(),
+                                AccountName = row["AccountName"].ToString(),
+                                //ApproveYn = row["ApproveYn"]?.ToString(),
+                                Level = row["Level"].ToString(),
+                                ParentAccountID = row["ParentAccountID"]?.ToString(),
+                                Children = new List<MenuReportAccessModel>()
+                            });
+                        }
+
+                        // Build lookup and hierarchy
+                        var lookup = new Dictionary<string, MenuReportAccessModel>();
+                        var roots = new List<MenuReportAccessModel>();
+
+                        for (int i = 0; i < result.Count; i++)
+                        {
+                            result[i].Children = new List<MenuReportAccessModel>();
+                            lookup[result[i].AccountID] = result[i];
+                        }
+
+                        for (int i = 0; i < result.Count; i++)
+                        {
+                            var currentMenu = result[i];
+                            if (string.IsNullOrEmpty(currentMenu.ParentAccountID))
+                            {
+                                roots.Add(currentMenu);
+                            }
+                            else if (lookup.ContainsKey(currentMenu.ParentAccountID))
+                            {
+                                lookup[currentMenu.ParentAccountID].Children.Add(currentMenu);
+                            }
+                        }
+
+                        return roots;
+                    }
+                }
+
+                return new List<MenuReportAccessModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error while fetching menu hierarchy: " + ex.Message, ex);
+            }
+        }
         public async Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request)
         {
             ResponseModel response = new();
@@ -532,6 +595,56 @@ namespace FinTrans.Repository
             {
                 string baseUrl = "";
                 baseUrl = dbconnection.Value.apiPath + "api/Ledger/";
+
+                string UrlParam = "?FromDate=" + request.FromDate +
+                                    "&ToDate=" + request.ToDate +
+                                    "&Branch=" + request.FilterStr +
+                                    "&YearId=" + request.FilterStr1 +
+                                    "&AccountID=" + request.FilterStr2 +
+                                    "&RptType=" + request.FilterStr3 +
+                                    "&SubType=" + request.SortColumn +
+                                    "&SubLedger=" + request.SortOrder +
+                                    "&GroupYn=" + request.Search +
+                                    "&format=" + request.FilterStr4;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> LedgerMultiplePrintPdf(RepReqModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                baseUrl = dbconnection.Value.apiPath + "api/MultipleLedger/";
 
                 string UrlParam = "?FromDate=" + request.FromDate +
                                     "&ToDate=" + request.ToDate +
