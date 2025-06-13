@@ -4,6 +4,7 @@ export class Ccinvmstmodel {
     cciInvDate: string ="";
     remarks : string ="";
     gstType : string ="";
+    lr_YN: string ="";
     totalTaxableAmt : string ="";
     totalSgstAmt : string ="";
     totalCgstAmt : string ="";

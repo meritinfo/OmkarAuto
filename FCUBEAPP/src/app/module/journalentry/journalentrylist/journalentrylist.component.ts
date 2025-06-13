@@ -11,14 +11,11 @@ import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
-
-
 @Component({
   selector: 'app-journalentrylist',
   templateUrl: './journalentrylist.component.html',
   styleUrls: ['./journalentrylist.component.css']
 })
-
 
 export class JournalentrylistComponent {
   createStatus = false;

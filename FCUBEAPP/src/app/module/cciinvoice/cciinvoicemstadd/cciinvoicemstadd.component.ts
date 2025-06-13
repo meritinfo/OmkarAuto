@@ -1,4 +1,3 @@
-
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -103,6 +102,7 @@ export class CciinvoicemstaddComponent {
       cciInvMstId : new FormControl('',),
       cciInvNo : new FormControl('',[Validators.required]),
       cciInvDate  : new FormControl(this.loginDate,[Validators.required]),
+      lr_YN: new FormControl('Y',),
       remarks  : new FormControl('',),
       gstType : new FormControl('NA',[Validators.required]),
       totalTaxableAmt : new FormControl('',[Validators.required]),
@@ -286,6 +286,7 @@ export class CciinvoicemstaddComponent {
   exit(): void {
     this.route.navigate(['/ccinvoicelist']);
   }  
+
   getCnDetail(i:number): void {
     var selectedData = this.formUser.getRawValue(); 
     if((selectedData.arrayList[i].containerNo?selectedData.arrayList[i].containerNo:"")==""){ 
@@ -293,32 +294,35 @@ export class CciinvoicemstaddComponent {
       return;
     }
     else{
-      this.requestmodel.strRequest = selectedData.arrayList[i].containerNo; 
-      this.cciInvoiceMstService.getCnDetail(this.requestmodel).subscribe((res) => {
-        this.ccinvmstmodel = res;
-        if (res.ccinvmstDtlList[0]) {            
-          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[0].gcNoteNo);
-          this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[0].gcBook);
-          this.formTyreArray.controls[i].get("gcYear")?.setValue(res.ccinvmstDtlList[0].gcYear);
-          this.formTyreArray.controls[i].get("containerNo")?.disable(); 
-          this.formTyreArray.controls[i].get("gcNoteNo")?.disable();   
-          this.formTyreArray.controls[i].get("gcBook")?.disable();  
-          this.formTyreArray.controls[i].get("chCostId")?.enable(); 
-          this.formTyreArray.controls[i].get("sgstAmt")?.disable(); 
-          this.formTyreArray.controls[i].get("sgstPct")?.disable(); 
-          this.formTyreArray.controls[i].get("cgstAmt")?.disable(); 
-          this.formTyreArray.controls[i].get("cgstPct")?.disable(); 
-          this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
-          this.formTyreArray.controls[i].get("igstPct")?.disable(); 
-          this.formTyreArray.controls[i].get("totalAmt")?.disable();
-        } 
-        else{
-          this.toastrService.warning("Invalid Container No");
-          this.formTyreArray.controls[i].get("gcNoteNo")?.setValue('');
-          this.formTyreArray.controls[i].get("gcBook")?.setValue('');
-          return;
-        } 
-      });
+      this.formUser.controls["lr_YN"].disable();  
+      if(selectedData.lr_YN=="Y"){
+        this.requestmodel.strRequest = selectedData.arrayList[i].containerNo; 
+        this.cciInvoiceMstService.getCnDetail(this.requestmodel).subscribe((res) => {
+          this.ccinvmstmodel = res;
+          if (res.ccinvmstDtlList[0]) {            
+            this.formTyreArray.controls[i].get("gcNoteNo")?.setValue(res.ccinvmstDtlList[0].gcNoteNo);
+            this.formTyreArray.controls[i].get("gcBook")?.setValue(res.ccinvmstDtlList[0].gcBook);
+            this.formTyreArray.controls[i].get("gcYear")?.setValue(res.ccinvmstDtlList[0].gcYear);
+            this.formTyreArray.controls[i].get("containerNo")?.disable(); 
+            this.formTyreArray.controls[i].get("gcNoteNo")?.disable();   
+            this.formTyreArray.controls[i].get("gcBook")?.disable();  
+            this.formTyreArray.controls[i].get("chCostId")?.enable(); 
+            this.formTyreArray.controls[i].get("sgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("sgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("cgstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
+            this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+            this.formTyreArray.controls[i].get("totalAmt")?.disable();
+          } 
+          else{
+            this.toastrService.warning("Invalid Container No");
+            this.formTyreArray.controls[i].get("gcNoteNo")?.setValue('');
+            this.formTyreArray.controls[i].get("gcBook")?.setValue('');
+            return;
+          } 
+        });
+      }      
     }       
   }
 
@@ -439,9 +443,10 @@ export class CciinvoicemstaddComponent {
     
     this.ccinvmstmodel.cciInvMstId = this.selectedCciInvMstDetail.cciInvMstId ;
     this.ccinvmstmodel.cciInvNo= selectedDataValue.cciInvNo;
-    this.ccinvmstmodel.cciInvDate = selectedDataValue.cciInvDate
+    this.ccinvmstmodel.cciInvDate = selectedDataValue.cciInvDate;
     this.ccinvmstmodel.remarks= selectedDataValue.remarks.toString().toUpperCase(),  
     this.ccinvmstmodel.gstType= selectedDataValue.gstType;
+    this.ccinvmstmodel.lr_YN= selectedDataValue.lr_YN;    
     this.ccinvmstmodel.totalTaxableAmt= selectedDataValue.totalTaxableAmt.toString();
     this.ccinvmstmodel.totalSgstAmt= selectedDataValue.totalSgstAmt.toString();
     this.ccinvmstmodel.totalCgstAmt= selectedDataValue.totalCgstAmt.toString();

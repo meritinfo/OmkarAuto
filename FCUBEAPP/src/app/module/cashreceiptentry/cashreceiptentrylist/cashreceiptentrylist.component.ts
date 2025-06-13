@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { bankreceiptentrylistmodel  } from 'src/app/models/bankreceiptentrylistmodel';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
@@ -23,6 +24,7 @@ export class CashreceiptentrylistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string =""; 
+  finRefTypes: Dropdownmodel[] = [];
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -95,14 +97,13 @@ export class CashreceiptentrylistComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
-    }
-    
+    }    
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-  
+    this.fromDate = this.minDate ; 
+    this.getFinRefTypes();
 
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
     this.formFilter = this.formBuilder.group({
@@ -110,6 +111,7 @@ export class CashreceiptentrylistComponent {
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('CP',[Validators.required]),  
       docSeriesNo: new FormControl('',),  
+      refType: new FormControl('',),  
     });
     
     this.sharedService.loading=true;
@@ -118,8 +120,16 @@ export class CashreceiptentrylistComponent {
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
     this.filter.yearId = this.year;
+    this.filter.refType = "";
+
     this.cashReceiptEntry();
     this.sharedService.loading=false;
+  }
+
+  getFinRefTypes(): void {    
+    this.cashReceiptEntryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
   }
 
   cashReceiptEntry(){
@@ -128,13 +138,14 @@ export class CashreceiptentrylistComponent {
         pageLength: 50,
         serverSide: true,
         processing: true,
-        searching:false,
+        searching:false, 
+        language: {
+          zeroRecords: ''
+        }, 
         ajax: (dataTablesParameters: any, callback) => {
           // Filter setting
           this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
           this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-          this.filter.sortOrder = dataTablesParameters.order[0].dir;
           callback({
             recordsTotal: 0,
             recordsFiltered: 0,
@@ -210,6 +221,8 @@ export class CashreceiptentrylistComponent {
     this.filter.search = selectedDataVal.docSeriesNo;
     this.filter.yearId = this.year;
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "CP" :selectedDataVal.receiptOrPayment ;
+    this.filter.refType = selectedDataVal.refType;
+
     this.sharedService.loading=true;
     this.cashReceiptEntry();
     this.sharedService.loading=false;

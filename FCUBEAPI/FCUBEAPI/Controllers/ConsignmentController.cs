@@ -12,6 +12,7 @@ using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
 using FleetMasters.Business;
 using System.Net.Mail;
+using System.Collections.Generic;
 
 
 namespace FCUBEAPI.Controllers
@@ -69,6 +70,7 @@ namespace FCUBEAPI.Controllers
             IChallanSuppliBusiness _challanSuppliBusiness,
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
+            IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
             IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
           
             IDirectPmtBusiness _directPmtBusiness)
@@ -3733,6 +3735,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetPmtList")]
+        public async Task<IActionResult> GetPmtList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await directPmtBusiness.GetPmtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 
 

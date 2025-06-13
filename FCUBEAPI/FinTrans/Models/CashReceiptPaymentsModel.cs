@@ -46,6 +46,8 @@ namespace FinTrans.Models
         public string? ChequeDate { get; set; }
         public string? Narration { get; set; }
         public string? Reference { get; set; }
+        public string? CnRefNo { get; set; }
+        
     }
 }
 

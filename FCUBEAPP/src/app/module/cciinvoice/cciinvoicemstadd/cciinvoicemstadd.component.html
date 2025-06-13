@@ -34,6 +34,17 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
+                                            <label>Container Type </label><span style="color: red">*</span> 
+                                            <select id="formrow-inputState" class="form-control"
+                                                formControlName="lr_YN" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['lr_YN'].invalid) }">
+                                                <option value="Y">With LR</option>      
+                                                <option value="N">WithOut LR</option> 
+                                            </select>
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
                                             <label>Gst Type </label><span style="color: red">*</span> 
                                             <select id="formrow-inputState" class="form-control"
                                                 formControlName="gstType" 
@@ -104,8 +115,7 @@
                                                     <label for="formrow-inputZip">
                                                         <h6>Cgst Amt</h6>
                                                     </label>
-                                                </td>
-                                               
+                                                </td>                                               
                                                 <td >
                                                     <label for="formrow-inputZip">
                                                         <h6>Igst Pct</h6>
@@ -115,8 +125,7 @@
                                                     <label for="formrow-inputZip">
                                                         <h6>Igst Amt</h6>
                                                     </label>
-                                                </td>
-                                                
+                                                </td>                                                
                                                 <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Total Amt</h6>

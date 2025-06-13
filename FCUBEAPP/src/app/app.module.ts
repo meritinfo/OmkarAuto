@@ -762,6 +762,8 @@ import { MultipleledgerreportComponent } from './module/multipleledgerreport/mul
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,
+    Unbilledprovisionmstmodel,
+    Directpmtlistmodel, Directpmtmodel,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
     
   ],

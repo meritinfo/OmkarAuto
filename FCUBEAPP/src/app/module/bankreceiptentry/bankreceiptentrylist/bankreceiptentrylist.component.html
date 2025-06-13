@@ -45,6 +45,15 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
+                                <label for="formrow-inputCity">Ref Type </label>
+                                <select class="form-control form-select ng-pristine ng-touched"
+                                    formControlName="refType">
+                                    <option *ngFor="let branch of finRefTypes"
+                                        value={{branch.dataId}}>{{branch.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   (click)="search()"><span>Search</span></button>
                                 </div>
