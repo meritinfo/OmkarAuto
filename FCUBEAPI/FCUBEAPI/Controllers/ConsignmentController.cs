@@ -71,7 +71,6 @@ namespace FCUBEAPI.Controllers
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
             IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
-            IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
           
             IDirectPmtBusiness _directPmtBusiness)
         {
