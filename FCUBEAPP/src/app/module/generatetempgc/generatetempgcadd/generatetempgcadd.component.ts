@@ -457,12 +457,14 @@ dashboard: string ="";
                 cnorAdd1: this.eWayBillDetails.result.message.address1_of_consignor,
                 cnorAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
                 cnorAdd3: this.eWayBillDetails.result.message.place_of_consignor,
+                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,   
+
                 cneeName: this.eWayBillDetails.result.message.legal_name_of_consignee,
                 cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
-                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
-                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
-                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,                
+                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignee,
+                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,             
                 cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
+                
                 vehicleNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number,);
