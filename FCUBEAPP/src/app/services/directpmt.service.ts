@@ -33,6 +33,9 @@ export class DirectpmtService {
   getDirectBankList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetDirectBankList', null, this.httpOptions);
   }  
+  getPmtList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetPmtList', null, this.httpOptions);
+  }  
   getDirectPmtDownloadedList(filter: Reportmodel): Observable<Directpmtlistmodel> {
     return this.httpClient.post<Directpmtlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetDirectPmtDownloadedList', filter, this.httpOptions);
   }

@@ -6,6 +6,7 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -20,7 +21,8 @@ export class BankcashcontralistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
+  finRefTypes: Dropdownmodel[] = [];
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -71,13 +73,13 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
+ 
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -106,6 +108,7 @@ dashboard: string ="";
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('BC',[Validators.required]), 
       docSeriesNo: new FormControl('',),
+      refType:new FormControl('',),
     });
 
     this.sharedService.loading=true;
@@ -113,6 +116,7 @@ dashboard: string ="";
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
     this.filter.yearId = this.year;
+    this.filter.refType = "";
     this.bankContraList();
     this.sharedService.loading=false;
   }
@@ -206,6 +210,8 @@ dashboard: string ="";
     this.filter.receiptOrPayment = "BC" ;
     this.filter.yearId = this.year;
     this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.refType = selectedDataVal.refType;
+    
     this.sharedService.loading=true;
     this.bankContraList();
     this.sharedService.loading=false;

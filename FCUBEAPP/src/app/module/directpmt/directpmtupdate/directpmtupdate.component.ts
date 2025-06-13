@@ -27,6 +27,7 @@ export class DirectpmtupdateComponent {
   minDate : string = '';
   maxDate : string = '';
   directBankList: Dropdownmodel[] = [];
+  pmtList: Dropdownmodel[] = [];
   formUser!: FormGroup;
   alldirectpmtlist= new Directpmtlistmodel();
   filter: Reportmodel = {
@@ -115,9 +116,11 @@ export class DirectpmtupdateComponent {
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       directBankId: new FormControl('', [Validators.required]),
-      selectedAll: new FormControl(''),
+      pmtNo: new FormControl('', [Validators.required]),
+      selectedAll: new FormControl('Y'),
     });
     this.getDirectBankList();
+    this.getPmtList();
   }
 
   getDirectBankList(): void {
@@ -126,6 +129,12 @@ export class DirectpmtupdateComponent {
       this.formUser.patchValue({
         directBankId:res[0].dataId
       })
+    });
+  }
+
+  getPmtList(): void {
+    this.directpmtService.getPmtList().subscribe((res: Dropdownmodel[]) => {
+      this.pmtList = res;
     });
   }
 
@@ -145,6 +154,7 @@ export class DirectpmtupdateComponent {
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = selectedData.directBankId;
+    this.filter.search = selectedData.pmtNo;
 
     this.directpmtService.getDirectPmtDownloadedList(this.filter).subscribe((res) => {
       this.alldirectpmtlist = res; 

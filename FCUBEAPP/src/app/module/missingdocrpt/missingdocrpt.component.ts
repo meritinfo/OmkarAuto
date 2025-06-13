@@ -25,7 +25,7 @@ export class MissingdocrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   rangeFromList: Dropdownmodel[] = [];
   rangeToList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -50,7 +50,7 @@ dashboard: string ="";
     filterStr3:'',
 }
 
-formFilter!: FormGroup;
+  formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -66,45 +66,45 @@ formFilter!: FormGroup;
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-    }
+  }
 
-    ngOnInit(): void {   
-  
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Missing Document Report");
-        if (privilegeStatus) {
-          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-        }
+  ngOnInit(): void {   
+
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Missing Document Report");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-      var userData = sessionStorage.getItem('uid')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.loggedInUserID = userData;
-      }
-      if (this.loggedInUserID) {
-        console.log(this.loggedInUserID);
-      }
-      var userData = sessionStorage.getItem('userBranch')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.branch = userData;
-      }
-      else {
-        this.route.navigate(['/']);
-      }
-      var yearIDData = sessionStorage.getItem('yearID')?.toString();
-      if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-        this.year = yearIDData;
-      }
-      var loginDate = sessionStorage.getItem('loginDate')?.toString();
-      if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-        this.loginDate = loginDate;
-      }
+    }
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
       
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -113,135 +113,120 @@ formFilter!: FormGroup;
     this.fromDate = this.minDate ;
     
     
-      this.formFilter = this.formBuilder.group({
-        docType: new FormControl('CN',),  
-        branchCode: new FormControl(this.branch,),  
-        rangeFrom: new FormControl('',),  
-        rangeTo: new FormControl('',),  
-      });
-      this.filter.fromDate = "";
-      this.filter.toDate =  "";
-      this.filter.filterStr   = this.branch;
-      this.filter.filterStr1  = "CN";
+    this.formFilter = this.formBuilder.group({
+      docType: new FormControl('CN',),  
+      branchCode: new FormControl(this.branch,),  
+      rangeFrom: new FormControl('',),  
+      rangeTo: new FormControl('',),  
+    });
+    this.filter.fromDate = "";
+    this.filter.toDate =  "";
+    this.filter.filterStr   = this.branch;
+    this.filter.filterStr1  = "CN";
   
-      this.sharedService.loading=true;
-      this.getBranchList();
-      this.getRangeFromList(); 
-      this.getRangeToList();   
-      this.expDocRenewal();
-      this.sharedService.loading=false;
-    }
+    this.sharedService.loading=true;
+    this.getBranchList();
+    this.getRangeFromList(); 
+    this.getRangeToList();   
+    this.expDocRenewal();
+    this.sharedService.loading=false;
+  }
 
-    getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-      });
-    }
-    
-    onDocChange(){      
-      this.getRangeFromList(); 
-      this.getRangeToList();   
-    }
-
-    getRangeFromList(): void {      
-      var selected = this.formFilter.getRawValue();
-      this.request.strRequest = selected.docType ;
-      this.request.strRequest1  = "F"
-      this.commonService.getRangeList(this.request).subscribe((res) => {
-        this.rangeFromList = res;
-      });
-    }
-
-    getRangeToList(): void {
-      var selected = this.formFilter.getRawValue();
-      this.request.strRequest = selected.docType ;
-      this.request.strRequest1 = "T"
-      this.commonService.getRangeList(this.request).subscribe((res) => {
-        this.rangeToList = res;
-      });
-    }
-    get f() { return this.formFilter.controls; }
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
   
+  onDocChange(){      
+    this.getRangeFromList(); 
+    this.getRangeToList();   
+  }
+
+  getRangeFromList(): void {      
+    var selected = this.formFilter.getRawValue();
+    this.request.strRequest = selected.docType ;
+    this.request.strRequest1  = "F"
+    this.commonService.getRangeList(this.request).subscribe((res) => {
+      this.rangeFromList = res;
+    });
+  }
+
+  getRangeToList(): void {
+    var selected = this.formFilter.getRawValue();
+    this.request.strRequest = selected.docType ;
+    this.request.strRequest1 = "T"
+    this.commonService.getRangeList(this.request).subscribe((res) => {
+      this.rangeToList = res;
+    });
+  }
+  get f() { return this.formFilter.controls; }
      
-  
-    onChangeSearch(search: string) {
-      // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
-    }
-  
-    onFocused(e: any) {
-      // do something
-    }
-  
-    startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-      return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
-    expDocRenewal(){
-      this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 50,
-          serverSide: true,
-          processing: true,
-          searching:false,
-          ajax: (dataTablesParameters: any, callback) => {
-            // Filter setting
-            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-            this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'RenewalDocName';
-            this.filter.sortOrder = 'asc';
-            this.filter.search = '';
-            callback({
-              recordsTotal: 0,
-              recordsFiltered: 0,
-              data: []
-            });
-            this.docRenewalRptService.getMissingDocRptList(this.filter).subscribe(resp => {
-               this.allDocRptlist = resp;
-                callback({
-                  recordsTotal: resp.pageMetaData.totalCount,
-                  recordsFiltered: resp.pageMetaData.totalCount,
-                  data: []
-                });
+  expDocRenewal(){
+    this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 50,
+        serverSide: true,
+        processing: true,
+        searching:false,
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'RenewalDocName';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+          this.docRenewalRptService.getMissingDocRptList(this.filter).subscribe(resp => {
+             this.allDocRptlist = resp;
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
               });
-          }, 
-          columns: [ 
-          {
-            title: 'Branch',
-            data: 'branch',
-          },  
-          {
-            title: 'Document No',
-            data: 'docNumCode',
-          },         
-          {
-            title: 'Remarks',
-            data: 'remarks',
-          },     
-        ],
-      };
-    }
-      
-    exportExcel(): void {
-      
-      var selectedDataVal = this.formFilter.getRawValue();
-      
-      this.filter.fromDate = selectedDataVal.rangeFrom==""?selectedDataVal.rangeTo:"";
-      this.filter.toDate = selectedDataVal.rangeTo==""?selectedDataVal.rangeFrom:"";
-      this.filter.filterStr   = selectedDataVal.branchCode;
-      this.filter.filterStr1  = selectedDataVal.docType;
-
-      this.docRenewalRptService.getMissingDocRptExcel(this.filter).subscribe(resp => {
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "MissingDocRpt" + "_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
+            });
+        }, 
+        columns: [ 
+        {
+          title: 'Branch',
+          data: 'branch',
+        },  
+        {
+          title: 'Document No',
+          data: 'docNumCode',
+        },         
+        {
+          title: 'Remarks',
+          data: 'remarks',
+        },     
+      ],
+    };
+  }
+    
+  exportExcel(): void {
+    
+    var selectedDataVal = this.formFilter.getRawValue();
+    
+    this.filter.fromDate = selectedDataVal.rangeFrom;
+    this.filter.toDate = selectedDataVal.rangeTo;
+    this.filter.filterStr   = selectedDataVal.branchCode;
+    this.filter.filterStr1  = selectedDataVal.docType;
+    this.docRenewalRptService.getMissingDocRptExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "MissingDocRpt" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
   
   search(): void {
     this.formSubmitted = true;
@@ -257,8 +242,8 @@ formFilter!: FormGroup;
     }
     var selectedDataVal = this.formFilter.getRawValue();
     
-    this.filter.fromDate = selectedDataVal.rangeFrom==""?selectedDataVal.rangeTo:selectedDataVal.rangeFrom;
-    this.filter.toDate = selectedDataVal.rangeTo==""?selectedDataVal.rangeFrom:selectedDataVal.rangeTo;
+    this.filter.fromDate = selectedDataVal.rangeFrom;
+    this.filter.toDate = selectedDataVal.rangeTo;
     this.filter.filterStr   = selectedDataVal.branchCode;
     this.filter.filterStr1  = selectedDataVal.docType;
 

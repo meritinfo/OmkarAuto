@@ -6,6 +6,7 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -21,7 +22,7 @@ export class BankreceiptentrylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -41,6 +42,7 @@ dashboard: string ="";
     yearId:"",
   }
 
+  finRefTypes: Dropdownmodel[] = [];
   
   formFilter!: FormGroup;
   year: string = '';
@@ -71,12 +73,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -99,8 +101,8 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-  
+    this.getFinRefTypes();
+
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
 
     this.formFilter = this.formBuilder.group({
@@ -108,6 +110,7 @@ dashboard: string ="";
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('BP',[Validators.required]),  
       docSeriesNo: new FormControl('',),  
+      refType: new FormControl('',),  
     });
     
     this.sharedService.loading=true;    
@@ -116,9 +119,17 @@ dashboard: string ="";
     this.filter.toDate = this.loginDate;
     this.filter.branch = this.branch;
     this.filter.yearId = this.year;
+    this.filter.refType = "";
+
     this.bankReceiptEntry();
     this.sharedService.loading=false;
 
+  }
+
+  getFinRefTypes(): void {    
+    this.cashReceiptEntryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
   }
 
   bankReceiptEntry(){
@@ -127,20 +138,20 @@ dashboard: string ="";
       pageLength: 50,
       serverSide: true,
       processing: true,
-      searching:false,
+      searching:false, 
+      language: {
+          zeroRecords: ''
+        }, 
       ajax: (dataTablesParameters: any, callback) => {
           // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
           data: []
         });
-        this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
-          .subscribe(resp => {
+        this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
              this.allBankReceiptEntry = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
@@ -208,7 +219,9 @@ dashboard: string ="";
     this.filter.search = selectedDataVal.docSeriesNo;
     this.filter.yearId = this.year;
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "BP" :selectedDataVal.receiptOrPayment ;
-    this.sharedService.loading=true;
+    this.filter.refType = selectedDataVal.refType;
+
+     this.sharedService.loading=true;
     this.bankReceiptEntry();
     this.sharedService.loading=false;
     

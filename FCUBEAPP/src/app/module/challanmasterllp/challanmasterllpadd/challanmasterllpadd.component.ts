@@ -578,6 +578,7 @@ export class ChallanmasterllpaddComponent {
         }
       }
     }
+    
     getCCIInvoiceMstDetail(): void {
       var selectedData = this.formUser.getRawValue();  
       this.requestmodel.strRequest = selectedData.containerNo; 

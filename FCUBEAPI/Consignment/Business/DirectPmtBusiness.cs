@@ -33,5 +33,9 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.UpdateDirectPmt(lorryHire);
         }
+        public async Task<List<DropDownListModel>> GetPmtList(RequestModel request)
+        {
+            return await lorryHireRepository.GetPmtList(request);
+        }
     }
 }

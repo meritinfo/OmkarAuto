@@ -145,7 +145,7 @@ namespace Consignment.Repository
                         ws.Cell(j + 1, 2).Value = lorryHire.PmtList[j].BankPrCode?.ToString();
                         ws.Cell(j + 1, 3).Value = lorryHire.PmtList[j].Ptype?.ToString();
                         ws.Cell(j + 1, 4).Value = "";
-                        ws.Cell(j + 1, 5).Value = DateTime.Now;
+                        ws.Cell(j + 1, 5).Value = DateTime.Now.ToString("dd/MM/yyyy");
                         ws.Cell(j + 1, 6).Value = "'" + lorryHire.PmtList[j].BankAcNo?.ToString();
                         ws.Cell(j + 1, 7).Value = lorryHire.PmtList[j].NetAmt?.ToString();
                         ws.Cell(j + 1, 8).Value = "";
@@ -361,6 +361,43 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
+        public async Task<List<DropDownListModel>> GetPmtList(RequestModel request)
+        {
+            List<DropDownListModel> locationList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.strRequest),
+                            new SqlParameter("@ToDate",     request.strRequest1),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDirectPmtPendingList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            locationList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return locationList;
+        }
+
+
     }
 
 }

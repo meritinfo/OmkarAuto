@@ -19,12 +19,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Doc Type</label>
                                     <select id="formrow-inputState" class="form-control" 
-                                            formControlName="docType" (change)="onDocChange()"
+                                            formControlName="docType" 
                                             class="form-control form-select ng-pristine ng-touched"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['docType'].invalid) }"> 
                                             <option value="CN">Consignment</option>
                                             <option value="CH">Challan</option>
-                                            <option value="BL">Bill</option>                                      
+                                            <option value="BL">Bill</option>       
+                                            <option value="BS">Bill Submit</option>    
+                                            <option value="LH">LH Pmt</option>                                      
                                     </select>                                                
                                 </div>                                              
                             </div>
@@ -44,23 +46,25 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Range From</label>
-                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="rangeFrom"> 
+                                    <input class="form-control" formControlName="rangeFrom" >
+                                    <!-- <select class="form-control form-select ng-pristine ng-touched"formControlName="rangeFrom"> 
                                         <option value="">ALL</option>
                                         <option *ngFor="let br of rangeFromList" value={{br.dataId}}>
                                         {{br.dataName}}
                                         </option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>  
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Range To</label>
-                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="rangeTo">  
+                                    <input class="form-control" formControlName="rangeTo" >
+                                    <!-- <select class="form-control form-select ng-pristine ng-touched"formControlName="rangeTo">  
                                         <option value="">ALL</option>
                                         <option *ngFor="let br of rangeToList" value={{br.dataId}}>
                                         {{br.dataName}}
                                         </option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                             <div class="col-lg-1">

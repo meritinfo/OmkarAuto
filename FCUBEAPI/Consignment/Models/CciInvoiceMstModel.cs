@@ -13,6 +13,7 @@ namespace Consignment.Models
         public string? CciInvDate { get; set; }
         public string? Remarks { get; set; }
         public string? GstType { get; set; }
+        public string? Lr_YN { get; set; }        
         public string? TotalTaxableAmt { get; set; }
         public string? TotalSgstAmt { get; set; }
         public string? TotalCgstAmt { get; set; }

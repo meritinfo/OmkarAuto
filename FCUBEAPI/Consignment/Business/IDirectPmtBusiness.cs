@@ -13,6 +13,7 @@ namespace Consignment.Business
         Task<ResponseModel> DownLoadDirectExcel(DirectPmtListModel lorryHire);
         Task<DirectPmtListModel> GetDirectPmtDownloadedList(ReportRequestModel request);
         Task<ResponseModel> UpdateDirectPmt(DirectPmtListModel lorryHire);
+        Task<List<DropDownListModel>> GetPmtList(RequestModel request);
     }
 
 }
