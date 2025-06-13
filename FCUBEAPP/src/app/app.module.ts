@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import {Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
+import { Menureportaccessrightsmodel } from './models/menureportaccessmodel';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
 import { ChallanlistmodelllP } from './models/challanmasterlistllp';
@@ -513,8 +514,10 @@ import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
 import { Directpmtlistmodel } from './models/directpmtlistmodel';
 import { Directpmtmodel } from './models/directpmtmodel';
+
 import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
+import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
 
 @NgModule({
   declarations: [
@@ -683,7 +686,7 @@ import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisi
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent, 
     PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, 
     
   ],
   
@@ -760,6 +763,8 @@ import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisi
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,
     Unbilledprovisionmstmodel,
+    Directpmtlistmodel, Directpmtmodel,
+    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
     
   ],
   bootstrap: [AppComponent]

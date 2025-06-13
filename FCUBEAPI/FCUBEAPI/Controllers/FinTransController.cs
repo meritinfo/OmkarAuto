@@ -655,6 +655,39 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetMultipleLedgerRptPdf")]
+        public async Task<IActionResult> GetMultipleLedgerRptPdf(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetMultipleLedgerRptPdf(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetReportMenuList")]
+        public async Task<IActionResult> GetReportMenuList()
+        {
+
+            try
+            {
+                var result = await ledgerRptBusiness.GetReportMenuList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetBankBookRptList")]
         public async Task<IActionResult> GetBankBookRptList(ReportRequestModel req)

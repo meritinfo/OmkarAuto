@@ -18,6 +18,7 @@ namespace FinTrans.Business
         Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request);
+        Task<ResponseModel> GetMultipleLedgerRptPdf(ReportRequestModel request);
         Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 
 
@@ -33,5 +34,6 @@ namespace FinTrans.Business
         Task<ResponseModel> GetMonthlyBookingRptExcel(ReportRequestModel requestModel);
         Task<ResponseModel> GetMonthlyLorryHireRptExcel(ReportRequestModel requestModel);
         Task<ResponseModel> GetMonthlyAdminExpRptExcel(ReportRequestModel requestModel);
+        Task<List<MenuReportAccessModel>> GetReportMenuList();
     }
 }
