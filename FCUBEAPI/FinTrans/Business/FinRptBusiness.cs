@@ -123,6 +123,30 @@ namespace FinTrans.Business
             //string path = CreateLedgerReportAsync(request, reportData, response);
             //return new ResponseModel { Status = true, Message = path };
         }
+        public async Task<ResponseModel> GetAnnexureRptPdf(ReportRequestModel request)
+        {
+            RepReqModel req = new RepReqModel();
+            req.FromDate = request.FromDate;
+            req.ToDate = request.ToDate;
+            req.SortColumn = request.SortColumn == "" ? "N" : request.SortColumn;
+            req.SortOrder = request.SortOrder == "" ? "N" : request.SortOrder;
+            req.Search = request.Search;
+            req.FilterStr = request.FilterStr;
+            req.FilterStr1 = request.FilterStr1;
+            req.FilterStr2 = request.FilterStr2;
+            req.FilterStr3 = request.FilterStr3;
+            req.FilterStr4 = "PDF";
+
+            return await ledgerRptRepository.AnnexurePrintPdf(req);
+
+            //DataSet reportData = await ledgerRptRepository.ledgerReport(request);
+
+            //ResponseModel response = new ResponseModel();
+            //response = await sharedRepository.GetCompanyDetail();
+
+            //string path = CreateLedgerReportAsync(request, reportData, response);
+            //return new ResponseModel { Status = true, Message = path };
+        }
 
         private string CreateLedgerReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
         {

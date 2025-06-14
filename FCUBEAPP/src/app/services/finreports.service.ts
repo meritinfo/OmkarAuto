@@ -59,6 +59,9 @@ export class FinreportsService {
    getMultipleLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptPdf', filter, this.httpOptions);
   } 
+     getAnnexurerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetAnnexureRptPdf', filter, this.httpOptions);
+  } 
    getReportMenuList(menuList: Menureportaccessrightsmodel[]): Observable<Menureportaccessrightsmodel[]> {
     return this.httpClient.post<Menureportaccessrightsmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetReportMenuList', menuList,this.httpOptions
     );

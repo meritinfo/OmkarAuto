@@ -19,6 +19,7 @@ namespace FinTrans.Business
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request);
         Task<ResponseModel> GetMultipleLedgerRptPdf(ReportRequestModel request);
+        Task<ResponseModel> GetAnnexureRptPdf(ReportRequestModel request);
         Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 
 

@@ -329,6 +329,8 @@ import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/dir
 import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
+import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -779,6 +781,7 @@ const routes: Routes = [
   { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
     { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
       { path: 'multiledgerrpt',component: MultipleledgerreportComponent},
+          { path: 'annexurerpt',component: AnnexurereportComponent},
 ];
 
 
