@@ -32,7 +32,8 @@ export class BillsubmitmasteraddComponent {
   viewStatus = false; 
   createdBy : string = "";
   modifiedBy: string = "";
-dashboard: string ="";
+  dashboard: string ="";
+  appendMode = false;  
   editMode= false;
   formSubmitted = false;
   keywordLocation = 'dataName';
@@ -56,9 +57,9 @@ dashboard: string ="";
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel, private reportmodel:Reportmodel) {
     this.billsubmitmastermodel = new Billsubmitmastermodel();
-
     
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -74,12 +75,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -161,6 +162,7 @@ dashboard: string ="";
         this.createdBy = this.selectedBillSubmitMasterDetail.createdBy + " " + this.selectedBillSubmitMasterDetail.createdDate;
         this.modifiedBy = this.selectedBillSubmitMasterDetail.modifiedBy + " " + this.selectedBillSubmitMasterDetail.modifiedDate;   
         this.editMode =true;     
+        this.appendMode = true; 
       }, 2000);  
     }
     this.billSubmitSeriesChange();
@@ -268,6 +270,51 @@ dashboard: string ="";
       } 
     }); 
   } 
+
+  
+  append():void {
+    var selectedDataValue = this.formUser.getRawValue();
+    if (selectedDataValue.partyCode.dataId ) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" please  select party ");
+      return;
+    } 
+    if ( selectedDataValue.submitLocation) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning("please  select location");
+      return;
+    } 
+    if (selectedDataValue.billsUptoDt) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" please select uptodate");
+      return;
+    } 
+    
+    this.reportmodel.filterStr = selectedDataValue.partyCode.dataId;
+    this.reportmodel.filterStr1 = selectedDataValue.submitLocation;
+    this.reportmodel.fromDate =  selectedDataValue.billsUptoDt;
+    var l = selectedDataValue.arrayList.length;
+    this.billSubmitMasterService.getBillsSubmitSearchList(this.reportmodel).subscribe((res: Billsubmitmastermodel) => {
+      this.appendMode = false;
+       for (var i = 0; i < res.billSubmitMasterDtlList.length; i++) {
+        this.formTyreArray.push(this.createSubmitArray());
+        this.formTyreArray.controls[l+i].get("billsMasterId")?.setValue(res.billSubmitMasterDtlList[i].billsMasterId);
+        this.formTyreArray.controls[l+i].get("billAmt")?.setValue(res.billSubmitMasterDtlList[i].billAmt);
+        this.formTyreArray.controls[l+i].get("billNo")?.setValue(res.billSubmitMasterDtlList[i].billNo);
+        this.formTyreArray.controls[l+i].get("billDate")?.setValue(this.commonService.formatDate(res.billSubmitMasterDtlList[i].billDate));
+        this.formTyreArray.controls[l+i].get("billAmt")?.disable();
+        this.formTyreArray.controls[l+i].get("billDate")?.disable();
+        this.formTyreArray.controls[l+i].get("billNo")?.disable();
+      } 
+    }); 
+  } 
+  
 
   getBillSubmitMasterInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedBillSubmitMasterDetail.submitMstId; 
