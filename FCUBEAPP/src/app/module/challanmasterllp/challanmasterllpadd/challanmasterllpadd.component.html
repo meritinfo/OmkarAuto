@@ -97,7 +97,6 @@
                                         <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation"  
                                             formControlName="challanFromStn" 
-                                            (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
@@ -121,7 +120,6 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="challanToStn"
                                             [searchKeyword]="keywordLocation"  
-                                            (selected)='selectEvent($event)' 
                                             (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' 
                                             [itemTemplate]="itemTemplate"
@@ -195,7 +193,7 @@
                             </div>
                         </div>                                              
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-7">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Broker : </label>
                                     <span style="color: red">*</span>

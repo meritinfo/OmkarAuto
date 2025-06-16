@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { DrivermasterService } from 'src/app/services/drivermaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-drivermasteradd',
@@ -69,6 +70,7 @@ export class DrivermasteraddComponent {
   constructor(private route: Router, private formBuilder: FormBuilder,
     private driverModel: Drivermodel, private drivermasterService: DrivermasterService,
     private commonService: CommonService,
+                                      private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.driverModel = new Drivermodel();
   }
@@ -102,7 +104,9 @@ export class DrivermasteraddComponent {
     this.fromDate = this.minDate ;
     
   
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

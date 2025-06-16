@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +16,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Ptslabmasterlistmodel } from 'src/app/models/ptslabmasterlistmodel';
 
 import { PtSlabMasterService } from 'src/app/services/ptslabmaster.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -42,10 +41,11 @@ dashboard: string ="";
 
   selectedPtSlabMasterDetails = new Ptslabmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private ptslabmastermodel: Ptslabmastermodel, private ptSlabMasterService: PtSlabMasterService, private commonService: CommonService,private requestmodel:Requestmodel,private toasterService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private sharedService : SharedService,private ptslabmastermodel: Ptslabmastermodel, 
+    private ptSlabMasterService: PtSlabMasterService, private commonService: CommonService,
+    private requestmodel:Requestmodel,private toasterService: ToastrService) {
     this.ptslabmastermodel = new Ptslabmastermodel();
-
-
 }
 ngOnInit(): void {
   var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -61,7 +61,9 @@ ngOnInit(): void {
       this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
     }
   }
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

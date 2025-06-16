@@ -532,6 +532,33 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
+        public async Task<ChallanMasterModelLLP> GetBrokerPanDetails(RequestModel request)
+        {
+            ChallanMasterModelLLP challanDetail = new ChallanMasterModelLLP();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Broker", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrokerPanDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        challanDetail.BrokerMblNo = Convert.ToString(statusData.Tables[0].Rows[0]["BrokerMblNo"]);
+                        challanDetail.VehicleOwnerName = Convert.ToString(statusData.Tables[0].Rows[0]["VehicleOwnerName"]);
+                        challanDetail.VehicleOwnerPanNo = Convert.ToString(statusData.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return challanDetail;
+        }
     }
 
 }

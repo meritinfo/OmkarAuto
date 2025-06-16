@@ -11,6 +11,7 @@ import { EmploanService } from 'src/app/services/emploan.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { EmpmasterService } from 'src/app/services/empmaster.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-emploanadd',
@@ -41,6 +42,7 @@ export class EmploanaddComponent{
   selectedEmploanmodelDetails = new Emploanmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder,
+                                    private sharedService : SharedService,
     private emploanmodel: Emploanmodel, private emploanService: EmploanService,
     private commonService: CommonService,private empmasterService: EmpmasterService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
@@ -69,7 +71,9 @@ export class EmploanaddComponent{
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

@@ -8,6 +8,7 @@ import { HrMasterService } from 'src/app/services/hrmaster.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ dashboard: string ="";
   selectedHrMasterDetails = new Hrmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
+              private sharedService : SharedService,
     private hrmastermodel: Hrmastermodel, private hrMasterService: HrMasterService, 
     private toasterService: ToastrService,  private requestmodel: Requestmodel,
     private commonService: CommonService) {
@@ -61,7 +63,9 @@ dashboard: string ="";
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

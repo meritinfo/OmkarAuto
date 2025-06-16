@@ -15,6 +15,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TyrepositionMasterService } from 'src/app/services/tyrepositionmaster.service';
 import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addtyrepositionmaster',
@@ -36,7 +37,8 @@ dashboard: string ="";
 
   selectedTyrePositionMasterDetails = new Tyrepositionmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private requestmodel:Requestmodel, private toasterService: ToastrService ,private TyrePositionMasterModel: Tyrepositionmastermodel, private tyrepositionmasterService: TyrepositionMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private sharedService : SharedService,private requestmodel:Requestmodel, private toasterService: ToastrService ,private TyrePositionMasterModel: Tyrepositionmastermodel, private tyrepositionmasterService: TyrepositionMasterService, private commonService: CommonService) {
     this.TyrePositionMasterModel = new Tyrepositionmastermodel();
 
  
@@ -56,7 +58,9 @@ ngOnInit(): void {
     }
   }
   
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;

@@ -24,7 +24,7 @@ export class AdddocrenewalmasterComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
 
@@ -55,13 +55,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
+    
+    this.sharedService.loggedInStatus = true;
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -91,11 +93,11 @@ dashboard: string ="";
     if (this.selectedDocRenewalMasterDetails.docRenewalID != '') {
       this.formUser.patchValue(this.selectedDocRenewalMasterDetails);      
       this.editMode = true;
-    }
-    
+    }   
 
     this.sharedService.loading=false;
   }
+  
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
 

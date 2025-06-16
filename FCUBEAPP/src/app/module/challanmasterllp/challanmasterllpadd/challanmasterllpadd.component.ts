@@ -76,7 +76,8 @@ export class ChallanmasterllpaddComponent {
     static: true
   }) truckDriverImageInput: any;
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private challanmodel: ChallanmastermodelllP,
+  constructor(private route: Router, private formBuilder: FormBuilder,
+                                   private challanmodel: ChallanmastermodelllP,
     private challanmasterService: ChallanmasterServiceLLP,
     private commonService: CommonService,  private sharedService: SharedService,
     private lrentryService: ConsignmentService,
@@ -111,7 +112,9 @@ export class ChallanmasterllpaddComponent {
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -1023,7 +1026,7 @@ export class ChallanmasterllpaddComponent {
     }  
     
     selectEvent(item: any) {
-      // do something with selected item
+      this.getBrokerDetails(item.dataId);
     }
       
     onChangeSearch(search: string) {
@@ -1037,6 +1040,30 @@ export class ChallanmasterllpaddComponent {
     startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
       return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));    
     };
+
+    getBrokerDetails(broker:string){
+      var selectedData = this.formUser.getRawValue();       
+      this.formUser.patchValue({
+          brokerMblNo: "",
+          vehicleOwnerName:"",
+          vehicleOwnerPanNo:"",
+      });
+      this.requestmodel.strRequest = broker;
+      this.challanmasterService.getBrokerPanDetails(this.requestmodel).subscribe((res:ChallanmastermodelllP) => {
+        this.formUser.patchValue({
+          brokerMblNo: res.brokerMblNo,
+          vehicleOwnerName:res.vehicleOwnerName,
+          vehicleOwnerPanNo:res.vehicleOwnerPanNo,
+        });
+        if(res.vehicleOwnerPanNo==""){
+          //igonre
+        }
+        else{
+          this.formUser.controls["brokerId"].disable(); 
+          this.onOwnerPanChange();
+        }
+      });
+    }
   
     getDetails(){
       var selectedData = this.formUser.getRawValue();    

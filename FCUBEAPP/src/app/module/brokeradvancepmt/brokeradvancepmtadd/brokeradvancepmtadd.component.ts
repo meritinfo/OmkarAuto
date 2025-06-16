@@ -11,6 +11,7 @@ import { BrokerAdvancePmtService } from 'src/app/services/brokeradvancepmt.servi
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class BrokeradvancepmtaddComponent {
   constructor(private route: Router, private formBuilder: FormBuilder,
     private brokeradvancepmtModel: BrokeradvancepmtModel, private brokerAdvancePmtService: BrokerAdvancePmtService,
     private commonService: CommonService,  private cashReceiptEntryService: CashReceiptEntryService,
+                                      private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.brokeradvancepmtModel = new BrokeradvancepmtModel();
   }
@@ -72,7 +74,9 @@ export class BrokeradvancepmtaddComponent {
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -106,7 +110,9 @@ export class BrokeradvancepmtaddComponent {
     this.fromDate = this.minDate ;
     
   
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

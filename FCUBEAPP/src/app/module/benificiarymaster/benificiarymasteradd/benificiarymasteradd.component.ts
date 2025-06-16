@@ -11,6 +11,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-benificiarymasteradd',
@@ -55,6 +56,7 @@ export class BenificiarymasteraddComponent {
     private benificiarymastermodel: Benificiarymastermodel, 
     private benificiaryMasterService: BenificiaryMasterService,
     private commonService: CommonService,
+                                        private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.benificiarymastermodel = new Benificiarymastermodel();
   }
@@ -80,7 +82,9 @@ export class BenificiarymasteraddComponent {
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

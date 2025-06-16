@@ -11,6 +11,7 @@ import { Productgroupmastermodel } from 'src/app/models/productgroupmastermodel'
 import { CommonService } from 'src/app/services/common.service';
 import { ProductGroupMasterService } from 'src/app/services/productgroupmaster.service';
 import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addproductgroupmaster',
@@ -26,13 +27,16 @@ export class AddproductgroupmasterComponent {
 
   selectedProductGroupMasterDetails = new Productgroupmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private productGroupMasterModel: Productgroupmastermodel, private productgroupmasterService: ProductGroupMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder,
+      private sharedService : SharedService, private productGroupMasterModel: Productgroupmastermodel, private productgroupmasterService: ProductGroupMasterService, private commonService: CommonService) {
     this.productGroupMasterModel = new Productgroupmastermodel();
 
 
 }
 ngOnInit(): void {
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

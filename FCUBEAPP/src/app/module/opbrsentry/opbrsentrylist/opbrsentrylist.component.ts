@@ -6,6 +6,7 @@ import { BrsEntrylistmodel  } from 'src/app/models/brsentrylistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Brsentrymodel } from 'src/app/models/brsentrymodel';
 import { OpbrsentryService } from 'src/app/services/opbrsentry.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ dashboard: string ="";
     sortOrder: 'asc',
     search: ''
   }
-  constructor(private OpbrsentryService: OpbrsentryService, private route: Router) {
+  constructor(private OpbrsentryService: OpbrsentryService,
+              private sharedService : SharedService, private route: Router) {
   }
 
   ngOnInit(): void {
@@ -59,7 +61,9 @@ dashboard: string ="";
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

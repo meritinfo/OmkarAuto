@@ -62,7 +62,9 @@ ngOnInit(): void {
       this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
     }
   }
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

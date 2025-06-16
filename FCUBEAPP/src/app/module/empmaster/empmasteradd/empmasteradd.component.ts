@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { EmpmasterService } from 'src/app/services/empmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-empmasteradd',
@@ -51,6 +52,7 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder,
     private employeemodel: Employeemodel, private empmasterService: EmpmasterService,
     private commonService: CommonService,
+                              private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.employeemodel = new Employeemodel();
   }
@@ -77,7 +79,9 @@ dashboard: string ="";
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

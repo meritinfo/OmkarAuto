@@ -9,6 +9,7 @@ import { ChallanReleaseService } from 'src/app/services/challanrelease.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -54,6 +55,7 @@ dashboard: string ="";
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
+                                    private sharedService : SharedService,
     private challanreleaseService: ChallanReleaseService, private route: Router,
     private commonService: CommonService,) {
   }
@@ -88,7 +90,9 @@ dashboard: string ="";
       this.route.navigate([this.dashboard]);
     }
 
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

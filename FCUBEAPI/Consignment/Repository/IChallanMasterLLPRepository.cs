@@ -17,5 +17,6 @@ namespace Consignment.Repository
         Task<ResponseModel> GetChallanPrintPdfLLP(RequestModel request);
         Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel);
         Task<ResponseModel> ChkPanDeclaration(RequestModel requestModel);
+        Task<ChallanMasterModelLLP> GetBrokerPanDetails(RequestModel request);
     }
 }

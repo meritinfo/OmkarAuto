@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators,FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
 import { Vehicletypemastermodel } from 'src/app/models/vehicletypemastermodel';
-
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Vehicletypemasterlistmodel } from 'src/app/models/vehicletypemasterlistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { VehicleTypeMasterService } from 'src/app/services/vehicletypemaster.service';
-import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -40,11 +37,14 @@ dashboard: string ="";
   selectedVehicleTypeMasterDetails = new Vehicletypemastermodel();
 
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private vehicletypemastermodel: Vehicletypemastermodel, private vehicleTypesService: VehicleTypeMasterService, private commonService: CommonService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private vehicletypemastermodel: Vehicletypemastermodel, 
+    private vehicleTypesService: VehicleTypeMasterService, 
+    private sharedService : SharedService,
+    private commonService: CommonService, private toasterService: ToastrService,
+    private requestmodel:Requestmodel) {
     this.vehicletypemastermodel = new Vehicletypemastermodel();
-
-
-}
+  }
 
 ngOnInit(): void {
   var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -61,7 +61,9 @@ ngOnInit(): void {
     }
   }
 
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

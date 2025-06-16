@@ -9,6 +9,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class SubledgermasteraddComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private subledgermastermodel: Subledgermodel, 
     private subledgerService:SubledgerService, 
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.subledgermastermodel = new Subledgermodel();
@@ -65,7 +67,9 @@ export class SubledgermasteraddComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

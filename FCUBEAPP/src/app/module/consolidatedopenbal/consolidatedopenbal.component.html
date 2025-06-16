@@ -42,13 +42,13 @@
                         </div>
                     </div>                            
                     <div class="row" >
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;"> Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <td class="col-lg-4">
+                                            <td class="col-lg-7">
                                                 <label for="formrow-inputZip">
                                                     <h6>Account Name</h6>
                                                 </label>
@@ -67,7 +67,7 @@
                                         <tr formArrayName="arrayList"
                                             *ngFor="let miscData of formArray.controls; let k = index">
                                             <div [formGroupName]="k" class="grid-table">   
-                                                <td  class="col-lg-4">   
+                                                <td  class="col-lg-7">   
                                                     <input autoclose="false" type="text" class="form-control" 
                                                     formControlName="accountName">                                                                                                
                                                 </td>
@@ -83,7 +83,7 @@
                                         </tr>
                                         <tr>
                                             <td class="col-lg-3"></td>
-                                            <td class="col-lg-2">                                                   
+                                            <td class="col-lg-3">                                                   
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip"><h6>Total Credit Amount</h6></label> 
@@ -92,7 +92,7 @@
                                                     </div>
                                                 </div>                   
                                             </td>
-                                            <td class="col-lg-2">                                                  
+                                            <td class="col-lg-3">                                                  
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip"><h6>Total Debit Amount</h6></label>  

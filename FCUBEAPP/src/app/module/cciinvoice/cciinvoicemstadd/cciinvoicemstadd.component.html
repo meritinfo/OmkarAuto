@@ -15,10 +15,22 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body"> 
-                                <div class="row">                                    
+                                <div class="row">                                
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">                                           
+                                            <label >Branch: </label><span style="color: red">*</span>  
+                                            <select formControlName="branch" 
+                                                class="form-control form-select ng-pristine ng-touched"                          
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branch'].invalid) }">
+                                                <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                                    {{dl.dataName}}
+                                                </option>
+                                            </select>    
+                                        </div>
+                                    </div>                                    
                                     <div class="col-sm-2">
                                         <div class="mb-3">                                           
-                                            <label >Cci Inv No: </label><span style="color: red">*</span>  
+                                            <label >CCI Inv No: </label><span style="color: red">*</span>  
                                             <input type="text"  autofocus="autofocus" class="form-control"
                                                 formControlName="cciInvNo"     uppercaseonly                                  
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cciInvNo'].invalid) }">
@@ -26,7 +38,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">                                           
-                                            <label >Cci Inv Date: </label><span style="color: red">*</span>  
+                                            <label >CCI Inv Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                                 formControlName="cciInvDate" max="{{maxDate}}"                                         
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cciInvDate'].invalid) }">
@@ -34,7 +46,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Container Type </label><span style="color: red">*</span> 
+                                            <label>Container Type:</label><span style="color: red">*</span> 
                                             <select id="formrow-inputState" class="form-control"
                                                 formControlName="lr_YN" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lr_YN'].invalid) }">
@@ -42,10 +54,10 @@
                                                 <option value="N">WithOut LR</option> 
                                             </select>
                                         </div>
-                                    </div>       
+                                    </div>  
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Gst Type </label><span style="color: red">*</span> 
+                                            <label>Gst Type: </label><span style="color: red">*</span> 
                                             <select id="formrow-inputState" class="form-control"
                                                 formControlName="gstType" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
@@ -54,7 +66,32 @@
                                                 <option value="IG">IGST</option>      
                                             </select>
                                         </div>
-                                    </div>                       
+                                    </div>    
+                                </div>  
+                                <div class="row">         
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Broker/Payable:</label> <span style="color: red"> * </span>                                               
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vendorList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="vendorId" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>                    
                                 </div> 
                             </div>                  
                             <!-- end card body -->
@@ -76,14 +113,29 @@
                                                         <h6>Container No</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-3">
+                                                <td >
                                                     <label for="formrow-inputZip">
-                                                        <h6>Gc Book</h6>
+                                                        <h6>Gc Note No</h6>
                                                     </label>
                                                 </td>
                                                 <td >
                                                     <label for="formrow-inputZip">
                                                         <h6>Gc Note No</h6>
+                                                    </label>
+                                                </td>
+                                                <td >
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Gc Book</h6>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Booking Date</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Party</h6>
                                                     </label>
                                                 </td>
                                                 <td >
@@ -149,23 +201,38 @@
                                                         <input autoclose="false" class="form-control" uppercaseonly
                                                         formControlName="containerNo" (change)="getCnDetail(i)"> 
                                                     </td>
+                                                    <td> 
+                                                        <select formControlName="consignmentId" (change)="getLrDetails($event,i)"
+                                                            class="form-control form-select ng-pristine ng-touched" >
+                                                            <option *ngFor="let dl of lrList" value={{dl.dataId}}>
+                                                                {{dl.dataName}}
+                                                            </option>
+                                                        </select>       
+                                                    </td> 
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="gcNoteNo">  
+                                                    </td> 
                                                     <td class="col-lg-3">  
-                                                        <select formControlName="gcBook"
-                                                            class="form-control" >
+                                                        <select formControlName="gcBook" 
+                                                            class="form-control form-select ng-pristine ng-touched" >
                                                             <option *ngFor="let dl of branchList" value={{dl.dataId}}>
                                                                 {{dl.dataName}}
                                                             </option>
                                                         </select>       
                                                         <input type="hidden" autoclose="false" class="form-control"
                                                         formControlName="gcYear"> 
-                                                    </td>
-                                                    <td > 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="gcNoteNo"> 
-                                                    </td>                                                    
+                                                    </td>  
                                                     <td> 
-                                                        <select formControlName="chCostId" 
-                                                        class="form-control" >
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="bookingDate" >
+                                                    </td> 
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control" 
+                                                        formControlName="party" >
+                                                    </td>                                                   
+                                                    <td> 
+                                                        <select formControlName="chCostId" class="form-control form-select ng-pristine ng-touched" >
                                                             <option *ngFor="let dl of chList" value={{dl.dataId}}>
                                                                 {{dl.dataName}}
                                                             </option>
@@ -263,6 +330,20 @@
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalInvAmt'].invalid) }">
                             </div>
                         </div> 
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label>Debit A/c:  </label><span style="color: red">*</span>
+                                <select id="scope" formControlName="debitAc"
+                                class="form-control form-select ng-pristine ng-touched"
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
+                                    <option *ngFor="let dbt of debitAcList" value={{dbt.dataId}}>
+                                        {{dbt.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">
                                 <label>Remarks:  </label>

@@ -81,7 +81,9 @@ dashboard: string ="";
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
       this.dashboard = dashboard;
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

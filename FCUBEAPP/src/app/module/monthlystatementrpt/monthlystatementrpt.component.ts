@@ -9,6 +9,7 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common'
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-monthlystatementrpt',
@@ -56,6 +57,7 @@ dashboard: string ="";
   constructor(private datepipe: DatePipe,
     private monthstatementrptService: FinreportsService, 
     private excelService: ExcelService,private toastrService:ToastrService,
+                private sharedService : SharedService,
     private formBuilder: FormBuilder,  
     private commonService: CommonService, 
     private route: Router) {
@@ -82,7 +84,9 @@ dashboard: string ="";
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

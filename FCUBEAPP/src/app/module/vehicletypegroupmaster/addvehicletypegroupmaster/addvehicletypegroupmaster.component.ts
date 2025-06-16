@@ -8,7 +8,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Vehicletypegroupmastermodel } from 'src/app/models/vehicletypegroupmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { VehicleTypeGroupMasterService } from 'src/app/services/vehicletypegroupmaster.service';
-import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -26,13 +26,19 @@ export class AddvehicletypegroupmasterComponent {
 
 selectedVehicleTypeGroupMasterDetail = new Vehicletypegroupmastermodel();
 
-constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Vehicletypegroupmastermodel, private vehicleTypeGroupMasterService: VehicleTypeGroupMasterService, private commonService: CommonService) {
+constructor(private route: Router, private formBuilder: FormBuilder, 
+    private sharedService : SharedService,
+  private vehicleTypeGroupMasterModel: Vehicletypegroupmastermodel, 
+  private vehicleTypeGroupMasterService: VehicleTypeGroupMasterService, 
+  private commonService: CommonService) {
   this.vehicleTypeGroupMasterModel = new Vehicletypegroupmastermodel();
 
 
 }
 ngOnInit(): void {
-var userData = sessionStorage.getItem('uid')?.toString();
+
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
 if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
   this.loggedInUserID = userData;
 }

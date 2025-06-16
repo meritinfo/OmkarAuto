@@ -9,6 +9,7 @@ import { TyreregrouprecdService } from 'src/app/services/tyreregrouprecd.service
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-tyreregrouprecdadd',
@@ -54,6 +55,7 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private tyreregrouprecdmastermodel: Tyreregrouprecdmastermodel, 
     private tyreregrouprecdService: TyreregrouprecdService, 
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.tyreregrouprecdmastermodel = new Tyreregrouprecdmastermodel();
@@ -81,7 +83,9 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
   
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

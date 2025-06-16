@@ -12,6 +12,7 @@ import { PartyMisLocationsService } from 'src/app/services/partymislocations.ser
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-partymislocationsadd',
@@ -63,6 +64,7 @@ export class PartymislocationsaddComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private partymislocationmodels: Partymislocationmodel, 
     private partyMisLocationsService: PartyMisLocationsService, 
+        private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.partymislocationmodels = new Partymislocationmodel();
@@ -90,7 +92,9 @@ export class PartymislocationsaddComponent {
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

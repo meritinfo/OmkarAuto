@@ -9,6 +9,7 @@ import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-useradd',
@@ -47,6 +48,7 @@ export class UseraddComponent implements OnInit {
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private userModel: Usermodel, private userService: UserService, 
+    private sharedService : SharedService,
     private commonService: CommonService, private toastrService: ToastrService) {
     this.userModel = new Usermodel();
   }
@@ -73,7 +75,9 @@ export class UseraddComponent implements OnInit {
       this.route.navigate([this.dashboard]);
     }
 
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

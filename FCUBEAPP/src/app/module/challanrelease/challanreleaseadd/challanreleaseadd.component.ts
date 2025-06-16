@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-challanreleaseadd',
@@ -46,6 +47,7 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private challanreleaseModel: ChallanreleaseModel,  
+                                      private sharedService : SharedService,
     private toasterService: ToastrService,private challanReleaseService: ChallanReleaseService,
     private requestmodel:Requestmodel,private reportmodel:Reportmodel, 
     private commonService: CommonService) {
@@ -87,7 +89,9 @@ dashboard: string ="";
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

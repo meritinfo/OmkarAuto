@@ -10,6 +10,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-challansupplilist',
@@ -58,6 +59,7 @@ export class ChallansupplilistComponent {
 
   constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
     private challanmasterService: ChallansuppliService, private route: Router,
+                                      private sharedService : SharedService,
     private commonService: CommonService,) {
   }
 
@@ -83,7 +85,9 @@ export class ChallansupplilistComponent {
       this.route.navigate([this.dashboard]);
     }
     
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
