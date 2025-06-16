@@ -673,6 +673,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetAnnexureRptPdf")]
+        public async Task<IActionResult> GetAnnexureRptPdf(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetAnnexureRptPdf(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetReportMenuList")]
         public async Task<IActionResult> GetReportMenuList()
         {

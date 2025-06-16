@@ -178,7 +178,7 @@ dashboard: string ="";
  
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
-      item.isExpanded = false;
+      item.isExpanded = true;
       item.checked = false;
       if (item.children && item.children.length > 0) {
         this.initializeMenuItems(item.children);
@@ -266,7 +266,6 @@ saveSelectedIds() {
   hasAnyChecked(items: any[]): boolean {
     return items.some(item => item.checked || (item.children && this.hasAnyChecked(item.children)));
   }
-
   onFocused(e: any) {
     // do something
   }

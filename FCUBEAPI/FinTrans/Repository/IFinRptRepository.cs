@@ -27,6 +27,7 @@ namespace FinTrans.Repository
         Task<DataSet> ledgerReport(ReportRequestModel request);
         Task<ResponseModel> LedgerPrintPdf(RepReqModel request);
         Task<ResponseModel> LedgerMultiplePrintPdf(RepReqModel request);
+        Task<ResponseModel> AnnexurePrintPdf(RepReqModel request);
         Task<ResponseModel> BrokerLedgerPrint(ReportRequestModel request);
 
 

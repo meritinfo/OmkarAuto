@@ -644,7 +644,7 @@ namespace FinTrans.Repository
             try
             {
                 string baseUrl = "";
-                baseUrl = dbconnection.Value.apiPath + "api/MultipleLedger/";
+                baseUrl = dbconnection.Value.apiPath + "api/Annexure/";
 
                 string UrlParam = "?FromDate=" + request.FromDate +
                                     "&ToDate=" + request.ToDate +
@@ -655,6 +655,56 @@ namespace FinTrans.Repository
                                     "&SubType=" + request.SortColumn +
                                     "&SubLedger=" + request.SortOrder +
                                     "&GroupYn=" + request.Search +
+                                    "&format=" + request.FilterStr4;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data != "500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> AnnexurePrintPdf(RepReqModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "";
+                baseUrl = dbconnection.Value.apiPath + "api/Annexure/";
+
+                string UrlParam = "?FromDate=" + request.FromDate +
+                                    "&ToDate=" + request.ToDate +
+                                    "&Branch=" + request.FilterStr +
+                                    "&YearId=" + request.FilterStr1 +
+                                    "&AccountID=" + request.FilterStr2 +
+                                    "&RptType=" + request.FilterStr3 +
+                                    "&OpenOrdate=" + request.SortColumn +
+                                  
+                                    "&Supress=" + request.Search +
                                     "&format=" + request.FilterStr4;
 
                 HttpClient client = new HttpClient();
