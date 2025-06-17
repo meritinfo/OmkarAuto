@@ -48,8 +48,7 @@ export class AddcostrecentryaddComponent {
   accountList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
 
-  List: Dropdownmodel[] = [];
-    selectedAddcostrecmstModel= new Addcostrecmstmodel();
+  
   selectedAddcostrecmstDetail= new Addcostrecmstmodel();
   docDetails = new Reportmodel();
   
@@ -89,12 +88,12 @@ export class AddcostrecentryaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -110,8 +109,8 @@ export class AddcostrecentryaddComponent {
       this.loginDate = loginDate;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -184,11 +183,11 @@ export class AddcostrecentryaddComponent {
     this.formUser.controls['modifyRemarks'].disable();  
     this.formUser.controls['addCostType'].disable();  
 
-          // this.formArray.controls[0].get("docNo")?.disable();
-        this.formArray.controls[0].get("costAmt")?.disable();
-          this.formArray.controls[0].get("othAmt")?.disable();
-         this.formArray.controls[0].get("totAmt")?.disable();
-             this.formArray.controls[0].get("narration")?.disable();
+    // this.formArray.controls[0].get("docNo")?.disable();
+    this.formArray.controls[0].get("costAmt")?.disable();
+    this.formArray.controls[0].get("othAmt")?.disable();
+    this.formArray.controls[0].get("totAmt")?.disable();
+    this.formArray.controls[0].get("narration")?.disable();
     
 
     if (this.selectedAddcostrecmstDetail.masterID != '') {
@@ -237,10 +236,10 @@ export class AddcostrecentryaddComponent {
           this.formUser.controls['totalAmount'].enable();      
         }     
         
-  this.createdBy = this.selectedAddcostrecmstDetail.createdBy + " " + this.selectedAddcostrecmstDetail.createdDate;
-  this.modifiedBy = this.selectedAddcostrecmstDetail.modifiedBy + " " + this.selectedAddcostrecmstDetail.modifiedDate; 
+        this.createdBy = this.selectedAddcostrecmstDetail.createdBy + " " + this.selectedAddcostrecmstDetail.createdDate;
+        this.modifiedBy = this.selectedAddcostrecmstDetail.modifiedBy + " " + this.selectedAddcostrecmstDetail.modifiedDate; 
         this.editMode = true;
-          this.addCostRecoveryMasterInnerGrid();
+        this.addCostRecoveryMasterInnerGrid();
         this.formUser.controls['transNo'].disable();   
         this.formUser.controls['transDate'].disable();     
       }  
@@ -378,6 +377,7 @@ export class AddcostrecentryaddComponent {
       this.partyList = res;
     });
   }
+
   getAccountList(tp:string): void {    
     this.requestmodel.strRequest= tp;
     this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
@@ -422,19 +422,13 @@ export class AddcostrecentryaddComponent {
       }     
     });
   }
-   addCostRecoveryMasterInnerGrid(){    
+  
+  addCostRecoveryMasterInnerGrid(){    
    // var selectedData = this.formUser.getRawValue();
     this.requestmodel.strRequest = this.selectedAddcostrecmstDetail.masterID;
- 
-     
+      
     this.addcostrecorveryrptService.getAddcostrecInnerGridList(this.requestmodel).subscribe((res) => {
       this.formArray.clear();
-      var arr = res.addCostRecDtlList;
-      // if(typeof arr === 'undefined' || arr === null) {
-      //   this.toasterService.warning("No data found");
-      //   return;
-      // }
-
       for (var i = 0; i < res.addCostRecDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("docYear")?.setValue(res.addCostRecDtlList[i].docYear);
@@ -484,14 +478,15 @@ export class AddcostrecentryaddComponent {
       this.formArray.controls[i].get("narration")?.disable();
     }
   }  
+
   selectedDocType( e: any) { 
     var selectedData = this.formUser.getRawValue();
     if(e.target.value == "LR"){
       this.getPartyList();
     }
     else{
-        this.getBrokerList();
-      }
+      this.getBrokerList();
+    }
   }  
   
 
@@ -503,9 +498,6 @@ export class AddcostrecentryaddComponent {
     this.docDetails.filterStr3 = selectedData.arrayList[i].docNo ;
      
     this.addcostrecorveryrptService.getAddCostRecEntryDocDetails(this.docDetails).subscribe((res) => {
-     // var doc = res.addCostRecDtlList.length>0?res.addCostRecDtlList[0].docId:'';
-     //  if (typeof doc === 'undefined' || doc === null || doc === '') {
-      // this.formArray.clear();
       if (res.addCostRecDtlList == null) {
         this.toasterService.warning("Doc does not Exists");
         this.formArray.controls[i].get("docNo")?.setValue("");
@@ -523,12 +515,10 @@ export class AddcostrecentryaddComponent {
         this.formArray.controls[i].get("docId")?.disable();
         this.formArray.controls[i].get("selected")?.disable();
         this.formArray.controls[i].get("totAmt")?.disable();
-          this.formArray.controls[i].get("othAmt")?.disable();
-
-               this.formArray.controls[i].get("costAmt")?.enable();
-          this.formArray.controls[i].get("othAmt")?.enable();
-      
-             this.formArray.controls[i].get("narration")?.enable();
+        this.formArray.controls[i].get("othAmt")?.disable();
+        this.formArray.controls[i].get("costAmt")?.enable();
+        this.formArray.controls[i].get("othAmt")?.enable();
+        this.formArray.controls[i].get("narration")?.enable();
       }
     });
   }
@@ -603,7 +593,7 @@ export class AddcostrecentryaddComponent {
       var grossTot = parseFloat(selectedData.totalAmount);
      // var tdsAmt = grossTot * tdsRate/100;//removed date 16/06/25
      // var netTot = grossTot + tdsAmt;//removed date 16/06/25
-     var netTot = grossTot ;
+      var netTot = grossTot ;
 
       this.formUser.patchValue({ 
         costTot: grossTot.toFixed(2), 
