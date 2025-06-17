@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from 'src/app/services/user.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addratetypes',
@@ -28,6 +29,7 @@ export class AddratetypesComponent {
   
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private ratetypesmodel: Ratetypesmodel,private requestmodel:Requestmodel, 
+    private sharedService : SharedService,
     private rateTypesService: RateTypesService,  private toasterService: ToastrService,
     private commonService: CommonService) {
     this.ratetypesmodel = new Ratetypesmodel();
@@ -35,7 +37,9 @@ export class AddratetypesComponent {
 
 
   ngOnInit(): void { 
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

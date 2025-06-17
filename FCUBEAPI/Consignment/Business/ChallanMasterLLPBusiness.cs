@@ -44,6 +44,10 @@ namespace Consignment.Business
         {
             return await challanRepository.ChkPanDeclaration(requestModel);
         }
+        public async Task<ChallanMasterModelLLP> GetBrokerPanDetails(RequestModel request)
+        {
+            return await challanRepository.GetBrokerPanDetails(request);
+        }
 
     }
 

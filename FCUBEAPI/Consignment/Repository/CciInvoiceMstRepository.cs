@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,8 +49,11 @@ namespace Consignment.Repository
                             invoiceList.Add(new CciInvoiceMstModel
                             {
                                 CciInvMstId = Convert.ToString(dataSet.Tables[0].Rows[i]["CciInvMstId"]),
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
                                 CciInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CciInvNo"]),
                                 CciInvDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CciInvDate"]),
+                                VendorId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),
+                                DebitAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DebitAc"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 Lr_YN = Convert.ToString(dataSet.Tables[0].Rows[i]["Lr_YN"]),
@@ -111,6 +115,8 @@ namespace Consignment.Repository
                                 GcYear = Convert.ToString(resultData.Tables[0].Rows[i]["GcYear"]),
                                 GcBook = Convert.ToString(resultData.Tables[0].Rows[i]["GcBook"]),
                                 GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
+                                BookingDate = Convert.ToString(resultData.Tables[0].Rows[i]["BookingDate"]),
+                                Party = Convert.ToString(resultData.Tables[0].Rows[i]["Party"]),
                                 ChCostId = Convert.ToString(resultData.Tables[0].Rows[i]["ChCostId"]),
                                 TaxableAmt = Convert.ToString(resultData.Tables[0].Rows[i]["TaxableAmt"]),
                                 SgstPct = Convert.ToString(resultData.Tables[0].Rows[i]["SgstPct"]),
@@ -134,49 +140,41 @@ namespace Consignment.Repository
             }
             return cciInvoiceMstInnerGridList;
         }
-        public async Task<CciInvoiceMstModel> GetCnDetail(RequestModel request)
+
+        public async Task<List<DropDownListModel>> GetCnDetail(RequestModel request)
         {
-            CciInvoiceMstModel cciInvoiceMstInnerGridList = new()
-            {
-                CcinvmstDtlList = new List<CciInvoiceDtlModel>(),
-            };
+            List<DropDownListModel> moduleList = new();
             try
             {
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
+                         {
                             new SqlParameter("@ContainerNo", request.strRequest),
+                            new SqlParameter("@InvDate", request.strRequest1),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnDetails", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getContainerCnList", param);
 
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            cciInvoiceMstInnerGridList.CcinvmstDtlList.Add(new CciInvoiceDtlModel
+                            moduleList.Add(new DropDownListModel
                             {
-                              // CciInvDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvDtlId"]),
-                                // CciInvMstId = Convert.ToString(resultData.Tables[0].Rows[i]["CciInvMstId"]),
-                              //  ContainerNo = Convert.ToString(resultData.Tables[0].Rows[i]["ContainerNo"]),
-                                GcYear = Convert.ToString(resultData.Tables[0].Rows[i]["GcYear"]),
-                                GcBook = Convert.ToString(resultData.Tables[0].Rows[i]["GcBook"]),
-                                GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
-                        
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
                             });
                         }
                     }
-
-
                 }
             }
             catch (Exception ex)
             {
-
             }
-            return cciInvoiceMstInnerGridList;
+            return moduleList;
         }
+      
         public async Task<ResponseModel> GetChCostDetail(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -225,9 +223,12 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                                 new SqlParameter("@CciInvMstId",cciInvoiceMstModel.CciInvMstId ),
+                                 new SqlParameter("@CciInvMstId",cciInvoiceMstModel.CciInvMstId ),                                 
+                                 new SqlParameter("@Branch",cciInvoiceMstModel.Branch ),
                                  new SqlParameter("@CciInvNo",cciInvoiceMstModel.CciInvNo ),
                                  new SqlParameter("@CciInvDate",cciInvoiceMstModel.CciInvDate ),
+                                 new SqlParameter("@VendorId",cciInvoiceMstModel.VendorId ),
+                                 new SqlParameter("@DebitAc",cciInvoiceMstModel.DebitAc ),
                                  new SqlParameter("@Remarks",cciInvoiceMstModel.Remarks ),
                                  new SqlParameter("@GstType",cciInvoiceMstModel.GstType  ),
                                  new SqlParameter("@Lr_YN",cciInvoiceMstModel.Lr_YN),                                 
@@ -386,6 +387,36 @@ namespace Consignment.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<ConsignmentModel> GetLRDetails(RequestModel req)
+        {
+            ConsignmentModel lrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ConsignmentId", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
+                        lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
+                        lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
+                        lrmodel.YearId = Convert.ToString(dataSet.Tables[0].Rows[0]["YearId"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lrmodel;
         }
 
     }

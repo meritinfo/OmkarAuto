@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -43,6 +44,7 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private vehicleTypeGroupMasterModel: Truckmastermodel, 
     private vehicleTypeGroupMasterService: TruckMasterService, 
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.vehicleTypeGroupMasterModel = new Truckmastermodel();
@@ -70,7 +72,9 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
     
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

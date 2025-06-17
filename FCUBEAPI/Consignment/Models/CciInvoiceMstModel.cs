@@ -9,8 +9,11 @@ namespace Consignment.Models
     public class CciInvoiceMstModel
     {
         public string? CciInvMstId { get; set; }
+        public string? Branch { get; set; }        
         public string? CciInvNo { get; set; }
         public string? CciInvDate { get; set; }
+        public string? VendorId { get; set; }
+        public string? DebitAc { get; set; }
         public string? Remarks { get; set; }
         public string? GstType { get; set; }
         public string? Lr_YN { get; set; }        
@@ -34,6 +37,8 @@ namespace Consignment.Models
         public string? GcYear { get; set; }
         public string? GcBook { get; set; }
         public string? GcNoteNo { get; set; }
+        public string? BookingDate { get; set; }
+        public string? Party { get; set; }
         public string? ChCostId { get; set; }
         public string? TaxableAmt { get; set; }
         public string? SgstPct { get; set; }

@@ -13,6 +13,7 @@ import { Benbankmodel } from 'src/app/models/benbankmodel';
 import { Panwisetdsratemodel } from 'src/app/models/panwisetdsratemodel';
 
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 
@@ -47,6 +48,7 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder,
     private benbankModel: Benbankmodel, private benService: BenBankListService,
     private commonService: CommonService,
+                                        private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.benbankModel = new Benbankmodel();
 
@@ -87,7 +89,9 @@ ngOnInit(): void {
   
   this.fromDate = this.minDate ;
   
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

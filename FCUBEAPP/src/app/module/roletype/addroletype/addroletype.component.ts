@@ -9,6 +9,7 @@ import { Roletypemodel } from 'src/app/models/roletypemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { RoleTypeService } from 'src/app/services/roletype.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addroletype',
@@ -32,6 +33,7 @@ dashboard: string ="";
   selectedRoleTypesDetails = new Roletypemodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
+    private sharedService : SharedService,
     private roletypemodel: Roletypemodel, private roleTypeService: RoleTypeService, 
     private commonService: CommonService,private toasterService: ToastrService) {
     this.roletypemodel = new Roletypemodel();
@@ -51,7 +53,9 @@ ngOnInit(): void {
       this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
     }
   }
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

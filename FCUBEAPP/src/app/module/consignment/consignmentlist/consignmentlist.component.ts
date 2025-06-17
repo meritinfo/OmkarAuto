@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-consignmentlist',
@@ -64,6 +65,7 @@ dashboard: string ="";
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
+                                    private sharedService : SharedService,
     private consignmentService: ConsignmentService, private route: Router,
     private toastrService :ToastrService, private commonService: CommonService,) {
   }
@@ -103,7 +105,9 @@ dashboard: string ="";
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

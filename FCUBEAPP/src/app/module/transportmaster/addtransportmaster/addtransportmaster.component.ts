@@ -1,4 +1,3 @@
-
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,10 +6,12 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Transportmastermodel } from 'src/app/models/transportmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TransportMasterService } from 'src/app/services/transportmaster.service';
+import { ChallanmasterService } from 'src/app/services/challanmaster.service';
 import {Transportmasterinnergridmodel } from 'src/app/models/transportmasterinnergridmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from 'src/app/common/constants';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addtransportmaster',
@@ -37,13 +38,11 @@ export class AddtransportmasterComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   uploadedcancelChq: string = "";
   uploadedaddrProof: string = "";
 
-  
-  
   @ViewChild('cancelChqInput', {
     static: true
   }) cancelChqInput: any;
@@ -58,6 +57,8 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private transportMasterModel: Transportmastermodel, 
     private transportMasterService: TransportMasterService, 
+    private challanmasterService :ChallanmasterService,
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.transportMasterModel = new Transportmastermodel();
@@ -65,46 +66,50 @@ dashboard: string ="";
 
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Transport/Broker Master");
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Transport/Broker Master");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
 
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  var userData2 = sessionStorage.getItem('yearID')?.toString();
-  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
-    this.year = userData2;
-  }
-  var loginDate = sessionStorage.getItem('loginDate')?.toString();
-  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-    this.loginDate = loginDate;
-  }
-  var userData5 = sessionStorage.getItem('userBranch')?.toString();
-  if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
-    this.branchname = userData5;
-  }
-  else {
-    this.route.navigate(['/']);
-  }
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData2 = sessionStorage.getItem('yearID')?.toString();
+    if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
+      this.year = userData2;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    var userData5 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+      this.branchname = userData5;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
     this.getStateList();
     this.getBranchList();
     this.getLocationList();
     this.getVehicleTypeList();
     this.selectedTransportMasterDetail = this.transportMasterService.getTransportMasterDetails();
+
     this.formUser = this.formBuilder.group({
       tptName: new FormControl('',[Validators.required]),
       address1: new FormControl('',),
@@ -144,7 +149,8 @@ dashboard: string ="";
       stateDetailList: this.formBuilder.array([this.createStateArray()]),
       vehTypeDetailList: this.formBuilder.array([this.createVehArray()]) 
     });
-    
+    this.chkMandatoryRequired();
+
     this.formUser.controls["inActiveDate"].disable();
 
     if (this.selectedTransportMasterDetail.tptCode != '') {
@@ -195,6 +201,60 @@ dashboard: string ="";
   removeVehItem(index: number) {
     this.formVehArray.removeAt(index);
   }
+
+  
+  chkMandatoryRequired(){
+    this.requestmodel.strRequest = "addtransportmaster";
+    this.requestmodel.strRequest1 = "panNo";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        if(res.message=="Y"){
+          this.formUser.controls['panNo'].setValidators([Validators.required]);
+        }
+        else{
+          this.formUser.controls['panNo'].clearValidators(); 
+        }
+        this.formUser.controls['panNo'].updateValueAndValidity(); 
+      };
+    });
+  }
+
+  onOwnerPanChange() {
+    var selectedData = this.formUser.getRawValue();
+    var pan = selectedData.panNo.toString().toUpperCase() ;
+    var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
+    var test = regexp.test(pan);
+
+    if(pan.length!=10){
+      this.toastrService.warning("PAN No should be 10 characters...!");
+      return;
+    }
+    else if(!test){
+      this.toastrService.warning("Invalid PAN No...!");
+      return;         
+    }
+    else
+    {
+      this.requestmodel.strRequest = pan;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+        
+      this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res:any) => {
+        var panValid = "N";
+        if (res.result!= null) { 
+          if(res.result.isValid){
+            panValid= "Y";
+          }  
+        }        
+        if(panValid= "N"){          
+          this.toastrService.warning("Invalid PAN No...!");
+          this.formUser.patchValue({
+            panNo: "",          
+          });  
+          return;
+        }        
+      }); 
+    }
+  } 
 
   get f() { return this.formUser.controls; }
 
@@ -280,8 +340,7 @@ dashboard: string ="";
       for (let misc = 0; misc < this.transportmasterinnergridmodel.transportLocationList.length; misc++) {
         this.formLocationArray.push(this.createLocationArray());
         this.formLocationArray.controls[misc].get("locId")?.setValue(res.transportLocationList[misc].locId);
-      }
-      
+      }      
       for (let misc = 0; misc < this.transportmasterinnergridmodel.transportStatesList.length; misc++) {
         this.formStateArray.push(this.createStateArray());
         this.formStateArray.controls[misc].get("stateCode")?.setValue(res.transportStatesList[misc].stateCode);
@@ -298,16 +357,16 @@ dashboard: string ="";
     if(this.selectedTransportMasterDetail.tptCode != '' ){
     this.requestmodel.strRequest =this.selectedTransportMasterDetail.tptCode
       if (confirm("Are you sure, you want to delete this?")) {
-            this.transportMasterService.transportMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toastrService.success(this.responseDetails.message);
-              this.formUser.reset();
-              this.route.navigate(['/transportmstlist']);
-            }
-            else {
-              this.toastrService.warning(this.responseDetails.message);
-            }
+          this.transportMasterService.transportMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toastrService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/transportmstlist']);
+          }
+          else {
+            this.toastrService.warning(this.responseDetails.message);
+          }
         });
       }
     }
@@ -355,7 +414,6 @@ dashboard: string ="";
     this.transportMasterModel.remarks = selectedData.remarks.toString().toUpperCase();;
     this.transportMasterModel.isActive = selectedData.isActive;
     this.transportMasterModel.inActiveDate = selectedData.inActiveDate;
-
     this.transportMasterModel.bankAcName  = selectedData.bankAcName.toString().toUpperCase();
     this.transportMasterModel.bankAcType   = selectedData.bankAcType;
     this.transportMasterModel.bankName    = selectedData.bankName.toString().toUpperCase();

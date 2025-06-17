@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addproductmaster',
@@ -32,7 +33,8 @@ dashboard: string ="";
   selectedProductMasterDetails = new Productmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private productMasterModel: Productmastermodel,private requestmodel:Requestmodel, 
+    private productMasterModel: Productmastermodel,private requestmodel:Requestmodel,
+        private sharedService : SharedService, 
     private toasterService: ToastrService,private productmasterService: ProductMasterService, 
     private commonService: CommonService) {
     this.productMasterModel = new Productmastermodel();
@@ -60,7 +62,9 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
     
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

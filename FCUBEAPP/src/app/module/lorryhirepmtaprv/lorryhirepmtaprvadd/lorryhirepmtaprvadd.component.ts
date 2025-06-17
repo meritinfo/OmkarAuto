@@ -10,6 +10,7 @@ import { Lorryhirereqmodel } from 'src/app/models/lorryhirereqmodel';
 import { LorryhirereqService } from 'src/app/services/lorryhirereq.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-lorryhirepmtaprvadd',
@@ -42,6 +43,7 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private lorryhirereqmodel: Lorryhirereqmodel,private requestmodel:Requestmodel, 
+                private sharedService : SharedService,
     private toasterService: ToastrService,private lorryhirereqService: LorryhirereqService, 
     private commonService: CommonService) {
     this.lorryhirereqmodel = new Lorryhirereqmodel();
@@ -69,7 +71,9 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
     
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

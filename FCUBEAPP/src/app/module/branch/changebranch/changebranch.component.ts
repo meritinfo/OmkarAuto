@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ChangebranchComponent {
 dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
+                                    private sharedService : SharedService,
     private commonService: CommonService, private toastrService: ToastrService) {
 
   }
@@ -42,13 +44,6 @@ dashboard: string ="";
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        } 
         
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -58,7 +53,9 @@ dashboard: string ="";
       this.route.navigate([this.dashboard]);
     }
 
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -53,7 +54,9 @@ export class VehicleinstpmtllpaddComponent {
 
   selectedVehicleInstPmtDetail = new Vehicleinstpmtmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService: VehicleInstPmtService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private sharedService : SharedService,
+private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService: VehicleInstPmtService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
     this.vehicleinstpmtmodel = new Vehicleinstpmtmodel();
   }
   ngOnInit(): void {
@@ -71,7 +74,9 @@ export class VehicleinstpmtllpaddComponent {
       }
     }
   
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

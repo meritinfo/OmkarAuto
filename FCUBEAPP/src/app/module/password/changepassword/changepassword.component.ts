@@ -8,6 +8,7 @@ import { Usermodel } from 'src/app/models/usermodel';
 import { Passwordmodel } from 'src/app/models/passwordmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -24,13 +25,16 @@ export class ChangepasswordComponent {
   selectedUserPwdDetails = new Passwordmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private pwdModel: Passwordmodel, private userService: UserService, 
+    private pwdModel: Passwordmodel, private userService: UserService,
+        private sharedService : SharedService, 
     private commonService: CommonService, private toastrService: ToastrService) {
     this.pwdModel = new Passwordmodel();
   }
 
   ngOnInit(): void {
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

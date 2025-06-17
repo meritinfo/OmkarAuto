@@ -67,6 +67,7 @@ dashboard: string ="";
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private toastrService : ToastrService,
+                                  private sharedService : SharedService,
     private brokerAdvancePmtService: BrokerAdvancePmtService, private route: Router,
     private commonService: CommonService,) {
 }
@@ -101,7 +102,9 @@ dashboard: string ="";
       this.route.navigate([this.dashboard]);
     }
 
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

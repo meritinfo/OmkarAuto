@@ -13,6 +13,7 @@ import { Gstpctvalueslistmodel } from 'src/app/models/gstpctvalueslistmodel';
 import { GstPctValuesService } from 'src/app/services/gstpctvalues.service';
 import { PanwisetdsrateService } from 'src/app/services/panwisetdsrate.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ dashboard: string ="";
       constructor(private route: Router, private formBuilder: FormBuilder,
         private gstpctvaluesmodel: Gstpctvaluesmodel, private gstPctValuesService: GstPctValuesService,
         private commonService: CommonService,
+                      private sharedService : SharedService,
         private toasterService: ToastrService, private requestmodel: Requestmodel) {
         this.gstpctvaluesmodel = new Gstpctvaluesmodel();
 
@@ -87,7 +89,9 @@ ngOnInit(): void {
   this.fromDate = this.minDate ;
 
 
-  var userData = sessionStorage.getItem('uid')?.toString();
+  
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

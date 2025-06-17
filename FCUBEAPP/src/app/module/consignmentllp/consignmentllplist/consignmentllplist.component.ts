@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-consignmentllplist',
@@ -50,7 +51,7 @@ export class ConsignmentllplistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   year: string = ''; 
 
   lrfromDate: string = '';
@@ -65,6 +66,7 @@ dashboard: string ="";
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
+                                    private sharedService : SharedService,
     private consignmentService: ConsignmentService, private route: Router,
     private toastrService :ToastrService, private commonService: CommonService,) {
   }
@@ -83,14 +85,6 @@ dashboard: string ="";
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
     
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -104,7 +98,9 @@ dashboard: string ="";
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -261,6 +257,10 @@ dashboard: string ="";
         {
           title: 'Vehicle No',
           data: 'truckNo',
+        },  
+        {
+          title: 'Container No',
+          data: 'containerNo',
         },  
       ],
     };

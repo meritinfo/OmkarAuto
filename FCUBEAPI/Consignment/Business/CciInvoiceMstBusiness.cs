@@ -38,13 +38,17 @@ namespace Consignment.Business
         {
             return await cciInvoiceMstRepository.GetChCostList();
         }
-        public async Task<CciInvoiceMstModel> GetCnDetail(RequestModel request)
+        public async Task<List<DropDownListModel>> GetCnDetail(RequestModel request)
         {
             return await cciInvoiceMstRepository.GetCnDetail(request);
         }
         public async Task<ResponseModel> GetChCostDetail(RequestModel request)
         {
             return await cciInvoiceMstRepository.GetChCostDetail(request);
+        }
+        public async Task<ConsignmentModel> GetLRDetails(RequestModel request)
+        {
+            return await cciInvoiceMstRepository.GetLRDetails(request);
         }
     }
 }

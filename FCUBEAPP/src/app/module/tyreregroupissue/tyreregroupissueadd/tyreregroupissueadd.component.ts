@@ -9,6 +9,7 @@ import { TyreregroupissueService } from 'src/app/services/tyreregroupissue.servi
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-tyreregroupissueadd',
@@ -50,6 +51,7 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private tyreregroupissueService: TyreregroupissueService, 
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
   }
@@ -76,7 +78,9 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
   
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

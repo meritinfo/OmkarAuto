@@ -52,6 +52,7 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private vehicleadvbalreceiptModel: VehicleadvbalreceiptModel, 
     private vehiclerepmaintMasterService:VehicleadvbalreceiptService, 
+    private sharedService : SharedService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.vehicleadvbalreceiptModel = new VehicleadvbalreceiptModel();
@@ -78,7 +79,9 @@ dashboard: string ="";
         if(!this.viewStatus){      
           this.route.navigate([this.dashboard]);
         }
-    var userData = sessionStorage.getItem('uid')?.toString();
+    
+      this.sharedService.loggedInStatus = true;
+        var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;

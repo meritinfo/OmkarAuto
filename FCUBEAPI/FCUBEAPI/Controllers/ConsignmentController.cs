@@ -3029,6 +3029,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLRDetails")]
+        public async Task<IActionResult> GetLRDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetLRDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetChallanSuppliList")]
         public async Task<IActionResult> GetChallanSuppliList(ReportRequestModel request)
         {
@@ -3194,6 +3214,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("GetBrokerPanDetails")]
+        public async Task<IActionResult> GetBrokerPanDetails(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusinessLLP.GetBrokerPanDetails(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetChallanPrintPdfLLP")]
         public async Task<IActionResult> GetChallanPrintPdfLLP(RequestModel request)
         {

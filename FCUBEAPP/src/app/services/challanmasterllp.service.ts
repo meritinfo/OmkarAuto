@@ -88,5 +88,8 @@ export class ChallanmasterServiceLLP {
   getBranchPanApiUse(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetBranchPanApiUse', req, this.httpOptions);
   }
+  getBrokerPanDetails(req: Requestmodel): Observable<ChallanmastermodelllP> {
+    return this.httpClient.post<ChallanmastermodelllP>(Constants.API_ENDPOINT + 'Consignment/GetBrokerPanDetails', req, this.httpOptions);
+  }
   
 }

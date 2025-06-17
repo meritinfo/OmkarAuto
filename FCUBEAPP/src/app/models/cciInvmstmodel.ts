@@ -1,7 +1,10 @@
 export class Ccinvmstmodel {
     cciInvMstId: string ="";
+    branch: string ="";
     cciInvNo: string ="";
     cciInvDate: string ="";
+    vendorId: string ="";
+    debitAc: string ="";
     remarks : string ="";
     gstType : string ="";
     lr_YN: string ="";
@@ -21,9 +24,12 @@ export class Ccinvmstmodel {
 export class Ccinvdtlmodel {
     cciInvMstId: string ="";
     containerNo : string ="";
+    consignmentId: string ="";
     gcYear  : string ="";
     gcBook  : string ="";
     gcNoteNo : string ="";
+    bookingDate: string ="";
+    party: string ="";
     chCostId  : string ="";
     taxableAmt : string ="";
     sgstPct : string ="";

@@ -16,10 +16,9 @@ namespace Consignment.Business
         Task<ResponseModel> CciInvoiceMstSave(CciInvoiceMstModel cciInvoiceMstModel);
         Task<ResponseModel> CciInvoiceMstDelete(RequestModel req);
         Task<List<DropDownListModel>> GetChCostList();
-        Task<CciInvoiceMstModel> GetCnDetail(RequestModel request);
+        Task<List<DropDownListModel>> GetCnDetail(RequestModel request);
         Task<ResponseModel> GetChCostDetail(RequestModel request);
-
-
+        Task<ConsignmentModel> GetLRDetails(RequestModel request);
 
     }
 }

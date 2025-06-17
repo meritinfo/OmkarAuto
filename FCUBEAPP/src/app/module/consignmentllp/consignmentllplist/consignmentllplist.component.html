@@ -28,7 +28,7 @@
                                     min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>                    
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Party</label>
                                     <div class="ng-autocomplete">
@@ -132,6 +132,7 @@
                                 <th>tPlace </th>
                                 <th>truckNo </th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allConsignment.cnList?.length != 0">
@@ -145,7 +146,8 @@
                                 <td>{{ cn.gcNoteNo }}</td>
                                 <td>{{ cn.fPlace }}</td>
                                 <td>{{ cn.tPlace }}</td>
-                                <td>{{ cn.truckNo }}</td>     
+                                <td>{{ cn.truckNo }}</td> 
+                                <td>{{ cn.containerNo }}</td>     
                             </tr>
                         </tbody>
                         <tbody *ngIf="allConsignment.cnList?.length == 0">

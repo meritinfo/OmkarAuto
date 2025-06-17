@@ -204,29 +204,18 @@
                                     <label for="neft" class="form-check-label">Own Truck </label>                                    
                                 </div>
                             </div>                             
-                        </div>
-                                              
-                            
-                                               
-                              
-                    
-                       
-                       
-                                               
+                        </div>                                               
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Broker : </label>
                                     <span style="color: red">*</span>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="brokerList" formControlName="brokerId"
-                                            [searchKeyword]="keywordLocation"  
-                                       
-                                    
-                                     
+                                        <ng-autocomplete [data]="brokerList" 
+                                            formControlName="brokerId"
+                                            [searchKeyword]="keywordLocation" 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate" 
-                              
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
                                         </ng-autocomplete>
                                         <ng-template #itemTemplate let-item>
@@ -237,7 +226,9 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                           
+                        </div>                                               
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Total Pkgs</label>
