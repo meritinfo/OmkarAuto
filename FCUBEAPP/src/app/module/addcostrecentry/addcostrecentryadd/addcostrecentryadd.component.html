@@ -79,12 +79,34 @@
                                             <label for="formrow-inputZip"> Document Type </label>
                                             <span style="color: red"> * </span>
                                             <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
-                                                formControlName="documentType" 
+                                                formControlName="documentType" (change)="selectedDocType($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['documentType'].invalid) }">
                                                 <option value="LR">LR</option>
+                                                <option value="CH">Challan</option>
                                             </select>
                                         </div>
-                                    </div>      
+                                    </div>   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Option</label>
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
+                                                formControlName="partyOption" >
+                                                <option value="S">Single Party/Broker</option>
+                                                <option value="A">ALL Party/Broker</option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Party/Broker</label>                                            
+                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
+                                                formControlName="partyCode">
+                                                <option *ngFor="let ac of partyList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>    
+                                        </div>
+                                    </div>    
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -193,12 +215,13 @@
                                                         <tr formArrayName="arrayList" 
                                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">   
-                                                            <td>
-                                                                <input type="checkbox" class="form-check-input-small" 
+                                                            <td >
+                                                                <input *ngIf="showDateRange" type="checkbox" class="form-check-input-small" 
                                                                 (change)="selectedData(i, $event)" formControlName="selected">                                               
                                                             </td>
                                                             <td>
-                                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="docYear">
+                                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                                formControlName="docYear">
                                                                     <option *ngFor="let yr of yearList" value={{yr.dataId}}>
                                                                         {{yr.dataName}}
                                                                     </option>
@@ -247,7 +270,7 @@
                                                                     formControlName="narration">
                                                             </td>
                                                             <td>
-                                                                <div class="col-lg-4 details-button">
+                                                                <div class="col-lg-4 details-button" *ngIf="!showDateRange">
                                                                     <button *ngIf="(i === formArray.controls.length-1) && !showDateRange" type="button"
                                                                         class="btn btn-add" (click)="addItem(i)"></button>
                                                                     <button *ngIf="(formArray.controls.length > 1) && !showDateRange"
@@ -264,27 +287,8 @@
                                     </div>     
                                 </div>     
                                 <div class="row">  
-                                    <div class="col-lg-2">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Party Option</label>
-                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
-                                                formControlName="partyOption" >
-                                                <option value="S">Single Party</option>
-                                                <option value="A">ALL Party</option>
-                                            </select>
-                                        </div>
-                                    </div>  
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputZip">Party</label>                                            
-                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
-                                                formControlName="partyCode">
-                                                <option *ngFor="let ac of partyList" value={{ac.dataId}}>
-                                                    {{ac.dataName}}
-                                                </option>
-                                            </select>    
-                                        </div>
-                                    </div>                                       
+                                  
+                                                                 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Cost Total</label>  
@@ -299,13 +303,13 @@
                                             formControlName="othTot">
                                         </div>
                                     </div>                                       
-                                    <div class="col-lg-2">
+                                    <!-- <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Gross Total</label>  
                                             <input decimalonly autoclose="false" class="form-control" 
                                             formControlName="grossTot">
                                         </div>
-                                    </div>      
+                                    </div>       -->
                                 </div>  
                                 <div class="row">                    
                                     <!-- <div class="col-lg-2">
@@ -417,7 +421,7 @@
                                             <label for="formrow-inputZip">Attach1 </label>                          
                                             <input #attatchFile1Input class="form-control" type="file" 
                                             id="formAttach1File"  >
-                                            <a *ngIf="selectedAddcostrecmst.attatchFile1" target="_blank"
+                                            <a *ngIf="selectedAddcostrecmstDetail.attatchFile1" target="_blank"
                                                         href={{attatchFile1}}>Download</a>
                                         </div>
                                     </div> 
@@ -426,7 +430,7 @@
                                             <label for="formrow-inputZip">Attach2 </label>                          
                                             <input #attatchFile2Input class="form-control" type="file" 
                                             id="formAttach2File"  >
-                                            <a *ngIf="selectedAddcostrecmst.attatchFile2" target="_blank"
+                                            <a *ngIf="selectedAddcostrecmstDetail.attatchFile2" target="_blank"
                                                         href={{attatchFile2}}>Download</a>
                                         </div>
                                     </div> 

@@ -121,6 +121,8 @@ dashboard: string ="";
   
     this.getBranchList();
     
+    this.addcostrecorveryrptService.clearAddcostrecmstDetails();
+
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl( this.fromDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),

@@ -158,7 +158,7 @@ export class BillsubmitmasteraddComponent {
           partyCode: this.partyList.find(e => e.dataId == this.selectedBillSubmitMasterDetail.partyCode),
         })  
       
-        this.getBillSubmitMasterInnerGridList();
+       this.getBillSubmitMasterInnerGridList();
         this.createdBy = this.selectedBillSubmitMasterDetail.createdBy + " " + this.selectedBillSubmitMasterDetail.createdDate;
         this.modifiedBy = this.selectedBillSubmitMasterDetail.modifiedBy + " " + this.selectedBillSubmitMasterDetail.modifiedDate;   
         this.editMode =true;     

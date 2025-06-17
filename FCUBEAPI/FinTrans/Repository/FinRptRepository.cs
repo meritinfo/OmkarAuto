@@ -470,7 +470,7 @@ namespace FinTrans.Repository
             {
                 if (dbconnection != null)
                 {
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Usp_GetReportMenuList", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Usp_GetReportLedgerTreeList", null);
 
                     if (statusData != null && statusData.Tables.Count > 0 && statusData.Tables[0].Rows.Count > 0)
                     {

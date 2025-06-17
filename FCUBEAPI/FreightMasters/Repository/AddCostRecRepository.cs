@@ -136,7 +136,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@MasterID", request.strRequest)
                     };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsInnerGrid", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getAddCostRecEntryInnerGridList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
