@@ -223,23 +223,22 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                                 new SqlParameter("@CciInvMstId",cciInvoiceMstModel.CciInvMstId ),                                 
-                                 new SqlParameter("@Branch",cciInvoiceMstModel.Branch ),
-                                 new SqlParameter("@CciInvNo",cciInvoiceMstModel.CciInvNo ),
-                                 new SqlParameter("@CciInvDate",cciInvoiceMstModel.CciInvDate ),
-                                 new SqlParameter("@VendorId",cciInvoiceMstModel.VendorId ),
-                                 new SqlParameter("@DebitAc",cciInvoiceMstModel.DebitAc ),
-                                 new SqlParameter("@Remarks",cciInvoiceMstModel.Remarks ),
-                                 new SqlParameter("@GstType",cciInvoiceMstModel.GstType  ),
-                                 new SqlParameter("@Lr_YN",cciInvoiceMstModel.Lr_YN),                                 
-                                 new SqlParameter("@TotalTaxableAmt",cciInvoiceMstModel.TotalTaxableAmt  ),
-                                 new SqlParameter("@TotalSgstAmt",cciInvoiceMstModel.TotalSgstAmt  ),
-                                 new SqlParameter("@TotalCgstAmt",cciInvoiceMstModel.TotalCgstAmt  ),
-                                 new SqlParameter("@TotalIgstAmt",cciInvoiceMstModel.TotalIgstAmt ),
-                                 new SqlParameter("@TotalInvAmt",cciInvoiceMstModel.TotalInvAmt),
-                                 new SqlParameter("@YearId",cciInvoiceMstModel.YearId),
-                                 new SqlParameter("@LoggedInUser",cciInvoiceMstModel.LoggedInUser ),
-
+                            new SqlParameter("@CciInvMstId",cciInvoiceMstModel.CciInvMstId ),                                 
+                            new SqlParameter("@Branch",cciInvoiceMstModel.Branch ),
+                            new SqlParameter("@CciInvNo",cciInvoiceMstModel.CciInvNo ),
+                            new SqlParameter("@CciInvDate",cciInvoiceMstModel.CciInvDate ),
+                            new SqlParameter("@VendorId",cciInvoiceMstModel.VendorId ),
+                            new SqlParameter("@DebitAc",cciInvoiceMstModel.DebitAc ),
+                            new SqlParameter("@Remarks",cciInvoiceMstModel.Remarks ),
+                            new SqlParameter("@GstType",cciInvoiceMstModel.GstType  ),
+                            new SqlParameter("@Lr_YN",cciInvoiceMstModel.Lr_YN),                                 
+                            new SqlParameter("@TotalTaxableAmt",cciInvoiceMstModel.TotalTaxableAmt  ),
+                            new SqlParameter("@TotalSgstAmt",cciInvoiceMstModel.TotalSgstAmt  ),
+                            new SqlParameter("@TotalCgstAmt",cciInvoiceMstModel.TotalCgstAmt  ),
+                            new SqlParameter("@TotalIgstAmt",cciInvoiceMstModel.TotalIgstAmt ),
+                            new SqlParameter("@TotalInvAmt",cciInvoiceMstModel.TotalInvAmt),
+                            new SqlParameter("@YearId",cciInvoiceMstModel.YearId),
+                            new SqlParameter("@LoggedInUser",cciInvoiceMstModel.LoggedInUser ),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CciInvMstSave", param);
                     string CciInvMstId = "";
