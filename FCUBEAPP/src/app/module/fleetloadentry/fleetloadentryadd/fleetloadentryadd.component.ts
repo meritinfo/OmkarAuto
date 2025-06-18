@@ -119,6 +119,7 @@ dashboard: string ="";
     this.getProductList();
     this.getCneeCnorList();
     this.getCreditAcList();
+    this.chkMandatoryRequired();
 
     this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
     this.formFleetLoad = this.formBuilder.group({   
@@ -127,7 +128,7 @@ dashboard: string ="";
       loadType: new FormControl('',[Validators.required]),
       vehicleMasterId: new FormControl('',[Validators.required]),
       loadFor: new FormControl('',[Validators.required]),
-      loadMemoNo: new FormControl('',[Validators.required]),
+      loadMemoNo: new FormControl('',),
       loadingFrom: new FormControl('',[Validators.required]),
       cnorID: new FormControl('',),
       consignorName: new FormControl('',[Validators.required]),
@@ -214,6 +215,21 @@ dashboard: string ="";
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
+    });
+  }
+  chkMandatoryRequired(){
+    this.requestmodel.strRequest = "fleetloadentryadd";
+    this.requestmodel.strRequest1 = "loadMemoNo";
+    this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+      if(res.status){
+        if(res.message=="Y"){
+          this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);
+        }
+        else{
+          this.formFleetLoad.controls['loadMemoNo'].clearValidators(); 
+        }
+        this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity(); 
+      };
     });
   }
 
