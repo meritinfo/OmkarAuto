@@ -21,7 +21,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 })
 export class UnbilledprovisionmstmodeladdComponent {
 
-    loggedInUserID: string = '';
+  loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
   loginDate: string = '';
@@ -31,7 +31,7 @@ export class UnbilledprovisionmstmodeladdComponent {
   ptype: string = '';
   formProvision!: FormGroup;
   keywordLocation = 'dataName';
-    docDetails = new Reportmodel();
+  docDetails = new Reportmodel();
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -57,9 +57,9 @@ export class UnbilledprovisionmstmodeladdComponent {
     private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.unbilledprovisionmstmodel = new Unbilledprovisionmstmodel();
 
-}
+  } 
 
-ngOnInit(): void {
+  ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -98,8 +98,8 @@ ngOnInit(): void {
 
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -117,38 +117,23 @@ ngOnInit(): void {
     this.sharedService.loading = true;
 
     this.selectedUnbilledprovisionmstDetails = this.unbilledProvisionMstService.getunBillProvisionDetails();
-    this.formProvision = this.formBuilder.group({
-     
-      provisionDate : new FormControl(this.loginDate,[Validators.required]),
-     // fromDt: new FormControl(this.fromDate,[Validators.required]),
-   
-  
+    this.formProvision = this.formBuilder.group({     
+      provisionDate : new FormControl(this.loginDate,[Validators.required]),  
       selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
-  
-   // this.getCreditAcList2("B");
-    
-   // this.formDriverSalaryStatement.controls['driverSalStmtNo'].disable();   
-
- 
+   
     setTimeout(() => {
       this.createmode = true;
       if (this.selectedUnbilledprovisionmstDetails.id != '') {
-        this.formProvision.patchValue(this.selectedUnbilledprovisionmstDetails);  
-    
+        this.formProvision.patchValue(this.selectedUnbilledprovisionmstDetails);      
         this.formProvision.patchValue({
-          provisionDate :    this.commonService.formatDate(this.selectedUnbilledprovisionmstDetails.provisionDate), 
-       
+          provisionDate :    this.commonService.formatDate(this.selectedUnbilledprovisionmstDetails.provisionDate),       
         });
         this.editMode = true;
         this.customStatus = true;
         this.searchenable = false;
-
         this.getUnBilledProvisionInnerGridList();  
-
-       // this.formDriverSalaryStatement.controls['transDt'].disable();   
-    
       }      
     }, 2000);
 
@@ -176,13 +161,12 @@ ngOnInit(): void {
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode);
         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode);
         this.formArray.controls[i].get("amount")?.setValue(res.unBillProvisionDtlList[i].amount);
-        this.formArray.controls[i].get("branchName")?.setValue(res.unBillProvisionDtlList[i].branchName);
-        
+        this.formArray.controls[i].get("branchName")?.setValue(res.unBillProvisionDtlList[i].branchName);        
         this.formArray.controls[i].get("partyName")?.setValue(res.unBillProvisionDtlList[i].partyName);
-     
-       // this.formArray.controls[i].get("vehicleMasterId")?.disable();
-      //  this.formArray.controls[i].get("driverMasterId")?.disable();
 
+        this.formArray.controls[i].get("branchName")?.disable();
+        this.formArray.controls[i].get("partyName")?.disable();  
+        this.formArray.controls[i].get("amount")?.disable();  
       }
     });
   }
@@ -192,15 +176,14 @@ ngOnInit(): void {
     return this.formBuilder.group({
       id:  ['', []],
       branchCode :  ['', []],
-        partyCode :  ['', []],
+      partyCode :  ['', []],
       amount:  ['', []],
-         branchName:  ['', []],
-           partyName:  ['', []],
-     
+      branchName:  ['', []],
+      partyName:  ['', []],     
     }); 
   }
 
-   getUnBilledProvisionInnerGridList(): void {
+  getUnBilledProvisionInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedUnbilledprovisionmstDetails.id;
     this.unbilledProvisionMstService.getRatesMasterNewInnerGridList(this.requestmodel).subscribe((res) => {
       this.unbilledprovisionmstmodel = res;
@@ -210,35 +193,32 @@ ngOnInit(): void {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("id")?.setValue(res.unBillProvisionDtlList[i].id);
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode );
-         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode );
-                  this.formArray.controls[i].get("partyName")?.setValue(res.unBillProvisionDtlList[i].partyName );
-                  this.formArray.controls[i].get("branchName")?.setValue(res.unBillProvisionDtlList[i].branchName );
-        this.formArray.controls[i].get("amount")?.setValue(res.unBillProvisionDtlList[i].amount );
-   
+        this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode );
+        this.formArray.controls[i].get("partyName")?.setValue(res.unBillProvisionDtlList[i].partyName );
+        this.formArray.controls[i].get("branchName")?.setValue(res.unBillProvisionDtlList[i].branchName );
+        this.formArray.controls[i].get("amount")?.setValue(res.unBillProvisionDtlList[i].amount );   
 
-      //  this.formArray.controls[i].get("vehicleMasterId")?.disable();
-     //   this.formArray.controls[i].get("driverMasterId")?.disable();
-      //  this.formArray.controls[i].get("vehicleNo")?.disable();
-   
-
+        this.formArray.controls[i].get("branchName")?.disable();
+        this.formArray.controls[i].get("partyName")?.disable();   
+        this.formArray.controls[i].get("amount")?.disable();  
       }
     });    
   }
 
-    provisionDelete(): void {
+  provisionDelete(): void {
     if(this.selectedUnbilledprovisionmstDetails.id != '' ){
      this.requestmodel.strRequest =this.selectedUnbilledprovisionmstDetails.id
       if (confirm("Are you sure, you want to delete this?")) {
-            this.unbilledProvisionMstService.unbillprovisionDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if(res.status){
-              this.toasterService.success(this.responseDetails.message);
-              this.formProvision.reset();
-              this.route.navigate(['/unbillprovision']);
-            }
-            else{
-              this.toasterService.success(this.responseDetails.message);
-            }
+        this.unbilledProvisionMstService.unbillprovisionDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(res.status){
+            this.toasterService.success(this.responseDetails.message);
+            this.formProvision.reset();
+            this.route.navigate(['/unbillprovision']);
+          }
+          else{
+            this.toasterService.success(this.responseDetails.message);
+          }
         });
       }
     }
@@ -248,7 +228,7 @@ ngOnInit(): void {
     this.route.navigate(['/unbillprovision']);
   }    
   
-saveStatementDetails(): void {
+  saveStatementDetails(): void {
     this.formSubmitted = true;
     if (this.formProvision.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
@@ -262,21 +242,15 @@ saveStatementDetails(): void {
     }
     var selectedDataValue = this.formProvision.getRawValue();
     this.unbilledprovisionmstmodel.id = this.selectedUnbilledprovisionmstDetails.id ;
-    this.unbilledprovisionmstmodel.provisionDate = selectedDataValue.provisionDate;
-
-  
+    this.unbilledprovisionmstmodel.provisionDate = selectedDataValue.provisionDate;  
     this.unbilledprovisionmstmodel.yearId = this.year;
     this.unbilledprovisionmstmodel.loggedInUser = this.loggedInUserID;
    
     for (var i = 0; i < selectedDataValue.arrayList.length ; i++) {
-     // this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].id = "";
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].id =this.selectedUnbilledprovisionmstDetails.id
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].branchCode  = selectedDataValue.arrayList[i].branchCode ;
-            this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].partyCode  = selectedDataValue.arrayList[i].partyCode ;
-        this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].amount  = selectedDataValue.arrayList[i].amount ;
-    //  this.unbilledprovisionmstmodel.driverSalaryListData[i].lastTripDt = selectedDataValue.arrayList[i].lastTripDt;
-    //  this.driversalarystatementmodel.driverSalaryListData[i].fromDt = selectedDataValue.fromDt;
-
+      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].partyCode  = selectedDataValue.arrayList[i].partyCode ;
+      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].amount  = selectedDataValue.arrayList[i].amount ;
     }
 
     this.unbilledProvisionMstService.unbillprovisionSubmitted(this.unbilledprovisionmstmodel).subscribe((res: Responsemodel) => {

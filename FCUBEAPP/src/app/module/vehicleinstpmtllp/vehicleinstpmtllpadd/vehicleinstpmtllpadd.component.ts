@@ -26,6 +26,7 @@ export class VehicleinstpmtllpaddComponent {
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   mainAcList: Dropdownmodel[] = [];
+  loanAcList: Dropdownmodel[] = [];
   
   branch: string = '';
 
@@ -110,7 +111,6 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
     this.fromDate = this.minDate ;
 
     this.getBranchList();
-    this.getVehicleIdList();
 
     this.selectedVehicleInstPmtDetail = this.vehicleInstPmtService.getVehicleInstPmtDetails();
 
@@ -118,6 +118,7 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
       branchCode: new FormControl(this.branch,[Validators.required]),
       pmtDate: new FormControl(this.loginDate,[Validators.required]),
       loanType: new FormControl('',[Validators.required]),
+      loanAc: new FormControl('',[Validators.required]),
       vehicleMasterid: new FormControl('',[Validators.required]),
       totAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),
@@ -133,9 +134,13 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
     this.formUser.controls['neftYN'].disable();
     this.formUser.controls['cheqNo'].disable();
     this.formUser.controls['cheqDate'].disable();
-    
+
+    this.getLoanAcList();
+
     if (this.selectedVehicleInstPmtDetail.pmtId != '') {
       this.getMainAcList(this.selectedVehicleInstPmtDetail.pmtType);
+      this.formUser.controls['loanAc'].disable();
+      this.getVehicleIdList();
     }
     setTimeout(() => {
       if (this.selectedVehicleInstPmtDetail.pmtId != '') {
@@ -188,25 +193,30 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
       this.mainAcList = res;
     });
   }
+  getLoanAcList(): void{
+    this.requestmodel.strRequest = "I";
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.loanAcList = res;
+    });    
+  }
 
-  selectEvent(item: any) {
-    var vehi = item.dataId;
+  selectLoanEvent(item: any) {
+    var loanAc = item.dataId;
     var selectedData = this.formUser.getRawValue();
+    
     if(selectedData.loanType==""){
       this.toastrService.warning("Please select Loan Type");
-      this.formUser.patchValue({
-        vehicleMasterid: "",
-      })
       return;
     }
     else{
-      this.requestmodel.strRequest = vehi;
+      this.requestmodel.strRequest = loanAc;
       this.requestmodel.strRequest1 = selectedData.loanType;
 
-      this.vehicleInstPmtService.checkVehicleLoanType(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
+      this.vehicleInstPmtService.getVehicleNoLoan(this.requestmodel).subscribe((res) => {
+        this.vehicleList = res;
+        if (this.vehicleList.length>0) {
           this.formUser.controls["loanType"].disable();
+          this.formUser.controls["loanAc"].disable();
         }
         else {
           this.toastrService.warning(this.responseDetails.message);

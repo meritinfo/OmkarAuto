@@ -49,11 +49,6 @@
                         <tr>
                             <th>tptName</th>
                             <th>address1</th>
-                      
-                            <!-- <th>address1</th> -->
-                      
-                           
-                                                 
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -62,18 +57,9 @@
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getunBillProvisionDetails(tm)"></button> 
-                            </td>
-                         
-                   
+                            </td>     
                             <td>{{ tm.yearId}}</td>
-                            <!-- <td>{{ tm.vendor}}</td>  -->
-                            <td>{{ tm.provisionDate}}</td> 
-                            <!-- <td>{{ tm.vehTypeId}}</td>  -->
-                            <!-- <td>{{ tm.rateTypeId}}</td>  -->
-                            <!-- <td>{{ tm.fromLocationType}}</td>  -->
-                 
-                                                    
-                           
+                            <td>{{ tm.provisionDate}}</td>   
                         </tr>
                     </tbody>
                     <tbody *ngIf="allProMaster.provisionList?.length == 0">

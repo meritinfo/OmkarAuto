@@ -218,6 +218,40 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        
+        public async Task<List<DropDownListModel>> GetVehicleNoLoan(RequestModel request)
+        {
+            List<DropDownListModel> rateList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@LoanAccount", request.strRequest),
+                            new SqlParameter("@LoanType", request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLoanVehicleNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            rateList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return rateList;
+        }
+
+
     }
 }

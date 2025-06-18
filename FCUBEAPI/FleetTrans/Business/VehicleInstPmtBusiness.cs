@@ -33,6 +33,10 @@ namespace FleetTrans.Business
         {
             return await vehicleInstPmtRepository.checkVehicleLoanType(requestModel);
         }
+        public async Task<List<DropDownListModel>> GetVehicleNoLoan(RequestModel request)
+        {
+            return await vehicleInstPmtRepository.GetVehicleNoLoan(request);
+        }
 
     }
 }

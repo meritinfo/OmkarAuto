@@ -14,5 +14,6 @@ namespace FleetTrans.Repository
         Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(ReportRequestModel request);
         Task<ResponseModel> VehicleInstPmtMasterDelete(RequestModel requestModel);
         Task<ResponseModel> checkVehicleLoanType(RequestModel requestModel);
+        Task<List<DropDownListModel>> GetVehicleNoLoan(RequestModel request);
     }
 }

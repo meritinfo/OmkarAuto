@@ -7,6 +7,7 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Requestmodel } from '../models/requestmodel';
 import {Vehicleinstpmtlistmodel } from '../models/vehicleinstpmtlistmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,9 @@ export class VehicleInstPmtService {
   }
   checkVehicleLoanType(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkVehicleLoanType', req, this.httpOptions);
+  }  
+  getVehicleNoLoan(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleNoLoan', req, this.httpOptions);
   }
   clearVehicleInstPmtDetails() {
     this.selectedvehicleinstpmt = new Vehicleinstpmtmodel();

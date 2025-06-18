@@ -270,7 +270,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-       
-       
+        
+
     }
 }
