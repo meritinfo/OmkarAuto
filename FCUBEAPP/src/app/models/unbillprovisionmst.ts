@@ -2,6 +2,7 @@ export class Unbilledprovisionmstmodel {
     id  :string = "";
     yearId  :string = "";
     provisionDate  :string = "";
+     yeardesc :string = "";
 
 
     loggedInUser: string = "";

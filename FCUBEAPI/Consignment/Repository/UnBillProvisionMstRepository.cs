@@ -280,9 +280,10 @@ namespace Consignment.Repository
                                 Id = Convert.ToString(dataSet.Tables[0].Rows[i]["Id"]),
                                 ProvisionDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ProvisionDate"]),
                          
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"])
-                          
-                         
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                  yeardesc = Convert.ToString(dataSet.Tables[0].Rows[i]["yeardesc"])
+
+
 
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),

@@ -10,6 +10,7 @@ namespace Consignment.Models
     {
         public string? Id { get; set; }
         public string? YearId { get; set; }
+        public string? yeardesc{ get; set; }
         public string? ProvisionDate { get; set; }
 
 

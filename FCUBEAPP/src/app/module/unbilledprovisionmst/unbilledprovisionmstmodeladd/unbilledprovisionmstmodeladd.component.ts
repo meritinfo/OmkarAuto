@@ -106,10 +106,11 @@ export class UnbilledprovisionmstmodeladdComponent {
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
-    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+   
     else {
       this.route.navigate(['/']);
     }
@@ -122,6 +123,10 @@ export class UnbilledprovisionmstmodeladdComponent {
       selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
+
+     this.formArray.controls[0].get("branchName")?.disable();
+  this.formArray.controls[0].get("partyName")?.disable();
+    this.formArray.controls[0].get("amount")?.disable();
    
     setTimeout(() => {
       this.createmode = true;
@@ -245,12 +250,17 @@ export class UnbilledprovisionmstmodeladdComponent {
     this.unbilledprovisionmstmodel.provisionDate = selectedDataValue.provisionDate;  
     this.unbilledprovisionmstmodel.yearId = this.year;
     this.unbilledprovisionmstmodel.loggedInUser = this.loggedInUserID;
-   
-    for (var i = 0; i < selectedDataValue.arrayList.length ; i++) {
+     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+           if (selectedDataValue.arrayList[i].branch == "" || selectedDataValue.arrayList[i].amount=="") {
+             this.toasterService.warning("Please Enter  Detail");
+             return;
+           } 
+   else{
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].id =this.selectedUnbilledprovisionmstDetails.id
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].branchCode  = selectedDataValue.arrayList[i].branchCode ;
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].partyCode  = selectedDataValue.arrayList[i].partyCode ;
       this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].amount  = selectedDataValue.arrayList[i].amount ;
+   }
     }
 
     this.unbilledProvisionMstService.unbillprovisionSubmitted(this.unbilledprovisionmstmodel).subscribe((res: Responsemodel) => {
