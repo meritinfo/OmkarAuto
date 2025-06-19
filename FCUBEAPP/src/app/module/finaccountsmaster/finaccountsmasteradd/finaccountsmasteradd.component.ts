@@ -11,6 +11,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
+import { ChallanmasterService } from 'src/app/services/challanmaster.service';
 
 @Component({
   selector: 'app-finaccountsmasteradd',
@@ -39,6 +40,7 @@ export class FinaccountsmasteraddComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private finaccountmodel: Finaccountmodel, private sharedService: SharedService,
     private finsaccountmasterService: FinsaccountmasterService,
+        private challanmasterService :ChallanmasterService,
     private commonService: CommonService, private requestmodel:Requestmodel,
     private fingroupService :FingroupService, private toasterService: ToastrService) {
     this.finaccountmodel = new Finaccountmodel();
@@ -61,8 +63,8 @@ export class FinaccountsmasteraddComponent {
     }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -129,14 +131,14 @@ export class FinaccountsmasteraddComponent {
       statusColor: new FormControl('',),   
       accountShortname: new FormControl('',),    
       accountEmail2: new FormControl('',),    
-         overdueEmail: new FormControl('',),   
-          esc1Email: new FormControl('',),  
-           billTargetDays: new FormControl('',),   
-          cnRefYN: new FormControl('N',),  
-           blockAct: new FormControl('N',), 
-           costCodeYN: new FormControl('N',),
-                overdueCreditLimit: new FormControl('',), 
-         applyCreditLimit: new FormControl('N',),
+      overdueEmail: new FormControl('',),   
+      esc1Email: new FormControl('',),  
+      billTargetDays: new FormControl('',),   
+      cnRefYN: new FormControl('N',),  
+      blockAct: new FormControl('N',), 
+      costCodeYN: new FormControl('N',),
+      overdueCreditLimit: new FormControl('',), 
+      applyCreditLimit: new FormControl('N',),
     });    
 
     this.formAccountMaster.controls['username'].clearValidators();      
@@ -153,7 +155,6 @@ export class FinaccountsmasteraddComponent {
     }
     this.getaccounttypes();
     this.getsubaccounttypes(this.requestmodel);
-    // this.getschedulelist(); 
     this.getledgerList();  
     this.getstatelist(); 
     
@@ -183,11 +184,60 @@ export class FinaccountsmasteraddComponent {
     });
   }
   
-  // getschedulelist(): void {
-  //     this.fingroupService.getschedulelist().subscribe((res) => {
-  //     this.scheduleList = res;
-  //   });
-  // }
+  chkMandatoryRequired(e:any){
+    if(e.target.value=="S"){
+      this.requestmodel.strRequest = "addtransportmaster";
+      this.requestmodel.strRequest1 = "panNo";
+      this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
+        if(res.status){
+          if(res.message=="Y"){
+            this.formAccountMaster.controls['accountPAN'].setValidators([Validators.required]);
+          }
+          else{
+            this.formAccountMaster.controls['accountPAN'].clearValidators(); 
+          }
+          this.formAccountMaster.controls['accountPAN'].updateValueAndValidity(); 
+        };
+      });
+    }    
+  }
+  
+  onOwnerPanChange() {
+    var selectedData = this.formAccountMaster.getRawValue();
+    var pan = selectedData.accountPAN.toString().toUpperCase() ;
+    var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
+    var test = regexp.test(pan);
+
+    if(pan.length!=10){
+      this.toasterService.warning("PAN No should be 10 characters...!");
+      return;
+    }
+    else if(!test){
+      this.toasterService.warning("Invalid PAN No...!");
+      return;         
+    }
+    else
+    {
+      this.requestmodel.strRequest = pan;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+        
+      this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res:any) => {
+        var panValid = "N";
+        if (res.result!= null) { 
+          if(res.result.isValid){
+            panValid= "Y";
+          }  
+        }        
+        if(panValid= "N"){          
+          this.toasterService.warning("Invalid PAN No...!");
+          this.formAccountMaster.patchValue({
+            accountPAN: "",          
+          });  
+          return;
+        }        
+      }); 
+    }
+  } 
   
   getstatelist(): void {
       this.commonService.getStateList().subscribe((res) => {

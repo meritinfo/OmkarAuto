@@ -64,7 +64,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ledger Type:</label><span style="color:red">*</span>
-                                                    <select formControlName="accountLedgerType" 
+                                                    <select formControlName="accountLedgerType" (change)="chkMandatoryRequired($event)"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountLedgerType'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let ldg of ledgerList" value={{ldg.dataId}}>
@@ -305,7 +305,8 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">PAN No:</label>
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountPAN"> 
+                                                    <input uppercaseonly type="text"  (change)="onOwnerPanChange()" 
+                                                    class="form-control" formControlName="accountPAN"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">

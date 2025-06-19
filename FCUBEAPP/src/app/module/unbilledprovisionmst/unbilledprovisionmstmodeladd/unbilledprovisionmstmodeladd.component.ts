@@ -35,7 +35,7 @@ export class UnbilledprovisionmstmodeladdComponent {
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
-  selectedUnbilledprovisionmstDetails = new Unbilledprovisionmstmodel();
+  selectedUnbilledprovision = new Unbilledprovisionmstmodel();
   Driversalarysearch = new Pagerequestwithdatesmodel();
   creditacList: Dropdownmodel[] = [];
   creditacListNew: Dropdownmodel[] = [];
@@ -79,7 +79,7 @@ export class UnbilledprovisionmstmodeladdComponent {
     today.setMonth(month - 1);
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
     
     if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
       this.fromDate = this.minDate ;
@@ -117,23 +117,24 @@ export class UnbilledprovisionmstmodeladdComponent {
     
     this.sharedService.loading = true;
 
-    this.selectedUnbilledprovisionmstDetails = this.unbilledProvisionMstService.getunBillProvisionDetails();
+    this.selectedUnbilledprovision = this.unbilledProvisionMstService.getunBillProvisionDetails();
     this.formProvision = this.formBuilder.group({     
-      provisionDate : new FormControl(this.loginDate,[Validators.required]),  
+      provisionDate : new FormControl(this.maxDate,[Validators.required]),  
       selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
 
-     this.formArray.controls[0].get("branchName")?.disable();
-  this.formArray.controls[0].get("partyName")?.disable();
-    this.formArray.controls[0].get("amount")?.disable();
-   
+    this.formArray.controls[0].get("branchName")?.disable();
+    this.formArray.controls[0].get("partyName")?.disable();
+    this.formArray.controls[0].get("amount")?.disable();   
+    this.formProvision.controls["provisionDate"]?.disable();
+
     setTimeout(() => {
       this.createmode = true;
-      if (this.selectedUnbilledprovisionmstDetails.id != '') {
-        this.formProvision.patchValue(this.selectedUnbilledprovisionmstDetails);      
+      if (this.selectedUnbilledprovision.id != '') {
+        this.formProvision.patchValue(this.selectedUnbilledprovision);      
         this.formProvision.patchValue({
-          provisionDate :    this.commonService.formatDate(this.selectedUnbilledprovisionmstDetails.provisionDate),       
+          provisionDate: this.commonService.formatDate(this.selectedUnbilledprovision.provisionDate),       
         });
         this.editMode = true;
         this.customStatus = true;
@@ -162,7 +163,6 @@ export class UnbilledprovisionmstmodeladdComponent {
       this.formArray.clear();      
       for (var i = 0; i < res.unBillProvisionDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("id")?.setValue(res.unBillProvisionDtlList[i].id);
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode);
         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode);
         this.formArray.controls[i].get("amount")?.setValue(res.unBillProvisionDtlList[i].amount);
@@ -179,7 +179,6 @@ export class UnbilledprovisionmstmodeladdComponent {
 
    createInitialArray() {
     return this.formBuilder.group({
-      id:  ['', []],
       branchCode :  ['', []],
       partyCode :  ['', []],
       amount:  ['', []],
@@ -189,14 +188,13 @@ export class UnbilledprovisionmstmodeladdComponent {
   }
 
   getUnBilledProvisionInnerGridList(): void {
-    this.requestmodel.strRequest = this.selectedUnbilledprovisionmstDetails.id;
+    this.requestmodel.strRequest = this.selectedUnbilledprovision.id;
     this.unbilledProvisionMstService.getRatesMasterNewInnerGridList(this.requestmodel).subscribe((res) => {
       this.unbilledprovisionmstmodel = res;
      
       this.formArray.clear();      
       for (var i = 0; i < res.unBillProvisionDtlList.length; i++) {
         this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("id")?.setValue(res.unBillProvisionDtlList[i].id);
         this.formArray.controls[i].get("branchCode")?.setValue(res.unBillProvisionDtlList[i].branchCode );
         this.formArray.controls[i].get("partyCode")?.setValue(res.unBillProvisionDtlList[i].partyCode );
         this.formArray.controls[i].get("partyName")?.setValue(res.unBillProvisionDtlList[i].partyName );
@@ -211,8 +209,8 @@ export class UnbilledprovisionmstmodeladdComponent {
   }
 
   provisionDelete(): void {
-    if(this.selectedUnbilledprovisionmstDetails.id != '' ){
-     this.requestmodel.strRequest =this.selectedUnbilledprovisionmstDetails.id
+    if(this.selectedUnbilledprovision.id != '' ){
+     this.requestmodel.strRequest =this.selectedUnbilledprovision.id
       if (confirm("Are you sure, you want to delete this?")) {
         this.unbilledProvisionMstService.unbillprovisionDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
@@ -246,21 +244,28 @@ export class UnbilledprovisionmstmodeladdComponent {
       return;
     }
     var selectedDataValue = this.formProvision.getRawValue();
-    this.unbilledprovisionmstmodel.id = this.selectedUnbilledprovisionmstDetails.id ;
+    this.unbilledprovisionmstmodel.id = this.selectedUnbilledprovision.id ;
     this.unbilledprovisionmstmodel.provisionDate = selectedDataValue.provisionDate;  
     this.unbilledprovisionmstmodel.yearId = this.year;
     this.unbilledprovisionmstmodel.loggedInUser = this.loggedInUserID;
-     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-           if (selectedDataValue.arrayList[i].branch == "" || selectedDataValue.arrayList[i].amount=="") {
-             this.toasterService.warning("Please Enter  Detail");
-             return;
-           } 
-   else{
-      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].id =this.selectedUnbilledprovisionmstDetails.id
-      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].branchCode  = selectedDataValue.arrayList[i].branchCode ;
-      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].partyCode  = selectedDataValue.arrayList[i].partyCode ;
-      this.unbilledprovisionmstmodel.unBillProvisionDtlList[i].amount  = selectedDataValue.arrayList[i].amount ;
-   }
+
+    this.unbilledprovisionmstmodel.unBillProvisionDtlList = [];
+
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if (selectedDataValue.arrayList[i].branch == "" || selectedDataValue.arrayList[i].partyCode || selectedDataValue.arrayList[i].amount=="") {
+        this.toasterService.warning("Please Enter  Detail");
+        return;
+      } 
+      else{        
+        this.unbilledprovisionmstmodel.unBillProvisionDtlList.push({
+          'id':"",
+          'branchCode' : selectedDataValue.arrayList[i].branchCode,
+          'partyCode' :   selectedDataValue.arrayList[i].partyCode,
+          'amount' :  selectedDataValue.arrayList[i].amount.toString() ,
+          'branchName' :  "",
+          'partyName' :  "",
+        }) 
+      }
     }
 
     this.unbilledProvisionMstService.unbillprovisionSubmitted(this.unbilledprovisionmstmodel).subscribe((res: Responsemodel) => {

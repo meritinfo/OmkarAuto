@@ -454,8 +454,8 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Pan No</label> <span style="color: red">*</span>
-                                    <input uppercaseonly class="form-control"   [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOwnerPanNo'].invalid) }"
-                                    maxlength="10"  (change)="onOwnerPanChange()"
+                                    <input uppercaseonly class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOwnerPanNo'].invalid) }"
+                                    maxlength="10"  
                                     formControlName="vehicleOwnerPanNo">
                                 </div>
                             </div>
@@ -488,8 +488,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <input type="checkbox"  
-                                     formControlName="declarationYN" class="form-check-input" 
-                                     (change)="onDeclareChk($event)" >
+                                     formControlName="declarationYN" class="form-check-input"  >
                                     <label for="neft" class="form-check-label">Declaration Recd</label>
                                 </div>
                             </div> 

@@ -20,7 +20,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Provision Date </label><span style="color: red">*</span> 
-                                                <input autoclose="false" type="date" min="{{minDate}}" max="{{maxDate}}"
+                                                <input autoclose="false" type="date"
                                                     class="form-control" formControlName="provisionDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['provisionDate'].invalid) }">
                                             </div>
@@ -57,7 +57,6 @@
                                                 <td>
                                                     <div class="mb-3">
                                                         <input class="form-control" formControlName="branchName">
-                                                        <input type="hidden" class="form-control" formControlName="id">
                                                         <input type="hidden" class="form-control" formControlName="branchCode">
                                                     </div>
                                                 </td>
