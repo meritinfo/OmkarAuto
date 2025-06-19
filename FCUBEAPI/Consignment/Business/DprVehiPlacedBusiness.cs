@@ -28,6 +28,10 @@ namespace Consignment.Business
         {
             return await dprRepository.GetBrokerList();
         }
+        public async Task<List<DropDownListModel>> GetBrokerListLLP()
+        {
+            return await dprRepository.GetBrokerListLLP();
+        }
         public async Task<ResponseModel> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
         {
             return await dprRepository.DprVehiPlacedSave(dprVehi);

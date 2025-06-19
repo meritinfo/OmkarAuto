@@ -330,6 +330,8 @@ import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisio
 import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
 import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
+import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirepmtllpadd/lorryhirepmtllpadd.component';
+import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhirepmtllplist/lorryhirepmtllplist.component';
 
 
 const routes: Routes = [
@@ -777,11 +779,15 @@ const routes: Routes = [
   { path: 'carryopbal',component: OpeningbalupdateComponent},
   { path: 'directbankdload',component: DirectpmtdownloadComponent},
   { path: 'updatedirectbank',component: DirectpmtupdateComponent },
-   { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
+  { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
   { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
-    { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
-      { path: 'multiledgerrpt',component: MultipleledgerreportComponent},
-          { path: 'annexurerpt',component: AnnexurereportComponent},
+  { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
+  { path: 'multiledgerrpt',component: MultipleledgerreportComponent},
+  { path: 'annexurerpt',component: AnnexurereportComponent},
+  { path: 'lhpmtlistllp', component:  LorryhirepmtllplistComponent },
+  { path: 'lhpmtaddllp', component:  LorryhirepmtllpaddComponent },
+  { path: 'lhpmteditllp', component:  LorryhirepmtllpaddComponent },
+  
 ];
 
 

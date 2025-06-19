@@ -32,6 +32,7 @@ namespace FCUBEAPI.Controllers
         readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         readonly IGenerateTempGcBusiness tempGcBusiness;
         readonly ILorryHireBusiness lorryHireBusiness;
+        readonly ILorryHireLLPBusiness lorryHireLLPBusiness;
         readonly ILorryHireReqBusiness lorryHireReqBusiness;
         readonly ILorryHireAprvBusiness lorryHireAprvBusiness;
         readonly IMrBusiness mrBusiness;
@@ -71,8 +72,9 @@ namespace FCUBEAPI.Controllers
             // IDeliveryDisputeEntryBusiness _deliveryDisputeEntryBusiness,
             IBrokerAdvancePmtBusiness _brokerAdvancePmtBusiness,
             IUnBillProvisionMstBusiness _unBillProvisionMstBusiness,
-          
-          
+            ILorryHireLLPBusiness _lorryHireLLPBusiness,
+
+
             IDirectPmtBusiness _directPmtBusiness)
         {
             dbconnection = _dbconnection;
@@ -99,6 +101,7 @@ namespace FCUBEAPI.Controllers
             brokerAdvancePmtBusiness = _brokerAdvancePmtBusiness;
             directPmtBusiness = _directPmtBusiness;
             unBillProvisionMstBusiness = _unBillProvisionMstBusiness;
+            lorryHireLLPBusiness = _lorryHireLLPBusiness;
         }
         
 
@@ -953,6 +956,19 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBrokerListLLP")]
+        public async Task<IActionResult> GetBrokerListLLP()
+        {
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetBrokerListLLP();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("DprVehiPlacedSave")]
         public async Task<IActionResult> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
@@ -1694,6 +1710,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLorryHirePaymentListLLP")]
+        public async Task<IActionResult> GetLorryHirePaymentListLLP(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.GetLorryHirePaymentListLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetLorryHireInnerGrid")]
         public async Task<IActionResult> GetLorryHireInnerGrid(RequestModel request)
@@ -1705,6 +1739,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await lorryHireBusiness.GetLorryHireInnerGrid(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLorryHireInnerGridLLP")]
+        public async Task<IActionResult> GetLorryHireInnerGridLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.GetLorryHireInnerGridLLP(request);
 
                 return Ok(result);
             }
@@ -1752,6 +1804,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("LorryHireMasterSaveLLP")]
+        public async Task<IActionResult> LorryHireMasterSaveLLP(LorryHireMasterLLPModel lorryHire)
+        {
+            if (lorryHire == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.LorryHireMasterSaveLLP(lorryHire);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("LorryHireMasterDelete")]
         public async Task<IActionResult> LorryHireMasterDelete(RequestModel requestModel)
         {
@@ -1762,6 +1832,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await lorryHireBusiness.LorryHireMasterDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LorryHireMasterLLPDelete")]
+        public async Task<IActionResult> LorryHireMasterLLPDeleteLLP(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.LorryHireMasterDeleteLLP(requestModel);
 
                 return Ok(result);
             }

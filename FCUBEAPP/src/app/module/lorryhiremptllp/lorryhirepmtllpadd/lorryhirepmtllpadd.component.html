@@ -1,0 +1,483 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Lorry Hire Payment LLP</h4>                        
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Payment Branch</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control"
+                                                    formControlName="pmtStation" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtStation'].invalid) }">
+                                                    <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
+                                                        {{ac.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Payment No</label>
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" 
+                                                    class="form-control" formControlName="pmtNo"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtNo'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Payment Date</label>
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" type="date" 
+                                                    class="form-control" formControlName="pmtDate"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Payment Type</label>
+                                                <span style="color: red">*</span>
+                                                <select id="formrow-inputState" class="form-control"
+                                                    formControlName="pmtType" (change)="changePmtType($event)"                                                   
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">                                                   
+                                                    <option selected="">Choose...</option>
+                                                    <option value="M">Cash</option>      
+                                                    <option value="B">Bank</option> 
+                                                    <!-- <option value="P">Card</option> -->
+                                                    <option value="T">Direct</option>
+                                                    <option value="H">Happay</option>
+                                                    <option value="D">Vendor</option>
+                                                    <option value="A">Adjust</option>                                                        
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2" *ngIf="onAcBranchShow">
+                                            <div class="form-check">
+                                                <input type="checkbox"  formControlName="onAcBranchYN" 
+                                                class="form-check-input" value="Y" 
+                                                    (change)="onAcChk($event)">
+                                                <label for="onAc" class="form-check-label" 
+                                                style="color: green;"> On A/c of Branch</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3" *ngIf="onAcBranchShow">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">On A/c Branch</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="onAcBranch" 
+                                                    (change)="onAcBrSelected($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['onAcBranch'].invalid) }">
+                                                    <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
+                                                        {{ac.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                           <div class="col-lg-3"> 
+                                        <div class="mb-3">                                    
+                                            <label for="formrow-inputCity">Broker</label>  
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="brokerList" 
+                                                    formControlName="brokerId"
+                                                    [searchKeyword]="keywordLocation"                                                  
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate" 
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>                                     
+                                    </div>                                      
+                                     
+                                    </div>
+                                    <div class="row"> 
+                                        <div class="col-lg-2">
+                                            <div class="form-check">
+                                                <input type="checkbox"  formControlName="neftPmt" 
+                                                class="form-check-input" value="Y" 
+                                                    (change)="onNeftChk($event)">
+                                                <label for="neft" class="form-check-label" style="color: green;"> Neft
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Credit Account</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                    <option selected="">Choose...</option>
+                                                    <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
+                                                        {{ac.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>    
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Cheque No</label>
+                                                <input type="text" class="form-control" formControlName="chequeNo"
+                                                     >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="basicpill-email-input">Cheque Date </label>
+                                                <input bsdatepicker="" type="date" autoclose="false"
+                                                    formControlName="chequeDt" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Remarks</label>
+                                                <input uppercaseonly type="text" class="form-control" formControlName="remarks"
+                                                     >
+                                            </div>
+                                        </div>
+                                          <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Payee Name</label>
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="chequePayeeName" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <h4 class="card-title mb-4">Challan Details</h4>
+                        <div class="overflow-x">
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                <tr>
+                                    <th><label for="formrow-inputZip"></label></th>
+                                    <th><label for="formrow-inputCity">Year</label></th>
+                                    <th><label for="formrow-inputZip">Branch</label></th>
+                                    <th><label for="formrow-inputZip">Type</label></th>
+                                    <th><label for="formrow-inputZip">Challan No</label></th>
+                                    <th><label for="formrow-inputZip">Hire Amt Due</label></th>
+                                    <th><label for="formrow-inputZip">Payment Amt</label></th>
+                                    <th><label for="formrow-inputZip">Hamali Amt</label></th>
+                                    <th><label for="formrow-inputZip">Deten Amt</label></th>
+                                    <th><label for="formrow-inputZip">Other Amt</label></th>
+                                    <th><label for="formrow-inputZip">Other2 Amt</label></th>
+                                    <th><label for="formrow-inputZip">Other3 Amt</label></th>
+                                    <th><label for="formrow-inputZip">Net Amt</label></th>
+                                    <th><label for="formrow-inputZip">Recovery Amt</label></th>
+                                    <th><label for="formrow-inputZip">Lhpm Amt</label></th>
+                                    <th><label for="formrow-inputZip">Oth Ded Amt</label></th>
+                                    <th><label for="formrow-inputZip">Oth2 Ded Amt</label></th>
+                                    <th><label for="formrow-inputZip">TDS Amt</label></th>
+                                    <th><label for="formrow-inputZip">Extra Remarks</label></th>
+                                    <th><label for="formrow-inputZip">Deduction Remarks</label></th>
+                                    <th><label for="formrow-inputZip">Beneficiary</label></th>
+                                </tr>
+                                <tr formArrayName="arrayList"
+                                    *ngFor="let arrayData of formArray.controls; let i = index">
+                                    <div [formGroupName]="i" class="grid-table">
+                                        <td>
+                                            <div class="col-lg-4 details-button">
+                                                <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addItem(i)"></button>
+                                                <button *ngIf="formArray.controls.length > 1"
+                                                    (click)="removeItem(i)" class="btn btn-delete"></button>
+                                            </div>                                        
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="chYear">
+                                                <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                                    {{yr.dataName}}
+                                                </option>
+                                            </select>
+                                        </td> 
+                                        <td>
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="challanBranch">
+                                                <option *ngFor="let ac of branchList"  value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>
+                                        </td>     
+                                        <td>
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="abType">
+                                                <option value="A">Advance</option>
+                                                <option value="F">Final</option>
+                                                <option value="O">Other</option>
+                                            </select>
+                                        </td>                                            
+                                        <td>
+                                            <input autoclose="false" numbersonly class="form-control" 
+                                                (change)="getChallanDtls(i)" maxlength="15" 
+                                                formControlName="challanNo">
+                                            <input autoclose="false" class="form-control" type="hidden"
+                                                formControlName="challanId">
+                                        </td>                                           
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="dueAmt">                                                
+                                            <input autoclose="false" class="form-control" type="hidden"
+                                            formControlName="totPaid">
+                                        </td>                                            
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="hireAmt" (change)="calTotal(i,'hireAmt')">
+                                        </td>                                          
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="hamaliAmt" (change)="calTotal(i,'hamaliAmt')">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="detenAmt" (change)="calTotal(i,'detenAmt')">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="otherAmt" (change)="calTotal(i,'otherAmt')">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="other2Amt" (change)="calTotal(i,'other2Amt')">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="other3Amt" (change)="calTotal(i,'other3Amt')">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="netAmt">
+                                        </td>                                         
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="recoveryAmt" (change)="calTotal(i,'recoveryAmt')">
+                                        </td>                                        
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="lhpmAmt" (change)="calTotal(i,'lhpmAmt')">
+                                        </td>                                        
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="othDedAmt" (change)="calTotal(i,'othDedAmt')">
+                                        </td>                                        
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="oth2DedAmt" (change)="calTotal(i,'oth2DedAmt')">
+                                        </td>                                       
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control" 
+                                                formControlName="tdsAmt" (change)="calTotal(i,'tdsAmt')">
+                                        </td>                                       
+                                        <td>
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                                formControlName="extraRemarks">
+                                        </td>                                      
+                                        <td>
+                                            <input uppercaseonly autoclose="false" class="form-control" 
+                                                formControlName="deductRemarks">
+                                        </td>                                     
+                                        <td>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="benId">
+                                                <option *ngFor="let ac of benList" value={{ac.dataId}}>
+                                                    {{ac.dataName}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>         
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Totals</h4>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Payment Amt</label>
+                                                <input class="form-control" formControlName="totalHireAmt"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalHireAmt'].invalid) }"> 
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Hamali Amt</label>
+                                                <input class="form-control" formControlName="totalHamaliAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Deten Amt</label>
+                                                <input class="form-control" formControlName="totalDetenAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Other Amt</label>
+                                                <input class="form-control" formControlName="totalOtherAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Other2 Amt</label>
+                                                <input class="form-control" formControlName="totalOther2Amt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Other3 Amt</label>
+                                                <input class="form-control" formControlName="totalOther3Amt">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Net Amt</label>
+                                                <input class="form-control" formControlName="totalNetAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Recovery Amt</label>
+                                                <input class="form-control" formControlName="totalRecoveryAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Lhpm Amt</label>
+                                                <input class="form-control" formControlName="totalLhpmAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Oth Ded Amt</label>
+                                                <input class="form-control" formControlName="totalOthDedAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Oth2 Ded Amt</label>
+                                                <input class="form-control" formControlName="totalOth2DedAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TDS Amt</label>
+                                                <input class="form-control" formControlName="totalTdsAmt">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">                                                                                                            
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label style="color: red"> 
+                                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>                                                                                                             
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label style="color: red"> 
+                                                    <h6>Fin Doc JV: {{ this.seriesDocJV}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>                                                                                                             
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label style="color: red"> 
+                                                    <h6>Fin Doc Opp: {{ this.seriesDocOpp}} </h6> 
+                                                </label>                                                 
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
+                                                <label for="formrow-inputState"> Modify Remark</label>
+                                                <input uppercaseonly class="form-control"  
+                                                    formControlName="modifyRemarks">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">                    
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div>                   
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>                                                 
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitLorryHirePaymentForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteLorryHirePaymentForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>  
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

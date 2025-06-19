@@ -304,6 +304,8 @@ namespace FCUBEAPI
             services.AddScoped<IPartyMisLocationRepository, PartyMisLocationRepository>();
             services.AddScoped<IUnBillProvisionMstRepository,UnBillProvisionMstRepository>();
             services.AddScoped<IUnBillProvisionMstBusiness, UnBillProvisionMstBusiness>();
+            services.AddScoped<ILorryHireLLPBusiness, LorryHireLLPBusiness>();
+            services.AddScoped<ILorryHireLLPRepository, LorryHireLLPRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
