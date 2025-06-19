@@ -1016,13 +1016,20 @@ export class ChallanmasterllpaddComponent {
       totalHire = subTotal - tdsAmt;
       totalAdvance = cashAdvance + cardAdvance;
       balance = totalHire - totalAdvance;
-      this.formUser.patchValue({
-        subTotal: subTotal.toFixed(2),
-        tdsAmt: tdsAmt.toFixed(2),
-        totalHire: totalHire.toFixed(2),
-        totalAdvance: totalAdvance.toFixed(2),
-        balance: balance.toFixed(2),
-      });
+      
+      if(totalAdvance> lorryHire){
+        this.toastrService.warning("Total Advance Should not be greater than Lorry Hire");
+        return;
+      }
+      else{
+        this.formUser.patchValue({
+          subTotal: subTotal.toFixed(2),
+          tdsAmt: tdsAmt.toFixed(2),
+          totalHire: totalHire.toFixed(2),
+          totalAdvance: totalAdvance.toFixed(2),
+          balance: balance.toFixed(2),
+        });
+      }
     }  
     
     selectEvent(item: any) {
@@ -1060,7 +1067,7 @@ export class ChallanmasterllpaddComponent {
         }
         else{
           this.formUser.controls["brokerId"].disable(); 
-          this.onOwnerPanChange();
+          //this.onOwnerPanChange();
         }
       });
     }
@@ -1275,16 +1282,7 @@ export class ChallanmasterllpaddComponent {
         this.toastrService.warning(" Broker is Invalid");
         return;
       }
-      if(selectedDataValue.declarationYN && !this.declYn){
-        if(this.photo1Input.nativeElement.files[0]?this.photo1Input.nativeElement.files[0]:""!="" || 
-          this.selectedChallanDetails.photo1?this.selectedChallanDetails.photo1:""!=""){
-          //ignore
-        }
-        else{
-          this.toastrService.warning("Declaration Doc Is Mandatory");
-          return;
-        }
-      }
+
       if(selectedDataValue.chStatus=="N"){
         if(selectedDataValue.lorryHire?parseFloat(selectedDataValue.lorryHire):0 > 0){
           //ignore
@@ -1315,6 +1313,10 @@ export class ChallanmasterllpaddComponent {
         });
         this.toastrService.warning("Invalid challan date");
         return
+      }
+      if(parseFloat(selectedDataValue.totalAdvance)> parseFloat(selectedDataValue.lorryHire)){
+        this.toastrService.warning("Total Advance Should not be greater than Lorry Hire");
+        return;
       }
   
       this.formSubmitted = true;

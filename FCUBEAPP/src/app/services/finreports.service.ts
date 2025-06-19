@@ -50,21 +50,21 @@ export class FinreportsService {
   getLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptExcel', filter, this.httpOptions);
   } 
-  getMultipleLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptExcel', filter, this.httpOptions);
-  } 
   getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
+  } 
+  getMultipleLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptExcel', filter, this.httpOptions);
   } 
    getMultipleLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptPdf', filter, this.httpOptions);
   } 
-     getAnnexurerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
+  getAnnexurerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetAnnexureRptPdf', filter, this.httpOptions);
   } 
-   getReportMenuList(menuList: Menureportaccessrightsmodel[]): Observable<Menureportaccessrightsmodel[]> {
+  getReportMenuList(menuList: Menureportaccessrightsmodel[]): Observable<Menureportaccessrightsmodel[]> {
     return this.httpClient.post<Menureportaccessrightsmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetReportMenuList', menuList,this.httpOptions
-    );
+  );
   }
   getLedgerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerList', null, this.httpOptions);

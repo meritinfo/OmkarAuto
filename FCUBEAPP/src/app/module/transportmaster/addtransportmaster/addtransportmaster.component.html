@@ -140,7 +140,7 @@
                                         <div class="mb-3">
                                             <label>Pan No: </label>
                                             <input  type="text" class="form-control" uppercaseonly
-                                            formControlName="panNo" >
+                                            formControlName="panNo" (change)="onOwnerPanChange()">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -172,7 +172,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Whatsapp Mobile No: </label>
+                                            <label>WhatsApp Mobile No: </label>
                                             <input numbersonly type="text" maxlength="10" class="form-control"
                                             formControlName="whatsappMblNo" >
                                         </div>

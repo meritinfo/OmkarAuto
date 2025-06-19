@@ -73,7 +73,6 @@ namespace FinTrans.Business
 
             return await ledgerRptRepository.LedgerPrintPdf(req);
 
-            //return await ledgerRptRepository.GetLedgerRptExcel(request);
         }
         public async Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request)
         {
