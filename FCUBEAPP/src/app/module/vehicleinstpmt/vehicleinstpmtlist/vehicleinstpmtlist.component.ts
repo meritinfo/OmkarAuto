@@ -7,6 +7,9 @@ import { Vehicleinstpmtmodel } from 'src/app/models/vehicleinstpmtmodel';
 import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { CommonService } from 'src/app/services/common.service';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 
 
 @Component({
@@ -20,22 +23,34 @@ export class VehicleinstpmtlistComponent {
   dtElement!: DataTableDirective;
   allInstPmtMaster: Vehicleinstpmtlistmodel = new Vehicleinstpmtlistmodel();
 
-  filter: Filtermodel = {
+  filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'groupname',
     sortOrder: 'asc',
-    search: ''
+    search: '',
+    fromDate:'',
+    toDate:'',
+    strRequest:''
   }
-
-  editMode = false;
+  
+  keywordLocation = 'dataName';
+  vehicleList : Dropdownmodel[] = [];
+  formFilter!: FormGroup;
   createStatus = false;
   editStatus = false;
-  createmode= true;
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
-  constructor(private vehicleInstaService: VehicleInstPmtService, private route: Router) {
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  year: string = '';
+
+  constructor(private vehicleInstaService: VehicleInstPmtService, 
+    private commonService: CommonService,private formBuilder: FormBuilder,
+    private route: Router) {
   }
 
 
@@ -61,8 +76,40 @@ export class VehicleinstpmtlistComponent {
       this.route.navigate([this.dashboard]);
     }
     
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+      
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+
+    this.vehicleInstaService.clearVehicleInstPmtDetails();
+    
+    this.formFilter = this.formBuilder.group({
+      fromDate: new FormControl(this.fromDate),
+      toDate: new FormControl(this.loginDate),
+      vehicleMasterId:new FormControl(''),
+    });     
+
+    this.getVehicleIdList()
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.search = '';
     this.vehicleInstaService.clearVehicleInstPmtDetails();
     this.vehicleInstList();
+  }
+
+  getVehicleIdList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
   }
 
   vehicleInstList(){
@@ -80,7 +127,7 @@ export class VehicleinstpmtlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+
         this.vehicleInstaService.getVehicleInstPmtList(this.filter)
           .subscribe(resp => {
           this.allInstPmtMaster = resp;
@@ -132,6 +179,10 @@ export class VehicleinstpmtlistComponent {
     };
   }
 
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+  };
+  
 //Open new user add screen
   AddVehicleInstmaster(): void {
     this.route.navigate(['/vehicleinstpmtadd']);
@@ -143,5 +194,15 @@ export class VehicleinstpmtlistComponent {
     this.route.navigate(['/vehicleinstpmtedit']);
   }
 
+  search(): void {
+    var selecteddata = this.formFilter.getRawValue();
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;    
+    this.filter.search = selecteddata.vehicleMasterId?selecteddata.vehicleMasterId:"";
+    this.vehicleInstList();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
 }
 

@@ -21,6 +21,7 @@ export class Fleetloadentrymodel {
     advAmt: string = "";
     remarks: string = "";
     attachMemocopy: string = "";
+    yearID: string = "";
     ldFor: string = "";
     tripAdjYN: string = "";
     tripId: string = "";

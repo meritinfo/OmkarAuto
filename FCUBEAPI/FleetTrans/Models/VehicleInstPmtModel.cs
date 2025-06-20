@@ -11,7 +11,8 @@ namespace FleetTrans.Models
         public string? PmtId { get; set; }
         public string? BranchCode { get; set; }
         public string? PmtDate { get; set; }
-        public string? LoanType { get; set; }        
+        public string? LoanType { get; set; }
+        public string? LoanAc { get; set; }        
         public string? VehicleMasterid { get; set; }
         public string? InstNo { get; set; }
         public string? InstId { get; set; }

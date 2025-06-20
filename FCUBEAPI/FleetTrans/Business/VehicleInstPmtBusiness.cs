@@ -21,7 +21,7 @@ namespace FleetTrans.Business
         {
             return await vehicleInstPmtRepository.VehicleInstPmtSave(vehicleInstPmtModel);
         }
-        public async Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(ReportRequestModel request)
+        public async Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(PageFromDtToDtRequest request)
         {
             return await vehicleInstPmtRepository.GetVehicleInstPmtMasterList(request);
         }

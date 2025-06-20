@@ -1662,7 +1662,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetVehicleInstPmtMasterList")]
-        public async Task<IActionResult> GetVehicleInstPmtMasterList(ReportRequestModel request)
+        public async Task<IActionResult> GetVehicleInstPmtMasterList(PageFromDtToDtRequest request)
         {
             if (request == null)
             {

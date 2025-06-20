@@ -9,6 +9,7 @@ import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class VehicleinstpmtllpaddComponent {
   loanAcList: Dropdownmodel[] = [];
   
   branch: string = '';
+  seriesDoc: string = "";
 
   editMode = false;
   createStatus = false;
@@ -57,7 +59,11 @@ export class VehicleinstpmtllpaddComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private sharedService : SharedService,
-private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService: VehicleInstPmtService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+    private vehicleinstpmtmodel: Vehicleinstpmtmodel, 
+    private vehicleInstPmtService: VehicleInstPmtService, 
+        private cashReceiptEntryService: CashReceiptEntryService,
+    private commonService: CommonService,private toastrService: ToastrService,
+    private requestmodel:Requestmodel) {
     this.vehicleinstpmtmodel = new Vehicleinstpmtmodel();
   }
   ngOnInit(): void {
@@ -76,8 +82,8 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
     }
   
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -148,14 +154,15 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
         this.formUser.controls['loanType'].disable();
         this.formUser.controls['vehicleMasterid'].disable();
 
+        this.getFinDocDetails(this.selectedVehicleInstPmtDetail.findocid);
         this.editMode = true;
         this.createdBy = this.selectedVehicleInstPmtDetail.createdBy + " " + this.selectedVehicleInstPmtDetail.createdDate;
         this.modifiedBy = this.selectedVehicleInstPmtDetail.modifiedBy + " " + this.selectedVehicleInstPmtDetail.modifiedDate; 
         this.formUser.patchValue(this.selectedVehicleInstPmtDetail);
-       
         this.formUser.patchValue({
           pmtDate: this.commonService.formatDate(this.selectedVehicleInstPmtDetail.pmtDate),
           cheqDate:this.commonService.formatDate(this.selectedVehicleInstPmtDetail.cheqDate),
+          loanAc: this.loanAcList.find(e => e.dataId == this.selectedVehicleInstPmtDetail.loanAc),
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedVehicleInstPmtDetail.vehicleMasterid),
         })
         if(this.selectedVehicleInstPmtDetail.pmtType=="B"){          
@@ -198,6 +205,19 @@ private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService:
     this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.loanAcList = res;
     });    
+  }
+  
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
   }
 
   selectLoanEvent(item: any) {

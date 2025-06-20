@@ -74,7 +74,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(ReportRequestModel request)
+        public async Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(PageFromDtToDtRequest request)
         {
             VehicleInstPmtList tyreModelMasterList = new();
             List<VehicleInstPmtModel> pmtList = new();
@@ -89,8 +89,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
-                            //new SqlParameter("@FromDate", request.FromDate),
-                            //new SqlParameter("@ToDate", request.ToDate)
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstPmtList", param);
 
@@ -105,6 +105,7 @@ namespace FleetTrans.Repository
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 LoanType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanType"]),
+                                LoanAc = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAc"]),
                                 VehicleMasterid = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterid"]),
                                 InstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InstNo"]),
                                 InstId = Convert.ToString(dataSet.Tables[0].Rows[i]["InstId"]),
