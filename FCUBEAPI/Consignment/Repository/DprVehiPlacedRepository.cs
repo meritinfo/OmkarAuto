@@ -370,7 +370,37 @@ namespace Consignment.Repository
                 
             }
             return contentList;
-        }        
+        }
+        public async Task<List<DropDownListModel>> GetBrokerListLLP()
+        {
+            List<DropDownListModel> contentList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrokerListLLP", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            contentList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return contentList;
+        }
         public async Task<ResponseModel> DprVehiUpdateAdvance(DprVehiPlacedModel dprVehi)
         {
             ResponseModel responseModel = new();

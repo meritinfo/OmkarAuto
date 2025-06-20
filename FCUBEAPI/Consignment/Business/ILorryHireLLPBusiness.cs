@@ -1,0 +1,23 @@
+﻿using Consignment.Models;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Consignment.Business
+{
+    public interface ILorryHireLLPBusiness
+    {
+        Task<LorryHireListLLPModel> GetLorryHirePaymentListLLP(ReportRequestModel request);
+        Task<LorryHireMasterLLPModel> GetLorryHireInnerGridLLP(RequestModel request);
+        Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request);
+        Task<ResponseModel> LorryHireMasterSaveLLP(LorryHireMasterLLPModel lorryHire);
+        Task<ResponseModel> LorryHireMasterDeleteLLP(RequestModel requestModel);
+        Task<LorryHireMasterLLPModel> GetChallanLorryhireDetailsLLP(ReportRequestModel request);
+        Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel);
+        Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel);
+        Task<ResponseModel> GetLorryHirePrintPdf(RequestModel request);
+    }
+}
