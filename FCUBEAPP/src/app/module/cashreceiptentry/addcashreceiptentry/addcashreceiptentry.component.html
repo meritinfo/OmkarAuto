@@ -98,31 +98,32 @@
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-body">
+                                                <div class="overflow-x">
                                                 <h4 class="card-title mb-4" style="color: red;"> Details</h4>
                                                 <table class="table table-bordered table-striped dt-responsive nowrap w-100 no-border-table half-width">
                                                     <tr>
-                                                        <td class="col-lg-1"></td>
-                                                        <td class="col-lg-4">
+                                                        <td style="width: 50px;"></td>
+                                                        <td style="width: 700px;">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Account Name<span style="color: red">*</span>    </h6>
                                                             </label>
                                                         </td>
-                                                        <td class="col-lg-1">
+                                                        <td  style="width: 100px;">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Amount<span style="color: red">*</span> </h6>   
                                                             </label>
                                                         </td>
-                                                        <td class="col-lg-2">
+                                                        <td  style="width: 500px;">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Narration<span style="color: red">*</span> </h6>   
                                                             </label>
                                                         </td>
-                                                        <td class="col-lg-2">
+                                                        <td  style="width: 300px;">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Reference/SubLedger</h6>
                                                             </label>
                                                         </td>
-                                                        <td class="col-lg-2">
+                                                        <td  style="width: 200px;">
                                                             <label for="formrow-inputZip">
                                                                 <h6>CN/LR Ref No</h6>
                                                             </label>
@@ -131,7 +132,7 @@
                                                     <tr formArrayName="arrayList" 
                                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
-                                                            <td class="col-lg-1">
+                                                            <td  style="width: 50px;">
                                                                 <div class="col-lg-4 details-button">
                                                                     <button *ngIf="i === formArray.controls.length-1" type="button"
                                                                         class="btn btn-add" (click)="addItem(i)"></button>
@@ -139,7 +140,7 @@
                                                                         (click)="removeItem(i)" class="btn btn-delete"></button>
                                                                 </div>     
                                                             </td>
-                                                            <td class="col-lg-4">
+                                                            <td  style="width: 700px;">
                                                                 <div class="ng-autocomplete">
                                                                     <ng-autocomplete [data]="gridAccountList"
                                                                         [searchKeyword]="keywordLocation"
@@ -161,23 +162,23 @@
                                                                 <input type="hidden" formControlName="subLedger">  
                                                                 <input type="hidden" formControlName="cnLedger">      
                                                             </td>
-                                                            <td class="col-lg-1">
+                                                            <td  style="width: 100px;">
                                                                 <input decimalonly class="form-control"    
                                                                 (change)="updateAmount()"
                                                                     formControlName="amount">
                                                             </td>
-                                                            <td class="col-lg-2">
+                                                            <td  style="width: 500px;">
                                                                 <input uppercaseonly autoclose="false" type="text" 
                                                                 class="form-control"
                                                                     formControlName="narration">
                                                                   
                                                             </td>
-                                                            <td class="col-lg-2">
+                                                            <td  style="width: 300px;">
                                                                 <input autoclose="false" type="text"
                                                                               class="form-control"
                                                                             formControlName="reference">                                                                
                                                             </td>
-                                                            <td class="col-lg-2">
+                                                            <td  style="width: 200px;">
                                                                 <input autoclose="false" type="text"
                                                                     class="form-control" (change)="checkLrExists($event,i)"
                                                                     formControlName="cnRefNo">                                                                
@@ -185,10 +186,10 @@
                                                         </div>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="3" class="text-right">
+                                                        <td colspan="2" class="text-right">
                                                             <label for="formrow-inputZip"><h6>Total Amt. </h6></label>
                                                         </td>
-                                                        <td colspan="2" class="col-lg-2">
+                                                        <td >
                                                             <div class="mb-3">
                                                                 <input autoclose="false" type="text"
                                                                   class="form-control" formControlName="docAmount"
@@ -197,6 +198,7 @@
                                                         </td>
                                                     </tr>            
                                                 </table>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
