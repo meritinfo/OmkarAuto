@@ -655,7 +655,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetMultRptExcel")]
+        [HttpPost("GetAnnexureRptExcel")]
         public async Task<IActionResult> GetAnnexureRptExcel(ReportRequestModel req)
         {
             if (req == null)

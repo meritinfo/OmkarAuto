@@ -18,8 +18,8 @@ namespace FinTrans.Repository
 
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<DataSet> bankBookReport(ReportRequestModel request);
-        Task<ResponseModel> GetMultipleLedgerRptExcel(ReportRequestModel request);
-        Task<ResponseModel> GetAnnexureRptExcel(ReportRequestModel request);
+   
+ 
         Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
         Task<ResponseModel> BankBookPrint(ReportRequestModel request);
 
