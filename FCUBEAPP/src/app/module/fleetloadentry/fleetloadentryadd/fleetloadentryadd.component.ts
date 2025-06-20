@@ -28,8 +28,9 @@ export class FleetloadentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
+  year: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -107,6 +108,10 @@ dashboard: string ="";
       this.loginDate = loginDate;
     }
 
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -449,6 +454,7 @@ dashboard: string ="";
     this.fleetLoadEntryModel.hireAmt = selectedDataVal.hireAmt.toString();
     this.fleetLoadEntryModel.advAmt = selectedDataVal.advAmt.toString();
     this.fleetLoadEntryModel.remarks = selectedDataVal.remarks.toString().toUpperCase();
+    this.fleetLoadEntryModel.yearID = this.year;
     this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
 
     let formData = new FormData();

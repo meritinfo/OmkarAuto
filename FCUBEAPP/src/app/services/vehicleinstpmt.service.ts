@@ -8,6 +8,7 @@ import { Constants } from '../common/constants';
 import { Requestmodel } from '../models/requestmodel';
 import {Vehicleinstpmtlistmodel } from '../models/vehicleinstpmtlistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
+import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class VehicleInstPmtService {
   vehicleInstPmtSubmitted(user:Vehicleinstpmtmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleInstPmtSave', user, this.httpOptions);
   }
-  getVehicleInstPmtList(filter: Filtermodel): Observable<Vehicleinstpmtlistmodel> {
+  getVehicleInstPmtList(filter: Pagerequestwithdatesmodel): Observable<Vehicleinstpmtlistmodel> {
     return this.httpClient.post<Vehicleinstpmtlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleInstPmtMasterList', filter, this.httpOptions);
   }
 }

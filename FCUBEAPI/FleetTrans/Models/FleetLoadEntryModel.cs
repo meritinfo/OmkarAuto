@@ -30,6 +30,7 @@ namespace FleetTrans.Models
         public string? AdvAmt { get; set; }
         public string? Remarks { get; set; }
         public string? AttachMemocopy { get; set; }
+        public string? YearID { get; set; }        
         public string? TripAdjYN { get; set; }
         public string? TripId { get; set; }
         public string? TripBrName { get; set; }

@@ -11,7 +11,7 @@ namespace FleetTrans.Business
     public interface IVehicleInstPmtBusiness
     {
         Task<ResponseModel> VehicleInstPmtSave(VehicleInstPmtModel vehicleInstPmtModel);
-        Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(ReportRequestModel request);
+        Task<VehicleInstPmtList> GetVehicleInstPmtMasterList(PageFromDtToDtRequest request);
         Task<ResponseModel> VehicleInstPmtMasterDelete(RequestModel requestModel);
         Task<ResponseModel> checkVehicleLoanType(RequestModel requestModel);
         Task<List<DropDownListModel>> GetVehicleNoLoan(RequestModel request);
