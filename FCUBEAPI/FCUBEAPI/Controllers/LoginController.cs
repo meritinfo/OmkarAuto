@@ -124,11 +124,11 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetServerDate")]
-        public async Task<IActionResult> GetServerDate()
+        public async Task<IActionResult> GetServerDate(RequestModel request)
         {
             try
             {
-                var result = await sharedBusiness.GetServerDate();
+                var result = await sharedBusiness.GetServerDate(request);
 
                 return Ok(result);
             }

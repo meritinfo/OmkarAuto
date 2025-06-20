@@ -129,6 +129,24 @@ export class IntermediatescreenComponent {
     });
 
   }
+  
+  onYearChange(e:any){
+    this.requestmodel.strRequest = e.target.value;
+    var currdt = new Date();
+    this.commonService.getServerDate(this.requestmodel).subscribe((res) => {    
+      var srvrDt = new Date(res.message);
+      if(srvrDt<currdt){
+        this.formLogin.patchValue({
+          loginDate: res.message
+        }); 
+      }
+      else{
+        this.formLogin.patchValue({
+          loginDate: this.maxDate
+        }); 
+      }
+    }); 
+  }
 
   getCompanyDetails(){
     this.sharedService.getCompanyDetail().subscribe((res: Responsemodel) => {

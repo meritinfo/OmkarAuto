@@ -107,9 +107,9 @@ namespace Shared.Business
         {
             return await sharedRepository.GetScheduleDetails();
         }
-        public async Task<List<DropDownListModel>> GetServerDate()
+        public async Task<ResponseModel> GetServerDate(RequestModel request)
         {
-            return await sharedRepository.GetYearList();
+            return await sharedRepository.GetServerDate(request);
         }
         public async Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req)
         {
