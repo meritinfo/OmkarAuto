@@ -8,6 +8,7 @@ import { CommonService } from '../../../services/common.service';
 import { LorryhirepmtllpService } from 'src/app/services/lorryhirepmtllp.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Lorryhiremastermodel } from 'src/app/models/lorryhiremastermodel';
+
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -147,6 +148,7 @@ export class LorryhirepmtllpaddComponent {
       chequeNo : new FormControl('', ),
       chequeDt : new FormControl('', ),
       neftPmt : new FormControl('', ),
+      brokerId : new FormControl('', [Validators.required] ),
       remarks : new FormControl('', ),
       modifyRemarks : new FormControl('', ),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
@@ -205,6 +207,8 @@ export class LorryhirepmtllpaddComponent {
           pmtDate: this.commonService.formatDate(this.selectedLorryhiremaster.pmtDate),
           chequeDt: this.commonService.formatDate(this.selectedLorryhiremaster.chequeDt), 
           onAcBranchYN:onAcBranchYN,
+            brokerId : this.brokerList.find(e => e.dataId == this.selectedLorryhiremaster.brokerId)  ,        
+  
           neftPmt:neftPmt,
         });
         if(this.selectedLorryhiremaster.pmtType=="B" && this.selectedLorryhiremaster.neftPmt=="N"){
@@ -216,12 +220,14 @@ export class LorryhirepmtllpaddComponent {
           this.formUser.controls['chequeDt'].disable();
         }
         this.editMode = true;
+        
         this.createdBy = this.selectedLorryhiremaster.createdBy + " " + this.selectedLorryhiremaster.createdDate;
         this.modifiedBy = this.selectedLorryhiremaster.modifiedBy + " " + this.selectedLorryhiremaster.modifiedDate;  
         this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['pmtType'].disable(); 
         this.formUser.controls['onAcBranchYN'].disable();
         this.formUser.controls['onAcBranch'].disable();
+           this.formUser.controls['brokerId'].disable();
         this.formUser.controls['modifyRemarks'].enable();                
         if(this.selectedLorryhiremaster.finDocid!="0"){
           this.getFinDocDetails(this.selectedLorryhiremaster.finDocid,"BC");
@@ -636,6 +642,7 @@ export class LorryhirepmtllpaddComponent {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         //ignore
+            this.formUser.controls['brokerId'].disable();
       }
       else{
         this.toasterService.warning(this.responseDetails.message);
@@ -848,7 +855,7 @@ export class LorryhirepmtllpaddComponent {
   }
 
   getBrokerListNew(): void {
-    this.commonService.getBrokerListNew().subscribe((res) => {
+    this.commonService.getBrokerListLLP().subscribe((res) => {
       this.brokerList = res;
     });
   }
@@ -901,6 +908,7 @@ export class LorryhirepmtllpaddComponent {
     this.lorryhiremastermodel.remarks = selectedDataVal.remarks.toString().toUpperCase();
     this.lorryhiremastermodel.yearId = this.year.toString();
     this.lorryhiremastermodel.modifyRemarks= selectedDataVal.modifyRemarks.toString().toUpperCase();
+       this.lorryhiremastermodel.brokerId = selectedDataVal.brokerId.dataId;
     this.lorryhiremastermodel.loggedInUserID = this.loggedInUserID; 
 
     this.lorryhiremastermodel.lhpmDetails = [];

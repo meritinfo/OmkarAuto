@@ -337,7 +337,7 @@ dashboard: string ="";
   
       if(format=="XL"){
   
-        this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
+        this.ledgerrptService.getAnnexurerptExcel(this.filter).subscribe(resp => {
           if(resp.status){      
             let link = document.createElement("a");
             link.download = "LedgerReport_" + new Date().getTime() + '.xls';

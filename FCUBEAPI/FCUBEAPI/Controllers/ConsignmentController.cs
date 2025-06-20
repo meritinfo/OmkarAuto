@@ -1877,6 +1877,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetChallanLorryhireDetailsLLP")]
+        public async Task<IActionResult> GetChallanLorryhireDetailsLLP(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.GetChallanLorryhireDetailsLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetLorryHirePmtNo")]
         public async Task<IActionResult> GetLorryHirePmtNo(RequestModel request)
         {

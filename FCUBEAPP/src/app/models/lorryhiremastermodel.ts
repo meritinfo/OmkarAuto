@@ -40,6 +40,7 @@ export class Lorryhiremastermodel {
     modifiedBy: string = "";
     modifiedDate: string = "";
     loggedInUserID : string = "";
+    brokerId : string = "";
     lhpmDetails: Lorryhiredetailmodel[] = [];
 
 }

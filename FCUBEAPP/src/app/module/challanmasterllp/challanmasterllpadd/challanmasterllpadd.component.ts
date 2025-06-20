@@ -466,10 +466,13 @@ export class ChallanmasterllpaddComponent {
     }
     
     getBrokerList(): void {
-      this.commonService.getBrokerList().subscribe((res) => {
+      this.commonService.getBrokerListLLP().subscribe((res) => {
         this.brokerList = res;
       });
     }
+    
+ 
+
   
     getEmpList(): void {
       this.commonService.getEmpList().subscribe((res) => {

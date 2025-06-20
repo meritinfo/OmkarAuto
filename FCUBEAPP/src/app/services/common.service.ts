@@ -136,8 +136,8 @@ export class CommonService {
   getBrokerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetBrokerList', null, this.httpOptions);
   }  
-  getBrokerListNew(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetBrokerListNew', null, this.httpOptions);
+  getBrokerListLLP(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetBrokerListLLP', null, this.httpOptions);
   }  
   getLocationList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLocationList', null, this.httpOptions);
