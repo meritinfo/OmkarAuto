@@ -91,6 +91,8 @@ namespace Consignment.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                BrokerId = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerId"])
+
                             });
                         }
 
@@ -218,6 +220,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ChYear",         request.FilterStr1),
                             new SqlParameter("@ChallanBranch",  request.FilterStr2),
                             new SqlParameter("@ChallanNo",      request.FilterStr3),
+                              new SqlParameter("@BrokerId",      request.SortColumn),
                         };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHireChallanDetailsLLP", param);
@@ -301,6 +304,7 @@ namespace Consignment.Repository
                             new SqlParameter("@NeftPmt                             ",          lorryHire.NeftPmt            ),
                             new SqlParameter("@Remarks                             ",          lorryHire.Remarks            ),
                             new SqlParameter("@YearId                              ",          lorryHire.YearId             ),
+                            new SqlParameter("@BrokerId                              ",          lorryHire.BrokerId             ),
                             new SqlParameter("@ModifyRemarks                       ",          lorryHire.ModifyRemarks      ),
                             new SqlParameter("@LoggedInUserID                      ",          lorryHire.LoggedInUserID     ),
                         };

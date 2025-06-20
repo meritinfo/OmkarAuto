@@ -48,6 +48,7 @@ namespace Consignment.Models
         public string? ModifiedDate { get; set; }
 
         public string? LoggedInUserID { get; set; }
+        public string? BrokerId { get; set; }
         public List<LorryHireDetailLLPModel> LhpmDetails { get; set; }
     }
 }

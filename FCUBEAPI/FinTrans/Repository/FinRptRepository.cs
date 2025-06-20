@@ -562,6 +562,80 @@ namespace FinTrans.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetMultipleLedgerRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",           request.FromDate),
+                            new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@AccountID",          request.FilterStr),
+                            new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@SubName",            request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMultipleLedgerRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Ledger From " + request.FromDate + " To " + request.ToDate;
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Accounts Ledger Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetAnnexureRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",           request.FromDate),
+                            new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@AccountID",          request.FilterStr),
+                            new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@SubName",            request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getAnnexureRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Ledger From " + request.FromDate + " To " + request.ToDate;
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Accounts Ledger Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
         public async Task<DataSet> ledgerReport(ReportRequestModel request)
         {
             DataSet reportData = new();
