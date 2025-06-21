@@ -197,7 +197,12 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.h', ['$event'])
   happayFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/lhpmtlist']);
+    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+      this.route.navigate(['/lhpmtlistllp']); 
+    }
+    else{
+      this.route.navigate(['/lhpmtlist']);      
+    }
   }
   //Shortcut key for Delivery Ack list -> Ctrl + D
   @HostListener('window:keydown.control.d', ['$event'])

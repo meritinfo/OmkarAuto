@@ -67,6 +67,7 @@ namespace Consignment.Repository
                                 Consignor = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignor"]),
                                 Consignee = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignee"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
+                                Rcm_Fcm = Convert.ToString(dataSet.Tables[0].Rows[i]["Rcm_Fcm"]),
                                 ToPin = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPin"]),
                                 AccountCity = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountCity"]),
                                 CnorState = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorState"]),
@@ -145,8 +146,10 @@ namespace Consignment.Repository
             try
             {
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
+                RequestModel request = new RequestModel();
+                request.strRequest1 = "R";
 
-                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails(request);
 
                 string URL = "https://pro.mastersindia.co/distance";
 
@@ -296,7 +299,10 @@ namespace Consignment.Repository
             {
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
+                RequestModel request = new RequestModel();
+                request.strRequest1 = eWayBill.Rcm_Fcm;
+
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails(request);
 
                 string URL = "https://pro.mastersindia.co/";
 

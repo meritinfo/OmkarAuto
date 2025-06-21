@@ -26,5 +26,6 @@ export class Ewaybillextmodel {
     remarks:string = ""; 
     consignmentStatus:string = ""; 
     transitType:string = ""; 
+    rcm_Fcm:string = ""; 
     loggedInUser:string = ""; 
 }

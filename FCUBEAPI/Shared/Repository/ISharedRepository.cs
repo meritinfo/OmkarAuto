@@ -19,8 +19,8 @@ namespace Shared.Repository
         Task<List<MenuModel>> MenuDetails(string userID);
         Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req);
         Task<List<DropDownListModel>> GetYearList();
-        Task<List<DropDownListModel>> GetServerDate();
-        Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();
+        Task<ResponseModel> GetServerDate(RequestModel request);
+        Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails(RequestModel request);
         Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter);
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
         Task<ResponseModel> GenerateLoginOTP(LoginModel login);

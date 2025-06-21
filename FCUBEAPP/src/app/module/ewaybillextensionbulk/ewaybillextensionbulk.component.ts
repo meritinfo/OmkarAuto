@@ -66,12 +66,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -106,6 +106,7 @@ dashboard: string ="";
     return this.formBuilder.group({
       selected:[''],
       ewayBillNo:  [''],
+      rcm_Fcm:  [''],
       bookingDate:  [''],
       vehicleNo :  [''],
       fromLocation:[''],
@@ -136,6 +137,7 @@ dashboard: string ="";
         this.formArray.push(this.createArray());
         this.formArray.controls[i].get("selected")?.setValue("Y");
         this.formArray.controls[i].get("ewayBillNo")?.setValue(res.ewaybillextList[i].ewayBillNo);
+        this.formArray.controls[i].get("rcm_Fcm")?.setValue(res.ewaybillextList[i].rcm_Fcm);
         this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.ewaybillextList[i].bookingDate));
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.ewaybillextList[i].vehicleNo);
         this.formArray.controls[i].get("fromLocation")?.setValue(res.ewaybillextList[i].fromLocation);
@@ -226,7 +228,8 @@ dashboard: string ="";
           'reason': "Others", 
           'remarks': selectedDataVal.arrayList[i].remarks, 
           'consignmentStatus': "M", 
-          'transitType': "", 
+          'transitType': "",
+          'rcm_Fcm': selectedDataVal.arrayList[i].rcm_Fcm,
           'loggedInUser': "",           
         });
       }

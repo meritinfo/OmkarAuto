@@ -19,7 +19,7 @@ namespace Shared.Business
         Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req);
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<DropDownListModel>> GetYearList();
-        Task<List<DropDownListModel>> GetServerDate();
+        Task<ResponseModel> GetServerDate(RequestModel request);
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
         Task<ResponseModel> GenerateLoginOTP(LoginModel login);
     }

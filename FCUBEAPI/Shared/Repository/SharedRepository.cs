@@ -232,35 +232,33 @@ namespace Shared.Repository
             }
             return yearList;
         }
-        public async Task<List<DropDownListModel>> GetServerDate()
+
+        public async Task<ResponseModel> GetServerDate(RequestModel request)
         {
-            List<DropDownListModel> yearList = new();
+            ResponseModel serverDt = new();
             try
             {
                 if (dbconnection != null)
                 {
-                    SqlParameter[] param = { };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Current_Select", param);
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@YearId", request.strRequest)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getServerDate", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
-                        {
-                            yearList.Add(new DropDownListModel
-                            {
-                        
-                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
-                            });
-                        }
+                        serverDt.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        serverDt.Message = Convert.ToDateTime(statusData.Tables[0].Rows[0]["Message"]).ToString("yyyy-MM-dd");
                     }
                 }
             }
             catch (Exception ex)
             {
-
             }
-            return yearList;
+            return serverDt;
         }
+
         public async Task<ResponseModel> GetCompanyDetail()
         {
             ResponseModel responseModel = new();
@@ -306,14 +304,18 @@ namespace Shared.Repository
             }
             return scheduleModel;
         }
-        public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails()
+        public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails(RequestModel request)
         {
             EWayAPIConfigurationModel configModel = new();
             try
             {
                 if (dbconnection != null)
                 {
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "EWayApiDetails_Select", null);
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@RcmFcm", request.strRequest1)
+                        };
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEWayApiDetails", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {

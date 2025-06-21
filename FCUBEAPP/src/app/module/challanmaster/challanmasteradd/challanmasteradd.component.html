@@ -57,7 +57,8 @@
                                     <label for="formrow-inputZip">Challan Date : </label><span
                                         style="color: red">*</span>
                                     <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                        formControlName="challanDateTime" min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="challanDateTime" 
+                                        min="{{minDate}}" max="{{maxDate}}"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['challanDateTime'].invalid) }">
                                 </div>
                             </div>  

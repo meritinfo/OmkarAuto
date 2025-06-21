@@ -301,6 +301,7 @@ namespace Consignment.Repository
                             new SqlParameter("@GcNoteNo",            cn.GcNoteNo                  ),
                             new SqlParameter("@BookingDate",         cn.BookingDate               ),
                             new SqlParameter("@BookingStatus",       cn.BookingStatus             ),
+                            new SqlParameter("@Rcm_Fcm",             cn.Rcm_Fcm             ),                            
                             new SqlParameter("@EwayBillEntryType",   cn.EwayBillEntryType         ),
                             new SqlParameter("@EwayBillNo",          cn.EwayBillNo                ),
                             new SqlParameter("@EwayBillDate",        cn.EwayBillDate              ),

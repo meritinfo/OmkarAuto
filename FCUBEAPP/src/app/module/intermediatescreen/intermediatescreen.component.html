@@ -38,7 +38,7 @@
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Select Year</label>
                                         <select class="form-control form-select ng-pristine ng-touched"
-                                         formControlName="yearID" 
+                                         formControlName="yearID" (change)="onYearChange($event)"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['yearID'].invalid) }" >
                                             <option *ngFor="let branch of yearList" value={{branch.dataId}}>
                                                {{branch.dataName}}

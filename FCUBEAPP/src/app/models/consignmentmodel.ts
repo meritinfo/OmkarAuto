@@ -15,6 +15,7 @@ export class Consignmentmodel {
     gcNoteNo : string = "";
     bookingDate : string = "";
     bookingStatus : string = "";
+    rcm_Fcm : string = "";
     ewayBillEntryType : string = "";
     ewayBillNo : string = "";
     ewayBillDate : string = "";
