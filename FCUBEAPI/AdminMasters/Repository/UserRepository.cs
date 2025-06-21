@@ -376,7 +376,7 @@ namespace AdminMasters.Repository
             {
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails(request);
 
                 string URL = ewayapiConfigurtion.ApiCheckGstinUrl; // "https://pro.mastersindia.co/getEwayBillData";
 

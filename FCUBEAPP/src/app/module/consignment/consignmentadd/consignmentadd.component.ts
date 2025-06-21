@@ -716,6 +716,7 @@ export class ConsignmentaddComponent implements OnInit {
   searchGSTDetails(): void {
     var selectedDataValue = this.formUser.getRawValue();
     var ewayBillNo = selectedDataValue.ewayBillNo;
+      this.requestmodel.strRequest1 = "R";  
 
     if(ewayBillNo != "") {
       this.requestmodel.strRequest = ewayBillNo;        

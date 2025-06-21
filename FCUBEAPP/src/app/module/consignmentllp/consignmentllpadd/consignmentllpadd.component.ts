@@ -39,7 +39,8 @@ export class ConsignmentllpaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  gstApi = true; 
+  dashboard: string ="";
   
   branchList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
@@ -97,12 +98,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -110,8 +111,8 @@ dashboard: string ="";
 
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -169,6 +170,7 @@ dashboard: string ="";
       gcNoteNo  : new FormControl('', [Validators.required]),
       bookingDate : new FormControl(this.loginDate, [Validators.required]),
       bookingStatus : new FormControl('TBB', [Validators.required]),
+      rcm_Fcm: new FormControl('F',),
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
       ewayBillDate : new FormControl('', [Validators.required]),
@@ -336,7 +338,9 @@ dashboard: string ="";
         })      
         this.formUser.controls['seriesCode'].disable();
         this.formUser.controls['gcSlNo'].disable();
-        
+        this.formUser.controls['ewayBillEntryType'].disable();        
+        this.gstApi = false;
+
         if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
             ownTruck: ''             
@@ -941,11 +945,21 @@ dashboard: string ="";
   }  
 
   searchGSTDetails(): void {
-    var selectedDataValue = this.formUser.getRawValue();
+    var selectedDataValue = this.formUser.getRawValue();    
     var ewayBillNo = selectedDataValue.ewayBillNo;
+    if(ewayBillNo==""){
+      this.toastrService.warning("Please Enter Eway bill no");
+      return;
+    }
+    if(selectedDataValue.rcm_Fcm==""){
+      this.toastrService.warning("Please Select RCM/FCM GST ");
+      return;
+    }
 
     if(ewayBillNo != "") {
-      this.requestmodel.strRequest = ewayBillNo;        
+      this.requestmodel.strRequest = ewayBillNo;  
+      this.requestmodel.strRequest1 = selectedDataValue.rcm_Fcm;  
+
       this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if(this.responseDetails.status){
@@ -1010,7 +1024,7 @@ dashboard: string ="";
             ewayBillNo:"",
           });
           this.toastrService.warning("Eway bill no already exists in database");
-          return
+          return;
         }
       });
     }    
@@ -1135,6 +1149,8 @@ dashboard: string ="";
   }
 
   changeEWay(selectedValue: string) {
+    
+    this.gstApi = false;
     if (selectedValue === "E") {
       //Remove field validation
       this.formUser.controls['ewayBillNo'].clearValidators();
@@ -1156,6 +1172,7 @@ dashboard: string ="";
 
       if (selectedValue === "A") {
         //Disable field
+        this.gstApi = true;
         this.formUser.controls['cnorName'].disable();
         this.formUser.controls['cnorAdd1'].disable();
         this.formUser.controls['cnorAdd2'].disable();
@@ -1306,6 +1323,7 @@ dashboard: string ="";
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;
     this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.lrmodel.rcm_Fcm = selectedDataValue.rcm_Fcm;
     this.lrmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
     this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;
     this.lrmodel.ewayBillDate = selectedDataValue.ewayBillDate;

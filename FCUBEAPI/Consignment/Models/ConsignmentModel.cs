@@ -9,6 +9,7 @@ namespace Consignment.Models
         public string? GcNoteNo                 { get; set; }
         public string? BookingDate              { get; set; }
         public string? BookingStatus            { get; set; }
+        public string? Rcm_Fcm                  { get; set; }        
         public string? EwayBillEntryType        { get; set; }
         public string? EwayBillNo               { get; set; }
         public string? EwayBillDate             { get; set; }

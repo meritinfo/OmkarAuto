@@ -133,6 +133,17 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-lg-2" *ngIf="gstApi">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">RCM/FCM GST</label>
+                                    <select id="formrow-inputState"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        formControlName="rcm_Fcm">
+                                        <option value="R">RCM</option>
+                                        <option value="F">FCM</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">EWay Bill No</label>
@@ -140,7 +151,7 @@
                                         <input type="text" maxlength="15" class="form-control" 
                                             formControlName="ewayBillNo" (change)="fillgrid()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
-                                        <button type="button" class="btn btn-primary"
+                                        <button type="button" class="btn btn-primary" *ngIf="gstApi"
                                             (click)="searchGSTDetails()">Search</button>
                                     </div>
                                 </div>
@@ -159,6 +170,8 @@
                                         formControlName="ewayBillExpDate" class="form-control">
                                 </div>
                             </div> 
+                        </div>
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>

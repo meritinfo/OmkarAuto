@@ -145,8 +145,10 @@ namespace Consignment.Repository
             try
             {
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
+                RequestModel request = new RequestModel();
+                request.strRequest1 = "R";
 
-                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails(request);
 
                 string URL = "https://pro.mastersindia.co/distance";
 
@@ -296,7 +298,10 @@ namespace Consignment.Repository
             {
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
+                RequestModel request = new RequestModel();
+                request.strRequest1 = eWayBill.Rcm_Fcm;
+
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails(request);
 
                 string URL = "https://pro.mastersindia.co/";
 

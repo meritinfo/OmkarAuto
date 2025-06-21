@@ -304,14 +304,18 @@ namespace Shared.Repository
             }
             return scheduleModel;
         }
-        public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails()
+        public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails(RequestModel request)
         {
             EWayAPIConfigurationModel configModel = new();
             try
             {
                 if (dbconnection != null)
                 {
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "EWayApiDetails_Select", null);
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@RcmFcm", request.strRequest1)
+                        };
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEWayApiDetails", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {

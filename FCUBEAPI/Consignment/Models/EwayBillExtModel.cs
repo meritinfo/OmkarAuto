@@ -32,6 +32,7 @@
         public string? Remarks { get; set; }
         public string? ConsignmentStatus { get; set; }
         public string? TransitType { get; set; }
+        public string? Rcm_Fcm { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }
