@@ -1190,16 +1190,22 @@ modifiedBy: string = "";
       }
     }
    
-    let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
-    let arrdate = new Date(selectedDataValue.expArrivalDate).toLocaleDateString('en-CA').toString(); 
-    if (arrdate>=chdate) {
-      //ignore
+    //  let chdate = new Date(selectedDataValue.challanDateTime).toLocaleDateString('en-CA').toString();
+    let chdate = new Date(selectedDataValue.challanDateTime);
+    let arrdate = new Date(selectedDataValue.expArrivalDate); 
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<chdate || chdate<mindt) {
+      this.toastrService.warning("Challan Date should be with in Fin Year");
+      return;
     }
-    else{
+
+    if (arrdate<chdate) {
       this.toastrService.warning("exp arrival date should not be less than challan date");
       return;
-
     }
+
     if(parseFloat(selectedDataValue.totalAdvance)> parseFloat(selectedDataValue.lorryHire)){
       this.toastrService.warning("Total Advance Should not be greater than Lorry Hire");
       return;

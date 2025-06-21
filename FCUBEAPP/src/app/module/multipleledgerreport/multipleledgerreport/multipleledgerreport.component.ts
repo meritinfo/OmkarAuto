@@ -69,7 +69,7 @@ dashboard: string ="";
   }
 
   ngOnInit(): void {    
-     this.ledgerrptService.getReportMenuList([]).subscribe(
+    this.ledgerrptService.getReportMenuList([]).subscribe(
       (data) => {
         this.menuList = this.initializeMenuItems(data);
       },
@@ -79,10 +79,9 @@ dashboard: string ="";
     ); 
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      var privilegeData = JSON.parse(menuData);      
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Multiple Ledger Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -92,8 +91,8 @@ dashboard: string ="";
       }
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -174,8 +173,8 @@ dashboard: string ="";
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
-   initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {
- 
+
+  initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
       item.isExpanded = true;
@@ -186,20 +185,18 @@ dashboard: string ="";
     }
     return items;
   }
-   toggleExpand(item: Menureportaccessrightsmodel): void {
 
+  toggleExpand(item: Menureportaccessrightsmodel): void {
     item.isExpanded = !item.isExpanded;
   }
 
   toggleCheck(item: Menureportaccessrightsmodel): void {
-
     item.checked = !item.checked;
     this.checkChildren(item, item.checked);
     this.updateParentCheckStatus(this.menuList, item);
   }
 
   checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
-
     if (item.children && item.children.length > 0) {
       for (var i = 0; i < item.children.length; i++) {
         var child = item.children[i];
@@ -210,7 +207,6 @@ dashboard: string ="";
   }
 
   updateParentCheckStatus(items: Menureportaccessrightsmodel[], changedItem: Menureportaccessrightsmodel): void {
-
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
       if (item.children && item.children.indexOf(changedItem) !== -1) {
@@ -230,7 +226,6 @@ dashboard: string ="";
   }
 
   setSelectedItem(item: Menureportaccessrightsmodel): void {
-
     if (this.selectedItem === item) {
       item.isExpanded = !item.isExpanded;
     } else {
@@ -241,13 +236,10 @@ dashboard: string ="";
     }
   }
 
-saveSelectedIds() {
-  debugger
-  var selectedIdsArray = this.getSelectedIds(this.menuList);
-  var selectedIds = selectedIdsArray.join(',');
-
- 
-}
+  saveSelectedIds() {
+    var selectedIdsArray = this.getSelectedIds(this.menuList);
+    var selectedIds = selectedIdsArray.join(','); 
+  }
 
 
   getSelectedIds(items: any[]): number[] {
@@ -298,6 +290,17 @@ saveSelectedIds() {
     //   this.toastrService.warning("Please Enter Valid Account ");          
     //   return;
     // }
+    
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    
     if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
       this.toastrService.warning("Please select Branch");
       return;
@@ -308,8 +311,8 @@ saveSelectedIds() {
       return;
     }
 
-  var selectedIdsArray = this.getSelectedIds(this.menuList);
-  var selectedIds = selectedIdsArray.join(',');
+    var selectedIdsArray = this.getSelectedIds(this.menuList);
+    var selectedIds = selectedIdsArray.join(',');
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
@@ -329,7 +332,6 @@ saveSelectedIds() {
     this.filter.search = selectedDataVal.groupYN?"Y":"N" ;
 
     if(format=="XL"){
-
       this.ledgerrptService.getMultipleLedgerrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
@@ -341,11 +343,8 @@ saveSelectedIds() {
           this.toastrService.warning(resp.message);   
         }
       });
-    }
-    
-    else{
-    
-
+    }    
+    else{   
       this.ledgerrptService.getMultipleLedgerrptPdf(this.filter).subscribe(resp => {
         if(resp.status){    
           let link = document.createElement("a");
