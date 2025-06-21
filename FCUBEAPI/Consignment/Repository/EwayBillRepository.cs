@@ -67,6 +67,7 @@ namespace Consignment.Repository
                                 Consignor = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignor"]),
                                 Consignee = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignee"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
+                                Rcm_Fcm = Convert.ToString(dataSet.Tables[0].Rows[i]["Rcm_Fcm"]),
                                 ToPin = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPin"]),
                                 AccountCity = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountCity"]),
                                 CnorState = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorState"]),

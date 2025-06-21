@@ -24,7 +24,7 @@ export class EwaybillextensionaddComponent {
     editStatus = false;
     deleteStatus = false;
     viewStatus = false; 
-dashboard: string ="";
+    dashboard: string ="";
     responseDetails = new Responsemodel();
     stateList: Dropdownmodel[] = [];  
     pinDetails = new Dropdownmodel();  
@@ -234,7 +234,8 @@ dashboard: string ="";
       this.ewaybillextmodel.kMS = selectedDataVal.kMS;
       this.ewaybillextmodel.mode = selectedDataVal.mode;
       this.ewaybillextmodel.reason = selectedDataVal.reason;
-      this.ewaybillextmodel.remarks = selectedDataVal.remarks;      
+      this.ewaybillextmodel.remarks = selectedDataVal.remarks;  
+      this.ewaybillextmodel.rcm_Fcm = this.selectedEwaybillextDetails.rcm_Fcm;    
       this.ewaybillextmodel.cnorState = selectedDataVal.state;      
       this.ewaybillextmodel.consignmentStatus = selectedDataVal.consignmentStatus;
       this.ewaybillextmodel.transitType = selectedDataVal.consignmentStatus=="M"?"":"R";
