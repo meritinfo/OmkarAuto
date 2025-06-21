@@ -306,6 +306,8 @@ namespace FCUBEAPI
             services.AddScoped<IUnBillProvisionMstBusiness, UnBillProvisionMstBusiness>();
             services.AddScoped<ILorryHireLLPBusiness, LorryHireLLPBusiness>();
             services.AddScoped<ILorryHireLLPRepository, LorryHireLLPRepository>();
+            services.AddScoped<IVehicleAdvBalReceiptMstLLPBusiness, VehicleAdvBalReceiptMstLLPBusiness>();
+            services.AddScoped<IVehicleAdvBalReceiptMstLLPRepository, VehicleAdvBalReceiptMstLLPRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

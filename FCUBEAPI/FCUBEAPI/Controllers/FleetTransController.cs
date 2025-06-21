@@ -37,7 +37,8 @@ namespace FCUBEAPI.Controllers
         readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
         readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;   
-        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness; 
+        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
+        readonly IVehicleAdvBalReceiptMstLLPBusiness vehicleAdvBalReceiptMstLLPBusiness;
         readonly IFastTagBusiness fastTagBusiness;
         readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
@@ -62,7 +63,8 @@ namespace FCUBEAPI.Controllers
             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
-            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,     
+            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
+              IVehicleAdvBalReceiptMstLLPBusiness _vehicleAdvBalReceiptMstLLPBusiness,
             IFastTagBusiness _fastTagBusiness,
             ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness,
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
@@ -89,7 +91,8 @@ namespace FCUBEAPI.Controllers
             tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
-            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;  
+            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
+            vehicleAdvBalReceiptMstLLPBusiness = _vehicleAdvBalReceiptMstLLPBusiness;
             fastTagBusiness = _fastTagBusiness;
             tripEnrouteExpByCompanyBusiness= _tripEnrouteExpByCompanyBusiness;
             fastagDslRechargeEntryBusiness = _fastagDslRechargeEntryBusiness;
@@ -3140,6 +3143,22 @@ namespace FCUBEAPI.Controllers
 
 
         }
+        [HttpPost("GetVehicleAdvBalReceiptMstListLLP")]
+        public async Task<IActionResult> GetVehicleAdvBalReceiptMstListLLP(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstLLPBusiness.GetVehicleAdvBalReceiptMstListLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
         [HttpPost("VehicleAdvBalReceiptMstDelete")]
         public async Task<IActionResult> VehicleAdvBalReceiptMstDelete(RequestModel req)
         {
@@ -3158,7 +3177,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetVehicleAdvBalReceiptMstInnerGridList")]
+        [HttpPost("VehicleAdvBalReceiptMstDeleteLLP")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstDeleteLLP(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstLLPBusiness.VehicleAdvBalReceiptMstDeleteLLP(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleAdvBalReceiptMstInnerGridListLLP")]
         public async Task<IActionResult> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request)
         {
             if (request == null)
@@ -3167,7 +3204,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalReceiptMstInnerGridList(request);
+                var result = await vehicleAdvBalReceiptMstLLPBusiness.GetVehicleAdvBalReceiptMstInnerGridListLLP(request);
 
                 return Ok(result);
             }
@@ -3194,6 +3231,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleAdvBalTripDetailsLLP")]
+        public async Task<IActionResult> GetVehicleAdvBalTripDetailsLLP(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstLLPBusiness.GetVehicleAdvBalTripDetailsLLP(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("VehicleAdvBalReceiptMstSave")]
         public async Task<IActionResult> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)
@@ -3205,6 +3260,25 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleAdvBalReceiptMstBusiness.VehicleAdvBalReceiptMstSave(vehicleAdvBalReceiptMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleAdvBalReceiptMstSaveLLP")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstSaveLLP(VehicleAdvBalReceiptMstLLPModel vehicleAdvBalReceiptMstModel)
+        {
+            if (vehicleAdvBalReceiptMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstLLPBusiness.VehicleAdvBalReceiptMstSaveLLP(vehicleAdvBalReceiptMstModel);
 
                 return Ok(result);
             }

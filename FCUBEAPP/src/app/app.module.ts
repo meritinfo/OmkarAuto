@@ -482,6 +482,7 @@ import { BillsmasteraddllpComponent } from './module/billsmasterllp/billsmastera
 import { BillsmastermodelllP } from './models/billsmastermodelllp';
 import { BillsDetailModelllP } from './models/billsdetailmodelllp';
 import { Billsmasterlistmodel } from './models/billsmasterlistmodel';
+import { VehicleadvbalreceiptModelLLP } from 'src/app/models/vehicleadvreceiptmodelllp';
 import { BillsuppliaddllpComponent } from './module/billsupplillp/billsuppliaddllp/billsuppliaddllp.component';
 import { BillsupplilistllpComponent } from './module/billsupplillp/billsupplilistllp/billsupplilistllp.component';
 import { DeliverydisputeentryaddComponent } from './module/deliverydisputeentry/deliverydisputeentryadd/deliverydisputeentryadd.component';
@@ -521,6 +522,8 @@ import { MultipleledgerreportComponent } from './module/multipleledgerreport/mul
 import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
 import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirepmtllpadd/lorryhirepmtllpadd.component';
 import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhirepmtllplist/lorryhirepmtllplist.component';
+import { VehicleadvreceiptllpaddComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllpadd/vehicleadvreceiptllpadd.component';
+import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllplist/vehicleadvreceiptllplist.component';
 
 @NgModule({
   declarations: [
@@ -687,9 +690,9 @@ import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhire
     PartymislocationsaddComponent,PartymislocationlistComponent, 
     OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, 
-    BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent, 
+    BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent,
     PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     
   ],
   
@@ -766,7 +769,7 @@ import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhire
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,
     Unbilledprovisionmstmodel,
-    Directpmtlistmodel, Directpmtmodel,
+    Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
     
   ],

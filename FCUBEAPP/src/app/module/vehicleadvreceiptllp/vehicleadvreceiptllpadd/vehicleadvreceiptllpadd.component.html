@@ -1,0 +1,354 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18"> Vehicle Advance/Balance Receipts BRPL</h4>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Branch : </label>
+                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="transBranch"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transBranch'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">                                           
+                                            <label >Trans Date: </label><span style="color: red">*</span>  
+                                            <input type="date"  autofocus="autofocus" class="form-control"
+                                                formControlName="transDate" min="{{fromDate}}" max="{{maxDate}}"                                         
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Trips Upto Date: </label><span style="color: red">*</span> 
+                                            <input  type="date" class="form-control" 
+                                            formControlName="tripsUptoDate" min="{{fromDate}}" max="{{maxDate}}"      
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tripsUptoDate'].invalid) }">
+                                        </div>
+                                    </div>   
+                                </div>   
+                                <div class="row">  
+                                    <!-- <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>                                           
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vehicleList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    formControlName="vehicleMasterId"       
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="endWithFilter"    
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>    -->
+                                              <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Party (Load for)</label>
+                                          
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="creditAcList" 
+                                                formControlName="partyId" 
+                                                    [searchKeyword]="keywordLocation"                                                      
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['partyId'].invalid) }">                                                  </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                                         
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <button (click)="searchStatement()" *ngIf="showButton"
+                                                class="btn btn-primary w-md mt-4">Show</button>
+                                        </div>
+                                    </div>                                   
+                                </div>             
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>  
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="overflow-x">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
+                                            <tr>
+                                                <th>Memo Branch</th>
+                                                <th>Load Memo No</th>
+                                                <th>Memo Date</th>
+                                                <th>From Place</th>
+                                                <th>To Place</th>
+                                                <th>Vehicle No</th>
+                                                <th>Trip No</th>
+                                                <th>Due Amt</th>
+                                                <th>Received</th>
+                                                <th>Deduction</th>
+                                                <th>TDS</th>
+                                                <th>Extras</th>
+                                                <th>Remarks</th>  
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                *ngFor="let arrayData of formAdvanceArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>                                     
+                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="loadBranch"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="">
+                                                            <option *ngFor="let vehi of branchList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                        </select> 
+                                                        <input type="hidden" autoclose="false" class="form-control"
+                                                        formControlName="tripRouteDtlId"> 
+                                                    </td>
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="loadMemoNo"> 
+                                                    </td>
+                                                    <td> 
+                                                        <input type="date" autoclose="false" class="form-control"
+                                                        formControlName="loadDate"> 
+                                                    </td>
+                                                    
+                                                        <td> 
+                                                              <input autoclose="false" class="form-control"
+                                                        formControlName="fromPlace"> 
+                                        
+                                </td>    
+                                   <td> 
+                                     <input autoclose="false" class="form-control"
+                                                        formControlName="toPlace"> 
+                                          
+                                </td>       
+                                  <td> 
+                                     <input autoclose="false" class="form-control"
+                                                        formControlName="vehicleNo"> 
+                                                 
+                                                    </td>                       
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="tripNo"> 
+                                                    </td>
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="dueAmt" decimalonly> 
+                                                        <input type="hidden" autoclose="false" class="form-control"
+                                                        formControlName="paidAmt" decimalonly> 
+                                                    </td>
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="received" decimalonly (change)="onAmtChange(i,'received')"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="deduction"  decimalonly (change)="onAmtChange(i,'deduction')" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="tds" decimalonly (change)="onAmtChange(i,'tds')" > 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="extras" decimalonly (change)="onAmtChange(i,'extras')"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="dtlRemarks"  uppercaseonly> 
+                                                    </td>   
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <!-- <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Cheq Cash Amt: </label><span style="color: red">*</span> 
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="cheqCashAmt" decimalonly
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
+                            </div>
+                        </div>  -->
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Amt Recd: </label>
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtRecd" >
+                            </div>
+                        </div>   
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Amt Ded: </label>
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtDed" >
+                            </div>
+                        </div>   
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Amt TDS: </label>
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtTDS" >
+                            </div>
+                        </div>  
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Amt Extras: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="amtExtras">
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Amt Recd: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalAmtRecd"
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalAmtRecd'].invalid) }">
+                            </div>
+                        </div>  
+                    </div> 
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label for="formrow-inputCity">Receipt Type</label><span style="color: red"> * </span>
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="receiptType" 
+                                    (change)="changePmtType($event)"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['receiptType'].invalid) }">
+                                    <option value="M">Cash</option>      
+                                    <option value="B">Bank</option> 
+                                    <option value="A">Adjust</option>  
+                                </select>
+                            </div>
+                        </div>                
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="formrow-inputCity">Dedit Ac</label><span style="color: red"> * </span>
+                                <select class="form-control form-select ng-pristine ng-touched"formControlName="debitAc"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
+                                    <option value="">Choose..</option>
+                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
+                                        {{ac.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>                
+                        <div class="col-lg-1">
+                            <div class="form-check">
+                                <input type="checkbox"  formControlName="neftYN" 
+                                class="form-check-input" value="Y" >
+                                <label for="neft" class="form-check-label" 
+                                style="color: green;"> Neft</label>
+                            </div>
+                        </div>                          
+                        <div class="col-lg-2">
+                            <div class="mb-2">
+                                <label for="formrow-inputZip">Cheque No</label>
+                                <input numbersonly autoclose="false" class="form-control" 
+                                formControlName="chequeNo"> 
+                            </div>
+                        </div>       
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label >Cheque Date </label>
+                                <input type="date"  autofocus="autofocus" class="form-control"
+                                formControlName="chequeDate">
+                            </div>
+                        </div>   
+                    </div> 
+                    <div class="row">                                                               
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label>Remarks: </label>
+                                <input  uppercaseonly type="text" class="form-control" maxlength="250" 
+                                formControlName="remarks" >
+                            </div>
+                        </div>                            
+                    </div>                     
+                </div>        
+                <div class="row">                    
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div>                   
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label style="color: blue"> 
+                                <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                            </label>                                                 
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>  
+
+ 
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" 
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitVehicleRepMaintMasterForm()">Save</button>&nbsp;                            
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="advancereceiptMasterDelete()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+
+
+
+

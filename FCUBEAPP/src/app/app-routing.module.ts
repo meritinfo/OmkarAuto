@@ -332,6 +332,9 @@ import { MultipleledgerreportComponent } from './module/multipleledgerreport/mul
 import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
 import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirepmtllpadd/lorryhirepmtllpadd.component';
 import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhirepmtllplist/lorryhirepmtllplist.component';
+import { VehicleadvreceiptllpaddComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllpadd/vehicleadvreceiptllpadd.component';
+import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllplist/vehicleadvreceiptllplist.component';
+
 
 
 const routes: Routes = [
@@ -787,6 +790,10 @@ const routes: Routes = [
   { path: 'lhpmtlistllp', component:  LorryhirepmtllplistComponent },
   { path: 'lhpmtaddllp', component:  LorryhirepmtllpaddComponent },
   { path: 'lhpmteditllp', component:  LorryhirepmtllpaddComponent },
+
+  { path: 'vehicleadvbalreceiptllpadd', component: VehicleadvreceiptllpaddComponent }, 
+  { path: 'Vehicleadvbalreceiptllpedit', component: VehicleadvreceiptllpaddComponent }, 
+  { path: 'vehicleadvballistbrpl', component: VehicleadvreceiptllplistComponent },
   
 ];
 
