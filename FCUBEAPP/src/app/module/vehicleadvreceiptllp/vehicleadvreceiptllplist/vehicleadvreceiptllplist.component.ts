@@ -226,7 +226,7 @@ export class VehicleadvreceiptllplistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;    
-    this.filter.search = selecteddata.partyId?selecteddata.partyId:"";
+    this.filter.search = selecteddata.partyId?selecteddata.partyId.dataId:"";
     this.sharedService.loading=true;
     this.vehicleAdvanceBalList();
     this.sharedService.loading=false;

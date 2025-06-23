@@ -226,6 +226,7 @@ export class BrokeradvancepmtaddComponent {
       this.brokerList = res;
     });
   }
+  
 
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
