@@ -5,7 +5,6 @@ import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -54,7 +53,6 @@ export class AddtrippaymentsComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, 
     private commonService: CommonService, private toasterService: ToastrService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.trippaymentsmodel = new Trippaymentsmodel();
   }
@@ -219,7 +217,7 @@ export class AddtrippaymentsComponent {
 
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

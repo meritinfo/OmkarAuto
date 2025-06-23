@@ -10,7 +10,6 @@ import { BrokeradvancepmtModel } from 'src/app/models/brokeradvancepmtmodel';
 import { BrokerAdvancePmtService } from 'src/app/services/brokeradvancepmt.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 
@@ -54,8 +53,7 @@ export class BrokeradvancepmtaddComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private brokeradvancepmtModel: BrokeradvancepmtModel, private brokerAdvancePmtService: BrokerAdvancePmtService,
-    private commonService: CommonService,  private cashReceiptEntryService: CashReceiptEntryService,
-                                      private sharedService : SharedService,
+    private commonService: CommonService, private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.brokeradvancepmtModel = new BrokeradvancepmtModel();
   }
@@ -230,7 +228,7 @@ export class BrokeradvancepmtaddComponent {
 
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

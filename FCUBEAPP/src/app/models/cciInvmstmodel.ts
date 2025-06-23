@@ -13,6 +13,7 @@ export class Ccinvmstmodel {
     totalCgstAmt : string ="";
     totalIgstAmt : string ="";
     totalInvAmt : string ="";
+    finFtmId:string ="";
     createdBy: string = "";
     createdDate: string = "";
     modifiedBy: string = "";

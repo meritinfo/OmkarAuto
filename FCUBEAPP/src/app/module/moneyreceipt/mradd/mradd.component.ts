@@ -4,16 +4,13 @@ import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Mrmodel  } from 'src/app/models/mrmodel';
-import { Mrlistmodel  } from 'src/app/models/mrlistmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
-import { Constants } from 'src/app/common/constants';
 import { MrService } from 'src/app/services/mr.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-mradd',
@@ -71,7 +68,6 @@ dashboard: string ="";
     private mrService: MrService, private sharedService: SharedService,       
     private toasterService: ToastrService,
     private docrenewalEntryService:DocRenewalEntryService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private commonService: CommonService) {
   }
 
@@ -371,7 +367,7 @@ dashboard: string ="";
 
   getSdAccountList(): void {    
     this.requestmodel.strRequest="BC"
-    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.sdaccountList = res;
     });
   }
@@ -385,7 +381,7 @@ dashboard: string ="";
 
   getFinDocDetails(finId: string,reftype:string){
     this.requestmodel.strRequest = finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       if (res.status) {
         if(reftype =="BC")
         {
@@ -653,7 +649,7 @@ dashboard: string ="";
   }
   getAccountList(tp:string): void {    
     this.requestmodel.strRequest= tp;
-    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
   }

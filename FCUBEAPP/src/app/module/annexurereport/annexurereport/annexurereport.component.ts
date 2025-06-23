@@ -242,11 +242,8 @@ dashboard: string ="";
     }
   
   saveSelectedIds() {
-    debugger
     var selectedIdsArray = this.getSelectedIds(this.menuList);
     var selectedIds = selectedIdsArray.join(',');
-  
-   
   }
   
   

@@ -55,7 +55,9 @@ export class VehicleinstpmtaddComponent {
   selectedVehicleInstPmtDetail = new Vehicleinstpmtmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private sharedService : SharedService,private vehicleinstpmtmodel: Vehicleinstpmtmodel, private vehicleInstPmtService: VehicleInstPmtService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+    private sharedService : SharedService,private vehicleinstpmtmodel: Vehicleinstpmtmodel, 
+    private vehicleInstPmtService: VehicleInstPmtService, private commonService: CommonService,
+    private toastrService: ToastrService,private requestmodel:Requestmodel) {
     this.vehicleinstpmtmodel = new Vehicleinstpmtmodel();
   }
   ngOnInit(): void {

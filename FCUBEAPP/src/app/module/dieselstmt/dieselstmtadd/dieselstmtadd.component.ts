@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -53,7 +52,6 @@ export class DieselstmtaddComponent {
     private requestmodel:Requestmodel,private dieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private sharedService: SharedService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private dieselstatementService: DieselstmtService, private toasterService: ToastrService) {
       this.dieselStatementmodel= new Dieselstatementmodel();
   }
@@ -211,7 +209,7 @@ export class DieselstmtaddComponent {
 
   getAcountList(): void {    
     this.requestmodel.strRequest="D"
-    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
   }
@@ -237,7 +235,7 @@ export class DieselstmtaddComponent {
  
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

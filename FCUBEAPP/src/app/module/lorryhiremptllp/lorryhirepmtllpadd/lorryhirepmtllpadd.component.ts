@@ -8,12 +8,10 @@ import { CommonService } from '../../../services/common.service';
 import { LorryhirepmtllpService } from 'src/app/services/lorryhirepmtllp.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Lorryhiremastermodel } from 'src/app/models/lorryhiremastermodel';
-
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -57,7 +55,6 @@ export class LorryhirepmtllpaddComponent {
   constructor(private lorryhiremastermodel: Lorryhiremastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
     private commonService: CommonService, private lorryhirepmtService: LorryhirepmtllpService,
-        private cashReceiptEntryService: CashReceiptEntryService,
     private docrenewalEntryService: DocRenewalEntryService,private toasterService: ToastrService) {
     this.lorryhiremaster = new Lorryhiremastermodel();
   }
@@ -333,7 +330,7 @@ export class LorryhirepmtllpaddComponent {
   }
   getFinDocDetails(finId: string,reftype:string){
     this.requestmodel.strRequest = finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         if(reftype =="BC")

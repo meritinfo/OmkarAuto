@@ -10,7 +10,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 import { Constants } from 'src/app/common/constants';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -62,7 +61,6 @@ dashboard: string ="";
     constructor(private route: Router, private formBuilder: FormBuilder, 
       private docRenewalentryModel: Docrenewalentrymodel, private requestmodel:Requestmodel,
       private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,
-      private cashReceiptEntryService: CashReceiptEntryService,       
       private toasterService: ToastrService,
       private commonService: CommonService) {
       this.docRenewalentryModel = new Docrenewalentrymodel();
@@ -256,7 +254,7 @@ dashboard: string ="";
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

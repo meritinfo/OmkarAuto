@@ -43,6 +43,7 @@ export class CciinvoicemstaddComponent {
   lrList: Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
   debitAcList: Dropdownmodel[] = [];
+  seriesDoc: string = "";
   chList: Dropdownmodel[] = [];
   
   selectedCciInvMstDetail = new Ccinvmstmodel();
@@ -158,6 +159,7 @@ export class CciinvoicemstaddComponent {
           vendorId : this.vendorList.find(e => e.dataId == this.selectedCciInvMstDetail.vendorId),
         })  
       
+        this.getFinDocDetails(this.selectedCciInvMstDetail.finFtmId);
         this.formUser.controls["gstType"].disable();  
         this.formUser.controls["cciInvDate"].disable();
         this.formUser.controls["cciInvNo"].disable();  
@@ -220,6 +222,19 @@ export class CciinvoicemstaddComponent {
     this.requestmodel.strRequest = "E";
     this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.debitAcList = res;
+    });
+  }
+
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
     });
   }
 

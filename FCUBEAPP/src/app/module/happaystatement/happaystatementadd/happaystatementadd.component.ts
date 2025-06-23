@@ -12,7 +12,6 @@ import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-happaystatementadd',
@@ -49,7 +48,6 @@ dashboard: string ="";
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
       this.DieselStatementmodel= new Dieselstatementmodel();
   }
@@ -161,7 +159,7 @@ dashboard: string ="";
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;
