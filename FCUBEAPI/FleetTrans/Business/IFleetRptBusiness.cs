@@ -24,6 +24,8 @@ namespace FleetTrans.Business
         Task<ResponseModel> ExcelTripSummaryRptList(ReportRequestModel request);
         Task<TripOutstandingRptListModel> GetTripOutstandingRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelTripOutstandingRptList(ReportRequestModel request);
+        Task<TripOutstandingRptListModel> GetTripOutstandingRptListBrpl(ReportRequestModel request);
+        Task<ResponseModel> ExcelTripOutstandingRptListBrpl(ReportRequestModel request);
         Task<VehicleRepairsRptListModel> GetVehicleRepairsRptList(ReportRequestModel request);
         Task<ResponseModel> GetVehicleRepairsRptExcel(ReportRequestModel request);
         Task<SparesPurchaseRptListModel> GetSparesPurchaseRptList(ReportRequestModel request);

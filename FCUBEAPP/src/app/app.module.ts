@@ -382,6 +382,7 @@ import { LhextrapmtreconrptComponent } from './module/lhextrapmtreconrpt/lhextra
 import { SubledgermasteraddComponent } from './module/subledgermaster/subledgermasteradd/subledgermasteradd.component';
 import { SubledgermasterlistComponent } from './module/subledgermaster/subledgermasterlist/subledgermasterlist.component';
 import { Tripoutstandingrptmodel } from './models/tripoutstandingrptmodel';
+import { Tripoutstandingrptbrplmodel } from './models/tripoutstandingrptbrplmodel';
 import { TripoutstandingrptComponent } from './module/tripoutstandingrpt/tripoutstandingrpt.component';
 import { BillsubmitmasteraddComponent } from './module/billsubmitmaster/billsubmitmasteradd/billsubmitmasteradd.component';
 import { BillsubmitmasterlistComponent } from './module/billsubmitmaster/billsubmitmasterlist/billsubmitmasterlist.component';
@@ -525,6 +526,7 @@ import { VehicleadvreceiptllpaddComponent } from './module/vehicleadvreceiptllp/
 import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllplist/vehicleadvreceiptllplist.component';
 import { ChallansuppliaddllpComponent } from './module/challansupplillp/challansuppliaddllp/challansuppliaddllp.component';
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
+import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 
 @NgModule({
   declarations: [
@@ -693,7 +695,7 @@ import { ChallansupplilistllpComponent } from './module/challansupplillp/challan
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent,
     PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, ChallansuppliaddllpComponent, ChallansupplilistllpComponent, TripoutstandingrptbrplComponent, 
     
   ],
   
@@ -770,7 +772,7 @@ import { ChallansupplilistllpComponent } from './module/challansupplillp/challan
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,
     Unbilledprovisionmstmodel,
-    Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,
+    Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
     
   ],

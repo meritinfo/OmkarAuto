@@ -336,6 +336,7 @@ import { VehicleadvreceiptllpaddComponent } from './module/vehicleadvreceiptllp/
 import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllplist/vehicleadvreceiptllplist.component';
 import { ChallansuppliaddllpComponent } from './module/challansupplillp/challansuppliaddllp/challansuppliaddllp.component';
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
+import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 
 
 
@@ -799,6 +800,7 @@ const routes: Routes = [
     { path: 'suppchallanlistllp',component: ChallansupplilistllpComponent},
   { path: 'suppchallanaddllp',component: ChallansuppliaddllpComponent },
   { path: 'suppchallaneditllp',component: ChallansuppliaddllpComponent },
+    { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
   
 ];
 
