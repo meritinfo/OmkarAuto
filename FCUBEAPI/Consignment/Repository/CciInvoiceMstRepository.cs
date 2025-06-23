@@ -57,6 +57,7 @@ namespace Consignment.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 Lr_YN = Convert.ToString(dataSet.Tables[0].Rows[i]["Lr_YN"]),
+                                FinFtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["FinFtmId"]),
                                 TotalTaxableAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalTaxableAmt"]),
                                 TotalSgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSgstAmt"]),
                                 TotalCgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCgstAmt"]),

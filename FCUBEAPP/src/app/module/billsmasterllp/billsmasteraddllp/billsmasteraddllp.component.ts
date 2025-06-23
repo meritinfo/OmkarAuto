@@ -12,7 +12,6 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillsMasterServiceLLP } from 'src/app/services/billsmasterllp.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 
@@ -63,8 +62,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   
   constructor(private billsmastermodel: BillsmastermodelllP, private commonService: CommonService, 
     private billsMasterService: BillsMasterServiceLLP, private route: Router, 
-    private formBuilder: FormBuilder,private sharedService: SharedService, 
-    private cashReceiptEntryService: CashReceiptEntryService,   private reportmodel: Reportmodel,
+    private formBuilder: FormBuilder,private sharedService: SharedService, private reportmodel: Reportmodel,
     private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsmastermodel = new BillsmastermodelllP();    
   }
@@ -614,7 +612,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

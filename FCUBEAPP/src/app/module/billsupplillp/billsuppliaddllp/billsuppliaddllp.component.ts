@@ -7,7 +7,6 @@ import { BillsmasterlistmodelLLP } from 'src/app/models/billsmasterlistmodelllp'
 import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { BillsmastermodelllP } from 'src/app/models/billsmastermodelllp';
-
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -15,7 +14,6 @@ import { BillsMasterServiceLLP } from 'src/app/services/billsmasterllp.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
@@ -71,7 +69,6 @@ dashboard: string ="";
   constructor(private billsmastermodel: BillsmastermodelllP, private commonService: CommonService, 
     private billsMasterService: BillsMasterServiceLLP, private route: Router, 
     private formBuilder: FormBuilder,private sharedService: SharedService, 
-    private cashReceiptEntryService: CashReceiptEntryService,
     private consignmentService:ConsignmentService,
     private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsmastermodel = new BillsmastermodelllP();    
@@ -439,7 +436,7 @@ dashboard: string ="";
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

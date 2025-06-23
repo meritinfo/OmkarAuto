@@ -4,12 +4,10 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DieselstatementService } from 'src/app/services/dieselstatement.service';
-import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
@@ -52,8 +50,7 @@ dashboard: string ="";
   constructor(private reportmodel: Reportmodel, 
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
-    private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
-    private cashReceiptEntryService: CashReceiptEntryService,
+     private sharedService: SharedService,
     private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
       this.DieselStatementmodel= new Dieselstatementmodel();
   }
@@ -250,7 +247,7 @@ dashboard: string ="";
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

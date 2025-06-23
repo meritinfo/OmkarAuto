@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripenroutebycompanyService } from 'src/app/services/tripenroutebycompany.service';
@@ -57,7 +55,6 @@ dashboard: string ="";
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private tripenrouteexpbycompanyModel: TripenrouteexpbycompanyModel, private tripenroutebycompanyService: TripenroutebycompanyService, 
     private commonService: CommonService, private toasterService: ToastrService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.tripenrouteexpbycompanyModel = new TripenrouteexpbycompanyModel();
   }
@@ -160,7 +157,7 @@ dashboard: string ="";
 
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

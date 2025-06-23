@@ -11,7 +11,6 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillsMasterService } from 'src/app/services/billsmaster.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
@@ -61,7 +60,6 @@ dashboard: string ="";
   constructor(private billsmastermodel: Billsmastermodel, private commonService: CommonService, 
     private billsMasterService: BillsMasterService, private route: Router, 
     private formBuilder: FormBuilder,private sharedService: SharedService, 
-    private cashReceiptEntryService: CashReceiptEntryService,
     private consignmentService:ConsignmentService,
     private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsmastermodel = new Billsmastermodel();    
@@ -386,7 +384,7 @@ dashboard: string ="";
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

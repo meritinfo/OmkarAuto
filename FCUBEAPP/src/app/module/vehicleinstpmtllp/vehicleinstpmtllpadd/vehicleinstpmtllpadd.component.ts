@@ -9,7 +9,6 @@ import { VehicleInstPmtService } from 'src/app/services/vehicleinstpmt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -61,7 +60,6 @@ export class VehicleinstpmtllpaddComponent {
     private sharedService : SharedService,
     private vehicleinstpmtmodel: Vehicleinstpmtmodel, 
     private vehicleInstPmtService: VehicleInstPmtService, 
-        private cashReceiptEntryService: CashReceiptEntryService,
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.vehicleinstpmtmodel = new Vehicleinstpmtmodel();
@@ -209,7 +207,7 @@ export class VehicleinstpmtllpaddComponent {
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

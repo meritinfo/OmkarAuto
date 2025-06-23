@@ -14,7 +14,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from 'src/app/common/constants';
 import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-challanmasterllpadd',
@@ -80,7 +79,6 @@ export class ChallanmasterllpaddComponent {
     private challanmasterService: ChallanmasterServiceLLP,
     private commonService: CommonService,  private sharedService: SharedService,
     private lrentryService: ConsignmentService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private toastrService: ToastrService, private requestmodel: Requestmodel) {
     this.challanmodel = new ChallanmastermodelllP();
 
@@ -403,7 +401,7 @@ export class ChallanmasterllpaddComponent {
     
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;

@@ -11,7 +11,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 import { Constants } from 'src/app/common/constants';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-gstpurchaseadd',
@@ -66,7 +65,6 @@ export class GstpurchaseaddComponent {
     private gstpurchasemodel: Gstpurchasemodel, private requestmodel:Requestmodel,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,       
     private toasterService: ToastrService,private docrenewalEntryService:DocRenewalEntryService,
-    private cashReceiptEntryService: CashReceiptEntryService,
     private commonService: CommonService) {
   }
 
@@ -370,7 +368,7 @@ export class GstpurchaseaddComponent {
   
   getFinDocDetails(finId: string){
     this.requestmodel.strRequest=finId;
-    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.seriesDoc = res.message;
