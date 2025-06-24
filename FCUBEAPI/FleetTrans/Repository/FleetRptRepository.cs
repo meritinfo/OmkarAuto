@@ -201,9 +201,9 @@ namespace FleetTrans.Repository
                             tripOutstandingRptList.Add(new TripOutstandingRptModel
                             {
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-                                TripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripDate"]),
-                                OwnMarket = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnMarket"]),
+                               // TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                //TripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripDate"]),
+                              //  OwnMarket = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnMarket"]),
                                 ChBrCode = Convert.ToString(dataSet.Tables[0].Rows[i]["ChBrCode"]),
                                 ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
                                 TripFromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TripFromPlace"]),

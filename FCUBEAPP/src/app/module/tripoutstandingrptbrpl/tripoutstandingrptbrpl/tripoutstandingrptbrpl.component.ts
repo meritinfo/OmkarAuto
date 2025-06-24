@@ -222,18 +222,18 @@ formFilter!: FormGroup;
             title: 'Vehicle No ',
             data: 'vehicleNo',
           },  
-          {
-            title: 'Trip No ',
-            data: 'tripNo',
-          },    
-          {
-            title: 'Trip Date',
-            data: 'tripDate',
-          },
-          {
-            title: 'Own/Market ',
-            data: 'ownMarket',
-          },       
+          // {
+          //   title: 'Trip No ',
+          //   data: 'tripNo',
+          // },    
+          // {
+          //   title: 'Trip Date',
+          //   data: 'tripDate',
+          // },
+          // {
+          //   title: 'Own/Market ',
+          //   data: 'ownMarket',
+          // },       
           {
             title: 'ChBr Code',
             data: 'chBrCode',
