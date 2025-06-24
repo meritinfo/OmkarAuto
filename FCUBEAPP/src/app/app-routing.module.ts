@@ -334,6 +334,9 @@ import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirep
 import { LorryhirepmtllplistComponent } from './module/lorryhiremptllp/lorryhirepmtllplist/lorryhirepmtllplist.component';
 import { VehicleadvreceiptllpaddComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllpadd/vehicleadvreceiptllpadd.component';
 import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp/vehicleadvreceiptllplist/vehicleadvreceiptllplist.component';
+import { ChallansuppliaddllpComponent } from './module/challansupplillp/challansuppliaddllp/challansuppliaddllp.component';
+import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
+import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 
 
 
@@ -794,6 +797,10 @@ const routes: Routes = [
   { path: 'vehicleadvbalreceiptllpadd', component: VehicleadvreceiptllpaddComponent }, 
   { path: 'Vehicleadvbalreceiptllpedit', component: VehicleadvreceiptllpaddComponent }, 
   { path: 'vehicleadvballistbrpl', component: VehicleadvreceiptllplistComponent },
+    { path: 'suppchallanlistllp',component: ChallansupplilistllpComponent},
+  { path: 'suppchallanaddllp',component: ChallansuppliaddllpComponent },
+  { path: 'suppchallaneditllp',component: ChallansuppliaddllpComponent },
+    { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
   
 ];
 

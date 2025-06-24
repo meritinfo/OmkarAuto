@@ -1,0 +1,170 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Trip Outstanding Report Brpl</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="vehicleMasterID"
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="endWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">   
+                            <div class="col-lg-4">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Transporter </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="party" 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>                                
+                            </div>                         
+                            <div class="col-md-2">
+                                <div class="mb-3">                                    
+                                    <label for="basicpill-phoneno-input">Report Type</label>
+                                    <select id="formrow-inputState" 
+                                        formControlName="rptType" 
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="S"> Summary</option>
+                                        <option value="D"> Detail </option>
+                                         
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"  
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                       <!--<button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>--> 
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive full-tyre-width">
+                <!-- <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100"> -->
+                    <thead>
+                        <tr>
+                            <th>vehicleNo</th>
+                            <!-- <th>tripNo</th> -->
+                            <!-- <th>tripDate</th>  
+                            <th>ownMarket</th> -->
+                            <th>chBrCode</th>
+                            <th>challanNo </th>   
+                            <th>tripFromPlace</th>
+                            <th>tripToPlace</th>
+                            <th>tptName</th>
+                            <th>totalHire</th>
+                            <th>recdAmt</th>
+                            <th>dedAmt</th>
+                            <th>tdsAmt</th>
+                            <th>extraAmt</th>
+                       
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allTripOutstandingRptlist.tripOutstandingRptlist?.length != 0">
+                        <tr *ngFor="let eta of allTripOutstandingRptlist.tripOutstandingRptlist">
+                            <td>{{ eta.vehicleNo }}</td>
+                            <!-- <td>{{ eta.tripNo }}</td>  -->
+                            <!-- <td>{{ eta.tripDate }}</td>
+                            <td>{{ eta.ownMarket }}</td> -->
+                            <td>{{ eta.chBrCode }}</td>
+                             <td>{{ eta.challanNo }}</td> 
+                            <td>{{ eta.tripFromPlace }}</td> 
+                            <td>{{ eta.tripToPlace }}</td> 
+                            <td>{{ eta.tptName }}</td> 
+                            <td>{{ eta.totalHire }}</td> 
+                            <td>{{ eta.recdAmt }}</td> 
+                            <td>{{ eta.dedAmt }}</td> 
+                            <td>{{ eta.tdsAmt }}</td> 
+                            <td>{{ eta.extraAmt }}</td> 
+                       
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allTripOutstandingRptlist.tripOutstandingRptlist?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+

@@ -1,0 +1,222 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Supp. Challan Entry LLP</h4>
+                    </div>
+                </div>
+            </div>   
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">        
+                                <div class="col-lg-2">   
+                                    <div class="mb-3">
+                                        <label for="neft" >Booking Place : </label>
+                                        <span style="color: red">*</span>
+                                        <select formControlName="challanBranch"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['challanBranch'].invalid) }">
+                                            <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                                {{dl.dataName}}
+                                            </option>
+                                        </select>                
+                                    </div>                    
+                                </div>     
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputState">Challan No. : </label>
+                                        <span style="color: red">*</span>
+                                        <input type="text" id="formrow-inputCity" class="form-control" 
+                                            formControlName="challanNo" maxlength="15" numbersonly
+                                            (change)="chkChallanDuplicate()"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Challan Date : </label><span
+                                            style="color: red">*</span>
+                                        <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                            formControlName="challanDateTime" min="{{minDate}}" max="{{maxDate}}"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['challanDateTime'].invalid) }">
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">From Place : </label><span style="color: red">*</span>
+                                        <div class="ng-autocomplete">
+                                            <ng-autocomplete [data]="locationList"
+                                                [searchKeyword]="keywordLocation"  
+                                                formControlName="challanFromStn" 
+                                                (inputChanged)='onChangeSearch($event)'
+                                                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="notFoundTemplate"
+                                                [customFilter]="startWithFilter" 
+                                                [ngClass]="{'is-invalid': formSubmitted && (f['challanFromStn'].invalid)}">
+                                            </ng-autocomplete>
+
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.dataName"></a>
+                                            </ng-template>
+
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">To Place : </label><span style="color: red">*</span>
+                                        <div class="ng-autocomplete">
+                                            <ng-autocomplete [data]="locationList" formControlName="challanToStn"
+                                                [searchKeyword]="keywordLocation" 
+                                                (inputChanged)='onChangeSearch($event)'
+                                                (inputFocused)='onFocused($event)' 
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="notFoundTemplate" 
+                                                [customFilter]="startWithFilter"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['challanToStn'].invalid) }">
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.dataName"></a>
+                                            </ng-template>
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">KMs :</label>
+                                        <input type="text" numbersonly maxlength="8" class="form-control" 
+                                            formControlName="distanceKms">
+                                    </div>
+                                </div>    
+                            </div>                                                            
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Vehicle No : </label>
+                                        <span style="color: red">*</span>
+                                        <input uppercaseonly class="form-control" formControlName="truckNo"
+                                            maxlength="15" 
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
+                                    </div>
+                                </div>                                         
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Broker : </label>
+                                        <span style="color: red">*</span>
+                                        <div class="ng-autocomplete">
+                                            <ng-autocomplete [data]="brokerList" formControlName="brokerId"
+                                                [searchKeyword]="keywordLocation"
+                                                (inputChanged)='onChangeSearch($event)'
+                                                (inputFocused)='onFocused($event)' 
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="notFoundTemplate" 
+                                                [customFilter]="startWithFilter"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.dataName"></a>
+                                            </ng-template>
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputState">Broker Mobile</label>
+                                        <input numbersonly autoclose="false" maxlength="10" 
+                                            formControlName="brokerMblNo" class="form-control">
+                                    </div>
+                                </div> 
+                            </div>                                                            
+                            <div class="row">  
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Total Hire</label>
+                                        <input type="text" decimalonly class="form-control" 
+                                            formControlName="totalHire" (change)="calculateTotalAmount()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Total Advance</label>
+                                        <input type="text" decimalonly class="form-control" 
+                                            formControlName="totalAdvance" (change)="calculateTotalAmount()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Balance</label>
+                                        <input type="text" decimalonly class="form-control" 
+                                            formControlName="balance">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Balance Pay At</label>
+                                        <select formControlName="balancePayAt"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                            <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                                {{dl.dataName}}
+                                            </option>
+                                        </select>    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">  
+                                <div class="col-lg-8">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Remarks</label>
+                                        <input type="text" uppercaseonly class="form-control" 
+                                        maxlength="250" formControlName="generalRemarks">
+                                    </div>
+                                </div>      
+                            </div>
+                            <div class="row">  
+                                <div class="col-lg-8">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Modify Remarks</label>
+                                        <input type="text" uppercaseonly class="form-control" 
+                                        maxlength="250" formControlName="modifyRemarks">
+                                    </div>
+                                </div>
+                            </div>                        
+                            <div class="row text-right">
+                                <div class="col-lg-10">
+                                    <div class="tex">
+                                        <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                            (click)="submitChallanForm()">Save</button>
+                                        <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                            (click)="deleteChallanForm()">Delete</button> &nbsp;
+                                        <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

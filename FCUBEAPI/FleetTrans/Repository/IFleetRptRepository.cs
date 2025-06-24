@@ -23,6 +23,8 @@ namespace FleetTrans.Repository
         Task<VehicleFrtOutstandingRptListModel> GetVehicleFrtOutstandingRptList(ReportRequestModel request);
         Task<TripOutstandingRptListModel> GetTripOutstandingRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelTripOutstandingRptList(ReportRequestModel request);
+        Task<TripOutstandingRptListModel> GetTripOutstandingRptListBrpl(ReportRequestModel request);
+        Task<ResponseModel> ExcelTripOutstandingRptListBrpl(ReportRequestModel request);
         Task<List<DropDownListModel>> GetTripPaymentsCreditList();
         Task<SparesPurchaseRptListModel> GetSparesPurchaseRptList(ReportRequestModel request);
         Task<ResponseModel> GetSparesPurchaseRptExcel(ReportRequestModel request);

@@ -83,6 +83,14 @@ namespace FleetTrans.Business
         {
             return await fleetRptRepository.GetTripOutstandingRptList(request);
         }
+        public async Task<ResponseModel> ExcelTripOutstandingRptListBrpl(ReportRequestModel request)
+        {
+            return await fleetRptRepository.ExcelTripOutstandingRptListBrpl(request);
+        }
+        public async Task<TripOutstandingRptListModel> GetTripOutstandingRptListBrpl(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetTripOutstandingRptListBrpl(request);
+        }
         public async Task<ResponseModel> ExcelTripOutstandingRptList(ReportRequestModel request)
         {
             return await fleetRptRepository.ExcelTripOutstandingRptList(request);

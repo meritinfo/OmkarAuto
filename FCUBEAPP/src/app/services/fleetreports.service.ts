@@ -63,9 +63,15 @@ export class FleetreportsService {
   getTripOutstandingRptList(filter: Reportmodel): Observable<Tripoutstandingrptlistmodel> {
     return this.httpClient.post<Tripoutstandingrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripOutstandingRptList', filter, this.httpOptions);
   }  
+  getTripOutstandingRptListBrpl(filter: Reportmodel): Observable<Tripoutstandingrptlistmodel> {
+    return this.httpClient.post<Tripoutstandingrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripOutstandingRptListBrpl', filter, this.httpOptions);
+  } 
   getTripOutstandingRptListExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelTripOutstandingRptList', filter, this.httpOptions);
-  }    
+  } 
+  getTripOutstandingRptListExcelBrpl(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelTripOutstandingRptListBrpl', filter, this.httpOptions);
+  }     
 
 
   getTripStatusRptList(filter: Reportmodel): Observable<Tripstatusrptlistmodel> {

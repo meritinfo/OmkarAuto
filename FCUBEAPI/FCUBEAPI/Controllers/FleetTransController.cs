@@ -3460,6 +3460,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripOutstandingRptListBrpl")]
+        public async Task<IActionResult> GetTripOutstandingRptListBrpl(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetTripOutstandingRptListBrpl(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("ExcelTripOutstandingRptList")]
         public async Task<IActionResult> ExcelTripOutstandingRptList(ReportRequestModel request)
         {
@@ -3478,6 +3496,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ExcelTripOutstandingRptListBrpl")]
+        public async Task<IActionResult> ExcelTripOutstandingRptListBrpl(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.ExcelTripOutstandingRptListBrpl(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost("GetTripSummaryRptList")]
