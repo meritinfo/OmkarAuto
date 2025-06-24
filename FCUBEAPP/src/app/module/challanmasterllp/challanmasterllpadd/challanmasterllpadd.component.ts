@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from 'src/app/common/constants';
-import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
 
 @Component({
   selector: 'app-challanmasterllpadd',
@@ -48,7 +47,6 @@ export class ChallanmasterllpaddComponent {
   responseDetails = new Responsemodel();
   selectedChallanDetails = new ChallanmastermodelllP();
   invoiceDetails = new Ccinvdetailmodel
-  panDetails = new Panvalidapiresultmodel();
   keywordLocation = 'dataName';
   createdBy : string = "";
   modifiedBy: string = "";
@@ -174,13 +172,9 @@ export class ChallanmasterllpaddComponent {
       vehicleOwnerName: new FormControl('',[Validators.required]),
       vehicleOwnerAdd1: new FormControl('',),
       vehicleOwnerAdd2: new FormControl('',),
-      vehicleOwnerPanNo: new FormControl('', [Validators.required]),
+      vehicleOwnerPanNo: new FormControl('', ),
       vehicleOwnerMblNo: new FormControl('',),    
       vehicleInsDetails: new FormControl('',),    
-      panValid: new FormControl('',),    
-      aadharLinked: new FormControl('',),    
-      itFiled: new FormControl('',),
-      permitValid: new FormControl('',),   
       driverName : new FormControl('',),   
       driverAddress: new FormControl('',),    
       driverLicNo: new FormControl('',),
@@ -227,9 +221,6 @@ export class ChallanmasterllpaddComponent {
 
     this.formUser.controls["challanBranch"].disable();
     this.formUser.controls["subTotal"].disable();
-    this.formUser.controls["panValid"].disable();  
-    this.formUser.controls["aadharLinked"].disable();  
-    this.formUser.controls["declarationYN"].disable();  
     this.formUser.controls["tdsPct"].disable();
     this.formUser.controls["tdsAmt"].disable();
     this.formUser.controls["totalHire"].disable();
@@ -274,31 +265,15 @@ export class ChallanmasterllpaddComponent {
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
      
-        var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
-        if(ch == "P"){            
-          this.formUser.controls["declarationYN"].enable();              
-        }
-        else{            
-          this.formUser.controls["declarationYN"].disable();  
-        }
-
+       
         var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
-        var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
-        var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
-        var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
-        var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
         var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
-        if(declarationYN=="Y") {
-          this.declYn = true;   
-        } 
+       
         this.formUser.patchValue({
           ownTruckYN: ownTruckYN,
-          panValid: panValid, 
-          aadharLinked: aadharLinked, 
-          itFiled: itFiled,
-          permitValid: permitValid,
           declarationYN: declarationYN,
         })   
+
         if (this.selectedChallanDetails.chStatus == "I") {
           this.formUser.controls['mainChallanBranch'].setValidators([Validators.required]);
           this.formUser.controls['mainChallanNo'].setValidators([Validators.required]); 
@@ -719,150 +694,7 @@ export class ChallanmasterllpaddComponent {
       totChrgWt: totActWt,
     });
   }
-  
-  onOwnerPanChange() {
-    var selectedData = this.formUser.getRawValue();
-    var pan = selectedData.vehicleOwnerPanNo.toString().toUpperCase() ;
-    var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
-    var test = regexp.test(pan);
-    var tdsPct = 0;
-    var decl = "";
-
-    if(pan == "PANNOTREQD"){
-      tdsPct = 0;
-    }
-    else if(pan == "NOVALIDPAN"){
-      tdsPct = 20;
-    }
-    else if(pan.length!=10){
-      this.toastrService.warning("PAN No should be 10 characters...!");
-      return;
-    }
-    else if(!test){
-      this.toastrService.warning("Invalid PAN No...!");
-      return;         
-    }
-    else
-    {
-      this.requestmodel.strRequest = pan;
-      this.requestmodel.strRequest1 = this.year;
-
-      this.challanmasterService.chkPanDeclaration(this.requestmodel).subscribe((res: Responsemodel) => {
-        if (res.status) {
-          this.declYn = true;
-        }
-      });
-      this.requestmodel.strRequest = pan;
-      this.requestmodel.strRequest1 = selectedData.challanDateTime;
-      
-      this.challanmasterService.getPanwiseTdsRate(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.formUser.patchValue({
-            panValid:"Y",
-            tdsPct: parseFloat(this.responseDetails.message)
-          });  
-          this.formUser.patchValue({
-            panValid: "Y",
-            tdsPct: parseFloat(this.responseDetails.message),
-            declarationYN:"",
-          });   
-        }
-        else
-        {
-          this.requestmodel.strRequest = this.branch;      
-          this.challanmasterService.getBranchPanApiUse(this.requestmodel).subscribe((res: Responsemodel) => {
-            if(res.status){
-              this.formUser.controls["panValid"].disable();  
-              this.formUser.controls["aadharLinked"].disable();  
-              this.formUser.controls["declarationYN"].disable();  
-              this.formUser.controls["tdsPct"].disable(); 
-              if(decl = "Y"){
-               this.formUser.controls["declarationYN"].enable();  
-              }
-              
-              this.requestmodel.strRequest = pan;
-              this.requestmodel.strRequest1 = this.loggedInUserID;
-              
-              this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
-                this.panDetails = res;
-                var panValid = "N";
-                var aadharLinked = "N";
-                 if (this.panDetails.result!= null) { 
-               // if (this.panDetails.result.number!="") { 
-                  if(this.panDetails.result.isValid){
-                    panValid= "Y";
-                  }
-                  if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
-                    aadharLinked="Y";
-                  }             
-                  tdsPct = 20;
-                  this.requestmodel.strRequest = pan.substring(3, 4) ;
-                  this.requestmodel.strRequest1 = selectedData.challanDateTime;
-                  this.challanmasterService.getLhPanTdsRate(this.requestmodel).subscribe((res: Reportmodel) => {
-                    if(panValid == "Y"){
-                      tdsPct = parseFloat(res.filterStr);
-                      if(res.filterStr1=="Y" && aadharLinked!="Y")//Aadhar
-                      {
-                        tdsPct = 20;
-                      }
-                    }
-                    else{                
-                      tdsPct = 20;
-                    }
-                    if(res.filterStr2=='Y'){            
-                      decl = "Y";              
-                    }
-                    else{            
-                      decl = "";  
-                    }
-                    this.formUser.patchValue({
-                      panValid: panValid,
-                      aadharLinked: aadharLinked,
-                      vehicleOwnerName: this.panDetails.result.name,
-                      tdsPct: tdsPct,
-                      declarationYN: "",
-                    });   
-                  });  
-                }
-                else{          
-                  this.toastrService.warning("Invalid PAN No...!");
-                  this.formUser.patchValue({
-                    vehicleOwnerPanNo: "",                
-                  });  
-                  return;
-                }            
-              });      
-            }
-            else
-            {                 
-              this.formUser.controls["panValid"].enable();  
-              this.formUser.controls["aadharLinked"].enable();  
-              this.formUser.controls["tdsPct"].enable();
-              this.formUser.controls["declarationYN"].enable(); 
-            }
-          });
-        }
-      });
-    }
-  
-    setTimeout(() => {
-      this.calculateTotalAmount();
-    }, 2000);
-  }
-  
-  onDeclareChk(e: any) {
-    if (e.target.checked) {
-      this.formUser.patchValue({       
-        tdsPct: 0
-      });     
-    }
-    else {
-      this.onOwnerPanChange();
-    }
-    this.calculateTotalAmount();
-  }
-  
+    
   onStatusChange(e: any) {
     if (e.target.value == "I") {
       this.formUser.controls['mainChallanBranch'].setValidators([Validators.required]);
@@ -1054,128 +886,7 @@ export class ChallanmasterllpaddComponent {
         //this.onOwnerPanChange();
       }
     });
-  }
-  
-  getDetails(){
-    var selectedData = this.formUser.getRawValue();    
-    this.selectedChallanDetails = new ChallanmastermodelllP();
-    this.selectedChallanDetails.challanNo = selectedData.challanNo;
-    this.selectedChallanDetails.challanBranch = selectedData.challanBranch;
-    this.selectedChallanDetails.challanDateTime = selectedData.challanDateTime;
-    this.selectedChallanDetails.chStatus = selectedData.chStatus;
-    this.selectedChallanDetails.balancePayAt = selectedData.balancePayAt;
-     this.formUser.patchValue(this.selectedChallanDetails);
-    this.formArray.clear();
-    this.formArray.push(this.createInitialArray());     
-     this.requestmodel.strRequest = selectedData.lrNo;
-    if(selectedData.lrNo==""){
-      this.toastrService.warning("Please Enter LR No ");
-      return;
-    }
-     
-    var pkgs = 0;
-    var wt = 0.0;
-    this.challanmasterService.checkChallanPrepForLr(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-        //ignore
-      }
-      else{
-        this.toastrService.warning(this.responseDetails.message);
-        this.formUser.patchValue({
-          lrNo: "",
-        });
-        return;
-      }
-    });
-    this.challanmasterService.getDetails(this.requestmodel).subscribe((res: ChallanmastermodelllP) => {    
-      this.selectedChallanDetails = res
-      this.selectedChallanDetails.challanNo = selectedData.challanNo;
-      this.selectedChallanDetails.challanBranch = selectedData.challanBranch;
-      this.selectedChallanDetails.challanDateTime = selectedData.challanDateTime;
-      this.selectedChallanDetails.chStatus = selectedData.chStatus;
-      this.selectedChallanDetails.balancePayAt = selectedData.balancePayAt;
-      this.formUser.patchValue(this.selectedChallanDetails);
-    
-      var chln = this.selectedChallanDetails.challanFromStn;
-      if (typeof chln === 'undefined' || chln === null || chln === '') {
-        this.toastrService.warning("LR No Doesn't Exists ");
-        this.formUser.patchValue({
-          lrNo: "",
-        });
-        return;
-      }
-      else{
-        this.formUser.patchValue({
-          driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
-          challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-          challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
-          brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
-        })  
-        var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
-        var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
-        var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
-        var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
-        var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
-        var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
-                  
-        this.formUser.patchValue({
-          ownTruckYN: ownTruckYN,
-          panValid: panValid, 
-          aadharLinked: aadharLinked, 
-          itFiled: itFiled,
-          permitValid: permitValid,
-          declarationYN: declarationYN,
-        })  
-    
-        if (res.challanDtls.length>0) {      
-          this.formArray.controls[0].get("gcYear")?.setValue(res.challanDtls[0].gcYear);
-          this.formArray.controls[0].get("gcBook")?.setValue(res.challanDtls[0].gcBook);
-          this.formArray.controls[0].get("gcNoteNo")?.setValue(res.challanDtls[0].gcNoteNo);
-          this.formArray.controls[0].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
-          this.formArray.controls[0].get("fplace")?.setValue(res.challanDtls[0].fplace);
-          this.formArray.controls[0].get("tplace")?.setValue(res.challanDtls[0].tplace);
-          this.formArray.controls[0].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
-          this.formArray.controls[0].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
-          this.formArray.controls[0].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
-          this.formArray.controls[0].get("containerNo")?.setValue(res.challanDtls[0].containerNo);
-          this.ctNo=  res.challanDtls[0].containerNo;
-
-          this.formArray.controls[0].get("gcYear")?.disable();
-          this.formArray.controls[0].get("gcBook")?.disable();
-          this.formArray.controls[0].get("gcNoteNo")?.disable();
-          this.formArray.controls[0].get("consignmentId")?.disable();
-          this.formArray.controls[0].get("fplace")?.disable();
-          this.formArray.controls[0].get("tplace")?.disable();
-          this.formArray.controls[0].get("bookingDate")?.disable();
-          pkgs += parseInt(res.challanDtls[0].challanPkgs);
-          wt += parseFloat(res.challanDtls[0].challanWT);
-        }  
-            
-        this.formUser.patchValue({
-          totPkgs: pkgs,
-          totActWt: wt, 
-          totChrgWt: wt, 
-        });    
-
-        if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
-          this.formUser.patchValue({        
-            tdsPct: 20
-          });  
-        }
-        else{
-          setTimeout(() => {
-            this.onOwnerPanChange();
-          }, 2000);
-        }   
-      
-        setTimeout(() => {
-          this.calculateTotalAmount();
-        }, 2000);
-      }
-    });
-  }
-  
+  }  
   
   addItem(index: number): void {
     if (this.formArray.value[index].consignmentId != "" && this.formArray.value[index].challanPkgs != "" 
@@ -1313,10 +1024,10 @@ export class ChallanmasterllpaddComponent {
     this.challanmodel.vehicleOwnerPanNo = selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo.toString().toUpperCase() : ""; 
     this.challanmodel.vehicleOwnerMblNo = selectedDataValue.vehicleOwnerMblNo? selectedDataValue.vehicleOwnerMblNo : ""; 
     this.challanmodel.vehicleInsDetails = selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails.toString().toUpperCase() : ""; 
-    this.challanmodel.panValid = selectedDataValue.panValid?"Y":"N";
-    this.challanmodel.aadharLinked = selectedDataValue.aadharLinked?"Y":"N";
-    this.challanmodel.itFiled = selectedDataValue.itFiled?"Y":"N";
-    this.challanmodel.permitValid = selectedDataValue.permitValid?"Y":"N";
+    this.challanmodel.panValid = "N";
+    this.challanmodel.aadharLinked = "N";
+    this.challanmodel.itFiled = "N";
+    this.challanmodel.permitValid = "N";
     this.challanmodel.driverAddress = selectedDataValue.driverAddress? selectedDataValue.driverAddress.toString().toUpperCase() : ""; 
     this.challanmodel.driverLicNo = selectedDataValue.driverLicNo? selectedDataValue.driverLicNo.toString().toUpperCase() : ""; 
     this.challanmodel.driverLicIssuedAt = selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt.toString().toUpperCase() : ""; 

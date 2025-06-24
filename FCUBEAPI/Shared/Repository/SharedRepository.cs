@@ -266,7 +266,7 @@ namespace Shared.Repository
             {
                 if (dbconnection != null)
                 {                  
-                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CompanyDetail");
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCompanyName");
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
@@ -278,6 +278,28 @@ namespace Shared.Repository
             catch (Exception ex)
             {
                 
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetCompanyShortCode()
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCompanyShortCode");
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return responseModel;
         }

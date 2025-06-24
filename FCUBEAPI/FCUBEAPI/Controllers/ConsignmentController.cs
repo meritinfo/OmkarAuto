@@ -1728,6 +1728,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+
+        [HttpPost("GetLorryHirePaymentExcel")]
+        public async Task<IActionResult> GetLorryHirePaymentExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireLLPBusiness.GetLorryHirePaymentExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetLorryHireInnerGrid")]
         public async Task<IActionResult> GetLorryHireInnerGrid(RequestModel request)

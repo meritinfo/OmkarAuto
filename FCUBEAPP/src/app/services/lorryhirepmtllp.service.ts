@@ -43,6 +43,10 @@ export class LorryhirepmtllpService {
     return this.httpClient.post<Lorryhirelistmodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePaymentListLLP', filter, this.httpOptions);
   }  
 
+  getLorryhireExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePaymentExcel', filter, this.httpOptions);
+  }  
+
   getLorryhireInnerGridList(request: Requestmodel): Observable<Lorryhiremastermodel> {
     return this.httpClient.post<Lorryhiremastermodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHireInnerGridLLP', request, this.httpOptions);
   }

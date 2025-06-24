@@ -310,25 +310,13 @@ submitBranchCustomerForm(): void {
     } 
     return;
   }
-            
-  // if (this.formRatesMaster.controls['arrayList'].invalid) {
-  //   this.toasterService.warning("Details fields are mandatory");
-  //   return;
-  // }
   
   var selectedDataVal=this.formRatesMaster.getRawValue();
   
-  // if (selectedDataVal.fromPlace.dataId) {
-  //   //ignore
-  // }
-  // else{
-  //   this.toasterService.warning(" From Point is Invalid");
-  //   return;
-  // }
   
   this.branchcustomertargetmodel.id = this.selectedbranchmastertargetnew.id ;
   this.branchcustomertargetmodel.yearId = selectedDataVal.yearId;
-  this.branchcustomertargetmodel.branchCode  = selectedDataVal.branchCode?selectedDataVal.branchCode.dataId:0;
+  this.branchcustomertargetmodel.branchCode  = selectedDataVal.branchCode;
 
 
   this.branchcustomertargetmodel.loggedInUser = this.loggedInUserID; 
@@ -348,18 +336,10 @@ submitBranchCustomerForm(): void {
         'yearId': selectedDataVal.yearId,
         'branchCode': selectedDataVal.branchCode,
         'accountId': selectedDataVal.arrayList[i].accountId,
-        'targetAmt': selectedDataVal.arrayList[i].targetAmt ,
-        
+        'targetAmt': selectedDataVal.arrayList[i].targetAmt ,        
       });
     }
   }
-
-  //Start date end date validation
-  // if (Date.parse(this.branchcustomertargetmodel.validUpto) < Date.parse(this.ratesmastermodel.validFrom)) {
-  //   this.toasterService.warning("End date should be greater than start date");
-  //   this.sharedService.loading=false;
-  //   return;
-  // }
 
   const found = this.branchcustomertargetmodel.branchCustomerTargetDtlList.some(el => el.targetAmt === '');
     if (found) {
@@ -367,15 +347,6 @@ submitBranchCustomerForm(): void {
       this.sharedService.loading=false;
       return;
     }
-
-  // if (this.branchcustomertargetmodel.rateForStateOrToPlace == "P") {     
-  //   const found = this.branchcustomertargetmodel.freightRatesDetailsList.some(el => el.toPlace === this.ratesmastermodel.fromPlace);
-  //   if (found) {
-  //     this.toasterService.warning("From Point cannot be same as To Place in details grid");
-  //     this.sharedService.loading=false;
-  //     return;
-  //   }
-    //Duplicate destination check
     const foundDuplicateName = this.branchcustomertargetmodel.branchCustomerTargetDtlList.find((data, index) => {
       return this.branchcustomertargetmodel.branchCustomerTargetDtlList.find((x, ind) => x.accountId === data.accountId && index !== ind);
     });
@@ -385,24 +356,6 @@ submitBranchCustomerForm(): void {
       return;
     }
   
-  // else {
-  //   const found = this.ratesmastermodel.freightRatesDetailsList.some(el => el.destState === this.ratesmastermodel.fromPlace);
-  //   if (found) {
-  //     this.toasterService.warning("From Point cannot be same as State in details grid");
-  //     this.sharedService.loading=false;
-  //     return;
-  //   }
-
-    //Duplicate destination check
-  //   const foundDuplicateName = this.ratesmastermodel.freightRatesDetailsList.find((data, index) => {
-  //     return this.ratesmastermodel.freightRatesDetailsList.find((x, ind) => x.destState === data.destState && index !== ind);
-  //   });
-  //   if (foundDuplicateName) {
-  //     this.toasterService.warning(" State in details grid not allowed");
-  //     this.sharedService.loading=false;
-  //     return;
-  //   }
-  // }
 
   this.formSubmitted = true;
   this.sharedService.loading=true;

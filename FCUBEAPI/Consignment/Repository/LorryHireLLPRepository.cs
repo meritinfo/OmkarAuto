@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
+using Shared.Repository;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace Consignment.Repository
     public class LorryHireLLPRepository : ILorryHireLLPRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly ISharedRepository sharedRepository;
 
-
-        public LorryHireLLPRepository(IOptions<DBModel> _dbconnection)
+        public LorryHireLLPRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
+
         public async Task<LorryHireListLLPModel> GetLorryHirePaymentListLLP(ReportRequestModel request)
         {
             LorryHireListLLPModel lorryHire = new();
@@ -42,7 +45,8 @@ namespace Consignment.Repository
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@LoginBranch",request.FilterStr),
                             new SqlParameter("@YearId",     request.FilterStr1),
-                            new SqlParameter("@PmtNo",      request.FilterStr2)
+                            new SqlParameter("@PmtNo",      request.FilterStr2),
+                            new SqlParameter("@BrokerId",      request.FilterStr3)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHirePaymentListLLP", param);
 
@@ -112,6 +116,52 @@ namespace Consignment.Repository
             }
             return lorryHire;
         }
+
+        public async Task<ResponseModel> GetLorryHirePaymentExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@LoginBranch",request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr1),
+                            new SqlParameter("@PmtNo",      request.FilterStr2),
+                            new SqlParameter("@BrokerId",      request.FilterStr3)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHirePaymentExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Lorry Hire Payment Details", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
         public async Task<LorryHireMasterLLPModel> GetLorryHireInnerGridLLP(RequestModel request)
         {
             LorryHireMasterLLPModel lorryHire = new()
@@ -170,37 +220,6 @@ namespace Consignment.Repository
 
             }
             return lorryHire;
-        }
-        public async Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request)
-        {
-
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-
-                            new SqlParameter("@ChYear",         request.FilterStr1),
-                            new SqlParameter("@ChallanBranch",  request.FilterStr2),
-                            new SqlParameter("@ChallanNo",      request.FilterStr3),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkLHPMBrokerDisputeDetails", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
         }
         public async Task<LorryHireMasterLLPModel> GetChallanLorryhireDetailsLLP(ReportRequestModel request)
         {
@@ -438,102 +457,6 @@ namespace Consignment.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                            new SqlParameter("@Year", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHirePmtNo", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@ChallanNo", requestModel.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckChallanNoExists", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> GetLorryHirePrintPdf(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                string baseUrl = dbconnection.Value.apiPath + "api/LH/";
-
-                string UrlParam = "?MasterId=" + request.strRequest;
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    dynamic data = JsonConvert.DeserializeObject(result);
-                    if (data != "500")
-                    {
-                        responseModel.Status = true;
-                        responseModel.Message = data;
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        responseModel.Message = data;
-                    }
-
-
-                    client.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-                responseModel.Message = "Error Fetching Report";
             }
             return responseModel;
         }

@@ -151,6 +151,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCompanyShortCode")]
+        public async Task<IActionResult> GetCompanyShortCode()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetCompanyShortCode();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetScheduleDetails")]
         public async Task<IActionResult> GetScheduleDetails()
