@@ -266,7 +266,7 @@ namespace Shared.Repository
             {
                 if (dbconnection != null)
                 {                  
-                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CompanyDetail");
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCompanyName");
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
