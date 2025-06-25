@@ -32,5 +32,7 @@ export class Fleetloadentrymodel {
     modifiedBy: string = "";
     modifiedDate: string = "";
     loggedInUser: string = "";
+    fromPlace: string = "";
+    toPlace: string = "";
 
 }

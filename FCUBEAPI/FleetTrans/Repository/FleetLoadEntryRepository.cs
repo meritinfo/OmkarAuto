@@ -79,6 +79,8 @@ namespace FleetTrans.Repository
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
                                 ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
+                                ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
 
 
                             });
