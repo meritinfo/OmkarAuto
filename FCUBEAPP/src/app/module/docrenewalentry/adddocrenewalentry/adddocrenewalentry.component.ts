@@ -364,17 +364,17 @@ dashboard: string ="";
     if(parseFloat(selectedValue) > 0){
       if(parseFloat(selectedDataVal.sgstPct)>0){
         this.formDocEntry.patchValue({
-          sgstAmt:(selectedValue*parseFloat(selectedDataVal.sgstPct)/100),
+          sgstAmt:(selectedValue*parseFloat(selectedDataVal.sgstPct)/100).toFixed(2),
         });
       }
       if(parseFloat(selectedDataVal.cgstPct)>0){
         this.formDocEntry.patchValue({
-          cgstAmt:(selectedValue*parseFloat(selectedDataVal.cgstPct)/100),
+          cgstAmt:(selectedValue*parseFloat(selectedDataVal.cgstPct)/100).toFixed(2),
         });
       }
       if(parseFloat(selectedDataVal.igstPct)>0){
         this.formDocEntry.patchValue({
-          igstAmt:(selectedValue*parseFloat(selectedDataVal.igstPct)/100),
+          igstAmt:(selectedValue*parseFloat(selectedDataVal.igstPct)/100).toFixed(2),
         });
       }
       this.getTotal();    
@@ -386,7 +386,7 @@ dashboard: string ="";
     var nettot = parseFloat(selectedDataVal.subTotal) + parseFloat(selectedValue) + 
                   parseFloat(selectedDataVal.nonGstAmount)
     this.formDocEntry.patchValue({
-      netAmount:nettot,
+      netAmount:nettot.toFixed(2),
     });
   }
 
@@ -396,7 +396,7 @@ dashboard: string ="";
     var nettot = parseFloat(selectedDataVal.subTotal) + parseFloat(selectedValue) + 
                   parseFloat(selectedDataVal.roundOff)
     this.formDocEntry.patchValue({
-      netAmount:nettot,
+      netAmount:nettot.toFixed(2),
     });
   }
 
@@ -413,8 +413,8 @@ dashboard: string ="";
     var nettot = subtot + parseFloat(selectedDataVal.roundOff)+ 
                 parseFloat(selectedDataVal.nonGstAmount)
     this.formDocEntry.patchValue({
-      subTotal:subtot,
-      netAmount:nettot,
+      subTotal:subtot.toFixed(2),
+      netAmount:nettot.toFixed(2),
     });
   }
 
@@ -422,7 +422,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;   
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        sgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+        sgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100).toFixed(2),
       });
       this.getTotal();    
     }    
@@ -432,7 +432,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        cgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+        cgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100).toFixed(2),
       });
       this.getTotal();    
     }    
@@ -442,7 +442,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        igstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+        igstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100).toFixed(2),
       });
       this.getTotal();    
     }    
@@ -454,17 +454,17 @@ dashboard: string ="";
     if(parseFloat(selectedValue) > 0){
       if(parseFloat(selectedDataVal.sgstPct2)>0){
         this.formDocEntry.patchValue({
-          sgstAmt2:(selectedValue*parseFloat(selectedDataVal.sgstPct2)/100),
+          sgstAmt2:(selectedValue*parseFloat(selectedDataVal.sgstPct2)/100).toFixed(2),
         });
       }
       if(parseFloat(selectedDataVal.cgstPct2)>0){
         this.formDocEntry.patchValue({
-          cgstAmt2:(selectedValue*parseFloat(selectedDataVal.cgstPct2)/100),
+          cgstAmt2:(selectedValue*parseFloat(selectedDataVal.cgstPct2)/100).toFixed(2),
         });
       }
       if(parseFloat(selectedDataVal.igstPct2)>0){
         this.formDocEntry.patchValue({
-          igstAmt2:(selectedValue*parseFloat(selectedDataVal.igstPct2)/100),
+          igstAmt2:(selectedValue*parseFloat(selectedDataVal.igstPct2)/100).toFixed(2),
         });
       }
       this.getTotal();    
@@ -475,7 +475,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;   
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        sgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+        sgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100).toFixed(2),
       });
       this.getTotal();    
     }    
@@ -485,7 +485,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;   
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        cgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+        cgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100).toFixed(2),
       });
       this.getTotal();    
     } 
@@ -495,7 +495,7 @@ dashboard: string ="";
     var selectedValue = e.target.value;   
     if(parseFloat(selectedValue) > 0){
       this.formDocEntry.patchValue({
-        igstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+        igstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100).toFixed(2),
       });
       this.getTotal();    
     } 

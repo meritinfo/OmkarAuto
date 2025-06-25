@@ -703,7 +703,7 @@ modifiedBy: string = "";
               this.formUser.controls["aadharLinked"].disable();  
               this.formUser.controls["declarationYN"].disable();  
               this.formUser.controls["tdsPct"].disable(); 
-              if(decl = "Y"){
+              if(decl == "Y"){
                this.formUser.controls["declarationYN"].enable();  
               }
               

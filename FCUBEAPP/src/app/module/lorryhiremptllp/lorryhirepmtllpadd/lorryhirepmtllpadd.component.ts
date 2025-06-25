@@ -654,7 +654,7 @@ export class LorryhirepmtllpaddComponent {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         //ignore
-            this.formUser.controls['brokerId'].disable();
+        this.formUser.controls['brokerId'].disable();
       }
       else{
         this.toasterService.warning(this.responseDetails.message);
@@ -664,22 +664,6 @@ export class LorryhirepmtllpaddComponent {
         return;
       }
     });
-
-    if(selectedData.arrayList[i].abType=="F"){
-      this.lorryhirepmtService.chkLHPMBrokerDisputeDetails(this.challanInputDtls).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formArray.controls[i].get("challanNo")?.setValue("");
-          this.formArray.controls[i].get("challanId")?.setValue("");
-          this.formArray.controls[i].get("hireAmt")?.setValue("");
-          return;
-        }
-      });
-    }   
 
     this.lorryhirepmtService.getChallanLorryhireDetails(this.challanInputDtls).subscribe((res) => {
       this.lorryhiremaster = res;

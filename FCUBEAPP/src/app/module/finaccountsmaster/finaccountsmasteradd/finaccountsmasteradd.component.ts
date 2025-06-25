@@ -222,13 +222,13 @@ export class FinaccountsmasteraddComponent {
       this.requestmodel.strRequest1 = this.loggedInUserID;
         
       this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res:any) => {
-        var panValid = "N";
+        var ispanvalid = "N";
         if (res.result!= null) { 
           if(res.result.isValid){
-            panValid= "Y";
+            ispanvalid= "Y";
           }  
         }        
-        if(panValid= "N"){          
+        if(ispanvalid=="N"){          
           this.toasterService.warning("Invalid PAN No...!");
           this.formAccountMaster.patchValue({
             accountPAN: "",          
