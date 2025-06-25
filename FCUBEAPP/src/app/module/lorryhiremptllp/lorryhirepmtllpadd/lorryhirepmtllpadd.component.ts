@@ -618,6 +618,20 @@ export class LorryhirepmtllpaddComponent {
         return;
       }
     }
+    if(selectedData.brokerId.dataId){ 
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Invalid Broker");
+      this.formArray.controls[i].get("challanNo")?.setValue("");
+      return;
+    }
+    if(selectedData.pmtType==""){
+      this.toasterService.warning("Plaese Select Pmt Type");
+      this.formArray.controls[i].get("challanNo")?.setValue("");
+      return;
+    }
+
     for (var j = 0; j < selectedData.arrayList.length; j++) {
       if(i!=j && selectedData.arrayList[i].challanNo==selectedData.arrayList[j].challanNo){        
         this.toasterService.warning("Challan already Exists in grid");
@@ -632,6 +646,7 @@ export class LorryhirepmtllpaddComponent {
     this.challanInputDtls.filterStr1 = selectedData.arrayList[i].chYear ;
     this.challanInputDtls.filterStr2 = selectedData.arrayList[i].challanBranch ;
     this.challanInputDtls.filterStr3 = selectedData.arrayList[i].challanNo ;
+    this.challanInputDtls.sortColumn = selectedData.brokerId.dataId ;
 
     this.requestmodel.strRequest = selectedData.arrayList[i].challanNo
 

@@ -140,9 +140,9 @@ ngOnInit(): void {
       mainChallanNo: new FormControl('', [Validators.required]),
       truckNo: new FormControl('', [Validators.required]),
       ownTruckYN: new FormControl('',),
-      brokerId: new FormControl('', [Validators.required]),
+      brokerId: new FormControl('', ),
       brokerMblNo: new FormControl('',),    
-      vehicleType: new FormControl('', [Validators.required]),    
+      vehicleType: new FormControl('',),    
       vehicleMake: new FormControl('',),    
       vehicleModel: new FormControl('',),
       engineNo: new FormControl('',),    
@@ -329,12 +329,9 @@ search(): void {
     this.formUser.patchValue({
       challanDateTime: this.commonService.formatDate(this.selectedChnDetails.challanDateTime) ,
       expArrivalDate : this.commonService.formatDate(this.selectedChnDetails.expArrivalDate),
-     // ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
-     // invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
-      //shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
       challanFromStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanFromStn),
       challanToStn: this.locationList.find(e => e.dataId == this.selectedChnDetails.challanToStn), 
-      brokerId : this.brokerList.find(e => e.dataId == this.selectedChnDetails.brokerId),              
+      //brokerId : this.brokerList.find(e => e.dataId == this.selectedChnDetails.brokerId),              
     })      
         
     this.getChallanEnqInnerGridList();

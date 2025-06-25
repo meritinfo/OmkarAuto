@@ -907,8 +907,8 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@ChallanNo", req.strRequest),
-                             new SqlParameter("@Branch", req.strRequest1),
-                              new SqlParameter("@YearId", req.strRequest2),
+                            new SqlParameter("@Branch", req.strRequest1),
+                            new SqlParameter("@YearId", req.strRequest2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanEnqDetails", param);
 

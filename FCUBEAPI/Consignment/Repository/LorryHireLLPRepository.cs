@@ -239,7 +239,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ChYear",         request.FilterStr1),
                             new SqlParameter("@ChallanBranch",  request.FilterStr2),
                             new SqlParameter("@ChallanNo",      request.FilterStr3),
-                              new SqlParameter("@BrokerId",      request.SortColumn),
+                            new SqlParameter("@BrokerId",       request.SortColumn),
                         };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHireChallanDetailsLLP", param);
