@@ -14,6 +14,7 @@ namespace Shared.Business
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<ResponseModel> GetCompanyDetail();
+        Task<ResponseModel> GetCompanyShortCode();
         Task<ScheduleModel> GetScheduleDetails();
         Task<ResponseModel> GetDashboardDetail(RequestModel request);
         Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req);

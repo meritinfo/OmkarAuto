@@ -198,6 +198,7 @@ export class VehicleinstpmtllpaddComponent {
       this.mainAcList = res;
     });
   }
+  
   getLoanAcList(): void{
     this.requestmodel.strRequest = "I";
     this.commonService.getAccountList(this.requestmodel).subscribe((res) => {

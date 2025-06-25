@@ -146,7 +146,7 @@
                                                 <label for="formrow-inputCity">Basic Amount</label>                                              
                                                 <input type="text" class="form-control" decimalonly
                                                 formControlName="basicAmt" (change)="onBasic1Change($event)" 
-                                                maxlength="10"
+                                                 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['basicAmt'].invalid) }"> 
                                             </div>
                                         </div>
@@ -171,7 +171,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">SGST Amount</label>                                               
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="sgstAmt" maxlength="10"
+                                                formControlName="sgstAmt"  
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -190,7 +190,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">CGST Amount</label>
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="cgstAmt" maxlength="10"
+                                                formControlName="cgstAmt"  
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -207,7 +207,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">IGST Amount </label>                                              
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="igstAmt" maxlength="10"
+                                                formControlName="igstAmt"  
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
                                                 <label for="formrow-inputCity">Basic Amount2</label>                                                  
                                                 <input type="text" class="form-control"
                                                 formControlName="basicAmt2" decimalonly 
-                                                (change)="onBasic2Change($event)" maxlength="10"
+                                                (change)="onBasic2Change($event)"  
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">SGST Amount2</label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="sgstAmt2" decimalonly maxlength="10">
+                                                formControlName="sgstAmt2" decimalonly  >
                                             </div>
                                         </div>                                     
                                     </div>
@@ -261,7 +261,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">CGST Amount2 </label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="cgstAmt2" decimalonly maxlength="10"
+                                                formControlName="cgstAmt2" decimalonly  
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -279,7 +279,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">IGST Amount2 </label>
                                                 <input autoclose="false" class="form-control"  
-                                                formControlName="igstAmt2" decimalonly maxlength="10"
+                                                formControlName="igstAmt2" decimalonly  
                                                 [ngClass]=>
                                             </div>
                                         </div>

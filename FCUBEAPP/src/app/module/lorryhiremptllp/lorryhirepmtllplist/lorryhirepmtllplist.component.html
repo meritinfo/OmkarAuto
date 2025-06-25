@@ -29,7 +29,29 @@
                                           min="{{minDate}}" max="{{maxDate}}"
                                         formControlName="toDate" class="form-control">
                                 </div>
-                            </div>        
+                            </div>  
+                            <div class="col-lg-6"> 
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Broker</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="brokerList" 
+                                            formControlName="brokerId"
+                                            [searchKeyword]="keywordLocation"   
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>                                     
+                            </div>                                       
+                        </div>   
+                        <div class="row">            
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Pmt No</label> 
@@ -41,6 +63,12 @@
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>                         
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="downloadSumm()"><span>Excel</span></button>
                                 </div>
                             </div>
                             

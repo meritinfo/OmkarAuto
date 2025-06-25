@@ -204,6 +204,7 @@
                                                     <td> 
                                                         <select formControlName="consignmentId" (change)="getLrDetails($event,i)"
                                                             class="form-control form-select ng-pristine ng-touched" >
+                                                            <option value="">SELECT</option>
                                                             <option *ngFor="let dl of lrList" value={{dl.dataId}}>
                                                                 {{dl.dataName}}
                                                             </option>

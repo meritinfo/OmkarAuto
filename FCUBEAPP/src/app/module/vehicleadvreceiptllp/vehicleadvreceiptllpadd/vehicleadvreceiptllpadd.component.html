@@ -69,10 +69,9 @@
                                             </div>
                                         </div>
                                     </div>    -->
-                                              <div class="col-lg-5">
+                                    <div class="col-lg-5">
                                         <div class="mb-3">
-                                            <label for="formrow-inputState">Party (Load for)</label>
-                                          
+                                            <label for="formrow-inputState">Party (Load for)</label> <span style="color: red">*</span>                                                                                    
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="creditAcList" 
                                                 formControlName="partyId" 
@@ -90,8 +89,7 @@
                                                 </ng-template>
                                             </div>
                                         </div>
-                                    </div> 
-                                                         
+                                    </div>                                                          
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <button (click)="searchStatement()" *ngIf="showButton"
@@ -149,22 +147,19 @@
                                                     <td> 
                                                         <input type="date" autoclose="false" class="form-control"
                                                         formControlName="loadDate"> 
-                                                    </td>
-                                                    
-                                                        <td> 
-                                                              <input autoclose="false" class="form-control"
+                                                    </td>                                                    
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
                                                         formControlName="fromPlace"> 
                                         
-                                </td>    
-                                   <td> 
-                                     <input autoclose="false" class="form-control"
-                                                        formControlName="toPlace"> 
-                                          
-                                </td>       
-                                  <td> 
-                                     <input autoclose="false" class="form-control"
-                                                        formControlName="vehicleNo"> 
-                                                 
+                                                    </td>    
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="toPlace">                                           
+                                                    </td>       
+                                                    <td> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="vehicleNo">                                                  
                                                     </td>                       
                                                     <td> 
                                                         <input autoclose="false" class="form-control"

@@ -10,18 +10,20 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { ToastrService } from 'ngx-toastr';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-lorryhirepmtllplist',
   templateUrl: './lorryhirepmtllplist.component.html',
   styleUrls: ['./lorryhirepmtllplist.component.css']
 })
-export class LorryhirepmtllplistComponent {createStatus = false;
+export class LorryhirepmtllplistComponent {
+  createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
-
+  brokerList: Dropdownmodel[] = [];
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -99,10 +101,12 @@ export class LorryhirepmtllplistComponent {createStatus = false;
 
 
     this.lorryhirepmtService.clearLorryhiremasterDetails();
+    this.getBrokerListNew();
 
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
+      brokerId:new FormControl('',),
       pmtNo: new FormControl('',),
     });     
      this.sharedService.loading=true; 
@@ -112,6 +116,7 @@ export class LorryhirepmtllplistComponent {createStatus = false;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
     this.filter.filterStr2 = "";
+    this.filter.filterStr3 = "";
     
     this.sharedService.loading=true;
     this.lorryhireList();
@@ -190,13 +195,15 @@ export class LorryhirepmtllplistComponent {createStatus = false;
         {
           title: 'Total Recovery Amt',
           data: 'totalRecoveryAmt',
-        },
-       
-     
+        },            
       ],
     };
   }
   
+  startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
+    return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
   lorryHirePmtAdd(): void {
     this.route.navigate(['/lhpmtaddllp']);
   }
@@ -207,16 +214,25 @@ export class LorryhirepmtllplistComponent {createStatus = false;
   }
 
   search(): void {
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
-    this.filter.filterStr2 = this.formFilter.value.pmtNo;
+    this.filter.filterStr2 = selectedData.pmtNo;    
+    this.filter.filterStr3 = selectedData.brokerId?selectedData.brokerId.dataId:"";
+
     this.sharedService.loading=true;
     this.lorryhireList();
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
+    });
+  }
+  
+  getBrokerListNew(): void {
+    this.commonService.getBrokerListLLP().subscribe((res) => {
+      this.brokerList = res;
     });
   }
   
@@ -230,6 +246,28 @@ export class LorryhirepmtllplistComponent {createStatus = false;
         link.href = "assets/reports/lhprint/" + resp.message;
         link.click();
         window.open(link.href, "_blank");
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
+
+  downloadSumm(){    
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = selectedData.pmtNo;    
+    this.filter.filterStr3 = selectedData.brokerId?selectedData.brokerId.dataId:"";
+
+    this.lorryhirepmtService.getLorryhireExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "LHPMPaymentReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
       }
       else{        
         this.toastrService.warning(resp.message);   

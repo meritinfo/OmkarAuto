@@ -103,6 +103,10 @@ namespace Shared.Business
         {
             return await sharedRepository.GetCompanyDetail();
         }
+        public async Task<ResponseModel> GetCompanyShortCode()
+        {
+            return await sharedRepository.GetCompanyShortCode();
+        }
         public async Task<ScheduleModel> GetScheduleDetails()
         {
             return await sharedRepository.GetScheduleDetails();

@@ -551,6 +551,7 @@ namespace Consignment.Repository
                         challanDetail.BrokerMblNo = Convert.ToString(statusData.Tables[0].Rows[0]["BrokerMblNo"]);
                         challanDetail.VehicleOwnerName = Convert.ToString(statusData.Tables[0].Rows[0]["VehicleOwnerName"]);
                         challanDetail.VehicleOwnerPanNo = Convert.ToString(statusData.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
+                        challanDetail.DeclarationYN = Convert.ToString(statusData.Tables[0].Rows[0]["DeclarationYN"]);
                     }
                 }
             }

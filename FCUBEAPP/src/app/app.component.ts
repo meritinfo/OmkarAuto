@@ -86,9 +86,9 @@ export class AppComponent implements OnInit {
     if (userName) {
       this.user = userName;
     }
-    const companyName = sessionStorage.getItem('companyname');
-    if (companyName) {
-      this.company = companyName;
+    const shortCode = sessionStorage.getItem('shortCode');
+    if (shortCode) {
+      this.company = shortCode;
     }
 
     // IMPORTANT: Start watching for idle AFTER the user is logged in
@@ -152,7 +152,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.m', ['$event'])
   conFont(event: KeyboardEvent) {
     event.preventDefault(); 
-    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+    if(this.company =="LLP") {
       this.route.navigate(['/docallotllp']);
     }
     else{
@@ -175,7 +175,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.l', ['$event'])
   othertripFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+    if(this.company =="LLP") {
       this.route.navigate(['/consignmentllp']);
     }
     else{
@@ -186,7 +186,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.g', ['$event'])
   dieselFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+    if(this.company =="LLP") {
       this.route.navigate(['/challan_llplist']);
     }
     else{
@@ -197,7 +197,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.h', ['$event'])
   happayFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+    if(this.company =="LLP") {
       this.route.navigate(['/lhpmtlistllp']); 
     }
     else{
@@ -214,7 +214,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keydown.control.b', ['$event'])
   billFont(event: KeyboardEvent) {
     event.preventDefault();
-    if(this.company =="LALITA LOGISTICS AND AGENCIES PRIVATE LIMITED") {
+    if(this.company =="LLP") {
       this.route.navigate(['/billmainlistLLP']);
     }
     else{

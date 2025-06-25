@@ -618,6 +618,20 @@ export class LorryhirepmtllpaddComponent {
         return;
       }
     }
+    if(selectedData.brokerId.dataId){ 
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Invalid Broker");
+      this.formArray.controls[i].get("challanNo")?.setValue("");
+      return;
+    }
+    if(selectedData.pmtType==""){
+      this.toasterService.warning("Plaese Select Pmt Type");
+      this.formArray.controls[i].get("challanNo")?.setValue("");
+      return;
+    }
+
     for (var j = 0; j < selectedData.arrayList.length; j++) {
       if(i!=j && selectedData.arrayList[i].challanNo==selectedData.arrayList[j].challanNo){        
         this.toasterService.warning("Challan already Exists in grid");
@@ -632,6 +646,7 @@ export class LorryhirepmtllpaddComponent {
     this.challanInputDtls.filterStr1 = selectedData.arrayList[i].chYear ;
     this.challanInputDtls.filterStr2 = selectedData.arrayList[i].challanBranch ;
     this.challanInputDtls.filterStr3 = selectedData.arrayList[i].challanNo ;
+    this.challanInputDtls.sortColumn = selectedData.brokerId.dataId ;
 
     this.requestmodel.strRequest = selectedData.arrayList[i].challanNo
 
@@ -639,7 +654,7 @@ export class LorryhirepmtllpaddComponent {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         //ignore
-            this.formUser.controls['brokerId'].disable();
+        this.formUser.controls['brokerId'].disable();
       }
       else{
         this.toasterService.warning(this.responseDetails.message);
@@ -649,22 +664,6 @@ export class LorryhirepmtllpaddComponent {
         return;
       }
     });
-
-    if(selectedData.arrayList[i].abType=="F"){
-      this.lorryhirepmtService.chkLHPMBrokerDisputeDetails(this.challanInputDtls).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formArray.controls[i].get("challanNo")?.setValue("");
-          this.formArray.controls[i].get("challanId")?.setValue("");
-          this.formArray.controls[i].get("hireAmt")?.setValue("");
-          return;
-        }
-      });
-    }   
 
     this.lorryhirepmtService.getChallanLorryhireDetails(this.challanInputDtls).subscribe((res) => {
       this.lorryhiremaster = res;

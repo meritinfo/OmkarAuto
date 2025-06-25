@@ -14,6 +14,7 @@ namespace Shared.Repository
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<ResponseModel> GetCompanyDetail();
+        Task<ResponseModel> GetCompanyShortCode();
         Task<ResponseModel> GetDashboardDetail(RequestModel request);
         Task<ScheduleModel> GetScheduleDetails();
         Task<List<MenuModel>> MenuDetails(string userID);

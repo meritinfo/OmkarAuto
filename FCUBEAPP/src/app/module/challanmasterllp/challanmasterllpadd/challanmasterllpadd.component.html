@@ -438,63 +438,37 @@
                                     maxlength="75" formControlName="vehicleOwnerName">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Add1</label>
                                     <input uppercaseonly class="form-control" 
                                     maxlength="100" formControlName="vehicleOwnerAdd1">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Add2</label>
                                     <input uppercaseonly class="form-control"  
                                     maxlength="100" formControlName="vehicleOwnerAdd2">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">    
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Vehi Owner Pan No</label> <span style="color: red">*</span>
-                                    <input uppercaseonly class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleOwnerPanNo'].invalid) }"
+                                    <label for="formrow-inputZip">Vehi Owner Pan No</label>
+                                    <input uppercaseonly class="form-control"
                                     maxlength="10"  
                                     formControlName="vehicleOwnerPanNo">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">                    
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="panValid" class="form-check-input" >
-                                    <label for="neft" class="form-check-label">PAN Valid </label>                                    
-                                </div>
-                            </div>                          
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="aadharLinked" class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Aadhar Linked </label>                                    
-                                </div>
-                            </div>                           
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="itFiled" class="form-check-input" >
-                                    <label for="neft" class="form-check-label">IT Filed </label>                                    
-                                </div>
-                            </div>                            
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox"  formControlName="permitValid" class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Permit Valid </label>                                    
-                                </div>
-                            </div>                              
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <input type="checkbox"  
                                      formControlName="declarationYN" class="form-check-input"  >
                                     <label for="neft" class="form-check-label">Declaration Recd</label>
                                 </div>
-                            </div> 
-                        </div>
-                        <div class="row">                       
+                            </div>                    
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Mobile</label>
@@ -536,7 +510,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Driver LIC Issued At</label>
-                                    <input uppercaseonly maxlength="25" 
+                                    <input uppercaseonly 
                                         maxlength="25" class="form-control" 
                                         formControlName="driverLicIssuedAt">
                                 </div>
@@ -646,7 +620,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-lg-4"> 
                                 <div class="mb-3">                               
                                     <div class="form-check">
@@ -679,7 +653,7 @@
                                     <span>Get Details</span></button>
                                 </div>
                             </div>
-                        </div> 
+                        </div>  -->
                        
                         <div class="row"> 
                             <div class="col-lg-2">
@@ -753,7 +727,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">TDS Pct</label>
                                     <input type="text" decimalonly class="form-control" 
-                                    maxlength="2" 
+                                     (change)="calculateTotalAmount()"
                                         formControlName="tdsPct">
                                 </div>
                             </div>      

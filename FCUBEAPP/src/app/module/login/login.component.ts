@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   scheduleDetails = new Schedulemodel();
   responseDetails = new Responsemodel();
   companyname: string = '';
+  shortCode: string = '';
 
   ipAddress?: string | null = null;
 
@@ -110,7 +111,16 @@ export class LoginComponent implements OnInit {
       }
       sessionStorage.setItem("companyname", this.companyname );
     });
-     
+    this.sharedService.getCompanyShortCode().subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status){        
+        this.shortCode = this.responseDetails.message;
+      }
+      else{
+        this.shortCode = "FCUBE"
+      }
+      sessionStorage.setItem("shortCode", this.shortCode );
+    });
   }
 
   // Send partner details //

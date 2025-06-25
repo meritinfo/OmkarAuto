@@ -52,6 +52,9 @@ export class SharedService {
   getCompanyDetail(): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail',null, this.httpOptions);
   }
+  getCompanyShortCode(): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyShortCode',null, this.httpOptions);
+  }
   getDashboardDetail(req:Requestmodel): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetDashboardDetail',req, this.httpOptions);
   }
