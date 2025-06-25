@@ -450,12 +450,12 @@ dashboard: string ="";
       this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
       this.formTyreArray.controls[i+1].get("availQty")?.disable(); 
       
-      if (selectedDate.gstType == "I") {   
+      if (selectedDate.gstType == "IG") {   
         this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.enable();  
       }    
-      else if (selectedDate.gstType == "S" || selectedDate.gstType == "C")  {      
+      else if (selectedDate.gstType == "SC")  {      
         this.formTyreArray.controls[i+1].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
@@ -554,8 +554,11 @@ dashboard: string ="";
   }
 
   changeGstType(e: any) {
-    console.log(e.target.value);
     var gsttype = e.target.value;   
+    this.gstChange(gsttype);
+  }
+
+  gstChange(gsttype: string){
     for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
@@ -582,7 +585,7 @@ dashboard: string ="";
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
       } 
     }    
-    this.onPctChange()
+    this.onPctChange();
   }
 
   onNeftChk(e:any){

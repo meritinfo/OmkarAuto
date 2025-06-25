@@ -221,7 +221,6 @@ export class ChallanmasterllpaddComponent {
 
     this.formUser.controls["challanBranch"].disable();
     this.formUser.controls["subTotal"].disable();
-    this.formUser.controls["tdsPct"].disable();
     this.formUser.controls["tdsAmt"].disable();
     this.formUser.controls["totalHire"].disable();
     this.formUser.controls["totalAdvance"].disable();
@@ -841,9 +840,9 @@ export class ChallanmasterllpaddComponent {
     }
     else{
       this.formUser.patchValue({
-      subTotal: subTotal.toFixed(2),
-      tdsAmt: tdsAmt.toFixed(2),
-      totalHire: totalHire.toFixed(2),
+        subTotal: subTotal.toFixed(2),
+        tdsAmt: tdsAmt.toFixed(2),
+        totalHire: totalHire.toFixed(2),
         totalAdvance: totalAdvance.toFixed(2),
         balance: balance.toFixed(2),
       });
@@ -877,6 +876,7 @@ export class ChallanmasterllpaddComponent {
         brokerMblNo: res.brokerMblNo,
         vehicleOwnerName:res.vehicleOwnerName,
         vehicleOwnerPanNo:res.vehicleOwnerPanNo,
+        declarationYN: res.declarationYN,
       });
       if(res.vehicleOwnerPanNo==""){
         //igonre

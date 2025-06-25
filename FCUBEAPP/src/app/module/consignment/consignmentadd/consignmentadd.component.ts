@@ -548,45 +548,30 @@ export class ConsignmentaddComponent implements OnInit {
   changeGstType(e: any) {
     console.log(e.target.value);
     var gsttype = e.target.value; 
-   
-    if (gsttype == "I") {   
+    
+    this.formUser.patchValue({
+      sgstPct:"0",
+      cgstPct:"0",
+      igstPct:"0",
+      sgstAmt:"0",
+      cgstAmt:"0",
+      igstAmt:"0",
+    });    
+
+    if (gsttype == "IG") {   
       this.formUser.controls['sgstPct'].disable();
       this.formUser.controls['cgstPct'].disable();  
-      this.formUser.controls['igstPct'].enable();    
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct:"0",
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt:"0",
-      });   
+      this.formUser.controls['igstPct'].enable(); 
     }    
-    else if (gsttype == "S")  {      
+    else if (gsttype == "SC")  {      
       this.formUser.controls['sgstPct'].enable();
       this.formUser.controls['cgstPct'].enable();  
-      this.formUser.controls['igstPct'].disable();   
-      this.formUser.patchValue({
-        sgstPct:"0",
-        cgstPct:"0",
-        igstPct:"",
-        sgstAmt:"0",
-        cgstAmt:"0",
-        igstAmt:"",
-      });     
+      this.formUser.controls['igstPct'].disable();  
     }
     else{
       this.formUser.controls['sgstPct'].disable();
       this.formUser.controls['cgstPct'].disable();  
       this.formUser.controls['igstPct'].disable();   
-      this.formUser.patchValue({
-        sgstPct:"",
-        cgstPct:"",
-        igstPct:"",
-        sgstAmt:"",
-        cgstAmt:"",
-        igstAmt:"",
-      });   
     }    
     this.calculateTotalAmount()
   }
