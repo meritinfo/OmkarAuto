@@ -103,17 +103,15 @@ dashboard: string ="";
           });
         },
          // Set column title and data field
-         columns: [ 
-          {
-            title: 'Action',
-            data: 'accountId',
-          },    
-  
+         columns: [   
           {
             title: 'Branch Name',
             data: 'branchName',
           },
-         
+          {
+            title: 'Action',
+            data: 'branchCode',
+          },   
         ],
       };
   }  

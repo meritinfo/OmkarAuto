@@ -281,6 +281,7 @@ export class FleetloadentryaddComponent {
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
   };
+
   selectCnorEvent(item: any) {
     // do something with selected item
     this.requestmodel.strRequest = item.dataId;        
@@ -303,6 +304,7 @@ export class FleetloadentryaddComponent {
       });
     })
   }
+
   onRateChange(){
     var ItemQty = 0;
     var Itemrate = 0;
@@ -322,6 +324,20 @@ export class FleetloadentryaddComponent {
       this.formFleetLoad.patchValue({
         hireAmt : "",
       });
+    }
+  }
+
+  onChangeAdv(){
+    var selectedVal = this.formFleetLoad.getRawValue();
+    var hireAmt = selectedVal.hireAmt?parseFloat(selectedVal.hireAmt):0;
+    var advAmt = selectedVal.advAmt?parseFloat(selectedVal.advAmt):0;
+
+    if(hireAmt<advAmt){      
+      this.toasterService.warning("Advance Amount sholud not be more than Hire Amount");    
+      this.formFleetLoad.patchValue({
+        advAmt : "0",
+      });
+      return;
     }
   }
 
@@ -430,6 +446,13 @@ export class FleetloadentryaddComponent {
     }
     else{
       this.toasterService.warning(" Load For is Invalid");
+      return;
+    }
+    var hireAmt = selectedDataVal.hireAmt?parseFloat(selectedDataVal.hireAmt):0
+    var advAmt = selectedDataVal.advAmt?parseFloat(selectedDataVal.advAmt):0
+
+    if(hireAmt<advAmt){      
+      this.toasterService.warning("Advance Amount sholud not be more than Hire Amount"); 
       return;
     }
 

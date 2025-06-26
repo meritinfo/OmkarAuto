@@ -442,7 +442,7 @@
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Round Off: </label>
-                                <input type="text" class="form-control" decimalonly
+                                <input type="text" class="form-control" negdecimalonly
                                 formControlName="roundOff"(change)="onPctChange()" >
                             </div>
                         </div> 
@@ -483,14 +483,22 @@
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control form-select ng-pristine ng-touched"
-                                    formControlName="creditAc"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                    <option value="">Choose</option>
-                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
-                                        {{ac.dataName}}
-                                    </option>
-                                </select>
+                                <div class="ng-autocomplete">
+                                    <ng-autocomplete [data]="creditAcList"
+                                        [searchKeyword]="keywordLocation" 
+                                        [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate"
+                                        [customFilter]="startWithFilter"
+                                        formControlName="creditAc" 
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.dataName"></a>
+                                    </ng-template>
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>        
                        
