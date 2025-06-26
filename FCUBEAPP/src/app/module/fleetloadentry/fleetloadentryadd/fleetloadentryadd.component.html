@@ -284,14 +284,15 @@
                                             <label for="formrow-inputCity"> Freight (Hire)</label>
                                             <span style="color: red"> * </span> 
                                             <input class="form-control" decimalonly 
-                                                formControlName="hireAmt" 
+                                                formControlName="hireAmt" (change)="onChangeAdv()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['hireAmt'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Advance</label>
-                                            <input class="form-control" formControlName="advAmt" decimalonly>
+                                            <input class="form-control" formControlName="advAmt" 
+                                            (change)="onChangeAdv()" decimalonly>
                                         </div>
                                     </div>
                                 </div> 
