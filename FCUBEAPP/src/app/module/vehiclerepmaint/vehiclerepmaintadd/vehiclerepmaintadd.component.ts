@@ -148,7 +148,7 @@ dashboard: string ="";
       otherAmount : new FormControl('',),     
       roundOff : new FormControl('',),     
       remarks : new FormControl('',),  
-      pmtType : new FormControl('',[Validators.required]),  
+      pmtType : new FormControl('D',[Validators.required]),  
       neftPmt : new FormControl('',),  
       creditAc : new FormControl('',[Validators.required]),  
       chequeDate : new FormControl('',),
@@ -199,6 +199,7 @@ dashboard: string ="";
           vendorInvDt: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.vendorInvDt),
           vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
           vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
+          creditAc: this.creditAcList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.creditAc),
         })  
         this.formTyreArray.controls[0].get("availQty")?.disable();
         this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
@@ -785,7 +786,7 @@ dashboard: string ="";
   this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
   this.vehiclerepmaintMaster.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
   this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
-  this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
+  this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc?selectedDataValue.creditAc.dataId:"";
   this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
   this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
   this.vehiclerepmaintMaster.branchCode = this.branch;
