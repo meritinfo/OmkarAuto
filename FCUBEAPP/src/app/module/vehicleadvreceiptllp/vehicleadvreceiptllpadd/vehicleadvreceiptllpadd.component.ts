@@ -45,6 +45,7 @@ dashboard: string ="";
     locationList : Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
+   creditAcListParty: Dropdownmodel[] = [];
   vehicleAdvBalReceiptMaster = new VehicleadvbalreceiptModelLLP();
   refDocAttachedImage: string = "";
   showButton = true;
@@ -145,7 +146,7 @@ dashboard: string ="";
   
     this.getBranchList();
     this.getVehicleIdList();
-        this.getCreditAcListNew();
+   this.getCreditAcListParty();
         this.getLocationList();
 
     this.formUser.controls["transBranch"].disable();
@@ -156,14 +157,14 @@ dashboard: string ="";
     this.formUser.controls["totalAmtRecd"].disable();
 
     if (this.selectedvehicleAdvBalReceiptDetail.transId  != '') {
-     // this.getCreditAcList(this.selectedvehicleAdvBalReceiptDetail.receiptType);
+      this.getCreditAcList(this.selectedvehicleAdvBalReceiptDetail.receiptType);
       setTimeout(() => {      
         this.formUser.patchValue(this.selectedvehicleAdvBalReceiptDetail);
         this.formUser.patchValue({
           transDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.transDate),
           chequeDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.chequeDate),
           tripsUptoDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.tripsUptoDate),
-          partyId: this.creditAcList.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.partyId),
+          partyId: this.creditAcListParty.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.partyId),
         })
         if(this.selectedvehicleAdvBalReceiptDetail.neftYN=="N"){
           this.formUser.patchValue({
@@ -212,7 +213,7 @@ dashboard: string ="";
       fromPlace: [''],
       toPlace: [''],
       vehicleNo: [''],
-      tripNo: [''],
+     // tripNo: [''],
       dueAmt: [''],
       paidAmt: [''],
       received: [''],
@@ -240,12 +241,19 @@ dashboard: string ="";
       this.locationList = res;
     });
   }
-  getCreditAcListNew(): void {
+  // getCreditAcListNew(): void {
+  //   //this.requestmodel.strRequest= 'B';
+  //   this.commonService.getCreditAcList().subscribe((res) => {
+  //     this.creditAcList = res;
+  //   });  
+  // }
+   getCreditAcListParty(): void {
     //this.requestmodel.strRequest= 'B';
     this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditAcList = res;
+      this.creditAcListParty = res;
     });  
   }
+
 
   changePmtType(e: any) {
     var selectedValue = e.target.value;  
@@ -260,15 +268,15 @@ dashboard: string ="";
       this.formUser.controls['chequeDate'].disable();
     }    
 
-   // this.getCreditAcList(selectedValue);
+    this.getCreditAcList(selectedValue);
   }
 
-  // getCreditAcList(pmttp:string): void {
-  //   this.requestmodel.strRequest= pmttp;
-  //   this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-  //     this.creditAcList = res;  
-  //   });
-  // }
+  getCreditAcList(pmttp:string): void {
+    this.requestmodel.strRequest= pmttp;
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+      this.creditAcList = res;  
+    });
+  }
 
 
   
@@ -313,6 +321,7 @@ dashboard: string ="";
     this.vehiclerepmaintMasterService.getVehicleAdvBalTripDetails(this.requestmodel).subscribe((res) => {
       this.formAdvanceArray.clear();
       this.vehicleadvbalreceiptModel = res;
+     if (res.vehicleAdvBalReceiptDtlList.length!=0){
       for (var i = 0; i < res.vehicleAdvBalReceiptDtlList.length; i++) {
         this.formAdvanceArray.push(this.createAdvanceArray());
      
@@ -320,7 +329,7 @@ dashboard: string ="";
         this.formAdvanceArray.controls[i].get("loadBranch")?.setValue(res.vehicleAdvBalReceiptDtlList[i].loadBranch); 
         this.formAdvanceArray.controls[i].get("loadMemoNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].loadMemoNo); 
         this.formAdvanceArray.controls[i].get("loadDate")?.setValue(this.commonService.formatDate(res.vehicleAdvBalReceiptDtlList[i].loadDate)); 
-        this.formAdvanceArray.controls[i].get("tripNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].tripNo); 
+       // this.formAdvanceArray.controls[i].get("tripNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].tripNo); 
         this.formAdvanceArray.controls[i].get("fromPlace")?.setValue(res.vehicleAdvBalReceiptDtlList[i].fromPlace); 
         this.formAdvanceArray.controls[i].get("toPlace")?.setValue(res.vehicleAdvBalReceiptDtlList[i].toPlace); 
         this.formAdvanceArray.controls[i].get("vehicleNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].vehicleNo); 
@@ -335,10 +344,24 @@ dashboard: string ="";
         this.formAdvanceArray.controls[i].get("loadBranch")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadMemoNo")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadDate")?.disable(); 
-        this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
-        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();        
-      }     
+      //  this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
+        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();  
+        this.formAdvanceArray.controls[i].get("vehicleNo")?.disable(); 
+        this.formAdvanceArray.controls[i].get("toPlace")?.disable();    
+               this.formAdvanceArray.controls[i].get("fromPlace")?.disable();     
+      }  
+    }
+    else{
+       this.toastrService.warning("No pennding adv/bal for this party");
+        this.formUser.patchValue({
+          partyId: ''
+  
+        });
+      return;
+
+    }   
     });
+  
   }
 
   getVehicleadvbalreceiptInnerGridList(): void {
@@ -355,7 +378,7 @@ dashboard: string ="";
            this.formAdvanceArray.controls[i].get("fromPlace")?.setValue(res.vehicleAdvBalReceiptDtlList[i].fromPlace); 
                       this.formAdvanceArray.controls[i].get("toPlace")?.setValue(res.vehicleAdvBalReceiptDtlList[i].toPlace); 
                                             this.formAdvanceArray.controls[i].get("vehicleNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].vehicleNo); 
-        this.formAdvanceArray.controls[i].get("tripNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].tripNo); 
+       // this.formAdvanceArray.controls[i].get("tripNo")?.setValue(res.vehicleAdvBalReceiptDtlList[i].tripNo); 
         this.formAdvanceArray.controls[i].get("dueAmt")?.setValue(res.vehicleAdvBalReceiptDtlList[i].dueAmt); 
         this.formAdvanceArray.controls[i].get("paidAmt")?.setValue(res.vehicleAdvBalReceiptDtlList[i].paidAmt); 
         this.formAdvanceArray.controls[i].get("received")?.setValue(res.vehicleAdvBalReceiptDtlList[i].received);   
@@ -367,7 +390,7 @@ dashboard: string ="";
         this.formAdvanceArray.controls[i].get("loadBranch")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadMemoNo")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadDate")?.disable(); 
-        this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
+       // this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
         this.formAdvanceArray.controls[i].get("dueAmt")?.disable();        
       }     
     });
@@ -526,7 +549,7 @@ dashboard: string ="";
            'fromPlace': "",
           'toPlace': "",
           'vehicleNo': "",
-          'tripNo': selectedDataValue.arrayList[i].tripNo.toString(),
+          'tripNo': '',
           'dueAmt': "",
           'paidAmt': "",
           'received': selectedDataValue.arrayList[i].received.toString(),

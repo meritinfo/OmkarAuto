@@ -73,7 +73,7 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Party (Load for)</label> <span style="color: red">*</span>                                                                                    
                                             <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="creditAcList" 
+                                                <ng-autocomplete [data]="creditAcListParty" 
                                                 formControlName="partyId" 
                                                     [searchKeyword]="keywordLocation"                                                      
                                                     (inputFocused)='onFocused($event)' 
@@ -118,7 +118,7 @@
                                                 <th>From Place</th>
                                                 <th>To Place</th>
                                                 <th>Vehicle No</th>
-                                                <th>Trip No</th>
+                                                 <!-- <th>Trip No</th>  -->
                                                 <th>Due Amt</th>
                                                 <th>Received</th>
                                                 <th>Deduction</th>
@@ -138,7 +138,7 @@
                                                             </option>
                                                         </select> 
                                                         <input type="hidden" autoclose="false" class="form-control"
-                                                        formControlName="tripRouteDtlId"> 
+                                                        formControlName="loadId"> 
                                                     </td>
                                                     <td> 
                                                         <input autoclose="false" class="form-control"
@@ -161,10 +161,10 @@
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="vehicleNo">                                                  
                                                     </td>                       
-                                                    <td> 
+                                                    <!-- <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tripNo"> 
-                                                    </td>
+                                                    </td> -->
                                                     <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="dueAmt" decimalonly> 

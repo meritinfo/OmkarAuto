@@ -204,11 +204,11 @@ dashboard: string ="";
         },
         {
           title: 'From',
-          data: 'loadingFrom',
+          data: 'fromPlace',
         },
         {
           title: 'To',
-          data: 'loadingTo',
+          data: 'toPlace',
         },
         {
           title: 'Hire Amt',
