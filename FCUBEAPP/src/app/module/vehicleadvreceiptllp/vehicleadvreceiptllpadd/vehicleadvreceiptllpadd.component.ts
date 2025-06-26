@@ -391,7 +391,11 @@ dashboard: string ="";
         this.formAdvanceArray.controls[i].get("loadMemoNo")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadDate")?.disable(); 
        // this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
-        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();        
+        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();   
+       
+        this.formAdvanceArray.controls[i].get("vehicleNo")?.disable(); 
+        this.formAdvanceArray.controls[i].get("toPlace")?.disable();    
+               this.formAdvanceArray.controls[i].get("fromPlace")?.disable();         
       }     
     });
   }
