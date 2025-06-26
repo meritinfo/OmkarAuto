@@ -185,7 +185,8 @@ dashboard: string ="";
         this.formUser.controls["transDate"].disable();
         this.formUser.controls["tripsUptoDate"].disable(); 
         this.formUser.controls["partyId"].disable();   
-          
+        this.formUser.controls["debitAc"].disable(); 
+        this.formUser.controls["receiptType"].disable(); 
         this.getVehicleadvbalreceiptInnerGridList();
         this.showButton = false;
         this.editMode = true;

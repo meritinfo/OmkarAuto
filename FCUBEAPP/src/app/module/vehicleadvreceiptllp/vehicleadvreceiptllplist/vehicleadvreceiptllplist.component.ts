@@ -185,10 +185,10 @@ export class VehicleadvreceiptllplistComponent {
           title: 'Party',
           data: 'party',
         }, 
-        {
-          title: 'Cheq Cash Amt',
-          data: 'cheqCashAmt',
-        },
+        // {
+        //   title: 'Cheq Cash Amt',
+        //   data: 'cheqCashAmt',
+        // },
       
         {
           title: 'Amt Recd',
