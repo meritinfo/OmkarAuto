@@ -225,7 +225,7 @@ ngOnInit(): void {
      
      this.formSubmitted = true; 
      this.admingroupmastermodel.adminGrpId  = this.selectedChCostTypeDetails.adminGrpId  ;
-     this.admingroupmastermodel.adminGrpDesc  = selectedDataValue.adminGrpDesc .toString().toUpperCase();;
+     this.admingroupmastermodel.adminGrpDesc  = selectedDataValue.adminGrpDesc .toString().toUpperCase();
      this.admingroupmastermodel.sortId  = selectedDataValue.sortId ;
      this.admingroupmastermodel.activeYN  = selectedDataValue.activeYN .toString();
     // this.chcosttypesModel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";

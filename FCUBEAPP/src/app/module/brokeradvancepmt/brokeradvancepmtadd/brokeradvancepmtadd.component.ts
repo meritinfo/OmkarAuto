@@ -352,8 +352,8 @@ export class BrokeradvancepmtaddComponent {
     this.formSubmitted = true;
     var selectedDataVal = this.formDriverMaster.getRawValue()
     this.brokeradvancepmtModel.advPmtid  = this.selectedBrokerAdvanceDetails.advPmtid ;
-    //this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();;
-    //this.driverModel.fatherName = selectedDataVal.fatherName.toString().toUpperCase();;
+    //this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();
+    //this.driverModel.fatherName = selectedDataVal.fatherName.toString().toUpperCase();
    // this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
   //  this.driverModel.age = selectedDataVal.age.toString();
   //  this.driverModel.introBy = selectedDataVal.introBy.toString().toUpperCase();

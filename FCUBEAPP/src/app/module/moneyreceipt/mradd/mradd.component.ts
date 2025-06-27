@@ -838,7 +838,7 @@ dashboard: string ="";
     //     return;
     //   }
     // }
-    if (cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd < 0){
+    if (parseFloat((cheqCashAmt + onAcAdjAmt - recdAmt - excessRecd - others1Recd).toFixed(2)) < 0){
       this.toasterService.warning("On A/C Amt Should not be Less than Zero");      
       return;
     }

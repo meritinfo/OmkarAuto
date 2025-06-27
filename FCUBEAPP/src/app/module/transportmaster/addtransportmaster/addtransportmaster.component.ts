@@ -411,7 +411,7 @@ export class AddtransportmasterComponent {
     this.transportMasterModel.eligibleForBid = selectedData.eligibleForBid;
     this.transportMasterModel.whatsappMblNo = selectedData.whatsappMblNo;
     this.transportMasterModel.branchCode = selectedData.branchCode;
-    this.transportMasterModel.remarks = selectedData.remarks.toString().toUpperCase();;
+    this.transportMasterModel.remarks = selectedData.remarks.toString().toUpperCase();
     this.transportMasterModel.isActive = selectedData.isActive;
     this.transportMasterModel.inActiveDate = selectedData.inActiveDate;
     this.transportMasterModel.bankAcName  = selectedData.bankAcName.toString().toUpperCase();

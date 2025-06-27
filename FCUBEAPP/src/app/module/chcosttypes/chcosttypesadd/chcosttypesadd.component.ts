@@ -203,7 +203,7 @@ ngOnInit(): void {
     
     this.formSubmitted = true; 
     this.chcosttypesModel.chCostId = this.selectedChCostTypeDetails.chCostId ;
-    this.chcosttypesModel.chCostDesc = selectedDataValue.chCostDesc.toString().toUpperCase();;
+    this.chcosttypesModel.chCostDesc = selectedDataValue.chCostDesc.toString().toUpperCase();
     this.chcosttypesModel.sacCode = selectedDataValue.sacCode;
     this.chcosttypesModel.gstPct = selectedDataValue.gstPct.toString();
    // this.chcosttypesModel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
