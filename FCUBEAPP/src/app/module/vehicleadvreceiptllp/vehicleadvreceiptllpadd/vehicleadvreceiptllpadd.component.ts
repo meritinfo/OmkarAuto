@@ -185,7 +185,8 @@ dashboard: string ="";
         this.formUser.controls["transDate"].disable();
         this.formUser.controls["tripsUptoDate"].disable(); 
         this.formUser.controls["partyId"].disable();   
-          
+        this.formUser.controls["debitAc"].disable(); 
+        this.formUser.controls["receiptType"].disable(); 
         this.getVehicleadvbalreceiptInnerGridList();
         this.showButton = false;
         this.editMode = true;
@@ -391,7 +392,11 @@ dashboard: string ="";
         this.formAdvanceArray.controls[i].get("loadMemoNo")?.disable(); 
         this.formAdvanceArray.controls[i].get("loadDate")?.disable(); 
        // this.formAdvanceArray.controls[i].get("tripNo")?.disable(); 
-        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();        
+        this.formAdvanceArray.controls[i].get("dueAmt")?.disable();   
+       
+        this.formAdvanceArray.controls[i].get("vehicleNo")?.disable(); 
+        this.formAdvanceArray.controls[i].get("toPlace")?.disable();    
+               this.formAdvanceArray.controls[i].get("fromPlace")?.disable();         
       }     
     });
   }
