@@ -64,7 +64,7 @@ export class LorryhirepmtllpService {
   
 
   lorryhiremasterDelete(request: Requestmodel ):  Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDeleteLLP', request, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDelete', request, this.httpOptions);
   }
 
   getLhpmPmtNo(request: Requestmodel ):  Observable<Responsemodel> {

@@ -30,6 +30,7 @@ export class DotempgcaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  gstApi = true; 
 dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
@@ -132,6 +133,7 @@ dashboard: string ="";
     this.getPartyList();
     this.getEmpList();
     this.getCnorCneeList();
+    this.getFcmRcmConfig();
 
 
     this.formUser = this.formBuilder.group({
@@ -141,7 +143,7 @@ dashboard: string ="";
       bookStatus : new FormControl('',[Validators.required]),
       fromPlace : new FormControl('',[Validators.required]),
       toPlace : new FormControl('',[Validators.required]),
-
+      rcm_Fcm: new FormControl(''),
       ewayBillType : new FormControl('',[Validators.required]),
       ewayBillNo : new FormControl('',[Validators.required]),
       ewayBillDate : new FormControl('',[Validators.required]),
@@ -372,13 +374,28 @@ dashboard: string ="";
 
   }
 
+  getFcmRcmConfig(): void {
+    this.commonService.getFcmRcmConfig().subscribe((res) => {
+      if(res.message=="B") {
+        this.gstApi=true;
+      }
+      else{
+        this.gstApi=false;
+        this.formUser.patchValue({
+          rcm_Fcm: res.message,         
+        })  
+      }
+    });
+  }
+
   searchGSTDetails(): void {    
     var selectedDataValue = this.formUser.getRawValue();
     var ewayBillNo = selectedDataValue.ewayBillNo;
-      this.requestmodel.strRequest1 = "R";  
 
     if(ewayBillNo != "") {
-      this.requestmodel.strRequest = ewayBillNo;        
+      this.requestmodel.strRequest = ewayBillNo;  
+      this.requestmodel.strRequest1 = selectedDataValue.rcm_Fcm;  
+      this.requestmodel.strRequest2 = this.branch;         
       this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if(this.responseDetails.status){

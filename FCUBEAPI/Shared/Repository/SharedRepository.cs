@@ -335,7 +335,8 @@ namespace Shared.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@RcmFcm", request.strRequest1)
+                            new SqlParameter("@BranchCode", request.strRequest2),
+                            new SqlParameter("@RcmFcm", request.strRequest1),
                         };
                     var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEWayApiDetails", param);
 

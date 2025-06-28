@@ -33,10 +33,6 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.LorryHireMasterSaveLLP(lorryHire);
         }
-        public async Task<ResponseModel> LorryHireMasterDeleteLLP(RequestModel request)
-        {
-            return await lorryHireRepository.LorryHireMasterDeleteLLP(request);
-        }
         public async Task<LorryHireMasterLLPModel> GetChallanLorryhireDetailsLLP(ReportRequestModel request)
         {
             return await lorryHireRepository.GetChallanLorryhireDetailsLLP(request);

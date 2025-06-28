@@ -61,6 +61,7 @@ export class ConsignmentaddComponent implements OnInit {
   step3Active = false;
   
   attach1: string = "";
+  gstApi = true; 
   
   @ViewChild('attachInput', {
     static: true
@@ -145,6 +146,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.getBillingPartyList();
     this.getVehTypes();
     this.getCnorCneeList();
+    this.getFcmRcmConfig();
 
     this.sharedService.loading = false;
     
@@ -155,6 +157,7 @@ export class ConsignmentaddComponent implements OnInit {
       gcNoteNo  : new FormControl('', [Validators.required]),
       bookingDate : new FormControl(this.loginDate, [Validators.required]),
       bookingStatus : new FormControl('TBB', [Validators.required]),
+      rcm_Fcm: new FormControl(''),
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
       ewayBillDate : new FormControl('', [Validators.required]),
@@ -388,12 +391,26 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+
   getGstByList(): void {
     this.commonService.getGstByList().subscribe((res) => {
       this.gstByList = res;
     });
   }
-  
+
+  getFcmRcmConfig(): void {
+    this.commonService.getFcmRcmConfig().subscribe((res) => {
+      if(res.message=="B") {
+        this.gstApi=true;
+      }
+      else{
+        this.gstApi=false;
+        this.formUser.patchValue({
+          rcm_Fcm: res.message,         
+        })  
+      }
+    });
+  }
 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
@@ -703,7 +720,8 @@ export class ConsignmentaddComponent implements OnInit {
   searchGSTDetails(): void {
     var selectedDataValue = this.formUser.getRawValue();
     var ewayBillNo = selectedDataValue.ewayBillNo;
-      this.requestmodel.strRequest1 = "R";  
+    this.requestmodel.strRequest1 = selectedDataValue.rcm_Fcm;  
+    this.requestmodel.strRequest2 = this.branch;  
 
     if(ewayBillNo != "") {
       this.requestmodel.strRequest = ewayBillNo;        
@@ -1021,6 +1039,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;
     this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.lrmodel.rcm_Fcm = selectedDataValue.rcm_Fcm;
     this.lrmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
     this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;
     this.lrmodel.ewayBillDate = selectedDataValue.ewayBillDate;

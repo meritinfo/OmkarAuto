@@ -1864,24 +1864,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("LorryHireMasterLLPDelete")]
-        public async Task<IActionResult> LorryHireMasterLLPDeleteLLP(RequestModel requestModel)
-        {
-            if (requestModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await lorryHireLLPBusiness.LorryHireMasterDeleteLLP(requestModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("GetChallanLorryhireDetails")]
         public async Task<IActionResult> GetChallanLorryhireDetails(ReportRequestModel request)

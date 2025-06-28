@@ -29,13 +29,14 @@ export class AdditionalcostrecmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
   debitAcList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   
   stateList: Dropdownmodel[] = [];
   ledgerAcList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
   
   
   selectedAdditionalcostrecDetails = new AdditionalcostrecmasterModel();
@@ -110,17 +111,30 @@ ngOnInit(): void {
 
   if (this.selectedAdditionalcostrecDetails.addCostID != '') {
     this.formUser.patchValue(this.selectedAdditionalcostrecDetails);      
-    this.editMode = true;
-  
+    this.editMode = true;  
     this.formUser.patchValue({
-      //inActiveDate: this.commonService.formatDate(this.selectedAdditionalcostrecDetails.inActiveDate)
-     
+      accountID: this.ledgerAcList.find(e => e.dataId ==this.selectedAdditionalcostrecDetails.accountID),     
     })      
   }
   
 
   this.sharedService.loading=false;
 }
+
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
 get f() { return this.formUser.controls; }
 deleteAdditionalcostrecForm(): void {
   if(this.selectedAdditionalcostrecDetails.addCostID != '' ){      
@@ -210,11 +224,13 @@ chkAddCostCodeDuplicate(){
       }
     });
   }
-getBankAcList(): void {
-  this.commonService.getSubledgerAcList().subscribe((res) => {
-    this.ledgerAcList = res;
-  });
-}
+
+  getBankAcList(): void {
+    this.requestmodel.strRequest = "E";
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.ledgerAcList = res;
+    });
+  }
 
 //Submit user form details //
 submitAdditionalcostrecMasterForm(): void {
@@ -235,9 +251,9 @@ submitAdditionalcostrecMasterForm(): void {
  // this.docRenewalMasterModel.docCode = selectedDataVal.docCode.toUpperCase();
  this.additionalcostrecmasterModel.addCostCode = selectedDataVal.addCostCode.toString().toUpperCase();
   this.additionalcostrecmasterModel.addCostType = selectedDataVal.addCostType.toString().toUpperCase();
-  this.additionalcostrecmasterModel.addCostDescription = selectedDataVal.addCostDescription
-  this.additionalcostrecmasterModel.accountID = selectedDataVal.accountID
-  this.additionalcostrecmasterModel.affectCosting = selectedDataVal.affectCosting
+  this.additionalcostrecmasterModel.addCostDescription = selectedDataVal.addCostDescription;
+  this.additionalcostrecmasterModel.accountID = selectedDataVal.accountID.dataId;
+  this.additionalcostrecmasterModel.affectCosting = selectedDataVal.affectCosting;
  // this.cnorcneemastermodel.address1 = selectedDataVal.address1.toString().toUpperCase();
  
  // this.cnorcneemastermodel.olD_CnorCnee_ID = selectedDataVal.olD_CnorCnee_ID;

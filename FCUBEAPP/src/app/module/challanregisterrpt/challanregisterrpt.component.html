@@ -11,7 +11,7 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
@@ -30,9 +30,6 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                           
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Origin </label>  
@@ -109,7 +106,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 

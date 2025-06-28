@@ -1,118 +1,111 @@
 <p>additionalcostrecmasteradd works!</p>
 <div class="main-content">
-    <div class="page-content">
-    <div class="container-fluid">
+   <div class="page-content">
+      <div class="container-fluid">
        <!-- start page title -->
-       <div class="row">
-          <div class="col-12">
-             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Addtional Cost/Rec Master</h4>
-             </div>
-          </div>
-       </div>
-       <!-- end page title -->
-       <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
-       <div class="col-lg-12">
-          <div class="card">
-             <div class="card-body">
-                <div class="row">
-                   <div class="col-lg-3">
-                      <div class="mb-3">
-                         <label for="basicpill-phoneno-input">Add Cost/Rec Code </label><span style="color:red">*</span>
-                         <input uppercaseonly type="text" class="form-control"
-                            formControlName="addCostCode" (change)="chkAddCostCodeDuplicate()"
-                            [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostCode'].invalid) }">                                                                                               
-                      </div>
-                   </div>
-                  
-                 <div class="col-lg-3">
-                    <div class="mb-3">
-                       <label for="basicpill-phoneno-input">Add Cost Type</label><span style="color:red">*</span>                      
-                          <select id="formrow-inputState" 
-                          class="form-control form-select ng-pristine ng-touched"
+         <div class="row">
+            <div class="col-12">
+               <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Addtional Cost/Rec Master</h4>
+               </div>
+            </div>
+         </div>
+         <!-- end page title -->
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+         <div class="col-lg-12">
+            <div class="card">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-lg-3">
+                        <div class="mb-3">
+                           <label for="basicpill-phoneno-input">Add Cost/Rec Code </label><span style="color:red">*</span>
+                           <input uppercaseonly type="text" class="form-control"
+                              formControlName="addCostCode" (change)="chkAddCostCodeDuplicate()"
+                              [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostCode'].invalid) }">                                                                                               
+                        </div>
+                     </div>                  
+                     <div class="col-lg-3">
+                        <div class="mb-3">
+                           <label for="basicpill-phoneno-input">Add Cost Type</label><span style="color:red">*</span>                      
+                           <select id="formrow-inputState" 
+                              class="form-control form-select ng-pristine ng-touched"
                               formControlName="addCostType"
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostType'].invalid) }">
                               <option selected="">Choose...</option>
                               <option value="I"> Income</option>
                               <option value="E"> Expense</option>                           
-                        </select>
-                    </div>
-                 </div>
-                </div>
-                
-                
-               
-                <div class="row">
-                  
-                </div>
-                <div class="row">
-                   <div class="col-lg-3">
-                    <div class="mb-3">
-                        <label for="basicpill-phoneno-input">Add Cost Description  </label><span style="color:red">*</span>
-                        <input uppercaseonly type="text" class="form-control"
-                           formControlName="addCostDescription" (change)="chkAddCostDescriptionDuplicate()"
-                           [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostDescription'].invalid) }">                                                                                               
-                     </div>
-                    </div>
-                      <div class="col-lg-3">
-                        <div class="mb-3">
-                           <label for="basicpill-phoneno-input">Account ID</label><span style="color:red">*</span>
-                             
-                              <select class="form-control form-select ng-pristine ng-touched"formControlName="accountID"
-                              [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }">
-
-                              <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
-
-                                  {{branch.dataName}}
-                              </option>
-                          </select>
-
+                           </select>
                         </div>
                      </div>
-                    </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-lg-3">
+                        <div class="mb-3">
+                           <label for="basicpill-phoneno-input">Add Cost Description  </label><span style="color:red">*</span>
+                           <input uppercaseonly type="text" class="form-control"
+                              formControlName="addCostDescription" (change)="chkAddCostDescriptionDuplicate()"
+                              [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostDescription'].invalid) }">                                                                                               
+                        </div>
+                     </div>
+                     <div class="col-lg-6">
+                        <div class="mb-3">
+                           <label for="basicpill-phoneno-input">Account ID</label>
+                           <span style="color:red">*</span>
+                           <div class="ng-autocomplete">
+                              <ng-autocomplete [data]="ledgerAcList"
+                                  [searchKeyword]="keywordLocation"  
+                                  (inputChanged)='onChangeSearch($event)'
+                                  (inputFocused)='onFocused($event)'
+                                  [itemTemplate]="itemTemplate"
+                                  [notFoundTemplate]="notFoundTemplate"
+                                  [customFilter]="startWithFilter"
+                                  formControlName="accountID" 
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }">
+                              </ng-autocomplete>
+                              <ng-template #itemTemplate let-item>
+                                  <a [innerHTML]="item.dataName"></a>
+                              </ng-template>
+                              <ng-template #notFoundTemplate let-notFound>
+                                  <div [innerHTML]="notFound"></div>
+                              </ng-template>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
                      <div class="col-lg-4">
                         <div class="mb-3">
-                           <label for="basicpill-phoneno-input">Affect Costing </label><span style="color:red">*</span>
-
-                              
-                              <select id="formrow-inputState" 
+                           <label for="basicpill-phoneno-input">Affect Costing </label>
+                           <span style="color:red">*</span>
+                           <select id="formrow-inputState" 
                               class="form-control form-select ng-pristine ng-touched"
-                                  formControlName="affectCosting"
-                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['affectCosting'].invalid) }">
-                                  <option selected="">Choose...</option>
-                                  <option value="Y"> Yes</option>
-                                  <option value="N"> No</option>
-                               
-                            </select>
+                              formControlName="affectCosting"
+                              [ngClass]="{ 'is-invalid': formSubmitted && (f['affectCosting'].invalid) }">
+                              <option selected="">Choose...</option>
+                              <option value="Y"> Yes</option>
+                              <option value="N"> No</option>                               
+                           </select>
                         </div>
-                     </div>           
-                     
-
-                  
-                
-                <!-- end card body -->
-             </div>
-             <!-- end card -->
-          </div>
-          <div class="row text-right">
-             <div class="col-lg-12">
-                <div class="tex">
-                   <button class="btn btn-primary w-md" 
-                   *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
-                   (click)="submitAdditionalcostrecMasterForm()">Save</button>&nbsp;
-                   <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                   (click)="deleteAdditionalcostrecForm()">Delete</button>&nbsp;
-                   <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
-                </div>
-             </div>
-             <!-- end col -->
-             
-             <!-- end row -->
-             <!-- end row -->
-          </div>
-        </div>
-        </form>
+                     </div>  
+                  </div>  
+                  <div class="row text-right">
+                     <div class="col-lg-12">
+                        <div class="tex">
+                           <button class="btn btn-primary w-md" 
+                              *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                              (click)="submitAdditionalcostrecMasterForm()">Save</button>&nbsp;
+                           <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                              (click)="deleteAdditionalcostrecForm()">Delete</button>&nbsp;
+                           <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </form>
           <!-- container-fluid -->
-       </div>
+      </div>
        <!-- End Page-content -->
-    </div>
+   </div>
+</div>

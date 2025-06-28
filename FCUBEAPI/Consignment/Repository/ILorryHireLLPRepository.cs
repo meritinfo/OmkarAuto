@@ -17,7 +17,6 @@ namespace Consignment.Repository
         Task<ResponseModel> GetLorryHirePaymentExcel(ReportRequestModel request);
         Task<LorryHireMasterLLPModel> GetLorryHireInnerGridLLP(RequestModel request);
         Task<ResponseModel> LorryHireMasterSaveLLP(LorryHireMasterLLPModel lorryHire);
-        Task<ResponseModel> LorryHireMasterDeleteLLP(RequestModel requestModel);
         Task<LorryHireMasterLLPModel> GetChallanLorryhireDetailsLLP(ReportRequestModel request);
 
     }

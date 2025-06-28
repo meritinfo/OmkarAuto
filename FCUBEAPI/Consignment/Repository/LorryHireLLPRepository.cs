@@ -421,45 +421,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> LorryHireMasterDeleteLLP(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@MasterId", requestModel.strRequest),
-                            new SqlParameter("@LoggedInUser", requestModel.strRequest1),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_LorryHireMasterDelete", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
+       
 
     }
 

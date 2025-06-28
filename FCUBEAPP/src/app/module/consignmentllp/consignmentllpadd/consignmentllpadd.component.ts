@@ -960,6 +960,7 @@ export class ConsignmentllpaddComponent {
     if(ewayBillNo != "") {
       this.requestmodel.strRequest = ewayBillNo;  
       this.requestmodel.strRequest1 = selectedDataValue.rcm_Fcm;  
+      this.requestmodel.strRequest2 = this.branch;  
 
       this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;

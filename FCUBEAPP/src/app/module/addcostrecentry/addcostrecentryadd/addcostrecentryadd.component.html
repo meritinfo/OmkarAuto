@@ -53,7 +53,7 @@
                                         <div class="mb-4">
                                             <label for="formrow-inputZip"> Add Cost/Rec Code </label>
                                             <span style="color: red"> * </span>
-                                            <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
+                                            <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="addCostID" (change)="onaddCostchange($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostID'].invalid) }">
                                                 <option *ngFor="let branch of addCostRecList" value={{branch.dataId}}>

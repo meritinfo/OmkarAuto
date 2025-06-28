@@ -81,6 +81,9 @@ export class CommonService {
   getGstByList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetGstByList', null, this.httpOptions);
   }
+  getFcmRcmConfig(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetFcmRcmConfig', null, this.httpOptions);
+  }
   getModuleList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetModuleList', null, this.httpOptions);
   }
