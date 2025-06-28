@@ -3175,6 +3175,7 @@ namespace FreightMasters.Repository
             }
             return distanceMasterRpt;
         }
+
         public async Task<ResponseModel> ExcelDistanceMasterFrtRptList(ReportRequestModel request)
         {
             ResponseModel response = new();
