@@ -61,6 +61,7 @@ namespace Consignment.Repository
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingStatus"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                Rcm_Fcm = Convert.ToString(dataSet.Tables[0].Rows[i]["Rcm_Fcm"]),
                                 EwayBillEntryType = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillEntryType"]),
                                 EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
                                 EwayBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),

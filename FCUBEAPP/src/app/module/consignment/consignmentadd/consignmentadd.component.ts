@@ -303,7 +303,9 @@ export class ConsignmentaddComponent implements OnInit {
           this.getLrInnerGridList();   
           this.editMode = true;  
           this.createdBy = this.selectedLrDetails.createdBy + " " + this.selectedLrDetails.createdDate;
-          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;      
+          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;           
+          this.formUser.controls['ewayBillNo'].disable();                 
+          this.formUser.controls['ewayBillEntryType'].disable();        
         }
         else{    
           this.formArray.clear();

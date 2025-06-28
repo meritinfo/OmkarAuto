@@ -24,7 +24,8 @@ export class ChallanregisterrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
+  brokerList: Dropdownmodel[] = [];
 
   locationList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -57,6 +58,7 @@ dashboard: string ="";
   maxDate: string = '';
   minDate: string = '';
   branch:string ='';
+  company:string ='';
   responseDetails = new Responsemodel();
 
   constructor(private challanregisterrptService: FreightreportsService, 
@@ -104,6 +106,10 @@ dashboard: string ="";
       if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
         this.loginDate = loginDate;
       }
+      const shortCode = sessionStorage.getItem('shortCode');
+      if (shortCode) {
+        this.company = shortCode;
+      }
     
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -114,21 +120,21 @@ dashboard: string ="";
     
       this.getBranchList();
       this.getLocationList(); 
-      // this.getPartyList(); 
+      this.getBranchList(); 
       
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        // branch: new FormControl('',),  
-        // party: new FormControl('',),  
         origin: new FormControl('',),  
         destination: new FormControl('',), 
+        brokerId: new FormControl('',), 
       });
 
       this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
+      this.filter.filterStr2  = "";
        
   
       this.sharedService.loading=true;
@@ -147,11 +153,19 @@ dashboard: string ="";
         this.locationList = res;
       });
     }
-    // getPartyList(): void {
-    //   this.commonService.getPartyList().subscribe((res) => {
-    //     this.partyList = res;
-    //   });
-    // }
+     
+    getBrokerList(): void {
+      if(this.company=="LLP"){
+        this.commonService.getBrokerListLLP().subscribe((res) => {
+          this.brokerList = res;
+        });
+      }
+      else{
+        this.commonService.getBrokerList().subscribe((res) => {
+          this.brokerList = res;
+        });
+      }
+    }
   
     
     get f() { return this.formFilter.controls; }
@@ -285,6 +299,7 @@ dashboard: string ="";
       this.filter.toDate      = selectedDataVal.toDate;       
       this.filter.filterStr  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
       this.filter.filterStr1  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+      this.filter.filterStr2  = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
       this.challanregisterrptService.getChallanregisterrptExcel(this.filter).subscribe(resp => {
       
         if(resp.status){      
@@ -316,6 +331,7 @@ dashboard: string ="";
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.filter.filterStr1  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
     this.sharedService.loading=true;
     this.challanregisterrptlist();
     this.sharedService.loading=false;

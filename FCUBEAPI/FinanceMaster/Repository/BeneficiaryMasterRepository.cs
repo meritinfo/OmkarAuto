@@ -268,7 +268,7 @@ namespace FinanceMaster.Repository
             ResponseModel responseSave = new();
             try
             {
-                string baseUrl = "http://fcube.net/bankapi/api.php";
+                string baseUrl = "http://www.fcube.net/bankapi/api.php";
 
                 string UrlParam = "?account=" + request.FilterStr1 +
                                     "&ifsc=" + request.FilterStr2;
