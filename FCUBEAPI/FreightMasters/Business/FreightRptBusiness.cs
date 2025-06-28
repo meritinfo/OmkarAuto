@@ -101,6 +101,15 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetChallanRegisterRptExcel(request);
         }
+        public async Task<ChallanRegisterRptListModel> GetChallanTdsStatementRptList(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetChallanTdsStatementRptList(request);
+        }
+        public async Task<ResponseModel> GetChallanTdsStatementRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetChallanTdsStatementRptExcel(request);
+        }
+
 
         public async Task<DistanceMasterFrtRptListModel> GetDistanceMasterFrtRptList(ReportRequestModel request)
         {

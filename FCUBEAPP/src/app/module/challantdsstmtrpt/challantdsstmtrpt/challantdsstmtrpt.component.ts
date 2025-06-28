@@ -1,3 +1,4 @@
+
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -13,12 +14,11 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-challanregisterrpt',
-  templateUrl: './challanregisterrpt.component.html',
-  styleUrls: ['./challanregisterrpt.component.css']
+  selector: 'app-challantdsstmtrpt',
+  templateUrl: './challantdsstmtrpt.component.html',
+  styleUrls: ['./challantdsstmtrpt.component.css']
 })
-export class ChallanregisterrptComponent {
-
+export class ChallantdsstmtrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -49,7 +49,6 @@ export class ChallanregisterrptComponent {
     filterStr2:'',
     filterStr3:'',
   }
-
   formFilter!: FormGroup;
   userSubmitted = false;
   year: string = '';
@@ -66,15 +65,15 @@ export class ChallanregisterrptComponent {
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-    }
 
-    ngOnInit(): void {     
+}
+ngOnInit(): void {     
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
         var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Challan Register");
+        .find((aa: { menuName: string; }) => aa.menuName === "TDS Statement (Challan)");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -121,8 +120,7 @@ export class ChallanregisterrptComponent {
       this.getBranchList();
       this.getLocationList(); 
       this.getBranchList(); 
-        this.getBrokerList();
-    
+         this.getBrokerList(); 
       
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( this.fromDate,[Validators.required]),
@@ -206,7 +204,7 @@ export class ChallanregisterrptComponent {
             recordsFiltered: 0,
             data: []
           });
-          this.challanregisterrptService.getChallanregisterrptList(this.filter).subscribe(resp => {
+          this.challanregisterrptService.getChallanTdsStatementrptList(this.filter).subscribe(resp => {
             this.allChallanregisterrptlist = resp; 
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
@@ -224,19 +222,19 @@ export class ChallanregisterrptComponent {
             title: 'CH No',
             data: 'challanNo',
           }, 
+          // {
+          //   title: 'Status',
+          //   data: 'chStatus',
+          // }, 
           {
-            title: 'Status',
-            data: 'chStatus',
-          }, 
-          {
-            title: 'HS Date',
+            title: 'Date',
             data: 'challanDateTime',
           }, 
             
-          {
-            title: 'Arr Date ',
-            data: 'expArrivalDate',
-          },    
+          // {
+          //   title: 'Arr Date ',
+          //   data: 'expArrivalDate',
+          // },    
           {
             title: 'From Place',
             data: 'fromPlaceName',
@@ -255,7 +253,7 @@ export class ChallanregisterrptComponent {
             data: 'truckNo',
           }, 
           {
-            title: 'Owner Name',
+            title: 'Pan No',
             data: 'vehicleOwnerName',
           }, 
 
@@ -264,21 +262,21 @@ export class ChallanregisterrptComponent {
             data: 'totalHire',
           }, 
           {
-            title: 'Advance Amt',
+            title: 'Tds Amt',
             data: 'totalAdvance',
           }, 
-          {
-            title: 'Balance Amt',
-            data: 'balance',
-          }, 
-          {
-            title: 'Pay Branch',
-            data: 'balPayAtBrName',
-          }, 
-          {
-            title: 'Lr No',
-            data: 'lrNo',
-          }, 
+          // {
+          //   title: 'Balance Amt',
+          //   data: 'balance',
+          // }, 
+          // {
+          //   title: 'Pay Branch',
+          //   data: 'balPayAtBrName',
+          // }, 
+          // {
+          //   title: 'Lr No',
+          //   data: 'lrNo',
+          // }, 
            
         ],
       };
@@ -302,7 +300,7 @@ export class ChallanregisterrptComponent {
       this.filter.filterStr  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
       this.filter.filterStr1  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
       this.filter.filterStr2  = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
-      this.challanregisterrptService.getChallanregisterrptExcel(this.filter).subscribe(resp => {
+      this.challanregisterrptService.getChallanTdsStatementrptExcel(this.filter).subscribe(resp => {
       
         if(resp.status){      
           let link = document.createElement("a");
@@ -343,6 +341,7 @@ export class ChallanregisterrptComponent {
     });
   }
 } 
+
 
 
 

@@ -1,0 +1,174 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Challan TDS Statement</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                             <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Origin </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="origin" 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Destination </label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="destination" 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                           
+                          
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Broker : </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="brokerList" formControlName="brokerId"
+                                            [searchKeyword]="keywordLocation"  
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate" 
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>chBookStnname</th>
+                                <th>challanNo </th>   
+                                <th>chStatus</th>
+                                <th>challanDateTime </th>   
+                                 <!-- <th>expArrivalDate</th> -->
+                                <th>fromPlaceName </th>  
+                                <th>toPlaceName </th>
+                                <th>brokerName</th>
+                                <th>truckNo</th>
+                                <th>vehicleOwnerName </th>   
+                                <th>totalHire</th>
+                                <!-- <th>totalAdvance</th> -->
+                                <!-- <th>balance</th>
+                                <th>balPayAtBrName</th>
+                                <th>lrNo</th>                                  -->
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allChallanregisterrptlist.challanRegisterRptList?.length != 0">
+                            <tr *ngFor="let eta of allChallanregisterrptlist.challanRegisterRptList">
+                                <td>{{ eta.chBookStnname }}</td>
+                                <td>{{ eta.challanNo }}</td> 
+                                <!-- <td>{{ eta.chStatus }}</td>  -->
+                                <td>{{ eta.challanDateTime }}</td> 
+                                <!-- <td>{{ eta.expArrivalDate }}</td>  -->
+                                <td>{{ eta.fromPlaceName }}</td>
+                                <td>{{ eta.toPlaceName }}</td>
+                                <td>{{ eta.brokerName }}</td>  
+                                <td>{{ eta.truckNo }}</td> 
+                                <td>{{ eta.vehicleOwnerName }}</td> 
+                                <td>{{ eta.totalHire }}</td>
+                                <td>{{ eta.totalAdvance }}</td>  
+                                <!-- <td>{{ eta.balance }}</td>    
+                                <td>{{ eta.balPayAtBrName }}</td>  
+                                <td>{{ eta.lrNo }}</td>                                                   -->
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allChallanregisterrptlist.challanRegisterRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

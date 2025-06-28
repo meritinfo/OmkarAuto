@@ -104,7 +104,12 @@ export class FreightreportsService {
   getChallanregisterrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetChallanRegisterRptExcel', filter, this.httpOptions);
   }  
-  
+  getChallanTdsStatementrptList(filter: Reportmodel): Observable<Challanregisterrptlistmodel> {
+    return this.httpClient.post<Challanregisterrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetChallanTdsStatementRptList', filter, this.httpOptions);
+  } 
+  getChallanTdsStatementrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetChallanTdsStatementRptExcel', filter, this.httpOptions);
+  }  
   getDistancemMsterFrtRptList(filter: Reportmodel): Observable<Distancemasterfrtrptlistmodel> {
     return this.httpClient.post<Distancemasterfrtrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistancemasterFrtRptList', filter, this.httpOptions);
   }  
