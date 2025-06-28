@@ -33,16 +33,15 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                          new SqlParameter("@Rateid", panWiseTdsRateModel.Rateid),
-                            new SqlParameter("@PanNo", panWiseTdsRateModel.PanNo),
-                        
+                            new SqlParameter("@Rateid", panWiseTdsRateModel.Rateid),
+                            new SqlParameter("@PanNo", panWiseTdsRateModel.PanNo),                        
                             new SqlParameter("@OwnerName", panWiseTdsRateModel.OwnerName),
                             new SqlParameter("@ValidFrom", panWiseTdsRateModel.ValidFrom),
                             new SqlParameter("@ValidUpto", panWiseTdsRateModel.ValidUpto),
                             new SqlParameter("@TdsRate", panWiseTdsRateModel.TdsRate),
                             new SqlParameter("@IsActive", panWiseTdsRateModel.IsActive),
                             new SqlParameter("@TdsCertUpload", panWiseTdsRateModel.TdsCertUpload),
-                             new SqlParameter("@YearId", panWiseTdsRateModel.YearId),
+                            new SqlParameter("@YearId", panWiseTdsRateModel.YearId),
                             new SqlParameter("@LoggedInUser", panWiseTdsRateModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PanWiseTdsRateSave", param);
