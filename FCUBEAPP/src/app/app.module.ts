@@ -527,6 +527,7 @@ import { VehicleadvreceiptllplistComponent } from './module/vehicleadvreceiptllp
 import { ChallansuppliaddllpComponent } from './module/challansupplillp/challansuppliaddllp/challansuppliaddllp.component';
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
+import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
 
 @NgModule({
   declarations: [
@@ -695,7 +696,7 @@ import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent,
     PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, ChallansuppliaddllpComponent, ChallansupplilistllpComponent, TripoutstandingrptbrplComponent, 
+    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, MultipleledgerreportComponent, AnnexurereportComponent, LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, ChallansuppliaddllpComponent, ChallansupplilistllpComponent, TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, 
     
   ],
   

@@ -31,6 +31,8 @@ namespace FreightMasters.Repository
 
         Task<BusinessSummRptListModel> GetBusinessSummRptList(ReportRequestModel request);
         Task<ResponseModel> GetBusinessSummRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetChallanTdsStatementRptExcel(ReportRequestModel request);
+        Task<ChallanRegisterRptListModel> GetChallanTdsStatementRptList(ReportRequestModel request);
 
         Task<ChallanRegisterRptListModel> GetChallanRegisterRptList(ReportRequestModel request);
         Task<ResponseModel> GetChallanRegisterRptExcel(ReportRequestModel request);
@@ -94,6 +96,7 @@ namespace FreightMasters.Repository
         Task<ResponseModel> GetPartyMISRptExcel(ReportRequestModel request);
         Task<List<DropDownListModel>> GetPartyMisList();
         Task<ResponseModel> GetBillInterestLossRptExcel(ReportRequestModel request);
+ 
 
     }
 }
