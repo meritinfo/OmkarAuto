@@ -660,7 +660,6 @@ modifiedBy: string = "";
     var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
     var test = regexp.test(pan);
     var tdsPct = 0;
-    var decl = "";
 
     if(pan == "PANNOTREQD"){
       tdsPct = 0;
@@ -703,10 +702,7 @@ modifiedBy: string = "";
               this.formUser.controls["aadharLinked"].disable();  
               this.formUser.controls["declarationYN"].disable();  
               this.formUser.controls["tdsPct"].disable(); 
-              if(decl == "Y"){
-               this.formUser.controls["declarationYN"].enable();  
-              }
-              
+                           
               this.requestmodel.strRequest = pan;
               this.requestmodel.strRequest1 = this.loggedInUserID;
               
@@ -737,11 +733,8 @@ modifiedBy: string = "";
                     else{                
                       tdsPct = 20;
                     }
-                    if(res.filterStr2=='Y'){            
-                      decl = "Y";              
-                    }
-                    else{            
-                      decl = "";  
+                    if(res.filterStr2=='Y'){  
+                      this.formUser.controls["declarationYN"].enable();   
                     }
                     this.formUser.patchValue({
                       panValid: panValid,

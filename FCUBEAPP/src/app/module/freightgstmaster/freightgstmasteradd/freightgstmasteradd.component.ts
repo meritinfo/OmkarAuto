@@ -212,7 +212,7 @@ submitfreightGstForm(): void {
   
   this.formSubmitted = true; 
   this.freightgstmastermodel.freightId = this.selectedFreightGstMasterDetails.freightId ;
-  this.freightgstmastermodel.freightDesc = selectedDataValue.freightDesc.toString().toUpperCase();;
+  this.freightgstmastermodel.freightDesc = selectedDataValue.freightDesc.toString().toUpperCase();
   this.freightgstmastermodel.sacCode = selectedDataValue.sacCode;
   this.freightgstmastermodel.sgstPct = selectedDataValue.sgstPct.toString();
   this.freightgstmastermodel.cgstPct = selectedDataValue.cgstPct.toString();

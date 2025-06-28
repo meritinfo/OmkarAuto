@@ -267,7 +267,7 @@ export class BenificiarymasteraddComponent {
     this.benificiarymastermodel.masterId = this.selectedBenMaster.masterId ;
     this.benificiarymastermodel.benType = selectedDataVal.benType;
     this.benificiarymastermodel.benCode = selectedDataVal.benCode;
-    this.benificiarymastermodel.benName = selectedDataVal.benName.toString().toUpperCase();;
+    this.benificiarymastermodel.benName = selectedDataVal.benName.toString().toUpperCase();
     this.benificiarymastermodel.benCoAcName = selectedDataVal.benCoAcName.toString().toUpperCase();
     this.benificiarymastermodel.benAdd1 = selectedDataVal.benAdd1.toString().toUpperCase();
     this.benificiarymastermodel.benAdd2 = selectedDataVal.benAdd2.toString().toUpperCase();
@@ -278,7 +278,7 @@ export class BenificiarymasteraddComponent {
     this.benificiarymastermodel.benMobile = selectedDataVal.benMobile;
     this.benificiarymastermodel.benEmail = selectedDataVal.benEmail;
     this.benificiarymastermodel.bankId = selectedDataVal.bankId.toString().toUpperCase();
-    this.benificiarymastermodel.benBankBranch = selectedDataVal.benBankBranch.toString().toUpperCase();;
+    this.benificiarymastermodel.benBankBranch = selectedDataVal.benBankBranch.toString().toUpperCase();
     this.benificiarymastermodel.benBankAcNo = selectedDataVal.benBankAcNo;
     this.benificiarymastermodel.benBankIfsc = selectedDataVal.benBankIfsc;
     this.benificiarymastermodel.amountLimit = selectedDataVal.amountLimit;
@@ -288,10 +288,10 @@ export class BenificiarymasteraddComponent {
     this.benificiarymastermodel.benRefByEmployeeId = selectedDataVal.benRefByEmployeeId;
     this.benificiarymastermodel.approvedYN = selectedDataVal.approvedYN;
     this.benificiarymastermodel.approvedDate = selectedDataVal.approvedDate;
-    this.benificiarymastermodel.approvedRemarks = selectedDataVal.approvedRemarks.toString().toUpperCase();;
+    this.benificiarymastermodel.approvedRemarks = selectedDataVal.approvedRemarks.toString().toUpperCase();
     this.benificiarymastermodel.blockYN = selectedDataVal.blockYN;
-    this.benificiarymastermodel.blockReason = selectedDataVal.blockReason.toString().toUpperCase();;
-    this.benificiarymastermodel.panNo = selectedDataVal.panNo.toString().toUpperCase();;
+    this.benificiarymastermodel.blockReason = selectedDataVal.blockReason.toString().toUpperCase();
+    this.benificiarymastermodel.panNo = selectedDataVal.panNo.toString().toUpperCase();
     this.benificiarymastermodel.globalYN = selectedDataVal.globalYN;
     this.benificiarymastermodel.branchCode = this.branch;
     this.benificiarymastermodel.loggedInUserID= this.loggedInUserID;

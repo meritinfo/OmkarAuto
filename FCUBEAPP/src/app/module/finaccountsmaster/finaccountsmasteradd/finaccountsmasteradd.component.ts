@@ -351,8 +351,8 @@ export class FinaccountsmasteraddComponent {
     this.finaccountmodel.printName          = selectedDataValue.printName.toString().toUpperCase();
     this.finaccountmodel.accountAddress1    = selectedDataValue.accountAddress1.toString().toUpperCase();
     this.finaccountmodel.accountAddress2    = selectedDataValue.accountAddress2.toString().toUpperCase();
-    this.finaccountmodel.accountAddress3    = selectedDataValue.accountAddress3.toString().toUpperCase();;
-    this.finaccountmodel.accountAddress4    = selectedDataValue.accountAddress4.toString().toUpperCase();;
+    this.finaccountmodel.accountAddress3    = selectedDataValue.accountAddress3.toString().toUpperCase();
+    this.finaccountmodel.accountAddress4    = selectedDataValue.accountAddress4.toString().toUpperCase();
     this.finaccountmodel.stateCode          = selectedDataValue.stateCode.toString().toUpperCase();
     this.finaccountmodel.pinCode            = selectedDataValue.pinCode;
     this.finaccountmodel.accountPhone       = selectedDataValue.accountPhone;

@@ -3036,10 +3036,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortColumn",     request.SortColumn),
                             new SqlParameter("@SortOrder",      request.SortOrder),
                             new SqlParameter("@Search",         request.Search),
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Origin",     request.FilterStr),
-                            new SqlParameter("@Destination",     request.FilterStr1),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@Origin",         request.FilterStr),
+                            new SqlParameter("@Destination",    request.FilterStr1),
+                            new SqlParameter("@BrokerId",       request.FilterStr2),
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanRegisterList", param);
@@ -3095,10 +3096,11 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Origin",     request.FilterStr),
-                            new SqlParameter("@Destination",     request.FilterStr1),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@Origin",         request.FilterStr),
+                            new SqlParameter("@Destination",    request.FilterStr1),
+                            new SqlParameter("@BrokerId",       request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanRegisterExcel", param);
 

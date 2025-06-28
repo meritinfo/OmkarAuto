@@ -303,7 +303,9 @@ export class ConsignmentaddComponent implements OnInit {
           this.getLrInnerGridList();   
           this.editMode = true;  
           this.createdBy = this.selectedLrDetails.createdBy + " " + this.selectedLrDetails.createdDate;
-          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;      
+          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;           
+          this.formUser.controls['ewayBillNo'].disable();                 
+          this.formUser.controls['ewayBillEntryType'].disable();        
         }
         else{    
           this.formArray.clear();
@@ -1030,7 +1032,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.fromPlace = selectedDataValue.fromPlace.dataId;
     this.lrmodel.toPlace = selectedDataValue.toPlace.dataId;
     this.lrmodel.kms = selectedDataValue.kms;
-    this.lrmodel.ownTruck = selectedDataValue.ownTruck?'Y':'N';;
+    this.lrmodel.ownTruck = selectedDataValue.ownTruck?'Y':'N';
     this.lrmodel.truckNo = selectedDataValue.truckNo;
     this.lrmodel.billingParty = selectedDataValue.billingParty ? selectedDataValue.billingParty.dataId : "0";
     this.lrmodel.billingBranch = selectedDataValue.billingBranch;

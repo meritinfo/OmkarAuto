@@ -253,7 +253,7 @@ submitPanWiseForm() {
   var selectedDataVal = this.formPanMaster.getRawValue()
   this.panrateModel.rateid = this.selectedPanRateDetails.rateid;
   this.panrateModel.panNo = selectedDataVal.panNo.toString().toUpperCase();
-  this.panrateModel.ownerName = selectedDataVal.ownerName.toString().toUpperCase();;
+  this.panrateModel.ownerName = selectedDataVal.ownerName.toString().toUpperCase();
   this.panrateModel.validFrom = selectedDataVal.validFrom;
   this.panrateModel.validUpto = selectedDataVal.validUpto;
   this.panrateModel.tdsRate = selectedDataVal.tdsRate.toString();

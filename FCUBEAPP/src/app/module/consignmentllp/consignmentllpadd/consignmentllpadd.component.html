@@ -151,7 +151,7 @@
                                         <input type="text" maxlength="15" class="form-control" 
                                             formControlName="ewayBillNo" (change)="fillgrid()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
-                                        <button type="button" class="btn btn-primary" *ngIf="gstApi"
+                                        <button type="button" class="btn btn-primary" *ngIf="gstApi&&!editMode"
                                             (click)="searchGSTDetails()">Search</button>
                                     </div>
                                 </div>

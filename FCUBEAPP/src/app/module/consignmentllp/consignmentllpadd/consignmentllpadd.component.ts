@@ -170,7 +170,7 @@ export class ConsignmentllpaddComponent {
       gcNoteNo  : new FormControl('', [Validators.required]),
       bookingDate : new FormControl(this.loginDate, [Validators.required]),
       bookingStatus : new FormControl('TBB', [Validators.required]),
-      rcm_Fcm: new FormControl('F',),
+      rcm_Fcm: new FormControl('R',),
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
       ewayBillDate : new FormControl('', [Validators.required]),
@@ -338,9 +338,10 @@ export class ConsignmentllpaddComponent {
         })      
         this.formUser.controls['seriesCode'].disable();
         this.formUser.controls['gcSlNo'].disable();
-        this.formUser.controls['ewayBillEntryType'].disable();        
-        this.gstApi = false;
-
+        this.formUser.controls['ewayBillEntryType'].disable();   
+        this.formUser.controls['ewayBillNo'].disable();   
+        this.formUser.controls['rcm_Fcm'].disable();    
+            
         if(this.selectedLrDetails.ownTruck=='N'){
           this.formUser.patchValue({
             ownTruck: ''             
@@ -1335,7 +1336,7 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.fromPlace = selectedDataValue.fromPlace.dataId;
     this.lrmodel.toPlace = selectedDataValue.toPlace.dataId;
     this.lrmodel.kms = selectedDataValue.kms;
-    this.lrmodel.ownTruck = selectedDataValue.ownTruck?'Y':'N';;
+    this.lrmodel.ownTruck = selectedDataValue.ownTruck?'Y':'N';
     this.lrmodel.truckNo = selectedDataValue.truckNo;
     this.lrmodel.billingParty = selectedDataValue.billingParty ? selectedDataValue.billingParty.dataId : "0";
     this.lrmodel.billingBranch = selectedDataValue.billingBranch;

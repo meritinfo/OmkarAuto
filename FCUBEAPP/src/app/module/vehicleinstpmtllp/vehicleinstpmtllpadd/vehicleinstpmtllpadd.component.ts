@@ -148,7 +148,7 @@ export class VehicleinstpmtllpaddComponent {
     }
     setTimeout(() => {
       if (this.selectedVehicleInstPmtDetail.pmtId != '') {
-        this.formUser.controls['pmtDate'].disable();
+        this.formUser.controls['loanAc'].disable();
         this.formUser.controls['loanType'].disable();
         this.formUser.controls['vehicleMasterid'].disable();
 
@@ -238,7 +238,10 @@ export class VehicleinstpmtllpaddComponent {
           this.formUser.controls["loanAc"].disable();
         }
         else {
-          this.toastrService.warning(this.responseDetails.message);
+          this.toastrService.warning("No Vehicle with this Account");
+          this.formUser.patchValue({
+            loanAc:""
+          })
         }      
       });
     }

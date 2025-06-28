@@ -284,9 +284,9 @@ dashboard: string ="";
     this.domodel.destination= selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.domodel.consigneeId= selectedDataVal.consigneeId?selectedDataVal.consigneeId.dataId:"";
     this.domodel.productId = selectedDataVal.productId;
-    this.domodel.materialDesc = selectedDataVal.materialDesc.toString().toUpperCase();;
-    this.domodel.doQty = selectedDataVal.doQty.toString().toUpperCase();;
-    this.domodel.doRemarks = selectedDataVal.doRemarks.toString().toUpperCase();;    
+    this.domodel.materialDesc = selectedDataVal.materialDesc.toString().toUpperCase();
+    this.domodel.doQty = selectedDataVal.doQty.toString().toUpperCase();
+    this.domodel.doRemarks = selectedDataVal.doRemarks.toString().toUpperCase();    
 
     this.domodel.loggedInUserID = this.loggedInUserID; 
     
