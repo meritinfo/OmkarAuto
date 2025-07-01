@@ -37,8 +37,10 @@ namespace Consignment.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr1)
                         };
+
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCciInvMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)

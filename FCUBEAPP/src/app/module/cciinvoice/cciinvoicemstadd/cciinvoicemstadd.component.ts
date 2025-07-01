@@ -73,8 +73,8 @@ export class CciinvoicemstaddComponent {
       }
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -85,6 +85,7 @@ export class CciinvoicemstaddComponent {
     else {
       this.route.navigate(['/']);
     }
+    
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -143,6 +144,7 @@ export class CciinvoicemstaddComponent {
     this.formTyreArray.controls[0].get("igstPct")?.disable();
     this.formTyreArray.controls[0].get("totalAmt")?.disable(); 
 
+    this.formUser.controls["branch"].disable();  
     this.formUser.controls["totalSgstAmt"].disable();
     this.formUser.controls["totalCgstAmt"].disable();
     this.formUser.controls["totalIgstAmt"].disable();

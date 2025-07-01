@@ -51,6 +51,10 @@ export class FinsaccountmasterService {
   FinAccountGstDelete(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountGstDelete', request, this.httpOptions);
   }
+  
+  FinAccountGstLocDelete(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountGstLocDelete', request, this.httpOptions);
+  }
 
   getFinAccountGstList(req: Requestmodel): Observable<Finaccountsmastergstmodel> {
     return this.httpClient.post<Finaccountsmastergstmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinAccountGstList', req, this.httpOptions);

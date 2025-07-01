@@ -49,6 +49,10 @@ namespace FinanceMasters.Business
         {
             return await finAccountsMasterRepository.GetFinAccountGstList(request);
         }
+        public async Task<ResponseModel> FinAccountGstLocDelete(RequestModel request)
+        {
+            return await finAccountsMasterRepository.FinAccountGstLocDelete(request);
+        }
 
     }
 }

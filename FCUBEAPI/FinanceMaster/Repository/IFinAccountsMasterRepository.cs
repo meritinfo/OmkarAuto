@@ -16,5 +16,6 @@ namespace FinanceMasters.Repository
         Task<ResponseModel> FinAccountsGSTSave(FinAccountsMasterGstModel finAccountsMasterModel);
         Task<ResponseModel> FinAccountGstDelete(RequestModel request);
         Task<FinAccountsMasterGstModel> GetFinAccountGstList(RequestModel request);
+        Task<ResponseModel> FinAccountGstLocDelete(RequestModel request);
     }
 }

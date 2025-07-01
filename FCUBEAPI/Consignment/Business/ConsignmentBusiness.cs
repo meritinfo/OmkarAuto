@@ -141,5 +141,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckLrExits(request);
         }
+        public async Task<ResponseModel> GetFcmRcmConfig()
+        {
+            return await consignmentRepository.GetFcmRcmConfig();
+        }
     }
 }

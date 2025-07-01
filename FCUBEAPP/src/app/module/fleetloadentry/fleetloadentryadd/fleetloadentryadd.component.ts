@@ -440,8 +440,8 @@ export class FleetloadentryaddComponent {
       this.toasterService.warning(" From Place is Invalid");
       return;
     }
-
-    if (selectedDataVal.loadFor.dataId) {
+    
+    if (selectedDataVal.loadFor.dataId || selectedDataVal.loadType =="E") {
       //ignore
     }
     else{

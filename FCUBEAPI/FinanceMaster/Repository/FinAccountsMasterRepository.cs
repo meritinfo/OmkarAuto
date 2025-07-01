@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Models;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace FinanceMasters.Repository
 {
@@ -95,17 +96,15 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@StatusColor"		    , finAccountsMasterModel.StatusColor            ),
                             new SqlParameter("@DeleteFlag"			, "N"                                           ),
                             new SqlParameter("@SchID"				, finAccountsMasterModel.SchID                  ),
-                            new SqlParameter("@AccountShortname" , finAccountsMasterModel.AccountShortname),
-                            new SqlParameter("@AccountEmail2"           , finAccountsMasterModel.AccountEmail2),
-                            new SqlParameter("@OverdueEmail"           , finAccountsMasterModel.OverdueEmail),
+                            new SqlParameter("@AccountShortname"    , finAccountsMasterModel.AccountShortname),
+                            new SqlParameter("@AccountEmail2"       , finAccountsMasterModel.AccountEmail2),
+                            new SqlParameter("@OverdueEmail"        , finAccountsMasterModel.OverdueEmail),
                             new SqlParameter("@Esc1Email"           , finAccountsMasterModel.Esc1Email),
-                            new SqlParameter("@CnRefYN"           , finAccountsMasterModel.CnRefYN),
-                            new SqlParameter("@BillTargetDays"           , finAccountsMasterModel.BillTargetDays),
-
-                            new SqlParameter("@OverdueCreditLimit"           , finAccountsMasterModel.OverdueCreditLimit),
-                            new SqlParameter("@ApplyCreditLimit"           , finAccountsMasterModel.ApplyCreditLimit),
-
-                            new SqlParameter("@CreatedBy"            , finAccountsMasterModel.LoggedInUserID         ),
+                            new SqlParameter("@CnRefYN"             , finAccountsMasterModel.CnRefYN),
+                            new SqlParameter("@BillTargetDays"      , finAccountsMasterModel.BillTargetDays),
+                            new SqlParameter("@OverdueCreditLimit"  , finAccountsMasterModel.OverdueCreditLimit),
+                            new SqlParameter("@ApplyCreditLimit"    , finAccountsMasterModel.ApplyCreditLimit),
+                            new SqlParameter("@CreatedBy"           , finAccountsMasterModel.LoggedInUserID         ),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinAccountSave", param);
@@ -217,14 +216,14 @@ namespace FinanceMasters.Repository
                                 BankAcType          = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcType"]),
                                 BankAcNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
                                 BankIfsc            = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
-                                AccountShortname = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountShortname"]),
-                                AccountEmail2 = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountEmail2"]),
-                                OverdueEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueEmail"]),
-                                Esc1Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Esc1Email"]),
-                                CnRefYN = Convert.ToString(dataSet.Tables[0].Rows[i]["CnRefYN"]),
-                                BillTargetDays = Convert.ToString(dataSet.Tables[0].Rows[i]["BillTargetDays"]),
-                                OverdueCreditLimit = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueCreditLimit"]),
-                                ApplyCreditLimit = Convert.ToString(dataSet.Tables[0].Rows[i]["ApplyCreditLimit"]),
+                                AccountShortname    = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountShortname"]),
+                                AccountEmail2       = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountEmail2"]),
+                                OverdueEmail        = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueEmail"]),
+                                Esc1Email           = Convert.ToString(dataSet.Tables[0].Rows[i]["Esc1Email"]),
+                                CnRefYN             = Convert.ToString(dataSet.Tables[0].Rows[i]["CnRefYN"]),
+                                BillTargetDays      = Convert.ToString(dataSet.Tables[0].Rows[i]["BillTargetDays"]),
+                                OverdueCreditLimit  = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueCreditLimit"]),
+                                ApplyCreditLimit    = Convert.ToString(dataSet.Tables[0].Rows[i]["ApplyCreditLimit"]),
 
                             });
                         }
@@ -444,7 +443,7 @@ namespace FinanceMasters.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Status  = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                     }
                     else
@@ -506,17 +505,17 @@ namespace FinanceMasters.Repository
                             finAccountsMasterlist.Add(new FinAccountsMasterGstDetail
                             {
                                 AccountId = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountId"]),
-                                Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
-                                GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
-                                Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
-                                Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
-                                Address3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
-                                Address4 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address4"]),
-                                City = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
+                                Location  = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
+                                GstNo     = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
+                                Address1  = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
+                                Address2  = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
+                                Address3  = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
+                                Address4  = Convert.ToString(dataSet.Tables[0].Rows[i]["Address4"]),
+                                City      = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
                                 StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
-                                PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
-                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
-                                Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),                               
+                                PinCode   = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+                                MobileNo  = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
+                                Email     = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),                               
                             });
                         }
 
@@ -529,6 +528,45 @@ namespace FinanceMasters.Repository
 
             }
             return finAccountsMaster;
+        }
+
+        public async Task<ResponseModel> FinAccountGstLocDelete(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@AccountID", request.strRequest),
+                        new SqlParameter("@Location", request.strRequest1),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinAccountGSTLocationDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
 
     }

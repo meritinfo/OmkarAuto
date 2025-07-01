@@ -71,9 +71,7 @@ dashboard: string ="";
           this.route.navigate([this.dashboard]);
         }
 
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -184,7 +182,7 @@ dashboard: string ="";
   }
 
   addItem(index: number): void { 
-    var selectedData = this.formAccountMaster.getRawValue()
+    var selectedData = this.formAccountMaster.getRawValue();
     if (selectedData.arrayList[index].location != "" && selectedData.arrayList[index].gstNo != "") {
       this.formArray.push(this.createInitialArray());
     } 
@@ -194,8 +192,22 @@ dashboard: string ="";
   }
 
   removeItem(index: number){ 
+    var selectedData = this.formAccountMaster.getRawValue();
     if (confirm("Are you sure, you want to delete this row?")) {
-    this.formArray.removeAt(index); }
+      this.requestmodel.strRequest = this.selectedFinaccountMasterDetails.accountId;
+      this.requestmodel.strRequest1 = selectedData.arrayList[index].location;
+
+      this.finsaccountmasterService.FinAccountGstLocDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status){  
+          this.formArray.removeAt(index); 
+        } 
+        else{
+          this.toasterService.warning(this.responseDetails.message);  
+          return; 
+        }   
+      });
+    }
   }
 
 
@@ -209,7 +221,7 @@ dashboard: string ="";
       this.sharedService.loading = true;
       this.requestmodel.strRequest = this.selectedFinaccountMasterDetails.accountId;
       if (confirm("Are you sure, you want to delete this?")) {
-            this.finsaccountmasterService.FinAccountGstDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.finsaccountmasterService.FinAccountGstDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if (this.responseDetails.status){    
               this.formAccountMaster.reset();

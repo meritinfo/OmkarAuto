@@ -39,6 +39,7 @@ namespace Consignment.Business
         Task<ResponseModel> GetLrNoLLP(RequestModel req);
         Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request);
         Task<ResponseModel> CheckLrExits(RequestModel request);
+        Task<ResponseModel> GetFcmRcmConfig();
 
     }
 }

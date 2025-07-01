@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { CciInvmstlistmodel } from '../models/cciInvmstlistmodel';
@@ -54,7 +55,7 @@ export class CciInvoiceMstService {
   cciInvoiceMasterSubmitted(user: Ccinvmstmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CciInvoiceMstSave', user, this.httpOptions);
   }
-  getCciInvoiceMasterList(filter: Filtermodel): Observable<CciInvmstlistmodel> {
+  getCciInvoiceMasterList(filter: Reportmodel): Observable<CciInvmstlistmodel> {
     return this.httpClient.post<CciInvmstlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetCciInvoiceMstMasterList', filter, this.httpOptions);
   }  
   getChCostList(): Observable<Dropdownmodel[]> {

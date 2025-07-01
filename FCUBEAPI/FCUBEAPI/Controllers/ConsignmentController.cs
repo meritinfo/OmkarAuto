@@ -3018,7 +3018,22 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("GetFcmRcmConfig")]
+        public async Task<IActionResult> GetFcmRcmConfig()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetFcmRcmConfig();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
         [HttpPost("GetCciInvoiceMstMasterList")]
         public async Task<IActionResult> GetCciInvoiceMstMasterList(ReportRequestModel request)
         {
