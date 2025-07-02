@@ -146,7 +146,6 @@ export class ConsignmentaddComponent implements OnInit {
     this.getBillingPartyList();
     this.getVehTypes();
     this.getCnorCneeList();
-    this.getFcmRcmConfig();
 
     this.sharedService.loading = false;
     
@@ -332,6 +331,7 @@ export class ConsignmentaddComponent implements OnInit {
       else{
         this.changeEWay('A');
         this.onBranchChange();
+        this.getFcmRcmConfig();
         this.formArray.controls[0].get("ewayBillNo")?.disable();
         this.formArray.controls[0].get("ewayBillDate")?.disable();
         this.formArray.controls[0].get("ewayBillExpDate")?.disable();
@@ -979,6 +979,17 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   submitLrDetailsForm(): void {
+    const controls = this.formUser.controls;
+    for (const name in controls) {   
+      if(name=="fromPlace" || name=="toPlace" || name=="billingParty" || name=="businessBy"
+        || name=="cnorId"|| name=="cneeId" || name=="arrayList")  {
+            //ignore
+      }
+      else{        
+        var val = controls[name].value?controls[name].value.toString().trim():"";
+        this.formUser.controls[name].setValue(val);
+      }
+    }
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;

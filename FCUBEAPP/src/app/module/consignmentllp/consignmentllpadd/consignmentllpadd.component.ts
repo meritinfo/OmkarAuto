@@ -1244,13 +1244,24 @@ export class ConsignmentllpaddComponent {
     }
   }
 
-  exit(): void {
-   
-      this.route.navigate(['/consignmentllp']);
-    
+  exit(): void {   
+      this.route.navigate(['/consignmentllp']);    
   }
 
   submitLrDetailsForm(): void {
+    const controls = this.formUser.controls;
+    for (const name in controls) {   
+      if(name=="fromPlace" || name=="toPlace" || name=="billingParty"
+          || name=="businessBy"|| name=="cnorId"|| name=="cneeId"
+          || name=="arrayList" || name=="arrayGstList")  {
+            //ignore
+      }
+      else{        
+        var val = controls[name].value?controls[name].value.toString().trim():"";
+        this.formUser.controls[name].setValue(val);
+      }
+    }
+    
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;

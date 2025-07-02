@@ -606,7 +606,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Total Bhatta Days</label>
-                                        <input class="form-control" numbersonly formControlName="totalBhattaDays">
+                                        <input class="form-control" numbersonly (change)="calTotal()"
+                                        formControlName="totalBhattaDays">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">

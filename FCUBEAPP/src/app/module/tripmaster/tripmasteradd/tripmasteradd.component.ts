@@ -192,9 +192,9 @@ dashboard: string ="";
     this.formTripsheet.controls['clBalDsl'].disable();       
     this.formTripsheet.controls['paidDriverAdvance'].disable();    
     this.formTripsheet.controls['expensesByDriver'].disable();  
-    this.formTripsheet.controls['totalBhattaDays'].disable();    
+    //this.formTripsheet.controls['totalBhattaDays'].disable();    
     this.formTripsheet.controls['bhattaRate'].disable();       
-    //this.formTripsheet.controls['bhattaAmt'].disable();       
+    this.formTripsheet.controls['bhattaAmt'].disable();       
     this.formTripsheet.controls['tripBalance'].disable();      
     this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     
@@ -738,12 +738,14 @@ dashboard: string ="";
   }
 
   calTotal(){
-    var selectedDataValue = this.formTripsheet.getRawValue();
+    var selectedDataValue = this.formTripsheet.getRawValue();    
+    var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
+    var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
+    var bhattaAmt = (bhattaRate * totalBhattaDays);    
     var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
     var freightCollByDriver = selectedDataValue.freightCollByDriver==''?0:parseFloat(selectedDataValue.freightCollByDriver);
     var expensesByDriver = selectedDataValue.expensesByDriver==''?0:parseFloat(selectedDataValue.expensesByDriver);
-    var bhattaAmt = selectedDataValue.bhattaAmt==''?0:parseFloat(selectedDataValue.bhattaAmt);
     var onTimeIncentiveAmt = selectedDataValue.onTimeIncentiveAmt==''?0:parseFloat(selectedDataValue.onTimeIncentiveAmt);
     var multiDelIncentiveAmt = selectedDataValue.multiDelIncentiveAmt==''?0:parseFloat(selectedDataValue.multiDelIncentiveAmt);
     var penaltyChargedToDr = selectedDataValue.penaltyChargedToDr==''?0:parseFloat(selectedDataValue.penaltyChargedToDr);
@@ -762,6 +764,7 @@ dashboard: string ="";
                       + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp
 
     this.formTripsheet.patchValue({
+      bhattaAmt: bhattaAmt.toFixed(2),
       tripBalance: tripBalance.toFixed(2),
       netTripBalance: netTripBalance.toFixed(2),
       tripTotalExpenses: tripTotalExpenses.toFixed(2),
