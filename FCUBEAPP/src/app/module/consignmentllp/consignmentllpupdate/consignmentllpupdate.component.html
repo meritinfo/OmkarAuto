@@ -53,11 +53,16 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Vehicle No</label>
-                                            <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
                                             maxlength="15" 
-                                                formControlName="vehicleNo"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }">
+                                                formControlName="vehicleNo">
+                                        </div>
+                                    </div>                                       
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Container No</label>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="containerNo">
                                         </div>
                                     </div>    
                                 </div> 

@@ -148,7 +148,8 @@ dashboard: string ="";
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       gcNoteNo  : new FormControl('', [Validators.required]),
       billingStatus: new FormControl('', [Validators.required]),
-      vehicleNo: new FormControl('', [Validators.required]),
+      vehicleNo: new FormControl('',),
+      containerNo : new FormControl('',), 
       bookingDate : new FormControl('', ),
       fromPlace : new FormControl('',),    
       toPlace : new FormControl('', ), 
@@ -236,6 +237,7 @@ dashboard: string ="";
     this.formUser.controls['othersRs'].disable(); 
     this.formUser.controls['subTotalRs'].disable(); 
     this.formUser.controls['gtotalRs'].disable(); 
+    this.formUser.controls['containerNo'].disable(); 
          
  
     this.formGstArray.controls[0].get("sgstAmt")?.disable();
@@ -331,6 +333,7 @@ dashboard: string ="";
       bookingDate : "",
       billingStatus: "",
       vehicleNo:"",
+      containerNo:"",
       fromPlace : "",
       toPlace :  "",   
       poNo:"",
@@ -412,6 +415,7 @@ dashboard: string ="";
             bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
             billingStatus:this.lrmodel.billingStatus,
             vehicleNo: this.lrmodel.invoiceNo,
+            containerNo:this.lrmodel.containerNo,
             fromPlace : this.lrmodel.fromPlace,
             toPlace :  this.lrmodel.toPlace, 
             poNo :  this.lrmodel.poNo,

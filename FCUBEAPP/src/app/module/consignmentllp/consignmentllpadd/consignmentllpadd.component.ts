@@ -170,7 +170,6 @@ export class ConsignmentllpaddComponent {
       gcNoteNo  : new FormControl('', [Validators.required]),
       bookingDate : new FormControl(this.loginDate, [Validators.required]),
       bookingStatus : new FormControl('TBB', [Validators.required]),
-      billingStatus: new FormControl('', [Validators.required]),
       rcm_Fcm: new FormControl('R',),
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
