@@ -174,7 +174,7 @@ export class ConsignmentaddComponent implements OnInit {
       billingBranch : new FormControl(this.branch, [Validators.required]),
       businessBranch : new FormControl(this.branch, [Validators.required]),
       cnorId : new FormControl('',),    
-      cnorName : new FormControl('', [Validators.required]),
+      cnorName : new FormControl('', [Validators.required, Validators.minLength(3)]),
       cnorAdd1 : new FormControl('',),    
       cnorAdd2 : new FormControl('',),    
       cnorAdd3 : new FormControl('',),    
@@ -183,7 +183,7 @@ export class ConsignmentaddComponent implements OnInit {
       cnorMobile : new FormControl('',),    
       cnorEmail : new FormControl('',),  
       cneeId : new FormControl('',),      
-      cneeName : new FormControl('', [Validators.required]),
+      cneeName : new FormControl('', [Validators.required, Validators.minLength(3)]),
       cneeAdd1 : new FormControl('',),    
       cneeAdd2 : new FormControl('',),    
       cneeAdd3 : new FormControl('',),    
@@ -979,17 +979,17 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   submitLrDetailsForm(): void {
-    const controls = this.formUser.controls;
-    for (const name in controls) {   
-      if(name=="fromPlace" || name=="toPlace" || name=="billingParty" || name=="businessBy"
-        || name=="cnorId"|| name=="cneeId" || name=="arrayList")  {
-            //ignore
-      }
-      else{        
-        var val = controls[name].value?controls[name].value.toString().trim():"";
-        this.formUser.controls[name].setValue(val);
-      }
-    }
+    // const controls = this.formUser.controls;
+    // for (const name in controls) {   
+    //   if(name=="fromPlace" || name=="toPlace" || name=="billingParty" || name=="businessBy"
+    //     || name=="cnorId"|| name=="cneeId" || name=="arrayList")  {
+    //         //ignore
+    //   }
+    //   else{        
+    //     var val = controls[name].value?controls[name].value.toString().trim():"";
+    //     this.formUser.controls[name].setValue(val);
+    //   }
+    // }
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;

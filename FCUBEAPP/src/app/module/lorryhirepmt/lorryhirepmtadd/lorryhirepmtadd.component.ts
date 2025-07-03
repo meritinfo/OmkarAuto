@@ -213,7 +213,7 @@ export class LorryhirepmtaddComponent {
         this.editMode = true;
         this.createdBy = this.selectedLorryhiremaster.createdBy + " " + this.selectedLorryhiremaster.createdDate;
         this.modifiedBy = this.selectedLorryhiremaster.modifiedBy + " " + this.selectedLorryhiremaster.modifiedDate;  
-        this.formUser.controls['pmtDate'].disable();
+       // this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['pmtType'].disable(); 
         this.formUser.controls['onAcBranchYN'].disable();
         this.formUser.controls['onAcBranch'].disable();

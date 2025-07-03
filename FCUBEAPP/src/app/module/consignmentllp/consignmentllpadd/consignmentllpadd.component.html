@@ -71,7 +71,7 @@
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        numbersonly maxlength="12" 
+                                        numbersonly maxlength="12" minlength="1"
                                         formControlName="gcNoteNo" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
@@ -171,7 +171,20 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="row">
+                        <div class="row">                           
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Bill Status</label><span style="color: red">*</span>
+                                    <select formControlName="billingStatus"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStatus'].invalid) }">
+                                        <option value="NA">Not Applicable</option>
+                                        <option value="WP">With POD</option>
+                                        <option value="WO">Without POD</option>
+                                        <option value="IB">Indemnity Bond</option>
+                                    </select>
+                                </div>
+                            </div>       
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
@@ -418,6 +431,7 @@
                                     <label for="formrow-inputZip">Consignor Name: </label>
                                     <span style="color: red">*</span>  
                                     <input uppercaseonly type="text" maxlength="100"
+                                        minlength="3"
                                         class="form-control" formControlName="cnorName"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorName'].invalid) }" >                                           
                                 </div> 
@@ -499,6 +513,7 @@
                                     <label for="formrow-inputZip">Consignee Name: </label>
                                     <span style="color: red">*</span>  
                                     <input uppercaseonly type="text" maxlength="100"
+                                        minlength="3"
                                         class="form-control" formControlName="cneeName"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeName'].invalid) }" >                                           
                                 </div>

@@ -204,8 +204,7 @@ export class LorryhirepmtllpaddComponent {
           pmtDate: this.commonService.formatDate(this.selectedLorryhiremaster.pmtDate),
           chequeDt: this.commonService.formatDate(this.selectedLorryhiremaster.chequeDt), 
           onAcBranchYN:onAcBranchYN,
-            brokerId : this.brokerList.find(e => e.dataId == this.selectedLorryhiremaster.brokerId)  ,        
-  
+          brokerId : this.brokerList.find(e => e.dataId == this.selectedLorryhiremaster.brokerId)  ,  
           neftPmt:neftPmt,
         });
         if(this.selectedLorryhiremaster.pmtType=="B" && this.selectedLorryhiremaster.neftPmt=="N"){
@@ -220,11 +219,11 @@ export class LorryhirepmtllpaddComponent {
         
         this.createdBy = this.selectedLorryhiremaster.createdBy + " " + this.selectedLorryhiremaster.createdDate;
         this.modifiedBy = this.selectedLorryhiremaster.modifiedBy + " " + this.selectedLorryhiremaster.modifiedDate;  
-        this.formUser.controls['pmtDate'].disable();
+        //this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['pmtType'].disable(); 
         this.formUser.controls['onAcBranchYN'].disable();
         this.formUser.controls['onAcBranch'].disable();
-           this.formUser.controls['brokerId'].disable();
+        this.formUser.controls['brokerId'].disable();
         this.formUser.controls['modifyRemarks'].enable();                
         if(this.selectedLorryhiremaster.finDocid!="0"){
           this.getFinDocDetails(this.selectedLorryhiremaster.finDocid,"BC");
@@ -622,7 +621,7 @@ export class LorryhirepmtllpaddComponent {
       //ignore
     }
     else{
-      this.toasterService.warning(" Invalid Broker");
+      this.toasterService.warning("Invalid Broker");
       this.formArray.controls[i].get("challanNo")?.setValue("");
       return;
     }
@@ -638,8 +637,7 @@ export class LorryhirepmtllpaddComponent {
         this.formArray.controls[i].get("challanNo")?.setValue("");
         return;
       }
-    }
-    
+    }    
 
     this.challanInputDtls.search = selectedData.pmtType;
     this.challanInputDtls.filterStr = selectedData.arrayList[i].abType ;
@@ -648,7 +646,7 @@ export class LorryhirepmtllpaddComponent {
     this.challanInputDtls.filterStr3 = selectedData.arrayList[i].challanNo ;
     this.challanInputDtls.sortColumn = selectedData.brokerId.dataId ;
 
-    this.requestmodel.strRequest = selectedData.arrayList[i].challanNo
+    this.requestmodel.strRequest = selectedData.arrayList[i].challanNo;
 
     this.lorryhirepmtService.checkChallanNoExists(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

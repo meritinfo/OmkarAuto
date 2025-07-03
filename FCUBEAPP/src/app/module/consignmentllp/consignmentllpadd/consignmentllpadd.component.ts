@@ -170,6 +170,7 @@ export class ConsignmentllpaddComponent {
       gcNoteNo  : new FormControl('', [Validators.required]),
       bookingDate : new FormControl(this.loginDate, [Validators.required]),
       bookingStatus : new FormControl('TBB', [Validators.required]),
+      billingStatus: new FormControl('', [Validators.required]),
       rcm_Fcm: new FormControl('R',),
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
@@ -188,7 +189,7 @@ export class ConsignmentllpaddComponent {
       billingBranch : new FormControl(this.branch, [Validators.required]),
       businessBranch : new FormControl(this.branch, [Validators.required]),
       cnorId : new FormControl('',),    
-      cnorName : new FormControl('', [Validators.required]),
+      cnorName : new FormControl('', [Validators.required,Validators.minLength(3)]),
       cnorAdd1 : new FormControl('',),    
       cnorAdd2 : new FormControl('',),    
       cnorAdd3 : new FormControl('',),    
@@ -197,7 +198,7 @@ export class ConsignmentllpaddComponent {
       cnorMobile : new FormControl('',),    
       cnorEmail : new FormControl('',),  
       cneeId : new FormControl('',),      
-      cneeName : new FormControl('', [Validators.required]),
+      cneeName : new FormControl('', [Validators.required,Validators.minLength(3)]),
       cneeAdd1 : new FormControl('',),    
       cneeAdd2 : new FormControl('',),    
       cneeAdd3 : new FormControl('',),    
@@ -260,7 +261,6 @@ export class ConsignmentllpaddComponent {
     });
 
     
-
     this.formUser.controls["bookingPlace"].disable();
     this.formUser.controls["gcNoteNo"].disable();
     this.formGstArray.controls[0].get("amount")?.disable();
@@ -380,7 +380,7 @@ export class ConsignmentllpaddComponent {
   get formGstArray() {
     return this.formUser.get("arrayGstList") as FormArray;
   }
-  
+
   createInitialArray() {
     return this.formBuilder.group({
       ewayBillNo: ['', []],
@@ -710,9 +710,7 @@ export class ConsignmentllpaddComponent {
     if(gstb!= "F"){
       this.formUser.patchValue({
         gstType: "NA"
-
-      })
-      
+      })      
     }
   }
       
@@ -722,9 +720,7 @@ export class ConsignmentllpaddComponent {
     if(gsttype!= "NA"){
       this.formUser.patchValue({
         gstBy: "F"
-
-      })
-      
+      })      
     }
 
     
@@ -1249,19 +1245,7 @@ export class ConsignmentllpaddComponent {
   }
 
   submitLrDetailsForm(): void {
-    const controls = this.formUser.controls;
-    for (const name in controls) {   
-      if(name=="fromPlace" || name=="toPlace" || name=="billingParty"
-          || name=="businessBy"|| name=="cnorId"|| name=="cneeId"
-          || name=="arrayList" || name=="arrayGstList")  {
-            //ignore
-      }
-      else{        
-        var val = controls[name].value?controls[name].value.toString().trim():"";
-        this.formUser.controls[name].setValue(val);
-      }
-    }
-    
+     
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -1274,7 +1258,6 @@ export class ConsignmentllpaddComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
-
     
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
@@ -1286,7 +1269,6 @@ export class ConsignmentllpaddComponent {
       this.toastrService.warning("Invalid booking date");
       return
     }
-
 
     if (selectedDataValue.fromPlace.dataId) {
       //ignore
@@ -1336,6 +1318,7 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;
     this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.lrmodel.billingStatus = selectedDataValue.billingStatus;
     this.lrmodel.rcm_Fcm = selectedDataValue.rcm_Fcm;
     this.lrmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
     this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;
@@ -1420,7 +1403,6 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.vehicleInDt= selectedDataValue.vehicleInDt?selectedDataValue.vehicleInDt.toString():"";
     this.lrmodel.vehicleInTime= selectedDataValue.vehicleInTime?selectedDataValue.vehicleInTime.toString():"";
     this.lrmodel.vehicleOutDt= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
-    //this.lrmodel.gcSlNo= selectedDataValue.vehicleOutDt?selectedDataValue.vehicleOutDt.toString():"";
     this.lrmodel.gcSlNo = selectedDataValue.gcSlNo; 
     this.lrmodel.gcSeries = selectedDataValue.seriesCode; 
     this.lrmodel.cgstAmt = selectedDataValue.cgstAmt.toString(); 
