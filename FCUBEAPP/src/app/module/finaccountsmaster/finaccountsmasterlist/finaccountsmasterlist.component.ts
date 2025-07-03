@@ -21,7 +21,7 @@ export class FinaccountsmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   groupList : Dropdownmodel[] = []; 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -58,14 +58,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }  
-
-    
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }  
     
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -85,8 +83,8 @@ dashboard: string ="";
     this.getGroupList();
     this.finaccountslist();
     this.sharedService.loading=false;
-
   }
+
   finaccountslist(){
     this.dtOptions = {
     pagingType: 'full_numbers',
@@ -94,9 +92,9 @@ dashboard: string ="";
     serverSide: true,
     processing: true,
     searching: false,     
-        language: {
-          zeroRecords: ''
-        }, 
+    language: {
+      zeroRecords: ''
+    }, 
     ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -118,7 +116,7 @@ dashboard: string ="";
         this.sharedService.loading = false;
       },
        // Set column title and data field
-       columns: [  
+      columns: [  
         {
           title: 'Action',
           data: 'accountId',
@@ -138,6 +136,7 @@ dashboard: string ="";
       ],
     };
   }
+
   getGroupList(): void {
       this.finsaccountmasterService.getGroupList().subscribe((res) => {
       this.groupList = res;
@@ -155,7 +154,6 @@ dashboard: string ="";
     this.route.navigate(['/finaccountedit']);
   }
 
- 
   search(): void {
     this.filter.search = this.formFilter.value.accountName;
     this.filter.sortColumn = this.formFilter.value.groupName;

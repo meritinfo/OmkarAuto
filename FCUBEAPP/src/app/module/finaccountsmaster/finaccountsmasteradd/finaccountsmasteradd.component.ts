@@ -29,6 +29,7 @@ export class FinaccountsmasteraddComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  panName: string = "";
 
   responseDetails = new Responsemodel();
   accountTypeList: Dropdownmodel[] = [];
@@ -61,7 +62,6 @@ export class FinaccountsmasteraddComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-
     
     this.sharedService.loggedInStatus = true;
     var userData = sessionStorage.getItem('uid')?.toString();
@@ -226,6 +226,7 @@ export class FinaccountsmasteraddComponent {
         if (res.result!= null) { 
           if(res.result.isValid){
             ispanvalid= "Y";
+            this.panName = res.result.name;
           }  
         }        
         if(ispanvalid=="N"){          
@@ -334,7 +335,7 @@ export class FinaccountsmasteraddComponent {
           this.toasterService.warning(name + " Fields is Invalid");   
         }
       }          
-      return;
+      return; 
     }
     var selectedDataValue = this.formAccountMaster.getRawValue();
    
