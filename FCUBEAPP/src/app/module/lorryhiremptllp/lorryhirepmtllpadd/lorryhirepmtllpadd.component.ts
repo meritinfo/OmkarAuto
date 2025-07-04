@@ -195,8 +195,7 @@ export class LorryhirepmtllpaddComponent {
 
     setTimeout(() => {
       if (this.selectedLorryhiremaster.masterId != '') {  
-        this.formUser.controls['pmtNo'].disable();
-        
+        this.formUser.controls['pmtNo'].disable();        
         this.formUser.patchValue(this.selectedLorryhiremaster);
         var onAcBranchYN = this.selectedLorryhiremaster.onAcBranchYN=="Y"?"Y":"";
         var neftPmt = this.selectedLorryhiremaster.neftPmt=="Y"?"Y":"";
