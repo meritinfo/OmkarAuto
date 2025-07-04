@@ -1,17 +1,10 @@
 import { Component } from '@angular/core';
-
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
-import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Brandmastermodel } from 'src/app/models/brandmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BrandMasterService } from 'src/app/services/brandmaster.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -90,7 +83,7 @@ ngOnInit(): void {
 
   this.selectedBrandMasterDetails = this.brandmasterService.getBrandMasterDetails();
   this.formUser = this.formBuilder.group({
-    brandName: new FormControl('',[Validators.required]),
+    brandName: new FormControl('',[Validators.required,Validators.minLength(2)]),
     brandType: new FormControl('',[Validators.required]),
     isActive: new FormControl('Y',[Validators.required]),
   });

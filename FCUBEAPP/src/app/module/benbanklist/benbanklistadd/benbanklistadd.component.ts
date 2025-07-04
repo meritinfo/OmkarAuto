@@ -3,15 +3,10 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Constants } from 'src/app/common/constants';
-import { Drivermodel } from 'src/app/models/drivermodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BenBankListService } from 'src/app/services/benbanklist.service';
-import { Benbanklistmodel } from 'src/app/models/benbanklistmodel';
 import { Benbankmodel } from 'src/app/models/benbankmodel';
-import { Panwisetdsratemodel } from 'src/app/models/panwisetdsratemodel';
-
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -104,7 +99,7 @@ ngOnInit(): void {
 
   this.selectedBenBankDetails = this.benService.getBenBankDetails();
   this.formBenMaster = this.formBuilder.group({
-    bankShortCode : new FormControl('',[Validators.required]),
+    bankShortCode : new FormControl('',[Validators.required,Validators.minLength(2)]),
     bankName : new FormControl('', [Validators.required]),
    // validFrom : new FormControl(this.minDate, [Validators.required]),
    activeYN : new FormControl('Y', [Validators.required]),

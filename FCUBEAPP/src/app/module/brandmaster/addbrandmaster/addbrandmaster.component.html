@@ -30,14 +30,10 @@
                                           <div class="mb-4">
                                            <input type="text" class="form-control"
                                              formControlName="brandName" uppercaseonly  (change)="chkBrandDuplicate()"
-                                           [ngClass]= "{ 'is-invalid': formSubmitted && (f['brandName'].invalid) }">
+                                               [ngClass]="{ 'is-invalid': formSubmitted && (f['brandName'].invalid) }">
                                         </div>
                                      </div>
-                                    </div>
-                        
-                          
-                        
-                                
+                                    </div>                                
                                      <div class="row">
                                        <div class="col-lg-2">
                                           <div class="mb-3">
@@ -45,8 +41,7 @@
                                         </div>
                                        </div>
                                        <div class="col-lg-2">
-                                          <div class="mb-3">
-                                          
+                                          <div class="mb-3">                                          
                                            <select formControlName="brandType" 
                                                class="form-control form-select ng-pristine ng-touched"
                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['brandType'].invalid) }">

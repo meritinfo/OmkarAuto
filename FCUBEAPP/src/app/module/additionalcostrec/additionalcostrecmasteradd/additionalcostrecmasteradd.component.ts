@@ -96,18 +96,13 @@ ngOnInit(): void {
 
   this.selectedAdditionalcostrecDetails = this.additionalcostrecService.getAdditionalcostrecmasterModelDetails();
   this.formUser = this.formBuilder.group({
-   // docCode: new FormControl('',[Validators.required]),
-   addCostID: new FormControl('',), 
-   addCostCode: new FormControl('',[Validators.required]), 
-   addCostType:new FormControl('',[Validators.required]), 
-   addCostDescription : new FormControl('',[Validators.required]), 
-   accountID : new FormControl('',[Validators.required]), 
-   affectCosting: new FormControl('Y',[Validators.required]), 
-  // loggedInUser: new FormControl('',[Validators.required]), 
-   
+    addCostID: new FormControl('',), 
+    addCostCode: new FormControl('',[Validators.required,Validators.minLength(2)]), 
+    addCostType:new FormControl('',[Validators.required]), 
+    addCostDescription : new FormControl('',[Validators.required,Validators.minLength(2)]), 
+    accountID : new FormControl('',[Validators.required]), 
+    affectCosting: new FormControl('Y',[Validators.required]),    
   });
- // this.getBranchList();
- // this.getStateList();
 
   if (this.selectedAdditionalcostrecDetails.addCostID != '') {
     this.formUser.patchValue(this.selectedAdditionalcostrecDetails);      

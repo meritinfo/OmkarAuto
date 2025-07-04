@@ -794,15 +794,14 @@ const routes: Routes = [
   { path: 'lhpmtlistllp', component:  LorryhirepmtllplistComponent },
   { path: 'lhpmtaddllp', component:  LorryhirepmtllpaddComponent },
   { path: 'lhpmteditllp', component:  LorryhirepmtllpaddComponent },
-
   { path: 'vehicleadvbalreceiptllpadd', component: VehicleadvreceiptllpaddComponent }, 
   { path: 'Vehicleadvbalreceiptllpedit', component: VehicleadvreceiptllpaddComponent }, 
   { path: 'vehicleadvballistbrpl', component: VehicleadvreceiptllplistComponent },
-    { path: 'suppchallanlistllp',component: ChallansupplilistllpComponent},
+  { path: 'suppchallanlistllp',component: ChallansupplilistllpComponent},
   { path: 'suppchallanaddllp',component: ChallansuppliaddllpComponent },
   { path: 'suppchallaneditllp',component: ChallansuppliaddllpComponent },
-    { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
-        { path: 'challantdsrpt', component:  ChallantdsstmtrptComponent },
+  { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
+  { path: 'challantdsrpt', component:  ChallantdsstmtrptComponent },
   
 ];
 

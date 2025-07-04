@@ -26,7 +26,6 @@
                                <div class="mb-4">
                                  <input type="text"  autofocus="autofocus" class="form-control"
                                    uppercaseonly formControlName="chCostDesc"  (change)="checkDuplicateDesc()"
- 
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['chCostDesc'].invalid) }">
                                </div>
                            </div>
@@ -39,8 +38,7 @@
                                <div class="col-lg-4">
                                 <div class="mb-4">
                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                    numbersonly formControlName="sacCode" 
-  
+                                    uppercaseonly formControlName="sacCode"   
                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['sacCode'].invalid) }">
                                 </div>
                             </div>
@@ -54,7 +52,6 @@
                                 <div class="mb-4">
                                   <input type="text"  autofocus="autofocus" class="form-control"
                                     decimalonly formControlName="gstPct" 
-  
                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['gstPct'].invalid) }">
                                 </div>
                             </div>

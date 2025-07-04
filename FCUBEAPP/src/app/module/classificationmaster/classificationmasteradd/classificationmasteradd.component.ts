@@ -81,7 +81,7 @@ dashboard: string ="";
 
     this.selectedClassificationMasterDetails = this.classificationmasterService.getClassificationMasterDetails();
     this.formClassificationMaster = this.formBuilder.group({   
-      classDesc: new FormControl('',[Validators.required]),
+      classDesc: new FormControl('',[Validators.required, Validators.minLength(2)]),
       isActive: new FormControl('Y',[Validators.required]),
     });
 

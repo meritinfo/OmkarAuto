@@ -132,7 +132,7 @@ ngOnInit(): void {
       challanFromStn: new FormControl('', [Validators.required]),
       challanToStn: new FormControl('', [Validators.required]),
       distanceKms: new FormControl('',),
-      truckNo: new FormControl('', [Validators.required]),
+      truckNo: new FormControl('', [Validators.required, Validators.minLength(2)]),
       brokerId: new FormControl('', [Validators.required]),
       brokerMblNo: new FormControl('',), 
       totalHire: new FormControl('',[Validators.required]), 

@@ -1,17 +1,12 @@
 
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ChcosttypesModel } from 'src/app/models/chcosttypesmodel';
-import { Admingroupmasterlistmodel   } from 'src/app/models/admingroupmasterlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Admingroupmastermodel } from 'src/app/models/admingroupmastermodel';
-
 import { AdminGroupMasterService } from 'src/app/services/adminmastergroup.service';
-import { ChCostTypesService } from 'src/app/services/chcosttypes.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
@@ -117,7 +112,7 @@ ngOnInit(): void {
   this.selectedChCostTypeDetails = this.adminGroupMasterService.getAdminGroupmasterDetails();
 
   this.formChCost = this.formBuilder.group({
-    adminGrpDesc : new FormControl('' ,[Validators.required] ),
+    adminGrpDesc : new FormControl('' ,[Validators.required,Validators.minLength(2)] ),
     sortId : new FormControl('' , [Validators.required]),
     activeYN: new FormControl('Y',[Validators.required] ),
    // transType: new FormControl('', [Validators.required]),

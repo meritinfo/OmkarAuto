@@ -25,7 +25,7 @@
                               <div class="mb-3">
                                  <input type="text" class="form-control"
                                  formControlName="docCode" uppercaseonly maxlength="10"
-                                 (change)="chkDocRenewalCode($event)"
+                                 (change)="chkDocRenewalCode($event)" minlength="2"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['docCode'].invalid) }">
                               </div>
                            </div>
@@ -40,7 +40,7 @@
                               <div class="mb-3">
                                  <input type="text" class="form-control" maxlength="45"
                                  formControlName="docDescription" uppercaseonly
-                                 (change)="chkDocRenewalDesc($event)"
+                                 (change)="chkDocRenewalDesc($event)"  minlength="2"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['docDescription'].invalid) }">
                               </div>
                            </div>

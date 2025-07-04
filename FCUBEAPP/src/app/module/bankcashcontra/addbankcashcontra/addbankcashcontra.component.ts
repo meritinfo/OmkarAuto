@@ -51,8 +51,7 @@ export class AddbankcashcontraComponent {
       this.bankreceiptentryModel = new bankreceiptentrymodel();
   }
 
-  ngOnInit(): void {  
-    
+  ngOnInit(): void {      
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -115,7 +114,7 @@ export class AddbankcashcontraComponent {
       refNo: new FormControl('',),
       chequeNo: new FormControl('',[Validators.required]),
       chequeDate: new FormControl('',[Validators.required]),
-      narration: new FormControl('',[Validators.required]),
+      narration: new FormControl('',[Validators.required,Validators.minLength(2)]),
       remarks:new FormControl('',),
       utrNo: new FormControl('',), 
       linkedYN: new FormControl('',),

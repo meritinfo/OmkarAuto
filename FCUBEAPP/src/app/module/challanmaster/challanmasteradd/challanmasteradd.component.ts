@@ -163,7 +163,7 @@ modifiedBy: string = "";
       expArrivalDate: new FormControl('',[Validators.required]),
       mainChallanBranch: new FormControl('', [Validators.required]),
       mainChallanNo: new FormControl('', [Validators.required]),
-      truckNo: new FormControl('', [Validators.required]),
+      truckNo: new FormControl('', [Validators.required,Validators.minLength(2)]),
       ownTruckYN: new FormControl('',),
       brokerId: new FormControl('', [Validators.required]),
       brokerMblNo: new FormControl('',),    

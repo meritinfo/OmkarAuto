@@ -45,7 +45,7 @@
                                            <div class="mb-4">
                                             <input type="text" class="form-control"
                                               formControlName="bankName" uppercaseonly  (change)="chkBankDuplicate($event)"
-                                            [ngClass]= "{ 'is-invalid': formSubmitted && (f['bankShortCode'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bankShortCode'].invalid) }">
                                          </div>
                                       </div>
                                      </div>

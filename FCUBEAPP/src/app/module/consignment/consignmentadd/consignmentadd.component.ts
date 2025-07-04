@@ -169,7 +169,7 @@ export class ConsignmentaddComponent implements OnInit {
       toPlace : new FormControl('', [Validators.required]),    
       kms : new FormControl('0',),
       ownTruck : new FormControl('',),    
-      truckNo : new FormControl('', [Validators.required]),    
+      truckNo : new FormControl('', [Validators.required, Validators.minLength(2)]),
       billingParty : new FormControl('', [Validators.required]),
       billingBranch : new FormControl(this.branch, [Validators.required]),
       businessBranch : new FormControl(this.branch, [Validators.required]),

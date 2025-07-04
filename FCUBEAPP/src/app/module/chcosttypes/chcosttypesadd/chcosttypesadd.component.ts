@@ -114,26 +114,15 @@ ngOnInit(): void {
   this.selectedChCostTypeDetails = this.ChCostTypesService.getCostTypesDetails();
 
   this.formChCost = this.formBuilder.group({
-    chCostDesc: new FormControl('' ,[Validators.required] ),
-    sacCode: new FormControl('' , [Validators.required]),
+    chCostDesc: new FormControl('' ,[Validators.required, Validators.minLength(2)]),
+    sacCode: new FormControl('' , [Validators.required, Validators.minLength(2)]),
     gstPct: new FormControl('',[Validators.required] ),
-   // transType: new FormControl('', [Validators.required]),
-   // amountPaid: new FormControl('', [Validators.required]),
   });
     setTimeout(() => {
       this.createmode = true;
-     // this.formTripPayment.controls['pmtBranch'].disable();
        if (this.selectedChCostTypeDetails.chCostId != '') {
-        // this.seriesDoc = this.selectedChCostTypeDetails.seriesDoc; 
          this.formChCost.patchValue(this.selectedChCostTypeDetails);
-       
-         this.formChCost.patchValue({
-          // pmtDate:   this.commonService.formatDate(this.selectedChCostTypeDetails.pmtDate), 
-          // chequeDate:  this.commonService.formatDate(this.selectedChCostTypeDetails.chequeDate), 
-          // vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
-          // neftPmt:  ""
-         })  
-        
+              
          this.editMode = true;
     
        }  

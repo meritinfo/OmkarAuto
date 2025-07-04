@@ -112,7 +112,7 @@ export class BillprintllpComponent {
     //this.getPartyList(); 
    
     this.formFilter = this.formBuilder.group({
-      copy: new FormControl('',[Validators.required]),  
+      copy: new FormControl('',[Validators.required,Validators.minLength(2)]),  
       cnorCnee: new FormControl('R',[Validators.required]),  
       format: new FormControl('',[Validators.required]),  
       billingStn: new FormControl('',[Validators.required]), 

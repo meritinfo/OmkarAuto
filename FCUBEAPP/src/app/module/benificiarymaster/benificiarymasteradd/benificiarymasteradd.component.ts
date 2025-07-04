@@ -107,12 +107,12 @@ export class BenificiarymasteraddComponent {
 
     this.formBenMaster = this.formBuilder.group({
       benType : new FormControl('',[Validators.required]),
-      benCode : new FormControl('',[Validators.required]),
-      benName : new FormControl('',[Validators.required]),
+      benCode : new FormControl('',[Validators.required,Validators.minLength(2)]),
+      benName : new FormControl('',[Validators.required,Validators.minLength(2)]),
       benCoAcName : new FormControl('',[Validators.required]),
-      benAdd1 : new FormControl('',[Validators.required]),
-      benAdd2 : new FormControl('',[Validators.required]),
-      benAdd3 : new FormControl('',[Validators.required]),
+      benAdd1 : new FormControl('',[Validators.required,Validators.minLength(2)]),
+      benAdd2 : new FormControl('',[Validators.required,Validators.minLength(2)]),
+      benAdd3 : new FormControl('',[Validators.required,Validators.minLength(2)]),
       pinCode : new FormControl('',),
       stateCode : new FormControl('',[Validators.required]),
       benPhone : new FormControl('',),
@@ -132,7 +132,7 @@ export class BenificiarymasteraddComponent {
       blockYN : new FormControl('N',),
       blockReason : new FormControl('',),
       panNo : new FormControl('',),
-      globalYN : new FormControl('Y',),
+      globalYN : new FormControl('Y',[Validators.required]),
       bankName: new FormControl('',),
     });
 

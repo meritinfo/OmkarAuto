@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
-import {Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
+import { Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
 import { Menureportaccessrightsmodel } from './models/menureportaccessmodel';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
-import {Branchcustomertargetmodel } from 'src/app//models/branchcustomertargetmstmodel';
+import { Branchcustomertargetmodel } from 'src/app//models/branchcustomertargetmstmodel';
 import { Userlistmodel } from './models/userlistmodel';
 import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
@@ -259,7 +259,7 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
-import {Spareslubesmastermodel } from './models/sparelubesmastermodel';
+import { Spareslubesmastermodel } from './models/sparelubesmastermodel';
 import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
 import { Documentallotmentmodel } from './models/documentallotmentmodel';
@@ -309,7 +309,7 @@ import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel'
 import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
-import {Partymislocationmodel } from './models/partymislocationsmodel';
+import { Partymislocationmodel } from './models/partymislocationsmodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 import { VehiclerepmaintMaster } from './models/vehiclerepmaintmastermodel';
@@ -346,7 +346,7 @@ import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmo
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
- import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
+import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 import { LhpayablestatusrptComponent } from './module/lhpayablestatusrpt/lhpayablestatusrpt.component';
 import { Lhpayablestatusrptmodel } from './models/lhpayablestatusrptmodel';
 import { Vehiclerepairsrptmodel } from './models/vehiclerepairsrptmodel';
@@ -528,7 +528,6 @@ import { ChallansuppliaddllpComponent } from './module/challansupplillp/challans
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
-
 
 
 @NgModule({
@@ -779,10 +778,8 @@ import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantd
     Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
-    Directpmtlistmodel, Directpmtmodel,
-    Unbilledprovisionmstmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
-    Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
+    Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
     
   ],
   bootstrap: [AppComponent]

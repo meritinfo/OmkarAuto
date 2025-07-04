@@ -93,7 +93,7 @@ dashboard: string ="";
 
     this.selectedDestinationDetails = this.destinationService.getDestinationDetails();
     this.formUser = this.formBuilder.group({
-      centreName: new FormControl('', [Validators.required]),
+      centreName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       acctBranch: new FormControl(this.branch,[Validators.required]),
       stateCode: new FormControl('', [Validators.required]), 
       pinCode: new FormControl('', [Validators.required]),

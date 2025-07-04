@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Billstypelistmodel } from 'src/app/models/billstypemasterlistmodel';
@@ -9,7 +8,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -78,12 +76,12 @@ ngOnInit(): void {
 
   this.selectedBillsTypeMasterDetails = this.billsTypeService.getBillsTypeDetails();
   this.formBillTypeMaster = this.formBuilder.group({   
-    billTypeDesc: new FormControl('',[Validators.required]),
+    billTypeDesc: new FormControl('',[Validators.required,Validators.minLength(2)]),
     mainAc: new FormControl('',[Validators.required]),
     otherAc: new FormControl('',[Validators.required]),
     otherAc2: new FormControl('',),
     otherAc3: new FormControl('',),
-    sacCode: new FormControl('',[Validators.required]),
+    sacCode: new FormControl('',[Validators.required,Validators.minLength(2)]),
   });
 
   if (this.selectedBillsTypeMasterDetails.billTypeId != '') {
