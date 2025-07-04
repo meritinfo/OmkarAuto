@@ -5,12 +5,14 @@ import { CommonService } from 'src/app/services/common.service';
 import { Docrenewalmodel } from 'src/app/models/docrenewalmodel';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-dashboardbrpl',
+  templateUrl: './dashboardbrpl.component.html',
+  styleUrls: ['./dashboardbrpl.component.css']
 })
+export class DashboardbrplComponent  implements OnInit {
 
-export class DashboardComponent implements OnInit {
+  docrenewalList: Docrenewalmodel[] = [];
+
   selectedUserID: string = '';
   formUser!: FormGroup;
   constructor(private route: Router, private formBuilder: FormBuilder,
@@ -18,8 +20,9 @@ export class DashboardComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {    
-    var userData = sessionStorage.getItem('uid')?.toString();
+  ngOnInit(): void {
+    
+        var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
     }
@@ -36,7 +39,36 @@ export class DashboardComponent implements OnInit {
       localStorage.removeItem('foo') 
     }
 
+
+    this.getDocRenewalDetails();
+
+    this.formUser = this.formBuilder.group({
+      arrayList: this.formBuilder.array([this.createInitialArray()]),
+    });
   }  
 
+  get formArray() {
+    return this.formUser.get("arrayList") as FormArray;
+  }
+
   get f() { return this.formUser.controls; }
+
+
+  createInitialArray() {
+    return this.formBuilder.group({
+      vehicleNo: [''],
+      docDescription: [''],
+      validToDt: [''],
+      netAmount: [''],
+      daysRemaining: [''],
+    });
+  }
+
+  getDocRenewalDetails(): void {
+    this.commonService.getDocRenewalDetails().subscribe((res) => {
+      this.docrenewalList = res;
+    });
+  }
+
+
 }

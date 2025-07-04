@@ -1317,7 +1317,6 @@ export class ConsignmentllpaddComponent {
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;
     this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
-    this.lrmodel.billingStatus = selectedDataValue.billingStatus;
     this.lrmodel.rcm_Fcm = selectedDataValue.rcm_Fcm;
     this.lrmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
     this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;

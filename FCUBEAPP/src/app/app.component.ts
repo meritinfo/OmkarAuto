@@ -182,7 +182,18 @@ export class AppComponent implements OnInit {
       this.route.navigate(['/consignmentlist']);
     }
   }
-  //Shortcut key for Challan list -> Ctrl + G
+  //Shortcut key for Consignment list -> Ctrl + u
+  @HostListener('window:keydown.control.u', ['$event'])
+  updatecnbillFont(event: KeyboardEvent) {
+    event.preventDefault();
+    if(this.company =="LLP") {
+      this.route.navigate(['/updatellpcnforbill']);
+    }
+    else{
+      this.route.navigate(['/updatecnforbill']);
+    }
+  }
+  //Shortcut key for Challan list -> Ctrl + G 
   @HostListener('window:keydown.control.g', ['$event'])
   dieselFont(event: KeyboardEvent) {
     event.preventDefault();

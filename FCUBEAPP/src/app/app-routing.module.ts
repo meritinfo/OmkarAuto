@@ -338,7 +338,7 @@ import { ChallansuppliaddllpComponent } from './module/challansupplillp/challans
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
-
+import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
 
 
 const routes: Routes = [
@@ -802,6 +802,7 @@ const routes: Routes = [
   { path: 'suppchallaneditllp',component: ChallansuppliaddllpComponent },
   { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
   { path: 'challantdsrpt', component:  ChallantdsstmtrptComponent },
+  { path: 'dashboardbrpl', component:  DashboardbrplComponent },  
   
 ];
 

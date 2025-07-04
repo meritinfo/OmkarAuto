@@ -61,7 +61,6 @@ namespace Consignment.Repository
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingStatus"]),
                                 BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
-                                BillingStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingStatus"]),
                                 Rcm_Fcm = Convert.ToString(dataSet.Tables[0].Rows[i]["Rcm_Fcm"]),
                                 EwayBillEntryType = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillEntryType"]),
                                 EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
@@ -303,8 +302,7 @@ namespace Consignment.Repository
                             new SqlParameter("@GcNoteNo",            cn.GcNoteNo                  ),
                             new SqlParameter("@BookingDate",         cn.BookingDate               ),
                             new SqlParameter("@BookingStatus",       cn.BookingStatus             ),
-                            new SqlParameter("@Rcm_Fcm",             cn.Rcm_Fcm             ),
-                            new SqlParameter("@BillingStatus",       cn.BillingStatus             ),                            
+                            new SqlParameter("@Rcm_Fcm",             cn.Rcm_Fcm             ),                          
                             new SqlParameter("@EwayBillEntryType",   cn.EwayBillEntryType         ),
                             new SqlParameter("@EwayBillNo",          cn.EwayBillNo                ),
                             new SqlParameter("@EwayBillDate",        cn.EwayBillDate              ),
@@ -649,7 +647,6 @@ namespace Consignment.Repository
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
                         lrmodel.InvoiceNo= Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
                         lrmodel.VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleTypeId"]);
-                        lrmodel.BillingStatus= Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
@@ -1311,6 +1308,7 @@ namespace Consignment.Repository
                         lrmodel.InvoiceDate= Convert.ToString(dataSet.Tables[0].Rows[0]["InvoiceDate"]);
                         lrmodel.InvoiceValue= Convert.ToString(dataSet.Tables[0].Rows[0]["InvoiceValue"]);
                         lrmodel.DeclaredValue= Convert.ToString(dataSet.Tables[0].Rows[0]["DeclaredValue"]);
+                        lrmodel.BillingStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
                         lrmodel.Kms = Convert.ToString(dataSet.Tables[0].Rows[0]["Kms"]);

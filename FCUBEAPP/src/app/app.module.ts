@@ -528,6 +528,7 @@ import { ChallansuppliaddllpComponent } from './module/challansupplillp/challans
 import { ChallansupplilistllpComponent } from './module/challansupplillp/challansupplilistllp/challansupplilistllp.component';
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
+import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
 
 
 @NgModule({
@@ -703,7 +704,7 @@ import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantd
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent,  
     
   ],
   

@@ -942,7 +942,7 @@ dashboard: string ="";
       if (res.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/consignmentllp']);
+        this.route.navigate(['/dashboard']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);
