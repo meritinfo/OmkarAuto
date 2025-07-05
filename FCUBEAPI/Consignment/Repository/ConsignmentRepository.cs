@@ -647,6 +647,7 @@ namespace Consignment.Repository
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
                         lrmodel.InvoiceNo= Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
                         lrmodel.VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleTypeId"]);
+                        lrmodel.BillingStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingStatus"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
