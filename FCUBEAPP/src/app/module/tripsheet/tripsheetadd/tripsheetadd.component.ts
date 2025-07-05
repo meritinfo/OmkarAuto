@@ -939,11 +939,6 @@ dashboard: string ="";
     });  
   }
  
-
-
-
-
-
   calDetentionDays(){    
     var selectedDataValue = this.formTripsheet.getRawValue();
  

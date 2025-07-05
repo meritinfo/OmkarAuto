@@ -440,14 +440,16 @@ export class FleetloadentryaddComponent {
       this.toasterService.warning(" From Place is Invalid");
       return;
     }
-    
-    if (selectedDataVal.loadFor.dataId || selectedDataVal.loadType =="E") {
-      //ignore
+    if(selectedDataVal.loadType !="E"){
+      if (selectedDataVal.loadFor.dataId) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(" Load For is Invalid");
+        return;
+      }
     }
-    else{
-      this.toasterService.warning(" Load For is Invalid");
-      return;
-    }
+   
     var hireAmt = selectedDataVal.hireAmt?parseFloat(selectedDataVal.hireAmt):0
     var advAmt = selectedDataVal.advAmt?parseFloat(selectedDataVal.advAmt):0
 
@@ -462,7 +464,7 @@ export class FleetloadentryaddComponent {
     this.fleetLoadEntryModel.loadDate = selectedDataVal.loadDate;
     this.fleetLoadEntryModel.loadType = selectedDataVal.loadType;
     this.fleetLoadEntryModel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId;
-    this.fleetLoadEntryModel.loadFor = selectedDataVal.loadFor.dataId;
+    this.fleetLoadEntryModel.loadFor = selectedDataVal.loadFor?selectedDataVal.loadFor.dataId:"0";
     this.fleetLoadEntryModel.loadMemoNo = selectedDataVal.loadMemoNo;
     this.fleetLoadEntryModel.loadingFrom = selectedDataVal.loadingFrom.dataId;
     this.fleetLoadEntryModel.consignorName = selectedDataVal.consignorName.toString().toUpperCase();
