@@ -31,9 +31,9 @@ export class SparespurchasemasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
-createdBy : string = "";
-modifiedBy: string = "";
+  dashboard: string ="";
+  createdBy : string = "";
+  modifiedBy: string = "";
   editMode= false;
   userSubmitted = false;
   keywordLocation = 'dataName';
@@ -49,6 +49,7 @@ modifiedBy: string = "";
   creditAcList: Dropdownmodel[] = [];
   sparespurchasemodel = new Sparespurchasemastermodel();
   refDocAttachedImage: string = "";
+  seriesDoc: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -79,15 +80,15 @@ modifiedBy: string = "";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -118,9 +119,6 @@ modifiedBy: string = "";
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-
-
  
     this.selectedSparesPurchaseMasterDetail = this.sparesPurchaseMasterService.getSparesPurchaseMasterDetails();
     this.formUser = this.formBuilder.group({
@@ -143,16 +141,10 @@ modifiedBy: string = "";
       roundOff : new FormControl('',),
       netAmount : new FormControl('',),
       remarks : new FormControl('',),
-      pmtType : new FormControl('',[Validators.required]),
+      pmtType : new FormControl('D',[Validators.required]),
       creditAc : new FormControl('',),     
-       chequeDate : new FormControl('',),
-      // linkFtmId : new FormControl('',),
-      // linkJVFtmId : new FormControl('',),
-      // auditedYN : new FormControl('',),
-      // auditDate : new FormControl('',),
-      refDocAttachedImage : new FormControl('',),
+      chequeDate : new FormControl('',),
       gstInputTaken : new FormControl('',),
-      //branchCode : new FormControl('',),   
 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
     }); 
@@ -162,7 +154,7 @@ modifiedBy: string = "";
     this.getBranchList();
     this.getStateList();
     this.getSparesList();
-    //this.getCreditAcList('');
+    this.getCreditAcList("D");
 
     this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
     this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -180,8 +172,10 @@ modifiedBy: string = "";
     this.formUser.controls["netAmount"].disable();  
     this.formUser.controls['totItemNetAmount'].disable(); 
     this.formUser.controls["gstInputTaken"].disable(); 
+    this.formUser.controls["pmtType"].disable();
 
     if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
+      this.getCreditAcList(this.selectedSparesPurchaseMasterDetail.pmtType);
       setTimeout(() => {
         this.refDocAttachedImage = Constants.UploadFolderPath + 'sparesPurchase/refDocAttachedImage/' + this.selectedSparesPurchaseMasterDetail.refDocAttachedImage;
         this.formUser.patchValue(this.selectedSparesPurchaseMasterDetail);
@@ -198,8 +192,15 @@ modifiedBy: string = "";
         this.formTyreArray.controls[0].get("cgstPct")?.disable();  
         this.formTyreArray.controls[0].get("igstPct")?.disable();   
         this.formTyreArray.controls[0].get("netAmount")?.disable(); 
-        this.formTyreArray.controls[0].get("itemAmount")?.disable();       
-                  
+        this.formTyreArray.controls[0].get("itemAmount")?.disable(); 
+
+        if(this.selectedSparesPurchaseMasterDetail.linkFtmId!=""){
+          this.getFinDocDetails(this.selectedSparesPurchaseMasterDetail.linkFtmId);  
+        }           
+        if(this.selectedSparesPurchaseMasterDetail.linkJVFtmId!=""){
+          this.getFinDocDetails(this.selectedSparesPurchaseMasterDetail.linkJVFtmId);  
+        }        
+
         if (this.selectedSparesPurchaseMasterDetail.nonVendor=='Y'){     
           this.formUser.controls['vendorId'].disable();   
           this.formUser.controls['vendorName'].enable(); 
@@ -241,7 +242,7 @@ modifiedBy: string = "";
   get f() { return this.formUser.controls; }
 
   get formTyreArray() {
-  return this.formUser.get("arrayList") as FormArray;    
+    return this.formUser.get("arrayList") as FormArray;    
   }
 
   selectEvent(item: any) {
@@ -262,6 +263,19 @@ modifiedBy: string = "";
 
   }
 
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
+
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
@@ -280,6 +294,7 @@ modifiedBy: string = "";
       this.stateList = res;
     });
   }
+
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
@@ -291,11 +306,13 @@ modifiedBy: string = "";
     
     this.getCreditAcList(selectedValue);
   }
+
   getBrandList(): void {
     this.commonService.getSparesBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
+
   getSparesList(): void {
     this.commonService.getSparesList().subscribe((res) => {
       this.sparesList = res;
@@ -376,7 +393,7 @@ modifiedBy: string = "";
         this.formTyreArray.controls[i].get("spTransDtlId")?.setValue(res.sparesPurchaseDtlList[i].spTransDtlId);
         this.formTyreArray.controls[i].get("spTransId")?.setValue(res.sparesPurchaseDtlList[i].spTransId);  
         this.formTyreArray.controls[i].get("transDate")?.setValue(res.sparesPurchaseDtlList[i].transDate); 
-        this.formTyreArray.controls[i].get("spareLubId")?.setValue(res.sparesPurchaseDtlList[i].spareLubId);  
+        this.formTyreArray.controls[i].get("spareLubId")?.setValue(this.sparesList.find(e => e.dataId == res.sparesPurchaseDtlList[i].spareLubId));  
         this.formTyreArray.controls[i].get("brandId")?.setValue(res.sparesPurchaseDtlList[i].brandId);   
         this.formTyreArray.controls[i].get("itemQty")?.setValue(res.sparesPurchaseDtlList[i].itemQty);  
         this.formTyreArray.controls[i].get("itemRate")?.setValue(res.sparesPurchaseDtlList[i].itemRate);    
@@ -417,12 +434,11 @@ modifiedBy: string = "";
 
   addItem(i: number): void {    
     var selectedDate = this.formUser.getRawValue();
-    if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" ) {
-      this.formTyreArray.push(this.createSparesArray());
-      
-    this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
-    this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
-    this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
+    if (this.formTyreArray.value[i].spareLubId.dataId && this.formTyreArray.value[i].brandId!="" ) {
+      this.formTyreArray.push(this.createSparesArray());      
+      this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
+      this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
+      this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
       
       if (selectedDate.gstType == "IG") {   
         this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
@@ -637,55 +653,74 @@ modifiedBy: string = "";
     //   this.toastrService.warning("Invalid Vehicle");
     //   return;
     // }
-    
-  this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
-  this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
-  this.sparespurchasemastermodel.nonVendor = selectedDataValue.nonVendor?"Y":"N";
-  this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
-  this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
-  this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
-  this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
-  this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase(),
-  this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
-  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
-  this.sparespurchasemastermodel.gstType= selectedDataValue.gstType;
-  this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount.toString();
-  this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();
-  this.sparespurchasemastermodel.totCgstAmt= selectedDataValue.totCgstAmt.toString();
-  this.sparespurchasemastermodel.totIgstAmt= selectedDataValue.totIgstAmt.toString();
-  this.sparespurchasemastermodel.totItemNetAmount= selectedDataValue.totItemNetAmount;
-  this.sparespurchasemastermodel.otherAmount= selectedDataValue.otherAmount.toString();
-  this.sparespurchasemastermodel.roundOff= selectedDataValue.roundOff.toString();
-  this.sparespurchasemastermodel.netAmount= selectedDataValue.netAmount.toString();
-  this.sparespurchasemastermodel.remarks= selectedDataValue.remarks;
-  this.sparespurchasemastermodel.pmtType= selectedDataValue.pmtType;
-  this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
-  this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
-  this.sparespurchasemastermodel.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
-  this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
-  //
-  //this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
-  this.sparespurchasemastermodel.branchCode= this.branch ;
-  this.sparespurchasemastermodel.yearID= this.year;
-  this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
 
-  this.sparespurchasemastermodel.sparesPurchaseDtlList = [];
+    if(selectedDataValue.gstType=="SC"){
+      if(parseFloat(selectedDataValue.totSgstAmt)==0 ||parseFloat(selectedDataValue.totCgstAmt)==0){
+        this.toastrService.warning("Please Enter SGST and CGST Amt");
+        return;
+      }
+    }
+
+    if(selectedDataValue.gstType=="IG"){
+      if(parseFloat(selectedDataValue.totIgstAmt)==0){
+        this.toastrService.warning("Please Enter IGST Amt");
+        return;
+      }
+    }
+
+    this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
+    this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
+    this.sparespurchasemastermodel.nonVendor = selectedDataValue.nonVendor?"Y":"N";
+    this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+    this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
+    this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
+    this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
+    this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase(),
+    this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
+    this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
+    this.sparespurchasemastermodel.gstType= selectedDataValue.gstType;
+    this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount.toString();
+    this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();
+    this.sparespurchasemastermodel.totCgstAmt= selectedDataValue.totCgstAmt.toString();
+    this.sparespurchasemastermodel.totIgstAmt= selectedDataValue.totIgstAmt.toString();
+    this.sparespurchasemastermodel.totItemNetAmount= selectedDataValue.totItemNetAmount;
+    this.sparespurchasemastermodel.otherAmount= selectedDataValue.otherAmount.toString();
+    this.sparespurchasemastermodel.roundOff= selectedDataValue.roundOff.toString();
+    this.sparespurchasemastermodel.netAmount= selectedDataValue.netAmount.toString();
+    this.sparespurchasemastermodel.remarks= selectedDataValue.remarks;
+    this.sparespurchasemastermodel.pmtType= selectedDataValue.pmtType;
+    this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
+    this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
+    this.sparespurchasemastermodel.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
+    this.sparespurchasemastermodel.branchCode= this.branch ;
+    this.sparespurchasemastermodel.yearID= this.year;
+    this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
+
+    this.sparespurchasemastermodel.sparesPurchaseDtlList = [];
+
     if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
       this.toastrService.warning("Total Net Amount should not be zero");
       return;
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].spareLubId == "" || selectedDataValue.arrayList[i].brandId=="" ) {
-        this.toastrService.warning("Please Enter Spare And Brand In Detail");
-        return;
+      if (selectedDataValue.arrayList[i].spareLubId.dataId){
+        //ignore
       } 
+      else{
+        this.toastrService.warning("Invalid Spare Details");
+        return;
+      }
+      if (selectedDataValue.arrayList[i].brandId=="" ) {
+        this.toastrService.warning("Please Enter Brand In Detail");
+        return;
+      }         
       else{
         this.sparespurchasemastermodel.sparesPurchaseDtlList.push({
           'spTransDtlId': "",
           'spTransId': "",
           'transDate': selectedDataValue.transDate,
-          'spareLubId': selectedDataValue.arrayList[i].spareLubId,
+          'spareLubId': selectedDataValue.arrayList[i].spareLubId.dataId,
           'brandId': selectedDataValue.arrayList[i].brandId,
           'itemQty': selectedDataValue.arrayList[i].itemQty,
           'itemRate': selectedDataValue.arrayList[i].itemRate,

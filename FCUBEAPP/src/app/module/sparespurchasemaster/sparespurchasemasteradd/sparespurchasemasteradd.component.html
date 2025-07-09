@@ -21,7 +21,7 @@
                                         <div class="mb-3">                                           
                                             <label >Trans Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
-                                                formControlName="transDate" max="{{maxDate}}"                                         
+                                                formControlName="transDate" min="{{minDate}}" max="{{maxDate}}"                                         
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
@@ -147,37 +147,52 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-mr-width">
                                             <tr>
-                                                <th><label for="formrow-inputCity">Spare/Lube</label></th>
-                                                <th><label for="formrow-inputCity">Brand</label></th>
-                                                <th><label for="formrow-inputCity">Item Qty</label></th>
-                                                <th><label for="formrow-inputCity">Item Rate</label></th>
-                                                <th><label for="formrow-inputCity">Item Amount</label></th>
-                                                <th><label for="formrow-inputCity">Sgst Pct</label></th>
-                                                <th><label for="formrow-inputCity">Sgst Amt</label></th>
-                                                <th><label for="formrow-inputCity">Cgst Pct</label></th>
-                                                <th><label for="formrow-inputCity">Cgst Amt</label></th>
-                                                <th><label for="formrow-inputCity">Igst Pct</label></th>
-                                                <th><label for="formrow-inputCity">Igst Amt</label></th>  
-                                                <th><label for="formrow-inputCity">Net Amount</label></th>  
-                                                <th><label for="formrow-inputCity">Remarks</label></th>   
-                                                <th><label for="formrow-inputCity">Action</label></th> 
+                                                <td style="width: 500px;"><label for="formrow-inputCity">Spare/Lube</label></td>
+                                                <td style="width: 300px;"><label for="formrow-inputCity">Brand</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">Item Qty</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">Item Rate</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">Item Amt</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">SGST Pct</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">SGST Amt</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">CGST Pct</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">CGST Amt</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">IGST Pct</label></td>
+                                                <td style="width: 100px;"><label for="formrow-inputCity">IGST Amt</label></td>  
+                                                <td style="width: 100px;"><label for="formrow-inputCity">Net Amt</label></td>  
+                                                <td style="width: 400px;"><label for="formrow-inputCity">Remarks</label></td>   
+                                                <td style="width: 100px;"><label for="formrow-inputCity">Action</label></td> 
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td>                                                        
-                                                        <select class="form-control form-select ng-pristine ng-touched"formControlName="spareLubId"   
+                                                    <td style="width: 500px;">                                                        
+                                                        <!-- <select class="form-control form-select ng-pristine ng-touched"
+                                                         formControlName="spareLubId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
                                                             <option *ngFor="let vehi of sparesList" value={{vehi.dataId}}>
                                                                {{vehi.dataName}}
                                                             </option>
-                                                         </select>                                                     
-                                                    
+                                                        </select>  -->
+                                                        <div class="ng-autocomplete">
+                                                            <ng-autocomplete [data]="sparesList"
+                                                                [searchKeyword]="keywordLocation"  
+                                                                [itemTemplate]="itemTemplate"
+                                                                [notFoundTemplate]="notFoundTemplate"
+                                                                [customFilter]="startWithFilter"
+                                                                formControlName="spareLubId" >
+                                                            </ng-autocomplete>
+                                                            <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item.dataName"></a>
+                                                            </ng-template>
+                                                            <ng-template #notFoundTemplate let-notFound>
+                                                                <div [innerHTML]="notFound"></div>
+                                                            </ng-template>
+                                                        </div>
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 300px;">                                                  
                                                         <select class="form-control form-select ng-pristine ng-touched"formControlName="brandId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
@@ -186,51 +201,51 @@
                                                             </option>
                                                          </select>  
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                                  
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="itemQty"  (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="itemRate"  (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                   
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="itemAmount" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                    
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="sgstPct" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                  
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="sgstAmt" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="cgstPct" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                   
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="cgstAmt"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="igstPct" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 50px;">                                  
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="igstAmt" > 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 50px;">                                   
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="netAmount" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 400px;">                                   
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="remarks"> 
                                                     </td>
-                                                    <td>                                     
+                                                    <td style="width: 100px;">                                 
                                                         <div class="col-lg-4 details-button">
                                                             <button *ngIf="i === formTyreArray.controls.length-1" type="button"
                                                                 class="btn btn-add" (click)="addItem(i)"></button>
@@ -246,7 +261,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="mb-3">
@@ -306,8 +320,7 @@
                                 <input type="text" class="form-control" decimalonly
                                 formControlName="netAmount">
                             </div>
-                        </div> 
-                      
+                        </div>                       
                     </div>  
                     <div class="row">                                                                        
                         <div class="col-lg-2">
@@ -317,7 +330,6 @@
                                 formControlName="pmtType" (change)="changePmtType($event)"
                                 class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
-                                 
                                     <option value="M">Cash</option>      
                                     <option value="B">Bank</option> 
                                     <option value="H">Happay</option>
@@ -338,16 +350,21 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>        
-                       
-                       
+                        </div>   
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label >Cheque Date </label>
                                 <input type="date"  autofocus="autofocus" class="form-control"
                                 formControlName="chequeDate">
                             </div>
-                        </div>   
+                        </div>                                                                                                                
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label style="color: red"> 
+                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                </label>                                                 
+                            </div>
+                        </div>
                     </div> 
                     <div class="row">                                                               
                         <div class="col-sm-6">

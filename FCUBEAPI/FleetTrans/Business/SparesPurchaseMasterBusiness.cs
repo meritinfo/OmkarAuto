@@ -31,18 +31,12 @@ namespace FleetTrans.Business
             return await sparesPurchaseRepository.SparesPurchaseMasterDelete(req);
          }
         public async Task<SparesPurchaseMasterList> GetSparesPurchaseMasterList(PageFromDtToDtRequest request)
-        {
-            
-                return await sparesPurchaseRepository.GetSparesPurchaseMasterList(request);
-            
-
+        {   
+            return await sparesPurchaseRepository.GetSparesPurchaseMasterList(request);
         }
         public async Task<List<DropDownListModel>> GetSparesList()
         {
-
             return await sparesPurchaseRepository.GetSparesList();
-
-
         }
         public async Task<List<DropDownListModel>> GetSparesBrandList()
         {
