@@ -15,8 +15,6 @@ import * as XLSX from 'xlsx';
 const { read, write, utils } = XLSX;
 type AOA = any[][];
 
-
-
 @Component({
   selector: 'app-vehicleinstscheduleadd',
   templateUrl: './vehicleinstscheduleadd.component.html',
@@ -111,17 +109,21 @@ export class VehicleinstscheduleaddComponent {
       endDate         : new FormControl('', [Validators.required]),   
       noOfMonths      : new FormControl('', [Validators.required]),   
       principalEmi    : new FormControl('', [Validators.required]),  
-      interestEmi     : new FormControl('', [Validators.required]),  
+      interestEmi     : new FormControl('0', [Validators.required]),  
       totalEmi        : new FormControl('', [Validators.required]),  
       scheudleType    : new FormControl('A', [Validators.required]), 
       totalPrincipal  : new FormControl('', [Validators.required]),
-      totalInterest   : new FormControl('', [Validators.required]),
+      totalInterest   : new FormControl('0', [Validators.required]),
       totalLoanAmt    : new FormControl('', [Validators.required]),  
       remarks         : new FormControl('', ), 
       arrayList: this.formBuilder.array([this.createInitialArray()])  
     });
 
-    this.formUser.controls['noOfMonths'].disable();    
+    this.formUser.controls['noOfMonths'].disable();  
+    this.formUser.controls['totalEmi'].disable();  
+    this.formUser.controls['totalLoanAmt'].disable();      
+    
+    this.formArray.controls[0].get("tot_InstAmt")?.disable();  
 
     this.sharedService.loading=true;
     this.getVehicleNoList();
@@ -234,6 +236,7 @@ export class VehicleinstscheduleaddComponent {
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
   };
+
   calNoOfMonths(){
     var selectedDataVal = this.formUser.getRawValue();
     var nomon = "";
@@ -317,6 +320,10 @@ export class VehicleinstscheduleaddComponent {
       this.rowaddTrue = true;  
       this.autoCalTrue = false;
       this.formArray.push(this.createInitialArray());  
+      this.formArray.controls[0].get("instNo")?.setValue("1");
+      this.formArray.controls[0].get("instDate")?.setValue(selectedDataVal.startDate);
+      this.formArray.controls[0].get("int_InstAmt")?.setValue("0");      
+      this.formArray.controls[0].get("tot_InstAmt")?.disable();        
     }
     else if(tp=="A"){
       this.autoCalTrue = true;
@@ -326,6 +333,35 @@ export class VehicleinstscheduleaddComponent {
       this.autoCalTrue = false;
     }
   }
+
+  calcEmi(){
+    var selectedDataVal = this.formUser.getRawValue();
+    var principalEmi = selectedDataVal.principalEmi?parseFloat(selectedDataVal.principalEmi):0;
+    var interestEmi = selectedDataVal.interestEmi?parseFloat(selectedDataVal.interestEmi):0;
+    var totalEmi = principalEmi + interestEmi;
+    this.formUser.patchValue({
+      totalEmi: totalEmi.toFixed(2),
+    });
+  }
+
+  calcTot(){
+    var selectedDataVal = this.formUser.getRawValue();
+    var totalPrincipal = selectedDataVal.totalPrincipal?parseFloat(selectedDataVal.totalPrincipal):0;
+    var totalInterest = selectedDataVal.totalInterest?parseFloat(selectedDataVal.totalInterest):0;
+    var totalLoanAmt = totalPrincipal + totalInterest;
+    this.formUser.patchValue({
+      totalLoanAmt: totalLoanAmt.toFixed(2),
+    });
+  }
+
+  calInt(i:number){
+    var selDataVal = this.formUser.getRawValue();
+    var pri_InstAmt = selDataVal.arrayList[i].pri_InstAmt?parseFloat(selDataVal.arrayList[i].pri_InstAmt):0;
+    var int_InstAmt = selDataVal.arrayList[i].int_InstAmt?parseFloat(selDataVal.arrayList[i].int_InstAmt):0;
+    var tot_InstAmt = pri_InstAmt + int_InstAmt;
+    this.formArray.controls[i].get("tot_InstAmt")?.setValue(tot_InstAmt);
+  }
+
 
   autoCalculate(){
     var selectedDataVal = this.formUser.getRawValue();
@@ -454,6 +490,13 @@ export class VehicleinstscheduleaddComponent {
     var selectedDataVal= this.formUser.getRawValue()
     if (selectedDataVal.arrayList[index].instDate != "" && selectedDataVal.arrayList[index].tot_InstAmt != "") {
       this.formArray.push(this.createInitialArray()); 
+      var instaNo = parseInt(selectedDataVal.arrayList[index].instNo);
+      var instDate = new Date(selectedDataVal.arrayList[index].instDate);
+      instDate.setMonth(instDate.getMonth()+1);
+      this.formArray.controls[index + 1 ].get("instNo")?.setValue(instaNo + 1);
+      this.formArray.controls[index + 1 ].get("instDate")?.setValue(instDate.toLocaleDateString());
+      this.formArray.controls[index + 1 ].get("int_InstAmt")?.setValue("0");      
+      this.formArray.controls[index + 1 ].get("tot_InstAmt")?.disable();
     }    
     else {
       this.toasterService.warning("Please select Required Fields ");

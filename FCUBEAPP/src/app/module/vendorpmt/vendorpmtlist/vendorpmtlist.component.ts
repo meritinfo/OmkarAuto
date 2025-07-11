@@ -169,8 +169,7 @@ export class VendorpmtlistComponent {
   };
   
   getVendorList(){
-    this.requestmodel.strRequest= 'D';
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.commonService.getVendorList().subscribe((res) => {
       this.vendorList = res;
     });
   }

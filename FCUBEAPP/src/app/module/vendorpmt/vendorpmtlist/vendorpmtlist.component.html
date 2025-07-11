@@ -11,10 +11,10 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vendor</label>                                                
                                     <div class="ng-autocomplete">
@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
@@ -44,7 +44,7 @@
                                         formControlName="fromDate" class="form-control">
                                 </div>
                             </div>       
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">To Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
@@ -61,9 +61,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
-                        (click)=" vendorPmtAdd()"><span>New</span></button>
+                        (click)="vendorPmtAdd()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

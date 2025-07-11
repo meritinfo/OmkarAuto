@@ -6,7 +6,6 @@ namespace FleetTrans.Models
         public string? PmtForm { get; set; } 
         public string? VendorBillMasterId { get; set; }  
         public string? VehicleNo { get; set; }
-        public string? CreditAc { get; set; }  
         public string? VendorInvNo { get; set; }  
         public string? VendorInvDt { get; set; }
         public string? NetAmount  { get; set; } 
