@@ -44,6 +44,8 @@ namespace FCUBEAPI.Controllers
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
         readonly IDriverSalaryPaymentBusiness driverSalaryPaymentBusiness;
         readonly IFleetRptBusiness fleetRptBusiness;
+        readonly IVendorPmtBusiness vendorPmtBusiness;
+
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,
@@ -64,12 +66,13 @@ namespace FCUBEAPI.Controllers
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
             IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
-              IVehicleAdvBalReceiptMstLLPBusiness _vehicleAdvBalReceiptMstLLPBusiness,
+            IVehicleAdvBalReceiptMstLLPBusiness _vehicleAdvBalReceiptMstLLPBusiness,
             IFastTagBusiness _fastTagBusiness,
             ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness,
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
             IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness,
-            IFleetRptBusiness _fleetRptBusiness)
+            IFleetRptBusiness _fleetRptBusiness,
+            IVendorPmtBusiness _vendorPmtBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -98,6 +101,7 @@ namespace FCUBEAPI.Controllers
             fastagDslRechargeEntryBusiness = _fastagDslRechargeEntryBusiness;
             driverSalaryPaymentBusiness = _driverSalaryPaymentBusiness;
             fleetRptBusiness = _fleetRptBusiness;
+            vendorPmtBusiness = _vendorPmtBusiness;
         }
 
 
@@ -3809,6 +3813,101 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await driverSalaryPaymentBusiness.DriverSalaryPaymentSave(driverSalaryPaymentModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVendorPmtList")]
+        public async Task<IActionResult> GetVendorPmtList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vendorPmtBusiness.GetVendorPmtList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVendorPmtSearchList")]
+        public async Task<IActionResult> GetVendorPmtSearchList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vendorPmtBusiness.GetVendorPmtSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVendorPmtInnerGridList")]
+        public async Task<IActionResult> GetVendorPmtInnerGridList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vendorPmtBusiness.GetVendorPmtInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VendorPmtDetailsSave")]
+        public async Task<IActionResult> VendorPmtDetailsSave(VendorPmtModel vendorPmt)
+        {
+            if (vendorPmt == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vendorPmtBusiness.VendorPmtDetailsSave(vendorPmt);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VendorPmtDetailsDelete")]
+        public async Task<IActionResult> VendorPmtDetailsDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vendorPmtBusiness.VendorPmtDetailsDelete(request);
 
                 return Ok(result);
             }

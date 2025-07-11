@@ -149,7 +149,10 @@ dashboard: string ="";
       serverSide: true,
       processing: true,
       searching:false,
-      paging:false,
+      paging:false,   
+        language: {
+          zeroRecords: ''
+        }, 
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;

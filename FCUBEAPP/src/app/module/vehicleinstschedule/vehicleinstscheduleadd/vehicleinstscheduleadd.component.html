@@ -60,7 +60,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Start Date</label>
                                                 <span style="color: red">*</span>
-                                                <input autoclose="false" type="date" 
+                                                <input autoclose="false" type="date"  min="{{minDate}}" max="{{maxDate}}"                                         
                                                     class="form-control" formControlName="startDate"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['startDate'].invalid) }">
                                             </div>
@@ -194,7 +194,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mini-width">
                                             <tr>
                                                 <th><label for="formrow-inputCity">Inst No</label></th>
                                                 <th><label for="formrow-inputCity">Inst Date</label></th>

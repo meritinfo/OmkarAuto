@@ -243,16 +243,6 @@ export class BrokeradvancepmtaddComponent {
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
-    // if (pmttp == 'B'){
-    //   this.formUser.controls['neftPmt'].enable();
-    //   this.formUser.controls['chequeNo'].enable();
-    //   this.formUser.controls['chequeDate'].enable();
-    // }
-    // else {
-    //   this.formUser.controls['neftPmt'].disable();
-    //   this.formUser.controls['chequeNo'].disable();
-    //   this.formUser.controls['chequeDate'].disable();
-    // }
   }
 
     onNeftChk(e: any) {

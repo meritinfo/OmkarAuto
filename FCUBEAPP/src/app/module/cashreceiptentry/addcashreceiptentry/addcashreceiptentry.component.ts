@@ -32,6 +32,8 @@ export class AddcashreceiptentryComponent {
   year: string = '';
   createdBy:string = "";
   modifiedBy:string = "";
+  minDate:string = "";
+  maxDate:string = "";
 
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -106,6 +108,9 @@ export class AddcashreceiptentryComponent {
     else {
       this.route.navigate(['/']);
     }
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
     
     this.sharedService.loading=true;
     this.getMainAcList();

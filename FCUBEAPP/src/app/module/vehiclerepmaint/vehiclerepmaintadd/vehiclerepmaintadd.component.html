@@ -20,7 +20,7 @@
                                         <div class="mb-3">                                           
                                             <label >Trans Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
-                                                formControlName="transDate" max="{{maxDate}}"                                         
+                                                formControlName="transDate" min="{{minDate}}" max="{{maxDate}}"                                         
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 

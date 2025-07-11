@@ -129,7 +129,10 @@ dashboard: string ="";
         pageLength: 500,
         serverSide: true,
         processing: true,
-        searching:false,
+        searching:false,   
+        language: {
+          zeroRecords: ''
+        }, 
         ajax: (dataTablesParameters: any, callback) => {    
           callback({
             recordsTotal: 0,

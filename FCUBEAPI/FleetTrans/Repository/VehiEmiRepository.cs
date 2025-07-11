@@ -59,6 +59,10 @@ namespace FleetTrans.Repository
                                 TotalInterest   = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalInterest"]),
                                 TotalLoanAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalLoanAmt"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

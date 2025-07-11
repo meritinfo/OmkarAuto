@@ -19,6 +19,10 @@ namespace FleetTrans.Models
         public string? TotalInterest     { get; set; }
         public string? TotalLoanAmt      { get; set; }
         public string? Remarks           { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
         public string? LoggedInUser      { get; set; }
         public List<VehicleInstScheduleDtlModel> InstScheduleDtls { get; set; }
 

@@ -339,6 +339,8 @@ import { ChallansupplilistllpComponent } from './module/challansupplillp/challan
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
 import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
+import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
+import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
 
 
 const routes: Routes = [
@@ -803,7 +805,9 @@ const routes: Routes = [
   { path: 'tripoutstndbrpl', component:  TripoutstandingrptbrplComponent },
   { path: 'challantdsrpt', component:  ChallantdsstmtrptComponent },
   { path: 'dashboardbrpl', component:  DashboardbrplComponent },  
-  
+  { path: 'vendorpmtlist', component: VendorpmtlistComponent},  
+  { path: 'vendorpmtadd', component: VendorpmtaddComponent },   
+  { path: 'vendorpmtedit', component: VendorpmtaddComponent },  
 ];
 
 

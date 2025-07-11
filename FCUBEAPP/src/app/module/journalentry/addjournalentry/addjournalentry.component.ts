@@ -31,6 +31,8 @@ export class AddjournalentryComponent{
   year: string = '';
   createdBy:string = "";
   modifiedBy:string = "";
+  minDate:string = "";
+  maxDate:string = "";
 
   locationList: Dropdownmodel[] = [];
   finRefTypes: Dropdownmodel[] = [];
@@ -75,8 +77,8 @@ export class AddjournalentryComponent{
       this.route.navigate([this.dashboard]);
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -98,6 +100,10 @@ export class AddjournalentryComponent{
     else {
       this.route.navigate(['/']);
     }
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
       
     this.sharedService.loading = true;
     this.getGridAcList();

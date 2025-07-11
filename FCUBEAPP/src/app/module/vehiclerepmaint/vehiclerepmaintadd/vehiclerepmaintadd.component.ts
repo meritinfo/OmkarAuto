@@ -29,7 +29,7 @@ export class VehiclerepmaintaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   editMode= false;
   formSubmitted = false;
   createdBy : string = "";
@@ -781,7 +781,7 @@ dashboard: string ="";
   this.vehiclerepmaintMaster.otherAmount= selectedDataValue.otherAmount.toString();
   this.vehiclerepmaintMaster.roundOff= selectedDataValue.roundOff.toString();
   this.vehiclerepmaintMaster.netAmount= selectedDataValue.netAmount.toString();
-  this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks;
+  this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks.toString().toUpperCase();
   this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
   this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
   this.vehiclerepmaintMaster.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";

@@ -43,6 +43,9 @@ export class VehicleinstscheduleaddComponent {
   autoCalTrue= true;
   rowaddTrue = false;
   responseDetails = new Responsemodel();  
+  loginDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
 
   constructor(private vehicleinstschedulemodel: Vehicleinstschedulemodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
@@ -68,20 +71,20 @@ export class VehicleinstscheduleaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -91,11 +94,20 @@ export class VehicleinstscheduleaddComponent {
     else {
       this.route.navigate(['/']);
     }
+
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
     
     this.formUser = this.formBuilder.group({
       vehicleMasterId : new FormControl('', [Validators.required]),
       loanType        : new FormControl('', [Validators.required]),    
-      startDate       : new FormControl('', [Validators.required]),   
+      startDate       : new FormControl(this.loginDate, [Validators.required]),   
       endDate         : new FormControl('', [Validators.required]),   
       noOfMonths      : new FormControl('', [Validators.required]),   
       principalEmi    : new FormControl('', [Validators.required]),  
@@ -148,6 +160,13 @@ export class VehicleinstscheduleaddComponent {
         this.formArray.controls[i].get("int_InstAmt")?.setValue(res.instScheduleDtls[i].int_InstAmt);
         this.formArray.controls[i].get("tot_InstAmt")?.setValue(res.instScheduleDtls[i].tot_InstAmt);
         this.formArray.controls[i].get("dtlRemarks")?.setValue(res.instScheduleDtls[i].dtlRemarks);
+        
+        this.formArray.controls[i].get("instNo")?.disable();
+        this.formArray.controls[i].get("instDate")?.disable();
+        this.formArray.controls[i].get("pri_InstAmt")?.disable();
+        this.formArray.controls[i].get("int_InstAmt")?.disable();
+        this.formArray.controls[i].get("tot_InstAmt")?.disable();
+        this.formArray.controls[i].get("dtlRemarks")?.disable();
       }
     });
   }
@@ -190,6 +209,9 @@ export class VehicleinstscheduleaddComponent {
         }
         else {
           this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            vehicleMasterId:""
+          });
         }      
       });
     }
@@ -430,7 +452,7 @@ export class VehicleinstscheduleaddComponent {
 
   addItem(index: number): void {
     var selectedDataVal= this.formUser.getRawValue()
-    if (this.formArray.value[index].instDate != "" && this.formArray.value[index].tot_InstAmt != "") {
+    if (selectedDataVal.arrayList[index].instDate != "" && selectedDataVal.arrayList[index].tot_InstAmt != "") {
       this.formArray.push(this.createInitialArray()); 
     }    
     else {

@@ -5916,6 +5916,12 @@ background-color: #fbff00 !important
     width: 175px;
 }
 
+.mini-width{
+    width: 1100px !important;
+}
+.mini-width tr td {
+    width: 175px;
+}
 
 .full-tyre-width{
     width: 2500px !important;

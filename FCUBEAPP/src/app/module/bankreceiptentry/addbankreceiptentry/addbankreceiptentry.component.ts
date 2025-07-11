@@ -44,6 +44,8 @@ export class AddbankreceiptentryComponent {
   neft: string="";
   createdBy:string = "";
   modifiedBy:string = "";
+  minDate:string = "";
+  maxDate:string = "";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel, private sharedService: SharedService,
@@ -108,6 +110,9 @@ export class AddbankreceiptentryComponent {
     else {
       this.route.navigate(['/']);
     }
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.sharedService.loading=true;
 

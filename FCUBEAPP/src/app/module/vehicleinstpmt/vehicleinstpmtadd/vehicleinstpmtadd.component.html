@@ -35,7 +35,8 @@
                                                 <label for="formrow-inputZip">Pmt Date</label>
                                                 <span style="color: red">*</span>
                                                 <input type="date"  autofocus="autofocus" class="form-control"
-                                                  formControlName="pmtDate"   [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
+                                                  formControlName="pmtDate" min="{{minDate}}" max="{{maxDate}}"                                          
+                                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
                                         </div>
                                     </div>

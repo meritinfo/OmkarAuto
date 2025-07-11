@@ -32,7 +32,7 @@
                                             <label for="formrow-inputState"> Trans Date</label>
                                             <span style="color: red">*</span>
                                             <input type="date" class="form-control"  
-                                                formControlName="ftmDate"
+                                                formControlName="ftmDate" min="{{minDate}}" max="{{maxDate}}"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['ftmDate'].invalid) }">
                                         </div>                                        
                                         <div class="col-lg-2">

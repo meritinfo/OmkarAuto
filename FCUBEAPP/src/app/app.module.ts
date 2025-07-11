@@ -529,6 +529,9 @@ import { ChallansupplilistllpComponent } from './module/challansupplillp/challan
 import { TripoutstandingrptbrplComponent } from './module/tripoutstandingrptbrpl/tripoutstandingrptbrpl/tripoutstandingrptbrpl.component';
 import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantdsstmtrpt/challantdsstmtrpt.component';
 import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
+import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
+import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
+import { Vendorpmtmodel } from './models/vendorpmtmodel';
 
 
 @NgModule({
@@ -704,7 +707,7 @@ import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.com
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent,  
     
   ],
   
@@ -781,7 +784,7 @@ import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.com
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
-    
+    Vendorpmtmodel,
   ],
   bootstrap: [AppComponent]
 })

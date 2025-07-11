@@ -25,7 +25,7 @@ export class DieselstatementlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   vendorList: Dropdownmodel[] = [];
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 

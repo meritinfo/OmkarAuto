@@ -299,7 +299,6 @@ namespace FCUBEAPI
             services.AddScoped<IPartyMisLocationRepository, PartyMisLocationRepository>();
             services.AddScoped<IDirectPmtBusiness, DirectPmtBusiness>();
             services.AddScoped<IDirectPmtRepository, DirectPmtRepository>();
-
             services.AddScoped<IPartyMisLocationBusiness, PartyMisLocationBusiness>();
             services.AddScoped<IPartyMisLocationRepository, PartyMisLocationRepository>();
             services.AddScoped<IUnBillProvisionMstRepository,UnBillProvisionMstRepository>();
@@ -310,6 +309,10 @@ namespace FCUBEAPI
             services.AddScoped<IVehicleAdvBalReceiptMstLLPRepository, VehicleAdvBalReceiptMstLLPRepository>();
             services.AddScoped<IChallanSuppliLLPBusiness, ChallanSuppliLLPBusiness>();
             services.AddScoped<IChallanSuppliLLPRepository, ChallanSuppliLLPRepository>();
+            services.AddScoped<IVendorPmtBusiness, VendorPmtBusiness>();
+            services.AddScoped<IVendorPmtRepository, VendorPmtRepository>();
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

@@ -37,7 +37,7 @@ export class VehicleInstPmtService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkDuplicateTyre', req, this.httpOptions);
   }
   checkVehicleLoanType(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkVehicleLoanType', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/checkVehicleLoanType', req, this.httpOptions);
   }  
   getVehicleNoLoan(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleNoLoan', req, this.httpOptions);

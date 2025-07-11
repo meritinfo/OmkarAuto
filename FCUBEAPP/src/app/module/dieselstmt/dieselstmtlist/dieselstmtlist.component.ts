@@ -147,6 +147,10 @@ dashboard: string ="";
       },
       columns: [
         {
+          title: 'Action',
+          data: 'masterID',
+        },
+        {
           title: 'Account ',
           data: 'vendor',
         },
@@ -161,10 +165,6 @@ dashboard: string ="";
         {
           title: 'To Date ',
           data: 'toDate'
-        },
-        {
-          title: 'Action',
-          data: 'masterID',
         },
       ],
     };
