@@ -532,6 +532,7 @@ import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.com
 import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
 import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
 import { Vendorpmtmodel } from './models/vendorpmtmodel';
+import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
 
 
 @NgModule({
@@ -707,7 +708,7 @@ import { Vendorpmtmodel } from './models/vendorpmtmodel';
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent,  
     
   ],
   

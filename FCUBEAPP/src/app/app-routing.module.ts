@@ -341,6 +341,7 @@ import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantd
 import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
 import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
 import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
+import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
 
 
 const routes: Routes = [
@@ -808,6 +809,7 @@ const routes: Routes = [
   { path: 'vendorpmtlist', component: VendorpmtlistComponent},  
   { path: 'vendorpmtadd', component: VendorpmtaddComponent },   
   { path: 'vendorpmtedit', component: VendorpmtaddComponent },  
+  { path: 'vendorduerpt', component: VendorduerptlistComponent },  
 ];
 
 

@@ -61,6 +61,9 @@ namespace FleetTrans.Business
         Task<VehicleEngagementRptListModel> GetVehicleEngagementRptList(ReportRequestModel request);
         Task<ResponseModel> GetVehicleEngagementRptExcel(ReportRequestModel request);
 
+        Task<VendorPmtListModel> GetVendorPmtRptList(ReportRequestModel request);
+        Task<ResponseModel> GetVendorPmtRptExcel(ReportRequestModel request);
+
 
     }
 }

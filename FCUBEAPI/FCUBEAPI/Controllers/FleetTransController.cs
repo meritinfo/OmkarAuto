@@ -3917,6 +3917,45 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetVendorPmtRptList")]
+        public async Task<IActionResult> GetVendorPmtRptList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVendorPmtRptList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVendorPmtRptExcel")]
+        public async Task<IActionResult> GetVendorPmtRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVendorPmtRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
 

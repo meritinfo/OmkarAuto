@@ -3488,6 +3488,107 @@ namespace FleetTrans.Repository
             return response;
         }
 
+
+        public async Task<VendorPmtListModel> GetVendorPmtRptList(ReportRequestModel request)
+        {
+            VendorPmtListModel VendorPmtList = new();
+            List<VendorPmtModel> pmtList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@VendorId",  request.FilterStr),
+                            new SqlParameter("@PmtFrom",  request.FilterStr1),
+                            new SqlParameter("@RptType",  request.FilterStr2),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVendorPmtRptList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            pmtList.Add(new VendorPmtModel
+                            {
+                                TransBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TransBranch"]),
+                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                Vendor = Convert.ToString(dataSet.Tables[0].Rows[i]["Vendor"]),
+                                TotalAmtPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmtPaid"]),
+                                TotalAmtDed = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmtDed"]),
+                                TotalAmtTDS = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmtTDS"]),
+                                TotalAmtExtras = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmtExtras"]),
+                                NetAmtPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmtPaid"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
+                            });
+                        }
+
+                        VendorPmtList.VendorPmtList = pmtList;
+
+                        VendorPmtList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return VendorPmtList;
+        }
+        public async Task<ResponseModel> GetVendorPmtRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",    request.FromDate),
+                            new SqlParameter("@ToDate",      request.ToDate),
+                            new SqlParameter("@VendorId",    request.FilterStr),
+                            new SqlParameter("@PmtFrom",     request.FilterStr1),
+                            new SqlParameter("@RptType",     request.FilterStr2),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVendorPmtRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Vendor Outstanding Date : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vendor Outstanding Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
     }
 
 }
