@@ -66,7 +66,6 @@ namespace FleetTrans.Repository
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 FinDocid = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocid"]),
                                 FinDocidJV = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocidJV"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -109,7 +108,6 @@ namespace FleetTrans.Repository
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVendorPmtSearchList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             vendorPmt.vendorPmtDetailList.Add(new VendorPmtDtlModel
@@ -117,15 +115,9 @@ namespace FleetTrans.Repository
                                 PmtForm = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtForm"]),
                                 VendorBillMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorBillMasterId"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 VendorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvNo"]),
                                 VendorInvDt = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
                                 NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
-                                AmtPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtPaid"]),
-                                AmtDed = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtDed"]),
-                                AmtTDS = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtTDS"]),
-                                AmtExtras = Convert.ToString(dataSet.Tables[0].Rows[i]["AmtExtras"]),
-                                DtlRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["DtlRemarks"]),
                             });
                         }                       
                     }
@@ -162,7 +154,6 @@ namespace FleetTrans.Repository
                                 PmtForm = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtForm"]),
                                 VendorBillMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorBillMasterId"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 VendorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvNo"]),
                                 VendorInvDt = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
                                 NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
@@ -203,7 +194,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TransDate"       , vendorPmt.TransDate ),
                             new SqlParameter("@BillsUptoDate"   , vendorPmt.BillsUptoDate),
                             new SqlParameter("@VendorId"        , vendorPmt.VendorId ),
-                            new SqlParameter("@Vendor"          , vendorPmt.Vendor ),
                             new SqlParameter("@TotalAmtPaid"    , vendorPmt.TotalAmtPaid ),
                             new SqlParameter("@TotalAmtDed"     , vendorPmt.TotalAmtDed ),
                             new SqlParameter("@TotalAmtTDS"     , vendorPmt.TotalAmtTDS ),
@@ -215,6 +205,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ChequeNo"        , vendorPmt.ChequeNo ),
                             new SqlParameter("@ChequeDate"      , vendorPmt.ChequeDate ),
                             new SqlParameter("@CreditAc"        , vendorPmt.CreditAc ),
+                            new SqlParameter("@YearId"          , vendorPmt.YearId ),
+                            new SqlParameter("@LoggedInUser"    , vendorPmt.LoggedInUser ),
                         };                    
                     
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VendorPmtMasterSave", param);                                                               

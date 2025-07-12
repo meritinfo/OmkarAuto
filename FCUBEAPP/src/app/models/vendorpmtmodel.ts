@@ -31,8 +31,7 @@ export class Vendorpmtmodel {
 export class Vendorpmtdetailmodel {
     pmtForm: string = "";    
     vendorBillMasterId: string = "";     
-    vehicleNo: string = "";  
-    creditAc: string = "";     
+    vehicleNo: string = "";   
     vendorInvNo: string = "";     
     vendorInvDt: string = "";  
     netAmount : string = "";    

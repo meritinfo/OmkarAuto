@@ -90,17 +90,15 @@
                                                 <label for="formrow-inputCity">Principal Emi</label>
                                                 <span style="color: red">*</span>
                                                 <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="principalEmi" maxlength="20"
+                                                formControlName="principalEmi" maxlength="20" (change)="calcEmi()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['principalEmi'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Interest Emi</label>
-                                                <span style="color: red">*</span>
                                                 <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="interestEmi" maxlength="20"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['interestEmi'].invalid) }">
+                                                formControlName="interestEmi" maxlength="20" (change)="calcEmi()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -119,17 +117,15 @@
                                                 <label for="formrow-inputCity">Total Principal</label>
                                                 <span style="color: red">*</span>
                                                 <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="totalPrincipal" maxlength="20"
+                                                formControlName="totalPrincipal" maxlength="20" (change)="calcTot()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalPrincipal'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Interest</label>
-                                                <span style="color: red">*</span>
                                                 <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="totalInterest" maxlength="20"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalInterest'].invalid) }">
+                                                formControlName="totalInterest" maxlength="20" (change)="calcTot()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -217,11 +213,11 @@
                                                     </td>
                                                     <td>
                                                         <input decimalonly autoclose="false" class="form-control"
-                                                            formControlName="pri_InstAmt">
+                                                            formControlName="pri_InstAmt" (change)="calInt(i)">
                                                     </td>
                                                     <td>
                                                         <input decimalonly autoclose="false" class="form-control"
-                                                            formControlName="int_InstAmt">
+                                                            formControlName="int_InstAmt" (change)="calInt(i)">
                                                     </td>
                                                     <td>
                                                         <input decimalonly autoclose="false" class="form-control"

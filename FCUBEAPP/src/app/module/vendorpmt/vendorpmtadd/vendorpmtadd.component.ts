@@ -34,6 +34,7 @@ export class VendorpmtaddComponent {
   selectedVendorPmtDetails = new Vendorpmtmodel();
 
   seriesDoc: string = "";
+  seriesDocJV: string = "";
 
   keywordLocation = 'dataName';
   editMode = false;
@@ -127,7 +128,7 @@ export class VendorpmtaddComponent {
       totalAmtTDS: new FormControl('0',),
       totalAmtExtras:new FormControl('0',),
       netAmtPaid: new FormControl('0', [Validators.required]),
-      remarks: new FormControl('', [Validators.required]),
+      remarks: new FormControl('',),
       pmtType: new FormControl('', [Validators.required]),   
       neftYN: new FormControl('', ),
       chequeNo: new FormControl('',),
@@ -137,7 +138,10 @@ export class VendorpmtaddComponent {
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
-    this.sharedService.loading=false;       
+    this.sharedService.loading=false; 
+    if (this.selectedVendorPmtDetails.transId != '') {      
+      this.getCreditAcList(this.selectedVendorPmtDetails.pmtType);
+    }
     setTimeout(() => {
       if (this.selectedVendorPmtDetails.transId != '') {
         this.formUser.patchValue(this.selectedVendorPmtDetails);
@@ -148,16 +152,16 @@ export class VendorpmtaddComponent {
           selectedAll:'Y'   
         })
         if(this.selectedVendorPmtDetails.finDocid!="0"){
-          this.getFinDocDetails(this.selectedVendorPmtDetails.finDocid);
+          this.getFinDocDetails("id",this.selectedVendorPmtDetails.finDocid);
         }        
         if(this.selectedVendorPmtDetails.finDocidJV!="0"){
-          this.getFinDocDetails(this.selectedVendorPmtDetails.finDocidJV);
+          this.getFinDocDetails("JV",this.selectedVendorPmtDetails.finDocidJV);
         }
 
         this.createdBy = this.selectedVendorPmtDetails.createdBy + " " + this.selectedVendorPmtDetails.createdDate;
         this.modifiedBy = this.selectedVendorPmtDetails.modifiedBy + " " + this.selectedVendorPmtDetails.modifiedDate;  
         this.editMode=true;
-        this.getDieselStatementInnerGridList();
+        this.getVendorPmtInnerGridList();
         this.formUser.controls['transDate'].disable();  
         this.formUser.controls['billsUptoDate'].disable();   
         this.formUser.controls['vendorId'].disable();     
@@ -184,7 +188,6 @@ export class VendorpmtaddComponent {
       pmtForm: ['', []],
       vendorBillMasterId: ['', []], 
       vehicleNo: ['', []], 
-      creditAc: ['', []], 
       vendorInvNo: ['', []], 
       vendorInvDt: ['', []], 
       netAmount: ['', []], 
@@ -193,6 +196,7 @@ export class VendorpmtaddComponent {
       amtTDS: ['', []],
       amtExtras: ['', []],
       dtlRemarks: ['', []],
+      selected: ['', []],
     });
   }
 
@@ -203,8 +207,7 @@ export class VendorpmtaddComponent {
   }
 
   getVendorList(){
-    this.requestmodel.strRequest= 'D';
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.commonService.getVendorList().subscribe((res) => {
       this.vendorList = res;
     });
   }   
@@ -221,16 +224,18 @@ export class VendorpmtaddComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
   
-  getFinDocDetails(finId: string){
+  getFinDocDetails(tp:string,finId: string){
     this.requestmodel.strRequest=finId;
     this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      if (this.responseDetails.status) {
-        this.seriesDoc = res.message;
+      if (this.responseDetails.status) {        
+        if(tp=="JV"){          
+          this.seriesDocJV = res.message;
+        }
+        else{
+          this.seriesDoc = res.message;
+        }
       } 
-      else{
-        this.seriesDoc = '';
-      }
     });
   }
 
@@ -259,7 +264,6 @@ export class VendorpmtaddComponent {
           this.formArray.controls[i].get("pmtForm")?.setValue(res.vendorPmtDetailList[i].pmtForm);
           this.formArray.controls[i].get("vendorBillMasterId")?.setValue(res.vendorPmtDetailList[i].vendorBillMasterId);
           this.formArray.controls[i].get("vehicleNo")?.setValue(res.vendorPmtDetailList[i].vehicleNo);
-          this.formArray.controls[i].get("creditAc")?.setValue(res.vendorPmtDetailList[i].creditAc);
           this.formArray.controls[i].get("vendorInvNo")?.setValue(res.vendorPmtDetailList[i].vendorInvNo);
           this.formArray.controls[i].get("vendorInvDt")?.setValue(this.commonService.formatDate(res.vendorPmtDetailList[i].vendorInvDt));
           this.formArray.controls[i].get("netAmount")?.setValue(res.vendorPmtDetailList[i].netAmount);
@@ -271,7 +275,6 @@ export class VendorpmtaddComponent {
           
           this.formArray.controls[i].get("pmtForm")?.disable();
           this.formArray.controls[i].get("vehicleNo")?.disable();
-          this.formArray.controls[i].get("creditAc")?.disable();
           this.formArray.controls[i].get("vendorInvNo")?.disable();
           this.formArray.controls[i].get("vendorInvDt")?.disable();
           this.formArray.controls[i].get("netAmount")?.disable();
@@ -289,7 +292,7 @@ export class VendorpmtaddComponent {
     }
   }
   
-  getDieselStatementInnerGridList(): void {
+  getVendorPmtInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedVendorPmtDetails.transId;
     this.vendorpmtService.getVendorPmtInnerGridList(this.requestmodel).subscribe((res) => {
       this.formArray.clear();
@@ -300,7 +303,6 @@ export class VendorpmtaddComponent {
           this.formArray.controls[i].get("pmtForm")?.setValue(res.vendorPmtDetailList[i].pmtForm);
           this.formArray.controls[i].get("vendorBillMasterId")?.setValue(res.vendorPmtDetailList[i].vendorBillMasterId);
           this.formArray.controls[i].get("vehicleNo")?.setValue(res.vendorPmtDetailList[i].vehicleNo);
-          this.formArray.controls[i].get("creditAc")?.setValue(res.vendorPmtDetailList[i].creditAc);
           this.formArray.controls[i].get("vendorInvNo")?.setValue(res.vendorPmtDetailList[i].vendorInvNo);
           this.formArray.controls[i].get("vendorInvDt")?.setValue(this.commonService.formatDate(res.vendorPmtDetailList[i].vendorInvDt));
           this.formArray.controls[i].get("netAmount")?.setValue(res.vendorPmtDetailList[i].netAmount);
@@ -312,7 +314,6 @@ export class VendorpmtaddComponent {
           
           this.formArray.controls[i].get("pmtForm")?.disable();
           this.formArray.controls[i].get("vehicleNo")?.disable();
-          this.formArray.controls[i].get("creditAc")?.disable();
           this.formArray.controls[i].get("vendorInvNo")?.disable();
           this.formArray.controls[i].get("vendorInvDt")?.disable();
           this.formArray.controls[i].get("netAmount")?.disable();
@@ -409,8 +410,14 @@ export class VendorpmtaddComponent {
   
   changePmtType(e: any) {
     var selectedValue = e.target.value;
-     
-    if (selectedValue == 'B'){
+   
+    this.getCreditAcList(selectedValue);
+  }
+
+  getCreditAcList(pmttp:string): void {
+    this.requestmodel.strRequest= pmttp;
+    
+    if (pmttp == 'B'){
       this.formUser.controls['neftYN'].enable();
       this.formUser.controls['chequeNo'].enable();
       this.formUser.controls['chequeDate'].enable();
@@ -426,12 +433,6 @@ export class VendorpmtaddComponent {
       chequeNo: "",
       chequeDate: this.loginDate,
     });
-    
-    this.getCreditAcList(selectedValue);
-  }
-
-  getCreditAcList(pmttp:string): void {
-    this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
@@ -525,21 +526,26 @@ export class VendorpmtaddComponent {
     var arr = selectedDataVal.arrayList;
 
     for (var i = 0; i < arr.length; i++) {
-      if(arr[i].selected == "Y"){
-        this.vendorpmtmodel.vendorPmtDetailList.push({
-          'pmtForm': arr[i].pmtForm.toString(),
-          'vendorBillMasterId': arr[i].vendorBillMasterId.toString(),
-          'vehicleNo': arr[i].vehicleNo.toString(),
-          'creditAc': arr[i].creditAc.toString(),
-          'vendorInvNo': arr[i].vendorInvNo.toString(),
-          'vendorInvDt': arr[i].vendorInvDt.toString(),
-          'netAmount': arr[i].netAmount.toString(),
-          'amtPaid': arr[i].amtPaid.toString(),
-          'amtDed': arr[i].amtDed.toString(),
-          'amtTDS': arr[i].amtTDS.toString(),
-          'amtExtras': arr[i].amtExtras.toString(),
-          'dtlRemarks': arr[i].dtlRemarks.toString(),
-        });
+      if(arr[i].selected){
+        if((parseFloat(arr[i].amtPaid) + parseFloat(arr[i].amtDed) + parseFloat(arr[i].amtTDS)) > 0){
+          this.vendorpmtmodel.vendorPmtDetailList.push({
+            'pmtForm': arr[i].pmtForm.toString(),
+            'vendorBillMasterId': arr[i].vendorBillMasterId.toString(),
+            'vehicleNo': arr[i].vehicleNo.toString(),
+            'vendorInvNo': arr[i].vendorInvNo.toString(),
+            'vendorInvDt': arr[i].vendorInvDt.toString(),
+            'netAmount': arr[i].netAmount.toString(),
+            'amtPaid': arr[i].amtPaid.toString(),
+            'amtDed': arr[i].amtDed.toString(),
+            'amtTDS': arr[i].amtTDS.toString(),
+            'amtExtras': arr[i].amtExtras.toString(),
+            'dtlRemarks': arr[i].dtlRemarks.toString(),
+          });
+        }
+        else{
+          this.toasterService.warning("Please Enter Amount in Detail section");
+          return;
+        }
       }
     }
 
