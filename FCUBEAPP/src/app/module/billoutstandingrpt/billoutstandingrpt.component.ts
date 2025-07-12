@@ -170,9 +170,18 @@ export class BilloutstandingrptComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     if(selectedDataVal.age1=="" || selectedDataVal.age2=="" || selectedDataVal.age3=="" ||
       selectedDataVal.age4=="" || selectedDataVal.age5=="" || selectedDataVal.age6==""){
-        this.toastrService.warning("Ageing should not be blank") ;
-        return;      
-      }
+      this.toastrService.warning("Ageing should not be blank") ;
+      return;      
+    }
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
 
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;

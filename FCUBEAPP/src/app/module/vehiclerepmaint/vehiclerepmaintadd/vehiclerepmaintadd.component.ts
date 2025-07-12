@@ -270,7 +270,7 @@ export class VehiclerepmaintaddComponent {
   };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   getStateList(): void {
@@ -710,6 +710,7 @@ export class VehiclerepmaintaddComponent {
       totItemNetAmount: totItemNetAmount.toFixed(2),
     });
   }
+
   submitVehicleRepMaintMasterForm(): void {
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
@@ -739,6 +740,7 @@ export class VehiclerepmaintaddComponent {
         return;
       }
     }
+
     if (selectedDataValue.vehicleMasterId.dataId) {
       //ignore
     }
@@ -746,54 +748,56 @@ export class VehiclerepmaintaddComponent {
       this.toastrService.warning("Invalid Vehicle");
       return;
     }
+    
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+
     if (d3>d4 || d2<d4 ) {
       this.formUser.patchValue({
         transDate: ''
       });
-      this.toastrService.warning("Invalid Trans date");
-      return
-    }
+      this.toastrService.warning("Trans Date should be with in Fin Year");
+      return;
+    }    
     
-    
-  this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
-  this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
-  this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
-  this.vehiclerepmaintMaster.maintID= selectedDataValue.maintID;
-  this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
-  this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading.toString();
-  this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
-  this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
-  this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
-  this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo;
-  this.vehiclerepmaintMaster.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
-  this.vehiclerepmaintMaster.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase();
-  this.vehiclerepmaintMaster.vendorState= selectedDataValue.vendorState;
-  this.vehiclerepmaintMaster.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
-  this.vehiclerepmaintMaster.gstType= selectedDataValue.gstType;
-  this.vehiclerepmaintMaster.totItemAmount= selectedDataValue.totItemAmount.toString();
-  this.vehiclerepmaintMaster.totSgstAmt= selectedDataValue.totSgstAmt.toString();
-  this.vehiclerepmaintMaster.totCgstAmt= selectedDataValue.totCgstAmt.toString();
-  this.vehiclerepmaintMaster.totIgstAmt= selectedDataValue.totIgstAmt.toString();
-  this.vehiclerepmaintMaster.totItemNetAmount= selectedDataValue.totItemNetAmount;
-  this.vehiclerepmaintMaster.otherAmount= selectedDataValue.otherAmount.toString();
-  this.vehiclerepmaintMaster.roundOff= selectedDataValue.roundOff.toString();
-  this.vehiclerepmaintMaster.netAmount= selectedDataValue.netAmount.toString();
-  this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks.toString().toUpperCase();
-  this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
-  this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
-  this.vehiclerepmaintMaster.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
-  this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
-  this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc?selectedDataValue.creditAc.dataId:"";
-  this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
-  this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
-  this.vehiclerepmaintMaster.branchCode = this.branch;
-  this.vehiclerepmaintMaster.yearID= this.year;
-  this.vehiclerepmaintMaster.loggedInUser=  this.loggedInUserID;
+    this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
+    this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
+    this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
+    this.vehiclerepmaintMaster.maintID= selectedDataValue.maintID;
+    this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
+    this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading.toString();
+    this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
+    this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+    this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
+    this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo;
+    this.vehiclerepmaintMaster.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
+    this.vehiclerepmaintMaster.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase();
+    this.vehiclerepmaintMaster.vendorState= selectedDataValue.vendorState;
+    this.vehiclerepmaintMaster.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
+    this.vehiclerepmaintMaster.gstType= selectedDataValue.gstType;
+    this.vehiclerepmaintMaster.totItemAmount= selectedDataValue.totItemAmount.toString();
+    this.vehiclerepmaintMaster.totSgstAmt= selectedDataValue.totSgstAmt.toString();
+    this.vehiclerepmaintMaster.totCgstAmt= selectedDataValue.totCgstAmt.toString();
+    this.vehiclerepmaintMaster.totIgstAmt= selectedDataValue.totIgstAmt.toString();
+    this.vehiclerepmaintMaster.totItemNetAmount= selectedDataValue.totItemNetAmount;
+    this.vehiclerepmaintMaster.otherAmount= selectedDataValue.otherAmount.toString();
+    this.vehiclerepmaintMaster.roundOff= selectedDataValue.roundOff.toString();
+    this.vehiclerepmaintMaster.netAmount= selectedDataValue.netAmount.toString();
+    this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks.toString().toUpperCase();
+    this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
+    this.vehiclerepmaintMaster.neftPmt = selectedDataValue.neftPmt?"Y":"N";
+    this.vehiclerepmaintMaster.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
+    this.vehiclerepmaintMaster.chequeNo = selectedDataValue.chequeNo.toString();
+    this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc?selectedDataValue.creditAc.dataId:"";
+    this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
+    this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
+    this.vehiclerepmaintMaster.branchCode = this.branch;
+    this.vehiclerepmaintMaster.yearID= this.year;
+    this.vehiclerepmaintMaster.loggedInUser=  this.loggedInUserID;
 
-  this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
+    this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
+
     if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
       this.toastrService.warning("Total Net Amount should not be zero");
       return;

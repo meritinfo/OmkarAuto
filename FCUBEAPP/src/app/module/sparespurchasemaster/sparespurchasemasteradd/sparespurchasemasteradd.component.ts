@@ -1,4 +1,3 @@
-
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -65,6 +64,7 @@ export class SparespurchasemasteraddComponent {
     private requestmodel:Requestmodel) {
     this.sparespurchasemastermodel = new Sparespurchasemastermodel();
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -118,8 +118,7 @@ export class SparespurchasemasteraddComponent {
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
- 
+
     this.selectedSparesPurchaseMasterDetail = this.sparesPurchaseMasterService.getSparesPurchaseMasterDetails();
     this.formUser = this.formBuilder.group({
       transDate : new FormControl(this.loginDate,[Validators.required]),
@@ -643,8 +642,8 @@ export class SparespurchasemasteraddComponent {
       this.formUser.patchValue({
         transDate: ''
       });
-      this.toastrService.warning("Invalid Trans date");
-      return
+      this.toastrService.warning("Trans Date should be with in Fin Year");
+      return;
     }
     // if (selectedDataValue.vehicleMasterId.dataId) {
     //   //ignore

@@ -42,7 +42,7 @@ export class BillsmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -73,12 +73,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -223,9 +223,20 @@ dashboard: string ="";
   }
   
   search(): void {
-    this.filter.search = this.formFilter.value.bill_StmtNo;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
+    var selectedDataVal = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
+    this.filter.search = selectedDataVal.bill_StmtNo;
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
     this.filter.sortOrder = this.branch;      
     this.filter.filterStr= "N"; 
     this.filter.filterStr1= this.year; 

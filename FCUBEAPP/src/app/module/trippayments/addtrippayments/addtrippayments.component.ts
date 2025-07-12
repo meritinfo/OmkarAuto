@@ -305,7 +305,7 @@ export class AddtrippaymentsComponent {
   };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   getVehicleNoList(): void {

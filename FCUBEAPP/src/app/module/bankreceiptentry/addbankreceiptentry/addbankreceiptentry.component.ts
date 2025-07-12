@@ -468,6 +468,14 @@ export class AddbankreceiptentryComponent {
       this.toasterService.warning("On Account Branch should not to be same as login Branch");
       return;
     }
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.ftmDate?Date.parse(selectedDataValue.ftmDate):0;
+    
+    if (d3>d4 || d2<d4 ) {
+      this.toasterService.warning("Trans Date should be with in Fin Year");
+      return;
+    }
 
     this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID;
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;

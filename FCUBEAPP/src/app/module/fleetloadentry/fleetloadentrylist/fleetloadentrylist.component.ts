@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup ,Validators} from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-fleetloadentrylist',
@@ -53,6 +54,7 @@ dashboard: string ="";
   formFilter!: FormGroup;
   constructor(private fleetLoadEntryService: FleetLoadEntryService,private commonService: CommonService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
+        private toastrService:ToastrService,
     private route: Router) {
   }
   ngOnInit(): void {
@@ -138,7 +140,7 @@ dashboard: string ="";
 
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   fleetLoadEntryList(){
@@ -237,6 +239,15 @@ dashboard: string ="";
       
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr =  selecteddata.loadFor;

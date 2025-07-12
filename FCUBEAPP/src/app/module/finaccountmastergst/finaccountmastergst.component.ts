@@ -256,7 +256,7 @@ dashboard: string ="";
     this.sharedService.loading = true;
     this.formSubmitted = true;
     
-    this.finaccountmodel.accountId          = selectedDataValue.accountId? selectedDataValue.accountId.dataId : '';
+    this.finaccountmodel.accountId = selectedDataValue.accountId? selectedDataValue.accountId.dataId : '';
     this.finaccountmodel.finAccountsGstDetail = [];
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {

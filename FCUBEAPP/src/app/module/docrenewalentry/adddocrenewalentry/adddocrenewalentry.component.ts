@@ -17,58 +17,57 @@ import { Constants } from 'src/app/common/constants';
   templateUrl: './adddocrenewalentry.component.html',
   styleUrls: ['./adddocrenewalentry.component.css']
 })
+
 export class AdddocrenewalentryComponent {
-    loggedInUserID: string = '';
-    branchname:string = '';
-    branchid:string = '';
-    year:string = '';
-    formDocEntry!: FormGroup;
-    fromDate: string = '';
-    minDate: string = '';
-    maxDate: string = '';
-    loginDate: string = '';
-    createdBy : string = "";
-    modifiedBy: string = "";
-    formSubmitted = false;
-    editMode = false;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-dashboard: string ="";
-    checkselected: boolean = false;
-    attach1: string = "";
-    attach2: string = "";
-    seriesDoc: string = "";
+  loggedInUserID: string = '';
+  branchname:string = '';
+  branchid:string = '';
+  year:string = '';
+  formDocEntry!: FormGroup;
+  fromDate: string = '';
+  minDate: string = '';
+  maxDate: string = '';
+  loginDate: string = '';
+  createdBy : string = "";
+  modifiedBy: string = "";
+  formSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+  checkselected: boolean = false;
+  attach1: string = "";
+  attach2: string = "";
+  seriesDoc: string = "";
 
-    responseDetails = new Responsemodel();
-    VehicalExistDetails = new Responsemodel();
-    branchList: Dropdownmodel[] = [];
-    vehicleList: Dropdownmodel[] = [];
-    docRenewalList: Dropdownmodel[] = [];
-    creditacList: Dropdownmodel[] = [];
-    keywordLocation = 'dataName';
+  responseDetails = new Responsemodel();
+  VehicalExistDetails = new Responsemodel();
+  branchList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
+  docRenewalList: Dropdownmodel[] = [];
+  creditacList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
-    @ViewChild('attach1Input', {
-      static: true
-    }) attach1Input: any;
-    @ViewChild('attach2Input', {
-      static: true
-    }) attach2Input: any;
+  @ViewChild('attach1Input', {
+    static: true
+  }) attach1Input: any;
+  @ViewChild('attach2Input', {
+    static: true
+  }) attach2Input: any;
 
-    selectedDocRenewalEntryDetails = new Docrenewalentrymodel();
+  selectedDocRenewalEntryDetails = new Docrenewalentrymodel();
 
-    constructor(private route: Router, private formBuilder: FormBuilder, 
-      private docRenewalentryModel: Docrenewalentrymodel, private requestmodel:Requestmodel,
-      private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,
-      private toasterService: ToastrService,
-      private commonService: CommonService) {
-      this.docRenewalentryModel = new Docrenewalentrymodel();
-
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private docRenewalentryModel: Docrenewalentrymodel, private requestmodel:Requestmodel,
+    private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,
+    private toasterService: ToastrService,
+    private commonService: CommonService) {
+    this.docRenewalentryModel = new Docrenewalentrymodel();
   }
 
   ngOnInit(): void {
-    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -83,16 +82,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -108,14 +106,11 @@ dashboard: string ="";
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-    
 
     var userbranchcode = sessionStorage.getItem('userBranch')?.toString();
     
@@ -300,7 +295,7 @@ dashboard: string ="";
   };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
   
   onNeftChk(e: any) {
@@ -531,6 +526,7 @@ dashboard: string ="";
       this.sharedService.loading=false;
     }
   }
+
   exit(): void {
     this.route.navigate(['/docrenewalentrylist']);
   }
@@ -557,6 +553,7 @@ dashboard: string ="";
       this.toasterService.warning("Invalid Vehicle");
       return;
     }
+
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataVal.transDate?Date.parse(selectedDataVal.transDate):0;
@@ -564,14 +561,15 @@ dashboard: string ="";
       this.formDocEntry.patchValue({
         transDate: ''
       });
-      this.toasterService.warning("Invalid Trans date");
-      return
+      this.toasterService.warning("Trans Date should be with in Fin Year");
+      return;
     }
+    
     var chqDt = this.loginDate;
     if (selectedDataVal.pmtType=="B"){
       chqDt = selectedDataVal.chequeDt == '' ? this.loginDate:selectedDataVal.chequeDt;
     }
-    this.docRenewalentryModel.docRenewalEntryId = this.selectedDocRenewalEntryDetails.docRenewalEntryId  != '' ? this.selectedDocRenewalEntryDetails.docRenewalEntryId  : '';
+    this.docRenewalentryModel.docRenewalEntryId = this.selectedDocRenewalEntryDetails.docRenewalEntryId;
     this.docRenewalentryModel.transDate         = selectedDataVal.transDate;
     this.docRenewalentryModel.docRenewalID      = selectedDataVal.docRenewalID;
     this.docRenewalentryModel.vehicleMasterID   = selectedDataVal.vehicleMasterID.dataId;

@@ -226,9 +226,20 @@ dashboard: string ="";
   }
   
   search(): void {
-    this.filter.search = this.formFilter.value.bill_StmtNo;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
+    var selectedDataVal = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
+    this.filter.search = selectedDataVal.bill_StmtNo;
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
     this.filter.sortOrder = this.branch;      
     this.filter.filterStr= 'Y'; 
     this.filter.filterStr1= this.year; 

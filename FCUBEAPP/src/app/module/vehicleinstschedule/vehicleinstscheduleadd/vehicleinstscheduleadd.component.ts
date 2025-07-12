@@ -234,7 +234,7 @@ export class VehicleinstscheduleaddComponent {
 
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   calNoOfMonths(){
@@ -493,8 +493,9 @@ export class VehicleinstscheduleaddComponent {
       var instaNo = parseInt(selectedDataVal.arrayList[index].instNo);
       var instDate = new Date(selectedDataVal.arrayList[index].instDate);
       instDate.setMonth(instDate.getMonth()+1);
+      var nxtDt = instDate.toLocaleDateString();
       this.formArray.controls[index + 1 ].get("instNo")?.setValue(instaNo + 1);
-      this.formArray.controls[index + 1 ].get("instDate")?.setValue(instDate.toLocaleDateString());
+      this.formArray.controls[index + 1 ].get("instDate")?.setValue(this.commonService.formatDate(nxtDt));
       this.formArray.controls[index + 1 ].get("int_InstAmt")?.setValue("0");      
       this.formArray.controls[index + 1 ].get("tot_InstAmt")?.disable();
     }    
@@ -546,15 +547,22 @@ export class VehicleinstscheduleaddComponent {
       } 
       return;
     }
+    var selectedDataVal=this.formUser.getRawValue();
               
     if (this.formUser.controls['arrayList'].invalid) {
       this.toasterService.warning("Details fields are mandatory");
       return;
     }
+    if(selectedDataVal.vehicleMasterId.dataId){
+      //ignore
+    }
+    else{      
+      this.toasterService.warning("Invalid Vehicle");
+      return;
+    }
     
-    var selectedDataVal=this.formUser.getRawValue();
     this.vehicleinstschedulemodel.masterID = this.selectedVehicleinsts.masterID ;
-    this.vehicleinstschedulemodel.vehicleMasterId = selectedDataVal.vehicleMasterId?selectedDataVal.vehicleMasterId.dataId:"";
+    this.vehicleinstschedulemodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId;
     this.vehicleinstschedulemodel.loanType = selectedDataVal.loanType;       
     this.vehicleinstschedulemodel.startDate  = selectedDataVal.startDate;       
     this.vehicleinstschedulemodel.endDate  = selectedDataVal.endDate;          
@@ -586,7 +594,7 @@ export class VehicleinstscheduleaddComponent {
 
         this.vehicleinstschedulemodel.instScheduleDtls.push({
           'masterID': '',
-          'vehicleMasterId': '',
+          'vehicleMasterId': selectedDataVal.vehicleMasterId.dataId,
           'instNo': selectedDataVal.arrayList[i].instNo.toString(),          
           'instDate': selectedDataVal.arrayList[i].instDate,       
           'pri_InstAmt': selectedDataVal.arrayList[i].pri_InstAmt.toString(),    
