@@ -50,4 +50,10 @@ export class VendorpmtService {
   getVendorPmtInnerGridList(request: Requestmodel): Observable<Vendorpmtmodel> {
     return this.httpClient.post<Vendorpmtmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorPmtInnerGridList', request, this.httpOptions);
   }
+   getVendorPmtRptList(filter: Reportmodel): Observable<Vendorpmtlistmodel> {
+    return this.httpClient.post<Vendorpmtlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorPmtRptList', filter, this.httpOptions);
+  }
+   getVendorPmtRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVendorPmtRptExcel', filter, this.httpOptions);
+  }
 }

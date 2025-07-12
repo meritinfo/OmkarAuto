@@ -224,5 +224,19 @@ namespace FleetTrans.Business
         {
             return await fleetRptRepository.GetVehicleEngagementRptExcel(request);
         }
+        public async Task<VendorPmtListModel> GetVendorPmtRptList(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetVendorPmtRptList(request);
+        }
+
+        public async Task<ResponseModel> GetVendorPmtRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetVendorPmtRptExcel(request);
+        }
+
+
+
+
+       
     }
 }
