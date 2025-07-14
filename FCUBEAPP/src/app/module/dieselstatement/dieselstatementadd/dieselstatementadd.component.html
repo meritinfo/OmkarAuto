@@ -33,7 +33,7 @@
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Statement Date</label><span style="color: red"> * </span>
                                                     <input autoclose="false" type="date"  
-                                                        class="form-control" formControlName="billStmtDate"
+                                                        class="form-control" formControlName="billStmtDate" min="{{minDate}}" max="{{maxDate}}"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['billStmtDate'].invalid) }">
                                                 </div>
                                             </div>
@@ -41,14 +41,14 @@
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Valid From</label><span style="color: red"> * </span>
                                                     <input autoclose="false" type="date"  
-                                                        class="form-control" formControlName="fromDate" 
+                                                        class="form-control" formControlName="fromDate"  min="{{minDate}}" max="{{maxDate}}"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Valid To</label><span style="color: red"> * </span>
-                                                    <input autoclose="false" type="date"  
+                                                    <input autoclose="false" type="date"  min="{{minDate}}" max="{{maxDate}}"
                                                         class="form-control" formControlName="toDate"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                                 </div>
