@@ -11,6 +11,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-fasttaglist',
@@ -54,6 +55,7 @@ dashboard: string ="";
 
   constructor(private formBuilder: FormBuilder, private fasttagService: FasttagService, 
     private cashreceiptentryService: CashReceiptEntryService,
+    private toasterService: ToastrService, 
     private commonService: CommonService, private sharedService: SharedService,     
     private route: Router) {
   }
@@ -148,6 +150,10 @@ dashboard: string ="";
           data: 'ftMasterID',
         },
         {
+          title: 'Voucher Print',
+          data: 'masterID',
+        },
+        {
           title: 'Account ',
           data: 'accountName',
         },
@@ -173,9 +179,7 @@ dashboard: string ="";
       this.accountList = res;
     });
   }
-
   
-   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -213,4 +217,23 @@ dashboard: string ="";
       dtInstance.ajax.reload();
     });
   }
+  
+  getVoucherPrint(dieselimpadd: Fasttagmodel): void {
+    this.requestmodel.strRequest = "F";
+    this.requestmodel.strRequest1 = dieselimpadd.ftMasterID;
+
+    this.commonService.getVoucherPrint(this.requestmodel).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "Voucher_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/voucher/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
+  }
+    
 }

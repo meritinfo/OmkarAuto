@@ -122,8 +122,6 @@ export class VehiclerepmaintaddComponent {
     
     this.fromDate = this.minDate ;
 
-
-
     this.selectedvehiclerepmaintMasterDetail = this.vehiclerepmaintMasterService.getVehiclerepmaintMasterDetails();
     this.formUser = this.formBuilder.group({
       transDate : new FormControl(this.loginDate,[Validators.required]),
@@ -190,7 +188,20 @@ export class VehiclerepmaintaddComponent {
 
     if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {
       setTimeout(() => {
-      
+        this.formUser.controls['stockType'].disable(); 
+        this.formUser.controls['maintID'].disable();   
+        this.formUser.controls['vehicleMasterId'].disable();    
+        this.formUser.controls['vendorId'].disable();   
+        this.formUser.controls['vendorName'].disable(); 
+        this.formUser.controls['vendorInvNo'].disable();  
+        this.formUser.controls['vendorInvDt'].disable();  
+        this.formUser.controls['vendorName'].disable();    
+        this.formUser.controls['vendorAddress'].disable();  
+        this.formUser.controls['vendorState'].disable();    
+        this.formUser.controls['vendorGstNo'].disable();     
+        this.formUser.controls['pmtType'].disable();     
+        this.formUser.controls['creditAc'].disable();   
+        
         this.refDocAttachedImage = Constants.UploadFolderPath + 'vehicleRepairs/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
         this.formUser.patchValue(this.selectedvehiclerepmaintMasterDetail);
         this.formUser.patchValue({
@@ -211,17 +222,13 @@ export class VehiclerepmaintaddComponent {
         this.formTyreArray.controls[0].get("netAmount")?.disable(); 
         this.formTyreArray.controls[0].get("itemAmount")?.disable();       
                   
-        if (this.selectedvehiclerepmaintMasterDetail.nonVendor=='Y'){     
-          this.formUser.controls['vendorId'].disable();   
-          this.formUser.controls['vendorName'].enable(); 
+        if (this.selectedvehiclerepmaintMasterDetail.nonVendor=='N'){   
           this.formUser.patchValue({
             vendorId: "",
-            nonVendor: "Y",
+            nonVendor: "N",
           })
         }
         else {          
-          this.formUser.controls['vendorId'].enable(); 
-          this.formUser.controls['vendorName'].disable(); 
           this.formUser.patchValue({
             nonVendor: "",
           })
@@ -338,14 +345,20 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['vendorGstNo'].disable();
       this.formUser.controls['vendorName'].disable();
       this.formUser.controls['gstInputTaken'].disable();
-      
-      this.formUser.patchValue({    
-        pmtType:"A",
-        creditAc:"",
-      })
+      this.getCreditAcList("A");
+
+      setTimeout(() => {
+        var creditAc = this.creditAcList.find(e => e.dataName == "SPARES/LUBES STOCK A/C");
+        this.formUser.patchValue({    
+          pmtType:"A",
+          creditAc:creditAc,
+        })
+      }, 1000);  
       this.formUser.controls['pmtType'].disable();
+      this.formUser.controls['creditAc'].disable();
     }    
     else{
+      this.formUser.controls['creditAc'].enable();
       this.formUser.controls['nonVendor'].enable();
       this.formUser.controls['vendorId'].enable();
       this.formUser.controls['vendorInvDt'].enable();

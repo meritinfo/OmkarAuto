@@ -11,6 +11,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class DieselstatementlistComponent {
   }
 
   constructor(private formBuilder: FormBuilder, 
-    private dieselStatementService: DieselstatementService, 
+    private dieselStatementService: DieselstatementService, private toasterService: ToastrService,
     private commonService: CommonService, private requestmodel:Requestmodel,
     private sharedService: SharedService, private gstpurchaseService: GstpurchaseService,      
     private route: Router) {
@@ -149,6 +150,10 @@ export class DieselstatementlistComponent {
           data: 'masterId',
         },
         {
+          title: 'Voucher Print',
+          data: 'masterID',
+        },
+        {
           title: 'Vendor ',
           data: 'vendor',
         },
@@ -168,10 +173,6 @@ export class DieselstatementlistComponent {
       ],
     };
   }
-
-
-  
-   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -216,6 +217,24 @@ export class DieselstatementlistComponent {
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
+    });
+  }
+
+  getVoucherPrint(dieselimpadd: Dieselstatementmodel): void {
+    this.requestmodel.strRequest = "D";
+    this.requestmodel.strRequest1 = dieselimpadd.masterID;
+
+    this.commonService.getVoucherPrint(this.requestmodel).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "Voucher_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/voucher/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
     });
   }
 }

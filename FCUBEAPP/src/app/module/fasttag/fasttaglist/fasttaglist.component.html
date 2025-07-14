@@ -14,7 +14,7 @@
                 <div class="col-sm-8 col-md-8">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Account</label>                                                
                                     <div class="ng-autocomplete">
@@ -38,6 +38,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
@@ -78,15 +80,20 @@
                                 <th>fromDate</th>
                                 <th>toDate</th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allFasttag.fastTagList?.length != 0">
                             <tr *ngFor="let ft of allFasttag.fastTagList">                  
                                 <td>
                                     <button type="button" class="btn btn-edit" 
-                                    (click)="getFasttagDetails(ft)"></button>    
-                                             
-                                </td> 
+                                    (click)="getFasttagDetails(ft)"></button>  
+                                </td>                   
+                                <td>                    
+                                    <button type="button" class="btn btn-primary btn-floating"  
+                                        (click)="getVoucherPrint(ft)" >
+                                        <i class="fas fa-download"></i></button>                           
+                                </td>
                                 <td>{{ ft.accountName }}</td>                        
                                 <td>{{ ft.stmtDate}}</td>
                                 <td>{{ ft.fromDate}}</td>

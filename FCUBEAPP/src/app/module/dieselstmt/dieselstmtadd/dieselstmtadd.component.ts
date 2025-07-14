@@ -260,6 +260,14 @@ export class DieselstmtaddComponent {
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
         this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
+        
+
+        this.formArray.controls[i].get("transRefNo")?.disable();
+        this.formArray.controls[i].get("vehicleNo")?.disable();
+        this.formArray.controls[i].get("transDateTime")?.disable();
+        this.formArray.controls[i].get("dslQty")?.disable();
+        this.formArray.controls[i].get("dslRate")?.disable();
+        this.formArray.controls[i].get("amount")?.disable();
       }
      
     });  

@@ -54,6 +54,7 @@ namespace FleetTrans.Repository
                                 MaintID = Convert.ToString(dataSet.Tables[0].Rows[i]["MaintID"]),
                                 MaintType = Convert.ToString(dataSet.Tables[0].Rows[i]["MaintType"]),
                                 VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
+                                Vehicle = Convert.ToString(dataSet.Tables[0].Rows[i]["Vehicle"]),
                                 KmReading = Convert.ToString(dataSet.Tables[0].Rows[i]["KmReading"]),
                                 NonVendor = Convert.ToString(dataSet.Tables[0].Rows[i]["NonVendor"]),
                                 VendorId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),

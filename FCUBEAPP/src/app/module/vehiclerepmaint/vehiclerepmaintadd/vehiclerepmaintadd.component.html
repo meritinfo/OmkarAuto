@@ -31,7 +31,6 @@
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="stockType"  (change)="changeStockType($event)"                                   
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['stockType'].invalid) }">
-                                                <!-- <option value="NA">NA</option> -->
                                                 <option value="D">Direct</option>
                                                 <option value="S">Stock</option>                                                        
                                             </select>
@@ -190,11 +189,11 @@
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vehicleList"
                                                     [searchKeyword]="keywordLocation"  
-                                                    formControlName="vehicleMasterId"    
-                                                    (inputFocused)='onFocused($event)' 
+                                                    formControlName="vehicleMasterId"  
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="endWithFilter">
+                                                    [customFilter]="endWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
