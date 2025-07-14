@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mrlist',
@@ -52,7 +53,7 @@ dashboard: string ="";
     minDate: string = '';
 
     formFilter!: FormGroup;
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: FormBuilder,private toastrService:ToastrService,
       private mrService: MrService, private route: Router,
       private sharedService: SharedService,
       private commonService: CommonService) {
@@ -196,6 +197,17 @@ dashboard: string ="";
     }
     
     search(): void {
+          var selectedDataVal=this.formFilter.getRawValue();
+
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
       this.filter.fromDate = this.formFilter.value.fromDate;
       this.filter.toDate = this.formFilter.value.toDate;
       this.filter.filterStr = this.branchid;

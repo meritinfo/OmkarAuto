@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { CommonService } from 'src/app/services/common.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class VehicleinstpmtlistComponent {
   minDate: string = '';
   year: string = '';
 
-  constructor(private vehicleInstaService: VehicleInstPmtService, 
+  constructor(private vehicleInstaService: VehicleInstPmtService, private toastrService:ToastrService,
     private commonService: CommonService,private formBuilder: FormBuilder,
     private route: Router) {
   }
@@ -196,6 +197,21 @@ export class VehicleinstpmtlistComponent {
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+     var selecteddata = this.formFilter.getRawValue();
+ 
+    
+           
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    
+    
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;    
     this.filter.search = selecteddata.vehicleMasterId?selecteddata.vehicleMasterId:"";

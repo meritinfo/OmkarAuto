@@ -9,7 +9,9 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+
 
 
 @Component({
@@ -53,7 +55,7 @@ export class VendorpmtlistComponent {
   }
 
   constructor(private formBuilder: FormBuilder, 
-    private vendorpmtService: VendorpmtService, 
+    private vendorpmtService: VendorpmtService, private toastrService: ToastrService,
     private commonService: CommonService, private requestmodel:Requestmodel,
     private sharedService: SharedService,  private route: Router) {
   }
@@ -186,6 +188,17 @@ export class VendorpmtlistComponent {
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
     this.filter.search = selecteddata.vendorId?selecteddata.vendorId.dataId:"";
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;

@@ -8,6 +8,7 @@ import { LorryhirereqService } from 'src/app/services/lorryhirereq.service';
 import { DataTableDirective } from 'angular-datatables';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lorryhirepmtreqlist',
@@ -47,7 +48,7 @@ dashboard: string ="";
   maxDate: string = '';
   minDate: string = '';
 
-  constructor(private lorryhirereqService: LorryhirereqService, 
+  constructor(private lorryhirereqService: LorryhirereqService, private toastrService:ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder, 
     private sharedService: SharedService,private route: Router) {
   }
@@ -187,6 +188,16 @@ dashboard: string ="";
   }
 
   search(): void {
+      var selectedDataVal=this.formFilter.getRawValue();
+      let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;
