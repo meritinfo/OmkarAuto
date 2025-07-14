@@ -456,6 +456,7 @@ dashboard: string ="";
   }
 
   saveStatementDetails(): void {
+    debugger
     if (this.formDieselStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDieselStatement.controls;
@@ -466,8 +467,28 @@ dashboard: string ="";
       } 
       return;
     }
-
+    
     var selectedDataVal=this.formDieselStatement.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let StmtDate = new Date(selectedDataVal.billStmtDate);
+   
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<StmtDate || StmtDate<mindt) {
+      this.toasterService.warning("Statement Date  should be with in Fin Year");
+       return;
+    }
+  if (maxdt<frmdt || frmdt<mindt ) {
+      this.toasterService.warning("Valid From  should be with in Fin Year");
+    return;
+  }
+  if (maxdt<todt || todt<mindt) {
+      this.toasterService.warning("Valid To should be with in Fin Year");
+     return;
+   }
+
     var diesellistarray = this.DieselStatementmodel.dieselStatementListData;
     var IsItemSelected = false;
     for (var i = 0; i < diesellistarray.length; i++) {

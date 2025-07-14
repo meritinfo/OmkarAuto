@@ -59,6 +59,7 @@ export class BrokeradvancepmtaddComponent {
   }
 
   ngOnInit(): void {
+    debugger
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -187,6 +188,7 @@ export class BrokeradvancepmtaddComponent {
   get f() { return this.formDriverMaster.controls; }
 
     onBranchChange() {
+      debugger
       // var selectedData = this.formUser.getRawValue();
       // if (selectedData.challanBranch==""){
          this.requestmodel.strRequest = this.branch;
@@ -227,6 +229,7 @@ export class BrokeradvancepmtaddComponent {
   
 
   getFinDocDetails(finId: string){
+    debugger
     this.requestmodel.strRequest=finId;
     this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -339,9 +342,17 @@ export class BrokeradvancepmtaddComponent {
       }
       return;
     }
+    let pmtDate = new Date(selectedDataVal.pmtDate);
+        let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
     this.formSubmitted = true;
     var selectedDataVal = this.formDriverMaster.getRawValue()
+   if (maxdt<pmtDate || pmtDate<mindt) {
+      this.toasterService.warning("Payment Date should be with in Fin Year");
+       return;
+    }
     this.brokeradvancepmtModel.advPmtid  = this.selectedBrokerAdvanceDetails.advPmtid ;
+
     //this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();
     //this.driverModel.fatherName = selectedDataVal.fatherName.toString().toUpperCase();
    // this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
