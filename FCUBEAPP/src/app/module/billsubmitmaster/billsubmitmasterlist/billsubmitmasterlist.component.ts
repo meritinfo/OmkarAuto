@@ -232,11 +232,21 @@ download(billsub: Billsubmitmastermodel): void {
 }
 
 search(): void {
-  var selecteddata = this.formFilter.getRawValue();
-  this.filter.fromDate = selecteddata.fromDate;
-  this.filter.toDate = selecteddata.toDate;
-  this.filter.filterStr1 = this.formFilter.value.submitNo;
-  this.filter.filterStr2 = this.formFilter.value.partyCode.dataId;
+    var selectedDataVal = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
+  this.filter.fromDate = selectedDataVal.fromDate;
+  this.filter.toDate = selectedDataVal.toDate;
+  this.filter.filterStr1 = selectedDataVal.submitNo;
+  this.filter.filterStr2 = selectedDataVal.partyCode.dataId;
   this.sharedService.loading=true;
   this.billSubmitList();
   this.sharedService.loading=false;

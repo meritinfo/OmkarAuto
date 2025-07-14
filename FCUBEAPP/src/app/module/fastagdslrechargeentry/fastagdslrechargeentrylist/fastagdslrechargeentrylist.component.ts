@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -54,6 +55,7 @@ dashboard: string ="";
 
   constructor(private fastagdslrechargeentryService: FastagdslrechargeentryService, 
     private formBuilder: FormBuilder, private commonService: CommonService,
+    private toastrService:ToastrService,
     private sharedService: SharedService, private route: Router) {
   }
   ngOnInit(): void {        
@@ -138,7 +140,7 @@ dashboard: string ="";
   
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
   fastagdslrechargeentrylist(){
     this.dtOptions = {
@@ -212,6 +214,15 @@ dashboard: string ="";
  
   search(): void { 
     var selectedDataValue = this.formFilter.getRawValue()
+    let frmdt = new Date(selectedDataValue.fromDate);
+    let todt = new Date(selectedDataValue.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.filterStr = selectedDataValue.vehicleID.dataId;
     this.filter.fromDate = selectedDataValue.fromDate;
     this.filter.toDate = selectedDataValue.toDate;

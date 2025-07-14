@@ -48,7 +48,7 @@ export class BenificiarymasterlistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
 
   dtOptions: DataTables.Settings = {};
@@ -172,6 +172,8 @@ beneficiaryList(){
     }
 
     this.sharedService.loading = true;
+    var selectedDataVal = this.formFilter.getRawValue();
+    this.filter.search = selectedDataVal.bankName;
     this.beneficiaryList();    
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

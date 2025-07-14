@@ -10,6 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -55,6 +56,7 @@ dashboard: string ="";
 formFilter!: FormGroup;
 constructor(private driversalarypaymentService: DriversalarypaymentService, 
   private formBuilder: FormBuilder, private commonService: CommonService,
+      private toasterService: ToastrService,
   private sharedService: SharedService, private route: Router) {
   }
   ngOnInit(): void {    
@@ -206,9 +208,19 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
  
   search(): void {
  
-    this.filter.filterStr = this.formFilter.value.vehicleID.dataId;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
+    var selecteddata = this.formFilter.getRawValue();
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    this.filter.filterStr = selecteddata.vehicleID.dataId;
     this.filter.sortOrder = this.branch;
     
     this.sharedService.loading=true;

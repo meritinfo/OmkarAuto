@@ -31,7 +31,7 @@
                                         <div class="mb-3">                                           
                                             <label >Purchase Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
-                                                formControlName="purchaseDate" max="{{maxDate}}"                                         
+                                                formControlName="purchaseDate" min="{{minDate}}"  max="{{maxDate}}"                                         
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['purchaseDate'].invalid) }">
                                         </div>
                                     </div> 

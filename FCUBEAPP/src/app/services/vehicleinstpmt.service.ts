@@ -42,6 +42,13 @@ export class VehicleInstPmtService {
   getVehicleNoLoan(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleNoLoan', req, this.httpOptions);
   }
+  getVehicleInstNo(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleInstNo', req, this.httpOptions);
+  }
+  getInstAmount(req: Requestmodel): Observable<Requestmodel> {
+    return this.httpClient.post<Requestmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleInstAmount', req, this.httpOptions);
+  }
+
   clearVehicleInstPmtDetails() {
     this.selectedvehicleinstpmt = new Vehicleinstpmtmodel();
   }

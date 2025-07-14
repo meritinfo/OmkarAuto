@@ -252,7 +252,67 @@ namespace FleetTrans.Repository
             }
             return rateList;
         }
+        public async Task<List<DropDownListModel>> GetVehicleInstNo(RequestModel request)
+        {
+            List<DropDownListModel> rateList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterid", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstNo", param);
 
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            rateList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return rateList;
+        }
+
+        public async Task<RequestModel> GetVehicleInstAmount(RequestModel request)
+        {
+            RequestModel instAmount = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterid", request.strRequest),
+                            new SqlParameter("@InstId", request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstAmount", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        instAmount.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["PriAmt"]);
+                        instAmount.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["IntAmt"]);
+                        instAmount.strRequest2 = Convert.ToString(statusData.Tables[0].Rows[0]["TotAmt"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return instAmount;
+        }
 
     }
 }

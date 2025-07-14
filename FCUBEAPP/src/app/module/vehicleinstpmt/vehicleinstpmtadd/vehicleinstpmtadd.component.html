@@ -39,9 +39,7 @@
                                                   [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtDate'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle</label>
                                                 <span style="color: red">*</span>
@@ -49,7 +47,7 @@
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation"  
                                                         formControlName="vehicleMasterid"
-                                                        (inputFocused)='onFocused($event)' 
+                                                        (selected)='selectEvent($event)'
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="endWithFilter">
@@ -67,44 +65,36 @@
                                         </div> 
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Inst No</label>
-                                                <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" 
-                                                formControlName="instNo"          
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['instNo'].invalid) }">
+                                                <label for="formrow-inputZip">Inst No</label><span style="color: red">*</span>
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="instId" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['instId'].invalid) }">
+                                                    <option *ngFor="let branch of instList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>         
                                             </div>
-                                        </div>                                
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Inst Id</label>
-                                                <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control"
-                                                 formControlName="instId"       
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['instId'].invalid) }">
-                                            </div>
-                                        </div>
+                                        </div> 
                                     </div>   
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Priciple Amt</label>  
                                                 <span style="color: red">*</span>                                             
                                                 <input autoclose="false" class="form-control"   
-                                                formControlName="priAmt" decimalonly     
+                                                formControlName="priAmt" decimalonly (change)="calTot()"    
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['priAmt'].invalid) }">
                                             </div>
                                         </div>                            
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Interest Amt</label>
-                                                <span style="color: red">*</span>
                                                 <input autoclose="false" class="form-control"   
-                                                formControlName="intAmt" decimalonly
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['intAmt'].invalid) }">
+                                                formControlName="intAmt" decimalonly (change)="calTot()">
                                                 
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip"> Total Amt</label> 
                                                 <span style="color: red">*</span>                                            

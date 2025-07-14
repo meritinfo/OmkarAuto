@@ -375,6 +375,7 @@ export class AddcashreceiptentryComponent {
     this.sharedService.loading=false;
     }
   }
+
   exit(): void {
     this.route.navigate(['/cashreceiptentrylist']);
   }
@@ -403,7 +404,15 @@ export class AddcashreceiptentryComponent {
         this.toasterService.warning("Modify Remarks should be atleast 10 characters");
         return;
       }
-    }    
+    }  
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.ftmDate?Date.parse(selectedDataValue.ftmDate):0;
+    
+    if (d3>d4 || d2<d4 ) {
+      this.toasterService.warning("Trans Date should be with in Fin Year");
+      return;
+    }  
 
     this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID ;
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;

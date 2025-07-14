@@ -173,17 +173,13 @@ export class AddcostrecentryaddComponent {
 
     this.formUser.controls['branchCode'].disable();  
     this.formUser.controls['transNo'].disable();  
-   // this.formUser.controls['documentType'].disable();  
     this.formUser.controls['totalAmount'].disable();    
     this.formUser.controls['costTot'].disable();    
     this.formUser.controls['othTot'].disable();    
-    this.formUser.controls['grossTot'].disable();    
-    // this.formUser.controls['tdsAmt'].disable(); 
+    this.formUser.controls['grossTot'].disable();  
     this.formUser.controls['netTot'].disable();   
     this.formUser.controls['modifyRemarks'].disable();  
     this.formUser.controls['addCostType'].disable();  
-
-    // this.formArray.controls[0].get("docNo")?.disable();
     this.formArray.controls[0].get("costAmt")?.disable();
     this.formArray.controls[0].get("othAmt")?.disable();
     this.formArray.controls[0].get("totAmt")?.disable();
@@ -201,7 +197,6 @@ export class AddcostrecentryaddComponent {
 
     setTimeout(() => {
       if (this.selectedAddcostrecmstDetail.masterID != '') {
-        
         this.formUser.controls['modifyRemarks'].enable();          
         this.attatchFile1 = Constants.UploadFolderPath + 'addcostrecentry/attatchFile1/' + this.selectedAddcostrecmstDetail.attatchFile1;
         this.attatchFile2 = Constants.UploadFolderPath + 'addcostrecentry/attatchFile2/' + this.selectedAddcostrecmstDetail.attatchFile2;
@@ -734,8 +729,28 @@ export class AddcostrecentryaddComponent {
 
     this.formSubmitted = true;
     var selectedDataValue = this.formUser.getRawValue();
-    this.addcostrecmstmodel.masterID              = this.selectedAddcostrecmstDetail.masterID ;   
-    this.addcostrecmstmodel.branchCode= selectedDataValue.branchCode.toString();
+    
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.transDate?Date.parse(selectedDataValue.transDate):0;
+    if (d3>d4 || d2<d4 ) {
+      this.formUser.patchValue({
+        transDate: ''
+      });
+      this.toasterService.warning("Trans Date should be with in Fin Year");
+      return;
+    }
+    if(parseFloat(selectedDataValue.netTot)>0)
+    {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Net Total should not be Zero");
+      return;
+    }
+
+    this.addcostrecmstmodel.masterID   = this.selectedAddcostrecmstDetail.masterID ;   
+    this.addcostrecmstmodel.branchCode = selectedDataValue.branchCode.toString();
     this.addcostrecmstmodel.transNo = selectedDataValue.transNo.toString();
     this.addcostrecmstmodel.transDate = selectedDataValue.transDate.toString();
     this.addcostrecmstmodel.addCostID = selectedDataValue.addCostID.toString();

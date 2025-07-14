@@ -26,6 +26,7 @@ export class VehicleinstpmtaddComponent {
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   mainAcList: Dropdownmodel[] = [];
+  instList: Dropdownmodel[] = [];
   
   branch: string = '';
 
@@ -119,9 +120,8 @@ export class VehicleinstpmtaddComponent {
       branchCode: new FormControl(this.branch,[Validators.required]),
       pmtDate: new FormControl(this.loginDate,[Validators.required]),
       vehicleMasterid: new FormControl('',[Validators.required]),
-      instNo: new FormControl('',[Validators.required]),
       instId: new FormControl('',[Validators.required]),  
-      priAmt: new FormControl('',),
+      priAmt: new FormControl('',[Validators.required]),
       intAmt: new FormControl('',),
       totAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),
@@ -134,15 +134,22 @@ export class VehicleinstpmtaddComponent {
 
     this.createmode = true;
     this.formUser.controls['branchCode'].disable();
+    this.formUser.controls['instId'].disable();
     this.formUser.controls['neftYN'].disable();
     this.formUser.controls['cheqNo'].disable();
     this.formUser.controls['cheqDate'].disable();
-
+    this.formUser.controls['totAmt'].disable();
+    
     if (this.selectedVehicleInstPmtDetail.pmtId != '') {
       this.getMainAcList(this.selectedVehicleInstPmtDetail.pmtType);
+      this.instList.push({
+        'dataName':  this.selectedVehicleInstPmtDetail.instNo,
+        'dataId': this.selectedVehicleInstPmtDetail.instId,
+      });
     }
+
     setTimeout(() => {
-      if (this.selectedVehicleInstPmtDetail.pmtId != '') {
+      if (this.selectedVehicleInstPmtDetail.pmtId != '') {        
         this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['vehicleMasterid'].disable();
 
@@ -191,10 +198,33 @@ export class VehicleinstpmtaddComponent {
     });
   }
 
-  selectEvent(item: any) {
-    // do something with selected item
-    // this.GetOpeningBal();
+  getInstList(vehicleMasterid: string){
+    this.requestmodel.strRequest = vehicleMasterid;
+    this.vehicleInstPmtService.getVehicleInstNo(this.requestmodel).subscribe((res) => {
+      this.instList = res;
+      this.formUser.patchValue({
+        instId: res[0].dataId
+      });
+      this.getInstAmount(res[0].dataId,vehicleMasterid);
+    });
   }
+
+  getInstAmount(instId: string,vehicleMasterid: string){
+    this.requestmodel.strRequest = vehicleMasterid;
+    this.requestmodel.strRequest1 = instId;
+    this.vehicleInstPmtService.getInstAmount(this.requestmodel).subscribe((res) => {
+      this.formUser.patchValue({
+        priAmt: res.strRequest,
+        intAmt: res.strRequest1,
+        totAmt: res.strRequest2,
+      })
+    });
+  }
+
+  selectEvent(item: any) {
+    this.getInstList(item.dataId);
+  }
+
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -210,7 +240,7 @@ export class VehicleinstpmtaddComponent {
   };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   
@@ -257,6 +287,14 @@ export class VehicleinstpmtaddComponent {
     this.formUser.controls['cheqDate'].updateValueAndValidity();
   }
 
+  calTot(){
+    var selectedDataValue = this.formUser.getRawValue();
+    var priAmt = selectedDataValue.priAmt?parseFloat(selectedDataValue.priAmt):0;
+    var intAmt = selectedDataValue.intAmt?parseFloat(selectedDataValue.intAmt):0;
+    this.formUser.patchValue({
+      totAmt:(priAmt+intAmt).toFixed(2),
+    });
+  }
 
   vehicleInstPmtDelete(): void {
     if(this.selectedVehicleInstPmtDetail.pmtId != '' ){
@@ -267,7 +305,7 @@ export class VehicleinstpmtaddComponent {
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/emipmtllplist']);
+            this.route.navigate(['/emipmtlist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -278,10 +316,9 @@ export class VehicleinstpmtaddComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/emipmtllplist']);
+    this.route.navigate(['/emipmtlist']);
   }
 
-//Submit user form details //
   submitVehicleInstPmtForm(): void {
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
@@ -302,12 +339,20 @@ export class VehicleinstpmtaddComponent {
       return;
     }
     this.formSubmitted = true;
+    
+    let pmtDate = new Date(selectedDataValue.pmtDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
 
-    this.vehicleinstpmtmodel.pmtId = this.selectedVehicleInstPmtDetail.pmtId != '' ? this.selectedVehicleInstPmtDetail.pmtId : '';
+    if (maxdt<pmtDate || pmtDate<mindt) {
+      this.toastrService.warning("Payment Date should be with in Fin Year");
+      return;
+    }
+
+    this.vehicleinstpmtmodel.pmtId = this.selectedVehicleInstPmtDetail.pmtId;
     this.vehicleinstpmtmodel.pmtDate = selectedDataValue.pmtDate;
     this.vehicleinstpmtmodel.branchCode = selectedDataValue.branchCode;
     this.vehicleinstpmtmodel.vehicleMasterid = selectedDataValue.vehicleMasterid.dataId;
-    this.vehicleinstpmtmodel.instNo = selectedDataValue.instNo;
     this.vehicleinstpmtmodel.instId = selectedDataValue.instId;
     this.vehicleinstpmtmodel.priAmt = selectedDataValue.priAmt;
     this.vehicleinstpmtmodel.intAmt = selectedDataValue.intAmt;
@@ -326,7 +371,7 @@ export class VehicleinstpmtaddComponent {
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/emipmtllplist']);
+        this.route.navigate(['/emipmtlist']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

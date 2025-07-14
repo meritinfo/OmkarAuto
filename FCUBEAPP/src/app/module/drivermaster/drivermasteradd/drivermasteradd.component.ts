@@ -223,7 +223,7 @@ export class DrivermasteraddComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().endsWith(query.toLowerCase()));
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
   // Convert file to base64 string
