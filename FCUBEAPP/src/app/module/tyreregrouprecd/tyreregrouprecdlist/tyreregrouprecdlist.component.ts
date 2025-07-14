@@ -8,6 +8,7 @@ import { TyreregrouprecdService } from 'src/app/services/tyreregrouprecd.service
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tyreregrouprecdlist',
@@ -41,7 +42,7 @@ dashboard: string ="";
   maxDate: string = '';
   minDate: string = '';
   year: string = '';
-  constructor(private tyreregrouprecdService: TyreregrouprecdService,
+  constructor(private tyreregrouprecdService: TyreregrouprecdService,private toasterService: ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
   }
@@ -166,6 +167,17 @@ dashboard: string ="";
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+        var selectedDataVal=this.formFilter.getRawValue();
+   
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
     this.sharedService.loading=true;

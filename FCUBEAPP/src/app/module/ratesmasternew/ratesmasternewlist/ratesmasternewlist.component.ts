@@ -9,6 +9,7 @@ import { Ratesmasternewmodel } from 'src/app/models/ratesmasternewmodel';
 import { RatesMasterNewService } from 'src/app/services/ratesmasternew.services';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -44,7 +45,7 @@ dashboard: string ="";
   minDate: string = '';
   year: string = '';
 
-  constructor(private ratesMasterNewService: RatesMasterNewService,
+  constructor(private ratesMasterNewService: RatesMasterNewService,private toastrService:ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
 
@@ -174,6 +175,17 @@ getRatesMasterNewDetails(tyre: Ratesmasternewmodel): void {
 
 search(): void {
   var selecteddata = this.formFilter.getRawValue();
+     var selectedDataVal=this.formFilter.getRawValue();
+
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
   this.filter.fromDate = selecteddata.fromDate;
   this.filter.toDate = selecteddata.toDate;
   this.sharedService.loading=true;

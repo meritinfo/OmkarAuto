@@ -214,6 +214,7 @@ dashboard: string ="";
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue(); 
+    
     this.request.strRequest = selectedDataVal.tyreNo;
 
     this.sharedService.loading=true;

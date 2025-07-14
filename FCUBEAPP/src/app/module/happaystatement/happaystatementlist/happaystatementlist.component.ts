@@ -11,6 +11,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-happaystatementlist',
@@ -52,7 +53,7 @@ dashboard: string ="";
 
   constructor(private formBuilder: FormBuilder, 
     private dieselStatementService: DieselstatementService, 
-    private commonService: CommonService, 
+    private commonService: CommonService, private toastrService:ToastrService,
     private sharedService: SharedService, private gstpurchaseService: GstpurchaseService,      
     private route: Router) {
   }
@@ -193,6 +194,16 @@ dashboard: string ="";
   }
 
   search(): void {
+     var selectedDataVal=this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;

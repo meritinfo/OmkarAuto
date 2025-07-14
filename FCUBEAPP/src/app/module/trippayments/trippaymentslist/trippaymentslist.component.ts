@@ -231,6 +231,7 @@ export class TrippaymentslistComponent {
 
   search(): void {
     var selectedData = this.formFilter.getRawValue();   
+    
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";

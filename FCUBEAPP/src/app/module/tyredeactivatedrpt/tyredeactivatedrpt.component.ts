@@ -57,7 +57,7 @@ dashboard: string ="";
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private tyremgntrptService: TyremgntrptService, 
+  constructor(private tyremgntrptService: TyremgntrptService, private toasterService: ToastrService,
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
@@ -303,6 +303,17 @@ dashboard: string ="";
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
+    
+           
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr = selectedDataVal.vehicleMasterID.dataId;

@@ -276,6 +276,16 @@ getTripMaster(){
   };
   search(): void {   
     var selectData =  this.formFilter.getRawValue();
+       var selectedDataVal=this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.filterStr = selectData.branch;
