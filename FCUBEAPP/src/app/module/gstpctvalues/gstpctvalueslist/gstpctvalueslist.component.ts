@@ -15,6 +15,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -47,11 +48,16 @@ export class GstpctvalueslistComponent {
     filterStr3:''
   }
    
+  loginDate: string = '';
+  year: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
   formFilter!: FormGroup;
    
   constructor(private formBuilder: FormBuilder, private gstPctValuesService: GstPctValuesService,
     private sharedService: SharedService,    private commonService: CommonService,    
-    private route: Router, ) {
+    private toasterService: ToastrService, private route: Router, ) {
   }
    
   ngOnInit(): void {
@@ -69,8 +75,18 @@ export class GstpctvalueslistComponent {
       }
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+
     this.gstPctValuesService.clearGstPctValuesDetails();
 
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
     this.formFilter = this.formBuilder.group({  
       fromDate: new FormControl(),
       toDate: new FormControl(),
@@ -161,6 +177,15 @@ export class GstpctvalueslistComponent {
   
   search(): void {
     var selectedDataVal = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.search = "";
    // this.filter.filterStr = selectedDataVal.panNo;
    // this.filter.filterStr1 = this.year;

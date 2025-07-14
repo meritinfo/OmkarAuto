@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-gstpurchaselist',
@@ -52,7 +53,7 @@ dashboard: string ="";
     formFilter!: FormGroup;
     constructor(private formBuilder: FormBuilder,
       private gstpurchaseservice: GstpurchaseService, private route: Router,
-      private sharedService: SharedService,
+      private sharedService: SharedService,private toastrService:ToastrService,
       private commonService: CommonService) {
     }
   
@@ -184,6 +185,15 @@ dashboard: string ="";
     
     search(): void {
       var selectedData = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedData.fromDate);
+    let todt = new Date(selectedData.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
       this.filter.fromDate = selectedData.fromDate;
       this.filter.toDate = selectedData.toDate;
       this.filter.filterStr = this.branch;
