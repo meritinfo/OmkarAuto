@@ -77,8 +77,8 @@ export class VehicleinstpmtaddComponent {
     }
   
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -119,6 +119,7 @@ export class VehicleinstpmtaddComponent {
     this.formUser = this.formBuilder.group({
       branchCode: new FormControl(this.branch,[Validators.required]),
       pmtDate: new FormControl(this.loginDate,[Validators.required]),
+      loanType: new FormControl(this.loginDate,[Validators.required]),
       vehicleMasterid: new FormControl('',[Validators.required]),
       instId: new FormControl('',[Validators.required]),  
       priAmt: new FormControl('',[Validators.required]),
@@ -162,16 +163,18 @@ export class VehicleinstpmtaddComponent {
           cheqDate:this.commonService.formatDate(this.selectedVehicleInstPmtDetail.cheqDate),
           vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedVehicleInstPmtDetail.vehicleMasterid),
         })
+        
         if(this.selectedVehicleInstPmtDetail.pmtType=="B"){          
           this.formUser.controls['neftYN'].enable();
-        }
-        if(this.selectedVehicleInstPmtDetail.neftYN=="N"){
-          this.formUser.controls['cheqNo'].setValidators([Validators.required]);
-          this.formUser.controls['cheqDate'].setValidators([Validators.required]);
-          this.formUser.controls['cheqNo'].updateValueAndValidity();
-          this.formUser.controls['cheqDate'].updateValueAndValidity();
-          this.formUser.controls['cheqNo'].enable();
-          this.formUser.controls['cheqDate'].enable();
+          
+          if(this.selectedVehicleInstPmtDetail.neftYN=="N"){
+            this.formUser.controls['cheqNo'].setValidators([Validators.required]);
+            this.formUser.controls['cheqDate'].setValidators([Validators.required]);
+            this.formUser.controls['cheqNo'].updateValueAndValidity();
+            this.formUser.controls['cheqDate'].updateValueAndValidity();
+            this.formUser.controls['cheqNo'].enable();
+            this.formUser.controls['cheqDate'].enable();
+          }
         }
       }
     }, 2000);
@@ -198,8 +201,28 @@ export class VehicleinstpmtaddComponent {
     });
   }
 
-  getInstList(vehicleMasterid: string){
+  checkLoanAc(vehicleMasterid: string,loanType: string){
     this.requestmodel.strRequest = vehicleMasterid;
+    this.requestmodel.strRequest1 = loanType;
+
+    this.vehicleInstPmtService.checkVehicleLoanType(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formUser.controls["loanType"].disable();
+        this.formUser.controls["vehicleMasterid"].disable();
+      }
+      else {
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          vehicleMasterid:""
+        });
+      }      
+    });
+  }
+
+  getInstList(vehicleMasterid: string,loanType: string){
+    this.requestmodel.strRequest = vehicleMasterid;
+    this.requestmodel.strRequest1 = loanType;
     this.vehicleInstPmtService.getVehicleInstNo(this.requestmodel).subscribe((res) => {
       this.instList = res;
       this.formUser.patchValue({
@@ -221,8 +244,20 @@ export class VehicleinstpmtaddComponent {
     });
   }
 
-  selectEvent(item: any) {
-    this.getInstList(item.dataId);
+  selectEvent(item: any) {    
+    var vehi = item.dataId;
+    var selectedData = this.formUser.getRawValue();
+    if(selectedData.loanType==""){
+      this.toastrService.warning("Please select Loan Type");
+      this.formUser.patchValue({
+        vehicleMasterid: "",
+      })
+      return;
+    }
+    else{
+      this.checkLoanAc(vehi,selectedData.loanType);      
+    }
+    this.getInstList(item.dataId,selectedData.loanType);
   }
 
 
@@ -352,12 +387,13 @@ export class VehicleinstpmtaddComponent {
     this.vehicleinstpmtmodel.pmtId = this.selectedVehicleInstPmtDetail.pmtId;
     this.vehicleinstpmtmodel.pmtDate = selectedDataValue.pmtDate;
     this.vehicleinstpmtmodel.branchCode = selectedDataValue.branchCode;
+    this.vehicleinstpmtmodel.loanType = selectedDataValue.loanType;
     this.vehicleinstpmtmodel.vehicleMasterid = selectedDataValue.vehicleMasterid.dataId;
     this.vehicleinstpmtmodel.instId = selectedDataValue.instId;
     this.vehicleinstpmtmodel.priAmt = selectedDataValue.priAmt;
     this.vehicleinstpmtmodel.intAmt = selectedDataValue.intAmt;
     this.vehicleinstpmtmodel.totAmt = selectedDataValue.totAmt;
-    this.vehicleinstpmtmodel.remarks = selectedDataValue.remarks;
+    this.vehicleinstpmtmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.vehicleinstpmtmodel.pmtType = selectedDataValue.pmtType;
     this.vehicleinstpmtmodel.neftYN = selectedDataValue.neftYN;
     this.vehicleinstpmtmodel.cheqNo = selectedDataValue.cheqNo;

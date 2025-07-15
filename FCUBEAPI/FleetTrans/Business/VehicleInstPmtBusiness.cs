@@ -41,5 +41,9 @@ namespace FleetTrans.Business
         {
             return await vehicleInstPmtRepository.GetVehicleInstNo(request);
         }
+        public async Task<RequestModel> GetVehicleInstAmount(RequestModel request)
+        {
+            return await vehicleInstPmtRepository.GetVehicleInstAmount(request);
+        }
     }
 }
