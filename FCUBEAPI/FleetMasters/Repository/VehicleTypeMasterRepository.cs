@@ -74,7 +74,7 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                                    new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
+                            new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
                                new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
                                new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
                                new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),                     

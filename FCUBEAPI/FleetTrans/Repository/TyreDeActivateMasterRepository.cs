@@ -140,7 +140,6 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@VehicleMasterid", request.strRequest),
-
                         };
 
                     var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivateVehicleTyreList", param);

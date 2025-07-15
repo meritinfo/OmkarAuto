@@ -126,15 +126,13 @@ export class TrippaymentslistComponent {
       pageLength: 50,
       serverSide: true,
       processing: true,
-      searching: false,     
+      searching: false,  ordering:false,         
         language: {
           zeroRecords: ''
         }, 
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = 'bName';
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -156,7 +154,7 @@ export class TrippaymentslistComponent {
           data: 'pmtId',
         }, 
         {
-          title: 'Action',
+          title: 'Voucher Print',
           data: 'pmtId',
         },
         {
@@ -243,9 +241,10 @@ export class TrippaymentslistComponent {
   }
 
   getVoucherPrint(trippayments: Trippaymentsmodel): void {
-    this.requestmodel.strRequest = trippayments.pmtId;
+    this.requestmodel.strRequest = "T";
+    this.requestmodel.strRequest1 = trippayments.pmtId;
 
-    this.trippaymentService.getVoucherPrint(this.requestmodel).subscribe(resp => {
+    this.commonService.getVoucherPrint(this.requestmodel).subscribe(resp => {
       if(resp.status){    
         let link = document.createElement("a");
         link.download = "Voucher_" + new Date().getTime() + '.pdf';

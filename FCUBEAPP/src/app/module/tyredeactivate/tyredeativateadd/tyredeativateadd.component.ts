@@ -163,6 +163,8 @@ dashboard: string ="";
   }
   
   selectedData(i:number, e:any){
+    this.formTyreArray.controls[i].get("brandId")?.disable();
+    this.formTyreArray.controls[i].get("tyreId")?.disable(); 
     if(e.target.checked){
       if(this.selectedTyredeactivateDetail.deActivateMasterID==""){  
         this.formTyreArray.controls[i].get("removeStatus")?.enable(); 
@@ -171,8 +173,6 @@ dashboard: string ="";
       }
     }
     else{         
-      this.formTyreArray.controls[i].get("brandId")?.disable();
-      this.formTyreArray.controls[i].get("tyreId")?.disable(); 
       this.formTyreArray.controls[i].get("removeStatus")?.disable(); 
       this.formTyreArray.controls[i].get("usableAmount")?.disable(); 
       this.formTyreArray.controls[i].get("remarks")?.disable(); 

@@ -436,7 +436,7 @@ namespace FleetTrans.Repository
             {
                 string baseUrl = dbconnection.Value.apiPath + "api/Voucher/";
 
-                string UrlParam = "?PmtId=" + request.strRequest;
+                string UrlParam = "?VoucherFrom="+ request.strRequest +"&PmtId=" + request.strRequest1;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

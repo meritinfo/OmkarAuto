@@ -323,6 +323,9 @@ export class CommonService {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetFreightList', null, this.httpOptions);
   }
 
+  getVoucherPrint(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVoucherPrint', req, this.httpOptions);
+  }
 
   formatDate(date: string) {
     if(date == ''||date == null){
