@@ -197,10 +197,6 @@ export class VehicleinstpmtlistComponent {
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
-     var selecteddata = this.formFilter.getRawValue();
- 
-    
-           
     let frmdt = new Date(selecteddata.fromDate);
     let todt = new Date(selecteddata.toDate);
     let maxdt = new Date(this.loginDate);
@@ -210,7 +206,6 @@ export class VehicleinstpmtlistComponent {
       this.toastrService.warning("From Date and To Date should be with in Fin Year");
       return;
     }
-    
     
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;    

@@ -42,6 +42,7 @@ namespace FreightMasters.Repository
                              new SqlParameter("@ChCostDesc" , chCostTypesModel.ChCostDesc ),
                              new SqlParameter("@SacCode" , chCostTypesModel.SacCode ),
                              new SqlParameter("@GstPct" , chCostTypesModel.GstPct ),
+                             new SqlParameter("@LedgerAc" , chCostTypesModel.LedgerAc ),
                              new SqlParameter("@LoggedInUser" , chCostTypesModel.LoggedInUser ),
 
                         };
@@ -98,7 +99,9 @@ namespace FreightMasters.Repository
                                 ChCostDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ChCostDesc"]),
                                 SacCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SacCode"]),
                                 GstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["GstPct"]),
-                          
+                                LedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["LedgerAc"]),
+                                AcName = Convert.ToString(dataSet.Tables[0].Rows[i]["AcName"]),
+
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),

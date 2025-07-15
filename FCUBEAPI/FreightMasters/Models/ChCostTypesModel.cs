@@ -12,6 +12,8 @@ namespace FreightMasters.Models
         public string? ChCostDesc { get; set; }
         public string? SacCode { get; set; }
         public string? GstPct { get; set; }
+        public string? LedgerAc { get; set; }
+        public string? AcName { get; set; }
         public string? LoggedInUser { get; set; }
        
 

@@ -155,6 +155,10 @@ constructor(private formBuilder: FormBuilder,private chCostTypesService: ChCostT
             title: 'Gst Pct',
             data: 'gstPct',
           },
+            {
+            title: 'Ledger Ac',
+            data: 'acName',
+          },
       
           {
             title: 'Action',
