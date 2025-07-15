@@ -42,6 +42,7 @@ dashboard: string ="";
   
     responseDetails = new Responsemodel();
     branchList: Dropdownmodel[] = [];
+    ledgerAcList: Dropdownmodel[] = [];
     creditacList: Dropdownmodel[] = [];
     creditAcList: Dropdownmodel[] = [];
     vehicleList: Dropdownmodel[] = [];
@@ -106,7 +107,7 @@ ngOnInit(): void {
   
  // this.getBranchList();   
  // this.getVehicleNoList();
- // this.getLocationList();
+  this.getBankAcList();
   
   this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
   console.log(this.maxDate);
@@ -117,19 +118,25 @@ ngOnInit(): void {
     chCostDesc: new FormControl('' ,[Validators.required, Validators.minLength(2)]),
     sacCode: new FormControl('' , [Validators.required, Validators.minLength(2)]),
     gstPct: new FormControl('',[Validators.required] ),
+    ledgerAc: new FormControl('',[Validators.required] ),
   });
     setTimeout(() => {
       this.createmode = true;
-       if (this.selectedChCostTypeDetails.chCostId != '') {
-         this.formChCost.patchValue(this.selectedChCostTypeDetails);
-              
-         this.editMode = true;
     
-       }  
-     }, 2000);
-     this.sharedService.loading = false;
-   }
- 
+       if (this.selectedChCostTypeDetails.chCostId != '') {
+        this.formChCost.patchValue(this.selectedChCostTypeDetails); 
+        this.formChCost.patchValue({
+          ledgerAc :this.ledgerAcList.find(e => e.dataId == this.selectedChCostTypeDetails.ledgerAc),
+       } ) 
+       
+        this.editMode = true;        
+              
+      }   
+      
+    }, 2000);   
+     this.sharedService.loading = false;    
+  }
+     
    get f() { return this.formChCost.controls; }
 
    chCostTypeDelete(): void {    
@@ -150,6 +157,20 @@ ngOnInit(): void {
       }
     }
   }
+
+    startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+   getBankAcList(): void {
+    this.requestmodel.strRequest = "E";
+    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.ledgerAcList = res;
+    });
+  }
+
+
+
 
   exit(): void {
     this.route.navigate(['/chcosttypes']);
@@ -195,7 +216,8 @@ ngOnInit(): void {
     this.chcosttypesModel.chCostDesc = selectedDataValue.chCostDesc.toString().toUpperCase();
     this.chcosttypesModel.sacCode = selectedDataValue.sacCode;
     this.chcosttypesModel.gstPct = selectedDataValue.gstPct.toString();
-   // this.chcosttypesModel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
+    //  this.chcosttypesModel.ledgerAc = selectedDataValue.ledgerAc.dataId;
+  this.chcosttypesModel.ledgerAc = selectedDataValue.ledgerAc?selectedDataValue.ledgerAc.dataId:"";
   //  this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
    // this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
 

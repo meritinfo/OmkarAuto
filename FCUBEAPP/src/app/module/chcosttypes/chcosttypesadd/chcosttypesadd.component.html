@@ -56,6 +56,34 @@
                                 </div>
                             </div>
                          </div>
+
+                           <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-4"><label for="formrow-inputCity">Ledger Ac</label> <span style="color: red">*</span>
+                                </div>
+                               </div>
+                               <div class="col-lg-4">
+                                <div class="mb-4">
+                                    <div class="ng-autocomplete">
+                              <ng-autocomplete [data]="ledgerAcList"
+                                  [searchKeyword]="keywordLocation"  
+                             
+                                  [itemTemplate]="itemTemplate"
+                                  [notFoundTemplate]="notFoundTemplate"
+                                  [customFilter]="startWithFilter"
+                                  formControlName="ledgerAc" 
+                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['ledgerAc'].invalid) }">
+                              </ng-autocomplete>
+                              <ng-template #itemTemplate let-item>
+                                  <a [innerHTML]="item.dataName"></a>
+                              </ng-template>
+                              <ng-template #notFoundTemplate let-notFound>
+                                  <div [innerHTML]="notFound"></div>
+                              </ng-template>
+                           </div>
+                                </div>
+                            </div>
+                         </div>
                         
                                    
                            
