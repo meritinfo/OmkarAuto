@@ -30,6 +30,8 @@ namespace FleetTrans.Models
         public string? Remarks { get; set; }
         public string? PmtType { get; set; }
         public string? CreditAc { get; set; }
+        public string? NeftPmt { get; set; }
+        public string? ChequeNo { get; set; }
         public string? ChequeDate { get; set; }
         public string? LinkFtmId { get; set; }
         public string? LinkJVFtmId { get; set; }

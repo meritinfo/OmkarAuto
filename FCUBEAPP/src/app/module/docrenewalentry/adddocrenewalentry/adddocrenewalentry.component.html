@@ -88,7 +88,6 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Valid From</label><span style="color: red">*</span>                                             
                                                 <input type="date" autoclose="false" 
-                                                  
                                                 formControlName="validFromDt" class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validFromDt'].invalid) }" >
                                             </div>
@@ -97,10 +96,8 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Valid Upto</label><span style="color: red">*</span>                                                 
                                                 <input type="date" autoclose="false" 
-                                                 
                                                 formControlName="validToDt"  class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['validToDt'].invalid) }" >
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -145,8 +142,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Basic Amount</label>                                              
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="basicAmt" (change)="onBasic1Change($event)" 
-                                                 
+                                                formControlName="basicAmt" (change)="onBasic1Change($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['basicAmt'].invalid) }"> 
                                             </div>
                                         </div>

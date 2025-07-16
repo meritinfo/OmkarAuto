@@ -201,44 +201,44 @@
                                                          </select>  
                                                     </td>
                                                     <td style="width: 100px;">                                                  
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="itemQty"  (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="itemQty" (change)="calTot(i,'itemQty')"> 
                                                     </td>
                                                     <td style="width: 100px;">                                
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="itemRate"  (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="itemRate" (change)="calTot(i,'itemRate')">  
                                                     </td>
                                                     <td style="width: 100px;">                                   
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="itemAmount" (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="itemAmount"> 
                                                     </td>
                                                     <td style="width: 100px;">                                    
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="sgstPct" (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="sgstPct" (change)="calTot(i,'sgstPct')">  
                                                     </td>
                                                     <td style="width: 100px;">                                  
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="sgstAmt" (change)="onPctChange()"> 
+                                                        formControlName="sgstAmt"> 
                                                     </td>
                                                     <td style="width: 100px;">                                 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="cgstPct" (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="cgstPct" (change)="calTot(i,'cgstPct')"> 
                                                     </td>
                                                     <td style="width: 100px;">                                   
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="cgstAmt"> 
                                                     </td>
                                                     <td style="width: 100px;">                                
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="igstPct" (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="igstPct" (change)="calTot(i,'igstPct')">  
                                                     </td>
                                                     <td style="width: 50px;">                                  
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="igstAmt" > 
                                                     </td>
                                                     <td style="width: 50px;">                                   
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="netAmount" (change)="onPctChange()"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="netAmount"> 
                                                     </td>
                                                     <td style="width: 400px;">                                   
                                                         <input autoclose="false" class="form-control"
@@ -309,7 +309,7 @@
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Round Off: </label>
-                                <input type="text" class="form-control" decimalonly
+                                <input type="text" class="form-control" negdecimalonly
                                 formControlName="roundOff"(change)="onPctChange()" >
                             </div>
                         </div> 
@@ -349,7 +349,25 @@
                                     </option>
                                 </select>
                             </div>
+                        </div>    
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label for="basicpill-phoneno-input"> Neft</label>
+                                <select id="formrow-inputState" 
+                                class="form-control form-select ng-pristine ng-touched"
+                                    formControlName="neftPmt" (change)="onneftChange($event)"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['neftPmt'].invalid) }">
+                                    <option value="Y"> Yes</option>
+                                    <option value="N"> No</option>                               
+                                </select>
+                            </div>
                         </div>   
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <label for="basicpill-phoneno-input">Cheque No</label>
+                                <input type="text" class="form-control" formControlName="chequeNo">
+                            </div>
+                        </div>
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label >Cheque Date </label>

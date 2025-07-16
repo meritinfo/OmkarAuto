@@ -21,6 +21,8 @@ export class Sparespurchasemastermodel {
   remarks:  string="";
   pmtType:  string="";
   creditAc:  string="";
+  neftPmt:  string="";
+  chequeNo:  string="";
   chequeDate:  string="";
   linkFtmId:  string="";
   linkJVFtmId:  string="";
