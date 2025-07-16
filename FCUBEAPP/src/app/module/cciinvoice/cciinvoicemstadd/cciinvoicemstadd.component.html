@@ -28,7 +28,7 @@
                                             </select>    
                                         </div>
                                     </div>                                    
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-3">
                                         <div class="mb-3">                                           
                                             <label >CCI Inv No: </label><span style="color: red">*</span>  
                                             <input type="text"  autofocus="autofocus" class="form-control"
@@ -48,13 +48,15 @@
                                         <div class="mb-3">
                                             <label>Container Type:</label><span style="color: red">*</span> 
                                             <select id="formrow-inputState" class="form-control"
-                                                formControlName="lr_YN" 
+                                                formControlName="lr_YN" (change)="onLrType($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['lr_YN'].invalid) }">
                                                 <option value="Y">With LR</option>      
                                                 <option value="N">WithOut LR</option> 
                                             </select>
                                         </div>
-                                    </div>  
+                                    </div>   
+                                </div>  
+                                <div class="row">   
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Gst Type: </label><span style="color: red">*</span> 
@@ -66,9 +68,7 @@
                                                 <option value="IG">IGST</option>      
                                             </select>
                                         </div>
-                                    </div>    
-                                </div>  
-                                <div class="row">         
+                                    </div>         
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Broker/Payable:</label> <span style="color: red"> * </span>                                               
@@ -108,32 +108,37 @@
                                     <div class="overflow-x">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-tyre-width">
                                             <tr>
-                                                <td>
+                                                <td >
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                </td>
+                                                <td *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Container No</h6>
                                                     </label>
                                                 </td>
-                                                <td >
+                                                <td *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Gc Note No</h6>
                                                     </label>
                                                 </td>
-                                                <td >
+                                                <td *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Gc Note No</h6>
                                                     </label>
                                                 </td>
-                                                <td >
+                                                <td *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Gc Book</h6>
                                                     </label>
                                                 </td>
-                                                <td>
+                                                <td *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Booking Date</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-3">
+                                                <td class="col-lg-3" *ngIf="this.lrShow ">
                                                     <label for="formrow-inputZip">
                                                         <h6>Party</h6>
                                                     </label>
@@ -188,20 +193,23 @@
                                                         <h6>Dtl Remarks</h6>
                                                     </label>
                                                 </td>
-                                                <td >
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Action</h6>
-                                                    </label>
-                                                </td>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td > 
+                                                    <td>
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formTyreArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>
+                                                    <td *ngIf="this.lrShow ">
                                                         <input autoclose="false" class="form-control" uppercaseonly
                                                         formControlName="containerNo" (change)="getCnDetail(i)"> 
                                                     </td>
-                                                    <td> 
+                                                    <td *ngIf="this.lrShow ">
                                                         <select formControlName="consignmentId" (change)="getLrDetails($event,i)"
                                                             class="form-control form-select ng-pristine ng-touched" >
                                                             <option value="">SELECT</option>
@@ -210,11 +218,11 @@
                                                             </option>
                                                         </select>       
                                                     </td> 
-                                                    <td> 
+                                                    <td *ngIf="this.lrShow ">
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="gcNoteNo">  
                                                     </td> 
-                                                    <td class="col-lg-3">  
+                                                    <td class="col-lg-3" *ngIf="this.lrShow "> 
                                                         <select formControlName="gcBook" 
                                                             class="form-control form-select ng-pristine ng-touched" >
                                                             <option *ngFor="let dl of branchList" value={{dl.dataId}}>
@@ -224,11 +232,11 @@
                                                         <input type="hidden" autoclose="false" class="form-control"
                                                         formControlName="gcYear"> 
                                                     </td>  
-                                                    <td> 
+                                                    <td *ngIf="this.lrShow ">
                                                         <input type="date" class="form-control" 
                                                         formControlName="bookingDate" >
                                                     </td> 
-                                                    <td> 
+                                                    <td *ngIf="this.lrShow ">
                                                         <input autoclose="false" class="form-control" 
                                                         formControlName="party" >
                                                     </td>                                                   
@@ -275,14 +283,6 @@
                                                         <input autoclose="false" class="form-control" uppercaseonly
                                                         formControlName="dtlRemarks" > 
                                                     </td>
-                                                    <td>
-                                                        <div class="col-lg-4 details-button">
-                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
-                                                                class="btn btn-add" (click)="addItem(i)"></button>
-                                                            <button *ngIf="formTyreArray.controls.length > 1"
-                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                        </div>   
-                                                    </td>
                                                 </div>
                                             </tr>
                                         </table>
@@ -321,8 +321,6 @@
                                 formControlName="totalIgstAmt">
                             </div>
                         </div> 
-                    </div>  
-                    <div class="row">
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Total Inv Amt:  </label><span style="color: red">*</span>
@@ -330,35 +328,23 @@
                                 formControlName="totalInvAmt"
                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalInvAmt'].invalid) }">
                             </div>
-                        </div> 
-                        <div class="col-sm-6">
-                            <div class="mb-3">
-                                <label>Debit A/c:  </label><span style="color: red">*</span>
-                                <select id="scope" formControlName="debitAc"
-                                class="form-control form-select ng-pristine ng-touched"
-                                [ngClass]="{ 'is-invalid': formSubmitted && (f['debitAc'].invalid) }">
-                                    <option *ngFor="let dbt of debitAcList" value={{dbt.dataId}}>
-                                        {{dbt.dataName}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>                                                                                                            
-                        <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label style="color: red"> 
-                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
-                                </label>                                                 
-                            </div>
-                        </div>
+                        </div>    
                     </div>  
-                    <div class="row">
+                    <div class="row"> 
                         <div class="col-sm-6">
                             <div class="mb-3">
                                 <label>Remarks:  </label>
                                 <input type="text" class="form-control" uppercaseonly
                                 formControlName="remarks">
                             </div>
-                        </div>                     
+                        </div>                                                                                                
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label style="color: red"> 
+                                    <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                </label>                                                 
+                            </div>
+                        </div>                    
                     </div>  
                     <div class="row">                    
                         <div class="col-lg-5">

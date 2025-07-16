@@ -11,6 +11,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -52,6 +53,7 @@ dashboard: string ="";
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  partyList: Dropdownmodel[] = [];
 
   constructor(private billsMasterService: BillsMasterServiceLLP, 
     private toasterService: ToastrService, private reportmodel :Reportmodel,
@@ -74,12 +76,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -97,9 +99,7 @@ dashboard: string ="";
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
-  
+    this.fromDate = this.minDate ;  
     
     this.billsMasterService.clearBillsMasterDetails();
     this.formFilter = this.formBuilder.group({
@@ -107,9 +107,11 @@ dashboard: string ="";
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
       printSign:new FormControl('Y'),
+      partyCode:new FormControl(''),
     });     
 
     this.sharedService.loading=true;     
+    this.getBillingPartyList();
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;    
@@ -121,6 +123,16 @@ dashboard: string ="";
     this.billsmasterList();
     this.sharedService.loading=false;
   }
+
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+
+  startWithFilter = function (branchList: Dropdownmodel[], query: string): any[] {
+    return branchList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   billsmasterList() {
     this.dtOptions = {
@@ -163,7 +175,6 @@ dashboard: string ="";
           title: 'Bill No',
           data: 'billNo',
         },
-       
         {
           title: 'Bill Date',
           data: 'billDate'
@@ -213,7 +224,7 @@ dashboard: string ="";
     this.filter.filterStr= 'Y'; 
     this.filter.filterStr1= this.year; 
     this.filter.filterStr2= '';
-    this.filter.filterStr3= '';
+    this.filter.filterStr3 = selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"";
     this.sharedService.loading=true;
     this.billsmasterList();
     this.sharedService.loading=false;

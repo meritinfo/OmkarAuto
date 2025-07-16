@@ -13,6 +13,8 @@ using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Repository;
 using System.Data;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Runtime.Intrinsics.X86;
 
 namespace Consignment.Repository
 {
@@ -146,6 +148,7 @@ namespace Consignment.Repository
                         ws.Cell(j + 1, 3).Value = lorryHire.PmtList[j].Ptype?.ToString();
                         ws.Cell(j + 1, 4).Value = "";
                         ws.Cell(j + 1, 5).Value = DateTime.Now.ToString("dd/MM/yyyy");
+                        //ws.Range(j + 1, 5, j + 1, 5).Style.NumberFormat.Format = "dd/MM/yyyy";
                         ws.Cell(j + 1, 6).Value = "'" + lorryHire.PmtList[j].BankAcNo?.ToString();
                         ws.Cell(j + 1, 7).Value = lorryHire.PmtList[j].NetAmt?.ToString();
                         ws.Cell(j + 1, 8).Value = "";
