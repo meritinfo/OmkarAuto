@@ -180,6 +180,7 @@ export class SparespurchasemasteraddComponent {
 
     if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
       this.getCreditAcList(this.selectedSparesPurchaseMasterDetail.pmtType);
+      this.formUser.controls['nonVendor'].disable(); 
       this.formUser.controls['vendorId'].disable(); 
       this.formUser.controls['vendorName'].disable(); 
       

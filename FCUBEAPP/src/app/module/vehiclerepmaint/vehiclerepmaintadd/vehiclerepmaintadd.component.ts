@@ -237,7 +237,12 @@ export class VehiclerepmaintaddComponent {
             gstInputTaken: "",
           })
         }
-        this.getFinDocDetails(this.selectedvehiclerepmaintMasterDetail.linkFtmId);
+        if(this.selectedvehiclerepmaintMasterDetail.linkFtmId!=""){
+          this.getFinDocDetails(this.selectedvehiclerepmaintMasterDetail.linkFtmId);
+        }
+        else{
+          this.getFinDocDetails(this.selectedvehiclerepmaintMasterDetail.linkJVFtmId);
+        }
       
         this.getVehicleMaintMasterInnerGridList();
         this.editMode =true;
