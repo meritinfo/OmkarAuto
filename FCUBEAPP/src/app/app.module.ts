@@ -531,8 +531,11 @@ import { ChallantdsstmtrptComponent } from './module/challantdsstmtrpt/challantd
 import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.component';
 import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
 import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
+import { Driversalaryentrymodel } from 'src/app//models/driversalaryentrymodel';
 import { Vendorpmtmodel } from './models/vendorpmtmodel';
 import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
+import { DriversalaryentryaddComponent } from './module/driversalaryentry/driversalaryentryadd/driversalaryentryadd.component';
+import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
 
 
 @NgModule({
@@ -708,7 +711,7 @@ import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlis
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, DriversalaryentryaddComponent, DriversalaryentrylistComponent,  
     
   ],
   
@@ -784,7 +787,7 @@ import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlis
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
-    Unbilledprovisionmstmodel,Menureportaccessrightsmodel,
+    Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,
   ],
   bootstrap: [AppComponent]

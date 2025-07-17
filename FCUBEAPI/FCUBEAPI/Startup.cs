@@ -311,6 +311,8 @@ namespace FCUBEAPI
             services.AddScoped<IChallanSuppliLLPRepository, ChallanSuppliLLPRepository>();
             services.AddScoped<IVendorPmtBusiness, VendorPmtBusiness>();
             services.AddScoped<IVendorPmtRepository, VendorPmtRepository>();
+            services.AddScoped<IDriverSalaryEntryBusiness, DriverSalaryEntryBusiness>();
+            services.AddScoped<IDriverSalaryEntryRepository, DriverSalaryEntryRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

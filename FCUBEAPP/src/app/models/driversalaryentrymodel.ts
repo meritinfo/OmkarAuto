@@ -1,0 +1,23 @@
+export class Driversalaryentrymodel {
+    transid: string = "";
+    transBranch: string = "";
+    transDate: string = "";
+    driverId: string = "";
+    salFromDate: string = "";
+    salToDate: string = "";
+    noOfDays: string = "";
+    grossSalary: string = "";
+    lopDeduction: string = "";
+    pfDeduction: string = "";
+    esiDeduction: string = "";
+    othDeduction: string = "";
+    netSalary: string = "";
+    remarks: string = "";
+    pmtType: string = "";
+    creditAc: string = "";
+    neftYN: string = "";
+    chequeNo: string = "";
+    chequeDt: string = "";
+    loggedInUser: string = "";
+    deleteFlag: string = "";
+}
