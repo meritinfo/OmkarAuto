@@ -38,7 +38,7 @@ export class ConsignmentllpupdateComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -87,12 +87,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -115,10 +115,6 @@ dashboard: string ="";
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
-    }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-      this.dashboard = dashboard;
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -793,7 +789,7 @@ dashboard: string ="";
 
   
   exit(): void {
-      this.route.navigate([this.dashboard]);
+    this.route.navigate(['/consignmentllp']);
   }
 
   updateLrDetailsForm(): void {
@@ -942,7 +938,7 @@ dashboard: string ="";
       if (res.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/dashboard']);
+        this.route.navigate(['/consignmentllp']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

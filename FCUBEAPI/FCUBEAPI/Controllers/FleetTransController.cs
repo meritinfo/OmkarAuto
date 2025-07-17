@@ -1764,6 +1764,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("GetVehicleInstAmount")]
+        public async Task<IActionResult> GetVehicleInstAmount(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleInstPmtBusiness.GetVehicleInstAmount(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TyreActivateMasterSave")]
         public async Task<IActionResult> TyreActivateMasterSave(TyreActivateMasterModel tyreActivateMasterModel)

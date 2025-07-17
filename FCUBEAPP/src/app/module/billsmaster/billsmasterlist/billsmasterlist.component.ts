@@ -10,6 +10,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-billsmasterlist',
@@ -51,6 +52,7 @@ export class BillsmasterlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+    partyList: Dropdownmodel[] = [];
 
   constructor(private billsMasterService: BillsMasterService, 
     private toasterService: ToastrService, private reportmodel :Reportmodel,
@@ -105,9 +107,11 @@ export class BillsmasterlistComponent {
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
       printSign:new FormControl('N'),
+      partyCode:new FormControl(''),
     });     
 
-    this.sharedService.loading=true;     
+    this.sharedService.loading=true;          
+    this.getBillingPartyList(); 
     this.filter.search = '';
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;    
@@ -120,6 +124,16 @@ export class BillsmasterlistComponent {
     this.sharedService.loading=false;
   }
 
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+
+  startWithFilter = function (branchList: Dropdownmodel[], query: string): any[] {
+    return branchList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  
   billsmasterList() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -242,6 +256,7 @@ export class BillsmasterlistComponent {
     this.filter.filterStr1= this.year; 
     this.filter.filterStr2= '';
     this.filter.filterStr3= '';
+    this.filter.filterStr3 = selectedDataVal.partyCode?selectedDataVal.partyCode.dataId:"";
     this.sharedService.loading=true;
     this.billsmasterList();
     this.sharedService.loading=false;

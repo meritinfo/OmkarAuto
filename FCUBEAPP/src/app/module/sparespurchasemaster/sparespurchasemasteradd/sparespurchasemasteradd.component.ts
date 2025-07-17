@@ -141,7 +141,9 @@ export class SparespurchasemasteraddComponent {
       netAmount : new FormControl('',),
       remarks : new FormControl('',),
       pmtType : new FormControl('D',[Validators.required]),
-      creditAc : new FormControl('',),     
+      creditAc : new FormControl('',[Validators.required]), 
+      neftPmt: new FormControl('N',[Validators.required]), 
+      chequeNo : new FormControl('',),
       chequeDate : new FormControl('',),
       gstInputTaken : new FormControl('',),
 
@@ -172,9 +174,16 @@ export class SparespurchasemasteraddComponent {
     this.formUser.controls['totItemNetAmount'].disable(); 
     this.formUser.controls["gstInputTaken"].disable(); 
     this.formUser.controls["pmtType"].disable();
+    this.formUser.controls['neftPmt'].disable();
+    this.formUser.controls['chequeNo'].disable();
+    this.formUser.controls['chequeDate'].disable();
 
     if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
       this.getCreditAcList(this.selectedSparesPurchaseMasterDetail.pmtType);
+      this.formUser.controls['nonVendor'].disable(); 
+      this.formUser.controls['vendorId'].disable(); 
+      this.formUser.controls['vendorName'].disable(); 
+      
       setTimeout(() => {
         this.refDocAttachedImage = Constants.UploadFolderPath + 'sparesPurchase/refDocAttachedImage/' + this.selectedSparesPurchaseMasterDetail.refDocAttachedImage;
         this.formUser.patchValue(this.selectedSparesPurchaseMasterDetail);
@@ -199,22 +208,15 @@ export class SparespurchasemasteraddComponent {
         if(this.selectedSparesPurchaseMasterDetail.linkJVFtmId!=""){
           this.getFinDocDetails(this.selectedSparesPurchaseMasterDetail.linkJVFtmId);  
         }        
-
-        if (this.selectedSparesPurchaseMasterDetail.nonVendor=='Y'){     
-          this.formUser.controls['vendorId'].disable();   
-          this.formUser.controls['vendorName'].enable(); 
-          this.formUser.patchValue({
-            vendorId: "",
-            nonVendor: "Y",
-          })
+        if(this.selectedSparesPurchaseMasterDetail.pmtType == "B" && this.selectedSparesPurchaseMasterDetail.neftPmt == "N"){
+          this.formUser.controls['chequeNo'].setValidators([Validators.required]);
+          this.formUser.controls['chequeDate'].setValidators([Validators.required]);
+          this.formUser.controls['chequeNo'].updateValueAndValidity();
+          this.formUser.controls['chequeDate'].updateValueAndValidity();
+          this.formUser.controls['chequeNo'].enable();
+          this.formUser.controls['chequeDate'].enable();
         }
-        else {          
-          this.formUser.controls['vendorId'].enable(); 
-          this.formUser.controls['vendorName'].disable(); 
-          this.formUser.patchValue({
-            nonVendor: "",
-          })
-        }   
+       
         if(this.selectedSparesPurchaseMasterDetail.gstType=="NA"){
           this.formUser.controls["gstInputTaken"].disable();
           this.formUser.patchValue({
@@ -223,6 +225,11 @@ export class SparespurchasemasteraddComponent {
         }
         else{          
           this.formUser.controls["gstInputTaken"].enable(); 
+        }
+        if(this.selectedSparesPurchaseMasterDetail.nonVendor!="Y"){
+          this.formUser.patchValue({
+            nonVendor: "",
+          })
         }
         if(this.selectedSparesPurchaseMasterDetail.gstInputTaken!="Y"){
           this.formUser.patchValue({
@@ -295,15 +302,26 @@ export class SparespurchasemasteraddComponent {
   }
 
   changePmtType(e: any) {
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
-    this.formUser.patchValue({
-      neftPmt : "",
-      chequeNo: "",
-      chequeDate: this.loginDate,
-    });
-    
+    var selectedValue = e.target.value;    
     this.getCreditAcList(selectedValue);
+  }
+  
+  onneftChange(e:any){
+    var selectedValue = e.target.value;
+    if(selectedValue == "Y"){
+      this.formUser.controls['chequeNo'].clearValidators();      
+      this.formUser.controls['chequeDate'].clearValidators();  
+      this.formUser.controls['chequeNo'].disable();
+      this.formUser.controls['chequeDate'].disable();
+    }
+    else { 
+      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
+      this.formUser.controls['chequeDate'].setValidators([Validators.required]);   
+      this.formUser.controls['chequeNo'].enable();
+      this.formUser.controls['chequeDate'].enable();
+    }
+    this.formUser.controls['chequeNo'].updateValueAndValidity();
+    this.formUser.controls['chequeDate'].updateValueAndValidity();
   }
 
   getBrandList(): void {
@@ -433,7 +451,8 @@ export class SparespurchasemasteraddComponent {
 
   addItem(i: number): void {    
     var selectedDate = this.formUser.getRawValue();
-    if (this.formTyreArray.value[i].spareLubId.dataId && this.formTyreArray.value[i].brandId!="" ) {
+    if (this.formTyreArray.value[i].spareLubId.dataId && this.formTyreArray.value[i].brandId!="" &&
+      (parseFloat(this.formTyreArray.value[i].netAmount)>0)) {
       this.formTyreArray.push(this.createSparesArray());      
       this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
       this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
@@ -530,7 +549,17 @@ export class SparespurchasemasteraddComponent {
     }    
     this.onPctChange()
   }
+  calTot(ind:number, clm:string){   
+    
+    var selectedDate = this.formUser.getRawValue();
 
+    if(selectedDate.arrayList[ind].itemQty==""){
+      this.toastrService.warning("Please enter Item Qty");
+      this.formTyreArray.controls[ind].get(clm)?.setValue("0");
+      return;
+    }  
+    this.onPctChange();
+  }
 
   onPctChange(){
     var totalItemAmt = 0;
@@ -682,13 +711,15 @@ export class SparespurchasemasteraddComponent {
     this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();
     this.sparespurchasemastermodel.totCgstAmt= selectedDataValue.totCgstAmt.toString();
     this.sparespurchasemastermodel.totIgstAmt= selectedDataValue.totIgstAmt.toString();
-    this.sparespurchasemastermodel.totItemNetAmount= selectedDataValue.totItemNetAmount;
+    this.sparespurchasemastermodel.totItemNetAmount= selectedDataValue.totItemNetAmount.toString();
     this.sparespurchasemastermodel.otherAmount= selectedDataValue.otherAmount.toString();
     this.sparespurchasemastermodel.roundOff= selectedDataValue.roundOff.toString();
     this.sparespurchasemastermodel.netAmount= selectedDataValue.netAmount.toString();
     this.sparespurchasemastermodel.remarks= selectedDataValue.remarks;
     this.sparespurchasemastermodel.pmtType= selectedDataValue.pmtType;
     this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
+    this.sparespurchasemastermodel.neftPmt= selectedDataValue.neftPmt;
+    this.sparespurchasemastermodel.chequeNo= selectedDataValue.chequeNo;
     this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
     this.sparespurchasemastermodel.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
     this.sparespurchasemastermodel.branchCode= this.branch ;

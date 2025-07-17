@@ -35,6 +35,7 @@ export class CciinvoicemstaddComponent {
   dashboard: string ="";
   editMode= false;
   formSubmitted = false;
+  lrShow = true;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   createdBy : string = "";
@@ -115,9 +116,8 @@ export class CciinvoicemstaddComponent {
       cciInvDate  : new FormControl(this.loginDate,[Validators.required]),
       lr_YN: new FormControl('Y',),
       vendorId: new FormControl('',[Validators.required]),
-      debitAc: new FormControl('',[Validators.required]),
       remarks  : new FormControl('',),
-      gstType : new FormControl('NA',[Validators.required]),
+      gstType : new FormControl('',[Validators.required]),
       totalTaxableAmt : new FormControl('',[Validators.required]),
       totalSgstAmt : new FormControl('',),
       totalCgstAmt : new FormControl('',),
@@ -129,7 +129,6 @@ export class CciinvoicemstaddComponent {
     this.getChCostList();
     this.getBranchList();
     this.getVendorList();
-    this.getdebitAc();
 
     this.formTyreArray.controls[0].get("gcNoteNo")?.disable();   
     this.formTyreArray.controls[0].get("gcBook")?.disable();   
@@ -162,10 +161,17 @@ export class CciinvoicemstaddComponent {
         })  
       
         this.getFinDocDetails(this.selectedCciInvMstDetail.finFtmId);
+        this.formUser.controls["lr_YN"].disable();  
         this.formUser.controls["gstType"].disable();  
         this.formUser.controls["cciInvDate"].disable();
-        this.formUser.controls["cciInvNo"].disable();  
-    
+        this.formUser.controls["cciInvNo"].disable(); 
+
+        if(this.selectedCciInvMstDetail.lr_YN=="Y"){
+          this.lrShow = true;
+        }
+        else{
+          this.lrShow = false;
+        }
         this.getCcInvMasterInnerGridList();
         this.editMode =true;
       }, 2000);  
@@ -217,13 +223,6 @@ export class CciinvoicemstaddComponent {
     this.requestmodel.strRequest= 'D';
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.vendorList = res;
-    });
-  }
-
-  getdebitAc(): void {
-    this.requestmodel.strRequest = "E";
-    this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.debitAcList = res;
     });
   }
 
@@ -315,6 +314,15 @@ export class CciinvoicemstaddComponent {
     });
   }
 
+  onLrType(e:any){
+    var lr_YN = e.target.value;
+    if(lr_YN=="Y"){
+      this.lrShow = true;
+    }
+    else{
+      this.lrShow = false;
+    }
+  }
 
   selectEvent(item: any) {
     this.formUser.patchValue({
@@ -396,6 +404,8 @@ export class CciinvoicemstaddComponent {
     this.requestmodel.strRequest = selectedDataval.arrayList[i].chCostId; 
     this.cciInvoiceMstService.getChCostDetail(this.requestmodel).subscribe((res) => {
       this.responseDetails = res;
+      this.formUser.controls["gstType"].disable();
+      this.formUser.controls["lr_YN"].disable();  
       this.pct = this.responseDetails.message;
       var sgpct =0;
       var igpct =0;
@@ -462,7 +472,8 @@ export class CciinvoicemstaddComponent {
   addItem(i: number): void {      
     var selectedData = this.formUser.getRawValue();  
     var arr = selectedData.arrayList;
-    if (arr[i].containerNo != "" && arr[i].chCostId != "" &&  arr[i].taxableAmt != "")
+    if (((this.lrShow && arr[i].containerNo != "" && arr[i].gcNoteNo != "") || !this.lrShow) && 
+        arr[i].chCostId != "" &&  arr[i].taxableAmt != "")
     {
       this.formTyreArray.push(this.createVehicleArray());
       this.formTyreArray.controls[i+1].get("gcNoteNo")?.disable();   
@@ -514,8 +525,7 @@ export class CciinvoicemstaddComponent {
     this.ccinvmstmodel.branch =selectedDataValue.branch;
     this.ccinvmstmodel.cciInvNo= selectedDataValue.cciInvNo;
     this.ccinvmstmodel.cciInvDate = selectedDataValue.cciInvDate;    
-    this.ccinvmstmodel.vendorId= selectedDataValue.vendorId.dataId;    
-    this.ccinvmstmodel.debitAc= selectedDataValue.debitAc;    
+    this.ccinvmstmodel.vendorId= selectedDataValue.vendorId.dataId; 
     this.ccinvmstmodel.remarks= selectedDataValue.remarks.toString().toUpperCase(),  
     this.ccinvmstmodel.gstType= selectedDataValue.gstType;
     this.ccinvmstmodel.lr_YN= selectedDataValue.lr_YN;    
@@ -535,22 +545,22 @@ export class CciinvoicemstaddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].containerNo == ""  ) {
+      if (selectedDataValue.arrayList[i].containerNo == "" && this.lrShow  ) {
         this.toastrService.warning("Please Enter Container Details Properly");
         return;
       } 
-      else if(selectedDataValue.lr_YN=="Y" && selectedDataValue.arrayList[i].gcNoteNo==""){
+      else if(this.lrShow && selectedDataValue.arrayList[i].gcNoteNo==""){
         this.toastrService.warning("Please Enter GC Note No");
         return;
       }
       else{
         this.ccinvmstmodel.ccinvmstDtlList.push({
           'cciInvMstId': "",
-          'containerNo': selectedDataValue.arrayList[i].containerNo,
+          'containerNo': selectedDataValue.arrayList[i].containerNo?selectedDataValue.arrayList[i].containerNo:"",
           'consignmentId':"",
-          'gcYear': selectedDataValue.arrayList[i].gcYear,
-          'gcBook': selectedDataValue.arrayList[i].gcBook,
-          'gcNoteNo': selectedDataValue.arrayList[i].gcNoteNo,
+          'gcYear': selectedDataValue.arrayList[i].gcYear?selectedDataValue.arrayList[i].gcYear:"",
+          'gcBook': selectedDataValue.arrayList[i].gcBook?selectedDataValue.arrayList[i].gcBook:"",
+          'gcNoteNo': selectedDataValue.arrayList[i].gcNoteNo?selectedDataValue.arrayList[i].gcNoteNo:"",
           'bookingDate': '',
           'party': '',
           'chCostId': selectedDataValue.arrayList[i].chCostId,

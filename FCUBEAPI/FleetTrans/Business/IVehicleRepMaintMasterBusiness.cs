@@ -11,8 +11,7 @@ namespace FleetTrans.Business
     public interface IVehicleRepMaintMasterBusiness
     {
         Task<VehicleRepMaintMasterList> GetVehicleRepMaintMasterList(PageFromDtToDtRequest request);
-        
-            Task<VehicleRepMaintMasterModel> GetVehicleRepMaintMasterInnerGridList(RequestModel request);
+        Task<VehicleRepMaintMasterModel> GetVehicleRepMaintMasterInnerGridList(RequestModel request);
         Task<ResponseModel> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel);
         Task<ResponseModel> VehicleRepMaintMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetMaintanenceList();

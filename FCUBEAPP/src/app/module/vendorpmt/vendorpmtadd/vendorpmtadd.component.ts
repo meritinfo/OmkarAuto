@@ -137,10 +137,13 @@ export class VendorpmtaddComponent {
       selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
+    this.formUser.controls['neftYN'].disable();
+    this.formUser.controls['chequeNo'].disable();
+    this.formUser.controls['chequeDate'].disable();
     
     this.sharedService.loading=false; 
     if (this.selectedVendorPmtDetails.transId != '') {      
-      this.getCreditAcList(this.selectedVendorPmtDetails.pmtType);
+      this.getCreditAcList(this.selectedVendorPmtDetails.pmtType);      
     }
     setTimeout(() => {
       if (this.selectedVendorPmtDetails.transId != '') {
@@ -148,6 +151,7 @@ export class VendorpmtaddComponent {
         this.formUser.patchValue({
           transDate:this.commonService.formatDate(this.selectedVendorPmtDetails.transDate),
           billsUptoDate:this.commonService.formatDate(this.selectedVendorPmtDetails.billsUptoDate),
+          chequeDate:this.commonService.formatDate(this.selectedVendorPmtDetails.chequeDate),
           vendorId: this.vendorList.find(e => e.dataId == this.selectedVendorPmtDetails.vendorId),   
           selectedAll:'Y'   
         })
@@ -156,6 +160,18 @@ export class VendorpmtaddComponent {
         }        
         if(this.selectedVendorPmtDetails.finDocidJV!="0"){
           this.getFinDocDetails("JV",this.selectedVendorPmtDetails.finDocidJV);
+        }
+        if(this.selectedVendorPmtDetails.pmtType == "B" && this.selectedVendorPmtDetails.neftYN == "N"){
+          this.formUser.controls['chequeNo'].setValidators([Validators.required]);
+          this.formUser.controls['chequeDate'].setValidators([Validators.required]);
+          this.formUser.controls['chequeNo'].updateValueAndValidity();
+          this.formUser.controls['chequeDate'].updateValueAndValidity();
+          this.formUser.controls['chequeNo'].enable();
+          this.formUser.controls['chequeDate'].enable();
+        }
+        else{
+          this.formUser.controls['chequeNo'].disable();
+          this.formUser.controls['chequeDate'].disable();
         }
 
         this.createdBy = this.selectedVendorPmtDetails.createdBy + " " + this.selectedVendorPmtDetails.createdDate;
@@ -397,7 +413,7 @@ export class VendorpmtaddComponent {
         totalAmtExtras = totalAmtExtras + parseFloat(selectedData.arrayList[i].amtExtras);
       }
     }
-    netAmtPaid = totalAmtPaid + totalAmtDed + totalAmtTDS + totalAmtExtras;
+    netAmtPaid = totalAmtPaid + totalAmtExtras;
 
     this.formUser.patchValue({
       totalAmtPaid: totalAmtPaid.toFixed(2),
@@ -409,8 +425,7 @@ export class VendorpmtaddComponent {
   }
   
   changePmtType(e: any) {
-    var selectedValue = e.target.value;
-   
+    var selectedValue = e.target.value;   
     this.getCreditAcList(selectedValue);
   }
 
@@ -427,12 +442,6 @@ export class VendorpmtaddComponent {
       this.formUser.controls['chequeNo'].disable();
       this.formUser.controls['chequeDate'].disable(); 
     }
-   
-    this.formUser.patchValue({
-      neftPmt : "",
-      chequeNo: "",
-      chequeDate: this.loginDate,
-    });
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
@@ -441,12 +450,16 @@ export class VendorpmtaddComponent {
   onneftChange(e:any){
     var selectedValue = e.target.value;
     if(selectedValue == "Y"){
-      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
-      this.formUser.controls['chequeDate'].setValidators([Validators.required]);
-    }
-    else {
       this.formUser.controls['chequeNo'].clearValidators();      
-      this.formUser.controls['chequeDate'].clearValidators();   
+      this.formUser.controls['chequeDate'].clearValidators();  
+      this.formUser.controls['chequeNo'].disable();
+      this.formUser.controls['chequeDate'].disable();
+    }
+    else { 
+      this.formUser.controls['chequeNo'].setValidators([Validators.required]);
+      this.formUser.controls['chequeDate'].setValidators([Validators.required]);   
+      this.formUser.controls['chequeNo'].enable();
+      this.formUser.controls['chequeDate'].enable();
     }
     this.formUser.controls['chequeNo'].updateValueAndValidity();
     this.formUser.controls['chequeDate'].updateValueAndValidity();

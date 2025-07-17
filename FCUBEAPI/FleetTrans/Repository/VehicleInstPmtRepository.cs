@@ -262,6 +262,7 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@VehicleMasterid", request.strRequest),
+                            new SqlParameter("@LoanType", request.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstNo", param);
 
@@ -301,9 +302,9 @@ namespace FleetTrans.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        instAmount.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["PriAmt"]);
-                        instAmount.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["IntAmt"]);
-                        instAmount.strRequest2 = Convert.ToString(statusData.Tables[0].Rows[0]["TotAmt"]);
+                        instAmount.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["Pri_InstAmt"]);
+                        instAmount.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["Int_InstAmt"]);
+                        instAmount.strRequest2 = Convert.ToString(statusData.Tables[0].Rows[0]["Tot_InstAmt"]);
                     }
                 }
             }

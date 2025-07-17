@@ -182,6 +182,14 @@ export class AppComponent implements OnInit {
       this.route.navigate(['/consignmentlist']);
     }
   }
+   //Shortcut key for Consignment list -> Ctrl + I
+  @HostListener('window:keydown.control.i', ['$event'])
+  ccinvFont(event: KeyboardEvent) {
+    event.preventDefault();
+    if(this.company =="LLP") {
+      this.route.navigate(['/ccinvoicelist']);
+    }
+  }
   //Shortcut key for Consignment list -> Ctrl + u
   @HostListener('window:keydown.control.u', ['$event'])
   updatecnbillFont(event: KeyboardEvent) {

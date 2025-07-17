@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
+                <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-lg-3">
@@ -35,7 +35,29 @@
                                     <input autoclose="false" 
                                         formControlName="bill_StmtNo" class="form-control">
                                 </div>
-                            </div>                             
+                            </div>   
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Party</label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="partyCode"
+                                            [searchKeyword]="keywordLocation" 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>   
+                            </div>                            
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
@@ -56,7 +78,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-2 col-md-2 text-right">
                     <button class="btn btn-primary buttons-html5" type="button"
                         (click)=" billsMasterAdd()"  *ngIf="createStatus"><span>New</span></button>
                 </div>

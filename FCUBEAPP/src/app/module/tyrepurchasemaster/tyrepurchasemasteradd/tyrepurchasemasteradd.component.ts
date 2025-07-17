@@ -659,6 +659,20 @@ dashboard: string ="";
       this.toastrService.warning("Purchase Date should be with in Fin Year");
       return
     }
+    
+    if(selectedDataValue.gstType=="SC"){
+      if(parseFloat(selectedDataValue.totalSgstAmt)==0 ||parseFloat(selectedDataValue.totalCgstAmt)==0){
+        this.toastrService.warning("Please Enter SGST and CGST Amt");
+        return;
+      }
+    }
+
+    if(selectedDataValue.gstType=="IG"){
+      if(parseFloat(selectedDataValue.totalIgstAmt)==0){
+        this.toastrService.warning("Please Enter IGST Amt");
+        return;
+      }
+    }
 
     if(selectedDataValue.noVendor){
       if (selectedDataValue.vendorName=="") {
