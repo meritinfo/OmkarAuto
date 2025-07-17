@@ -27,6 +27,7 @@ namespace FleetTrans.Models
         public string? NeftYN { get; set; }
         public string? ChequeNo { get; set; }
         public string? ChequeDt { get; set; }
+        public string? Branch { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

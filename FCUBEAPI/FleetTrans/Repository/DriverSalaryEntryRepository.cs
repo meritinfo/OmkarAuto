@@ -36,6 +36,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Transid"   , driverSalaryEntryModel.Transid),
                             new SqlParameter("@TransBranch"           , driverSalaryEntryModel.TransBranch ),
                             new SqlParameter("@TransDate"        , driverSalaryEntryModel.TransDate),
+                            new SqlParameter("@DriverId "        , driverSalaryEntryModel.DriverId ),
                             new SqlParameter("@SalFromDate"     , driverSalaryEntryModel.SalFromDate),
                             new SqlParameter("@SalToDate"       , driverSalaryEntryModel.SalToDate),
                             new SqlParameter("@NoOfDays"      , driverSalaryEntryModel.NoOfDays),
@@ -45,12 +46,13 @@ namespace FleetTrans.Repository
                             new SqlParameter("@EsiDeduction"             , driverSalaryEntryModel.EsiDeduction),
                             new SqlParameter("@OthDeduction"             , driverSalaryEntryModel.OthDeduction),
                             new SqlParameter("@NetSalary"            , driverSalaryEntryModel.NetSalary),
-                            new SqlParameter("@Remarks "           , driverSalaryEntryModel.Remarks ),
+                            new SqlParameter("@Remarks"           , driverSalaryEntryModel.Remarks ),
+                            new SqlParameter("@PmtType"           , driverSalaryEntryModel.PmtType),
                             new SqlParameter("@CreditAc"            , driverSalaryEntryModel.CreditAc),
                             new SqlParameter("@NeftYN"            , driverSalaryEntryModel.NeftYN),
                             new SqlParameter("@ChequeNo"            , driverSalaryEntryModel.ChequeNo),
                             new SqlParameter("@ChequeDt"            , driverSalaryEntryModel.ChequeDt),
-                            new SqlParameter("@ChequeDt"            , driverSalaryEntryModel.ChequeDt),
+                        
                             new SqlParameter("@LoggedInUser"        , driverSalaryEntryModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DriverSalaryEntrySave", param);
@@ -146,7 +148,8 @@ namespace FleetTrans.Repository
                                 TransBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TransBranch"]),
                                 TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
                                 DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
-                                SalFromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["SalToDate"]),
+                                SalFromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["SalFromDate"]),
+                                SalToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["SalToDate"]),
                                 NoOfDays = Convert.ToString(dataSet.Tables[0].Rows[i]["NoOfDays"]),
                                 GrossSalary = Convert.ToString(dataSet.Tables[0].Rows[i]["GrossSalary"]),
                                 LopDeduction = Convert.ToString(dataSet.Tables[0].Rows[i]["LopDeduction"]),
@@ -159,8 +162,9 @@ namespace FleetTrans.Repository
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 NeftYN = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftYN"]),
                                 ChequeDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDt"]),
-                              
-                              
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+
+
                             });
                         }
 
