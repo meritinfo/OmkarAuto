@@ -52,18 +52,12 @@
                                     </div>
                             
                                     <div class="row">
-                                       
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label >Salary From Date: </label><span style="color: red">*</span>  
-                                               
-
                                                 <input type="date" class="form-control"   (change) ="getSalDays()"
                                                 min="{{minDate}}" max="{{maxDate}}" formControlName="salFromDate" 
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['salFromDate'].invalid) }">
-
-
-                                                
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -81,7 +75,6 @@
                                                 formControlName="noOfDays"  [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfDays'].invalid) }">
                                             </div>
                                         </div>
-                                    
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Gross Salary : </label><span style="color: red">*</span>
@@ -90,45 +83,44 @@
                                             </div>
                                         </div>
                                         </div>
-                                             <div class="row">
+                                   <div class="row">
                                       <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Lop Deduction  : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
-                                                formControlName="lopDeduction"  >
+                                                formControlName="lopDeduction"  [ngClass]="{ 'is-invalid': formSubmitted && (f['lopDeduction'].invalid) }" >
                                             </div>
                                         </div>
                                             <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Pf Deduction: </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
-                                                formControlName="pfDeduction"  >
+                                                formControlName="pfDeduction" [ngClass]="{ 'is-invalid': formSubmitted && (f['pfDeduction'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Esi Deduction: </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
-                                                formControlName="esiDeduction">
+                                                formControlName="esiDeduction"   [ngClass]="{ 'is-invalid': formSubmitted && (f['esiDeduction'].invalid) }">
                                             </div>
                                         </div>
                                            <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Oth Deduction : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
-                                                formControlName="othDeduction">
+                                                formControlName="othDeduction" [ngClass]="{ 'is-invalid': formSubmitted && (f['othDeduction'].invalid) }">
                                             </div>
                                         </div>
                                              <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Net Salary : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control" 
-                                                formControlName="netSalary">
+                                                formControlName="netSalary" [ngClass]="{ 'is-invalid': formSubmitted && (f['netSalary'].invalid) }" >
                                             </div>
+                                          </div>
                                         </div>
-                                        </div>
-                                         <div class="row">
-                                         
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="basicpill-phoneno-input">Payment Type</label> <span style="color: red">*</span> 
@@ -140,8 +132,7 @@
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
                                                     <option value="D">Vendor</option>
-                                                    <option value="A">Adjust</option>     
-                                                    
+                                                    <option value="A">Adjust</option>  
                                                 </select>
                                             </div>
                                         </div>
@@ -184,9 +175,6 @@
                                         </select>
                                         </div>
                                     </div> 
-                                    
-                                     
-                                       
                                          
                                     </div> 
                                     <div class="row">
@@ -199,8 +187,6 @@
                                             
                                         </div>
                                     </div>
-                               
-                                  
                                 </div>
                                 </div>
                             </div>

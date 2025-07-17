@@ -363,9 +363,8 @@ export class DriversalaryentryaddComponent {
     this.driversalaryentrymodel.pmtType = selectedDataValue.pmtType;
     this.driversalaryentrymodel.creditAc = selectedDataValue.creditAc.toString();  
     this.driversalaryentrymodel.neftYN = selectedDataValue.neftYN.toString();   
-    this.driversalaryentrymodel.chequeNo  = selectedDataValue.chequeNo.toString(); 
+    this.driversalaryentrymodel.chequeNo  = selectedDataValue.chequeNo;
     this.driversalaryentrymodel.chequeDt  = selectedDataValue.chequeDt;
-  
     this.driversalaryentrymodel.loggedInUser   = this.loggedInUserID;
 
     this.driverSalaryEntryService.driverSalaryEntrySubmitted(this.driversalaryentrymodel).subscribe((res: Responsemodel) => {

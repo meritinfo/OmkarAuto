@@ -34,7 +34,7 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Transid"   , driverSalaryEntryModel.Transid),
-                            new SqlParameter("@TransBranch"           , driverSalaryEntryModel.TransBranch ),
+                            new SqlParameter("@TransBranch"           , driverSalaryEntryModel.TransBranch),
                             new SqlParameter("@TransDate"        , driverSalaryEntryModel.TransDate),
                             new SqlParameter("@DriverId "        , driverSalaryEntryModel.DriverId ),
                             new SqlParameter("@SalFromDate"     , driverSalaryEntryModel.SalFromDate),
