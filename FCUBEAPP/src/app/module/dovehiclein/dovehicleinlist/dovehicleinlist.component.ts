@@ -52,7 +52,7 @@ export class DovehicleinlistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
 
   dtOptions: DataTables.Settings = {};
@@ -80,12 +80,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -99,16 +99,13 @@ dashboard: string ="";
     else {
       this.route.navigate(['/']);
     }
-    
-    
+        
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
-    
-    this.doentryService.clearDoVehicleInDetails();
+    this.fromDate = this.minDate ;    
 
+    this.doentryService.clearDoVehicleInDetails();
     this.getVehicleNoList();
     
     this.formFilter = this.formBuilder.group({
@@ -126,7 +123,6 @@ dashboard: string ="";
     this.filter.filterStr1 = "";
     this.filter.filterStr2 = "";
     this.filter.filterStr3 = "";
-
     this.doList();    
     this.sharedService.loading=false;
   }
@@ -136,7 +132,6 @@ dashboard: string ="";
       this.vehicleList = res;
     });
   }
-
 
   doList(){
     this.dtOptions = {

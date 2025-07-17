@@ -18,7 +18,7 @@ export class EmpsalarylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -37,8 +37,6 @@ dashboard: string ="";
   constructor(private empsalaryService: EmpsalaryService,
     private formBuilder: FormBuilder,
     private sharedService: SharedService, private route: Router) {
-
-
   }
 
   ngOnInit(): void {
@@ -57,12 +55,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     this.empsalaryService.clearEmpSalaryDetails();
     this.formFilter = this.formBuilder.group({
@@ -97,15 +95,14 @@ dashboard: string ="";
           data: []
         });
         this.empsalaryService.getEmpSalaryMstList(this.filter).subscribe(resp => {
-            this.allEmpsalaryMaster = resp;
-            callback({
-              recordsTotal: resp.pageMetaData.totalCount,
-              recordsFiltered: resp.pageMetaData.totalCount,
-              data: []
-            });
+          this.allEmpsalaryMaster = resp;
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
           });
+        });
       },
-
       columns: [
         {
           title: 'Action',

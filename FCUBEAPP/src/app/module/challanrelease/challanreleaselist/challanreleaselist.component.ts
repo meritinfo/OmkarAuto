@@ -133,7 +133,6 @@ dashboard: string ="";
 
    // this.filter.filterStr = selectedDataVal.vehicleNo;
     this.filter.filterStr = selectedDataVal.challanNo;
-  
     this.getChallanReleaseList();
   }
 

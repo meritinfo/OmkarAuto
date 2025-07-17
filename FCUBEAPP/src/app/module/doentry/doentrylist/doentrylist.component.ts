@@ -48,7 +48,7 @@ export class DoentrylistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
 
   dtOptions: DataTables.Settings = {};

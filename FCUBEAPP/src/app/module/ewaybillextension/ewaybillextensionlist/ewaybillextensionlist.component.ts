@@ -19,7 +19,7 @@ export class EwaybillextensionlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   branch: string="";
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -62,12 +62,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var branchData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
@@ -87,7 +87,6 @@ dashboard: string ="";
   }
 
   ewaybillextlist(){
-    
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 50,

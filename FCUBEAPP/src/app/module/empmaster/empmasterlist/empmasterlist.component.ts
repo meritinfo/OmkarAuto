@@ -18,19 +18,19 @@ export class EmpmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
-    allEmpmasterlist: Empmasterlistmodel = new Empmasterlistmodel();
-    filter: Filtermodel = {
-      pageNumber: 1,
-      pageSize: 10,
-      sortColumn: 'empName',
-      sortOrder: 'asc',
-      search: ''
+  allEmpmasterlist: Empmasterlistmodel = new Empmasterlistmodel();
+  filter: Filtermodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'empName',
+    sortOrder: 'asc',
+    search: ''
   } 
   
   formFilter!: FormGroup;
@@ -41,7 +41,6 @@ dashboard: string ="";
   }
 
   ngOnInit(): void {
-
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -56,12 +55,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     this.empmasterService.clearEmployeeDetails();
     this.formFilter = this.formBuilder.group({

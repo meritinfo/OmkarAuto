@@ -180,18 +180,18 @@ export class BrokerledgerprtComponent {
     this.filter.search = format;
 
     this.cashbookreportService.getBrokerLedgerReport(this.filter).subscribe((resp: any) => {
-        let link = document.createElement("a");
-        if(format=="XL"){
-          link.download = "BrokerLedgerReport_" + new Date().getTime() + '.xls';
-          link.href = "assets/reports/broker/" + resp.message;
-          link.click();
-        }
-        else{
-          link.download = "BrokerLedgerReport_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/broker/" + resp.message;
-          link.click();
-          window.open(link.href, "_blank");
-        }
-      });
+      let link = document.createElement("a");
+      if(format=="XL"){
+        link.download = "BrokerLedgerReport_" + new Date().getTime() + '.xls';
+        link.href = "assets/reports/broker/" + resp.message;
+        link.click();
+      }
+      else{
+        link.download = "BrokerLedgerReport_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/broker/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+    });
   }
 }

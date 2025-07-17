@@ -11,8 +11,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 
-
-
 @Component({
   selector: 'app-cashreceiptentrylist',
   templateUrl: './cashreceiptentrylist.component.html',

@@ -29,7 +29,7 @@ export class EmppaygenerationlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   dt: Date = new Date();
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
@@ -83,8 +83,8 @@ dashboard: string ="";
       this.route.navigate([this.dashboard]);
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -137,7 +137,7 @@ dashboard: string ="";
       this.formFilter.patchValue({
         affectYear:this.yearList[0].dataId,
       }) 
-   });
+    });
   }    
   
   get f() { return this.formFilter.controls; }
@@ -178,7 +178,6 @@ dashboard: string ="";
           });
         });
       },
-
       columns: [
         {
           title: 'Sl No',
@@ -363,8 +362,5 @@ dashboard: string ="";
     });
 
   }
-
-
-
 
 }

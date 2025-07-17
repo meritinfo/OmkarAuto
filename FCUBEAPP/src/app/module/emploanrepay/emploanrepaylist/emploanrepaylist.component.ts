@@ -18,18 +18,18 @@ export class EmploanrepaylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;  
-    allEmpLoanlist: Emploanlistmodel = new Emploanlistmodel();
-    filter: Filtermodel = {
-      pageNumber: 1,
-      pageSize: 10,
-      sortColumn: 'repayDate',
-      sortOrder: 'asc',
-      search: ''
+  allEmpLoanlist: Emploanlistmodel = new Emploanlistmodel();
+  filter: Filtermodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'repayDate',
+    sortOrder: 'asc',
+    search: ''
   } 
   
   formFilter!: FormGroup;
@@ -40,7 +40,6 @@ dashboard: string ="";
   }
 
   ngOnInit(): void {
-
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -55,12 +54,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     this.emploanService.clearEmpLoanDetails();
     this.formFilter = this.formBuilder.group({

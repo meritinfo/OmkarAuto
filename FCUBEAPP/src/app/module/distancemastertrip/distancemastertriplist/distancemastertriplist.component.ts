@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-distancemastertriplist',
@@ -21,7 +22,7 @@ export class DistancemastertriplistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -49,7 +50,7 @@ dashboard: string ="";
   minDate: string = '';
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private distanceMastertripService: DistancemastertripService,
+    private distanceMastertripService: DistancemastertripService,private toastrService:ToastrService,
     private commonService: CommonService, private route: Router) {
   }
 
@@ -69,12 +70,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -177,9 +178,18 @@ dashboard: string ="";
   }
   
   search(): void {
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.search = this.formFilter.value.branch?this.formFilter.value.branch.dataId:"";
+    var selectedData = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedData.fromDate);
+    let todt = new Date(selectedData.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.search = selectedData.branch?selectedData.branch.dataId:"";
 
     this.sharedService.loading=true;
     this.distanceTripMasterList();    

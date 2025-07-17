@@ -10,13 +10,13 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Dovehiplacedmodel } from 'src/app/models/dovehiplacedmodel';
-  
  
 @Component({
   selector: 'app-dovehiplacedlist',
   templateUrl: './dovehiplacedlist.component.html',
   styleUrls: ['./dovehiplacedlist.component.css']
 })
+
 export class DovehiplacedlistComponent {
   allDolist: Dovehiplacedlistmodel = new Dovehiplacedlistmodel();
   filter: Reportmodel = {
@@ -48,7 +48,7 @@ export class DovehiplacedlistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
 
   dtOptions: DataTables.Settings = {};
@@ -75,12 +75,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -95,15 +95,11 @@ dashboard: string ="";
       this.route.navigate(['/']);
     }
     
-    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-    
-    
+    this.fromDate = this.minDate ;    
     this.doentryService.clearDoVehiDetails();
-
     this.getBrokerList();
     
     this.formFilter = this.formBuilder.group({

@@ -152,6 +152,14 @@ export class DirectpmtupdateComponent {
       return;
     }
     var selectedData = this.formUser.getRawValue();
+    let frmdt = new Date(selectedData.fromDate);
+    let todt = new Date(selectedData.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = this.branch;

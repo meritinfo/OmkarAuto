@@ -40,7 +40,7 @@ export class BankreconcilationComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   searchbyfield: string = "";
   searchValue: string = 'value';
 
@@ -66,17 +66,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -150,6 +148,17 @@ dashboard: string ="";
       return;
     }
     var selectedfilterVal = this.formBankRecEntry.getRawValue();
+    
+    let frmdt = new Date(selectedfilterVal.fromDate);
+    let todt = new Date(selectedfilterVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
     this.bankrecfilter.branchCode = this.branchCode;
     this.bankrecfilter.fromDate = selectedfilterVal.fromDate;
     this.bankrecfilter.toDate = selectedfilterVal.toDate;

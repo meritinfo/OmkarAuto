@@ -9,6 +9,7 @@ import { DistancemasterfreightmasterService } from 'src/app/services/distancemas
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-distancemasterfreightlist',
@@ -53,7 +54,8 @@ dashboard: string ="";
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private distancemasterfreightmasterService: DistancemasterfreightmasterService, 
+    private distancemasterfreightmasterService: DistancemasterfreightmasterService,
+    private toasterService: ToastrService, 
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -182,9 +184,28 @@ dashboard: string ="";
   }
 
   search(): void {
-    this.filter.search = this.formFilter.value.branch;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
+    if (this.formFilter.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields");   
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      }     
+      return;
+    }
+    var selectedData = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedData.fromDate);
+    let todt = new Date(selectedData.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    this.filter.search = selectedData.branch;
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
     this.sharedService.loading=true;
     this.distanceFrtMasterList();    
     this.sharedService.loading=false;

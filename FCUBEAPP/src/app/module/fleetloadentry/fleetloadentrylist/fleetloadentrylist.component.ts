@@ -23,7 +23,7 @@ export class FleetloadentrylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -122,9 +122,7 @@ dashboard: string ="";
       this.vehicleList = res;
     });
   }
-
-   
-
+ 
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.

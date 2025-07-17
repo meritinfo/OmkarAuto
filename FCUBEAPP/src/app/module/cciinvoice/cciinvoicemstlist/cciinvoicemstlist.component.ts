@@ -9,6 +9,7 @@ import { CciInvoiceMstService } from 'src/app/services/cciInvmst.service';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cciinvoicemstlist',
@@ -48,7 +49,7 @@ export class CciinvoicemstlistComponent {
   year: string = '';
   branch: string = '';
 
-  constructor(private cciInvoiceMstService: CciInvoiceMstService,
+  constructor(private cciInvoiceMstService: CciInvoiceMstService, private toastrService: ToastrService, 
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
 
@@ -177,6 +178,14 @@ export class CciinvoicemstlistComponent {
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr = this.branch;

@@ -27,7 +27,7 @@ export class EmppaysheetrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   dt: Date = new Date();
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
@@ -53,7 +53,6 @@ dashboard: string ="";
     filterStr3:'',
   }
 
-
   formFilter!: FormGroup;
 
   constructor(private emppaysheetrptService: EmppaysheetrptService,
@@ -77,15 +76,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -119,9 +118,7 @@ dashboard: string ="";
 
     this.empSalaryList();
     this.sharedService.loading=false;
-  }
-
-  
+  } 
   
   get f() { return this.formFilter.controls; }
 
@@ -299,6 +296,4 @@ dashboard: string ="";
       }
     });
   }
-
-
 }

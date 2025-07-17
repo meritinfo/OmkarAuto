@@ -33,7 +33,7 @@ export class LorryhirepmtllpaddComponent {
   yearList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   benList: Dropdownmodel[] = [];
-    brokerList: Dropdownmodel[] = [];
+  brokerList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   formUser!: FormGroup;
   selectedLorryhiremaster = new Lorryhiremastermodel();
@@ -696,10 +696,9 @@ export class LorryhirepmtllpaddComponent {
         this.formArray.controls[i].get("challanId")?.disable();
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
+        this.caltot();
 
         if(selectedData.arrayList[i].abType=='O'){
-          this.formArray.controls[i].get("totPaid")?.disable();
-          this.formArray.controls[i].get("dueAmt")?.disable();
           this.formArray.controls[i].get("hireAmt")?.disable();
           this.formArray.controls[i].get("recoveryAmt")?.disable();
           this.formArray.controls[i].get("lhpmAmt")?.disable();
@@ -714,10 +713,7 @@ export class LorryhirepmtllpaddComponent {
 
   calTotal(j:number,clmn: string){
     var selectedDataVal = this.formUser.getRawValue();
-    var due = 0,totPaid = 0,
-        tot = 0, totHire = 0, tothamali = 0, totdeten = 0, 
-        totother = 0, totother2 = 0, totother3 = 0, 
-        totlhpm = 0, totrec = 0, totothded = 0, totothded2 = 0, tottds = 0
+    var due = 0,totPaid = 0
    
     
     if(selectedDataVal.arrayList[j].dueAmt!=''){

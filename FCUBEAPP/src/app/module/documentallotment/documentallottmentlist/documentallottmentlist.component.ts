@@ -15,6 +15,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
   templateUrl: './documentallottmentlist.component.html',
   styleUrls: ['./documentallottmentlist.component.css']
 })
+
 export class Documentallottmentlistcomponent {
     
   createStatus = false;
@@ -39,7 +40,7 @@ export class Documentallottmentlistcomponent {
   constructor(private documentallotmentService: DocumentallotmentService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
     private commonService : CommonService,
-     private route: Router) {
+    private route: Router) {
   }
 
 

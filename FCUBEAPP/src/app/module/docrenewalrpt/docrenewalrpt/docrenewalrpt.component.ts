@@ -24,7 +24,7 @@ export class DocrenewalrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -48,9 +48,9 @@ dashboard: string ="";
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-}
+  }
 
-formFilter!: FormGroup;
+  formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -65,188 +65,188 @@ formFilter!: FormGroup;
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-    }
+  }
 
-    ngOnInit(): void {   
-  
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Document Renewals Report");
-        if (privilegeStatus) {
-          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-        }
+  ngOnInit(): void {   
+
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Document Renewals Report");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-      
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.loggedInUserID = userData;
-      }
-      if (this.loggedInUserID) {
-        console.log(this.loggedInUserID);
-      }
-      var userData = sessionStorage.getItem('userBranch')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.branch = userData;
-      }
-      else {
-        this.route.navigate(['/']);
-      }
-      var yearIDData = sessionStorage.getItem('yearID')?.toString();
-      if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-        this.year = yearIDData;
-      }
-      var loginDate = sessionStorage.getItem('loginDate')?.toString();
-      if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-        this.loginDate = loginDate;
-      }
-      
+    }
     
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    this.sharedService.loggedInStatus = true;
+      var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     
-    this.fromDate = this.minDate ;
-    
-    
-      this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.minDate,[Validators.required]),
-        toDate: new FormControl(this.loginDate,[Validators.required]),
-        tripBranch: new FormControl('',),  
-        vehicleMasterID: new FormControl('',),  
-        docRenewalID: new FormControl('',),  
-      });
-      this.filter.fromDate = this.minDate;
-      this.filter.toDate = this.loginDate;
-      this.filter.filterStr   = "";
-      this.filter.filterStr1  = "";
-      this.filter.filterStr3  = "0";
   
-      this.sharedService.loading=true;
-      this.getBranchList();
-      this.getVehicleNoList(); 
-      this.getDocRefNoList();   
-      this.expDocRenewal();
-      this.sharedService.loading=false;
-    }
-    getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-      });
-    }
-    getVehicleNoList(): void {
-      this.commonService.getVehicleIdList().subscribe((res) => {
-        this.vehicleList = res;
-      });
-    }
-    getDocRefNoList(): void {
-      this.commonService.getDocRefNoList().subscribe((res) => {
-        this.docRenewalList = res;
-      });
-    }
-    get f() { return this.formFilter.controls; }
+  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
   
-     
+  this.fromDate = this.minDate ;
   
-    onChangeSearch(search: string) {
-      // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
-    }
   
-    onFocused(e: any) {
-      // do something
-    }
+    this.formFilter = this.formBuilder.group({
+      fromDate: new FormControl(this.minDate,[Validators.required]),
+      toDate: new FormControl(this.loginDate,[Validators.required]),
+      tripBranch: new FormControl('',),  
+      vehicleMasterID: new FormControl('',),  
+      docRenewalID: new FormControl('',),  
+    });
+    this.filter.fromDate = this.minDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.filterStr   = "";
+    this.filter.filterStr1  = "";
+    this.filter.filterStr3  = "0";
+
+    this.sharedService.loading=true;
+    this.getBranchList();
+    this.getVehicleNoList(); 
+    this.getDocRefNoList();   
+    this.expDocRenewal();
+    this.sharedService.loading=false;
+  }
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+  getDocRefNoList(): void {
+    this.commonService.getDocRefNoList().subscribe((res) => {
+      this.docRenewalList = res;
+    });
+  }
+
+  get f() { return this.formFilter.controls; }
   
-    startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-      return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
-    expDocRenewal(){
-      this.dtOptions = {
-          pagingType: 'full_numbers',
-          pageLength: 50,
-          serverSide: true,
-          processing: true,
-          searching:false,   
-        language: {
-          zeroRecords: ''
-        }, 
-          ajax: (dataTablesParameters: any, callback) => {
-            // Filter setting
-            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-            this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'RenewalDocName';
-            this.filter.sortOrder = 'asc';
-            this.filter.search = '';
-            callback({
-              recordsTotal: 0,
-              recordsFiltered: 0,
-              data: []
-            });
-            this.docRenewalRptService.getDocRenewalRptList(this.filter).subscribe(resp => {
-               this.allDocRenewalRptlist = resp;
-                callback({
-                  recordsTotal: resp.pageMetaData.totalCount,
-                  recordsFiltered: resp.pageMetaData.totalCount,
-                  data: []
-                });
+    
+  expDocRenewal(){
+    this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 50,
+        serverSide: true,
+        processing: true,
+        searching:false,   
+      language: {
+        zeroRecords: ''
+      }, 
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'RenewalDocName';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+          this.docRenewalRptService.getDocRenewalRptList(this.filter).subscribe(resp => {
+             this.allDocRenewalRptlist = resp;
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
               });
-          }, 
-          columns: [ 
-          {
-            title: 'Renewal DocName',
-            data: 'renewalDocName',
-          },  
-          {
-            title: 'vehicle No',
-            data: 'vehicleNo',
-          },    
-          {
-            title: 'Trans Date',
-            data: 'transDate',
-          },
-          {
-            title: 'Valid FromDt',
-            data: 'validFromDt',
-          },       
-          {
-            title: 'Valid ToDt',
-            data: 'validToDt',
-          },
-          {
-            title: 'Net Amount',
-            data: 'netAmount',
-          },
-          {
-            title: 'Document RefNo',
-            data: 'documentRefNo',
-          },
+            });
+        }, 
+        columns: [ 
+        {
+          title: 'Renewal DocName',
+          data: 'renewalDocName',
+        },  
+        {
+          title: 'vehicle No',
+          data: 'vehicleNo',
+        },    
+        {
+          title: 'Trans Date',
+          data: 'transDate',
+        },
+        {
+          title: 'Valid FromDt',
+          data: 'validFromDt',
+        },       
+        {
+          title: 'Valid ToDt',
+          data: 'validToDt',
+        },
+        {
+          title: 'Net Amount',
+          data: 'netAmount',
+        },
+        {
+          title: 'Document RefNo',
+          data: 'documentRefNo',
+        },
+    
+      ],
+    };
+  }
       
-        ],
-      };
-    }
-      
-    exportExcel(): void {
-      this.docRenewalRptService.getDocRenewalRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){      
-          let link = document.createElement("a");
-          link.download = "DocRenewal" + "_" + new Date().getTime() + '.xlsx';
-          link.href = "assets\\reports\\Download\\" + resp.message;
-          link.click();
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
+  exportExcel(): void {
+    this.docRenewalRptService.getDocRenewalRptListExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "DocRenewal" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
   
   search(): void {
     this.formSubmitted = true;

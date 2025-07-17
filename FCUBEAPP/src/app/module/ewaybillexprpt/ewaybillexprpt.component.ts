@@ -22,12 +22,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EwaybillexprptComponent {
   loggedInUserID: string = '';
-
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -82,16 +81,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        } 
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    } 
     
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -116,7 +114,6 @@ dashboard: string ="";
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
   
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
@@ -152,8 +149,6 @@ dashboard: string ="";
   }
 
   get f() { return this.formFilter.controls; }
-
-   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -208,28 +203,28 @@ dashboard: string ="";
           data: 'bookingDate',
         },
         {
-        title: 'GcNote No',
-        data: 'gcNoteNo',
+          title: 'GcNote No',
+          data: 'gcNoteNo',
         },
         {
-        title: 'From Location',
-        data: 'fromLocation',
+          title: 'From Location',
+          data: 'fromLocation',
         },
         {
-        title: 'Destination',
-        data: 'destination',
+          title: 'Destination',
+          data: 'destination',
         },
         {
-        title: 'EwayBill No',
-        data: 'ewayBillNo',
+          title: 'EwayBill No',
+          data: 'ewayBillNo',
         },
         {
-        title: 'EwayBill Date',
-        data: 'ewayBillDate',
+          title: 'EwayBill Date',
+          data: 'ewayBillDate',
         },
         {
-        title: 'EwayBill Exp Date',
-        data: 'ewayBillExpDate',
+          title: 'EwayBill Exp Date',
+          data: 'ewayBillExpDate',
         },
       ],
     };

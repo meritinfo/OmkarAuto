@@ -23,7 +23,7 @@ export class DriversalarypmtlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   year: string = '';
   loginDate: string = '';
   branch: string = '';
@@ -50,17 +50,16 @@ dashboard: string ="";
     filterStr1: '',
     filterStr2:'',
     filterStr3:''
-
-
-}
-formFilter!: FormGroup;
-constructor(private driversalarypaymentService: DriversalarypaymentService, 
-  private formBuilder: FormBuilder, private commonService: CommonService,
-      private toasterService: ToastrService,
-  private sharedService: SharedService, private route: Router) {
   }
-  ngOnInit(): void {    
-    
+  formFilter!: FormGroup;
+
+  constructor(private driversalarypaymentService: DriversalarypaymentService, 
+    private formBuilder: FormBuilder, private commonService: CommonService,
+      private toasterService: ToastrService,
+    private sharedService: SharedService, private route: Router) {
+  }
+
+  ngOnInit(): void {  
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -76,22 +75,18 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }  
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }  
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-    
-
-    
-    
+        
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
       this.dashboard = dashboard;
@@ -105,8 +100,8 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
       vehicleID: new FormControl(''),
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
-
     });
+
     this.getVehicleIdList();
     this.sharedService.loading=true;
     this.filter.fromDate = this.fromDate;
@@ -114,8 +109,8 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
     this.filter.filterStr = "";
     this.driversalarypmtlist();
     this.sharedService.loading=false;
-
   }
+
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
@@ -136,9 +131,9 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
     serverSide: true,
     processing: true,
     searching: false,     
-        language: {
-          zeroRecords: ''
-        }, 
+      language: {
+        zeroRecords: ''
+      }, 
     ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -193,6 +188,7 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
   driversalarypmtadd(): void {
     this.route.navigate(['/drsalpmtadd']);
   }
+
   getVehicleIdList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
@@ -207,7 +203,6 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
 
  
   search(): void {
- 
     var selecteddata = this.formFilter.getRawValue();
     let frmdt = new Date(selecteddata.fromDate);
     let todt = new Date(selecteddata.toDate);
@@ -230,9 +225,5 @@ constructor(private driversalarypaymentService: DriversalarypaymentService,
       dtInstance.ajax.reload();
     });
   }
-
-
-
-
 }
 
