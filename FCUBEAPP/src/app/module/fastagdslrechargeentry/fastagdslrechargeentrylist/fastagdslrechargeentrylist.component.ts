@@ -17,12 +17,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './fastagdslrechargeentrylist.component.html',
   styleUrls: ['./fastagdslrechargeentrylist.component.css']
 })
+
 export class FastagdslrechargeentrylistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
     
   year: string = '';
   loginDate: string = '';
@@ -58,11 +59,11 @@ dashboard: string ="";
     private toastrService:ToastrService,
     private sharedService: SharedService, private route: Router) {
   }
+
   ngOnInit(): void {        
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      
+      var privilegeData = JSON.parse(menuData);      
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Card Recharge Entry");
@@ -74,32 +75,21 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }  
-    var loginDate = sessionStorage.getItem('loginDate')?.toString();
-    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-      this.loginDate = loginDate;
-    }
-    
-    
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
     if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
       this.dashboard = dashboard;
     }
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
+    }  
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
     }
-
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
     
     this.fastagdslrechargeentryService.clearFastagdslrechargeentryDetails();
     this.formFilter = this.formBuilder.group({
@@ -108,6 +98,7 @@ dashboard: string ="";
       toDate: new FormControl(this.loginDate),
 
     });
+
     this.getVehicleIdList();
     this.sharedService.loading=true;
     this.filter.fromDate = this.fromDate;
@@ -115,7 +106,6 @@ dashboard: string ="";
     this.filter.filterStr = "";
     this.fastagdslrechargeentrylist();
     this.sharedService.loading=false;
-
   }
 
   
@@ -137,11 +127,11 @@ dashboard: string ="";
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
-  
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
+  
   fastagdslrechargeentrylist(){
     this.dtOptions = {
     pagingType: 'full_numbers',

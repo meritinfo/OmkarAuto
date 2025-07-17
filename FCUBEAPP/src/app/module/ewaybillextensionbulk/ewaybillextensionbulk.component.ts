@@ -26,21 +26,21 @@ export class EwaybillextensionbulkComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
   filter: Reportmodel = {
-      pageNumber: 1,
-      pageSize: 10,
-      sortColumn: 'ewayBillExpDate',
-      sortOrder: 'asc',
-      search: '',
-      fromDate: '',
-      toDate: '',
-      filterStr:'',
-      filterStr1:'',
-      filterStr2:'',
-      filterStr3:'',
-    }
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'ewayBillExpDate',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr:'',
+    filterStr1:'',
+    filterStr2:'',
+    filterStr3:'',
+  }
   
 
   constructor(private sharedService: SharedService,
@@ -78,8 +78,8 @@ dashboard: string ="";
       this.year = yearIDData;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -120,7 +120,6 @@ dashboard: string ="";
 
   getEwayExtList()
   {
-    
     this.formArray.controls[0].get("ewayBillNo")?.disable();
     this.formArray.controls[0].get("bookingDate")?.disable();
     this.formArray.controls[0].get("vehicleNo")?.disable();
@@ -173,14 +172,12 @@ dashboard: string ="";
       this.formArray.controls[i].get("fromPin")?.disable();
       this.formArray.controls[i].get("remarks")?.disable();
     }
-
   }
   
    
   submitEwaybillForm(): void {
     var selectedDataVal=this.formUser.getRawValue();
     this.formSubmitted = true;
-    
     this.eway.ewaybillextList = [];
     
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   

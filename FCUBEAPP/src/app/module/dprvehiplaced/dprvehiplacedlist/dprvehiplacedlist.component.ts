@@ -52,7 +52,7 @@ export class DprvehiplacedlistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
 
   vehfromDate: string = '';
@@ -90,35 +90,30 @@ dashboard: string ="";
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
   
-  var userData = sessionStorage.getItem('userBranch')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.branch = userData;
-  }
-
-
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-  this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-  
-  this.fromDate = this.minDate ;
-  
-    
+    this.fromDate = this.minDate ;
     
     var vehfromDate = sessionStorage.getItem('vehfromDate')?.toString();
     if (typeof vehfromDate !== 'undefined' && vehfromDate !== null && vehfromDate !== '') {
@@ -162,7 +157,6 @@ dashboard: string ="";
     if (typeof brokerId !== 'undefined' && brokerId !== null && brokerId !== '') {
       this.brokerId = brokerId;
     }
-
 
     this.dprvehiService.clearDprVehiDetails();
     
@@ -367,8 +361,7 @@ dashboard: string ="";
     this.filter.sortColumn = selecteddata.vehicleEngagedBy;
     this.filter.sortOrder = selecteddata.assignToStaff;
     this.filter.filterStr4= selecteddata.brokerId?selecteddata.brokerId.dataId:"";
-
-
+    
     this.sharedService.loading=true;
     this.dprVehiList();    
     this.sharedService.loading=false;

@@ -12,7 +12,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
-  
  
 @Component({
   selector: 'app-dprmasterlist',

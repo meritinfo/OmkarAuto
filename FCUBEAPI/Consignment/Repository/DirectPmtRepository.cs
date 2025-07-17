@@ -140,6 +140,7 @@ namespace Consignment.Repository
                 {
 
                     var ws = wb.Worksheets.Add("worksheet");
+                    string tdy = DateTime.Now.ToString("dd'/'MM'/'yyyy");
 
                     for (int j = 0; j < lorryHire.PmtList.Count; j++)
                     {
@@ -147,8 +148,7 @@ namespace Consignment.Repository
                         ws.Cell(j + 1, 2).Value = lorryHire.PmtList[j].BankPrCode?.ToString();
                         ws.Cell(j + 1, 3).Value = lorryHire.PmtList[j].Ptype?.ToString();
                         ws.Cell(j + 1, 4).Value = "";
-                        ws.Cell(j + 1, 5).Value = DateTime.Now.ToString("dd/MM/yyyy");
-                        //ws.Range(j + 1, 5, j + 1, 5).Style.NumberFormat.Format = "dd/MM/yyyy";
+                        ws.Cell(j + 1, 5).Value = "'" + tdy;
                         ws.Cell(j + 1, 6).Value = "'" + lorryHire.PmtList[j].BankAcNo?.ToString();
                         ws.Cell(j + 1, 7).Value = lorryHire.PmtList[j].NetAmt?.ToString();
                         ws.Cell(j + 1, 8).Value = "";

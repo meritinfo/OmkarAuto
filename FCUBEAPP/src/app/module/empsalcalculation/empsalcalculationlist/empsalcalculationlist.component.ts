@@ -23,7 +23,7 @@ export class EmpsalcalculationlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   dt: Date = new Date();
   branchList: Dropdownmodel[] = [];
 
@@ -47,8 +47,6 @@ dashboard: string ="";
   constructor(private emppaycalculateService: EmppaycalculateService,
     private formBuilder: FormBuilder,private commonService:CommonService,
     private sharedService: SharedService, private route: Router) {
-
-
   }
 
   ngOnInit(): void {
@@ -66,12 +64,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -101,7 +99,6 @@ dashboard: string ="";
       this.branchList = res;
     });
   } 
-  
   
   empSalaryList(){
     this.dtOptions = {

@@ -26,7 +26,7 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   accountList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -69,177 +69,172 @@ dashboard: string ="";
     private route: Router) {
   }
 
-    ngOnInit(): void {    
-       this.ledgerrptService.getReportMenuList([]).subscribe(
-        (data) => {
-          this.menuList = this.initializeMenuItems(data);
-        },
-        (error) => {
-          console.error(error);
-        }
-      ); 
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Multiple Ledger Report");
-        if (privilegeStatus) {
-          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-        }
+  ngOnInit(): void {    
+     this.ledgerrptService.getReportMenuList([]).subscribe(
+      (data) => {
+        this.menuList = this.initializeMenuItems(data);
+      },
+      (error) => {
+        console.error(error);
       }
-      var userData = sessionStorage.getItem('uid')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.loggedInUserID = userData;
-      }
-      if (this.loggedInUserID) {
-        console.log(this.loggedInUserID);
-      }
-      var userData = sessionStorage.getItem('userBranch')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.branch = userData;
-      }
-      else {
-        this.route.navigate(['/']);
-      }
-      var yearIDData = sessionStorage.getItem('yearID')?.toString();
-      if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-        this.year = yearIDData;
-      }
-      var loginDate = sessionStorage.getItem('loginDate')?.toString();
-      if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-        this.loginDate = loginDate;
-      }
+    ); 
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
       
-      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-      this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-      
-      this.fromDate = this.minDate ;
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Multiple Ledger Report");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     
-      this.sharedService.loading=true;
-      this.getBranchList();
-      this.getAccountList();  
-      this.sharedService.loading=false;
-      
-      this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.minDate,[Validators.required]),
-        toDate: new FormControl(this.loginDate,[Validators.required]),
-        accountID: new FormControl('',),
-        branchorCon: new FormControl('C',),
-          openOrdate: new FormControl('C',),
-        branch: new FormControl('',),
-        supress: new FormControl('',),
-        subType:new FormControl('',),
-        subLedger:new FormControl('',),
-      });
-      
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+  
+    this.sharedService.loading=true;
+    this.getBranchList();
+    this.getAccountList();  
+    this.sharedService.loading=false;
+    
+    this.formFilter = this.formBuilder.group({
+      fromDate: new FormControl(this.minDate,[Validators.required]),
+      toDate: new FormControl(this.loginDate,[Validators.required]),
+      accountID: new FormControl('',),
+      branchorCon: new FormControl('C',),
+        openOrdate: new FormControl('C',),
+      branch: new FormControl('',),
+      supress: new FormControl('',),
+      subType:new FormControl('',),
+      subLedger:new FormControl('',),
+    });
+    
+    this.formFilter.controls['branch'].disable();  
+  }
+
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+
+  getAccountList(): void {
+    this.ledgerrptService.getLedgerList().subscribe((res) => {
+      this.accountList = res;
+    });
+  }
+  
+  get f() { return this.formFilter.controls; }
+
+  change(selectedValue: string) {
+    this.formFilter.patchValue({      
+      branch:"",
+      groupYN:""
+    });
+    if (selectedValue === "C") {
       this.formFilter.controls['branch'].disable();  
+      this.formFilter.controls['groupYN'].enable();  
     }
+    else{
+      this.formFilter.controls['branch'].enable(); 
+      this.formFilter.controls['groupYN'].disable();  
+
+    }   
+  }
   
-    getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-      });
-    }
-  
-    getAccountList(): void {
-      this.ledgerrptService.getLedgerList().subscribe((res) => {
-        this.accountList = res;
-      });
-    }
-    
-    get f() { return this.formFilter.controls; }
-  
-    change(selectedValue: string) {
-      this.formFilter.patchValue({      
-        branch:"",
-        groupYN:""
-      });
-      if (selectedValue === "C") {
-        this.formFilter.controls['branch'].disable();  
-        this.formFilter.controls['groupYN'].enable();  
-      }
-      else{
-        this.formFilter.controls['branch'].enable(); 
-        this.formFilter.controls['groupYN'].disable();  
-  
-      }   
-    }
-    
-    onChangeSearch(search: string) {
-      // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
-    }
-     initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {
-   
-      for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        item.isExpanded = true;
-        item.checked = false;
-        if (item.children && item.children.length > 0) {
-          this.initializeMenuItems(item.children);
-        }
-      }
-      return items;
-    }
-     toggleExpand(item: Menureportaccessrightsmodel): void {
-  
-      item.isExpanded = !item.isExpanded;
-    }
-  
-    toggleCheck(item: Menureportaccessrightsmodel): void {
-  
-      item.checked = !item.checked;
-      this.checkChildren(item, item.checked);
-      this.updateParentCheckStatus(this.menuList, item);
-    }
-  
-    checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
-  
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  initializeMenuItems(items: Menureportaccessrightsmodel[]): Menureportaccessrightsmodel[] {   
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      item.isExpanded = true;
+      item.checked = false;
       if (item.children && item.children.length > 0) {
-        for (var i = 0; i < item.children.length; i++) {
-          var child = item.children[i];
-          child.checked = checked;
-          this.checkChildren(child, checked);
-        }
+        this.initializeMenuItems(item.children);
       }
     }
+    return items;
+  }
   
-    updateParentCheckStatus(items: Menureportaccessrightsmodel[], changedItem: Menureportaccessrightsmodel): void {
+  toggleExpand(item: Menureportaccessrightsmodel): void {
+    item.isExpanded = !item.isExpanded;
+  }
   
-      for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        if (item.children && item.children.indexOf(changedItem) !== -1) {
-          var allChecked = true;
-          for (var j = 0; j < item.children.length; j++) {
-            if (!item.children[j].checked) {
-              allChecked = false;
-              break;
-            }
+  toggleCheck(item: Menureportaccessrightsmodel): void {
+    item.checked = !item.checked;
+    this.checkChildren(item, item.checked);
+    this.updateParentCheckStatus(this.menuList, item);
+  }
+  
+  checkChildren(item: Menureportaccessrightsmodel, checked: boolean): void {
+    if (item.children && item.children.length > 0) {
+      for (var i = 0; i < item.children.length; i++) {
+        var child = item.children[i];
+        child.checked = checked;
+        this.checkChildren(child, checked);
+      }
+    }
+  }
+  
+  updateParentCheckStatus(items: Menureportaccessrightsmodel[], changedItem: Menureportaccessrightsmodel): void {
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (item.children && item.children.indexOf(changedItem) !== -1) {
+        var allChecked = true;
+        for (var j = 0; j < item.children.length; j++) {
+          if (!item.children[j].checked) {
+            allChecked = false;
+            break;
           }
-          item.checked = allChecked;
-          this.updateParentCheckStatus(this.menuList, item);
-        } else if (item.children && item.children.length > 0) {
-          this.updateParentCheckStatus(item.children, changedItem);
         }
+        item.checked = allChecked;
+        this.updateParentCheckStatus(this.menuList, item);
+      } else if (item.children && item.children.length > 0) {
+        this.updateParentCheckStatus(item.children, changedItem);
       }
     }
+  }
   
-    setSelectedItem(item: Menureportaccessrightsmodel): void {
-  
-      if (this.selectedItem === item) {
-        item.isExpanded = !item.isExpanded;
-      } else {
-        this.selectedItem = item;
-        if (item.children && item.children.length > 0) {
-          item.isExpanded = true;
-        }
+  setSelectedItem(item: Menureportaccessrightsmodel): void {
+    if (this.selectedItem === item) {
+      item.isExpanded = !item.isExpanded;
+    } else {
+      this.selectedItem = item;
+      if (item.children && item.children.length > 0) {
+        item.isExpanded = true;
       }
     }
+  }
   
   saveSelectedIds() {
     var selectedIdsArray = this.getSelectedIds(this.menuList);
@@ -247,125 +242,117 @@ dashboard: string ="";
   }
   
   
-    getSelectedIds(items: any[]): number[] {
-      let ids: number[] = [];
-      items.forEach(item => {
-        if (item.checked) {
-          ids.push(item.accountID);
-        }
-        if (item.children && item.children.length > 0) {
-          ids = ids.concat(this.getSelectedIds(item.children));
-        }
-      });
-      return ids;
-    }
+  getSelectedIds(items: any[]): number[] {
+    let ids: number[] = [];
+    items.forEach(item => {
+      if (item.checked) {
+        ids.push(item.accountID);
+      }
+      if (item.children && item.children.length > 0) {
+        ids = ids.concat(this.getSelectedIds(item.children));
+      }
+    });
+    return ids;
+  }
   
-    hasAnyChecked(items: any[]): boolean {
-      return items.some(item => item.checked || (item.children && this.hasAnyChecked(item.children)));
-    }
-    onFocused(e: any) {
-      // do something
-    }
-  
-    startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-      return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
+  hasAnyChecked(items: any[]): boolean {
+    return items.some(item => item.checked || (item.children && this.hasAnyChecked(item.children)));
+  }
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
     
   
     
-    search(format: string): void {
-      if (this.formFilter.invalid) {
-        this.toastrService.warning("Please Enter Mandatory Fields ");
-        const controls = this.formFilter.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toastrService.warning(name + " Fields is Invalid");
-          }
+  search(format: string): void {
+    if (this.formFilter.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formFilter.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");
         }
-        return;
       }
-      var selectedDataVal=this.formFilter.getRawValue();
-  
-      // var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-      // if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-      //         fromLoc.dataId!="" && fromLoc.dataId!="0") {
-      //     //ignore
-      // }
-      // else{
-      //   this.toastrService.warning("Please Enter Valid Account ");          
-      //   return;
-      // }
-      if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
-        this.toastrService.warning("Please select Branch");
-        return;
-      }
-      if((selectedDataVal.subType?selectedDataVal.subType:"") != "" && 
-              (selectedDataVal.subLedger?selectedDataVal.subLedger:"")==""){
-        this.toastrService.warning("Please Enter Sub Ledger");
-        return;
-      }
+      return;
+    }
+    var selectedDataVal=this.formFilter.getRawValue();
+   
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+    if(selectedDataVal.branchorCon == "B" && (selectedDataVal.branch?selectedDataVal.branch:"")==""){
+      this.toastrService.warning("Please select Branch");
+      return;
+    }
+    if((selectedDataVal.subType?selectedDataVal.subType:"") != "" && 
+            (selectedDataVal.subLedger?selectedDataVal.subLedger:"")==""){
+      this.toastrService.warning("Please Enter Sub Ledger");
+      return;
+    }
   
     var selectedIdsArray = this.getSelectedIds(this.menuList);
     var selectedIds = selectedIdsArray.join(',');
-      this.filter.fromDate      = selectedDataVal.fromDate;
-      this.filter.toDate        = selectedDataVal.toDate;
-      this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
-      this.filter.filterStr1    = this.year;
-      this.filter.filterStr2    = selectedIds//selectedDataVal.accountID.dataId;
-       
-     // this.filter.sortColumn = selectedDataVal.openOrdate;
-      //this.filter.sortOrder = selectedDataVal.subLedger;
-  
+    this.filter.fromDate      = selectedDataVal.fromDate;
+    this.filter.toDate        = selectedDataVal.toDate;
+    this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
+    this.filter.filterStr1    = this.year;
+    this.filter.filterStr2    = selectedIds//selectedDataVal.accountID.dataId;
+      
+    // this.filter.sortColumn = selectedDataVal.openOrdate;
+    //this.filter.sortOrder = selectedDataVal.subLedger;
       if(selectedDataVal.branchorCon == "C"){
-        this.filter.filterStr3    = "C";
-      }
-      if(selectedDataVal.branchorCon == "B"){
-        this.filter.filterStr3    = "B";
-      }
-       if(selectedDataVal.openOrdate == "O"){
-        this.filter.sortColumn    = "O";
-      }
-      if(selectedDataVal.openOrdate == "D"){
-        this.filter.sortColumn    = "D";
-      }
-      
-      
-      this.filter.search = selectedDataVal.supress?"Y":"N" ;
-  
-      if(format=="XL"){
-  
-        this.ledgerrptService.getAnnexurerptExcel(this.filter).subscribe(resp => {
-          if(resp.status){      
-            let link = document.createElement("a");
-            link.download = "LedgerReport_" + new Date().getTime() + '.xls';
-            link.href = "assets/reports/Ledger/" + resp.message;
-            link.click();
-          }
-          else{        
-            this.toastrService.warning(resp.message);   
-          }
-        });
-      }
-      
-      else{
-      
-  
-        this.ledgerrptService.getAnnexurerrptPdf(this.filter).subscribe(resp => {
-          if(resp.status){    
-            let link = document.createElement("a");
-            link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
-            link.href = "assets/reports/Ledger/" + resp.message;
-            link.click();
-            window.open(link.href, "_blank");
-          }
-          else{        
-            this.toastrService.warning(resp.message);   
-          }
-        });
-      }        
+      this.filter.filterStr3    = "C";
     }
-   
-  } 
+    if(selectedDataVal.branchorCon == "B"){
+      this.filter.filterStr3    = "B";
+    }
+     if(selectedDataVal.openOrdate == "O"){
+      this.filter.sortColumn    = "O";
+    }
+    if(selectedDataVal.openOrdate == "D"){
+      this.filter.sortColumn    = "D";
+    }
+     
+    this.filter.search = selectedDataVal.supress?"Y":"N" ;
+      if(format=="XL"){
+        this.ledgerrptService.getAnnexurerptExcel(this.filter).subscribe(resp => {
+        if(resp.status){      
+          let link = document.createElement("a");
+          link.download = "LedgerReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/Ledger/" + resp.message;
+          link.click();
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
+    else{
+       this.ledgerrptService.getAnnexurerrptPdf(this.filter).subscribe(resp => {
+       if(resp.status){    
+         let link = document.createElement("a");
+         link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
+         link.href = "assets/reports/Ledger/" + resp.message;
+         link.click();
+         window.open(link.href, "_blank");
+       }
+       else{        
+         this.toastrService.warning(resp.message);   
+       }
+     });
+    }        
+  }
+} 
   
   
   

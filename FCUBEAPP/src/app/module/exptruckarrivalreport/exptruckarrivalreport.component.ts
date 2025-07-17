@@ -17,13 +17,14 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './exptruckarrivalreport.component.html',
   styleUrls: ['./exptruckarrivalreport.component.css']
 })
+
 export class ExptruckarrivalreportComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -82,15 +83,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -116,7 +117,6 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
   
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
@@ -151,6 +151,7 @@ dashboard: string ="";
       this.vehicleList = res;
     });
   }
+
   getPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
@@ -158,7 +159,6 @@ dashboard: string ="";
   }
 
   get f() { return this.formFilter.controls; }
-   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -179,36 +179,36 @@ dashboard: string ="";
 
   expTruckArrival(){
     this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 50,
-        serverSide: true,
-        processing: true,
-        searching:false,   
-        language: {
-          zeroRecords: ''
-        }, 
-        ajax: (dataTablesParameters: any, callback) => {
-          // Filter setting
-          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-          this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'ExpectedReportingDt';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = ''; 
-          callback({
-            recordsTotal: 0,
-            recordsFiltered: 0,
-            data: []
-          });
-          this.exptruckarrivalService.getExptruckarrivalList(this.filter).subscribe(resp => {
-             this.allExptruckarrivallist = resp;
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
+      pagingType: 'full_numbers',
+      pageLength: 50,
+      serverSide: true,
+      processing: true,
+      searching:false,   
+      language: {
+        zeroRecords: ''
+      }, 
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = 'ExpectedReportingDt';
+        this.filter.sortOrder = 'asc';
+        this.filter.search = ''; 
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.exptruckarrivalService.getExptruckarrivalList(this.filter).subscribe(resp => {
+           this.allExptruckarrivallist = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
             });
-        }, 
-        columns: [ 
+          });
+      }, 
+      columns: [ 
         {
           title: 'Loading Date',
           data: 'loadingDate',

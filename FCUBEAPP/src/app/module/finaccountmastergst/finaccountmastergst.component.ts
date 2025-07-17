@@ -17,59 +17,55 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './finaccountmastergst.component.html',
   styleUrls: ['./finaccountmastergst.component.css']
 })
+
 export class FinaccountmastergstComponent {
-    loggedInUserID: string = '';
-    userlogindate:string="";
-    formAccountMaster!: FormGroup;
-    formSubmitted = false;
-    editMode = false;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-dashboard: string ="";
-    keywordLocation = 'dataName';
-      
+  loggedInUserID: string = '';
+  userlogindate:string="";
+  formAccountMaster!: FormGroup;
+  formSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+  keywordLocation = 'dataName';
 
-    responseDetails = new Responsemodel();
-    accountList: Dropdownmodel[] = [];
-    statelist: Dropdownmodel[] = [];
-    branchList: Dropdownmodel[]=[];
+  responseDetails = new Responsemodel();
+  accountList: Dropdownmodel[] = [];
+  statelist: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[]=[];
+  selectedFinaccountMasterDetails = new Finaccountsmastergstmodel();
 
-    selectedFinaccountMasterDetails = new Finaccountsmastergstmodel();
-  
-    constructor(private route: Router, private formBuilder: FormBuilder, 
-       private finaccountmodel: Finaccountsmastergstmodel, private sharedService: SharedService,
-       private finsaccountmasterService: FinsaccountmasterService,
-       private commonService: CommonService, private requestmodel:Requestmodel,
-       private toasterService: ToastrService) {
-      this.finaccountmodel = new Finaccountsmastergstmodel();
-   
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+     private finaccountmodel: Finaccountsmastergstmodel, private sharedService: SharedService,
+     private finsaccountmasterService: FinsaccountmasterService,
+     private commonService: CommonService, private requestmodel:Requestmodel,
+     private toasterService: ToastrService) {
+    this.finaccountmodel = new Finaccountsmastergstmodel();
   }
   
-  ngOnInit(): void {    
-
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Customer GST Locations");
+  ngOnInit(): void {  
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "Customer GST Locations");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     
@@ -82,18 +78,13 @@ dashboard: string ="";
     else {
       this.route.navigate(['/']);
     }
-    var dashboard = sessionStorage.getItem('dashboard')?.toString();
-    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-      this.dashboard = dashboard;
-    }
     
-     this.formAccountMaster = this.formBuilder.group({    
+    this.formAccountMaster = this.formBuilder.group({    
       accountId: new FormControl('',[Validators.required]),      
       arrayList: this.formBuilder.array([this.createInitialArray()]),     
     });    
 
     this.sharedService.loading = true;
-
    
     this.getBranchList();
     this.getaccountList();
@@ -209,8 +200,6 @@ dashboard: string ="";
       });
     }
   }
-
-
 
   exit(): void {
     this.route.navigate([this.dashboard]);

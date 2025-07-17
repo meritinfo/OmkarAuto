@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-docrenewalentrylist',
@@ -20,7 +21,7 @@ export class DocrenewalentrylistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
@@ -49,7 +50,7 @@ dashboard: string ="";
 
   formFilter!: FormGroup;
 
-  constructor(private docrenewalEntryService: DocRenewalEntryService,
+  constructor(private docrenewalEntryService: DocRenewalEntryService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
     private commonService: CommonService, private route: Router) {
   }
@@ -70,12 +71,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
    
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -86,9 +87,7 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-    
-  
+
     this.docrenewalEntryService.clearDocrenewalEntryDetails();
 
     this.formFilter = this.formBuilder.group({
@@ -218,6 +217,14 @@ dashboard: string ="";
 
   search(): void {
     var selectedData = this.formFilter.getRawValue();
+    let frmdt = new Date(selectedData.fromDate);
+    let todt = new Date(selectedData.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
 
     this.filter.search = selectedData.docDescription;    
     this.filter.fromDate = selectedData.fromDate;

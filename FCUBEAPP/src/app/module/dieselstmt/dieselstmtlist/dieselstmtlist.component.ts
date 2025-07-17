@@ -210,6 +210,14 @@ dashboard: string ="";
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
     this.filter.search = selecteddata.dfVendor?selecteddata.dfVendor.dataId:"";
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
