@@ -116,7 +116,7 @@
                                             <div class="mb-3">
                                                 <label>Net Salary : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control" 
-                                                formControlName="netSalary" [ngClass]="{ 'is-invalid': formSubmitted && (f['netSalary'].invalid) }" >
+                                                formControlName="netSalary"  >
                                             </div>
                                           </div>
                                         </div>
@@ -148,13 +148,13 @@
                                                   formControlName="chequeDt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDt'].invalid) }">
                                         </div>  
-                                           <div class="col-sm-2">
+                                      <div class="col-lg-3">
                                         <div class="form-check">
-                                            <label for="neft" class="form-check-label" > Neft
+                                            <label for="neft" class="form-check-label" style="color: green;"> Neft
                                             </label>
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="neftYN" 
+                                                formControlName="neftYN" (change)="onNeftChk($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['neftYN'].invalid) }">
                                                 <!-- <option selected="">Choose...</option> -->
                                                 <option value="Y"> Yes</option>

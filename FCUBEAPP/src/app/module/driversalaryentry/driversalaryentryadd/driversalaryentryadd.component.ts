@@ -193,6 +193,27 @@ export class DriversalaryentryaddComponent {
     });
   }
 
+      onNeftChk(e: any) {
+        if(e.target.value=="N"){
+          this.formSalary.controls['chequeNo'].clearValidators();      
+          this.formSalary.controls['chequeDt'].clearValidators();   
+          this.formSalary.controls['chequeNo'].disable();
+          this.formSalary.controls['chequeDt'].disable();
+          this.formSalary.patchValue({
+            chequeNo:'',
+            chequeDt:'',
+          });   
+        }
+        else {
+          this.formSalary.controls['chequeNo'].setValidators([Validators.required]);
+          this.formSalary.controls['chequeDt'].setValidators([Validators.required]);
+          this.formSalary.controls['chequeNo'].enable(); 
+          this.formSalary.controls['chequeDt'].enable();
+        }
+        this.formSalary.controls['chequeNo'].updateValueAndValidity();
+        this.formSalary.controls['chequeDt'].updateValueAndValidity();
+      }
+
   getVehicleIdList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
