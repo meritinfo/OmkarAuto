@@ -43,6 +43,7 @@ namespace FCUBEAPI.Controllers
         readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
         readonly IDriverSalaryPaymentBusiness driverSalaryPaymentBusiness;
+        readonly IDriverSalaryEntryBusiness driverSalaryEntryBusiness;
         readonly IFleetRptBusiness fleetRptBusiness;
         readonly IVendorPmtBusiness vendorPmtBusiness;
 
@@ -72,7 +73,8 @@ namespace FCUBEAPI.Controllers
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
             IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness,
             IFleetRptBusiness _fleetRptBusiness,
-            IVendorPmtBusiness _vendorPmtBusiness)
+            IVendorPmtBusiness _vendorPmtBusiness,
+            IDriverSalaryEntryBusiness _driverSalaryEntryBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -102,6 +104,7 @@ namespace FCUBEAPI.Controllers
             driverSalaryPaymentBusiness = _driverSalaryPaymentBusiness;
             fleetRptBusiness = _fleetRptBusiness;
             vendorPmtBusiness = _vendorPmtBusiness;
+            driverSalaryEntryBusiness = _driverSalaryEntryBusiness;
         }
 
 
@@ -3974,6 +3977,61 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverSalaryEntryList")]
+        public async Task<IActionResult> GetDriverSalaryEntryList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverSalaryEntryBusiness.GetDriverSalaryEntryList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DriverSalaryEntrySave")]
+        public async Task<IActionResult> DriverSalaryEntrySave(DriverSalaryEntryModel driverSalaryEntryModel)
+        {
+            if (driverSalaryEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverSalaryEntryBusiness.DriverSalaryEntrySave(driverSalaryEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DriverSalaryEntryDelete")]
+        public async Task<IActionResult> DriverSalaryEntryDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverSalaryEntryBusiness.DriverSalaryEntryDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }

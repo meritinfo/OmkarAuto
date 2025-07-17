@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { LoginComponent } from './module/login/login.component';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
+import { Driversalaryentrymodel } from 'src/app//models/driversalaryentrymodel';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
 import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
@@ -342,6 +343,8 @@ import { DashboardbrplComponent } from './module/dashboardbrpl/dashboardbrpl.com
 import { VendorpmtlistComponent } from './module/vendorpmt/vendorpmtlist/vendorpmtlist.component';
 import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmtadd.component';
 import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
+import { DriversalaryentryaddComponent } from './module/driversalaryentry/driversalaryentryadd/driversalaryentryadd.component';
+import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
 
 
 const routes: Routes = [
@@ -810,6 +813,9 @@ const routes: Routes = [
   { path: 'vendorpmtadd', component: VendorpmtaddComponent },   
   { path: 'vendorpmtedit', component: VendorpmtaddComponent },  
   { path: 'vendorduerpt', component: VendorduerptlistComponent },  
+  { path: 'driversalaryentrylist', component:  DriversalaryentrylistComponent },
+  { path: 'driversalaryentryadd', component:  DriversalaryentryaddComponent },
+  { path: 'driversalaryentryedit', component:  DriversalaryentryaddComponent },
 ];
 
 
