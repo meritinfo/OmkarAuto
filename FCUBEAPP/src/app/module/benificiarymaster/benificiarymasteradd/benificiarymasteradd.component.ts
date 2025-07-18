@@ -251,6 +251,31 @@ export class BenificiarymasteraddComponent {
     }
   }
 
+
+  chkDuplicateBenAccountNo(){
+    debugger
+    var selectedData = this.formBenMaster.getRawValue();
+    
+  
+      this.requestmodel.strRequest = selectedData.benBankAcNo;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.benificiaryMasterService.chkDuplicateBenAccountNo(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBenMaster.patchValue({
+            benBankAcNo: ''
+    
+          });
+          
+        }
+      });
+    }
+  
+
   submitBenificiaryMasterForm() {
     if (this.formBenMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
