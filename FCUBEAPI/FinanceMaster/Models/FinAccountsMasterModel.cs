@@ -65,9 +65,6 @@
         public string? StatusColor { get; set; }
         public string? LedgerName { get; set; }
         public string? AccountShortname { get; set; }
-  
-        public string? CreatedBy { get; set; }
-
         public string? AccountEmail2 { get; set; }
         public string? OverdueEmail { get; set; }
         public string? Esc1Email { get; set; }
@@ -76,6 +73,11 @@
         public string? OverdueCreditLimit { get; set; }
         public string? ApplyCreditLimit { get; set; }
         public string? LoggedInUserID { get; set; }
+
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
 
     }
 

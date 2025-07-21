@@ -62,7 +62,6 @@ export class Finaccountmodel {
     blockAct: string = "";
     statusColor: string = "";
     ledgerName: string = "";
-    createdBy: string = "";
     accountShortname: string = "";
     accountEmail2: string = "";
     overdueEmail: string = "";
@@ -71,6 +70,10 @@ export class Finaccountmodel {
     billTargetDays: string = "";
     overdueCreditLimit: string = "";
     applyCreditLimit: string = "";
-    loggedInUserID: string = "";  
+    loggedInUserID: string = ""; 
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 }
 

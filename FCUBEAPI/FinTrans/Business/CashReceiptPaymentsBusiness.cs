@@ -83,6 +83,10 @@ namespace FinTrans.Business
         {
             return await cashReceiptPaymentsRepository.CheckSubLedgerExists(request);
         }
+        public async Task<ResponseModel> GetCashReceiptPaymentsExcel(BankCashListFilterModel request)
+        {
+            return await cashReceiptPaymentsRepository.GetCashReceiptPaymentsExcel(request);
+        }
 
         public async Task<ResponseModel> CashBookReport(ReportRequestModel request)
         {

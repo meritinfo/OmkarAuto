@@ -15,6 +15,7 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './driversalarypmtadd.component.html',
   styleUrls: ['./driversalarypmtadd.component.css']
 })
+
 export class DriversalarypmtaddComponent {
   loggedInUserID: string = '';
   userlogindate:string="";
@@ -26,7 +27,7 @@ export class DriversalarypmtaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   maxDate: string = '';
   loginDate: string = '';
   year: string = '';
@@ -44,7 +45,7 @@ dashboard: string ="";
   vehicleList: Dropdownmodel[] = [];
   
   createdBy : string = "";
-    modifiedBy: string = "";
+  modifiedBy: string = "";
    
   ledgerList: Dropdownmodel[] = [];
   statelist: Dropdownmodel[] = [];
@@ -74,16 +75,16 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -127,7 +128,6 @@ dashboard: string ="";
       remarks: new FormControl('',[Validators.required]),
       pmtType: new FormControl('',[Validators.required]),
       creditAc: new FormControl('',[Validators.required]),
-      yearId: new FormControl('',),
     });    
 
     this.selectedDriversalarypaymentDetails = this.driversalarypaymentService.getDriverSalaryPaymentDetails(); 
@@ -155,6 +155,7 @@ dashboard: string ="";
         this.formSalary.controls["salaryToDt"].disable();
         this.formSalary.controls["vehicleId"].disable();
         this.formSalary.patchValue({
+          driverId: this.driverList.find(x=>x.dataId = this.selectedDriversalarypaymentDetails.driverId),
           salaryDate : this.commonService.formatDate(this.selectedDriversalarypaymentDetails.salaryDate),
           salaryFromDt : this.commonService.formatDate(this.selectedDriversalarypaymentDetails.salaryFromDt),
           salaryToDt : this.commonService.formatDate(this.selectedDriversalarypaymentDetails.salaryToDt),
@@ -306,6 +307,22 @@ dashboard: string ="";
       this.toasterService.warning("Invalid Salary Date");
       return
     }
+    
+    if (selectedDataValue.driverId.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Driver is Invalid");
+      return;
+    }
+    
+    if (selectedDataValue.vehicleId.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Vehicle is Invalid");
+      return;
+    }
   
     this.sharedService.loading = true;
     this.formSubmitted = true;
@@ -313,7 +330,7 @@ dashboard: string ="";
     this.driversalarypaymentmodel.masterid  = this.selectedDriversalarypaymentDetails.masterid;
     this.driversalarypaymentmodel.branchCode = selectedDataValue.branchCode;
     this.driversalarypaymentmodel.salaryDate = selectedDataValue.salaryDate;
-    this.driversalarypaymentmodel.driverId = selectedDataValue.driverId.toString();    
+    this.driversalarypaymentmodel.driverId = selectedDataValue.driverId.dataId;
     this.driversalarypaymentmodel.vehicleId = selectedDataValue.vehicleId.dataId;
     this.driversalarypaymentmodel.salaryFromDt = selectedDataValue.salaryFromDt;
     this.driversalarypaymentmodel.salaryToDt = selectedDataValue.salaryToDt;
@@ -324,9 +341,9 @@ dashboard: string ="";
     this.driversalarypaymentmodel.pmtType = selectedDataValue.pmtType.toString().toUpperCase();
     this.driversalarypaymentmodel.creditAc = selectedDataValue.creditAc.toString();    
     this.driversalarypaymentmodel.yearId = this.year;  
-    this.driversalarypaymentmodel.loggedInUser     = this.loggedInUserID;
+    this.driversalarypaymentmodel.loggedInUser = this.loggedInUserID;
 
-    this.driversalarypaymentService.driverSalaryPayementSubmitted(this.driversalarypaymentmodel).subscribe((res: Responsemodel) => {
+    this.driversalarypaymentService.driverSalaryPaymentSubmitted(this.driversalarypaymentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);

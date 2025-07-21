@@ -18,5 +18,6 @@ namespace FinTrans.Business
         Task<ResponseModel> CashBookReport(ReportRequestModel request);
         Task<ResponseModel> GetFinDocDetails(RequestModel request);
         Task<ResponseModel> CheckSubLedgerExists(RequestModel request);
+        Task<ResponseModel> GetCashReceiptPaymentsExcel(BankCashListFilterModel request);
     }
 }

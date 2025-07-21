@@ -169,7 +169,6 @@
                                                     <input type="text" class="form-control" formControlName="overdueEmail"> 
                                                 </div>
                                             </div>
-                                           
                                         </div>                                         
                                         <div class="row">
                                             <div class="col-lg-3">
@@ -212,7 +211,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['overdueCreditLimit'].invalid) }">
                                                 </div>
                                             </div>
-                                                 <div class="col-lg-3">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Apply Credit Limit</label><span style="color: red">*</span>
                                                     <select class="form-control form-select ng-pristine ng-touched"formControlName="applyCreditLimit"
@@ -492,17 +491,14 @@
                                                 </select>
                                                 </div>
                                             </div>
-                                             <div class="col-lg-3">
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Bill Target Days:</label>
                                                     <input type="text" class="form-control" formControlName="billTargetDays" numbersonly
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['billTargetDays'].invalid) }">
                                                 </div>
-                                            </div>
-                                             
-                                        
-                                            
-                                              <div class="col-lg-3">
+                                            </div>                                            
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label>Block Act</label><span style="color: red">*</span>
                                                     <select class="form-control form-select ng-pristine ng-touched"formControlName="blockAct"
@@ -513,7 +509,23 @@
                                                 </select>
                                                 </div>
                                             </div>
-                                        </div>       
+                                        </div>  
+                                        <div class="row">                    
+                                            <div class="col-lg-5">
+                                                <div class="mb-3">
+                                                    <label style="color: blue"> 
+                                                        <h6><b>Created By:</b>  {{ this.createdBy }} </h6> 
+                                                    </label>                                                 
+                                                </div>
+                                            </div>                   
+                                            <div class="col-lg-5">
+                                                <div class="mb-3">
+                                                    <label style="color: blue"> 
+                                                        <h6><b>Modified By:</b> {{ this.modifiedBy}} </h6> 
+                                                    </label>                                                 
+                                                </div>
+                                            </div>
+                                        </div>     
                                         <div class="row text-right">
                                             <div class="col-lg-12">
                                                 <div class="tex">

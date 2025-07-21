@@ -23,10 +23,10 @@ export class CashReceiptEntryService {
   }
   selectedCashreceiptentry = new bankreceiptentrymodel();
   constructor(private httpClient: HttpClient) { }
+
   setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrymodel) { 
       this.selectedCashreceiptentry = docrenewalmaster;  
-  }
-  
+  }  
   getCashReceiptEntryDetails() {
     return this.selectedCashreceiptentry;
   }
@@ -38,6 +38,9 @@ export class CashReceiptEntryService {
   }
   getCashReceiptEntryList(filter: Cashbankfiltermodel): Observable<bankreceiptentrylistmodel> {
     return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentsList', filter, this.httpOptions);
+  }  
+  getCashReceiptEntryExcel(filter: Cashbankfiltermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentsExcel', filter, this.httpOptions);
   }  
   getCashReceiptInnerGridList(req: Requestmodel): Observable<bankreceiptentrymodel> {
     return this.httpClient.post<bankreceiptentrymodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentInnerGridList', req, this.httpOptions);
