@@ -18,6 +18,7 @@ export class Driversalaryentrymodel {
     neftYN: string = "";
     chequeNo: string = "";
     chequeDt: string = "";
+      branch: string = "";
     loggedInUser: string = "";
     deleteFlag: string = "";
 }

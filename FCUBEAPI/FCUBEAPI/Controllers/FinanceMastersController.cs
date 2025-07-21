@@ -740,6 +740,31 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("CheckDuplicateBenAccountNo")]
+        public async Task<IActionResult> CheckDuplicateBenAccountNo(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await beneficiaryMasterBusiness.CheckDuplicateBenAccountNo(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+
+
+
         [HttpPost("GetCnorCneeGstList")]
         public async Task<IActionResult> GetCnorCneeGstList(PageRequest request)
         {

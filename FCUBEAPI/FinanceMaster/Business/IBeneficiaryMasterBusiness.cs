@@ -20,6 +20,7 @@ namespace FinanceMaster.Business
         Task<ResponseModel> GetUserBenApproveBlock(RequestModel requestModel);
         Task<List<DropDownListModel>> GetBenBankList();
         Task<List<DropDownListModel>> GetBeneficiaryList();
+        Task<ResponseModel> CheckDuplicateBenAccountNo(RequestModel requestModel);
     }
     
 

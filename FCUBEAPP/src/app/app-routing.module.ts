@@ -813,7 +813,7 @@ const routes: Routes = [
   { path: 'vendorpmtadd', component: VendorpmtaddComponent },   
   { path: 'vendorpmtedit', component: VendorpmtaddComponent },  
   { path: 'vendorduerpt', component: VendorduerptlistComponent },  
-  { path: 'driversalaryentrylist', component:  DriversalaryentrylistComponent },
+  { path: 'driversallist', component:  DriversalaryentrylistComponent },
   { path: 'driversalaryentryadd', component:  DriversalaryentryaddComponent },
   { path: 'driversalaryentryedit', component:  DriversalaryentryaddComponent },
 ];

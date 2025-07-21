@@ -64,37 +64,47 @@ constructor(private driversalaryentryService: DriverSalaryEntryService,
   }
 
   ngOnInit(): void {    
-      
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        
-        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Driver Salary Payment");
-        if (privilegeStatus) {
-          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-           this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-        }
+     
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Driver Salary Entry"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-      var dashboard = sessionStorage.getItem('dashboard')?.toString();
-          if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-            this.dashboard = dashboard;
-          }
-          if(!this.viewStatus){      
-            this.route.navigate([this.dashboard]);
-          }  
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
+    
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
       
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
+
+
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
       
       this.fromDate = this.minDate ;
-      
-      
-  
-      
       
       var dashboard = sessionStorage.getItem('dashboard')?.toString();
       if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
@@ -174,7 +184,7 @@ constructor(private driversalaryentryService: DriverSalaryEntryService,
           },   
           {
             title: 'Branch',
-            data: 'transBranch',
+            data: 'branch',
           },
           {
             title: 'Trans Date',
