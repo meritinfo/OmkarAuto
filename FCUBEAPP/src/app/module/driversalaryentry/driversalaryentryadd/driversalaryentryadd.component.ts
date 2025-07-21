@@ -29,7 +29,7 @@ export class DriversalaryentryaddComponent {
     editStatus = false;
     deleteStatus = false;
     viewStatus = false; 
-  dashboard: string ="";
+    dashboard: string ="";
     maxDate: string = '';
     loginDate: string = '';
     year: string = '';
@@ -132,12 +132,11 @@ export class DriversalaryentryaddComponent {
       othDeduction: new FormControl('',[Validators.required]),
       netSalary: new FormControl('',[Validators.required]),
       pmtType: new FormControl('',[Validators.required]),
-      remarks: new FormControl('',[Validators.required]),
+      remarks: new FormControl('',),
       creditAc: new FormControl('',[Validators.required]),
       neftYN: new FormControl('',),
-      
-       chequeNo: new FormControl('',),
-        chequeDt: new FormControl(this.loginDate,),
+      chequeNo: new FormControl('',),
+      chequeDt: new FormControl(this.loginDate,),
     });    
 
     this.selectedDriversalaryentryDetails = this.driverSalaryEntryService.getDriverSalaryEntryDetails(); 
