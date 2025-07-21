@@ -296,6 +296,7 @@ namespace FCUBEAPI.Controllers
         }
 
 
+
         [HttpPost("RoleMasterSave")]
         public async Task<IActionResult> RoleMasterSave(RoleMasterModel roleMasterModel)
         {
@@ -328,6 +329,62 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ChkDuplicateRoleDesc")]
+        public async Task<IActionResult> ChkDuplicateRoleDesc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await roleMasterBusiness.ChkDuplicateRoleDesc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChkDuplicateRoleName")]
+        public async Task<IActionResult> ChkDuplicateRoleName(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await roleMasterBusiness.ChkDuplicateRoleName(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("RoleTypesDelete")]
+        public async Task<IActionResult> RoleTypesDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await roleMasterBusiness.RoleTypesDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost("GetRolePrivileges")]

@@ -1,5 +1,6 @@
 ﻿using AdminMasters.Models;
 using AdminMasters.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace AdminMasters.Business
@@ -26,6 +27,18 @@ namespace AdminMasters.Business
         public async Task<RoleTypeList> GetRoleTypeList(PageRequest request)
         {
             return await roleMasterRepository.GetRoleTypeList(request);
+        }
+        public async Task<ResponseModel> ChkDuplicateRoleDesc(RequestModel req)
+        {
+            return await roleMasterRepository.ChkDuplicateRoleDesc(req);
+        }
+        public async Task<ResponseModel> ChkDuplicateRoleName(RequestModel req)
+        {
+            return await roleMasterRepository.ChkDuplicateRoleName(req);
+        }
+        public async Task<ResponseModel> RoleTypesDelete(RequestModel req)
+        {
+            return await roleMasterRepository.RoleTypesDelete(req);
         }
     }
 }
