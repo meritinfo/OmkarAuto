@@ -10,5 +10,8 @@ namespace AdminMasters.Repository
     {
         Task<ResponseModel> RoleMasterSave(RoleMasterModel roleMasterModel);
         Task<RoleTypeList> GetRoleTypeList(PageRequest request);
+        Task<ResponseModel> ChkDuplicateRoleDesc(RequestModel req);
+        Task<ResponseModel> ChkDuplicateRoleName(RequestModel req);
+        Task<ResponseModel> RoleTypesDelete(RequestModel req);
     }
 }
