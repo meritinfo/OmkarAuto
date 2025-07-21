@@ -19,49 +19,47 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./driversalaryentryadd.component.css']
 })
 export class DriversalaryentryaddComponent {
-   loggedInUserID: string = '';
-    userlogindate:string="";
-    formSalary!: FormGroup;
-    formSubmitted = false;
-    keywordLocation = 'dataName';
-    editMode = false;
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-    dashboard: string ="";
-    maxDate: string = '';
-    loginDate: string = '';
-    year: string = '';
-    branch: string = '';
-    minDate: string = '';
-    fromDate: string = '';
-  
-    responseDetails = new Responsemodel();
-    accountTypeList: Dropdownmodel[] = [];
-    branchList: Dropdownmodel[] = [];
-    driverList: Dropdownmodel[] = [];
-    rechargeList: Dropdownmodel[] = [];
-    creditAcList: Dropdownmodel[] = [];
-    subAccountTypeList: Dropdownmodel[] = []; 
-    vehicleList: Dropdownmodel[] = [];
+  loggedInUserID: string = '';
+  userlogindate:string="";
+  formSalary!: FormGroup;
+  formSubmitted = false;
+  keywordLocation = 'dataName';
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string ="";
+  maxDate: string = '';
+  loginDate: string = '';
+  year: string = '';
+  branch: string = '';
+  minDate: string = '';
+  fromDate: string = '';
+  responseDetails = new Responsemodel();
+  accountTypeList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
+  driverList: Dropdownmodel[] = [];
+  rechargeList: Dropdownmodel[] = [];
+  creditAcList: Dropdownmodel[] = [];
+  subAccountTypeList: Dropdownmodel[] = []; 
+  vehicleList: Dropdownmodel[] = [];
+   
+  createdBy : string = "";
+  modifiedBy: string = "";
     
-    createdBy : string = "";
-      modifiedBy: string = "";
-     
-    ledgerList: Dropdownmodel[] = [];
-    statelist: Dropdownmodel[] = [];
-  
-    selectedDriversalaryentryDetails = new Driversalaryentrymodel();
-  
-    constructor(private route: Router, private formBuilder: FormBuilder, 
-      private driversalaryentrymodel: Driversalaryentrymodel, private sharedService: SharedService,
-      private driverSalaryEntryService: DriverSalaryEntryService,
-      private commonService: CommonService, private requestmodel:Requestmodel,
-      private toasterService: ToastrService) {
-        this.driversalaryentrymodel = new Driversalaryentrymodel();
+  ledgerList: Dropdownmodel[] = [];
+  statelist: Dropdownmodel[] = [];
 
-}
+  selectedDriversalaryentryDetails = new Driversalaryentrymodel();
+
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private driversalaryentrymodel: Driversalaryentrymodel, private sharedService: SharedService,
+    private driverSalaryEntryService: DriverSalaryEntryService,
+    private commonService: CommonService, private requestmodel:Requestmodel,
+    private toasterService: ToastrService) {
+      this.driversalaryentrymodel = new Driversalaryentrymodel();
+  }
 
   ngOnInit(): void {    
     var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -78,16 +76,16 @@ export class DriversalaryentryaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -109,16 +107,14 @@ export class DriversalaryentryaddComponent {
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
-
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-    
-     this.formSalary = this.formBuilder.group({    
+
+    this.formSalary = this.formBuilder.group({    
       transBranch: new FormControl(this.branch,[Validators.required]),
       transDate: new FormControl(this.loginDate,[Validators.required]),
       driverId: new FormControl('',[Validators.required]),
@@ -141,48 +137,45 @@ export class DriversalaryentryaddComponent {
 
     this.selectedDriversalaryentryDetails = this.driverSalaryEntryService.getDriverSalaryEntryDetails(); 
     // this.getVehicleIdList();
-     this.getDriverList(); 
-     this.getBranchList();  
+    this.getDriverList(); 
+    this.getBranchList();  
 
-     this.formSalary.controls["transBranch"].disable();
-      this.formSalary.controls["transDate"].disable();
-     this.formSalary.controls["netSalary"].disable(); 
-      this.formSalary.controls["noOfDays"].disable(); 
-      this.formSalary.controls["chequeDt"].disable(); 
-     
-                            
+    this.formSalary.controls["transBranch"].disable();
+    this.formSalary.controls["transDate"].disable();
+    this.formSalary.controls["netSalary"].disable(); 
+    this.formSalary.controls["noOfDays"].disable(); 
+    this.formSalary.controls["chequeDt"].disable(); 
 
     if (this.selectedDriversalaryentryDetails.transid != '') {      
       this.getCreditAcList(this.selectedDriversalaryentryDetails.pmtType);  
     }    
-     setTimeout(() => {  
+
+    setTimeout(() => {  
       if (this.selectedDriversalaryentryDetails.transid != '') {
         this.formSalary.patchValue(this.selectedDriversalaryentryDetails);   
         this.editMode=true;  
-       // this.createdBy = this.selectedDriversalaryentryDetails.createdBy + " " + this.selectedDriversalarypaymentDetails.createdDate;
-       // this.modifiedBy = this.selectedDriversalarypaymentDetails.modifiedBy + " " + this.selectedDriversalarypaymentDetails.modifiedDate;  
-       this.formSalary.controls["transDate"].disable();
-         this.formSalary.controls["creditAc"].disable();
-           this.formSalary.controls["pmtType"].disable();
+        //this.createdBy = this.selectedDriversalaryentryDetails.createdBy + " " + this.selectedDriversalarypaymentDetails.createdDate;
+        //this.modifiedBy = this.selectedDriversalarypaymentDetails.modifiedBy + " " + this.selectedDriversalarypaymentDetails.modifiedDate;  
+        this.formSalary.controls["transDate"].disable();
+        this.formSalary.controls["creditAc"].disable();
+        this.formSalary.controls["pmtType"].disable();
         this.formSalary.controls["salFromDate"].disable();
         this.formSalary.controls["salToDate"].disable();
-       this.formSalary.controls["chequeDt"].disable(); 
+        this.formSalary.controls["chequeDt"].disable(); 
         this.formSalary.controls["chequeNo"].disable(); 
-          this.formSalary.controls["neftYN"].disable(); 
+        this.formSalary.controls["neftYN"].disable(); 
        
         this.formSalary.patchValue({
           transDate : this.commonService.formatDate(this.selectedDriversalaryentryDetails.transDate),
           salFromDate : this.commonService.formatDate(this.selectedDriversalaryentryDetails.salFromDate),
           salToDate : this.commonService.formatDate(this.selectedDriversalaryentryDetails.salToDate),
-             chequeDt : this.commonService.formatDate(this.selectedDriversalaryentryDetails.chequeDt),
-          //vehicleId: this.vehicleList.find(e => e.dataId == this.selectedDriversalaryentryDetails.vehicleId),
+          chequeDt : this.commonService.formatDate(this.selectedDriversalaryentryDetails.chequeDt),
         });  
       }
     }, 2000);
-      
-    
     this.sharedService.loading = false;
   }
+
   // convenience getter for easy access to contact form fields
   get f() { return this.formSalary.controls; }
   
@@ -192,60 +185,49 @@ export class DriversalaryentryaddComponent {
     });
   }
 
-      onNeftChk(e: any) {
-        if(e.target.value=="N"){
-          this.formSalary.controls['chequeNo'].clearValidators();      
-          this.formSalary.controls['chequeDt'].clearValidators();   
-          this.formSalary.controls['chequeNo'].disable();
-          this.formSalary.controls['chequeDt'].disable();
-          this.formSalary.patchValue({
-            chequeNo:'',
-            chequeDt:'',
-          });   
-        }
-        else {
-          this.formSalary.controls['chequeNo'].setValidators([Validators.required]);
-          this.formSalary.controls['chequeDt'].setValidators([Validators.required]);
-          this.formSalary.controls['chequeNo'].enable(); 
-          this.formSalary.controls['chequeDt'].enable();
-        }
-        this.formSalary.controls['chequeNo'].updateValueAndValidity();
-        this.formSalary.controls['chequeDt'].updateValueAndValidity();
-      }
-
-  getVehicleIdList(): void {
-    this.commonService.getVehicleIdList().subscribe((res) => {
-      this.vehicleList = res;
-    });
+  onNeftChk(e: any) {
+    if(e.target.value=="N"){
+      this.formSalary.controls['chequeNo'].clearValidators();      
+      this.formSalary.controls['chequeDt'].clearValidators();   
+      this.formSalary.controls['chequeNo'].disable();
+      this.formSalary.controls['chequeDt'].disable();
+      this.formSalary.patchValue({
+        chequeNo:'',
+        chequeDt:'',
+      });   
+    }
+    else {
+      this.formSalary.controls['chequeNo'].setValidators([Validators.required]);
+      this.formSalary.controls['chequeDt'].setValidators([Validators.required]);
+      this.formSalary.controls['chequeNo'].enable(); 
+      this.formSalary.controls['chequeDt'].enable();
+    }
+    this.formSalary.controls['chequeNo'].updateValueAndValidity();
+    this.formSalary.controls['chequeDt'].updateValueAndValidity();
   }
 
+  getSalDays(){
+    var selectedDataValue = this.formSalary.getRawValue();
+    var date1 = new Date(selectedDataValue.salFromDate);
+    var date2 = new Date(selectedDataValue.salToDate);
+    
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+    
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    Difference_In_Days = Math.abs(Difference_In_Days);
 
-    getSalDays(){
-          var selectedDataValue = this.formSalary.getRawValue();
-          var date1 = new Date(selectedDataValue.salFromDate);
-          var date2 = new Date(selectedDataValue.salToDate);
-        
-        
-          // To calculate the time difference of two dates
-          var Difference_In_Time = date2.getTime() - date1.getTime();
-        
-          // To calculate the no. of days between two dates
-          var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-        
-          Difference_In_Days = Math.abs(Difference_In_Days)
-          if (!Number.isNaN(Difference_In_Days)) {
-            Difference_In_Days= Difference_In_Days+1;
-            this.formSalary.patchValue({
-              noOfDays: (Difference_In_Days).toString()
-        
-            });
-          }
-          else {
-            this.formSalary.patchValue({
-              noOfDays: '0'
-        
-            });
-        
+    if (!Number.isNaN(Difference_In_Days)) {
+      Difference_In_Days= Difference_In_Days+1;
+      this.formSalary.patchValue({
+        noOfDays: (Difference_In_Days).toString()
+      });
+    }
+    else {
+      this.formSalary.patchValue({
+        noOfDays: '0'
+      });
     }
     this.getSalCal();
   }
@@ -265,7 +247,6 @@ export class DriversalaryentryaddComponent {
     });    
   }
 
-
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
@@ -284,36 +265,33 @@ export class DriversalaryentryaddComponent {
   };
   
   changePmtType(e: any) {
-          console.log(e.target.value);
-          var selectedValue = e.target.value;  
-          if (selectedValue == 'B'){
-                this.formSalary.controls['neftYN'].enable();
-                this.formSalary.controls['chequeNo'].enable();
-                this.formSalary.controls['chequeDt'].enable();
-              }
-          else { 
-                this.formSalary.controls['neftYN'].disable();
-                this.formSalary.controls['chequeNo'].disable();
-                this.formSalary.controls['chequeDt'].disable();
-          } 
-          this.getCreditAcList(selectedValue);
+    console.log(e.target.value);
+    var selectedValue = e.target.value;  
+    if (selectedValue == 'B'){
+      this.formSalary.controls['neftYN'].enable();
+      this.formSalary.controls['chequeNo'].enable();
+      this.formSalary.controls['chequeDt'].enable();
+    }
+    else { 
+      this.formSalary.controls['neftYN'].disable();
+      this.formSalary.controls['chequeNo'].disable();
+      this.formSalary.controls['chequeDt'].disable();
+    } 
+    this.getCreditAcList(selectedValue);
   }
 
   getSalCal() {
-        var totalamt = 0;
-        var amt = 0;
-        var totalsal = 0;
-        var selectedval = this.formSalary.getRawValue();
-        var fsp= selectedval.grossSalary  ? parseFloat(selectedval.grossSalary ) : 0
-        var fsd = selectedval.noOfDays  ? parseFloat(selectedval.noOfDays ) : 0
-        var lopded = selectedval.lopDeduction  ? parseFloat(selectedval.lopDeduction ) : 0
-        var pfd = selectedval.pfDeduction  ? parseFloat(selectedval.pfDeduction ) : 0
-        var esided = selectedval.esiDeduction  ? parseFloat(selectedval.esiDeduction ) : 0
-        var othded = selectedval.othDeduction  ? parseFloat(selectedval.othDeduction ) : 0
-        totalsal=  fsp-lopded-pfd-esided-othded;
-        this.formSalary.patchValue({  
-          netSalary: totalsal.toFixed(2)     
-        });    
+    var totalsal = 0;
+    var selectedval = this.formSalary.getRawValue();
+    var fsp= selectedval.grossSalary  ? parseFloat(selectedval.grossSalary ) : 0
+    var lopded = selectedval.lopDeduction  ? parseFloat(selectedval.lopDeduction ) : 0
+    var pfd = selectedval.pfDeduction  ? parseFloat(selectedval.pfDeduction ) : 0
+    var esided = selectedval.esiDeduction  ? parseFloat(selectedval.esiDeduction ) : 0
+    var othded = selectedval.othDeduction  ? parseFloat(selectedval.othDeduction ) : 0
+    totalsal=  fsp-lopded-pfd-esided-othded;
+    this.formSalary.patchValue({  
+      netSalary: totalsal.toFixed(2)     
+    });    
   }
 
   exit(): void {
@@ -340,6 +318,7 @@ export class DriversalaryentryaddComponent {
       }
     }
   }
+  
   submitDriversalaryEntryForm(): void {
     if (this.formSalary.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
