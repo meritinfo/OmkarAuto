@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Roletypelistmodel  } from 'src/app/models/roletypelistmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+
 import { Usermodel } from 'src/app/models/usermodel';
 import { Roletypemodel } from 'src/app/models/roletypemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -33,60 +35,136 @@ dashboard: string ="";
   selectedRoleTypesDetails = new Roletypemodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private sharedService : SharedService,
-    private roletypemodel: Roletypemodel, private roleTypeService: RoleTypeService, 
-    private commonService: CommonService,private toasterService: ToastrService) {
+    private roletypemodel: Roletypemodel,private requestmodel:Requestmodel, private roleTypeService: RoleTypeService, 
+    private commonService: CommonService,private toasterService: ToastrService ,private sharedService: SharedService,) {
     this.roletypemodel = new Roletypemodel();
 
 }
 ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Create Role Types"));
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+   var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "RoleTypes");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
-  
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+          this.dashboard = dashboard;
+        }
+        if(!this.viewStatus){      
+          this.route.navigate([this.dashboard]);
+        }
+    
+    var userData = sessionStorage.getItem('uid')?.toString();
+    
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
   this.selectedRoleTypesDetails = this.roleTypeService.getroletypeDetails();
   this.formRoleType = this.formBuilder.group({
     roleName: new FormControl('',),
     roleDesc: new FormControl('',),
-    activeYN: new FormControl('',),
+    activeYN: new FormControl('Y',),
 
   
 
   });
-  if (this.selectedRoleTypesDetails.roleId != '') {
-    this.formRoleType.patchValue(this.selectedRoleTypesDetails);
-    this.formRoleType.patchValue({
-     // rateMethod: this.selectedRoleTypesDetails.rateMethod,
-
-     
-      
-    })
-  }
  
 
-}
+   if (this.selectedRoleTypesDetails.roleId  != '') {
+      setTimeout(() => {
+    
+        this.formRoleType.patchValue(this.selectedRoleTypesDetails);
+        this.formRoleType.patchValue({
+      //     gdmDate: this.commonService.formatDate(this.selectedRoleTypesDetails.gdmDate),
+        })  
+// this.formGdm.controls['gdmSlNo'].disable(); 
+        this.editMode =true;
+
+      }, 2000);  
+    }
+  }
+
+ 
+
+
+
+
+  ChkDuplicateRoleDesc(){
+    var selectedData = this.formRoleType.getRawValue();  
+      this.requestmodel.strRequest = selectedData.roleDesc;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.roleTypeService.chkDesc(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formRoleType.patchValue({
+            roleDesc: ''  
+          });
+          
+        }
+      });
+  }
+  ChkDuplicateRoleName(){
+    var selectedData = this.formRoleType.getRawValue();  
+      this.requestmodel.strRequest = selectedData.roleName;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.roleTypeService.chkName(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formRoleType.patchValue({
+            roleName: ''  
+          });
+          
+        }
+      });
+  }
+
+  
+
+    
+    roleTypesDelete(): void {
+      if(this.selectedRoleTypesDetails.roleId != '' ){
+        this.sharedService.loading = true;
+       this.requestmodel.strRequest =this.selectedRoleTypesDetails.roleId
+        if (confirm("Are you sure, you want to delete this?")) {
+              this.roleTypeService.roleTypesDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+              this.responseDetails = res;
+              if (this.responseDetails.status){              
+                console.log(this.responseDetails.message);
+                this.formRoleType.reset();
+                this.route.navigate(['/roletypelist']);
+              } 
+              else{
+                console.log(this.responseDetails.message);  
+                this.toasterService.warning(this.responseDetails.message);  
+                return; 
+              }   
+          });
+        }
+        this.sharedService.loading = false;
+      }
+    }
 exit(): void {
   this.route.navigate(['/roletypelist']);
 }
@@ -117,13 +195,25 @@ submitRoleTypesForm(): void {
 
   this.roleTypeService.roletypeDetailsSubmitted(this.roletypemodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formRoleType.reset();
-    window.location.reload();
-  });
-}
-}
 
+  if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formRoleType.reset();
+        this.route.navigate(['/roletypelist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
+    });
+  }  
+
+
+
+
+  
+
+  
+}
 
 
 

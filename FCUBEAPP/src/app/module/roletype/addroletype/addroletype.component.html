@@ -26,9 +26,9 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Role Name </label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="roleName"
-                                                [ngClass]="" >
+                                                <input type="text" class="form-control" uppercaseonly (change)="ChkDuplicateRoleName()"
+                                                  formControlName="roleName" 
+                                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['roleName'].invalid) }" >
                                                 
                                             </div>
                                         </div>
@@ -37,9 +37,9 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Role Desc</label>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" uppercaseonly (change)="ChkDuplicateRoleDesc()"
                                                   formControlName="roleDesc"
-                                                [ngClass]="">
+                                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['roleDesc'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -52,7 +52,7 @@
                                         
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">IsActive </label>
+                                                <label for="basicpill-phoneno-input">Is Active </label>
                                                 <select id="formrow-inputState" class="form-control"
                                                 formControlName="activeYN"
                                               >
@@ -84,8 +84,8 @@
                       <button class="btn btn-primary w-md" 
                       *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                          (click)="submitRoleTypesForm()">Save</button>
-                         <!--<button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="fleetCardMasterDelete()">Delete</button>--> 
+                         <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="roleTypesDelete()">Delete</button> 
                                 <button  class="btn btn-secondary w-md m-2" 
                                  (click)="exit()">Exit</button>
                    </div>

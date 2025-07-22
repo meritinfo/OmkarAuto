@@ -502,8 +502,10 @@ export class VehiclerepmaintaddComponent {
 
   addItem(i: number): void {    
     var selectedDate = this.formUser.getRawValue();
-    if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" &&
-      (parseFloat(this.formTyreArray.value[i].netAmount)>0)) {
+    var selecteddata =  this.formTyreArray.at(i).getRawValue()
+  //  if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" &&
+   if (selecteddata.spareLubId != "" && selecteddata.brandId!="" &&
+      (parseFloat(selecteddata.netAmount)>0)) {
       this.formTyreArray.push(this.createVehicleArray());
       
       this.formUser.controls["stockType"].disable();

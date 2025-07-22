@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from '../models/requestmodel';
 import { Roletypelistmodel } from '../models/roletypelistmodel';
 
 @Injectable({
@@ -29,6 +30,16 @@ export class RoleTypeService {
   getroletypeDetails() {
     return this.selectedRoletype;
   }
+    roleTypesDelete(request: Requestmodel ):  Observable<Responsemodel> {
+     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/RoleTypesDelete', request, this.httpOptions);
+    }
+  
+    chkDesc(request: Requestmodel ): Observable<Responsemodel> {
+     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleDesc', request, this.httpOptions);
+    }
+     chkName(request: Requestmodel ): Observable<Responsemodel> {
+     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleName', request, this.httpOptions);
+    }
   clearRoletypesDetails() {
     this.selectedRoletype = new Roletypemodel();
   }
