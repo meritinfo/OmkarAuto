@@ -30,6 +30,8 @@ export class FinaccountsmasteraddComponent {
   viewStatus = false; 
   dashboard: string ="";
   panName: string = "";
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   responseDetails = new Responsemodel();
   accountTypeList: Dropdownmodel[] = [];
@@ -161,6 +163,8 @@ export class FinaccountsmasteraddComponent {
 
     setTimeout(() => {
       if (this.selectedFinaccountMasterDetails.accountId != '') {
+        this.createdBy = this.selectedFinaccountMasterDetails.createdBy + " " + this.selectedFinaccountMasterDetails.createdDate;
+        this.modifiedBy = this.selectedFinaccountMasterDetails.modifiedBy + " " + this.selectedFinaccountMasterDetails.modifiedDate; 
           this.formAccountMaster.patchValue(this.selectedFinaccountMasterDetails);   
           this.editMode=true;           
       }

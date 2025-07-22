@@ -43,7 +43,7 @@ export class DriversalarypaymentService {
   getDriverSalaryPaymentList(filter: Filtermodel): Observable<Driversalarylistmodel> {
     return this.httpClient.post<Driversalarylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalaryPaymentList', filter, this.httpOptions);
   }
-  driverSalaryPayementSubmitted(user: Driversalarypaymentmodel): Observable<Responsemodel> {
+  driverSalaryPaymentSubmitted(user: Driversalarypaymentmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DriverSalaryPaymentSave', user, this.httpOptions);
   }
   driverSalaryPayementDelete(req: Requestmodel): Observable<Responsemodel> {

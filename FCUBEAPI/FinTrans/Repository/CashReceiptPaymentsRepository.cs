@@ -4,17 +4,21 @@ using System.Data.SqlClient;
 using FinTrans.Models;
 using Shared.Models;
 using System.Data;
+using Shared.Repository;
 
 namespace FinTrans.Repository
 {
     public class CashReceiptPaymentsRepository : ICashReceiptPaymentsRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly ISharedRepository sharedRepository;
 
-        public CashReceiptPaymentsRepository(IOptions<DBModel> _dbconnection)
+        public CashReceiptPaymentsRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
+
         /// <summary>
         /// Service method for save CashReceiptPayments
         /// </summary>
@@ -497,9 +501,57 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
-        
+
+        public async Task<ResponseModel> GetCashReceiptPaymentsExcel(BankCashListFilterModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@PageNumber",         request.PageNumber),
+                        new SqlParameter("@PageSize",           request.PageSize),
+                        new SqlParameter("@SortColumn",         request.SortColumn),
+                        new SqlParameter("@SortOrder",          request.SortOrder),
+                        new SqlParameter("@Search",             request.Search),
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@Branch",             request.Branch),
+                        new SqlParameter("@YearId",             request.YearId),
+                        new SqlParameter("@ReceiptOrPayment",   request.ReceiptOrPayment),
+                        new SqlParameter("@RefType",            request.RefType),
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashReceiptPaymentsExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Bank Payment/Receipts Details", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
+
 
     }
+
 
 
 }

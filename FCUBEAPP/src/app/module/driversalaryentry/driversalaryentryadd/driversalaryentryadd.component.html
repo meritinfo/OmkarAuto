@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Driver Salary Entry</h4>
+                        <h4 class="mb-sm-0 font-size-18">Driver Salary Payment</h4>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"formControlName="transBranch"
@@ -36,21 +36,31 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Driver: </label><span style="color: red">*</span>  
-                                                <select class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="driverId"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['driverId'].invalid) }">
-                                                <option value ="">Choose...</option>
-                                                <option *ngFor="let branch of driverList" value={{branch.dataId}}>
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="driverList"
+                                                        [searchKeyword]="keywordLocation"  
+                                                        formControlName="driverId"    
+                                                        (inputFocused)='onFocused($event)'
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['driverId'].invalid) }">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>                                                    
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                            
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="mb-3">
@@ -82,16 +92,16 @@
                                                 formControlName="grossSalary" [ngClass]="{ 'is-invalid': formSubmitted && (f['grossSalary'].invalid) }" >
                                             </div>
                                         </div>
-                                        </div>
-                                   <div class="row">
-                                      <div class="col-sm-2">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Lop Deduction  : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="lopDeduction"  [ngClass]="{ 'is-invalid': formSubmitted && (f['lopDeduction'].invalid) }" >
                                             </div>
                                         </div>
-                                            <div class="col-sm-2">
+                                        <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Pf Deduction: </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
@@ -105,29 +115,28 @@
                                                 formControlName="esiDeduction"   [ngClass]="{ 'is-invalid': formSubmitted && (f['esiDeduction'].invalid) }">
                                             </div>
                                         </div>
-                                           <div class="col-sm-2">
+                                        <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Oth Deduction : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control"  (change) ="getSalDays()"
                                                 formControlName="othDeduction" [ngClass]="{ 'is-invalid': formSubmitted && (f['othDeduction'].invalid) }">
                                             </div>
                                         </div>
-                                             <div class="col-sm-2">
+                                        <div class="col-sm-2">
                                             <div class="mb-3">
                                                 <label>Net Salary : </label><span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control" 
                                                 formControlName="netSalary"  >
                                             </div>
-                                          </div>
                                         </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="basicpill-phoneno-input">Payment Type</label> <span style="color: red">*</span> 
                                                 <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="pmtType" (change)="changePmtType($event)"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"  
-                                                     >
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
@@ -136,64 +145,67 @@
                                                 </select>
                                             </div>
                                         </div>
-                                   <div class="col-lg-2">                                            
-                                            <label for="formrow-inputState">Cheque No</label>
-                                            <input numbersonly class="form-control"    
-                                                formControlName="chequeNo" maxlength="6" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
-                                        </div>                 
-                                        <div class="col-lg-2">                             
-                                            <label for="formrow-inputState">Cheque Date</label>
-                                            <input type="date" class="form-control" 
-                                                  formControlName="chequeDt"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDt'].invalid) }">
+                                        <div class="col-lg-2"> 
+                                            <div class="mb-2">                                           
+                                                <label for="formrow-inputState">Cheque No</label>
+                                                <input numbersonly class="form-control"    
+                                                    formControlName="chequeNo" maxlength="6" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }">
+                                            </div>  
+                                        </div>                   
+                                        <div class="col-lg-2">   
+                                            <div class="mb-2">                             
+                                                <label for="formrow-inputState">Cheque Date</label>
+                                                <input type="date" class="form-control" 
+                                                    formControlName="chequeDt"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDt'].invalid) }">
+                                                </div>
                                         </div>  
-                                      <div class="col-lg-3">
-                                        <div class="form-check">
-                                            <label for="neft" class="form-check-label" style="color: green;"> Neft
-                                            </label>
-                                            <select id="formrow-inputState" 
-                                            class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="neftYN" (change)="onNeftChk($event)"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['neftYN'].invalid) }">
-                                                <!-- <option selected="">Choose...</option> -->
-                                                <option value="Y"> Yes</option>
-                                                <option value="N"> No</option>                               
-                                            </select>
-                                        </div>
-                                    </div> 
-                                         <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Credit Ac </label> <span style="color: red">*</span>          
-                                            <select class="form-control form-select ng-pristine ng-touched"
-                                            formControlName="creditAc"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                            <option value ="">Choose...</option>
-                                            <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
-                                                {{branch.dataName}}
-                                            </option>
-                                        </select>
-                                        </div>
-                                    </div> 
-                                         
+                                        <div class="col-lg-3">  
+                                            <div class="mb-2">  
+                                                <label for="neft" class="form-check-label" style="color: green;"> Neft
+                                                </label>
+                                                <select id="formrow-inputState" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="neftYN" (change)="onNeftChk($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['neftYN'].invalid) }">
+                                                    <!-- <option selected="">Choose...</option> -->
+                                                    <option value="Y"> Yes</option>
+                                                    <option value="N"> No</option>                               
+                                                </select>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Credit Ac </label> <span style="color: red">*</span>          
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="creditAc"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                    <option value ="">Choose...</option>
+                                                    <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div> 
                                     </div> 
                                     <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Remarks</label>
-                                            <input type="text" class="form-control" uppercaseonly
-                                              formControlName="remarks"
-                                            [ngClass]=>
-                                            
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Remarks</label>
+                                                <input type="text" class="form-control" uppercaseonly
+                                                formControlName="remarks"
+                                                [ngClass]=>
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>    
-                <!-- <div class="row">                    
+                <div class="row">                    
                     <div class="col-lg-5">
                         <div class="mb-3">
                             <label style="color: blue"> 
@@ -208,9 +220,7 @@
                             </label>                                                 
                         </div>
                     </div>
-                   
-                </div>   -->
-       
+                </div>  
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">

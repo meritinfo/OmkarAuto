@@ -857,7 +857,27 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        [HttpPost("GetCashReceiptPaymentsExcel")]
+        public async Task<IActionResult> GetCashReceiptPaymentsExcel(BankCashListFilterModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentsExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("TrailBalancePrint")]
         public async Task<IActionResult> TrailBalancePrint(RepReqModel req)
         {

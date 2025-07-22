@@ -145,7 +145,6 @@ export class BankreceiptentrylistComponent {
           zeroRecords: ''
         }, 
       ajax: (dataTablesParameters: any, callback) => {
-          // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         callback({
@@ -234,12 +233,37 @@ export class BankreceiptentrylistComponent {
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "BP" :selectedDataVal.receiptOrPayment ;
     this.filter.refType = selectedDataVal.refType;
 
-     this.sharedService.loading=true;
+    this.sharedService.loading=true;
     this.bankReceiptEntry();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
+    });
+  }
+
+  
+  downloadSumm(){    
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.branch = this.branch;
+    this.filter.search = selectedData.docSeriesNo;
+    this.filter.yearId = this.year;
+    this.filter.receiptOrPayment = selectedData.receiptOrPayment == '' ? "BP" :selectedData.receiptOrPayment ;
+    this.filter.refType = selectedData.refType;
+
+
+    this.cashReceiptEntryService.getCashReceiptEntryExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "BankReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
     });
   }
 }

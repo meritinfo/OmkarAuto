@@ -33,23 +33,23 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@Masterid"   , driverSalaryPaymentModel.Masterid),
-                            new SqlParameter("@BranchCode "           , driverSalaryPaymentModel.BranchCode),
-                            new SqlParameter("@SalaryDate "        , driverSalaryPaymentModel.SalaryDate),
-                            new SqlParameter("@DriverId"     , driverSalaryPaymentModel.DriverId),
-                            new SqlParameter("@VehicleId"       , driverSalaryPaymentModel.VehicleId),
-                            new SqlParameter("@SalaryFromDt "      , driverSalaryPaymentModel.SalaryFromDt),
-                            new SqlParameter("@SalaryToDt"            , driverSalaryPaymentModel.SalaryToDt),
-                            new SqlParameter("@SalDays"             , driverSalaryPaymentModel.SalDays),
-                            new SqlParameter("@SalPerDay"             , driverSalaryPaymentModel.SalPerDay),
-                            new SqlParameter("@TotalSalary"             , driverSalaryPaymentModel.TotalSalary),
-                            new SqlParameter("@Remarks"             , driverSalaryPaymentModel.Remarks),
-                            new SqlParameter("@PmtType"            , driverSalaryPaymentModel.PmtType),
-                            new SqlParameter("@CreditAc "           , driverSalaryPaymentModel.CreditAc ),
-
-                            new SqlParameter("@YearID"            , driverSalaryPaymentModel.YearId),
-                            new SqlParameter("@LoggedInUser"        , driverSalaryPaymentModel.LoggedInUser),
+                            new SqlParameter("@Masterid",       driverSalaryPaymentModel.Masterid),
+                            new SqlParameter("@BranchCode",     driverSalaryPaymentModel.BranchCode),
+                            new SqlParameter("@SalaryDate",     driverSalaryPaymentModel.SalaryDate),
+                            new SqlParameter("@DriverId",       driverSalaryPaymentModel.DriverId),
+                            new SqlParameter("@VehicleId",      driverSalaryPaymentModel.VehicleId),
+                            new SqlParameter("@SalaryFromDt",   driverSalaryPaymentModel.SalaryFromDt),
+                            new SqlParameter("@SalaryToDt",     driverSalaryPaymentModel.SalaryToDt),
+                            new SqlParameter("@SalDays",        driverSalaryPaymentModel.SalDays),
+                            new SqlParameter("@SalPerDay",      driverSalaryPaymentModel.SalPerDay),
+                            new SqlParameter("@TotalSalary",    driverSalaryPaymentModel.TotalSalary),
+                            new SqlParameter("@Remarks",        driverSalaryPaymentModel.Remarks),
+                            new SqlParameter("@PmtType",        driverSalaryPaymentModel.PmtType),
+                            new SqlParameter("@CreditAc",       driverSalaryPaymentModel.CreditAc),
+                            new SqlParameter("@YearID",         driverSalaryPaymentModel.YearId),
+                            new SqlParameter("@LoggedInUser",   driverSalaryPaymentModel.LoggedInUser),
                         };
+
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DriverSalaryPaymentSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -130,7 +130,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ToDate"          , request.ToDate),
                            //new SqlParameter("@VehicleMasterID" , request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverSalaryPaymentList", param);
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverSalaryPaymentList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -175,16 +176,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return salaryPaymentList;
         }

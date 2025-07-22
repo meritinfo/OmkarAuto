@@ -224,6 +224,10 @@ namespace FinanceMasters.Repository
                                 BillTargetDays      = Convert.ToString(dataSet.Tables[0].Rows[i]["BillTargetDays"]),
                                 OverdueCreditLimit  = Convert.ToString(dataSet.Tables[0].Rows[i]["OverdueCreditLimit"]),
                                 ApplyCreditLimit    = Convert.ToString(dataSet.Tables[0].Rows[i]["ApplyCreditLimit"]),
+                                CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
                             });
                         }
