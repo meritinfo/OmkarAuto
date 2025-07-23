@@ -111,7 +111,6 @@ import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingr
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
-import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
@@ -491,7 +490,6 @@ const routes: Routes = [
   { path: 'loansrepayadd', component: EmploanrepayaddComponent },  
   { path: 'loansrepayedit', component:  EmploanrepayaddComponent },
   { path: 'happaystatementlist', component:  HappaystatementlistComponent },
-  { path: 'gstsalesregisterrptlist', component:  GstsalesregisterrptlistComponent },
   { path: 'happaystatementadd', component: HappaystatementaddComponent },  
   { path: 'happaystatementedit', component:  HappaystatementaddComponent },
   { path: 'changebranch', component:  ChangebranchComponent },
@@ -631,7 +629,7 @@ const routes: Routes = [
   { path: 'vehilcereprpt', component: VehiclerepairsrptComponent },
   { path: 'billreg', component: BillregisterrptComponent },
   { path: 'lhpmvarrpt', component: LhpmvariancerptComponent },
-  { path: 'gstreg', component: GstregisterrptComponent },
+  { path: 'gstpurchaseRpt', component: GstregisterrptComponent },
   { path: 'benmasterlist', component: BenificiarymasterlistComponent },
   { path: 'benificiarymasteradd', component: BenificiarymasteraddComponent },
   { path: 'benificiarymasteredit', component: BenificiarymasteraddComponent },

@@ -3487,7 +3487,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@RptType",     request.FilterStr1),
+                            new SqlParameter("@Vendor",   request.FilterStr1),
+                            new SqlParameter("@RptType",    request.FilterStr2),
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGSTRegisterRptExcel", param);
@@ -3497,7 +3498,7 @@ namespace FreightMasters.Repository
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "GST Register", filter);
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "GST Purchase Register", filter);
                     }
                     else
                     {
