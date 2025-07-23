@@ -889,7 +889,7 @@ export class VehiclerepmaintaddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
+      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].netAmount=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
