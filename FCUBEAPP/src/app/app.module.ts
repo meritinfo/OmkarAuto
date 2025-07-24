@@ -534,6 +534,8 @@ import { Vendorpmtmodel } from './models/vendorpmtmodel';
 import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
 import { DriversalaryentryaddComponent } from './module/driversalaryentry/driversalaryentryadd/driversalaryentryadd.component';
 import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
+import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllplist/tripmasterllplist.component';
+import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
 
 
 @NgModule({
@@ -708,7 +710,7 @@ import { DriversalaryentrylistComponent } from './module/driversalaryentry/drive
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, DriversalaryentryaddComponent, DriversalaryentrylistComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, DriversalaryentryaddComponent, DriversalaryentrylistComponent, TripmasterllplistComponent, TripmasterllpaddComponent,  
     
   ],
   

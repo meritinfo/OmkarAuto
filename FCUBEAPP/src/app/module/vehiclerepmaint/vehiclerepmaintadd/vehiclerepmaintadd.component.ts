@@ -393,6 +393,9 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['gstType'].setValidators([Validators.required]);
     }    
     else{
+      this.formUser.patchValue({
+        gstInputTaken:""
+      });
       this.formUser.controls['gstInputTaken'].disable();
       this.formUser.controls['creditAc'].enable();
       this.formUser.controls['nonVendor'].enable();
@@ -618,7 +621,11 @@ export class VehiclerepmaintaddComponent {
   }
 
   changeGstType(e: any) {
-    var gsttype = e.target.value;   
+    var gsttype = e.target.value;     
+    this.formUser.controls["gstInputTaken"].enable(); 
+    this.formUser.patchValue({
+      gstInputTaken:"Y"
+    });  
     this.gstChange(gsttype);
   }
 
@@ -643,7 +650,11 @@ export class VehiclerepmaintaddComponent {
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
       }
-      else{              
+      else{   
+        this.formUser.controls["gstInputTaken"].disable(); 
+        this.formUser.patchValue({
+          gstInputTaken:""
+        });            
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  

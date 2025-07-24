@@ -513,6 +513,9 @@ export class SparespurchasemasteraddComponent {
     console.log(e.target.value);
     var gsttype = e.target.value;       
     this.formUser.controls["gstInputTaken"].enable(); 
+    this.formUser.patchValue({
+      gstInputTaken:"Y"
+    });
     for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
       this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");

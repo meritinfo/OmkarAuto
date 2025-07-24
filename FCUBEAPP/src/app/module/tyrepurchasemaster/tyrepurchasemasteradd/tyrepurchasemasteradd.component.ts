@@ -460,10 +460,10 @@ dashboard: string ="";
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("0");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("0");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("0"); 
-      this.formUser.controls["gstInputTaken"].enable();  
+      this.formUser.controls["gstInputTaken"].enable(); 
       this.formUser.patchValue({
-        gstInputTaken: "",
-      })
+        gstInputTaken:"Y"
+      });
 
       if (gsttype == "IG") {   
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
@@ -483,6 +483,9 @@ dashboard: string ="";
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
         this.formUser.controls['vendorGstNo'].clearValidators(); 
         this.formUser.controls["gstInputTaken"].disable();  
+        this.formUser.patchValue({
+          gstInputTaken:""
+        });
       } 
       this.formUser.controls['vendorGstNo'].updateValueAndValidity();      
     }    

@@ -165,47 +165,10 @@ dashboard: string ="";
      
         partyId: this.partyList.find(e => e.dataId == this.selectedRatesMasterDetail.partyId),
         fromLocation:this.locationList.find(e => e.dataId == this.selectedRatesMasterDetail.fromLocation),
-     // rateTypeId :this.rateList.find(e => e.dataId == this.selectedRatesMasterDetail.rateTypeId),
       })  
-      // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
-      // this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
-      // this.formTyreArray.controls[0].get("igstAmt")?.disable();  
-      // this.formTyreArray.controls[0].get("sgstPct")?.disable();   
-      // this.formTyreArray.controls[0].get("cgstPct")?.disable();  
-      // this.formTyreArray.controls[0].get("igstPct")?.disable();   
-      // this.formTyreArray.controls[0].get("netAmount")?.disable(); 
-      // this.formTyreArray.controls[0].get("itemAmount")?.disable();       
-                
-      // if (this.selectedRatesMasterDetail.nonVendor=='Y'){     
          this.formUser.controls['validFrom'].disable();   
          this.formUser.controls['partyId'].disable(); 
          this.formUser.controls['validUpto'].disable(); 
-      //   this.formUser.patchValue({
-      //     vendorId: "",
-      //     nonVendor: "Y",
-      //   })
-      // }
-      // else {          
-      //   this.formUser.controls['vendorId'].enable(); 
-      //   this.formUser.controls['vendorName'].disable(); 
-      //   this.formUser.patchValue({
-      //     nonVendor: "",
-      //   })
-      // }   
-      // if(this.selectedSparesPurchaseMasterDetail.gstType=="NA"){
-      //   this.formUser.controls["gstInputTaken"].disable();
-      //   this.formUser.patchValue({
-      //     gstInputTaken: "",
-      //   }) 
-      // }
-      // else{          
-      //   this.formUser.controls["gstInputTaken"].enable(); 
-      // }
-      // if(this.selectedSparesPurchaseMasterDetail.gstInputTaken!="Y"){
-      //   this.formUser.patchValue({
-      //     gstInputTaken: "",
-      //   })
-      // }
     
       this.getRatesMasterNewInnerGridList();
       this.editMode =true;
