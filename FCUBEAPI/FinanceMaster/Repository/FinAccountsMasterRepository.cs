@@ -375,13 +375,13 @@ namespace FinanceMasters.Repository
             {
                 if (dbconnection != null)
                 {
-                    responseModel = await FinAccountGstDtlsDelete(transaction, finAccountsMasterModel.AccountId);
-                    if (!responseModel.Status)
-                    {
-                        transaction.Rollback();
-                    }
-                    else
-                    {
+                    //responseModel = await FinAccountGstDtlsDelete(transaction, finAccountsMasterModel.AccountId);
+                    //if (!responseModel.Status)
+                    //{
+                    //    transaction.Rollback();
+                    //}
+                    //else
+                    //{
                         for (int i = 0; i < finAccountsMasterModel.finAccountsGstDetail.Count; i++)
                         {
 
@@ -422,7 +422,7 @@ namespace FinanceMasters.Repository
                         {
                             transaction.Commit();
                         }
-                    }
+                    //}
                 }
             }
             catch (Exception ex)
