@@ -710,7 +710,10 @@ import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpa
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, DriversalaryentryaddComponent, DriversalaryentrylistComponent, TripmasterllplistComponent, TripmasterllpaddComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, 
+    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, 
+    DriversalaryentryaddComponent, DriversalaryentrylistComponent, 
+    TripmasterllplistComponent, TripmasterllpaddComponent,  
     
   ],
   

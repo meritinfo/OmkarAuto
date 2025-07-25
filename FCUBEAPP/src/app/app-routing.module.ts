@@ -344,6 +344,8 @@ import { VendorpmtaddComponent } from './module/vendorpmt/vendorpmtadd/vendorpmt
 import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
 import { DriversalaryentryaddComponent } from './module/driversalaryentry/driversalaryentryadd/driversalaryentryadd.component';
 import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
+import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllplist/tripmasterllplist.component';
+import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
 
 
 const routes: Routes = [
@@ -814,6 +816,9 @@ const routes: Routes = [
   { path: 'driversallist', component:  DriversalaryentrylistComponent },
   { path: 'driversalaryentryadd', component:  DriversalaryentryaddComponent },
   { path: 'driversalaryentryedit', component:  DriversalaryentryaddComponent },
+  { path: 'tripsheetllplist', component:  TripmasterllplistComponent },
+  { path: 'tripsheetllpadd', component:  TripmasterllpaddComponent },
+  { path: 'tripsheetllpedit', component:  TripmasterllpaddComponent }, 
 ];
 
 

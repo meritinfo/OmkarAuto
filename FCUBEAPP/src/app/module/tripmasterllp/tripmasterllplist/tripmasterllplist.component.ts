@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Tripmasterlistmodel } from 'src/app/models/tripmasterlistmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Tripmastermodel } from 'src/app/models/tripmastermodel';
-import { TripSheetService } from 'src/app/services/tripsheet.service';
+import { TripsheetllpService } from 'src/app/services/tripsheetllp.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -61,7 +61,7 @@ dashboard: string ="";
   detailMode = false;
   
 
-  constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, 
+  constructor(private formBuilder: FormBuilder, private tripSheetService: TripsheetllpService, 
     private route: Router, private sharedService: SharedService, 
     private toasterService: ToastrService,private commonService: CommonService) {
 
@@ -252,7 +252,7 @@ getTripMaster(){
   }
   
   tripsheetAdd(): void {
-    this.route.navigate(['/tripsheetadd']);
+    this.route.navigate(['/tripsheetllpadd']);
   }
 
   
@@ -269,7 +269,7 @@ getTripMaster(){
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
     sessionStorage.setItem("tsbranch", this.filter.filterStr);
     sessionStorage.setItem("tsvehicle", this.filter.filterStr1);
-    this.route.navigate(['/tripsheetedit']);
+    this.route.navigate(['/tripsheetllpedit']);
   }
 
   getBranchList(): void {
@@ -301,6 +301,7 @@ getTripMaster(){
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
+
   search(): void {   
     var selectData =  this.formFilter.getRawValue();
           var selectedDataVal=this.formFilter.getRawValue();
