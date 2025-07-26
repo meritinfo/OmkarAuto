@@ -6,8 +6,11 @@ import {  Vehiclerepmaintlistmodel } from 'src/app/models/vehiclerepmaintlistmod
 import { VehiclerepmaintMaster } from 'src/app/models/vehiclerepmaintmastermodel';
 import { VehiclerepmaintMasterService } from 'src/app/services/vehiclerepmaint.service';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
+
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Requestmodel } from 'src/app/models/requestmodel'
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
@@ -39,14 +42,16 @@ export class VehiclerepmaintlistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  loggedInUserID: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   year: string = '';
+    request: Requestmodel = new Requestmodel();
   vehicleList : Dropdownmodel[] = [];
 
-  constructor(private vehiclerepmaintMasterService: VehiclerepmaintMasterService,
+  constructor(private vehiclerepmaintMasterService: VehiclerepmaintMasterService,private toastrService : ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService,  private route: Router) {
 
@@ -73,6 +78,10 @@ export class VehiclerepmaintlistComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+      var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
     }
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -128,8 +137,14 @@ export class VehiclerepmaintlistComponent {
       columns: [   
         {
           title: 'Action',
-          data: 'spTransId',
+          data: 'vrmTransId',
         },
+         {
+          title: 'Print',
+          data: 'vrmTransId',
+        },
+        
+
         {
           title: 'Trans Date',
           data: 'transDate',
@@ -165,6 +180,25 @@ export class VehiclerepmaintlistComponent {
   addVehicleMaintMaster(): void {
     this.route.navigate(['/vehiclerepmaintadd']);
   } 
+
+    download(ch: VehiclerepmaintMaster): void {
+      this.request.strRequest = ch.vrmTransId;
+      this.request.strRequest1 = this.loggedInUserID;
+          
+      this.vehiclerepmaintMasterService.getVehicleRepairPrintPdf(this.request).subscribe(resp => {
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = "vehiclerepair_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/vehiclerepairprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
+    }
+  
 
   //Open user details screen
   getVehicleMaintMasterDetails(tyre: VehiclerepmaintMaster): void {

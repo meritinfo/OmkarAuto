@@ -42,5 +42,9 @@ namespace FleetTrans.Business
         {
             return await vehicleRepMaintRepository.GetSpareStockAvailable(req);
         }
+        public async Task<ResponseModel> GetVehicleRepairPrintPdf(RequestModel request)
+        {
+            return await vehicleRepMaintRepository.GetVehicleRepairPrintPdf(request);
+        }
     }
 }
