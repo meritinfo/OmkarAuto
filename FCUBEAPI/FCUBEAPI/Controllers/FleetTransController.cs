@@ -2470,6 +2470,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleRepairPrintPdf")]
+        public async Task<IActionResult> GetVehicleRepairPrintPdf(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.GetVehicleRepairPrintPdf(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetSpareStockAvailable")]
         public async Task<IActionResult> GetSpareStockAvailable(RequestModel request)
@@ -4032,6 +4050,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+   
         [HttpPost("DriverSalaryEntryDelete")]
         public async Task<IActionResult> DriverSalaryEntryDelete(RequestModel req)
         {

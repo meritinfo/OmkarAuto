@@ -71,6 +71,7 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
+                               <th>tptName</th>
                             <th>tptName</th>
                             <th>address1</th>
                             <th>address3</th> 
@@ -86,6 +87,12 @@
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getVehicleMaintMasterDetails(tm)"></button> 
                             </td>
+                             <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(tm)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>  
                             <td>{{ tm.transDate}}</td>
                             <td>{{ tm.stype}}</td>
                             <td>{{ tm.kmReading}}</td> 

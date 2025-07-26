@@ -16,5 +16,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> VehicleRepMaintMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetMaintanenceList();
         Task<ResponseModel> GetSpareStockAvailable(RequestModel req);
+        Task<ResponseModel> GetVehicleRepairPrintPdf(RequestModel request);
     }
 }
