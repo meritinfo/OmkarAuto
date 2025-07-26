@@ -145,11 +145,12 @@ dashboard: string ="";
       this.branchList = res;
     });
   }
+
   getDropdownList() {
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
       this.formUser.patchValue({
-        chYear: this.yearList[0].dataId,
+        chYear: this.year,
       })   
     }); 
   }
