@@ -11,6 +11,7 @@ import { FreightreportsService } from 'src/app/services/freightreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-gstregisterrpt',
@@ -26,7 +27,7 @@ export class GstregisterrptComponent {
   dashboard: string =""; 
 
   locationList: Dropdownmodel[] = [];
- // partyList: Dropdownmodel[] = [];
+  vendorList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -48,7 +49,7 @@ export class GstregisterrptComponent {
     filterStr2:'',
     filterStr3:'',
   }
-
+  requestmodel = new Requestmodel();
   formFilter!: FormGroup;
   formSubmitted = false;
   year: string = '';
@@ -73,7 +74,7 @@ export class GstregisterrptComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "GST Register");
+      .find((aa: { menuName: string; }) => aa.menuName === "GST Purchase Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -112,69 +113,48 @@ export class GstregisterrptComponent {
     this.fromDate = this.minDate ;
   
     this.getBranchList();
-   // this.getLocationList(); 
-   // this.getPartyList(); 
+    this.getVendorList(); 
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl( this.fromDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       branch: new FormControl('',),  
-    //  party: new FormControl('',),  
-      rptType: new FormControl('S',),  
-     // destination: new FormControl('',), 
+      vendorId: new FormControl('',),  
+      rptType: new FormControl('',),  
     });
+
     this.filter.fromDate =  this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.filterStr   = "";
-    this.filter.filterStr1  = "S";
-  //  this.filter.filterStr2  = "S";
-  //  this.filter.filterStr3  = "";
+    this.filter.filterStr1  = "";
+    this.filter.filterStr2  = "";
+    this.filter.filterStr3  = "";
 
     this.sharedService.loading=true;
     this.gstregisterList();
     this.sharedService.loading=false;
   }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
-  // getLocationList(): void {
-  //   this.commonService.getLocationList().subscribe((res) => {
-  //     this.locationList = res;
-  //   });
-  // }
-  // getPartyList(): void {
-  //   this.commonService.getPartyList().subscribe((res) => {
-  //     this.partyList = res;
-  //   });
-  // }
+  
+  getVendorList(){
+    this.requestmodel.strRequest= 'D';
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+      this.vendorList = res;
+    });
+  }
 
   
   get f() { return this.formFilter.controls; }
-  rptchange(e:any){
-    if(e.target.value == 'S'){
-      this.rptType = true;
-    }
-    else{
-      this.rptType = false;
-    }
-  } 
-
    
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
   gstregisterList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -199,12 +179,12 @@ export class GstregisterrptComponent {
         });
         this.gstregisterrptService.getGstregisterrptList(this.filter).subscribe(resp => {
           this.allGstregisterrptlist = resp; 
-            callback({
-              recordsTotal: resp.pageMetaData.totalCount,
-              recordsFiltered: resp.pageMetaData.totalCount,
-              data: []
-            });
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
           });
+        });
       }, 
       columns: [ 
         {
@@ -223,7 +203,6 @@ export class GstregisterrptComponent {
           title: 'Vendor Name',
           data: 'partyVendorName',
         }, 
-        
         {
           title: 'Vendor GST',
           data: 'partyVendorGstNo',
@@ -231,8 +210,7 @@ export class GstregisterrptComponent {
         {
           title: 'Amount',
           data: 'amt',
-        },    
-        
+        }, 
         {
           title: 'Sgst Amt',
           data: 'sgstAmt',
@@ -249,8 +227,6 @@ export class GstregisterrptComponent {
           title: 'Grand Total',
           data: 'grandTotal',
         }, 
-        
-          
       ],
     };
   }
@@ -268,25 +244,25 @@ export class GstregisterrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-  let frmdt = new Date(selectedDataVal.fromDate);
-  let todt = new Date(selectedDataVal.toDate);
-  let maxdt = new Date(this.loginDate);
-  let mindt = new Date(this.minDate);
-  if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
-    this.toastrService.warning("From Date and To Date should be with in Fin Year");
-    return;
-  }
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toastrService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
-   // this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-    this.filter.filterStr1  = selectedDataVal.rptType; 
-  //  this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-    this.gstregisterrptService.getGstregisterrptExcel(this.filter).subscribe(resp => {
+    this.filter.filterStr1  = selectedDataVal.vendorId?selectedDataVal.vendorId.dataName:"";
+    this.filter.filterStr2  = selectedDataVal.rptType; 
     
+    this.gstregisterrptService.getGstregisterrptExcel(this.filter).subscribe(resp => {
       if(resp.status){      
         let link = document.createElement("a");
-        link.download = "GST Register" + "_" + new Date().getTime() + '.xlsx';
+        link.download = "GSTPurchaseRegister" + "_" + new Date().getTime() + '.xlsx';
         link.href = "assets\\reports\\Download\\" + resp.message;
         link.click();
       }

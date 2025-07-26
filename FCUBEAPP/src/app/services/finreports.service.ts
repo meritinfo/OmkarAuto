@@ -7,7 +7,6 @@ import { Reportmodel } from '../models/reportmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
 import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
-import { Gstsalesrptlistmodel  } from 'src/app/models/gstsalesregisterrptlistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -75,18 +74,7 @@ export class FinreportsService {
   getBrokerLedgerReport(request: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BrokerLedgerPrint', request, this.httpOptions);
   }
-  
-  getGstSalesRegisterrptList(filter: Reportmodel): Observable<Gstsalesrptlistmodel> {
-    return this.httpClient.post<Gstsalesrptlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetGstSalesRegisterRptList', filter, this.httpOptions);
-  }  
-  getGstSalesRegisterrptExcel(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetGstSalesRegisterExcel', filter, this.httpOptions);
-  } 
-  getGstSalesRegisterRptList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans//api/FinTrans/GetGstSalesRegisterRptList', null, this.httpOptions);
-  }   
-  
-  
+    
   getMonthlyBookingRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMonthlyBookingRptExcel', filter, this.httpOptions);
   }    

@@ -1,0 +1,138 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Trip Sheet</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-2">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Branch</label>
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="branch" [ngClass]="">
+                                        <option value="0">ALL</option>
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Vehicle No</label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList" 
+                                            [searchKeyword]="keywordLocation"
+                                            formControlName="vehicle" 
+                                            (inputChanged)='onChangeSearch($event)' 
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="endWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="mt-2">
+                                    <button class="btn btn-primary"  
+                                        (click)="search()"><span>Search</span></button>
+                                        
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="mt-2">
+                                    <button class="btn btn-primary buttons-html5" type="button"
+                                    (click)="tripsheetAdd()"><span>New</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>vehicleNo </th>
+                                <th>NewTripDate </th>
+                                <th>TripNo </th>
+                                <th>FrPlace </th>
+                                <th>TPlace </th>
+                                <th>expectedReportingDt </th>
+                                <th>DriverMasterID </th>
+                                <th>lastTripCloseDate </th>
+                                <th>tripLinkYN </th>
+                                <th>Action</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
+                            <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
+                                <td>
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="gettripSheetDetails(trip)"></button>
+
+                                </td>
+                                <td>{{ trip.tripBr }}</td>
+                                <td>{{ trip.vehicleNo }}</td>
+                                <td>{{ trip.stmtDate }}</td>
+                                <td>{{ trip.tripNo }}</td>
+                                <td>{{ trip.deptDate }}</td>
+                                <td>{{ trip.endDate }}</td>
+                                <td>{{ trip.drName }}</td>
+                                <td>{{ trip.tripCloseDt }}</td>
+                                <td>{{ trip.tripLinkYN }}</td>                                
+                                <td>  
+                                    <button type="button" class="btn btn-primary btn-floating"  
+                                    (click)="download(trip)" >
+                                        <i class="fas fa-download"></i>
+                                    </button>  
+                                </td>
+                              
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allTripSheetTypes.tripSheetList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

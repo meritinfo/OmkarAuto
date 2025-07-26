@@ -46,7 +46,7 @@ namespace FCUBEAPI.Controllers
         readonly IDriverSalaryEntryBusiness driverSalaryEntryBusiness;
         readonly IFleetRptBusiness fleetRptBusiness;
         readonly IVendorPmtBusiness vendorPmtBusiness;
-
+        readonly ITripMasterLlpBusiness tripMasterLlpBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,
@@ -74,7 +74,8 @@ namespace FCUBEAPI.Controllers
             IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness,
             IFleetRptBusiness _fleetRptBusiness,
             IVendorPmtBusiness _vendorPmtBusiness,
-            IDriverSalaryEntryBusiness _driverSalaryEntryBusiness)
+            IDriverSalaryEntryBusiness _driverSalaryEntryBusiness,
+            ITripMasterLlpBusiness _tripMasterLlpBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -105,6 +106,7 @@ namespace FCUBEAPI.Controllers
             fleetRptBusiness = _fleetRptBusiness;
             vendorPmtBusiness = _vendorPmtBusiness;
             driverSalaryEntryBusiness = _driverSalaryEntryBusiness;
+            tripMasterLlpBusiness = _tripMasterLlpBusiness; 
         }
 
 
@@ -498,7 +500,46 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+        [HttpPost("GetTripMasterInnerSearchLlpList")]
+        public async Task<IActionResult> GetTripMasterInnerSearchLlpList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.GetTripMasterInnerSearchLlpList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        
+        [HttpPost("GetTripMasterInnerGridLlpList")]
+        public async Task<IActionResult> GetTripMasterInnerGridLlpList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.GetTripMasterInnerGridLlpList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDriverList")]
         public async Task<IActionResult> GetDriverList()
         {

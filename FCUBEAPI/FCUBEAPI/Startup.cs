@@ -313,6 +313,8 @@ namespace FCUBEAPI
             services.AddScoped<IVendorPmtRepository, VendorPmtRepository>();
             services.AddScoped<IDriverSalaryEntryBusiness, DriverSalaryEntryBusiness>();
             services.AddScoped<IDriverSalaryEntryRepository, DriverSalaryEntryRepository>();
+            services.AddScoped<ITripMasterLlpBusiness, TripMasterLlpBusiness>();
+            services.AddScoped<ITripMasterLlpRepository, TripMasterLlpRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

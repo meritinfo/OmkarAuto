@@ -9,10 +9,10 @@ using Newtonsoft.Json;
 
 namespace FleetTrans.Repository
 {
-    public class TripMasterRepository : ITripMasterRepository
+    public class TripMasterLlpRepository : ITripMasterLlpRepository
     {
         private readonly IOptions<DBModel> dbconnection;
-        public TripMasterRepository(IOptions<DBModel> _dbconnection)
+        public TripMasterLlpRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
@@ -387,15 +387,13 @@ namespace FleetTrans.Repository
             }
             return tripSheetList;
         }
-        public async Task<TripMasterModel> GetTripMasterInnerSearchList(ReportRequestModel request)
+        public async Task<TripMasterModel> GetTripMasterInnerSearchLlpList(ReportRequestModel request)
         {
             TripMasterModel tripSheetInnerGridList = new()
             {
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
-                FasttagList = new List<FasttagDetails>(),
-                CmpExpList = new List<TripCmpExpDetails>(),
             };
             try
             {
@@ -408,7 +406,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VehicleMasterId",    request.FilterStr)
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerSearchList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerSearchLlpList", param);
 
                     //Driver Adv Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
@@ -468,35 +466,6 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
-                    //FastTag Details
-                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.FasttagList.Add(new FasttagDetails
-                            {
-                                DetailID = Convert.ToString(resultData.Tables[3].Rows[i]["DetailID"]),
-                                TransDate = Convert.ToString(resultData.Tables[3].Rows[i]["TransDate"]),
-                                FtAmount = Convert.ToString(resultData.Tables[3].Rows[i]["FtAmount"]),
-                                Remarks = Convert.ToString(resultData.Tables[3].Rows[i]["Remarks"]),
-                            });
-                        }
-                    }
-                    //Exp Details
-                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.CmpExpList.Add(new TripCmpExpDetails
-                            {
-                                EnrouteExpId = Convert.ToString(resultData.Tables[4].Rows[i]["EnrouteExpId"]),
-                                ExpId = Convert.ToString(resultData.Tables[4].Rows[i]["ExpId"]),
-                                ExpParticulars = Convert.ToString(resultData.Tables[4].Rows[i]["ExpParticulars"]),
-                                ExpAmt = Convert.ToString(resultData.Tables[4].Rows[i]["ExpAmt"]),
-
-                            });
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -505,7 +474,7 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
-        public async Task<TripMasterModel> GetTripMasterInnerGridList(RequestModel request)
+        public async Task<TripMasterModel> GetTripMasterInnerGridLlpList(RequestModel request)
         {
             TripMasterModel tripSheetInnerGridList = new()
             {
@@ -525,7 +494,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripId",   request.strRequest),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterInnerGridLlpList", param);
 
                     //Driver Adv Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)

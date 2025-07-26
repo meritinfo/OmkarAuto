@@ -221,9 +221,7 @@ import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingr
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
-import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
-import { Gstsalesregisterrptmodel } from './models/gstsalesregisterrptmodel';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { Dprmodel } from './models/dprmodel';
@@ -536,6 +534,8 @@ import { Vendorpmtmodel } from './models/vendorpmtmodel';
 import { VendorduerptlistComponent } from './module/vendorduerpt/vendorduerptlist/vendorduerptlist.component';
 import { DriversalaryentryaddComponent } from './module/driversalaryentry/driversalaryentryadd/driversalaryentryadd.component';
 import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
+import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllplist/tripmasterllplist.component';
+import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
 
 
 @NgModule({
@@ -600,8 +600,7 @@ import { DriversalaryentrylistComponent } from './module/driversalaryentry/drive
     CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
-    EwaybillexprptComponent, GstsalesregisterrptlistComponent,    
-    DrpmasteraddComponent, DrpmasterlistComponent,
+    EwaybillexprptComponent, DrpmasteraddComponent, DrpmasterlistComponent,
     DprvehiplacedlistComponent, DprvehiplacedaddComponent,DprvehiplacededitComponent,
     GeneratetempgclistComponent, GeneratetempgcaddComponent,
     AddtruckmasterComponent, TruckmasterlistComponent,
@@ -711,7 +710,10 @@ import { DriversalaryentrylistComponent } from './module/driversalaryentry/drive
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, DriversalaryentryaddComponent, DriversalaryentrylistComponent,  
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, 
+    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, 
+    DriversalaryentryaddComponent, DriversalaryentrylistComponent, 
+    TripmasterllplistComponent, TripmasterllpaddComponent,  
     
   ],
   
@@ -760,7 +762,7 @@ import { DriversalaryentrylistComponent } from './module/driversalaryentry/drive
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Tripstatusrptmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
+    Custwizardmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel, Companyinfomodel, Mrmodel,Vehicleinstpmtmodel,
