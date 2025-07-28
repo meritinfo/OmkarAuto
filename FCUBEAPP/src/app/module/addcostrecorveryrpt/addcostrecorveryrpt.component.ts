@@ -28,6 +28,7 @@ export class AddcostrecorveryrptComponent {
 
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+    driverLists: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -150,6 +151,12 @@ export class AddcostrecorveryrptComponent {
       this.partyList = res;
     });
   }
+   getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.driverLists = res;
+    });
+  }
+
   
     
   get f() { return this.formFilter.controls; }

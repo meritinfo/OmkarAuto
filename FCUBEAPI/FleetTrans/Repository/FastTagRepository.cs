@@ -85,6 +85,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TotalFtAmt"      , fasttag.TotalFtAmt),
                             new SqlParameter("@BranchCode"      , fasttag.BranchCode),
                             new SqlParameter("@YearID"          , fasttag.YearID),
+                             new SqlParameter("@DriverId"          , fasttag.DriverId),
                             new SqlParameter("@LoggedInUser"    , fasttag.LoggedInUser)
                         };
 
@@ -189,6 +190,7 @@ namespace FleetTrans.Repository
                                 TotalFtAmt      = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalFtAmt"]),
                                 BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID          = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
                             });
                         }
 

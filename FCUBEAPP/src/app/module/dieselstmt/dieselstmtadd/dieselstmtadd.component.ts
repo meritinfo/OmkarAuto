@@ -30,6 +30,7 @@ export class DieselstmtaddComponent {
   branch: string = '';
   vehicleList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  driverLists: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
@@ -113,6 +114,7 @@ export class DieselstmtaddComponent {
     this.sharedService.loading=true;   
  
     this.getBranchList();
+    this.getDriverList();
     this.getVehicleNoList();
     this.getAcountList();
 
@@ -126,6 +128,7 @@ export class DieselstmtaddComponent {
       totalDslLtrs: new FormControl(''),
       totalDslAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
+      driverId: new FormControl('', [Validators.required]),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
@@ -139,7 +142,8 @@ export class DieselstmtaddComponent {
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          dfVendor: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),  
+          dfVendor: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),
+          driverId: this.driverLists.find(e => e.dataId == this.selectedDieselStmtDetails.driverId),  
         })
         if(this.selectedDieselStmtDetails.findocid!="0"){
           this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
@@ -149,7 +153,8 @@ export class DieselstmtaddComponent {
         this.formDieselStatement.controls['billStmtDate'].disable();     
         this.formDieselStatement.controls['fromDate'].disable();  
         this.formDieselStatement.controls['toDate'].disable();  
-        this.formDieselStatement.controls['dfVendor'].disable();     
+        this.formDieselStatement.controls['dfVendor'].disable(); 
+        this.formDieselStatement.controls['driverId'].disable();     
       }    
     }, 2000);
    
@@ -178,6 +183,11 @@ export class DieselstmtaddComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+   getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.driverLists = res;
     });
   }
 
@@ -417,6 +427,7 @@ export class DieselstmtaddComponent {
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
     this.dieselStatementmodel.dfVendor       = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
+        this.dieselStatementmodel.driverId       = selectedDataVal.dfVendor?selectedDataVal.driverId.dataId:'';
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
@@ -424,6 +435,7 @@ export class DieselstmtaddComponent {
     this.dieselStatementmodel.loggedInUser    = this.loggedInUserID;
 
     this.dieselStatementmodel.dieselStmtDtlsList = [];
+    this.dieselStatementmodel.dieselStatementListData = [];
 
     var arr=selectedDataVal.arrayList;
 
