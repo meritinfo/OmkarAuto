@@ -816,6 +816,8 @@ export class GstpurchaseaddComponent {
     this.route.navigate(['/gstpurchaselist']);
   }
 
+ 
+
   //Submit form details //
   submitGstPurchageForm(): void {
     if (this.formGSTPurchase.invalid) {
@@ -917,7 +919,7 @@ export class GstpurchaseaddComponent {
           'igstPct':    selectedDataVal.arrayList[i].igstPct,
           'igstAmt':    selectedDataVal.arrayList[i].igstAmt,
           'totAmount':  selectedDataVal.arrayList[i].totAmount,
-          'refDocNo':   selectedDataVal.arrayList[i].refDocNo,
+          'refDocNo':   selectedDataVal.arrayList[i].refDocNo.toString().toUpperCase(),
         });
       }
     }

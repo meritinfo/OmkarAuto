@@ -29,6 +29,7 @@ export class FasttagaddComponent {
   maxDate: string = '';
   branch: string = '';
   branchList: Dropdownmodel[] = [];
+    driverLists: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
   vehicleList:Dropdownmodel[] = [];
   formFastTag!: FormGroup;
@@ -112,6 +113,7 @@ dashboard: string ="";
     this.sharedService.loading=true;   
  
     this.getBranchList();
+     this.getDriverList();
     this.getAcountList();
     this.getVehicleNoList();
 
@@ -123,6 +125,7 @@ dashboard: string ="";
       toDate: new FormControl(this.loginDate, [Validators.required]),
       ftAccount: new FormControl('', [Validators.required]),
       totalFtAmt: new FormControl('',[Validators.required]),
+      driverId: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
@@ -137,6 +140,7 @@ dashboard: string ="";
           fromDate:this.commonService.formatDate(this.selectedFasttag.fromDate),
           toDate:this.commonService.formatDate(this.selectedFasttag.toDate),
           ftAccount: this.accountList.find(e => e.dataId == this.selectedFasttag.ftAccount),  
+           driverId: this.driverLists.find(e => e.dataId == this.selectedFasttag.driverId), 
         })
         if(this.selectedFasttag.ftmId!="0"){
           this.getFinDocDetails(this.selectedFasttag.ftmId);
@@ -146,7 +150,8 @@ dashboard: string ="";
         this.formFastTag.controls['stmtDate'].disable();     
         this.formFastTag.controls['fromDate'].disable();  
         this.formFastTag.controls['toDate'].disable();  
-        this.formFastTag.controls['ftAccount'].disable();     
+        this.formFastTag.controls['ftAccount'].disable();  
+        this.formFastTag.controls['driverId'].disable();   
       }    
     }, 2000);
 
@@ -168,6 +173,11 @@ dashboard: string ="";
       transDateTime:  ['', []],
       ftAmount:  ['', []],
       dtlRemarks:  ['', []],
+    });
+  }
+     getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.driverLists = res;
     });
   }
 
@@ -234,7 +244,8 @@ dashboard: string ="";
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.fastTagDtlList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataName == res.fastTagDtlList[i].vehicleNo));
-        this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
+      //  this.formArray.controls[i].get("transDateTime")?.setValue(res.fastTagDtlList[i].transDateTime);
+         this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.fastTagDtlList[i].transDateTime));
         this.formArray.controls[i].get("ftAmount")?.setValue(res.fastTagDtlList[i].ftAmount);
         this.formArray.controls[i].get("dtlRemarks")?.setValue(res.fastTagDtlList[i].dtlRemarks);
 
@@ -415,6 +426,7 @@ dashboard: string ="";
     this.fasttagmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.fasttagmodel.totalFtAmt      = selectedDataVal.totalFtAmt;
     this.fasttagmodel.yearID          = this.year;
+    this.fasttagmodel.driverId      = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
     this.fasttagmodel.loggedInUser    = this.loggedInUserID;
 
     this.fasttagmodel.fastTagDtlList = [];
@@ -429,7 +441,7 @@ dashboard: string ="";
           'vehicleNo': arr[i].vehicleNo?arr[i].vehicleNo.dataName:"", 
           'transDateTime': arr[i].transDateTime,   
           'ftAmount': arr[i].ftAmount.toString(),   
-          'dtlRemarks': arr[i].dtlRemarks.toString(),  
+          'dtlRemarks': arr[i].dtlRemarks.toString().toUpperCase(),  
         });
       }
     }

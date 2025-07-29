@@ -221,11 +221,12 @@
                                             <h6>Ref No</h6>
                                         </label>
                                     </td>
+                                    
                                 </tr>                                        
                                 <tr formArrayName="arrayList"
                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                     <div [formGroupName]="i" class="grid-table">
-                                        <td>
+                                        <td >
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="debitAcList" 
                                                     [searchKeyword]="keywordLocation"  
@@ -293,7 +294,7 @@
                                                 formControlName="totAmount" maxlength="15" >
                                         </td>
                                         <td>
-                                            <input autoclose="false" class="form-control narration-input"
+                                            <input uppercaseonly autoclose="false" class="form-control narration-input"
                                                 formControlName="refDocNo" >
                                         </td>
                                         <td>

@@ -20,7 +20,8 @@ namespace FleetTrans.Models
         public string? FtmId { get; set; }        
        public string? BranchCode    { get; set; }
        public string? YearID        { get; set; }
-       public string? LoggedInUser  { get; set; }
+        public string? DriverId { get; set; }
+        public string? LoggedInUser  { get; set; }
         public List<FastTagDtlsModel> FastTagDtlList { get; set; }
     }
 }

@@ -31,6 +31,7 @@ namespace FleetTrans.Models
         public string? TotalNetAmount { get; set; }      
         public string? BranchCode { get; set; }
         public string? YearId { get; set; }
+        public string? DriverId{ get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

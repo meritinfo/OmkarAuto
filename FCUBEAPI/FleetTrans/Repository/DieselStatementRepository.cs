@@ -574,6 +574,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TotalDslAmt"     , dieselStmtModel.TotalDslAmt),
                             new SqlParameter("@BranchCode"      , dieselStmtModel.BranchCode),
                             new SqlParameter("@YearID"          , dieselStmtModel.YearId),
+                            new SqlParameter("@DriverId"          , dieselStmtModel.DriverId),
                             new SqlParameter("@LoggedInUser"    , dieselStmtModel.LoggedInUser)
                         };
 
@@ -681,6 +682,7 @@ namespace FleetTrans.Repository
                                 TotalDslAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
                                 BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearId          = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
                             });
                         }
 
