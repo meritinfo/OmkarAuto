@@ -143,7 +143,13 @@ export class FleetreportsService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalRptExcel', filter, this.httpOptions);
   }   
   
+  getVehicleMonthlyTripsRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleMonthlyTripsRptExcel', filter, this.httpOptions);
+  }   
   
+  getVehiclePLStatementRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehiclePLStatementRptExcel', filter, this.httpOptions);
+  }  
 
 
 }

@@ -536,6 +536,8 @@ import { DriversalaryentryaddComponent } from './module/driversalaryentry/driver
 import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
 import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllplist/tripmasterllplist.component';
 import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
+import { TripmarginsummaryrptComponent } from './module/tripmarginsummaryrpt/tripmarginsummaryrpt.component';
+import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlossstatementrpt/vehicleprofitlossstatementrpt.component';
 
 
 @NgModule({
@@ -713,7 +715,7 @@ import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpa
     TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, 
     VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, 
     DriversalaryentryaddComponent, DriversalaryentrylistComponent, 
-    TripmasterllplistComponent, TripmasterllpaddComponent,  
+    TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent,  
     
   ],
   

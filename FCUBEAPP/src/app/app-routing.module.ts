@@ -346,7 +346,8 @@ import { DriversalaryentryaddComponent } from './module/driversalaryentry/driver
 import { DriversalaryentrylistComponent } from './module/driversalaryentry/driversalaryentrylist/driversalaryentrylist.component';
 import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllplist/tripmasterllplist.component';
 import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
-
+import { TripmarginsummaryrptComponent } from './module/tripmarginsummaryrpt/tripmarginsummaryrpt.component';
+import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlossstatementrpt/vehicleprofitlossstatementrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -819,6 +820,9 @@ const routes: Routes = [
   { path: 'tripsheetllplist', component:  TripmasterllplistComponent },
   { path: 'tripsheetllpadd', component:  TripmasterllpaddComponent },
   { path: 'tripsheetllpedit', component:  TripmasterllpaddComponent }, 
+  { path: 'tripmarginsumrpt', component:  TripmarginsummaryrptComponent }, 
+  { path: 'vehicleplstmt', component:  VehicleprofitlossstatementrptComponent }, 
+  
 ];
 
 

@@ -207,8 +207,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
 
+        [HttpPost("FinAccountGstLocDelete")]
+        public async Task<IActionResult> FinAccountGstLocDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountGstLocDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("FinScheduleMasterSave")]

@@ -710,7 +710,6 @@ dashboard: string ="";
     this.vehiclefltmastermodel.tfrDate            = selectedDataValue.tfrDate;
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
-
     this.vehiclefltmastermodel.fleetGroupId             = selectedDataValue.fleetGroupId ;
     this.vehiclefltmastermodel.chassisFinCompId        = selectedDataValue.chassisFinCompId ;
     this.vehiclefltmastermodel.chassisLoanAcNo        = selectedDataValue.chassisLoanAcNo ;

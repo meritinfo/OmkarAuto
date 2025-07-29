@@ -233,10 +233,14 @@ namespace FleetTrans.Business
         {
             return await fleetRptRepository.GetVendorPmtRptExcel(request);
         }
+        public async Task<ResponseModel> GetVehicleMonthlyTripsRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetVehicleMonthlyTripsRptExcel(request);
+        }
+        public async Task<ResponseModel> GetVehiclePLStatementRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetVehiclePLStatementRptExcel(request);
+        }
 
-
-
-
-       
     }
 }

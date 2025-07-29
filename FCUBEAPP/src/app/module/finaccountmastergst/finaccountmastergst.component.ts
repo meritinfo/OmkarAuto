@@ -98,6 +98,17 @@ export class FinaccountmastergstComponent {
   get formArray() {
     return this.formAccountMaster.get("arrayList") as FormArray;
   }
+
+  checkDuplicate(e:any,j:number){
+    var selectedDataValue = this.formAccountMaster.getRawValue();
+    var loc = e.target.value;
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(i!=j && selectedDataValue.arrayList[i].location==loc){
+        this.toasterService.warning("Location Already Exists in Grid");
+        this.formArray.controls[j].get("location")?.setValue("");
+      }
+    }
+  }
   
   selectEvent(item: any) {
     this.requestmodel.strRequest = item.dataId;    
@@ -185,7 +196,7 @@ export class FinaccountmastergstComponent {
   removeItem(index: number){ 
     var selectedData = this.formAccountMaster.getRawValue();
     if (confirm("Are you sure, you want to delete this row?")) {
-      this.requestmodel.strRequest = this.selectedFinaccountMasterDetails.accountId;
+      this.requestmodel.strRequest = selectedData.accountId.dataId;
       this.requestmodel.strRequest1 = selectedData.arrayList[index].location;
 
       this.finsaccountmasterService.FinAccountGstLocDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -205,10 +216,11 @@ export class FinaccountmastergstComponent {
     this.route.navigate([this.dashboard]);
   }
 
-  deleteFinAccountMasterForm(): void {
-    if(this.selectedFinaccountMasterDetails.accountId != '' ){
+  deleteFinAccountMasterForm(): void {    
+    var selectedDataValue = this.formAccountMaster.getRawValue();
+    if((selectedDataValue.accountId? selectedDataValue.accountId.dataId : '') != '' ){
       this.sharedService.loading = true;
-      this.requestmodel.strRequest = this.selectedFinaccountMasterDetails.accountId;
+      this.requestmodel.strRequest = selectedDataValue.accountId.dataId;
       if (confirm("Are you sure, you want to delete this?")) {
         this.finsaccountmasterService.FinAccountGstDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
