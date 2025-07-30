@@ -956,12 +956,14 @@ export class TripmasterllpaddComponent {
     }
     
     for (var i = 0; i < selectedDataValue.fasttagList.length; i++) {
+      if(selectedDataValue.fasttagList[i].ftAmount!=''){
       this.tripsheetmodel.fasttagList.push({
         'detailID': selectedDataValue.fasttagList[i].detailID,
         'transDate': selectedDataValue.fasttagList[i].transDate,
         'ftAmount':  selectedDataValue.fasttagList[i].ftAmount,
         'remarks': selectedDataValue.fasttagList[i].remarks,
       })
+      }
     }
     
     for (var i = 0; i < selectedDataValue.drExpList.length; i++) {
