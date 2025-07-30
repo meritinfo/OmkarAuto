@@ -218,7 +218,7 @@ export class DieselstmtaddComponent {
   }
 
   getAcountList(): void {    
-    this.requestmodel.strRequest="F"
+    this.requestmodel.strRequest="D"
     this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
       this.accountList = res;
     });
