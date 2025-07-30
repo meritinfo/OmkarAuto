@@ -420,7 +420,14 @@ namespace Shared.Repository
                         {
                             ws.Cell(j + 6, i + 1).Value = Convert.ToString(dt.Rows[j][i]);
                         }
-
+                        
+                        if (rptheader == "TRIPS SUMMARY -MONTHLY STATEMENT" || rptheader == "TRIPS MARGIN SUMMARY - MONTHLY STATEMENT")
+                        {
+                            if(Convert.ToString(dt.Rows[j][1]) == "TOTAL")
+                            {
+                                ws.Range(j + 6, 1, j + 6, colcnt).Style.Font.Bold = true;
+                            }
+                        }
                     }
                     for (int k = 1; k <= colcnt; k++)
                     {

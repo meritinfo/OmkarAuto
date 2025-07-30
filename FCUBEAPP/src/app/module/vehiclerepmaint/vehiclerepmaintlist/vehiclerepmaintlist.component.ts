@@ -181,23 +181,23 @@ export class VehiclerepmaintlistComponent {
     this.route.navigate(['/vehiclerepmaintadd']);
   } 
 
-    download(ch: VehiclerepmaintMaster): void {
-      this.request.strRequest = ch.vrmTransId;
-      this.request.strRequest1 = this.loggedInUserID;
-          
-      this.vehiclerepmaintMasterService.getVehicleRepairPrintPdf(this.request).subscribe(resp => {
-        if(resp.status){    
-          let link = document.createElement("a");
-          link.download = "vehiclerepair_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/vehiclerepairprint/" + resp.message;
-          link.click();
-          window.open(link.href, "_blank");
-        }
-        else{        
-          this.toastrService.warning(resp.message);   
-        }
-      });
-    }
+  download(ch: VehiclerepmaintMaster): void {
+    this.request.strRequest = ch.vrmTransId;
+    this.request.strRequest1 = this.loggedInUserID;
+        
+    this.vehiclerepmaintMasterService.getVehicleRepairPrintPdf(this.request).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "vehiclerepair_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/vehiclerepairprint/" + resp.message;
+        link.click();
+        window.open(link.href, "_blank");
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
+    });
+  }
   
 
   //Open user details screen

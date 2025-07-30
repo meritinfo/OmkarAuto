@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.Data;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace FleetTrans.Repository
 {
@@ -3570,7 +3571,6 @@ namespace FleetTrans.Repository
                     {
                         var filter = "Vendor Outstanding Date : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Vendor Outstanding Report", filter);
                     }
                     else
@@ -3587,7 +3587,284 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetVehicleMonthlyTripsRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",    request.FromDate),
+                            new SqlParameter("@ToDate",      request.ToDate),
+                            new SqlParameter("@Location",    request.FilterStr),
+                            new SqlParameter("@RptType",     request.FilterStr1),
+                        };
 
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleMonthlyTripsRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var title = "TRIPS SUMMARY -MONTHLY STATEMENT";
+                        if (request.FilterStr1 == "M")
+                        {
+                            title = "TRIPS MARGIN SUMMARY - MONTHLY STATEMENT";
+                        }
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], title, "");
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetVehiclePLStatementRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {                                                         
+                    response = await GetVehiProfitLossExcelReport(request);                    
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ResponseModel> GetVehiProfitLossExcelReport(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    responseModel = await sharedRepository.GetCompanyDetail();
+                    int colcnt = 11;
+
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = "Vehicle Profit/Loss Statement";
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = "";
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Cell(5, 1).Value = "Sl No";
+                    ws.Cell(5, 2).Value = "Fixed Expense Desc";
+                    ws.Cell(5, 3).Value = "Expense Amt";
+                    ws.Cell(5, 5).Value = "Sl No";
+                    ws.Cell(5, 6).Value = "Fixed Expense Desc";
+                    ws.Cell(5, 7).Value = "Expense Amt";
+                    ws.Cell(5, 9).Value = "Sl No";
+                    ws.Cell(5, 10).Value = "Fixed Expense Desc";
+                    ws.Cell(5, 11).Value = "Expense Amt";
+
+                    ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                    decimal fixedExp = 0, varExp = 0, maintExp = 0, income = 0;
+
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",    request.FromDate),
+                            new SqlParameter("@ToDate",      request.ToDate),
+                            new SqlParameter("@VehicleMasterId",    request.FilterStr),
+                        };
+
+                    var ds = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleProfitLossRptFixedExpenseExcel", param);
+                    var r = 0;
+
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        r = ds.Tables[0].Rows.Count;
+                        int j = 0;
+
+                        for (j = 0; j < ds.Tables[0].Rows.Count; j++)
+                        {
+                            ws.Cell(j + 6, 1).Value = (j + 1).ToString();
+                            ws.Cell(j + 6, 2).Value = Convert.ToString(ds.Tables[0].Rows[j][0]);
+                            ws.Cell(j + 6, 3).Value = Convert.ToString(ds.Tables[0].Rows[j][1]);
+                            fixedExp = fixedExp + Convert.ToDecimal(ds.Tables[0].Rows[j][1]);
+                        }
+
+                    }
+                    var ds1 = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleProfitLossRptVarExpenseExcel", param);
+                    
+                    if (ds1 != null && ds1.Tables[0].Rows.Count > 0)
+                    {
+                        if(r < ds1.Tables[0].Rows.Count)
+                        {
+                            r = ds1.Tables[0].Rows.Count;
+                        }
+
+                        int j = 0;
+
+                        for (j = 0; j < ds1.Tables[0].Rows.Count; j++)
+                        {
+                            ws.Cell(j + 6, 5).Value = (j + 1).ToString();
+                            ws.Cell(j + 6, 6).Value = Convert.ToString(ds1.Tables[0].Rows[j][0]);
+                            ws.Cell(j + 6, 7).Value = Convert.ToString(ds1.Tables[0].Rows[j][1]);
+                            varExp = varExp + Convert.ToDecimal(ds1.Tables[0].Rows[j][1]);
+                        }
+                    }
+
+                    var ds2 = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleProfitLossRptMaintExpenseExcel", param);
+
+                    if (ds2 != null && ds2.Tables[0].Rows.Count > 0)
+                    {
+                        if (r < ds2.Tables[0].Rows.Count)
+                        {
+                            r = ds2.Tables[0].Rows.Count;
+                        }
+
+                        int j = 0;
+
+                        for (j = 0; j < ds2.Tables[0].Rows.Count; j++)
+                        {
+                            ws.Cell(j + 6, 9).Value = (j + 1).ToString();
+                            ws.Cell(j + 6, 10).Value = Convert.ToString(ds2.Tables[0].Rows[j][0]);
+                            ws.Cell(j + 6, 11).Value = Convert.ToString(ds2.Tables[0].Rows[j][1]);
+                            maintExp = maintExp + Convert.ToDecimal(ds2.Tables[0].Rows[j][1]);
+                        }
+                    }
+                    r = r + 7;
+
+                    ws.Cell(r, 3).Value = fixedExp.ToString();
+                    ws.Cell(r, 7).Value = varExp.ToString();
+                    ws.Cell(r, 11).Value = maintExp.ToString();
+                    ws.Range(r, 1, r, 11).Style.Font.Bold = true;
+
+                    ws.Range(5, 1, r, 3).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, r, 3).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 5, r, 7).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 5, r, 7).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 9, r, 11).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 9, r, 11).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+
+                    r = r + 2;
+                    var ds4 = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleProfitLossRptIncomeExcel", param);
+
+                    if (ds4 != null && ds4.Tables[0].Rows.Count > 0)
+                    {
+                        income = Convert.ToDecimal(ds4.Tables[0].Rows[0][0]);
+                    }
+
+                    ws.Range(r, 1, r, 2).Merge();
+                    ws.Range(r, 1, r, 2).Value = "Total Income";
+                    ws.Range(r, 1, r, 2).Style.Font.FontColor = XLColor.Green;
+                    ws.Cell(r, 3).Value = income.ToString();
+
+                    ws.Range(r, 5, r, 6).Merge();
+                    ws.Range(r, 5, r, 6).Value = "Total Fixed + Var";
+                    ws.Range(r, 5, r, 6).Style.Font.FontColor = XLColor.Red;
+                    ws.Cell(r, 7).Value = (fixedExp + varExp).ToString();
+
+                    ws.Range(r, 9, r, 10).Merge();
+                    ws.Range(r, 9, r, 10).Value = "Margin";
+                    ws.Range(r, 9, r, 10).Style.Font.FontColor = XLColor.Blue;
+                    ws.Cell(r, 11).Value = (income - (fixedExp + varExp)).ToString();
+
+                    ws.Range(r, 1, r, 11).Style.Font.Bold = true;
+
+                    r++;
+                    ws.Range(r, 1, r, 2).Merge();
+                    ws.Range(r, 1, r, 2).Value = "Maint & Tyres Exp";
+                    ws.Range(r, 1, r, 2).Style.Font.FontColor = XLColor.Red;
+                    ws.Cell(r, 3).Value = maintExp.ToString();
+
+                    ws.Range(r, 5, r, 6).Merge();
+                    ws.Range(r, 5, r, 6).Value = "Total Expenses";
+                    ws.Range(r, 5, r, 6).Style.Font.FontColor = XLColor.Red;
+                    ws.Cell(r, 7).Value = (fixedExp + varExp + maintExp).ToString();
+
+                    ws.Range(r, 9, r, 10).Merge();
+                    ws.Range(r, 9, r, 10).Value = "Net Margin";
+                    ws.Range(r, 9, r, 10).Style.Font.FontColor = XLColor.Blue;
+                    ws.Cell(r, 11).Value = (income - (fixedExp + varExp + maintExp)).ToString();
+                    ws.Range(r, 1, r, 11).Style.Font.Bold = true;
+
+
+                    ws.Range(r-1, 1, r, 3).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-1, 1, r, 3).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-1, 5, r, 7).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-1, 5, r, 7).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-1, 9, r, 11).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-1, 9, r, 11).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+
+
+                    for (int k = 1; k <= 11; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+
+                    var foldername = System.IO.Path.Combine("reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
 
     }
 

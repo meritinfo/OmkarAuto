@@ -18,7 +18,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="fromDate" 
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
-                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    formControlName="toDate"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>

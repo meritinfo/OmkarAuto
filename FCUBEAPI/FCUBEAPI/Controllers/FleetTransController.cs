@@ -4055,6 +4055,44 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleMonthlyTripsRptExcel")]
+        public async Task<IActionResult> GetVehicleMonthlyTripsRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVehicleMonthlyTripsRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehiclePLStatementRptExcel")]
+        public async Task<IActionResult> GetVehiclePLStatementRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetVehiclePLStatementRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDriverSalaryEntryList")]
         public async Task<IActionResult> GetDriverSalaryEntryList(ReportRequestModel request)
         {
