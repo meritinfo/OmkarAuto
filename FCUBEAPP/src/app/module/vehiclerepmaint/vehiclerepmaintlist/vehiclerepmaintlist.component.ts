@@ -188,7 +188,8 @@ export class VehiclerepmaintlistComponent {
     this.vehiclerepmaintMasterService.getVehicleRepairPrintPdf(this.request).subscribe(resp => {
       if(resp.status){    
         let link = document.createElement("a");
-        link.download = "vehiclerepair_" + new Date().getTime() + '.pdf';
+      //  link.download = "vehiclerepair_" + new Date().getTime() + '.pdf';
+      link.download = "vehiclerepair_" + ch.vrmTransId + '.pdf';
         link.href = "assets/reports/vehiclerepairprint/" + resp.message;
         link.click();
         window.open(link.href, "_blank");

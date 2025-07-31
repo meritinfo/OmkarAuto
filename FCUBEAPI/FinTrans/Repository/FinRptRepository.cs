@@ -646,7 +646,7 @@ namespace FinTrans.Repository
             try
             {
                 string baseUrl = "";
-                baseUrl = dbconnection.Value.apiPath + "api/Annexure/";
+                baseUrl = dbconnection.Value.apiPath + "api/MultipleLedger/";
 
                 string UrlParam = "?FromDate=" + request.FromDate +
                                     "&ToDate=" + request.ToDate +

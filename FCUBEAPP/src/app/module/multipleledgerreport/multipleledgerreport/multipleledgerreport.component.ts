@@ -321,7 +321,7 @@ dashboard: string ="";
     this.filter.filterStr1    = this.year;
     this.filter.filterStr2    = selectedIds//selectedDataVal.accountID.dataId;
      
-    this.filter.sortColumn = selectedDataVal.subType;
+    this.filter.sortColumn = selectedDataVal.subType.toString().toUpperCase();
     this.filter.sortOrder = selectedDataVal.subLedger;
 
     if(selectedDataVal.branchorCon == "C"){
@@ -337,8 +337,8 @@ dashboard: string ="";
       this.ledgerrptService.getMultipleLedgerrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LedgerReport_" + new Date().getTime() + '.xls';
-          link.href = "assets/reports/Ledger/" + resp.message;
+          link.download = "MultipleLedgerReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/MultipleLedger/" + resp.message;
           link.click();
         }
         else{        
@@ -350,8 +350,8 @@ dashboard: string ="";
       this.ledgerrptService.getMultipleLedgerrptPdf(this.filter).subscribe(resp => {
         if(resp.status){    
           let link = document.createElement("a");
-          link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
-          link.href = "assets/reports/Ledger/" + resp.message;
+          link.download = "MultipleLedgerReport" + "_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/MultipleLedger/" + resp.message;
           link.click();
           window.open(link.href, "_blank");
         }
