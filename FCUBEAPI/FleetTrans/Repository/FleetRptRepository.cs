@@ -45,7 +45,7 @@ namespace FleetTrans.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var filter = "Trip Outstanding report " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+                        var filter = "Trip Outstanding Report " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
                         var rptname = request.FilterStr2 == "S"? "Vehicle Advances / Balances Receipt Details" :"Trip Outstanding report";
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], rptname, filter);
 
