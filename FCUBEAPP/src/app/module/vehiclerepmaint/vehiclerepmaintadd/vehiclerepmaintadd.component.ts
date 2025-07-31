@@ -372,7 +372,7 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['vendorName'].disable();
       this.formUser.controls['gstInputTaken'].disable();
       this.formUser.controls['gstType'].disable();
-      this.formUser.controls['otherAmount'].disable();
+     // this.formUser.controls['otherAmount'].disable();
       
       this.getCreditAcList("A");
 
