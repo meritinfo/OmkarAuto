@@ -75,9 +75,9 @@ ngOnInit(): void {
     }
   this.selectedRoleTypesDetails = this.roleTypeService.getroletypeDetails();
   this.formRoleType = this.formBuilder.group({
-    roleName: new FormControl('',),
-    roleDesc: new FormControl('',),
-    activeYN: new FormControl('Y',),
+    roleName: new FormControl('',[Validators.required]),
+    roleDesc: new FormControl('',[Validators.required]),
+    activeYN: new FormControl('Y',[Validators.required]),
 
   
 
