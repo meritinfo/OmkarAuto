@@ -75,14 +75,11 @@ constructor(private roleTypeService: RoleTypeService, private route: Router) {
           });
         });
     },
-
-columns: [
+  columns: [
   {
     title: 'Action',
     data: 'roleId',
   },
-      
-
   {
     title: 'rateDesc',
     data: 'roleName',

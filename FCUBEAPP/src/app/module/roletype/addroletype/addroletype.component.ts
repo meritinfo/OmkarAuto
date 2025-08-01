@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Roletypelistmodel  } from 'src/app/models/roletypelistmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-
 import { Usermodel } from 'src/app/models/usermodel';
 import { Roletypemodel } from 'src/app/models/roletypemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -36,17 +35,18 @@ dashboard: string ="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private roletypemodel: Roletypemodel,private requestmodel:Requestmodel, private roleTypeService: RoleTypeService, 
-    private commonService: CommonService,private toasterService: ToastrService ,private sharedService: SharedService,) {
+    private commonService: CommonService,private toasterService: ToastrService ,
+    private sharedService: SharedService,) {
     this.roletypemodel = new Roletypemodel();
+  }
 
-}
 ngOnInit(): void {
    var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "RoleTypes");
+      .find((aa: { menuName: string; }) => aa.menuName === "Create Role Types");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

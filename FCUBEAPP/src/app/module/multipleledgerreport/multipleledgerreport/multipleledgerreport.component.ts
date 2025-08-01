@@ -315,6 +315,12 @@ dashboard: string ="";
 
     var selectedIdsArray = this.getSelectedIds(this.menuList);
     var selectedIds = selectedIdsArray.join(',');
+
+    if(selectedIds.length>1500){
+      this.toastrService.warning("Please select less number of Accounts");
+      return;
+    }
+
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
