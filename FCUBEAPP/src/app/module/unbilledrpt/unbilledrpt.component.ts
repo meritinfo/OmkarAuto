@@ -141,7 +141,7 @@ dashboard: string ="";
   
       this.sharedService.loading=true;
 
-      //this.unbilledrptlist();
+      this.unbilledrptlist();
       this.sharedService.loading=false;
     }
 
@@ -249,6 +249,10 @@ dashboard: string ="";
           {
             title: 'Truck No',
             data: 'truckNo',
+          }, 
+           {
+            title: 'Container No',
+            data: 'containerNo',
           }, 
           {
             title: 'Amount',

@@ -152,12 +152,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-1">
+                            <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -169,22 +169,24 @@
                     </div>
                 </div>
             </div>
-            <!-- <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
                             <tr>
-                                <th>bookingStnName</th>
-                                <th>gcNoteNo </th>   
-                                <th>bookingDate</th>
-                                <th>fromStnName </th>   
-                                 <th>toStnName</th>
-                                <th>billStnName </th>  
-                                <th>consignor </th>
-                                <th>consignee</th>
-                                <th>partyName</th>
-                                <th>truckNo </th>  
-                                <th>billedAmt</th>                                 
+                                <th>Booking Place</th>
+                                <th>LR No</th>   
+                                <th>Booking Date</th>
+                                <th>From Station</th>   
+                                 <th>To Station</th>
+                                <th>Bill StnName </th>  
+                                <th>Consignor </th>
+                                <th>Consignee</th>
+                                <th>Party Name</th>
+                                <th>Truck No </th>  
+                                <th>containerNo </th> 
+                                <th>Billed Amt</th>   
+                                                     
                             </tr>
                         </thead>
                         <tbody *ngIf="allUnbilledrptlist.unBilledRptList?.length != 0">
@@ -199,6 +201,7 @@
                                 <td>{{ eta.consignee }}</td>  
                                 <td>{{ eta.partyName }}</td> 
                                 <td>{{ eta.truckNo }}</td> 
+                                  <td>{{ eta.containerNo }}</td> 
                                 <td>{{ eta.billedAmt }}</td>                                                     
                             </tr>
                         </tbody>
@@ -209,7 +212,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> -->
+            </div>
         </div>
         <!-- container-fluid -->
     </div>
