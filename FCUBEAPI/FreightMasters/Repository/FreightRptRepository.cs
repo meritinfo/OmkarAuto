@@ -7,6 +7,7 @@ using Shared.Models;
 using Shared.Repository;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
+using System.ComponentModel;
 
 namespace FreightMasters.Repository
 {
@@ -4452,6 +4453,7 @@ namespace FreightMasters.Repository
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
                                 BilledAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["unBilledAmt"]),
+                                ContainerNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ContainerNo"]),
 
                             });
                         }

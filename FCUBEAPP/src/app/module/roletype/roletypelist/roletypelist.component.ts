@@ -81,12 +81,12 @@ constructor(private roleTypeService: RoleTypeService, private route: Router) {
     data: 'roleId',
   },
   {
-    title: 'rateDesc',
+    title: 'Role Name',
     data: 'roleName',
   },
 
  {
-  title: 'RateMethod',
+  title: 'Role Desc',
   data: 'roleDesc',
 },
 

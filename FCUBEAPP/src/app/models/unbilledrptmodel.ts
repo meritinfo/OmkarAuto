@@ -11,5 +11,6 @@ export class Unbilledrptmodel {
     truckNo :string = "";
     freightRs :string = "";
     gtotalRs :string = "";
+     containerNo :string = "";
     billedAmt :string = "";
 }

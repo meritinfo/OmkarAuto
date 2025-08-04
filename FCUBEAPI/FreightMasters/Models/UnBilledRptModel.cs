@@ -21,7 +21,8 @@ namespace FreightMasters.Models
         public string? FreightRs { get; set; }
         public string? GtotalRs { get; set; }
         public string? BilledAmt { get; set; }
-       
+        public string? ContainerNo { get; set; }
+
 
     }
 }

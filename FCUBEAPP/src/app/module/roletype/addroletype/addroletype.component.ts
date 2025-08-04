@@ -75,9 +75,9 @@ ngOnInit(): void {
     }
   this.selectedRoleTypesDetails = this.roleTypeService.getroletypeDetails();
   this.formRoleType = this.formBuilder.group({
-    roleName: new FormControl('',),
-    roleDesc: new FormControl('',),
-    activeYN: new FormControl('Y',),
+    roleName: new FormControl('',[Validators.required]),
+    roleDesc: new FormControl('',[Validators.required]),
+    activeYN: new FormControl('Y',[Validators.required]),
 
   
 
@@ -186,11 +186,12 @@ submitRoleTypesForm(): void {
     return;
   }
   this.formSubmitted = true;
+   var selectedDataVal = this.formRoleType.getRawValue();
   this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId;
-  this.roletypemodel.roleName= this.formRoleType.value.roleName.toString().toUpperCase();
-  this.roletypemodel.roleDesc = this.formRoleType.value.roleDesc.toString().toUpperCase();
-  this.roletypemodel.activeYN = this.formRoleType.value.activeYN.toString().toUpperCase();
-  this.roletypemodel.loggedInUser = this.formRoleType.value.loggedInUser;
+  this.roletypemodel.roleName= selectedDataVal.roleName.toString().toUpperCase();
+  this.roletypemodel.roleDesc = selectedDataVal.roleDesc.toString().toUpperCase();
+  this.roletypemodel.activeYN = selectedDataVal.activeYN.toString().toUpperCase();
+  this.roletypemodel.loggedInUser = selectedDataVal.loggedInUser;
 
 
   this.roleTypeService.roletypeDetailsSubmitted(this.roletypemodel).subscribe((res: Responsemodel) => {
