@@ -5,11 +5,11 @@ namespace FleetTrans.Business
 {
     public interface ITripMasterLlpBusiness
     {
-        Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
+        Task<ResponseModel> TripMasterLlpSave(TripMasterModel tripMasterModel);
         Task<TripMasterList> GetTripMasterList(ReportRequestModel request);
         Task<TripMasterModel> GetTripMasterInnerSearchLlpList(ReportRequestModel request);
         Task<TripMasterModel> GetTripMasterInnerGridLlpList(RequestModel request);
-        Task<ResponseModel> TripMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> TripMasterLlpDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetDriverList();
         Task<List<DropDownListModel>> GetExpList();
         Task<ResponseModel> GetNextTripNo(RequestModel request);

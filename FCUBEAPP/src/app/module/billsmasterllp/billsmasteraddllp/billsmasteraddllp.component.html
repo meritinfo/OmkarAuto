@@ -206,6 +206,7 @@
                                             <th><label for="formrow-inputZip">SGST Amt</label></th>
                                             <th><label for="formrow-inputZip">CGST Amt</label></th>
                                             <th><label for="formrow-inputZip">IGST Amt</label></th>
+                                            <th><label for="formrow-inputZip">Total Amt</label></th>
                                         </tr>
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
@@ -327,6 +328,11 @@
                                             <td>
                                                 <div class="mb-3">
                                                     {{arrayData.igstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.gtotalRs}}
                                                 </div>
                                             </td>
                                         </tr>

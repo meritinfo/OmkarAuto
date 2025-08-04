@@ -15,8 +15,8 @@ export class Billsmastersearchmodel {
   enrouteRs:  string = "";  
   miscRs:  string = "";  
   doorDelRs:  string = "";  
-  unLoadingRs:  string = "";  
-  unLoadingDetnRs:  string = "";  
+  unLoadingRs:  string = "";   
+  unLoadingDetnRs:  string = "";   
   extrasRS:  string = "";  
   othersRs:  string = "";  
   subTotalRs:  string = "";  

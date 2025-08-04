@@ -539,6 +539,43 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("TripMasterLlpDelete")]
+        public async Task<IActionResult> TripMasterLlpDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.TripMasterLlpDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("TripMasterLlpSave")]
+        public async Task<IActionResult> TripMasterLlpSave(TripMasterModel tripMasterModel)
+        {
+            if (tripMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.TripMasterLlpSave(tripMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetDriverList")]
         public async Task<IActionResult> GetDriverList()

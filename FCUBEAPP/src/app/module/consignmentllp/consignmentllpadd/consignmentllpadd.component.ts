@@ -1309,6 +1309,22 @@ export class ConsignmentllpaddComponent {
     else{
       actWt = selectedDataValue.actualWt.toString();
     }
+    if(gstType=="SC"){
+      if(selectedDataValue.cgstAmt.toString =="" || parseFloat(selectedDataValue.cgstAmt) ==0 ){
+        this.toastrService.warning("CGST Amt is Invalid");
+        return;
+      }
+      if(selectedDataValue.sgstAmt.toString =="" || parseFloat(selectedDataValue.sgstAmt) ==0 ){
+        this.toastrService.warning("SGST Amt is Invalid");
+        return;
+      }
+    }
+    if(gstType=="IG"){
+      if(selectedDataValue.igstAmt.toString =="" || parseFloat(selectedDataValue.igstAmt) ==0 ){
+        this.toastrService.warning("IGST Amt is Invalid");
+        return;
+      }
+    }
 
     this.sharedService.loading = true;
     this.formSubmitted = true;

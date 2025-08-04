@@ -827,6 +827,21 @@ export class ConsignmentllpupdateComponent {
     var gstType = "NA";
     if(selectedDataValue.gstBy=="F"){
       gstType = selectedDataValue.gstType;
+    }if(gstType=="SC"){
+      if(selectedDataValue.cgstAmt.toString =="" || parseFloat(selectedDataValue.cgstAmt) ==0 ){
+        this.toastrService.warning("CGST Amt is Invalid");
+        return;
+      }
+      if(selectedDataValue.sgstAmt.toString =="" || parseFloat(selectedDataValue.sgstAmt) ==0 ){
+        this.toastrService.warning("SGST Amt is Invalid");
+        return;
+      }
+    }
+    if(gstType=="IG"){
+      if(selectedDataValue.igstAmt.toString =="" || parseFloat(selectedDataValue.igstAmt) ==0 ){
+        this.toastrService.warning("IGST Amt is Invalid");
+        return;
+      }
     }
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;           
     this.cnmodel.productId = selectedDataValue.productId.toString();

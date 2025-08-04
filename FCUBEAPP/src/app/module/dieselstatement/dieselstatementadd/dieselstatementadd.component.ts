@@ -42,7 +42,7 @@ export class DieselstatementaddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -71,12 +71,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -92,13 +92,19 @@ dashboard: string ="";
       this.loginDate = loginDate;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
+    }
+    else if(this.loggedInUserID==""){
+      this.route.navigate(['/']);
+    }
+    else if(this.loggedInUserID=="0"){
+      this.route.navigate(['/']);
     }
     else {
       this.route.navigate(['/']);

@@ -146,6 +146,7 @@ export class BillsmasteraddComponent implements OnInit {
       totalDoorColl: new FormControl('',),
       totalHandling: new FormControl(''),
       totalLoadingDetn: new FormControl(''),
+      totalDetention: new FormControl(''),
       totalEnroute: new FormControl(''),
       totalMisc: new FormControl(''),
       totalDoorDel: new FormControl(''),
@@ -183,6 +184,7 @@ export class BillsmasteraddComponent implements OnInit {
       this.formBillsMaster.controls['totalDoorColl'].disable();
       this.formBillsMaster.controls['totalHandling'].disable();
       this.formBillsMaster.controls['totalLoadingDetn'].disable();
+      this.formBillsMaster.controls['totalDetention'].disable();      
       this.formBillsMaster.controls['totalEnroute'].disable();
       this.formBillsMaster.controls['totalMisc'].disable();
       this.formBillsMaster.controls['totalDoorDel'].disable();
@@ -272,7 +274,7 @@ export class BillsmasteraddComponent implements OnInit {
       misc:  ['', []],
       doorDel:  ['', []],
       unLoading:  ['', []],
-      detention:  ['', []],
+      unLoadingDetnRs:  ['', []],
       extras:  ['', []],
       others:  ['', []],
       subTotal:  ['', []],
@@ -355,47 +357,46 @@ export class BillsmasteraddComponent implements OnInit {
     } 
     this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
 
-    this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
-      .subscribe((res: Billsmastersearchlistmodel) => {
+    this.billsMasterService.getBillsMasterSearchList(this.requestmodel).subscribe((res: Billsmastersearchlistmodel) => {
         this.appendMode = false;
         for(var i=0;i<res.billsMasterSearchList.length;i++){
-          this.billsmastersearchlistmodel.billsMasterSearchList.push({
-            'consignmentID': res.billsMasterSearchList[i].consignmentID,
-            'bookingPlace':  res.billsMasterSearchList[i].bookingPlace,
-            'bookingDate':  res.billsMasterSearchList[i].bookingDate,
-            'gcNoteNo':  res.billsMasterSearchList[i].gcNoteNo,
-            'fromPlace': res.billsMasterSearchList[i].fromPlace,
-            'toPlace':res.billsMasterSearchList[i].toPlace, 
-            'rateRs': res.billsMasterSearchList[i].rateRs, 
-            'freightRs':  res.billsMasterSearchList[i].freightRs, 
-            'statisticalRs':  res.billsMasterSearchList[i].statisticalRs,
-            'fovRs':  res.billsMasterSearchList[i].fovRs, 
-            'doorCollRs':  res.billsMasterSearchList[i].doorCollRs, 
-            'handlingRs':  res.billsMasterSearchList[i].handlingRs, 
-            'loadingDetnRs': res.billsMasterSearchList[i].loadingDetnRs, 
-            'enrouteRs':  res.billsMasterSearchList[i].enrouteRs, 
-            'miscRs': res.billsMasterSearchList[i].miscRs, 
-            'doorDelRs': res.billsMasterSearchList[i].doorDelRs,  
-            'unLoadingRs':  res.billsMasterSearchList[i].unLoadingRs, 
-            'unLoadingDetnRs':  res.billsMasterSearchList[i].unLoadingDetnRs, 
-            'extrasRS':  res.billsMasterSearchList[i].extrasRS,
-            'othersRs':res.billsMasterSearchList[i].othersRs,
-            'subTotalRs':  res.billsMasterSearchList[i].subTotalRs,
-            'gstType':  res.billsMasterSearchList[i].gstType, 
-            'cgstAmt': res.billsMasterSearchList[i].cgstAmt, 
-            'sgstAmt':  res.billsMasterSearchList[i].sgstAmt,  
-            'igstAmt':  res.billsMasterSearchList[i].igstAmt, 
-            'nonGstAmt1': res.billsMasterSearchList[i].nonGstAmt1,
-            'nonGstAmt2':  res.billsMasterSearchList[i].nonGstAmt2, 
-            'gtotalRs':  res.billsMasterSearchList[i].gtotalRs, 
-            'remarks1':  res.billsMasterSearchList[i].remarks1,
-            'remarks2':  res.billsMasterSearchList[i].remarks2,
-            'remarks3':  res.billsMasterSearchList[i].remarks3,
-            'suppBillDetRemarks':  res.billsMasterSearchList[i].suppBillDetRemarks,
-            'otherAmt': res.billsMasterSearchList[i].otherAmt,
-            'selected': false
-           });
-        }
+        this.billsmastersearchlistmodel.billsMasterSearchList.push({
+          'consignmentID': res.billsMasterSearchList[i].consignmentID,
+          'bookingPlace':  res.billsMasterSearchList[i].bookingPlace,
+          'bookingDate':  res.billsMasterSearchList[i].bookingDate,
+          'gcNoteNo':  res.billsMasterSearchList[i].gcNoteNo,
+          'fromPlace': res.billsMasterSearchList[i].fromPlace,
+          'toPlace':res.billsMasterSearchList[i].toPlace, 
+          'rateRs': res.billsMasterSearchList[i].rateRs, 
+          'freightRs':  res.billsMasterSearchList[i].freightRs, 
+          'statisticalRs':  res.billsMasterSearchList[i].statisticalRs,
+          'fovRs':  res.billsMasterSearchList[i].fovRs, 
+          'doorCollRs':  res.billsMasterSearchList[i].doorCollRs, 
+          'handlingRs':  res.billsMasterSearchList[i].handlingRs, 
+          'loadingDetnRs': res.billsMasterSearchList[i].loadingDetnRs, 
+          'enrouteRs':  res.billsMasterSearchList[i].enrouteRs, 
+          'miscRs': res.billsMasterSearchList[i].miscRs, 
+          'doorDelRs': res.billsMasterSearchList[i].doorDelRs,  
+          'unLoadingRs':  res.billsMasterSearchList[i].unLoadingRs, 
+          'unLoadingDetnRs':  res.billsMasterSearchList[i].unLoadingDetnRs, 
+          'extrasRS':  res.billsMasterSearchList[i].extrasRS,
+          'othersRs':res.billsMasterSearchList[i].othersRs,
+          'subTotalRs':  res.billsMasterSearchList[i].subTotalRs,
+          'gstType':  res.billsMasterSearchList[i].gstType, 
+          'cgstAmt': res.billsMasterSearchList[i].cgstAmt, 
+          'sgstAmt':  res.billsMasterSearchList[i].sgstAmt,  
+          'igstAmt':  res.billsMasterSearchList[i].igstAmt, 
+          'nonGstAmt1': res.billsMasterSearchList[i].nonGstAmt1,
+          'nonGstAmt2':  res.billsMasterSearchList[i].nonGstAmt2, 
+          'gtotalRs':  res.billsMasterSearchList[i].gtotalRs, 
+          'remarks1':  res.billsMasterSearchList[i].remarks1,
+          'remarks2':  res.billsMasterSearchList[i].remarks2,
+          'remarks3':  res.billsMasterSearchList[i].remarks3,
+          'suppBillDetRemarks':  res.billsMasterSearchList[i].suppBillDetRemarks,
+          'otherAmt': res.billsMasterSearchList[i].otherAmt,
+          'selected': false
+         });
+      }
         
 //      this.billsmastersearchlistmodel = res;      
       this.formBillsMaster.controls['partyCode'].disable();
@@ -528,6 +529,7 @@ export class BillsmasteraddComponent implements OnInit {
     var totalDoorColl = 0;
     var totalHandling = 0;
     var totalLoadingDetn = 0;
+    var totalDetention = 0;
     var totalEnroute = 0;
     var totalMisc = 0;
     var totalDoorDel = 0;
@@ -547,6 +549,7 @@ export class BillsmasteraddComponent implements OnInit {
         totalDoorColl     = totalDoorColl    + (billlist[i].doorCollRs == ""? 0 : parseFloat(billlist[i].doorCollRs) );
         totalHandling     = totalHandling    + (billlist[i].handlingRs == ""? 0 : parseFloat(billlist[i].handlingRs) );
         totalLoadingDetn  = totalLoadingDetn + (billlist[i].loadingDetnRs == ""? 0 : parseFloat(billlist[i].loadingDetnRs) );
+        totalDetention    = totalDetention   + (billlist[i].unLoadingDetnRs == ""? 0 : parseFloat(billlist[i].unLoadingDetnRs) );
         totalEnroute      = totalEnroute     + (billlist[i].enrouteRs == ""? 0 : parseFloat(billlist[i].enrouteRs) );
         totalMisc         = totalMisc        + (billlist[i].miscRs == ""? 0 : parseFloat(billlist[i].miscRs) );
         totalDoorDel      = totalDoorDel     + (billlist[i].doorDelRs == ""? 0 : parseFloat(billlist[i].doorDelRs) );
@@ -564,6 +567,7 @@ export class BillsmasteraddComponent implements OnInit {
       totalDoorColl     : totalDoorColl.toFixed(2),
       totalHandling     : totalHandling.toFixed(2),
       totalLoadingDetn  : totalLoadingDetn.toFixed(2),
+      totalDetention    : totalDetention.toFixed(2),
       totalEnroute      : totalEnroute.toFixed(2),
       totalMisc         : totalMisc.toFixed(2),
       totalDoorDel      : totalDoorDel.toFixed(2),
@@ -732,6 +736,22 @@ export class BillsmasteraddComponent implements OnInit {
       this.toasterService.warning(" Bill Amount is Invalid");   
       return;
     }
+    if(selectedDataValue.gstType=="SC"){
+      if(selectedDataValue.totalCgstAmt.toString =="" || parseFloat(selectedDataValue.totalCgstAmt) ==0 ){
+        this.toasterService.warning("CGST Amt is Invalid");
+        return;
+      }
+      if(selectedDataValue.totalSgstAmt.toString =="" || parseFloat(selectedDataValue.totalSgstAmt) ==0 ){
+        this.toasterService.warning("SGST Amt is Invalid");
+        return;
+      }
+    }
+    if(selectedDataValue.gstType=="IG"){
+      if(selectedDataValue.totalIgstAmt.toString =="" || parseFloat(selectedDataValue.totalIgstAmt) ==0 ){
+        this.toasterService.warning("IGST Amt is Invalid");
+        return;
+      }
+    }
 
     this.formSubmitted = true;
     this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId;
@@ -751,6 +771,7 @@ export class BillsmasteraddComponent implements OnInit {
     this.billsmastermodel.totalHandling = selectedDataValue.totalHandling.toString();
     this.billsmastermodel.totalDoorColl = selectedDataValue.totalDoorColl.toString();
     this.billsmastermodel.totalLoadingDetn = selectedDataValue.totalLoadingDetn.toString();
+    this.billsmastermodel.totalDetention = selectedDataValue.totalDetention.toString();
     this.billsmastermodel.totalEnroute = selectedDataValue.totalEnroute.toString();
     this.billsmastermodel.totalMisc = selectedDataValue.totalMisc.toString();
     this.billsmastermodel.totalExtras = selectedDataValue.totalExtras.toString();
@@ -796,7 +817,7 @@ export class BillsmasteraddComponent implements OnInit {
           'misc': this.billsmastersearchlistmodel.billsMasterSearchList[i].miscRs,
           'doorDel': this.billsmastersearchlistmodel.billsMasterSearchList[i].doorDelRs,
           'unLoading':  this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingRs,
-          'detention': "",
+          'unLoadingDetnRs': this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingDetnRs,
           'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
           'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
           'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,

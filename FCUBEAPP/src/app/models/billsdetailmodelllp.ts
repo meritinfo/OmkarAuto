@@ -20,7 +20,7 @@ export class BillsDetailModelllP {
     misc :  string = "";  
     doorDel :  string = "";  
     unLoading :  string = "";  
-    detention :  string = "";  
+    unLoadingDetnRs :  string = "";  
     extras :  string = "";  
     others :  string = "";  
     subTotal :  string = "";  
