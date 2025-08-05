@@ -127,7 +127,7 @@ export class LorryhirepmtaddComponent {
       cardId: new FormControl('',),
       chequePayeeName: new FormControl('', ),
       benId: new FormControl('', ),
-      totalHireAmt : new FormControl('', ),
+      totalHireAmt : new FormControl('', [Validators.required]),
       totalHamaliAmt: new FormControl('', ),
       totalDetenAmt: new FormControl('', ),
       totalOtherAmt: new FormControl('', ),
@@ -139,7 +139,7 @@ export class LorryhirepmtaddComponent {
       totalOthDedAmt : new FormControl('', ),
       totalOth2DedAmt : new FormControl('', ),
       totalTdsAmt : new FormControl('', ),
-      creditAc : new FormControl('', ),
+      creditAc : new FormControl('',[Validators.required]),
       chequeNo : new FormControl('', ),
       chequeDt : new FormControl('', ),
       neftPmt : new FormControl('', ),
@@ -183,7 +183,10 @@ export class LorryhirepmtaddComponent {
     this.formArray.controls[0].get("challanBranch")?.setValue(this.branch);
 
     if (this.selectedLorryhiremaster.masterId != '') {  
-      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);
+      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);     
+      if(this.selectedLorryhiremaster.creditAc=="0"){
+        this.selectedLorryhiremaster.creditAc = "";
+      }
       if(this.selectedLorryhiremaster.onAcBranch!=''){        
         this.formArray.controls[0].get("challanBranch")?.setValue(this.selectedLorryhiremaster.onAcBranch);
       }

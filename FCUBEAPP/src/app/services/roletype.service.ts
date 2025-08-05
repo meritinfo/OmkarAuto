@@ -21,27 +21,24 @@ export class RoleTypeService {
   }
   selectedRoletype = new Roletypemodel();
   constructor(private httpClient: HttpClient) { }
-  setRoleTypesDetails(roletypes: Roletypemodel) {
- 
-      this.selectedRoletype = roletypes;
-    
   
+  setRoleTypesDetails(roletypes: Roletypemodel) {
+    this.selectedRoletype = roletypes;
   }
   getroletypeDetails() {
     return this.selectedRoletype;
   }
-    roleTypesDelete(request: Requestmodel ):  Observable<Responsemodel> {
-     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/RoleTypesDelete', request, this.httpOptions);
-    }
-  
-    chkDesc(request: Requestmodel ): Observable<Responsemodel> {
-     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleDesc', request, this.httpOptions);
-    }
-     chkName(request: Requestmodel ): Observable<Responsemodel> {
-     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleName', request, this.httpOptions);
-    }
   clearRoletypesDetails() {
     this.selectedRoletype = new Roletypemodel();
+  }
+  roleTypesDelete(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/RoleTypesDelete', request, this.httpOptions);
+  }  
+  chkDesc(request: Requestmodel ): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleDesc', request, this.httpOptions);
+  }
+  chkName(request: Requestmodel ): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChkDuplicateRoleName', request, this.httpOptions);
   }
   roletypeDetailsSubmitted(user: Roletypemodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/RoleMasterSave', user, this.httpOptions);

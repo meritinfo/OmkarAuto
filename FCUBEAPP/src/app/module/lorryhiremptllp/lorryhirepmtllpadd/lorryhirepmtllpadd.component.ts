@@ -124,15 +124,11 @@ export class LorryhirepmtllpaddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-
-
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-
-
     
     this.formUser = this.formBuilder.group({
       pmtStation: new FormControl(this.branch, [Validators.required]),
@@ -144,7 +140,7 @@ export class LorryhirepmtllpaddComponent {
       cardId: new FormControl('',),
       chequePayeeName: new FormControl('', ),
       benId: new FormControl('', ),
-      totalHireAmt : new FormControl('', ),
+      totalHireAmt : new FormControl('', [Validators.required]),
       totalHamaliAmt: new FormControl('', ),
       totalDetenAmt: new FormControl('', ),
       totalOtherAmt: new FormControl('', ),
@@ -156,10 +152,10 @@ export class LorryhirepmtllpaddComponent {
       totalOthDedAmt : new FormControl('', ),
       totalOth2DedAmt : new FormControl('', ),
       totalTdsAmt : new FormControl('', ),
-      creditAc : new FormControl('', ),
+      creditAc : new FormControl('', [Validators.required]),
       chequeNo : new FormControl('', ),
       chequeDt : new FormControl('', ),
-      neftPmt : new FormControl('', ),
+      neftPmt : new FormControl('',  [Validators.required]),
       brokerId : new FormControl('', [Validators.required] ),
       remarks : new FormControl('', ),
       modifyRemarks : new FormControl('', ),
@@ -202,7 +198,10 @@ export class LorryhirepmtllpaddComponent {
     this.formArray.controls[0].get("challanBranch")?.setValue(this.branch);
 
     if (this.selectedLorryhiremaster.masterId != '') {  
-      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);
+      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);      
+      if(this.selectedLorryhiremaster.creditAc=="0"){
+        this.selectedLorryhiremaster.creditAc = "";
+      }
       if(this.selectedLorryhiremaster.onAcBranch!=''){        
         this.formArray.controls[0].get("challanBranch")?.setValue(this.selectedLorryhiremaster.onAcBranch);
       }
