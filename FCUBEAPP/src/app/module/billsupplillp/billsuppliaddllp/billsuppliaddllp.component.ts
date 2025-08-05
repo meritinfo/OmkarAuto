@@ -875,7 +875,6 @@ dashboard: string ="";
 
     var billlist = selectedDataValue.arrayList;
 
-
     for (var i = 0; i < billlist.length; i++) {  
       if(billlist[i].consignmentid!="") {
         this.billsmastermodel.billsMasterListData.push({
@@ -900,7 +899,7 @@ dashboard: string ="";
           'misc': "0",
           'doorDel': "0",
           'unLoading':  "0",
-          'detention': "0",
+          'unLoadingDetnRs': "0",
           'extras': billlist[i].extras,
           'others': billlist[i].others,
           'subTotal':  "0",

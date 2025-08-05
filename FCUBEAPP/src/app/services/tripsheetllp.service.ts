@@ -50,8 +50,15 @@ export class TripsheetllpService {
   }
   getTripMasterInnerGridList(request: Requestmodel): Observable<Tripmastermodel> {
     return this.httpClient.post<Tripmastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripMasterInnerGridLlpList', request, this.httpOptions);
+  } 
+  
+  tripMasterDetailsLlpSubmitted(user: Tripmastermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterLlpSave', user, this.httpOptions);
   }
 
+  tripMasterDetailsLlpDelete(user: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterLlpDelete', user, this.httpOptions);
+  }
   getNextTripNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetNextTripNo', payload, this.httpOptions);
   }  

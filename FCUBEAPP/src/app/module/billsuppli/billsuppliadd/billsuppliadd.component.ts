@@ -760,7 +760,7 @@ dashboard: string ="";
           'misc': "0",
           'doorDel': "0",
           'unLoading':  "0",
-          'detention': "0",
+          'unLoadingDetnRs': "0",
           'extras': billlist[i].extrasRS,
           'others': billlist[i].othersRs,
           'subTotal':  "0",

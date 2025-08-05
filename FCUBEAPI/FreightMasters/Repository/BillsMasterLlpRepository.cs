@@ -105,8 +105,16 @@ namespace FreightMasters.Repository
                         }
                         if (responseModel.Status)
                         {
-                            transaction.Commit();
-                        }
+                            responseModel = await BillsMasterFinLinkLLP(transaction, BillsMasterId);
+                            if (responseModel.Status)
+                            {
+                                transaction.Commit();
+                            }
+                            else
+                            {
+                                transaction.Rollback();
+                            }
+                        }                       
                     }
                     else
                     {
@@ -186,7 +194,35 @@ namespace FreightMasters.Repository
             { }
             return responseModel;
         }
+        public async Task<ResponseModel> BillsMasterFinLinkLLP(SqlTransaction transaction, string BillsMasterId)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillsMasterId",  BillsMasterId),
 
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsFinLinkLLP", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+            return responseModel;
+        }
         public async Task<BillsMasterSearchListModelLLP> GetBillsMasterSearchList(RequestModel request)
         {
             BillsMasterSearchListModelLLP billsMasterSearchList = new();

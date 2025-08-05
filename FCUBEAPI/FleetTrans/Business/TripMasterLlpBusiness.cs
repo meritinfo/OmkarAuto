@@ -13,9 +13,9 @@ namespace FleetTrans.Business
         {
             tripMasterRepository = _tripMasterRepository;
         }
-        public async Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel)
+        public async Task<ResponseModel> TripMasterLlpSave(TripMasterModel tripMasterModel)
         {
-            return await tripMasterRepository.TripMasterSave(tripMasterModel);
+            return await tripMasterRepository.TripMasterLlpSave(tripMasterModel);
         }
         public async Task<TripMasterList> GetTripMasterList(ReportRequestModel request)
         {
@@ -25,9 +25,9 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetTripMasterInnerSearchLlpList(request);
         }
-        public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
+        public async Task<ResponseModel> TripMasterLlpDelete(RequestModel requestModel)
         {
-            return await tripMasterRepository.TripMasterDelete(requestModel);
+            return await tripMasterRepository.TripMasterLlpDelete(requestModel);
         }
         public async Task<TripMasterModel> GetTripMasterInnerGridLlpList(RequestModel request)
         {

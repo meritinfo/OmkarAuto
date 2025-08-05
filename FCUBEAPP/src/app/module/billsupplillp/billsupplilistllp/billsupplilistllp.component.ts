@@ -44,7 +44,7 @@ export class BillsupplilistllpComponent { dtOptions: DataTables.Settings = {};
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';

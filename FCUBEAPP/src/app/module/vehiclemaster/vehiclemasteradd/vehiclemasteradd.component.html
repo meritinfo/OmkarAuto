@@ -48,8 +48,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Regn Date</label> 
                                                 <span style="color: red">*</span>                                               
-                                                <input type="date" class="form-control" formControlName="regnDate"
-                                                                                               
+                                                <input type="date" class="form-control" formControlName="regnDate"                                                                                               
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['regnDate'].invalid) }">
                                             </div>
                                         </div>
@@ -141,6 +140,7 @@
                                                     <option value="D">Diesel</option>
                                                     <option value="E">Electric</option>
                                                     <option value="H">Hybrid</option>
+                                                    <option value="C">CNG</option>
                                                 </select>
                                             </div>
                                         </div>

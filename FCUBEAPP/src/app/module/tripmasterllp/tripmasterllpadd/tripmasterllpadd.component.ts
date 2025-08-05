@@ -129,7 +129,7 @@ export class TripmasterllpaddComponent {
       ltsDslToBe: new FormControl('',),
       issuedDslLtrs: new FormControl('',),
       issuedDslAmt: new FormControl('',), 
-      opBalDriver: new FormControl('',),
+      //opBalDriver: new FormControl('',),
       paidDriverAdvance: new FormControl('',),
       freightCollByDriver: new FormControl('',),
       expensesByDriver: new FormControl('',),
@@ -142,7 +142,7 @@ export class TripmasterllpaddComponent {
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
       tripTotalExpenses: new FormControl('',[Validators.required]),
-      //expensesByComp: new FormControl('',),
+      expensesByComp: new FormControl('',),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
       remarks: new FormControl('',),
@@ -152,7 +152,7 @@ export class TripmasterllpaddComponent {
       dieselList: this.formBuilder.array([this.createDieselArray()]),
       fasttagList: this.formBuilder.array([this.createFasttagArray()]),
       drExpList: this.formBuilder.array([this.createTripDrExpArray()]),
-      //cmpExpList: this.formBuilder.array([this.createTripCmpExpArray()])
+      cmpExpList: this.formBuilder.array([this.createTripCmpExpArray()])
 
     });
 
@@ -171,7 +171,7 @@ export class TripmasterllpaddComponent {
     this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     
     this.formTripsheet.controls['tripTotalExpenses'].disable();   
-    //this.formTripsheet.controls['expensesByComp'].disable();     
+    this.formTripsheet.controls['expensesByComp'].disable();     
     this.formTripsheet.controls['tripCloseDt'].disable();  
 
     setTimeout(() => {
@@ -179,7 +179,7 @@ export class TripmasterllpaddComponent {
 
       if (this.selectedTripSheetDetails.tripId != '') {        
         this.formTripsheet.controls['openingKMR'].disable();  
-        this.formTripsheet.controls['opBalDriver'].disable();        
+        //this.formTripsheet.controls['opBalDriver'].disable();        
         this.formTripsheet.controls['deptDate'].disable();     
         this.formTripsheet.controls['endDate'].disable();    
         this.formTripsheet.controls['vehicleMasterID'].disable();  
@@ -269,9 +269,9 @@ export class TripmasterllpaddComponent {
     return this.formTripsheet.get("drExpList") as FormArray;
   }
 
-  // get formCmpExpTypeArray() {
-  //   return this.formTripsheet.get("cmpExpList") as FormArray;
-  // }
+  get formCmpExpTypeArray() {
+    return this.formTripsheet.get("cmpExpList") as FormArray;
+  }
 
   
   createDriverArray() {
@@ -334,14 +334,14 @@ export class TripmasterllpaddComponent {
     });
   }
 
-  // createTripCmpExpArray() {
-  //   return this.formBuilder.group({
-  //     enrouteExpId:  [''],
-  //     expId:  [''],
-  //     expParticulars:  [''],
-  //     expAmt:  [''],
-  //   });
-  // }
+  createTripCmpExpArray() {
+    return this.formBuilder.group({
+      enrouteExpId:  [''],
+      expId:  [''],
+      expParticulars:  [''],
+      expAmt:  [''],
+    });
+  }
 
  
   selectNewEvent(item: any) {  
@@ -355,11 +355,11 @@ export class TripmasterllpaddComponent {
         });  
         if(this.responseDetails.message == "1")   {
           this.formTripsheet.controls['openingKMR'].enable();  
-          this.formTripsheet.controls['opBalDriver'].enable();  
+          //this.formTripsheet.controls['opBalDriver'].enable();  
         }     
         else{            
           this.formTripsheet.controls['openingKMR'].disable();  
-          this.formTripsheet.controls['opBalDriver'].disable();     
+          //this.formTripsheet.controls['opBalDriver'].disable();     
         }     
         this.getDslMileage(item.dataId);
         this.getOpeningBal(item.dataId);        
@@ -412,7 +412,7 @@ export class TripmasterllpaddComponent {
     this.commonService.getOpeningBal(this.filter).subscribe((res: Reportmodel) => {
       this.formTripsheet.patchValue({
         openingKMR : res.filterStr,
-        opBalDriver: res.filterStr2,
+        //opBalDriver: res.filterStr2,
       });       
     });
   }
@@ -441,7 +441,7 @@ export class TripmasterllpaddComponent {
     var issuedDslAmt = 0;
     var paidDriverAdvance = 0;
     var tripTotalFreight = 0;    
-    //var expensesByComp = 0;    
+    var expensesByComp = 0;    
 
     this.filter.fromDate = selectedDataValue.deptDate;
     this.filter.toDate = selectedDataValue.endDate;
@@ -452,7 +452,7 @@ export class TripmasterllpaddComponent {
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
-      //this.formCmpExpTypeArray.clear();
+      this.formCmpExpTypeArray.clear();
 
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
@@ -522,26 +522,26 @@ export class TripmasterllpaddComponent {
         this.formDieselArray.controls[i].get("remarks")?.disable();
       }      
       
-      // for (var i = 0; i < res.cmpExpList.length; i++) {
-      //   this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
-      //   this.formCmpExpTypeArray.controls[i].get("enrouteExpId")?.setValue(res.cmpExpList[i].enrouteExpId);
-      //   this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
-      //   this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
-      //   this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
+      for (var i = 0; i < res.cmpExpList.length; i++) {
+        this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
+        this.formCmpExpTypeArray.controls[i].get("enrouteExpId")?.setValue(res.cmpExpList[i].enrouteExpId);
+        this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
+        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
+        this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
 
-      //   expensesByComp = expensesByComp + parseFloat(res.cmpExpList[i].expAmt);
+        expensesByComp = expensesByComp + parseFloat(res.cmpExpList[i].expAmt);
 
-      //   this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
-      //   this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
-      //   this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
-      // }
+        this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
+        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
+        this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
+      }
 
       this.formTripsheet.patchValue({
         issuedDslLtrs : issuedDslLtrs.toFixed(2),
         issuedDslAmt: issuedDslAmt.toFixed(2), 
         tripTotalFreight: tripTotalFreight.toFixed(2),
         paidDriverAdvance: paidDriverAdvance.toFixed(2),
-        //expensesByComp: expensesByComp.toFixed(2),
+        expensesByComp: expensesByComp.toFixed(2),
       });
     }); 
   }
@@ -554,7 +554,7 @@ export class TripmasterllpaddComponent {
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
-      //this.formCmpExpTypeArray.clear();
+      this.formCmpExpTypeArray.clear();
       
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
@@ -641,22 +641,22 @@ export class TripmasterllpaddComponent {
         this.formDrExpTypeArray.controls[i].get("expAmt")?.disable();
       }
       
-      // for (var i = 0; i < res.cmpExpList.length; i++) {
-      //   this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
-      //   this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
-      //   this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
-      //   this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
+      for (var i = 0; i < res.cmpExpList.length; i++) {
+        this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
+        this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
+        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
+        this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
 
-      //   this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
-      //   this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
-      //   this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
-      // }
+        this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
+        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
+        this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
+      }
     });
   }
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();    
-    var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
+    //var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
     var freightCollByDriver = selectedDataValue.freightCollByDriver==''?0:parseFloat(selectedDataValue.freightCollByDriver);
     var expensesByDriver = selectedDataValue.expensesByDriver==''?0:parseFloat(selectedDataValue.expensesByDriver);
@@ -664,13 +664,13 @@ export class TripmasterllpaddComponent {
     var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
     var issuedDslAmt = selectedDataValue.issuedDslAmt==''?0:parseFloat(selectedDataValue.issuedDslAmt);
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
-    //var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
+    var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
     
-    var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
+    var tripBalance = paidDriverAdvance + freightCollByDriver
                       - expensesByDriver - penaltyChargedToDr;
 
     var netTripBalance = tripBalance - recdFromDriver;
-    var tripTotalExpenses = expensesByDriver + issuedDslAmt + fastagAmount //+ expensesByComp
+    var tripTotalExpenses = expensesByDriver + issuedDslAmt + fastagAmount + expensesByComp
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
@@ -697,7 +697,7 @@ export class TripmasterllpaddComponent {
   deleteTripsheetForm(): void {
     this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId;
     if (confirm("Are you sure, you want to delete this?")) {
-      this.tripSheetService.tripMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.tripSheetService.tripMasterDetailsLlpDelete(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);
@@ -878,7 +878,7 @@ export class TripmasterllpaddComponent {
     this.tripsheetmodel.ltsDslToBe= selectedDataValue.ltsDslToBe.toString();
     this.tripsheetmodel.issuedDslLtrs= selectedDataValue.issuedDslLtrs.toString();
     this.tripsheetmodel.issuedDslAmt= selectedDataValue.issuedDslAmt.toString();
-    this.tripsheetmodel.opBalDriver= selectedDataValue.opBalDriver.toString();
+    //this.tripsheetmodel.opBalDriver= selectedDataValue.opBalDriver.toString();
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.freightCollByDriver= selectedDataValue.freightCollByDriver.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
@@ -890,7 +890,7 @@ export class TripmasterllpaddComponent {
     this.tripsheetmodel.fastagAmount= selectedDataValue.fastagAmount.toString();
     this.tripsheetmodel.tripTotalFreight= selectedDataValue.tripTotalFreight.toString();
     this.tripsheetmodel.tripTotalExpenses= selectedDataValue.tripTotalExpenses.toString();
-    //this.tripsheetmodel.expensesByComp= selectedDataValue.expensesByComp.toString();
+    this.tripsheetmodel.expensesByComp= selectedDataValue.expensesByComp.toString();
     this.tripsheetmodel.tripCloseDt= selectedDataValue.tripCloseDt;
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN?"Y":"N";
     this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
@@ -976,7 +976,7 @@ export class TripmasterllpaddComponent {
       }
     }
 
-    this.tripSheetService.tripMasterDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
+    this.tripSheetService.tripMasterDetailsLlpSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toastrService.success("Saved succsessfully");

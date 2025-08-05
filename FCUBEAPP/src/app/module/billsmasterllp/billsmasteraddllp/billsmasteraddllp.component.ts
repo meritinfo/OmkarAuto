@@ -148,6 +148,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       totalDoorColl: new FormControl('',),
       totalHandling: new FormControl(''),
       totalLoadingDetn: new FormControl(''),
+      totalDetention: new FormControl(''),
       totalEnroute: new FormControl(''),
       totalMisc: new FormControl(''),
       totalDoorDel: new FormControl(''),
@@ -191,6 +192,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       this.formBillsMaster.controls['totalDoorColl'].disable();
       this.formBillsMaster.controls['totalHandling'].disable();
       this.formBillsMaster.controls['totalLoadingDetn'].disable();
+      this.formBillsMaster.controls['totalDetention'].disable();      
       this.formBillsMaster.controls['totalEnroute'].disable();
       this.formBillsMaster.controls['totalMisc'].disable();
       this.formBillsMaster.controls['totalDoorDel'].disable();
@@ -671,6 +673,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     var totalDoorColl = 0;
     var totalHandling = 0;
     var totalLoadingDetn = 0;
+    var totalDetention = 0;
     var totalEnroute = 0;
     var totalMisc = 0;
     var totalDoorDel = 0;
@@ -693,6 +696,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         totalDoorColl     = totalDoorColl    + (billlist[i].doorCollRs == ""? 0 : parseFloat(billlist[i].doorCollRs) );
         totalHandling     = totalHandling    + (billlist[i].handlingRs == ""? 0 : parseFloat(billlist[i].handlingRs) );
         totalLoadingDetn  = totalLoadingDetn + (billlist[i].loadingDetnRs == ""? 0 : parseFloat(billlist[i].loadingDetnRs) );
+        totalDetention    = totalDetention   + (billlist[i].unLoadingDetnRs == ""? 0 : parseFloat(billlist[i].unLoadingDetnRs) );
         totalEnroute      = totalEnroute     + (billlist[i].enrouteRs == ""? 0 : parseFloat(billlist[i].enrouteRs) );
         totalMisc         = totalMisc        + (billlist[i].miscRs == ""? 0 : parseFloat(billlist[i].miscRs) );
         totalDoorDel      = totalDoorDel     + (billlist[i].doorDelRs == ""? 0 : parseFloat(billlist[i].doorDelRs) );
@@ -715,6 +719,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
       totalDoorColl     : totalDoorColl.toFixed(2),
       totalHandling     : totalHandling.toFixed(2),
       totalLoadingDetn  : totalLoadingDetn.toFixed(2),
+      totalDetention    : totalDetention.toFixed(2),
       totalEnroute      : totalEnroute.toFixed(2),
       totalMisc         : totalMisc.toFixed(2),
       totalDoorDel      : totalDoorDel.toFixed(2),
@@ -905,6 +910,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
     this.billsmastermodel.totalHandling = selectedDataValue.totalHandling.toString();
     this.billsmastermodel.totalDoorColl = selectedDataValue.totalDoorColl.toString();
     this.billsmastermodel.totalLoadingDetn = selectedDataValue.totalLoadingDetn.toString();
+    this.billsmastermodel.totalDetention = selectedDataValue.totalDetention.toString();
     this.billsmastermodel.totalEnroute = selectedDataValue.totalEnroute.toString();
     this.billsmastermodel.totalMisc = selectedDataValue.totalMisc.toString();
     this.billsmastermodel.totalExtras = selectedDataValue.totalExtras.toString();
@@ -964,7 +970,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           'misc': this.billsmastersearchlistmodel.billsMasterSearchList[i].miscRs,
           'doorDel': this.billsmastersearchlistmodel.billsMasterSearchList[i].doorDelRs,
           'unLoading':  this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingRs,
-          'detention': "",
+          'unLoadingDetnRs': this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingDetnRs,
           'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
           'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
           'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
@@ -983,6 +989,23 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         });
       }
     }   
+    
+    if(gstType=="SC"){
+      if(selectedDataValue.totalCgstAmt.toString =="" || parseFloat(selectedDataValue.totalCgstAmt) ==0 ){
+        this.toasterService.warning("CGST Amt is Invalid");
+        return;
+      }
+      if(selectedDataValue.totalSgstAmt.toString =="" || parseFloat(selectedDataValue.totalSgstAmt) ==0 ){
+        this.toasterService.warning("SGST Amt is Invalid");
+        return;
+      }
+    }
+    if(gstType=="IG"){
+      if(selectedDataValue.totalIgstAmt.toString =="" || parseFloat(selectedDataValue.totalIgstAmt) ==0 ){
+        this.toasterService.warning("IGST Amt is Invalid");
+        return;
+      }
+    }
     
     this.billsmastermodel.gstType = gstType;
     this.billsmastermodel.gstBy = gstBy;    

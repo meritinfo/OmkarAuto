@@ -16,7 +16,7 @@ namespace FleetTrans.Repository
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel)
+        public async Task<ResponseModel> TripMasterLlpSave(TripMasterModel tripMasterModel)
         {
             ResponseModel responseModel = new();
 
@@ -81,7 +81,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Remarks" , tripMasterModel.Remarks),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterLlpSave", param);
 
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -466,6 +466,21 @@ namespace FleetTrans.Repository
                             });
                         }
                     }
+                    //Exp Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.CmpExpList.Add(new TripCmpExpDetails
+                            {
+                                EnrouteExpId = Convert.ToString(resultData.Tables[3].Rows[i]["EnrouteExpId"]),
+                                ExpId = Convert.ToString(resultData.Tables[3].Rows[i]["ExpId"]),
+                                ExpParticulars = Convert.ToString(resultData.Tables[3].Rows[i]["ExpParticulars"]),
+                                ExpAmt = Convert.ToString(resultData.Tables[3].Rows[i]["ExpAmt"]),
+
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -609,7 +624,7 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
-        public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
+        public async Task<ResponseModel> TripMasterLlpDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
 
@@ -625,7 +640,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@TripId", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterLlpDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
