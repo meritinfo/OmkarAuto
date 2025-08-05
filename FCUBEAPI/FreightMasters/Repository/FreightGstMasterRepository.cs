@@ -41,6 +41,7 @@ namespace FreightMasters.Repository
                                  new SqlParameter("@IgstPct" , freightGstMasterModel.IgstPct ),
                                  
                                      new SqlParameter("@LinkColumn" , freightGstMasterModel.@LinkColumn),
+                                                    new SqlParameter("@FreightLedgerAc" , freightGstMasterModel.@FreightLedgerAc),
                              new SqlParameter("@LoggedInUser" , freightGstMasterModel.LoggedInUser ),
 
                         };
@@ -105,6 +106,34 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<List<DropDownListModel>> GetLedgerList()
+        {
+            List<DropDownListModel> locationList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_LedgerList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            locationList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return locationList;
+        }
         public async Task<FreightGstMasterList> GetFreightGstMasterList(ReportRequestModel request)
         {
             FreightGstMasterList freightGstMasterList = new();
@@ -139,6 +168,7 @@ namespace FreightMasters.Repository
                                 CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
                                 IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
                                 LinkColumn = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkColumn"]),
+                                FreightLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightLedgerAc"]),
 
                                 // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
                                 // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),

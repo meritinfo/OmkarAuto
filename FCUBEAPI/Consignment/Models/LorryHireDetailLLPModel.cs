@@ -32,5 +32,8 @@ namespace Consignment.Models
         public string? TotPaid { get; set; }
         public string? ExtraRemarks { get; set; }
         public string? DeductRemarks { get; set; }
+
+       
+
     }
 }

@@ -14,6 +14,7 @@ namespace FreightMasters.Business
         Task<ResponseModel> CheckDuplicateFreightDesc(RequestModel requestModel);
         Task<FreightGstMasterList> GetFreightGstMasterList(ReportRequestModel request);
         Task<ResponseModel> FreightGstMasterDelete(RequestModel requestModel);
+        Task<List<DropDownListModel>> GetLedgerList();
 
     }
 }

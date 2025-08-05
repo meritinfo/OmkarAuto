@@ -82,7 +82,10 @@ ngOnInit(): void {
   }
 
   this.benificiaryMasterService.clearBenificiarymasterEntryDetails();
-
+ this.formFilter = this.formBuilder.group({
+      benName: new FormControl("",),
+     
+    });
    
   this.sharedService.loading=true; 
   this.beneficiaryList();    
@@ -173,7 +176,7 @@ beneficiaryList(){
 
     this.sharedService.loading = true;
     var selectedDataVal = this.formFilter.getRawValue();
-    this.filter.search = selectedDataVal.bankName;
+    this.filter.search = selectedDataVal.benName;
     this.beneficiaryList();    
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

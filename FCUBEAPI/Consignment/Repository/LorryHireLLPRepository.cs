@@ -281,6 +281,54 @@ namespace Consignment.Repository
             }
             return lorryHire;
         }
+        public async Task<LhpmChallanViewModel> GetLorryHireChallanDetailViewLLP(ReportRequestModel request)
+        {
+            LhpmChallanViewModel lorryHire = new();
+            
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ChYear",         request.FilterStr1),
+                            new SqlParameter("@ChallanBranch",  request.FilterStr2),
+                            new SqlParameter("@ChallanNo",      request.FilterStr3),
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHireChallanDetailViewLLP", param);
+
+                
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        lorryHire.TruckNo = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        lorryHire.TotalHire = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalHire"]);
+                        lorryHire.TotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalAdvance"]);
+                        lorryHire.TotalBalance = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalBalance"]);
+                        lorryHire.AdvPaid = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvPaid"]);
+                        lorryHire.BalPaid = Convert.ToString(dataSet.Tables[0].Rows[0]["BalPaid"]);
+                        lorryHire.AdvDed = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvDed"]);
+                        lorryHire.BalDed = Convert.ToString(dataSet.Tables[0].Rows[0]["BalDed"]);
+
+
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                        // tripKmsModel.RunKmsPerDay = Convert.ToString(userData.Tables[0].Rows[0]["RunKmsPerDay"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lorryHire;
+        }
         public async Task<ResponseModel> LorryHireMasterSaveLLP(LorryHireMasterLLPModel lorryHire)
         {
             ResponseModel responseModel = new();

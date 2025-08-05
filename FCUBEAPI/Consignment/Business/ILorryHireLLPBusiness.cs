@@ -15,5 +15,6 @@ namespace Consignment.Business
         Task<LorryHireMasterLLPModel> GetLorryHireInnerGridLLP(RequestModel request);
         Task<ResponseModel> LorryHireMasterSaveLLP(LorryHireMasterLLPModel lorryHire);
         Task<LorryHireMasterLLPModel> GetChallanLorryhireDetailsLLP(ReportRequestModel request);
+        Task<LhpmChallanViewModel> GetLorryHireChallanDetailViewLLP(ReportRequestModel request);
     }
 }

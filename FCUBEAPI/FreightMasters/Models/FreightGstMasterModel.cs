@@ -15,6 +15,7 @@ namespace FreightMasters.Models
         public string? CgstPct { get; set; }
         public string? IgstPct { get; set; }
         public string? LinkColumn { get; set; }
+        public string? FreightLedgerAc { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }
