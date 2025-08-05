@@ -120,7 +120,7 @@ export class IntermediatescreenComponent {
         this.sharedService.loading = false;
         this.sharedService.loggedInStatus = true;
         this.sharedService.loading = false;       
-          this.route.navigate([this.dashboard]);
+        this.route.navigate([this.dashboard]);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

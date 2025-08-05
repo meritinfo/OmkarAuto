@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Filtermodel } from 'src/app/models/filtermodel';
-import { Roletypelistmodel  } from 'src/app/models/roletypelistmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Roletypemodel } from 'src/app/models/roletypemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -28,8 +25,7 @@ export class AddroletypeComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
-
+  dashboard: string ="";
 
   selectedRoleTypesDetails = new Roletypemodel();
 
@@ -40,8 +36,8 @@ dashboard: string ="";
     this.roletypemodel = new Roletypemodel();
   }
 
-ngOnInit(): void {
-   var menuData = sessionStorage.getItem('menulist')?.toString();
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
@@ -55,12 +51,12 @@ ngOnInit(): void {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
     var userData = sessionStorage.getItem('uid')?.toString();
     
@@ -73,131 +69,116 @@ ngOnInit(): void {
     else {
       this.route.navigate(['/']);
     }
-  this.selectedRoleTypesDetails = this.roleTypeService.getroletypeDetails();
-  this.formRoleType = this.formBuilder.group({
-    roleName: new FormControl('',[Validators.required]),
-    roleDesc: new FormControl('',[Validators.required]),
-    activeYN: new FormControl('Y',[Validators.required]),
+    this.selectedRoleTypesDetails = this.roleTypeService.getroletypeDetails();
+    this.formRoleType = this.formBuilder.group({ 
+      roleName: new FormControl('',[Validators.required]),
+      roleDesc: new FormControl('',[Validators.required]),
+      activeYN: new FormControl('Y',[Validators.required]),
+      dashboardLink: new FormControl('/dashboard',[Validators.required]),
+    });
 
-  
-
-  });
- 
-
-   if (this.selectedRoleTypesDetails.roleId  != '') {
+    if (this.selectedRoleTypesDetails.roleId  != '') {
       setTimeout(() => {
-    
-        this.formRoleType.patchValue(this.selectedRoleTypesDetails);
-        this.formRoleType.patchValue({
-      //     gdmDate: this.commonService.formatDate(this.selectedRoleTypesDetails.gdmDate),
-        })  
-// this.formGdm.controls['gdmSlNo'].disable(); 
+        this.formRoleType.patchValue(this.selectedRoleTypesDetails);        
         this.editMode =true;
-
       }, 2000);  
     }
   }
 
- 
-
-
-
-
   ChkDuplicateRoleDesc(){
     var selectedData = this.formRoleType.getRawValue();  
-      this.requestmodel.strRequest = selectedData.roleDesc;
-    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.roleTypeService.chkDesc(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formRoleType.patchValue({
-            roleDesc: ''  
-          });
-          
-        }
-      });
+    this.requestmodel.strRequest = selectedData.roleDesc;
+    
+    this.roleTypeService.chkDesc(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formRoleType.patchValue({
+          roleDesc: ''  
+        });
+      }
+    });
   }
+
   ChkDuplicateRoleName(){
     var selectedData = this.formRoleType.getRawValue();  
-      this.requestmodel.strRequest = selectedData.roleName;
-    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.roleTypeService.chkName(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formRoleType.patchValue({
-            roleName: ''  
-          });
-          
-        }
-      });
+    this.requestmodel.strRequest = selectedData.roleName;
+    
+    this.roleTypeService.chkName(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+         //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formRoleType.patchValue({
+          roleName: ''  
+        });         
+      }
+    });
   }
 
   
 
     
-    roleTypesDelete(): void {
-      if(this.selectedRoleTypesDetails.roleId != '' ){
-        this.sharedService.loading = true;
-       this.requestmodel.strRequest =this.selectedRoleTypesDetails.roleId
-        if (confirm("Are you sure, you want to delete this?")) {
-              this.roleTypeService.roleTypesDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-              this.responseDetails = res;
-              if (this.responseDetails.status){              
-                console.log(this.responseDetails.message);
-                this.formRoleType.reset();
-                this.route.navigate(['/roletypelist']);
-              } 
-              else{
-                console.log(this.responseDetails.message);  
-                this.toasterService.warning(this.responseDetails.message);  
-                return; 
-              }   
-          });
-        }
-        this.sharedService.loading = false;
+  roleTypesDelete(): void {
+    if(this.selectedRoleTypesDetails.roleId != '' ){
+      this.sharedService.loading = true;
+      this.requestmodel.strRequest =this.selectedRoleTypesDetails.roleId
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.roleTypeService.roleTypesDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status){              
+            console.log(this.responseDetails.message);
+            this.formRoleType.reset();
+            this.route.navigate(['/roletypelist']);
+          } 
+          else{
+            console.log(this.responseDetails.message);  
+            this.toasterService.warning(this.responseDetails.message);  
+            return; 
+          }   
+        });
       }
+      this.sharedService.loading = false;
     }
-exit(): void {
-  this.route.navigate(['/roletypelist']);
-}
-// convenience getter for easy access to contact form fields
-get f() { return this.formRoleType.controls; }
+  }
+
+  exit(): void {
+    this.route.navigate(['/roletypelist']);
+  }
+  // convenience getter for easy access to contact form fields
+  get f() { return this.formRoleType.controls; }
 
  
 
-//Submit user form details //
-submitRoleTypesForm(): void {
-  if (this.formRoleType.invalid) {
-    this.toasterService.warning("Please Enter Mandatory Fields "); 
-    const controls = this.formRoleType.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        this.toasterService.warning(name + " Fields is Invalid");   
-      }
-    } 
-    return;
-  }
-  this.formSubmitted = true;
-   var selectedDataVal = this.formRoleType.getRawValue();
-  this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId;
-  this.roletypemodel.roleName= selectedDataVal.roleName.toString().toUpperCase();
-  this.roletypemodel.roleDesc = selectedDataVal.roleDesc.toString().toUpperCase();
-  this.roletypemodel.activeYN = selectedDataVal.activeYN.toString().toUpperCase();
-  this.roletypemodel.loggedInUser = selectedDataVal.loggedInUser;
+  //Submit user form details //
+  submitRoleTypesForm(): void {
+    if (this.formRoleType.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formRoleType.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
+      return;
+    }
+    this.formSubmitted = true;
+    var selectedDataVal = this.formRoleType.getRawValue();
+    this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId;
+    this.roletypemodel.roleName= selectedDataVal.roleName.toString().toUpperCase();
+    this.roletypemodel.roleDesc = selectedDataVal.roleDesc.toString().toUpperCase();
+    this.roletypemodel.activeYN = selectedDataVal.activeYN.toString().toUpperCase();
+    this.roletypemodel.dashboardLink = selectedDataVal.dashboardLink;
+    this.roletypemodel.loggedInUser = selectedDataVal.loggedInUser;
 
-
-  this.roleTypeService.roletypeDetailsSubmitted(this.roletypemodel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-
-  if (this.responseDetails.status) {
+    this.roleTypeService.roletypeDetailsSubmitted(this.roletypemodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formRoleType.reset();
         this.route.navigate(['/roletypelist']);

@@ -22,26 +22,18 @@
                     <thead>
                         <tr>
                             <th>Centre Name</th>
-                      
                             <th>rateMethod </th>
-                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allRoleTypes.roleList?.length != 0">
                         <tr *ngFor="let ratetype of allRoleTypes.roleList">
-                        
-                              <td>
+                            <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getRoleTypesDetails(ratetype)"></button>             
-                            </td>  
-                            
-
+                            </td> 
                             <td>{{ ratetype.roleName }}</td>
-                    
                             <td>{{ ratetype.roleDesc }}</td>
-                         
-                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allRoleTypes.roleList?.length == 0">
