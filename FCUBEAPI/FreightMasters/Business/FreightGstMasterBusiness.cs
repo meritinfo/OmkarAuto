@@ -33,6 +33,10 @@ namespace FreightMasters.Business
         {
             return await freightGstMasterRepository.FreightGstMasterDelete(requestModel);
         }
+        public async Task<List<DropDownListModel>> GetLedgerList()
+        {
+            return await freightGstMasterRepository.GetLedgerList();
+        }
 
     }
 }

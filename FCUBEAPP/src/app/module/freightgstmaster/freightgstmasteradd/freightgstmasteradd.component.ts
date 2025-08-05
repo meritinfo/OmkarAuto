@@ -51,6 +51,7 @@ dashboard: string ="";
       vehicleList: Dropdownmodel[] = [];
       newList: Dropdownmodel[] = [];
       locationList: Dropdownmodel[] = [];
+       ledgerAcList: Dropdownmodel[] = [];
     
     
       selectedFreightGstMasterDetails = new Freightgstmastermodel();
@@ -111,7 +112,7 @@ ngOnInit(): void {
   
  // this.getBranchList();   
  // this.getVehicleNoList();
- // this.getLocationList();
+  this.getLedgerList();
   
   this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
   console.log(this.maxDate);
@@ -125,6 +126,7 @@ ngOnInit(): void {
     cgstPct: new FormControl('',[Validators.required] ),
     igstPct: new FormControl('',[Validators.required] ),
     linkColumn: new FormControl('',[Validators.required] ),
+    freightLedgerAc: new FormControl('',[Validators.required] ),
    // transType: new FormControl('', [Validators.required]),
    // amountPaid: new FormControl('', [Validators.required]),
   });
@@ -138,7 +140,7 @@ ngOnInit(): void {
        this.formChCost.patchValue({
         // pmtDate:   this.commonService.formatDate(this.selectedChCostTypeDetails.pmtDate), 
         // chequeDate:  this.commonService.formatDate(this.selectedChCostTypeDetails.chequeDate), 
-        // vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+         freightLedgerAc: this.ledgerAcList.find(e => e.dataId == this.selectedFreightGstMasterDetails.freightLedgerAc),
         // neftPmt:  ""
        })  
       
@@ -175,6 +177,12 @@ exit(): void {
   this.route.navigate(['/freightgstmaster']);
 }
 
+getLedgerList(): void {
+    this.commonService.getLedgerList().subscribe((res) => {
+      this.ledgerAcList = res;
+    });
+  }
+
 checkDuplicateDesc(){
   var selectedData = this.formChCost.getRawValue();  
     this.requestmodel.strRequest = selectedData.freightDesc;
@@ -194,6 +202,14 @@ checkDuplicateDesc(){
     });
     
 }
+onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  
  
 submitfreightGstForm(): void {  
   if (this.formChCost.invalid) {
@@ -218,6 +234,8 @@ submitfreightGstForm(): void {
   this.freightgstmastermodel.cgstPct = selectedDataValue.cgstPct.toString();
   this.freightgstmastermodel.igstPct = selectedDataValue.igstPct.toString();
   this.freightgstmastermodel.linkColumn = selectedDataValue.linkColumn;
+   this.freightgstmastermodel.freightLedgerAc = selectedDataValue.freightLedgerAc.dataId;
+   
  // this.chcosttypesModel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
 //  this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
  // this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();

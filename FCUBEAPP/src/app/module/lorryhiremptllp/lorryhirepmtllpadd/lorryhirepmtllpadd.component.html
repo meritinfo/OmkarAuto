@@ -185,7 +185,8 @@
                         <div class="overflow-x">
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
                                 <tr>
-                                    <th><label for="formrow-inputZip"></label></th>
+                                    <th><label for="formrow-inputZip"> Action</label></th>
+                                     <th><label for="formrow-inputZip"> </label></th>
                                     <th><label for="formrow-inputCity">Year</label></th>
                                     <th><label for="formrow-inputZip">Branch</label></th>
                                     <th><label for="formrow-inputZip">Type</label></th>
@@ -218,6 +219,11 @@
                                                     (click)="removeItem(i)" class="btn btn-delete"></button>
                                             </div>                                        
                                         </td>
+                                         <td>
+                                            <button type="button" class="btn btn-primary"  (click)="openPopup(i)">
+  <i class="bi bi-eye"></i> View
+                                            </button>
+                                        </td> 
                                         <td>
                                             <select class="form-control form-select ng-pristine ng-touched"formControlName="chYear">
                                                 <option *ngFor="let yr of yearList" value={{yr.dataId}}>
@@ -386,6 +392,12 @@
                                                 <input class="form-control" formControlName="totalLhpmAmt">
                                             </div>
                                         </div>
+                                         <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Lhpm Amt</label>
+                                                <input class="form-control" formControlName="totalLhpmAmt">
+                                            </div>
+                                        </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Oth Ded Amt</label>
@@ -462,6 +474,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
+                          
                             <button class="btn btn-primary w-md" 
                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitLorryHirePaymentForm()">Save</button>&nbsp;
@@ -479,6 +492,89 @@
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
+</div>
+
+
+<!-- Popup container -->
+<div class="popup-overlay" *ngIf="isPopupOpen">
+    <div class="popup">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-left mb-4">
+                                <h4> Challan No:<span style="color: red"> {{this.chlno}}</span> </h4>
+                            </div>
+                         
+                      
+                       
+                            <h5 class="card-title mb-3" style="color: red;">Details</h5>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class=" mb-3">
+                                         <label>Truck No:-</label>
+                                        <span style="color:green">{{this.trkno}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label>Total Hire:-</label>
+                                        <span style="color:green">{{this.thire}}</span>
+                                    </div>
+                                </div>
+                                  <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label>Total Advance:-</label>
+                                        <span style="color:green">{{this.totalAdv}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                               <div class="row">
+                                <div class="col-lg-5">
+                                    <div class=" mb-3">
+                                         <label>Total Balance:-</label>
+                                        <span style="color:green">{{this.totBal}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label>Advance Paid:-</label>
+                                        <span style="color:green">{{this.advPaid}}</span>
+                                    </div>
+                                </div>
+                                  <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label>Adv Ded:-</label>
+                                        <span style="color:green">{{this.advDed}}</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                 <div class="row">
+                                <div class="col-lg-5">
+                                    <div class=" mb-3">
+                                         <label>Balance Paid:-</label>
+                                        <span style="color:green">{{this.balpd}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label>Balance ded:-</label>
+                                        <span style="color:green">{{this.balded}}</span>
+                                    </div>
+                                </div>
+                                  
+                            </div>
+                            <div class="text-left">
+                                <button (click)="closePopup()" class="btn btn-primary">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

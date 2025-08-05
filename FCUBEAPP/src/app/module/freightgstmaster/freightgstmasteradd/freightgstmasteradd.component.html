@@ -115,6 +115,34 @@
                                 </div>
                             </div>
                          </div>
+                               <div class="row">
+                                  <div class="col-lg-2">
+                                <div class="mb-4"><label for="formrow-inputCity">Ledger Ac</label> <span style="color: red">*</span>
+                                </div>
+                               </div>
+                                 <div class="col-lg-4">
+                                <div class="mb-4">
+                         
+                                          
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="ledgerAcList" 
+                                                formControlName="freightLedgerAc" 
+                                                    [searchKeyword]="keywordLocation"                                                      
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['freightLedgerAc'].invalid) }">                                                  </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                       </div>
                       <!-- end card body -->
                    </div>

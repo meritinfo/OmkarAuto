@@ -3799,6 +3799,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLedgerList")]
+        public async Task<IActionResult> GetLedgerList()
+        {
+            try
+            {
+                var result = await freightGstMasterBusiness.GetLedgerList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CheckDuplicateFreightDesc")]
         public async Task<IActionResult> CheckDuplicateFreightDesc(RequestModel req)
         {

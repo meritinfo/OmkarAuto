@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Lorryhirelistmodel  } from '../models/lorryhirelistmodel';
 import { Lorryhiremastermodel } from '../models/lorryhiremastermodel';
+import { Lhpmchallanviewmodel } from 'src/app/models/lhpmchallanviewmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Reportmodel } from '../models/reportmodel';
@@ -53,6 +54,9 @@ export class LorryhirepmtllpService {
 
   getChallanLorryhireDetails(request: Reportmodel): Observable<Lorryhiremastermodel> {
     return this.httpClient.post<Lorryhiremastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanLorryhireDetailsLLP', request, this.httpOptions);
+  } 
+  getLorryHireChallanDetailViewLLP(request: Reportmodel): Observable<Lhpmchallanviewmodel> {
+    return this.httpClient.post<Lhpmchallanviewmodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHireChallanDetailViewLLP', request, this.httpOptions);
   } 
   
   checkChallanNoExists(request: Requestmodel ):  Observable<Responsemodel> {

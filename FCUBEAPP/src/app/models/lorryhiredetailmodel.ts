@@ -22,5 +22,9 @@ export class Lorryhiredetailmodel {
     totPaid: string = "";
     extraRemarks : string = "";
     deductRemarks: string = "";   
-    benId : string = "";       
+    benId : string = "";  
+
+    
+    
+
 }

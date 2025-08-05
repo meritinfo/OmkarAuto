@@ -8,6 +8,7 @@ import { CommonService } from '../../../services/common.service';
 import { LorryhirepmtllpService } from 'src/app/services/lorryhirepmtllp.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Lorryhiremastermodel } from 'src/app/models/lorryhiremastermodel';
+import { Lhpmchallanviewmodel } from 'src/app/models/lhpmchallanviewmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -23,6 +24,16 @@ export class LorryhirepmtllpaddComponent {
  onAcBranchShow=true;
   loggedInUserID: string = '';
   year: string = '';
+  isPopupOpen= false;
+  chlno: string = '';
+  trkno: string = '';
+  thire: string = '';
+  totalAdv: string = '';
+  totBal: string = '';
+  advPaid: string = '';
+  advDed: string = '';
+  balpd: string = '';
+  balded: string = '';
   branch: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -38,6 +49,7 @@ export class LorryhirepmtllpaddComponent {
   formUser!: FormGroup;
   selectedLorryhiremaster = new Lorryhiremastermodel();
   lorryhiremaster = new Lorryhiremastermodel();
+
   keywordLocation = 'dataName';
   formSubmitted = false;
   editMode = false;
@@ -51,6 +63,7 @@ export class LorryhirepmtllpaddComponent {
   seriesDocOpp: string ="";
 
   responseDetails = new Responsemodel();
+  challanpopupviewdetail = new Lhpmchallanviewmodel();
   challanInputDtls= new Reportmodel();
   constructor(private lorryhiremastermodel: Lorryhiremastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
@@ -111,6 +124,8 @@ export class LorryhirepmtllpaddComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+
+
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -360,6 +375,47 @@ export class LorryhirepmtllpaddComponent {
       }
     });
   }
+
+    openPopup(index: number) {
+   var selectedDataVal = this.formUser.getRawValue();  
+       if(selectedDataVal.arrayList[index].chYear===""||selectedDataVal.arrayList[index].challanBranch===""||selectedDataVal.arrayList[index].challanNo===""){
+      if(selectedDataVal.onAcBranch==""){
+        this.toasterService.warning("Please Select Year , Branch and Enter Challan No to View Detail");
+       // this.formArray.controls[i].get("challanNo")?.setValue("");
+        return;
+      }
+    }
+    this.isPopupOpen = true;
+    var selectedDataVal = this.formUser.getRawValue();
+    this.thire = selectedDataVal.arrayList[index].hireAmt;
+    this.chlno = selectedDataVal.arrayList[index].challanNo;
+    this.challanInputDtls.filterStr1 = selectedDataVal.arrayList[index].chYear;
+    this.challanInputDtls.filterStr2 =selectedDataVal.arrayList[index].challanBranch;
+    this.challanInputDtls.filterStr3 = selectedDataVal.arrayList[index].challanNo;
+    this.lorryhirepmtService.getLorryHireChallanDetailViewLLP(this.challanInputDtls).subscribe((res) => {
+    this.challanpopupviewdetail = res;
+    this.thire = selectedDataVal.arrayList[index].hireAmt;
+    this.chlno = selectedDataVal.arrayList[index].challanNo;
+ 
+   this.trkno= this.challanpopupviewdetail.truckNo;
+   this.thire= this.challanpopupviewdetail.totalHire;
+   this.totalAdv= this.challanpopupviewdetail.totalAdvance;
+   this.totBal= this.challanpopupviewdetail.totalBalance;
+   this.advPaid= this.challanpopupviewdetail.advPaid;
+  this.advDed= this.challanpopupviewdetail.advDed;
+
+   this.balpd= this.challanpopupviewdetail.balPaid;
+   this.balded= this.challanpopupviewdetail.balDed;
+
+
+     });
+
+  }
+
+  closePopup() {
+    this.isPopupOpen = false;
+  }
+ 
 
   getYearList():void{
     this.commonService.getYearList().subscribe((res) => {
@@ -841,6 +897,9 @@ export class LorryhirepmtllpaddComponent {
   }
   exit(): void {
     this.route.navigate(['/lhpmtlistllp']);
+  }
+  showChallan(i:number){
+     var selectedData = this.formUser.getRawValue();  
   }
 
   getBrokerListNew(): void {

@@ -7,5 +7,6 @@ export class Freightgstmastermodel {
     cgstPct: string = "";
     igstPct: string = "";
     linkColumn: string = "";
+    freightLedgerAc: string = "";
     loggedInUser:       string = "";
 }
