@@ -164,7 +164,7 @@ export class VehiclerepmaintaddComponent {
     this.getSparesList();
     this.getVehicleIdList();
     this.getMaintanenceList();
-    //this.getCreditAcList('');
+    this.getCreditAcList("A");
 
     this.formTyreArray.controls[0].get("spareLubId")?.disable();
     this.formTyreArray.controls[0].get("brandId")?.disable();
@@ -194,9 +194,6 @@ export class VehiclerepmaintaddComponent {
     if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {    
       this.setStockType(this.selectedvehiclerepmaintMasterDetail.stockType);  
       this.getCreditAcList(this.selectedvehiclerepmaintMasterDetail.pmtType);
-    }
-    else{
-      this.getCreditAcList("A");
     }
 
     if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {

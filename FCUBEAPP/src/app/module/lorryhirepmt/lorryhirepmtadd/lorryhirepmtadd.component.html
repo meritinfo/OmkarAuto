@@ -55,7 +55,7 @@
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="pmtType" (change)="changePmtType($event)"                                                   
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">                                                   
-                                                    <option selected="">Choose...</option>
+                                                    <option value="">Choose...</option>
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <!-- <option value="P">Card</option> -->
@@ -114,7 +114,7 @@
                                                 <span style="color: red">*</span>
                                                 <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                                    <option selected="">Choose...</option>
+                                                    <option value="">Choose...</option>
                                                     <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
                                                         {{ac.dataName}}
                                                     </option>
@@ -140,8 +140,8 @@
                                         <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Remarks</label>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="remarks"
-                                                     >
+                                                <input uppercaseonly type="text" class="form-control"
+                                                 formControlName="remarks" >
                                             </div>
                                         </div>
                                     </div>
@@ -305,6 +305,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Payment Amt</label>
+                                                <span style="color: red">*</span>
                                                 <input class="form-control" formControlName="totalHireAmt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalHireAmt'].invalid) }"> 
                                             </div>

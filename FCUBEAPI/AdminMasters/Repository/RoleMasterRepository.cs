@@ -49,12 +49,9 @@ namespace AdminMasters.Repository
                             {
                                 RoleId = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleId"]),
                                 RoleName = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleName"]),
-
                                 RoleDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleDesc"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
-
-
-
+                                DashboardLink = Convert.ToString(dataSet.Tables[0].Rows[i]["DashboardLink"]),
                             });
                         }
 
@@ -101,6 +98,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@RoleName", roleMasterModel.RoleName),
                             new SqlParameter("@RoleDesc", roleMasterModel.RoleDesc),
                             new SqlParameter("@ActiveYN", roleMasterModel.ActiveYN),
+                            new SqlParameter("@DashboardLink",roleMasterModel.DashboardLink),
                             new SqlParameter("@LoggedInUser", roleMasterModel.LoggedInUser)
 
                         };

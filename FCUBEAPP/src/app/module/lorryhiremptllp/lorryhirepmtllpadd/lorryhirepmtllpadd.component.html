@@ -56,7 +56,7 @@
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="pmtType" (change)="changePmtType($event)"                                                   
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">                                                   
-                                                    <option selected="">Choose...</option>
+                                                    <option value="">Choose...</option>
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <!-- <option value="P">Card</option> -->
@@ -133,8 +133,8 @@
                                                 <span style="color: red">*</span>
                                                 <select class="form-control form-select ng-pristine ng-touched"formControlName="creditAc" 
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                                    <option selected="">Choose...</option>
-                                                    <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
+                                                    <option value="">Choose...</option>
+                                                    <option *ngFor="let ac of creditacList" value={{ac.dataId}}>
                                                         {{ac.dataName}}
                                                     </option>
                                                 </select>
@@ -186,7 +186,7 @@
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
                                 <tr>
                                     <th><label for="formrow-inputZip"> Action</label></th>
-                                     <th><label for="formrow-inputZip"> </label></th>
+                                    <th><label for="formrow-inputZip"> </label></th>
                                     <th><label for="formrow-inputCity">Year</label></th>
                                     <th><label for="formrow-inputZip">Branch</label></th>
                                     <th><label for="formrow-inputZip">Type</label></th>
@@ -220,8 +220,8 @@
                                             </div>                                        
                                         </td>
                                          <td>
-                                            <button type="button" class="btn btn-primary"  (click)="openPopup(i)">
-  <i class="bi bi-eye"></i> View
+                                            <button type="button" class="btn btn-primary" (click)="openPopup(i)">
+                                                <i class="bi bi-eye"></i> View
                                             </button>
                                         </td> 
                                         <td>
@@ -338,6 +338,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Payment Amt</label>
+                                                <span style="color: red">*</span>
                                                 <input class="form-control" formControlName="totalHireAmt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalHireAmt'].invalid) }"> 
                                             </div>
@@ -505,10 +506,7 @@
                         <div class="card-body">
                             <div class="text-left mb-4">
                                 <h4> Challan No:<span style="color: red"> {{this.chlno}}</span> </h4>
-                            </div>
-                         
-                      
-                       
+                            </div>                       
                             <h5 class="card-title mb-3" style="color: red;">Details</h5>
                             <div class="row">
                                 <div class="col-lg-5">
@@ -523,14 +521,14 @@
                                         <span style="color:green">{{this.thire}}</span>
                                     </div>
                                 </div>
-                                  <div class="col-lg-4">
+                                <div class="col-lg-4">
                                     <div class="mb-3">
                                         <label>Total Advance:-</label>
                                         <span style="color:green">{{this.totalAdv}}</span>
                                     </div>
                                 </div>
                             </div>
-                               <div class="row">
+                            <div class="row">
                                 <div class="col-lg-5">
                                     <div class=" mb-3">
                                          <label>Total Balance:-</label>
@@ -543,15 +541,14 @@
                                         <span style="color:green">{{this.advPaid}}</span>
                                     </div>
                                 </div>
-                                  <div class="col-lg-4">
+                                <div class="col-lg-4">
                                     <div class="mb-3">
                                         <label>Adv Ded:-</label>
                                         <span style="color:green">{{this.advDed}}</span>
                                     </div>
-                                </div>
-                                
+                                </div>                                
                             </div>
-                                 <div class="row">
+                            <div class="row">
                                 <div class="col-lg-5">
                                     <div class=" mb-3">
                                          <label>Balance Paid:-</label>
@@ -564,7 +561,6 @@
                                         <span style="color:green">{{this.balded}}</span>
                                     </div>
                                 </div>
-                                  
                             </div>
                             <div class="text-left">
                                 <button (click)="closePopup()" class="btn btn-primary">Close</button>
