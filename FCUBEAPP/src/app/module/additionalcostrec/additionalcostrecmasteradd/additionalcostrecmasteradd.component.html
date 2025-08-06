@@ -31,7 +31,7 @@
                               class="form-control form-select ng-pristine ng-touched"
                               formControlName="addCostType"
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['addCostType'].invalid) }">
-                              <option selected="">Choose...</option>
+                              <option value="">Choose...</option>
                               <option value="I"> Income</option>
                               <option value="E"> Expense</option>                           
                            </select>
@@ -81,7 +81,7 @@
                               class="form-control form-select ng-pristine ng-touched"
                               formControlName="affectCosting"
                               [ngClass]="{ 'is-invalid': formSubmitted && (f['affectCosting'].invalid) }">
-                              <option selected="">Choose...</option>
+                              <option value="">Choose...</option>
                               <option value="Y"> Yes</option>
                               <option value="N"> No</option>                               
                            </select>
