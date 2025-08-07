@@ -15,8 +15,8 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './tripenroutebycompanyadd.component.html',
   styleUrls: ['./tripenroutebycompanyadd.component.css']
 })
-export class TripenroutebycompanyaddComponent {
 
+export class TripenroutebycompanyaddComponent {
   loggedInUserID: string = '';
   amount: string = '';
   maxDate: string = '';
@@ -36,7 +36,7 @@ export class TripenroutebycompanyaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   createmode = false;
   seriesDoc: string = "";
 
@@ -58,6 +58,7 @@ dashboard: string ="";
     private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.tripenrouteexpbycompanyModel = new TripenrouteexpbycompanyModel();
   }
+
   ngOnInit(): void {
     this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -74,15 +75,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -103,7 +104,6 @@ dashboard: string ="";
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
-
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -175,11 +175,13 @@ dashboard: string ="";
       this.branchList = res;
     });
   }
+
   getExpList(): void {
     this.commonService.getExpTypeList().subscribe((res) => {
       this.expList = res;
     });
   }
+
   onNeftChk(e: any) {
     if(e.target.checked){
       this.formTripPayment.controls['chequeNo'].clearValidators();      
@@ -200,7 +202,6 @@ dashboard: string ="";
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
     this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
   }
-
 
   changePmtType(e: any) {
     console.log(e.target.value);
@@ -249,10 +250,7 @@ dashboard: string ="";
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
-  }
-
- 
-   
+  }   
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -266,7 +264,6 @@ dashboard: string ="";
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
-
 
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {

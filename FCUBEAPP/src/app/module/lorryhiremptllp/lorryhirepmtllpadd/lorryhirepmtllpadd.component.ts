@@ -155,7 +155,7 @@ export class LorryhirepmtllpaddComponent {
       creditAc : new FormControl('', [Validators.required]),
       chequeNo : new FormControl('', ),
       chequeDt : new FormControl('', ),
-      neftPmt : new FormControl('',  [Validators.required]),
+      neftPmt : new FormControl('',),
       brokerId : new FormControl('', [Validators.required] ),
       remarks : new FormControl('', ),
       modifyRemarks : new FormControl('', ),

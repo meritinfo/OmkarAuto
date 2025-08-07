@@ -47,7 +47,7 @@ export class TripenroutebycompanyService {
 //     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
 //   }
  
-tripenrouteexpbycompanySubmitted(user: TripenrouteexpbycompanyModel): Observable<Responsemodel> {
+  tripenrouteexpbycompanySubmitted(user: TripenrouteexpbycompanyModel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripEnrouteExpByCompanySave', user, this.httpformOptions);
   }
   gettripenrouteexpbycompanyList(filter: Filtermodel): Observable<Tripenroutebycompanylistmodel> {

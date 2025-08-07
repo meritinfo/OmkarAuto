@@ -819,6 +819,13 @@ export class VehiclerepmaintaddComponent {
         return;
       }
     }
+    if (selectedDataValue.creditAc.dataId){
+      //ignore
+    }
+    else{
+      this.toastrService.warning("Invalid Credit Ac");
+      return;
+    }
 
     if (selectedDataValue.vehicleMasterId.dataId) {
       //ignore

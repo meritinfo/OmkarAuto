@@ -18,16 +18,13 @@
                                 <section>
                                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formTripPayment">
                                         <div class="row">
-                                           
-                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Exp Branch</label><span style="color: red">*</span> 
                                                     <select class="form-control form-select ng-pristine ng-touched"
-                                                     formControlName="expBranch"
+                                                        formControlName="expBranch"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['expBranch'].invalid) }">
-                                                        <option *ngFor="let branch of branchList"
-                                                            value={{branch.dataId}}>
+                                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>
                                                     </select>
@@ -58,7 +55,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-firstname-input">Select Expense Desc</label><span style="color: red">*</span> 
+                                                    <label for="basicpill-firstname-input">Expense Desc</label><span style="color: red">*</span> 
                                                     <select class="form-control form-select ng-pristine ng-touched"
                                                      formControlName="expId"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['expId'].invalid) }">
@@ -69,11 +66,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                       
                                         </div>
                                         <div class="ng-untouched ng-pristine ng-valid">
                                             <div class="row">
-                                            
                                                     <!-- <div class="mb-3">
                                                         <label for="formrow-inputState">From</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
@@ -85,7 +80,6 @@
                                                             </option>
                                                         </select>                                                          
                                                     </div> -->
-                                              
                                                 <!-- <div class="col-lg-3">
                                                     <div class="mb-3"><label for="formrow-inputZip">To</label>
                                                         <select class="form-control form-select ng-pristine ng-touched"
@@ -98,49 +92,38 @@
                                                         </select>
                                                     </div>
                                                 </div> -->
-                                               
                                             </div>
                                         </div>
-                                        <div class="row">
-                                           
-                                            
+                                        <div class="row">                                            
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-email-input">Exp Date </label><span style="color: red">*</span> 
                                                     <input bsdatepicker="" type="date" autoclose="false"
-                                                          formControlName="expDate"
+                                                        formControlName="expDate"
                                                         class="form-control"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['expDate'].invalid)}"  max="{{maxDate}}">
                                                 </div>
                                             </div>
-                                           
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Exp Amount</label><span style="color: red">*</span> 
                                                     <input type="text" class="form-control" formControlName="expAmount" decimalonly
-                                                         
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['expAmount'].invalid)}"
-                                                         >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['expAmount'].invalid)}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                           
-                                            
-                                          
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Payment Type</label><span style="color: red">*</span> 
                                                     <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="pmtType" (change)="changePmtType($event)"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"  
-                                                        >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }" >
                                                         <option value="M">Cash</option>      
                                                         <option value="B">Bank</option> 
                                                         <option value="H">Happay</option>
                                                         <option value="D">Vendor</option>
-                                                        <option value="A">Adjust</option>     
-                                                        
+                                                        <option value="A">Adjust</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -148,61 +131,45 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Credit Ac </label> <span style="color: red">*</span>          
                                                     <select class="form-control form-select ng-pristine ng-touched"
-                                                    formControlName="creditAc"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
-                                                    <option value ="">Choose...</option>
-                                                    <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
-                                                        {{branch.dataName}}
-                                                    </option>
-                                                </select>
+                                                        formControlName="creditAc"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                        <option value ="">Choose...</option>
+                                                        <option *ngFor="let branch of creditAcList" value={{branch.dataId}}>
+                                                            {{branch.dataName}}
+                                                        </option>
+                                                    </select>
                                                 </div>
-                                                
-                                               
                                             </div>   
                                             <div class="col-lg-3">
                                                 <div class="form-check">
                                                     <input type="checkbox"  formControlName="neftYN" id="neft"  (change)="onNeftChk($event)"
-                                                        name="neft" class="form-check-input" value="Y" 
-                                                        >
+                                                        name="neft" class="form-check-input" value="Y" >
                                                     <label for="neft" class="form-check-label" style="color: green;"> Neft
                                                     </label>
                                                 </div>
                                             </div>             
                                         </div>
                                         <div class="row">
-                                       
-                                                                       
-                                            
-                                        </div>
-                                        <div class="row">
-                                           
-                                           
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Cheque No</label>
                                                     <input type="text" class="form-control" formControlName="chequeNo" numbersonly
-                                                         
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid)}"
-                                                         >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid)}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-email-input">Cheque Date </label>
-                                                    <input bsdatepicker="" type="date" autoclose="false"
-                                                          formControlName="chequeDate"
-                                                        class="form-control"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid)}"  max="{{maxDate}}">
+                                                    <input bsdatepicker="" type="date" autoclose="false" max="{{maxDate}}"
+                                                        formControlName="chequeDate" class="form-control"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid)}" >
                                                 </div>
                                             </div>
-                                           
-                                           
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Remark</label>
-                                                <input uppercaseonly  class="form-control" formControlName="remarks"
-                                                       >
+                                                <input uppercaseonly  class="form-control" formControlName="remarks">
                                             </div>
                                         </div>
                                         <div class="row">                    
@@ -222,7 +189,6 @@
                                             </div>
                                             <!-- end col -->
                                         </div>  
-                        
                                         <div class="row text-right">
                                             <div class="col-lg-12">
                                                 <div class="tex">
