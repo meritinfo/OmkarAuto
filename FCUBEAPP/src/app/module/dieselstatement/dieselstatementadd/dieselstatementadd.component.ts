@@ -549,6 +549,12 @@ export class DieselstatementaddComponent implements OnInit {
 
     this.DieselStatementmodel.dieselStmtDtlsList = [];
 
+    var arr= selectedDataVal.arrayList;
+
+    for (var i = 0; i < arr.length; i++) {
+      this.DieselStatementmodel.dieselStatementListData[i].pmtDate = arr[i].pmtDate;
+    } 
+    
     this.dieselstatementService.saveDieselStatementDetails(this.DieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
