@@ -5,6 +5,7 @@ import { BrokeradvancepmtModel } from './models/brokeradvancepmtmodel';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { Fleetgroupmastermodel  } from 'src/app/models/fleetgroupmastermodel';
 import { AppRoutingModule } from './app-routing.module';
 import { Unbilledprovisionmstmodel } from './models/unbillprovisionmst';
 import { Menureportaccessrightsmodel } from './models/menureportaccessmodel';
@@ -441,6 +442,7 @@ import { DovehiplacededitComponent } from './module/dovehiplaced/dovehiplacededi
 import { Dovehiplacedmodel } from './models/dovehiplacedmodel';
 import { VehicleadvbalrptComponent } from './module/vehicleadvbalrpt/vehicleadvbalrpt.component';
 import { DetentionrptComponent } from './module/detentionrpt/detentionrpt.component';
+import { Vehiclemfrmastermodel  } from 'src/app/models/vehiclemfrmastermodel';
 import { DeductionrptComponent } from './module/deductionrpt/deductionrpt.component';
 import { MissingdocrptComponent } from './module/missingdocrpt/missingdocrpt.component';
 import { DashboardnccComponent } from './module/dashboardncc/dashboardncc.component';
@@ -538,6 +540,17 @@ import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllp
 import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
 import { TripmarginsummaryrptComponent } from './module/tripmarginsummaryrpt/tripmarginsummaryrpt.component';
 import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlossstatementrpt/vehicleprofitlossstatementrpt.component';
+import { FleetgroupmasteraddComponent } from './module/fleetgroupmaster/fleetgroupmasteradd/fleetgroupmasteradd.component';
+import { FleetgroupmasterlistComponent } from './module/fleetgroupmaster/fleetgroupmasterlist/fleetgroupmasterlist.component';
+import { VehiclemfrmasteraddComponent } from './module/vehiclemfrmaster/vehiclemfrmasteradd/vehiclemfrmasteradd.component';
+import { VehiclemfrmasterlistComponent } from './module/vehiclemfrmaster/vehiclemfrmasterlist/vehiclemfrmasterlist.component';
+import { VehiclefincompmasteraddComponent } from './module/vehiclefincompmaster/vehiclefincompmasteradd/vehiclefincompmasteradd.component';
+import { VehiclefincompmasterlistComponent } from './module/vehiclefincompmaster/vehiclefincompmasterlist/vehiclefincompmasterlist.component';
+import { Vehiclefincompmastermodel } from './models/vehiclefincompmastermodel';
+import { Vehicleflttypemstmodel } from "./models/vehicleflttypemstmodel";
+import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flttypegroupmstadd/flttypegroupmstadd.component';
+import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
+
 
 
 @NgModule({
@@ -711,11 +724,10 @@ import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlo
     MultipleledgerreportComponent, AnnexurereportComponent, 
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
-    ChallansuppliaddllpComponent, ChallansupplilistllpComponent, 
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, 
-    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, 
-    DriversalaryentryaddComponent, DriversalaryentrylistComponent, 
-    TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent,  
+    ChallansuppliaddllpComponent, ChallansupplilistllpComponent, FleetgroupmasteraddComponent,
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, FleetgroupmasterlistComponent,FlttypegroupmstaddComponent,
+    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, VehiclemfrmasteraddComponent,VehiclemfrmasterlistComponent,VehiclefincompmasteraddComponent, VehiclemfrmasterlistComponent,FlttypegroupmstlistComponent,
+    DriversalaryentryaddComponent, DriversalaryentrylistComponent,     TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, FleetgroupmasteraddComponent, FleetgroupmasterlistComponent, VehiclefincompmasteraddComponent, VehiclefincompmasterlistComponent,
     
   ],
   
@@ -792,7 +804,7 @@ import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlo
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
-    Vendorpmtmodel,
+    Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
   ],
   bootstrap: [AppComponent]
 })

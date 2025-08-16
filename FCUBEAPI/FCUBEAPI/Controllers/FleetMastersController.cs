@@ -28,7 +28,8 @@ namespace FCUBEAPI.Controllers
         readonly ISparesLubesMasterBusiness sparesLubesMasterBusiness;
         readonly IMaintanenceMasterBusiness maintanenceMasterBusiness;
         readonly ITyreModelBusiness tyreModelBusiness;
-    
+        readonly IVehicleMfrMasterBusiness vehicleMfrMasterBusiness;
+
 
         readonly IFleetCardMasterBusiness fleetCardMasterBusiness;
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
@@ -37,6 +38,11 @@ namespace FCUBEAPI.Controllers
         readonly ITruckMasterBusiness truckMasterBusiness;
         readonly ITransportMasterBusiness transportMasterBusiness;
         readonly ITripExpTypeBusiness tripExpTypeBusiness;
+        readonly IFleetGroupMasterBusiness fleetGroupMasterBusiness;
+        readonly IVehicleFinCompMasterBusiness vehicleFinCompMasterBusiness;
+        readonly IVehicleFltTypeGroupMstBusiness vehicleFltTypeGroupMstBusiness;
+
+
         public FleetMastersController(IOptions<DBModel> _dbconnection,
             IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness,
             IVehicleFltMasterBusiness _vehicleFltMasterBusiness,
@@ -45,7 +51,7 @@ namespace FCUBEAPI.Controllers
             IBrandMasterBusiness _brandMasterBusiness,
             ITyreModelBusiness _tyreModelBusiness,
             ITripExpTypeBusiness _tripExpTypeBusiness,
-
+                       IFleetGroupMasterBusiness _fleetGroupMasterBusiness,
 
         IMaintanenceMasterBusiness _maintanenceMasterBusiness,
         ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
@@ -54,7 +60,12 @@ namespace FCUBEAPI.Controllers
             IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
             IFleetCardMasterBusiness _fleetCardMasterBusiness,
              ITruckMasterBusiness _truckMasterBusiness,
-              ITransportMasterBusiness _transportMasterBusiness)
+              ITransportMasterBusiness _transportMasterBusiness,
+             IVehicleMfrMasterBusiness _vehicleMfrMasterBusiness,
+               IVehicleFinCompMasterBusiness _vehicleFinCompMasterBusiness,
+                  IVehicleFltTypeGroupMstBusiness _vehicleFltTypeGroupMstBusiness
+
+              )
         {
             dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
@@ -73,6 +84,10 @@ namespace FCUBEAPI.Controllers
             transportMasterBusiness= _transportMasterBusiness;
             tyreModelBusiness = _tyreModelBusiness;
             tripExpTypeBusiness = _tripExpTypeBusiness;
+            fleetGroupMasterBusiness = _fleetGroupMasterBusiness;
+            vehicleMfrMasterBusiness = _vehicleMfrMasterBusiness;
+            vehicleFinCompMasterBusiness = _vehicleFinCompMasterBusiness;
+            vehicleFltTypeGroupMstBusiness = _vehicleFltTypeGroupMstBusiness;
         }
 
         /// <summary>
@@ -1559,6 +1574,317 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("FleetGroupMasterSave")]
+        public async Task<IActionResult> FleetGroupMasterSave(FleetGroupMasterModel fleetGroupMasterModel)
+        {
+            if (fleetGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGroupMasterBusiness.FleetGroupMasterSave(fleetGroupMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFleetGroupMasterList")]
+        public async Task<IActionResult> GetFleetGroupMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGroupMasterBusiness.GetFleetGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("chkDesGroup")]
+        public async Task<IActionResult> chkDesGroup(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGroupMasterBusiness.chkDesGroup(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FleetGroupMasterDelete")]
+        public async Task<IActionResult> FleetGroupMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGroupMasterBusiness.FleetGroupMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleMfrMasterSave")]
+        public async Task<IActionResult> VehicleMfrMasterSave(VehicleMfrMasterModel vehicleMfrMasterModel)
+        {
+            if (vehicleMfrMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleMfrMasterBusiness.VehicleMfrMasterSave(vehicleMfrMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleMfrMasterList")]
+        public async Task<IActionResult> GetVehicleMfrMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleMfrMasterBusiness.GetVehicleMfrMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleMfrMasterChkActName")]
+        public async Task<IActionResult> VehicleMfrMasterChkActName(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleMfrMasterBusiness.VehicleMfrMasterChkActName(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleMfrMasterDelete")]
+        public async Task<IActionResult> VehicleMfrMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleMfrMasterBusiness.VehicleMfrMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleFinCompMasterSave")]
+        public async Task<IActionResult> VehicleFinCompMasterSave(VehicleFinCompModel vehicleFinCompModel)
+        {
+            if (vehicleFinCompModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFinCompMasterBusiness.VehicleFinCompMasterSave(vehicleFinCompModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleFinCompMasterList")]
+        public async Task<IActionResult> GetVehicleFinCompMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFinCompMasterBusiness.GetVehicleFinCompMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleFinCompMasterChkActName")]
+        public async Task<IActionResult> VehicleFinCompMasterChkActName(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFinCompMasterBusiness.VehicleFinCompMasterChkActName(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleFinCompMasterDelete")]
+        public async Task<IActionResult> VehicleFinCompMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFinCompMasterBusiness.VehicleFinCompMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleFltTypeMstSave")]
+        public async Task<IActionResult> VehicleFltTypeMstSave(VehicleFltTypeGroupMstModel vehicleFltTypeGroupMstModel)
+        {
+            if (vehicleFltTypeGroupMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltTypeGroupMstBusiness.VehicleFltTypeMstSave(vehicleFltTypeGroupMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleFltGroupMstList")]
+        public async Task<IActionResult> GetVehicleFltGroupMstList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await vehicleFltTypeGroupMstBusiness.GetVehicleFltGroupMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleFltTypeGroupDelete")]
+        public async Task<IActionResult> VehicleFltTypeGroupDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltTypeGroupMstBusiness.VehicleFltTypeGroupDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateVehTypeName")]
+        public async Task<IActionResult> CheckDuplicateVehTypeName(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltTypeGroupMstBusiness.CheckDuplicateVehTypeName(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateVehTypeCode")]
+        public async Task<IActionResult> CheckDuplicateVehTypeCode(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltTypeGroupMstBusiness.CheckDuplicateVehTypeCode(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
 
     }

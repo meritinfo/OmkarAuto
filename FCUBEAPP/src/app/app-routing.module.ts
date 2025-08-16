@@ -348,6 +348,16 @@ import { TripmasterllplistComponent } from './module/tripmasterllp/tripmasterllp
 import { TripmasterllpaddComponent } from './module/tripmasterllp/tripmasterllpadd/tripmasterllpadd.component';
 import { TripmarginsummaryrptComponent } from './module/tripmarginsummaryrpt/tripmarginsummaryrpt.component';
 import { VehicleprofitlossstatementrptComponent } from './module/vehicleprofitlossstatementrpt/vehicleprofitlossstatementrpt.component';
+import { FleetgroupmasteraddComponent } from './module/fleetgroupmaster/fleetgroupmasteradd/fleetgroupmasteradd.component';
+import { FleetgroupmasterlistComponent } from './module/fleetgroupmaster/fleetgroupmasterlist/fleetgroupmasterlist.component';
+import { VehiclemfrmasteraddComponent } from './module/vehiclemfrmaster/vehiclemfrmasteradd/vehiclemfrmasteradd.component';
+import { VehiclemfrmasterlistComponent } from './module/vehiclemfrmaster/vehiclemfrmasterlist/vehiclemfrmasterlist.component';
+import { VehiclefincompmasteraddComponent } from './module/vehiclefincompmaster/vehiclefincompmasteradd/vehiclefincompmasteradd.component';
+import { VehiclefincompmasterlistComponent } from './module/vehiclefincompmaster/vehiclefincompmasterlist/vehiclefincompmasterlist.component';
+import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flttypegroupmstadd/flttypegroupmstadd.component';
+import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
+
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -822,6 +832,19 @@ const routes: Routes = [
   { path: 'tripsheetllpedit', component:  TripmasterllpaddComponent }, 
   { path: 'tripmarginsumrpt', component:  TripmarginsummaryrptComponent }, 
   { path: 'vehicleplstmt', component:  VehicleprofitlossstatementrptComponent }, 
+  { path: 'fleetgrouplist',component: FleetgroupmasterlistComponent },
+  { path: 'fleetgroupadd', component: FleetgroupmasteraddComponent },
+  { path: 'fleetgroupedit', component: FleetgroupmasteraddComponent },
+  { path: 'vehiclemfrmasterlist',component: VehiclemfrmasterlistComponent },
+  { path: 'vehmfrmasteradd', component: VehiclemfrmasteraddComponent },
+  { path: 'vehmfrmasteredit', component: VehiclemfrmasteraddComponent },
+  { path: 'vehiclefincomplist',component: VehiclefincompmasterlistComponent },
+  { path: 'vehfincompmasteradd', component: VehiclefincompmasteraddComponent },
+  { path: 'vehfincompmasteredit', component: VehiclefincompmasteraddComponent },
+  { path: 'flttypemasteradd',component: FlttypegroupmstaddComponent },
+  { path: 'flttypemasteredit',component: FlttypegroupmstaddComponent },
+  { path: 'fltvehicletype',component: FlttypegroupmstlistComponent},
+  
   
 ];
 

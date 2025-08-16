@@ -1,0 +1,67 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Mfr Master</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Name</label>
+                                    <input type="text" class="form-control" formControlName="vehMrfName" uppercaseonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                   <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
+                        (click)="vehicleFinCompMasterAdd()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Name</th>  
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allVehicleMfrMasterList.vehicleMfrMasterLst">
+                        <tr *ngFor="let actlist of allVehicleMfrMasterList.vehicleMfrMasterLst">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getVehicleMfrMasterDetails(actlist)"></button>             
+                            </td>    
+                            <td>{{ actlist.vehMrfName }}</td> 
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allVehicleMfrMasterList.vehicleMfrMasterLst?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

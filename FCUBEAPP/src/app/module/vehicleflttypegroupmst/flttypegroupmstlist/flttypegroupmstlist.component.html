@@ -1,0 +1,72 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Fleet Vehicle Types</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Group Name</label>
+                                    <input type="text" class="form-control" formControlName="groupDesc" uppercaseonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2 col-md-2 text-right">
+                   <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
+                        (click)="addFltGroupType()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Group Description</th>  
+                            <th>Is Active</th>
+                               <th>Is Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allFltTypes.fltList">
+                        <tr *ngFor="let actlist of allFltTypes.fltList">
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getFltTypesDetails(actlist)"></button>             
+                            </td>    
+                         <td>{{ actlist.vehicleTypeGroupCode }}</td>
+                    
+                            <td>{{ actlist.vehicleTypeGroupName }}</td>
+                            <td>{{ actlist.isActive }}</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allFltTypes.fltList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

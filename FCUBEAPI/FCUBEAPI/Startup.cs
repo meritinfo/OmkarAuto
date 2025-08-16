@@ -315,6 +315,14 @@ namespace FCUBEAPI
             services.AddScoped<IDriverSalaryEntryRepository, DriverSalaryEntryRepository>();
             services.AddScoped<ITripMasterLlpBusiness, TripMasterLlpBusiness>();
             services.AddScoped<ITripMasterLlpRepository, TripMasterLlpRepository>();
+            services.AddScoped<IFleetGroupMasterBusiness, FleetGroupMasterBusiness>();
+            services.AddScoped<IFleetGroupMasterRepository, FleetGroupMasterRepository>();
+            services.AddScoped<IVehicleMfrMasterBusiness, VehicleMfrMasterBusiness>();
+            services.AddScoped<IVehicleMfrMasterRepository, VehicleMfrMasterRepository>();
+            services.AddScoped<IVehicleFinCompMasterBusiness, VehicleFinCompMasterBusiness>();
+            services.AddScoped<IVehicleFinCompMasterRepository, VehicleFinCompMasterRepository>();
+            services.AddScoped<IVehicleFltTypeGroupMstBusiness, VehicleFltTypeGroupMstBusiness>();
+            services.AddScoped<IVehicleFltTypeGroupMstRepository, VehicleFltTypeGroupMstRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
