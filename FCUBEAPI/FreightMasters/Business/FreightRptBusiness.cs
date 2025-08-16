@@ -203,11 +203,11 @@ namespace FreightMasters.Business
             return await freightRptRepository.GetOnAccountMRStatusRptExcel(request);
         }
 
-        public async Task<UnBilledRptListModel> GetUnBilledRptList(ReportRequestModel request)
+        public async Task<UnBilledRptListModel> GetUnBilledRptList(RepReqModel request)
         {
             return await freightRptRepository.GetUnBilledRptList(request);
         }
-        public async Task<ResponseModel> GetUnBilledRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetUnBilledRptExcel(RepReqModel request)
         {
             return await freightRptRepository.GetUnBilledRptExcel(request);
         }

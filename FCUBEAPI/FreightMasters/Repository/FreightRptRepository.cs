@@ -4407,7 +4407,7 @@ namespace FreightMasters.Repository
             return response;
         }
 
-        public async Task<UnBilledRptListModel> GetUnBilledRptList(ReportRequestModel request)
+        public async Task<UnBilledRptListModel> GetUnBilledRptList(RepReqModel request)
         {
             UnBilledRptListModel unBilledRpt = new();
 
@@ -4429,7 +4429,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Party",          request.FilterStr1),
                             new SqlParameter("@Origin",         request.FilterStr2),
                             new SqlParameter("@Destination",    request.FilterStr3),
-
+                            new SqlParameter("@AsOnDate",       request.FilterStr4),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUnBilledRptList", param);
 
@@ -4474,7 +4474,7 @@ namespace FreightMasters.Repository
             }
             return unBilledRpt;
         }
-        public async Task<ResponseModel> GetUnBilledRptExcel(ReportRequestModel request)
+        public async Task<ResponseModel> GetUnBilledRptExcel(RepReqModel request)
         {
             ResponseModel response = new();
             try
@@ -4494,6 +4494,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Party",          request.FilterStr1),
                             new SqlParameter("@Origin",         request.FilterStr2),
                             new SqlParameter("@Destination",    request.FilterStr3),
+                            new SqlParameter("@AsOnDate",       request.FilterStr4),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUnBilledRptExcel", param);
 

@@ -2146,7 +2146,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetUnBilledRptExcel")]
-        public async Task<IActionResult> GetUnBilledRptExcel(ReportRequestModel request)
+        public async Task<IActionResult> GetUnBilledRptExcel(RepReqModel request)
         {
             if (request == null)
             {
@@ -2164,7 +2164,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetUnBilledRptList")]
-        public async Task<IActionResult> GetUnBilledRptList(ReportRequestModel request)
+        public async Task<IActionResult> GetUnBilledRptList(RepReqModel request)
         {
             if (request == null)
             {

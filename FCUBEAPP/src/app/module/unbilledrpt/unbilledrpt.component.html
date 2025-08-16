@@ -32,7 +32,16 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">ACk Received </label><span style="color: red">*</span>    
+                                    <label for="formrow-inputState">As On Date </label>
+                                    <span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="asOnDate" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div> 
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">ACK Received </label><span style="color: red">*</span>    
                                     <select formControlName="ack"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
                                         <option value="">All</option>                                       

@@ -67,8 +67,8 @@ namespace FreightMasters.Repository
         Task<OnAccountMRStatusRptListModel> GetOnAccountMRStatusRptList(ReportRequestModel request);
         Task<ResponseModel> GetOnAccountMRStatusRptExcel(ReportRequestModel request);
 
-        Task<UnBilledRptListModel> GetUnBilledRptList(ReportRequestModel request);
-        Task<ResponseModel> GetUnBilledRptExcel(ReportRequestModel request);
+        Task<UnBilledRptListModel> GetUnBilledRptList(RepReqModel request);
+        Task<ResponseModel> GetUnBilledRptExcel(RepReqModel request);
 
         Task<ResponseModel> GetPendingDelvAckRptExcel(ReportRequestModel request);
 
