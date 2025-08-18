@@ -394,6 +394,7 @@ namespace FleetTrans.Repository
                 DriverList = new List<DriverDetails>(),
                 RouteList = new List<RouteDetails>(),
                 DieselList = new List<DieselDetails>(),
+                CmpExpList = new List<TripCmpExpDetails>(),
             };
             try
             {
