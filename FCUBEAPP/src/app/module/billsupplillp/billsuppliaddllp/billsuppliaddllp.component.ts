@@ -899,7 +899,7 @@ dashboard: string ="";
           'misc': "0",
           'doorDel': "0",
           'unLoading':  "0",
-          'unLoadingDetnRs': "0",
+          'detention': "0",
           'extras': billlist[i].extras,
           'others': billlist[i].others,
           'subTotal':  "0",

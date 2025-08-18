@@ -26,6 +26,7 @@ import { Detentionrptlistmodel  } from 'src/app/models/detentionrptlistmodel';
 import { Mrlistmodel  } from 'src/app/models/mrlistmodel';
 import { Documentallotmentlistmodel  } from 'src/app/models/documentallotmentlistmodel';
 import { Billoutstandingdetailrptlistmodel  } from 'src/app/models/billoutstandingdetailrptlistmodel';
+import { Repreqmodel } from '../models/repreqmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -180,10 +181,10 @@ export class FreightreportsService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetOnAccountMRStatusRptExcel', filter, this.httpOptions);
   }    
   
-  getUnbilledrptList(filter: Reportmodel): Observable<Unbilledrptlistmodel> {
+  getUnbilledrptList(filter: Repreqmodel): Observable<Unbilledrptlistmodel> {
     return this.httpClient.post<Unbilledrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetUnBilledRptList', filter, this.httpOptions);
   }  
-  getUnbilledrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+  getUnbilledrptExcel(filter: Repreqmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetUnBilledRptExcel', filter, this.httpOptions);
   }    
 

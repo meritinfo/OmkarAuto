@@ -970,7 +970,7 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
           'misc': this.billsmastersearchlistmodel.billsMasterSearchList[i].miscRs,
           'doorDel': this.billsmastersearchlistmodel.billsMasterSearchList[i].doorDelRs,
           'unLoading':  this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingRs,
-          'unLoadingDetnRs': this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingDetnRs,
+          'detention': this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingDetnRs,
           'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
           'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
           'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
