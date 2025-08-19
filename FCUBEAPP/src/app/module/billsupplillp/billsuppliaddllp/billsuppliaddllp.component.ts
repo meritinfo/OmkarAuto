@@ -287,15 +287,14 @@ dashboard: string ="";
         gstType : "NA",
       });
       this.formBillsMaster.controls['gstType'].disable();
-      this.onGstChange();
     }
     else{
       this.formBillsMaster.patchValue({
          gstType : "",         
       });
-      this.onGstChange();
       this.formBillsMaster.controls['gstType'].enable();
     }
+    this.onGstChange();
     
     //this.getCreditAcList(selectedValue);
   }
@@ -569,8 +568,11 @@ dashboard: string ="";
         totalCgstAmt:"",
         totalIgstAmt:"",
       });   
-    }    
+    } 
+    this.pctChange();   
   }
+
+
   pctChange(){
     var gstAmt = 0;
     var totalSgstAmt = 0;
