@@ -23,13 +23,14 @@ export class VehiclesummmonthlyrptComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
   vehicleList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   vehicleFltGrpList: Dropdownmodel[] = [];
+  fltGrpList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
@@ -118,24 +119,24 @@ dashboard: string ="";
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-
-
-    
+    this.fromDate = this.minDate ;    
      
     this.getVehicleNoList(); 
     this.getBranchList();
+    this.getFltGrpList();
     this.getVehicleFltGrpList();
     this.fromDate = this.maxDate.toString().substring(0,7);
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl( this.fromDate,[Validators.required]),
       branch: new FormControl('',),
+      fleetGroupId: new FormControl('',),
       vehicleTypeGroupId: new FormControl('',),  
       vehicleMasterId: new FormControl('',), 
       rptType: new FormControl('S',), 
     });   
   }
+
   changerpttype(e:any){
     var rptType = e.target.value;
     if(rptType=="Y"){
@@ -145,9 +146,16 @@ dashboard: string ="";
       this.formFilter.controls["fromDate"].enable();
     }
   }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+  
+  getFltGrpList(): void {
+    this.commonService.getFltGroupList().subscribe((res) => {
+      this.fltGrpList = res;
     });
   }
   
@@ -180,6 +188,7 @@ dashboard: string ="";
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
+
   exportExcel(): void {      
     this.userSubmitted = true;
     if (this.formFilter.invalid) {
@@ -202,6 +211,7 @@ dashboard: string ="";
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.fromDate;  
     }
+    this.filter.search = selectedDataVal.fleetGroupId;
     this.filter.filterStr  = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.vehicleTypeGroupId;
     this.filter.filterStr2  = selectedDataVal.vehicleMasterId?selectedDataVal.vehicleMasterId.dataId:"";

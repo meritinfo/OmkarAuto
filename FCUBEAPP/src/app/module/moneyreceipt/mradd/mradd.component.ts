@@ -1059,8 +1059,8 @@ dashboard: string ="";
 
     this.formUser.patchValue({
       onAcAdjAmt: totadjAmt,
-      totalAmt: cheqCashAmt + totadjAmt,
-      onAcNewAmt: cheqCashAmt + totadjAmt - (totalRecdAmt + totalExcess + totalOthers1),
+      totalAmt: (cheqCashAmt + totadjAmt).toFixed(2),
+      onAcNewAmt: (cheqCashAmt + totadjAmt - (totalRecdAmt + totalExcess + totalOthers1)).toFixed(2),
     });
   }
 

@@ -3214,6 +3214,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FleetStation",       request.FilterStr),
                             new SqlParameter("@VehicleTypeGroupId", request.FilterStr1),
                             new SqlParameter("@VehicleMasterId",    request.FilterStr2),
+                            new SqlParameter("@FleetGroupId",       request.Search)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleMonthlySummRptExcel", param);
 
@@ -3252,6 +3253,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FleetStation",       request.FilterStr),
                             new SqlParameter("@VehicleTypeGroupId", request.FilterStr1),
                             new SqlParameter("@VehicleMasterId",    request.FilterStr2),
+                            new SqlParameter("@FleetGroupId",       request.Search)  
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleMonthlyPLRptExcel", param);
 
@@ -3688,10 +3690,10 @@ namespace FleetTrans.Repository
                     ws.Cell(5, 2).Value = "Fixed Expense Desc";
                     ws.Cell(5, 3).Value = "Expense Amt";
                     ws.Cell(5, 5).Value = "Sl No";
-                    ws.Cell(5, 6).Value = "Fixed Expense Desc";
+                    ws.Cell(5, 6).Value = "Variable Expense Desc";
                     ws.Cell(5, 7).Value = "Expense Amt";
                     ws.Cell(5, 9).Value = "Sl No";
-                    ws.Cell(5, 10).Value = "Fixed Expense Desc";
+                    ws.Cell(5, 10).Value = "Maint & Tyres Expense Desc";
                     ws.Cell(5, 11).Value = "Expense Amt";
 
                     ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
