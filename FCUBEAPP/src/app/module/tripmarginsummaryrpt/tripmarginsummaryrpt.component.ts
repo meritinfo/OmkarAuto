@@ -125,7 +125,7 @@ export class TripmarginsummaryrptComponent {
     this.filter.filterStr1  = "";
     
     this.sharedService.loading=true;    
-    
+    this.getFltGrpList();
     this.getVehicleNoList(); 
     this.sharedService.loading=false;
   }
@@ -184,7 +184,7 @@ export class TripmarginsummaryrptComponent {
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr  = selectedDataVal.branch?selectedDataVal.branch:"";
-    this.filter.filterStr1  = selectedDataVal.rptType;       
+    this.filter.filterStr1  = selectedDataVal.rptType;        
 
     this.tripSummaryRptService.getVehicleMonthlyTripsRptExcel(this.filter).subscribe(resp => {
       if(resp.status){      

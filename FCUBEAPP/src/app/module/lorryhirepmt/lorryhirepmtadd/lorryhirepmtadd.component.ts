@@ -23,6 +23,7 @@ export class LorryhirepmtaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
+  role: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -41,6 +42,7 @@ export class LorryhirepmtaddComponent {
   editMode = false;
   createStatus = false;
   editStatus = false;
+  revsDirect = false;
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
@@ -74,16 +76,15 @@ export class LorryhirepmtaddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -100,6 +101,10 @@ export class LorryhirepmtaddComponent {
     }
     else {
       this.route.navigate(['/']);
+    }    
+    var userType = sessionStorage.getItem('userType')?.toString();
+    if (typeof userType !== 'undefined' && userType !== null && userType !== '') {
+      this.role = userType;
     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -189,6 +194,9 @@ export class LorryhirepmtaddComponent {
       }
       if(this.selectedLorryhiremaster.onAcBranch!=''){        
         this.formArray.controls[0].get("challanBranch")?.setValue(this.selectedLorryhiremaster.onAcBranch);
+      }
+      if(this.selectedLorryhiremaster.pmtType=="T" && this.role=="1"){
+        this.revsDirect = true;
       }
     }
 
@@ -819,6 +827,28 @@ export class LorryhirepmtaddComponent {
     });
   }
 
+  revUpdate(): void {
+    if (this.selectedLorryhiremaster.masterId != '') {
+      this.sharedService.loading=true;
+      this.requestmodel.strRequest = this.selectedLorryhiremaster.masterId;
+      this.requestmodel.strRequest1 = this.loggedInUserID;
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.lorryhirepmtService.lorryhiremasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/lhpmtlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }    
+        });
+      }
+      this.sharedService.loading=false;
+    }
+  }
+  
   deleteLorryHirePaymentForm(): void {
     if (this.selectedLorryhiremaster.masterId != '') {
       this.sharedService.loading=true;
@@ -840,10 +870,11 @@ export class LorryhirepmtaddComponent {
       this.sharedService.loading=false;
     }
   }
+
   exit(): void {
     this.route.navigate(['/lhpmtlist']);
   }
-
+  
   //Submit form details //
   submitLorryHirePaymentForm(): void {
     if (this.formUser.invalid) {

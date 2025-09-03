@@ -66,6 +66,11 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <button class="btn btn-primary w-md" 
+                                                *ngIf="(editMode && editStatus && revsDirect)"
+                                                (click)="revUpdate()">Reverse Direct</button>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-2" *ngIf="onAcBranchShow">

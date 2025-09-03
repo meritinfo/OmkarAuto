@@ -364,7 +364,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<List<DropDownListModel>> GetPmtList(RequestModel request)
         {
             List<DropDownListModel> locationList = new();

@@ -58,9 +58,12 @@ export class LorryhirepmtService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChkLHPMBrokerDisputeDetails', request, this.httpOptions);
   } 
   
-
   lorryhiremasterDelete(request: Requestmodel ):  Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDelete', request, this.httpOptions);
+  }
+
+  directPmtRev(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DirectPmtRev', request, this.httpOptions);
   }
 
   getLhpmPmtNo(request: Requestmodel ):  Observable<Responsemodel> {

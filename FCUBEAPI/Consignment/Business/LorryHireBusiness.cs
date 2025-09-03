@@ -33,6 +33,10 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.LorryHireMasterDelete(request);
         }
+        public async Task<ResponseModel> DirectPmtRev(RequestModel requestModel)
+        {
+            return await lorryHireRepository.DirectPmtRev(requestModel);
+        }
         public async Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request)
         {
             return await lorryHireRepository.GetChallanLorryhireDetails(request);

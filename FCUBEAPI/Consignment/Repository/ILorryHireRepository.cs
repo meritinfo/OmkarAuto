@@ -10,6 +10,7 @@ namespace Consignment.Repository
         Task<ResponseModel> ChkLHPMBrokerDisputeDetails(ReportRequestModel request);
         Task<ResponseModel> LorryHireMasterSave(LorryHireMasterModel lorryHire);
         Task<ResponseModel> LorryHireMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> DirectPmtRev(RequestModel requestModel);
         Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request);
         Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel);
         Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel);

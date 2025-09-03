@@ -1865,6 +1865,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("DirectPmtRev")]
+        public async Task<IActionResult> DirectPmtRev(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.DirectPmtRev(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetChallanLorryhireDetails")]
         public async Task<IActionResult> GetChallanLorryhireDetails(ReportRequestModel request)
         {
