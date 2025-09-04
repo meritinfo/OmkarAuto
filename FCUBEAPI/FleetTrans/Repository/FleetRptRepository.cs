@@ -3680,7 +3680,7 @@ namespace FleetTrans.Repository
                     ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                     ws.Range(4, 1, 4, colcnt).Merge();
-                    ws.Range(4, 1, 4, colcnt).Value = "";
+                    ws.Range(4, 1, 4, colcnt).Value = "Report Period From" + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
                     ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
                     ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
                     ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
