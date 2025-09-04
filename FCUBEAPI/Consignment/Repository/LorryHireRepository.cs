@@ -536,7 +536,7 @@ namespace Consignment.Repository
             {
                 string baseUrl = dbconnection.Value.apiPath + "api/LH/";
 
-                string UrlParam = "?MasterId=" + request.strRequest;
+                string UrlParam = "?MasterId=" + request.strRequest + "&format=" + request.strRequest1;
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

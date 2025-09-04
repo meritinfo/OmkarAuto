@@ -832,8 +832,8 @@ export class LorryhirepmtaddComponent {
       this.sharedService.loading=true;
       this.requestmodel.strRequest = this.selectedLorryhiremaster.masterId;
       this.requestmodel.strRequest1 = this.loggedInUserID;
-      if (confirm("Are you sure, you want to delete this?")) {
-        this.lorryhirepmtService.lorryhiremasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (confirm("Are you sure, you want to Reverse Direct Pmt Details?")) {
+        this.lorryhirepmtService.directPmtRev(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if (this.responseDetails.status) {
             this.toasterService.success(this.responseDetails.message);

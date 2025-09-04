@@ -68,6 +68,7 @@
                                 <th>totalRecoveryAmt</th>
                                 <th>Action</th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allLorryhirelist.lorryHireList?.length != 0">
@@ -79,8 +80,14 @@
                                 <td>
                                     <button type="button" 
                                         class="btn btn-primary btn-floating"  
-                                    (click)="download(lrhr)" >
+                                    (click)="download(lrhr,'p')" >
                                         <i class="fas fa-download"></i></button>   
+                                </td>  
+                                <td>
+                                    <button type="button" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(lrhr,'x')" >
+                                        <i class="fas fa-file-excel"></i></button>   
                                 </td>  
                                 <td>{{ lrhr.pmtStn}}</td>
                                 <td>{{ lrhr.pmtNo}}</td>

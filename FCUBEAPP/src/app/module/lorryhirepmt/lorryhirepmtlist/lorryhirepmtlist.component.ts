@@ -156,7 +156,11 @@ export class LorryhirepmtlistComponent {
           data: 'masterID',
         },
         {
-          title: 'Print',
+          title: 'PDF',
+          data: 'masterID',
+        },
+        {
+          title: 'EXCEL',
           data: 'masterID',
         },
         {
@@ -224,16 +228,24 @@ export class LorryhirepmtlistComponent {
     });
   }
   
-  download(ch: Lorryhiremastermodel): void {
+  download(ch: Lorryhiremastermodel,rptType:string): void {
     this.request.strRequest = ch.masterId;
+    this.request.strRequest1 = rptType;
         
     this.lorryhirepmtService.getLorryHirePrintPdf(this.request).subscribe(resp => {
-      if(resp.status){     
+      if(resp.status){ 
         let link = document.createElement("a");
-        link.download = "LH_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/lhprint/" + resp.message;
-        link.click();
-        window.open(link.href, "_blank");
+        if(rptType=="x"){
+          link.download = "LH_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/lhprint/" + resp.message;
+          link.click();
+        }
+        else{
+          link.download = "LH_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/lhprint/" + resp.message;
+          link.click();
+          window.open(link.href, "_blank");
+        }    
       }
       else{        
         this.toastrService.warning(resp.message);   
