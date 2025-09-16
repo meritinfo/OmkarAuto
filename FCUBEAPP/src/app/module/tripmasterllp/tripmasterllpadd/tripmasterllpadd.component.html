@@ -83,7 +83,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Trip No</label><span style="color: red">*</span>    
-                                                <input class="form-control" formControlName="tripNo"
+                                                <input class="form-control" formControlName="tripNo" 
+                                                (change)="checkDupliTripNo()"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['tripNo'].invalid) }" >
                                             </div>
                                         </div>

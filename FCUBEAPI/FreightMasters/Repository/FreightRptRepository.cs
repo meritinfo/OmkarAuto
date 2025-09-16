@@ -3703,6 +3703,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@AsOnDate",   request.Search),
                             new SqlParameter("@RptType",    request.FilterStr),
                             new SqlParameter("@Broker",     request.FilterStr1),
                             new SqlParameter("@Branch",     request.FilterStr2),

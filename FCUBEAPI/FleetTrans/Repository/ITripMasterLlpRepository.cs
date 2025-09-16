@@ -18,6 +18,7 @@ namespace FleetTrans.Repository
         Task<List<DropDownListModel>> GetDriverList();
         Task<List<DropDownListModel>> GetExpList();
         Task<ResponseModel> GetNextTripNo(RequestModel request);
+        Task<ResponseModel> CheckDupliTripNo(ReportRequestModel request);
         Task<ResponseModel> GetDslMileage(RequestModel request);
         Task<ResponseModel> GetBhattaRate(RequestModel request);
         Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request);
