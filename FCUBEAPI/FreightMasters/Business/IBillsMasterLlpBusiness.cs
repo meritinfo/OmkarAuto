@@ -23,6 +23,8 @@ namespace FreightMasters.Business
         Task<BillsMasterModelLLP> GetBillEnqDetails(RequestModel req);
         Task<BillsMasterModelLLP> GetBillEnqInnerGridList(RequestModel request);
         Task<ResponseModel> GetBillNoLLP(RequestModel req);
+        Task<ResponseModel> BillsMasterVehDtlUpdateLLP(BillsMasterModelLLP billsModel);
+        Task<BillsMasterModelLLP> GetBillsVehDetailInnerGridList(RequestModel request);
 
     }
 }

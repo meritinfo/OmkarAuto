@@ -74,17 +74,28 @@ namespace FreightMasters.Models
         public string? BillSeries { get; set; }
         public string? BillSlNo { get; set; }
         public string? SgstPct { get; set; }
-        public string?CgstPct { get; set; }
+        public string? CgstPct { get; set; }
         public string? IgstPct { get; set; }
+        public string? AgainstVehicleYN { get; set; }
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
-   
+
         public List<BillsDetailModelLLP> BillsMasterListData { get; set; }
         public List<BillsMasterSearchModelLLP> BillsEnqListData { get; set; }
         public List<BillSubmitMasterModel> BillSubmitList { get; set; }
+        public List<Billsdetailownveh> Ownvehdata { get; set; }
         public List<MrList> MrList { get; set; }
+    }
+    public class Billsdetailownveh
+    {
+        public string? BillDetailVehId { get; set; }
+        public string? BillsMasterId { get; set; }
+        public string? VehicleMasterId { get; set; }
+        public string? FreightAmt { get; set; }
     }
 }

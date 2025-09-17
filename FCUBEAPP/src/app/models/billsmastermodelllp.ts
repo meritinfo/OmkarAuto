@@ -73,6 +73,9 @@ export class BillsmastermodelllP {
     cgstPct: string = ""; 
     sgstPct: string = ""; 
     igstPct: string = ""; 
+     againstVehicleYN: string = ""; 
+     fromDate: string = ""; 
+     toDate: string = ""; 
     loggedInUser: string = "";  
     createdBy: string = "";
     createdDate: string = "";
@@ -82,5 +85,13 @@ export class BillsmastermodelllP {
    // billsEnqListData: Billsmastersearchmodel[] = [];
     billsEnqListData: Billsmastersearchmodel[] = [];
     billSubmitList: Billsubmitmastermodel[] = [];
+    ownvehdata: Billsdetailownveh[] = [];
     mrList: Mrmodel[] = [];
+}
+export class Billsdetailownveh {
+    billDetailVehId: string = ""; 
+    billsMasterId: string = ""; 
+    vehicleMasterId: string = ""; 
+    freightAmt: string = ""; 
+
 }

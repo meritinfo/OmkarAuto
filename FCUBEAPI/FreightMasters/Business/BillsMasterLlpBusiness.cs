@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2016.Excel;
+﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FreightMasters.Models;
 using FreightMasters.Repository;
 using Shared.Models;
@@ -68,6 +69,14 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> GetBillNoLLP(RequestModel req)
         {
             return await billsRepository.GetBillNoLLP(req);
+        }
+        public async Task<ResponseModel> BillsMasterVehDtlUpdateLLP(BillsMasterModelLLP billsModel)
+        {
+            return await billsRepository.BillsMasterVehDtlUpdateLLP(billsModel);
+        }
+        public async Task<BillsMasterModelLLP> GetBillsVehDetailInnerGridList(RequestModel request)
+        {
+            return await billsRepository.GetBillsVehDetailInnerGridList(request);
         }
 
     }

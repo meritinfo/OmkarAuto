@@ -3958,6 +3958,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("BillsMasterVehDtlUpdateLLP")]
+        public async Task<IActionResult> BillsMasterVehDtlUpdateLLP(BillsMasterModelLLP billsMasterModel)
+        {
+            if (billsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.BillsMasterVehDtlUpdateLLP(billsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillsInnerGridListLLP")]
         public async Task<IActionResult> GetBillsInnerGridListLLP(RequestModel request)
         {
@@ -3968,6 +3986,23 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await billsMasterBusinessLLP.GetBillsInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsVehDetailInnerGridList")]
+        public async Task<IActionResult> GetBillsVehDetailInnerGridListGetBillsVehDetailInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusinessLLP.GetBillsVehDetailInnerGridList(request);
                 return Ok(result);
             }
             catch (Exception ex)

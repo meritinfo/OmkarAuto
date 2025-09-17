@@ -22,7 +22,9 @@ namespace FreightMasters.Repository
         Task<ResponseModel> GetBillPdfLlp(RepReqModel request);
         Task<BillsMasterModelLLP> GetBillEnqDetails(RequestModel req);
         Task<BillsMasterModelLLP> GetBillEnqInnerGridList(RequestModel request);
+        Task<ResponseModel> BillsMasterVehDtlUpdateLLP(BillsMasterModelLLP billsModel);
         Task<ResponseModel> GetBillNoLLP(RequestModel req);
+        Task<BillsMasterModelLLP> GetBillsVehDetailInnerGridList(RequestModel request);
 
 
     }

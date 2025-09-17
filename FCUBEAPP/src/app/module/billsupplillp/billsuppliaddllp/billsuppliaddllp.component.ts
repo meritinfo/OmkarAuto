@@ -30,6 +30,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   duedate: string = '';
   minDate : string = '';
   maxDate : string = '';
+    billid : string = '';
+     frtamt : number= 0;
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   seriesList: Dropdownmodel[] = [];
@@ -39,6 +41,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   yearList: Dropdownmodel[] = [];
   BillTypesList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+   vehicleList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
   gstByList: Dropdownmodel[] = [];
@@ -58,6 +61,8 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   viewStatus = false; 
 dashboard: string ="";
   showButton = true;  
+    showButtonAgVeh = false;  
+        showButtonAgVeh2 = false;  
   formSubmitted = false;
   
   selectedBillsmasterDetails = new BillsmastermodelllP();
@@ -135,6 +140,7 @@ dashboard: string ="";
     this.getBillingPartyList();
     this.getLocationList();
     this.getYearList();
+    this.getVehicleNoList();
     this.getBillTypesList();
     this.getCnNoLength();
 
@@ -168,9 +174,12 @@ dashboard: string ="";
       billSeries: new FormControl('',),
       billSlNo: new FormControl('',),
       gstBy: new FormControl('',),
-  
+      againstVehicleYN: new FormControl('',),
+      fromDate : new FormControl('',),
+      toDate : new FormControl('',),
       loggedInUser :  new FormControl(''),
-      arrayList: this.formBuilder.array([this.createInitialArray()]) 
+      arrayList: this.formBuilder.array([this.createInitialArray()]) ,
+          arrayListVeh: this.formBuilder.array([this.createInitialVehArray()]) 
     });
     this.formBillsMaster.controls['billNo'].disable();
     var selectedDataValue = this.formBillsMaster.getRawValue();
@@ -196,8 +205,10 @@ dashboard: string ="";
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         var suppYN = "";
+         this.billid = this.selectedBillsmasterDetails.billsMasterId;
         if(this.selectedBillsmasterDetails.suppYN=="Y"){
           this.showButton = false;
+           this.showButtonAgVeh =true
           suppYN = "Y";
           this.formBillsMaster.controls['totalFreight'].enable();
           this.formBillsMaster.controls['totalOthers'].enable();
@@ -212,6 +223,11 @@ dashboard: string ="";
           this.formBillsMaster.controls['totalExtras'].disable();
           this.formBillsMaster.controls['totalNonGstAmt1'].disable();
        
+        }
+    
+        if(this.selectedBillsmasterDetails.againstVehicleYN=="Y"){
+           this.showButtonAgVeh2= true;
+
         }
         this.formBillsMaster.patchValue(this.selectedBillsmasterDetails); 
         
@@ -234,6 +250,8 @@ dashboard: string ="";
           billSlNo:x,
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
           dueDate:this.commonService.formatDate(this.selectedBillsmasterDetails.dueDate), 
+          fromDate:this.commonService.formatDate(this.selectedBillsmasterDetails.fromDate), 
+          toDate:this.commonService.formatDate(this.selectedBillsmasterDetails.toDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
           suppYN: suppYN,
         })  
@@ -257,6 +275,7 @@ dashboard: string ="";
         }  
         this.getFinDocDetails(this.selectedBillsmasterDetails.finFtmid);
         this.getBillsMasterInnerGridList();
+        this.getBillsVehInnerGridList();
         this.editMode = true;
         this.createdBy = this.selectedBillsmasterDetails.createdBy + " " + this.selectedBillsmasterDetails.createdDate;
         this.modifiedBy = this.selectedBillsmasterDetails.modifiedBy + " " + this.selectedBillsmasterDetails.modifiedDate; 
@@ -278,7 +297,9 @@ dashboard: string ="";
   get formArray() {
     return this.formBillsMaster.get("arrayList") as FormArray;
   }  
-
+get formVehArray() {
+    return this.formBillsMaster.get("arrayListVeh") as FormArray;
+  }  
   changeGstUnder(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
@@ -335,6 +356,14 @@ dashboard: string ="";
       remarks1:  ['', []],
       remarks2:  ['', []],
       remarks3:  ['', []],
+    }); 
+  }
+   createInitialVehArray() {
+    return this.formBuilder.group({
+      billDetailVehId:  ['', []],
+      billsMasterId:  ['', []],
+      vehicleMasterId:  ['', []],
+      freightAmt:  ['', []],
     }); 
   }
   
@@ -450,6 +479,7 @@ dashboard: string ="";
   onSuppYNChange(e:any){
     if(e.target.checked){
       this.showButton = false;
+      this.showButtonAgVeh= true;
       this.formBillsMaster.controls['totalFreight'].enable();
       this.formBillsMaster.controls['totalOthers'].enable();
       this.formBillsMaster.controls['totalExtras'].enable();
@@ -457,11 +487,31 @@ dashboard: string ="";
     }
     else{
       this.showButton = true;
+       this.showButtonAgVeh= false;
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalOthers'].disable();
       this.formBillsMaster.controls['totalExtras'].disable();
       this.formBillsMaster.controls['totalNonGstAmt1'].disable();
     }
+  }
+
+    againstVehChange(e:any){
+    if(e.target.checked){
+   
+      this.showButtonAgVeh2= true;
+
+    }
+    else{
+     // this.showButton = true;
+    
+       this.showButtonAgVeh2= false;
+    
+    }
+  }
+getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
   }
 
    
@@ -493,6 +543,22 @@ dashboard: string ="";
         this.formArray.controls[i].get("fromPlace")?.disable();
         this.formArray.controls[i].get("toPlace")?.disable();
         this.formArray.controls[i].get("gtotal")?.disable();
+      }
+    });
+  }
+    getBillsVehInnerGridList(): void {
+    this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
+    this.billsMasterService.getBillsVehInnerGridList(this.requestmodel).subscribe((res) => {
+      this.selectedBillsmasterDetails= res;
+     // this.formVehArray.clear();
+      for(var i = 0; i < res.ownvehdata.length; i++) {
+        this.formVehArray.push(this.createInitialVehArray());
+       // this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.selectedBillsmasterDetails.ownvehdata[i].vehicleMasterId);
+      this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.vehicleList.find(e => e.dataId == this.selectedBillsmasterDetails.ownvehdata[i].vehicleMasterId))
+        this.formVehArray.controls[i].get("freightAmt")?.setValue( this.selectedBillsmasterDetails.ownvehdata[i].freightAmt);
+        this.formVehArray.controls[i].get("vehicleMasterId")?.disable();
+        this.formVehArray.controls[i].get("freightAmt")?.disable();
+     
       }
     });
   }
@@ -671,6 +737,31 @@ dashboard: string ="";
     });
   }
 
+
+    calculateVehTotal() {
+    var totalFreightAmt = 0;
+    var totalExtras = 0;
+   
+
+    var selectedDataVal = this.formBillsMaster.getRawValue();
+
+    var vehlist = selectedDataVal.arrayListVeh;
+
+    for (var i = 0; i < vehlist.length; i++) {
+         
+          totalFreightAmt      = totalFreightAmt     + (vehlist[i].freightAmt == ""? 0 : parseFloat(vehlist[i].freightAmt) );
+         
+ 
+         // this.formArray.controls[i].get("gtotal")?.setValue(gtotal);
+     // }
+    }
+    this.frtamt =totalFreightAmt;
+    // this.formBillsMaster.patchValue({
+    //   totalFreight      : totalFreight.toFixed(2),
+   
+    // });
+  }
+
   getUserTripRights(): void {
     this.requestmodel.strRequest = this.loggedInUserID;
     this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
@@ -762,6 +853,61 @@ dashboard: string ="";
     }
     
   }
+    addItem(index: number): void {
+
+  var selectedDataVal= this.formBillsMaster.getRawValue()
+  
+ if (this.formVehArray.value[index].VehicleMasterId!= "" && this.formVehArray.value[index].freightAmt!= "") 
+ {
+  
+  //   if (selectedDataVal.rateForStateOrToPlace == "P" && this.formArray.value[index].toPlace.dataId==selectedDataVal.fromPlace.dataId){
+  //     this.toasterService.warning("From Point cannot be same as To Place in details grid");
+  //     return;
+  //   }
+  //   else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace.dataId){
+  //     this.toasterService.warning("From Point cannot be same as State in details grid");
+  //     return;
+  //   }
+  //   else {
+      this.formVehArray.push(this.createInitialVehArray()); 
+      
+     
+  //     this.formRatesMaster.controls['rateForStateOrToPlace'].disable();
+  //   }    
+   }
+  else {
+    this.toasterService.warning("Please select Required Fields ");
+    return;
+  }
+   this.calculateVehTotal();
+  // var i=0;
+  // var selectedDataVal=this.formRatesMaster.getRawValue();
+ 
+  // for (i=0; i<this.formArray.controls.length;i++){
+  //   if (selectedDataVal.rateForStateOrToPlace == "P"){
+  //     this.formArray.controls[i].get("destState")?.disable();
+  //   }
+  //   else{
+  //     this.formArray.controls[i].get("toPlace")?.disable();
+  //   }
+  // }
+
+}
+
+  
+
+    removeItem(index: number){ 
+    if (confirm("Are you sure, you want to delete this?")) {
+    this.formVehArray.removeAt(index);
+     this.calculateVehTotal();
+    // if (this.formVehArray.length==1){
+    // //  this.formBillsMaster.controls['rateForStateOrToPlace'].enable();
+    // }
+  }
+  }
+  
+
+
   
   
   exit(): void {
@@ -786,6 +932,68 @@ dashboard: string ="";
       }
     }
   } 
+    selectNewEvent(item: any,index:number) {
+    var ToPlace = item.dataId;
+    var selectedDataValue=this.formBillsMaster.getRawValue();
+
+    for (var i = 0; i < selectedDataValue.arrayListVeh.length; i++) {
+      if(ToPlace == selectedDataValue.arrayListVeh[i].vehicleMasterId.dataId)
+      {
+        this.toasterService.warning("To vehicle already exits in grid");
+        this.formVehArray.controls[index].get("vehicleMasterId")?.setValue("");
+        return;
+      }
+    } 
+  }
+
+  updateVehDetails(): void {
+    if (this.formBillsMaster.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formBillsMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
+      return;
+    }
+
+    var selectedDataValue = this.formBillsMaster.getRawValue();
+    this.formSubmitted = true;
+   
+      this.billsmastermodel.billsMasterId =this.billid;
+    this.billsmastermodel.againstVehicleYN =  selectedDataValue.againstVehicleYN?"Y":"N";
+    this.billsmastermodel.fromDate = selectedDataValue.fromDate;
+      this.billsmastermodel.toDate = selectedDataValue.toDate;
+      this.billsmastermodel.ownvehdata = [];
+      var vehlist = selectedDataValue.arrayListVeh;
+
+    for (var i = 0; i < vehlist.length; i++) {  
+      if(vehlist[i].vehicleMasterId!="") {
+        this.billsmastermodel.ownvehdata.push({
+          'billDetailVehId': '',
+          'billsMasterId': '',// this.selectedBillsmasterDetails.billsMasterId,
+          'vehicleMasterId': vehlist[i].vehicleMasterId.dataId,
+          'freightAmt': vehlist[i].freightAmt,
+        });
+      }   
+    }
+    
+   
+  
+   this.billsMasterService.updateBillsMasterVehDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toasterService.success("Bill saved Successfully");
+        this.formBillsMaster.reset();
+        this.route.navigate(['/billsupplist_LLP']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
+    });
+  }
+  
   
 
   saveBillsDetails(): void {
@@ -817,6 +1025,15 @@ dashboard: string ="";
       this.toasterService.warning(" Bill Amount is Invalid");   
       return;
     }
+    if(selectedDataValue.againstVehicleYN=='Y'){
+     if(selectedDataValue.totalFreight==this.frtamt ){
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Freight Amount is Invalid");   
+      return;
+    }
+  }
 
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
@@ -871,11 +1088,16 @@ dashboard: string ="";
     this.billsmastermodel.cgstPct = selectedDataValue.cgstPct.toString();  
     this.billsmastermodel.sgstPct = selectedDataValue.sgstPct.toString(); 
     this.billsmastermodel.igstPct = selectedDataValue.igstPct.toString(); 
+      this.billsmastermodel.againstVehicleYN =  selectedDataValue.againstVehicleYN?"Y":"N";
+       this.billsmastermodel.fromDate = selectedDataValue.fromDate; 
+         this.billsmastermodel.toDate = selectedDataValue.toDate;
     this.billsmastermodel.gstBy = selectedDataValue.gstBy; 
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
+     this.billsmastermodel.ownvehdata = [];
 
     var billlist = selectedDataValue.arrayList;
+     var vehlist = selectedDataValue.arrayListVeh;
 
     for (var i = 0; i < billlist.length; i++) {  
       if(billlist[i].consignmentid!="") {
@@ -917,6 +1139,18 @@ dashboard: string ="";
           'remarks1':  billlist[i].remarks1,
           'remarks2':  billlist[i].remarks2,
           'remarks3':  billlist[i].remarks3, 
+        });
+      }   
+    }
+
+
+    for (var i = 0; i < vehlist.length; i++) {  
+      if(vehlist[i].vehicleMasterId!="") {
+        this.billsmastermodel.ownvehdata.push({
+          'billDetailVehId': '',
+          'billsMasterId': '',
+          'vehicleMasterId': vehlist[i].vehicleMasterId.dataId,
+          'freightAmt': vehlist[i].freightAmt.toString(),
         });
       }   
     }

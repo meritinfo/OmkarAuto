@@ -78,6 +78,9 @@ namespace FreightMasters.Repository
                             new SqlParameter("@CgstPct",       billsModel.CgstPct),
                             new SqlParameter("@SgstPct",       billsModel.SgstPct),
                             new SqlParameter("@IgstPct",       billsModel.IgstPct),
+                            new SqlParameter("@AgainstVehicleYN",       billsModel.AgainstVehicleYN),
+                            new SqlParameter("@FromDate",       billsModel.FromDate),
+                            new SqlParameter("@ToDate",       billsModel.ToDate),
                             new SqlParameter("@YearId",             billsModel.YearId),
                             new SqlParameter("@LoggedInUser",       billsModel.LoggedInUser)
                         };
@@ -96,6 +99,19 @@ namespace FreightMasters.Repository
                             {
                                 billsModel.BillsMasterListData[i].BillsMasterId = BillsMasterId.ToString();
                                 responseModel = await BillsMasterDtlSaveLLP(transaction, billsModel.BillsMasterListData[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = billsModel.BillsMasterListData.Count;
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < billsModel.Ownvehdata.Count; i++)
+                            {
+                                billsModel.Ownvehdata[i].BillsMasterId = BillsMasterId.ToString();
+                                responseModel = await BillsOwnVehDtlSaveLLP(transaction, billsModel.Ownvehdata[i]);
                                 if (!responseModel.Status)
                                 {
                                     transaction.Rollback();
@@ -178,6 +194,40 @@ namespace FreightMasters.Repository
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsDtlsSaveLLP", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+            return responseModel;
+        }
+    
+         public async Task<ResponseModel> BillsOwnVehDtlSaveLLP(SqlTransaction transaction, Billsdetailownveh billsDtl)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillDetailVehId",   billsDtl.BillDetailVehId),
+                            new SqlParameter("@BillsMasterId",  billsDtl.BillsMasterId),
+                            new SqlParameter("@VehicleMasterId",    billsDtl.VehicleMasterId),
+                            new SqlParameter("@FreightAmt", billsDtl.FreightAmt),
+                          
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsVehDtlsSaveLLP", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -426,6 +476,10 @@ namespace FreightMasters.Repository
                                 CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
                                 IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
                                 SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                AgainstVehicleYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AgainstVehicleYN"]),
+                                FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
+                                ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
+
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -544,7 +598,7 @@ namespace FreightMasters.Repository
                 BillsEnqListData = new List<BillsMasterSearchModelLLP>(),
                 BillSubmitList = new List<BillSubmitMasterModel>(),
                 MrList = new List<MrList>(),
-
+              
 
             };
             try
@@ -678,6 +732,7 @@ namespace FreightMasters.Repository
 
                             });
                         }
+                       
 
                     }
                 }
@@ -791,6 +846,49 @@ namespace FreightMasters.Repository
 
             }
             return billsMasterSearchList;
+        }
+        public async Task<BillsMasterModelLLP> GetBillsVehDetailInnerGridList(RequestModel request)
+        {
+            BillsMasterModelLLP billVehInnerGridList = new()
+            {
+                Ownvehdata = new List<Billsdetailownveh>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@BillsMasterId", request.strRequest)
+                    };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsVehInnerGridList", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            billVehInnerGridList.Ownvehdata.Add(new Billsdetailownveh
+                            {
+                                // Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
+
+                                // SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),
+                                BillDetailVehId = Convert.ToString(resultData.Tables[0].Rows[i]["BillDetailVehId"]),
+                                BillsMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["BillsMasterId"]),
+                                VehicleMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleMasterId"]),
+                                FreightAmt = Convert.ToString(resultData.Tables[0].Rows[i]["FreightAmt"]),
+
+
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return billVehInnerGridList;
         }
         public async Task<ResponseModel> BillsMasterDelete(RequestModel requestModel)
         {
@@ -916,6 +1014,65 @@ namespace FreightMasters.Repository
             catch (Exception ex)
             {
 
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> BillsMasterVehDtlUpdateLLP(BillsMasterModelLLP billsModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillsMasterId",      billsModel.BillsMasterId),
+                           
+                            new SqlParameter("@AgainstVehicleYN",       billsModel.AgainstVehicleYN),
+                            new SqlParameter("@FromDate",       billsModel.FromDate),
+                            new SqlParameter("@ToDate",       billsModel.ToDate),
+                         
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsMstVehUpdateLLP", param);
+                    var BillsMasterId = "0";
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        BillsMasterId = responseModel.Message;
+
+                      
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < billsModel.Ownvehdata.Count; i++)
+                            {
+                                billsModel.Ownvehdata[i].BillsMasterId = billsModel.BillsMasterId;
+                                responseModel = await BillsOwnVehDtlSaveLLP(transaction, billsModel.Ownvehdata[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = billsModel.BillsMasterListData.Count;
+                                }
+                            }
+                        }
+                  
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
             }
             return responseModel;
         }

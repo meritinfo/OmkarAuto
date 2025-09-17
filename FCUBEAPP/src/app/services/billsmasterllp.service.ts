@@ -58,9 +58,16 @@ export class BillsMasterServiceLLP {
   saveBillsMasterDetails(request: BillsmastermodelllP): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillsMasterSaveLLP', request, this.httpOptions);
   }
+    updateBillsMasterVehDetails(request: BillsmastermodelllP): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillsMasterVehDtlUpdateLLP', request, this.httpOptions);
+  }
   getBillsMasterInnerGridList(request: Requestmodel): Observable<BillsmastersearchlistmodelLLP> {
     return this.httpClient.post<BillsmastersearchlistmodelLLP>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsInnerGridListLLP', request, this.httpOptions);
   }
+  getBillsVehInnerGridList(request: Requestmodel): Observable<BillsmastermodelllP> {
+    return this.httpClient.post<BillsmastermodelllP>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsVehDetailInnerGridList', request, this.httpOptions);
+  }
+
   checkDuplicateBillsNo(request: BillsmastermodelllP): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateBillsNoLLP', request, this.httpOptions);
   } 
