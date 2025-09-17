@@ -255,6 +255,16 @@ dashboard: string ="";
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
           suppYN: suppYN,
         })  
+         if(this.selectedBillsmasterDetails.againstVehicleYN=="N"){
+            this.formBillsMaster.patchValue({
+           againstVehicleYN: "",
+            })
+        }
+         if(this.selectedBillsmasterDetails.suppYN=="N"){
+            this.formBillsMaster.patchValue({
+           suppYN: "",
+            })
+        }
                 
         this.formBillsMaster.controls['billSeries'].disable();
         this.formBillsMaster.controls['billSlNo'].disable();
@@ -488,6 +498,14 @@ get formVehArray() {
     else{
       this.showButton = true;
        this.showButtonAgVeh= false;
+       this.showButtonAgVeh2= false;
+        this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
+        this.formVehArray.controls[0].get("freightAmt")?.setValue('');
+        this.formBillsMaster.patchValue({
+           againstVehicleYN: "",
+           fromDate:"",
+           toDate:""
+            })
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalOthers'].disable();
       this.formBillsMaster.controls['totalExtras'].disable();
@@ -503,6 +521,13 @@ get formVehArray() {
     }
     else{
      // this.showButton = true;
+     this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
+        this.formVehArray.controls[0].get("freightAmt")?.setValue('');
+        this.formBillsMaster.patchValue({
+           againstVehicleYN: "",
+           fromDate:"",
+           toDate:""
+            })
     
        this.showButtonAgVeh2= false;
     
