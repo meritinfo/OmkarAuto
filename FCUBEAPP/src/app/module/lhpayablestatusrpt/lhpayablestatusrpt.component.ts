@@ -119,6 +119,7 @@ dashboard: string ="";
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
+        asOnDate: new FormControl(this.loginDate,[Validators.required]),
         rptType: new FormControl('C',),
         branch: new FormControl('',),  
         broker: new FormControl('',),  
@@ -131,6 +132,8 @@ dashboard: string ="";
       this.filter.filterStr   = "C";
       this.filter.filterStr1  = "";
       this.filter.filterStr2  = "";
+      this.filter.filterStr3  = "";
+      this.filter.search  = "";
        
   
       this.sharedService.loading=true;
@@ -195,7 +198,6 @@ dashboard: string ="";
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
-          this.filter.search = '';
           callback({
             recordsTotal: 0,
             recordsFiltered: 0,
@@ -219,13 +221,10 @@ dashboard: string ="";
             title: 'CH No',
             data: 'challanNo',
           }, 
-          
           {
             title: 'HS Date',
             data: 'challanDateTime',
-          }, 
-            
-            
+          },  
           {
             title: 'From Place',
             data: 'chFromPlace',
@@ -237,8 +236,7 @@ dashboard: string ="";
           {
             title: 'Payable At',
             data: 'balPayAt',
-          }, 
-                    
+          },       
           {
             title: 'Broker',
             data: 'brokerName',
@@ -247,7 +245,6 @@ dashboard: string ="";
             title: 'Broker Mob',
             data: 'brokerMblNo',
           }, 
-
           {
             title: 'Truck No',
             data: 'truckNo',
@@ -297,7 +294,8 @@ dashboard: string ="";
               
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;  
-      this.filter.filterStr  = selectedDataVal.rptType;       
+      this.filter.search      = selectedDataVal.asOnDate;
+      this.filter.filterStr   = selectedDataVal.rptType;       
       this.filter.filterStr1  = selectedDataVal.broker?selectedDataVal.broker.dataId:"";
       this.filter.filterStr2  = selectedDataVal.branch;
 

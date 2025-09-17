@@ -54,8 +54,10 @@ export class TripsheetllpService {
   
   tripMasterDetailsLlpSubmitted(user: Tripmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterLlpSave', user, this.httpOptions);
+  }  
+  checkDupliTripNo(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/CheckDupliTripNo', payload, this.httpOptions);
   }
-
   tripMasterDetailsLlpDelete(user: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterLlpDelete', user, this.httpOptions);
   }

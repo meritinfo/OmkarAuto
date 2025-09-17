@@ -557,6 +557,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDupliTripNo")]
+        public async Task<IActionResult> CheckDupliTripNo(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterLlpBusiness.CheckDupliTripNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripMasterLlpSave")]
         public async Task<IActionResult> TripMasterLlpSave(TripMasterModel tripMasterModel)

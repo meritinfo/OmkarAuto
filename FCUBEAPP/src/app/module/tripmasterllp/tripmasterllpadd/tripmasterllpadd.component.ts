@@ -124,7 +124,7 @@ export class TripmasterllpaddComponent {
       driverMasterID:  new FormControl('', [Validators.required]),
       definedMileage: new FormControl('',),
       closingKMR:new FormControl('',[Validators.required]),
-      openingKMR: new FormControl('',),
+      openingKMR: new FormControl('0',),
       distanceTripKM: new FormControl('',[Validators.required]),
       ltsDslToBe: new FormControl('',),
       issuedDslLtrs: new FormControl('',),
@@ -159,7 +159,7 @@ export class TripmasterllpaddComponent {
     this.selectedTripSheetDetails = this.tripSheetService.getTripMasterDetails();
 
     this.formTripsheet.controls['tripBranch'].disable(); 
-    this.formTripsheet.controls['tripNo'].disable();
+    //this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['ltsDslToBe'].disable();
     this.formTripsheet.controls['distanceTripKM'].disable();  
     this.formTripsheet.controls['issuedDslLtrs'].disable();      
@@ -353,16 +353,16 @@ export class TripmasterllpaddComponent {
         this.formTripsheet.patchValue({
           tripNo: this.responseDetails.message
         });  
-        if(this.responseDetails.message == "1")   {
-          this.formTripsheet.controls['openingKMR'].enable();  
-          //this.formTripsheet.controls['opBalDriver'].enable();  
-        }     
-        else{            
-          this.formTripsheet.controls['openingKMR'].disable();  
-          //this.formTripsheet.controls['opBalDriver'].disable();     
-        }     
+        // if(this.responseDetails.message == "1")   {
+        //   this.formTripsheet.controls['openingKMR'].enable();  
+        //   //this.formTripsheet.controls['opBalDriver'].enable();  
+        // }     
+        // else{            
+        //   this.formTripsheet.controls['openingKMR'].disable();  
+        //   //this.formTripsheet.controls['opBalDriver'].disable();     
+        // }     
         this.getDslMileage(item.dataId);
-        this.getOpeningBal(item.dataId);        
+        //this.getOpeningBal(item.dataId);        
       }
       else {
         this.toastrService.warning(this.responseDetails.message);
@@ -401,6 +401,25 @@ export class TripmasterllpaddComponent {
         });
       }
     });
+  }
+  
+  checkDupliTripNo(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    this.filter.filterStr = selectedDataValue.vehicleMasterID.dataId;
+    this.filter.filterStr1 = selectedDataValue.tripNo ;
+    this.filter.filterStr2 = this.year;
+    this.tripSheetService.checkDupliTripNo(this.filter).subscribe((res: Responsemodel) => {
+      if(res.status){
+        //ignore
+      }
+      else{
+        this.toastrService.warning(res.message);
+        this.formTripsheet.patchValue({
+          tripNo : "",
+        }); 
+      }            
+    });
+
   }
   
   getOpeningBal(e:any) {

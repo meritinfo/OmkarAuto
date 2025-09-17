@@ -275,10 +275,10 @@
                                         <th style="width: 150px;"><label for="formrow-inputZip">Year</label></th>
                                         <th style="width: 200px;"><label for="formrow-inputZip">Bill/LR Stn</label></th>
                                         <th style="width: 150px;"><label for="formrow-inputZip">Bill/LR No</label></th>
-                                        <th style="width: 120px;"><label for="formrow-inputZip">Bill/LR Date</label></th>
-                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Due</label></th>
-                                        <th style="width: 100px;"><label for="formrow-inputZip">Amt Recd</label></th>
-                                        <th style="width: 100px;"><label for="formrow-inputZip">Frt / NR</label></th>
+                                        <th style="width: 100px;"><label for="formrow-inputZip">Bill/LR Date</label></th>
+                                        <th style="width: 120px;"><label for="formrow-inputZip">Amt Due</label></th>
+                                        <th style="width: 120px;"><label for="formrow-inputZip">Amt Recd</label></th>
+                                        <th style="width: 120px;"><label for="formrow-inputZip">Frt / NR</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">TDS</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Claims</label></th>
                                         <th style="width: 100px;"><label for="formrow-inputZip">Bank Chrg</label></th>
@@ -328,21 +328,21 @@
                                                 <input type="hidden" autoclose="false" class="form-control"
                                                     formControlName="billLrMasterId">
                                             </td>  
-                                            <td style="width: 120px;">
+                                            <td style="width: 100px;">
                                                 <input type="date" autoclose="false" class="form-control"
                                                     formControlName="billLrDate">
                                             </td> 
-                                            <td style="width: 100px;">
+                                            <td style="width: 120px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="dueAmt">
                                                 <input type="hidden" autoclose="false" class="form-control"
                                                     formControlName="oldDueAmt">
                                             </td> 
-                                            <td style="width: 100px;">
+                                            <td style="width: 120px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="recdAmt" (change)="amtcheck(i,'recdAmt')">
                                             </td>  
-                                            <td style="width: 100px;">
+                                            <td style="width: 120px;">
                                                 <input decimalonly autoclose="false" class="form-control"
                                                     formControlName="freightDed" (change)="amtcheck(i,'freightDed')">
                                             </td> 

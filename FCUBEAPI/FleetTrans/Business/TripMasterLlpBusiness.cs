@@ -41,6 +41,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetNextTripNo(request);
         }
+        public async Task<ResponseModel> CheckDupliTripNo(ReportRequestModel request)
+        {
+            return await tripMasterRepository.CheckDupliTripNo(request);
+        }
         public async Task<List<DropDownListModel>> GetExpList()
          {
             return await tripMasterRepository.GetExpList();
