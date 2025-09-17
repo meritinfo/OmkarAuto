@@ -30,8 +30,7 @@ export class BillsuppliaddllpComponent {loggedInUserID: string = '';
   duedate: string = '';
   minDate : string = '';
   maxDate : string = '';
-    billid : string = '';
-     frtamt : number= 0;
+  billid : string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   seriesList: Dropdownmodel[] = [];
@@ -135,7 +134,7 @@ dashboard: string ="";
     var mnth = duedt.getMonth();
     duedt.setMonth(mnth + 1);
     this.duedate = duedt.toLocaleDateString('en-CA').toString();    
-   this.getGstByList();
+    this.getGstByList();
     this.getBranchList();
     this.getBillingPartyList();
     this.getLocationList();
@@ -179,7 +178,7 @@ dashboard: string ="";
       toDate : new FormControl('',),
       loggedInUser :  new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) ,
-          arrayListVeh: this.formBuilder.array([this.createInitialVehArray()]) 
+      arrayListVeh: this.formBuilder.array([this.createInitialVehArray()]) 
     });
     this.formBillsMaster.controls['billNo'].disable();
     var selectedDataValue = this.formBillsMaster.getRawValue();
@@ -206,6 +205,7 @@ dashboard: string ="";
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
         var suppYN = "";
          this.billid = this.selectedBillsmasterDetails.billsMasterId;
+
         if(this.selectedBillsmasterDetails.suppYN=="Y"){
           this.showButton = false;
            this.showButtonAgVeh =true
@@ -255,7 +255,7 @@ dashboard: string ="";
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
           suppYN: suppYN,
         })  
-        
+                
         this.formBillsMaster.controls['billSeries'].disable();
         this.formBillsMaster.controls['billSlNo'].disable();
         if (this.selectedBillsmasterDetails.gstType == "IG") {   
@@ -508,7 +508,7 @@ get formVehArray() {
     
     }
   }
-getVehicleNoList(): void {
+  getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
     });
@@ -737,31 +737,6 @@ getVehicleNoList(): void {
     });
   }
 
-
-    calculateVehTotal() {
-    var totalFreightAmt = 0;
-    var totalExtras = 0;
-   
-
-    var selectedDataVal = this.formBillsMaster.getRawValue();
-
-    var vehlist = selectedDataVal.arrayListVeh;
-
-    for (var i = 0; i < vehlist.length; i++) {
-         
-          totalFreightAmt      = totalFreightAmt     + (vehlist[i].freightAmt == ""? 0 : parseFloat(vehlist[i].freightAmt) );
-         
- 
-         // this.formArray.controls[i].get("gtotal")?.setValue(gtotal);
-     // }
-    }
-    this.frtamt =totalFreightAmt;
-    // this.formBillsMaster.patchValue({
-    //   totalFreight      : totalFreight.toFixed(2),
-   
-    // });
-  }
-
   getUserTripRights(): void {
     this.requestmodel.strRequest = this.loggedInUserID;
     this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
@@ -853,62 +828,24 @@ getVehicleNoList(): void {
     }
     
   }
-    addItem(index: number): void {
-
-  var selectedDataVal= this.formBillsMaster.getRawValue()
-  
- if (this.formVehArray.value[index].VehicleMasterId!= "" && this.formVehArray.value[index].freightAmt!= "") 
- {
-  
-  //   if (selectedDataVal.rateForStateOrToPlace == "P" && this.formArray.value[index].toPlace.dataId==selectedDataVal.fromPlace.dataId){
-  //     this.toasterService.warning("From Point cannot be same as To Place in details grid");
-  //     return;
-  //   }
-  //   else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace.dataId){
-  //     this.toasterService.warning("From Point cannot be same as State in details grid");
-  //     return;
-  //   }
-  //   else {
+    
+  addItem(index: number): void {
+    var selectedDataVal= this.formBillsMaster.getRawValue();  
+    if (selectedDataVal.arrayList[index].VehicleMasterId!= "" && selectedDataVal.arrayList[index].freightAmt!= "") 
+    {  
       this.formVehArray.push(this.createInitialVehArray()); 
-      
-     
-  //     this.formRatesMaster.controls['rateForStateOrToPlace'].disable();
-  //   }    
-   }
-  else {
-    this.toasterService.warning("Please select Required Fields ");
-    return;
+    }
+    else {
+      this.toasterService.warning("Please select Required Fields ");
+      return;
+    }
   }
-   this.calculateVehTotal();
-  // var i=0;
-  // var selectedDataVal=this.formRatesMaster.getRawValue();
- 
-  // for (i=0; i<this.formArray.controls.length;i++){
-  //   if (selectedDataVal.rateForStateOrToPlace == "P"){
-  //     this.formArray.controls[i].get("destState")?.disable();
-  //   }
-  //   else{
-  //     this.formArray.controls[i].get("toPlace")?.disable();
-  //   }
-  // }
 
-}
-
-  
-
-    removeItem(index: number){ 
+  removeItem(index: number){ 
     if (confirm("Are you sure, you want to delete this?")) {
-    this.formVehArray.removeAt(index);
-     this.calculateVehTotal();
-    // if (this.formVehArray.length==1){
-    // //  this.formBillsMaster.controls['rateForStateOrToPlace'].enable();
-    // }
+      this.formVehArray.removeAt(index);
+    }
   }
-  }
-  
-
-
-  
   
   exit(): void {
     this.route.navigate(['/billsupplist_LLP']);
@@ -918,26 +855,27 @@ getVehicleNoList(): void {
     if(this.selectedBillsmasterDetails.billsMasterId != '' ){
      this.requestmodel.strRequest =this.selectedBillsmasterDetails.billsMasterId
       if (confirm("Are you sure, you want to delete this?")) {
-            this.billsMasterService.billsMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formBillsMaster.reset();
-              this.route.navigate(['/billsupplist_LLP']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-            }
+        this.billsMasterService.billsMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formBillsMaster.reset();
+            this.route.navigate(['/billsupplist_LLP']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
         });
       }
     }
   } 
-    selectNewEvent(item: any,index:number) {
+  
+  selectNewEvent(item: any, index:number) {
     var ToPlace = item.dataId;
     var selectedDataValue=this.formBillsMaster.getRawValue();
 
     for (var i = 0; i < selectedDataValue.arrayListVeh.length; i++) {
-      if(ToPlace == selectedDataValue.arrayListVeh[i].vehicleMasterId.dataId)
+      if(i!=index && ToPlace == selectedDataValue.arrayListVeh[i].vehicleMasterId.dataId)
       {
         this.toasterService.warning("To vehicle already exits in grid");
         this.formVehArray.controls[index].get("vehicleMasterId")?.setValue("");
@@ -961,12 +899,13 @@ getVehicleNoList(): void {
     var selectedDataValue = this.formBillsMaster.getRawValue();
     this.formSubmitted = true;
    
-      this.billsmastermodel.billsMasterId =this.billid;
+    this.billsmastermodel.billsMasterId =this.billid;
     this.billsmastermodel.againstVehicleYN =  selectedDataValue.againstVehicleYN?"Y":"N";
     this.billsmastermodel.fromDate = selectedDataValue.fromDate;
-      this.billsmastermodel.toDate = selectedDataValue.toDate;
-      this.billsmastermodel.ownvehdata = [];
-      var vehlist = selectedDataValue.arrayListVeh;
+    this.billsmastermodel.toDate = selectedDataValue.toDate;
+    this.billsmastermodel.ownvehdata = [];
+    var vehlist = selectedDataValue.arrayListVeh;
+    var frtamt = 0;
 
     for (var i = 0; i < vehlist.length; i++) {  
       if(vehlist[i].vehicleMasterId!="") {
@@ -975,13 +914,22 @@ getVehicleNoList(): void {
           'billsMasterId': '',// this.selectedBillsmasterDetails.billsMasterId,
           'vehicleMasterId': vehlist[i].vehicleMasterId.dataId,
           'freightAmt': vehlist[i].freightAmt,
-        });
+        }); 
+        frtamt = frtamt + parseFloat(vehlist[i].freightAmt);
       }   
     }
-    
-   
+
+    if(this.billsmastermodel.againstVehicleYN =='Y'){
+      if(selectedDataValue.totalFreight==frtamt ){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(" Freight Amount is Invalid");   
+        return;
+      }
+    }    
   
-   this.billsMasterService.updateBillsMasterVehDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
+    this.billsMasterService.updateBillsMasterVehDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success("Bill saved Successfully");
@@ -1025,16 +973,7 @@ getVehicleNoList(): void {
       this.toasterService.warning(" Bill Amount is Invalid");   
       return;
     }
-    if(selectedDataValue.againstVehicleYN=='Y'){
-     if(selectedDataValue.totalFreight==this.frtamt ){
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Freight Amount is Invalid");   
-      return;
-    }
-  }
-
+    
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataValue.billDate?Date.parse(selectedDataValue.billDate):0;
@@ -1088,9 +1027,9 @@ getVehicleNoList(): void {
     this.billsmastermodel.cgstPct = selectedDataValue.cgstPct.toString();  
     this.billsmastermodel.sgstPct = selectedDataValue.sgstPct.toString(); 
     this.billsmastermodel.igstPct = selectedDataValue.igstPct.toString(); 
-      this.billsmastermodel.againstVehicleYN =  selectedDataValue.againstVehicleYN?"Y":"N";
-       this.billsmastermodel.fromDate = selectedDataValue.fromDate; 
-         this.billsmastermodel.toDate = selectedDataValue.toDate;
+    this.billsmastermodel.againstVehicleYN = selectedDataValue.againstVehicleYN?"Y":"N";
+    this.billsmastermodel.fromDate = selectedDataValue.fromDate; 
+    this.billsmastermodel.toDate = selectedDataValue.toDate;
     this.billsmastermodel.gstBy = selectedDataValue.gstBy; 
     this.billsmastermodel.loggedInUser = this.loggedInUserID;
     this.billsmastermodel.billsMasterListData = [];
@@ -1142,7 +1081,7 @@ getVehicleNoList(): void {
         });
       }   
     }
-
+    var frtamt = 0;
 
     for (var i = 0; i < vehlist.length; i++) {  
       if(vehlist[i].vehicleMasterId!="") {
@@ -1152,9 +1091,19 @@ getVehicleNoList(): void {
           'vehicleMasterId': vehlist[i].vehicleMasterId.dataId,
           'freightAmt': vehlist[i].freightAmt.toString(),
         });
+        frtamt = frtamt + parseFloat(vehlist[i].freightAmt);
       }   
     }
-    
+
+    if(this.billsmastermodel.againstVehicleYN =='Y'){
+      if(selectedDataValue.totalFreight==frtamt ){
+        //ignore
+      }
+      else{
+        this.toasterService.warning(" Freight Amount is Invalid");   
+        return;
+      }
+    }    
     
     this.billsMasterService.saveBillsMasterDetails(this.billsmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

@@ -448,38 +448,34 @@
                                                     <h6>Freight Amount</h6>
                                                 </label>
                                             </td>
-                                         
+                                        </tr>
                                         <tr formArrayName="arrayListVeh"
                                             *ngFor="let arrayData of formVehArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
                                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList"
-                                            [searchKeyword]="keywordLocation"  
-                                            formControlName="vehicleMasterId"
-                                             (selected)='selectNewEvent($event,i)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                          >
-                                        </ng-autocomplete>
+                                                        <ng-autocomplete [data]="vehicleList"
+                                                            [searchKeyword]="keywordLocation"  
+                                                            formControlName="vehicleMasterId"
+                                                            (selected)='selectNewEvent($event,i)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)' 
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate" >
+                                                        </ng-autocomplete>
 
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
 
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                 </td>
-                                               
                                                 <td class="col-lg-2">
                                                       <input decimalonly autoclose="false" class="form-control"
-                                                                formControlName="freightAmt"  (change)="calculateVehTotal()">
-
+                                                                formControlName="freightAmt" >
                                                 </td>
                                                 <td class="col-lg-4">
                                                     <div class="col-lg-4 details-button">
