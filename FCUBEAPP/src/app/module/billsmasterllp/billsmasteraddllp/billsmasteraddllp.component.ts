@@ -635,13 +635,15 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
 
   selectAll(e: any) {
     var billdtls = this.billsmastersearchlistmodel.billsMasterSearchList;
+    var gstType = "", gstBy="";
+   
     if(e.target.checked){
-      this.formBillsMaster.patchValue({
-        gstType: billdtls[0]?billdtls[0].gstType:"",
-        gstBy: billdtls[0]?billdtls[0].gstBy:"",
-      });
       for (var i = 0; i < billdtls.length; i++) {
-        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;        
+        this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;    
+        if(parseFloat(billdtls[i].freightRs)>0){
+          gstType= billdtls[0]?billdtls[0].gstType:"";
+          gstBy= billdtls[0]?billdtls[0].gstBy:"";
+        }    
       }
     }
     else{
@@ -649,6 +651,11 @@ export class BillsmasteraddllpComponent { loggedInUserID: string = '';
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = false;
       }
     }
+    this.formBillsMaster.patchValue({
+      gstType: gstType,
+      gstBy: gstBy,
+    });
+
     this.calculateTotal();
   }
   

@@ -94,12 +94,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -203,20 +203,17 @@ dashboard: string ="";
       this.formBillsMaster.controls['igstPct'].disable();  
 
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
-        var suppYN = "";
-         this.billid = this.selectedBillsmasterDetails.billsMasterId;
+        this.billid = this.selectedBillsmasterDetails.billsMasterId;
 
         if(this.selectedBillsmasterDetails.suppYN=="Y"){
           this.showButton = false;
-           this.showButtonAgVeh =true
-          suppYN = "Y";
+          this.showButtonAgVeh =true;
           this.formBillsMaster.controls['totalFreight'].enable();
           this.formBillsMaster.controls['totalOthers'].enable();
           this.formBillsMaster.controls['totalExtras'].enable();
           this.formBillsMaster.controls['totalNonGstAmt1'].enable();
         }
         else{
-          suppYN = "";
           this.showButton = true;
           this.formBillsMaster.controls['totalFreight'].disable();
           this.formBillsMaster.controls['totalOthers'].disable();
@@ -253,17 +250,16 @@ dashboard: string ="";
           fromDate:this.commonService.formatDate(this.selectedBillsmasterDetails.fromDate), 
           toDate:this.commonService.formatDate(this.selectedBillsmasterDetails.toDate), 
           partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
-          suppYN: suppYN,
         })  
-         if(this.selectedBillsmasterDetails.againstVehicleYN=="N"){
-            this.formBillsMaster.patchValue({
-           againstVehicleYN: "",
-            })
+        if(this.selectedBillsmasterDetails.againstVehicleYN=="N"){
+          this.formBillsMaster.patchValue({
+            againstVehicleYN: "",
+          })
         }
-         if(this.selectedBillsmasterDetails.suppYN=="N"){
-            this.formBillsMaster.patchValue({
-           suppYN: "",
-            })
+        if(this.selectedBillsmasterDetails.suppYN=="N"){
+          this.formBillsMaster.patchValue({
+            suppYN: "",
+          })
         }
                 
         this.formBillsMaster.controls['billSeries'].disable();
@@ -307,9 +303,10 @@ dashboard: string ="";
   get formArray() {
     return this.formBillsMaster.get("arrayList") as FormArray;
   }  
-get formVehArray() {
+  get formVehArray() {
     return this.formBillsMaster.get("arrayListVeh") as FormArray;
   }  
+
   changeGstUnder(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;

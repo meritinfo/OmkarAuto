@@ -515,7 +515,7 @@
                                 </div> -->
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Paid Driver Advance</label>
+                                        <label for="formrow-inputCity">Paid Driver Expenses</label>
                                         <input class="form-control" decimalonly formControlName="paidDriverAdvance">
                                     </div>
                                 </div>
@@ -523,49 +523,6 @@
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Expenses By Driver</label>
                                         <input class="form-control" decimalonly formControlName="expensesByDriver">
-                                    </div>
-                                </div>
-                            </div>  
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Penalty Charged</label>
-                                        <input class="form-control" decimalonly (change)="calTotal()"
-                                        formControlName="penaltyChargedToDr">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Penalty Remarks</label>
-                                        <input uppercaseonly class="form-control" formControlName="penaltyRemarks">
-                                    </div>
-                                </div>
-                            </div>                      
-                            <div class="row">
-                                <!-- <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Total Driver Ac</label>
-                                        <input class="form-control" decimalonly formControlName="totalDriverAc">
-                                    </div>
-                                </div> -->
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Trip Balance (Driver)</label>
-                                        <input class="form-control" decimalonly formControlName="tripBalance">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Recd From Driver</label>
-                                        <input class="form-control" decimalonly (change)="calTotal()"
-                                        formControlName="recdFromDriver">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Net Trip Balance</label>
-                                        <input class="form-control" decimalonly formControlName="netTripBalance"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['netTripBalance'].invalid) }" >
                                     </div>
                                 </div>
                                 <div class="col-lg-2">

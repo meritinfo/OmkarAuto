@@ -133,12 +133,12 @@ export class TripmasterllpaddComponent {
       paidDriverAdvance: new FormControl('',),
       freightCollByDriver: new FormControl('',),
       expensesByDriver: new FormControl('',),
-      penaltyChargedToDr: new FormControl('',),
-      penaltyRemarks: new FormControl('',),
+      // penaltyChargedToDr: new FormControl('',),
+      // penaltyRemarks: new FormControl('',),
       //totalDriverAc: new FormControl('',),
-      tripBalance: new FormControl('',),
-      recdFromDriver: new FormControl('',),
-      netTripBalance: new FormControl('',[Validators.required]),
+      // tripBalance: new FormControl('',),
+      // recdFromDriver: new FormControl('',),
+      // netTripBalance: new FormControl('',[Validators.required]),
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
       tripTotalExpenses: new FormControl('',[Validators.required]),
@@ -167,8 +167,8 @@ export class TripmasterllpaddComponent {
     this.formTripsheet.controls['fastagAmount'].disable();   
     this.formTripsheet.controls['paidDriverAdvance'].disable();    
     this.formTripsheet.controls['expensesByDriver'].disable();  
-    this.formTripsheet.controls['tripBalance'].disable();      
-    this.formTripsheet.controls['netTripBalance'].disable();     
+    // this.formTripsheet.controls['tripBalance'].disable();      
+    // this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     
     this.formTripsheet.controls['tripTotalExpenses'].disable();   
     this.formTripsheet.controls['expensesByComp'].disable();     
@@ -679,21 +679,21 @@ export class TripmasterllpaddComponent {
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
     var freightCollByDriver = selectedDataValue.freightCollByDriver==''?0:parseFloat(selectedDataValue.freightCollByDriver);
     var expensesByDriver = selectedDataValue.expensesByDriver==''?0:parseFloat(selectedDataValue.expensesByDriver);
-    var penaltyChargedToDr = selectedDataValue.penaltyChargedToDr==''?0:parseFloat(selectedDataValue.penaltyChargedToDr);
-    var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
+    //var penaltyChargedToDr = selectedDataValue.penaltyChargedToDr==''?0:parseFloat(selectedDataValue.penaltyChargedToDr);
+    //var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
     var issuedDslAmt = selectedDataValue.issuedDslAmt==''?0:parseFloat(selectedDataValue.issuedDslAmt);
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
     var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
     
     var tripBalance = paidDriverAdvance + freightCollByDriver
-                      - expensesByDriver - penaltyChargedToDr;
+                      - expensesByDriver //- penaltyChargedToDr;
 
-    var netTripBalance = tripBalance - recdFromDriver;
+    //var netTripBalance = tripBalance - recdFromDriver;
     var tripTotalExpenses = expensesByDriver + issuedDslAmt + fastagAmount + expensesByComp
 
     this.formTripsheet.patchValue({
       tripBalance: tripBalance.toFixed(2),
-      netTripBalance: netTripBalance.toFixed(2),
+      //netTripBalance: netTripBalance.toFixed(2),
       tripTotalExpenses: tripTotalExpenses.toFixed(2),
     });  
   }
@@ -901,11 +901,11 @@ export class TripmasterllpaddComponent {
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.freightCollByDriver= selectedDataValue.freightCollByDriver.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
-    this.tripsheetmodel.penaltyChargedToDr= selectedDataValue.penaltyChargedToDr.toString();
-    this.tripsheetmodel.penaltyRemarks= selectedDataValue.penaltyRemarks.toString().toUpperCase();
-    this.tripsheetmodel.tripBalance= selectedDataValue.tripBalance.toString();
-    this.tripsheetmodel.recdFromDriver= selectedDataValue.recdFromDriver.toString();
-    this.tripsheetmodel.netTripBalance= selectedDataValue.netTripBalance.toString();
+    // this.tripsheetmodel.penaltyChargedToDr= selectedDataValue.penaltyChargedToDr.toString();
+    // this.tripsheetmodel.penaltyRemarks= selectedDataValue.penaltyRemarks.toString().toUpperCase();
+    // this.tripsheetmodel.tripBalance= selectedDataValue.tripBalance.toString();
+    // this.tripsheetmodel.recdFromDriver= selectedDataValue.recdFromDriver.toString();
+    // this.tripsheetmodel.netTripBalance= selectedDataValue.netTripBalance.toString();
     this.tripsheetmodel.fastagAmount= selectedDataValue.fastagAmount.toString();
     this.tripsheetmodel.tripTotalFreight= selectedDataValue.tripTotalFreight.toString();
     this.tripsheetmodel.tripTotalExpenses= selectedDataValue.tripTotalExpenses.toString();

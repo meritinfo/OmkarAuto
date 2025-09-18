@@ -165,6 +165,7 @@ export class VehicleprofitlossstatementrptComponent {
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate; 
     this.filter.filterStr  = selectedDataVal.vehicleMasterId?selectedDataVal.vehicleMasterId.dataId:"";
+    this.filter.filterStr1  = selectedDataVal.vehicleMasterId?selectedDataVal.vehicleMasterId.dataName:"";
    
     this.fleetreportsService.getVehiclePLStatementRptExcel(this.filter).subscribe(resp => {      
       if(resp.status){      

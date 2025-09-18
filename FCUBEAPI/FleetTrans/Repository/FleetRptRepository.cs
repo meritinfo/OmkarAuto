@@ -3666,25 +3666,25 @@ namespace FleetTrans.Repository
                     ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                     ws.Range(2, 1, 2, colcnt).Merge();
-                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Value = "Vehicle Profit/Loss Statement";
                     ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
-                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                     ws.Range(3, 1, 3, colcnt).Merge();
-                    ws.Range(3, 1, 3, colcnt).Value = "Vehicle Profit/Loss Statement";
+                    ws.Range(3, 1, 3, colcnt).Value = "Report Period From" + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
                     ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
-                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
-                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
-                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Green;
                     ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                    ws.Range(4, 1, 4, colcnt).Merge();
-                    ws.Range(4, 1, 4, colcnt).Value = "Report Period From" + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
-                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
-                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
-                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
-                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Vehicle No : " + request.FilterStr1;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
 
                     ws.Cell(5, 1).Value = "Sl No";
                     ws.Cell(5, 2).Value = "Fixed Expense Desc";
@@ -3700,7 +3700,8 @@ namespace FleetTrans.Repository
                     ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
                     ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
 
-                    decimal fixedExp = 0, varExp = 0, maintExp = 0, income = 0;
+                    decimal fixedExp = 0, varExp = 0, maintExp = 0, tripIncome = 0, billIncome = 0, income =0;
+                    var unbilllr = "0";
 
                     SqlParameter[] param =
                         {
@@ -3785,8 +3786,36 @@ namespace FleetTrans.Repository
 
                     if (ds4 != null && ds4.Tables[0].Rows.Count > 0)
                     {
-                        income = Convert.ToDecimal(ds4.Tables[0].Rows[0][0]);
+                        tripIncome = Convert.ToDecimal(ds4.Tables[0].Rows[0][0]);
+                        billIncome = Convert.ToDecimal(ds4.Tables[0].Rows[1][0]);                        
                     }
+                    income = tripIncome + billIncome;
+
+                    var ds5 = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleProfitLossRptUnBillLrsExcel", param);
+
+                    if (ds5 != null && ds5.Tables[0].Rows.Count > 0)
+                    {
+                        unbilllr = Convert.ToString(ds5.Tables[0].Rows[0][0]);
+                    }
+
+                    ws.Range(r, 1, r, 2).Merge();
+                    ws.Range(r, 1, r, 2).Value = "No of Unbilled LRs";
+                    ws.Range(r, 1, r, 2).Style.Font.FontColor = XLColor.Red;
+                    ws.Cell(r, 3).Value = unbilllr.ToString();
+
+                    ws.Range(r, 5, r, 6).Merge();
+                    ws.Range(r, 5, r, 6).Value = "Trip Income";
+                    ws.Range(r, 5, r, 6).Style.Font.FontColor = XLColor.Green;
+                    ws.Cell(r, 7).Value = tripIncome.ToString();
+
+                    ws.Range(r, 9, r, 10).Merge();
+                    ws.Range(r, 9, r, 10).Value = "Bill Income";
+                    ws.Range(r, 9, r, 10).Style.Font.FontColor = XLColor.Green;
+                    ws.Cell(r, 11).Value = billIncome.ToString();
+
+                    ws.Range(r, 1, r, 11).Style.Font.Bold = true;
+
+                    r++;
 
                     ws.Range(r, 1, r, 2).Merge();
                     ws.Range(r, 1, r, 2).Value = "Total Income";
@@ -3823,12 +3852,12 @@ namespace FleetTrans.Repository
                     ws.Range(r, 1, r, 11).Style.Font.Bold = true;
 
 
-                    ws.Range(r-1, 1, r, 3).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                    ws.Range(r-1, 1, r, 3).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                    ws.Range(r-1, 5, r, 7).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                    ws.Range(r-1, 5, r, 7).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                    ws.Range(r-1, 9, r, 11).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                    ws.Range(r-1, 9, r, 11).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 1, r, 3).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 1, r, 3).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 5, r, 7).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 5, r, 7).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 9, r, 11).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(r-2, 9, r, 11).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
 
 
