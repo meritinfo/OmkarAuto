@@ -181,7 +181,6 @@ dashboard: string ="";
       arrayListVeh: this.formBuilder.array([this.createInitialVehArray()]) 
     });
     this.formBillsMaster.controls['billNo'].disable();
-    var selectedDataValue = this.formBillsMaster.getRawValue();
    
     if (this.selectedBillsmasterDetails.billsMasterId != '') {
       this.getPartyGstLocationList(this.selectedBillsmasterDetails.partyCode);
@@ -494,15 +493,15 @@ dashboard: string ="";
     }
     else{
       this.showButton = true;
-       this.showButtonAgVeh= false;
-       this.showButtonAgVeh2= false;
-        this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
-        this.formVehArray.controls[0].get("freightAmt")?.setValue('');
-        this.formBillsMaster.patchValue({
-           againstVehicleYN: "",
-           fromDate:"",
-           toDate:""
-            })
+      this.showButtonAgVeh= false;
+      this.showButtonAgVeh2= false;
+      this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
+      this.formVehArray.controls[0].get("freightAmt")?.setValue('');
+      this.formBillsMaster.patchValue({
+        againstVehicleYN: "",
+        fromDate:"",
+        toDate:""
+      })
       this.formBillsMaster.controls['totalFreight'].disable();
       this.formBillsMaster.controls['totalOthers'].disable();
       this.formBillsMaster.controls['totalExtras'].disable();
@@ -510,23 +509,21 @@ dashboard: string ="";
     }
   }
 
-    againstVehChange(e:any){
+  againstVehChange(e:any){
     if(e.target.checked){
-   
       this.showButtonAgVeh2= true;
-
     }
     else{
      // this.showButton = true;
-     this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
-        this.formVehArray.controls[0].get("freightAmt")?.setValue('');
-        this.formBillsMaster.patchValue({
-           againstVehicleYN: "",
-           fromDate:"",
-           toDate:""
-            })
+      this.formVehArray.controls[0].get("vehicleMasterId")?.setValue('')
+      this.formVehArray.controls[0].get("freightAmt")?.setValue('');
+      this.formBillsMaster.patchValue({
+        againstVehicleYN: "",
+        fromDate:"",
+        toDate:""
+      })
     
-       this.showButtonAgVeh2= false;
+      this.showButtonAgVeh2= false;
     
     }
   }
@@ -568,19 +565,17 @@ dashboard: string ="";
       }
     });
   }
-    getBillsVehInnerGridList(): void {
-    this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
+    
+  getBillsVehInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsVehInnerGridList(this.requestmodel).subscribe((res) => {
-      this.selectedBillsmasterDetails= res;
      // this.formVehArray.clear();
       for(var i = 0; i < res.ownvehdata.length; i++) {
         this.formVehArray.push(this.createInitialVehArray());
-       // this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.selectedBillsmasterDetails.ownvehdata[i].vehicleMasterId);
-      this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.vehicleList.find(e => e.dataId == this.selectedBillsmasterDetails.ownvehdata[i].vehicleMasterId))
-        this.formVehArray.controls[i].get("freightAmt")?.setValue( this.selectedBillsmasterDetails.ownvehdata[i].freightAmt);
+        this.formVehArray.controls[i].get("vehicleMasterId")?.setValue( this.vehicleList.find(e => e.dataId == res.ownvehdata[i].vehicleMasterId))
+        this.formVehArray.controls[i].get("freightAmt")?.setValue(res.ownvehdata[i].freightAmt);
         this.formVehArray.controls[i].get("vehicleMasterId")?.disable();
         this.formVehArray.controls[i].get("freightAmt")?.disable();
-     
       }
     });
   }
@@ -589,8 +584,7 @@ dashboard: string ="";
     var selectedDataVal = this.formBillsMaster.getRawValue();
     this.requestmodel.strRequest = selectedDataVal.arrayList[i].gcBranch;
     this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
-     this.consignmentService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
-    
+    this.consignmentService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
       var cn = res.fromPlace;
       if (typeof cn === 'undefined' || cn === null || cn === '') {
         this.toasterService.warning("LR No Doesn't Exists ");
@@ -617,7 +611,6 @@ dashboard: string ="";
 
   onGstChange(){
     var selectedDataVal = this.formBillsMaster.getRawValue();
-
     if (selectedDataVal.gstType == "IG") {   
       this.formBillsMaster.controls['sgstPct'].disable();
       this.formBillsMaster.controls['cgstPct'].disable();  

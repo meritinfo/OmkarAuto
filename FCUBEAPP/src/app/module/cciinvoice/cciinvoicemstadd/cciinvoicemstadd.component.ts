@@ -521,6 +521,15 @@ export class CciinvoicemstaddComponent {
       this.toastrService.warning(" Invalid Broker/Payable");
       return;
     }
+    const d3 = this.minDate?Date.parse(this.minDate):0;
+    const d2 = this.maxDate?Date.parse(this.maxDate):0;
+    const d4 = selectedDataValue.cciInvDate?Date.parse(selectedDataValue.cciInvDate):0;
+    
+    if (d3>d4 || d2<d4 ) {
+      this.toastrService.warning("Invoice Date should be with in Fin Year");
+      return;
+    }  
+
     this.ccinvmstmodel.cciInvMstId = this.selectedCciInvMstDetail.cciInvMstId ;
     this.ccinvmstmodel.branch =selectedDataValue.branch;
     this.ccinvmstmodel.cciInvNo= selectedDataValue.cciInvNo;

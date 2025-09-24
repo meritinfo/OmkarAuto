@@ -2278,6 +2278,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetCountOfDocEnteredRptExcel")]
+        public async Task<IActionResult> GetCountOfDocEnteredRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRptBusiness.GetCountOfDocEnteredRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("GetLhPayableStatusRptList")]
         public async Task<IActionResult> GetLhPayableStatusRptList(ReportRequestModel request)

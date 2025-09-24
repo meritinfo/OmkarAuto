@@ -96,5 +96,6 @@ namespace FreightMasters.Business
         Task<ResponseModel> GetBillInterestLossRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetChallanTdsStatementRptExcel(ReportRequestModel request);
         Task<ChallanRegisterRptListModel> GetChallanTdsStatementRptList(ReportRequestModel request);
+        Task<ResponseModel> GetCountOfDocEnteredRptExcel(ReportRequestModel request);
     }
 }

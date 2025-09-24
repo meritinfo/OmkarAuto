@@ -550,6 +550,7 @@ import { Vehiclefincompmastermodel } from './models/vehiclefincompmastermodel';
 import { Vehicleflttypemstmodel } from "./models/vehicleflttypemstmodel";
 import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flttypegroupmstadd/flttypegroupmstadd.component';
 import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
+import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/countofdocenteredrpt.component';
 
 
 
@@ -727,7 +728,7 @@ import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/fl
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, FleetgroupmasteraddComponent,
     TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, FleetgroupmasterlistComponent,FlttypegroupmstaddComponent,
     VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, VehiclemfrmasteraddComponent,VehiclemfrmasterlistComponent,VehiclefincompmasteraddComponent, VehiclemfrmasterlistComponent,FlttypegroupmstlistComponent,
-    DriversalaryentryaddComponent, DriversalaryentrylistComponent,     TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, FleetgroupmasteraddComponent, FleetgroupmasterlistComponent, VehiclefincompmasteraddComponent, VehiclefincompmasterlistComponent,
+    DriversalaryentryaddComponent, DriversalaryentrylistComponent,     TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, FleetgroupmasteraddComponent, FleetgroupmasterlistComponent, VehiclefincompmasteraddComponent, VehiclefincompmasterlistComponent, CountofdocenteredrptComponent,
     
   ],
   

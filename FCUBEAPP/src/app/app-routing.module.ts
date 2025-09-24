@@ -356,6 +356,7 @@ import { VehiclefincompmasteraddComponent } from './module/vehiclefincompmaster/
 import { VehiclefincompmasterlistComponent } from './module/vehiclefincompmaster/vehiclefincompmasterlist/vehiclefincompmasterlist.component';
 import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flttypegroupmstadd/flttypegroupmstadd.component';
 import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
+import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/countofdocenteredrpt.component';
 
 
 
@@ -844,7 +845,7 @@ const routes: Routes = [
   { path: 'flttypemasteradd',component: FlttypegroupmstaddComponent },
   { path: 'flttypemasteredit',component: FlttypegroupmstaddComponent },
   { path: 'fltvehicletype',component: FlttypegroupmstlistComponent},
-  
+  { path: 'countdocrpt',component:CountofdocenteredrptComponent},
   
 ];
 

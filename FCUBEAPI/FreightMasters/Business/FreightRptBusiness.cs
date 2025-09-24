@@ -287,5 +287,9 @@ namespace FreightMasters.Business
         {
             return await freightRptRepository.GetBillInterestLossRptExcel(request);
         }
+        public async Task<ResponseModel> GetCountOfDocEnteredRptExcel(ReportRequestModel request)
+        {
+            return await freightRptRepository.GetCountOfDocEnteredRptExcel(request);
+        }
     }
 }

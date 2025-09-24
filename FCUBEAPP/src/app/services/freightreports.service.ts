@@ -240,7 +240,9 @@ export class FreightreportsService {
   }   
   getBillInterestLossRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillInterestLossRptExcel', filter, this.httpOptions);
+  }  
+    
+  getCountOfDocEnteredRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/GetCountOfDocEnteredRptExcel', filter, this.httpOptions);
   }   
-  
-  
 }
