@@ -33,16 +33,15 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                             new SqlParameter("@FreightId" , freightGstMasterModel.FreightId  ),
-                             new SqlParameter("@FreightDesc" , freightGstMasterModel.FreightDesc  ),
-                             new SqlParameter("@SacCode" , freightGstMasterModel.SacCode ),
-                             new SqlParameter("@SgstPct" , freightGstMasterModel.SgstPct  ),
-                              new SqlParameter("@CgstPct" , freightGstMasterModel.CgstPct   ),
-                                 new SqlParameter("@IgstPct" , freightGstMasterModel.IgstPct ),
-                                 
-                                     new SqlParameter("@LinkColumn" , freightGstMasterModel.@LinkColumn),
-                                                    new SqlParameter("@FreightLedgerAc" , freightGstMasterModel.@FreightLedgerAc),
-                             new SqlParameter("@LoggedInUser" , freightGstMasterModel.LoggedInUser ),
+                             new SqlParameter("@FreightId" ,        freightGstMasterModel.FreightId  ),
+                             new SqlParameter("@FreightDesc" ,      freightGstMasterModel.FreightDesc  ),
+                             new SqlParameter("@SacCode" ,          freightGstMasterModel.SacCode ),
+                             new SqlParameter("@SgstPct" ,          freightGstMasterModel.SgstPct  ),
+                             new SqlParameter("@CgstPct" ,          freightGstMasterModel.CgstPct   ),
+                             new SqlParameter("@IgstPct" ,          freightGstMasterModel.IgstPct ),                                 
+                             new SqlParameter("@LinkColumn" ,       freightGstMasterModel.@LinkColumn),
+                             new SqlParameter("@FreightLedgerAc" ,  freightGstMasterModel.@FreightLedgerAc),
+                             new SqlParameter("@LoggedInUser" ,     freightGstMasterModel.LoggedInUser ),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FreightGstMasterSave", param);
