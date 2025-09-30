@@ -211,7 +211,8 @@
                                             </select>
                                         </td>     
                                         <td>
-                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="abType">
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                (change)="abtypeChange()" formControlName="abType">
                                                 <option value="A">Advance</option>
                                                 <option value="F">Final</option>
                                                 <option value="O">Other</option>

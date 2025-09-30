@@ -547,17 +547,31 @@ export class LorryhirepmtaddComponent {
     if(ptype=='T'){     
       for (var j = 0; j < selectedData.arrayList.length; j++) {          
           this.formArray.controls[j].get("abType")?.setValue("F");
-          this.formArray.controls[j].get("abType")?.disable();
+          //this.formArray.controls[j].get("abType")?.disable();
           this.formArray.controls[j].get("benId")?.enable();
       } 
     }
     else{     
       for (var j = 0; j < selectedData.arrayList.length; j++) {          
           this.formArray.controls[j].get("abType")?.setValue("");
-          this.formArray.controls[j].get("abType")?.enable();
+          //this.formArray.controls[j].get("abType")?.enable();
           this.formArray.controls[j].get("benId")?.disable();
       } 
     }
+  }
+
+  abtypeChange(){
+    var selectedData=this.formUser.getRawValue();
+    if(selectedData.pmtType=="T"){
+      for (var j = 0; j < selectedData.arrayList.length; j++) {          
+        if(selectedData.arrayList[j].abType=="A") {
+          this.formArray.controls[j].get("abType")?.setValue("");
+          this.toasterService.warning("Advance is not allowed in Direct Bank Payment")
+          return;
+        }
+      } 
+    }
+
   }
 
   onAcChk(e: any) {    
@@ -928,6 +942,13 @@ export class LorryhirepmtaddComponent {
    
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].challanId!=''){
+        if(selectedDataVal.pmtType=="T"){       
+          if(selectedDataVal.arrayList[i].abType=="A") {
+            this.formArray.controls[i].get("abType")?.setValue("");
+            this.toasterService.warning("Advance is not allowed in Direct Bank Payment")
+            return;
+          }
+        }
         if(selectedDataVal.arrayList[i].abType == "O"){
           var totExtra = 0;
           if(selectedDataVal.arrayList[i].hamaliAmt!=''){

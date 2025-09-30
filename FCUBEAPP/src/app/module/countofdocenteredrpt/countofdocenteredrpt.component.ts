@@ -152,10 +152,10 @@ export class CountofdocenteredrptComponent {
       this.filter.filterStr2  = "Moneny Reciept";
     }
     if (selectedDataVal.entryType=="E"){
-      this.filter.filterStr2  = "Entered";
+      this.filter.filterStr3  = "Entered";
     }
     if (selectedDataVal.entryType=="M"){
-      this.filter.filterStr2  = "Modified";
+      this.filter.filterStr3  = "Modified";
     }
 
     this.freightreportsService.getCountOfDocEnteredRptExcel(this.filter).subscribe(resp => {      
