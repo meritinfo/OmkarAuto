@@ -108,6 +108,9 @@ export class FleetreportsService {
   getVehicleEngagementRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleEngagementRptExcel', filter, this.httpOptions);
   }   
+  getVehicleLastTransDateRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleLastTransDateRptExcel', filter, this.httpOptions);
+  } 
   getSparespurchaserptList(filter: Reportmodel): Observable<Sparespurchaserptlistmodel> {
     return this.httpClient.post<Sparespurchaserptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseRptList', filter, this.httpOptions);
   }  

@@ -3490,6 +3490,44 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetVehicleLastTransDateRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                           
+                            new SqlParameter("@TransType",     request.FilterStr),
+                           // new SqlParameter("@BrokerId",     request.FilterStr1),
+                      
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleLastTransDateExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "Last Trans Date : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Fleet Last Entry Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
 
 
         public async Task<VendorPmtListModel> GetVendorPmtRptList(ReportRequestModel request)

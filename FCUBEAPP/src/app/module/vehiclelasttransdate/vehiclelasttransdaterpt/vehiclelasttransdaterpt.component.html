@@ -1,0 +1,108 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Last Trans Date Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-9 col-md-9">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                    
+                                                
+                            <div class="col-lg-3">
+                                <div class="mb-4">
+                                    <label for="formrow-inputZip">Trans Type</label>
+                                    <select id="formrow-inputState" 
+                              class="form-control form-select ng-pristine ng-touched"
+                              formControlName="transType"
+                            >
+                              <option value="">Choose...</option>
+                              <option value="TP"> Trip Payments</option>
+                              <option value="VR"> Vehicle Repair</option>    
+                              <option value="VT"> Vehicle Tyres</option>    
+                              <option value="DR">Doc Renewal</option>  
+                              <option value="VE">Vehicle EMI</option>  
+                                <option value="TR">Vehicle Trip</option>                       
+                           </select>
+                                </div>
+
+                            </div>
+                        </div>
+                   
+                    </form>
+                </div>
+                <div class="col-sm-3 col-md-3 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <!-- <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive full-tyre-width">
+                        <thead>
+                            <tr>
+                                <th>branch</th>
+                                <th>vehicleNo </th>   
+                                <th>tripNo</th>
+                                <th>loadDate </th>   
+                                <th>challanNo</th>
+                                <th>partyName </th>  
+                                <th>fromPlace </th>
+                                <th>toPlace</th> 
+                                <th>totalHire </th>   
+                                <th>recdAmt</th>
+                                <th>dedAmt </th>   
+                                <th>tdsAmt</th>
+                                <th>dueAmt </th>  
+                                <th>dueAmt </th>                                                                                            
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allVehiclefrtoutstandingrptlist.vehicleEngagementRptList?.length != 0">
+                            <tr *ngFor="let eta of allVehiclefrtoutstandingrptlist.vehicleEngagementRptList">
+                                <td>{{ eta.vehicleNo }}</td> 
+                                <td>{{ eta.lrNo }}</td> 
+                                <td>{{ eta.lrDate}}</td> 
+                                <td>{{ eta.lrFrom}}</td> 
+                                <td>{{ eta.lrTo}}</td> 
+                                <td>{{ eta.partyName}}</td> 
+                                <td>{{ eta.brokerName}}</td> 
+                                <td>{{ eta.challanNumber}}</td> 
+                                <td>{{ eta.expectedReportingDate}}</td> 
+                                <td>{{ eta.actualReportingDate}}</td> 
+                                <td>{{ eta.lrFreight}}</td> 
+                                <td>{{ eta.challanHire}}</td> 
+                                <td>{{ eta.deliveryAckStatus}}</td> 
+                                <td>{{ eta.billStatus}}</td>                                                                                                                
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allVehiclefrtoutstandingrptlist.vehicleEngagementRptList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+
+

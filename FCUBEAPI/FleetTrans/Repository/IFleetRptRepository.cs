@@ -66,6 +66,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> GetVendorPmtRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetVehicleMonthlyTripsRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetVehiclePLStatementRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetVehicleLastTransDateRptExcel(ReportRequestModel request);
 
     }
 }
