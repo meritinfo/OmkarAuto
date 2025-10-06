@@ -71,8 +71,8 @@ export class AppComponent implements OnInit {
     });
 
     // Configure keepalive (optional, for pinging server)
-    // this.keepalive.interval(15); // Ping server every 15 seconds
-    // this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
+     this.keepalive.interval(15); // Ping server every 15 seconds
+     this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
   }
 
   ngOnInit(): void {
@@ -95,8 +95,7 @@ export class AppComponent implements OnInit {
     // and after all idle configurations are set up.
     if (this.sharedService.loggedInStatus) {
       this.reset(); // Initial reset to start watching
-    } else {
-      // If not logged in, ensure idle monitoring is stopped
+    } else {// If not logged in, ensure idle monitoring is stopped
       this.idle.stop();
     }
   }
