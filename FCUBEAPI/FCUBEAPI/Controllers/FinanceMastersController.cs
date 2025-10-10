@@ -814,6 +814,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCnorList")]
+        public async Task<IActionResult> GetCnorList()
+        {
+            try
+            {
+                var result = await cnorCneeGstBusiness.GetCnorList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CnorCneeGstSave")]
         public async Task<IActionResult> CnorCneeGstSave(CnorCneeGstModel cnorCneeGstModel)
         {

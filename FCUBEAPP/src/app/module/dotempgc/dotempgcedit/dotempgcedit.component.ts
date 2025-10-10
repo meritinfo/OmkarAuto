@@ -42,6 +42,7 @@ dashboard: string ="";
   locationList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
   cnorCneeList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -123,6 +124,7 @@ dashboard: string ="";
     this.getPartyList();
     this.getEmpList();
     this.getCnorCneeList();
+       this.getCnorList();
     this.getFcmRcmConfig();
 
 
@@ -226,7 +228,7 @@ dashboard: string ="";
           vehicleOutDt:  this.commonService.formatDate(this.selectedTempgcDetails.vehicleOutDt),   
           fromPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedTempgcDetails.toPlace),       
-          cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cnorId),
+          cnorId: this.cnorList.find(e => e.dataId == this.selectedTempgcDetails.cnorId),
           cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedTempgcDetails.cneeId),                 
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
@@ -513,6 +515,12 @@ dashboard: string ="";
       this.cnorCneeList = res;
     });
   }
+    getCnorList(): void {
+    this.commonService.GetCnorList().subscribe((res) => {
+      this.cnorList = res;
+    });
+  }
+
 
   addItem(index: number): void {
     var selectedDataVal= this.formUser.getRawValue();
