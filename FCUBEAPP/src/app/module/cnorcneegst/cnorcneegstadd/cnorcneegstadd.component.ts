@@ -43,6 +43,7 @@ dashboard: string ="";
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   ccList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
   
   
   selectedCnorCneeGstDetails = new Cnorcneegstmodel();
@@ -132,6 +133,7 @@ ngOnInit(): void {
   this.getBranchList();
   this.getStateList();
   this.getCneeCnorList();
+  this.getCnorList();
 
   // if (this.selectedCnorCneeGstDetails.cnorCneeDetID != '') {
   //   this.formUser.controls['location'].disable(); 
@@ -196,6 +198,11 @@ getStateList(): void {
 getCneeCnorList(): void {
   this.commonService.GetCneeCnorList().subscribe((res) => {
     this.ccList = res;
+  });
+}
+getCnorList(): void {
+  this.commonService.GetCnorList().subscribe((res) => {
+    this.cnorList = res;
   });
 }
 createInitialArray() {

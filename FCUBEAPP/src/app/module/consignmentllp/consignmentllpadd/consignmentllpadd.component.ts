@@ -56,6 +56,7 @@ export class ConsignmentllpaddComponent {
   businessByList: Dropdownmodel[] = [];
   cnorCneeList: Dropdownmodel[] = [];
   seriesList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
   eWayBillDetails = new Ewaybillmodel();
@@ -161,6 +162,7 @@ export class ConsignmentllpaddComponent {
      this.getFreightList();
      this.getCnNoLength();    
      this.getSeriesList(this.branch);
+       this.getCnorList();
 
     this.sharedService.loading = false;
 
@@ -330,7 +332,7 @@ export class ConsignmentllpaddComponent {
           toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
           billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
           businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),           
-          cnorId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cnorId),
+          cnorId: this.cnorList.find(e => e.dataId == this.selectedLrDetails.cnorId),
           cneeId: this.cnorCneeList.find(e => e.dataId == this.selectedLrDetails.cneeId),         
           vehicleInDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleInDt),           
           vehicleOutDt:  this.commonService.formatDate(this.selectedLrDetails.vehicleOutDt),             
@@ -500,6 +502,11 @@ export class ConsignmentllpaddComponent {
       });     
     });
   }
+  getCnorList(): void {
+  this.commonService.GetCnorList().subscribe((res) => {
+    this.cnorList = res;
+  });
+}
 
   getGstByList(): void {
     this.commonService.getGstByList().subscribe((res) => {

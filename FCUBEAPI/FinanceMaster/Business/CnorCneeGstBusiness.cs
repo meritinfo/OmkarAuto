@@ -39,5 +39,9 @@ namespace FinanceMaster.Business
         {
             return await cnorCneeGstRepository.GetCnorCneeDtlList(request);
         }
+        public async Task<List<DropDownListModel>> GetCnorList()
+        {
+            return await cnorCneeGstRepository.GetCnorList();
+        }
     }
 }
