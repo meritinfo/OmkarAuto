@@ -425,6 +425,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("TripMasterGSafeSave")]
+        public async Task<IActionResult> TripMasterGSafeSave(TripMasterModel tripMasterModel)
+        {
+            if (tripMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.TripMasterGSafeSave(tripMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
         [HttpPost("TripMasterDelete")]
         public async Task<IActionResult> TripMasterDelete(RequestModel req)

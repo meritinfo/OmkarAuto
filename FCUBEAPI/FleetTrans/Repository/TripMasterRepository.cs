@@ -323,6 +323,7 @@ namespace FleetTrans.Repository
                                 OpeningKMR = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningKMR"]),
                                 DistanceTripKM = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM"]),
                                 LtsDslToBe = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe"]),
+                                AvgDslRate = Convert.ToString(dataSet.Tables[0].Rows[i]["AvgDslRate"]),
                                 OpBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDsl"]),
                                 IssuedDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslLtrs"]),
                                 IssuedDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslAmt"]),
@@ -564,6 +565,9 @@ namespace FleetTrans.Repository
                                 LoadWt  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadWt"]),
                                 UnloadWt = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadWt"]),
                                 HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
+                                ReportDate = Convert.ToString(resultData.Tables[1].Rows[i]["ReportDate"]),
+                                UnloadDate = Convert.ToString(resultData.Tables[1].Rows[i]["UnloadDate"]),
+                                DetenDays = Convert.ToString(resultData.Tables[1].Rows[i]["DetenDays"]),
                                 Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),
                             });
                         }
@@ -770,7 +774,6 @@ namespace FleetTrans.Repository
             }
             return driverList;
         }
-
         public async Task<List<DropDownListModel>> GetExpList()
         {
             List<DropDownListModel> expList = new();
@@ -907,6 +910,259 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> TripMasterGSafeSave(TripMasterModel tripMasterModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId" , tripMasterModel.TripId),
+                            new SqlParameter("@TripBranch" , tripMasterModel.TripBranch),
+                            new SqlParameter("@YearId" , tripMasterModel.YearId),
+                            new SqlParameter("@VehicleMasterID" , tripMasterModel.VehicleMasterID),
+                            new SqlParameter("@TripNo" , tripMasterModel.TripNo),
+                            new SqlParameter("@DeptDate" , tripMasterModel.DeptDate),
+                            new SqlParameter("@EndDate" , tripMasterModel.EndDate),
+                            new SqlParameter("@StmtDate" , tripMasterModel.StmtDate),
+                            new SqlParameter("@TripStatus" , tripMasterModel.TripStatus),
+                            new SqlParameter("@DriverMasterID" , tripMasterModel.DriverMasterID),
+                            new SqlParameter("@DefinedMileage" , tripMasterModel.DefinedMileage),
+                            new SqlParameter("@ClosingKMR" , tripMasterModel.ClosingKMR),
+                            new SqlParameter("@OpeningKMR" , tripMasterModel.OpeningKMR),
+                            new SqlParameter("@DistanceTripKM" , tripMasterModel.DistanceTripKM),
+                            new SqlParameter("@LtsDslToBe" , tripMasterModel.LtsDslToBe),
+                            new SqlParameter("@AvgDslRate" , tripMasterModel.AvgDslRate),
+                            new SqlParameter("@IssuedDslAmt" , tripMasterModel.IssuedDslAmt),
+                            new SqlParameter("@DieselPassedAmt" , tripMasterModel.DieselPassedAmt),
+                            new SqlParameter("@OpBalDriver" , tripMasterModel.OpBalDriver),
+                            new SqlParameter("@PaidDriverAdvance" , tripMasterModel.PaidDriverAdvance),
+                            new SqlParameter("@FreightCollByDriver" , tripMasterModel.FreightCollByDriver),
+                            new SqlParameter("@ExpensesByDriver" , tripMasterModel.ExpensesByDriver),
+                            new SqlParameter("@BhattaAmt" , tripMasterModel.BhattaAmt),
+                            new SqlParameter("@OnTimeIncentiveAmt" , tripMasterModel.OnTimeIncentiveAmt),
+                            new SqlParameter("@MultiDelIncentiveAmt" , tripMasterModel.MultiDelIncentiveAmt),
+                            new SqlParameter("@PenaltyChargedToDr" , tripMasterModel.PenaltyChargedToDr),
+                            new SqlParameter("@PenaltyRemarks" , tripMasterModel.PenaltyRemarks),
+                            new SqlParameter("@TotalDriverAc" , tripMasterModel.TotalDriverAc),
+                            new SqlParameter("@TripBalance" , tripMasterModel.TripBalance),
+                            new SqlParameter("@RecdFromDriver" , tripMasterModel.RecdFromDriver),
+                            new SqlParameter("@NetTripBalance" , tripMasterModel.NetTripBalance),
+                            new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
+                            new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
+                            new SqlParameter("@TripTotalExpenses" , tripMasterModel.TripTotalExpenses),
+                            new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
+                            new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
+                            new SqlParameter("@DetentionDays" , tripMasterModel.DetentionDays),
+                            new SqlParameter("@Remarks" , tripMasterModel.Remarks),
+                            new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterGSafeSave", param);
+
+                    string MasterID = "";
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(responseModel.Message);
+
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.DriverList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId", MasterID),
+                                    new SqlParameter("@TripPaymentId", tripMasterModel.DriverList[i].PmtId),
+                                    new SqlParameter("@PmtType", tripMasterModel.DriverList[i].PmtType),
+                                    new SqlParameter("@PmtDate", tripMasterModel.DriverList[i].PmtDate),
+                                    new SqlParameter("@PmtRemarks", tripMasterModel.DriverList[i].Remarks),
+                                    new SqlParameter("@PmtAmt", tripMasterModel.DriverList[i].AmountPaid),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrPaymentSave", paramdr);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.DriverList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.RouteList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId",         MasterID),
+                                    new SqlParameter("@ChallanId",      tripMasterModel.RouteList[i].LoadId),
+                                    new SqlParameter("@ChallanNo",      tripMasterModel.RouteList[i].LoadMemoNo),
+                                    new SqlParameter("@FromPlace",      tripMasterModel.RouteList[i].LoadingFrom),
+                                    new SqlParameter("@ToPlace",        tripMasterModel.RouteList[i].LoadingTo),
+                                    new SqlParameter("@OwnMarket",      tripMasterModel.RouteList[i].LoadType),
+                                    new SqlParameter("@UnloadWt",       tripMasterModel.RouteList[i].UnloadWt),
+                                    new SqlParameter("@ExtDetention",   tripMasterModel.RouteList[i].ExtDetention),
+                                    new SqlParameter("@TotalHire",      tripMasterModel.RouteList[i].HireAmt),
+                                    new SqlParameter("@ReportDate",     tripMasterModel.RouteList[i].ReportDate),
+                                    new SqlParameter("@UnloadDate",     tripMasterModel.RouteList[i].UnloadDate),
+                                    new SqlParameter("@DetenDays",      tripMasterModel.RouteList[i].DetenDays),
+                                    new SqlParameter("@Remarks",        tripMasterModel.RouteList[i].Remarks),
+                                    new SqlParameter("@YearId",         tripMasterModel.YearId),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteGSafeSave", paramdr);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.RouteList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.DrExpList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId",     MasterID),
+                                    new SqlParameter("@ExpId",  tripMasterModel.DrExpList[i].ExpId),
+                                    new SqlParameter("@ExpParticulars",  tripMasterModel.DrExpList[i].ExpParticulars),
+                                    new SqlParameter("@ExpAmt",  tripMasterModel.DrExpList[i].ExpAmt),
+
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrExpDetailsSave", paramdr);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.DrExpList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.DieselList.Count; i++)
+                            {
+                                SqlParameter[] paramdr =
+                                {
+                                    new SqlParameter("@TripId", MasterID),
+                                    new SqlParameter("@DfdDtlId", tripMasterModel.DieselList[i].DetailID),
+                                    new SqlParameter("@PmtDate", tripMasterModel.DieselList[i].TransDate),
+                                    new SqlParameter("@PmtRemarks", tripMasterModel.DieselList[i].Remarks),
+                                    new SqlParameter("@DslLtrs", tripMasterModel.DieselList[i].DslQty),
+                                    new SqlParameter("@DslRate", tripMasterModel.DieselList[i].DslRate),
+                                    new SqlParameter("@DslAmt", tripMasterModel.DieselList[i].Amount),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDslSave", paramdr);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.DieselList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.FasttagList.Count; i++)
+                            {
+                                SqlParameter[] paramft =
+                                {
+                                    new SqlParameter("@TripId", MasterID),
+                                    new SqlParameter("@FtDtlId", tripMasterModel.FasttagList[i].DetailID),
+                                    new SqlParameter("@FtDate", tripMasterModel.FasttagList[i].TransDate),
+                                    new SqlParameter("@FtRemarks", tripMasterModel.FasttagList[i].Remarks),
+                                    new SqlParameter("@FtAmt", tripMasterModel.FasttagList[i].FtAmount),
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripFastagDetailsSave", paramft);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.FasttagList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < tripMasterModel.CmpExpList.Count; i++)
+                            {
+                                SqlParameter[] paramcmp =
+                                {
+                                    new SqlParameter("@TripId",     MasterID),
+                                    new SqlParameter("@EnrouteExpId", tripMasterModel.CmpExpList[i].EnrouteExpId),
+                                    new SqlParameter("@ExpId",  tripMasterModel.CmpExpList[i].ExpId),
+                                    new SqlParameter("@ExpParticulars",  tripMasterModel.CmpExpList[i].ExpParticulars),
+                                    new SqlParameter("@ExpAmt",  tripMasterModel.CmpExpList[i].ExpAmt),
+
+                                };
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripCmpExpDetailsSave", paramcmp);
+
+                                if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
+                                {
+                                    responseModel.Status = Convert.ToBoolean(statusDatadr.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusDatadr.Tables[0].Rows[0]["Message"]);
+                                    if (!responseModel.Status)
+                                    {
+                                        i = tripMasterModel.CmpExpList.Count;
+                                        transaction.Rollback();
+                                    }
+                                }
+                            }
+                        }
+
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
     }
 
 }

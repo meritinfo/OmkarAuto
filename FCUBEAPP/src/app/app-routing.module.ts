@@ -358,6 +358,8 @@ import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flt
 import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
 import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/countofdocenteredrpt.component';
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
+import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
+import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
 
 
 
@@ -848,6 +850,9 @@ const routes: Routes = [
   { path: 'fltvehicletype',component: FlttypegroupmstlistComponent},
   { path: 'countdocrpt',component:CountofdocenteredrptComponent},
   { path: 'fleetlastentry',component:VehiclelasttransdaterptComponent},
+  { path: 'tripsheetgsafe',component: TripsheetgsafelistComponent },
+  { path: 'tripsheetgsafeadd', component: TripsheetgsafeaddComponent },
+  { path: 'tripsheetgsafeedit', component: TripsheetgsafeaddComponent },
   
 ];
 

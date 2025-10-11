@@ -17,5 +17,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetBhattaRate(RequestModel request);
         Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request);
         Task<ResponseModel> GetTripPrintPdf(RequestModel request);
+        Task<ResponseModel> TripMasterGSafeSave(TripMasterModel tripMasterModel);
     }
 }

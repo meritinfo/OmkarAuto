@@ -58,7 +58,7 @@
                                     </div>    
                                 </div>                                      
                                 <div class="row">                                        
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Load Type</label><span style="color: red"> * </span>
                                             <select class="form-control form-select ng-pristine ng-touched"
@@ -70,7 +70,7 @@
                                             </select>
                                         </div>
                                     </div>                                       
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Party (Load for)</label>
                                             <span style="color: red"> * </span> 
@@ -92,9 +92,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                      
-                                <div class="row">     
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Memo/LR No</label>                                          
                                             <input class="form-control" uppercaseonly  maxlength="15"
@@ -104,7 +102,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">                                    
+                                <div class="row"> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Origin</label>
+                                            <span style="color: red"> * </span> 
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="locationList" 
+                                                    formControlName="loadingFrom" 
+                                                    [searchKeyword]="keywordLocation"                                                      
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['loadingFrom'].invalid) }">  
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>                                
                                     <div class="col-lg-4">
                                         <div class="mb-3">       
                                             <label for="formrow-inputState">Consignor</label>                                 
@@ -118,19 +139,17 @@
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter">      
-                                                </ng-autocomplete>
-        
+                                                </ng-autocomplete>        
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
-                                                </ng-template>
- 
+                                                </ng-template> 
                                                 <ng-template #notFoundTemplate let-notFound>
                                                     <div [innerHTML]="notFound"></div>
                                                 </ng-template>
                                             </div>    
                                         </div>
                                     </div>  
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Name</label>
                                             <span style="color: red"> * </span> 
@@ -139,7 +158,9 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['consignorName'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                </div>
+                                <div class="row"> 
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignor Address</label>
                                             <input class="form-control" uppercaseonly maxlength="150"
@@ -148,28 +169,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputCity">Origin</label>
-                                            <span style="color: red"> * </span> 
-                                            <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="locationList" 
-                                                formControlName="loadingFrom" 
-                                                    [searchKeyword]="keywordLocation"                                                      
-                                                    (inputFocused)='onFocused($event)' 
-                                                    [itemTemplate]="itemTemplate"
-                                                    [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="startWithFilter"  
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['loadingFrom'].invalid) }">                                                  </ng-autocomplete>
-                                                <ng-template #itemTemplate let-item>
-                                                    <a [innerHTML]="item.dataName"></a>
-                                                </ng-template>
-                                                <ng-template #notFoundTemplate let-notFound>
-                                                    <div [innerHTML]="notFound"></div>
-                                                </ng-template>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Destination</label>
@@ -192,22 +191,7 @@
                                                 </ng-template>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label for="formrow-inputState">Product</label>
-                                            <span style="color: red"> * </span>                                               
-                                            <select class="form-control form-select ng-pristine ng-touched" 
-                                                formControlName="productId"                             
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
-                                                <option *ngFor="let branch of productList" value={{branch.dataId}}>
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">                                   
+                                    </div>                               
                                     <div class="col-lg-4">
                                         <div class="mb-3">         
                                             <label for="formrow-inputState">Consignee</label>                            
@@ -233,7 +217,7 @@
                                             </div>    
                                         </div>   
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Consignee Name</label>
                                             <span style="color: red"> * </span> 
@@ -242,25 +226,40 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['consigneeName'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                </div>
+                                <div class="row">    
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Consignee Address</label>
                                             <input type="text" class="form-control" uppercaseonly  maxlength="150"
                                                 formControlName="consigneeAdd">
                                         </div>
-                                    </div>                                  
+                                    </div> 
                                 </div>
-                                <div class="row">
+                                <div class="row">     
                                     <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Product</label>
+                                            <span style="color: red"> * </span>                                               
+                                            <select class="form-control form-select ng-pristine ng-touched" 
+                                                formControlName="productId"                             
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
+                                                <option *ngFor="let branch of productList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Qty Wt (MT)</label>
                                             <span style="color: red"> * </span> 
-                                            <input class="form-control" threedecimalonly (change)="onRateChange()"
-                                                formControlName="qtyWt"
+                                            <input class="form-control" threedecimalonly 
+                                                (change)="onRateChange()" formControlName="qtyWt"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyWt'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Packages</label>
                                             <span style="color: red"> * </span> 
@@ -269,7 +268,7 @@
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['qtyPkgs'].invalid) }">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Rate Per Ton</label>
                                             <input class="form-control" decimalonly (change)="onRateChange()"

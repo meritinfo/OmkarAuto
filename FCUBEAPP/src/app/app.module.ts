@@ -552,6 +552,8 @@ import { FlttypegroupmstaddComponent } from './module/vehicleflttypegroupmst/flt
 import { FlttypegroupmstlistComponent } from './module/vehicleflttypegroupmst/flttypegroupmstlist/flttypegroupmstlist.component';
 import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/countofdocenteredrpt.component';
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
+import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
+import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
 
 
 
@@ -684,16 +686,16 @@ import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
     DriversalarypmtaddComponent, DriversalarypmtlistComponent,
-     TripmasteraddComponent, TripmasterlistComponent, 
-     SparesstockrptComponent, SpareshistoryrptComponent, 
-     PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
-     OutstandinganalysisrptComponent, PendingdelvackrptComponent, DprdashboardComponent,
-     BenbanklistComponent, BenbanklistaddComponent,
-     VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
-     DoentrylistComponent,DoentryaddComponent,
-     DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, 
-     VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, 
-     MissingdocrptComponent, DashboardnccComponent,    
+    TripmasteraddComponent, TripmasterlistComponent, 
+    SparesstockrptComponent, SpareshistoryrptComponent, 
+    PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
+    OutstandinganalysisrptComponent, PendingdelvackrptComponent, DprdashboardComponent,
+    BenbanklistComponent, BenbanklistaddComponent,
+    VehiclesummmonthlyrptComponent,  EwaybillextensionbulkComponent, LhpaymentsummrptComponent,
+    DoentrylistComponent,DoentryaddComponent,
+    DovehiplacedlistComponent, DovehiplacedaddComponent,DovehiplacededitComponent, 
+    VehicleadvbalrptComponent, DetentionrptComponent, DeductionrptComponent, 
+    MissingdocrptComponent, DashboardnccComponent,    
     GstpctvaluesaddComponent,  GstpctvalueslistComponent, 
     RatesmasternewaddComponent ,RatesmasternewlistComponent,
     DovehicleinlistComponent,DovehicleinaddComponent ,DovehicleineditComponent, 
@@ -720,16 +722,21 @@ import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/
     OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent,
-    PartymisrptComponent, OpeningbalupdateComponent, 
-    PartymisrptComponent, BillinterestlossrptComponent, BrokerledgerprtComponent, 
     UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
     MultipleledgerreportComponent, AnnexurereportComponent, 
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
     ChallansuppliaddllpComponent, ChallansupplilistllpComponent, FleetgroupmasteraddComponent,
-    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, FleetgroupmasterlistComponent,FlttypegroupmstaddComponent,
-    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, VehiclemfrmasteraddComponent,VehiclemfrmasterlistComponent,VehiclefincompmasteraddComponent, VehiclemfrmasterlistComponent,FlttypegroupmstlistComponent,
-    DriversalaryentryaddComponent, DriversalaryentrylistComponent,     TripmasterllplistComponent, TripmasterllpaddComponent, TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, FleetgroupmasteraddComponent, FleetgroupmasterlistComponent, VehiclefincompmasteraddComponent, VehiclefincompmasterlistComponent, CountofdocenteredrptComponent, VehiclelasttransdaterptComponent,
+    TripoutstandingrptbrplComponent, ChallantdsstmtrptComponent, DashboardbrplComponent, 
+    FleetgroupmasterlistComponent,FlttypegroupmstaddComponent,
+    VendorpmtlistComponent, VendorpmtaddComponent, VendorduerptlistComponent, 
+    VehiclemfrmasteraddComponent,VehiclemfrmasterlistComponent,
+    VehiclefincompmasteraddComponent,VehiclefincompmasterlistComponent, FlttypegroupmstlistComponent,
+    DriversalaryentryaddComponent, DriversalaryentrylistComponent,     
+    TripmasterllplistComponent, TripmasterllpaddComponent, 
+    TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, 
+    CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
+    TripsheetgsafelistComponent, TripsheetgsafeaddComponent,
     
   ],
   

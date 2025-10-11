@@ -25,6 +25,7 @@ namespace FleetTrans.Models
         public string? OpeningKMR { get; set; }
         public string? DistanceTripKM { get; set; }
         public string? LtsDslToBe { get; set; }
+        public string? AvgDslRate { get; set; }
         public string? OpBalDsl { get; set; }
         public string? IssuedDslLtrs { get; set; }
         public string? IssuedDslAmt { get; set; }
@@ -106,6 +107,9 @@ namespace FleetTrans.Models
         public string? UnloadWt { get; set; }
         public string? ExtDetention { get; set; }
         public string? HireAmt { get; set; }
+        public string? ReportDate { get; set; }
+        public string? UnloadDate { get; set; }
+        public string? DetenDays { get; set; }
         public string? Remarks { get; set; }
     }
     public class DieselDetails

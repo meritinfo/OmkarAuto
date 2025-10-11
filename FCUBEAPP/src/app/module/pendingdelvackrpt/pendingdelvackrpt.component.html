@@ -19,7 +19,7 @@
                                     <label for="formrow-inputState">Branch </label>
                                     <select formControlName="branch"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                        <option value="">All</option>
+                                        <option value="">ALL</option>
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -132,7 +132,7 @@
                                     <label for="formrow-inputCity">Billing Status </label>  
                                     <select formControlName="billingStatus"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                        <option value="">All</option>                                       
+                                        <option value="">ALL</option>                                       
                                         <option value="WP">With POD</option>
                                         <option value="WO">Without POD</option>
                                         <option value="IB">Indemnity Bond</option>

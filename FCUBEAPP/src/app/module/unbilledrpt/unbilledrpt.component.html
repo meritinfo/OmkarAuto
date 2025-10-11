@@ -44,7 +44,7 @@
                                     <label for="formrow-inputState">ACK Received </label><span style="color: red">*</span>    
                                     <select formControlName="ack"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                        <option value="">All</option>                                       
+                                        <option value="">ALL</option>                                       
                                         <option value="Y">Yes</option>                                       
                                         <option value="N">No</option>
                                     </select>
@@ -55,7 +55,7 @@
                                     <label for="formrow-inputState">Branch </label>
                                     <select formControlName="branch"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                        <option value="">All</option>
+                                        <option value="">ALL</option>
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -145,7 +145,7 @@
                                     <label for="formrow-inputCity">Booking Status </label>  
                                     <select formControlName="billingStatus"
                                     class="form-control form-select ng-pristine ng-touched" >                                        
-                                        <option value="">All</option>                                       
+                                        <option value="">ALL</option>                                       
                                         <option value="TP">To Paid</option>
                                         <option value="TBB">To Be Billed</option>
                                     </select>
