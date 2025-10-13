@@ -18,7 +18,7 @@
                                     <label for="formrow-inputZip">Branch</label>
                                     <select formControlName="branchCode"
                                     class="form-control form-select ng-pristine ng-touched"> 
-                                        <option value="">All</option>
+                                        <option value="">ALL</option>
                                         <option *ngFor="let br of branchList" value={{br.dataId}}>
                                         {{br.dataName}}
                                         </option>
@@ -31,7 +31,7 @@
                                     <select id="formrow-inputState" class="form-control" 
                                             formControlName="docType"  
                                             class="form-control form-select ng-pristine ng-touched"> 
-                                            <option value="">All</option>
+                                            <option value="">ALL</option>
                                             <option value="CN">Consignment</option>
                                             <!-- <option value="CH">Challan</option> -->
                                             <option value="BL">Bill</option>                                      

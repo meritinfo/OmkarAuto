@@ -956,6 +956,9 @@ export class TripmasterllpaddComponent {
           'unloadWt':  selectedDataValue.routeList[i].unloadWt,
           'extDetention':'',
           'hireAmt':  selectedDataValue.routeList[i].hireAmt,
+          'reportDate':'',
+          'unloadDate':'',
+          'detenDays':'',
           'remarks':  selectedDataValue.routeList[i].remarks,
         })
       }

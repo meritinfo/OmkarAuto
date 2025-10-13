@@ -184,7 +184,7 @@
                                                     <td class="col-lg-2">
                                                         <select id="scope"  formControlName="productId" (change)='changeProduct($event,i)' 
                                             class="form-control form-select ng-pristine ng-touched">
-                                            <option selected="0">All</option>
+                                            <option selected="0">ALL</option>
                                                 <option *ngFor="let br of productList" value={{br.dataId}}  >
                                                     {{br.dataName}}
                                                 </option>

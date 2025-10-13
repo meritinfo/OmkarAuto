@@ -39,6 +39,11 @@ export class TripSheetService {
   tripMasterDetailsSubmitted(user: Tripmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterSave', user, this.httpOptions);
   }
+  
+  tripMasterGsafeSubmitted(user: Tripmastermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterGSafeSave', user, this.httpOptions);
+  }
+  
   tripMasterDetailsDelete(user: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterDelete', user, this.httpOptions);
   }

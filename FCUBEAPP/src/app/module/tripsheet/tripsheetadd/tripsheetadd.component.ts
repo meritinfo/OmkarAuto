@@ -1224,7 +1224,7 @@ dashboard: string ="";
           'pmtBranch':  selectedDataValue.driverList[i].pmtBranch,
           'pmtDate':  selectedDataValue.driverList[i].pmtDate,
           'transType':  selectedDataValue.driverList[i].transType,
-          'amountPaid':  selectedDataValue.driverList[i].amountPaid,
+          'amountPaid':  selectedDataValue.driverList[i].amountPaid.toString(),
           'remarks':  selectedDataValue.driverList[i].remarks.toString().toUpperCase(),
           'pmtType': selectedDataValue.driverList[i].pmtType,
         })
@@ -1246,10 +1246,13 @@ dashboard: string ="";
           'consignorName':  selectedDataValue.routeList[i].consignorName.toString().toUpperCase(),
           'loadingTo':  loadingto?loadingto.dataId:"" ,
           'consigneeName':  selectedDataValue.routeList[i].consigneeName.toString().toUpperCase(),
-          'loadWt':  selectedDataValue.routeList[i].loadWt,
-          'unloadWt':  selectedDataValue.routeList[i].unloadWt,
-          'extDetention': selectedDataValue.routeList[i].extDetention,
-          'hireAmt':  selectedDataValue.routeList[i].hireAmt,
+          'loadWt':  selectedDataValue.routeList[i].loadWt.toString(),
+          'unloadWt':  selectedDataValue.routeList[i].unloadWt.toString(),
+          'extDetention': selectedDataValue.routeList[i].extDetention.toString(),
+          'hireAmt':  selectedDataValue.routeList[i].hireAmt.toString(),
+          'reportDate':'',
+          'unloadDate':'',
+          'detenDays':'',
           'remarks':  selectedDataValue.routeList[i].remarks.toString().toUpperCase(),
         })
       }
@@ -1260,9 +1263,9 @@ dashboard: string ="";
         this.tripsheetmodel.dieselList.push({
           'detailID': selectedDataValue.dieselList[i].detailID,
           'transDate': selectedDataValue.dieselList[i].transDate,
-          'dslQty':  selectedDataValue.dieselList[i].dslQty,
-          'dslRate':  selectedDataValue.dieselList[i].dslRate,
-          'amount':  selectedDataValue.dieselList[i].amount,
+          'dslQty':  selectedDataValue.dieselList[i].dslQty.toString(),
+          'dslRate':  selectedDataValue.dieselList[i].dslRate.toString(),
+          'amount':  selectedDataValue.dieselList[i].amount.toString(),
           'remarks': selectedDataValue.dieselList[i].remarks.toString().toUpperCase(),
         })
       }
@@ -1275,8 +1278,8 @@ dashboard: string ="";
           'issueBranch':  selectedDataValue.adblueList[i].issueBranch,
           'issueDate':  selectedDataValue.adblueList[i].issueDate,
           'issueParticulars':  selectedDataValue.adblueList[i].issueParticulars.toString().toUpperCase(),
-          'adblueLtrs': selectedDataValue.adblueList[i].adblueLtrs,
-          'adblueAmt': selectedDataValue.adblueList[i].adblueAmt,
+          'adblueLtrs': selectedDataValue.adblueList[i].adblueLtrs.toString(),
+          'adblueAmt': selectedDataValue.adblueList[i].adblueAmt.toString(),
         })
       }
     }
@@ -1286,7 +1289,7 @@ dashboard: string ="";
         this.tripsheetmodel.fasttagList.push({
           'detailID': selectedDataValue.fasttagList[i].detailID,
           'transDate': selectedDataValue.fasttagList[i].transDate,
-          'ftAmount':  selectedDataValue.fasttagList[i].ftAmount,
+          'ftAmount':  selectedDataValue.fasttagList[i].ftAmount.toString(),
           'remarks': selectedDataValue.fasttagList[i].remarks.toString().toUpperCase(),
         })
       }

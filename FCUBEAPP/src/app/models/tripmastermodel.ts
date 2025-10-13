@@ -1,5 +1,5 @@
 export class Tripmastermodel {
-    tripId: string = "";
+    tripId: string = "";                    
     tripBranch: string = "";
     yearId: string = "";
     vehicleMasterID: string = "";
@@ -16,6 +16,7 @@ export class Tripmastermodel {
     openingKMR: string = "";
     distanceTripKM: string = "";
     ltsDslToBe: string = "";
+    avgDslRate: string = "";
     opBalDsl: string = "";
     issuedDslLtrs: string = "";
     issuedDslAmt: string = "";
@@ -94,6 +95,9 @@ export class RouteDetails {
     unloadWt: string = "";
     extDetention: string = "";
     hireAmt : string = "";
+    reportDate: string = "";
+    unloadDate: string = "";
+    detenDays: string = "";
     remarks : string = "";        
 }
 

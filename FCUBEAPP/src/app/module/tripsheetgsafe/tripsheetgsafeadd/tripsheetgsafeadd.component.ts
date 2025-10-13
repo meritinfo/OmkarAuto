@@ -12,20 +12,18 @@ import { ToastrService } from 'ngx-toastr';
 import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
-  selector: 'app-tripmasteradd',
-  templateUrl: './tripmasteradd.component.html',
-  styleUrls: ['./tripmasteradd.component.css']
+  selector: 'app-tripsheetgsafeadd',
+  templateUrl: './tripsheetgsafeadd.component.html',
+  styleUrls: ['./tripsheetgsafeadd.component.css']
 })
-
-export class TripmasteraddComponent {
+export class TripsheetgsafeaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   loginDate: string = '';
   branch:string = '';
-  minDate: string = '';
-  
+  minDate: string = '';  
   createdBy : string = "";
-    modifiedBy: string = "";
+  modifiedBy: string = "";
 
   maxDate: string = '';
   fromDate: string = '';
@@ -34,7 +32,7 @@ export class TripmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   editMode = false;
   detailMode = false;
 
@@ -59,6 +57,7 @@ dashboard: string ="";
     this.tripsheetmodel = new Tripmastermodel();
 
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -74,16 +73,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-    
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
+        
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -105,8 +103,6 @@ dashboard: string ="";
     
     this.fromDate = this.minDate ;
 
-
-    
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -129,41 +125,29 @@ dashboard: string ="";
       stmtDate:  new FormControl(this.loginDate, [Validators.required]),
       tripStatus:  new FormControl('',),
       driverMasterID:  new FormControl('', [Validators.required]),
-      definedMileage: new FormControl('',),
-      emptyMileage: new FormControl('',),
-      emptyKMs: new FormControl('',),
+      definedMileage: new FormControl('',[Validators.required]),
       closingKMR:new FormControl('',[Validators.required]),
       openingKMR: new FormControl('',),
       distanceTripKM: new FormControl('',[Validators.required]),
       ltsDslToBe: new FormControl('',),
-      opBalDsl: new FormControl('',),
-      issuedDslLtrs: new FormControl('',),
-      issuedDslAmt: new FormControl('',),
-      dieselPassedLtrs: new FormControl('',),
+      avgDslRate: new FormControl('',[Validators.required]),
       dieselPassedAmt: new FormControl('',),
-      dieselVarianceAmt: new FormControl('',),
-      clBalDsl: new FormControl('',),      
+      issuedDslAmt: new FormControl('',),
       opBalDriver: new FormControl('',),
       paidDriverAdvance: new FormControl('',),
-      freightCollByDriver: new FormControl('',),
       expensesByDriver: new FormControl('',),
-      totalBhattaDays: new FormControl('',),
-      bhattaRate: new FormControl('',),
       bhattaAmt: new FormControl('',),
       onTimeIncentiveAmt: new FormControl('',),
       multiDelIncentiveAmt: new FormControl('',),
       penaltyChargedToDr: new FormControl('',),
       penaltyRemarks: new FormControl('',),
-      //totalDriverAc: new FormControl('',),
+      totalDriverAc: new FormControl('',),
       tripBalance: new FormControl('',),
       recdFromDriver: new FormControl('',),
       netTripBalance: new FormControl('',[Validators.required]),
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
       tripTotalExpenses: new FormControl('',[Validators.required]),
-      expensesByComp: new FormControl('',),
-      reportDateTime: new FormControl('',),
-      unloadDateTime: new FormControl('',),
       detentionDays: new FormControl('',),
       tripCloseDt: new FormControl('',),
       tripLinkYN: new FormControl('',),
@@ -173,8 +157,7 @@ dashboard: string ="";
       routeList: this.formBuilder.array([this.createRouteArray()]),
       dieselList: this.formBuilder.array([this.createDieselArray()]),
       fasttagList: this.formBuilder.array([this.createFasttagArray()]),
-      drExpList: this.formBuilder.array([this.createTripDrExpArray()]),
-      cmpExpList: this.formBuilder.array([this.createTripCmpExpArray()])
+      drExpList: this.formBuilder.array([this.createTripDrExpArray()])
 
     });
 
@@ -183,32 +166,27 @@ dashboard: string ="";
     this.formTripsheet.controls['tripBranch'].disable(); 
     this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['ltsDslToBe'].disable();
-    this.formTripsheet.controls['distanceTripKM'].disable();  
-    this.formTripsheet.controls['issuedDslLtrs'].disable();      
+    //this.formTripsheet.controls['avgDslRate'].disable();   
+    this.formTripsheet.controls['detentionDays'].disable();     
+    this.formTripsheet.controls['distanceTripKM'].disable();     
     this.formTripsheet.controls['issuedDslAmt'].disable();       
     this.formTripsheet.controls['fastagAmount'].disable();          
-    this.formTripsheet.controls['dieselPassedAmt'].disable();      
-    this.formTripsheet.controls['dieselVarianceAmt'].disable();     
-    this.formTripsheet.controls['clBalDsl'].disable();       
+    this.formTripsheet.controls['dieselPassedAmt'].disable();   
     this.formTripsheet.controls['paidDriverAdvance'].disable();    
     this.formTripsheet.controls['expensesByDriver'].disable();  
-    //this.formTripsheet.controls['totalBhattaDays'].disable();    
-    this.formTripsheet.controls['bhattaRate'].disable();       
-    this.formTripsheet.controls['bhattaAmt'].disable();       
+    //this.formTripsheet.controls['bhattaAmt'].disable();       
     this.formTripsheet.controls['tripBalance'].disable();      
     this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     
     this.formTripsheet.controls['tripTotalExpenses'].disable();   
-    this.formTripsheet.controls['expensesByComp'].disable();     
+    this.formTripsheet.controls['totalDriverAc'].disable();     
     this.formTripsheet.controls['tripCloseDt'].disable();
-    this.formTripsheet.controls['detentionDays'].disable();    
 
     setTimeout(() => {
       this.sharedService.loading = true;
 
       if (this.selectedTripSheetDetails.tripId != '') {        
-        this.formTripsheet.controls['openingKMR'].disable();     
-        this.formTripsheet.controls['opBalDsl'].disable();    
+        this.formTripsheet.controls['openingKMR'].disable();  
         this.formTripsheet.controls['opBalDriver'].disable();        
         this.formTripsheet.controls['deptDate'].disable();     
         this.formTripsheet.controls['endDate'].disable();    
@@ -235,16 +213,10 @@ dashboard: string ="";
             tripLinkYN:""
           }); 
         }        
-             
-        if( this.selectedTripSheetDetails.nextTrip != '0'){        
-          this.formTripsheet.controls['closingKMR'].disable();     
-          this.formTripsheet.controls['clBalDsl'].disable();           
-        }
+          
         this.editMode = true;
-        
-
-  this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
-  this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate; 
+        this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
+        this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate; 
         this.getTripSheetInnerGridList();
       }  
       else{        
@@ -307,10 +279,6 @@ dashboard: string ="";
     return this.formTripsheet.get("drExpList") as FormArray;
   }
 
-  get formCmpExpTypeArray() {
-    return this.formTripsheet.get("cmpExpList") as FormArray;
-  }
-
   
   createDriverArray() {
     return this.formBuilder.group({
@@ -333,13 +301,11 @@ dashboard: string ="";
       loadFor: [''],
       loadMemoNo: [''],
       loadingFrom: [''],
-      consignorName: [''],
       loadingTo: [''],
-      consigneeName: [''],
-      loadWt: [''],
-      unloadWt: [''],
-      extDetention: [''],
       hireAmt: [''],
+      reportDate : [''],
+      unloadDate: [''],
+      detenDays: [''],
       remarks: [''],
     });
   }
@@ -371,16 +337,6 @@ dashboard: string ="";
       expAmt:  [''],
     });
   }
-
-  createTripCmpExpArray() {
-    return this.formBuilder.group({
-      enrouteExpId:  [''],
-      expId:  [''],
-      expParticulars:  [''],
-      expAmt:  [''],
-    });
-  }
-
  
   selectNewEvent(item: any) {  
     this.requestmodel.strRequest = item.dataId;
@@ -392,13 +348,11 @@ dashboard: string ="";
           tripNo: this.responseDetails.message
         });  
         if(this.responseDetails.message == "1")   {
-          this.formTripsheet.controls['openingKMR'].enable();     
-          this.formTripsheet.controls['opBalDsl'].enable();    
+          this.formTripsheet.controls['openingKMR'].enable();   
           this.formTripsheet.controls['opBalDriver'].enable();  
         }     
         else{            
-          this.formTripsheet.controls['openingKMR'].disable();     
-          this.formTripsheet.controls['opBalDsl'].disable();    
+          this.formTripsheet.controls['openingKMR'].disable();  
           this.formTripsheet.controls['opBalDriver'].disable();     
         }     
         this.getDslMileage(item.dataId);
@@ -442,7 +396,7 @@ dashboard: string ="";
       }
     });
   }
-  
+
   getBhattaRate(e:any) {
     this.requestmodel.strRequest= e;
     this.commonService.getBhattaRate(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -463,8 +417,8 @@ dashboard: string ="";
     this.commonService.getOpeningBal(this.filter).subscribe((res: Reportmodel) => {
       this.formTripsheet.patchValue({
         openingKMR : res.filterStr,
-        opBalDsl: res.filterStr1,
         opBalDriver: res.filterStr2,
+        //avgDslRate: res.filterStr3,
       });       
     });
   }
@@ -489,12 +443,10 @@ dashboard: string ="";
       return;
     }
 
-    var issuedDslLtrs = 0;
     var issuedDslAmt = 0;
     var fastagAmount = 0;
     var paidDriverAdvance = 0;
-    var tripTotalFreight = 0;    
-    var expensesByComp = 0;    
+    var tripTotalFreight = 0;  
 
     var deptDate = new Date(selectedDataValue.deptDate);
     var endDate = new Date(selectedDataValue.endDate);    
@@ -506,12 +458,11 @@ dashboard: string ="";
     this.filter.filterStr = selectedDataValue.vehicleMasterID.dataId;
     
     this.tripSheetService.getTripMasterInnerSearchList(this.filter).subscribe((res: Tripmastermodel) => {
-      this.tripsheetmodel = res;
+      //this.tripsheetmodel = res;
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formFasttagArray.clear();
-      this.formCmpExpTypeArray.clear();
 
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
@@ -539,11 +490,7 @@ dashboard: string ="";
         this.formRouteArray.controls[i].get("loadFor")?.setValue(res.routeList[i].loadFor);
         this.formRouteArray.controls[i].get("loadMemoNo")?.setValue(res.routeList[i].loadMemoNo);
         this.formRouteArray.controls[i].get("loadingFrom")?.setValue(res.routeList[i].loadingFrom);
-        this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
-        this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
-        this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
@@ -560,6 +507,7 @@ dashboard: string ="";
         this.formRouteArray.controls[i].get("consigneeName")?.disable();
         this.formRouteArray.controls[i].get("loadWt")?.disable();
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
+        this.formRouteArray.controls[i].get("detenDays")?.disable();        
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
       for (var i = 0; i < res.dieselList.length; i++) {
@@ -571,7 +519,6 @@ dashboard: string ="";
         this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
         this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
 
-        issuedDslLtrs = issuedDslLtrs + parseFloat(res.dieselList[i].dslQty);
         issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
 
         this.formDieselArray.controls[i].get("transDate")?.disable();
@@ -595,35 +542,15 @@ dashboard: string ="";
         this.formFasttagArray.controls[i].get("remarks")?.disable();
       }
 
-      
-      for (var i = 0; i < res.cmpExpList.length; i++) {
-        this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
-        this.formCmpExpTypeArray.controls[i].get("enrouteExpId")?.setValue(res.cmpExpList[i].enrouteExpId);
-        this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
-        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
-        this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
-
-        expensesByComp = expensesByComp + parseFloat(res.cmpExpList[i].expAmt);
-
-        this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
-        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
-        this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
-      }
-
       var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
-      var clBalDsl =(selectedDataValue.opBalDsl == ""? 0:parseFloat(selectedDataValue.opBalDsl)) + issuedDslLtrs
-                    - (selectedDataValue.dieselPassedLtrs == ""? 0:parseFloat(selectedDataValue.dieselPassedLtrs));
-
+     
       this.formTripsheet.patchValue({
-        issuedDslLtrs : issuedDslLtrs.toFixed(2),
         issuedDslAmt: issuedDslAmt.toFixed(2), 
         fastagAmount: fastagAmount.toFixed(2), 
-        clBalDsl: clBalDsl.toFixed(2), 
-        totalBhattaDays: totalBhattaDays,
-        bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
+        // totalBhattaDays: totalBhattaDays,
+        // bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
         tripTotalFreight: tripTotalFreight.toFixed(2),
         paidDriverAdvance: paidDriverAdvance.toFixed(2),
-        expensesByComp: expensesByComp.toFixed(2),
       });
     }); 
   }
@@ -632,12 +559,11 @@ dashboard: string ="";
     this.requestmodel.strRequest= this.selectedTripSheetDetails.tripId;
 
     this.tripSheetService.getTripMasterInnerGridList(this.requestmodel).subscribe((res: Tripmastermodel) => {
-      this.tripsheetmodel = res;
+      //this.tripsheetmodel = res;
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formFasttagArray.clear();
-      this.formCmpExpTypeArray.clear();
       
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
@@ -664,12 +590,11 @@ dashboard: string ="";
         this.formRouteArray.controls[i].get("loadFor")?.setValue(res.routeList[i].loadFor);
         this.formRouteArray.controls[i].get("loadMemoNo")?.setValue(res.routeList[i].loadMemoNo);
         this.formRouteArray.controls[i].get("loadingFrom")?.setValue(res.routeList[i].loadingFrom);
-        this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
         this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
-        this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
-        this.formRouteArray.controls[i].get("loadWt")?.setValue(res.routeList[i].loadWt);
-        this.formRouteArray.controls[i].get("unloadWt")?.setValue(res.routeList[i].unloadWt);
         this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
+        this.formRouteArray.controls[i].get("reportDate")?.setValue(res.routeList[i].reportDate);
+        this.formRouteArray.controls[i].get("unloadDate")?.setValue(res.routeList[i].unloadDate);
+        this.formRouteArray.controls[i].get("detenDays")?.setValue(res.routeList[i].detenDays);
         this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
 
         this.formRouteArray.controls[i].get("loadBranch")?.disable();
@@ -724,44 +649,32 @@ dashboard: string ="";
         this.formDrExpTypeArray.controls[i].get("expAmt")?.disable();
       }
       
-      for (var i = 0; i < res.cmpExpList.length; i++) {
-        this.formCmpExpTypeArray.push(this.createTripCmpExpArray());
-        this.formCmpExpTypeArray.controls[i].get("expId")?.setValue(res.cmpExpList[i].expId);
-        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.setValue(res.cmpExpList[i].expParticulars);
-        this.formCmpExpTypeArray.controls[i].get("expAmt")?.setValue(res.cmpExpList[i].expAmt);
-
-        this.formCmpExpTypeArray.controls[i].get("expId")?.disable();
-        this.formCmpExpTypeArray.controls[i].get("expParticulars")?.disable();
-        this.formCmpExpTypeArray.controls[i].get("expAmt")?.disable();
-      }
     });
   }
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();    
-    var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
-    var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
-    var bhattaAmt = (bhattaRate * totalBhattaDays);    
+    // var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
+    // var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
+    // var bhattaAmt = (bhattaRate * totalBhattaDays);    
+    var bhattaAmt = selectedDataValue.bhattaAmt==''?0:parseFloat(selectedDataValue.bhattaAmt);
     var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
-    var freightCollByDriver = selectedDataValue.freightCollByDriver==''?0:parseFloat(selectedDataValue.freightCollByDriver);
     var expensesByDriver = selectedDataValue.expensesByDriver==''?0:parseFloat(selectedDataValue.expensesByDriver);
     var onTimeIncentiveAmt = selectedDataValue.onTimeIncentiveAmt==''?0:parseFloat(selectedDataValue.onTimeIncentiveAmt);
     var multiDelIncentiveAmt = selectedDataValue.multiDelIncentiveAmt==''?0:parseFloat(selectedDataValue.multiDelIncentiveAmt);
     var penaltyChargedToDr = selectedDataValue.penaltyChargedToDr==''?0:parseFloat(selectedDataValue.penaltyChargedToDr);
-    var dieselVarianceAmt = selectedDataValue.dieselVarianceAmt==''?0:parseFloat(selectedDataValue.dieselVarianceAmt);
     var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
     var dieselPassedAmt = selectedDataValue.dieselPassedAmt==''?0:parseFloat(selectedDataValue.dieselPassedAmt);
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
-    var expensesByComp = selectedDataValue.expensesByComp==''?0:parseFloat(selectedDataValue.expensesByComp);
-    
-    var tripBalance = opBalDriver + paidDriverAdvance + freightCollByDriver
+   
+    var tripBalance = opBalDriver + paidDriverAdvance 
                       - expensesByDriver - bhattaAmt - penaltyChargedToDr 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt + dieselVarianceAmt;
+                      + onTimeIncentiveAmt + multiDelIncentiveAmt ;
 
     var netTripBalance = tripBalance - recdFromDriver;
     var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt + expensesByComp
+                      + onTimeIncentiveAmt + multiDelIncentiveAmt 
 
     this.formTripsheet.patchValue({
       bhattaAmt: bhattaAmt.toFixed(2),
@@ -773,26 +686,23 @@ dashboard: string ="";
 
   calDetentionDays(){    
     var selectedDataValue = this.formTripsheet.getRawValue();
- 
-    //calculation
-    var date1 = new Date(selectedDataValue.reportDateTime);
-    var date2 = new Date(selectedDataValue.unloadDateTime);
-   
-    // To calculate the time difference of two dates
-    var Difference_In_Time = date2.getTime() - date1.getTime();
- 
-    // To calculate the no. of days between two dates
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-    if (!Number.isNaN(Difference_In_Days)) {
-      this.formTripsheet.patchValue({
-        detentionDays: (Difference_In_Days).toString()
-      });
+    var detentionDays = 0;
+    
+    for (var i = 0; i < selectedDataValue.routeList.length; i++) {
+      if(selectedDataValue.routeList[i].reportDate!="" && selectedDataValue.routeList[i].unloadDate!=""){
+        var date1 = new Date(selectedDataValue.routeList[i].reportDate);
+        var date2 = new Date(selectedDataValue.routeList[i].unloadDate);
+        var Difference_In_Time = date2.getTime() - date1.getTime();       
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        if (!Number.isNaN(Difference_In_Days)) {
+          detentionDays = detentionDays + Difference_In_Days;          
+          this.formRouteArray.controls[i].get("detenDays")?.setValue(Difference_In_Days);
+        }         
+      }
     }
-    else {
-      this.formTripsheet.patchValue({
-        detentionDays: '0'
-      });  
-    }
+    this.formTripsheet.patchValue({
+        detentionDays: detentionDays.toString(),
+    });
   }
   
 
@@ -832,21 +742,30 @@ dashboard: string ="";
     this.route.navigate(['/tripsheetlist']);
   }
 
+  calcDieselAmt(){     
+    var selectedval = this.formTripsheet.getRawValue();
+    var avgDslRate = selectedval.avgDslRate ? parseFloat(selectedval.avgDslRate) : 0
+    var ltsDslToBe = selectedval.ltsDslToBe ? parseFloat(selectedval.ltsDslToBe) : 0
+    this.formTripsheet.patchValue({
+      dieselPassedAmt:(ltsDslToBe*avgDslRate).toFixed(2),
+    });
+  }
+
   onKmrChange(){
     var totaldistanceTripKM = 0;
     var ltsDslToBe = 0;
   
     var selectedval = this.formTripsheet.getRawValue();
-    var cKMR= selectedval.closingKMR ? parseFloat(selectedval.closingKMR) : 0
-    var oKMR= selectedval.openingKMR ? parseFloat(selectedval.openingKMR) : 0
-
+    var cKMR = selectedval.closingKMR ? parseFloat(selectedval.closingKMR) : 0
+    var oKMR = selectedval.openingKMR ? parseFloat(selectedval.openingKMR) : 0
+    
     totaldistanceTripKM = cKMR-oKMR;
 
     if(totaldistanceTripKM > 0){
       if(selectedval.definedMileage!=0){
         ltsDslToBe = totaldistanceTripKM/parseFloat(selectedval.definedMileage);
       }
-  
+
       this.formTripsheet.patchValue({
         distanceTripKM : totaldistanceTripKM,
         ltsDslToBe:ltsDslToBe.toFixed(2),
@@ -877,28 +796,6 @@ dashboard: string ="";
     });
     this.calTotal();
   }
-
-  onDieselPassed(){
-    var dieselPassedAmt = 0;
-    var rate = 0;
-
-    var selectedval = this.formTripsheet.getRawValue();
-    var clBalDsl =(selectedval.opBalDsl == ""? 0:parseFloat(selectedval.opBalDsl)) 
-          + (selectedval.issuedDslLtrs == ""? 0:parseFloat(selectedval.issuedDslLtrs))
-          - (selectedval.dieselPassedLtrs == ""? 0:parseFloat(selectedval.dieselPassedLtrs));
-
-    if(parseFloat(selectedval.issuedDslLtrs)>0){
-      rate = parseFloat(selectedval.issuedDslAmt)/ parseFloat(selectedval.issuedDslLtrs);
-    }
-    dieselPassedAmt = parseFloat(selectedval.dieselPassedLtrs) * rate;
-    this.formTripsheet.patchValue({
-      dieselPassedAmt: dieselPassedAmt.toFixed(2),
-      clBalDsl: clBalDsl.toFixed(2),
-      dieselVarianceAmt : Math.round(parseFloat(selectedval.issuedDslAmt) - dieselPassedAmt).toFixed(2),
-    });
-    this.calTotal();
-  }
-
     
   removeItem(index: number){ 
     if (confirm("Are you sure, you want to delete this row?")) {
@@ -979,25 +876,16 @@ dashboard: string ="";
     this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus?"Y":"N";
     this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID.dataId;
     this.tripsheetmodel.definedMileage = selectedDataValue.definedMileage.toString();
-    this.tripsheetmodel.emptyMileage = selectedDataValue.emptyMileage.toString();
-    this.tripsheetmodel.emptyKMs = selectedDataValue.emptyKMs.toString();
     this.tripsheetmodel.closingKMR = selectedDataValue.closingKMR.toString();
     this.tripsheetmodel.openingKMR= selectedDataValue.openingKMR.toString();
     this.tripsheetmodel.distanceTripKM= selectedDataValue.distanceTripKM.toString();
     this.tripsheetmodel.ltsDslToBe= selectedDataValue.ltsDslToBe.toString();
-    this.tripsheetmodel.opBalDsl= selectedDataValue.opBalDsl.toString();
-    this.tripsheetmodel.issuedDslLtrs= selectedDataValue.issuedDslLtrs.toString();
+    this.tripsheetmodel.avgDslRate= selectedDataValue.avgDslRate.toString();
     this.tripsheetmodel.issuedDslAmt= selectedDataValue.issuedDslAmt.toString();
-    this.tripsheetmodel.dieselPassedLtrs= selectedDataValue.dieselPassedLtrs.toString();
     this.tripsheetmodel.dieselPassedAmt= selectedDataValue.dieselPassedAmt.toString();
-    this.tripsheetmodel.dieselVarianceAmt= selectedDataValue.dieselVarianceAmt.toString();
-    this.tripsheetmodel.clBalDsl= selectedDataValue.clBalDsl.toString();
     this.tripsheetmodel.opBalDriver= selectedDataValue.opBalDriver.toString();
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
-    this.tripsheetmodel.freightCollByDriver= selectedDataValue.freightCollByDriver.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
-    this.tripsheetmodel.totalBhattaDays= selectedDataValue.totalBhattaDays.toString();
-    this.tripsheetmodel.bhattaRate= selectedDataValue.bhattaRate.toString();
     this.tripsheetmodel.bhattaAmt= selectedDataValue.bhattaAmt.toString();
     this.tripsheetmodel.onTimeIncentiveAmt= selectedDataValue.onTimeIncentiveAmt.toString();
     this.tripsheetmodel.multiDelIncentiveAmt= selectedDataValue.multiDelIncentiveAmt.toString();
@@ -1009,12 +897,9 @@ dashboard: string ="";
     this.tripsheetmodel.fastagAmount= selectedDataValue.fastagAmount.toString();
     this.tripsheetmodel.tripTotalFreight= selectedDataValue.tripTotalFreight.toString();
     this.tripsheetmodel.tripTotalExpenses= selectedDataValue.tripTotalExpenses.toString();
-    this.tripsheetmodel.expensesByComp= selectedDataValue.expensesByComp.toString();
     this.tripsheetmodel.tripCloseDt= selectedDataValue.tripCloseDt;
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN?"Y":"N";
-    this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
-    this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
-    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
+    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays.toString();
     this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
@@ -1024,6 +909,7 @@ dashboard: string ="";
     this.tripsheetmodel.dieselList = [];
     this.tripsheetmodel.fasttagList = [];
     this.tripsheetmodel.drExpList = [];
+    this.tripsheetmodel.cmpExpList = [];
 
     for (var i = 0; i < selectedDataValue.driverList.length; i++) {
       if(selectedDataValue.driverList[i].pmtId!=''){
@@ -1032,9 +918,9 @@ dashboard: string ="";
           'pmtBranch':  selectedDataValue.driverList[i].pmtBranch,
           'pmtDate':  selectedDataValue.driverList[i].pmtDate,
           'transType':  selectedDataValue.driverList[i].transType,
-          'amountPaid':  selectedDataValue.driverList[i].amountPaid,
-          'remarks':  selectedDataValue.driverList[i].remarks,
-          'pmtType': selectedDataValue.driverList[i].pmtType,
+          'amountPaid':  selectedDataValue.driverList[i].amountPaid.toString(),
+          'remarks':  selectedDataValue.driverList[i].remarks.toString().toUpperCase(),
+          'pmtType': selectedDataValue.driverList[i].pmtType.toString(),
         })
       }
     }
@@ -1051,16 +937,16 @@ dashboard: string ="";
           'loadFor': selectedDataValue.routeList[i].loadFor,
           'loadMemoNo':  selectedDataValue.routeList[i].loadMemoNo.toString(),
           'loadingFrom': loadingfrom?loadingfrom.dataId:"" ,
-          'consignorName':  selectedDataValue.routeList[i].consignorName.toString().toUpperCase(),
+          'consignorName':  '',
           'loadingTo':  loadingto?loadingto.dataId:"" ,
-          'consigneeName':  selectedDataValue.routeList[i].consigneeName.toString().toUpperCase(),
-          'loadWt':  selectedDataValue.routeList[i].loadWt.toString(),
-          'unloadWt':  selectedDataValue.routeList[i].unloadWt.toString(),
+          'consigneeName':  '',
+          'loadWt':  '',
+          'unloadWt':  '',
           'extDetention':'',
           'hireAmt':  selectedDataValue.routeList[i].hireAmt.toString(),
-          'reportDate':'',
-          'unloadDate':'',
-          'detenDays':'',
+          'reportDate':  selectedDataValue.routeList[i].reportDate,
+          'unloadDate':  selectedDataValue.routeList[i].unloadDate,
+          'detenDays':  selectedDataValue.routeList[i].detenDays.toString(),
           'remarks':  selectedDataValue.routeList[i].remarks.toString().toUpperCase(),
         })
       }
@@ -1100,12 +986,12 @@ dashboard: string ="";
       }
     }
 
-    this.tripSheetService.tripMasterDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
+    this.tripSheetService.tripMasterGsafeSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toastrService.success("Saved succsessfully");
         this.formTripsheet.reset();
-        this.route.navigate(['/tripsheetlist']);
+        this.route.navigate(['/tripsheetgsafe']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);
