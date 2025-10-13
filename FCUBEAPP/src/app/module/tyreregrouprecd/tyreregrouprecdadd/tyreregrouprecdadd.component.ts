@@ -142,6 +142,7 @@ dashboard: string ="";
       creditAc : new FormControl('',),
       chequeNo : new FormControl('',),
       chequeDt : new FormControl('',),
+      gstType : new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createTyreArray()]),
     });
@@ -410,6 +411,51 @@ dashboard: string ="";
   exit(): void {
     this.route.navigate(['/tyrerethreadrecvlist']);
   }   
+
+    onGstChange(){
+    var selectedDataVal = this.formUser.getRawValue();
+
+    if (selectedDataVal.gstType == "IG") {   
+      this.formUser.controls['sgstPct'].disable();
+      this.formUser.controls['cgstPct'].disable();  
+      this.formUser.controls['igstPct'].enable();    
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"0",
+        // totalSgstAmt:"",
+        // totalCgstAmt:"",
+        // totalIgstAmt:"0",
+      });   
+    }    
+    else if (selectedDataVal.gstType == "SC")  {      
+      this.formUser.controls['sgstPct'].enable();
+      this.formUser.controls['cgstPct'].enable();  
+      this.formUser.controls['igstPct'].disable();   
+      this.formUser.patchValue({
+        sgstPct:"0",
+        cgstPct:"0",
+        igstPct:"",
+        // totalSgstAmt:"0",
+        // totalCgstAmt:"0",
+        // totalIgstAmt:"",
+      });     
+    }
+    else{
+      this.formUser.controls['sgstPct'].disable();
+      this.formUser.controls['cgstPct'].disable();  
+      this.formUser.controls['igstPct'].disable();   
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        // totalSgstAmt:"",
+        // totalCgstAmt:"",
+        // totalIgstAmt:"",
+      });   
+    }    
+  }
+
     
   submitTyreMasterForm(): void {
     if (this.formUser.invalid) {
@@ -463,6 +509,7 @@ dashboard: string ="";
     this.tyreregrouprecdmodel.pmtType = selectedDataValue.pmtType.toString();
     this.tyreregrouprecdmodel.creditAc = selectedDataValue.creditAc.toString();
     this.tyreregrouprecdmodel.chequeNo = selectedDataValue.chequeNo.toString();
+     this.tyreregrouprecdmodel.gstType = selectedDataValue.gstType.toString();
     this.tyreregrouprecdmodel.chequeDt = selectedDataValue.chequeDate?selectedDataValue.chequeDate:'';
     this.tyreregrouprecdmodel.yearID = this.year;
     this.tyreregrouprecdmodel.loggedInUser = this.loggedInUserID;

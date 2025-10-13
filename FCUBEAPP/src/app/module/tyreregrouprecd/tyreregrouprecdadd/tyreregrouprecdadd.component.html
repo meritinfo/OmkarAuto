@@ -197,8 +197,21 @@
                                 formControlName="totalAmt" >
                             </div>
                         </div> 
-                    </div>
+                           <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">GST Type</label>                                          
+                                                <select id="formrow-inputState" class="form-control"
+                                                    formControlName="gstType" (change)="onGstChange()"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
+                                                        <option value="NA">NA</option>      
+                                                        <option value="SC">S/CGST</option> 
+                                                        <option value="IG">IGST</option>     
+                                                </select>
+                                            </div>
+                                        </div> 
                     <div class="row">
+                    </div>
+                   
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>SGST Pct: </label>

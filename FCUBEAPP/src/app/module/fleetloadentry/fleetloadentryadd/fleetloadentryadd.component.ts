@@ -42,6 +42,7 @@ export class FleetloadentryaddComponent {
   vehicleList : Dropdownmodel[] = [];
   branchList  : Dropdownmodel[] = [];
   ccList : Dropdownmodel[] = [];
+    cnorList : Dropdownmodel[] = [];
   productList : Dropdownmodel[] = [];
   creditAcList : Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -123,6 +124,7 @@ export class FleetloadentryaddComponent {
     this.getVehicleNoList();
     this.getProductList();
     this.getCneeCnorList();
+    this.getCnorList();
     this.getCreditAcList();
     this.chkMandatoryRequired();
 
@@ -247,6 +249,11 @@ export class FleetloadentryaddComponent {
   getCneeCnorList(): void {
     this.commonService.GetCneeCnorList().subscribe((res) => {
       this.ccList = res;
+    });
+  }
+    getCnorList(): void {
+    this.commonService.GetCnorList().subscribe((res) => {
+      this.cnorList = res;
     });
   }
 

@@ -28,6 +28,7 @@ export class Tyreregrouprecdmastermodel {
   modifiedBy: string = "";
   modifiedDate: string = "";
   yearID : string ="";
+  gstType : string ="";
   loggedInUser : string ="";
   tyreRegroupRecdDtlList: TyreRegroupRecdDtlListmodel[] = [];
 }

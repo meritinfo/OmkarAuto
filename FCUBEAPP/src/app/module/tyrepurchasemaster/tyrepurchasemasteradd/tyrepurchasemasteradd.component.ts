@@ -753,7 +753,7 @@ dashboard: string ="";
           'purchaseMasterID': "",
           'purchaseDate': selectedDataValue.purchaseDate,
           'brandID': selectedDataValue.arrayList[i].brandID,
-          'tyreNo': selectedDataValue.arrayList[i].tyreNo,
+          'tyreNo': selectedDataValue.arrayList[i].tyreNo.toString().toUpperCase(),
           'tyrePattern': "",
           'tyreModel': selectedDataValue.arrayList[i].tyreModel,
           'tyreAmount': selectedDataValue.arrayList[i].tyreAmount.toString(),

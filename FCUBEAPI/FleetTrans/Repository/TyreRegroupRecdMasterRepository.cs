@@ -72,6 +72,7 @@ namespace FleetTrans.Repository
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 AttatchFile = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
@@ -206,13 +207,14 @@ namespace FleetTrans.Repository
                             new SqlParameter("@OtherAmt",   tyreRegroupRecdMasterModel.OtherAmt),
                             new SqlParameter("@SubTotal",   tyreRegroupRecdMasterModel.SubTotal),
                             new SqlParameter("@RoundOffAmt",   tyreRegroupRecdMasterModel.RoundOffAmt),
-                            new SqlParameter("@NetBillAmt",   tyreRegroupRecdMasterModel.RoundOffAmt),
+                            new SqlParameter("@NetBillAmt",   tyreRegroupRecdMasterModel.NetBillAmt),
                             new SqlParameter("@PmtType",   tyreRegroupRecdMasterModel.PmtType),
                             new SqlParameter("@ChequeNo",   tyreRegroupRecdMasterModel.ChequeNo),
                             new SqlParameter("@ChequeDt",   tyreRegroupRecdMasterModel.ChequeDt),
                             new SqlParameter("@CreditAc",   tyreRegroupRecdMasterModel.CreditAc),
                             new SqlParameter("@AttatchFile",   tyreRegroupRecdMasterModel.AttatchFile),
                             new SqlParameter("@BranchCode",   tyreRegroupRecdMasterModel.BranchCode),
+                            new SqlParameter("@GstType",   tyreRegroupRecdMasterModel.GstType),
                             new SqlParameter("@YearID",   tyreRegroupRecdMasterModel.YearID),
                             new SqlParameter("@LoggedInUser",   tyreRegroupRecdMasterModel.LoggedInUser)
                         };
