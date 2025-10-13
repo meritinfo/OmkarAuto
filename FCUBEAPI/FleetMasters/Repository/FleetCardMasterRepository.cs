@@ -42,7 +42,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@IsActive", fleetCardMasterModel.IsActive),
                             new SqlParameter("@LoggedInUser", fleetCardMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "FleetCardMasterMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardMasterMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -115,7 +115,7 @@ namespace FleetMasters.Repository
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CheckDuplicateCardNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateCardNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -156,7 +156,7 @@ namespace FleetMasters.Repository
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CheckDuplicateCardCode", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateCardCode", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -239,7 +239,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FleetCardMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetCardMasterlist", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
