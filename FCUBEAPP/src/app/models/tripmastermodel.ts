@@ -1,5 +1,5 @@
 export class Tripmastermodel {
-    tripId: string = "";
+    tripId: string = "";                    
     tripBranch: string = "";
     yearId: string = "";
     vehicleMasterID: string = "";

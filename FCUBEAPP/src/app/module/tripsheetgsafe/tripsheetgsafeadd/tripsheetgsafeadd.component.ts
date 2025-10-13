@@ -166,23 +166,21 @@ export class TripsheetgsafeaddComponent {
     this.formTripsheet.controls['tripBranch'].disable(); 
     this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['ltsDslToBe'].disable();
-    //this.formTripsheet.controls['avgDslRate'].disable();    
+    //this.formTripsheet.controls['avgDslRate'].disable();   
+    this.formTripsheet.controls['detentionDays'].disable();     
     this.formTripsheet.controls['distanceTripKM'].disable();     
     this.formTripsheet.controls['issuedDslAmt'].disable();       
     this.formTripsheet.controls['fastagAmount'].disable();          
     this.formTripsheet.controls['dieselPassedAmt'].disable();   
     this.formTripsheet.controls['paidDriverAdvance'].disable();    
     this.formTripsheet.controls['expensesByDriver'].disable();  
-    //this.formTripsheet.controls['totalBhattaDays'].disable();    
-    this.formTripsheet.controls['bhattaRate'].disable();       
-    this.formTripsheet.controls['bhattaAmt'].disable();       
+    //this.formTripsheet.controls['bhattaAmt'].disable();       
     this.formTripsheet.controls['tripBalance'].disable();      
     this.formTripsheet.controls['netTripBalance'].disable();     
     this.formTripsheet.controls['tripTotalFreight'].disable();     
     this.formTripsheet.controls['tripTotalExpenses'].disable();   
     this.formTripsheet.controls['totalDriverAc'].disable();     
     this.formTripsheet.controls['tripCloseDt'].disable();
-    this.formTripsheet.controls['detentionDays'].disable();    
 
     setTimeout(() => {
       this.sharedService.loading = true;
@@ -215,15 +213,10 @@ export class TripsheetgsafeaddComponent {
             tripLinkYN:""
           }); 
         }        
-             
-        if( this.selectedTripSheetDetails.nextTrip != '0'){        
-          this.formTripsheet.controls['closingKMR'].disable();         
-        }
+          
         this.editMode = true;
-        
-
-  this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
-  this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate; 
+        this.createdBy = this.selectedTripSheetDetails.createdBy + " " + this.selectedTripSheetDetails.createdDate;
+        this.modifiedBy = this.selectedTripSheetDetails.modifiedBy + " " + this.selectedTripSheetDetails.modifiedDate; 
         this.getTripSheetInnerGridList();
       }  
       else{        
@@ -465,7 +458,7 @@ export class TripsheetgsafeaddComponent {
     this.filter.filterStr = selectedDataValue.vehicleMasterID.dataId;
     
     this.tripSheetService.getTripMasterInnerSearchList(this.filter).subscribe((res: Tripmastermodel) => {
-      this.tripsheetmodel = res;
+      //this.tripsheetmodel = res;
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
@@ -514,6 +507,7 @@ export class TripsheetgsafeaddComponent {
         this.formRouteArray.controls[i].get("consigneeName")?.disable();
         this.formRouteArray.controls[i].get("loadWt")?.disable();
         this.formRouteArray.controls[i].get("hireAmt")?.disable();
+        this.formRouteArray.controls[i].get("detenDays")?.disable();        
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
       for (var i = 0; i < res.dieselList.length; i++) {
@@ -553,8 +547,8 @@ export class TripsheetgsafeaddComponent {
       this.formTripsheet.patchValue({
         issuedDslAmt: issuedDslAmt.toFixed(2), 
         fastagAmount: fastagAmount.toFixed(2), 
-        totalBhattaDays: totalBhattaDays,
-        bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
+        // totalBhattaDays: totalBhattaDays,
+        // bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
         tripTotalFreight: tripTotalFreight.toFixed(2),
         paidDriverAdvance: paidDriverAdvance.toFixed(2),
       });
@@ -565,7 +559,7 @@ export class TripsheetgsafeaddComponent {
     this.requestmodel.strRequest= this.selectedTripSheetDetails.tripId;
 
     this.tripSheetService.getTripMasterInnerGridList(this.requestmodel).subscribe((res: Tripmastermodel) => {
-      this.tripsheetmodel = res;
+      //this.tripsheetmodel = res;
       this.formDriverArray.clear();
       this.formRouteArray.clear();
       this.formDieselArray.clear();
@@ -660,9 +654,10 @@ export class TripsheetgsafeaddComponent {
 
   calTotal(){
     var selectedDataValue = this.formTripsheet.getRawValue();    
-    var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
-    var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
-    var bhattaAmt = (bhattaRate * totalBhattaDays);    
+    // var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
+    // var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
+    // var bhattaAmt = (bhattaRate * totalBhattaDays);    
+    var bhattaAmt = selectedDataValue.bhattaAmt==''?0:parseFloat(selectedDataValue.bhattaAmt);
     var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
     var expensesByDriver = selectedDataValue.expensesByDriver==''?0:parseFloat(selectedDataValue.expensesByDriver);
@@ -700,7 +695,8 @@ export class TripsheetgsafeaddComponent {
         var Difference_In_Time = date2.getTime() - date1.getTime();       
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         if (!Number.isNaN(Difference_In_Days)) {
-          detentionDays = detentionDays + Difference_In_Days;
+          detentionDays = detentionDays + Difference_In_Days;          
+          this.formRouteArray.controls[i].get("detenDays")?.setValue(Difference_In_Days);
         }         
       }
     }
@@ -890,8 +886,6 @@ export class TripsheetgsafeaddComponent {
     this.tripsheetmodel.opBalDriver= selectedDataValue.opBalDriver.toString();
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
-    this.tripsheetmodel.totalBhattaDays= selectedDataValue.totalBhattaDays.toString();
-    this.tripsheetmodel.bhattaRate= selectedDataValue.bhattaRate.toString();
     this.tripsheetmodel.bhattaAmt= selectedDataValue.bhattaAmt.toString();
     this.tripsheetmodel.onTimeIncentiveAmt= selectedDataValue.onTimeIncentiveAmt.toString();
     this.tripsheetmodel.multiDelIncentiveAmt= selectedDataValue.multiDelIncentiveAmt.toString();
@@ -905,9 +899,7 @@ export class TripsheetgsafeaddComponent {
     this.tripsheetmodel.tripTotalExpenses= selectedDataValue.tripTotalExpenses.toString();
     this.tripsheetmodel.tripCloseDt= selectedDataValue.tripCloseDt;
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN?"Y":"N";
-    this.tripsheetmodel.reportDateTime= selectedDataValue.reportDateTime;
-    this.tripsheetmodel.unloadDateTime= selectedDataValue.unloadDateTime;
-    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays;
+    this.tripsheetmodel.detentionDays= selectedDataValue.detentionDays.toString();
     this.tripsheetmodel.remarks= selectedDataValue.remarks.toString().toUpperCase();
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
@@ -917,6 +909,7 @@ export class TripsheetgsafeaddComponent {
     this.tripsheetmodel.dieselList = [];
     this.tripsheetmodel.fasttagList = [];
     this.tripsheetmodel.drExpList = [];
+    this.tripsheetmodel.cmpExpList = [];
 
     for (var i = 0; i < selectedDataValue.driverList.length; i++) {
       if(selectedDataValue.driverList[i].pmtId!=''){
@@ -925,9 +918,9 @@ export class TripsheetgsafeaddComponent {
           'pmtBranch':  selectedDataValue.driverList[i].pmtBranch,
           'pmtDate':  selectedDataValue.driverList[i].pmtDate,
           'transType':  selectedDataValue.driverList[i].transType,
-          'amountPaid':  selectedDataValue.driverList[i].amountPaid,
-          'remarks':  selectedDataValue.driverList[i].remarks,
-          'pmtType': selectedDataValue.driverList[i].pmtType,
+          'amountPaid':  selectedDataValue.driverList[i].amountPaid.toString(),
+          'remarks':  selectedDataValue.driverList[i].remarks.toString().toUpperCase(),
+          'pmtType': selectedDataValue.driverList[i].pmtType.toString(),
         })
       }
     }
@@ -953,7 +946,7 @@ export class TripsheetgsafeaddComponent {
           'hireAmt':  selectedDataValue.routeList[i].hireAmt.toString(),
           'reportDate':  selectedDataValue.routeList[i].reportDate,
           'unloadDate':  selectedDataValue.routeList[i].unloadDate,
-          'detenDays':  selectedDataValue.routeList[i].detenDays,
+          'detenDays':  selectedDataValue.routeList[i].detenDays.toString(),
           'remarks':  selectedDataValue.routeList[i].remarks.toString().toUpperCase(),
         })
       }

@@ -131,17 +131,17 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Closing KMR</label><span style="color: red">*</span> 
-                                                <input class="form-control" decimalonly formControlName="closingKMR"  
-                                                (change)="onKmrChange()"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['closingKMR'].invalid) }">
+                                                <label for="formrow-inputCity">Opening KMR</label><span style="color: red">*</span> 
+                                                <input class="form-control" decimalonly formControlName="openingKMR" 
+                                                (change)="onKmrChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Opening KMR</label>
-                                                <input class="form-control" decimalonly formControlName="openingKMR" 
-                                                (change)="onKmrChange()">
+                                                <label for="formrow-inputCity">Closing KMR</label><span style="color: red">*</span> 
+                                                <input class="form-control" decimalonly formControlName="closingKMR"  
+                                                (change)="onKmrChange()"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['closingKMR'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -233,11 +233,11 @@
                                                     formControlName="hireAmt">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="date" class="form-control" 
                                                     formControlName="reportDate" (change)="calDetentionDays()" >
                                                 </td>
                                                 <td>
-                                                    <input decimalonly type="text" class="form-control" 
+                                                    <input type="date" class="form-control" 
                                                     formControlName="unloadDate" (change)="calDetentionDays()">
                                                 </td>
                                                 <td>
@@ -474,12 +474,10 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Salary/Bhatta Amt</label>
-                                        <input class="form-control" decimalonly 
+                                        <input class="form-control" decimalonly (change)="calTotal()"
                                         formControlName="bhattaAmt">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">On-Time Incentive Amt</label>
@@ -506,21 +504,24 @@
                                 <div class="col-lg-6">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Penalty Remarks</label>
-                                        <input uppercaseonly class="form-control" formControlName="penaltyRemarks">
+                                        <input uppercaseonly class="form-control" 
+                                        formControlName="penaltyRemarks">
                                     </div>
                                 </div>
                             </div>   
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Paid Driver Advance</label>
-                                        <input class="form-control" decimalonly formControlName="paidDriverAdvance">
+                                        <label for="formrow-inputCity">Driver Advance Paid</label>
+                                        <input class="form-control" decimalonly 
+                                        formControlName="paidDriverAdvance">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Issued Dsl Amt</label>
-                                        <input class="form-control" decimalonly formControlName="issuedDslAmt">
+                                        <input class="form-control" decimalonly 
+                                        formControlName="issuedDslAmt">
                                     </div>
                                 </div>
                             </div>                     
@@ -589,7 +590,8 @@
                                     <div class="col-lg-6">
                                         <div class="mb-6">
                                             <label for="formrow-inputCity">Remarks</label>
-                                            <input class="form-control" uppercaseonly formControlName="remarks">
+                                            <input class="form-control" uppercaseonly 
+                                            formControlName="remarks">
                                         </div>
                                     </div>
                                 </div>
