@@ -45,10 +45,11 @@ dashboard: string ="";
   tyreList: Dropdownmodel[] = [];
   tyreregrouprecdmodel = new Tyreregrouprecdmastermodel();
   attatchFile: string = "";
-
+  
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
+
 
   selectedTyreregrouprecdMasterDetail = new Tyreregrouprecdmastermodel();
 
@@ -161,10 +162,13 @@ dashboard: string ="";
 
     if (this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID  != '') {
       this.getCreditAcList(this.selectedTyreregrouprecdMasterDetail.pmtType);
+       this.onGstChange();
     }
+ 
+        
     if (this.selectedTyreregrouprecdMasterDetail.regroupRecdMasterID  != '') {
       setTimeout(() => {
-        this.attachmentInput = Constants.UploadFolderPath + 'tyreRegroupRecd/attatchFile/' + this.selectedTyreregrouprecdMasterDetail.attatchFile;
+        this.attatchFile = Constants.UploadFolderPath + 'tyreRegroupRecd/attatchFile/' + this.selectedTyreregrouprecdMasterDetail.attatchFile;
         this.formUser.patchValue(this.selectedTyreregrouprecdMasterDetail);
         this.formUser.patchValue({
           recdDate: this.commonService.formatDate(this.selectedTyreregrouprecdMasterDetail.recdDate),
@@ -174,6 +178,7 @@ dashboard: string ="";
         })        
        
         this.getTyreRegroupRecdInnerGridList();
+    
         this.formUser.controls["vendorId"]?.disable();  
         this.formUser.controls["vendorBillNo"].disable();
         this.formUser.controls["vendorBillDt"].disable();
@@ -428,7 +433,7 @@ dashboard: string ="";
         // totalIgstAmt:"0",
       });   
     }    
-    else if (selectedDataVal.gstType == "SC")  {      
+    else if (selectedDataVal.gstType  == "SC")  {      
       this.formUser.controls['sgstPct'].enable();
       this.formUser.controls['cgstPct'].enable();  
       this.formUser.controls['igstPct'].disable();   
@@ -539,8 +544,9 @@ dashboard: string ="";
       return;
     }
 
-    let formData = new FormData();
+
     this.formSubmitted = true;
+    let formData = new FormData();
     formData.append('attatchFile', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.tyreregrouprecdmodel));  
   

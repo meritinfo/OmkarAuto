@@ -63,7 +63,7 @@ modifiedBy: string = "";
     static: true
   }) photo1Input: any;
 
-  @ViewChild('photo2Input', {
+  @ViewChild('photo2Input', { 
     static: true
   }) photo2Input: any;
 

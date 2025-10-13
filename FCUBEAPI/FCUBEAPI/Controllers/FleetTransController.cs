@@ -2236,7 +2236,7 @@ namespace FCUBEAPI.Controllers
         {
             try
             {
-                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attatchFile"];
 
                 TyreRegroupRecdMasterModel tyreRegroupRecdMasterModel = JsonConvert.DeserializeObject<TyreRegroupRecdMasterModel>(HttpContext.Request.Form["datadetails"]);
 
