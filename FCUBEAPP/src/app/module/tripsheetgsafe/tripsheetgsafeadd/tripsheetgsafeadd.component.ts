@@ -653,10 +653,18 @@ export class TripsheetgsafeaddComponent {
   }
 
   calTotal(){
-    var selectedDataValue = this.formTripsheet.getRawValue();    
+    var selectedDataValue = this.formTripsheet.getRawValue();  
+    var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
+    var paidToDriver = selectedDataValue.paidToDriver==''?0:parseFloat(selectedDataValue.paidToDriver);
+    if(recdFromDriver>0 && paidToDriver>0){
+      this.toastrService.warning("Both Recd And Paid can not entered");
+      return;
+    }
+    
     // var bhattaRate = selectedDataValue.bhattaRate==''?0:parseFloat(selectedDataValue.bhattaRate);   
     // var totalBhattaDays = selectedDataValue.totalBhattaDays==''?0:parseFloat(selectedDataValue.totalBhattaDays);    
     // var bhattaAmt = (bhattaRate * totalBhattaDays);    
+    var issuedDslAmt = selectedDataValue.issuedDslAmt==''?0:parseFloat(selectedDataValue.issuedDslAmt);
     var bhattaAmt = selectedDataValue.bhattaAmt==''?0:parseFloat(selectedDataValue.bhattaAmt);
     var opBalDriver = selectedDataValue.opBalDriver==''?0:parseFloat(selectedDataValue.opBalDriver);
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance==''?0:parseFloat(selectedDataValue.paidDriverAdvance);
@@ -664,20 +672,18 @@ export class TripsheetgsafeaddComponent {
     var onTimeIncentiveAmt = selectedDataValue.onTimeIncentiveAmt==''?0:parseFloat(selectedDataValue.onTimeIncentiveAmt);
     var multiDelIncentiveAmt = selectedDataValue.multiDelIncentiveAmt==''?0:parseFloat(selectedDataValue.multiDelIncentiveAmt);
     var penaltyChargedToDr = selectedDataValue.penaltyChargedToDr==''?0:parseFloat(selectedDataValue.penaltyChargedToDr);
-    var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
     var dieselPassedAmt = selectedDataValue.dieselPassedAmt==''?0:parseFloat(selectedDataValue.dieselPassedAmt);
     var fastagAmount = selectedDataValue.fastagAmount==''?0:parseFloat(selectedDataValue.fastagAmount);
    
-    var tripBalance = opBalDriver + paidDriverAdvance 
-                      - expensesByDriver - bhattaAmt - penaltyChargedToDr 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt ;
-
-    var netTripBalance = tripBalance - recdFromDriver;
-    var tripTotalExpenses = expensesByDriver + dieselPassedAmt + fastagAmount + bhattaAmt 
-                      + onTimeIncentiveAmt + multiDelIncentiveAmt 
+    var totalDriverAc =  dieselPassedAmt + expensesByDriver + bhattaAmt 
+                      + onTimeIncentiveAmt + multiDelIncentiveAmt - penaltyChargedToDr;
+    var tripBalance = totalDriverAc - opBalDriver - paidDriverAdvance - issuedDslAmt;
+    var netTripBalance = tripBalance + recdFromDriver - paidToDriver;
+    var tripTotalExpenses = totalDriverAc + fastagAmount; 
 
     this.formTripsheet.patchValue({
       bhattaAmt: bhattaAmt.toFixed(2),
+      totalDriverAc: totalDriverAc.toFixed(2),
       tripBalance: tripBalance.toFixed(2),
       netTripBalance: netTripBalance.toFixed(2),
       tripTotalExpenses: tripTotalExpenses.toFixed(2),
@@ -887,10 +893,11 @@ export class TripsheetgsafeaddComponent {
     this.tripsheetmodel.paidDriverAdvance= selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.expensesByDriver= selectedDataValue.expensesByDriver.toString();
     this.tripsheetmodel.bhattaAmt= selectedDataValue.bhattaAmt.toString();
-    this.tripsheetmodel.onTimeIncentiveAmt= selectedDataValue.onTimeIncentiveAmt.toString();
-    this.tripsheetmodel.multiDelIncentiveAmt= selectedDataValue.multiDelIncentiveAmt.toString();
-    this.tripsheetmodel.penaltyChargedToDr= selectedDataValue.penaltyChargedToDr.toString();
-    this.tripsheetmodel.penaltyRemarks= selectedDataValue.penaltyRemarks.toString().toUpperCase();
+    this.tripsheetmodel.onTimeIncentiveAmt = selectedDataValue.onTimeIncentiveAmt.toString();
+    this.tripsheetmodel.multiDelIncentiveAmt = selectedDataValue.multiDelIncentiveAmt.toString();
+    this.tripsheetmodel.penaltyChargedToDr = selectedDataValue.penaltyChargedToDr.toString();
+    this.tripsheetmodel.penaltyRemarks = selectedDataValue.penaltyRemarks.toString().toUpperCase();
+    this.tripsheetmodel.totalDriverAc =  selectedDataValue.totalDriverAc.toString();
     this.tripsheetmodel.tripBalance= selectedDataValue.tripBalance.toString();
     this.tripsheetmodel.recdFromDriver= selectedDataValue.recdFromDriver.toString();
     this.tripsheetmodel.netTripBalance= selectedDataValue.netTripBalance.toString();

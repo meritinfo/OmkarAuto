@@ -47,6 +47,7 @@ namespace FleetTrans.Models
         public string? TotalDriverAc { get; set; }
         public string? TripBalance { get; set; }
         public string? RecdFromDriver { get; set; }
+        public string? PaidToDriver { get; set; }        
         public string? NetTripBalance { get; set; }
         public string? FastagAmount { get; set; }
         public string? TripTotalFreight { get; set; }

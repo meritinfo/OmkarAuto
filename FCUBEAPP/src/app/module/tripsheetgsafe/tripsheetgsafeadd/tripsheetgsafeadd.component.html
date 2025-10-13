@@ -524,6 +524,13 @@
                                         formControlName="issuedDslAmt">
                                     </div>
                                 </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Payable to Driver</label>
+                                        <input class="form-control" decimalonly 
+                                        formControlName="totalDriverAc">
+                                    </div>
+                                </div>
                             </div>                     
                             <div class="row">
                                 <div class="col-lg-2">
@@ -535,9 +542,16 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Recd/Paid Driver</label>
+                                        <label for="formrow-inputCity">Recd From Driver</label>
                                         <input class="form-control" decimalonly (change)="calTotal()"
                                         formControlName="recdFromDriver">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Paid To Driver</label>
+                                        <input class="form-control" decimalonly (change)="calTotal()"
+                                        formControlName="paidToDriver">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
