@@ -38,6 +38,7 @@ export class Tripmastermodel {
     totalDriverAc: string = "";
     tripBalance: string = "";
     recdFromDriver: string = "";
+    paidToDriver: string = "";
     netTripBalance: string = "";
     fastagAmount: string = "";
     tripTotalFreight: string = "";

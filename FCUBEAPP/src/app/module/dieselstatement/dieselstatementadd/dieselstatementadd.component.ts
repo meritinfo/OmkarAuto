@@ -287,14 +287,13 @@ export class DieselstatementaddComponent implements OnInit {
       this.reportmodel.fromDate=selectedDataVal.fromDate;
       this.reportmodel.toDate=selectedDataVal.toDate;
       this.reportmodel.filterStr=selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
-      this.dieselstatementService.getDieselStatementSearchList(this.reportmodel)
-      .subscribe((res: Dieselstatementmodel) => {
+      this.dieselstatementService.getDieselStatementSearchList(this.reportmodel).subscribe((res: Dieselstatementmodel) => {
         this.DieselStatementmodel = res;
         if(res.dieselStatementListData.length>0){
-        this.formDieselStatement.controls["fromDate"].disable();
-        this.formDieselStatement.controls["toDate"].disable();
-        //this.formDieselStatement.controls["location"].disable();
-        this.formDieselStatement.controls["vendorId"].disable();
+          this.formDieselStatement.controls["fromDate"].disable();
+          this.formDieselStatement.controls["toDate"].disable();
+          //this.formDieselStatement.controls["location"].disable();
+          this.formDieselStatement.controls["vendorId"].disable();
         }
         this.formArray.clear();
         for (var i = 0; i < res.dieselStatementListData.length; i++) {
