@@ -144,6 +144,7 @@ export class TripsheetgsafeaddComponent {
       totalDriverAc: new FormControl('',),
       tripBalance: new FormControl('',),
       recdFromDriver: new FormControl('',),
+      paidToDriver: new FormControl('',),
       netTripBalance: new FormControl('',[Validators.required]),
       fastagAmount: new FormControl('',),
       tripTotalFreight: new FormControl('',),
@@ -166,7 +167,7 @@ export class TripsheetgsafeaddComponent {
     this.formTripsheet.controls['tripBranch'].disable(); 
     this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['ltsDslToBe'].disable();
-    //this.formTripsheet.controls['avgDslRate'].disable();   
+    this.formTripsheet.controls['avgDslRate'].disable();   
     this.formTripsheet.controls['detentionDays'].disable();     
     this.formTripsheet.controls['distanceTripKM'].disable();     
     this.formTripsheet.controls['issuedDslAmt'].disable();       
@@ -443,6 +444,7 @@ export class TripsheetgsafeaddComponent {
       return;
     }
 
+    var totalDslQty = 0;
     var issuedDslAmt = 0;
     var fastagAmount = 0;
     var paidDriverAdvance = 0;
@@ -519,6 +521,7 @@ export class TripsheetgsafeaddComponent {
         this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
         this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
 
+        totalDslQty = totalDslQty + parseFloat(res.dieselList[i].dslQty);
         issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
 
         this.formDieselArray.controls[i].get("transDate")?.disable();
@@ -541,17 +544,22 @@ export class TripsheetgsafeaddComponent {
         this.formFasttagArray.controls[i].get("ftAmount")?.disable();
         this.formFasttagArray.controls[i].get("remarks")?.disable();
       }
-
       var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
-     
+      var avgDslRate = 0;
+      if(totalDslQty>0){        
+        avgDslRate = issuedDslAmt / totalDslQty
+      }
+
       this.formTripsheet.patchValue({
         issuedDslAmt: issuedDslAmt.toFixed(2), 
         fastagAmount: fastagAmount.toFixed(2), 
+        avgDslRate: avgDslRate.toFixed(2), 
         // totalBhattaDays: totalBhattaDays,
         // bhattaAmt: (bhattaRate * totalBhattaDays).toFixed(2), 
         tripTotalFreight: tripTotalFreight.toFixed(2),
         paidDriverAdvance: paidDriverAdvance.toFixed(2),
       });
+      this.calcDieselAmt();
     }); 
   }
 
@@ -658,6 +666,10 @@ export class TripsheetgsafeaddComponent {
     var paidToDriver = selectedDataValue.paidToDriver==''?0:parseFloat(selectedDataValue.paidToDriver);
     if(recdFromDriver>0 && paidToDriver>0){
       this.toastrService.warning("Both Recd And Paid can not entered");
+      this.formTripsheet.patchValue({
+        recdFromDriver: "",
+        paidToDriver: "",
+      });  
       return;
     }
     
@@ -767,7 +779,7 @@ export class TripsheetgsafeaddComponent {
     
     totaldistanceTripKM = cKMR-oKMR;
 
-    if(totaldistanceTripKM > 0){
+    if(totaldistanceTripKM != 0){
       if(selectedval.definedMileage!=0){
         ltsDslToBe = totaldistanceTripKM/parseFloat(selectedval.definedMileage);
       }
@@ -776,6 +788,7 @@ export class TripsheetgsafeaddComponent {
         distanceTripKM : totaldistanceTripKM,
         ltsDslToBe:ltsDslToBe.toFixed(2),
       });
+      this.calTotal();
     }
     else{
       this.formTripsheet.patchValue({
@@ -812,7 +825,6 @@ export class TripsheetgsafeaddComponent {
 
   addItem(index: number): void { 
     if (this.formDrExpTypeArray.value[index].expId != "" && 
-      this.formDrExpTypeArray.value[index].expParticulars != "" && 
       this.formDrExpTypeArray.value[index].expAmt != "" ) {
       this.formDrExpTypeArray.push(this.createTripDrExpArray());      
     } 
@@ -871,6 +883,12 @@ export class TripsheetgsafeaddComponent {
       this.toastrService.warning("Please Enter Valid  Vehicle No");          
       return;
     }
+    var recdFromDriver = selectedDataValue.recdFromDriver==''?0:parseFloat(selectedDataValue.recdFromDriver);
+    var paidToDriver = selectedDataValue.paidToDriver==''?0:parseFloat(selectedDataValue.paidToDriver);
+    if(recdFromDriver>0 && paidToDriver>0){
+      this.toastrService.warning("Both Recd And Paid can not entered");
+      return;
+    }
 
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId ;
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
@@ -898,8 +916,9 @@ export class TripsheetgsafeaddComponent {
     this.tripsheetmodel.penaltyChargedToDr = selectedDataValue.penaltyChargedToDr.toString();
     this.tripsheetmodel.penaltyRemarks = selectedDataValue.penaltyRemarks.toString().toUpperCase();
     this.tripsheetmodel.totalDriverAc =  selectedDataValue.totalDriverAc.toString();
-    this.tripsheetmodel.tripBalance= selectedDataValue.tripBalance.toString();
-    this.tripsheetmodel.recdFromDriver= selectedDataValue.recdFromDriver.toString();
+    this.tripsheetmodel.tripBalance = selectedDataValue.tripBalance.toString();
+    this.tripsheetmodel.recdFromDriver = selectedDataValue.recdFromDriver.toString();
+    this.tripsheetmodel.paidToDriver = selectedDataValue.paidToDriver.toString();
     this.tripsheetmodel.netTripBalance= selectedDataValue.netTripBalance.toString();
     this.tripsheetmodel.fastagAmount= selectedDataValue.fastagAmount.toString();
     this.tripsheetmodel.tripTotalFreight= selectedDataValue.tripTotalFreight.toString();

@@ -29,14 +29,6 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">Stmt Date</label><span style="color: red">*</span>    
-                                                <input type="date" class="form-control" formControlName="stmtDate"
-                                                    min="{{minDate}}" max="{{maxDate}}"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['stmtDate'].invalid) }" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Dept Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="deptDate"
@@ -50,6 +42,14 @@
                                                 <input type="date" class="form-control" formControlName="endDate"
                                                 min="{{minDate}}" max="{{maxDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['endDate'].invalid) }" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Stmt Date</label><span style="color: red">*</span>    
+                                                <input type="date" class="form-control" formControlName="stmtDate"
+                                                    min="{{minDate}}" max="{{maxDate}}"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['stmtDate'].invalid) }" >
                                             </div>
                                         </div>
                                     </div>                                    
@@ -113,12 +113,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mt-3">
-                                                <button class="btn btn-primary" *ngIf="!editMode && !detailMode" 
-                                                (click)="getDetails()"><span>Get Details</span></button>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-2">
@@ -165,6 +159,12 @@
                                                 <input class="form-control" decimalonly (change)="calcDieselAmt()"
                                                 formControlName="avgDslRate"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['avgDslRate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary" *ngIf="!editMode && !detailMode" 
+                                                (click)="getDetails()"><span>Get Details</span></button>
                                             </div>
                                         </div>
                                     </div>
