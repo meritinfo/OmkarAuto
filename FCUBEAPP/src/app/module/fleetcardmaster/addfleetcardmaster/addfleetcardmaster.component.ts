@@ -179,23 +179,30 @@ submitFleetCardMasterForm(): void {
   this.fleetcardMasterModel.cardType= selectedDataValue.cardType;
   this.fleetcardMasterModel.cardCode = selectedDataValue.cardCode;
   this.fleetcardMasterModel.cardNo = selectedDataValue.cardNo;
-  this.fleetcardMasterModel.cardPin = selectedDataValue.cardPin;
+  this.fleetcardMasterModel.cardPin = selectedDataValue.cardPin.toString().toUpperCase();
   this.fleetcardMasterModel.cardLedgerAc = selectedDataValue.cardLedgerAc;
-  this.fleetcardMasterModel.vehicleNo = selectedDataValue.vehicleNo;
-  this.fleetcardMasterModel.driverName = selectedDataValue.driverName;
-  this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo;
+  this.fleetcardMasterModel.vehicleNo = selectedDataValue.vehicleNo.toString().toUpperCase();
+  this.fleetcardMasterModel.driverName = selectedDataValue.driverName.toString().toUpperCase();;
+  this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
   this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
   this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
 
 
 
   this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
+
     this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
-  });
-}
+      if (this.responseDetails.status) {
+        this.toastrService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/fleetcardmasterlist']);
+      }
+      else {
+        this.toastrService.warning(this.responseDetails.message);
+      }
+    });
+    this.sharedService.loading = false;
+  }
 }
 
 

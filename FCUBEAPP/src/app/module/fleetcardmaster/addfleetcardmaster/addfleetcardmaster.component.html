@@ -16,11 +16,6 @@
                 <div class="col-lg-12">
                    <div class="card">
                       <div class="card-body">
-                         <h4 class="card-title mb-4">Fleet Card Master</h4>
-                      
-                            
-                               
-                               
                                      <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
@@ -59,7 +54,7 @@
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Card Pin</label>
                                                 <input type="text" class="form-control"
-                                                  formControlName="cardPin"
+                                                  formControlName="cardPin" uppercaseonly
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cardPin'].invalid) }">
                                                 
                                             </div>
@@ -83,7 +78,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Vehicle No</label>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" uppercaseonly
                                                   formControlName="vehicleNo"
                                                 [ngClass]=>
                                                 
@@ -94,7 +89,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Driver Name</label>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" uppercaseonly
                                                   formControlName="driverName"
                                                 [ngClass]=>
                                                 
@@ -102,9 +97,9 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">DriverLic No</label>
+                                                <label for="basicpill-phoneno-input">Driver Lic No</label>
                                                 <input type="text" class="form-control"
-                                                  formControlName="driverLicNo"
+                                                  formControlName="driverLicNo" uppercaseonly
                                                 [ngClass]=>
                                                 
                                             </div>
@@ -113,16 +108,16 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">MobileNo</label>
+                                                <label for="basicpill-phoneno-input">Mobile No</label>
                                                 <input type="text" class="form-control"
-                                                  formControlName="mobileNo"
+                                                  formControlName="mobileNo" maxlength="10"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
                                                 
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">IsActive </label>
+                                                <label for="basicpill-phoneno-input">Is Active </label>
                                                 <select id="formrow-inputState" class="form-control"
                                                 formControlName="isActive"
                                               >
