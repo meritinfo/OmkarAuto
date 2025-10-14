@@ -445,6 +445,22 @@ namespace FCUBEAPI.Controllers
         }
         
 
+        [HttpPost("GetTripStmtType")]
+        public async Task<IActionResult> GetTripStmtType()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetTripStmtType();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("TripMasterDelete")]
         public async Task<IActionResult> TripMasterDelete(RequestModel req)
         {

@@ -24,6 +24,8 @@ export class TripsheetgsafeaddComponent {
   minDate: string = '';  
   createdBy : string = "";
   modifiedBy: string = "";
+  dslStmt: string = "";
+  fstStmt: string = "";
 
   maxDate: string = '';
   fromDate: string = '';
@@ -115,6 +117,7 @@ export class TripsheetgsafeaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
+    this.getTripStmtType();
 
     this.formTripsheet = this.formBuilder.group({
       tripBranch: new FormControl(this.branch, [Validators.required]),
@@ -236,6 +239,13 @@ export class TripsheetgsafeaddComponent {
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
+    });
+  }
+
+  getTripStmtType(): void {
+    this.commonService.getTripStmtType().subscribe((res) => {
+      this.dslStmt = res.strRequest;
+      this.fstStmt = res.strRequest1;
     });
   }
 
@@ -465,7 +475,7 @@ export class TripsheetgsafeaddComponent {
       this.formRouteArray.clear();
       this.formDieselArray.clear();
       this.formFasttagArray.clear();
-
+      
       for (var i = 0; i < res.driverList.length; i++) {
         this.formDriverArray.push(this.createDriverArray());
         this.formDriverArray.controls[i].get("pmtId")?.setValue(res.driverList[i].pmtId);
@@ -512,38 +522,48 @@ export class TripsheetgsafeaddComponent {
         this.formRouteArray.controls[i].get("detenDays")?.disable();        
         this.formRouteArray.controls[i].get("remarks")?.disable();
       }
-      for (var i = 0; i < res.dieselList.length; i++) {
+      if(this.dslStmt=="T"){
         this.formDieselArray.push(this.createDieselArray());
-        this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
-        this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
-        this.formDieselArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
-        this.formDieselArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
-        this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
-        this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
-
-        totalDslQty = totalDslQty + parseFloat(res.dieselList[i].dslQty);
-        issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
-
-        this.formDieselArray.controls[i].get("transDate")?.disable();
-        this.formDieselArray.controls[i].get("dslQty")?.disable();
-        this.formDieselArray.controls[i].get("dslRate")?.disable();
-        this.formDieselArray.controls[i].get("amount")?.disable();
-        this.formDieselArray.controls[i].get("remarks")?.disable();
       }
+      else{
+        for (var i = 0; i < res.dieselList.length; i++) {
+          this.formDieselArray.push(this.createDieselArray());
+          this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
+          this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
+          this.formDieselArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
+          this.formDieselArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
+          this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
+          this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
 
-      for (var i = 0; i < res.fasttagList.length; i++) {
+          totalDslQty = totalDslQty + parseFloat(res.dieselList[i].dslQty);
+          issuedDslAmt = issuedDslAmt + parseFloat(res.dieselList[i].amount);
+
+          this.formDieselArray.controls[i].get("transDate")?.disable();
+          this.formDieselArray.controls[i].get("dslQty")?.disable();
+          this.formDieselArray.controls[i].get("dslRate")?.disable();
+          this.formDieselArray.controls[i].get("amount")?.disable();
+          this.formDieselArray.controls[i].get("remarks")?.disable();
+        }
+      }
+      if(this.fstStmt=="T"){
         this.formFasttagArray.push(this.createFasttagArray());
-        this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
-        this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
-        this.formFasttagArray.controls[i].get("ftAmount")?.setValue(res.fasttagList[i].ftAmount);
-        this.formFasttagArray.controls[i].get("remarks")?.setValue(res.fasttagList[i].remarks);
-
-        fastagAmount = fastagAmount + parseFloat(res.fasttagList[i].ftAmount);
-
-        this.formFasttagArray.controls[i].get("transDate")?.disable();
-        this.formFasttagArray.controls[i].get("ftAmount")?.disable();
-        this.formFasttagArray.controls[i].get("remarks")?.disable();
       }
+      else{
+        for (var i = 0; i < res.fasttagList.length; i++) {
+          this.formFasttagArray.push(this.createFasttagArray());
+          this.formFasttagArray.controls[i].get("detailID")?.setValue(res.fasttagList[i].detailID);
+          this.formFasttagArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.fasttagList[i].transDate));
+          this.formFasttagArray.controls[i].get("ftAmount")?.setValue(res.fasttagList[i].ftAmount);
+          this.formFasttagArray.controls[i].get("remarks")?.setValue(res.fasttagList[i].remarks);
+
+          fastagAmount = fastagAmount + parseFloat(res.fasttagList[i].ftAmount);
+
+          this.formFasttagArray.controls[i].get("transDate")?.disable();
+          this.formFasttagArray.controls[i].get("ftAmount")?.disable();
+          this.formFasttagArray.controls[i].get("remarks")?.disable();
+        }
+      }
+     
       var bhattaRate =selectedDataValue.bhattaRate == ""? 0: parseFloat(selectedDataValue.bhattaRate);
       var avgDslRate = 0;
       if(totalDslQty>0){        

@@ -1,11 +1,12 @@
 ﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Shared.Models;
 using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using Shared.Models;
+using System.Drawing;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
 
 namespace FleetTrans.Repository
 {
@@ -1164,6 +1165,27 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<RequestModel> GetTripStmtType()
+        {
+            RequestModel request = new();
+            try
+            {
+                SqlParameter[] param = {};
+
+                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripStmtType", param);
+
+                if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                {
+                    request.strRequest = Convert.ToString(statusData.Tables[0].Rows[0]["DslStmt"]);
+                    request.strRequest1 = Convert.ToString(statusData.Tables[0].Rows[0]["FstgStmt"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return request;
         }
     }
 

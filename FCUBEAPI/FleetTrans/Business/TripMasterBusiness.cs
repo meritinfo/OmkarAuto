@@ -65,6 +65,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.TripMasterGSafeSave(tripMasterModel);
         }
+        public async Task<RequestModel> GetTripStmtType()
+        {
+            return await tripMasterRepository.GetTripStmtType();
+        }
 
     }
 }

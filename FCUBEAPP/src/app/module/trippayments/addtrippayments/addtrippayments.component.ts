@@ -38,6 +38,7 @@ export class AddtrippaymentsComponent {
   seriesDoc: string = "";
   createdBy:string = "";
   modifiedBy:string = "";
+  dslStmt:string = "";
 
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -80,8 +81,8 @@ export class AddtrippaymentsComponent {
       this.route.navigate([this.dashboard]);
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -112,6 +113,7 @@ export class AddtrippaymentsComponent {
     this.getBranchList();   
     this.getVehicleNoList();
     this.getLocationList();
+    this.getTripStmtType();
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -289,6 +291,11 @@ export class AddtrippaymentsComponent {
   }
 
  
+  getTripStmtType(): void {
+    this.commonService.getTripStmtType().subscribe((res) => {
+      this.dslStmt = res.strRequest;
+    });
+  }
    
 
   onChangeSearch(search: string) {

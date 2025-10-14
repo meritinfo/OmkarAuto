@@ -23,5 +23,6 @@ namespace FleetTrans.Repository
         Task<ReportRequestModel> GetOpeningBal(ReportRequestModel request);
         Task<ResponseModel> GetTripPrintPdf(RequestModel request);
         Task<ResponseModel> TripMasterGSafeSave(TripMasterModel tripMasterModel);
+        Task<RequestModel> GetTripStmtType();
     }
 }

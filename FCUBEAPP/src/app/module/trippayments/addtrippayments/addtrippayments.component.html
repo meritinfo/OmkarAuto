@@ -85,7 +85,7 @@
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
                                                         <option value="DA"> Driver Adv</option>
-                                                        <option value="DL"> Diesel </option>
+                                                        <option *ngIf="this.dslStmt=='E'" value="DL"> Diesel </option>
                                                         <option value="AB"> Adblue </option>
                                                     </select>
                                                 </div>
