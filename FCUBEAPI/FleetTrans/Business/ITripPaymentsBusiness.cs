@@ -22,6 +22,7 @@ namespace FleetTrans.Business
         Task<List<DropDownListModel>> GetCreditAcList2(RequestModel request);
         Task<ConsignmentModel> GetLrDtlsForTripPmts(RequestModel req);
         Task<ResponseModel> GetVoucherPrint(RequestModel request);
+        Task<ReportRequestModel> TripPaymentsLoadDetails(RequestModel request);
 
     }
 }

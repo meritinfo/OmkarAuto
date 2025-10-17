@@ -469,6 +469,35 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ReportRequestModel> TripPaymentsLoadDetails(RequestModel req)
+        {
+            ReportRequestModel loadDtls = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterId", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPmtLoadDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        loadDtls.FilterStr = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
+                        loadDtls.FilterStr1 = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
+                        loadDtls.FilterStr2 = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadDate"]);
+                        loadDtls.FilterStr3 = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadFor"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return loadDtls;
+
+        }
 
 
     }

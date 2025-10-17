@@ -126,7 +126,7 @@ export class FleetloadentryaddComponent {
     this.getCneeCnorList();
     this.getCnorList();
     this.getCreditAcList();
-    this.chkMandatoryRequired();
+    this.chkMandatoryRequired("loadMemoNo");
 
     this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
     this.formFleetLoad = this.formBuilder.group({   
@@ -224,18 +224,19 @@ export class FleetloadentryaddComponent {
       this.vehicleList = res;
     });
   }
-  chkMandatoryRequired(){
+
+  chkMandatoryRequired(clm: string){
     this.requestmodel.strRequest = "fleetloadentryadd";
-    this.requestmodel.strRequest1 = "loadMemoNo";
+    this.requestmodel.strRequest1 = clm;
     this.commonService.chkMandatoryRequired(this.requestmodel).subscribe((res) => {
       if(res.status){
         if(res.message=="Y"){
-          this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);
+          this.formFleetLoad.controls[clm].setValidators([Validators.required]);
         }
         else{
-          this.formFleetLoad.controls['loadMemoNo'].clearValidators(); 
+          this.formFleetLoad.controls[clm].clearValidators(); 
         }
-        this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity(); 
+        this.formFleetLoad.controls[clm].updateValueAndValidity(); 
       };
     });
   }
@@ -351,40 +352,36 @@ export class FleetloadentryaddComponent {
   onLoadTypeChange(e:any){
     var ldtp = e.target.value;
 
-    if(ldtp == "E"){
+    if(ldtp == "E"){  
+      this.formFleetLoad.controls['consignorName'].clearValidators();   
+      this.formFleetLoad.controls['consigneeName'].clearValidators();   
+      this.formFleetLoad.controls['loadFor'].clearValidators();  
+      this.formFleetLoad.controls['productId'].clearValidators();  
+      this.formFleetLoad.controls['hireAmt'].clearValidators();
       this.formFleetLoad.controls['qtyWt'].clearValidators();
       this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
-      this.formFleetLoad.controls['hireAmt'].clearValidators();  
-      this.formFleetLoad.controls['loadFor'].clearValidators();   
-      this.formFleetLoad.controls['loadMemoNo'].clearValidators();   
-      this.formFleetLoad.controls['consignorName'].clearValidators();   
-      this.formFleetLoad.controls['consigneeName'].clearValidators();  
-      this.formFleetLoad.controls['productId'].clearValidators();     
-
       this.formFleetLoad.patchValue({
         qtyWt : 0,
         qtyPkgs : 0,
         hireAmt : 0,
-      });
+      }); 
+      this.formFleetLoad.controls['consignorName'].updateValueAndValidity();   
+      this.formFleetLoad.controls['consigneeName'].updateValueAndValidity();  
+      this.formFleetLoad.controls['productId'].updateValueAndValidity();      
+      this.formFleetLoad.controls['hireAmt'].updateValueAndValidity(); 
+      this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
+      this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();  
     }
-    else{      
-      this.formFleetLoad.controls['qtyWt'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['qtyPkgs'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['hireAmt'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['consignorName'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['consigneeName'].setValidators([Validators.required]);
-      this.formFleetLoad.controls['productId'].setValidators([Validators.required]);
+    else{    
+      this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);      
+      this.chkMandatoryRequired("consignorName");
+      this.chkMandatoryRequired("consigneeName");
+      this.chkMandatoryRequired("productId");
+      this.chkMandatoryRequired("hireAmt");
+      this.chkMandatoryRequired("qtyPkgs");
+      this.chkMandatoryRequired("qtyWt");  
     }
-    this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
-    this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();    
-    this.formFleetLoad.controls['hireAmt'].updateValueAndValidity();   
     this.formFleetLoad.controls['loadFor'].updateValueAndValidity();   
-    this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity();   
-    this.formFleetLoad.controls['consignorName'].updateValueAndValidity();   
-    this.formFleetLoad.controls['consigneeName'].updateValueAndValidity();  
-    this.formFleetLoad.controls['productId'].updateValueAndValidity();  
   }
 
   exit(): void {
@@ -423,8 +420,6 @@ export class FleetloadentryaddComponent {
       return;
     }
       
-    this.sharedService.loading = true;
-
     var selectedDataVal = this.formFleetLoad.getRawValue();
     if (selectedDataVal.vehicleMasterId.dataId) {
       //ignore
@@ -460,6 +455,11 @@ export class FleetloadentryaddComponent {
     var hireAmt = selectedDataVal.hireAmt?parseFloat(selectedDataVal.hireAmt):0
     var advAmt = selectedDataVal.advAmt?parseFloat(selectedDataVal.advAmt):0
 
+    if(hireAmt==0){      
+      this.toasterService.warning("Hire Amount sholud not be Zero"); 
+      return;
+    }
+
     if(hireAmt<advAmt){      
       this.toasterService.warning("Advance Amount sholud not be more than Hire Amount"); 
       return;
@@ -492,6 +492,8 @@ export class FleetloadentryaddComponent {
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.fleetLoadEntryModel));
+
+    this.sharedService.loading = true;
 
     this.fleetLoadEntryService.fleetLoadEntrySubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
