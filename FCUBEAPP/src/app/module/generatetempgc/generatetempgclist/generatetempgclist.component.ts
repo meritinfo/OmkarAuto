@@ -331,7 +331,7 @@ dashboard: string ="";
       if(resp.status){    
         let link = document.createElement("a");
         link.download = "LR_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/LrPrint/" + resp.message;
+        link.href = "assets/reports/lrprint/" + resp.message;
         link.click();
         window.open(link.href, "_blank");
       }
