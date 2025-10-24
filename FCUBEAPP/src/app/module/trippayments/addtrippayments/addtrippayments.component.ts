@@ -298,6 +298,7 @@ export class AddtrippaymentsComponent {
    
   selectEvent(item: any) {
     this.requestmodel.strRequest = item.dataId;
+    this.showLoad = false;
     this.tripPaymentsService.tripPaymentsLoadDetails(this.requestmodel).subscribe((res) => {
       this.showLoad = true;
       this.formTripPayment.controls["vehicleMasterID"].disable();

@@ -16,8 +16,8 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
       if (this.sharedService.loggedInStatus) {
