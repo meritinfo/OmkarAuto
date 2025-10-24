@@ -23,6 +23,13 @@ export class AddratetypesComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   formSubmitted = false;  
+    editMode = false;
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+    viewStatus = false; 
+  dashboard: string ="";
 
   responseDetails = new Responsemodel();
   selectedRateTypesDetails = new Ratetypesmodel();
@@ -38,8 +45,29 @@ export class AddratetypesComponent {
 
   ngOnInit(): void { 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+      var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Create Role Types");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
+    
+    var userData = sessionStorage.getItem('uid')?.toString();
+    
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -57,7 +85,9 @@ export class AddratetypesComponent {
     });
 
     if (this.selectedRateTypesDetails.rateTypeId != '') {
+
       this.formUser.patchValue(this.selectedRateTypesDetails);
+      this.editMode =true;
       this.formUser.patchValue({
         rateMethod: this.selectedRateTypesDetails.rateMethod, 
       })
