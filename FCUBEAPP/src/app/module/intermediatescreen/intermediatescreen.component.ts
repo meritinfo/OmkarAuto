@@ -36,7 +36,7 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
   companyname: string = '';
-  dashboard: string = '';
+  dashboard: string = "/dashboard";
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
     private commonService: CommonService, private sharedService: SharedService, private route: Router, 

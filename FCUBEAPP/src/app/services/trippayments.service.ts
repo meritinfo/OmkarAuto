@@ -8,6 +8,7 @@ import { Constants } from '../common/constants';
 import { Trippaymentslistmodel } from '../models/trippaymentslistmodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Consignmentmodel } from '../models/consignmentmodel';
+import { Reportmodel } from '../models/reportmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,9 @@ export class TripPaymentsService {
   }
   tripPaymentsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsDelete', req, this.httpOptions);
+  }
+  tripPaymentsLoadDetails(req: Requestmodel): Observable<Reportmodel> {
+    return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsLoadDetails', req, this.httpOptions);
   }
   trippaymentSaveSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSave', user, this.httpformOptions);

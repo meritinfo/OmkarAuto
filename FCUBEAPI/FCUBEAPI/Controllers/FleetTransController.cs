@@ -167,6 +167,25 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("TripPaymentsLoadDetails")]
+        public async Task<IActionResult> TripPaymentsLoadDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsBusiness.TripPaymentsLoadDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("TripPaymentsDelete")]
         public async Task<IActionResult> TripPaymentsDelete(RequestModel req)
         {
@@ -444,6 +463,22 @@ namespace FCUBEAPI.Controllers
             }
         }
         
+
+        [HttpPost("GetTripStmtType")]
+        public async Task<IActionResult> GetTripStmtType()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetTripStmtType();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("TripMasterDelete")]
         public async Task<IActionResult> TripMasterDelete(RequestModel req)

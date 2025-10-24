@@ -251,6 +251,10 @@ export class CommonService {
   getDslMileage(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslMileage', payload, this.httpOptions);
   }
+  
+  getTripStmtType(): Observable<Requestmodel> {
+    return this.httpClient.post<Requestmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripStmtType', null, this.httpOptions);
+  }
   getDriverDetail(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverDetail', payload, this.httpOptions);
   }

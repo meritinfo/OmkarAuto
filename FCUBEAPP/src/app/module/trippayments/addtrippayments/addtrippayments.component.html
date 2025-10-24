@@ -32,7 +32,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input">Payment Date</label>
                                                     <span style="color: red">*</span>
@@ -42,7 +42,7 @@
                                                         class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Vehicle</label>
                                                     <span style="color: red">*</span>
@@ -51,6 +51,7 @@
                                                         formControlName="vehicleMasterID"  
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
+                                                        (selected)="selectEvent($event)"
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="endWithFilter"
@@ -67,6 +68,32 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row" *ngIf="showLoad">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">From Place</label>
+                                                    <input class="form-control" formControlName="fromPlace">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">To Place</label>
+                                                    <input class="form-control" formControlName="toPlace">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">Load Date</label>
+                                                    <input class="form-control" formControlName="loadMemoDt">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">Load For</label>
+                                                    <input class="form-control" formControlName="loadFor">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
@@ -76,7 +103,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Trans Type</label>
                                                     <span style="color: red">*</span>
@@ -85,20 +112,12 @@
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
                                                         <option value="DA"> Driver Adv</option>
-                                                        <option value="DL"> Diesel </option>
+                                                        <option *ngIf="this.dslStmt=='E'" value="DL"> Diesel </option>
                                                         <option value="AB"> Adblue </option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">Remark</label>
-                                                    <input uppercaseonly  class="form-control" formControlName="remarks">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Qty Ltrs</label>
                                                     <input type="text" class="form-control" decimalonly formControlName="qtyLtrs" 
@@ -106,7 +125,7 @@
                                                           (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Rate Per Ltr</label>
                                                     <input type="text" class="form-control" decimalonly formControlName="ratePerLtr"
@@ -114,7 +133,7 @@
                                                           (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-email-input">Amount</label>
                                                     <span style="color: red">*</span>
@@ -125,7 +144,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Payment Type</label>
                                                     <span style="color: red">*</span>
@@ -166,7 +185,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-1">
                                                 <div class="form-check">
                                                     <input type="checkbox"  formControlName="neftPmt" id="neft"
                                                         name="neft" class="form-check-input" value="Y" 
@@ -175,19 +194,25 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Cheque No</label>
                                                     <input type="text" class="form-control" formControlName="chequeNo"                                                         
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid)}">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-email-input">Cheque Date </label>
                                                     <input bsdatepicker="" type="date" autoclose="false"
                                                           formControlName="chequeDate" class="form-control"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDate'].invalid)}"  max="{{maxDate}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">Remark</label>
+                                                    <input uppercaseonly  class="form-control" formControlName="remarks">
                                                 </div>
                                             </div>
                                         </div>

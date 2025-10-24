@@ -226,7 +226,7 @@ export class BillsupplilistComponent {
       if(resp.status){    
         let link = document.createElement("a");
         link.download = "Bill_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/BillPrint/" + resp.message;
+        link.href = "assets/reports/billprint/" + resp.message;
         link.click();
         window.open(link.href, "_blank");
       }

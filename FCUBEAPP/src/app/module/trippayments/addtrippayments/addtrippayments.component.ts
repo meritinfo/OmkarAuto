@@ -34,10 +34,12 @@ export class AddtrippaymentsComponent {
   deleteStatus = false;
   viewStatus = false; 
   createmode = false;
+  showLoad = false;
   dashboard: string ="";
   seriesDoc: string = "";
   createdBy:string = "";
   modifiedBy:string = "";
+  dslStmt:string = "";
 
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -80,8 +82,8 @@ export class AddtrippaymentsComponent {
       this.route.navigate([this.dashboard]);
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -112,6 +114,7 @@ export class AddtrippaymentsComponent {
     this.getBranchList();   
     this.getVehicleNoList();
     this.getLocationList();
+    this.getTripStmtType();
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -131,16 +134,12 @@ export class AddtrippaymentsComponent {
       creditAc: new FormControl('', [Validators.required]),
       chequeNo: new FormControl(''),
       chequeDate: new FormControl('', [Validators.required]),
-      yearId: new FormControl('',),
-      userBranch: new FormControl('',),
-      from: new FormControl('',),
-      to: new FormControl('',),
-      loadorempty: new FormControl('',),
-      dsltobe: new FormControl('',),
-      travelallowance: new FormControl('',),
       qtyLtrs: new FormControl('',),
       ratePerLtr: new FormControl('',),
-      travel: new FormControl('',),
+      fromPlace: new FormControl('',),
+      toPlace: new FormControl('',),
+      loadMemoDt: new FormControl('',),
+      loadFor: new FormControl('',),
     });
         
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
@@ -148,8 +147,13 @@ export class AddtrippaymentsComponent {
     }
 
     setTimeout(() => {
-     this.createmode = true;
-     this.formTripPayment.controls['pmtBranch'].disable();
+      this.createmode = true;
+      this.formTripPayment.controls['pmtBranch'].disable();
+      this.formTripPayment.controls['fromPlace'].disable();
+      this.formTripPayment.controls['toPlace'].disable();
+      this.formTripPayment.controls['loadMemoDt'].disable();
+      this.formTripPayment.controls['loadFor'].disable();
+
       if (this.selectedTripPaymentsDetails.pmtId != '') {
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
@@ -205,10 +209,7 @@ export class AddtrippaymentsComponent {
         this.editMode = true;
         this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['transType'].disable();
-        this.formTripPayment.controls['loadorempty'].disable();
         this.formTripPayment.controls['pmtBranch'].disable();
-        this.formTripPayment.controls['dsltobe'].disable();
-        this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable(); 
       }  
     }, 2000);
@@ -289,7 +290,26 @@ export class AddtrippaymentsComponent {
   }
 
  
+  getTripStmtType(): void {
+    this.commonService.getTripStmtType().subscribe((res) => {
+      this.dslStmt = res.strRequest;
+    });
+  }
    
+  selectEvent(item: any) {
+    this.requestmodel.strRequest = item.dataId;
+    this.showLoad = false;
+    this.tripPaymentsService.tripPaymentsLoadDetails(this.requestmodel).subscribe((res) => {
+      this.showLoad = true;
+      this.formTripPayment.controls["vehicleMasterID"].disable();
+      this.formTripPayment.patchValue({
+        fromPlace: res.filterStr,   
+        toPlace: res.filterStr1,
+        loadMemoDt: res.filterStr2,
+        loadFor: res.filterStr3
+      });
+    });
+  }
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -407,6 +427,7 @@ export class AddtrippaymentsComponent {
         if (controls[name].invalid) {
           this.toasterService.warning(name + " Fields is Invalid");   
         }
+        controls[name].get
       }
       return;
     }

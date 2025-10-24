@@ -78,7 +78,7 @@ namespace Shared.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@YearID", request.YearID),
-                             new SqlParameter("@LoginDate", request.LoginDate)
+                            new SqlParameter("@LoginDate", request.LoginDate)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "IntermediateScreenDetails_Select", param);
 

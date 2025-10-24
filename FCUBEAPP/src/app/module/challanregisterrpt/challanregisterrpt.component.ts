@@ -317,7 +317,7 @@ export class ChallanregisterrptComponent {
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Challan Register" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "ChallanRegister" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
