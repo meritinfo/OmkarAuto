@@ -59,9 +59,6 @@ import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 import { Vehicletypemastermodel } from './models/vehicletypemastermodel';
-import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermodel';
-import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
-import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/confirmationdialog.component';
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
@@ -76,7 +73,6 @@ import { Subledgermodel } from 'src/app/models/subledgermodel';
 import { Gstpctvaluesmodel  } from 'src/app/models/gstpctvaluesmodel';
 import { TripenrouteexpbycompanyModel } from 'src/app/models/tripenroutebycompanymodel';
 import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
-import { Driversalarypaymentmodel } from 'src/app//models/driversalarypaymentmodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
@@ -414,8 +410,6 @@ import { ChallanreleaseaddComponent } from './module/challanrelease/challanrelea
 import { ChallanreleaselistComponent } from './module/challanrelease/challanreleaselist/challanreleaselist.component';
 import { FastagdslrechargeentryaddComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentryadd/fastagdslrechargeentryadd.component';
 import { FastagdslrechargeentrylistComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentrylist/fastagdslrechargeentrylist.component';
-import { DriversalarypmtaddComponent } from './module/driversalarypayment/driversalarypmtadd/driversalarypmtadd.component';
-import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
 import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { Tripmastermodel } from './models/tripmastermodel';
@@ -574,7 +568,6 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
     RatetypeslistComponent,AddratetypesComponent,
     LrbillserieslistComponent,AddlrbillseriesComponent,
     VehicletypemasterlistComponent,AddvehicletypemasterComponent,
-    VehicletypegroupmasterlistComponent,AddvehicletypegroupmasterComponent,
     ConsignmentaddComponent, ConsignmentlistComponent,
     AddbranchmasterComponent,BranchmasterlistComponent,
     VehiclemasteraddComponent,VehiclemasterlistComponent,
@@ -685,7 +678,6 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
     ChallanenquiryComponent, MrenquiryComponent, BillenquiryComponent, 
     ChallanreleaseaddComponent, ChallanreleaselistComponent,
     FastagdslrechargeentryaddComponent, FastagdslrechargeentrylistComponent, 
-    DriversalarypmtaddComponent, DriversalarypmtlistComponent,
     TripmasteraddComponent, TripmasterlistComponent, 
     SparesstockrptComponent, SpareshistoryrptComponent, 
     PanwisetdsrateaddComponent, PanwisetdsratelistComponent,
@@ -762,7 +754,7 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
   providers: [DatePipe,Loginmodel, Usermodel, Destinationmodel, 
     Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
-    Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
+    Lrbillseriesmodel, Vehicletypemastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, 
     Trippaymentsmodel, Drivermodel, Docrenewalentrymodel, 
     Intermediatescreenmodel,Tripsheetmodel,
@@ -802,7 +794,7 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
     Benificiarymastermodel,Cnorcneemastermodel,Tripoutstandingrptmodel,Lrcostingrptmodel,
     Onaccountmrstatusrptmodel,Addcostrecorveryrptmodel,
     Fasttagmodel,Addcostrecmstmodel,TripenrouteexpbycompanyModel,Panwisetdsratemodel,
-    Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,Driversalarypaymentmodel,
+    Businesssummrptmodel,ChallanreleaseModel,Fastagdslrechargeentrymodel,
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,Ratesmasternewmodel,
     Ccinvmstmodel, Dovehicleinmodel,Dotempgcmodel,ChcosttypesModel,
     Freightgstmastermodel,Freightgstmasterlistmodel,

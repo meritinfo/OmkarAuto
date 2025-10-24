@@ -42,7 +42,6 @@ namespace FCUBEAPI.Controllers
         readonly IFastTagBusiness fastTagBusiness;
         readonly ITripEnrouteExpByCompanyBusiness tripEnrouteExpByCompanyBusiness;
         readonly IFastagDslRechargeEntryBusiness fastagDslRechargeEntryBusiness;
-        readonly IDriverSalaryPaymentBusiness driverSalaryPaymentBusiness;
         readonly IDriverSalaryEntryBusiness driverSalaryEntryBusiness;
         readonly IFleetRptBusiness fleetRptBusiness;
         readonly IVendorPmtBusiness vendorPmtBusiness;
@@ -71,7 +70,6 @@ namespace FCUBEAPI.Controllers
             IFastTagBusiness _fastTagBusiness,
             ITripEnrouteExpByCompanyBusiness _tripEnrouteExpByCompanyBusiness,
             IFastagDslRechargeEntryBusiness _fastagDslRechargeEntryBusiness,
-            IDriverSalaryPaymentBusiness _driverSalaryPaymentBusiness,
             IFleetRptBusiness _fleetRptBusiness,
             IVendorPmtBusiness _vendorPmtBusiness,
             IDriverSalaryEntryBusiness _driverSalaryEntryBusiness,
@@ -102,7 +100,6 @@ namespace FCUBEAPI.Controllers
             fastTagBusiness = _fastTagBusiness;
             tripEnrouteExpByCompanyBusiness= _tripEnrouteExpByCompanyBusiness;
             fastagDslRechargeEntryBusiness = _fastagDslRechargeEntryBusiness;
-            driverSalaryPaymentBusiness = _driverSalaryPaymentBusiness;
             fleetRptBusiness = _fleetRptBusiness;
             vendorPmtBusiness = _vendorPmtBusiness;
             driverSalaryEntryBusiness = _driverSalaryEntryBusiness;
@@ -3986,60 +3983,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await fastagDslRechargeEntryBusiness.GetRechargeTypeList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetDriverSalaryPaymentList")]
-        public async Task<IActionResult> GetDriverSalaryPaymentList(ReportRequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await driverSalaryPaymentBusiness.GetDriverSalaryPaymentList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("DriverSalaryPaymentDelete")]
-        public async Task<IActionResult> DriverSalaryPaymentDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await driverSalaryPaymentBusiness.DriverSalaryPaymentDelete(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("DriverSalaryPaymentSave")]
-        public async Task<IActionResult> DriverSalaryPaymentSave(DriverSalaryPaymentModel driverSalaryPaymentModel)
-        {
-            if (driverSalaryPaymentModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await driverSalaryPaymentBusiness.DriverSalaryPaymentSave(driverSalaryPaymentModel);
 
                 return Ok(result);
             }

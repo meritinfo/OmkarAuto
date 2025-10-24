@@ -30,9 +30,7 @@ import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentr
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
 import { AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
-import { AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
-import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
@@ -245,8 +243,6 @@ import { ChallanreleaseaddComponent } from './module/challanrelease/challanrelea
 import { ChallanreleaselistComponent } from './module/challanrelease/challanreleaselist/challanreleaselist.component';
 import { FastagdslrechargeentryaddComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentryadd/fastagdslrechargeentryadd.component';
 import { FastagdslrechargeentrylistComponent } from './module/fastagdslrechargeentry/fastagdslrechargeentrylist/fastagdslrechargeentrylist.component';
-import { DriversalarypmtaddComponent } from './module/driversalarypayment/driversalarypmtadd/driversalarypmtadd.component';
-import { DriversalarypmtlistComponent } from './module/driversalarypayment/driversalarypmtlist/driversalarypmtlist.component';
 import { TripmasteraddComponent } from './module/tripmaster/tripmasteradd/tripmasteradd.component';
 import { TripmasterlistComponent } from './module/tripmaster/tripmasterlist/tripmasterlist.component';
 import { SparesstockrptComponent } from './module/sparesstockrpt/sparesstockrpt.component';
@@ -409,11 +405,8 @@ const routes: Routes = [
   { path: 'ratesmasteredit', component: AddratesmasterComponent },
  // { path: 'ratesmasterlist', component: RatesmasterlistComponent },
   { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
-  { path: 'addvehicletypegroupmaster', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
-  { path: 'vehicletypegroupmasteredit', component: AddvehicletypegroupmasterComponent },
   { path: 'vehtypeslist', component: VehicletypemasterlistComponent },
-  { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
   { path: 'consignmentlist', component: ConsignmentlistComponent },
   { path: 'consignmentadd', component: ConsignmentaddComponent },
   { path: 'consignmentedit', component: ConsignmentaddComponent },
@@ -704,9 +697,6 @@ const routes: Routes = [
   { path: 'rechargeentry', component: FastagdslrechargeentrylistComponent },
   { path: 'rechargeentryadd', component: FastagdslrechargeentryaddComponent },
   { path: 'rechargeentryedit', component: FastagdslrechargeentryaddComponent },
-  { path: 'drsalpmt', component: DriversalarypmtlistComponent},
-  { path: 'drsalpmtadd', component: DriversalarypmtaddComponent },
-  { path: 'drsalpmtedit', component: DriversalarypmtaddComponent }, 
   { path: 'tripsheetlist', component: TripmasterlistComponent },
   { path: 'tripsheetadd', component: TripmasteraddComponent },
   { path: 'tripsheetedit', component: TripmasteraddComponent },

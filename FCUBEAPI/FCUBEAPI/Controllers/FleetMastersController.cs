@@ -20,7 +20,6 @@ namespace FCUBEAPI.Controllers
     public class FleetMastersController : ControllerBase
     {
         private readonly IOptions<DBModel> dbconnection;
-        readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
         readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
@@ -44,31 +43,28 @@ namespace FCUBEAPI.Controllers
 
 
         public FleetMastersController(IOptions<DBModel> _dbconnection,
-            IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness,
             IVehicleFltMasterBusiness _vehicleFltMasterBusiness,
             IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness,
             IDocRenewalMasterBusiness _docRenewalMasterBusiness,
             IBrandMasterBusiness _brandMasterBusiness,
             ITyreModelBusiness _tyreModelBusiness,
             ITripExpTypeBusiness _tripExpTypeBusiness,
-                       IFleetGroupMasterBusiness _fleetGroupMasterBusiness,
-
-        IMaintanenceMasterBusiness _maintanenceMasterBusiness,
-        ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
-           ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
+            IFleetGroupMasterBusiness _fleetGroupMasterBusiness,
+            IMaintanenceMasterBusiness _maintanenceMasterBusiness,
+            ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
+            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
             IDriverMasterBusiness _driverMasterBusiness, 
             IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
             IFleetCardMasterBusiness _fleetCardMasterBusiness,
-             ITruckMasterBusiness _truckMasterBusiness,
-              ITransportMasterBusiness _transportMasterBusiness,
-             IVehicleMfrMasterBusiness _vehicleMfrMasterBusiness,
-               IVehicleFinCompMasterBusiness _vehicleFinCompMasterBusiness,
-                  IVehicleFltTypeGroupMstBusiness _vehicleFltTypeGroupMstBusiness
+            ITruckMasterBusiness _truckMasterBusiness,
+            ITransportMasterBusiness _transportMasterBusiness,
+            IVehicleMfrMasterBusiness _vehicleMfrMasterBusiness,
+            IVehicleFinCompMasterBusiness _vehicleFinCompMasterBusiness,
+            IVehicleFltTypeGroupMstBusiness _vehicleFltTypeGroupMstBusiness
 
-              )
+          )
         {
             dbconnection = _dbconnection;
-            vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
             vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
             docRenewalMasterBusiness = _docRenewalMasterBusiness;
@@ -90,28 +86,6 @@ namespace FCUBEAPI.Controllers
             vehicleFltTypeGroupMstBusiness = _vehicleFltTypeGroupMstBusiness;
         }
 
-        /// <summary>
-        /// Controller method for vehicle type group master
-        /// </summary>
-        /// <param name="vehicleTypeGroupMasterModel"></param>
-        [HttpPost("VehicleTypeGroupMasterSave")]
-        public async Task<IActionResult> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
-        {
-            if (vehicleTypeGroupMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await vehicleTypeGroupMasterBusiness.VehicleTypeGroupMasterSave(vehicleTypeGroupMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }       
 
         /// <summary>
         /// Controller method for Driver master
@@ -1164,20 +1138,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyrePositionMasterBusiness.GetTyrePositionMasterList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetVehicleTypeGroupMasterList")]
-        public async Task<IActionResult> GetVehicleTypeGroupMasterList(PageRequest request)
-        {
-            try
-            {
-                var result = await vehicleTypeGroupMasterBusiness.GetVehicleTypeGroupMasterList(request);
 
                 return Ok(result);
             }
