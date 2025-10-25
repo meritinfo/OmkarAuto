@@ -579,7 +579,7 @@ export class VehicleinstscheduleaddComponent {
 
     this.vehicleinstschedulemodel.instScheduleDtls = [];
     if(selectedDataVal.arrayList.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
+      this.toasterService.warning("Please provide at least one detail record.");
       return;
     }
     var totpriEmi = 0;
@@ -611,11 +611,11 @@ export class VehicleinstscheduleaddComponent {
       return;
     }
     if(parseFloat(selectedDataVal.totalInterest)!=totintEmi){
-      this.toasterService.warning("Total of EMI Interest Amt is not matching with Total Interest");
+      this.toasterService.warning("Total of EMI interest amounts does not match the total interest");
       return;
     }
     if(parseFloat(selectedDataVal.totalLoanAmt)!=totEmi){
-      this.toasterService.warning("Total of EMI Amt is not matching with Total Loan Amt");
+      this.toasterService.warning("Total of EMI amounts does not match the total loan amount.");
       return;
     }
     

@@ -273,14 +273,14 @@ dashboard: string ="";
   searchStatement(){
     var selectedDataValue = this.formUser.getRawValue();
     if(selectedDataValue.tripsUptoDate==""){
-      this.toastrService.warning("Please Select Trips Upto Date");
+      this.toastrService.warning("Trips up to date selection is required");
       return;
     }
     if (selectedDataValue.vehicleMasterId.dataId) {
       //ignore
     }
     else{
-      this.toastrService.warning("Please Select Valid Vehicle");
+      this.toastrService.warning("Please Select a Valid Vehicle");
       return;
     }  
 
@@ -367,7 +367,7 @@ dashboard: string ="";
     tds = parseFloat(selectedDate.arrayList[r].tds) ;
 
     if(received + deduction + tds > dueAmt + paidAmt){
-      this.toastrService.warning("Total Recv Amount should not be greater than Due Amount");
+      this.toastrService.warning("Total received amount should not be greater than the due amount.");
       this.formAdvanceArray.controls[r].get(clmn)?.setValue('0');   
       return;
     }

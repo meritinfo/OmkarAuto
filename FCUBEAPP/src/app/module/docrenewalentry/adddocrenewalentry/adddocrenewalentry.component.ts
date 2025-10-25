@@ -614,13 +614,13 @@ export class AdddocrenewalentryComponent {
        
     //Start date end date validation
     if (parseFloat(this.docRenewalentryModel.netAmount) == 0) {
-      this.toasterService.warning("Net Amount should not be Zero");
+      this.toasterService.warning("Net amount should not be zero");
       this.sharedService.loading=false;
       return;
     }
     //Start date end date validation
     if (Date.parse(this.docRenewalentryModel.validFromDt) > Date.parse(this.docRenewalentryModel.validToDt)) {
-      this.toasterService.warning("End date should be greater than start date");
+      this.toasterService.warning("End date should be later than the start date.");
       this.sharedService.loading=false;
       return;
     }

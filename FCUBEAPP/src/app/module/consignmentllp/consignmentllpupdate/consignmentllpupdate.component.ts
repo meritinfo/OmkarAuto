@@ -807,7 +807,7 @@ export class ConsignmentllpupdateComponent {
     var selectedDataValue = this.formUser.getRawValue();
     if(selectedDataValue.ulReportingDateTime.toString()=="" && selectedDataValue.deliveryDateTime.toString()!="")
     {      
-      this.toastrService.warning("Please Enter Both Unloading & Delivery Dates");
+      this.toastrService.warning("Enter both unloading and delivery dates to continue.");
       return;
     }
     if(selectedDataValue.ulReportingDateTime.toString()!="" && selectedDataValue.deliveryDateTime.toString()=="")
@@ -820,7 +820,7 @@ export class ConsignmentllpupdateComponent {
       //ignore
     }
     else{
-      this.toastrService.warning("Party is Invalid");
+      this.toastrService.warning("Please select a valid party");
       return;
     }
 
@@ -829,17 +829,17 @@ export class ConsignmentllpupdateComponent {
       gstType = selectedDataValue.gstType;
     }if(gstType=="SC"){
       if(selectedDataValue.cgstAmt.toString =="" || parseFloat(selectedDataValue.cgstAmt) ==0 ){
-        this.toastrService.warning("CGST Amt is Invalid");
+        this.toastrService.warning("Please select a valid CGST Amount");
         return;
       }
       if(selectedDataValue.sgstAmt.toString =="" || parseFloat(selectedDataValue.sgstAmt) ==0 ){
-        this.toastrService.warning("SGST Amt is Invalid");
+        this.toastrService.warning("Please select a valid SGST Amount ");
         return;
       }
     }
     if(gstType=="IG"){
       if(selectedDataValue.igstAmt.toString =="" || parseFloat(selectedDataValue.igstAmt) ==0 ){
-        this.toastrService.warning("IGST Amt is Invalid");
+        this.toastrService.warning("Please select a valid IGST Amount");
         return;
       }
     }

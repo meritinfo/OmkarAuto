@@ -214,7 +214,7 @@ dashboard: string ="";
       this.formTyreArray.push(this.createTyreArray());       
     } 
     else {
-      this.toastrService.warning("Please Enter Tyre De-Activate Details");
+      this.toastrService.warning("Please enter tyre deactivation details.");
     }
   }
   
@@ -275,7 +275,7 @@ dashboard: string ="";
       this.formUser.patchValue({
         regroupIssDate: ''
       });
-      this.toastrService.warning("Invalid RegroupIssDate date");
+      this.toastrService.warning("Please enter a valid regroup issue date.");
       return
     }
 

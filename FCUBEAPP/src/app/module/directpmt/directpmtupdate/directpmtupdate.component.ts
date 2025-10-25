@@ -157,7 +157,7 @@ export class DirectpmtupdateComponent {
     let maxdt = new Date(this.loginDate);
     let mindt = new Date(this.minDate);
     if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
-      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      this.toasterService.warning("From Date and To Date should be within the financial year.");
       return;
     }
     this.filter.fromDate = selectedData.fromDate;

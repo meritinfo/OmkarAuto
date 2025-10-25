@@ -258,11 +258,11 @@ export class VendorpmtaddComponent {
   searchStatement(): void { 
     var selectedDataVal=this.formUser.getRawValue();
     if (this.formUser.controls["billsUptoDate"].invalid) {
-      this.toasterService.warning(" Please Select Bills Upto Date");  
+      this.toasterService.warning(" Please Select Bills Up to Date");  
       return; 
     } 
     if (this.formUser.controls["vendorId"].invalid) {
-      this.toasterService.warning(" Please Select Vendor");  
+      this.toasterService.warning(" Please Select a Vendor");  
       return; 
     }   
     if(selectedDataVal.vendorId.dataId)
@@ -556,7 +556,7 @@ export class VendorpmtaddComponent {
           });
         }
         else{
-          this.toasterService.warning("Please Enter Amount in Detail section");
+          this.toasterService.warning("Please enter the amount in the detail section");
           return;
         }
       }

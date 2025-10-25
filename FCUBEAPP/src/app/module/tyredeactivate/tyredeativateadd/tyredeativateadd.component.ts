@@ -186,7 +186,7 @@ dashboard: string ="";
       this.formTyreArray.clear();
       this.tyredeactivate = res;
       if(res.tyreDeActivateDtlList.length==0){
-        this.toastrService.warning("No Active Tyres for this Vehicle")
+        this.toastrService.warning("No active tyres found for this vehicle.")
         this.formUser.patchValue({
           vehicleMasterid : "",
         });
@@ -352,7 +352,7 @@ dashboard: string ="";
       this.formUser.patchValue({
         deActivateDate: ''
       });
-      this.toastrService.warning("Invalid DeActivateDate date");
+      this.toastrService.warning("Please enter a valid deactivation date.");
       return
     }
 

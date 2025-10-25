@@ -951,11 +951,11 @@ export class ConsignmentllpaddComponent {
     var selectedDataValue = this.formUser.getRawValue();    
     var ewayBillNo = selectedDataValue.ewayBillNo;
     if(ewayBillNo==""){
-      this.toastrService.warning("Please Enter Eway bill no");
+      this.toastrService.warning("Please Enter a valid E-way Bill number.");
       return;
     }
     if(selectedDataValue.rcm_Fcm==""){
-      this.toastrService.warning("Please Select RCM/FCM GST ");
+      this.toastrService.warning("Please Select RCM/FCM");
       return;
     }
 
@@ -1004,7 +1004,7 @@ export class ConsignmentllpaddComponent {
               this.formArray.push(this.createInitialArray());
             }
             else{              
-              this.toastrService.warning("Please Enter Valid Eway bill no");  
+              this.toastrService.warning("Please Enter a valid E-way Bill number.");  
               this.formUser.patchValue({
                 ewayBillDate: "",
                 ewayBillExpDate:  "",
@@ -1272,7 +1272,7 @@ export class ConsignmentllpaddComponent {
       this.formUser.patchValue({
         bookingDate: ''
       });
-      this.toastrService.warning("Invalid booking date");
+      this.toastrService.warning("Please enter a valid booking date.");
       return
     }
 
@@ -1280,7 +1280,7 @@ export class ConsignmentllpaddComponent {
       //ignore
     }
     else{
-      this.toastrService.warning(" From Place is Invalid");
+      this.toastrService.warning("Please enter a valid From Place.");
       return;
     }
 
@@ -1288,7 +1288,7 @@ export class ConsignmentllpaddComponent {
       //ignore
     }
     else{
-      this.toastrService.warning(" To Place is Invalid");
+      this.toastrService.warning("Please enter a valid To Place.");
       return;
     }
 
@@ -1296,7 +1296,7 @@ export class ConsignmentllpaddComponent {
       //ignore
     }
     else{
-      this.toastrService.warning(" Billing Party is Invalid");
+      this.toastrService.warning("Please enter a valid Billing Party.");
       return;
     }
     var gstType = "NA";
@@ -1307,7 +1307,7 @@ export class ConsignmentllpaddComponent {
     var actWt = "";
 
     if(selectedDataValue.chargewt.toString()=="0"){
-      this.toastrService.warning(" Charge Weight is Invalid");
+      this.toastrService.warning("Please enter a valid Charge Weight.");
       return;
     }
     if(selectedDataValue.actualWt.toString()=="0" || selectedDataValue.actualWt.toString()==""){
@@ -1318,17 +1318,17 @@ export class ConsignmentllpaddComponent {
     }
     if(gstType=="SC"){
       if(selectedDataValue.cgstAmt.toString =="" || parseFloat(selectedDataValue.cgstAmt) ==0 ){
-        this.toastrService.warning("CGST Amt is Invalid");
+        this.toastrService.warning("Please enter a valid CGST Amount.");
         return;
       }
       if(selectedDataValue.sgstAmt.toString =="" || parseFloat(selectedDataValue.sgstAmt) ==0 ){
-        this.toastrService.warning("SGST Amt is Invalid");
+        this.toastrService.warning("Please enter a valid SGST Amount.");
         return;
       }
     }
     if(gstType=="IG"){
       if(selectedDataValue.igstAmt.toString =="" || parseFloat(selectedDataValue.igstAmt) ==0 ){
-        this.toastrService.warning("IGST Amt is Invalid");
+        this.toastrService.warning("Please enter a valid IGST Amount.");
         return;
       }
     }

@@ -659,7 +659,7 @@ dashboard: string ="";
       this.formUser.patchValue({
         purchaseDate: ''
       });
-      this.toastrService.warning("Purchase Date should be with in Fin Year");
+      this.toastrService.warning("Purchase date should be within the financial year");
       return
     }
     
@@ -727,20 +727,20 @@ dashboard: string ="";
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (selectedDataValue.arrayList[i].netTyreAmount == "" || parseFloat(selectedDataValue.arrayList[i].netTyreAmount)==0 ) {
         if(selectedDataValue.purchaseType == 'N' ||  selectedDataValue.purchaseType == 'R')
-        this.toastrService.warning("Please Enter Amount");
+        this.toastrService.warning("Please enter the amount.");
         return;
       } 
       var dupl = this.tyrepurchasemastermodel.tyrePurchaseDtlList.find(e=> e.tyreNo == selectedDataValue.arrayList[i].tyreNo) 
       if(dupl){
-        this.toastrService.warning("Duplicate Tyre No Entered");
+        this.toastrService.warning("Duplicate entry detected for tyre number.");
         return;
       }
       if (selectedDataValue.arrayList[i].tyreNo =="" ) {
-        this.toastrService.warning("Please Enter Tyre No");
+        this.toastrService.warning("Please Enter the  Tyre No");
         return;
       } 
       else if (selectedDataValue.arrayList[i].brandID == "" ) {
-        this.toastrService.warning("Please Select Brand");
+        this.toastrService.warning("Please Select  a Brand");
         return;
       } 
       else if (selectedDataValue.arrayList[i].tyreModel == "" ) {
@@ -770,7 +770,7 @@ dashboard: string ="";
     } 
     
     if(this.tyrepurchasemastermodel.tyrePurchaseDtlList.length==0){
-      this.toastrService.warning("Please enter atleast one Record in Details");
+      this.toastrService.warning("At least one detail record is required.");
       return;
     }
 

@@ -481,7 +481,7 @@ dashboard: string ="";
     this.dprvehiplacedmodel.dprDtls = [];
 
     if(selectedDataVal.arrayList.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
+      this.toasterService.warning("Please provide at least one detail record.");
       return;
     }
     var maincnt = 0;      
@@ -502,15 +502,15 @@ dashboard: string ="";
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(!selectedDataVal.arrayList[i].gcNoteNo){
-        this.toasterService.warning("GcNote No Should Not be Empty");
+        this.toasterService.warning("LR number should not be empty.");
         return;
       }
       if(selectedDataVal.arrayList[i].gcNoteNo==''){
-        this.toasterService.warning("GcNote No Should Not be Empty");
+        this.toasterService.warning("LR number should not be empty.");
         return;
       }
       if(selectedDataVal.arrayList[i].mainGcYN==''){
-        this.toasterService.warning("MainGcYN No Should Not be Empty");
+        this.toasterService.warning("Main LR Number Should Not be Empty");
         return;
       }
       this.requestmodel.strRequest = this.branch;

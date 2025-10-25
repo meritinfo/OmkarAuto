@@ -526,7 +526,7 @@ export class ChallanmasterllpaddComponent {
     
     if (selectedData.mainChallanNo!=""){
       if (selectedData.challanNo==selectedData.mainChallanNo){
-        this.toastrService.warning("Main Challan No should not be Same as Challan No");
+        this.toastrService.warning("Main Challan number should not be the same as Challan number.");
         return;
       }
       else{
@@ -582,12 +582,12 @@ export class ChallanmasterllpaddComponent {
     var gcNoteNo = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
     
     if(gcNoteNo==""){
-      this.toastrService.warning("GC Note No should not be Blank");   
+      this.toastrService.warning("GC Note number should not be blank.");   
       return;
     }  
     for (var j=0; j<selectedData.arrayList.length;j++){
       if(i!=j && gcNoteNo==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
-        this.toastrService.warning("GC Note No Already Entered in Grid");    
+        this.toastrService.warning("Entered  GC Note number already exists in the grid.");    
         this.formArray.controls[i].get("gcNoteNo")?.setValue("");
         return;
       }
@@ -606,7 +606,7 @@ export class ChallanmasterllpaddComponent {
         this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: ChallanmastermodelllP) => {
           if (res) { 
             if (res.challanDtls.length==0) {
-              this.toastrService.warning("LR No Doesn't Exists ");
+              this.toastrService.warning("LR number does not exist.");
               this.formArray.controls[i].get("gcNoteNo")?.setValue("");
               return;
             } 

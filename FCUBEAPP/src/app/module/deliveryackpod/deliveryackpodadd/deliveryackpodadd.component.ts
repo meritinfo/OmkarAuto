@@ -439,14 +439,14 @@ dashboard: string ="";
       podRecdDt = new Date(selectedDataValue.podRecdDate);
     }
     if(gcDate>rptdt){
-      this.toasterService.warning(" Reporting Date Should not be less than Booking Date");  
+      this.toasterService.warning("Reporting date should not be earlier than the booking date");  
       this.formUser.patchValue({   
         reportingDate:"",
       });
       return;
     }
     if(rptdt>dlydt){
-      this.toasterService.warning(" Delivery Date Should not be less than Reporting Date");  
+      this.toasterService.warning(" Delivery date should not be earlier than the reporting date.");  
       this.formUser.patchValue({   
         deliveryDate:"",
       });
@@ -629,7 +629,7 @@ dashboard: string ="";
         //ignore
       }
       else{
-        this.toasterService.warning("POD Attach1 is mandatory")
+        this.toasterService.warning("Please attach POD Attachment 1.")
         return;
       }
     }

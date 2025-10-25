@@ -447,7 +447,7 @@ dashboard: string ="";
       return;
     }
     if((this.tyreactivate.tyreActivateDtlList.length + parseInt(this.actTyres)) > (parseInt(this.totTyres) + 1)){
-      this.toastrService.warning("Total No of Active Tyres should be less than Total No Of Tyres");
+      this.toastrService.warning("Total number of active tyres should be less than the total number of tyres");
       return;
     }
           

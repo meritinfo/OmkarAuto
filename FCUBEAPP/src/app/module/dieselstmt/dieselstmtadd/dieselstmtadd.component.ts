@@ -455,7 +455,7 @@ export class DieselstmtaddComponent {
         });
       }
       else{
-        this.toasterService.warning("please enter vehicle ,dslQty and dslRate");
+        this.toasterService.warning("Please enter vehicle number, diesel quantity, and diesel rate.");
          return;
        }
     }
@@ -464,7 +464,7 @@ export class DieselstmtaddComponent {
       return this.dieselStatementmodel.dieselStmtDtlsList.find((x, ind) => x.vehicleMasterId === data.vehicleMasterId && index !== ind);
     })
     if (foundDuplicateName) {
-      this.toasterService.warning("Duplicate Vehicle No grid not allowed");
+      this.toasterService.warning("Duplicate vehicle number in the grid is not allowed");
       return;
     }
     this.dieselstatementService.dieselImportSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {

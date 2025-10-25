@@ -446,7 +446,7 @@ export class BillsmasteraddComponent implements OnInit {
     var dueDate = new Date(e.target.value);
     var selectedData = this.formBillsMaster.getRawValue();
     if(selectedData.billDate==""){
-      this.toasterService.warning("Please Enter Bill Date");
+      this.toasterService.warning("Please Enter the Bill Date");
       this.formBillsMaster.patchValue({
         dueDate: ""
       });
@@ -454,7 +454,7 @@ export class BillsmasteraddComponent implements OnInit {
     }
     var billDate = new Date(selectedData.billDate);
     if(billDate>dueDate){
-      this.toasterService.warning("Due Date should not be lessthan Bill Date");
+      this.toasterService.warning("Due date should not be earlier than the bill date");
       this.formBillsMaster.patchValue({
         dueDate: ""
       });
@@ -717,7 +717,7 @@ export class BillsmasteraddComponent implements OnInit {
       this.formBillsMaster.patchValue({
         billDate: ''
       });
-      this.toasterService.warning("Invalid bill date");
+      this.toasterService.warning("Please select a valid  bill date");
       return
     }
 
@@ -725,7 +725,7 @@ export class BillsmasteraddComponent implements OnInit {
       //ignore
     }
     else{
-      this.toasterService.warning(" Party is Invalid");
+      this.toasterService.warning("Please select a valid party");
       return;
     } 
     
@@ -738,17 +738,17 @@ export class BillsmasteraddComponent implements OnInit {
     }
     if(selectedDataValue.gstType=="SC"){
       if(selectedDataValue.totalCgstAmt.toString =="" || parseFloat(selectedDataValue.totalCgstAmt) ==0 ){
-        this.toasterService.warning("CGST Amt is Invalid");
+        this.toasterService.warning("Please select a valid  CGST Amt");
         return;
       }
       if(selectedDataValue.totalSgstAmt.toString =="" || parseFloat(selectedDataValue.totalSgstAmt) ==0 ){
-        this.toasterService.warning("SGST Amt is Invalid");
+        this.toasterService.warning("Please select a valid  SGST Amt ");
         return;
       }
     }
     if(selectedDataValue.gstType=="IG"){
       if(selectedDataValue.totalIgstAmt.toString =="" || parseFloat(selectedDataValue.totalIgstAmt) ==0 ){
-        this.toasterService.warning("IGST Amt is Invalid");
+        this.toasterService.warning("Please select a valid  IGST Amt ");
         return;
       }
     }

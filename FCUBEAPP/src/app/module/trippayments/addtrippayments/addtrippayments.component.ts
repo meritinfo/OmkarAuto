@@ -449,7 +449,7 @@ export class AddtrippaymentsComponent {
         //ignore
       }
       else{
-        this.toasterService.warning("Please Enter Advcance Amount ");           
+        this.toasterService.warning("Please Enter the Advance Amount ");           
         return;
       }
     }
@@ -458,7 +458,7 @@ export class AddtrippaymentsComponent {
         //ignore
       }
       else{
-        this.toasterService.warning("Please Enter Qty Liters ");          
+        this.toasterService.warning("Please enter the quantity in Ltr. ");          
         return;
       }
     }   
@@ -468,7 +468,7 @@ export class AddtrippaymentsComponent {
         //ignore
     }
     else{
-      this.toasterService.warning("Please Enter Valid Vehicle No ");          
+      this.toasterService.warning("Please enter a valid vehicle number.");          
       return;
     }
     var chqDt = this.loginDate;

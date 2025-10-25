@@ -226,11 +226,11 @@ export class AddtransportmasterComponent {
     var test = regexp.test(pan);
 
     if(pan.length!=10){
-      this.toastrService.warning("PAN No should be 10 characters...!");
+      this.toastrService.warning("Please enter a valid PAN number (10 characters required)");
       return;
     }
     else if(!test){
-      this.toastrService.warning("Invalid PAN No...!");
+      this.toastrService.warning("PAN number format is invalid. It should be 10 characters (e.g., ABCDE1234F)");
       return;         
     }
     else

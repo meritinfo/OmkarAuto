@@ -932,7 +932,7 @@ export class VehiclerepmaintaddComponent {
     } 
     
     if(this.vehiclerepmaintMaster.vehicleRepMaintDtlList.length==0){
-      this.toastrService.warning("Please enter atleast one Record in Details");
+      this.toastrService.warning("At least one detail record is required.");
       return;
     }
 

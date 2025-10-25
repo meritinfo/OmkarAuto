@@ -341,7 +341,7 @@ export class FleetloadentryaddComponent {
     var advAmt = selectedVal.advAmt?parseFloat(selectedVal.advAmt):0;
 
     if(hireAmt<advAmt){      
-      this.toasterService.warning("Advance Amount sholud not be more than Hire Amount");    
+      this.toasterService.warning("Advance amount should not be more than the hire amount");    
       this.formFleetLoad.patchValue({
         advAmt : "0",
       });

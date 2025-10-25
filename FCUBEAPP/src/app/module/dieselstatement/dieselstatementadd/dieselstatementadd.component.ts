@@ -225,14 +225,14 @@ export class DieselstatementaddComponent implements OnInit {
     var rate= e.target.value;
     if (rate=='')
     {
-      this.toasterService.warning(" Rate can not be empty");  
+      this.toasterService.warning(" Rate cannot be empty");  
       return; 
     }
     if (parseFloat(rate)>0){
       //ignore
     }
     else{
-      this.toasterService.warning(" Rate can not be zero");  
+      this.toasterService.warning(" Rate cannot be zero");  
       return; 
     }
 
@@ -267,11 +267,11 @@ export class DieselstatementaddComponent implements OnInit {
   searchStatement(): void { 
     var selectedDataVal=this.formDieselStatement.getRawValue();
     if (this.formDieselStatement.controls["fromDate"].invalid) {
-      this.toasterService.warning(" Please Select From Date");  
+      this.toasterService.warning("Please Select a From Date");  
       return; 
     }
     else if (this.formDieselStatement.controls["toDate"].invalid) {
-      this.toasterService.warning(" Please Select To Date");  
+      this.toasterService.warning("Please Select a To Date");  
       return; 
     }
     // else if (this.formDieselStatement.controls["location"].invalid) {
@@ -279,7 +279,7 @@ export class DieselstatementaddComponent implements OnInit {
     //   return; 
     // }
     else if (this.formDieselStatement.controls["vendorId"].invalid) {
-      this.toasterService.warning(" Please Select Vendor");  
+      this.toasterService.warning(" Please Select a Vendor");  
       return; 
     }   
     else{

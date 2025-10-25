@@ -474,7 +474,7 @@ dashboard: string ="";
     var selectedDataValue = this.formTripsheet.getRawValue();
     if(selectedDataValue.deptDate =='' || selectedDataValue.endDate =='')
     {
-      this.toastrService.warning("Please Select Dept  Date & End Date ");          
+      this.toastrService.warning("Please select the department date and end date.");          
       return;
 
     }
@@ -957,7 +957,7 @@ dashboard: string ="";
         //ignore
     }
     else{
-      this.toastrService.warning("Please Enter Valid  Driver Name");          
+      this.toastrService.warning("Please Enter a Valid  Driver Name");          
       return;
     }
     var validvehi = this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID.dataId) 
@@ -965,7 +965,7 @@ dashboard: string ="";
         //ignore
     }
     else{
-      this.toastrService.warning("Please Enter Valid  Vehicle No");          
+      this.toastrService.warning("Please Enter a Valid  Vehicle No");          
       return;
     }
 

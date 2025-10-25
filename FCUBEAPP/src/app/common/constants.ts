@@ -1,7 +1,7 @@
 export class Constants {
- // public static API_ENDPOINT = "http://localhost:65496/api/";
+  public static API_ENDPOINT = "http://localhost:65496/api/";
   // public static API_ENDPOINT = "/nccapi/api/";
-   public static API_ENDPOINT = "/gsrapi/api/";
+   //public static API_ENDPOINT = "/gsrapi/api/";
 
  //public static API_ENDPOINT = "http://103.180.163.199/fcubeapi/api/";
  //public static API_ENDPOINT = "http://103.180.163.199/nccapi/api/";
