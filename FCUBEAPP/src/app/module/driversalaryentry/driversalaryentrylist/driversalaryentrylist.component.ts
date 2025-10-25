@@ -5,7 +5,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { Driversalaryentrymodel } from 'src/app//models/driversalaryentrymodel';
 import { DriverSalaryEntryService } from 'src/app/services/driversalaryentry.service';
 import { Driversalaryentrylistmodel } from 'src/app/models/driversalaryentrylist';
-import { Driversalarylistmodel } from 'src/app/models/driversalarypaymentlist';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';

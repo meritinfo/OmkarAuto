@@ -247,8 +247,6 @@ namespace FCUBEAPI
             services.AddScoped<IChallanReleaseRepository, ChallanReleaseRepository>();
             services.AddScoped<IFastagDslRechargeEntryRepository, FastagDslRechargeEntryRepository>();
             services.AddScoped<IFastagDslRechargeEntryBusiness, FastagDslRechargeEntryBusiness>();
-            services.AddScoped<IDriverSalaryPaymentBusiness, DriverSalaryPaymentBusiness>();
-            services.AddScoped<IDriverSalaryPaymentRepository, DriverSalaryPaymentRepository>();
             services.AddScoped<ITripSheetRepository, TripSheetRepository>();
             services.AddScoped<ITripSheetBusiness, TripSheetBusiness>();
             services.AddScoped<IFleetRptRepository, FleetRptRepository>();

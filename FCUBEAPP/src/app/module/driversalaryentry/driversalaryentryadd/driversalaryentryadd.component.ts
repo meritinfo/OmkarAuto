@@ -4,11 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Driversalarypaymentmodel } from 'src/app//models/driversalarypaymentmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Driversalaryentrymodel } from 'src/app//models/driversalaryentrymodel';
 import { DriverSalaryEntryService } from 'src/app/services/driversalaryentry.service';
-import { Driversalaryentrylistmodel } from 'src/app/models/driversalaryentrylist';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
