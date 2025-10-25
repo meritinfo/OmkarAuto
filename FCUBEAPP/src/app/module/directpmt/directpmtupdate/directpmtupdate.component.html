@@ -94,7 +94,7 @@
                                                     <tr  
                                                         *ngFor="let arrayData of alldirectpmtlist.pmtList; let i = index">
                                                         <td>
-                                                            <input type="checkbox"   class="form-check-input-small" 
+                                                            <input type="checkbox" class="form-check-input-small" 
                                                             (change)="selectedData(i, $event)" [checked]="arrayData.selected" >                                            
                                                         </td>
                                                         <td>{{arrayData.pmtNo}}</td>

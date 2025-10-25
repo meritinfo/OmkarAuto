@@ -119,7 +119,7 @@ export class DirectpmtupdateComponent {
       toDate: new FormControl(this.loginDate,),
       directBankId: new FormControl('', [Validators.required]),
       pmtNo: new FormControl('', [Validators.required]),
-      selectedAll: new FormControl('Y'),
+      selectedAll: new FormControl(''),
     });
     this.getDirectBankList();
     this.getPmtList();

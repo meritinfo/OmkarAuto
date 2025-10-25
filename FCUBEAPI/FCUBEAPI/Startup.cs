@@ -115,8 +115,6 @@ namespace FCUBEAPI
             services.AddScoped<IFleetCardMasterBusiness, FleetCardMasterBusiness>();
             services.AddScoped<IFleetCardMasterRepository, FleetCardMasterRepository>();
             services.AddScoped<IProductGroupMasterBusiness, ProductGroupMasterBusiness>();
-            services.AddScoped<IVehicleTypeGroupMasterRepository, VehicleTypeGroupMasterRepository>();
-            services.AddScoped<IVehicleTypeGroupMasterBusiness, VehicleTypeGroupMasterBusiness>();
             services.AddScoped<IVehicleTypeMasterRepository, VehicleTypeMasterRepository>();
             services.AddScoped<IVehicleTypeMasterBusiness, VehicleTypeMasterBusiness>();
             services.AddScoped<IVehicleFltMasterRepository, VehicleFltMasterRepository>();
