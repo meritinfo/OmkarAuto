@@ -633,7 +633,7 @@ namespace Consignment.Repository
                     else
                     {
                         var panNo = request.strRequest;
-                        string URL = "https://www.fcube.net/panapi/api.php";
+                        string URL = "http://www.fcube.net/panapi/api.php";
 
                         string urlParameters = "?pan=" + panNo;
 

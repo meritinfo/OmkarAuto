@@ -303,7 +303,7 @@ namespace Consignment.Repository
             try
             {
 
-                string URL = "https://www.fcube.net/truckno/signzy/api.php";
+                string URL = "http://www.fcube.net/truckno/signzy/api.php";
 
                 string urlParameters = "?vehicleNumber=" + request.strRequest + "";
 
