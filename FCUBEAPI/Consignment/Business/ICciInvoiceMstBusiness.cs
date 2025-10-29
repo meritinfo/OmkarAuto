@@ -19,6 +19,7 @@ namespace Consignment.Business
         Task<List<DropDownListModel>> GetCnDetail(RequestModel request);
         Task<ResponseModel> GetChCostDetail(RequestModel request);
         Task<ConsignmentModel> GetLRDetails(RequestModel request);
+        Task<ResponseModel> GetCciInvoiceExcel(ReportRequestModel request);
 
     }
 }

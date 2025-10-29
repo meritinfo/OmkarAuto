@@ -65,4 +65,8 @@ export class CciInvoiceMstService {
   getLrDetails(user: Requestmodel):Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetLRDetails', user, this.httpOptions);
   }
+  
+  getCciinvoiceExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCciInvoiceExcel', filter, this.httpOptions);
+  }  
 }

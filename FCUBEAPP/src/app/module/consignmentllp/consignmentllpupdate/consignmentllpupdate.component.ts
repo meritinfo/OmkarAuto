@@ -668,6 +668,22 @@ export class ConsignmentllpupdateComponent {
     var totsgst = 0;
     var totcgst = 0;
     var totigst = 0;
+    
+    this.formUser.patchValue({
+      freightRs: 0,
+      statisticalRs: 0,
+      fovRs: 0,
+      doorCollRs : 0,
+      handlingRs: 0,
+      loadingDetnRs: 0,
+      enrouteRs: 0,
+      miscRs: 0,
+      doorDelRs : 0,
+      unLoadingRs : 0,
+      unLoadingDetnRs: 0,
+      extrasRS : 0,
+      othersRs : 0,
+    }); 
 
     for (var i = 0; i < selectedData.arrayGstList.length; i++) {  
       if(selectedData.arrayGstList[i].amount==""){
@@ -699,6 +715,10 @@ export class ConsignmentllpupdateComponent {
         this.formGstArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
         this.formGstArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
         this.formGstArray.controls[i].get("totalAmt")?.setValue(totalAmt.toFixed(2));
+
+        var linkAmt = this.formUser.controls[linkColumn]?.value;
+
+        amount = (linkAmt!=""? parseFloat(linkAmt):0)+ amount;
 
         this.formUser.controls[linkColumn].setValue(amount.toFixed(2));
       }

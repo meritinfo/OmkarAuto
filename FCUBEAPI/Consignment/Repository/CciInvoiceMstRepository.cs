@@ -1,6 +1,7 @@
 ﻿using Consignment.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
+using Shared.Repository;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace Consignment.Repository
     public class CciInvoiceMstRepository: ICciInvoiceMstRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly ISharedRepository sharedRepository;
 
-        public CciInvoiceMstRepository(IOptions<DBModel> _dbconnection)
+        public CciInvoiceMstRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
+
         public async Task<CciInvoiceMstList> GetCciInvoiceMstMasterList(ReportRequestModel request)
         {
             CciInvoiceMstList cciInvoiceMstList = new();
@@ -420,6 +424,50 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
+
+        public async Task<ResponseModel> GetCciInvoiceExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@LoginBranch",request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr1),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCciInvoiceExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
+                        filter = filter + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "CCI Invoice Details", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
 
     }
 }

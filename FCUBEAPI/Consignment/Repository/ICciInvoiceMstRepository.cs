@@ -19,6 +19,7 @@ namespace Consignment.Repository
         Task<List<DropDownListModel>> GetCnDetail(RequestModel request);
         Task<ResponseModel> GetChCostDetail(RequestModel request);
         Task<ConsignmentModel> GetLRDetails(RequestModel req);
+        Task<ResponseModel> GetCciInvoiceExcel(ReportRequestModel request);
 
     }
 }

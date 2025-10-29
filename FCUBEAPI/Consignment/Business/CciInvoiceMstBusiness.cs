@@ -50,5 +50,9 @@ namespace Consignment.Business
         {
             return await cciInvoiceMstRepository.GetLRDetails(request);
         }
+        public async Task<ResponseModel> GetCciInvoiceExcel(ReportRequestModel request)
+        {
+            return await cciInvoiceMstRepository.GetCciInvoiceExcel(request);
+        }
     }
 }

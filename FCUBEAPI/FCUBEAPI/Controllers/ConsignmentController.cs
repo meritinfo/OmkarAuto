@@ -3213,6 +3213,26 @@ namespace FCUBEAPI.Controllers
             }
         }
         
+        [HttpPost("GetCciInvoiceExcel")]
+        public async Task<IActionResult> GetCciInvoiceExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cciInvoiceMstBusiness.GetCciInvoiceExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("GetChallanSuppliList")]
         public async Task<IActionResult> GetChallanSuppliList(ReportRequestModel request)
         {
