@@ -640,8 +640,7 @@ export class ConsignmentllpaddComponent {
     var selectedData = this.formUser.getRawValue();
     if (selectedData.gcSlNo==""){
       this.toastrService.warning(" gc sl no should not be Blank");
-      this.formUser.patchValue({
-    
+      this.formUser.patchValue({    
         gcNoteNo: "",
       });
 

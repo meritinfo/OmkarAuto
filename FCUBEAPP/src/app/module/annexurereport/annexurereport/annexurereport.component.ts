@@ -328,8 +328,8 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
         this.ledgerrptService.getAnnexurerptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LedgerReport_" + new Date().getTime() + '.xls';
-          link.href = "assets/reports/Ledger/" + resp.message;
+          link.download = "AnnexureReport_" + new Date().getTime() + '.xls';
+          link.href = "assets/reports/Annexure/" + resp.message;
           link.click();
         }
         else{        
@@ -341,8 +341,8 @@ export class AnnexurereportComponent {  loggedInUserID: string = '';
        this.ledgerrptService.getAnnexurerrptPdf(this.filter).subscribe(resp => {
        if(resp.status){    
          let link = document.createElement("a");
-         link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
-         link.href = "assets/reports/Ledger/" + resp.message;
+         link.download = "AnnexureReport" + "_" + new Date().getTime() + '.pdf';
+         link.href = "assets/reports/Annexure/" + resp.message;
          link.click();
          window.open(link.href, "_blank");
        }

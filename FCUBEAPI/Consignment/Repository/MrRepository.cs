@@ -447,6 +447,7 @@ namespace Consignment.Repository
                                 PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
                                 DueAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DueAmt"]),
                                 OldDueAmt = "0",
+                                RecdAmt = "0",
                             });
                         }
                     }

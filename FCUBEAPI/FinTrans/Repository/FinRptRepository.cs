@@ -705,7 +705,6 @@ namespace FinTrans.Repository
                                     "&AccountID=" + request.FilterStr2 +
                                     "&RptType=" + request.FilterStr3 +
                                     "&OpenOrdate=" + request.SortColumn +
-                                  
                                     "&Supress=" + request.Search +
                                     "&format=" + request.FilterStr4;
 

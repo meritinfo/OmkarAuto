@@ -212,13 +212,17 @@ export class CciinvoicemstlistComponent {
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
-    this.sharedService.loading = true;
     
-    //Excel
-
-    this.sharedService.loading=false;
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
+    this.cciInvoiceMstService.getCciinvoiceExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "CciInvoiceReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toastrService.warning(resp.message);   
+      }
     });
   }
 }
