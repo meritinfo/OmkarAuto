@@ -922,7 +922,7 @@ export class ConsignmentllpupdateComponent {
     var gstarr = selectedDataValue.arrayGstList
 
     for (var i = 0; i < gstarr.length; i++) {
-      if (gstarr[i].freightId != "" && gstarr[i].amount != "") {
+      if ((gstarr[i].freightId?gstarr[i].freightId:"") != "" && (gstarr[i].amount?gstarr[i].amount:"") != "") {
         if(gstarr[i].sgstAmt!=""){
           sgst = parseFloat(gstarr[i].sgstAmt);
         } 
