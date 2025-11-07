@@ -24,7 +24,7 @@ namespace FleetTrans.Business
             return await fastagDslRechargeEntryRepository.FastagDslRechargeEntrySave(fastagDslRechargeEntryModel);
         }
         public async Task<FastagDslRechargeEntryList> FastagDslRechargeEntryList(ReportRequestModel request)
-         {
+        {
             return await fastagDslRechargeEntryRepository.FastagDslRechargeEntryList(request);
         }
         public async Task<ResponseModel> FastagDslRechargeEntryDelete(RequestModel request)

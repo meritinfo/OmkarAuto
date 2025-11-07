@@ -44,7 +44,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TransType"           , fastagDslRechargeEntryModel.TransType),
                             new SqlParameter("@PaymentType"            , fastagDslRechargeEntryModel.PaymentType),
                             new SqlParameter("@CreditAc"             , fastagDslRechargeEntryModel.CreditAc),
-                             new SqlParameter("@DriverId"             , fastagDslRechargeEntryModel.DriverId),
+                            //new SqlParameter("@DriverId"             , fastagDslRechargeEntryModel.DriverId),
                             new SqlParameter("@LoggedInUser"        , fastagDslRechargeEntryModel.LoggedInUser),
 
                         };
@@ -184,8 +184,8 @@ namespace FleetTrans.Repository
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 PaymentType = Convert.ToString(dataSet.Tables[0].Rows[i]["PaymentType"]),
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
-                                branch = Convert.ToString(dataSet.Tables[0].Rows[i]["branch"]),
-                                DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["branch"]),
+                                //DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
