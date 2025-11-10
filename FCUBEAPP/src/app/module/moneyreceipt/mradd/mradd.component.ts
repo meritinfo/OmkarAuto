@@ -661,7 +661,10 @@ export class MraddComponent {
     this.formUser.controls['mrType'].disable();    
 
     var selectedDataVal = this.formUser.getRawValue();
-    var recdAmt = parseFloat(selectedDataVal.arrayList[i].recdAmt);
+    
+    var totDed = selectedDataVal.arrayList[i].totDed!= ""? parseFloat(selectedDataVal.arrayList[i].totDed) :0;
+    var recdAmt = selectedDataVal.arrayList[i].recdAmt!= ""? parseFloat(selectedDataVal.arrayList[i].recdAmt) :0;
+    var tdsDed = selectedDataVal.arrayList[i].tdsDed!= ""? parseFloat(selectedDataVal.arrayList[i].tdsDed) :0;
     var billLrMasterId = selectedDataVal.arrayList[i].billLrMasterId;
     if (billLrMasterId!="") {
         //ignore
@@ -670,7 +673,7 @@ export class MraddComponent {
       this.toasterService.warning("Please Enter Valid Bill/LR ");          
       return;
     }
-    if (recdAmt > 0) 
+    if (recdAmt+totDed+tdsDed > 0) 
     {
       this.formArray.push(this.createInitialArray()); 
     }

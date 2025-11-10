@@ -137,8 +137,8 @@ dashboard: string ="";
     
     this.fromDate = this.minDate ;
     
-  this.getBranchList();
-  this.getYearList();
+    this.getBranchList();
+    this.getYearList();
     
     this.selectedLrDetails = this.lrentryService.getConsignmentDetails();
 
