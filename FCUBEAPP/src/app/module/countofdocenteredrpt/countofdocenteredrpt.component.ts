@@ -142,6 +142,9 @@ export class CountofdocenteredrptComponent {
     if (selectedDataVal.docType=="LR"){
       this.filter.filterStr2  = "Consignment";
     }
+    else if (selectedDataVal.docType=="CI"){
+      this.filter.filterStr2  = "CC Invoice";
+    }
     else if (selectedDataVal.docType=="CH"){
       this.filter.filterStr2  = "Challan";
     }
@@ -154,7 +157,7 @@ export class CountofdocenteredrptComponent {
     if (selectedDataVal.entryType=="E"){
       this.filter.filterStr3  = "Entered";
     }
-    if (selectedDataVal.entryType=="M"){
+    else if (selectedDataVal.entryType=="M"){
       this.filter.filterStr3  = "Modified";
     }
 
