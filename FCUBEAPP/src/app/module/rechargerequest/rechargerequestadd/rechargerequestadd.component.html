@@ -1,0 +1,143 @@
+<div class="main-content">
+   <div class="page-content">
+      <div class="container-fluid">
+          <!-- start page title -->
+         <div class="row">
+            <div class="col-12">
+               <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Recharge Request</h4>
+               </div>
+            </div>
+         </div>
+          <!-- end page title -->
+         <form (keydown.enter)="$event.preventDefault()"[formGroup]="formRequestRecharge">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="card">
+                     <div class="card-body">                               
+                        <div class="row">
+                           <div class="col-lg-3">
+                              <div class="mb-3">
+                                 <label for="basicpill-phoneno-input">Branch</label><span style="color: red">*</span>
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="reqBranch" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['reqBranch'].invalid) }" >
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                    </select>
+                              </div>
+                           </div>
+                            <div class="col-lg-3">
+                              <div class="mb-3">
+                                 <label for="basicpill-phoneno-input">Date </label><span style="color: red">*</span>
+                                  <input type="date" class="form-control" formControlName="reqDate"
+                                    min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['reqDate'].invalid) }" >
+                              </div>
+                           </div>
+                            <div class="col-lg-3">
+                              <div class="mb-3">
+                                 <label for="basicpill-phoneno-input">Req Card </label><span style="color: red">*</span>
+
+                                   <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="fleetCardList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="reqCard"
+                                            (inputChanged)='onChangeSearch1($event)'
+                                            (inputFocused)='onFocused1($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="endWithFilter1">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                             </div>
+                              </div>
+                           </div>
+                                <div class="col-lg-3">
+                              <div class="mb-3">
+                                 <label for="basicpill-phoneno-input">Amount</label><span style="color: red">*</span>
+                                 <input type="text" class="form-control" decimalonly 
+                                   formControlName="reqAmt" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['reqAmt'].invalid) }" >
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                                 <div class="col-lg-3">
+                                        <div class="mb-3">
+                                             <label for="formrow-inputCity">Vehicle No</label><span style="color: red">*</span>    
+                                             <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="vehicleMasterId"
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="endWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                             </div>
+                                       </div>
+                                 </div>
+                      
+                           <div class="col-lg-9">
+                              <div class="mb-3">
+                                 <label for="basicpill-phoneno-input">Remarks</label>
+                                 <input type="text" class="form-control" uppercaseonly 
+                                   formControlName="remarks" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['remarks'].invalid) }" >
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="mb-3">
+                                 <label for="attachPath" class="col-form-label">Attachment</label>
+                                    <input #AttachInput class="form-control" type="file"
+                                    id="attachPath" >
+                                 <a *ngIf="selectedRechargerequestmodel.attachPath"   target="_blank"
+                              href={{attachPath}}>Download</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                      <!-- end card body -->
+                  </div>
+                   <!-- end card -->
+               </div>
+            </div>
+            <div class="row text-right">
+               <div class="col-lg-12">
+                  <div class="tex">
+                     <button class="btn btn-primary w-md" 
+                        *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                        (click)="rechargeRequestSave()">Save</button>
+                     <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                        (click)="RechargeRequestDelete()" >Delete</button> 
+                      <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                  </div>
+               </div>
+            </div>
+         </form>
+          <!-- end row -->
+          <!-- end row -->
+      </div>
+       <!-- container-fluid -->
+   </div>
+    <!-- End Page-content -->
+</div>

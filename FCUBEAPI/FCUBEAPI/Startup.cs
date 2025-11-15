@@ -320,6 +320,9 @@ namespace FCUBEAPI
             services.AddScoped<IVehicleFltTypeGroupMstBusiness, VehicleFltTypeGroupMstBusiness>();
             services.AddScoped<IVehicleFltTypeGroupMstRepository, VehicleFltTypeGroupMstRepository>();
 
+            services.AddScoped<IRechargeRequestBusiness, RechargeRequestBusiness>();
+            services.AddScoped<IRechargeRequestRepository, RechargeRequestRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

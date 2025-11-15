@@ -496,6 +496,7 @@ export class BillsmasteraddComponent implements OnInit {
 
   
   selectAll(e: any) {
+    debugger
     if(e.target.checked){
       for (var i = 0; i < this.billsmastersearchlistmodel.billsMasterSearchList.length; i++) {
         this.billsmastersearchlistmodel.billsMasterSearchList[i].selected = true;

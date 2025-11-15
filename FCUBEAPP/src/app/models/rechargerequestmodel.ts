@@ -1,0 +1,24 @@
+export class Rechargerequestmodel {
+       reqId           :string = "";
+       reqBranch       :string = "";
+       reqDate         :string = "";
+       reqCard         :string = "";
+       reqAmt          :string = "";
+       vehicleMasterId :string = "";
+       remarks         :string = "";
+       attachPath      :string = "";
+       verifiedYN      :string = "";
+       verifiedBy      :string = "";
+       verifiedDt      :string = "";
+       approvedYN      :string = "";
+       approvedBy      :string = "";
+       approvedDt      :string = "";
+       approvedAmt     :string = "";
+       appRejRemarks   :string = "";
+       loggedInUser    :string = "";
+       vehicleNo       :string = "";
+       cardNo          :string = "";
+       fromDate        :string = "";
+       toDate          :string = "";
+       selected: boolean = false;        
+}

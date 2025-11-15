@@ -548,6 +548,11 @@ import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/cou
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
 import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
 import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
+import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
+import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
+import { Rechargerequestmodel } from "./models/rechargerequestmodel";
+import { Rechargerequestlist } from "./models/rechargerequestlist";
+import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd/rechargerequestapproveadd.component';
 
 
 
@@ -728,7 +733,8 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
     TripmasterllplistComponent, TripmasterllpaddComponent, 
     TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, 
     CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
-    TripsheetgsafelistComponent, TripsheetgsafeaddComponent,
+    TripsheetgsafelistComponent, TripsheetgsafeaddComponent, RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
+
     
   ],
   
@@ -806,6 +812,7 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
+    Rechargerequestmodel,Rechargerequestlist,
   ],
   bootstrap: [AppComponent]
 })

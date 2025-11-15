@@ -1,0 +1,20 @@
+﻿using FleetMasters.Models;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FleetMasters.Repository
+{
+    public interface IRechargeRequestRepository
+    {
+        Task<List<DropDownListModel>> GetFleetCardList();
+        Task<ResponseModel> RechargeRequestSave(RechargeRequestModel obj);
+        Task<RechargeRequestList> GetRechargeRequestList(ReportRequestModel request);
+        Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList obj);
+        Task<RechargeRequestList> GetRechargeRequestApproveList(ReportRequestModel request);
+        Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel);
+    }
+}

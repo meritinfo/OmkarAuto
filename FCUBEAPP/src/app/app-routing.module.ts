@@ -356,6 +356,11 @@ import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/cou
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
 import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
 import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
+import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
+import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
+import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd/rechargerequestapproveadd.component';
+
+
 
 
 
@@ -843,6 +848,11 @@ const routes: Routes = [
   { path: 'tripsheetgsafe',component: TripsheetgsafelistComponent },
   { path: 'tripsheetgsafeadd', component: TripsheetgsafeaddComponent },
   { path: 'tripsheetgsafeedit', component: TripsheetgsafeaddComponent },
+  { path: 'FleetCardRechargeReq', component: RechargerequestlistComponent },
+  { path: 'FleetCardRechargeReqadd', component: RechargerequestaddComponent },
+  { path: 'FleetCardRechargeReqedit', component: RechargerequestaddComponent },
+  { path: 'FleetCardRechargeApp', component: RechargerequestapproveaddComponent },
+
   
 ];
 
