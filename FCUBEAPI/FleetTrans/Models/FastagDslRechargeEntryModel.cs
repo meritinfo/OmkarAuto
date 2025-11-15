@@ -18,7 +18,7 @@ namespace FleetTrans.Models
         public string? TransType { get; set; }
         public string? PaymentType { get; set; }
         public string? CreditAc { get; set; }
-        public string? branch { get; set; }
+        public string? Branch { get; set; }
         public string? DriverId { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }

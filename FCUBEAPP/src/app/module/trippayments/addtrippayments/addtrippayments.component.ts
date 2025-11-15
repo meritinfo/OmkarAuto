@@ -23,6 +23,7 @@ export class AddtrippaymentsComponent {
   loginDate: string = '';
   branch: string = '';
   year: string = '';
+  company: string = '';
   ptype: string = '';
   trip: string = '';
   formTripPayment!: FormGroup;
@@ -109,6 +110,10 @@ export class AddtrippaymentsComponent {
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    const shortCode = sessionStorage.getItem('shortCode');
+    if (shortCode) {
+      this.company = shortCode;
     }
     
     this.getBranchList();   

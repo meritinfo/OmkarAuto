@@ -77,13 +77,16 @@ export class AddcashreceiptentryComponent {
     }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
     }
     var userData2 = sessionStorage.getItem('yearID')?.toString();
     if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {

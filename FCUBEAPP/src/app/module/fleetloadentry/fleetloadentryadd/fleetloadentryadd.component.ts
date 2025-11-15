@@ -455,7 +455,7 @@ export class FleetloadentryaddComponent {
     var hireAmt = selectedDataVal.hireAmt?parseFloat(selectedDataVal.hireAmt):0
     var advAmt = selectedDataVal.advAmt?parseFloat(selectedDataVal.advAmt):0
 
-    if(hireAmt==0){      
+    if(hireAmt==0 && selectedDataVal.loadType !="E"){      
       this.toasterService.warning("Hire Amount sholud not be Zero"); 
       return;
     }

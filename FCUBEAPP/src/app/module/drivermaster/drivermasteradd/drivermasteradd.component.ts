@@ -107,11 +107,9 @@ export class DrivermasteraddComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-    
-  
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -270,9 +268,18 @@ export class DrivermasteraddComponent {
       sentOnDate.setDate(sentOnDate.getDate());
       let differenceInTime = todayDate.getTime() - sentOnDate.getTime();
       var calage = Math.floor((differenceInTime / (1000 * 3600 * 24)) / 365);
-      this.formDriverMaster.patchValue({
-        age: calage
-      })
+      if(calage<15 || calage>80){
+        this.toasterService.warning("Date of Birth is invalid");
+        this.formDriverMaster.patchValue({
+          age: ""
+        });
+        return;
+      }
+      else{
+        this.formDriverMaster.patchValue({
+          age: calage
+        });
+      }
     }
   }
 
