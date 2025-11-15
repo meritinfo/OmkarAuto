@@ -17,6 +17,7 @@ export class Constants {
     // ng build --configuration production --base-href /lalita/    
     // ng build --configuration production --base-href /rafleet/ 
     // ng build --configuration production --base-href /fcube/  
+    // ng build --configuration production --base-href /jrw/  
    
 }
 
