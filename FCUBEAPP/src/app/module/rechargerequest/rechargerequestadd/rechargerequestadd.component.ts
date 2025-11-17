@@ -133,7 +133,9 @@ export class RechargerequestaddComponent {
         this.formRequestRecharge.patchValue(this.selectedRechargerequestmodel);
         this.attachPath = Constants.UploadFolderPath + 'RechargeRequest/' + this.selectedRechargerequestmodel.attachPath;
         this.formRequestRecharge.patchValue({        
-          reqDate: this.commonService.formatDate(this.selectedRechargerequestmodel.reqDate),
+          reqDate: this.commonService.formatDate(this.selectedRechargerequestmodel.reqDate.toString()),
+                    reqCard: this.fleetCardList.find(e => e.dataId == this.selectedRechargerequestmodel.reqCard),
+
           vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedRechargerequestmodel.vehicleMasterId),
         })  
         this.editMode =true;
@@ -179,6 +181,7 @@ export class RechargerequestaddComponent {
   };
 
   rechargeRequestSave(): void {
+    debugger
     
     if (this.formRequestRecharge.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
@@ -193,7 +196,7 @@ export class RechargerequestaddComponent {
     var selectedDataVal = this.formRequestRecharge.getRawValue();
     this.rechargerequestmodel.reqId = this.selectedRechargerequestmodel.reqId;
     this.rechargerequestmodel.reqBranch = selectedDataVal.reqBranch.toUpperCase().toString();
-    this.rechargerequestmodel.reqDate = selectedDataVal.reqDate.toUpperCase().toString();
+    this.rechargerequestmodel.reqDate = selectedDataVal.reqDate.toString();
     this.rechargerequestmodel.reqAmt = selectedDataVal.reqAmt.toString();
     this.rechargerequestmodel.reqCard = selectedDataVal.reqCard.dataId.toString();
     this.rechargerequestmodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId.toString();
