@@ -36,7 +36,7 @@ namespace Consignment.Business
         {
             return await challanRepository.GetChallanPrintPdfLLP(request);
         }
-        public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
+        public async Task<CciInvoiceDtlModel> GetCCIInviceDetailLLP(RequestModel requestModel)
         {
             return await challanRepository.GetCCIInviceDetailLLP(requestModel);
         }

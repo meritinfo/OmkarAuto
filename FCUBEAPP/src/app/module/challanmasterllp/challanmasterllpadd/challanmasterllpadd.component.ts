@@ -8,7 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { ChallanmastermodelllP } from 'src/app/models/challanmastermodelllp';
 import { ChallanmasterServiceLLP } from 'src/app/services/challanmasterllp.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
-import { Ccinvdetailmodel } from 'src/app/models/cciinvdetailmodel';
+import { Ccinvdtlmodel } from 'src/app/models/cciInvmstmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -46,7 +46,7 @@ export class ChallanmasterllpaddComponent {
   empList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   selectedChallanDetails = new ChallanmastermodelllP();
-  invoiceDetails = new Ccinvdetailmodel
+  invoiceDetails = new Ccinvdtlmodel
   keywordLocation = 'dataName';
   createdBy : string = "";
   modifiedBy: string = "";
