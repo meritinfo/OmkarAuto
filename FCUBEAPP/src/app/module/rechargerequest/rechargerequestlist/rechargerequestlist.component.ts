@@ -87,7 +87,7 @@ export class RechargerequestlistComponent {
     
     
     
-      this.rechargerequestService.clearREechargeRequestDetails();
+      this.rechargerequestService.clearRechargeRequestDetails();
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.fromDate),
         toDate: new FormControl(this.loginDate),
