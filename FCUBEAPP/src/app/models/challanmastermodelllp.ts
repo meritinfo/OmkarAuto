@@ -1,4 +1,3 @@
-import { ChallandetailmodelllP } from "./challandetailmodelllp";
 import { Consignmentmodel } from './consignmentmodel';
 import { Consignmentlhpmmodel } from './consignmentlhpmmodel';
 
@@ -45,7 +44,7 @@ export class ChallanmastermodelllP {
     loadedBy : string = "";
     unLoadingBy : string = "";
     declarationYN : string = "";
-        declarationRecdBy : string = "";
+    declarationRecdBy : string = "";
     odcLength : string = "";
     odcWidth: string = "";
     odcHeight: string = "";
@@ -94,3 +93,18 @@ export class ChallanmastermodelllP {
     cnList: Consignmentmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];
  }
+ 
+export class ChallandetailmodelllP {
+    challanId: string = "";
+    gcYear : string = "";
+    gcBook: string = "";
+    gcNoteNo : string = "";
+    consignmentId : string = "";
+    fplace : string = "";
+    tplace : string = "";
+    bookingDate : string = "";
+    challanPkgs: string = "";
+    challanWT : string = "";
+    containerNo : string = "";
+    yearId : string = "";        
+}

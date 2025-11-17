@@ -1007,7 +1007,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("CheckDuplicateCardNo")]
-        public async Task<IActionResult> CheckDuplicateCardNo(CardModel request)
+        public async Task<IActionResult> CheckDuplicateCardNo(RequestModel request)
         {
             try
             {
@@ -1022,7 +1022,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("CheckDuplicateCardCode")]
-        public async Task<IActionResult> CheckDuplicateCardCode(CardModel request)
+        public async Task<IActionResult> CheckDuplicateCardCode(RequestModel request)
         {
             try
             {

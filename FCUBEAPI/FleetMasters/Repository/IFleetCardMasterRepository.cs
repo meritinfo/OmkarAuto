@@ -14,7 +14,7 @@ namespace FleetMasters.Repository
         Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetCardledgerAcList();
         Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel);
-        Task<ResponseModel> CheckDuplicateCardNo(CardModel request);
-        Task<ResponseModel> CheckDuplicateCardCode(CardModel request);
+        Task<ResponseModel> CheckDuplicateCardNo(RequestModel request);
+        Task<ResponseModel> CheckDuplicateCardCode(RequestModel request);
     }
 }

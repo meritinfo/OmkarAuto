@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Filtermodel } from 'src/app/models/filtermodel';
-import { BrsEntrylistmodel  } from 'src/app/models/brsentrylistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Brsentrymodel } from 'src/app/models/brsentrymodel';
@@ -12,7 +9,6 @@ import { OpbrsentryService } from 'src/app/services/opbrsentry.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Cardmodel } from 'src/app/models/cardmodel';
 import { SharedService } from 'src/app/services/shared.service';
 
 
@@ -27,7 +23,6 @@ export class AddbrsentryComponent {
   formUser!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
-  cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];
   debitAcList: Dropdownmodel[] = [];
   editMode = false;
