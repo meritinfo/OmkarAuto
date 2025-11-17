@@ -461,7 +461,7 @@ export class DieselstatementaddComponent implements OnInit {
   }
 
   saveStatementDetails(): void {
-    debugger
+    
     if (this.formDieselStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDieselStatement.controls;

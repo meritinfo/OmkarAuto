@@ -552,7 +552,7 @@ import { RechargerequestaddComponent } from './module/rechargerequest/rechargere
 import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
 import { Rechargerequestmodel } from "./models/rechargerequestmodel";
 import { Rechargerequestlist } from "./models/rechargerequestlist";
-import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd/rechargerequestapproveadd.component';
+import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 
 
 

@@ -50,7 +50,7 @@ namespace FleetMasters.Repository
             return FleetCardList;
         }
 
-        public async Task<ResponseModel> RechargeRequestSave(RechargeRequestModel obj)
+        public async Task<ResponseModel> RechargeRequestSave(RechargeRequestModel request)
         {
             ResponseModel responseModel = new();
 
@@ -64,15 +64,15 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ReqId", obj.ReqId),
-                            new SqlParameter("@ReqBranch", obj.ReqBranch),
-                            new SqlParameter("@ReqDate", obj.ReqDate),
-                            new SqlParameter("@ReqCard", obj.ReqCard),
-                            new SqlParameter("@ReqAmt", obj.ReqAmt),
-                            new SqlParameter("@VehicleMasterId", obj.VehicleMasterId),
-                            new SqlParameter("@Remarks", obj.Remarks),
-                            new SqlParameter("@AttachPath", obj.AttachPath),
-                            new SqlParameter("@LoggedInUser", obj.LoggedInUser)
+                            new SqlParameter("@ReqId", request.ReqId),
+                            new SqlParameter("@ReqBranch", request.ReqBranch),
+                            new SqlParameter("@ReqDate", request.ReqDate),
+                            new SqlParameter("@ReqCard", request.ReqCard),
+                            new SqlParameter("@ReqAmt", request.ReqAmt),
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                            new SqlParameter("@Remarks", request.Remarks),
+                            new SqlParameter("@AttachPath", request.AttachPath),
+                            new SqlParameter("@LoggedInUser", request.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RechargeRequestSave", param);
 
@@ -185,7 +185,7 @@ namespace FleetMasters.Repository
                             invoiceList.Add(new RechargeRequestModel
                             {
                                 ReqId = Convert.ToString(dataSet.Tables[0].Rows[i]["ReqId"]),
-                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]        ["VehicleMasterId"]),
+                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
                                 ReqBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["ReqBranch"]),
                                 ReqDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ReqDate"]),
                                 ReqCard = Convert.ToString(dataSet.Tables[0].Rows[i]["ReqCard"]),

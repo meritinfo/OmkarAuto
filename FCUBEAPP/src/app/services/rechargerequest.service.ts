@@ -35,25 +35,9 @@ export class RechargerequestService {
   rechargerequestlist = new Rechargerequestlist();
   selectRechargerequestmodel = new Rechargerequestmodel();
 
-  getFleetCardList(): Observable<Dropdownmodel[]> {
-      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFleetCardList', null, this.httpOptions);
-  }
-
-  rechargeRequestSave(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestSave', user, this.httpformOptions);
-  }
-
-  clearREechargeRequestDetails() {
+  
+  clearRechargeRequestDetails() {
     this.selectRechargerequestmodel = new Rechargerequestmodel();
-  }
-
-  getRechargeRequestList(filter: Filtermodel): Observable<Rechargerequestlist> {
-    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestList', filter, this.httpOptions);
-  }
-
- 
-  getRechargeRequestApproveList(request: Reportmodel): Observable<Rechargerequestlist> {
-    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestApproveList', request, this.httpOptions);
   }
 
   getRechargeRequestDetails(rechargerequestmodel:Rechargerequestmodel) {
@@ -64,9 +48,27 @@ export class RechargerequestService {
     return this.selectRechargerequestmodel;
   }
 
-    rechargeRequestAppSave(user: Rechargerequestlist): Observable<Responsemodel> {
-      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestApproveSave', user, this.httpOptions);
-    }
+  getFleetCardList(): Observable<Dropdownmodel[]> {
+      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFleetCardList', null, this.httpOptions);
+  }
+
+  rechargeRequestSave(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestSave', user, this.httpformOptions);
+  }
+
+
+  getRechargeRequestList(filter: Filtermodel): Observable<Rechargerequestlist> {
+    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestList', filter, this.httpOptions);
+  }
+
+ 
+  getRechargeRequestApproveList(request: Reportmodel): Observable<Rechargerequestlist> {
+    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestApproveList', request, this.httpOptions);
+  }
+
+  rechargeRequestAppSave(user: Rechargerequestlist): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestApproveSave', user, this.httpOptions);
+  }
 
   RechargeRequestDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestDelete', req, this.httpOptions);

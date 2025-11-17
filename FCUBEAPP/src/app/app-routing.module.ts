@@ -358,7 +358,7 @@ import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgs
 import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
 import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
 import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
-import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd/rechargerequestapproveadd.component';
+import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 
 
 
