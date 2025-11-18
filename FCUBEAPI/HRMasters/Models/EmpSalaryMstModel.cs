@@ -18,4 +18,15 @@ namespace HRMasters.Models
         public List<EmpSalaryDtlModel> empSalaryDtlList { get; set; }
 
     }
+    public class EmpSalaryDtlModel
+    {
+        public string? MasterId { get; set; }
+        public string? EmpId { get; set; }
+        public string? FromDate { get; set; }
+        public string? EdType { get; set; }
+        public string? EdCode { get; set; }
+        public string? EdAmt { get; set; }
+        public string? EdName { get; set; }
+        public string? ActAmt { get; set; }
+    }
 }
