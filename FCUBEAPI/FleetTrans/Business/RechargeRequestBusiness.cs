@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2016.Excel;
-using FleetMasters.Models;
-using FleetMasters.Repository;
+using FleetTrans.Models;
+using FleetTrans.Repository;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FleetMasters.Business
+namespace FleetTrans.Business
 {
     public class RechargeRequestBusiness:IRechargeRequestBusiness
     {
