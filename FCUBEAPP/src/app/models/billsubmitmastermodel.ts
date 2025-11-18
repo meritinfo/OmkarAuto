@@ -1,4 +1,3 @@
-import { BillSubmitMstDtlListmodel } from "./billsubmitmstdtllistmodel";
 
 export class Billsubmitmastermodel {
     submitMstId: string = "";
@@ -32,3 +31,12 @@ export class Billsubmitmastermodel {
     billSubmitMasterDtlList: BillSubmitMstDtlListmodel[] = [];
 }
 
+export class BillSubmitMstDtlListmodel {
+    submitMstId: string = "";
+    submitDt: string = "";
+    billsMasterId: string = "";
+    billAmt: string = "";
+    dtlRemarks: string = "";
+    billNo: string = "";
+    billDate: string = "";
+}
