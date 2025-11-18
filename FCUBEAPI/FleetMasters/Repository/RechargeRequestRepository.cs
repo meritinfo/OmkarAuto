@@ -222,44 +222,48 @@ namespace FleetMasters.Repository
             using var connection = new SqlConnection(dbconnection.Value.DBConnection);
             await connection.OpenAsync();
 
-            using var transaction = connection.BeginTransaction();
+            var transaction = connection.BeginTransaction();
 
             try
             {
                 if (dbconnection != null && obj.RechargeRequestLst != null && obj.RechargeRequestLst.Count > 0)
                 {
-                    foreach (var item in obj.RechargeRequestLst.Where(x => x.Selected))
+                    for (int i = 0; i < obj.RechargeRequestLst.Count; i++)
                     {
-                        SqlParameter[] param =
+                        if (obj.RechargeRequestLst[i].Selected)
                         {
-                    new SqlParameter("@ReqId", item.ReqId),
-                    new SqlParameter("@ApprovedYN", item.ApprovedYN),
-                    new SqlParameter("@AppRejRemarks", item.AppRejRemarks),
-                    new SqlParameter("@ApprovedAmt", item.ApprovedAmt),
-                    new SqlParameter("@LoggedInUser", item.ApprovedBy)
-                };
+                            SqlParameter[] paramMisc =
+                            {
+                        new SqlParameter("@ReqId", obj.RechargeRequestLst[i].ReqId),
+                        new SqlParameter("@ApprovedYN",  obj.RechargeRequestLst[i].ApprovedYN),
+                        new SqlParameter("@AppRejRemarks",  obj.RechargeRequestLst[i].AppRejRemarks),
+                        new SqlParameter("@ApprovedAmt",  obj.RechargeRequestLst[i].ApprovedAmt),
+                        new SqlParameter("@LoggedInUser",  obj.RechargeRequestLst[i].ApprovedBy)
+                    };
 
-                        var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RechargeRequestApproveSave", param);
-
-                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                        {
-                            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                            if (!responseModel.Status)
+                            var status = await SqlHelper.SqlHelper.ExecuteDatasetAsync(
+                                                transaction,
+                                                "usp_RechargeRequestApproveSave",
+                                                paramMisc);
+                            if (status == null || status.Tables.Count == 0)
                             {
                                 transaction.Rollback();
+                                responseModel.Status = false;
+                                responseModel.Message = "Invalid data.";
                                 return responseModel;
                             }
                         }
                     }
 
                     transaction.Commit();
+                    responseModel.Status = true;
+                    
                 }
                 else
                 {
+                    transaction.Rollback();
                     responseModel.Status = false;
                     responseModel.Message = "Invalid data.";
-                    transaction.Rollback();
                 }
             }
             catch (Exception ex)
@@ -271,6 +275,7 @@ namespace FleetMasters.Repository
 
             return responseModel;
         }
+
 
         public async Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel)
         {
