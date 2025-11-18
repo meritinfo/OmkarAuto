@@ -1,4 +1,4 @@
-﻿using FleetMasters.Models;
+﻿using FleetTrans.Models;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FleetMasters.Repository
+namespace FleetTrans.Business
 {
-    public interface IRechargeRequestRepository
+    public interface IRechargeRequestBusiness
     {
         Task<List<DropDownListModel>> GetFleetCardList();
         Task<ResponseModel> RechargeRequestSave(RechargeRequestModel obj);

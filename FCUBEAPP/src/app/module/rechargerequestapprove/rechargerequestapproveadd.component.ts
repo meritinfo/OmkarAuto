@@ -203,26 +203,23 @@ export class RechargerequestapproveaddComponent {
     return this.formRequestRecharge.get("arrayList") as FormArray;
   }
 
-  search(): void {
-    var selectedData = this.formRequestRecharge.getRawValue();
-    this.reportmodel.filterStr  =selectedData.reqBranch.toString();
-    this.reportmodel.fromDate   =selectedData.fromDate.toString();
-    this.reportmodel.toDate     =selectedData.toDate.toString();
-
-    if(selectedData.reqCard.dataId)
-    {      
-      this.reportmodel.filterStr1 =selectedData.reqCard.dataId.toString();
-    }
-     if(selectedData.vehicleMasterId.dataId)
-    {
-      this.reportmodel.filterStr2 =selectedData.vehicleMasterId.dataId.toString();
-    }
-
-    this.rechargerequestService.getRechargeRequestApproveList(this.reportmodel).subscribe((res) => {
+search(): void {
+  var selectedData = this.formRequestRecharge.getRawValue();
+  this.reportmodel.filterStr = selectedData.reqBranch?.toString() ?? "";
+  this.reportmodel.fromDate = selectedData.fromDate?.toString() ?? "";
+  this.reportmodel.toDate = selectedData.toDate?.toString() ?? "";
+  if (selectedData.reqCard && selectedData.reqCard.dataId) {
+    this.reportmodel.filterStr1 = selectedData.reqCard.dataId.toString();
+  }
+  if (selectedData.vehicleMasterId && selectedData.vehicleMasterId.dataId) {
+    this.reportmodel.filterStr2 = selectedData.vehicleMasterId.dataId.toString();
+  }
+  this.rechargerequestService.getRechargeRequestApproveList(this.reportmodel)
+    .subscribe((res) => {
       if (res.rechargeRequestLst && res.rechargeRequestLst.length > 0) {
         this.formArray.clear();
         this.rechargerequestlist = res;
-        this.showGrid=true;
+        this.showGrid = true;
         for (var i = 0; i < res.rechargeRequestLst.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("reqId")?.setValue(res.rechargeRequestLst[i].reqId);
@@ -231,18 +228,19 @@ export class RechargerequestapproveaddComponent {
           this.formArray.controls[i].get("cardNo")?.setValue(res.rechargeRequestLst[i].cardNo);
           this.formArray.controls[i].get("reqAmt")?.setValue(res.rechargeRequestLst[i].reqAmt);
           this.formArray.controls[i].get("remarks")?.setValue(res.rechargeRequestLst[i].remarks);
-          this.formArray.controls[i].get("reqDate")?.disable();   
-          this.formArray.controls[i].get("vehicleNo")?.disable();   
-          this.formArray.controls[i].get("cardNo")?.disable();   
-          this.formArray.controls[i].get("reqAmt")?.disable();   
-          this.formArray.controls[i].get("approvedAmt")?.disable();   
-          this.formArray.controls[i].get("approvedYN")?.disable();   
-          this.formArray.controls[i].get("appRejRemarks")?.disable();   
-          this.formArray.controls[i].get("remarks")?.disable();  
+          this.formArray.controls[i].get("reqDate")?.disable();
+          this.formArray.controls[i].get("vehicleNo")?.disable();
+          this.formArray.controls[i].get("cardNo")?.disable();
+          this.formArray.controls[i].get("reqAmt")?.disable();
+          this.formArray.controls[i].get("approvedAmt")?.disable();
+          this.formArray.controls[i].get("approvedYN")?.disable();
+          this.formArray.controls[i].get("appRejRemarks")?.disable();
+          this.formArray.controls[i].get("remarks")?.disable();
         }
       }
     });
-  }
+}
+
 
   selectAll(e: any) {
     if(e.target.checked){
@@ -324,7 +322,6 @@ export class RechargerequestapproveaddComponent {
         this.rechargerequestlist.rechargeRequestLst[i].approvedAmt=arr[i].approvedAmt.toString();
       }
     }
-    
     if (!IsItemSelected){
       this.toasterService.warning("Select Atleast one record");
       return;
@@ -335,14 +332,10 @@ export class RechargerequestapproveaddComponent {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
-        this.formRequestRecharge.get('vehicleMasterId')?.reset('');
-        this.formRequestRecharge.get('reqCard')?.reset('');
-        this.reportmodel.filterStr1 = "";
-        this.reportmodel.filterStr2 = "";
-        this.search();
+        window.location.reload();
       } else {
         this.toasterService.warning(this.responseDetails.message);  
-         this.search();
+        
       }
       this.sharedService.loading = false;
     });

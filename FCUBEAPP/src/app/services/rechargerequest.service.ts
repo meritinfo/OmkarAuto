@@ -49,28 +49,28 @@ export class RechargerequestService {
   }
 
   getFleetCardList(): Observable<Dropdownmodel[]> {
-      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFleetCardList', null, this.httpOptions);
+      return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetFleetCardList', null, this.httpOptions);
   }
 
   rechargeRequestSave(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestSave', user, this.httpformOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/RechargeRequestSave', user, this.httpformOptions);
   }
 
 
   getRechargeRequestList(filter: Filtermodel): Observable<Rechargerequestlist> {
-    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestList', filter, this.httpOptions);
+    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetTrans/GetRechargeRequestList', filter, this.httpOptions);
   }
 
  
   getRechargeRequestApproveList(request: Reportmodel): Observable<Rechargerequestlist> {
-    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetMasters/GetRechargeRequestApproveList', request, this.httpOptions);
+    return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetTrans/GetRechargeRequestApproveList', request, this.httpOptions);
   }
 
   rechargeRequestAppSave(user: Rechargerequestlist): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestApproveSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/RechargeRequestApproveSave', user, this.httpOptions);
   }
 
   RechargeRequestDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/RechargeRequestDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/RechargeRequestDelete', req, this.httpOptions);
   }
 }

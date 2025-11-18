@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using FleetMasters.Business;
+using FleetMasters.Models;
 
 
 namespace FCUBEAPI.Controllers
@@ -46,6 +48,7 @@ namespace FCUBEAPI.Controllers
         readonly IFleetRptBusiness fleetRptBusiness;
         readonly IVendorPmtBusiness vendorPmtBusiness;
         readonly ITripMasterLlpBusiness tripMasterLlpBusiness;
+        readonly IRechargeRequestBusiness rechargeRequestBusiness;
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,
@@ -73,7 +76,8 @@ namespace FCUBEAPI.Controllers
             IFleetRptBusiness _fleetRptBusiness,
             IVendorPmtBusiness _vendorPmtBusiness,
             IDriverSalaryEntryBusiness _driverSalaryEntryBusiness,
-            ITripMasterLlpBusiness _tripMasterLlpBusiness)
+            ITripMasterLlpBusiness _tripMasterLlpBusiness,
+             IRechargeRequestBusiness _rechargeRequestBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -103,7 +107,8 @@ namespace FCUBEAPI.Controllers
             fleetRptBusiness = _fleetRptBusiness;
             vendorPmtBusiness = _vendorPmtBusiness;
             driverSalaryEntryBusiness = _driverSalaryEntryBusiness;
-            tripMasterLlpBusiness = _tripMasterLlpBusiness; 
+            tripMasterLlpBusiness = _tripMasterLlpBusiness;
+            rechargeRequestBusiness = _rechargeRequestBusiness;
         }
 
 
@@ -4218,6 +4223,128 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetFleetCardList")]
+        public async Task<IActionResult> GetFleetCardList()
+        {
+            try
+            {
+                var result = await rechargeRequestBusiness.GetFleetCardList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("RechargeRequestSave")]
+        public async Task<IActionResult> RechargeRequestSave()
+        {
+            try
+            {
+                var driverPhoto = HttpContext.Request.Form.Files["attachPath"];
+                RechargeRequestModel rechargeRequestModel = JsonConvert.DeserializeObject<RechargeRequestModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (driverPhoto != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/RechargeRequest");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await driverPhoto.CopyToAsync(fileStream);
+                        rechargeRequestModel.AttachPath = imageName;
+                    }
+                }
+
+
+                var result = await rechargeRequestBusiness.RechargeRequestSave(rechargeRequestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetRechargeRequestList")]
+        public async Task<IActionResult> GetRechargeRequestList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await rechargeRequestBusiness.GetRechargeRequestList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("RechargeRequestApproveSave")]
+        public async Task<IActionResult> RechargeRequestApproveSave(RechargeRequestList obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.RechargeRequestApproveSave(obj);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetRechargeRequestApproveList")]
+        public async Task<IActionResult> GetRechargeRequestApproveList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await rechargeRequestBusiness.GetRechargeRequestApproveList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("RechargeRequestDelete")]
+        public async Task<IActionResult> RechargeRequestDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.RechargeRequestDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

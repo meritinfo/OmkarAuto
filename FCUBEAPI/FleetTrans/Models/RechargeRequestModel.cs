@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FleetMasters.Models
+namespace FleetTrans.Models
 {
     public class RechargeRequestModel
     {
