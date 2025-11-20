@@ -294,7 +294,7 @@ search(): void {
     }
     var selectedDataVal = this.formRequestRecharge.getRawValue();
     var arr= selectedDataVal.arrayList;
-    var rechargerequestarray = this.rechargerequestlist.rechargeRequestLst;
+    
     var IsItemSelected = false;
     for (var i = 0; i < arr.length; i++) {
       if (arr[i].selected) {
