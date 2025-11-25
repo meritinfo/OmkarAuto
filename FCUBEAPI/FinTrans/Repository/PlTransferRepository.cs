@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace FinTrans.Repository
 {
-    public class PlTransferRepository: IPlTransferRepository
+    public class PlTransferRepository: IPlTransferRepository 
     {
         private readonly IOptions<DBModel> dbconnection;
         private ISharedRepository sharedRepository;
         public PlTransferRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
-            sharedRepository = _sharedRepository;
+            sharedRepository =  _sharedRepository;
         }
         public async Task<PlTransferModel> PlTransferList(RequestModel request)
         {
