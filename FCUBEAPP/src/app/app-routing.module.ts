@@ -322,8 +322,8 @@ import { BrokerledgerprtComponent } from './module/brokerledgerprt/brokerledgerp
 import { OpeningbalupdateComponent } from './module/openingbalupdate/openingbalupdate/openingbalupdate.component';
 import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload/directpmtdownload.component';
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
-import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
-import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
+import { UnbilledprovisionmstaddComponent } from './module/unbilledprovisionmst/unbilledprovisionmstadd/unbilledprovisionmstadd.component';
+import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstlist/unbilledprovisionmstlist.component';
 import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
 import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
 import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirepmtllpadd/lorryhirepmtllpadd.component';
@@ -802,9 +802,9 @@ const routes: Routes = [
   { path: 'carryopbal',component: OpeningbalupdateComponent},
   { path: 'directbankdload',component: DirectpmtdownloadComponent},
   { path: 'updatedirectbank',component: DirectpmtupdateComponent },
-  { path: 'unbilledprovisionadd',component: UnbilledprovisionmstmodeladdComponent},
-  { path: 'unbilledprovisionedit',component: UnbilledprovisionmstmodeladdComponent},
-  { path: 'unbillprovision',component: UnbilledprovisionmstmodellistComponent},
+  { path: 'unbilledprovisionadd',component: UnbilledprovisionmstaddComponent},
+  { path: 'unbilledprovisionedit',component: UnbilledprovisionmstaddComponent},
+  { path: 'unbillprovision',component: UnbilledprovisionmstlistComponent},
   { path: 'multiledgerrpt',component: MultipleledgerreportComponent},
   { path: 'annexurerpt',component: AnnexurereportComponent},
   { path: 'lhpmtlistllp', component:  LorryhirepmtllplistComponent },

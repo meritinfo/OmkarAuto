@@ -509,8 +509,6 @@ import { DirectpmtdownloadComponent } from './module/directpmt/directpmtdownload
 import { DirectpmtupdateComponent } from './module/directpmt/directpmtupdate/directpmtupdate.component';
 import { Directpmtlistmodel } from './models/directpmtlistmodel';
 import { Directpmtmodel } from './models/directpmtmodel';
-import { UnbilledprovisionmstmodeladdComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodeladd/unbilledprovisionmstmodeladd.component';
-import { UnbilledprovisionmstmodellistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstmodellist/unbilledprovisionmstmodellist.component';
 import { MultipleledgerreportComponent } from './module/multipleledgerreport/multipleledgerreport/multipleledgerreport.component';
 import { AnnexurereportComponent } from './module/annexurereport/annexurereport/annexurereport.component';
 import { LorryhirepmtllpaddComponent } from './module/lorryhiremptllp/lorryhirepmtllpadd/lorryhirepmtllpadd.component';
@@ -552,6 +550,8 @@ import { RechargerequestlistComponent } from './module/rechargerequest/recharger
 import { Rechargerequestmodel } from "./models/rechargerequestmodel";
 import { Rechargerequestlist } from "./models/rechargerequestlist";
 import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
+import { UnbilledprovisionmstaddComponent } from './module/unbilledprovisionmst/unbilledprovisionmstadd/unbilledprovisionmstadd.component';
+import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstlist/unbilledprovisionmstlist.component';
 
 
 
@@ -718,7 +718,6 @@ import { RechargerequestapproveaddComponent } from './module/rechargerequestappr
     OpeningbalupdateComponent, 
     PartymisrptComponent, BillinterestlossrptComponent, 
     BrokerledgerprtComponent, DirectpmtdownloadComponent, DirectpmtupdateComponent,
-    UnbilledprovisionmstmodeladdComponent, UnbilledprovisionmstmodellistComponent, 
     MultipleledgerreportComponent, AnnexurereportComponent, 
     LorryhirepmtllpaddComponent, LorryhirepmtllplistComponent, 
     VehicleadvreceiptllpaddComponent, VehicleadvreceiptllplistComponent, 
@@ -734,6 +733,7 @@ import { RechargerequestapproveaddComponent } from './module/rechargerequestappr
     CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
     TripsheetgsafelistComponent, TripsheetgsafeaddComponent, 
     RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
+     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
 
     
   ],

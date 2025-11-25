@@ -281,9 +281,9 @@ namespace Consignment.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                               new SqlParameter("@LoginBranch", request.FilterStr)
+                            new SqlParameter("@LoginBranch", request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUnBillProvisionMstList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUnBilledProvisionMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -292,20 +292,10 @@ namespace Consignment.Repository
                         {
                             provisonList.Add(new UnBillProvisionMstModel
                             {
-
-
                                 Id = Convert.ToString(dataSet.Tables[0].Rows[i]["Id"]),
-                                ProvisionDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ProvisionDate"]),
-                         
+                                ProvisionDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ProvisionDate"]),                         
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                  yeardesc = Convert.ToString(dataSet.Tables[0].Rows[i]["yeardesc"])
-
-
-
-                                // ToLocationType = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLocationType"]),
-                                // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
-                                // ProductType = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductType"]),
-                                // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                yeardesc = Convert.ToString(dataSet.Tables[0].Rows[i]["yeardesc"])
                             });
                         }
                         unBillProvisionMstList.ProvisionList = provisonList;

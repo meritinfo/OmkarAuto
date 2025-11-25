@@ -16,7 +16,7 @@ export class UserlistComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
   dtOptions: DataTables.Settings = {};
   allUsers: Userlistmodel = new Userlistmodel();

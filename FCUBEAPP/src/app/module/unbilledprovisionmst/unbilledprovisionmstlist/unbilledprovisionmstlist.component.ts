@@ -1,4 +1,3 @@
-
 import { Component ,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -13,13 +12,11 @@ import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
-  selector: 'app-unbilledprovisionmstmodellist',
-  templateUrl: './unbilledprovisionmstmodellist.component.html',
-  styleUrls: ['./unbilledprovisionmstmodellist.component.css']
+  selector: 'app-unbilledprovisionmstlist',
+  templateUrl: './unbilledprovisionmstlist.component.html',
+  styleUrls: ['./unbilledprovisionmstlist.component.css']
 })
-
-
-export class UnbilledprovisionmstmodellistComponent {
+export class UnbilledprovisionmstlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -84,19 +81,19 @@ export class UnbilledprovisionmstmodellistComponent {
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
   
     this.fromDate = this.minDate ;
 
     this.unbilledProvisionMstService.clearUnBillProvisionDetails();
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.fromDate),
-      toDate: new FormControl(this.loginDate),
+      fromDate: new FormControl(this.minDate),
+      toDate: new FormControl(this.maxDate),
     });     
 
     this.sharedService.loading=true;   
-    this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
+    this.filter.fromDate = this.minDate;
+    this.filter.toDate = this.maxDate;
     this.getUnbillProvisionMstList();
     this.sharedService.loading=false;
   }
