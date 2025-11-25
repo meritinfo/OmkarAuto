@@ -735,8 +735,8 @@ import { Pltransfermodel } from "./models/pltransfermodel";
     CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
     TripsheetgsafelistComponent, TripsheetgsafeaddComponent, 
     RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
-     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
-
+    UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
+    PltransferComponent
     
   ],
   
