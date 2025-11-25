@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,12 +14,11 @@ import { UnbilledProvisionMstService } from 'src/app/services/unbilledprovisionm
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
-  selector: 'app-unbilledprovisionmstmodeladd',
-  templateUrl: './unbilledprovisionmstmodeladd.component.html',
-  styleUrls: ['./unbilledprovisionmstmodeladd.component.css']
+  selector: 'app-unbilledprovisionmstadd',
+  templateUrl: './unbilledprovisionmstadd.component.html',
+  styleUrls: ['./unbilledprovisionmstadd.component.css']
 })
-export class UnbilledprovisionmstmodeladdComponent {
-
+export class UnbilledprovisionmstaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
@@ -42,9 +40,7 @@ export class UnbilledprovisionmstmodeladdComponent {
   vehicleList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
   editMode = false;
-  createmode  = true;
   createStatus = false;
-  customStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
@@ -78,15 +74,6 @@ export class UnbilledprovisionmstmodeladdComponent {
     const year = today.getFullYear();
     today.setMonth(month - 1);
     
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
-    
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
         
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -106,7 +93,7 @@ export class UnbilledprovisionmstmodeladdComponent {
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
-     var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
@@ -115,12 +102,20 @@ export class UnbilledprovisionmstmodeladdComponent {
       this.route.navigate(['/']);
     }
     
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = this.commonService.getCurrentFiscalYear(this.loginDate).eDate.toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
     this.sharedService.loading = true;
 
     this.selectedUnbilledprovision = this.unbilledProvisionMstService.getunBillProvisionDetails();
     this.formProvision = this.formBuilder.group({     
       provisionDate : new FormControl(this.maxDate,[Validators.required]),  
-      selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
 
@@ -130,14 +125,12 @@ export class UnbilledprovisionmstmodeladdComponent {
     this.formProvision.controls["provisionDate"]?.disable();
 
     setTimeout(() => {
-      this.createmode = true;
       if (this.selectedUnbilledprovision.id != '') {
         this.formProvision.patchValue(this.selectedUnbilledprovision);      
         this.formProvision.patchValue({
           provisionDate: this.commonService.formatDate(this.selectedUnbilledprovision.provisionDate),       
         });
         this.editMode = true;
-        this.customStatus = true;
         this.searchenable = false;
         this.getUnBilledProvisionInnerGridList();  
       }      
@@ -252,7 +245,8 @@ export class UnbilledprovisionmstmodeladdComponent {
     this.unbilledprovisionmstmodel.unBillProvisionDtlList = [];
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].branch == "" || selectedDataValue.arrayList[i].partyCode || selectedDataValue.arrayList[i].amount=="") {
+      if (selectedDataValue.arrayList[i].branchCode == "" || 
+          selectedDataValue.arrayList[i].partyCode == ""  || selectedDataValue.arrayList[i].amount=="") {
         this.toasterService.warning("Please Enter  Detail");
         return;
       } 

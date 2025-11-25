@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Unbilled Provision List</h4>
+                        <h4 class="mb-sm-0 font-size-18">Unbilled Provision</h4>
                     </div>
                 </div>
             </div>
@@ -41,9 +41,8 @@
                     <button class="btn btn-primary buttons-html5" type="button"
                         (click)="addUnBillprovisionmst()"><span>New</span></button>
                 </div>
-            </div>
+            </div>            
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div class="overflow-x">
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -53,13 +52,13 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="allProMaster.provisionList?.length != 0">
-                        <tr *ngFor="let tm of allProMaster.provisionList">
+                        <tr *ngFor="let tm of allProMaster.provisionList"> 
                             <td>                                
                                 <button type="button" class="btn btn-edit" 
                                     (click)="getunBillProvisionDetails(tm)"></button> 
                             </td>     
                             <td>{{ tm.yeardesc}}</td>
-                            <td>{{ tm.provisionDate}}</td>   
+                            <td>{{ tm.provisionDate}}</td>
                         </tr>
                     </tbody>
                     <tbody *ngIf="allProMaster.provisionList?.length == 0">
@@ -68,12 +67,12 @@
                         </tr>
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
 </div>
+
 
 
