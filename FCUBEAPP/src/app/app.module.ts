@@ -552,6 +552,8 @@ import { Rechargerequestlist } from "./models/rechargerequestlist";
 import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 import { UnbilledprovisionmstaddComponent } from './module/unbilledprovisionmst/unbilledprovisionmstadd/unbilledprovisionmstadd.component';
 import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstlist/unbilledprovisionmstlist.component';
+import { PltransferComponent } from './module/pltransfer/pltransfer.component';
+import { Pltransfermodel } from "./models/pltransfermodel";
 
 
 
@@ -812,7 +814,7 @@ import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel
   ],
   bootstrap: [AppComponent]
 })

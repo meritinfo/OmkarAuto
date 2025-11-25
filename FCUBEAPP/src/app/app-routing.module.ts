@@ -359,6 +359,8 @@ import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsa
 import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
 import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
 import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
+import { PltransferComponent } from './module/pltransfer/pltransfer.component';
+
 
 
 
@@ -852,6 +854,7 @@ const routes: Routes = [
   { path: 'FleetCardRechargeReqadd', component: RechargerequestaddComponent },
   { path: 'FleetCardRechargeReqedit', component: RechargerequestaddComponent },
   { path: 'FleetCardRechargeApp', component: RechargerequestapproveaddComponent },
+  { path: 'pltransfer', component: PltransferComponent },
 
   
 ];

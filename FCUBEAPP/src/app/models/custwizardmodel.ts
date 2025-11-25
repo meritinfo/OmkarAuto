@@ -50,4 +50,23 @@ export class Custwizardmodel {
     dslDiscAc: string = "";
     dslTdsAc: string= "";
     brokerAdvAc : string= "";
+    mR_OthersDed1Ac: string= "";
+    mR_OthersDed2Ac: string= "";
+    mR_OthersDed3Ac: string= "";
+    mR_RecoverableAc: string= "";
+    bL_StatisticalAc: string= "";
+    bL_FovAc: string= "";
+   bL_DoorCollAc: string= "";
+   bL_HandlingAc: string= "";
+        bL_LoadingDetnAc : string= "";
+       bL_EnrouteAc : string= "";
+         bL_MiscAc : string= "";
+            bL_DoorDelAc : string= "";
+            bL_UnLoadingAc : string= "";
+              bL_DetentionAc : string= "";
+               bL_ExtrasAc : string= "";
+                 bL_OthersAc : string= "";
+                   roundOffAc : string= "";
+                   unBilledFrtAc : string= "";
+                    flt_TripFastagAc : string= "";
 }
