@@ -93,6 +93,25 @@ namespace FinTrans.Repository
                                 Flt_OthDedAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_OthDedAc"]),
                                 MR_Others1RecdAc = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_Others1RecdAc"]),
                                 MR_Others2RecdAc = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_Others2RecdAc"]),
+                                MR_OthersDed1Ac = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_OthersDed1Ac"]),
+                                MR_OthersDed2Ac = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_OthersDed2Ac"]),
+                                MR_OthersDed3Ac = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_OthersDed3Ac"]),
+                                MR_RecoverableAc = Convert.ToString(dataSet.Tables[0].Rows[i]["MR_RecoverableAc"]),
+                                BL_StatisticalAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_StatisticalAc"]),
+                                BL_FovAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_FovAc"]),
+                                BL_DoorCollAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_DoorCollAc"]),
+                                BL_HandlingAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_HandlingAc"]),
+                                BL_LoadingDetnAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_LoadingDetnAc"]),
+                                BL_EnrouteAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_EnrouteAc"]),
+                                BL_MiscAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_MiscAc"]),
+                                BL_DoorDelAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_DoorDelAc"]),
+                                BL_UnLoadingAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_UnLoadingAc"]),
+                                BL_DetentionAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_DetentionAc"]),
+                                BL_ExtrasAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_ExtrasAc"]),
+                                BL_OthersAc = Convert.ToString(dataSet.Tables[0].Rows[i]["BL_OthersAc"]),
+                                RoundOffAc = Convert.ToString(dataSet.Tables[0].Rows[i]["RoundOffAc"]),
+                                UnBilledFrtAc = Convert.ToString(dataSet.Tables[0].Rows[i]["UnBilledFrtAc"]),
+                                Flt_TripFastagAc = Convert.ToString(dataSet.Tables[0].Rows[i]["Flt_TripFastagAc"]),
 
 
 
@@ -191,6 +210,25 @@ namespace FinTrans.Repository
                         custWizardModel.DslDiscAc = Convert.ToString(userData.Tables[0].Rows[0]["DslDiscAc"]);
                         custWizardModel.DslTdsAc = Convert.ToString(userData.Tables[0].Rows[0]["DslTdsAc"]);
                         custWizardModel.BrokerAdvAc = Convert.ToString(userData.Tables[0].Rows[0]["BrokerAdvAc"]);
+                        custWizardModel.MR_OthersDed1Ac = Convert.ToString(userData.Tables[0].Rows[0]["MR_OthersDed1Ac"]);
+                        custWizardModel.MR_OthersDed2Ac = Convert.ToString(userData.Tables[0].Rows[0]["MR_OthersDed2Ac"]);
+                        custWizardModel.MR_OthersDed3Ac = Convert.ToString(userData.Tables[0].Rows[0]["MR_OthersDed3Ac"]);
+                        custWizardModel.MR_RecoverableAc = Convert.ToString(userData.Tables[0].Rows[0]["MR_RecoverableAc"]);
+                        custWizardModel.BL_StatisticalAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_StatisticalAc"]);
+                        custWizardModel.BL_FovAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_FovAc"]);
+                        custWizardModel.BL_DoorCollAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_DoorCollAc"]);
+                        custWizardModel.BL_HandlingAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_HandlingAc"]);
+                        custWizardModel.BL_LoadingDetnAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_LoadingDetnAc"]);
+                        custWizardModel.BL_EnrouteAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_EnrouteAc"]);
+                        custWizardModel.BL_MiscAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_MiscAc"]);
+                        custWizardModel.BL_DoorDelAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_DoorDelAc"]);
+                        custWizardModel.BL_UnLoadingAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_UnLoadingAc"]);
+                        custWizardModel.BL_DetentionAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_DetentionAc"]);
+                        custWizardModel.BL_ExtrasAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_ExtrasAc"]);
+                        custWizardModel.BL_OthersAc = Convert.ToString(userData.Tables[0].Rows[0]["BL_OthersAc"]);
+                        custWizardModel.RoundOffAc = Convert.ToString(userData.Tables[0].Rows[0]["RoundOffAc"]);
+                        custWizardModel.UnBilledFrtAc = Convert.ToString(userData.Tables[0].Rows[0]["UnBilledFrtAc"]);
+                        custWizardModel.Flt_TripFastagAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripFastagAc"]);
                     }
                     else
                     {
@@ -264,8 +302,28 @@ namespace FinTrans.Repository
                  new SqlParameter("@MR_Others2RecdAc" , custWizardModel.MR_Others2RecdAc),
                    new SqlParameter("@HsdAc" , custWizardModel.HsdAc),
                     new SqlParameter("@DslDiscAc" , custWizardModel.DslDiscAc),
-                     new SqlParameter("@DslTdsAc" , custWizardModel.DslTdsAc),
-                     new SqlParameter("@BrokerAdvAc" , custWizardModel.BrokerAdvAc),
+             new SqlParameter("@DslTdsAc" , custWizardModel.DslTdsAc),
+             new SqlParameter("@BrokerAdvAc", custWizardModel.BrokerAdvAc),
+             new SqlParameter("@MR_OthersDed1Ac" , custWizardModel.MR_OthersDed1Ac),
+             new SqlParameter("@MR_OthersDed2Ac" , custWizardModel.MR_OthersDed2Ac),
+               new SqlParameter("@MR_OthersDed3Ac" , custWizardModel.MR_OthersDed3Ac),
+          
+              new SqlParameter("@MR_RecoverableAc" , custWizardModel.MR_RecoverableAc),
+                new SqlParameter("@BL_StatisticalAc" , custWizardModel.BL_StatisticalAc),
+                  new SqlParameter("@BL_FovAc" , custWizardModel.BL_FovAc),
+                   new SqlParameter("@BL_DoorCollAc" , custWizardModel.BL_DoorCollAc),
+                   new SqlParameter("@BL_HandlingAc" , custWizardModel.BL_HandlingAc),
+                        new SqlParameter("@BL_LoadingDetnAc" , custWizardModel.BL_LoadingDetnAc),
+                          new SqlParameter("@BL_EnrouteAc" , custWizardModel.BL_EnrouteAc),
+                           new SqlParameter("@BL_MiscAc" , custWizardModel.BL_MiscAc),
+                             new SqlParameter("@BL_DoorDelAc" , custWizardModel.BL_DoorDelAc),
+                               new SqlParameter("@BL_UnLoadingAc" , custWizardModel.BL_UnLoadingAc),
+                                new SqlParameter("@BL_DetentionAc" , custWizardModel.BL_DetentionAc),
+                                 new SqlParameter("@BL_ExtrasAc" , custWizardModel.BL_ExtrasAc),
+                                 new SqlParameter("@BL_OthersAc" , custWizardModel.BL_OthersAc),
+                                   new SqlParameter("@UnBilledFrtAc" , custWizardModel.UnBilledFrtAc),
+                                    new SqlParameter("@RoundOffAc" , custWizardModel.RoundOffAc),
+                                     new SqlParameter("@Flt_TripFastagAc" , custWizardModel.Flt_TripFastagAc),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);

@@ -35,8 +35,8 @@ export class CustwizardaddComponent {
   dashboard: string ="";
   loginDate: string = '';
   year: string = '';
-  
-  step1Active = true;
+  step0Active = true;
+  step1Active = false;
   step2Active = false;
   step3Active = false;
   step4Active = false;
@@ -157,7 +157,26 @@ export class CustwizardaddComponent {
       dslDiscAc: new FormControl('',), 
       dslTdsAc: new FormControl('',), 
       brokerAdvAc: new FormControl('',), 
-
+      bL_StatisticalAc: new FormControl('',), 
+      bL_FovAc: new FormControl('',), 
+      bL_DoorCollAc: new FormControl('',), 
+      bL_HandlingAc: new FormControl('',), 
+      bL_LoadingDetnAc: new FormControl('',), 
+      bL_EnrouteAc: new FormControl('',), 
+      bL_MiscAc: new FormControl('',), 
+      bL_DoorDelAc: new FormControl('',), 
+      bL_UnLoadingAc: new FormControl('',), 
+      bL_DetentionAc: new FormControl('',), 
+      bL_ExtrasAc: new FormControl('',), 
+      bL_OthersAc: new FormControl('',), 
+      mR_OthersDed1Ac: new FormControl('',), 
+      mR_OthersDed2Ac: new FormControl('',), 
+      mR_OthersDed3Ac: new FormControl('',), 
+      mR_RecoverableAc: new FormControl('',), 
+      flt_TripFastagAc: new FormControl('',),
+      unBilledFrtAc: new FormControl('',),
+      roundOffAc: new FormControl('',),
+      
     });
     this.getCrAcListForCustWizard();
     this.getCustWizardDetails();
@@ -237,7 +256,27 @@ export class CustwizardaddComponent {
         hsdAc: this.selectedCustWizardDetails.hsdAc,
         dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
         dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,  
-         brokerAdvAc: this.selectedCustWizardDetails.brokerAdvAc,              
+         brokerAdvAc: this.selectedCustWizardDetails.brokerAdvAc,   
+       mR_OthersDed1Ac : this.selectedCustWizardDetails.mR_OthersDed1Ac ,  
+       mR_OthersDed2Ac : this.selectedCustWizardDetails.mR_OthersDed2Ac ,   
+         mR_OthersDed3Ac : this.selectedCustWizardDetails.mR_OthersDed3Ac ,   
+        mR_RecoverableAc  : this.selectedCustWizardDetails.mR_RecoverableAc  ,   
+           bL_StatisticalAc  : this.selectedCustWizardDetails.bL_StatisticalAc  ,  
+              bL_FovAc  : this.selectedCustWizardDetails.bL_FovAc  ,  
+              bL_DoorCollAc  : this.selectedCustWizardDetails.bL_DoorCollAc  , 
+                bL_HandlingAc  : this.selectedCustWizardDetails.bL_HandlingAc  ,
+                  bL_LoadingDetnAc  : this.selectedCustWizardDetails.bL_LoadingDetnAc  ,
+                    bL_EnrouteAc  : this.selectedCustWizardDetails.bL_EnrouteAc  ,
+                        bL_MiscAc  : this.selectedCustWizardDetails.bL_MiscAc  ,
+                             bL_DoorDelAc  : this.selectedCustWizardDetails.bL_DoorDelAc  ,
+                             bL_UnLoadingAc  : this.selectedCustWizardDetails.bL_UnLoadingAc  ,
+                              bL_DetentionAc  : this.selectedCustWizardDetails.bL_DetentionAc  ,
+                                 bL_ExtrasAc  : this.selectedCustWizardDetails.bL_ExtrasAc  ,
+                                  bL_OthersAc  : this.selectedCustWizardDetails.bL_OthersAc  ,
+                                    unBilledFrtAc  : this.selectedCustWizardDetails.unBilledFrtAc  ,
+                                    roundOffAc  : this.selectedCustWizardDetails.roundOffAc  ,
+                                         flt_TripFastagAc  : this.selectedCustWizardDetails.flt_TripFastagAc  ,
+
       });
     });    
   }
@@ -250,8 +289,16 @@ export class CustwizardaddComponent {
 
   
   nextStep(index: number): void {
+     if (index === 0) {
+      this.step0Active = true;
+      this.step1Active = false;
+      this.step2Active = false;
+      this.step3Active = false;
+      this.step4Active = false;
+    }
     if (index === 1) {
       this.step1Active = true;
+       this.step0Active = false;
       this.step2Active = false;
       this.step3Active = false;
       this.step4Active = false;
@@ -261,18 +308,21 @@ export class CustwizardaddComponent {
       this.step2Active = true;
       this.step3Active = false;
       this.step4Active = false;
+        this.step0Active = false;
     }
     if (index === 3) {
       this.step1Active = false;
       this.step2Active = false;
       this.step3Active = true;
       this.step4Active = false;
+        this.step0Active = false;
     }
     if (index === 4) {
       this.step1Active = false;
       this.step2Active = false;
       this.step3Active = false;
       this.step4Active = true;
+        this.step0Active = false;
     }
   }
   
@@ -366,6 +416,30 @@ export class CustwizardaddComponent {
     this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc ;    
     this.custWizardModel.dslTdsAc= selectedDataValue.dslTdsAc;
       this.custWizardModel.brokerAdvAc= selectedDataValue.brokerAdvAc;
+      this.custWizardModel.mR_OthersDed1Ac = selectedDataValue.mr_OthersDed1Ac;
+this.custWizardModel.mR_OthersDed2Ac = selectedDataValue.mR_OthersDed2Ac;
+this.custWizardModel.mR_OthersDed3Ac = selectedDataValue.mR_OthersDed3Ac;
+this.custWizardModel.mR_RecoverableAc = selectedDataValue.mR_RecoverableAc;
+
+this.custWizardModel.bL_StatisticalAc = selectedDataValue.bL_StatisticalAc;
+this.custWizardModel.bL_FovAc = selectedDataValue.bL_FovAc;
+this.custWizardModel.bL_DoorCollAc = selectedDataValue.bL_DoorCollAc;
+this.custWizardModel.bL_HandlingAc = selectedDataValue.bL_HandlingAc;
+this.custWizardModel.bL_LoadingDetnAc = selectedDataValue.bL_LoadingDetnAc;
+this.custWizardModel.bL_EnrouteAc = selectedDataValue.bL_EnrouteAc;
+this.custWizardModel.bL_MiscAc = selectedDataValue.bL_MiscAc;
+this.custWizardModel.bL_DoorDelAc = selectedDataValue.bL_DoorDelAc;
+this.custWizardModel.bL_UnLoadingAc = selectedDataValue.bL_UnLoadingAc;
+this.custWizardModel.bL_DetentionAc = selectedDataValue.bL_DetentionAc;
+this.custWizardModel.bL_ExtrasAc = selectedDataValue.bL_ExtrasAc;
+this.custWizardModel.bL_OthersAc = selectedDataValue.bL_OthersAc;
+
+this.custWizardModel.unBilledFrtAc = selectedDataValue.unBilledFrtAc;
+this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
+this.custWizardModel.flt_TripFastagAc = selectedDataValue.flt_TripFastagAc;
+
+      
+      
   
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

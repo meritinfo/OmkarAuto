@@ -64,9 +64,27 @@ namespace FinTrans.Models
         public string? DslDiscAc { get; set; }
         public string? DslTdsAc { get; set; }
         public string? BrokerAdvAc { get; set; }
+        //new added
+        public string? MR_OthersDed1Ac { get; set; }
+        public string? MR_OthersDed2Ac { get; set; }
+        public string? MR_OthersDed3Ac { get; set; }
+        public string? MR_RecoverableAc { get; set; }
+        public string? BL_StatisticalAc { get; set; }
+        public string? BL_FovAc { get; set; }
+        public string? BL_DoorCollAc { get; set; }
+        public string? BL_HandlingAc { get; set; }
+        public string? BL_LoadingDetnAc { get; set; }
+        public string? BL_EnrouteAc { get; set; }
+        public string? BL_MiscAc { get; set; }
+        public string? BL_DoorDelAc { get; set; }
+        public string? BL_UnLoadingAc { get; set; }
+        public string? BL_DetentionAc { get; set; }
+        public string? BL_ExtrasAc { get; set; }
+        public string? BL_OthersAc { get; set; }
+        public string? RoundOffAc { get; set; }
+        public string? UnBilledFrtAc { get; set; }
+        public string? Flt_TripFastagAc { get; set; }
 
 
-
-      
     }
 }
