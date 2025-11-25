@@ -421,19 +421,18 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<CciInvDetailModel> GetCCIInviceDetailLLP(RequestModel requestModel)
+        public async Task<CciInvoiceDtlModel> GetCCIInviceDetailLLP(RequestModel requestModel)
         {
-            CciInvDetailModel cciInvDetailModel = new();
+            CciInvoiceDtlModel cciInvDetailModel = new();
             try
             {
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
                        {
-                             new SqlParameter("@ContainerNo", requestModel.strRequest),
+                           new SqlParameter("@ContainerNo", requestModel.strRequest),
                            new SqlParameter("@CciInvNo", requestModel.strRequest1),
-
-                        };
+                       };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCCIInvoiceDetailLLP", param);
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
@@ -442,16 +441,7 @@ namespace Consignment.Repository
                         cciInvDetailModel.CgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["CgstAmt"]);
                         cciInvDetailModel.IgstAmt = Convert.ToString(userData.Tables[0].Rows[0]["IgstAmt"]);
                         cciInvDetailModel.TaxableAmt = Convert.ToString(userData.Tables[0].Rows[0]["TaxableAmt"]);
-
-
-                    }
-                    else
-                    {
-
-                        //tripKmsModel.Status = false;
-                        // tripKmsModel.Message = "data not found";
-                        // tripKmsModel.RunKmsPerDay = Convert.ToString(userData.Tables[0].Rows[0]["RunKmsPerDay"]);
-                    }
+                    }                    
                 }
             }
             catch (Exception ex)

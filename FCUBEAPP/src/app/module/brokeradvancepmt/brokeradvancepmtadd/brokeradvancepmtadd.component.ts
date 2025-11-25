@@ -59,7 +59,7 @@ export class BrokeradvancepmtaddComponent {
   }
 
   ngOnInit(): void {
-    debugger
+    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -188,7 +188,7 @@ export class BrokeradvancepmtaddComponent {
   get f() { return this.formDriverMaster.controls; }
 
     onBranchChange() {
-      debugger
+      
       // var selectedData = this.formUser.getRawValue();
       // if (selectedData.challanBranch==""){
          this.requestmodel.strRequest = this.branch;
@@ -229,7 +229,7 @@ export class BrokeradvancepmtaddComponent {
   
 
   getFinDocDetails(finId: string){
-    debugger
+    
     this.requestmodel.strRequest=finId;
     this.commonService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

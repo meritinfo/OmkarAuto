@@ -10,8 +10,8 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
-using FleetMasters;
-using FinanceMaster.Business;
+using FleetTrans;
+using FleetTrans.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1007,7 +1007,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("CheckDuplicateCardNo")]
-        public async Task<IActionResult> CheckDuplicateCardNo(CardModel request)
+        public async Task<IActionResult> CheckDuplicateCardNo(RequestModel request)
         {
             try
             {
@@ -1022,7 +1022,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("CheckDuplicateCardCode")]
-        public async Task<IActionResult> CheckDuplicateCardCode(CardModel request)
+        public async Task<IActionResult> CheckDuplicateCardCode(RequestModel request)
         {
             try
             {
@@ -1850,127 +1850,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetFleetCardList")]
-        public async Task<IActionResult> GetFleetCardList()
-        {
-            try
-            {
-                var result = await rechargeRequestBusiness.GetFleetCardList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("RechargeRequestSave")]
-        public async Task<IActionResult> RechargeRequestSave()
-        {
-            try
-            {
-                var driverPhoto = HttpContext.Request.Form.Files["attachPath"];
-                RechargeRequestModel rechargeRequestModel = JsonConvert.DeserializeObject<RechargeRequestModel>(HttpContext.Request.Form["datadetails"]);
-
-                if (driverPhoto != null)
-                {
-                    string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
-                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/RechargeRequest");
-                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
-                    bool exists = System.IO.Directory.Exists(pathToSave);
-                    if (!exists)
-                    {
-                        Directory.CreateDirectory(pathToSave);
-                    }
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await driverPhoto.CopyToAsync(fileStream);
-                        rechargeRequestModel.AttachPath = imageName;
-                    }
-                }
-          
-
-                var result = await rechargeRequestBusiness.RechargeRequestSave(rechargeRequestModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("GetRechargeRequestList")]
-        public async Task<IActionResult> GetRechargeRequestList(ReportRequestModel request)
-        {
-            try
-            {
-                var result = await rechargeRequestBusiness.GetRechargeRequestList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("RechargeRequestApproveSave")]
-        public async Task<IActionResult> RechargeRequestApproveSave(RechargeRequestList obj)
-        {
-            if (obj == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await rechargeRequestBusiness.RechargeRequestApproveSave(obj);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetRechargeRequestApproveList")]
-        public async Task<IActionResult> GetRechargeRequestApproveList(ReportRequestModel request)
-        {
-            try
-            {
-                var result = await rechargeRequestBusiness.GetRechargeRequestApproveList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("RechargeRequestDelete")]
-        public async Task<IActionResult> RechargeRequestDelete(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await rechargeRequestBusiness.RechargeRequestDelete(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
+        
     }
 
 }

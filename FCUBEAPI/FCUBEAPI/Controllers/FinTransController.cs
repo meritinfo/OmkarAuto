@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.Common;
 using Org.BouncyCastle.Ocsp;
+using FleetMasters.Business;
 
 
 
@@ -29,6 +30,7 @@ namespace FCUBEAPI.Controllers
         readonly ICustWizardBusiness custWizardBusiness;
         readonly IFinRptBusiness ledgerRptBusiness;
         readonly IBalanceBusiness balanceBusiness;
+        readonly IPlTransferBusiness plTransferBusiness;
 
 
         public FinTransController(IOptions<DBModel> _dbconnection,
@@ -38,7 +40,9 @@ namespace FCUBEAPI.Controllers
             IOpBrsEntryBusiness _opBrsEntryBusiness, 
             ICustWizardBusiness _custWizardBusiness,
             IFinRptBusiness _ledgerRptBusiness,
-            IBalanceBusiness _balanceBusiness)
+            IBalanceBusiness _balanceBusiness,
+            IPlTransferBusiness _plTransferBusiness
+            )
         {
             dbconnection = _dbconnection;
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
@@ -48,6 +52,7 @@ namespace FCUBEAPI.Controllers
             custWizardBusiness = _custWizardBusiness;
             ledgerRptBusiness = _ledgerRptBusiness;
             balanceBusiness = _balanceBusiness;
+            plTransferBusiness=_plTransferBusiness;
         }
         /// <summary>
 
@@ -1039,6 +1044,44 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await ledgerRptBusiness.GetMonthlyAdminExpRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("PlTransferList")]
+        public async Task<IActionResult> PlTransferList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await  plTransferBusiness.PlTransferList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("PLTransferSave")]
+        public async Task<IActionResult> PLTransferSave(PlTransferModel obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await plTransferBusiness.PLTransferSave(obj);
 
                 return Ok(result);
             }

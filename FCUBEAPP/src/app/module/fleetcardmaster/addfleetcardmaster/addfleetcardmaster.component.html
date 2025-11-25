@@ -1,164 +1,144 @@
 
 <div class="main-content">
     <div class="page-content">
-       <div class="container-fluid">
-          <!-- start page title -->
-          <div class="row">
-             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">Create/Edit Fleet Cards</h4>
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Create/Edit Fleet Cards</h4>
+                    </div>
                 </div>
-             </div>
-          </div>
-          <!-- end page title -->
-          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
-             <div class="row">
-                <div class="col-lg-12">
-                   <div class="card">
-                      <div class="card-body">
-                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Card Type</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                    formControlName="cardType"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cardType'].invalid) }"  
-                                                    >
-                                                  
-                                                    <option value="HP"> Happay</option>
-                                               
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Card Code</label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="cardCode" uppercaseonly
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
-                                                
-                                            </div>
+            </div>
+            <!-- end page title -->
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Card Type</label><span style="color:red">*</span>
+                                            <select id="formrow-inputState" class="form-control"
+                                            formControlName="cardType"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['cardType'].invalid) }" >
+                                                <option value="HP">Happay</option>
+                                                <option value="DL">Deisel</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Card No</label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="cardNo"  uppercaseonly
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardNo'].invalid) }"  (change)="checkDuplicateCardNo()">
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Card Pin</label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="cardPin" uppercaseonly
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardPin'].invalid) }">
-                                                
-                                            </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Card Code</label><span style="color:red">*</span>
+                                            <input type="text" class="form-control"
+                                            formControlName="cardCode" uppercaseonly
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
+                                            
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">CardLedger Ac</label>
-                                                <select class="form-control form-select ng-pristine ng-touched"formControlName="cardLedgerAc"
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Card No</label><span style="color:red">*</span>
+                                            <input type="text" class="form-control" (change)="checkDuplicateCardNo()"
+                                                formControlName="cardNo"  uppercaseonly
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cardNo'].invalid) }"  >                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Card Pin</label><span style="color:red">*</span>
+                                            <input type="text" class="form-control"
+                                            formControlName="cardPin" uppercaseonly
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['cardPin'].invalid) }">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Card Ledger Ac</label><span style="color:red">*</span>
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="cardLedgerAc"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['cardLedgerAc'].invalid) }">
-
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
-
                                                     {{branch.dataName}}
                                                 </option>
-                                            </select>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Vehicle No</label>
-                                                <input type="text" class="form-control" uppercaseonly
-                                                  formControlName="vehicleNo"
-                                                [ngClass]=>
-                                                
-                                            </div>
+                                            </select>                                                
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Driver Name</label>
-                                                <input type="text" class="form-control" uppercaseonly
-                                                  formControlName="driverName"
-                                                [ngClass]=>
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Driver Lic No</label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="driverLicNo" uppercaseonly
-                                                [ngClass]=>
-                                                
-                                            </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Vehicle No</label>
+                                            <input type="text" class="form-control" uppercaseonly
+                                            formControlName="vehicleNo">
+                                            
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Mobile No</label>
-                                                <input type="text" class="form-control"
-                                                  formControlName="mobileNo" maxlength="10"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">Is Active </label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                formControlName="isActive"
-                                              >
-                                                <option value="">Choose...</option>
-                                                <option value="Y">Yes</option>
-                                                <option value="N">No</option>
-                                               
-                                            </select>
-                                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Driver Name</label>
+                                            <input type="text" class="form-control" uppercaseonly
+                                            formControlName="driverName">
+                                            
                                         </div>
                                     </div>
-                        
-                          
-                        
-                                
-                             
-                       
-               
-                 
-                      </div>
-                      <!-- end card body -->
-                   </div>
-                   <!-- end card -->
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Driver Lic No</label>
+                                            <input type="text" class="form-control"
+                                            formControlName="driverLicNo" uppercaseonly>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Mobile No</label><span style="color:red">*</span>
+                                            <input type="text" class="form-control"
+                                            formControlName="mobileNo" maxlength="10"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['mobileNo'].invalid) }">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="basicpill-phoneno-input">Is Active </label>
+                                            <select id="formrow-inputState" class="form-control"
+                                            formControlName="isActive">
+                                            <option value="Y">Yes</option>
+                                            <option value="N">No</option>
+                                        
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>                 
+                            </div>
+                        <!-- end card body -->
+                        </div>
+                    <!-- end card -->
+                    </div>
                 </div>
-             </div>
-             <div class="row text-right">
-                <div class="col-lg-12">
-                   <div class="tex">
-                      <button class="btn btn-primary w-md"  *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
-                         (click)="submitFleetCardMasterForm()" >Save</button>
-                          <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md"  *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                                (click)="submitFleetCardMasterForm()" >Save</button>
+                            <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="fleetCardMasterDelete()">Delete</button>
-                                <button  class="btn btn-secondary w-md m-2" 
-                                 (click)="exit()">Exit</button>
-                   </div>
+                            <button  class="btn btn-secondary w-md m-2" 
+                                (click)="exit()">Exit</button>
+                        </div>
+                    </div>
                 </div>
-             </div>
-          </form>
-          <!-- end row -->
-          <!-- end row -->
-       </div>
+            </form>
+        </div>
        <!-- container-fluid -->
     </div>
     <!-- End Page-content -->

@@ -8,7 +8,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { CustwizardService } from 'src/app/services/custwizard.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Cardmodel } from 'src/app/models/cardmodel';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -22,7 +21,6 @@ export class CustwizardaddComponent {
   formCustWizard!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
-  cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];
   debitAcList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];

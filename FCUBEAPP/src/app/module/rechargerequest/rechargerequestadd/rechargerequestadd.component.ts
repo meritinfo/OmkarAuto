@@ -18,100 +18,100 @@ import { Constants } from 'src/app/common/constants';
   styleUrls: ['./rechargerequestadd.component.css']
 })
 export class RechargerequestaddComponent {
-    branchList     : Dropdownmodel[] = [];
-    fleetCardList     : Dropdownmodel[] = [];
-    vehicleList: Dropdownmodel[] = [];
-    keywordLocation = 'dataName';
+  branchList     : Dropdownmodel[] = [];
+  fleetCardList     : Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
   @ViewChild('AttachInput', {
     static: true
   }) AttachInput: any;
 
-    formSubmitted   = false;
-    responseDetails = new Responsemodel();
-    editMode        = false;
-    createmode      = true;
-    createStatus    = false;
-    editStatus      = false;
-    deleteStatus    = false;
-    viewStatus      = false; 
-    fromDate: string = '';
-    minDate: string = '';  
-    maxDate: string = '';
-    year   : string = '';
-    loginDate: string = '';
-    branch:string = '';
-
-    loggedInUserID      : string = '';
-    formRequestRecharge!: FormGroup;
-    dashboard       : string ="";
-    attachPath       : string ="";
+  formSubmitted   = false;
+  responseDetails = new Responsemodel();
+  editMode        = false;
+  createmode      = true;
+  createStatus    = false;
+  editStatus      = false;
+  deleteStatus    = false;
+  viewStatus      = false; 
+  fromDate: string = '';
+  minDate: string = '';  
+  maxDate: string = '';
+  year   : string = '';
+  loginDate: string = '';
+  branch:string = '';
+  loggedInUserID      : string = '';
+  formRequestRecharge!: FormGroup;
+  dashboard       : string ="";
+  attachPath       : string ="";
   
-    selectedRechargerequestmodel = new Rechargerequestmodel();
+  selectedRechargerequestmodel = new Rechargerequestmodel();
 
-      constructor(
-        private route: Router, 
-        private formBuilder: FormBuilder, 
-        private rechargerequestmodel: Rechargerequestmodel,
-        private requestmodel:Requestmodel,
-         private rechargerequestService: RechargerequestService, 
-        private commonService: CommonService,private toasterService: ToastrService ,
-        private sharedService: SharedService,) {
-        this.rechargerequestmodel = new Rechargerequestmodel();
-      }
+  constructor(
+    private route: Router, 
+    private formBuilder: FormBuilder, 
+    private rechargerequestmodel: Rechargerequestmodel,
+    private requestmodel:Requestmodel,
+     private rechargerequestService: RechargerequestService, 
+    private commonService: CommonService,private toasterService: ToastrService ,
+    private sharedService: SharedService,) {
+    this.rechargerequestmodel = new Rechargerequestmodel();
+  }
 
-    ngOnInit(): void {
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-        var privilegeData = JSON.parse(menuData);
-        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((( aa: { menuName: string; }) => aa.menuName === "Trip Sheet"));      
-        if (privilegeStatus) {
-          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-           this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-        }
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Trip Sheet"));      
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-      var dashboard = sessionStorage.getItem('dashboard')?.toString();
-      if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-        this.dashboard = dashboard;
-      }
-      if(!this.viewStatus){      
-        this.route.navigate([this.dashboard]);
-      }
+    }
+    var dashboard = sessionStorage.getItem('dashboard')?.toString();
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
       
-      this.sharedService.loggedInStatus = true;
-      var userData = sessionStorage.getItem('uid')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.loggedInUserID = userData;
-      }
-      var yearIDData = sessionStorage.getItem('yearID')?.toString();
-      if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-        this.year = yearIDData;
-      }
-      var loginDate = sessionStorage.getItem('loginDate')?.toString();
-      if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-        this.loginDate = loginDate;
-      }
-      else {
-        this.route.navigate(['/']);
-      }
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
         
-      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-      this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-      
-      this.fromDate = this.minDate;
-      
-      var userData = sessionStorage.getItem('userBranch')?.toString();
-      if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-        this.branch = userData;
-      }
-      else {
-        this.route.navigate(['/']);
-      }
-      this.formRequestRecharge = this.formBuilder.group({ 
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate;
+    
+    var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
+    this.formRequestRecharge = this.formBuilder.group({ 
       reqId: new FormControl(''),
       reqBranch: new FormControl(this.branch,[Validators.required]),
       reqDate: new FormControl(this.loginDate,[Validators.required]),
@@ -122,39 +122,37 @@ export class RechargerequestaddComponent {
       attachPath: new FormControl(''),
       loggedInUser: new FormControl(''),
     });
-       this.getBranchList();
-       this.getFleetCardList();
-       this.getVehicleNoList();
-        this.formRequestRecharge.controls['reqBranch'].disable();   
+    this.getBranchList();
+    this.getFleetCardList();
+    this.getVehicleNoList();
+    this.formRequestRecharge.controls['reqBranch'].disable(); 
+
     this.selectedRechargerequestmodel = this.rechargerequestService.setRechargeRequestDetails();
-  if (this.selectedRechargerequestmodel.reqId  != '') {
-    setTimeout(() => {
-      debugger
+    if (this.selectedRechargerequestmodel.reqId  != '') {
+      setTimeout(() => {        
         this.formRequestRecharge.patchValue(this.selectedRechargerequestmodel);
-         this.attachPath = Constants.UploadFolderPath + 'RechargeRequest/' + this. selectedRechargerequestmodel.attachPath;
-        this.formRequestRecharge.patchValue({
-       
-        reqDate: this.commonService.formatDate(this.selectedRechargerequestmodel.reqDate),
-        vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedRechargerequestmodel.vehicleMasterId),
-      })  
+        this.attachPath = Constants.UploadFolderPath + 'RechargeRequest/' + this.selectedRechargerequestmodel.attachPath;
+        this.formRequestRecharge.patchValue({        
+          reqDate: this.commonService.formatDate(this.selectedRechargerequestmodel.reqDate.toString()),
+                    reqCard: this.fleetCardList.find(e => e.dataId == this.selectedRechargerequestmodel.reqCard),
 
-      this.editMode =true;
-    }, 2000);  
+          vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedRechargerequestmodel.vehicleMasterId),
+        })  
+        this.editMode =true;
+      }, 2000);  
+    } 
   }
-  
- 
-    }
 
-    get f() { return this.formRequestRecharge.controls; }
+  get f() { return this.formRequestRecharge.controls; }
 
   getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
+    this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
     });
   }
 
-   getFleetCardList(): void {
-      this.rechargerequestService.getFleetCardList().subscribe((res) => {
+  getFleetCardList(): void {
+    this.rechargerequestService.getFleetCardList().subscribe((res) => {
         this.fleetCardList = res;
     });
   }
@@ -165,45 +163,26 @@ export class RechargerequestaddComponent {
     });
   }
 
-    onChangeSearch(search: string) {
-      // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
-    }
-  
-    onFocused(e: any) {
-      // do something
-    }
-  
-    startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-      return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
-  
-    onChangeSearch1(search: string) {
-      // fetch remote data from here
-      // And reassign the 'data' which is binded to 'data' property.
-    }
-  
-    onFocused1(e: any) {
-      // do something
-    }
-
-    startWithFilter1 = function (List: Dropdownmodel[], query: string): any[] {
-      return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    };
-
-  endWithFilter1 = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
-  };
-
-
-
   rechargeRequestSave(): void {
     debugger
+    
     if (this.formRequestRecharge.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formRequestRecharge.controls;
@@ -217,7 +196,7 @@ export class RechargerequestaddComponent {
     var selectedDataVal = this.formRequestRecharge.getRawValue();
     this.rechargerequestmodel.reqId = this.selectedRechargerequestmodel.reqId;
     this.rechargerequestmodel.reqBranch = selectedDataVal.reqBranch.toUpperCase().toString();
-    this.rechargerequestmodel.reqDate = selectedDataVal.reqDate.toUpperCase().toString();
+    this.rechargerequestmodel.reqDate = selectedDataVal.reqDate.toString();
     this.rechargerequestmodel.reqAmt = selectedDataVal.reqAmt.toString();
     this.rechargerequestmodel.reqCard = selectedDataVal.reqCard.dataId.toString();
     this.rechargerequestmodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId.toString();
@@ -248,7 +227,7 @@ export class RechargerequestaddComponent {
   } 
 
   RechargeRequestDelete(): void {
-    debugger
+    
     if(this.selectedRechargerequestmodel.reqId != '' ){
      this.requestmodel.strRequest =this.selectedRechargerequestmodel.reqId
       if (confirm("Are you sure, you want to delete this?")) {

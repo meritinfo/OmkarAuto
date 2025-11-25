@@ -102,7 +102,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> CheckDuplicateCardNo(CardModel request)
+        public async Task<ResponseModel> CheckDuplicateCardNo(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -111,7 +111,7 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@CardNo", request.CardNo),
+                            new SqlParameter("@CardNo", request.strRequest),
 
 
                         };
@@ -143,7 +143,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> CheckDuplicateCardCode(CardModel request)
+        public async Task<ResponseModel> CheckDuplicateCardCode(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -152,9 +152,7 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@CardCode", request.CardCode),
-
-
+                            new SqlParameter("@CardCode", request.strRequest),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckDuplicateCardCode", param);
 

@@ -32,11 +32,11 @@ namespace FleetMasters.Business
         {
             return await fleetCardMasterRepository.FleetCardMasterDelete(requestModel);
         }
-        public async Task<ResponseModel> CheckDuplicateCardNo(CardModel request)
+        public async Task<ResponseModel> CheckDuplicateCardNo(RequestModel request)
         {
             return await fleetCardMasterRepository.CheckDuplicateCardNo(request);
         }
-        public async Task<ResponseModel> CheckDuplicateCardCode(CardModel request)
+        public async Task<ResponseModel> CheckDuplicateCardCode(RequestModel request)
         {
             return await fleetCardMasterRepository.CheckDuplicateCardCode(request);
         }

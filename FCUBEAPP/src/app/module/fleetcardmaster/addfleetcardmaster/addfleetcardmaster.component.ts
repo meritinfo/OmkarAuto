@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Fleetcardmastermodel } from 'src/app/models/fleetcardmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FleetCardMasterService } from 'src/app/services/fleetcardmaster.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Cardmodel } from 'src/app/models/cardmodel';
 import { SharedService } from 'src/app/services/shared.service';
 
 
@@ -28,7 +22,7 @@ export class AddfleetcardmasterComponent {
   formUser!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
-  cardDetails = new Cardmodel();
+  cardDetails = new Requestmodel();
   ledgerAcList: Dropdownmodel[] = [];
   editMode = false;
   createmode  = true;
@@ -36,15 +30,17 @@ export class AddfleetcardmasterComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
 
 
   selectedFleetCardMasterDetails = new Fleetcardmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private fleetcardMasterModel: Fleetcardmastermodel, private fleetcardmasterService: FleetCardMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private fleetcardMasterModel: Fleetcardmastermodel, private fleetcardmasterService: FleetCardMasterService, 
+    private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel,
+    private sharedService: SharedService) {
     this.fleetcardMasterModel = new Fleetcardmastermodel();
-
-}
+  }
 ngOnInit(): void {
   
   this.sharedService.loading = true;
@@ -112,9 +108,7 @@ getCardledgerAcList(): void {
   });
 }
 checkDuplicateCardCode() {
-
-
-  this.cardDetails.cardCode = this.formUser.value.cardCode;
+  this.cardDetails.strRequest = this.formUser.value.cardCode;
   this.commonService.checkDuplicateCardCode(this.cardDetails).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     if (!this.responseDetails.status) {
@@ -128,9 +122,7 @@ checkDuplicateCardCode() {
 
 }
 checkDuplicateCardNo() {
-
-
-  this.cardDetails.cardNo = this.formUser.value.cardNo;
+  this.cardDetails.strRequest = this.formUser.value.cardNo;
   this.commonService.checkDuplicateCardNo(this.cardDetails).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     if (!this.responseDetails.status) {

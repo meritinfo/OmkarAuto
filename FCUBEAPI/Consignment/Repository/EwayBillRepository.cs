@@ -117,11 +117,13 @@ namespace Consignment.Repository
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var data = new { username = ewayapiConfigurtion.ApiUserName,
+                var data = new { 
+                    username = ewayapiConfigurtion.ApiUserName,
                     password = ewayapiConfigurtion.ApiPassword,
                     client_id = ewayapiConfigurtion.ApiClient_id,
                     client_secret = ewayapiConfigurtion.ApiClient_secret,
-                    grant_type = ewayapiConfigurtion.ApiGrantType };
+                    grant_type = ewayapiConfigurtion.ApiGrantType 
+                };
                 HttpResponseMessage response = client.PostAsJsonAsync("oauth/access_token", data).Result;
 
                 if (response.IsSuccessStatusCode)

@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Billsubmitmastermodel } from 'src/app/models/billsubmitmastermodel';
-import { BillSubmitMstDtlListmodel } from 'src/app/models/billsubmitmstdtllistmodel';
 import { BillSubmitMasterService } from 'src/app/services/billsubmitmaster.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -37,8 +36,7 @@ export class BillsubmitmasteraddComponent {
   appendMode = false;  
   editMode= false;
   formSubmitted = false;
-  keywordLocation = 'dataName';
-  billsubmitmstdtllistmodel = new BillSubmitMstDtlListmodel();   
+  keywordLocation = 'dataName'; 
   billsubmitmastermodels = new Billsubmitmastermodel();   
 
   responseDetails = new Responsemodel();

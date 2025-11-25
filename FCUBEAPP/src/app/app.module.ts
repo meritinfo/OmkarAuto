@@ -224,7 +224,6 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { Dprmodel } from './models/dprmodel';
 import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
-import { Ccinvdetailmodel } from 'src/app/models/cciinvdetailmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { DprvehiplacededitComponent } from './module/dprvehiplaced/dprvehiplacededit/dprvehiplacededit.component';
@@ -552,7 +551,9 @@ import { RechargerequestaddComponent } from './module/rechargerequest/rechargere
 import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
 import { Rechargerequestmodel } from "./models/rechargerequestmodel";
 import { Rechargerequestlist } from "./models/rechargerequestlist";
-import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd/rechargerequestapproveadd.component';
+import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
+import { PltransferComponent } from './module/pltransfer/pltransfer.component';
+import { Pltransfermodel } from "./models/pltransfermodel";
 
 
 
@@ -733,7 +734,8 @@ import { RechargerequestapproveaddComponent } from './module/rechargerequestappr
     TripmasterllplistComponent, TripmasterllpaddComponent, 
     TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, 
     CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
-    TripsheetgsafelistComponent, TripsheetgsafeaddComponent, RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
+    TripsheetgsafelistComponent, TripsheetgsafeaddComponent, 
+    RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent, PltransferComponent,
 
     
   ],
@@ -806,13 +808,13 @@ import { RechargerequestapproveaddComponent } from './module/rechargerequestappr
     Freightgstmastermodel,Freightgstmasterlistmodel,
     ChallanmastermodelllP,ChallanlistmodelllP,Branchcustomertargetmodel,    
     Tripmastermodel,Benbankmodel,Domodel,Dovehiplacedmodel,Gstpctvaluesmodel,
-    Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,Ccinvdetailmodel,
+    Ccinvmstmodel,Admingroupmastermodel,Userlistmodel,
     BillsmastermodelllP,Billsmasterlistmodel,BillsDetailModelllP,
     Deliverydisputeentrymodel,BrokeradvancepmtModel,Partymislocationmodel,
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel
   ],
   bootstrap: [AppComponent]
 })
