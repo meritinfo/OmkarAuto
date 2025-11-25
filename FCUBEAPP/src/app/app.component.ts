@@ -189,8 +189,9 @@ export class AppComponent implements OnInit {
       this.route.navigate(['/ccinvoicelist']);
     }
   }
+  
   //Shortcut key for Consignment list -> Ctrl + u
-  @HostListener('window:keydown.control.u', ['$event'])
+  @HostListener('window:keydown.control.u', ['$event'])  
   updatecnbillFont(event: KeyboardEvent) {
     event.preventDefault();
     if(this.company =="LLP") {
