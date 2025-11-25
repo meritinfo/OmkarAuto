@@ -323,6 +323,9 @@ namespace FCUBEAPI
             services.AddScoped<IRechargeRequestBusiness, RechargeRequestBusiness>();
             services.AddScoped<IRechargeRequestRepository, RechargeRequestRepository>();
 
+            services.AddScoped<IPlTransferBusiness, PlTransferBusiness>();
+            services.AddScoped<IPlTransferRepository, PlTransferRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
