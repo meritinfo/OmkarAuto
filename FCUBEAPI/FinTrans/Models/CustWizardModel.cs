@@ -84,6 +84,8 @@ namespace FinTrans.Models
         public string? RoundOffAc { get; set; }
         public string? UnBilledFrtAc { get; set; }
         public string? Flt_TripFastagAc { get; set; }
+        public string? PL_BranchAc { get; set; }
+        public string? PL_HoAc { get; set; }
 
 
     }

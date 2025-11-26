@@ -69,4 +69,6 @@ export class Custwizardmodel {
                    roundOffAc : string= "";
                    unBilledFrtAc : string= "";
                     flt_TripFastagAc : string= "";
+                      pL_BranchAc : string= "";
+                        pL_HoAc : string= "";
 }
