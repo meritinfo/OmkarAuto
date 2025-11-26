@@ -229,6 +229,8 @@ namespace FinTrans.Repository
                         custWizardModel.RoundOffAc = Convert.ToString(userData.Tables[0].Rows[0]["RoundOffAc"]);
                         custWizardModel.UnBilledFrtAc = Convert.ToString(userData.Tables[0].Rows[0]["UnBilledFrtAc"]);
                         custWizardModel.Flt_TripFastagAc = Convert.ToString(userData.Tables[0].Rows[0]["Flt_TripFastagAc"]);
+                        custWizardModel.PL_BranchAc = Convert.ToString(userData.Tables[0].Rows[0]["PL_BranchAc"]);
+                        custWizardModel.PL_HoAc = Convert.ToString(userData.Tables[0].Rows[0]["PL_HoAc"]);
                     }
                     else
                     {
@@ -324,6 +326,9 @@ namespace FinTrans.Repository
                                    new SqlParameter("@UnBilledFrtAc" , custWizardModel.UnBilledFrtAc),
                                     new SqlParameter("@RoundOffAc" , custWizardModel.RoundOffAc),
                                      new SqlParameter("@Flt_TripFastagAc" , custWizardModel.Flt_TripFastagAc),
+                                      new SqlParameter("@PL_BranchAc" , custWizardModel.PL_BranchAc),
+                                        new SqlParameter("@PL_HoAc" , custWizardModel.PL_HoAc),
+
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);

@@ -174,6 +174,8 @@ export class CustwizardaddComponent {
       flt_TripFastagAc: new FormControl('',),
       unBilledFrtAc: new FormControl('',),
       roundOffAc: new FormControl('',),
+      pL_BranchAc: new FormControl('',),
+      pL_HoAc: new FormControl('',),
       
     });
     this.getCrAcListForCustWizard();
@@ -273,7 +275,9 @@ export class CustwizardaddComponent {
                                   bL_OthersAc  : this.selectedCustWizardDetails.bL_OthersAc  ,
                                     unBilledFrtAc  : this.selectedCustWizardDetails.unBilledFrtAc  ,
                                     roundOffAc  : this.selectedCustWizardDetails.roundOffAc  ,
-                                         flt_TripFastagAc  : this.selectedCustWizardDetails.flt_TripFastagAc  ,
+    flt_TripFastagAc  : this.selectedCustWizardDetails.flt_TripFastagAc  ,
+   pL_BranchAc  : this.selectedCustWizardDetails.pL_BranchAc  ,
+   pL_HoAc  : this.selectedCustWizardDetails.pL_HoAc  ,
 
       });
     });    
@@ -431,13 +435,12 @@ this.custWizardModel.bL_UnLoadingAc = selectedDataValue.bL_UnLoadingAc;
 this.custWizardModel.bL_DetentionAc = selectedDataValue.bL_DetentionAc;
 this.custWizardModel.bL_ExtrasAc = selectedDataValue.bL_ExtrasAc;
 this.custWizardModel.bL_OthersAc = selectedDataValue.bL_OthersAc;
-
 this.custWizardModel.unBilledFrtAc = selectedDataValue.unBilledFrtAc;
 this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
 this.custWizardModel.flt_TripFastagAc = selectedDataValue.flt_TripFastagAc;
+this.custWizardModel.pL_BranchAc = selectedDataValue.pL_BranchAc;
+this.custWizardModel.pL_HoAc = selectedDataValue.pL_HoAc;
 
-      
-      
   
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

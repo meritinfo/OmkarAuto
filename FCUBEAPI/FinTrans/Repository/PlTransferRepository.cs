@@ -104,7 +104,6 @@ namespace FinTrans.Repository
                     if (responseModel.Status)
                     {
                         transaction.Commit();
-                        responseModel.Message ="Consignment Saved Successfully";
                     }
                     else { transaction.Rollback(); }
                 }
