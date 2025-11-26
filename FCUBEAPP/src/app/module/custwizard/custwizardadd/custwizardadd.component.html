@@ -95,7 +95,32 @@
                            
                         </div>
                         <div class="row">
-                         
+                             <div class="col-lg-4">   
+                                <div class="mb-6">
+                                    <label for="neft" >PL BranchAc</label>
+                                
+                                    <select formControlName="pL_BranchAc"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pL_BranchAc'].invalid) }">
+                                        <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>                
+                                </div>                    
+                            </div>    
+                             <div class="col-lg-4">   
+                                <div class="mb-6">
+                                    <label for="neft" >PL HoAc</label>
+                                
+                                    <select formControlName="pL_HoAc"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['pL_HoAc'].invalid) }">
+                                        <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>                
+                                </div>                    
+                            </div>    
                        
                           
                             
