@@ -26,7 +26,8 @@ export class PltransferService
   getPLTransferList(request: Requestmodel): Observable<Pltransfermodel> {
     return this.httpClient.post<Pltransfermodel>(Constants.API_ENDPOINT + 'FinTrans/PlTransferList', request, this.httpOptions);
   }
-   plTransferSave(doc: Pltransfermodel): Observable<Responsemodel> {
+
+  plTransferSave(doc: Pltransfermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/PLTransferSave', doc, this.httpOptions);
   }
 }
