@@ -554,7 +554,9 @@ import { UnbilledprovisionmstaddComponent } from './module/unbilledprovisionmst/
 import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstlist/unbilledprovisionmstlist.component';
 import { PltransferComponent } from './module/pltransfer/pltransfer.component';
 import { Pltransfermodel } from "./models/pltransfermodel";
-
+import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
+import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
+import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
 
 
 @NgModule({
@@ -736,7 +738,9 @@ import { Pltransfermodel } from "./models/pltransfermodel";
     TripsheetgsafelistComponent, TripsheetgsafeaddComponent, 
     RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
-    PltransferComponent
+    PltransferComponent,
+    FleetgodownmasteraddComponent,
+    FleetgodownmasterlistComponent
     
   ],
   
@@ -814,7 +818,7 @@ import { Pltransfermodel } from "./models/pltransfermodel";
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel
   ],
   bootstrap: [AppComponent]
 })

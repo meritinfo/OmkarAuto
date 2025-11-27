@@ -361,6 +361,9 @@ import { RechargerequestlistComponent } from './module/rechargerequest/recharger
 import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 import { PltransferComponent } from './module/pltransfer/pltransfer.component';
 
+import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
+import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
+
 
 
 
@@ -855,6 +858,9 @@ const routes: Routes = [
   { path: 'FleetCardRechargeReqedit', component: RechargerequestaddComponent },
   { path: 'FleetCardRechargeApp', component: RechargerequestapproveaddComponent },
   { path: 'pltransfer', component: PltransferComponent },
+  { path: 'fltgodownlist', component: FleetgodownmasterlistComponent },
+  { path: 'fltgodownlistadd', component: FleetgodownmasteraddComponent },
+  { path: 'fltgodownlistedit', component: FleetgodownmasteraddComponent },
 
   
 ];
