@@ -180,9 +180,7 @@ export class RechargerequestaddComponent {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
 
-  rechargeRequestSave(): void {
-    debugger
-    
+  rechargeRequestSave(): void {    
     if (this.formRequestRecharge.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formRequestRecharge.controls;
