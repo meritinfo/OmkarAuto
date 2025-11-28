@@ -342,6 +342,64 @@ namespace FleetTrans.Repository
             }
             return transfer;
         }
+        public async Task<ResponseModel> GetBpclBalanceAmount(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+
+                EWayAPIConfigurationModel ewayapiConfigurtion = new();
+
+                ewayapiConfigurtion = await APIConfigurationDetails();
+
+                string baseUrl = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
+
+                string UrlParam = "startDate=" + request.FromDate +
+                                "&endDate=" + request.ToDate +
+                                "&fileFormat=csv" +
+                                "&isDownload=true" +
+                                "&selected_Period=false" +
+                                "&dateFilterType=transactionDate-desc" +
+                                "&fields=cmsWalletClosingBalance" +
+                                "&reportType=CONSOLIDATED" +
+                                "&channel=Web" +
+                                "&accountId=FA3000173330";
+                              
+
+                string token = await GetAccessSubToken(ewayapiConfigurtion);
+
+                string parentToken = await GetAccessParentToken(token);
+
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + parentToken);
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains("Closing CMS Balance"))
+                    {
+                        var lines = result.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                        int headerIndex = Array.FindIndex(lines, l => l.StartsWith("S.No."));
+                        // First data row = next line after header
+                        string firstDataRow = lines[headerIndex + 1];
+                        // Split row columns
+                        var columns = firstDataRow.Split(',');
+                        responseModel.Status = true;
+                        responseModel.Message = columns[1];
+                    }
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
         public async Task<EWayAPIConfigurationModel> APIConfigurationDetails()
         {
             EWayAPIConfigurationModel configModel = new();

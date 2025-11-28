@@ -147,6 +147,11 @@
                                         <tr>
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
+                                                    <h6>Godown </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
                                                     <h6>Brand </h6>
                                                 </label>
                                             </td>
@@ -170,8 +175,18 @@
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
-                                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="brandId"   
-                                                     (change)="checkduplicate(i)"
+                                                    <select class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="godownId" (change)="checkduplicate(i)"
+                                                        class="form-control form-select ng-pristine ng-touched"   
+                                                        [ngClass]="">
+                                                            <option *ngFor="let vehi of godownList" value={{vehi.dataId}}>
+                                                            {{vehi.dataName}}
+                                                            </option>
+                                                    </select>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <select class="form-control form-select ng-pristine ng-touched"
+                                                        formControlName="brandId" (change)="checkduplicate(i)"
                                                         class="form-control form-select ng-pristine ng-touched"   
                                                         [ngClass]="">
                                                             <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>

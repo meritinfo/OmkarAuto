@@ -39,6 +39,7 @@ export class VehiclerepmaintaddComponent {
   stateList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
   maintList: Dropdownmodel[] = [];
+  godownList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   vehicleList : Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
@@ -126,6 +127,7 @@ export class VehiclerepmaintaddComponent {
     this.formUser = this.formBuilder.group({
       transDate : new FormControl(this.loginDate,[Validators.required]),
       stockType : new FormControl('',[Validators.required]),
+      godownId: new FormControl('',[Validators.required]),
       maintID : new FormControl('',[Validators.required]),
       vehicleMasterId : new FormControl('',[Validators.required]),
       kmReading : new FormControl('',[Validators.required]),
@@ -346,6 +348,7 @@ export class VehiclerepmaintaddComponent {
       this.formTyreArray.controls[0].get("itemQty")?.enable();
       this.formTyreArray.controls[0].get("itemRate")?.enable();
     }
+    this.formUser.controls['godownId'].disable();
 
     this.formUser.patchValue({
       nonVendor: "",
@@ -369,6 +372,7 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['vendorName'].disable();
       this.formUser.controls['gstInputTaken'].disable();
       this.formUser.controls['gstType'].disable();
+      this.formUser.controls['godownId'].enable();
      // this.formUser.controls['otherAmount'].disable();
       
       this.getCreditAcList("A");

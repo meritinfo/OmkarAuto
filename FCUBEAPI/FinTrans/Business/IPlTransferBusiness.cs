@@ -11,6 +11,6 @@ namespace FleetMasters.Business
     public interface IPlTransferBusiness
     {
         Task<PlTransferModel> PlTransferList(RequestModel request);
-        Task<ResponseModel> PLTransferSave(PlTransferModel obj);
+        Task<ResponseModel> PLTransferSave(PlTransferModel plTransfer);
     }
 }

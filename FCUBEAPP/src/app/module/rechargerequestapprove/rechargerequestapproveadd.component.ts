@@ -58,6 +58,7 @@ export class RechargerequestapproveaddComponent {
   loginDate: string = '';
   branch:string = '';
   loggedInUserID      : string = '';
+  balanceAmt      : string = '';
   formRequestRecharge!: FormGroup;
   dashboard       : string ="";
   attachPath       : string ="";
@@ -203,19 +204,23 @@ export class RechargerequestapproveaddComponent {
     return this.formRequestRecharge.get("arrayList") as FormArray;
   }
 
-search(): void {
-  var selectedData = this.formRequestRecharge.getRawValue();
-  this.reportmodel.filterStr = selectedData.reqBranch?.toString() ?? "";
-  this.reportmodel.fromDate = selectedData.fromDate?.toString() ?? "";
-  this.reportmodel.toDate = selectedData.toDate?.toString() ?? "";
-  if (selectedData.reqCard && selectedData.reqCard.dataId) {
-    this.reportmodel.filterStr1 = selectedData.reqCard.dataId.toString();
-  }
-  if (selectedData.vehicleMasterId && selectedData.vehicleMasterId.dataId) {
-    this.reportmodel.filterStr2 = selectedData.vehicleMasterId.dataId.toString();
-  }
-  this.rechargerequestService.getRechargeRequestApproveList(this.reportmodel)
-    .subscribe((res) => {
+  search(): void {
+    var selectedData = this.formRequestRecharge.getRawValue();
+    this.reportmodel.filterStr = selectedData.reqBranch?.toString() ?? "";
+    this.reportmodel.fromDate = selectedData.fromDate?.toString() ?? "";
+    this.reportmodel.toDate = selectedData.toDate?.toString() ?? "";
+    if (selectedData.reqCard && selectedData.reqCard.dataId) {
+      this.reportmodel.filterStr1 = selectedData.reqCard.dataId.toString();
+    }
+    if (selectedData.vehicleMasterId && selectedData.vehicleMasterId.dataId) {
+      this.reportmodel.filterStr2 = selectedData.vehicleMasterId.dataId.toString();
+    }
+    this.rechargerequestService.getBpclBalanceAmount(this.reportmodel).subscribe((res) => {
+      if(res.status){
+        this.balanceAmt = res.message;
+      }
+    });
+    this.rechargerequestService.getRechargeRequestApproveList(this.reportmodel).subscribe((res) => {
       if (res.rechargeRequestLst && res.rechargeRequestLst.length > 0) {
         this.formArray.clear();
         this.rechargerequestlist = res;
@@ -239,7 +244,7 @@ search(): void {
         }
       }
     });
-}
+  }
 
 
   selectAll(e: any) {

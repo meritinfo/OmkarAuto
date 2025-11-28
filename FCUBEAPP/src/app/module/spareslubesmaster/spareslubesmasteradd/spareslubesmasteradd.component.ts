@@ -27,6 +27,7 @@ export class SpareslubesmasteraddComponent {
   dashboard: string ="";
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
+  godownList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
 
@@ -57,16 +58,15 @@ export class SpareslubesmasteraddComponent {
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-    
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -79,7 +79,9 @@ export class SpareslubesmasteraddComponent {
     }
 
     this.sharedService.loading = true;   
-    this.getBrandList();
+    this.getBrandList(); 
+    this.getGodownList();
+
     this.selectedSpareslubesMasterDetails = this.sparesLubesMasterService.getSparesLubesMasterDetails();
     this.formSparesMaster = this.formBuilder.group({   
       spareLubName: new FormControl('',[Validators.required]),
@@ -96,10 +98,8 @@ export class SpareslubesmasteraddComponent {
       this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails); 
       this.getSparesLubesInnerGridList();  
       this.editMode = true;
-    }
-    
+    }    
     this.sharedService.loading = false;
-
   }
 
   get f() { return this.formSparesMaster.controls; }
@@ -127,18 +127,23 @@ export class SpareslubesmasteraddComponent {
   }
 
   getBrandList(): void {
-   // this.sparesLubesMasterService.getBrandList().subscribe((res) => {
     this.commonService.getSparesBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }
-  
+
+  getGodownList(): void {
+    this.commonService.getSparesBrandList().subscribe((res) => {
+      this.godownList = res;
+    });
+  }
+
   checkduplicate(index: number){
     var selectedData= this.formSparesMaster.getRawValue();
     var arr=selectedData.arrayList;
     for (var i = 0; i < arr.length; i++) {  
-      if(i!=index && arr[index].brandId==arr[i].brandId){
-        this.toasterService.warning("Brand already selected in grid");
+      if(i!=index && arr[index].godownId==arr[i].godownId && arr[index].brandId==arr[i].brandId){
+        this.toasterService.warning("Godown & Brand already selected in grid");
         this.formArray.controls[index].get("brandId")?.setValue('');
         return;
 
@@ -149,18 +154,20 @@ export class SpareslubesmasteraddComponent {
   addItem(index: number): void {
     var selectedData= this.formSparesMaster.getRawValue();
     var arr=selectedData.arrayList;
-    for (var i = 0; i < arr.length; i++) {  
-      if(i!=index && arr[index].brandId==arr[i].brandId){
-        this.toasterService.warning("brand already selected");
+    for (var i = 0; i < arr.length; i++) {   
+      if(i!=index && arr[index].godownId==arr[i].godownId && arr[index].brandId==arr[i].brandId){
+        this.toasterService.warning("Godown & Brand already selected");
         return;
-
       }
     }
 
     if (arr[index].brandId != "0" && arr[index].openingQty != "0") {
+    if (this.formArray.value[index].godownId !="" &&
+      this.formArray.value[index].brandId != "" && 
+      this.formArray.value[index].openingQty != "0") {
       this.formArray.push(this.createInitialArray());
     } else {
-      this.toasterService.warning("Please select one Item  detail brand, qty");
+      this.toasterService.warning("Please select Godown, brand, qty");
     }
   }
 
@@ -171,11 +178,11 @@ export class SpareslubesmasteraddComponent {
   }
 
   createInitialArray() {
-    return this.formBuilder.group({      
-      spareLubId: ['', []],
-      brandId: ['0', []],
+    return this.formBuilder.group({   
+      godownId: ['', []],
+      brandId: ['', []],
       openingQty: ['0', []],
-      openingValue: ['', []],
+      openingValue: ['0', []],
     });
   }
 
@@ -188,9 +195,10 @@ export class SpareslubesmasteraddComponent {
       this.sparesLubesMasterModel = res;
       for (var i = 0; i < res.sparesLubesDetailList.length; i++) {
         this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("godownId")?.setValue(res.sparesLubesDetailList[i].godownId);   
         this.formArray.controls[i].get("brandId")?.setValue(res.sparesLubesDetailList[i].brandId);
         this.formArray.controls[i].get("openingQty")?.setValue(res.sparesLubesDetailList[i].openingQty);
-        this.formArray.controls[i].get("openingValue")?.setValue(res.sparesLubesDetailList[i].openingValue);       
+        this.formArray.controls[i].get("openingValue")?.setValue(res.sparesLubesDetailList[i].openingValue);             
       }     
     });
   }
@@ -246,7 +254,11 @@ export class SpareslubesmasteraddComponent {
     this.sparesLubesMasterModel.sparesLubesDetailList = [];
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
-      if (selectedDataVal.arrayList[i].brandId =='0' ) {
+      if (selectedDataVal.arrayList[i].godownId =='' ) {
+        this.toasterService.warning("Please select Godown");
+        return;
+      } 
+      if (selectedDataVal.arrayList[i].brandId =='' ) {
         this.toasterService.warning("Please select Brand");
         return;
       } 
@@ -260,9 +272,9 @@ export class SpareslubesmasteraddComponent {
       // } 
       
       
-      this.sparesLubesMasterModel.sparesLubesDetailList.push({     
-        'id': '',
+      this.sparesLubesMasterModel.sparesLubesDetailList.push({  
         'spareLubId': '',
+        'godownId': selectedDataVal.arrayList[i].godownId,
         'brandId': selectedDataVal.arrayList[i].brandId,
         'openingQty': selectedDataVal.arrayList[i].openingQty,
         'openingValue': selectedDataVal.arrayList[i].openingValue

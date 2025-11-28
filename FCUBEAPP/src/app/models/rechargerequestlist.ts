@@ -3,6 +3,6 @@ import { Paginationmodel } from "./paginationmodel";
 
 
 export class Rechargerequestlist {
- rechargeRequestLst: Rechargerequestmodel[] = [];
-pageMetaData: Paginationmodel = new Paginationmodel;
+    rechargeRequestLst: Rechargerequestmodel[] = [];
+    pageMetaData: Paginationmodel = new Paginationmodel;
 }

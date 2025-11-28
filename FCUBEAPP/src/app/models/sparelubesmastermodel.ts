@@ -13,10 +13,11 @@ export class Spareslubesmastermodel {
    // openingValue: string="";
    sparesLubesDetailList: Spareslubesdetailmodel[] = [];
 }
+
 export class Spareslubesdetailmodel {
-  id: string = "";
   spareLubId: string = "";
   brandId: string = "";
   openingQty: string = "";
   openingValue: string = "";
+  godownId: string = "";
 }

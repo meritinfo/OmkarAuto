@@ -195,13 +195,10 @@ namespace FleetMasters.Repository
                         {
                             sparesLubesInnerGridList.SparesLubesDetailList.Add(new SparesLubesDetailModel
                             {
-                               // Id = Convert.ToString(resultData.Tables[0].Rows[i]["Id"]),
-                            
-                               // SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),
                                 BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
                                 OpeningQty = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningQty"]),
                                 OpeningValue = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningValue"]),
-
+                                GodownId = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningValue"]),
                             });
                         }
                     }
@@ -221,14 +218,12 @@ namespace FleetMasters.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                            new SqlParameter("@Id",               sparesLubesDetailModel.Id),
-
-                            new SqlParameter("@SpareLubId",           sparesLubesDetailModel.SpareLubId),
-                        
-                            new SqlParameter("@BrandId",             sparesLubesDetailModel.BrandId),
-                            new SqlParameter("@OpeningQty",                    sparesLubesDetailModel.OpeningQty),
-                            new SqlParameter("@OpeningValue",        sparesLubesDetailModel.OpeningValue) ,
+                    {
+                            new SqlParameter("@SpareLubId",     sparesLubesDetailModel.SpareLubId),                        
+                            new SqlParameter("@BrandId",        sparesLubesDetailModel.BrandId),
+                            new SqlParameter("@OpeningQty",     sparesLubesDetailModel.OpeningQty),
+                            new SqlParameter("@OpeningValue",   sparesLubesDetailModel.OpeningValue) ,
+                            new SqlParameter("@GodownId",       sparesLubesDetailModel.GodownId) ,
                     };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesLubesDetailSave", param);

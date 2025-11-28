@@ -23,9 +23,9 @@ namespace FleetMasters.Business
             return await fleetGodownMasterRepository.GetFleetGodownMaserList(request);
         }
 
-        public async Task<ResponseModel> FleetGodownMaserSave(FleetGodownMasterModel obj)
+        public async Task<ResponseModel> FleetGodownMaserSave(FleetGodownMasterModel fleetGodown)
         {
-            return await fleetGodownMasterRepository.FleetGodownMaserSave(obj);
+            return await fleetGodownMasterRepository.FleetGodownMaserSave(fleetGodown);
         }
 
         public async Task<ResponseModel> FleetGodownMasterDelete(RequestModel requestModel)

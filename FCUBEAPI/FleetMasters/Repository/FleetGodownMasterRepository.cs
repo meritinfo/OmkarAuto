@@ -73,7 +73,7 @@ namespace FleetMasters.Repository
             return fleetGodownMasterList;
         }
 
-        public async Task<ResponseModel> FleetGodownMaserSave(FleetGodownMasterModel obj)
+        public async Task<ResponseModel> FleetGodownMaserSave(FleetGodownMasterModel fleetGodown)
         {
             ResponseModel responseModel = new();
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
@@ -86,15 +86,15 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                     {
-                            new SqlParameter("@GodownId"         , obj.GodownId),
-                            new SqlParameter("@GodownShortCode"  , obj.GodownShortCode),
-                            new SqlParameter("@GodownDesc"       , obj.GodownDesc),
-                            new SqlParameter("@GodownAddress"    , obj.GodownAddress),
-                            new SqlParameter("@ControllingBranch", obj.ControllingBranch),
-                            new SqlParameter("@GodownIncharge"   , obj.GodownIncharge),
-                            new SqlParameter("@InchargeMobile"   , obj.InchargeMobile),
-                            new SqlParameter("@IsActive"         , obj.IsActive),
-                            new SqlParameter("@LoggedInUser"     , obj.LoggedInUser)
+                            new SqlParameter("@GodownId"         , fleetGodown.GodownId),
+                            new SqlParameter("@GodownShortCode"  , fleetGodown.GodownShortCode),
+                            new SqlParameter("@GodownDesc"       , fleetGodown.GodownDesc),
+                            new SqlParameter("@GodownAddress"    , fleetGodown.GodownAddress),
+                            new SqlParameter("@ControllingBranch", fleetGodown.ControllingBranch),
+                            new SqlParameter("@GodownIncharge"   , fleetGodown.GodownIncharge),
+                            new SqlParameter("@InchargeMobile"   , fleetGodown.InchargeMobile),
+                            new SqlParameter("@IsActive"         , fleetGodown.IsActive),
+                            new SqlParameter("@LoggedInUser"     , fleetGodown.LoggedInUser)
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FltGodownMasterSave", param);
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)

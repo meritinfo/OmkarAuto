@@ -1873,15 +1873,15 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("FleetGodownMaserSave")]
-        public async Task<IActionResult> FleetGodownMaserSave(FleetGodownMasterModel obj)
+        public async Task<IActionResult> FleetGodownMaserSave(FleetGodownMasterModel fleetGodown)
         {
-            if (obj == null)
+            if (fleetGodown == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await fleetGodownMasterBusiness.FleetGodownMaserSave(obj);
+                var result = await fleetGodownMasterBusiness.FleetGodownMaserSave(fleetGodown);
 
                 return Ok(result);
             }

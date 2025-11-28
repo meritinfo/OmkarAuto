@@ -1073,15 +1073,15 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("PLTransferSave")]
-        public async Task<IActionResult> PLTransferSave(PlTransferModel obj)
+        public async Task<IActionResult> PLTransferSave(PlTransferModel plTransfer)
         {
-            if (obj == null)
+            if (plTransfer == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await plTransferBusiness.PLTransferSave(obj);
+                var result = await plTransferBusiness.PLTransferSave(plTransfer);
 
                 return Ok(result);
             }
