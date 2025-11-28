@@ -11,6 +11,6 @@ namespace FinTrans.Repository
     public interface IPlTransferRepository
     {
         Task<PlTransferModel> PlTransferList(RequestModel request);
-        Task<ResponseModel> PLTransferSave(PlTransferModel obj);
+        Task<ResponseModel> PLTransferSave(PlTransferModel plTransfer);
     }
 }

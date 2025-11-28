@@ -4294,15 +4294,15 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("RechargeRequestApproveSave")]
-        public async Task<IActionResult> RechargeRequestApproveSave(RechargeRequestList obj)
+        public async Task<IActionResult> RechargeRequestApproveSave(RechargeRequestList fleetGodown)
         {
-            if (obj == null)
+            if (fleetGodown == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await rechargeRequestBusiness.RechargeRequestApproveSave(obj);
+                var result = await rechargeRequestBusiness.RechargeRequestApproveSave(fleetGodown);
 
                 return Ok(result);
             }

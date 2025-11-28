@@ -134,7 +134,7 @@ export class SpareslubesmasteraddComponent {
 
   getGodownList(): void {
     this.commonService.getSparesBrandList().subscribe((res) => {
-      this.brandList = res;
+      this.godownList = res;
     });
   }
 

@@ -22,17 +22,17 @@ namespace FleetTrans.Business
         {
             return await rechargeRequestRepository.GetFleetCardList();
         }
-        public async  Task<ResponseModel> RechargeRequestSave(RechargeRequestModel obj)
+        public async  Task<ResponseModel> RechargeRequestSave(RechargeRequestModel rechargeRequest)
         {
-            return await rechargeRequestRepository.RechargeRequestSave(obj);
+            return await rechargeRequestRepository.RechargeRequestSave(rechargeRequest);
         }
         public async Task<RechargeRequestList> GetRechargeRequestList(ReportRequestModel request)
         {
             return await rechargeRequestRepository.GetRechargeRequestList(request);
         }
-        public async Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList obj)
+        public async Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList rechargeRequest)
         {
-            return await rechargeRequestRepository.RechargeRequestApproveSave(obj);
+            return await rechargeRequestRepository.RechargeRequestApproveSave(rechargeRequest);
         }
         public async Task<RechargeRequestList> GetRechargeRequestApproveList(ReportRequestModel request)
         {

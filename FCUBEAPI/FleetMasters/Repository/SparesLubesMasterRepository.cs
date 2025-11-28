@@ -218,8 +218,7 @@ namespace FleetMasters.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                            new SqlParameter("@Id",             sparesLubesDetailModel.Id),
+                    {
                             new SqlParameter("@SpareLubId",     sparesLubesDetailModel.SpareLubId),                        
                             new SqlParameter("@BrandId",        sparesLubesDetailModel.BrandId),
                             new SqlParameter("@OpeningQty",     sparesLubesDetailModel.OpeningQty),

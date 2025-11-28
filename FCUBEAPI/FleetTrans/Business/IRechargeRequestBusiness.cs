@@ -11,9 +11,9 @@ namespace FleetTrans.Business
     public interface IRechargeRequestBusiness
     {
         Task<List<DropDownListModel>> GetFleetCardList();
-        Task<ResponseModel> RechargeRequestSave(RechargeRequestModel obj);
+        Task<ResponseModel> RechargeRequestSave(RechargeRequestModel rechargeRequest);
         Task<RechargeRequestList> GetRechargeRequestList(ReportRequestModel request);
-        Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList obj);
+        Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList rechargeRequest);
         Task<RechargeRequestList> GetRechargeRequestApproveList(ReportRequestModel request);
         Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel);
         Task<ResponseModel> GetBpclBalanceAmount(ReportRequestModel request);

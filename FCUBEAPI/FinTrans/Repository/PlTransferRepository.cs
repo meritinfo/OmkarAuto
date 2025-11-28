@@ -59,7 +59,7 @@ namespace FinTrans.Repository
             return plTransferModel;
         }
 
-        public async Task<ResponseModel> PLTransferSave(PlTransferModel obj)
+        public async Task<ResponseModel> PLTransferSave(PlTransferModel plTransfer)
         {
             ResponseModel responseModel = new();
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
@@ -72,12 +72,12 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                     {
-                      new SqlParameter("@TfrYear"      , obj.TfrYear),
-                      new SqlParameter("@TfrBranch"    , obj.TfrBranch),
-                      new SqlParameter("@TfrTotalDrAmt", obj.TfrTotalDrAmt),
-                      new SqlParameter("@TfrTotalCrAmt", obj.TfrTotalCrAmt),
-                      new SqlParameter("@TfrPLAmt"     , obj.TfrPLAmt),
-                      new SqlParameter("@LoggedInUser" , obj.LoggedInUser),
+                      new SqlParameter("@TfrYear"      , plTransfer.TfrYear),
+                      new SqlParameter("@TfrBranch"    , plTransfer.TfrBranch),
+                      new SqlParameter("@TfrTotalDrAmt", plTransfer.TfrTotalDrAmt),
+                      new SqlParameter("@TfrTotalCrAmt", plTransfer.TfrTotalCrAmt),
+                      new SqlParameter("@TfrPLAmt"     , plTransfer.TfrPLAmt),
+                      new SqlParameter("@LoggedInUser" , plTransfer.LoggedInUser),
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PLTransferSave", param);
                     string MasterID = "0";
@@ -90,14 +90,14 @@ namespace FinTrans.Repository
                     }
                     if (responseModel.Status)
                     {
-                        for (int i = 0; i < obj.PlTransferDetails.Count; i++)
+                        for (int i = 0; i < plTransfer.PlTransferDetails.Count; i++)
                         {
-                            obj.PlTransferDetails[i].TfrId = MasterID.ToString();
-                            responseModel = await PLTransferDetailSave(transaction, obj.PlTransferDetails[i]);
+                            plTransfer.PlTransferDetails[i].TfrId = MasterID.ToString();
+                            responseModel = await PLTransferDetailSave(transaction, plTransfer.PlTransferDetails[i]);
                             if (!responseModel.Status)
                             {
                                 transaction.Rollback();
-                                i = obj.PlTransferDetails.Count;
+                                i = plTransfer.PlTransferDetails.Count;
                             }
                         }
                     }
@@ -114,7 +114,7 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> PLTransferDetailSave(SqlTransaction transaction, PlTransferDetails obj)
+        public async Task<ResponseModel> PLTransferDetailSave(SqlTransaction transaction, PlTransferDetails plTransfer)
         {
             ResponseModel responseModel = new();
             try
@@ -123,10 +123,10 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                     {
-                      new SqlParameter("@TfrId"    ,   obj.TfrId),
-                      new SqlParameter("@AccountId",   obj.AccountId),
-                      new SqlParameter("@DrAmt"    ,   obj.DrAmt),
-                      new SqlParameter("@CrAmt"    ,   obj.CrAmt),
+                      new SqlParameter("@TfrId"    ,   plTransfer.TfrId),
+                      new SqlParameter("@AccountId",   plTransfer.AccountId),
+                      new SqlParameter("@DrAmt"    ,   plTransfer.DrAmt),
+                      new SqlParameter("@CrAmt"    ,   plTransfer.CrAmt),
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PLTransferDetailSave", param);
 

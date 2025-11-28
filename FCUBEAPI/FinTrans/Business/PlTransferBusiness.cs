@@ -22,9 +22,9 @@ namespace FleetMasters.Business
             return await plTransferRepository.PlTransferList(request);
         }
 
-        public async Task<ResponseModel> PLTransferSave(PlTransferModel obj)
+        public async Task<ResponseModel> PLTransferSave(PlTransferModel plTransfer)
         {
-            return await plTransferRepository.PLTransferSave(obj);
+            return await plTransferRepository.PLTransferSave(plTransfer);
         }
     }
 }
