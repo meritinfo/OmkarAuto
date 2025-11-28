@@ -24,7 +24,7 @@ export class SpareslubesmasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
@@ -157,7 +157,7 @@ dashboard: string ="";
       }
     }
 
-    if (this.formArray.value[index].brandId != "0" && this.formArray.value[index].openingQty != "0") {
+    if (arr[index].brandId != "0" && arr[index].openingQty != "0") {
       this.formArray.push(this.createInitialArray());
     } else {
       this.toasterService.warning("Please select one Item  detail brand, qty");

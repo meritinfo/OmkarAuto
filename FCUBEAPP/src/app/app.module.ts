@@ -557,6 +557,8 @@ import { Pltransfermodel } from "./models/pltransfermodel";
 import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
 import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
 import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
+import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
+import { Godownstockmodel } from "./models/godownstockmodel";
 
 
 @NgModule({
@@ -740,7 +742,8 @@ import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
     PltransferComponent,
     FleetgodownmasteraddComponent,
-    FleetgodownmasterlistComponent
+    FleetgodownmasterlistComponent,
+    GodownstockentryComponent
     
   ],
   
@@ -818,7 +821,7 @@ import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel
   ],
   bootstrap: [AppComponent]
 })

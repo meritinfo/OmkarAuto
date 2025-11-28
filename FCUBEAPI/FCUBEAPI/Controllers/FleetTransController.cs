@@ -49,6 +49,7 @@ namespace FCUBEAPI.Controllers
         readonly IVendorPmtBusiness vendorPmtBusiness;
         readonly ITripMasterLlpBusiness tripMasterLlpBusiness;
         readonly IRechargeRequestBusiness rechargeRequestBusiness;
+      
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,
@@ -77,7 +78,8 @@ namespace FCUBEAPI.Controllers
             IVendorPmtBusiness _vendorPmtBusiness,
             IDriverSalaryEntryBusiness _driverSalaryEntryBusiness,
             ITripMasterLlpBusiness _tripMasterLlpBusiness,
-             IRechargeRequestBusiness _rechargeRequestBusiness)
+             IRechargeRequestBusiness _rechargeRequestBusiness,
+             IGodownStockBusiness _godownStockBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -109,6 +111,7 @@ namespace FCUBEAPI.Controllers
             driverSalaryEntryBusiness = _driverSalaryEntryBusiness;
             tripMasterLlpBusiness = _tripMasterLlpBusiness;
             rechargeRequestBusiness = _rechargeRequestBusiness;
+           
         }
 
 

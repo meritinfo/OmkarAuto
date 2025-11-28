@@ -329,6 +329,9 @@ namespace FCUBEAPI
             services.AddScoped<IFleetGodownMasterBusiness, FleetGodownMasterBusiness>();
             services.AddScoped<IFleetGodownMasterRepository, FleetGodownMasterRepository>();
 
+            services.AddScoped<IGodownStockBusiness, GodownStockBusiness>();
+            services.AddScoped<IGodownStockRepository,GodownStockRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

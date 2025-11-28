@@ -363,6 +363,8 @@ import { PltransferComponent } from './module/pltransfer/pltransfer.component';
 
 import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
 import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
+import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
+
 
 
 
@@ -861,6 +863,7 @@ const routes: Routes = [
   { path: 'fltgodownlist', component: FleetgodownmasterlistComponent },
   { path: 'fltgodownlistadd', component: FleetgodownmasteraddComponent },
   { path: 'fltgodownlistedit', component: FleetgodownmasteraddComponent },
+  { path: 'sparestockentry', component: GodownstockentryComponent },
 
   
 ];

@@ -46,6 +46,7 @@ namespace FCUBEAPI.Controllers
 
         readonly IRechargeRequestBusiness rechargeRequestBusiness;
         readonly IFleetGodownMasterBusiness fleetGodownMasterBusiness;
+        readonly IGodownStockBusiness godownStockBusiness;
 
 
         public FleetMastersController(IOptions<DBModel> _dbconnection,
@@ -68,9 +69,10 @@ namespace FCUBEAPI.Controllers
             IVehicleFinCompMasterBusiness _vehicleFinCompMasterBusiness,
             IVehicleFltTypeGroupMstBusiness _vehicleFltTypeGroupMstBusiness,
             IRechargeRequestBusiness         _rechargeRequestBusiness,
-            IFleetGodownMasterBusiness       _fleetGodownMasterBusiness
+            IFleetGodownMasterBusiness       _fleetGodownMasterBusiness,
+             IGodownStockBusiness _godownStockBusiness)
 
-          )
+          
         {
             dbconnection = _dbconnection;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
@@ -94,6 +96,7 @@ namespace FCUBEAPI.Controllers
             vehicleFltTypeGroupMstBusiness = _vehicleFltTypeGroupMstBusiness;
             rechargeRequestBusiness = _rechargeRequestBusiness;
             fleetGodownMasterBusiness=_fleetGodownMasterBusiness;
+            godownStockBusiness = _godownStockBusiness;
         }
 
 
@@ -1928,6 +1931,58 @@ namespace FCUBEAPI.Controllers
             {
                 var result = await fleetGodownMasterBusiness.CheckDuplicateGodownDesc(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GodownStockSave")]
+        public async Task<IActionResult> GodownStockSave(GodownStockModel godownStockModel)
+        {
+            if (godownStockModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await godownStockBusiness.GodownStockSave(godownStockModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFltGodownList")]
+        public async Task<IActionResult> GetFltGodownList()
+        {
+            try
+            {
+                var result = await godownStockBusiness.GetFltGodownList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSparesLubesStockInnergrid")]
+        public async Task<IActionResult> GetSparesLubesStockInnergrid(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await godownStockBusiness.GetSparesLubesStockInnergrid(request);
                 return Ok(result);
             }
             catch (Exception ex)
