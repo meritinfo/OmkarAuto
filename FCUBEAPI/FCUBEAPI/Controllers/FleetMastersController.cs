@@ -12,6 +12,7 @@ using FleetMasters.Models;
 using Shared.Models;
 using FleetTrans;
 using FleetTrans.Business;
+using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -44,6 +45,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleFltTypeGroupMstBusiness vehicleFltTypeGroupMstBusiness;
 
         readonly IRechargeRequestBusiness rechargeRequestBusiness;
+        readonly IFleetGodownMasterBusiness fleetGodownMasterBusiness;
 
 
         public FleetMastersController(IOptions<DBModel> _dbconnection,
@@ -65,7 +67,8 @@ namespace FCUBEAPI.Controllers
             IVehicleMfrMasterBusiness _vehicleMfrMasterBusiness,
             IVehicleFinCompMasterBusiness _vehicleFinCompMasterBusiness,
             IVehicleFltTypeGroupMstBusiness _vehicleFltTypeGroupMstBusiness,
-            IRechargeRequestBusiness         _rechargeRequestBusiness
+            IRechargeRequestBusiness         _rechargeRequestBusiness,
+            IFleetGodownMasterBusiness       _fleetGodownMasterBusiness
 
           )
         {
@@ -90,6 +93,7 @@ namespace FCUBEAPI.Controllers
             vehicleFinCompMasterBusiness = _vehicleFinCompMasterBusiness;
             vehicleFltTypeGroupMstBusiness = _vehicleFltTypeGroupMstBusiness;
             rechargeRequestBusiness = _rechargeRequestBusiness;
+            fleetGodownMasterBusiness=_fleetGodownMasterBusiness;
         }
 
 
@@ -1850,7 +1854,87 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        
+        [HttpPost("GetFleetGodownMaserList")]
+        public async Task<IActionResult> GetFleetGodownMaserList(PageRequest request)
+        {
+            try
+            {
+                var result = await fleetGodownMasterBusiness.GetFleetGodownMaserList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FleetGodownMaserSave")]
+        public async Task<IActionResult> FleetGodownMaserSave(FleetGodownMasterModel obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGodownMasterBusiness.FleetGodownMaserSave(obj);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FleetGodownMasterDelete")]
+        public async Task<IActionResult> FleetGodownMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetGodownMasterBusiness.FleetGodownMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDuplicateGodownShortCode")]
+        public async Task<IActionResult> CheckDuplicateGodownShortCode(RequestModel request)
+        {
+            try
+            {
+                var result = await fleetGodownMasterBusiness.CheckDuplicateGodownShortCode(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDuplicateGodownDesc")]
+        public async Task<IActionResult> CheckDuplicateGodownDesc(RequestModel request)
+        {
+            try
+            {
+                var result = await fleetGodownMasterBusiness.CheckDuplicateGodownDesc(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 
 }

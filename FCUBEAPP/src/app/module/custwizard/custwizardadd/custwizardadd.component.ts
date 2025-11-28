@@ -257,27 +257,27 @@ export class CustwizardaddComponent {
         dslDiscAc: this.selectedCustWizardDetails.dslDiscAc,
         dslTdsAc: this.selectedCustWizardDetails.dslTdsAc,  
          brokerAdvAc: this.selectedCustWizardDetails.brokerAdvAc,   
-       mR_OthersDed1Ac : this.selectedCustWizardDetails.mR_OthersDed1Ac ,  
-       mR_OthersDed2Ac : this.selectedCustWizardDetails.mR_OthersDed2Ac ,   
-         mR_OthersDed3Ac : this.selectedCustWizardDetails.mR_OthersDed3Ac ,   
-        mR_RecoverableAc  : this.selectedCustWizardDetails.mR_RecoverableAc  ,   
-           bL_StatisticalAc  : this.selectedCustWizardDetails.bL_StatisticalAc  ,  
-              bL_FovAc  : this.selectedCustWizardDetails.bL_FovAc  ,  
-              bL_DoorCollAc  : this.selectedCustWizardDetails.bL_DoorCollAc  , 
-                bL_HandlingAc  : this.selectedCustWizardDetails.bL_HandlingAc  ,
-                  bL_LoadingDetnAc  : this.selectedCustWizardDetails.bL_LoadingDetnAc  ,
-                    bL_EnrouteAc  : this.selectedCustWizardDetails.bL_EnrouteAc  ,
-                        bL_MiscAc  : this.selectedCustWizardDetails.bL_MiscAc  ,
-                             bL_DoorDelAc  : this.selectedCustWizardDetails.bL_DoorDelAc  ,
-                             bL_UnLoadingAc  : this.selectedCustWizardDetails.bL_UnLoadingAc  ,
-                              bL_DetentionAc  : this.selectedCustWizardDetails.bL_DetentionAc  ,
-                                 bL_ExtrasAc  : this.selectedCustWizardDetails.bL_ExtrasAc  ,
-                                  bL_OthersAc  : this.selectedCustWizardDetails.bL_OthersAc  ,
-                                    unBilledFrtAc  : this.selectedCustWizardDetails.unBilledFrtAc  ,
-                                    roundOffAc  : this.selectedCustWizardDetails.roundOffAc  ,
-    flt_TripFastagAc  : this.selectedCustWizardDetails.flt_TripFastagAc  ,
-   pL_BranchAc  : this.selectedCustWizardDetails.pL_BranchAc  ,
-   pL_HoAc  : this.selectedCustWizardDetails.pL_HoAc  ,
+        mR_OthersDed1Ac : this.selectedCustWizardDetails.mR_OthersDed1Ac ,  
+        mR_OthersDed2Ac : this.selectedCustWizardDetails.mR_OthersDed2Ac ,   
+       mR_OthersDed3Ac : this.selectedCustWizardDetails.mR_OthersDed3Ac ,   
+       mR_RecoverableAc  : this.selectedCustWizardDetails.mR_RecoverableAc  ,   
+        bL_StatisticalAc  : this.selectedCustWizardDetails.bL_StatisticalAc  ,  
+        bL_FovAc  : this.selectedCustWizardDetails.bL_FovAc  ,  
+        bL_DoorCollAc  : this.selectedCustWizardDetails.bL_DoorCollAc  , 
+       bL_HandlingAc  : this.selectedCustWizardDetails.bL_HandlingAc  ,
+       bL_LoadingDetnAc  : this.selectedCustWizardDetails.bL_LoadingDetnAc  ,
+       bL_EnrouteAc  : this.selectedCustWizardDetails.bL_EnrouteAc  ,
+       bL_MiscAc  : this.selectedCustWizardDetails.bL_MiscAc  ,
+      bL_DoorDelAc  : this.selectedCustWizardDetails.bL_DoorDelAc  ,
+      bL_UnLoadingAc  : this.selectedCustWizardDetails.bL_UnLoadingAc  ,
+      bL_DetentionAc  : this.selectedCustWizardDetails.bL_DetentionAc  ,
+      bL_ExtrasAc  : this.selectedCustWizardDetails.bL_ExtrasAc  ,
+      bL_OthersAc  : this.selectedCustWizardDetails.bL_OthersAc  ,
+      unBilledFrtAc  : this.selectedCustWizardDetails.unBilledFrtAc  ,
+      roundOffAc  : this.selectedCustWizardDetails.roundOffAc  ,
+      flt_TripFastagAc  : this.selectedCustWizardDetails.flt_TripFastagAc  ,
+      pL_BranchAc  : this.selectedCustWizardDetails.pL_BranchAc  ,
+      pL_HoAc  : this.selectedCustWizardDetails.pL_HoAc  ,
 
       });
     });    
@@ -416,32 +416,29 @@ export class CustwizardaddComponent {
     this.custWizardModel.flt_OthDedAc= selectedDataValue.flt_OthDedAc;
     this.custWizardModel.hsdAc = selectedDataValue.hsdAc ;    
     this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc ;    
-    this.custWizardModel.dslTdsAc= selectedDataValue.dslTdsAc;
-      this.custWizardModel.brokerAdvAc= selectedDataValue.brokerAdvAc;
-      this.custWizardModel.mR_OthersDed1Ac = selectedDataValue.mr_OthersDed1Ac;
-this.custWizardModel.mR_OthersDed2Ac = selectedDataValue.mR_OthersDed2Ac;
-this.custWizardModel.mR_OthersDed3Ac = selectedDataValue.mR_OthersDed3Ac;
-this.custWizardModel.mR_RecoverableAc = selectedDataValue.mR_RecoverableAc;
-
-this.custWizardModel.bL_StatisticalAc = selectedDataValue.bL_StatisticalAc;
-this.custWizardModel.bL_FovAc = selectedDataValue.bL_FovAc;
-this.custWizardModel.bL_DoorCollAc = selectedDataValue.bL_DoorCollAc;
-this.custWizardModel.bL_HandlingAc = selectedDataValue.bL_HandlingAc;
-this.custWizardModel.bL_LoadingDetnAc = selectedDataValue.bL_LoadingDetnAc;
-this.custWizardModel.bL_EnrouteAc = selectedDataValue.bL_EnrouteAc;
-this.custWizardModel.bL_MiscAc = selectedDataValue.bL_MiscAc;
-this.custWizardModel.bL_DoorDelAc = selectedDataValue.bL_DoorDelAc;
-this.custWizardModel.bL_UnLoadingAc = selectedDataValue.bL_UnLoadingAc;
-this.custWizardModel.bL_DetentionAc = selectedDataValue.bL_DetentionAc;
-this.custWizardModel.bL_ExtrasAc = selectedDataValue.bL_ExtrasAc;
-this.custWizardModel.bL_OthersAc = selectedDataValue.bL_OthersAc;
-this.custWizardModel.unBilledFrtAc = selectedDataValue.unBilledFrtAc;
-this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
-this.custWizardModel.flt_TripFastagAc = selectedDataValue.flt_TripFastagAc;
-this.custWizardModel.pL_BranchAc = selectedDataValue.pL_BranchAc;
-this.custWizardModel.pL_HoAc = selectedDataValue.pL_HoAc;
-
-  
+        this.custWizardModel.dslTdsAc= selectedDataValue.dslTdsAc;
+        this.custWizardModel.brokerAdvAc= selectedDataValue.brokerAdvAc;
+        this.custWizardModel.mR_OthersDed1Ac = selectedDataValue.mr_OthersDed1Ac;
+        this.custWizardModel.mR_OthersDed2Ac = selectedDataValue.mR_OthersDed2Ac;
+        this.custWizardModel.mR_OthersDed3Ac = selectedDataValue.mR_OthersDed3Ac;
+        this.custWizardModel.mR_RecoverableAc = selectedDataValue.mR_RecoverableAc;
+        this.custWizardModel.bL_StatisticalAc = selectedDataValue.bL_StatisticalAc;
+        this.custWizardModel.bL_FovAc = selectedDataValue.bL_FovAc;
+        this.custWizardModel.bL_DoorCollAc = selectedDataValue.bL_DoorCollAc;
+        this.custWizardModel.bL_HandlingAc = selectedDataValue.bL_HandlingAc;
+        this.custWizardModel.bL_LoadingDetnAc = selectedDataValue.bL_LoadingDetnAc;
+        this.custWizardModel.bL_EnrouteAc = selectedDataValue.bL_EnrouteAc;
+        this.custWizardModel.bL_MiscAc = selectedDataValue.bL_MiscAc;
+        this.custWizardModel.bL_DoorDelAc = selectedDataValue.bL_DoorDelAc;
+        this.custWizardModel.bL_UnLoadingAc = selectedDataValue.bL_UnLoadingAc;
+        this.custWizardModel.bL_DetentionAc = selectedDataValue.bL_DetentionAc;
+        this.custWizardModel.bL_ExtrasAc = selectedDataValue.bL_ExtrasAc;
+        this.custWizardModel.bL_OthersAc = selectedDataValue.bL_OthersAc;
+        this.custWizardModel.unBilledFrtAc = selectedDataValue.unBilledFrtAc;
+        this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
+        this.custWizardModel.flt_TripFastagAc = selectedDataValue.flt_TripFastagAc;
+        this.custWizardModel.pL_BranchAc = selectedDataValue.pL_BranchAc;
+        this.custWizardModel.pL_HoAc = selectedDataValue.pL_HoAc;
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (res.status) {
