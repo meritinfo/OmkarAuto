@@ -16,5 +16,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> RechargeRequestApproveSave(RechargeRequestList obj);
         Task<RechargeRequestList> GetRechargeRequestApproveList(ReportRequestModel request);
         Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel);
+        Task<ResponseModel> GetBpclBalanceAmount(ReportRequestModel request);
     }
 }

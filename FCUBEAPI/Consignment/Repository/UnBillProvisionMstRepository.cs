@@ -63,6 +63,7 @@ namespace Consignment.Repository
                     }
                     if (responseModel.Status)
                     {
+                        unBillProvisionMstModel.Id = Id;
                         responseModel = await UnBillProvisionFinLink(transaction, unBillProvisionMstModel);
                     }
                     if (responseModel.Status)

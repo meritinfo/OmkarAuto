@@ -56,11 +56,9 @@ export class RechargerequestService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/RechargeRequestSave', user, this.httpformOptions);
   }
 
-
   getRechargeRequestList(filter: Filtermodel): Observable<Rechargerequestlist> {
     return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetTrans/GetRechargeRequestList', filter, this.httpOptions);
   }
-
  
   getRechargeRequestApproveList(request: Reportmodel): Observable<Rechargerequestlist> {
     return this.httpClient.post<Rechargerequestlist>(Constants.API_ENDPOINT + 'FleetTrans/GetRechargeRequestApproveList', request, this.httpOptions);
@@ -72,5 +70,9 @@ export class RechargerequestService {
 
   RechargeRequestDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/RechargeRequestDelete', req, this.httpOptions);
+  }
+
+  getBpclBalanceAmount(req: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBpclBalanceAmount', req, this.httpOptions);
   }
 }

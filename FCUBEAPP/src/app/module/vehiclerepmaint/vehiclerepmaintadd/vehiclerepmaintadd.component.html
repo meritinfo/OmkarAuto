@@ -38,8 +38,20 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
+                                            <label>Godown</label>                                        
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                            formControlName="godownId">
+                                                <option *ngFor="let state of godownList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
                                             <label>Maint Desc </label><span style="color: red">*</span>                                            
-                                            <select class="form-control form-select ng-pristine ng-touched"formControlName="maintID"      
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                            formControlName="maintID"      
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['maintID'].invalid) }">
                                                 <option *ngFor="let state of maintList" value={{state.dataId}}>
                                                    {{state.dataName}}

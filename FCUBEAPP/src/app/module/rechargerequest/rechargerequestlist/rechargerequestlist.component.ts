@@ -83,9 +83,7 @@ export class RechargerequestlistComponent {
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
       
-      this.fromDate = this.minDate ;
-    
-    
+      this.fromDate = this.minDate ;    
     
       this.rechargerequestService.clearRechargeRequestDetails();
       this.formFilter = this.formBuilder.group({

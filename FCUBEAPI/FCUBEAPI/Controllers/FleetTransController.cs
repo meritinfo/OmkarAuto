@@ -4345,7 +4345,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBpclBalanceAmount")]
+        public async Task<IActionResult> GetBpclBalanceAmount(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rechargeRequestBusiness.GetBpclBalanceAmount(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }
