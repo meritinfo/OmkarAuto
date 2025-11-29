@@ -559,6 +559,7 @@ import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleet
 import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
 import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
 import { Godownstockmodel } from "./models/godownstockmodel";
+import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
 
 
 @NgModule({
@@ -743,7 +744,8 @@ import { Godownstockmodel } from "./models/godownstockmodel";
     PltransferComponent,
     FleetgodownmasteraddComponent,
     FleetgodownmasterlistComponent,
-    GodownstockentryComponent
+    GodownstockentryComponent,
+    DashboardcustComponent
     
   ],
   

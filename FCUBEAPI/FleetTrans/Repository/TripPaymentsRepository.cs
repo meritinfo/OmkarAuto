@@ -1,10 +1,12 @@
-﻿using FleetTrans.Models;
+﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Drawing;
+using FleetTrans.Models;
 using Microsoft.Extensions.Options;
-using SqlHelper.Models;
-using Consignment.Models;
-using System.Data.SqlClient;
-using Shared.Models;
 using Newtonsoft.Json;
+using Shared.Models;
+using SqlHelper.Models;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net.Http.Headers;
 
 namespace FleetTrans.Repository
@@ -497,6 +499,26 @@ namespace FleetTrans.Repository
             }
             return loadDtls;
 
+        }
+        public async Task<ResponseModel> GetTripPmtLoadShow()
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPmtLoadShow", null);
+
+                if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                {
+                    responseModel.Status = Convert.ToBoolean(dataSet.Tables[0].Rows[0]["Status"]);
+                    responseModel.Message = Convert.ToString(dataSet.Tables[0].Rows[0]["Message"]); 
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
         }
 
 

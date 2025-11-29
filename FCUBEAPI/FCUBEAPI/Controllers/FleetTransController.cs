@@ -171,6 +171,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripPmtLoadShow")]
+        public async Task<IActionResult> GetTripPmtLoadShow()
+        {
+            try
+            {
+                var result = await tripPaymentsBusiness.GetTripPmtLoadShow();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripPaymentsLoadDetails")]
         public async Task<IActionResult> TripPaymentsLoadDetails(RequestModel request)

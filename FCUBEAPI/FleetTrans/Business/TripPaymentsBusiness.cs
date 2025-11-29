@@ -67,6 +67,10 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.TripPaymentsLoadDetails(request);
         }
+        public async Task<ResponseModel> GetTripPmtLoadShow()
+        {
+            return await tripPaymentsRepository.GetTripPmtLoadShow();
+        }
 
     }
 }

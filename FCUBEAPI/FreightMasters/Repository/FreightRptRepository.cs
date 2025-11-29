@@ -4065,12 +4065,12 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Party",     request.FilterStr),
-                            new SqlParameter("@Origin",     request.FilterStr1),
-                            new SqlParameter("@Destination",     request.FilterStr2),
-                            new SqlParameter("@VarType",     request.FilterStr3),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@Party",          request.FilterStr),
+                            new SqlParameter("@Origin",         request.FilterStr1),
+                            new SqlParameter("@Destination",    request.FilterStr2),
+                            new SqlParameter("@VarType",        request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLRCostingRptExcel", param);
 
