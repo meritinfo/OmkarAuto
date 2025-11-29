@@ -96,7 +96,7 @@ export class GodownstockentryComponent {
   }
 
   getFltGodownList(): void {
-    this.godownstockentryService.getFltGodownList().subscribe((res) => {
+    this.commonService.getFltGodownList().subscribe((res) => {
       this.godownList = res;
     });
   }
@@ -119,7 +119,6 @@ export class GodownstockentryComponent {
   };
 
   checkduplicate(index: number){
-    debugger
     var selectedData= this.formGodownStockEntryMaster.getRawValue();
     var arr=selectedData.arrayList;
     for (var i = 0; i < arr.length; i++) { 
@@ -145,7 +144,7 @@ export class GodownstockentryComponent {
   //   } 
   // }
 
-    createInitialArray() {
+  createInitialArray() {
     return this.formBuilder.group({      
       spareLubId: ['', []],
       brandId: ['0', []],
@@ -155,7 +154,6 @@ export class GodownstockentryComponent {
   }
   
   addItem(index: number): void {
-    debugger
     var selectedData= this.formGodownStockEntryMaster.getRawValue();
     var arr=selectedData.arrayList;
     for (var i = 0; i < arr.length; i++) { 
@@ -164,7 +162,7 @@ export class GodownstockentryComponent {
         return;
       } 
     }
-    if (arr[index].brandId != "0" && arr[index].openingQty != "0" && arr[index].spareLubId!="") {
+    if (arr[index].brandId != "" && arr[index].openingQty != "" && arr[index].spareLubId!="") {
       this.formArray.push(this.createInitialArray());
     } else {
       this.toasterService.warning("Please select one Item  detail spare,brand, qty");
@@ -180,14 +178,14 @@ export class GodownstockentryComponent {
 
 
   getSparesLubesInnerGridList(): void {
-     var selectedData = this.formGodownStockEntryMaster.getRawValue();
-     this.requestmodel.strRequest =selectedData.godownId.toString();
+    var selectedData = this.formGodownStockEntryMaster.getRawValue();
+    this.requestmodel.strRequest =selectedData.godownId.toString();
     this.godownstockentryService.getSparesLubesStockInnergrid(this.requestmodel).subscribe((res) => {
-      if(res.godownStockModellst.length>0){
-        this.formArray.clear();
-      }
-      if(res.godownStockModellst && res.godownStockModellst.length>0)
-      {
+    if(res.godownStockModellst.length>0){
+      this.formArray.clear();
+    }
+    if(res.godownStockModellst && res.godownStockModellst.length>0)
+    {
       this.godownstockmodel = res;
       for (var i = 0; i < res.godownStockModellst.length; i++) {
         this.formArray.push(this.createInitialArray());

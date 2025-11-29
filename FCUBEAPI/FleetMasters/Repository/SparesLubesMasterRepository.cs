@@ -198,7 +198,7 @@ namespace FleetMasters.Repository
                                 BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
                                 OpeningQty = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningQty"]),
                                 OpeningValue = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningValue"]),
-                                GodownId = Convert.ToString(resultData.Tables[0].Rows[i]["OpeningValue"]),
+                                GodownId = Convert.ToString(resultData.Tables[0].Rows[i]["GodownId"]),
                             });
                         }
                     }

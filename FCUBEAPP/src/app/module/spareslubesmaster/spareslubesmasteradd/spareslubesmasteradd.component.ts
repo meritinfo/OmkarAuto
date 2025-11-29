@@ -133,7 +133,7 @@ export class SpareslubesmasteraddComponent {
   }
 
   getGodownList(): void {
-    this.commonService.getSparesBrandList().subscribe((res) => {
+    this.commonService.getFltGodownList().subscribe((res) => {
       this.godownList = res;
     });
   }
@@ -161,10 +161,7 @@ export class SpareslubesmasteraddComponent {
       }
     }
 
-    if (arr[index].brandId != "0" && arr[index].openingQty != "0") {
-    if (this.formArray.value[index].godownId !="" &&
-      this.formArray.value[index].brandId != "" && 
-      this.formArray.value[index].openingQty != "0") {
+    if (arr[index].godownId !="" && arr[index].brandId != "" && arr[index].openingQty != "0") {
       this.formArray.push(this.createInitialArray());
     } else {
       this.toasterService.warning("Please select Godown, brand, qty");

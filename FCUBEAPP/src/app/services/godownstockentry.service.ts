@@ -20,9 +20,6 @@ export class GodownstockentryService {
   }
   constructor(private httpClient: HttpClient) { }
 
-  getFltGodownList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetFltGodownList', null, this.httpOptions);
-  }
 
   godownStockSave(user:Godownstockmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/GodownStockSave', user, this.httpOptions);
