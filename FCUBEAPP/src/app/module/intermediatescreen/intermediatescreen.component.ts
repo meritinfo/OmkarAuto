@@ -52,11 +52,6 @@ export class IntermediatescreenComponent {
       userBranch: new FormControl('', [Validators.required]),
       loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
     });
-
-    this.sharedService.getCurrentServerTime().subscribe((data: any) => {
-      this.currentServerTime = data.currentServerTime;
-    });
-
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
