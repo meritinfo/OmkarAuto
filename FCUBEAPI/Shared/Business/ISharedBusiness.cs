@@ -22,6 +22,7 @@ namespace Shared.Business
         Task<List<DropDownListModel>> GetYearList();
         Task<ResponseModel> GetServerDate(RequestModel request);
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
+        Task<List<RequestModel>> GetDashboardCustomer(ReportRequestModel report);
         Task<ResponseModel> GenerateLoginOTP(LoginModel login);
     }
 }

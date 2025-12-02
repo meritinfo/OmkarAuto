@@ -204,8 +204,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
-
         [HttpPost("GenerateLoginOTP")]
         public async Task<IActionResult> GenerateLoginOTP(LoginModel login)
         {
@@ -225,6 +223,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+       
         [HttpPost("GetDashboardDetail")]
         public async Task<IActionResult> GetDashboardDetail(RequestModel request)
         {

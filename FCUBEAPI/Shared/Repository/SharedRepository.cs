@@ -496,7 +496,48 @@ namespace Shared.Repository
                
             }
             return DocRenewalList;
-        }        
+        }
+        public async Task<List<RequestModel>> GetDashboardCustomer(ReportRequestModel report)
+        {
+            List<RequestModel> partyList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", report.PageNumber),
+                            new SqlParameter("@PageSize",   report.PageSize),
+                            new SqlParameter("@SortColumn", report.SortColumn),
+                            new SqlParameter("@SortOrder",  report.SortOrder),
+                            new SqlParameter("@Turnover",   report.Search),
+                            new SqlParameter("@DayAfterInt",report.FilterStr),
+                            new SqlParameter("@AdminInt",   report.FilterStr1),
+                            new SqlParameter("@Interest",   report.FilterStr2),
+                            new SqlParameter("@YearId",     report.FilterStr3),
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDashboardCustomer", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < userData.Tables[0].Rows.Count; i++)
+                        {
+                            partyList.Add(new RequestModel
+                            {
+                                strRequest = Convert.ToString(userData.Tables[0].Rows[i]["Party"]),
+                                strRequest1 = Convert.ToString(userData.Tables[0].Rows[i]["Amount"]),
+                                strRequest2 = Convert.ToString(userData.Tables[0].Rows[i]["Pct"]),                               
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return partyList;
+        }
         public async Task<ResponseModel> GenerateLoginOTP(LoginModel login)
         {
             ResponseModel responseModel = new();

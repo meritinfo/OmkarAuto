@@ -360,10 +360,10 @@ import { RechargerequestaddComponent } from './module/rechargerequest/rechargere
 import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
 import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 import { PltransferComponent } from './module/pltransfer/pltransfer.component';
-
 import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
 import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
 import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
+import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
 
 
 
@@ -864,6 +864,7 @@ const routes: Routes = [
   { path: 'fltgodownlistadd', component: FleetgodownmasteraddComponent },
   { path: 'fltgodownlistedit', component: FleetgodownmasteraddComponent },
   { path: 'sparestockentry', component: GodownstockentryComponent },
+  { path: 'dashboardcust', component: DashboardcustComponent }, 
 
   
 ];
