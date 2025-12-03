@@ -255,6 +255,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDashboardCustomer")]
+        public async Task<IActionResult> GetDashboardCustomer(ReportRequestModel report)
+        {
+            if (report == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.GetDashboardCustomer(report);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetDashboardNCC")]
         public async Task<IActionResult> GetDashboardNCC(RequestModel request)

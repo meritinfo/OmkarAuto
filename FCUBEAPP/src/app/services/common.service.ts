@@ -9,6 +9,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Dashboardmodel } from '../models/dashboardmodel';
 import { Usermodel } from '../models/usermodel';
+import { Reportmodel } from '../models/reportmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -323,6 +324,9 @@ export class CommonService {
   getDocRenewalDetails(): Observable<Docrenewalmodel[]> {
     return this.httpClient.post<Docrenewalmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDocRenewalDetails', null, this.httpOptions);
   }
+  getDashboardCustomer(filter: Reportmodel): Observable<Requestmodel[]> {
+    return this.httpClient.post<Requestmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDashboardCustomer', filter, this.httpOptions);
+  }   
   getNccDashBoardDetails(req: Requestmodel): Observable<Dashboardmodel> {
     return this.httpClient.post<Dashboardmodel>(Constants.API_ENDPOINT + 'Admin/GetDashboardNCC', req, this.httpOptions);
   }

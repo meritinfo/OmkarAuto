@@ -164,6 +164,10 @@ namespace Shared.Business
         {
             return await sharedRepository.GenerateLoginOTP(login);
         }
+        public async Task<List<RequestModel>> GetDashboardCustomer(ReportRequestModel report)
+        {
+            return await sharedRepository.GetDashboardCustomer(report);
+        }
         public async Task<ResponseModel> GetDashboardDetail(RequestModel request)
         {
             return await sharedRepository.GetDashboardDetail(request);
