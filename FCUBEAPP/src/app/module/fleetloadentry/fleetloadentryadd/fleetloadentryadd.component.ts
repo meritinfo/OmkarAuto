@@ -171,7 +171,7 @@ export class FleetloadentryaddComponent {
         this.createdBy = this.selectedFleetLoadEntryDetails.createdBy + " " + this.selectedFleetLoadEntryDetails.createdDate;
         this.modifiedBy = this.selectedFleetLoadEntryDetails.modifiedBy + " " + this.selectedFleetLoadEntryDetails.modifiedDate; 
         this.formFleetLoad.controls['loadType'].disable();  
-        if(this.selectedFleetLoadEntryDetails.loadType == "E"){
+        if(this.selectedFleetLoadEntryDetails.loadType == "E"||this.selectedFleetLoadEntryDetails.loadType == "M"){
           this.formFleetLoad.controls['qtyWt'].clearValidators();
           this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
           this.formFleetLoad.controls['hireAmt'].clearValidators();  
@@ -352,7 +352,7 @@ export class FleetloadentryaddComponent {
   onLoadTypeChange(e:any){
     var ldtp = e.target.value;
 
-    if(ldtp == "E"){  
+    if(ldtp == "E"||ldtp == "M"){  
       this.formFleetLoad.controls['consignorName'].clearValidators();   
       this.formFleetLoad.controls['consigneeName'].clearValidators();   
       this.formFleetLoad.controls['loadFor'].clearValidators();  
@@ -360,6 +360,8 @@ export class FleetloadentryaddComponent {
       this.formFleetLoad.controls['hireAmt'].clearValidators();
       this.formFleetLoad.controls['qtyWt'].clearValidators();
       this.formFleetLoad.controls['qtyPkgs'].clearValidators(); 
+     this.formFleetLoad.controls['loadMemoNo'].clearValidators(); 
+      
       this.formFleetLoad.patchValue({
         qtyWt : 0,
         qtyPkgs : 0,
@@ -370,10 +372,12 @@ export class FleetloadentryaddComponent {
       this.formFleetLoad.controls['productId'].updateValueAndValidity();      
       this.formFleetLoad.controls['hireAmt'].updateValueAndValidity(); 
       this.formFleetLoad.controls['qtyWt'].updateValueAndValidity();    
-      this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity();  
+      this.formFleetLoad.controls['qtyPkgs'].updateValueAndValidity(); 
+      this.formFleetLoad.controls['loadMemoNo'].updateValueAndValidity(); 
     }
     else{    
-      this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);      
+      this.formFleetLoad.controls['loadFor'].setValidators([Validators.required]);  
+       this.formFleetLoad.controls['loadMemoNo'].setValidators([Validators.required]);       
       this.chkMandatoryRequired("consignorName");
       this.chkMandatoryRequired("consigneeName");
       this.chkMandatoryRequired("productId");

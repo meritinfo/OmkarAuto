@@ -500,6 +500,35 @@ namespace FleetTrans.Repository
             return loadDtls;
 
         }
+        public async Task<ResponseModel> GetTransTypeValidations(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TpCode", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTransTypeValidations", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(dataSet.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(dataSet.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        
+        }
+
         public async Task<ResponseModel> GetTripPmtLoadShow()
         {
             ResponseModel responseModel = new();

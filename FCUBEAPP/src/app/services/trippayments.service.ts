@@ -59,4 +59,7 @@ export class TripPaymentsService {
   getLrDtlsForTripPmts(request: Requestmodel):Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetLrDtlsForTripPmts', request, this.httpOptions);
   }
+   getTransTypeValidation(request: Requestmodel):Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTransTypeValidations', request, this.httpOptions);
+  }
 }

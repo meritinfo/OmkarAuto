@@ -393,6 +393,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTransTypeList")]
+        public async Task<IActionResult> GetTransTypeList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetTransTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetVehicleIdList")]
         public async Task<IActionResult> GetVehicleIdList()
         {

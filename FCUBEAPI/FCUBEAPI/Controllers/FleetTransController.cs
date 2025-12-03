@@ -204,6 +204,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTransTypeValidations")]
+        public async Task<IActionResult> GetTransTypeValidations(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsBusiness.GetTransTypeValidations(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripPaymentsDelete")]
         public async Task<IActionResult> TripPaymentsDelete(RequestModel req)

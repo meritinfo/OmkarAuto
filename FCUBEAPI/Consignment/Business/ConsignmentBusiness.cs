@@ -145,5 +145,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetFcmRcmConfig();
         }
+        public async Task<List<DropDownListModel>> GetTransTypeList()
+        {
+            return await consignmentRepository.GetTransTypeList();
+        }
     }
 }

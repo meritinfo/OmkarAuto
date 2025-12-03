@@ -38,5 +38,6 @@ namespace Consignment.Repository
         Task<ResponseModel> CheckDuplicateLrLLP(ReportRequestModel request);
         Task<ResponseModel> CheckLrExits(RequestModel request);
         Task<ResponseModel> GetFcmRcmConfig();
+        Task<List<DropDownListModel>> GetTransTypeList();
     }
 }
