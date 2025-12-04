@@ -258,16 +258,22 @@ vehicleTypeMasterDelete(): void {
 
 //Submit user form details //
 submitVehicleTypeMasterForm(): void {
-  if (this.formUser.invalid) {
-    this.toasterService.warning("Please Enter Mandatory Fields ");   
-    const controls = this.formUser.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        this.toasterService.warning(name + " Fields is Invalid");   
-      }
+if (this.formUser.invalid) {
+  this.toasterService.warning("Please enter mandatory fields");
+
+  const controls = this.formUser.controls;
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      // Convert camelCase key to readable format
+      const readableName = name.replace(/([A-Z])/g, ' $1');
+      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+
+      this.toasterService.warning(titleCaseName + " field is invalid");
     }
-    return;
   }
+
+  return;
+}
   this.formSubmitted = true;
   var selectedDataValue = this.formUser.getRawValue();
   this.vehicletypemastermodel.vehicleTypeID = this.selectedVehicleTypeMasterDetails.vehicleTypeID;
