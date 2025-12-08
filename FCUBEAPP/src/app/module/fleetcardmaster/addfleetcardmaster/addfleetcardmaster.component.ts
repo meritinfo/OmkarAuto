@@ -153,21 +153,26 @@ exit(): void {
 
 //Submit user form details //
 submitFleetCardMasterForm(): void {
-  if (this.formUser.invalid) {
-    this.toastrService.warning("Please Enter Mandatory Fields "); 
-    const controls = this.formUser.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        this.toastrService.warning(name + " Fields is Invalid");   
-      }
-    } 
-    return;
+if (this.formUser.invalid) {
+  this.toastrService.warning("Please enter mandatory fields");
+
+  const controls = this.formUser.controls;
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      // Convert camelCase key to readable format
+      const readableName = name.replace(/([A-Z])/g, ' $1');
+      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+      this.toastrService.warning(titleCaseName + " field is invalid");
+    }
   }
+
+  return;
+}
+
             
   this.formSubmitted = true;
   this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId;
   var selectedDataValue = this.formUser.getRawValue();
-
   this.fleetcardMasterModel.cardType= selectedDataValue.cardType;
   this.fleetcardMasterModel.cardCode = selectedDataValue.cardCode;
   this.fleetcardMasterModel.cardNo = selectedDataValue.cardNo;
@@ -178,9 +183,6 @@ submitFleetCardMasterForm(): void {
   this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
   this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
   this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
-
-
-
   this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
 
     this.responseDetails = res;

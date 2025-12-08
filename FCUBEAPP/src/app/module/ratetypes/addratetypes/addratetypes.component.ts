@@ -145,16 +145,22 @@ export class AddratetypesComponent {
   submitRateTypesForm(): void {
     this.formSubmitted = true;
     
-    if (this.formUser.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields"); 
-      const controls = this.formUser.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
-        }
-      } 
-      return;
+   if (this.formUser.invalid) {
+  this.toasterService.warning("Please enter mandatory fields");
+
+  const controls = this.formUser.controls;
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      // Convert camelCase key to readable format
+      const readableName = name.replace(/([A-Z])/g, ' $1');
+      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+
+      this.toasterService.warning(titleCaseName + " field is invalid");
     }
+  }
+
+  return;
+}
     this.ratetypesmodel.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
     this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc.toString().toUpperCase();
     this.ratetypesmodel.rateMethod = this.formUser.value.rateMethod;

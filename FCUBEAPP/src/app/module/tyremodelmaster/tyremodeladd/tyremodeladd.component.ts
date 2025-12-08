@@ -136,16 +136,22 @@ dashboard: string ="";
 
   //Submit user form details //
   submitTyreModelMasterForm(): void {  
-    if (this.formSparesMaster.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields ");
-      const controls = this.formSparesMaster.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
-        }
-      } 
-      return;
+ if (this.formSparesMaster.invalid) {
+  this.toasterService.warning("Please enter mandatory fields");
+
+  const controls = this.formSparesMaster.controls;
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      // Convert camelCase key to readable format
+      const readableName = name.replace(/([A-Z])/g, ' $1');
+      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+
+      this.toasterService.warning(titleCaseName + " field is invalid");
     }
+  }
+
+  return;
+}
       
     this.sharedService.loading = true;
     this.formSubmitted = true;
