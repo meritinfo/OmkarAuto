@@ -1,6 +1,7 @@
 export class Constants {
   public static API_ENDPOINT = "http://localhost:65496/api/";
-   //public static API_ENDPOINT = "/nccapi/api/";
+ // public static API_ENDPOINT = "/brlapi/api/";
+  // public static API_ENDPOINT = "/nccapi/api/";
    //public static API_ENDPOINT = "/gsrapi/api/";
 //  public static API_ENDPOINT = "/brplapi/api/";
 //  public static API_ENDPOINT = "/lalitaapi/api/";
@@ -12,7 +13,8 @@ export class Constants {
 
     public static UploadFolderPath = 'assets/upload/';
 
-    // ng build --configuration production --base-href /ncc/  
+    // ng build --configuration production --base-href /ncc/ 
+    // ng build --configuration production --base-href /brl/ 
     // ng build --configuration production --base-href /gsr/  
     // ng build --configuration production --base-href /brpl/    
     // ng build --configuration production --base-href /lalita/    
