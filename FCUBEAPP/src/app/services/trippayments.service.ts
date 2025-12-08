@@ -48,11 +48,12 @@ export class TripPaymentsService {
   }
   getDriverAccountDetails(req: Requestmodel): Observable<Reportmodel> {
     return this.httpClient.post<Reportmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverAccountDetails', req, this.httpOptions);
-  }
-  
-  
+  }   
   getTripPmtLoadShow(): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPmtLoadShow', null, this.httpOptions);
+  }
+  getTripPmtDriverShow(): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPmtDriverShow', null, this.httpOptions);
   }
   trippaymentSaveSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSave', user, this.httpformOptions);

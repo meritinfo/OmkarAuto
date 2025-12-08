@@ -38,6 +38,7 @@ export class AddtrippaymentsComponent {
   viewStatus = false; 
   createmode = false;
   showLoad = false;
+  showDriver = false;
   dashboard: string ="";
   seriesDoc: string = "";
   createdBy:string = "";
@@ -157,6 +158,7 @@ export class AddtrippaymentsComponent {
       this.getCreditAcList(this.selectedTripPaymentsDetails.pmtType);  
     }
     this.getTripPmtLoadShow();
+    this.getTripPmtDriverShow();
 
     setTimeout(() => {
       this.createmode = true;
@@ -317,6 +319,14 @@ export class AddtrippaymentsComponent {
       }
     });
   }
+  
+  getTripPmtDriverShow():void {
+    this.tripPaymentsService.getTripPmtDriverShow().subscribe((res) => {
+      if(res.status && res.message=="Y"){
+        this.showDriver = true;
+      }
+    });
+  }
    
   selectEvent(item: any) {
     this.requestmodel.strRequest = item.dataId;
@@ -335,30 +345,18 @@ export class AddtrippaymentsComponent {
     }  
   }
 
-    onDriverSelect(item: any) {
-      if(this.selectedTripPaymentsDetails.pmtId != ''){
-        this.requestmodel.strRequest = item;
-      }
-      else{
-         this.requestmodel.strRequest = item.dataId;
-
-      }
+  onDriverSelect(item: any) {
+    if(this.selectedTripPaymentsDetails.pmtId != ''){
+      this.requestmodel.strRequest = item;
+    }
+    else{
+      this.requestmodel.strRequest = item.dataId;
+    }
    
-  
-   
-      this.tripPaymentsService.getDriverAccountDetails(this.requestmodel).subscribe((res) => {
-      //  this.showLoad = true;
-       // this.formTripPayment.controls["vehicleMasterID"].disable();
-      //   this.formTripPayment.patchValue({
-      //     fromPlace: res.filterStr,   
-      //     toPlace: res.filterStr1,
-      //     loadMemoDt: res.filterStr2,
-      //     loadFor: res.filterStr3
-      //   });
+    this.tripPaymentsService.getDriverAccountDetails(this.requestmodel).subscribe((res) => {
       this.bankAc =res.filterStr;
       this.ifsc = res.filterStr1;
-       });
-     
+    });     
   }
 
   onChangeSearch(search: string) {
@@ -466,7 +464,7 @@ export class AddtrippaymentsComponent {
     
     this.getCreditAcList(selectedValue);
   }
-    getDriverList(): void {
+  getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
       this.driverList = res;
     });

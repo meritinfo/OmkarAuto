@@ -111,7 +111,7 @@ export class DashboardcustComponent implements OnInit {
 
   getDashboardTopAdminCustomer(){
     this.filter.sortColumn = "GrossPct";
-    this.filter.sortOrder = "asc";
+    this.filter.sortOrder = "desc";
    
     this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
       this.custTopAdmin = res;
@@ -119,7 +119,7 @@ export class DashboardcustComponent implements OnInit {
   }
   getDashboardBottomAdminCustomer(){
     this.filter.sortColumn = "GrossPct";
-    this.filter.sortOrder = "desc";
+    this.filter.sortOrder = "asc";
    
     this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
       this.custBottomAdmin = res;
@@ -127,7 +127,7 @@ export class DashboardcustComponent implements OnInit {
   }
   getDashboardTopIntCustomer(){
     this.filter.sortColumn = "NetAmount";
-    this.filter.sortOrder = "asc";
+    this.filter.sortOrder = "desc";
    
     this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
       this.custTopInt = res;
@@ -135,7 +135,7 @@ export class DashboardcustComponent implements OnInit {
   }  
   getDashboardBottomIntCustomer(){
     this.filter.sortColumn = "NetAmount";
-    this.filter.sortOrder = "desc";
+    this.filter.sortOrder = "asc";
    
     this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
       this.custBottomInt = res;
