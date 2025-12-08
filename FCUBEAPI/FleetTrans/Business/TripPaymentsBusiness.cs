@@ -1,4 +1,5 @@
 ﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using FleetTrans.Business;
 using FleetTrans.Models;
@@ -74,6 +75,10 @@ namespace FleetTrans.Business
         public async Task<ResponseModel> GetTransTypeValidations(RequestModel req)
         {
             return await tripPaymentsRepository.GetTransTypeValidations(req);
+        }
+        public async Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request)
+        {
+            return await tripPaymentsRepository.GetDriverAccountDetails(request);
         }
 
     }

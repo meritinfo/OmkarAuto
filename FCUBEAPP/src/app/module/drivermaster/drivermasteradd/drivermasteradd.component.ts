@@ -441,11 +441,11 @@ export class DrivermasteraddComponent {
   //  this.driverModel.attachDrTempAddProof = selectedDataVal.attachDrTempAddProof;
  //   this.driverModel.attachDrPermAddProof = selectedDataVal.attachDrPermAddProof;
  //   this.driverModel.attachDrBankPassBook = selectedDataVal.attachDrBankPassBook;
-    this.driverModel.bankName = selectedDataVal.bankName;
-    this.driverModel.drBankAccountName = selectedDataVal.drBankAccountName;
+    this.driverModel.bankName = selectedDataVal.bankName.toString().toUpperCase();;
+    this.driverModel.drBankAccountName = selectedDataVal.drBankAccountName.toString().toUpperCase();;
     this.driverModel.bankAcNo = selectedDataVal.bankAcNo;
-    this.driverModel.bankBranch = selectedDataVal.bankBranch;
-    this.driverModel.bankIfsCode = selectedDataVal.bankIfsCode;
+    this.driverModel.bankBranch = selectedDataVal.bankBranch.toString().toUpperCase();;
+    this.driverModel.bankIfsCode = selectedDataVal.bankIfsCode.toString().toUpperCase();;
     this.driverModel.bankAccountStatus = selectedDataVal.bankAccountStatus;
     this.driverModel.loggedInUser = this.loggedInUserID;
     this.driverModel.deleteFlag = "N";

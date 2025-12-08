@@ -267,7 +267,8 @@ namespace FleetMasters.Repository
                                 BankIfsCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsCode"]),
                                 BankAccountStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAccountStatus"]),
                                 DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
-                                DrPhoto = Convert.ToString(dataSet.Tables[0].Rows[i]["DrPhoto"])
+                                DrPhoto = Convert.ToString(dataSet.Tables[0].Rows[i]["DrPhoto"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"])
 
                             });
                         }

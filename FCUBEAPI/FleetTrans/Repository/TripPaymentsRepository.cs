@@ -7,6 +7,7 @@ using Shared.Models;
 using SqlHelper.Models;
 using System.Data;
 using System.Data.SqlClient;
+
 using System.Net.Http.Headers;
 
 namespace FleetTrans.Repository
@@ -55,6 +56,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Attachment1", tripPaymentsModel.Attachment1),
                             new SqlParameter("@Attachment2", tripPaymentsModel.Attachment2),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),
+                            new SqlParameter("@DriverMasterID", tripPaymentsModel.DriverMasterID),
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
@@ -80,6 +82,34 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request)
+        {
+            ReportRequestModel dprVehi = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DriverMasterId", request.strRequest)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverAccountDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        dprVehi.FilterStr = Convert.ToString(dataSet.Tables[0].Rows[0]["BankAcNo"]);
+                        dprVehi.FilterStr1 = Convert.ToString(dataSet.Tables[0].Rows[0]["BankIfsCode"]);
+                    
+                    }
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dprVehi;
         }
         public async Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request)
         {
@@ -139,6 +169,7 @@ namespace FleetTrans.Repository
                                 Attachment1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachment1"]),
                                 Attachment2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachment2"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
                                 BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),

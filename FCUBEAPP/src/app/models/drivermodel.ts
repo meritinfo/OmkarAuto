@@ -54,4 +54,5 @@ export class Drivermodel {
     modifiedBy: string = "";
     loggedInUser: string = "";
     deleteFlag: string = "";
+    vehicleNo: string = "";
 }

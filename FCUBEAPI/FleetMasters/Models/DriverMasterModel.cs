@@ -58,6 +58,7 @@ namespace FleetMasters.Models
         public string? BankAcNo { get; set; }
         public string? BankBranch { get; set; }
         public string? BankIfsCode { get; set; }
+    
         public string? BankAccountStatus { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
@@ -65,6 +66,7 @@ namespace FleetMasters.Models
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
         public string? DeleteFlag { get; set; }
+        public string? VehicleNo { get; set; }
 
     }
 }

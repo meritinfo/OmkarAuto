@@ -33,8 +33,7 @@ export class Trippaymentsmodel {
     createdDate: string = "";
     modifiedBy: string = "";
     modifiedDate: string = "";
-    
+    driverMasterID: string = "";
     yearId: string = "";
     loggedInUser: string = "";
-   
 }

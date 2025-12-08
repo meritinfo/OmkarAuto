@@ -38,6 +38,7 @@ namespace FleetTrans.Models
         public string? Attachment2 { get; set; }
         public string? BName { get; set; }
         public string? VehicleNo { get; set; }
+        public string? DriverMasterID { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

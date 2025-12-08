@@ -178,7 +178,7 @@ export class DrivermasterlistComponent {
     this.drivermasterService.getDriverMasterList(this.filter)
       .subscribe(resp => {
         const allDataList = resp.driverList;
-        this.pdfService.exportAsPdfFile(allDataList, 'driverName,fatherName,dateOfBirth,licenseNo,licValidUpto,driverMobile1,introBy', 'DriverMaster');
+        this.pdfService.exportAsPdfFile(allDataList, 'driverName,fatherName,dateOfBirth,licenseNo,licValidUpto,driverMobile1,introBy,vehicleNo', 'DriverMaster');
       });
   }
 

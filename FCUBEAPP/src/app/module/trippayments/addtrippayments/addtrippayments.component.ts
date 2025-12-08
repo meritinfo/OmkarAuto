@@ -26,6 +26,8 @@ export class AddtrippaymentsComponent {
   company: string = '';
   ptype: string = '';
   trip: string = '';
+  bankAc: string = '';
+  ifsc: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   keywordLocation = 'dataName';
@@ -48,6 +50,7 @@ export class AddtrippaymentsComponent {
   creditacList: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  driverList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
 
@@ -117,7 +120,8 @@ export class AddtrippaymentsComponent {
       this.company = shortCode;
     }
     
-    this.getBranchList();   
+    this.getBranchList();  
+    this.getDriverList();
     this.getVehicleNoList();
     this.getLocationList();
     this.getTripStmtType();
@@ -146,6 +150,7 @@ export class AddtrippaymentsComponent {
       toPlace: new FormControl('',),
       loadMemoDt: new FormControl('',),
       loadFor: new FormControl('',),
+      driverMasterID: new FormControl('',),
     });
         
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
@@ -162,6 +167,7 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['loadFor'].disable();
 
       if (this.selectedTripPaymentsDetails.pmtId != '') {
+        this.onDriverSelect(this.selectedTripPaymentsDetails.driverMasterID)
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
         if(this.selectedTripPaymentsDetails.findocid!="0"){
@@ -171,6 +177,7 @@ export class AddtrippaymentsComponent {
           pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
           chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+          driverMasterID: this.driverList.find(e => e.dataId == this.selectedTripPaymentsDetails.driverMasterID),
           neftPmt:  ""
         })  
         if (this.selectedTripPaymentsDetails.transType == "DL"|| this.selectedTripPaymentsDetails.transType == "AB") {
@@ -328,6 +335,32 @@ export class AddtrippaymentsComponent {
     }  
   }
 
+    onDriverSelect(item: any) {
+      if(this.selectedTripPaymentsDetails.pmtId != ''){
+        this.requestmodel.strRequest = item;
+      }
+      else{
+         this.requestmodel.strRequest = item.dataId;
+
+      }
+   
+  
+   
+      this.tripPaymentsService.getDriverAccountDetails(this.requestmodel).subscribe((res) => {
+      //  this.showLoad = true;
+       // this.formTripPayment.controls["vehicleMasterID"].disable();
+      //   this.formTripPayment.patchValue({
+      //     fromPlace: res.filterStr,   
+      //     toPlace: res.filterStr1,
+      //     loadMemoDt: res.filterStr2,
+      //     loadFor: res.filterStr3
+      //   });
+      this.bankAc =res.filterStr;
+      this.ifsc = res.filterStr1;
+       });
+     
+  }
+
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
@@ -433,7 +466,11 @@ export class AddtrippaymentsComponent {
     
     this.getCreditAcList(selectedValue);
   }
-  
+    getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.driverList = res;
+    });
+  }
  
    
   submitTripPaymentsForm(): void {  
@@ -508,7 +545,8 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
     this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;
     this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
-    this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr;    
+    this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr; 
+    this.trippaymentsmodel.driverMasterID = selectedDataValue.driverMasterID?selectedDataValue.driverMasterID.dataId:"";
     this.trippaymentsmodel.yearId = this.year;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
 

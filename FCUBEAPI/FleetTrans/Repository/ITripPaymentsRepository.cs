@@ -25,5 +25,6 @@ namespace FleetTrans.Repository
         Task<ReportRequestModel> TripPaymentsLoadDetails(RequestModel req);
         Task<ResponseModel> GetTripPmtLoadShow();
         Task<ResponseModel> GetTransTypeValidations(RequestModel req);
+        Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request);
     }
 }

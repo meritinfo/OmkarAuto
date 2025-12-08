@@ -67,6 +67,7 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="row" *ngIf="showLoad">
                                             <div class="col-lg-3">
@@ -95,6 +96,48 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                              <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Driver Name</label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="driverList"
+                                            [searchKeyword]="keywordLocation"  
+                                            formControlName="driverMasterID"    
+                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                            (selected)="onDriverSelect($event)"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"  [ngClass]="">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                              <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label style="color: green"> 
+                                                        <h6>Account No: {{ this.bankAc}} </h6> 
+                                                        
+                                                    </label>                                                
+                                                </div>
+                                            </div>
+                                              <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label style="color: green"> 
+                                                        <h6>IFSC Code: {{ this.ifsc}} </h6> 
+                                                    </label>                                                 
+                                                </div>
+                                            </div>
+                                            
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Paid To Desc</label>
