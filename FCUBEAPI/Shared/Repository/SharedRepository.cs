@@ -511,8 +511,8 @@ namespace Shared.Repository
                             new SqlParameter("@SortColumn", report.SortColumn),
                             new SqlParameter("@SortOrder",  report.SortOrder),
                             new SqlParameter("@Turnover",   report.Search),
-                            new SqlParameter("@DayAfterInt",report.FilterStr),
-                            new SqlParameter("@AdminInt",   report.FilterStr1),
+                            new SqlParameter("@DayAfterInt",report.FilterStr1),
+                            new SqlParameter("@AdminInt",   report.FilterStr),
                             new SqlParameter("@Interest",   report.FilterStr2),
                             new SqlParameter("@YearId",     report.FilterStr3),
                         };

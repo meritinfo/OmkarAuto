@@ -24,7 +24,7 @@ namespace Consignment.Business
         public async Task<UnBillProvisionMstList> GetUnBillProvisionMstList(ReportRequestModel request)
         {
             return await unBillProvisionMstRepository.GetUnBillProvisionMstList(request);
-    }
+        }
         public async Task<UnBillProvisionMstModel> GetUnBillProvisionMstGridList(RequestModel request)
         {
             return await unBillProvisionMstRepository.GetUnBillProvisionMstGridList(request);
