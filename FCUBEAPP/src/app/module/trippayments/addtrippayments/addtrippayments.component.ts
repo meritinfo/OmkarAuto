@@ -126,7 +126,7 @@ export class AddtrippaymentsComponent {
     this.getDriverList();
     this.getVehicleNoList();
     this.getLocationList();
-    this.getTripStmtType();
+   // this.getTripStmtType();
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -259,43 +259,38 @@ export class AddtrippaymentsComponent {
     });
   }
 
-    changeTransTypeNew(e: any) {
-    
-     if (this.selectedTripPaymentsDetails.pmtId){
-     this.requestmodel.strRequest = e;
-      }
-      else{
-          console.log(e.target.value);
-          var sValue = e.target.value;
-           this.requestmodel.strRequest = sValue;
-  
-      }
+  changeTransTypeNew(e: any) {    
+    if (this.selectedTripPaymentsDetails.pmtId){
+      this.requestmodel.strRequest = e;
+    }
+    else{
+      this.requestmodel.strRequest = e.target.value;  
+    }
    
-      this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
-      this.responseDetails = res1;
-      if (this.responseDetails.message == "DA") {
-            this.formTripPayment.controls['qtyLtrs'].disable();
-            this.formTripPayment.controls['ratePerLtr'].disable();
-            this.formTripPayment.controls['qtyLtrs'].clearValidators();
-            this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+    this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
+      if (res1.message == "DA") {
+        this.formTripPayment.controls['qtyLtrs'].disable();
+        this.formTripPayment.controls['ratePerLtr'].disable();
+        this.formTripPayment.controls['qtyLtrs'].clearValidators();
+        this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
       }
       else {
-            this.formTripPayment.controls['qtyLtrs'].enable();
-            this.formTripPayment.controls['ratePerLtr'].enable();
-            this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-            this.formTripPayment.controls['amountPaid'].clearValidators();
+        this.formTripPayment.controls['qtyLtrs'].enable();
+        this.formTripPayment.controls['ratePerLtr'].enable();
+        this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+        this.formTripPayment.controls['amountPaid'].clearValidators();
       }
       this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-    
-     });
-     
-    }
-     getTransTypeList(): void {
+      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();    
+    });     
+  }
+
+  getTransTypeList(): void {
     this.commonService.getTransTypeList().subscribe((res) => {
       this.transList = res;
     });
   }
+  
   getCreditAcList2(e: any){
     this.requestmodel.strRequest = e;
 
