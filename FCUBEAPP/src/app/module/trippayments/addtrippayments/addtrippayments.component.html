@@ -148,14 +148,22 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Trans Type</label>
                                                     <span style="color: red">*</span>
-                                                    <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
+                                                    <!-- <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="transType"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
                                                         <option value="DA"> Driver Adv</option>
                                                         <option *ngIf="this.dslStmt=='E'" value="DL"> Diesel </option>
                                                         <option value="AB"> Adblue </option>
-                                                    </select>
+                                                    </select> -->
+                                                             <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="transType"  (change)="changeTransTypeNew($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transType'].invalid) }">
+                                                <option value ="">Choose...</option>
+                                                <option *ngFor="let branch of transList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">

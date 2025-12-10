@@ -173,7 +173,7 @@ export class TrippaymentsllpaddComponent {
      this.formTripPayment.controls['toPlace'].disable();
 
       if (this.selectedTripPaymentsDetails.pmtId != '') {
-        this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
+      //  this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
         this.attachment1 = Constants.UploadFolderPath + 'trippayments/attachment1/' + this.selectedTripPaymentsDetails.attachment1;
         this.attachment2 = Constants.UploadFolderPath + 'trippayments/attachment2/' + this.selectedTripPaymentsDetails.attachment2;
         this.consignmentId = this.selectedTripPaymentsDetails.consignmentId, 
@@ -349,56 +349,56 @@ export class TrippaymentsllpaddComponent {
     });
   }
 
-  // changeTransType(e: any) {
-  //   console.log(e.target.value);
-  //   var selectedValue = e.target.value;
-  //   if (selectedValue == "DL"|| selectedValue == "AB") {
-  //     this.formTripPayment.controls['qtyLtrs'].enable();
-  //     this.formTripPayment.controls['ratePerLtr'].enable();
-  //     this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-  //     this.formTripPayment.controls['amountPaid'].clearValidators();
-  //   }
-  //   else {
-  //     this.formTripPayment.controls['qtyLtrs'].disable();
-  //     this.formTripPayment.controls['ratePerLtr'].disable();
-  //     this.formTripPayment.controls['qtyLtrs'].clearValidators();
-  //     this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
-  //   }
-  //   this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-  //   this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-  // }
-   changeTransTypeNew(e: any) {
-  
-   if (this.selectedTripPaymentsDetails.pmtId){
-   this.requestmodel.strRequest = e;
-    }
-    else{
-        console.log(e.target.value);
-        var sValue = e.target.value;
-         this.requestmodel.strRequest = sValue;
-
-    }
- 
-    this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
-    this.responseDetails = res1;
-    if (this.responseDetails.message == "DA") {
-          this.formTripPayment.controls['qtyLtrs'].disable();
-          this.formTripPayment.controls['ratePerLtr'].disable();
-          this.formTripPayment.controls['qtyLtrs'].clearValidators();
-          this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+  changeTransType(e: any) {
+    console.log(e.target.value);
+    var selectedValue = e.target.value;
+    if (selectedValue == "DL"|| selectedValue == "AB") {
+      this.formTripPayment.controls['qtyLtrs'].enable();
+      this.formTripPayment.controls['ratePerLtr'].enable();
+      this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+      this.formTripPayment.controls['amountPaid'].clearValidators();
     }
     else {
-          this.formTripPayment.controls['qtyLtrs'].enable();
-          this.formTripPayment.controls['ratePerLtr'].enable();
-          this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-          this.formTripPayment.controls['amountPaid'].clearValidators();
+      this.formTripPayment.controls['qtyLtrs'].disable();
+      this.formTripPayment.controls['ratePerLtr'].disable();
+      this.formTripPayment.controls['qtyLtrs'].clearValidators();
+      this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
     }
     this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
     this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-  
-   });
-   
   }
+  //  changeTransTypeNew(e: any) {
+  
+  //  if (this.selectedTripPaymentsDetails.pmtId){
+  //  this.requestmodel.strRequest = e;
+  //   }
+  //   else{
+  //       console.log(e.target.value);
+  //       var sValue = e.target.value;
+  //        this.requestmodel.strRequest = sValue;
+
+  //   }
+ 
+  //   this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
+  //   this.responseDetails = res1;
+  //   if (this.responseDetails.message == "DA") {
+  //         this.formTripPayment.controls['qtyLtrs'].disable();
+  //         this.formTripPayment.controls['ratePerLtr'].disable();
+  //         this.formTripPayment.controls['qtyLtrs'].clearValidators();
+  //         this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+  //   }
+  //   else {
+  //         this.formTripPayment.controls['qtyLtrs'].enable();
+  //         this.formTripPayment.controls['ratePerLtr'].enable();
+  //         this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+  //         this.formTripPayment.controls['amountPaid'].clearValidators();
+  //   }
+  //   this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
+  //   this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+  
+  //  });
+   
+  // }
 
 
   calculateTotalAmount() {

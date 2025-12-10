@@ -53,6 +53,7 @@ export class AddtrippaymentsComponent {
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
+  transList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
 
 
@@ -158,6 +159,8 @@ export class AddtrippaymentsComponent {
       this.getCreditAcList(this.selectedTripPaymentsDetails.pmtType);  
     }
     this.getTripPmtLoadShow();
+     this.getTransTypeList();
+    
     this.getTripPmtDriverShow();
 
     setTimeout(() => {
@@ -169,6 +172,7 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['loadFor'].disable();
 
       if (this.selectedTripPaymentsDetails.pmtId != '') {
+         this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
         this.onDriverSelect(this.selectedTripPaymentsDetails.driverMasterID)
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
@@ -252,6 +256,44 @@ export class AddtrippaymentsComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+
+    changeTransTypeNew(e: any) {
+    
+     if (this.selectedTripPaymentsDetails.pmtId){
+     this.requestmodel.strRequest = e;
+      }
+      else{
+          console.log(e.target.value);
+          var sValue = e.target.value;
+           this.requestmodel.strRequest = sValue;
+  
+      }
+   
+      this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
+      this.responseDetails = res1;
+      if (this.responseDetails.message == "DA") {
+            this.formTripPayment.controls['qtyLtrs'].disable();
+            this.formTripPayment.controls['ratePerLtr'].disable();
+            this.formTripPayment.controls['qtyLtrs'].clearValidators();
+            this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+      }
+      else {
+            this.formTripPayment.controls['qtyLtrs'].enable();
+            this.formTripPayment.controls['ratePerLtr'].enable();
+            this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+            this.formTripPayment.controls['amountPaid'].clearValidators();
+      }
+      this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
+      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+    
+     });
+     
+    }
+     getTransTypeList(): void {
+    this.commonService.getTransTypeList().subscribe((res) => {
+      this.transList = res;
     });
   }
   getCreditAcList2(e: any){
@@ -388,24 +430,24 @@ export class AddtrippaymentsComponent {
     });
   }
 
-  changeTransType(e: any) {
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
-    if (selectedValue == "DL"|| selectedValue == "AB") {
-      this.formTripPayment.controls['qtyLtrs'].enable();
-      this.formTripPayment.controls['ratePerLtr'].enable();
-      this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-      this.formTripPayment.controls['amountPaid'].clearValidators();
-    }
-    else {
-      this.formTripPayment.controls['qtyLtrs'].disable();
-      this.formTripPayment.controls['ratePerLtr'].disable();
-      this.formTripPayment.controls['qtyLtrs'].clearValidators();
-      this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
-    }
-    this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-    this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-  }
+  // changeTransType(e: any) {
+  //   console.log(e.target.value);
+  //   var selectedValue = e.target.value;
+  //   if (selectedValue == "DL"|| selectedValue == "AB") {
+  //     this.formTripPayment.controls['qtyLtrs'].enable();
+  //     this.formTripPayment.controls['ratePerLtr'].enable();
+  //     this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+  //     this.formTripPayment.controls['amountPaid'].clearValidators();
+  //   }
+  //   else {
+  //     this.formTripPayment.controls['qtyLtrs'].disable();
+  //     this.formTripPayment.controls['ratePerLtr'].disable();
+  //     this.formTripPayment.controls['qtyLtrs'].clearValidators();
+  //     this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+  //   }
+  //   this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
+  //   this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+  // }
 
   calculateTotalAmount() {
     let total = '';
