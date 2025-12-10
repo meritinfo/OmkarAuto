@@ -124,7 +124,7 @@ export class TrippaymentsllpaddComponent {
     this.getBranchList();   
     this.getVehicleNoList();
     this.getLocationList();
-    this.getTransTypeList();
+   
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -312,11 +312,7 @@ export class TrippaymentsllpaddComponent {
       this.vehicleList = res;
     });
   }
-    getTransTypeList(): void {
-    this.commonService.getTransTypeList().subscribe((res) => {
-      this.transList = res;
-    });
-  }
+   
   
   
   getLocationList(): void {
