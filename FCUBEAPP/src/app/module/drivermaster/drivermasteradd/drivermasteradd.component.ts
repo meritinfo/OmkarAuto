@@ -69,8 +69,7 @@ export class DrivermasteraddComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private driverModel: Drivermodel, private drivermasterService: DrivermasterService,
-    private commonService: CommonService,
-                                      private sharedService : SharedService,
+    private commonService: CommonService, private sharedService : SharedService,
     private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.driverModel = new Drivermodel();
   }
@@ -177,31 +176,30 @@ export class DrivermasteraddComponent {
     });
 
     this.formDriverMaster.controls['age'].disable(); 
-
-    if (this.selectedDriverMasterDetails.driverMasterID != '') {
-   
-      //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
-      this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
-      this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
-      this.uploadedDrHazLic = Constants.UploadFolderPath + 'driver/hazdrivinglicense/' + this.selectedDriverMasterDetails.attachDrHazLic;
-      this.uploadedDrAadhar = Constants.UploadFolderPath + 'driver/aadharcard/' + this.selectedDriverMasterDetails.attachDrAadhar;
-      this.uploadedDrTempAddProof = Constants.UploadFolderPath + 'driver/tempaddressprove/' + this.selectedDriverMasterDetails.attachDrTempAddProof;
-      this.uploadedDrPermAddProof = Constants.UploadFolderPath + 'driver/peraddressprove/' + this.selectedDriverMasterDetails.attachDrPermAddProof;
-      this.uploadedDrBankPassBook = Constants.UploadFolderPath + 'driver/bankpassbook/' + this.selectedDriverMasterDetails.attachDrBankPassBook;
-      //this.driverPhotoPreview = this.selectedDriverMasterDetails.drPhoto;
-      this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
-      this.formDriverMaster.patchValue({
-        dateOfBirth: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfBirth),
-        dateOfAppoint: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
-        licValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.licValidUpto),
-        hazLicValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
-        inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
-        removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
-        vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedDriverMasterDetails.vehicleMasterId),
-      })
-     // this.formDriverMaster.controls['driverName'].disable();
-      this.editMode = true;
-    }
+     
+    setTimeout(() => {
+      if (this.selectedDriverMasterDetails.driverMasterID != '') {   
+        this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
+        this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
+        this.uploadedDrHazLic = Constants.UploadFolderPath + 'driver/hazdrivinglicense/' + this.selectedDriverMasterDetails.attachDrHazLic;
+        this.uploadedDrAadhar = Constants.UploadFolderPath + 'driver/aadharcard/' + this.selectedDriverMasterDetails.attachDrAadhar;
+        this.uploadedDrTempAddProof = Constants.UploadFolderPath + 'driver/tempaddressprove/' + this.selectedDriverMasterDetails.attachDrTempAddProof;
+        this.uploadedDrPermAddProof = Constants.UploadFolderPath + 'driver/peraddressprove/' + this.selectedDriverMasterDetails.attachDrPermAddProof;
+        this.uploadedDrBankPassBook = Constants.UploadFolderPath + 'driver/bankpassbook/' + this.selectedDriverMasterDetails.attachDrBankPassBook;
+        this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
+        this.formDriverMaster.patchValue({
+          dateOfBirth: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfBirth),
+          dateOfAppoint: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
+          licValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.licValidUpto),
+          hazLicValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
+          inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
+          removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
+          vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedDriverMasterDetails.vehicleMasterId),
+        })
+      // this.formDriverMaster.controls['driverName'].disable();
+        this.editMode = true;
+      } 
+    }, 2000);
   }
 
   // convenience getter for easy access to contact form fields

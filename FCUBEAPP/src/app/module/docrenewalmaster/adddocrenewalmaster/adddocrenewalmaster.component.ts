@@ -166,22 +166,19 @@ export class AdddocrenewalmasterComponent {
 
   //Submit user form details //
   submitDocRenewalMasterForm(): void {
-  if (this.formUser.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
-
-  const controls = this.formUser.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
-
-      this.toasterService.warning(titleCaseName + " field is invalid");
+    if (this.formUser.invalid) {
+      this.toasterService.warning("Please enter mandatory fields");
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+          this.toasterService.warning(titleCaseName + " field is invalid");
+        }
+      }
+      return;
     }
-  }
-
-  return;
-}
 
     this.sharedService.loading=true;
     var selectedDataVal =this.formUser.getRawValue();

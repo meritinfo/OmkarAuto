@@ -96,7 +96,12 @@ export class SpareslubesmasteraddComponent {
 
     if (this.selectedSpareslubesMasterDetails.spareLubId != '') {
       this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails); 
-      this.getSparesLubesInnerGridList();  
+      if(this.selectedSpareslubesMasterDetails.inventroyYN=="N"){
+        this.formArray.clear(); 
+      }
+      else{
+        this.getSparesLubesInnerGridList();  
+      }
       this.editMode = true;
     }    
     this.sharedService.loading = false;
@@ -182,6 +187,14 @@ export class SpareslubesmasteraddComponent {
       openingValue: ['0', []],
     });
   }
+  onInverntory(e:any){
+    if(e.target.value=="N"){
+      this.formArray.clear(); 
+    }
+    else{
+      this.formArray.push(this.createInitialArray());
+    }
+  }
 
   getSparesLubesInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedSpareslubesMasterDetails.spareLubId;
@@ -225,23 +238,19 @@ export class SpareslubesmasteraddComponent {
 
   //Submit user form details //
   submitSparesLubesMasterForm(): void {  
-if (this.formSparesMaster.invalid) {
-  this.toasterService.warning("Please enter mandatory fields");
-
-  const controls = this.formSparesMaster.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
-
-      this.toasterService.warning(titleCaseName + " field is invalid");
+    if (this.formSparesMaster.invalid) {
+      this.toasterService.warning("Please enter mandatory fields");
+      const controls = this.formSparesMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+          this.toasterService.warning(titleCaseName + " field is invalid");
+        }
+      }
+      return;
     }
-  }
-
-  return;
-}
-
       
     this.sharedService.loading = true;
 
@@ -257,33 +266,30 @@ if (this.formSparesMaster.invalid) {
     this.sparesLubesMasterModel.inventroyYN = selectedDataVal.inventroyYN;
     this.sparesLubesMasterModel.sparesLubesDetailList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
-      if (selectedDataVal.arrayList[i].godownId =='' ) {
-        this.toasterService.warning("Please select Godown");
-        return;
-      } 
-      if (selectedDataVal.arrayList[i].brandId =='' ) {
-        this.toasterService.warning("Please select Brand");
-        return;
-      } 
-      if (selectedDataVal.arrayList[i].openingQty =='' ) {
-        this.toasterService.warning("Please Enter Qty");
-        return;
-      } 
-      // if (selectedDataVal.arrayList[i].openingValue =='' ) {
-      //   this.toasterService.warning("Please Enter openingValue");
-      //   return;
-      // } 
-      
-      
-      this.sparesLubesMasterModel.sparesLubesDetailList.push({  
-        'spareLubId': '',
-        'godownId': selectedDataVal.arrayList[i].godownId,
-        'brandId': selectedDataVal.arrayList[i].brandId,
-        'openingQty': selectedDataVal.arrayList[i].openingQty,
-        'openingValue': selectedDataVal.arrayList[i].openingValue
-      })
-    }  
+    if(selectedDataVal.inventroyYN=="Y"){
+      for (var i = 0; i < selectedDataVal.arrayList.length; i++) {  
+        if (selectedDataVal.arrayList[i].godownId =='' ) {
+          this.toasterService.warning("Please select Godown");
+          return;
+        } 
+        if (selectedDataVal.arrayList[i].brandId =='' ) {
+          this.toasterService.warning("Please select Brand");
+          return;
+        } 
+        if (selectedDataVal.arrayList[i].openingQty =='' ) {
+          this.toasterService.warning("Please Enter Qty");
+          return;
+        }       
+        
+        this.sparesLubesMasterModel.sparesLubesDetailList.push({  
+          'spareLubId': '',
+          'godownId': selectedDataVal.arrayList[i].godownId,
+          'brandId': selectedDataVal.arrayList[i].brandId,
+          'openingQty': selectedDataVal.arrayList[i].openingQty,
+          'openingValue': selectedDataVal.arrayList[i].openingValue
+        })
+      }  
+    }    
 
     this.sparesLubesMasterService.sparesLubesMasterSubmitted(this.sparesLubesMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
