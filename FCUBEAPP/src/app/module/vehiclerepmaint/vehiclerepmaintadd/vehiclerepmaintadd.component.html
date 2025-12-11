@@ -243,88 +243,96 @@
                                     <div class="overflow-x">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-tyre-width">
                                             <tr>
-                                                <td class="col-lg-2">
+                                                <td>
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                </td>
+                                                <td style="width:300px;">
                                                     <label for="formrow-inputZip">
                                                         <h6>Spare/Lube </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td style="width:200px;">
                                                     <label for="formrow-inputZip">
                                                         <h6>Brand</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Avail Qty </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Item Qty </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Item Rate </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Item Amount</h6>
                                                     </label>
                                                 </td>    
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Sgst Pct </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Sgst Amt </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Cgst Pct  </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Cgst Amt   </h6>
                                                     </label>
                                                 </td>
                                                
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Igst Pct</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Igst Amt</h6>
                                                     </label>
                                                 </td>
                                                 
-                                                <td class="col-lg-2">
+                                                <td>
                                                     <label for="formrow-inputZip">
                                                         <h6>Net Amount</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td style="width:200px;">
                                                     <label for="formrow-inputZip">
                                                         <h6>Remarks</h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Action</h6>
                                                     </label>
                                                 </td>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2">
+                                                    <td>
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formTyreArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>
+                                                    <td style="width:300px;">
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="spareLubId"   
                                                             class="form-control form-select ng-pristine ng-touched">
@@ -333,7 +341,7 @@
                                                             </option>
                                                          </select>   
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td style="width:200px;">
                                                         <select class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="brandId"
                                                             (change)="getAvail(i)"   
@@ -343,61 +351,53 @@
                                                             </option>
                                                          </select>  
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="availQty"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="itemQty" (change)="onPctChange(i,'itemQty')"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="itemRate" (change)="onPctChange(i,'itemRate')"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="itemAmount" decimalonly> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="sgstPct" (change)="onPctChange(i,'sgstPct')"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="sgstAmt"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="cgstPct" (change)="onPctChange(i,'cgstPct')"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="cgstAmt"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="igstPct" (change)="onPctChange(i,'igstPct')">  
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="igstAmt" > 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="netAmount"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td style="width:200px;">
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="remarks"> 
-                                                    </td>
-                                                    <td class="col-lg-4">
-                                                        <div class="col-lg-4 details-button">
-                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
-                                                                class="btn btn-add" (click)="addItem(i)"></button>
-                                                            <button *ngIf="formTyreArray.controls.length > 1"
-                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                        </div>   
                                                     </td>
                                                 </div>
                                             </tr>
@@ -476,6 +476,7 @@
                                 formControlName="pmtType" (change)="changePmtType($event)"
                                 class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"> 
+                                    <option value="">Choose..</option>      
                                     <option value="M">Cash</option>      
                                     <option value="B">Bank</option> 
                                     <option value="H">Happay</option>

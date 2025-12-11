@@ -148,7 +148,7 @@ export class VehiclerepmaintaddComponent {
       otherAmount : new FormControl('',),     
       roundOff : new FormControl('',),     
       remarks : new FormControl('',),  
-      pmtType : new FormControl('D',[Validators.required]),  
+      pmtType : new FormControl('',[Validators.required]),  
       neftPmt : new FormControl('',),  
       creditAc : new FormControl('',[Validators.required]),  
       chequeDate : new FormControl('',),
@@ -166,7 +166,6 @@ export class VehiclerepmaintaddComponent {
     this.getSparesList();
     this.getVehicleIdList();
     this.getMaintanenceList();
-    this.getCreditAcList("A");
 
     this.formTyreArray.controls[0].get("spareLubId")?.disable();
     this.formTyreArray.controls[0].get("brandId")?.disable();
@@ -320,7 +319,6 @@ export class VehiclerepmaintaddComponent {
   }
 
   changePmtType(e: any) {
-    console.log(e.target.value);
     var selectedValue = e.target.value;
     this.formUser.patchValue({
       neftPmt : "",
@@ -467,9 +465,14 @@ export class VehiclerepmaintaddComponent {
 
   getCreditAcList(pmttp:string): void {
     this.requestmodel.strRequest= pmttp;
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditAcList = res;
-    });
+    if(pmttp==""){
+      this.creditAcList = [];
+    }
+    else{
+      this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+        this.creditAcList = res;
+      });
+    }
     if (pmttp == 'B'){
       this.formUser.controls['neftPmt'].enable();
       this.formUser.controls['chequeNo'].enable();
@@ -550,16 +553,16 @@ export class VehiclerepmaintaddComponent {
     if(this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '' ){
     this.requestmodel.strRequest =this.selectedvehiclerepmaintMasterDetail.vrmTransId 
       if (confirm("Are you sure, you want to delete this?")) {
-            this.vehiclerepmaintMasterService.vehiclerepmaintMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toastrService.success(this.responseDetails.message);
-              this.formUser.reset();
-              this.route.navigate(['/vehiclerepairslist']);
-            }
-            else {
-              this.toastrService.warning(this.responseDetails.message);
-            }
+        this.vehiclerepmaintMasterService.vehiclerepmaintMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toastrService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/vehiclerepairslist']);
+          }
+          else {
+            this.toastrService.warning(this.responseDetails.message);
+          }
         });
       }
     }
