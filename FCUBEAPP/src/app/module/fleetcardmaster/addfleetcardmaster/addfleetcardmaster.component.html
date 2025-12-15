@@ -33,7 +33,8 @@
                                             <label for="basicpill-phoneno-input">Card Code</label><span style="color:red">*</span>
                                             <input type="text" class="form-control"
                                             formControlName="cardCode" uppercaseonly
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['cardCode'].invalid) }"  
+                                            (change)="checkDuplicateCardCode()">
                                             
                                         </div>
                                     </div>
