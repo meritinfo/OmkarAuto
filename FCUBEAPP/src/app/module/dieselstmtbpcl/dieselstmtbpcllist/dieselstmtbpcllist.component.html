@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Diesel Data Import</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Account</label>                                                
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="accountList"
+                                            [searchKeyword]="keywordLocation" 
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"
+                                            formControlName="dfAccount" >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                          min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="fromDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                          min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="toDate" class="form-control">
+                                </div>
+                            </div>                           
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
+                        (click)=" dieselStatementAdd()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>accountName </th>                             
+                                <th>stmtDate</th>
+                                <th>fromDate</th>
+                                <th>toDate</th>
+                                <th>Action</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allDieselStatement.dieselList?.length != 0">
+                            <tr *ngFor="let dsl of allDieselStatement.dieselList">                   
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getDieselStatementDetails(dsl)"></button>  
+                                </td>                       
+                                <td>                    
+                                    <button type="button" class="btn btn-primary btn-floating"  
+                                        (click)="getVoucherPrint(dsl)" >
+                                        <i class="fas fa-download"></i></button>                           
+                                </td>
+                                <td>{{ dsl.vendor }}</td>                        
+                                <td>{{ dsl.billStmtDate}}</td>
+                                <td>{{ dsl.fromDate}}</td>
+                                <td>{{ dsl.toDate}}</td> 
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allDieselStatement.dieselList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

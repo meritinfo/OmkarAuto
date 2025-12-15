@@ -560,6 +560,8 @@ import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
 import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
 import { Godownstockmodel } from "./models/godownstockmodel";
 import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
+import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtbpcllist/dieselstmtbpcllist.component';
+import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
 import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
 import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
 
@@ -747,6 +749,9 @@ import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippay
     FleetgodownmasteraddComponent,
     FleetgodownmasterlistComponent,
     GodownstockentryComponent,
+    DashboardcustComponent,
+    DieselstmtbpcllistComponent,
+    DieselstmtbpcladdComponent
     DashboardcustComponent,
     TrippaymentsbrpladdComponent,
     TrippaymentsbrpllistComponent
