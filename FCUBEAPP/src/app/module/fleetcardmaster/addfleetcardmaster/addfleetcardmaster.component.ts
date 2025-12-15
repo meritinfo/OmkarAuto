@@ -183,6 +183,7 @@ if (this.formUser.invalid) {
   this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
   this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
   this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
+  this.fleetcardMasterModel.loggedInUser = this.loggedInUserID;
   this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
 
     this.responseDetails = res;

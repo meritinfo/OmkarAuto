@@ -321,6 +321,8 @@ export class DieselstatementaddComponent implements OnInit {
     } 
   }
 
+  
+
   selectAll(e: any) {
     if(e.target.checked){
       for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
