@@ -10,17 +10,13 @@ import { DieselstmtService } from 'src/app/services/dieselstmt.service';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import * as XLSX from 'xlsx';
-const { read, write, utils } = XLSX;
-type AOA = any[][];
-
 
 @Component({
-  selector: 'app-dieselstmtadd',
-  templateUrl: './dieselstmtadd.component.html',
-  styleUrls: ['./dieselstmtadd.component.css']
+  selector: 'app-dieselstmtbpcladd',
+  templateUrl: './dieselstmtbpcladd.component.html',
+  styleUrls: ['./dieselstmtbpcladd.component.css']
 })
-export class DieselstmtaddComponent {
+export class DieselstmtbpcladdComponent {
   loggedInUserID: string = '';
   year: string = '';
   loginDate: string = '';
@@ -128,8 +124,7 @@ export class DieselstmtaddComponent {
       totalDslLtrs: new FormControl(''),
       totalDslAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
-      driverId: new FormControl('', [Validators.required]),
-
+      vehicleNo: new FormControl('', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
@@ -172,7 +167,6 @@ export class DieselstmtaddComponent {
   createInitialArray() {
     return this.formBuilder.group({
       transRefNo:  ['', []],
-      vehicleNo:  ['', []],
       transDateTime:  [this.loginDate, []],
       dslQty:  ['', []],
       dslRate:  ['', []],
@@ -192,27 +186,7 @@ export class DieselstmtaddComponent {
       this.driverLists = res;
     });
   }
-
-  addItem(index: number): void {
-    var selectedData= this.formDieselStatement.getRawValue();
-    var arr= selectedData.arrayList;
-       if (arr[index].vehicleNo?arr[index].vehicleNo.dataId:""!= "" && arr[index].dslQty != "" && arr[index].dslRate != "") {
-     this.formArray.push(this.createInitialArray());
-    } 
-    else {
-     this.toasterService.warning("Please enter vehicle no ,dslQty & dslRate");
-    }
-    this.formArray.controls[index+1].get("amount")?.disable();
-  }
-
-  removeItem(index: number) {
-    if (confirm("Are you sure, you want to delete this row?")) {
-      this.formArray.removeAt(index);
-    }
-    this.calculateTotal();
-  }
-
-
+  
   getVehicleNoList(): void {
     this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
@@ -225,8 +199,7 @@ export class DieselstmtaddComponent {
       this.accountList = res;
     });
   }
-
-   
+  
 
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -267,7 +240,6 @@ export class DieselstmtaddComponent {
       for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
-        this.formArray.controls[i].get("vehicleNo")?.setValue(this.vehicleList.find(e => e.dataId == res.dieselStmtDtlsList[i].vehicleMasterId));
         this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
@@ -275,7 +247,6 @@ export class DieselstmtaddComponent {
         
 
         this.formArray.controls[i].get("transRefNo")?.disable();
-        this.formArray.controls[i].get("vehicleNo")?.disable();
         this.formArray.controls[i].get("transDateTime")?.disable();
         this.formArray.controls[i].get("dslQty")?.disable();
         this.formArray.controls[i].get("dslRate")?.disable();
@@ -284,79 +255,7 @@ export class DieselstmtaddComponent {
      
     });  
   }
-
-  data: AOA = [[1, 2]];
-  // wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
-  // fileName: string = 'SheetJS.xlsx';
-
-  onFileChange(evt: any) {
-    /* wire up file reader */
-    const target: DataTransfer = <DataTransfer>(evt.target);
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      /* read workbook */
-      const bstr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellText: true, cellDates: true });
-
-      /* grab first sheet */
-      const wsname: string = wb.SheetNames[0];
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-      /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'dd-MM-yyyy HH:mm:ss' }));
-
-      var selectedDataVal = this.formDieselStatement.getRawValue();
-      var j=0;
-      this.formArray.clear();
-      for (var i = 0; i < this.data.length; i++) { 
-        if (this.data[i+1][0]!="")  
-        {  
-          if (this.data[i+1][1]=="Debit" && this.data[i+1][5]=="DIESEL" && this.data[i+1][9]=="Settled")  
-          {           
-            this.formArray.push(this.createInitialArray());
-
-            var startDt = new Date(this.data[i+1][3]);    
-            this.formArray.controls[j].get("transRefNo")?.setValue(this.data[i+1][0]);
-            this.formArray.controls[j].get("vehicleNo")?.setValue(this.data[i+1][2]);
-            //this.formArray.controls[j].get("transDateTime")?.setValue(startDt.toLocaleDateString('en-CA').toString());
-            this.formArray.controls[j].get("transDateTime")?.setValue(this.data[i+1][3]);
-            this.formArray.controls[j].get("dslQty")?.setValue(this.data[i+1][7]);
-            this.formArray.controls[j].get("dslRate")?.setValue(this.data[i+1][6]);
-            this.formArray.controls[j].get("amount")?.setValue(this.data[i+1][8]);
-
-            this.formArray.controls[j].get("transRefNo")?.disable();
-            this.formArray.controls[j].get("vehicleNo")?.disable();
-            this.formArray.controls[j].get("transDateTime")?.disable();
-            this.formArray.controls[j].get("dslQty")?.disable();
-            this.formArray.controls[j].get("dslRate")?.disable();     
-            this.formArray.controls[j].get("amount")?.disable();  
-
-            j ++; 
-          }
-        } 
-        else{
-          i = this.data.length;
-        }         
-      }
-    };     
-    reader.readAsBinaryString(target.files[0]);
-    
-    setTimeout(() => {
-      this.calculateTotal();
-    }, 2000);
-  }
-
-  calculateAmt(i: number, event: any) {    
-    var selectedData = this.formDieselStatement.getRawValue();   
-    if (selectedData.arrayList[i].dslQty!=''&& selectedData.arrayList[i].dslRate!='' ){     
-      var pro =  parseFloat(selectedData.arrayList[i].dslQty)*parseFloat(selectedData.arrayList[i].dslRate);
-      this.formArray.controls[i].get("amount")?.setValue(pro);
-      // totalProAmount = totalProAmount + pro;
-    }
-    this.calculateTotal();
-  }
-
+     
   
   calculateTotal() {
     var totalDslLtrs= 0;
@@ -423,13 +322,12 @@ export class DieselstmtaddComponent {
 
     this.sharedService.loading = true;
     this.formSubmitted = true;
-    this.dieselStatementmodel.masterID      = this.selectedDieselStmtDetails.masterID ;
+    this.dieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
-    this.dieselStatementmodel.billStmtDate        = selectedDataVal.billStmtDate;
+    this.dieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
-    this.dieselStatementmodel.dfVendor       = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
-    this.dieselStatementmodel.driverId       = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
+    this.dieselStatementmodel.dfVendor        = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
