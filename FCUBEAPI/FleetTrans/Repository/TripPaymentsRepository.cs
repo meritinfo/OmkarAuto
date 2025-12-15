@@ -559,27 +559,6 @@ namespace FleetTrans.Repository
             return responseModel;
         
         }
-        public async Task<ResponseModel> GetTripPmtDriverShow()
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPmtDriverShow", null);
-
-                if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                {
-                    responseModel.Status = Convert.ToBoolean(dataSet.Tables[0].Rows[0]["Status"]);
-                    responseModel.Message = Convert.ToString(dataSet.Tables[0].Rows[0]["Message"]);
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-                responseModel.Message = ex.Message;
-            }
-            return responseModel;
-        }
-
 
         public async Task<ResponseModel> GetTripPmtLoadShow()
         {

@@ -23,8 +23,7 @@ namespace FleetTrans.Business
         Task<ConsignmentModel> GetLrDtlsForTripPmts(RequestModel req);
         Task<ResponseModel> GetVoucherPrint(RequestModel request);
         Task<ReportRequestModel> TripPaymentsLoadDetails(RequestModel request);
-        Task<ResponseModel> GetTripPmtLoadShow();
-        Task<ResponseModel> GetTripPmtDriverShow();        
+        Task<ResponseModel> GetTripPmtLoadShow();   
         Task<ResponseModel> GetTransTypeValidations(RequestModel req);
         Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request);
 

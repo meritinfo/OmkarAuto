@@ -185,20 +185,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetTripPmtDriverShow")]
-        public async Task<IActionResult> GetTripPmtDriverShow()
-        {
-            try
-            {
-                var result = await tripPaymentsBusiness.GetTripPmtDriverShow();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("TripPaymentsLoadDetails")]
         public async Task<IActionResult> TripPaymentsLoadDetails(RequestModel request)

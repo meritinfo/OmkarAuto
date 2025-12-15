@@ -38,7 +38,6 @@ export class AddtrippaymentsComponent {
   viewStatus = false; 
   createmode = false;
   showLoad = false;
-  showDriver = false;
   dashboard: string ="";
   seriesDoc: string = "";
   createdBy:string = "";
@@ -126,7 +125,6 @@ export class AddtrippaymentsComponent {
     this.getDriverList();
     this.getVehicleNoList();
     this.getLocationList();
-   // this.getTripStmtType();
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -152,16 +150,13 @@ export class AddtrippaymentsComponent {
       toPlace: new FormControl('',),
       loadMemoDt: new FormControl('',),
       loadFor: new FormControl('',),
-      driverMasterID: new FormControl('',),
     });
         
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
       this.getCreditAcList(this.selectedTripPaymentsDetails.pmtType);  
     }
     this.getTripPmtLoadShow();
-     this.getTransTypeList();
-    
-    this.getTripPmtDriverShow();
+    this.getTransTypeList();    
 
     setTimeout(() => {
       this.createmode = true;
@@ -356,15 +351,7 @@ export class AddtrippaymentsComponent {
       }
     });
   }
-  
-  getTripPmtDriverShow():void {
-    this.tripPaymentsService.getTripPmtDriverShow().subscribe((res) => {
-      if(res.status && res.message=="Y"){
-        this.showDriver = true;
-      }
-    });
-  }
-   
+     
   selectEvent(item: any) {
     this.requestmodel.strRequest = item.dataId;
     this.showLoad = false;
