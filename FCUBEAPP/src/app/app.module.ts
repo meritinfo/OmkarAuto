@@ -560,6 +560,8 @@ import { Fleetgodownmastermodel } from "./models/fleetgodownmastermodel";
 import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
 import { Godownstockmodel } from "./models/godownstockmodel";
 import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
+import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
+import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
 
 
 @NgModule({
@@ -745,7 +747,9 @@ import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.com
     FleetgodownmasteraddComponent,
     FleetgodownmasterlistComponent,
     GodownstockentryComponent,
-    DashboardcustComponent
+    DashboardcustComponent,
+    TrippaymentsbrpladdComponent,
+    TrippaymentsbrpllistComponent
     
   ],
   

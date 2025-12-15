@@ -346,6 +346,63 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("TripPaymentsBrplSave")]
+        public async Task<IActionResult> TripPaymentsBrplSave()
+        {
+            try
+            {
+                var attachment1 = HttpContext.Request.Form.Files["attachment1"];
+                var attachment2 = HttpContext.Request.Form.Files["attachment2"];
+
+                TripPaymentsModel tripPaymentsModel = JsonConvert.DeserializeObject<TripPaymentsModel>(HttpContext.Request.Form["datadetails"]);
+                tripPaymentsModel.Attachment1 = "";
+                tripPaymentsModel.Attachment2 = "";
+
+                if (attachment1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachment1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachment1.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/trippayments/attachment1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachment1.CopyToAsync(fileStream);
+                        tripPaymentsModel.Attachment1 = imageName;
+                    }
+                }
+                if (attachment2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachment2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachment2.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/trippayments/attachment2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachment2.CopyToAsync(fileStream);
+                        tripPaymentsModel.Attachment2 = imageName;
+                    }
+                }
+
+                var result = await tripPaymentsBusiness.TripPaymentsBrplSave(tripPaymentsModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetTripPaymentsList")]
         public async Task<IActionResult> GetTripPaymentsList(ReportRequestModel request)
         {

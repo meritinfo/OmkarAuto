@@ -81,5 +81,10 @@ namespace FleetTrans.Business
             return await tripPaymentsRepository.GetDriverAccountDetails(request);
         }
 
+        public async Task<ResponseModel> TripPaymentsBrplSave(TripPaymentsModel tripPaymentsModel)
+        {
+            return await tripPaymentsRepository.TripPaymentsBrplSave(tripPaymentsModel);
+        }
+
     }
 }

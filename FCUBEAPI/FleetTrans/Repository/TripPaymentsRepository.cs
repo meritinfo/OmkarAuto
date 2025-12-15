@@ -172,6 +172,8 @@ namespace FleetTrans.Repository
                                 DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
                                 BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                Fromloc = Convert.ToString(dataSet.Tables[0].Rows[i]["FromLoc"]),
+                                Toloc = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLoc"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
@@ -577,6 +579,73 @@ namespace FleetTrans.Repository
             {
                 responseModel.Status = false;
                 responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
+
+        public async Task<ResponseModel> TripPaymentsBrplSave(TripPaymentsModel tripPaymentsModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PmtId", tripPaymentsModel.PmtId),
+                            new SqlParameter("@PmtBranch", tripPaymentsModel.PmtBranch),
+                            new SqlParameter("@PmtDate", tripPaymentsModel.PmtDate),
+                            new SqlParameter("@PaidToDesc", tripPaymentsModel.PaidToDesc),
+                            new SqlParameter("@VehicleMasterID", tripPaymentsModel.VehicleMasterID),
+                            new SqlParameter("@TransType", tripPaymentsModel.TransType),
+                            new SqlParameter("@AmountPaid", tripPaymentsModel.AmountPaid),
+                            new SqlParameter("@Remarks", tripPaymentsModel.Remarks),
+                            new SqlParameter("@VendorRefNo", tripPaymentsModel.VendorRefNo),
+                            new SqlParameter("@PmtType", tripPaymentsModel.PmtType),
+                            new SqlParameter("@NeftPmt", tripPaymentsModel.NeftPmt),
+                            new SqlParameter("@CreditAc", tripPaymentsModel.CreditAc),
+                            new SqlParameter("@ChequeNo", tripPaymentsModel.ChequeNo),
+                            new SqlParameter("@ChequeDate", tripPaymentsModel.ChequeDate),
+                            new SqlParameter("@QtyLtrs", tripPaymentsModel.QtyLtrs),
+                            new SqlParameter("@RatePerLtr", tripPaymentsModel.RatePerLtr),
+                            new SqlParameter("@WithLRYN", tripPaymentsModel.WithLRYN),
+                            new SqlParameter("@ConsignmentId", tripPaymentsModel.ConsignmentId),
+                            new SqlParameter("@Kmr", tripPaymentsModel.Kmr),
+                            new SqlParameter("@Attachment1", tripPaymentsModel.Attachment1),
+                            new SqlParameter("@Attachment2", tripPaymentsModel.Attachment2),
+                            new SqlParameter("@YearId", tripPaymentsModel.YearId),
+                            new SqlParameter("@DriverMasterID", tripPaymentsModel.DriverMasterID),
+                            new SqlParameter("@Fromloc", tripPaymentsModel.Fromloc),
+                            new SqlParameter("@Toloc", tripPaymentsModel.Toloc),
+                            new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripPaymentsBrplSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
             }
             return responseModel;
         }
