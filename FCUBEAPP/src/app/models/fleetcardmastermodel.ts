@@ -10,6 +10,6 @@ export class Fleetcardmastermodel {
     driverLicNo :  string = "";
     mobileNo :  string = "";
     isActive  :  string = "";
-    loggedInUserID: string = "";
+    loggedInUser: string = "";
 }
 

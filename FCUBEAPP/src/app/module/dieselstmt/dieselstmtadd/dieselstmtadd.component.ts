@@ -180,6 +180,8 @@ export class DieselstmtaddComponent {
     });
   }
 
+
+  
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
