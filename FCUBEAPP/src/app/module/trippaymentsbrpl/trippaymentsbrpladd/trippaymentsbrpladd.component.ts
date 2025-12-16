@@ -294,6 +294,7 @@ export class TrippaymentsbrpladdComponent {
     //   this.formUser.controls['chequeDate'].disable();
     // }
   }
+  
   changeTransTypeNew(e: any) {    
     if (this.selectedTripPaymentsDetails.pmtId){
       this.requestmodel.strRequest = e;
