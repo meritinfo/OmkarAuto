@@ -336,7 +336,7 @@ export class DieselstmtbpcladdComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/dieselimplist']);
+    this.route.navigate(['/dieselbpcllist']);
   }
 
   deleteDieselStatementForm(): void {
@@ -349,7 +349,7 @@ export class DieselstmtbpcladdComponent {
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message);
               this.formDieselStatement.reset();
-              this.route.navigate(['/dieselimplist']);
+              this.route.navigate(['/dieselbpcllist']);
             }
             else{
               this.toasterService.warning(this.responseDetails.message);        
@@ -428,7 +428,7 @@ export class DieselstmtbpcladdComponent {
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
         this.formDieselStatement.reset();
-        this.route.navigate(['/dieselimplist']);
+        this.route.navigate(['/dieselbpcllist']);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        
