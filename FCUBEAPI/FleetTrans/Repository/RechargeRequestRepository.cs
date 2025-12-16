@@ -425,8 +425,6 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-
-
         public async Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
