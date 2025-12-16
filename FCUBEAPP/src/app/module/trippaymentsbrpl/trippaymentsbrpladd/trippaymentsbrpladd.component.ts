@@ -37,7 +37,6 @@ export class TrippaymentsbrpladdComponent {
   deleteStatus = false;
   viewStatus = false; 
   createmode = false;
-  showLoad = false;
   showDriver = false;
   dashboard: string ="";
   seriesDoc: string = "";
@@ -126,10 +125,8 @@ export class TrippaymentsbrpladdComponent {
     this.getDriverList();
     this.getVehicleNoList();
     this.getLocationList();
-   // this.getTripStmtType();
     
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    console.log(this.maxDate);
 
     this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
 
@@ -170,10 +167,10 @@ export class TrippaymentsbrpladdComponent {
       this.formTripPayment.controls['loadMemoDt'].disable();
       this.formTripPayment.controls['loadFor'].disable();
 
-      if (this.selectedTripPaymentsDetails.pmtId != '') {
-        debugger
-         this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
-        this.onDriverSelect(this.selectedTripPaymentsDetails.driverMasterID)
+      if (this.selectedTripPaymentsDetails.pmtId != '') {        
+        this.changeTransTypeNew(this.selectedTripPaymentsDetails.transType);
+        this.onDriverSelect(this.selectedTripPaymentsDetails.driverMasterID);
+
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
         if(this.selectedTripPaymentsDetails.findocid!="0"){
@@ -249,9 +246,7 @@ export class TrippaymentsbrpladdComponent {
         this.seriesDoc = '';
       }
     });
-  }
- 
- 
+  } 
 
   get f() { return this.formTripPayment.controls; }
 
@@ -261,6 +256,47 @@ export class TrippaymentsbrpladdComponent {
     });
   }
 
+  
+  getTransTypeList(): void {
+    this.commonService.getTransTypeList().subscribe((res) => {
+      this.transList = res;
+    });
+  }   
+  
+  getVehicleNoList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+  
+  getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.driverList = res;
+    });
+  }
+  
+  getCreditAcList(pmttp:string): void {
+    this.requestmodel.strRequest= pmttp;
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+      this.creditAcList = res;
+    });
+    // if (pmttp == 'B'){
+    //   this.formUser.controls['neftPmt'].enable();
+    //   this.formUser.controls['chequeNo'].enable();
+    //   this.formUser.controls['chequeDate'].enable();
+    // }
+    // else {
+    //   this.formUser.controls['neftPmt'].disable();
+    //   this.formUser.controls['chequeNo'].disable();
+    //   this.formUser.controls['chequeDate'].disable();
+    // }
+  }
   changeTransTypeNew(e: any) {    
     if (this.selectedTripPaymentsDetails.pmtId){
       this.requestmodel.strRequest = e;
@@ -285,81 +321,6 @@ export class TrippaymentsbrpladdComponent {
       this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
       this.formTripPayment.controls['amountPaid'].updateValueAndValidity();    
     });     
-  }
-
-  getTransTypeList(): void {
-    this.commonService.getTransTypeList().subscribe((res) => {
-      this.transList = res;
-    });
-  }
-  
-  getCreditAcList2(e: any){
-    this.requestmodel.strRequest = e;
-
-    this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
-      this.creditacList = res;   
-      this.formTripPayment.patchValue({
-        //creditAc:this.creditacList[0].dataId
-      });  
-    });
-  }
-
-  tripPaymentsDelete(): void {    
-    if(this.selectedTripPaymentsDetails.pmtId != '' ){
-    this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
-      if (confirm("Are you sure, you want to delete this?")) {
-            this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formTripPayment.reset();
-              this.route.navigate(['/trippaymentlist']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-            }
-        });
-      }
-    }
-  }
-
-  exit(): void {
-    this.route.navigate(['/trippaymentlist']);
-  }
-  
-  getCreditAcList(pmttp:string): void {
-    this.requestmodel.strRequest= pmttp;
-    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditAcList = res;
-    });
-    // if (pmttp == 'B'){
-    //   this.formUser.controls['neftPmt'].enable();
-    //   this.formUser.controls['chequeNo'].enable();
-    //   this.formUser.controls['chequeDate'].enable();
-    // }
-    // else {
-    //   this.formUser.controls['neftPmt'].disable();
-    //   this.formUser.controls['chequeNo'].disable();
-    //   this.formUser.controls['chequeDate'].disable();
-    // }
-  }
-
-   
-  selectEvent(item: any) {
-    this.requestmodel.strRequest = item.dataId;
-    this.showLoad = false;
-    if(this.ldShow){
-      this.tripPaymentsService.tripPaymentsLoadDetails(this.requestmodel).subscribe((res) => {
-        this.showLoad = true;
-        this.formTripPayment.controls["vehicleMasterID"].disable();
-        this.formTripPayment.patchValue({
-          fromPlace: res.filterStr,   
-          toPlace: res.filterStr1,
-          loadMemoDt: res.filterStr2,
-          loadFor: res.filterStr3
-        });
-      });
-    }  
   }
 
   onDriverSelect(item: any) {
@@ -392,37 +353,6 @@ export class TrippaymentsbrpladdComponent {
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
-
-  getVehicleNoList(): void {
-    this.commonService.getVehicleIdList().subscribe((res) => {
-      this.vehicleList = res;
-    });
-  }
-  
-  getLocationList(): void {
-    this.commonService.getLocationList().subscribe((res) => {
-      this.locationList = res;
-    });
-  }
-
-  // changeTransType(e: any) {
-  //   console.log(e.target.value);
-  //   var selectedValue = e.target.value;
-  //   if (selectedValue == "DL"|| selectedValue == "AB") {
-  //     this.formTripPayment.controls['qtyLtrs'].enable();
-  //     this.formTripPayment.controls['ratePerLtr'].enable();
-  //     this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-  //     this.formTripPayment.controls['amountPaid'].clearValidators();
-  //   }
-  //   else {
-  //     this.formTripPayment.controls['qtyLtrs'].disable();
-  //     this.formTripPayment.controls['ratePerLtr'].disable();
-  //     this.formTripPayment.controls['qtyLtrs'].clearValidators();
-  //     this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
-  //   }
-  //   this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-  //   this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-  // }
 
   calculateTotalAmount() {
     let total = '';
@@ -481,13 +411,31 @@ export class TrippaymentsbrpladdComponent {
     
     this.getCreditAcList(selectedValue);
   }
-  getDriverList(): void {
-    this.commonService.getDriverList().subscribe((res) => {
-      this.driverList = res;
-    });
+
+
+  tripPaymentsDelete(): void {    
+    if(this.selectedTripPaymentsDetails.pmtId != '' ){
+      this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formTripPayment.reset();
+            this.route.navigate(['/trippaymentlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+        });
+      }
+    }
   }
- 
-   
+
+  exit(): void {
+    this.route.navigate(['/trippaymentlist']);
+  }
+    
   submitTripPaymentsForm(): void {  
     if (this.formTripPayment.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
@@ -552,8 +500,7 @@ export class TrippaymentsbrpladdComponent {
     this.trippaymentsmodel.paidToDesc = selectedDataValue.paidToDesc.toString().toUpperCase();    
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
-   this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
-     //this.trippaymentsmodel.remarks = `${selectedDataValue.fromLocation.dataName || ''} to ${selectedDataValue.toLocation.dataName || ''}. ${selectedDataValue.remarks || ''}`.toUpperCase();
+    this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";

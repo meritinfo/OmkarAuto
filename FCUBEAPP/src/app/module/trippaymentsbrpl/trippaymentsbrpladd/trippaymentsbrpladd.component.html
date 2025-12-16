@@ -51,7 +51,6 @@
                                                         formControlName="vehicleMasterID"  
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
-                                                        (selected)="selectEvent($event)"
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="endWithFilter"
@@ -68,7 +67,67 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row">                                            
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">From Location</label>
+                                                    <span style="color: red">*</span>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="fromloc"                                                           
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">To Location</label>
+                                                    <span style="color: red">*</span>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" 
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toloc"                                                           
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>                                                
+                                            </div>                                              
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-phoneno-input">Paid To Desc</label>
+                                                    <input uppercaseonly  class="form-control" formControlName="paidToDesc">
+                                                </div>
+                                            </div>                                       
+                                        </div>                                        
+                                        <div class="row"> 
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Driver Name</label>
@@ -93,96 +152,7 @@
                                                     </div>
                                                 </div>                                
                                             </div>
-                                             <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label for="formrow-inputCity">From Location</label>
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation"  
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="fromloc"
-                                                           
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                                </div>                                                
-                                            </div>
-                                             <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label for="formrow-inputCity">To Location</label>
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation"  
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="toloc"
-                                                           
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                                </div>                                                
-                                            </div>
-                                          
-                                        </div>
-                                        <div class="row" *ngIf="showLoad">
                                             <div class="col-lg-3">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">From Place</label>
-                                                    <input class="form-control" formControlName="fromPlace">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">To Place</label>
-                                                    <input class="form-control" formControlName="toPlace">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">Load Date</label>
-                                                    <input class="form-control" formControlName="loadMemoDt">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">Load For</label>
-                                                    <input class="form-control" formControlName="loadFor">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row"> 
-                                              <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">Paid To Desc</label>
-                                                    <input uppercaseonly  class="form-control" formControlName="paidToDesc">
-                                                </div>
-                                            </div>
-                                              <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label style="color: green"> 
                                                         <h6>Account No: {{ this.bankAc}} </h6> 
@@ -254,7 +224,6 @@
                                                         <option value="H">Happay</option>
                                                         <option value="D">Vendor</option>
                                                         <option value="A">Adjust</option>   
-                                                        <option value="P">BPCL</option>     
                                                         
                                                     </select>
                                                 </div>
