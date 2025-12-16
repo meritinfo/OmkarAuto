@@ -17,15 +17,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TrippaymentsbrpladdComponent {
   loggedInUserID: string = '';
-  amount: string = '';
   maxDate: string = '';
   minDate: string = '';
   loginDate: string = '';
   branch: string = '';
   year: string = '';
   company: string = '';
-  ptype: string = '';
-  trip: string = '';
   bankAc: string = '';
   ifsc: string = '';
   formTripPayment!: FormGroup;
@@ -43,7 +40,7 @@ export class TrippaymentsbrpladdComponent {
   createdBy:string = "";
   modifiedBy:string = "";
   dslStmt:string = "";
-  ldShow= false;
+  transTp: string = "";
 
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -306,6 +303,7 @@ export class TrippaymentsbrpladdComponent {
     }
    
     this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
+      this.transTp = res1.message;
       if (res1.message == "DA") {
         this.formTripPayment.controls['qtyLtrs'].disable();
         this.formTripPayment.controls['ratePerLtr'].disable();
@@ -461,7 +459,7 @@ export class TrippaymentsbrpladdComponent {
       return
     }
     
-    if (selectedDataValue.transType == "DA") {
+    if (this.transTp == "DA") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore
       }
