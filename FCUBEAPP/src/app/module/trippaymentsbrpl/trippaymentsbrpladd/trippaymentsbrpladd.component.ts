@@ -294,7 +294,7 @@ export class TrippaymentsbrpladdComponent {
     //   this.formUser.controls['chequeDate'].disable();
     // }
   }
-  
+
   changeTransTypeNew(e: any) {    
     if (this.selectedTripPaymentsDetails.pmtId){
       this.requestmodel.strRequest = e;
@@ -394,13 +394,19 @@ export class TrippaymentsbrpladdComponent {
     if (selectedValue == 'B'){
       this.formTripPayment.controls['neftPmt'].enable();
       this.formTripPayment.controls['chequeNo'].enable();
-      this.formTripPayment.controls['chequeDate'].enable();
+      this.formTripPayment.controls['chequeDate'].enable(); 
+      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
     }
     else {
       this.formTripPayment.controls['neftPmt'].disable();
       this.formTripPayment.controls['chequeNo'].disable();
       this.formTripPayment.controls['chequeDate'].disable(); 
+      this.formTripPayment.controls['chequeNo'].clearValidators();
+      this.formTripPayment.controls['chequeDate'].clearValidators();
     }
+    this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+    this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
    
     this.formTripPayment.patchValue({
       neftPmt : "",
