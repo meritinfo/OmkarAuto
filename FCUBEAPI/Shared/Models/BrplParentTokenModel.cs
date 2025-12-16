@@ -1,5 +1,5 @@
 ﻿
-namespace FleetTrans.Models
+namespace Shared.Models
 {
     public class BrplParentTokenModel
     {

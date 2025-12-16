@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.Options;
+﻿using ClosedXML.Excel;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using ClosedXML.Excel;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Net.Mail;
+using System.Linq;
 using System.Net;
-using DocumentFormat.OpenXml.Drawing;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace Shared.Repository
 {
@@ -717,7 +717,7 @@ namespace Shared.Repository
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                        responseModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
                     }
                 }
             }
@@ -726,6 +726,107 @@ namespace Shared.Repository
 
             }
             return responseModel;
+        }
+        public async Task<string> GetBpclAccessParentToken()
+        {
+            string parenttoken = "";
+            try
+            {
+                string subToken = await GetAccessSubToken();
+
+                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/subuser/";
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + subToken);
+                client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-68c6f96bd-8z5nx");
+
+                HttpResponseMessage response = client.PostAsync("parenttoken?accountId=FA3000173330", null).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    BrplParentTokenModel tokenModel = JsonConvert.DeserializeObject<BrplParentTokenModel>(responseData);
+                    parenttoken = tokenModel.access_token;
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            { }
+            return parenttoken;
+        }
+
+
+        public async Task<string> GetAccessSubToken()
+        {
+            string token = "";
+            try
+            {
+                EWayAPIConfigurationModel subTokenConfig = await APIConfigurationDetails();
+                string URL = "https://qa.api.cep.bpcl.in/authorizationserver/";
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("client_id", subTokenConfig.ApiClient_id),
+                    new KeyValuePair<string, string>("client_secret", subTokenConfig.ApiClient_secret),
+                    new KeyValuePair<string, string>("grant_type", subTokenConfig.ApiGrantType),
+                    new KeyValuePair<string, string>("username", subTokenConfig.ApiUserName),
+                    new KeyValuePair<string, string>("password", subTokenConfig.ApiPassword),
+                });
+
+                HttpResponseMessage response = client.PostAsync("oauth/token", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    BrplSubTokenModel tokenModel = JsonConvert.DeserializeObject<BrplSubTokenModel>(responseData);
+                    token = tokenModel.access_token;
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            { }
+            return token;
+        }
+
+        public async Task<EWayAPIConfigurationModel> APIConfigurationDetails()
+        {
+            EWayAPIConfigurationModel configModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBpclApiDetails", param);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        configModel.ApiCheckGstinUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUrl"]);
+                        configModel.ApiUserName = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUserName"]);
+                        configModel.ApiPassword = Convert.ToString(resultData.Tables[0].Rows[0]["ApiPassword"]);
+                        configModel.ApiClient_id = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_id"]);
+                        configModel.ApiClient_secret = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_secret"]);
+                        configModel.ApiGrantType = Convert.ToString(resultData.Tables[0].Rows[0]["ApiGrantType"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return configModel;
         }
     }
 }

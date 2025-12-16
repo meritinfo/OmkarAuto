@@ -1,7 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2016.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
-using FleetTrans.Models;
+﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
@@ -22,9 +19,11 @@ namespace FleetTrans.Repository
 
     {
         private readonly IOptions<DBModel> dbconnection;
-        public RechargeRequestRepository(IOptions<DBModel> _dbconnection)
+        private readonly ISharedRepository sharedRepository;
+        public RechargeRequestRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
 
         public async Task<List<DropDownListModel>> GetFleetCardList()
@@ -285,17 +284,11 @@ namespace FleetTrans.Repository
         public async Task<BrplTransferModel> BpclAmountTransfer(RequestModel request)
         {
             BrplTransferModel transfer = new();
+            
             try
             {
-                EWayAPIConfigurationModel ewayapiConfigurtion = new();
-
-                ewayapiConfigurtion = await APIConfigurationDetails();
-
-                string URL = ewayapiConfigurtion.ApiCheckGstinUrl; 
-
-                string token = await GetAccessSubToken(ewayapiConfigurtion);
-
-                string parentToken = await GetAccessParentToken(token);
+                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+                string parentToken = await sharedRepository.GetBpclAccessParentToken();
 
                 HttpClient client = new()
                 {
@@ -352,6 +345,10 @@ namespace FleetTrans.Repository
 
                 ewayapiConfigurtion = await APIConfigurationDetails();
 
+                string token = await GetAccessSubToken(ewayapiConfigurtion);
+
+                string parentToken = await GetAccessParentToken(token);
+
                 string baseUrl = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
 
                 string UrlParam = "startDate=" + request.FromDate +
@@ -363,12 +360,7 @@ namespace FleetTrans.Repository
                                 "&fields=cmsWalletClosingBalance" +
                                 "&reportType=CONSOLIDATED" +
                                 "&channel=Web" +
-                                "&accountId=FA3000173330";
-                              
-
-                string token = await GetAccessSubToken(ewayapiConfigurtion);
-
-                string parentToken = await GetAccessParentToken(token);
+                                "&accountId=FA3000173330";                             
 
 
                 HttpClient client = new HttpClient();
@@ -399,103 +391,6 @@ namespace FleetTrans.Repository
             {
             }
             return responseModel;
-        }
-        public async Task<EWayAPIConfigurationModel> APIConfigurationDetails()
-        {
-            EWayAPIConfigurationModel configModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param = { };
-
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrplApiDetails", param);
-
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
-                    {
-                        configModel.ApiCheckGstinUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUrl"]);
-                        configModel.ApiUserName = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUserName"]);
-                        configModel.ApiPassword = Convert.ToString(resultData.Tables[0].Rows[0]["ApiPassword"]);
-                        configModel.ApiClient_id = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_id"]);
-                        configModel.ApiClient_secret = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_secret"]);
-                        configModel.ApiGrantType = Convert.ToString(resultData.Tables[0].Rows[0]["ApiGrantType"]);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return configModel;
-        }
-
-
-        public async Task<string> GetAccessSubToken(EWayAPIConfigurationModel subTokenConfig)
-        {
-            string token = "";
-            try
-            {
-                string URL = "https://qa.api.cep.bpcl.in/authorizationserver/";
-
-                HttpClient client = new()
-                {
-                    BaseAddress = new Uri(URL)
-                };
-
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-
-                var content = new FormUrlEncodedContent(new[]
-                {
-                    new KeyValuePair<string, string>("client_id", subTokenConfig.ApiClient_id),
-                    new KeyValuePair<string, string>("client_secret", subTokenConfig.ApiClient_secret),
-                    new KeyValuePair<string, string>("grant_type", subTokenConfig.ApiGrantType),
-                    new KeyValuePair<string, string>("username", subTokenConfig.ApiUserName),
-                    new KeyValuePair<string, string>("password", subTokenConfig.ApiPassword),
-                });
-
-                HttpResponseMessage response = client.PostAsync("oauth/token", content).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseData = await response.Content.ReadAsStringAsync();
-                    BrplSubTokenModel tokenModel = JsonConvert.DeserializeObject<BrplSubTokenModel>(responseData);
-                    token = tokenModel.access_token;                   
-                    client.Dispose();
-                }
-            }
-            catch (Exception ex)
-            { }
-            return token;
-        }
-        public async Task<string> GetAccessParentToken(string subToken)
-        {
-            string parenttoken = "";
-            try
-            {
-                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/subuser/";
-
-                HttpClient client = new()
-                {
-                    BaseAddress = new Uri(URL)
-                };
-
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + subToken);
-                client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-68c6f96bd-8z5nx");
-
-                HttpResponseMessage response = client.PostAsync("parenttoken?accountId=FA3000173330", null).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseData = await response.Content.ReadAsStringAsync();
-                    BrplParentTokenModel tokenModel = JsonConvert.DeserializeObject<BrplParentTokenModel>(responseData);
-                    parenttoken = tokenModel.access_token;
-                    client.Dispose();
-                }
-            }
-            catch (Exception ex)
-            { }
-            return parenttoken;
         }
 
         public async Task<ResponseModel> RechargeDetailSave(SqlTransaction transaction, RechargeRequestModel req)
