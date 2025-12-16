@@ -343,11 +343,7 @@ namespace FleetTrans.Repository
 
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                ewayapiConfigurtion = await APIConfigurationDetails();
-
-                string token = await GetAccessSubToken(ewayapiConfigurtion);
-
-                string parentToken = await GetAccessParentToken(token);
+                string parentToken = await sharedRepository.GetBpclAccessParentToken();
 
                 string baseUrl = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
 
