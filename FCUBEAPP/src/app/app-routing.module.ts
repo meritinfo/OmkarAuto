@@ -366,8 +366,8 @@ import { GodownstockentryComponent } from './module/godownstockentry/godownstock
 import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
 import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
 import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
-
-
+import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtbpcllist/dieselstmtbpcllist.component';
+import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
 
 
 
@@ -871,7 +871,11 @@ const routes: Routes = [
   { path: 'trippaymentlistbrpl', component: TrippaymentsbrpllistComponent }, 
   { path: 'trippaymentlistbrpladd', component: TrippaymentsbrpladdComponent }, 
   { path: 'trippaymentlistbrpledit', component: TrippaymentsbrpladdComponent }, 
+  { path: 'dieselbpcllist', component: DieselstmtbpcllistComponent }, 
+  { path: 'dieselbpcladd', component: DieselstmtbpcladdComponent }, 
+  { path: 'dieselbpcledit', component: DieselstmtbpcladdComponent }, 
 
+ 
 ];
 
 
