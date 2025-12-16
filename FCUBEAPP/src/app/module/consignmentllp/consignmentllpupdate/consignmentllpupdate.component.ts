@@ -390,6 +390,7 @@ export class ConsignmentllpupdateComponent {
       this.sharedService.loading = true;
       this.requestmodel.strRequest = this.branch;
       this.requestmodel.strRequest1 = e.target.value; 
+      this.requestmodel.strRequest2 = this.year; 
        this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
         this.lrmodel = res;
         var cn = this.lrmodel.fromPlace;

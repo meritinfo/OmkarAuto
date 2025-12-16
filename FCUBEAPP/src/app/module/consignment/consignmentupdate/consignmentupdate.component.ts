@@ -322,97 +322,98 @@ export class ConsignmentupdateComponent {
       ulDetentionDays :  "", 
     });
 
-      this.sharedService.loading = true;
-      this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = e.target.value; 
-       this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
-        this.lrmodel = res;
-        var cn = this.lrmodel.fromPlace;
-        if (typeof cn === 'undefined' || cn === null || cn === '') {
-          this.toastrService.warning("LR No Doesn't Exists ");
-          this.formUser.patchValue({
-            gcNoteNo : "",
-          });    
-          return;
-        }
-        else{
-          this.delvDetnDays = this.lrmodel.insPolicyNo;          
-          this.hamali= this.lrmodel.tdsDeducted;        
-          this.detiontion= this.lrmodel.deduction1;        
-          this.others1= this.lrmodel.deduction2;        
-          this.others2= this.lrmodel.deduction3;        
-          this.totExt= this.lrmodel.extrasRecd1;        
-          this.formUser.patchValue({
-            bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
-            billingStatus:this.lrmodel.billingStatus,
-            vehicleNo: this.lrmodel.invoiceNo,
-            vehicleTypeId:this.lrmodel.vehicleTypeId,
-            fromPlace : this.lrmodel.fromPlace,
-            toPlace :  this.lrmodel.toPlace, 
-            shipmentNo: this.lrmodel.shipmentNo,
-            shipmentDt : this.lrmodel.shipmentDt,      
-            poNo : this.lrmodel.poNo,
-            poDt : this.lrmodel.poDt,
-            privateMark : this.lrmodel.privateMark,  
-            noPackages :  this.lrmodel.noPackages,
-            actualWt :  this.lrmodel.actualWt, 
-            chargewt :  this.lrmodel.chargewt, 
-            cnorName:  this.lrmodel.cnorName,
-            cneeName:  this.lrmodel.cneeName, 
-            party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
-            rateType :  this.lrmodel.rateType, 
-            gstBy :  this.lrmodel.gstBy, 
-            rateRs :  this.lrmodel.rateRs, 
-            freightRs :  this.lrmodel.freightRs, 
-            statisticalRs :  this.lrmodel.statisticalRs, 
-            fovRs:  this.lrmodel.fovRs ,
-            doorCollRs :  this.lrmodel.doorCollRs, 
-            handlingRs :  this.lrmodel.handlingRs, 
-            loadingDetnRs :  this.lrmodel.loadingDetnRs, 
-            enrouteRs :  this.lrmodel.enrouteRs, 
-            miscRs :  this.lrmodel.miscRs, 
-            doorDelRs :  this.lrmodel.doorDelRs, 
-            unLoadingRs :  this.lrmodel.unLoadingRs, 
-            unLoadingDetnRs :  this.lrmodel.unLoadingDetnRs, 
-            extrasRS :  this.lrmodel.extrasRS, 
-            othersRs :  this.lrmodel.othersRs, 
-            freightNarr:  this.lrmodel.freightNarr, 
-            statisticalNarr:  this.lrmodel.statisticalNarr, 
-            fovNarr:  this.lrmodel.fovNarr, 
-            doorCollNarr:  this.lrmodel.doorCollNarr, 
-            handlingNarr:  this.lrmodel.handlingNarr,
-            loadingDetnNarr:  this.lrmodel.loadingDetnNarr, 
-            enrouteNarr:  this.lrmodel.enrouteNarr, 
-            miscNarr:  this.lrmodel.miscNarr, 
-            doorDelNarr:  this.lrmodel.doorDelNarr, 
-            unLoadingNarr:  this.lrmodel.unLoadingNarr, 
-            unloadingDetenNarr:  this.lrmodel.unloadingDetenNarr, 
-            extrasNarr:  this.lrmodel.extrasNarr, 
-            othersNarr:  this.lrmodel.othersNarr, 
-            subTotalRs :  this.lrmodel.subTotalRs, 
-            productId: this.lrmodel.productId, 
-            // gstType:  this.lrmodel.gstType, 
-            // sgstPct:  this.lrmodel.sgstPct ,
-            // sgstAmt:  this.lrmodel.sgstAmt ,
-            // cgstPct:  this.lrmodel.cgstPct ,
-            // cgstAmt:  this.lrmodel.cgstAmt ,
-            // igstPct:  this.lrmodel.igstPct ,
-            // igstAmt:  this.lrmodel.igstAmt ,
-            nonGstAmt1 :  this.lrmodel.nonGstAmt1 ,
-            nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
-            nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
-            nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
-            gtotalRs :  this.lrmodel.gtotalRs ,
-            ulReportingDateTime :  this.commonService.formatDate(this.lrmodel.ulReportingDateTime ),
-            deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
-            ulDetentionDays :  this.lrmodel.ulDetentionDays ,
-          });
-          this.whatsappPOD1 = Constants.UploadFolderPath + 'Lr/whatsappPOD1/' + this.selectedLrDetails.whatsappPOD1;
-          this.whatsappPOD2 = Constants.UploadFolderPath + 'Lr/whatsappPOD2/' + this.selectedLrDetails.whatsappPOD2;
-          this.modifiedBy = this.selectedLrDetails.modifiedBy ;      
-        }
-      });
-      this.sharedService.loading = false;
+    this.sharedService.loading = true;
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = e.target.value; 
+    this.requestmodel.strRequest2 = this.year; 
+    this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
+      this.lrmodel = res;
+      var cn = this.lrmodel.fromPlace;
+      if (typeof cn === 'undefined' || cn === null || cn === '') {
+        this.toastrService.warning("LR No Doesn't Exists ");
+        this.formUser.patchValue({
+          gcNoteNo : "",
+        });    
+        return;
+      }
+      else{
+        this.delvDetnDays = this.lrmodel.insPolicyNo;          
+        this.hamali= this.lrmodel.tdsDeducted;        
+        this.detiontion= this.lrmodel.deduction1;        
+        this.others1= this.lrmodel.deduction2;        
+        this.others2= this.lrmodel.deduction3;        
+        this.totExt= this.lrmodel.extrasRecd1;        
+        this.formUser.patchValue({
+          bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
+          billingStatus:this.lrmodel.billingStatus,
+          vehicleNo: this.lrmodel.invoiceNo,
+          vehicleTypeId:this.lrmodel.vehicleTypeId,
+          fromPlace : this.lrmodel.fromPlace,
+          toPlace :  this.lrmodel.toPlace, 
+          shipmentNo: this.lrmodel.shipmentNo,
+          shipmentDt : this.lrmodel.shipmentDt,      
+          poNo : this.lrmodel.poNo,
+          poDt : this.lrmodel.poDt,
+          privateMark : this.lrmodel.privateMark,  
+          noPackages :  this.lrmodel.noPackages,
+          actualWt :  this.lrmodel.actualWt, 
+          chargewt :  this.lrmodel.chargewt, 
+          cnorName:  this.lrmodel.cnorName,
+          cneeName:  this.lrmodel.cneeName, 
+          party: this.partyList.find(x => x.dataId == this.lrmodel.billingParty), 
+          rateType :  this.lrmodel.rateType, 
+          gstBy :  this.lrmodel.gstBy, 
+          rateRs :  this.lrmodel.rateRs, 
+          freightRs :  this.lrmodel.freightRs, 
+          statisticalRs :  this.lrmodel.statisticalRs, 
+          fovRs:  this.lrmodel.fovRs ,
+          doorCollRs :  this.lrmodel.doorCollRs, 
+          handlingRs :  this.lrmodel.handlingRs, 
+          loadingDetnRs :  this.lrmodel.loadingDetnRs, 
+          enrouteRs :  this.lrmodel.enrouteRs, 
+          miscRs :  this.lrmodel.miscRs, 
+          doorDelRs :  this.lrmodel.doorDelRs, 
+          unLoadingRs :  this.lrmodel.unLoadingRs, 
+          unLoadingDetnRs :  this.lrmodel.unLoadingDetnRs, 
+          extrasRS :  this.lrmodel.extrasRS, 
+          othersRs :  this.lrmodel.othersRs, 
+          freightNarr:  this.lrmodel.freightNarr, 
+          statisticalNarr:  this.lrmodel.statisticalNarr, 
+          fovNarr:  this.lrmodel.fovNarr, 
+          doorCollNarr:  this.lrmodel.doorCollNarr, 
+          handlingNarr:  this.lrmodel.handlingNarr,
+          loadingDetnNarr:  this.lrmodel.loadingDetnNarr, 
+          enrouteNarr:  this.lrmodel.enrouteNarr, 
+          miscNarr:  this.lrmodel.miscNarr, 
+          doorDelNarr:  this.lrmodel.doorDelNarr, 
+          unLoadingNarr:  this.lrmodel.unLoadingNarr, 
+          unloadingDetenNarr:  this.lrmodel.unloadingDetenNarr, 
+          extrasNarr:  this.lrmodel.extrasNarr, 
+          othersNarr:  this.lrmodel.othersNarr, 
+          subTotalRs :  this.lrmodel.subTotalRs, 
+          productId: this.lrmodel.productId, 
+          // gstType:  this.lrmodel.gstType, 
+          // sgstPct:  this.lrmodel.sgstPct ,
+          // sgstAmt:  this.lrmodel.sgstAmt ,
+          // cgstPct:  this.lrmodel.cgstPct ,
+          // cgstAmt:  this.lrmodel.cgstAmt ,
+          // igstPct:  this.lrmodel.igstPct ,
+          // igstAmt:  this.lrmodel.igstAmt ,
+          nonGstAmt1 :  this.lrmodel.nonGstAmt1 ,
+          nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
+          nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
+          nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
+          gtotalRs :  this.lrmodel.gtotalRs ,
+          ulReportingDateTime :  this.commonService.formatDate(this.lrmodel.ulReportingDateTime ),
+          deliveryDateTime :  this.commonService.formatDate(this.lrmodel.deliveryDateTime ),
+          ulDetentionDays :  this.lrmodel.ulDetentionDays ,
+        });
+        this.whatsappPOD1 = Constants.UploadFolderPath + 'Lr/whatsappPOD1/' + this.selectedLrDetails.whatsappPOD1;
+        this.whatsappPOD2 = Constants.UploadFolderPath + 'Lr/whatsappPOD2/' + this.selectedLrDetails.whatsappPOD2;
+        this.modifiedBy = this.selectedLrDetails.modifiedBy ;      
+      }
+    });
+    this.sharedService.loading = false;
   }
 
   calcDetDays(){    

@@ -584,6 +584,7 @@ dashboard: string ="";
     var selectedDataVal = this.formBillsMaster.getRawValue();
     this.requestmodel.strRequest = selectedDataVal.arrayList[i].gcBranch;
     this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+    this.requestmodel.strRequest2 = selectedDataVal.arrayList[i].gcYear; 
     this.consignmentService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
       var cn = res.fromPlace;
       if (typeof cn === 'undefined' || cn === null || cn === '') {
