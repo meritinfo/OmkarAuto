@@ -364,6 +364,9 @@ import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleet
 import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
 import { GodownstockentryComponent } from './module/godownstockentry/godownstockentry.component';
 import { DashboardcustComponent } from './module/dashboardcust/dashboardcust.component';
+import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
+import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
+
 
 
 
@@ -865,8 +868,10 @@ const routes: Routes = [
   { path: 'fltgodownlistedit', component: FleetgodownmasteraddComponent },
   { path: 'sparestockentry', component: GodownstockentryComponent },
   { path: 'dashboardcust', component: DashboardcustComponent }, 
+  { path: 'trippaymentlistbrpl', component: TrippaymentsbrpllistComponent }, 
+  { path: 'trippaymentlistbrpladd', component: TrippaymentsbrpladdComponent }, 
+  { path: 'trippaymentlistbrpledit', component: TrippaymentsbrpladdComponent }, 
 
-  
 ];
 
 

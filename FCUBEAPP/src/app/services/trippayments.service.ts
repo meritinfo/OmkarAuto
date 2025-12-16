@@ -67,4 +67,9 @@ export class TripPaymentsService {
    getTransTypeValidation(request: Requestmodel):Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTransTypeValidations', request, this.httpOptions);
   }
+
+  trippaymentBrplSaveSubmitted(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsBrplSave', user, this.httpformOptions);
+  }
+  
 }

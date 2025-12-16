@@ -26,6 +26,7 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetTripPmtLoadShow();   
         Task<ResponseModel> GetTransTypeValidations(RequestModel req);
         Task<ReportRequestModel> GetDriverAccountDetails(RequestModel request);
+        Task<ResponseModel> TripPaymentsBrplSave(TripPaymentsModel tripPaymentsModel);
 
     }
 }

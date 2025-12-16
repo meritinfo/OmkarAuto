@@ -34,6 +34,8 @@ export class Trippaymentsmodel {
     modifiedBy: string = "";
     modifiedDate: string = "";
     driverMasterID: string = "";
+    fromloc: string = "";
+    toloc: string = "";
     yearId: string = "";
     loggedInUser: string = "";
 }

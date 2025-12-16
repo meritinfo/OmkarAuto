@@ -39,6 +39,8 @@ namespace FleetTrans.Models
         public string? BName { get; set; }
         public string? VehicleNo { get; set; }
         public string? DriverMasterID { get; set; }
+        public string? Fromloc { get; set; }
+        public string? Toloc { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
