@@ -751,7 +751,7 @@ import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippay
     GodownstockentryComponent,
     DashboardcustComponent,
     DieselstmtbpcllistComponent,
-    DieselstmtbpcladdComponent
+    DieselstmtbpcladdComponent,
     DashboardcustComponent,
     TrippaymentsbrpladdComponent,
     TrippaymentsbrpllistComponent

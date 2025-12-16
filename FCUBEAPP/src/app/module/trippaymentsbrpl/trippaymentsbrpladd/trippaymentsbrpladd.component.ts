@@ -438,7 +438,7 @@ export class TrippaymentsbrpladdComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/trippaymentlist']);
+    this.route.navigate(['/trippaymentlistbrpl']);
   }
     
   submitTripPaymentsForm(): void {  
@@ -528,7 +528,7 @@ export class TrippaymentsbrpladdComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formTripPayment.reset();
-        this.route.navigate(['/trippaymentlist']);
+        this.route.navigate(['/trippaymentlistbrpl']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

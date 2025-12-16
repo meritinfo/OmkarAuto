@@ -44,6 +44,7 @@ export class AddtrippaymentsComponent {
   modifiedBy:string = "";
   dslStmt:string = "";
   ldShow= false;
+  transTp: string = "";
 
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -263,6 +264,7 @@ export class AddtrippaymentsComponent {
     }
    
     this.tripPaymentsService.getTransTypeValidation(this.requestmodel).subscribe((res1: Responsemodel) => {
+      this.transTp = res1.message;
       if (res1.message == "DA") {
         this.formTripPayment.controls['qtyLtrs'].disable();
         this.formTripPayment.controls['ratePerLtr'].disable();
@@ -325,16 +327,6 @@ export class AddtrippaymentsComponent {
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
     });
-    // if (pmttp == 'B'){
-    //   this.formUser.controls['neftPmt'].enable();
-    //   this.formUser.controls['chequeNo'].enable();
-    //   this.formUser.controls['chequeDate'].enable();
-    // }
-    // else {
-    //   this.formUser.controls['neftPmt'].disable();
-    //   this.formUser.controls['chequeNo'].disable();
-    //   this.formUser.controls['chequeDate'].disable();
-    // }
   }
 
  
@@ -512,7 +504,7 @@ export class AddtrippaymentsComponent {
     const d3 = this.minDate?Date.parse(this.minDate):0;
     const d2 = this.maxDate?Date.parse(this.maxDate):0;
     const d4 = selectedDataValue.pmtDate?Date.parse(selectedDataValue.pmtDate):0;
-    if (d3>d4 || d2<d4 ) {
+   if (d3>d4 || d2<d4 ) {
       this.formTripPayment.patchValue({
         pmtDate: ''
       });
@@ -520,7 +512,7 @@ export class AddtrippaymentsComponent {
       return
     }
     
-    if (selectedDataValue.transType == "DA") {
+    if (this.transTp == "DA") {
       if(parseFloat(selectedDataValue.amountPaid)>0){
         //ignore
       }
