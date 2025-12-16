@@ -261,8 +261,8 @@ export class DieselstmtbpcladdComponent {
           this.formDieselStatement.controls["fromDate"].disable();
           this.formDieselStatement.controls["toDate"].disable();
           this.formDieselStatement.controls["vehicleNo"].disable();
+          this.formArray.clear();
         }
-        this.formArray.clear();
         for (var i = 0; i < res.dieselStatementListData.length; i++) {
           this.formArray.push(this.createInitialArray());
           this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
