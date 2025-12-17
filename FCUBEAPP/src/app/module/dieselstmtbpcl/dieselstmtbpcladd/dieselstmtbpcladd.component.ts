@@ -257,6 +257,9 @@ export class DieselstmtbpcladdComponent {
       this.reportmodel.fromDate=this.formatDate(selectedDataVal.fromDate);
       this.reportmodel.toDate=this.formatDate(selectedDataVal.toDate);
       this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
+      this.reportmodel.fromDate=selectedDataVal.fromDate;
+      this.reportmodel.toDate=selectedDataVal.toDate;
+      this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
       this.dieselstatementService.getDieselApiDetails(this.reportmodel).subscribe((res: Dieselstatementmodel) => {
         if(res.dieselStmtDtlsList.length>0){
           this.formDieselStatement.controls["fromDate"].disable();
