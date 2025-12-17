@@ -7,16 +7,24 @@ using System.Data;
 using System.Data.SqlClient;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Transactions;
+using Newtonsoft.Json;
+using Shared.Repository;
+using System.Text;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using Microsoft.Office.Interop.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace FleetTrans.Repository
 {
     public class DieselStatementRepository : IDieselStatementRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly ISharedRepository sharedRepository;
 
-        public DieselStatementRepository(IOptions<DBModel> _dbconnection)
+        public DieselStatementRepository(IOptions<DBModel> _dbconnection, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
 
         public async Task<DieselStatementModel> GetDieselStatementSearchList(ReportRequestModel request)
@@ -548,13 +556,12 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
-        }
-       
+        }       
         
         public async Task<ResponseModel> DieselImportSave(DieselStatementModel dieselStmtModel)
         {
             ResponseModel responseModel = new();
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+               var connection = new SqlConnection(dbconnection.Value.DBConnection);
             connection.Open();
             SqlTransaction transaction;
             transaction = connection.BeginTransaction();
@@ -579,7 +586,7 @@ namespace FleetTrans.Repository
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselImpMstSave", param);
-
+                  
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -744,6 +751,77 @@ namespace FleetTrans.Repository
 
             }
             return dieselStatementList;
+        }
+
+
+        public async Task<DieselStatementModel> GetBpclDetailsList(ReportRequestModel request)
+        {
+            DieselStatementModel dieselStatementModel = new();
+            BpclDieselModel bpclDieselModel = new();
+            List<DieselStmtDtlsModel> dieselList = new();
+            try
+            {
+                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+                string parentToken = await sharedRepository.GetBpclAccessParentToken();
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + parentToken);
+                client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
+
+                var data = new
+                {
+                    reportType= "SALES_TRANSACTION",
+                    page ="0",
+                    sort= "transactionDate-desc",
+                    vehicleNumber= request.FilterStr,
+                    pageSize="100",
+                    fromDate= request.FromDate, 
+                    toDate=request.ToDate,
+                    channel = "Web",
+                    accountId = "FA3000173330"
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(data);
+
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("report/view", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains("pagination"))
+                    {
+                        bpclDieselModel = JsonConvert.DeserializeObject<BpclDieselModel>(result);
+                        if (bpclDieselModel != null && bpclDieselModel.pagination.totalResults>0) { 
+                        
+                            for(int i = 0; i < bpclDieselModel.pagination.totalResults; i++)
+                            {
+                                dieselList.Add(new DieselStmtDtlsModel
+                                {
+                                    TransRefNo =  bpclDieselModel.reportData[i].transactionDetail.transactionId,
+                                    TransDateTime = bpclDieselModel.reportData[i].createdDT,
+                                    HsdAdvTyps = bpclDieselModel.reportData[i].transactionSummary.cardId,
+                                    DslQty = bpclDieselModel.reportData[i].volume,
+                                    DslRate = bpclDieselModel.reportData[i].transactionDetail.rate,
+                                    Amount = bpclDieselModel.reportData[i].amount,
+                                });
+                            }
+                        }
+                    }
+                    dieselStatementModel.DieselStmtDtlsList = dieselList;
+                    
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return dieselStatementModel;
         }
     }
 }

@@ -945,6 +945,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetBpclDetailsList")]
+        public async Task<IActionResult> GetBpclDetailsList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetBpclDetailsList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("SaveDieselStatementDetails")]
         public async Task<IActionResult> SaveDieselStatementDetails(DieselStatementModel request)

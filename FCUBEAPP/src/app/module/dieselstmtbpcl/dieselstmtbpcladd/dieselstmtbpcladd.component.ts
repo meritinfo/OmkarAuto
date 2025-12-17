@@ -120,9 +120,8 @@ export class DieselstmtbpcladdComponent {
       billStmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      dfVendor: new FormControl('', [Validators.required]),
       totalDslLtrs: new FormControl(''),
-      totalDslAmt: new FormControl('',[Validators.required]),
+      totalDslAmt: new FormControl(''),
       remarks: new FormControl(''),
       vehicleNo: new FormControl('', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
@@ -171,6 +170,8 @@ export class DieselstmtbpcladdComponent {
       dslQty:  ['', []],
       dslRate:  ['', []],
       amount:  ['', []],
+      hsdAdvTyps:  ['', []],
+      vehicleMasterId:  ['', []],
     });
   }
 
@@ -253,38 +254,45 @@ export class DieselstmtbpcladdComponent {
       return; 
     }  
     else{
-      this.reportmodel.fromDate=selectedDataVal.fromDate;
-      this.reportmodel.toDate=selectedDataVal.toDate;
-      this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataId:'';
+      this.reportmodel.fromDate=this.formatDate(selectedDataVal.fromDate);
+      this.reportmodel.toDate=this.formatDate(selectedDataVal.toDate);
+      this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
       this.dieselstatementService.getDieselApiDetails(this.reportmodel).subscribe((res: Dieselstatementmodel) => {
-        if(res.dieselStatementListData.length>0){
+        if(res.dieselStmtDtlsList.length>0){
           this.formDieselStatement.controls["fromDate"].disable();
           this.formDieselStatement.controls["toDate"].disable();
           this.formDieselStatement.controls["vehicleNo"].disable();
           this.formArray.clear();
         }
-        for (var i = 0; i < res.dieselStatementListData.length; i++) {
+        for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
           this.formArray.push(this.createInitialArray());
-          this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
-          this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
-          this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
-          this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
-          this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
-          this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
-          this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
+          this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
+          this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
+          this.formArray.controls[i].get("hsdAdvTyps")?.setValue(res.dieselStmtDtlsList[i].hsdAdvTyps);
+          this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
+          this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
+          this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
           
-          this.formArray.controls[i].get("branch")?.disable();      
-          this.formArray.controls[i].get("pmtDate")?.disable();       
-          this.formArray.controls[i].get("hsdAdvType")?.disable();      
-          this.formArray.controls[i].get("transDesc")?.disable();      
-          this.formArray.controls[i].get("qtyLtrs")?.disable();   
-          this.formArray.controls[i].get("ratePerLtr")?.disable();
-          this.formArray.controls[i].get("amountPaid")?.disable();
+          this.formArray.controls[i].get("transRefNo")?.disable();      
+          this.formArray.controls[i].get("transDateTime")?.disable();       
+          this.formArray.controls[i].get("hsdAdvTyps")?.disable();      
+          this.formArray.controls[i].get("dslQty")?.disable();      
+          this.formArray.controls[i].get("dslRate")?.disable();   
+          this.formArray.controls[i].get("amount")?.disable();
         }
         this.calculateTotal();
       });  
     } 
   }
+
+  formatDate(date: Date): string {
+  var d = new Date(date);
+  var day = ('0' + d.getDate()).slice(-2);
+  var month = ('0' + (d.getMonth() + 1)).slice(-2);
+  var year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
 
 
   getDieselStmtInnerGridList(): void {
@@ -300,6 +308,8 @@ export class DieselstmtbpcladdComponent {
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
         this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
+        this.formArray.controls[i].get("vehicleMasterId")?.setValue(res.dieselStmtDtlsList[i].vehicleMasterId);
+        this.formArray.controls[i].get("hsdAdvTyps")?.setValue(res.dieselStmtDtlsList[i].hsdAdvTyps);
         
 
         this.formArray.controls[i].get("transRefNo")?.disable();
@@ -397,10 +407,10 @@ export class DieselstmtbpcladdComponent {
     var arr=selectedDataVal.arrayList;
 
     for (var i = 0; i < arr.length; i++) {
-      if(arr[i].vehicleNo[i].dslQty!='' && arr[i].vehicleNo[i].dslRate!=''){
+      if(arr[i].transRefNo!='' && arr[i].transDateTime!=''){
         this.dieselStatementmodel.dieselStmtDtlsList.push({
           'masterID':"",
-          'vehicleMasterId': "", 
+          'vehicleMasterId':selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataId:"", 
           'transRefNo': arr[i].transRefNo.toString(),
           'transDateTime': arr[i].transDateTime,
           'hsdAdvTyps': "",
@@ -416,13 +426,6 @@ export class DieselstmtbpcladdComponent {
        }
     }
 
-    const foundDuplicateName = this.dieselStatementmodel.dieselStmtDtlsList.find((data, index) => {
-      return this.dieselStatementmodel.dieselStmtDtlsList.find((x, ind) => x.vehicleMasterId === data.vehicleMasterId && index !== ind);
-    })
-    if (foundDuplicateName) {
-      this.toasterService.warning("Duplicate vehicle number in the grid is not allowed");
-      return;
-    }
     this.dieselstatementService.dieselImportSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

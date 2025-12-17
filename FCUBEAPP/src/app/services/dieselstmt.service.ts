@@ -26,6 +26,7 @@ export class DieselstmtService {
   constructor(private httpClient: HttpClient) { }
 
   setDieselImportDetails(docrenewalmaster: Dieselstatementmodel) { 
+    debugger
     this.selectedDieselStatement = docrenewalmaster; 
   }
 

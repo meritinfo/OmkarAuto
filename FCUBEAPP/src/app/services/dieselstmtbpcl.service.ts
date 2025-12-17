@@ -38,7 +38,7 @@ export class DieselstmtbpclService {
   }
 
   getDieselApiDetails(filter: Reportmodel): Observable<Dieselstatementmodel> {
-    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselApiDetails', filter, this.httpOptions);
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBpclDetailsList', filter, this.httpOptions);
   }
   
   dieselImportSave(request: Dieselstatementmodel): Observable<Responsemodel> {

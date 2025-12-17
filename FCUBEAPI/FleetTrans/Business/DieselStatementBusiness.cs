@@ -59,5 +59,12 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetDieselImportInnerGridList(request);
         }
+
+        public async Task<DieselStatementModel> GetBpclDetailsList(ReportRequestModel request)
+        {
+            return await dieselStatementRepository.GetBpclDetailsList(request);
+        }
+
+      
     }
 }

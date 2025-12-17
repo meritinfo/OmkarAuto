@@ -15,5 +15,6 @@ namespace FleetTrans.Business
         Task<ResponseModel> DieselImportSave(DieselStatementModel dieselStmtModel);
         Task<DieselStatementList> GetDieselImportList(ReportRequestModel request);
         Task<DieselStatementModel> GetDieselImportInnerGridList(RequestModel request);
+        Task<DieselStatementModel> GetBpclDetailsList(ReportRequestModel request);
     }
 }
