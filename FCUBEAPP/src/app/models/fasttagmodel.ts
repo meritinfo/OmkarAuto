@@ -12,7 +12,9 @@ export class Fasttagmodel {
     ftmId: string = "";
     branchCode: string = "";
     yearID: string = "";
-     driverId: string = "";
+    driverId: string = "";
+    fromloc:string = "";
+    toloc:string = "";
     loggedInUser: string = "";
 
     fastTagDtlList: Fasttagdtlsmodel[]=[];

@@ -429,6 +429,26 @@ export class DieselstmtaddComponent {
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
 
+    let frmdt = new Date(selectedDataVal.fromDate);
+    let todt = new Date(selectedDataVal.toDate);
+    let StmtDate = new Date(selectedDataVal.billStmtDate);
+   
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+
+    if (maxdt<StmtDate || StmtDate<mindt) {
+      this.toasterService.warning("Statement Date  should be with in Fin Year");
+       return;
+    }
+    if (maxdt<frmdt || frmdt<mindt ) {
+        this.toasterService.warning("Valid From  should be with in Fin Year");
+      return;
+    }
+    if (maxdt<todt || todt<mindt) {
+        this.toasterService.warning("Valid To should be with in Fin Year");
+      return;
+    }
+
     if (selectedDataVal.driverId.dataId) {
         //ignore
     }
@@ -450,8 +470,6 @@ export class DieselstmtaddComponent {
       this.toasterService.warning("Please enter a valid To Location.");          
       return;
     }
-    this.sharedService.loading = true;
-    this.formSubmitted = true;
     this.dieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
     this.dieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
@@ -500,6 +518,8 @@ export class DieselstmtaddComponent {
       this.toasterService.warning("Duplicate vehicle number in the grid is not allowed");
       return;
     }
+    this.sharedService.loading = true;
+    this.formSubmitted = true;
     this.dieselstatementService.dieselImportSave(this.dieselStatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

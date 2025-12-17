@@ -29,8 +29,9 @@ export class FasttagaddComponent {
   maxDate: string = '';
   branch: string = '';
   branchList: Dropdownmodel[] = [];
-    driverLists: Dropdownmodel[] = [];
+  driverLists: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   vehicleList:Dropdownmodel[] = [];
   formFastTag!: FormGroup;
   selectedFasttag = new Fasttagmodel()
@@ -43,7 +44,7 @@ export class FasttagaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   importTrue= false;
 
   formSubmitted = false;
@@ -73,12 +74,12 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -87,15 +88,14 @@ dashboard: string ="";
     var branchData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
-
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -113,9 +113,10 @@ dashboard: string ="";
     this.sharedService.loading=true;   
  
     this.getBranchList();
-     this.getDriverList();
+    this.getDriverList();
     this.getAcountList();
     this.getVehicleNoList();
+    this.getLocationList();
 
     this.selectedFasttag = this.fasttagService.getFasttagDetails();
     this.formFastTag = this.formBuilder.group({
@@ -175,9 +176,16 @@ dashboard: string ="";
       dtlRemarks:  ['', []],
     });
   }
-     getDriverList(): void {
+     
+  getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
       this.driverLists = res;
+    });
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
     });
   }
 
@@ -394,7 +402,7 @@ dashboard: string ="";
     }
 
     var selectedDataVal=this.formFastTag.getRawValue();
-        let frmdt = new Date(selectedDataVal.fromDate);
+    let frmdt = new Date(selectedDataVal.fromDate);
     let todt = new Date(selectedDataVal.toDate);
     let StmtDate = new Date(selectedDataVal.billStmtDate);
    
@@ -405,18 +413,37 @@ dashboard: string ="";
       this.toasterService.warning("Statement Date  should be with in Fin Year");
        return;
     }
-  if (maxdt<frmdt || frmdt<mindt ) {
-      this.toasterService.warning("Valid From  should be with in Fin Year");
-    return;
-  }
-  if (maxdt<todt || todt<mindt) {
-      this.toasterService.warning("Valid To should be with in Fin Year");
-     return;
-   }
+    if (maxdt<frmdt || frmdt<mindt ) {
+        this.toasterService.warning("Valid From  should be with in Fin Year");
+      return;
+    }
+    if (maxdt<todt || todt<mindt) {
+        this.toasterService.warning("Valid To should be with in Fin Year");
+      return;
+    }
 
+    if (selectedDataVal.driverId.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid Driver.");          
+      return;
+    }
+    if (selectedDataVal.fromloc.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid From Location.");          
+      return;
+    }
+    if (selectedDataVal.toloc.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid To Location.");          
+      return;
+    }
 
-    this.sharedService.loading = true;
-    this.formSubmitted = true;
     this.fasttagmodel.ftMasterID      = this.selectedFasttag.ftMasterID ;
     this.fasttagmodel.branchCode      = selectedDataVal.branchCode;
     this.fasttagmodel.stmtDate        = selectedDataVal.stmtDate;
@@ -426,7 +453,9 @@ dashboard: string ="";
     this.fasttagmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.fasttagmodel.totalFtAmt      = selectedDataVal.totalFtAmt;
     this.fasttagmodel.yearID          = this.year;
-    this.fasttagmodel.driverId      = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
+    this.fasttagmodel.driverId        = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
+    this.fasttagmodel.fromloc         = selectedDataVal.fromloc?selectedDataVal.fromloc.dataId:'';
+    this.fasttagmodel.toloc           = selectedDataVal.toloc?selectedDataVal.toloc.dataId:'';
     this.fasttagmodel.loggedInUser    = this.loggedInUserID;
 
     this.fasttagmodel.fastTagDtlList = [];
@@ -453,6 +482,8 @@ dashboard: string ="";
       this.toasterService.warning("Duplicate Vehicle No grid not allowed");
       return;
     }
+    this.sharedService.loading = true;
+    this.formSubmitted = true;
 
     this.fasttagService.fasttagSave(this.fasttagmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
