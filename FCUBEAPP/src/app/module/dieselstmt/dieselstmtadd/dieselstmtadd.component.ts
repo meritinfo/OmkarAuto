@@ -32,6 +32,7 @@ export class DieselstmtaddComponent {
   branchList: Dropdownmodel[] = [];
   driverLists: Dropdownmodel[] = [];
   accountList:Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
   seriesDoc: string = "";
@@ -94,8 +95,8 @@ export class DieselstmtaddComponent {
       this.loginDate = loginDate;
     }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -117,6 +118,7 @@ export class DieselstmtaddComponent {
     this.getDriverList();
     this.getVehicleNoList();
     this.getAcountList();
+    this.getLocationList();
 
     this.selectedDieselStmtDetails = this.dieselstatementService.getDieselImportDetails();
     this.formDieselStatement = this.formBuilder.group({
@@ -129,7 +131,8 @@ export class DieselstmtaddComponent {
       totalDslAmt: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
       driverId: new FormControl('', [Validators.required]),
-
+      fromloc: new FormControl('', [Validators.required]),
+      toloc: new FormControl('', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
@@ -179,17 +182,22 @@ export class DieselstmtaddComponent {
       amount:  ['', []],
     });
   }
-
-
   
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
-   getDriverList(): void {
+  
+  getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
       this.driverLists = res;
+    });
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
     });
   }
 
@@ -421,15 +429,38 @@ export class DieselstmtaddComponent {
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
 
+    if (selectedDataVal.driverId.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid Driver.");          
+      return;
+    }
+    if (selectedDataVal.fromloc.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid From Location.");          
+      return;
+    }
+    if (selectedDataVal.toloc.dataId) {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please enter a valid To Location.");          
+      return;
+    }
     this.sharedService.loading = true;
     this.formSubmitted = true;
-    this.dieselStatementmodel.masterID      = this.selectedDieselStmtDetails.masterID ;
+    this.dieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
-    this.dieselStatementmodel.billStmtDate        = selectedDataVal.billStmtDate;
+    this.dieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
-    this.dieselStatementmodel.dfVendor       = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
-    this.dieselStatementmodel.driverId       = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
+    this.dieselStatementmodel.dfVendor        = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
+    this.dieselStatementmodel.driverId        = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
+    this.dieselStatementmodel.fromloc         = selectedDataVal.fromloc?selectedDataVal.fromloc.dataId:'';
+    this.dieselStatementmodel.toloc           = selectedDataVal.toloc?selectedDataVal.toloc.dataId:'';
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;

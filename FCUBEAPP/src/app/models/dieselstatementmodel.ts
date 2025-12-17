@@ -27,6 +27,8 @@ export class Dieselstatementmodel {
     branchCode: string = "";
     yearId: string = "";
     driverId: string = "";
+    fromloc:string = "";
+    toloc:string = "";
     createdBy: string = "";
     createdDate: string = "";
     modifiedBy: string = "";
