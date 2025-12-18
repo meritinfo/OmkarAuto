@@ -6,7 +6,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-import { DieselstmtbpclService } from 'src/app/services/dieselstmtbpcl.service';
+import { DieselstmtService } from 'src/app/services/dieselstmt.service';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
@@ -49,7 +49,7 @@ export class DieselstmtbpcladdComponent {
     private requestmodel:Requestmodel,private dieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private sharedService: SharedService,
-    private dieselstatementService: DieselstmtbpclService, private toasterService: ToastrService) {
+    private dieselstatementService: DieselstmtService, private toasterService: ToastrService) {
       this.dieselStatementmodel= new Dieselstatementmodel();
   }
 
@@ -135,9 +135,7 @@ export class DieselstmtbpcladdComponent {
         this.formDieselStatement.patchValue({
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
-          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          dfVendor: this.accountList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),
-          driverId: this.driverLists.find(e => e.dataId == this.selectedDieselStmtDetails.driverId),  
+          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate), 
         })
         if(this.selectedDieselStmtDetails.findocid!="0"){
           this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
@@ -146,9 +144,8 @@ export class DieselstmtbpcladdComponent {
         this.getDieselStmtInnerGridList();
         this.formDieselStatement.controls['billStmtDate'].disable();     
         this.formDieselStatement.controls['fromDate'].disable();  
-        this.formDieselStatement.controls['toDate'].disable();  
-        this.formDieselStatement.controls['dfVendor'].disable(); 
-        this.formDieselStatement.controls['driverId'].disable();     
+        this.formDieselStatement.controls['toDate'].disable();     
+        this.formDieselStatement.controls['vehicleNo'].disable();     
       }    
     }, 2000);
    
@@ -165,8 +162,8 @@ export class DieselstmtbpcladdComponent {
   
   createInitialArray() {
     return this.formBuilder.group({
-      transRefNo:  ['', []],
-      transDateTime:  [this.loginDate, []],
+      transRefNo: ['', []],
+      transDateTime: ['', []],
       dslQty:  ['', []],
       dslRate:  ['', []],
       amount:  ['', []],
@@ -231,6 +228,7 @@ export class DieselstmtbpcladdComponent {
       }
     });
   }
+
   getStatementDetails(): void{
     var selectedDataVal=this.formDieselStatement.getRawValue();
     
@@ -254,12 +252,10 @@ export class DieselstmtbpcladdComponent {
       return; 
     }  
     else{
-      this.reportmodel.fromDate=this.formatDate(selectedDataVal.fromDate);
-      this.reportmodel.toDate=this.formatDate(selectedDataVal.toDate);
-      this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
-      this.reportmodel.fromDate=selectedDataVal.fromDate;
-      this.reportmodel.toDate=selectedDataVal.toDate;
-      this.reportmodel.filterStr=selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
+      this.reportmodel.fromDate = selectedDataVal.fromDate;
+      this.reportmodel.toDate = selectedDataVal.toDate;
+      this.reportmodel.filterStr = selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataName:'';
+      
       this.dieselstatementService.getDieselApiDetails(this.reportmodel).subscribe((res: Dieselstatementmodel) => {
         if(res.dieselStmtDtlsList.length>0){
           this.formDieselStatement.controls["fromDate"].disable();
@@ -288,21 +284,15 @@ export class DieselstmtbpcladdComponent {
     } 
   }
 
-  formatDate(date: Date): string {
-  var d = new Date(date);
-  var day = ('0' + d.getDate()).slice(-2);
-  var month = ('0' + (d.getMonth() + 1)).slice(-2);
-  var year = d.getFullYear();
-  return `${day}/${month}/${year}`;
-}
-
-
-
   getDieselStmtInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedDieselStmtDetails.masterID;
     this.dieselstatementService.getDieselImportInnerGridList(this.requestmodel).subscribe((res) => {
-      this.dieselStatementmodel = res;
-      this.formArray.clear();
+      if(res.dieselStmtDtlsList.length>0){
+        this.formArray.clear();
+        this.formDieselStatement.patchValue({
+            vehicleNo: this.vehicleList.find(e => e.dataId == res.dieselStmtDtlsList[0].vehicleMasterId),  
+        });
+      }
       
       for (var i = 0; i < res.dieselStmtDtlsList.length; i++) {
         this.formArray.push(this.createInitialArray());   
@@ -310,18 +300,14 @@ export class DieselstmtbpcladdComponent {
         this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
-        this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);
-        this.formArray.controls[i].get("vehicleMasterId")?.setValue(res.dieselStmtDtlsList[i].vehicleMasterId);
-        this.formArray.controls[i].get("hsdAdvTyps")?.setValue(res.dieselStmtDtlsList[i].hsdAdvTyps);
-        
+        this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);        
 
         this.formArray.controls[i].get("transRefNo")?.disable();
         this.formArray.controls[i].get("transDateTime")?.disable();
         this.formArray.controls[i].get("dslQty")?.disable();
         this.formArray.controls[i].get("dslRate")?.disable();
         this.formArray.controls[i].get("amount")?.disable();
-      }
-     
+      }  
     });  
   }
      
@@ -396,8 +382,7 @@ export class DieselstmtbpcladdComponent {
     this.dieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
     this.dieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.dieselStatementmodel.toDate          = selectedDataVal.toDate;
-    this.dieselStatementmodel.dfVendor        = selectedDataVal.dfVendor?selectedDataVal.dfVendor.dataId:'';
-    this.dieselStatementmodel.driverId        = selectedDataVal.vehicleNo?selectedDataVal.vehicleNo.dataId:"";
+    this.dieselStatementmodel.dfVendor        = '';
     this.dieselStatementmodel.remarks         = selectedDataVal.remarks.toString().toUpperCase();
     this.dieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.dieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;

@@ -14,32 +14,6 @@
                 <div class="col-sm-8 col-md-8">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-8">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Account</label>                                                
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="accountList"
-                                            [searchKeyword]="keywordLocation" 
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)'
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter"
-                                            formControlName="dfAccount" >
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
@@ -66,8 +40,8 @@
                     </form>
                 </div>
                 <div class="col-sm-4 col-md-4 text-right">
-                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
-                        (click)=" dieselStatementAdd()"><span>New</span></button>
+                    <button class="btn btn-primary" *ngIf="createStatus"
+                        (click)="dieselStatementAdd()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

@@ -25,8 +25,7 @@ export class DieselstmtService {
 
   constructor(private httpClient: HttpClient) { }
 
-  setDieselImportDetails(docrenewalmaster: Dieselstatementmodel) { 
-    debugger
+  setDieselImportDetails(docrenewalmaster: Dieselstatementmodel) {
     this.selectedDieselStatement = docrenewalmaster; 
   }
 
@@ -36,6 +35,10 @@ export class DieselstmtService {
 
   getDieselImportDetails() {
     return this.selectedDieselStatement;
+  }
+  
+  getDieselApiDetails(filter: Reportmodel): Observable<Dieselstatementmodel> {
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBpclDetailsList', filter, this.httpOptions);
   }
 
   getDieselImportList(filter: Reportmodel): Observable<Dieselstatementlistmodel> {

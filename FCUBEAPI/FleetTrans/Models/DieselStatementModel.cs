@@ -32,6 +32,8 @@ namespace FleetTrans.Models
         public string? BranchCode { get; set; }
         public string? YearId { get; set; }
         public string? DriverId{ get; set; }
+        public string? FromLoc { get; set; }
+        public string? ToLoc { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

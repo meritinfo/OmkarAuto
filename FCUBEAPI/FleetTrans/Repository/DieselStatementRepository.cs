@@ -561,7 +561,7 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> DieselImportSave(DieselStatementModel dieselStmtModel)
         {
             ResponseModel responseModel = new();
-               var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
             connection.Open();
             SqlTransaction transaction;
             transaction = connection.BeginTransaction();
@@ -571,8 +571,8 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID"      , dieselStmtModel.MasterID),
-                            new SqlParameter("@DfVendor"       , dieselStmtModel.DfVendor),
+                            new SqlParameter("@MasterID"        , dieselStmtModel.MasterID),
+                            new SqlParameter("@DfVendor"        , dieselStmtModel.DfVendor),
                             new SqlParameter("@FromDate"        , dieselStmtModel.FromDate),
                             new SqlParameter("@ToDate"          , dieselStmtModel.ToDate),
                             new SqlParameter("@BillStmtDate"    , dieselStmtModel.BillStmtDate),
@@ -581,7 +581,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TotalDslAmt"     , dieselStmtModel.TotalDslAmt),
                             new SqlParameter("@BranchCode"      , dieselStmtModel.BranchCode),
                             new SqlParameter("@YearID"          , dieselStmtModel.YearId),
-                            new SqlParameter("@DriverId"          , dieselStmtModel.DriverId),
+                            new SqlParameter("@DriverId"        , dieselStmtModel.DriverId),
+                            new SqlParameter("@FromLoc"         , dieselStmtModel.FromLoc),
+                            new SqlParameter("@ToLoc"           , dieselStmtModel.ToLoc),
                             new SqlParameter("@LoggedInUser"    , dieselStmtModel.LoggedInUser)
                         };
 
@@ -689,7 +691,9 @@ namespace FleetTrans.Repository
                                 TotalDslAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
                                 BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearId          = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                DriverId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
+                                DriverId        = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverId"]),
+                                FromLoc         = Convert.ToString(dataSet.Tables[0].Rows[i]["FromLoc"]),
+                                ToLoc           = Convert.ToString(dataSet.Tables[0].Rows[i]["ToLoc"]),
                             });
                         }
 
@@ -752,8 +756,6 @@ namespace FleetTrans.Repository
             }
             return dieselStatementList;
         }
-
-
         public async Task<DieselStatementModel> GetBpclDetailsList(ReportRequestModel request)
         {
             DieselStatementModel dieselStatementModel = new();
@@ -776,11 +778,11 @@ namespace FleetTrans.Repository
                 {
                     reportType= "SALES_TRANSACTION",
                     page ="0",
-                    sort= "transactionDate-desc",
-                    vehicleNumber= request.FilterStr,
-                    pageSize="100",
-                    fromDate= request.FromDate, 
-                    toDate=request.ToDate,
+                    sort = "transactionDate-desc",
+                    vehicleNumber = request.FilterStr,
+                    pageSize ="100",
+                    fromDate = Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy"), 
+                    toDate = Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy"),
                     channel = "Web",
                     accountId = "FA3000173330"
                 };
