@@ -284,18 +284,19 @@ namespace FleetTrans.Repository
         public async Task<BrplTransferModel> BpclAmountTransfer(RequestModel request)
         {
             BrplTransferModel transfer = new();
-            
+            RequestModel requestModel = new RequestModel();
+
             try
             {
                 string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
-                string parentToken = await sharedRepository.GetBpclAccessParentToken();
+                requestModel = await sharedRepository.GetBpclAccessParentToken();
 
                 HttpClient client = new()
                 {
                     BaseAddress = new Uri(URL)
                 };
 
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + parentToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
                 client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
 
                 var data = new
@@ -311,7 +312,7 @@ namespace FleetTrans.Repository
                     },
                     remarks = "",
                     channel = "Web",
-                    accountId = "FA3000173330"
+                    accountId = requestModel.strRequest1
                 };
 
                 string jsonBody = JsonConvert.SerializeObject(data);
@@ -338,12 +339,13 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> GetBpclBalanceAmount(ReportRequestModel request)
         {
             ResponseModel responseModel = new();
+            RequestModel requestModel = new RequestModel();
             try
             {
 
                 EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                string parentToken = await sharedRepository.GetBpclAccessParentToken();
+                requestModel = await sharedRepository.GetBpclAccessParentToken();
 
                 string baseUrl = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
 
@@ -356,13 +358,13 @@ namespace FleetTrans.Repository
                                 "&fields=cmsWalletClosingBalance" +
                                 "&reportType=CONSOLIDATED" +
                                 "&channel=Web" +
-                                "&accountId=FA3000173330";                             
+                                "&accountId="+ requestModel.strRequest1;                             
 
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + parentToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
 
                 HttpResponseMessage response = client.GetAsync(UrlParam).Result;
 

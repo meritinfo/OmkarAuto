@@ -727,12 +727,13 @@ namespace Shared.Repository
             }
             return responseModel;
         }
-        public async Task<string> GetBpclAccessParentToken()
+        public async Task<RequestModel> GetBpclAccessParentToken()
         {
-            string parenttoken = "";
+            RequestModel requestModel = new RequestModel();
+            RequestModel request = new RequestModel();
             try
             {
-                string subToken = await GetAccessSubToken();
+                requestModel = await GetAccessSubToken();
 
                 string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/subuser/";
 
@@ -741,28 +742,29 @@ namespace Shared.Repository
                     BaseAddress = new Uri(URL)
                 };
 
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + subToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
                 client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-68c6f96bd-8z5nx");
 
-                HttpResponseMessage response = client.PostAsync("parenttoken?accountId=FA3000173330", null).Result;
+                HttpResponseMessage response = client.PostAsync("parenttoken?accountId="+ requestModel.strRequest1, null).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
                     BrplParentTokenModel tokenModel = JsonConvert.DeserializeObject<BrplParentTokenModel>(responseData);
-                    parenttoken = tokenModel.access_token;
+                    request.strRequest = tokenModel.access_token;
+                    request.strRequest1 = requestModel.strRequest1;
                     client.Dispose();
                 }
             }
             catch (Exception ex)
             { }
-            return parenttoken;
+            return request;
         }
 
 
-        public async Task<string> GetAccessSubToken()
+        public async Task<RequestModel> GetAccessSubToken()
         {
-            string token = "";
+            RequestModel request = new();
             try
             {
                 EWayAPIConfigurationModel subTokenConfig = await APIConfigurationDetails();
@@ -791,13 +793,14 @@ namespace Shared.Repository
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
                     BrplSubTokenModel tokenModel = JsonConvert.DeserializeObject<BrplSubTokenModel>(responseData);
-                    token = tokenModel.access_token;
+                    request.strRequest = tokenModel.access_token;
+                    request.strRequest1 = subTokenConfig.GstUserName;
                     client.Dispose();
                 }
             }
             catch (Exception ex)
             { }
-            return token;
+            return request;
         }
 
         public async Task<EWayAPIConfigurationModel> APIConfigurationDetails()
@@ -819,6 +822,7 @@ namespace Shared.Repository
                         configModel.ApiClient_id = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_id"]);
                         configModel.ApiClient_secret = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_secret"]);
                         configModel.ApiGrantType = Convert.ToString(resultData.Tables[0].Rows[0]["ApiGrantType"]);
+                        configModel.GstUserName = Convert.ToString(resultData.Tables[0].Rows[0]["WalletAccountId"]);
                     }
                 }
             }

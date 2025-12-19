@@ -26,6 +26,6 @@ namespace Shared.Repository
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
         Task<List<RequestModel>> GetDashboardCustomer(ReportRequestModel report);
         Task<ResponseModel> GenerateLoginOTP(LoginModel login);
-        Task<string> GetBpclAccessParentToken();
+        Task<RequestModel> GetBpclAccessParentToken();
     }
 }
