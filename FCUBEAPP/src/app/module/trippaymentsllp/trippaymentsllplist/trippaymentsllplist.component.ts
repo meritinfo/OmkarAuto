@@ -38,6 +38,7 @@ export class TrippaymentsllplistComponent {
   keywordLocation = 'dataName';
   year: string = '';
   loginDate: string = '';
+   branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -90,6 +91,16 @@ export class TrippaymentsllplistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+     var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
+    }
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -109,7 +120,8 @@ export class TrippaymentsllplistComponent {
     var selectedData = this.formFilter.getRawValue();
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-    this.filter.filterStr = "";
+    this.filter.filterStr = this.branch;
+     this.filter.search = this.year;
     this.filter.filterStr1 =  "";
     this.tripPaymentList();
   }
@@ -225,7 +237,8 @@ export class TrippaymentsllplistComponent {
     var selectedData = this.formFilter.getRawValue();   
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-   // this.filter.filterStr = selectedData.branch;
+    this.filter.filterStr = this.branch;
+    this.filter.search = this.year;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
 
     this.tripPaymentList();
