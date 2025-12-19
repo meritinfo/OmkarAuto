@@ -177,7 +177,7 @@ export class DrivermasteraddComponent {
 
     this.formDriverMaster.controls['age'].disable(); 
      
-    setTimeout(() => {
+   // setTimeout(() => {
       if (this.selectedDriverMasterDetails.driverMasterID != '') {   
         this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
         this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
@@ -187,6 +187,7 @@ export class DrivermasteraddComponent {
         this.uploadedDrPermAddProof = Constants.UploadFolderPath + 'driver/peraddressprove/' + this.selectedDriverMasterDetails.attachDrPermAddProof;
         this.uploadedDrBankPassBook = Constants.UploadFolderPath + 'driver/bankpassbook/' + this.selectedDriverMasterDetails.attachDrBankPassBook;
         this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
+        setTimeout(() => {
         this.formDriverMaster.patchValue({
           dateOfBirth: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfBirth),
           dateOfAppoint: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
@@ -196,10 +197,13 @@ export class DrivermasteraddComponent {
           removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
           vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedDriverMasterDetails.vehicleMasterId),
         })
+        }, 2000);
       // this.formDriverMaster.controls['driverName'].disable();
+
         this.editMode = true;
       } 
-    }, 2000);
+  //  }, 2000);
+
   }
 
   // convenience getter for easy access to contact form fields

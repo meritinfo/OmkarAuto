@@ -94,6 +94,7 @@ export class CciinvoicemstlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.loginDate),
+      invoice: new FormControl(),
     });     
 
     this.sharedService.loading=true;   
@@ -122,7 +123,7 @@ export class CciinvoicemstlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+       // this.filter.search = dataTablesParameters.search.value;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -190,6 +191,8 @@ export class CciinvoicemstlistComponent {
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
+    this.filter.search = selecteddata.invoice;
+    // this.filter.filterStr2 = selecteddata.invoice;
     this.sharedService.loading = true;
     this.cciInvMstList();
     this.sharedService.loading=false;
@@ -212,6 +215,8 @@ export class CciinvoicemstlistComponent {
     this.filter.toDate = selecteddata.toDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
+   this.filter.search = selecteddata.invoice;
+      
     
     this.cciInvoiceMstService.getCciinvoiceExcel(this.filter).subscribe(resp => {
       if(resp.status){      

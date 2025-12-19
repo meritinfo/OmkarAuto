@@ -14,6 +14,14 @@
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
+                                 <div class="col-sm-3">
+                                        <div class="mb-3">                                           
+                                            <label >CCI Inv No: </label>
+                                            <input type="text"  autofocus="autofocus" class="form-control"
+                                                formControlName="invoice"     uppercaseonly                                  
+                                               >
+                                        </div>
+                                    </div> 
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>

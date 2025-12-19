@@ -42,6 +42,7 @@ export class TrippaymentslistComponent {
   keywordLocation = 'dataName';
   year: string = '';
   loginDate: string = '';
+   branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -96,6 +97,11 @@ export class TrippaymentslistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+     var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
+    }
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -115,7 +121,7 @@ export class TrippaymentslistComponent {
     var selectedData = this.formFilter.getRawValue();
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-    this.filter.filterStr = "";
+    this.filter.filterStr = this.branch;
     this.filter.filterStr1 =  "";
     this.tripPaymentList();
   }
@@ -232,6 +238,7 @@ export class TrippaymentslistComponent {
     
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
+     this.filter.filterStr= this.branch;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
 
     this.tripPaymentList();
