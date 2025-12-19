@@ -764,7 +764,7 @@ namespace FleetTrans.Repository
             RequestModel requestModel = new RequestModel();
             try
             {
-                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+                string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
                 requestModel = await sharedRepository.GetBpclAccessParentToken();
 
                 HttpClient client = new()
