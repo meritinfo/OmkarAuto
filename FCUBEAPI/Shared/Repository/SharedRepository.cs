@@ -700,7 +700,6 @@ namespace Shared.Repository
             }
             return emailList;
         }
-
         public async Task<ResponseModel> GetDashboardDetail(RequestModel request)
         {
             ResponseModel responseModel = new();
