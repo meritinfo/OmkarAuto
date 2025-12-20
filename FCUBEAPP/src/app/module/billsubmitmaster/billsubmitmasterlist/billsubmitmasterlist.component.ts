@@ -24,6 +24,7 @@ export class BillsubmitmasterlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   loggedInUserID: string = '';
+    branch: string = '';
   allSubmitMaster: Billsubmitmasterlistmodel = new Billsubmitmasterlistmodel();
   request: Requestmodel = new Requestmodel();
   filter: Reportmodel = {
@@ -83,6 +84,10 @@ ngOnInit(): void {
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }
+  var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+    }   
   if (this.loggedInUserID) {
     console.log(this.loggedInUserID);
   }
@@ -133,7 +138,7 @@ billSubmitList() {
       this.filter.pageSize = dataTablesParameters.length;
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
+    //  this.filter.search = dataTablesParameters.search.value;
       callback({
         recordsTotal: 0,
         recordsFiltered: 0,
@@ -247,6 +252,8 @@ search(): void {
   this.filter.toDate = selectedDataVal.toDate;
   this.filter.filterStr1 = selectedDataVal.submitNo;
   this.filter.filterStr2 = selectedDataVal.partyCode.dataId;
+    this.filter.filterStr = this.branch;
+     this.filter.search = this.year;
   this.sharedService.loading=true;
   this.billSubmitList();
   this.sharedService.loading=false;

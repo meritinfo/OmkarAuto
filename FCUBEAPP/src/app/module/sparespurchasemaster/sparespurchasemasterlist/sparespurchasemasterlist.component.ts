@@ -38,6 +38,7 @@ export class SparespurchasemasterlistComponent {
   viewStatus = false; 
 dashboard: string ="";
   loginDate: string = '';
+   branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -78,6 +79,10 @@ dashboard: string ="";
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+        var userData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.branch = userData;
+    }
       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -95,6 +100,8 @@ dashboard: string ="";
     this.sharedService.loading=true;   
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+    this.filter.search = this.year;
+    this.filter.strRequest = this.branch;
     this.sparesPurchaseList();
     this.sharedService.loading=false;
   }
@@ -115,7 +122,7 @@ dashboard: string ="";
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+       // this.filter.search = dataTablesParameters.search.value;
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -198,6 +205,8 @@ dashboard: string ="";
     }
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
+     this.filter.search = this.year;
+       this.filter.strRequest = this.branch;
     this.sharedService.loading=true;
     this.sparesPurchaseList();
     this.sharedService.loading=false;

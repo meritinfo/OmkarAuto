@@ -668,7 +668,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@fromDate", request.FromDate),
-                            new SqlParameter("@toDate", request.ToDate)
+                            new SqlParameter("@toDate", request.ToDate),
+                            new SqlParameter("@Branch", request.FilterStr),
+                             new SqlParameter("@Year", request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselImpMstList", param);
 

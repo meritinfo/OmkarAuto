@@ -348,7 +348,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ToDate",     request.ToDate),
                             new SqlParameter("@SubmitNo",   request.FilterStr1),
                             new SqlParameter("@PartyCode",  request.FilterStr2),
-                           // new SqlParameter("@Type",       request.FilterStr)
+                            new SqlParameter("@Branch",       request.FilterStr)
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillSubmitList", param);
 

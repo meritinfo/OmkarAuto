@@ -31,6 +31,7 @@ export class DieselstmtbpcllistComponent {
   keywordLocation = 'dataName'; 
   year: string = '';
   loginDate: string = '';
+   branch: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -86,9 +87,16 @@ export class DieselstmtbpcllistComponent {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
+    
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+
+        var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -110,6 +118,8 @@ export class DieselstmtbpcllistComponent {
 
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+        this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = this.year;
 
     this.dieselstateList();
     this.sharedService.loading=false;
@@ -221,7 +231,8 @@ export class DieselstmtbpcllistComponent {
     this.filter.search = selecteddata.dfVendor?selecteddata.dfVendor.dataId:"";
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
-    
+    this.filter.filterStr = this.branch;
+    this.filter.filterStr1 = this.year;
     this.sharedService.loading=true;
     this.dieselstateList();
     this.sharedService.loading=false;

@@ -22,6 +22,8 @@ export class DocrenewalentrylistComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+    branch: string ="";
+     year: string ="";
   vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
@@ -82,6 +84,16 @@ export class DocrenewalentrylistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
+    }
+        var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
@@ -102,8 +114,8 @@ export class DocrenewalentrylistComponent {
     this.filter.fromDate = this.minDate;
     this.filter.toDate = this.loginDate;
     this.filter.filterStr = '';
-    this.filter.filterStr1 = '';
-    this.filter.filterStr2 = '';
+    this.filter.filterStr1 = this.branch;
+         this.filter.filterStr2 = this.year;
     this.filter.filterStr3 = '';
 
     this.sharedService.loading=true;
@@ -230,6 +242,8 @@ export class DocrenewalentrylistComponent {
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = selectedData.vehicleMasterID?selectedData.vehicleMasterID.dataId:"" ;
+     this.filter.filterStr1 = this.branch;
+         this.filter.filterStr2 = this.year;
 
     this.sharedService.loading=true;
     this.docrenewalEntryList();
