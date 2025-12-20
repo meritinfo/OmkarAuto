@@ -288,7 +288,7 @@ namespace FleetTrans.Repository
 
             try
             {
-                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+                string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
                 requestModel = await sharedRepository.GetBpclAccessParentToken();
 
                 HttpClient client = new()
@@ -347,7 +347,7 @@ namespace FleetTrans.Repository
 
                 requestModel = await sharedRepository.GetBpclAccessParentToken();
 
-                string baseUrl = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
+                string baseUrl = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
 
                 string UrlParam = "startDate=" + request.FromDate +
                                 "&endDate=" + request.ToDate +

@@ -700,7 +700,6 @@ namespace Shared.Repository
             }
             return emailList;
         }
-
         public async Task<ResponseModel> GetDashboardDetail(RequestModel request)
         {
             ResponseModel responseModel = new();
@@ -735,7 +734,7 @@ namespace Shared.Repository
             {
                 requestModel = await GetAccessSubToken();
 
-                string URL = "https://qa.api.cep.bpcl.in/retail/v2/bpcl/smartfleet/subuser/";
+                string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/subuser/";
 
                 HttpClient client = new()
                 {
@@ -768,7 +767,7 @@ namespace Shared.Repository
             try
             {
                 EWayAPIConfigurationModel subTokenConfig = await APIConfigurationDetails();
-                string URL = "https://qa.api.cep.bpcl.in/authorizationserver/";
+                string URL = "https://api.cep.bpcl.in/authorizationserver/";
 
                 HttpClient client = new()
                 {
