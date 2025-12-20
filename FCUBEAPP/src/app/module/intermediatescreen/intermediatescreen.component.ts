@@ -36,6 +36,7 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
   companyname: string = '';
+  loginDate: string = '';
   dashboard: string = "/dashboard";
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
@@ -47,11 +48,7 @@ export class IntermediatescreenComponent {
   //On initial load
 
   ngOnInit(): void {
-    this.formLogin = this.formBuilder.group({
-      yearID: new FormControl('22', [Validators.required]),
-      userBranch: new FormControl('', [Validators.required]),
-      loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
-    });
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -62,16 +59,23 @@ export class IntermediatescreenComponent {
     else {
       this.route.navigate(['/']);
     }
-
     var usercompanyname = sessionStorage.getItem('companyname')?.toString();
     if (typeof usercompanyname !== 'undefined' && usercompanyname !== null && usercompanyname !== '') {
       this.companyname = usercompanyname;
     }
-
     var userData = sessionStorage.getItem('scope')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.userscope = userData;
     }
+    
+    const today = new Date();
+    this.loginDate = today.toLocaleDateString('en-CA').toString();
+
+    this.formLogin = this.formBuilder.group({
+      yearID: new FormControl('22', [Validators.required]),
+      userBranch: new FormControl('', [Validators.required]),
+      loginDate: new FormControl(this.loginDate, [Validators.required])
+    });
 
     this.sharedService.loggedInStatus = false;
     //this.getCompanyDetails();

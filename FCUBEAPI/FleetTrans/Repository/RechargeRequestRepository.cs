@@ -349,8 +349,8 @@ namespace FleetTrans.Repository
 
                 string baseUrl = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/report/download";
 
-                string UrlParam = "startDate=" + request.FromDate +
-                                "&endDate=" + request.ToDate +
+                string UrlParam = "startDate=" + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") +
+                                "&endDate=" + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy") +
                                 "&fileFormat=csv" +
                                 "&isDownload=true" +
                                 "&selected_Period=false" +
