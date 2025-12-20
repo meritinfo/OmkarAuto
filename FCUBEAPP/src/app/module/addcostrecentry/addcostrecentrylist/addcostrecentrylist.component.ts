@@ -136,7 +136,7 @@ dashboard: string ="";
     this.filter.toDate = this.loginDate;
     this.filter.filterStr   = "";
     this.filter.filterStr1  = "";
- 
+     this.filter.search  = this.year;
     this.sharedService.loading=true;
     this.addcostrecList();
     this.sharedService.loading=false;
@@ -252,8 +252,7 @@ dashboard: string ="";
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.costtype;
-
-
+    this.filter.search  = this.year;
     this.sharedService.loading=true;
     this.addcostrecList();
     this.sharedService.loading=false;

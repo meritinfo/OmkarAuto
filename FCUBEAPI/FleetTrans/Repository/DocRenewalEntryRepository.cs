@@ -156,7 +156,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search"          , request.Search),
                             new SqlParameter("@FromDate"        , request.FromDate),
                             new SqlParameter("@ToDate"          , request.ToDate),
-                            new SqlParameter("@VehicleMasterID" , request.FilterStr)
+                            new SqlParameter("@VehicleMasterID" , request.FilterStr),
+                            new SqlParameter("@Branch" , request.FilterStr1),
+                            new SqlParameter("@Year" , request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalEntryList", param);
 

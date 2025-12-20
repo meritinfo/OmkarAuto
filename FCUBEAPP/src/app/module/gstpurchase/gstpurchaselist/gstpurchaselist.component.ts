@@ -110,6 +110,7 @@ export class GstpurchaselistComponent {
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.filterStr = this.branch;
+      this.filter.search= this.year;
 
     this.gstPurchaselist();
     this.sharedService.loading=false;
@@ -198,6 +199,7 @@ export class GstpurchaselistComponent {
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = this.branch;
+       this.filter.search = this.year;
 
     this.sharedService.loading = true;
     this.gstPurchaselist();       

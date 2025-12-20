@@ -207,6 +207,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
+                         
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOpBrsEntryList", param);
 
