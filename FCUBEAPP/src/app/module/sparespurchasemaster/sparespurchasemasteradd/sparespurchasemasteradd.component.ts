@@ -427,8 +427,8 @@ export class SparespurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
         this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
         this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
-        this.formTyreArray.controls[0].get("netAmount")?.disable(); 
-        this.formTyreArray.controls[0].get("itemAmount")?.disable();   
+        this.formTyreArray.controls[i].get("netAmount")?.disable(); 
+        this.formTyreArray.controls[i].get("itemAmount")?.disable();   
 
         if (this.selectedSparesPurchaseMasterDetail.gstType == "IG") {   
           this.formTyreArray.controls[i].get("sgstPct")?.disable();   
@@ -451,8 +451,8 @@ export class SparespurchasemasteraddComponent {
 
   addItem(i: number): void {    
     var selectedDate = this.formUser.getRawValue();
-    if (this.formTyreArray.value[i].spareLubId.dataId && this.formTyreArray.value[i].brandId!="" &&
-      (parseFloat(this.formTyreArray.value[i].netAmount)>0)) {
+    var arr = selectedDate.arrayList
+    if (arr[i].spareLubId.dataId && arr[i].brandId!="" && (parseFloat(arr[i].netAmount)>0)) {
       this.formTyreArray.push(this.createSparesArray());      
       this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
       this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
@@ -582,7 +582,7 @@ export class SparespurchasemasteraddComponent {
     
     var selectedDate = this.formUser.getRawValue();
 
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    for (var i = 0; i < selectedDate.arrayList.length; i++) {
       this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
