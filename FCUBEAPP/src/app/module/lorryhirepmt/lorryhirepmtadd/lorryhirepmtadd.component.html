@@ -288,12 +288,29 @@
                                                 formControlName="deductRemarks">
                                         </td>                                     
                                         <td>
-                                            <select class="form-control form-select ng-pristine ng-touched"
+                                            <!-- <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="benId">
                                                 <option *ngFor="let ac of benList" value={{ac.dataId}}>
                                                     {{ac.dataName}}
                                                 </option>
-                                            </select>
+                                            </select> -->
+                                            <div class="mb-3">
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="benList"
+                                                        [searchKeyword]="keywordLocation" 
+                                                        formControlName="benId"
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="endWithFilter">
+                                                    </ng-autocomplete>
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
                                         </td>
                                     </div>
                                 </tr>

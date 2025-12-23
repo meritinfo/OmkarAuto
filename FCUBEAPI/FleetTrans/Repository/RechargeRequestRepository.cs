@@ -358,8 +358,7 @@ namespace FleetTrans.Repository
                                 "&fields=cmsWalletClosingBalance" +
                                 "&reportType=CONSOLIDATED" +
                                 "&channel=Web" +
-                                "&accountId="+ requestModel.strRequest1;                             
-
+                                "&accountId="+ requestModel.strRequest1;     
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

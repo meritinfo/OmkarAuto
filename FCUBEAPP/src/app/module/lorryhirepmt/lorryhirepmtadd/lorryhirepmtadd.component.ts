@@ -302,7 +302,7 @@ export class LorryhirepmtaddComponent {
         this.formArray.controls[i].get("totPaid")?.setValue(res.lhpmDetails[i].totPaid);
         this.formArray.controls[i].get("extraRemarks")?.setValue(res.lhpmDetails[i].extraRemarks); 
         this.formArray.controls[i].get("deductRemarks")?.setValue(res.lhpmDetails[i].deductRemarks);
-        this.formArray.controls[i].get("benId")?.setValue(res.lhpmDetails[i].benId);        
+        this.formArray.controls[i].get("benId")?.setValue(this.benList.find(e => e.dataId == res.lhpmDetails[i].benId));   
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
@@ -1004,10 +1004,15 @@ export class LorryhirepmtaddComponent {
             return;
           }
         }
-        if(selectedDataVal.pmtType == "T" && selectedDataVal.arrayList[i].benId==''){            
-          this.toasterService.warning("Please Select Beneficiary");
-          this.sharedService.loading = false;
-          return;
+        if(selectedDataVal.pmtType == "T" ){     
+          if(selectedDataVal.arrayList[i].benId.dataId){
+            //ignore
+          }    
+          else{ 
+            this.toasterService.warning("Please Select Beneficiary");
+            this.sharedService.loading = false;
+            return;
+          }  
         }
         
         this.lorryhiremastermodel.lhpmDetails.push({
@@ -1034,7 +1039,7 @@ export class LorryhirepmtaddComponent {
           'totPaid':'0',
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
-          'benId': selectedDataVal.arrayList[i].benId,
+          'benId': selectedDataVal.arrayList[i].benId.dataId,
         });
       }
     }
