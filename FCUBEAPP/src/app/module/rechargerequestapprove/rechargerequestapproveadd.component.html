@@ -106,19 +106,15 @@
                                             <div class="card-body">
                                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                                     <tr>
-                                                        <td colspan="3">
-                                                            <div class="mb-3">
-                                                                <input type="checkbox"  name="select" *ngIf="showGrid" 
+                                                        <th colspan="3">
+                                                            <input type="checkbox"  name="select" *ngIf="showGrid" 
                                                                     class="form-check-input"
                                                                     (change)="selectAll($event)" formControlName="selectedAll">  
                                                                     <label for="formrow-inputCity" *ngIf="showGrid" >SELECT ALL</label>
-                                                            </div>
-                                                        </td>
-                                                        <td colspan="3">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity" *ngIf="showGrid" >Balance Amt: {{balanceAmt}}</label>
-                                                            </div>
-                                                        </td>
+                                                        </th>
+                                                        <th colspan="3">
+                                                            <label for="formrow-inputCity" >Balance Amt: <span style="color: Red;">{{balanceAmt}}</span> </label>
+                                                        </th>
                                                     </tr>
                                                     <tr>
                                                         <th></th>
