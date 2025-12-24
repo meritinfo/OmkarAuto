@@ -239,7 +239,7 @@ namespace FleetTrans.Repository
                      {
                         if (recharge.RechargeRequestLst[i].ApprovedYN == "Y")
                         {
-                            request.strRequest = recharge.RechargeRequestLst[i].ReqCard;
+                            request.strRequest = recharge.RechargeRequestLst[i].CardNo;
                             request.strRequest1 = recharge.RechargeRequestLst[i].ApprovedAmt;
                             transfer = await BpclAmountTransfer(request);
 

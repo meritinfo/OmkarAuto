@@ -437,8 +437,9 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                             new SqlParameter("@SpareLubId", req.strRequest),
-                             new SqlParameter("@BrandId", req.strRequest1),
+                             new SqlParameter("@SpareLubId",    req.strRequest),
+                             new SqlParameter("@BrandId",       req.strRequest1),
+                             new SqlParameter("@GodownId",      req.strRequest2),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSpareStockAvailable", param);
