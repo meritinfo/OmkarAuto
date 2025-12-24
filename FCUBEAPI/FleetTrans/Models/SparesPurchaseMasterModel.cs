@@ -41,6 +41,7 @@ namespace FleetTrans.Models
         public string? RefDocAttachedImage { get; set; }
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
+        public string? GodownId { get; set; }
         public string? GstInputTaken { get; set; }
 
         public string? CreatedBy { get; set; }
@@ -49,6 +50,7 @@ namespace FleetTrans.Models
         public string? ModifiedDate { get; set; }
 
         public string? LoggedInUser { get; set; }
+
    
         public List<SparesPurchaseDtlListmodel>? SparesPurchaseDtlList { get; set; }
     }
@@ -70,5 +72,7 @@ namespace FleetTrans.Models
         public string? IgstAmt { get; set; }
         public string? NetAmount { get; set; }
         public string? Remarks { get; set; }
+       
+        
     }
 }

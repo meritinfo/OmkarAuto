@@ -80,6 +80,7 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                GodownId = Convert.ToString(dataSet.Tables[0].Rows[i]["GodownId"]),
                                 GstInputTaken = Convert.ToString(dataSet.Tables[0].Rows[i]["GstInputTaken"]),
                                 CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
@@ -145,6 +146,7 @@ namespace FleetTrans.Repository
             }
             return SparesList;
         }
+
         public async Task<SparesPurchaseMasterModel> GetSparesPurchaseMasterInnerGridList(RequestModel request)
         {
             SparesPurchaseMasterModel sparesPurchaseMasterInnerGridList = new()
@@ -277,8 +279,10 @@ namespace FleetTrans.Repository
                             new SqlParameter("@RefDocAttachedImage", sparesPurchaseMasterModel.RefDocAttachedImage ),
                             new SqlParameter("@BranchCode", sparesPurchaseMasterModel.BranchCode ),
                             new SqlParameter("@YearID", sparesPurchaseMasterModel.YearID ),
+                            new SqlParameter("@GodownId", sparesPurchaseMasterModel.GodownId ),
                             new SqlParameter("@GstInputTaken", sparesPurchaseMasterModel.GstInputTaken ),
-                            new SqlParameter("@LoggedInUser", sparesPurchaseMasterModel.LoggedInUser ), 
+                        
+                            new SqlParameter("@LoggedInUser", sparesPurchaseMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_SparesPurchaseMasterSave", param);
                     string SpTransId = "0";

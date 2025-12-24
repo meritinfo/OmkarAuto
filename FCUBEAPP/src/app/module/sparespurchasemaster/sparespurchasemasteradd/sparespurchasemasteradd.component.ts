@@ -39,6 +39,7 @@ export class SparespurchasemasteraddComponent {
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
+   godownList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
   modelList: Dropdownmodel[] = [];
@@ -146,6 +147,7 @@ export class SparespurchasemasteraddComponent {
       chequeNo : new FormControl('',),
       chequeDate : new FormControl('',),
       gstInputTaken : new FormControl('',),
+      godownId : new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
     }); 
@@ -155,6 +157,7 @@ export class SparespurchasemasteraddComponent {
     this.getBranchList();
     this.getStateList();
     this.getSparesList();
+    this.getGodownList();
     this.getCreditAcList("D");
 
     this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
@@ -335,6 +338,12 @@ export class SparespurchasemasteraddComponent {
       this.sparesList = res;
     });
   }
+   getGodownList(): void {
+    this.commonService.getFltGodownList().subscribe((res) => {
+      this.godownList = res;
+    });
+  }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -702,7 +711,8 @@ export class SparespurchasemasteraddComponent {
     this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
     this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
     this.sparespurchasemastermodel.nonVendor = selectedDataValue.nonVendor?"Y":"N";
-    this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+   // this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+   this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:'';
     this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
     this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
     this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
@@ -724,6 +734,7 @@ export class SparespurchasemasteraddComponent {
     this.sparespurchasemastermodel.neftPmt= selectedDataValue.neftPmt;
     this.sparespurchasemastermodel.chequeNo= selectedDataValue.chequeNo;
     this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
+    this.sparespurchasemastermodel.godownId= selectedDataValue.godownId;
     this.sparespurchasemastermodel.gstInputTaken = selectedDataValue.gstInputTaken?"Y":"N";
     this.sparespurchasemastermodel.branchCode= this.branch ;
     this.sparespurchasemastermodel.yearID= this.year;

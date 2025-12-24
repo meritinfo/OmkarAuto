@@ -38,6 +38,7 @@ export class Sparespurchasemastermodel {
   createdDate: string = "";
   modifiedBy: string = "";
   modifiedDate: string = "";
+  godownId: string="";
  
   sparesPurchaseDtlList: SparesPurchaseDtlListmodel[] = [];
 
@@ -59,4 +60,5 @@ export class SparesPurchaseDtlListmodel {
       igstAmt:  string="";
       netAmount:  string="";
       remarks: string="";
+      
   }

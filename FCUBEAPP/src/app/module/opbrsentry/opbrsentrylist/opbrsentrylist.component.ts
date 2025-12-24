@@ -28,6 +28,7 @@ export class OpbrsentrylistComponent {
 dashboard: string ="";
   loginDate: string = '';
   year: string = '';
+    branch: string = '';
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -74,6 +75,11 @@ dashboard: string ="";
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
+     var userData3 = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
+    }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
@@ -101,7 +107,7 @@ dashboard: string ="";
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
           this.filter.sortOrder = dataTablesParameters.order[0].dir;
-          this.filter.search = dataTablesParameters.search.value;
+         // this.filter.search = dataTablesParameters.search.value;
           this.OpbrsentryService.getBrsEntryDetailsList(this.filter)
             .subscribe(resp => {
              this.allBrsEntry = resp;
