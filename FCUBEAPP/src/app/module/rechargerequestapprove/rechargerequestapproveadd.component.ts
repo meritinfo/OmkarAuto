@@ -321,6 +321,7 @@ export class RechargerequestapproveaddComponent {
           arr[i].approvedAmt="0";
         }
         IsItemSelected = true;
+        this.rechargerequestlist.rechargeRequestLst[i].reqCard 
         this.rechargerequestlist.rechargeRequestLst[i].approvedBy=this.loggedInUserID
         this.rechargerequestlist.rechargeRequestLst[i].approvedYN=arr[i].approvedYN.toString();
         this.rechargerequestlist.rechargeRequestLst[i].appRejRemarks=arr[i].appRejRemarks.toString().toUpperCase();
@@ -342,7 +343,7 @@ export class RechargerequestapproveaddComponent {
         this.toasterService.warning(this.responseDetails.message);  
         
       }
-      this.sharedService.loading = false;
     });
+    this.sharedService.loading = false;
   }
 }

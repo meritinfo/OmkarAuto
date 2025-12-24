@@ -127,7 +127,7 @@ export class VehiclerepmaintaddComponent {
     this.formUser = this.formBuilder.group({
       transDate : new FormControl(this.loginDate,[Validators.required]),
       stockType : new FormControl('',[Validators.required]),
-      godownId: new FormControl('',[Validators.required]),
+      godownId: new FormControl('',),
       maintID : new FormControl('',[Validators.required]),
       vehicleMasterId : new FormControl('',[Validators.required]),
       kmReading : new FormControl('',[Validators.required]),
@@ -166,6 +166,7 @@ export class VehiclerepmaintaddComponent {
     this.getSparesList();
     this.getVehicleIdList();
     this.getMaintanenceList();
+    this.getGodownList();
 
     this.formTyreArray.controls[0].get("spareLubId")?.disable();
     this.formTyreArray.controls[0].get("brandId")?.disable();
@@ -293,6 +294,12 @@ export class VehiclerepmaintaddComponent {
       this.stateList = res;
     });
   }
+  
+  getGodownList(): void {
+    this.commonService.getFltGodownList().subscribe((res) => {
+      this.godownList = res;
+    });
+  }
 
   getBrandList(): void {
     this.commonService.getSparesBrandList().subscribe((res) => {
@@ -384,6 +391,7 @@ export class VehiclerepmaintaddComponent {
       }, 1000);  
       this.formUser.controls['pmtType'].disable();
       this.formUser.controls['creditAc'].disable();
+      this.formUser.controls['godownId'].setValidators([Validators.required]);
       this.formUser.controls['vendorId'].setValidators([Validators.required]);
       this.formUser.controls['vendorName'].setValidators([Validators.required]); 
       this.formUser.controls['vendorAddress'].setValidators([Validators.required]);
@@ -407,6 +415,7 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['vendorName'].enable();
       this.formUser.controls['gstType'].enable(); 
       this.formUser.controls['otherAmount'].enable();
+      this.formUser.controls['godownId'].clearValidators(); 
       this.formUser.controls['vendorId'].clearValidators(); 
       this.formUser.controls['vendorName'].clearValidators(); 
       this.formUser.controls['vendorAddress'].clearValidators(); 
@@ -416,6 +425,7 @@ export class VehiclerepmaintaddComponent {
       this.formUser.controls['pmtType'].enable();
       this.formUser.controls['creditAc'].enable();
     }
+    this.formUser.controls['godownId'].updateValueAndValidity(); 
     this.formUser.controls['vendorGstNo'].updateValueAndValidity();     
     this.formUser.controls['vendorId'].updateValueAndValidity();   
     this.formUser.controls['vendorName'].updateValueAndValidity();  
@@ -696,6 +706,7 @@ export class VehiclerepmaintaddComponent {
     if(selectedData.stockType=="S"){
       this.requestmodel.strRequest = selectedData.arrayList[i].spareLubId;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].brandId;
+      this.requestmodel.strRequest1 = selectedData.godownId;
     
       this.vehiclerepmaintMasterService.getSpareStockAvailable(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
