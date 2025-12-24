@@ -128,6 +128,8 @@ export class FasttagaddComponent {
       totalFtAmt: new FormControl('',[Validators.required]),
       driverId: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
+      fromLoc: new FormControl(''),
+      toLoc: new FormControl(''),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
@@ -429,14 +431,14 @@ export class FasttagaddComponent {
       this.toasterService.warning("Please enter a valid Driver.");          
       return;
     }
-    if (selectedDataVal.fromloc.dataId) {
+    if (selectedDataVal.fromLoc.dataId) {
         //ignore
     }
     else{
       this.toasterService.warning("Please enter a valid From Location.");          
       return;
     }
-    if (selectedDataVal.toloc.dataId) {
+    if (selectedDataVal.toLoc.dataId) {
         //ignore
     }
     else{
@@ -454,8 +456,8 @@ export class FasttagaddComponent {
     this.fasttagmodel.totalFtAmt      = selectedDataVal.totalFtAmt;
     this.fasttagmodel.yearID          = this.year;
     this.fasttagmodel.driverId        = selectedDataVal.driverId?selectedDataVal.driverId.dataId:'';
-    this.fasttagmodel.fromloc         = selectedDataVal.fromloc?selectedDataVal.fromloc.dataId:'';
-    this.fasttagmodel.toloc           = selectedDataVal.toloc?selectedDataVal.toloc.dataId:'';
+    this.fasttagmodel.fromLoc         = selectedDataVal.fromLoc?selectedDataVal.fromLoc.dataId:'';
+    this.fasttagmodel.toLoc           = selectedDataVal.toLoc?selectedDataVal.toLoc.dataId:'';
     this.fasttagmodel.loggedInUser    = this.loggedInUserID;
 
     this.fasttagmodel.fastTagDtlList = [];
