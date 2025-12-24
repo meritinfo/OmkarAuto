@@ -93,8 +93,8 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        formControlName="fromloc"                                                           
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
+                                                        formControlName="fromLoc"                                                           
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLoc'].invalid) }">
                                                     </ng-autocomplete>
                                                     <ng-template #itemTemplate let-item>
                                                         <a [innerHTML]="item.dataName"></a>
@@ -117,8 +117,8 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        formControlName="toloc"                                                           
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
+                                                        formControlName="toLoc"                                                           
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toLoc'].invalid) }">
                                                     </ng-autocomplete>
                                                     <ng-template #itemTemplate let-item>
                                                         <a [innerHTML]="item.dataName"></a>
