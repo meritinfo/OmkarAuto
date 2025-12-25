@@ -11,6 +11,7 @@ namespace FleetTrans.Models
         public string? VrmTransId { get; set; }
         public string? TransDate { get; set; }
         public string? StockType { get; set; }
+        public string? GodownId { get; set; }        
         public string? MaintID { get; set; }
         public string? MaintType { get; set; }
         public string? VehicleMasterId { get; set; }

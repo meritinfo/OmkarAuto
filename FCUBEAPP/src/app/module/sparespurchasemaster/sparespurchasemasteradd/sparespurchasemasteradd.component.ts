@@ -147,8 +147,7 @@ export class SparespurchasemasteraddComponent {
       chequeNo : new FormControl('',),
       chequeDate : new FormControl('',),
       gstInputTaken : new FormControl('',),
-      godownId : new FormControl('',),
-
+      godownId : new FormControl('',[Validators.required]), 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
     }); 
 

@@ -203,7 +203,7 @@ export class VehiclerepmaintaddComponent {
         this.formUser.controls['stockType'].disable(); 
         this.formUser.controls['maintID'].disable();   
         this.formUser.controls['vehicleMasterId'].disable();  
-        //this.formUser.controls['nonVendor'].disable();      
+        this.formUser.controls['godownId'].disable();      
         //this.formUser.controls['vendorId'].disable();   
         this.formUser.controls['vendorName'].disable(); 
         this.formUser.controls['vendorInvNo'].disable();  
@@ -341,6 +341,7 @@ export class VehiclerepmaintaddComponent {
     this.formUser.patchValue({
       pmtType:"",
       creditAc:"",
+      godownId:"",
       vendorInvDt: this.loginDate,
     })
   }
@@ -704,6 +705,11 @@ export class VehiclerepmaintaddComponent {
     var selectedData = this.formUser.getRawValue();  
     this.formTyreArray.controls[i].get("availQty")?.setValue(""); 
     if(selectedData.stockType=="S"){
+      if(selectedData.godownId==""){        
+        this.toastrService.warning("Please select Godown");
+        this.formTyreArray.controls[i].get("brandId")?.setValue("");
+        return;
+      }
       this.requestmodel.strRequest = selectedData.arrayList[i].spareLubId;
       this.requestmodel.strRequest1 = selectedData.arrayList[i].brandId;
       this.requestmodel.strRequest1 = selectedData.godownId;
@@ -730,13 +736,13 @@ export class VehiclerepmaintaddComponent {
       return;
     }    
 
-    if(selectedDate.arrayList[ind].availQty!=""){
-      if(parseFloat(selectedDate.arrayList[ind].itemQty) > parseFloat(selectedDate.arrayList[ind].availQty)){
-        this.formTyreArray.controls[ind].get("itemQty")?.setValue("");
-        this.toastrService.warning("Issue Qty should not be more than stock Qty");
-        return;
-      }
-    }
+    // if(selectedDate.arrayList[ind].availQty!=""){
+    //   if(parseFloat(selectedDate.arrayList[ind].itemQty) > parseFloat(selectedDate.arrayList[ind].availQty)){
+    //     this.formTyreArray.controls[ind].get("itemQty")?.setValue("");
+    //     this.toastrService.warning("Issue Qty should not be more than stock Qty");
+    //     return;
+    //   }
+    // }
     this.CalTotal();
   }
 
@@ -837,8 +843,14 @@ export class VehiclerepmaintaddComponent {
         return;
       }
     }
-    if (selectedDataValue.creditAc.dataId){
-      //ignore
+    if (selectedDataValue.creditAc){
+      if(selectedDataValue.creditAc.dataId){
+        //ignore
+      } 
+      else{
+        this.toastrService.warning("Invalid Credit Ac");
+        return;
+      }
     }
     else{
       this.toastrService.warning("Invalid Credit Ac");
@@ -846,7 +858,13 @@ export class VehiclerepmaintaddComponent {
     }
 
     if (selectedDataValue.vehicleMasterId.dataId) {
-      //ignore
+      if(selectedDataValue.vehicleMasterId.dataId){
+        //ignore
+      } 
+      else{
+        this.toastrService.warning("Invalid Vehicle");
+        return;
+      }
     }
     else{
       this.toastrService.warning("Invalid Vehicle");
@@ -881,7 +899,8 @@ export class VehiclerepmaintaddComponent {
     
     this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
     this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
-    this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
+    this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType;
+    this.vehiclerepmaintMaster.godownId = selectedDataValue.godownId;    
     this.vehiclerepmaintMaster.maintID= selectedDataValue.maintID;
     this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
     this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading.toString();

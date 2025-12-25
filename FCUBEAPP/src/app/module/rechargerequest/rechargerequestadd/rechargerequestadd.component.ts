@@ -126,6 +126,7 @@ export class RechargerequestaddComponent {
     this.getFleetCardList();
     this.getVehicleNoList();
     this.formRequestRecharge.controls['reqBranch'].disable(); 
+    this.formRequestRecharge.controls['reqCard'].disable();     
 
     this.selectedRechargerequestmodel = this.rechargerequestService.setRechargeRequestDetails();
     if (this.selectedRechargerequestmodel.reqId  != '') {
@@ -134,10 +135,9 @@ export class RechargerequestaddComponent {
         this.attachPath = Constants.UploadFolderPath + 'RechargeRequest/' + this.selectedRechargerequestmodel.attachPath;
         this.formRequestRecharge.patchValue({        
           reqDate: this.commonService.formatDate(this.selectedRechargerequestmodel.reqDate.toString()),
-                    reqCard: this.fleetCardList.find(e => e.dataId == this.selectedRechargerequestmodel.reqCard),
-
+          reqCard: this.fleetCardList.find(e => e.dataId == this.selectedRechargerequestmodel.reqCard),
           vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedRechargerequestmodel.vehicleMasterId),
-        })  
+        }); 
         this.editMode =true;
       }, 2000);  
     } 
@@ -162,14 +162,20 @@ export class RechargerequestaddComponent {
       this.vehicleList = res;
     });
   }
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
+    
+  selectEvent(item: any) {
+    this.requestmodel.strRequest = item.dataName;
+    this.rechargerequestService.getVehiBpclCardDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (res.status) {
+        this.formRequestRecharge.patchValue({        
+          reqCard: this.fleetCardList.find(e => e.dataId == res.message),
+        });  
+        this.formRequestRecharge.controls["vehicleMasterId"].disable();
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
+    });
   }
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
@@ -179,6 +185,29 @@ export class RechargerequestaddComponent {
   endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
     return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
   };
+
+  RechargeRequestDelete(): void {    
+    if(this.selectedRechargerequestmodel.reqId != '' ){
+      this.requestmodel.strRequest =this.selectedRechargerequestmodel.reqId
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.rechargerequestService.RechargeRequestDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formRequestRecharge.reset();
+            this.route.navigate(['/FleetCardRechargeReq']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+        });
+      }
+    }
+  }
+  
+  exit(): void {
+    this.route.navigate(['/FleetCardRechargeReq']);
+  } 
 
   rechargeRequestSave(): void {    
     if (this.formRequestRecharge.invalid) {
@@ -219,30 +248,6 @@ export class RechargerequestaddComponent {
     });
     this.sharedService.loading = false;
   }
-
-  exit(): void {
-    this.route.navigate(['/FleetCardRechargeReq']);
-  } 
-
-  RechargeRequestDelete(): void {
-    
-    if(this.selectedRechargerequestmodel.reqId != '' ){
-     this.requestmodel.strRequest =this.selectedRechargerequestmodel.reqId
-      if (confirm("Are you sure, you want to delete this?")) {
-            this.rechargerequestService.RechargeRequestDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formRequestRecharge.reset();
-              this.route.navigate(['/FleetCardRechargeReq']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-              this.route.navigate(['/FleetCardRechargeReq']);
-            }
-        });
-      }
-    }
-  }
+  
 
 }

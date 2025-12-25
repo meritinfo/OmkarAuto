@@ -3,6 +3,7 @@ export class VehiclerepmaintMaster  {
     vrmTransId : string = ""; 
     transDate : string = ""; 
     stockType : string = ""; 
+    godownId: string = ""; 
     maintID : string = ""; 
     maintType : string = ""; 
     vehicleMasterId : string = ""; 
