@@ -40,6 +40,10 @@ namespace FleetMasters.Business
         {
             return await fleetCardMasterRepository.CheckDuplicateCardCode(request);
         }
+        public async Task<ResponseModel> CheckVehicleCardLinked(RequestModel request)
+        {
+            return await fleetCardMasterRepository.CheckVehicleCardLinked(request);
+        }
 
 
     }

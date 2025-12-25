@@ -73,10 +73,28 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="basicpill-phoneno-input">Vehicle No</label>
-                                            <input type="text" class="form-control" uppercaseonly
-                                            formControlName="vehicleNo">
-                                            
+                                            <label for="basicpill-phoneno-input">Vehicle No</label><span style="color:red">*</span>
+                                            <!-- <input type="text" class="form-control" uppercaseonly
+                                            formControlName="vehicleNo">                                             -->
+                                             <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vehicleList"
+                                                    [searchKeyword]="keywordLocation"  
+                                                    formControlName="vehicleNo"  
+                                                    (selected)='selectEvent($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="endWithFilter"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

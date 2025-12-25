@@ -42,4 +42,7 @@ export class FleetCardMasterService {
   fleetCardMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/FleetCardMasterDelete', req, this.httpOptions);
   }
+  checkVehicleCardLinked(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckVehicleCardLinked', req, this.httpOptions);
+  }
 }

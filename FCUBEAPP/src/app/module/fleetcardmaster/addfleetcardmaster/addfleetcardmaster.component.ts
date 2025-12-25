@@ -24,6 +24,7 @@ export class AddfleetcardmasterComponent {
   responseDetails = new Responsemodel();
   cardDetails = new Requestmodel();
   ledgerAcList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
   editMode = false;
   createmode  = true;
   createStatus = false;
@@ -31,6 +32,7 @@ export class AddfleetcardmasterComponent {
   deleteStatus = false;
   viewStatus = false; 
   dashboard: string ="";
+  keywordLocation = 'dataName';
 
 
   selectedFleetCardMasterDetails = new Fleetcardmastermodel();
@@ -41,152 +43,182 @@ export class AddfleetcardmasterComponent {
     private sharedService: SharedService) {
     this.fleetcardMasterModel = new Fleetcardmastermodel();
   }
-ngOnInit(): void {
+  ngOnInit(): void {
   
-  this.sharedService.loading = true;
-  this.editMode = false;
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Fleet Card Master"));
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    this.sharedService.loading = true;
+    this.editMode = false;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Fleet Card Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
+    
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    this.getCardledgerAcList();
+    this.getVehicleIdList();
+
+    this.selectedFleetCardMasterDetails = this.fleetcardmasterService.getFleetCardMasterDetails();
+    this.formUser = this.formBuilder.group({
+      cardType: new FormControl('',[Validators.required]),
+      cardCode: new FormControl('',[Validators.required]),
+      cardNo: new FormControl('',[Validators.required]),
+      cardPin: new FormControl('',[Validators.required]),
+      cardLedgerAc: new FormControl('',),
+      vehicleNo: new FormControl('',),
+      driverName: new FormControl('',),
+      driverLicNo: new FormControl('',),
+      mobileNo: new FormControl('',[Validators.required]),
+      isActive: new FormControl('',),
+    });
   
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-  this.getCardledgerAcList();
-
-  this.selectedFleetCardMasterDetails = this.fleetcardmasterService.getFleetCardMasterDetails();
-  this.formUser = this.formBuilder.group({
-    cardType: new FormControl('',[Validators.required]),
-    cardCode: new FormControl('',[Validators.required]),
-    cardNo: new FormControl('',[Validators.required]),
-    cardPin: new FormControl('',[Validators.required]),
-    cardLedgerAc: new FormControl('',),
-    vehicleNo: new FormControl('',),
-    driverName: new FormControl('',),
-    driverLicNo: new FormControl('',),
-    mobileNo: new FormControl('',[Validators.required]),
-    isActive: new FormControl('',),
-
-  });
- 
-  if (this.selectedFleetCardMasterDetails.cardId != '') {
-    this.formUser.patchValue(this.selectedFleetCardMasterDetails);
-    this.formUser.patchValue({
-     
-      
-    })
+    if (this.selectedFleetCardMasterDetails.cardId != '') {
+      setTimeout(() => {
+        this.formUser.patchValue(this.selectedFleetCardMasterDetails);
+        this.formUser.patchValue({
+          vehicleNo: this.vehicleList.find(e => e.dataName == this.selectedFleetCardMasterDetails.vehicleNo),  
+        })
+      }, 1000);     
       this.editMode = true;
       this.sharedService.loading = false;
+    }
+    this.sharedService.loading = false;
   }
-  this.sharedService.loading = false;
+    
+  get f() { return this.formUser.controls; }
 
+  getCardledgerAcList(): void {
+    this.commonService.getCardledgerAcList().subscribe((res) => {
+      this.ledgerAcList = res;
+    });
+  }  
+    
+  getVehicleIdList(): void {
+    this.commonService.getVehicleIdList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+  
+  selectEvent(item: any) {
+    this.requestmodel.strRequest = item.dataName;
+    this.requestmodel.strRequest1 = this.selectedFleetCardMasterDetails.cardId;
+    this.fleetcardmasterService.checkVehicleCardLinked(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (res.status) {
+        //ignore
+      }
+      else {
+        this.formUser.patchValue({        
+          vehicleNo: "",
+        });  
+        this.toastrService.warning(res.message);
+      }
+    });
+  }
+  
+  endWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().includes(query.toLowerCase()));
+  };
 
-}
-get f() { return this.formUser.controls; }
+  checkDuplicateCardCode() {
+    this.cardDetails.strRequest = this.formUser.value.cardCode;
+    this.commonService.checkDuplicateCardCode(this.cardDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (!this.responseDetails.status) {
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          cardCode: ''
+        });
+      }
+    });
+  }
 
-getCardledgerAcList(): void {
-  this.commonService.getCardledgerAcList().subscribe((res) => {
-    this.ledgerAcList = res;
-  });
-}
-checkDuplicateCardCode() {
-  this.cardDetails.strRequest = this.formUser.value.cardCode;
-  this.commonService.checkDuplicateCardCode(this.cardDetails).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    if (!this.responseDetails.status) {
-      this.toastrService.warning(this.responseDetails.message);
-      this.formUser.patchValue({
-        cardCode: ''
-      });
-    }
-  });
+  checkDuplicateCardNo() {
+    this.cardDetails.strRequest = this.formUser.value.cardNo;
+    this.commonService.checkDuplicateCardNo(this.cardDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (!this.responseDetails.status) {
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          cardNo: ''
+        });
+      }
+    });
+  }
 
-
-}
-checkDuplicateCardNo() {
-  this.cardDetails.strRequest = this.formUser.value.cardNo;
-  this.commonService.checkDuplicateCardNo(this.cardDetails).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    if (!this.responseDetails.status) {
-      this.toastrService.warning(this.responseDetails.message);
-      this.formUser.patchValue({
-        cardNo: ''
-      });
-    }
-  });
-
-}
-fleetCardMasterDelete(): void {
-  if(this.selectedFleetCardMasterDetails.cardId!= '' ){
-   this.requestmodel.strRequest =this.selectedFleetCardMasterDetails.cardId
-    if (confirm("Are you sure, you want to delete this?")) {
-          this.fleetcardmasterService.fleetCardMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+  fleetCardMasterDelete(): void {
+    if(this.selectedFleetCardMasterDetails.cardId!= '' ){
+    this.requestmodel.strRequest =this.selectedFleetCardMasterDetails.cardId
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.fleetcardmasterService.fleetCardMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formUser.reset();
-          window.location.reload();
-      });
+          if (this.responseDetails.status) {
+            this.toastrService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/fleetcardmasterlist']);
+          }
+          else {
+            this.toastrService.warning(this.responseDetails.message);
+          }
+        });
+      }
     }
   }
-}
-exit(): void {
-  this.route.navigate(['/fleetcardmasterlist']);
-}
-
-//Submit user form details //
-submitFleetCardMasterForm(): void {
-if (this.formUser.invalid) {
-  this.toastrService.warning("Please enter mandatory fields");
-
-  const controls = this.formUser.controls;
-  for (const name in controls) {
-    if (controls[name].invalid) {
-      // Convert camelCase key to readable format
-      const readableName = name.replace(/([A-Z])/g, ' $1');
-      const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
-      this.toastrService.warning(titleCaseName + " field is invalid");
-    }
+  exit(): void {
+    this.route.navigate(['/fleetcardmasterlist']);
   }
 
-  return;
-}
+  //Submit user form details //
+  submitFleetCardMasterForm(): void {
+    if (this.formUser.invalid) {
+      this.toastrService.warning("Please enter mandatory fields");
+
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          // Convert camelCase key to readable format
+          const readableName = name.replace(/([A-Z])/g, ' $1');
+          const titleCaseName = readableName.charAt(0).toUpperCase() + readableName.slice(1);
+          this.toastrService.warning(titleCaseName + " field is invalid");
+        }
+      }
+
+      return;
+    }
 
             
-  this.formSubmitted = true;
-  this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId;
-  var selectedDataValue = this.formUser.getRawValue();
-  this.fleetcardMasterModel.cardType= selectedDataValue.cardType;
-  this.fleetcardMasterModel.cardCode = selectedDataValue.cardCode;
-  this.fleetcardMasterModel.cardNo = selectedDataValue.cardNo;
-  this.fleetcardMasterModel.cardPin = selectedDataValue.cardPin.toString().toUpperCase();
-  this.fleetcardMasterModel.cardLedgerAc = selectedDataValue.cardLedgerAc;
-  this.fleetcardMasterModel.vehicleNo = selectedDataValue.vehicleNo.toString().toUpperCase();
-  this.fleetcardMasterModel.driverName = selectedDataValue.driverName.toString().toUpperCase();;
-  this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
-  this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
-  this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
-  this.fleetcardMasterModel.loggedInUser = this.loggedInUserID;
-  this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
-
-    this.responseDetails = res;
+    this.formSubmitted = true;
+    this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId;
+    var selectedDataValue = this.formUser.getRawValue();
+    this.fleetcardMasterModel.cardType= selectedDataValue.cardType;
+    this.fleetcardMasterModel.cardCode = selectedDataValue.cardCode;
+    this.fleetcardMasterModel.cardNo = selectedDataValue.cardNo;
+    this.fleetcardMasterModel.cardPin = selectedDataValue.cardPin.toString().toUpperCase();
+    this.fleetcardMasterModel.cardLedgerAc = selectedDataValue.cardLedgerAc;
+    this.fleetcardMasterModel.vehicleNo = selectedDataValue.vehicleNo.toString().toUpperCase();
+    this.fleetcardMasterModel.driverName = selectedDataValue.driverName.toString().toUpperCase();;
+    this.fleetcardMasterModel.driverLicNo = selectedDataValue.driverLicNo.toString().toUpperCase();;
+    this.fleetcardMasterModel.mobileNo = selectedDataValue.mobileNo;
+    this.fleetcardMasterModel.isActive = selectedDataValue.isActive;
+    this.fleetcardMasterModel.loggedInUser = this.loggedInUserID;
+    this.fleetcardmasterService.fleetCardMasterDetailsSubmitted(this.fleetcardMasterModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();

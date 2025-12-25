@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Options;
-using SqlHelper.Models;
+﻿using Consignment.Business;
 using FleetMasters.Business;
 using FleetMasters.Models;
-using Shared.Models;
 using FleetTrans;
 using FleetTrans.Business;
-using Consignment.Business;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Ocsp;
+using Shared.Models;
+using SqlHelper.Models;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1016,6 +1017,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CheckDuplicateCardNo")]
         public async Task<IActionResult> CheckDuplicateCardNo(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetCardMasterBusiness.CheckDuplicateCardNo(request);
@@ -1031,6 +1036,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CheckDuplicateCardCode")]
         public async Task<IActionResult> CheckDuplicateCardCode(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetCardMasterBusiness.CheckDuplicateCardCode(request);
@@ -1043,11 +1052,33 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("CheckVehicleCardLinked")]
+        public async Task<IActionResult> CheckVehicleCardLinked(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetCardMasterBusiness.CheckVehicleCardLinked(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("GetBrandMasterList")]
         public async Task<IActionResult> GetBrandMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await brandMasterBusiness.GetBrandMasterList(request);
@@ -1118,6 +1149,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFleetCardMasterList")]
         public async Task<IActionResult> GetFleetCardMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetCardMasterBusiness.GetFleetCardMasterList(request);
@@ -1148,6 +1183,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetTyrePositionMasterList")]
         public async Task<IActionResult> GetTyrePositionMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyrePositionMasterBusiness.GetTyrePositionMasterList(request);
@@ -1163,6 +1202,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetVehicleTypeMasterList")]
         public async Task<IActionResult> GetVehicleTypeMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await vehicleTypeMasterBusiness.GetVehicleTypeMasterList(request);
@@ -1177,6 +1220,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetVehicleFltMasterList")]
         public async Task<IActionResult> GetVehicleFltMasterList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await vehicleFltMasterBusiness.GetVehicleFltMasterList(request);
@@ -1281,6 +1328,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetSparesLubesMasterList")]
         public async Task<IActionResult> GetSparesLubesMasterList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await sparesLubesMasterBusiness.GetSparesLubesMasterList(request);
@@ -1313,6 +1364,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetSparesLubesInnerGridList")]
         public async Task<IActionResult> GetSparesLubesInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await sparesLubesMasterBusiness.GetSparesLubesInnerGridList(request);
@@ -1364,6 +1419,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetTyreModelMasterList")]
         public async Task<IActionResult> GetTyreModelMasterList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreModelBusiness.GetTyreModelMasterList(request);
@@ -1432,6 +1491,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetMaintanenceMasterList")]
         public async Task<IActionResult> GetMaintanenceMasterList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await maintanenceMasterBusiness.GetMaintanenceMasterList(request);
@@ -1482,6 +1545,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetTripExpTypeMasterList")]
         public async Task<IActionResult> GetTripExpTypeMasterList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripExpTypeBusiness.GetTripExpTypeMasterList(request);
@@ -1791,6 +1858,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetVehicleFltGroupMstList")]
         public async Task<IActionResult> GetVehicleFltGroupMstList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await vehicleFltTypeGroupMstBusiness.GetVehicleFltGroupMstList(request);
@@ -1860,6 +1931,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetFleetGodownMaserList")]
         public async Task<IActionResult> GetFleetGodownMaserList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetGodownMasterBusiness.GetFleetGodownMaserList(request);
@@ -1912,6 +1987,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CheckDuplicateGodownShortCode")]
         public async Task<IActionResult> CheckDuplicateGodownShortCode(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetGodownMasterBusiness.CheckDuplicateGodownShortCode(request);
@@ -1927,6 +2006,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("CheckDuplicateGodownDesc")]
         public async Task<IActionResult> CheckDuplicateGodownDesc(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await fleetGodownMasterBusiness.CheckDuplicateGodownDesc(request);
