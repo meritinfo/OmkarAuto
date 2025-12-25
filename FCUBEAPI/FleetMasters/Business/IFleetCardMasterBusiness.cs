@@ -11,5 +11,6 @@ namespace FleetMasters.Business
         Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateCardNo(RequestModel request);
         Task<ResponseModel> CheckDuplicateCardCode(RequestModel request);
+        Task<ResponseModel> CheckVehicleCardLinked(RequestModel request);
     }
 }

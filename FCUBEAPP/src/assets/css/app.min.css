@@ -5915,6 +5915,12 @@ background-color: #fbff00 !important
 .half-width tr td {
     width: 175px;
 }
+.full-m-width{
+    width: 1800px !important;
+}
+.full-m-width tr td {
+    width: 175px;
+}
 
 .mini-width{
     width: 1100px !important;

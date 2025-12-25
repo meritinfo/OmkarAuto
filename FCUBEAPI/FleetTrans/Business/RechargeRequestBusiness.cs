@@ -46,6 +46,10 @@ namespace FleetTrans.Business
         {
             return await rechargeRequestRepository.GetBpclBalanceAmount(request);
         }
+        public async Task<ResponseModel> GetVehiBpclCardDetails(RequestModel requestModel)
+        {
+            return await rechargeRequestRepository.GetVehiBpclCardDetails(requestModel);
+        }
 
     }
 }

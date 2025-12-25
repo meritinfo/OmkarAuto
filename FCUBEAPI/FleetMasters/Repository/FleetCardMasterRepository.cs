@@ -101,6 +101,36 @@ namespace FleetMasters.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }        
+        public async Task<ResponseModel> CheckVehicleCardLinked(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleNo", request.strRequest),
+                            new SqlParameter("@CardId", request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckVehicleCardLinked", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> CheckDuplicateCardNo(RequestModel request)
         {
@@ -130,16 +160,6 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
         }
@@ -169,16 +189,7 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return responseModel;
         }
@@ -208,16 +219,7 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return cardAcList;
         }
@@ -248,7 +250,6 @@ namespace FleetMasters.Repository
                             {
                                 CardId = Convert.ToString(dataSet.Tables[0].Rows[i]["CardId"]),
                                 CardType = Convert.ToString(dataSet.Tables[0].Rows[i]["CardType"]),
-
                                 CardCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CardCode"]),
                                 CardNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CardNo"]),
                                 CardPin = Convert.ToString(dataSet.Tables[0].Rows[i]["CardPin"]),
@@ -258,9 +259,6 @@ namespace FleetMasters.Repository
                                 DriverLicNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverLicNo"]),
                                 MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
-
-
-
                             });
                         }
 
@@ -276,16 +274,7 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return fleetCardMasterList;
         }

@@ -100,92 +100,96 @@
                                         </div>
                                     </div>     
                                 </div>
-                                <div class="row" >
-                                    <div class="col-lg-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                                    <tr>
-                                                        <th colspan="3">
-                                                            <input type="checkbox"  name="select" *ngIf="showGrid" 
-                                                                    class="form-check-input"
-                                                                    (change)="selectAll($event)" formControlName="selectedAll">  
-                                                                    <label for="formrow-inputCity" *ngIf="showGrid" >SELECT ALL</label>
-                                                        </th>
-                                                        <th colspan="3">
-                                                            <label for="formrow-inputCity" *ngIf="showGrid" >Balance Amt: <span style="color: Red;">{{balanceAmt}}</span> </label>
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Req Date</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Vehicle No</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Card No</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Req Amt</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Req Remarks</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">Approved Amount</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">App/Rej</label></th>
-                                                        <th class="col-lg-2"><label for="formrow-inputZip">App Rej Remarks</label></th>
-                                                    </tr>
-                                                    <tr  formArrayName="arrayList" *ngFor="let arrayData of formArray.controls; let i = index"  >
-                                                        <div [formGroupName]="i"   class="grid-table" *ngIf="showGrid"> 
-                                                            <td>
-                                                                <div class="mb-3">
-                                                                    <input type="checkbox"  name="select" 
-                                                                        class="form-check-input"
-                                                                        (change)="selectedData(i, $event)" formControlName="selected">
-                                                                </div>
-                                                            </td>                                            
-                                                            <td  > 
-                                                                <div class="mb-3">
-                                                                    <input class="form-control" formControlName="reqDate" >
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="mb-3">
-                                                                    <input class="form-control" formControlName="vehicleNo" uppercaseonly>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="mb-3">
-                                                                    <input class="form-control" formControlName="cardNo" >
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="mb-3">
-                                                                    <input class="form-control" formControlName="reqAmt" >
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="mb-3">
-                                                                    <input class="form-control" formControlName="remarks" uppercaseonly>
-                                                                </div>
-                                                            </td>
-                                                            <td >
-                                                                <div class="mb-3">       
-                                                                    <input class="form-control" style="width: 100px;" 
-                                                                        formControlName="approvedAmt" decimalonly>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="mb-3">                        
-                                                                    <select  class="form-control form-select ng-pristine ng-touched" 
-                                                                        style="width:100px;"
-                                                                        formControlName="approvedYN" >
-                                                                        <option value="Y">Approve</option>
-                                                                        <option value="N">Reject</option>
-                                                                    </select>
-                                                                </div>
-                                                            </td>
-                                                            <td >
-                                                                <div class="mb-3">       
-                                                                    <input class="form-control" style="width: 150px;" 
-                                                                    formControlName="appRejRemarks" uppercaseonly>
-                                                                </div>
-                                                            </td>
-                                                        </div>
-                                                    </tr>
-                                                </table>                                             
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="overflow-x">
+                                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mini-width">
+                                                        <tr>
+                                                            <th colspan="3">
+                                                                <input type="checkbox"  name="select" *ngIf="showGrid" 
+                                                                        class="form-check-input" style="border: 1px; border-style: double;"
+                                                                        (change)="selectAll($event)" formControlName="selectedAll">  
+                                                                        <label for="formrow-inputCity" *ngIf="showGrid" >SELECT ALL</label>
+                                                            </th>
+                                                            <th colspan="3">
+                                                                <label for="formrow-inputCity" *ngIf="showGrid" >Balance Amt: <span style="color: Red;">{{balanceAmt}}</span> </label>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th><label for="formrow-inputZip">Req Date</label></th>
+                                                            <th><label for="formrow-inputZip">Vehicle No</label></th>
+                                                            <th><label for="formrow-inputZip">Card No</label></th>
+                                                            <th><label for="formrow-inputZip">Req Amt</label></th>
+                                                            <th><label for="formrow-inputZip">Req Remarks</label></th>
+                                                            <th><label for="formrow-inputZip">Approved Amount</label></th>
+                                                            <th><label for="formrow-inputZip">App/Rej</label></th>
+                                                            <th><label for="formrow-inputZip">App Rej Remarks</label></th>
+                                                        </tr>
+                                                        <tr  formArrayName="arrayList" *ngFor="let arrayData of formArray.controls; let i = index"  >
+                                                            <div [formGroupName]="i"   class="grid-table" *ngIf="showGrid"> 
+                                                                <td style="width: 5px;">
+                                                                    <div class="mb-3">
+                                                                        <input type="checkbox"  name="select" 
+                                                                            class="form-check-input"
+                                                                            (change)="selectedData(i, $event)" formControlName="selected">
+                                                                    </div>
+                                                                </td>                                            
+                                                                <td  > 
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" formControlName="reqDate" >
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" formControlName="vehicleNo" uppercaseonly>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" formControlName="cardNo" >
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" formControlName="reqAmt" >
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mb-3">
+                                                                        <input class="form-control" formControlName="remarks" uppercaseonly>
+                                                                    </div>
+                                                                </td>
+                                                                <td >
+                                                                    <div class="mb-3">       
+                                                                        <input class="form-control" style="width: 100px;" 
+                                                                            formControlName="approvedAmt" decimalonly>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mb-3">                        
+                                                                        <select  class="form-control form-select ng-pristine ng-touched" 
+                                                                            style="width:100px;"
+                                                                            formControlName="approvedYN" >
+                                                                            <option value="Y">Approve</option>
+                                                                            <option value="N">Reject</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                                <td >
+                                                                    <div class="mb-3">       
+                                                                        <input class="form-control" style="width: 150px;" 
+                                                                        formControlName="appRejRemarks" uppercaseonly>
+                                                                    </div>
+                                                                </td>
+                                                            </div>
+                                                        </tr>
+                                                    </table>                                              
+                                                    </div>                                                    
+                                                </div>                                           
                                             </div>
                                         </div>
                                     </div>

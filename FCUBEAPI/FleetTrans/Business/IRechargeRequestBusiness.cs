@@ -17,5 +17,6 @@ namespace FleetTrans.Business
         Task<RechargeRequestList> GetRechargeRequestApproveList(ReportRequestModel request);
         Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel);
         Task<ResponseModel> GetBpclBalanceAmount(ReportRequestModel request);
+        Task<ResponseModel> GetVehiBpclCardDetails(RequestModel requestModel);
     }
 }

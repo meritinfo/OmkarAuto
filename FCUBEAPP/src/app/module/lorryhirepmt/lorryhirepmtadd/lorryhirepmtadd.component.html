@@ -301,7 +301,7 @@
                                                         formControlName="benId"
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="endWithFilter">
+                                                        [customFilter]="startWithFilter">
                                                     </ng-autocomplete>
                                                     <ng-template #itemTemplate let-item>
                                                         <a [innerHTML]="item.dataName"></a>

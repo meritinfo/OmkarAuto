@@ -426,6 +426,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        
         public async Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -461,6 +462,35 @@ namespace FleetTrans.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetVehiBpclCardDetails(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleNo", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehiBpclCardDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);                       
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
             }
             return responseModel;
         }
