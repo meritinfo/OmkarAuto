@@ -324,7 +324,7 @@ export class LorryhirepmtaddComponent {
           this.formArray.controls[i].get("tdsAmt")?.disable();
         }
         if(this.selectedLorryhiremaster.pmtType=='T'){     
-          this.formArray.controls[i].get("abType")?.disable();
+          //this.formArray.controls[i].get("abType")?.disable();
           this.formArray.controls[i].get("benId")?.enable();  
         }
       }     
@@ -478,7 +478,7 @@ export class LorryhirepmtaddComponent {
 
       if(selectedDataVal.pmtType=='T'){        
         this.formArray.controls[i+1].get("abType")?.setValue("F");
-        this.formArray.controls[i+1].get("abType")?.disable();
+        //this.formArray.controls[i+1].get("abType")?.disable();
         this.formArray.controls[i+1].get("benId")?.enable();
       }
       

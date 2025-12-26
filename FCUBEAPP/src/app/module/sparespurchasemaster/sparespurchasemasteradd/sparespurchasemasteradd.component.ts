@@ -596,35 +596,32 @@ export class SparespurchasemasteraddComponent {
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
       itemRate = selectedDate.arrayList[i].itemRate!=""?parseFloat(selectedDate.arrayList[i].itemRate ): 0;
       itemQty = selectedDate.arrayList[i].itemQty!=""?parseFloat(selectedDate.arrayList[i].itemQty ): 0;
-
-      if (itemRate>0) {
-        itemAmount= itemQty * itemRate;
-        this.formTyreArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+      itemAmount= itemQty * itemRate;
+      this.formTyreArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
       
-        totalItemAmt = totalItemAmt+itemAmount;
-        if(selectedDate.arrayList[i].sgstPct!="") {
-          sgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].sgstPct)/100;
-          totalSgstAmt = totalSgstAmt + sgstAmt;
-          netAmount = netAmount + sgstAmt;
-          this.formTyreArray.controls[i].get("sgstAmt")?.setValue(sgstAmt.toFixed(2));
-        }
-        if(selectedDate.arrayList[i].cgstPct!="") {
-          cgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].cgstPct)/100;
-          totalCgstAmt = totalCgstAmt + cgstAmt;
-          netAmount = netAmount + cgstAmt;
-          this.formTyreArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
-        }
-        if(selectedDate.arrayList[i].igstPct!="") {
-          igstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].igstPct)/100;
-          totalIgstAmt = totalIgstAmt + igstAmt;
-          netAmount = netAmount + igstAmt;
-          this.formTyreArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
-        }      
-        netAmount = sgstAmt + cgstAmt+igstAmt+ itemAmount;  
-        this.formTyreArray.controls[i].get("netAmount")?.setValue(netAmount.toFixed(2));
-      
-        totItemNetAmount = totItemNetAmount+ netAmount;
+      totalItemAmt = totalItemAmt+itemAmount;
+      if(selectedDate.arrayList[i].sgstPct!="") {
+        sgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].sgstPct)/100;
+        totalSgstAmt = totalSgstAmt + sgstAmt;
+        netAmount = netAmount + sgstAmt;
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(sgstAmt.toFixed(2));
       }
+      if(selectedDate.arrayList[i].cgstPct!="") {
+        cgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].cgstPct)/100;
+        totalCgstAmt = totalCgstAmt + cgstAmt;
+        netAmount = netAmount + cgstAmt;
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
+      }
+      if(selectedDate.arrayList[i].igstPct!="") {
+        igstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].igstPct)/100;
+        totalIgstAmt = totalIgstAmt + igstAmt;
+        netAmount = netAmount + igstAmt;
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
+      }      
+      netAmount = sgstAmt + cgstAmt+igstAmt+ itemAmount;  
+      this.formTyreArray.controls[i].get("netAmount")?.setValue(netAmount.toFixed(2));
+    
+      totItemNetAmount = totItemNetAmount+ netAmount;
     }  
     netAmount = totItemNetAmount ;
     if(selectedDate.roundOff!="") {
