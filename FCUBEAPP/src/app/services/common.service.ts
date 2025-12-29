@@ -328,6 +328,9 @@ export class CommonService {
   getDashboardCustomer(filter: Reportmodel): Observable<Requestmodel[]> {
     return this.httpClient.post<Requestmodel[]>(Constants.API_ENDPOINT + 'Admin/GetDashboardCustomer', filter, this.httpOptions);
   }   
+  getCustomerProfitLossRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/GetCustomerProfitLossRptExcel', filter, this.httpOptions);
+  }   
   getNccDashBoardDetails(req: Requestmodel): Observable<Dashboardmodel> {
     return this.httpClient.post<Dashboardmodel>(Constants.API_ENDPOINT + 'Admin/GetDashboardNCC', req, this.httpOptions);
   }

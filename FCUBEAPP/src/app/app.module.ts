@@ -564,6 +564,7 @@ import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtb
 import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
 import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
 import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
+import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/customerprofitlossrpt.component';
 
 
 @NgModule({
@@ -754,7 +755,8 @@ import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippay
     DieselstmtbpcladdComponent,
     DashboardcustComponent,
     TrippaymentsbrpladdComponent,
-    TrippaymentsbrpllistComponent
+    TrippaymentsbrpllistComponent,
+    CustomerprofitlossrptComponent
     
   ],
   
