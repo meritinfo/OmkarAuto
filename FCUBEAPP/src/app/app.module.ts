@@ -757,8 +757,7 @@ import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costperve
     DashboardcustComponent,
     TrippaymentsbrpladdComponent,
     TrippaymentsbrpllistComponent,
-    CustomerprofitlossrptComponent
-    TrippaymentsbrpllistComponent,
+    CustomerprofitlossrptComponent,
     CostpervehiclerptComponent
     
   ],
