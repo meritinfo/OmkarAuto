@@ -748,17 +748,12 @@ import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costperve
     RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
     PltransferComponent,
-    FleetgodownmasteraddComponent,
-    FleetgodownmasterlistComponent,
-    GodownstockentryComponent,
+    FleetgodownmasteraddComponent,FleetgodownmasterlistComponent,
+    GodownstockentryComponent,  DashboardcustComponent,
+    DieselstmtbpcllistComponent,  DieselstmtbpcladdComponent,
     DashboardcustComponent,
-    DieselstmtbpcllistComponent,
-    DieselstmtbpcladdComponent,
-    DashboardcustComponent,
-    TrippaymentsbrpladdComponent,
-    TrippaymentsbrpllistComponent,
-    CustomerprofitlossrptComponent,
-    CostpervehiclerptComponent
+    TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
+    CustomerprofitlossrptComponent, CostpervehiclerptComponent
     
   ],
   
