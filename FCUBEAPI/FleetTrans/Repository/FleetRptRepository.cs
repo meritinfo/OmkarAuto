@@ -3935,6 +3935,45 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> GetCostPerVehicleRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@FromDate"       ,    request.FromDate),
+                            new SqlParameter("@ToDate"         ,    request.ToDate),
+                            new SqlParameter("@Branch"         ,    request.FilterStr),
+                            new SqlParameter("@BrokerId"       ,    request.FilterStr1),
+                            new SqlParameter("@YearId"         ,    request.FilterStr2),
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCostPerVehicleRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+
+                        var filter = "Cost Per Vehicle Date : " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
+
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Cost Per Vehicle Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
     }
 
 }

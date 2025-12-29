@@ -67,5 +67,7 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetVehiclePLStatementRptExcel(ReportRequestModel request);
 
         Task<ResponseModel> GetVehicleLastTransDateRptExcel(ReportRequestModel request);
+
+        Task<ResponseModel> GetCostPerVehicleRptExcel(ReportRequestModel request);
     }
 }

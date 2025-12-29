@@ -4513,6 +4513,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetCostPerVehicleRptExcel")]
+        public async Task<IActionResult> GetCostPerVehicleRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetRptBusiness.GetCostPerVehicleRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

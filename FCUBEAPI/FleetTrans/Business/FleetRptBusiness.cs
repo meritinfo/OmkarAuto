@@ -245,6 +245,9 @@ namespace FleetTrans.Business
         {
             return await fleetRptRepository.GetVehicleLastTransDateRptExcel(request);
         }
-
+        public async Task<ResponseModel> GetCostPerVehicleRptExcel(ReportRequestModel request)
+        {
+            return await fleetRptRepository.GetCostPerVehicleRptExcel(request);
+        }
     }
 }
