@@ -273,6 +273,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCustomerProfitLossRptExcel")]
+        public async Task<IActionResult> GetCustomerProfitLossRptExcel(ReportRequestModel report)
+        {
+            if (report == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.GetCustomerProfitLossRptExcel(report);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetDashboardNCC")]
         public async Task<IActionResult> GetDashboardNCC(RequestModel request)

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
@@ -7,12 +7,17 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-dashboardcust',
-  templateUrl: './dashboardcust.component.html',
-  styleUrls: ['./dashboardcust.component.css']
+  selector: 'app-customerprofitlossrpt',
+  templateUrl: './customerprofitlossrpt.component.html',
+  styleUrls: ['./customerprofitlossrpt.component.css']
 })
+export class CustomerprofitlossrptComponent {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  dashboard: string =""; 
 
-export class DashboardcustComponent implements OnInit {
   custTopAdmin: Requestmodel[] = [];
   custTopInt: Requestmodel[] = [];
   custBottomAdmin: Requestmodel[] = [];
@@ -33,16 +38,29 @@ export class DashboardcustComponent implements OnInit {
   }
 
   selectedUserID: string = '';
-  dashboard: string = '';
   year: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
-  constructor(private route: Router, private formBuilder: FormBuilder,
+  constructor(private route: Router, private formBuilder: FormBuilder, 
     private commonService: CommonService, private toasterService: ToastrService
   ) {
   }
 
   ngOnInit(): void {    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);      
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "Customer Profit/Loss");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
@@ -61,26 +79,16 @@ export class DashboardcustComponent implements OnInit {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
 
     this.formUser = this.formBuilder.group({
-      pageSize: new FormControl('5',[Validators.required]),
       turnover: new FormControl('10000',[Validators.required]),
       adminInt: new FormControl('5',[Validators.required]),
       dayAfterInt:new FormControl('30',[Validators.required]),
       interest:new FormControl('18',[Validators.required]),
-    });   
-    
-    this.getDashboardCustomer();
+    });       
   }  
 
   get f() { return this.formUser.controls; }
-
 
   getDashboardCustomer(): void {
     if (this.formUser.invalid) {
@@ -94,51 +102,22 @@ export class DashboardcustComponent implements OnInit {
       return;
     }
     var selectedData = this.formUser.getRawValue();
-    this.filter.pageNumber = 1;
-    this.filter.pageSize = parseInt(selectedData.pageSize);
     this.filter.search = selectedData.turnover;
     this.filter.filterStr = selectedData.adminInt;
     this.filter.filterStr1 = selectedData.dayAfterInt;
     this.filter.filterStr2 = selectedData.interest;
     this.filter.filterStr3 = this.year;
-    
-    this.getDashboardTopAdminCustomer();
-    this.getDashboardBottomAdminCustomer();   
-    this.getDashboardTopIntCustomer();
-    this.getDashboardBottomIntCustomer();    
 
-  }
-
-  getDashboardTopAdminCustomer(){
-    this.filter.sortColumn = "GrossPct";
-    this.filter.sortOrder = "desc";
-   
-    this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
-      this.custTopAdmin = res;
-    }); 
-  }
-  getDashboardBottomAdminCustomer(){
-    this.filter.sortColumn = "GrossPct";
-    this.filter.sortOrder = "asc";
-   
-    this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
-      this.custBottomAdmin = res;
-    }); 
-  }
-  getDashboardTopIntCustomer(){
-    this.filter.sortColumn = "NetPct";
-    this.filter.sortOrder = "desc";
-   
-    this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
-      this.custTopInt = res;
-    });    
-  }  
-  getDashboardBottomIntCustomer(){
-    this.filter.sortColumn = "NetPct";
-    this.filter.sortOrder = "asc";
-   
-    this.commonService.getDashboardCustomer(this.filter).subscribe((res) => {
-      this.custBottomInt = res;
-    });    
+    this.commonService.getCustomerProfitLossRptExcel(this.filter).subscribe(resp => {      
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "Customer" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
   }
 }

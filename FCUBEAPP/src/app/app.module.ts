@@ -564,6 +564,7 @@ import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtb
 import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
 import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaymentsbrpladd/trippaymentsbrpladd.component';
 import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
+import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/customerprofitlossrpt.component';
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
 
 
@@ -755,6 +756,8 @@ import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costperve
     DieselstmtbpcladdComponent,
     DashboardcustComponent,
     TrippaymentsbrpladdComponent,
+    TrippaymentsbrpllistComponent,
+    CustomerprofitlossrptComponent
     TrippaymentsbrpllistComponent,
     CostpervehiclerptComponent
     

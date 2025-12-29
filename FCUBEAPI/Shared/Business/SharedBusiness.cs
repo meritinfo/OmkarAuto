@@ -168,6 +168,10 @@ namespace Shared.Business
         {
             return await sharedRepository.GetDashboardCustomer(report);
         }
+        public async Task<ResponseModel> GetCustomerProfitLossRptExcel(ReportRequestModel report)
+        {
+            return await sharedRepository.GetCustomerProfitLossRptExcel(report);
+        }
         public async Task<ResponseModel> GetDashboardDetail(RequestModel request)
         {
             return await sharedRepository.GetDashboardDetail(request);

@@ -368,8 +368,8 @@ import { TrippaymentsbrpladdComponent } from './module/trippaymentsbrpl/trippaym
 import { TrippaymentsbrpllistComponent } from './module/trippaymentsbrpl/trippaymentsbrpllist/trippaymentsbrpllist.component';
 import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtbpcllist/dieselstmtbpcllist.component';
 import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
+import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/customerprofitlossrpt.component';
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
-
 
 
 
@@ -876,6 +876,7 @@ const routes: Routes = [
   { path: 'dieselbpcllist', component: DieselstmtbpcllistComponent }, 
   { path: 'dieselbpcladd', component: DieselstmtbpcladdComponent }, 
   { path: 'dieselbpcledit', component: DieselstmtbpcladdComponent }, 
+  { path: 'custprofitlossrpt', component: CustomerprofitlossrptComponent },  
   { path: 'costpervehiclerpt', component: CostpervehiclerptComponent }, 
 
  

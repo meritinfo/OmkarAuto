@@ -538,6 +538,35 @@ namespace Shared.Repository
             }
             return partyList;
         }
+        public async Task<ResponseModel> GetCustomerProfitLossRptExcel(ReportRequestModel report)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Turnover",   report.Search),
+                            new SqlParameter("@DayAfterInt",report.FilterStr1),
+                            new SqlParameter("@AdminInt",   report.FilterStr),
+                            new SqlParameter("@Interest",   report.FilterStr2),
+                            new SqlParameter("@YearId",     report.FilterStr3),
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCustomerProfitLossRptExcel", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        response = await GetExcelReport(userData.Tables[0], "Customer Profit/Loss Report", "");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return response;
+        }
         public async Task<ResponseModel> GenerateLoginOTP(LoginModel login)
         {
             ResponseModel responseModel = new();
