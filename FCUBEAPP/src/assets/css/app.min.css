@@ -567,6 +567,11 @@ body[data-layout=horizontal] .footer {
     transition-property: height, visibility
 }
 
+
+.metismenu .mm-collapse.mm-show li.mm-active ul{
+    display: block !important;
+}
+
 .vertical-menu {
     width: 250px;
     z-index: 1001;
@@ -5896,11 +5901,6 @@ background-color: #fbff00 !important
 .narration-input{
     width: 200px;
 }
-
-.metismenu .mm-collapse.mm-show li.mm-active ul{
-    display: block !important;
-}
-
 
 .full-grid-width{
     width: 3500px !important;

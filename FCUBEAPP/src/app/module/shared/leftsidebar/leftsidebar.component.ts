@@ -14,8 +14,7 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
   constructor(private sharedService: SharedService) {
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     this.sharedService.loggedInStatus = true;
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -34,10 +33,6 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
   getMenuList(selectedUserID: string) {
     this.sharedService.getMenuList(selectedUserID).subscribe((res: any) => {
       this.mainMenuList = res;
-      for (let i = 0; i < this.mainMenuList.length; i++) {
-       // this.mainMenuList[i].menuList = this.mainMenuList[i].menuList.sort((a, b) => a.menuType > b.menuType ? 1 : -1);
-     
-      }
       sessionStorage.setItem("menulist", JSON.stringify(this.mainMenuList));
     });
   }
