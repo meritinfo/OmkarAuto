@@ -372,10 +372,6 @@ import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/c
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
 
 
-
-
-
-
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
