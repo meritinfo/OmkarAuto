@@ -752,7 +752,7 @@ namespace FinTrans.Repository
                                     "&Branch=1" +
                                     "&YearId=" + request.FilterStr1 +
                                     "&BrokerId=" + request.FilterStr2 +
-                                    "&format=" + request.FilterStr3;
+                                    "&format=" + request.Search;
 
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri(baseUrl);

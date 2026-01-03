@@ -13,6 +13,26 @@
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                           <div class="row">        
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control"  
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }"
+                                    max="{{maxDate}}"
+                                    formControlName="fromDate">  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control"  
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }"
+                                    max="{{maxDate}}"
+                                    formControlName="toDate">  
+                                </div>
+                            </div>
+                        </div> 
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">

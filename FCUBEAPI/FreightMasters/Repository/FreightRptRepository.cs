@@ -4819,7 +4819,7 @@ namespace FreightMasters.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var filter = "Ageing  " + request.SortOrder;
+                        var filter =" From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy") +" To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy")+ " ("+ "Ageing  " + request.SortOrder +") ";
 
                         if (dataSet.Tables[0].Rows.Count>0)
                         {

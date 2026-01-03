@@ -127,6 +127,8 @@ dashboard: string ="";
     this.getBrokerList();
     
     this.formFilter = this.formBuilder.group({
+      fromDate:  new FormControl(this.minDate,[Validators.required]),
+      toDate:  new FormControl(this.maxDate,[Validators.required]),
       ageing: new FormControl('30',),
       branch: new FormControl('',),  
       party: new FormControl('',),  
@@ -202,6 +204,8 @@ dashboard: string ="";
     this.filter.sortColumn  = selectedDataVal.billingStatus;
     this.filter.sortOrder   = selectedDataVal.ageing.toString();
     this.filter.filterStr   = selectedDataVal.branch;
+    this.filter.fromDate   = selectedDataVal.fromDate;
+    this.filter.toDate   = selectedDataVal.toDate;
     this.filter.search = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
     this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
