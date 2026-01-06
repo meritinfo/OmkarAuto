@@ -228,7 +228,7 @@ export class RechargerequestaddComponent {
     this.rechargerequestmodel.reqCard = selectedDataVal.reqCard.dataId.toString();
     this.rechargerequestmodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId.toString();
     this.rechargerequestmodel.loggedInUser = this.loggedInUserID;
-    this.rechargerequestmodel.remarks = selectedDataVal.remarks.toUpperCase().toString();
+    this.rechargerequestmodel.remarks   = selectedDataVal.remarks.toUpperCase().toString();
     this.rechargerequestmodel.attachPath = selectedDataVal.attachPath;
   
     
