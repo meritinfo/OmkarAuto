@@ -136,7 +136,6 @@ export class BankreconcilationComponent {
   }
 
   getBankrecData(): void {
-    this.formSubmitted = true;
     if (this.formBankRecEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formBankRecEntry.controls;
@@ -269,10 +268,10 @@ export class BankreconcilationComponent {
     this.bankreclist.bankreconcilationList = [];
 
     if (this.formArray.value != undefined) {
-      for (var i = 0; i < this.formArray.value.length; i++) {
-        if (this.formArray.value[i].clearDate != "" && this.formArray.value[i].ftdID != "") {
+      for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+        if (selectedDataValue.arrayList[i].clearDate != "" && selectedDataValue.arrayList[i].ftdID != "") {
           this.bankreclist.bankreconcilationList.push({
-            'ftdID': this.formArray.value[i].ftdID,
+            'ftdID': selectedDataValue.arrayList[i].ftdID,
             'ftmDate': '',
             'docNo': '',
             'debit': '',

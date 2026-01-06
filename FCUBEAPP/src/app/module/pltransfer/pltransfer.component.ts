@@ -113,7 +113,7 @@ export class PltransferComponent {
       loggedInUser        : new FormControl(''),
       arrayList           : this.formBuilder.array([this.createInitialArray()]),
     });
-    this. getBranchList();
+    this.getBranchList();
   }
 
   getBranchList(): void {
@@ -145,37 +145,37 @@ export class PltransferComponent {
       this.toasterService.warning("Please select branch details")
     }
     this.requestmodel.strRequest =selectedData.tfrBranch.toString();
-     this.requestmodel.strRequest1 =this.year;
+    this.requestmodel.strRequest1 =this.year;
     this.pltransferService.getPLTransferList(this.requestmodel).subscribe((res) => {
-    this.formArray.clear();
-    var tfrTotalDrAmt=0;
-    var tfrTotalCrAmt=0;
-    var tfrPLAmt=0;
-    if (res.plTransferDetails && res.plTransferDetails.length > 0) {
-      for (var i = 0; i < res.plTransferDetails.length; i++) {
-      this.formArray.push(this.createInitialArray());
-      this.formArray.controls[i].get("accountId")?.setValue(res.plTransferDetails[i].accountId);
-      this.formArray.controls[i].get("accountName")?.setValue(res.plTransferDetails[i].accountName);
-      this.formArray.controls[i].get("crAmt")?.setValue(res.plTransferDetails[i].crAmt);
-      this.formArray.controls[i].get("drAmt")?.setValue(res.plTransferDetails[i].drAmt);
-      tfrTotalDrAmt=tfrTotalDrAmt+parseFloat(res.plTransferDetails[i].drAmt);
-      tfrTotalCrAmt=tfrTotalCrAmt+parseFloat(res.plTransferDetails[i].crAmt);
-      tfrPLAmt=tfrTotalCrAmt-tfrTotalDrAmt;
-      this.formArray.controls[i].get("accountName")?.disable();   
-      this.formArray.controls[i].get("crAmt")?.disable();   
-      this.formArray.controls[i].get("drAmt")?.disable();
-      this.formFilter.controls['tfrTotalDrAmt'].disable();   
-      this.formFilter.controls['tfrTotalCrAmt'].disable();  
-      this.formFilter.controls['tfrPLAmt'].disable();  
-      this.formFilter.patchValue({
-      tfrTotalDrAmt      : tfrTotalDrAmt.toFixed(2),
-      tfrTotalCrAmt      : tfrTotalCrAmt.toFixed(2),
-      tfrPLAmt           :tfrPLAmt.toFixed(2)
-    });
-      }
+      this.formArray.clear();
+      var tfrTotalDrAmt=0;
+      var tfrTotalCrAmt=0;
+      var tfrPLAmt=0;
+      if (res.plTransferDetails && res.plTransferDetails.length > 0) {
+        for (var i = 0; i < res.plTransferDetails.length; i++) {
+          this.formArray.push(this.createInitialArray());
+          this.formArray.controls[i].get("accountId")?.setValue(res.plTransferDetails[i].accountId);
+          this.formArray.controls[i].get("accountName")?.setValue(res.plTransferDetails[i].accountName);
+          this.formArray.controls[i].get("crAmt")?.setValue(res.plTransferDetails[i].crAmt);
+          this.formArray.controls[i].get("drAmt")?.setValue(res.plTransferDetails[i].drAmt);
+          tfrTotalDrAmt=tfrTotalDrAmt+parseFloat(res.plTransferDetails[i].drAmt);
+          tfrTotalCrAmt=tfrTotalCrAmt+parseFloat(res.plTransferDetails[i].crAmt);
+          tfrPLAmt=tfrTotalCrAmt-tfrTotalDrAmt;
+          this.formArray.controls[i].get("accountName")?.disable();   
+          this.formArray.controls[i].get("crAmt")?.disable();   
+          this.formArray.controls[i].get("drAmt")?.disable();
+          this.formFilter.controls['tfrTotalDrAmt'].disable();   
+          this.formFilter.controls['tfrTotalCrAmt'].disable();  
+          this.formFilter.controls['tfrPLAmt'].disable();  
+          this.formFilter.patchValue({
+            tfrTotalDrAmt      : tfrTotalDrAmt.toFixed(2),
+            tfrTotalCrAmt      : tfrTotalCrAmt.toFixed(2),
+            tfrPLAmt           :tfrPLAmt.toFixed(2)
+          });
+        }
       }else {
-      this.pltransfermodel.plTransferDetails = [];
-    }
+        this.pltransfermodel.plTransferDetails = [];
+      }
 
     });
   }

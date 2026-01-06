@@ -1039,7 +1039,8 @@ export class LorryhirepmtaddComponent {
           'totPaid':'0',
           'extraRemarks': selectedDataVal.arrayList[i].extraRemarks.toString().toUpperCase(),
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
-          'benId': selectedDataVal.arrayList[i].benId.dataId,
+         // 'benId': selectedDataVal.arrayList[i].benId.dataId,
+         'benId': selectedDataVal.arrayList[i].benId ? selectedDataVal.arrayList[i].benId.dataId : '',
         });
       }
     }
