@@ -37,7 +37,7 @@
                               <label for="horizontal-firstname-input" 
                                  class="col-form-label"> Ben Name</label><span style="color: red">*</span> 
                               <input type="text"  uppercaseonly autofocus="autofocus" 
-                                 class="form-control" formControlName="benName"
+                                 class="form-control" formControlName="benName"  (change)="chkDuplicateBenName()"
                                  [ngClass]="{ 'is-invalid': formSubmitted && (f['benName'].invalid) }">
                            </div>
                            <div class="col-sm-3">

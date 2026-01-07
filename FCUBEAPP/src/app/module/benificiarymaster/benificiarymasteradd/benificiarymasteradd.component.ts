@@ -274,6 +274,30 @@ export class BenificiarymasteraddComponent {
         }
       });
     }
+    chkDuplicateBenName(){
+    
+    var selectedData = this.formBenMaster.getRawValue();
+    
+  
+      this.requestmodel.strRequest = selectedData.benName;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.benificiaryMasterService.chkDuplicateBenName(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBenMaster.patchValue({
+            benName: ''
+    
+          });
+          
+        }
+      });
+    }
+  
+
   
 
   submitBenificiaryMasterForm() {

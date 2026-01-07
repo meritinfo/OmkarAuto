@@ -20,5 +20,6 @@ namespace FinanceMaster.Repository
         Task<List<DropDownListModel>> GetBenBankList();
         Task<List<DropDownListModel>> GetBeneficiaryList();
         Task<ResponseModel> CheckDuplicateBenAccountNo(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateBenName(RequestModel requestModel);
     }
 }

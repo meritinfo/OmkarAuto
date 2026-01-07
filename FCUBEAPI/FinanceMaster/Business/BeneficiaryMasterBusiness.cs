@@ -55,5 +55,9 @@ namespace FinanceMaster.Business
         {
             return await beneficiaryMasterRepository.CheckDuplicateBenAccountNo(request);
         }
+        public async Task<ResponseModel> CheckDuplicateBenName(RequestModel requestModel)
+        {
+            return await beneficiaryMasterRepository.CheckDuplicateBenName(requestModel);
+        }
     }
 }

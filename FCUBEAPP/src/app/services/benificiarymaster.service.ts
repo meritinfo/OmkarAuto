@@ -66,4 +66,7 @@ export class BenificiaryMasterService {
   chkDuplicateBenAccountNo(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/CheckDuplicateBenAccountNo', request, this.httpOptions);
   }
+  chkDuplicateBenName(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/CheckDuplicateBenName', request, this.httpOptions);
+  }
 }
