@@ -42,7 +42,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@IsActive", fleetCardMasterModel.IsActive),
                             new SqlParameter("@LoggedInUser", fleetCardMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardMasterMasterSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

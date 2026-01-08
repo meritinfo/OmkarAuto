@@ -23,9 +23,9 @@ export class RechargerequestaddComponent {
   vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
-  @ViewChild('AttachInput', {
+  @ViewChild('Attach1Input', {
     static: true
-  }) AttachInput: any;
+  }) Attach1Input: any;
 
   formSubmitted   = false;
   responseDetails = new Responsemodel();
@@ -65,7 +65,7 @@ export class RechargerequestaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Trip Sheet"));      
+      .find((( aa: { menuName: string; }) => aa.menuName === "Fleet Card Recharge Request"));      
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -228,12 +228,12 @@ export class RechargerequestaddComponent {
     this.rechargerequestmodel.reqCard = selectedDataVal.reqCard.dataId.toString();
     this.rechargerequestmodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId.toString();
     this.rechargerequestmodel.loggedInUser = this.loggedInUserID;
-    this.rechargerequestmodel.remarks = selectedDataVal.remarks.toUpperCase().toString();
-    this.rechargerequestmodel.attachPath = this.attachPath;
+    this.rechargerequestmodel.remarks   = selectedDataVal.remarks.toUpperCase().toString();
+    this.rechargerequestmodel.attachPath = selectedDataVal.attachPath;
   
     
     let formData = new FormData();       
-    formData.append('attachPath', this.AttachInput.nativeElement.files[0]);
+    formData.append('attachPath', this.Attach1Input.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.rechargerequestmodel));
     this.rechargerequestService.rechargeRequestSave(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
