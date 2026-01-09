@@ -28,6 +28,7 @@ namespace FinTrans.Business
         Task<LedgerRptListModel> GetBankBookRptList(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request);
         Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request);
         Task<ResponseModel> BankBookPrint(ReportRequestModel request);
 
         Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request);
@@ -38,5 +39,6 @@ namespace FinTrans.Business
         Task<ResponseModel> GetMonthlyLorryHireRptExcel(ReportRequestModel requestModel);
         Task<ResponseModel> GetMonthlyAdminExpRptExcel(ReportRequestModel requestModel);
         Task<List<MenuReportAccessModel>> GetReportMenuList();
+        Task<ResponseModel> GetBalanceAsPerBooks(ReportRequestModel request);
     }
 }

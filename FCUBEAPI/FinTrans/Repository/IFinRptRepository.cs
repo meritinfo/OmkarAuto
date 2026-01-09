@@ -42,5 +42,7 @@ namespace FinTrans.Repository
         Task<ResponseModel> GetMonthlyLorryHireRptExcel(ReportRequestModel requestModel);
         Task<ResponseModel> GetMonthlyAdminExpRptExcel(ReportRequestModel requestModel);
         Task<List<MenuReportAccessModel>> GetReportMenuList();
+        Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request);
+        Task<ResponseModel> GetBalanceAsPerBooks(ReportRequestModel request);
     }
 }

@@ -166,6 +166,7 @@ namespace FinTrans.Repository
             }
             return reportData;
         }
+      
         public async Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request)
         {
             ResponseModel response = new();
@@ -186,6 +187,74 @@ namespace FinTrans.Repository
                 response.Message = ex.Message;
             }
             return response;
+        }
+
+        public async Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@AccountID",             request.FilterStr2),
+                            new SqlParameter("@Branch",          request.FilterStr),
+                            new SqlParameter("@ToDate",             request.ToDate),
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBankReconRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+
+                        response = await GetBalanceAsPerBooks(request);
+                        var filter = "Balance as per Books : " + response.Message;
+
+                        response = await sharedRepository.GetGroupExcelReport(dataSet.Tables[0], "Bank Reconciliation Report", filter);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetBalanceAsPerBooks(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@AccountID",             request.FilterStr2),
+                            new SqlParameter("@Branch",          request.FilterStr),
+                            new SqlParameter("@ClearDate",             request.ToDate),
+                    };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBankReconAsPerBookExcel", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter, string filter1)
         {

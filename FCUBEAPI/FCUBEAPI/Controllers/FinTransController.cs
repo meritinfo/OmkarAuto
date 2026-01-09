@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
+﻿using FinTrans.Business;
 using FinTrans.Models;
-using FinTrans.Business;
-using Microsoft.AspNetCore.Authorization;
-using Shared.Models;
-using Newtonsoft.Json;
-using System.IO;
-using Microsoft.Extensions.Options;
-using SqlHelper.Models;
-using System.Data.Common;
-using Org.BouncyCastle.Ocsp;
 using FleetMasters.Business;
+using FleetTrans.Business;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Ocsp;
+using Shared.Models;
+using SqlHelper.Models;
+using System;
+using System.Data.Common;
+using System.IO;
+using System.Threading.Tasks;
 
 
 
@@ -787,7 +788,43 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+        [HttpPost("GetBRSRptExcel")]
+        public async Task<IActionResult> GetBRSRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetBRSRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBalanceAsPerBooks")]
+        public async Task<IActionResult> GetBalanceAsPerBooks(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetBalanceAsPerBooks(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("BankBookPrint")]
         public async Task<IActionResult> BankBookPrint(ReportRequestModel req)
         {

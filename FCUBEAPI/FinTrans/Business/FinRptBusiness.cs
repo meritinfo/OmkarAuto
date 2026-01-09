@@ -57,6 +57,10 @@ namespace FinTrans.Business
         {
             return ledgerRptRepository.GetReportMenuList();
         }
+        public  Task<ResponseModel> GetBalanceAsPerBooks(ReportRequestModel request)
+        {
+            return ledgerRptRepository.GetBalanceAsPerBooks(request);
+        }
         public async Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request)
         {
             RepReqModel req = new RepReqModel();
@@ -367,6 +371,10 @@ namespace FinTrans.Business
         public async Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request)
         {
             return await ledgerRptRepository.GetBankBookRptExcel(request);
+        }
+        public async Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetBRSRptExcel(request);
         }
         public async Task<ResponseModel> BankBookPrint(ReportRequestModel request)
         {

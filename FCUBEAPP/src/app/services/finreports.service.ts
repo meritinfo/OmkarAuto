@@ -41,7 +41,9 @@ export class FinreportsService {
   getBankBookrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankBookRptExcel', filter, this.httpOptions);
   } 
-
+  getBRSrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetBRSRptExcel', filter, this.httpOptions);
+  } 
   
   getLedgerrptList(filter: Reportmodel): Observable<Ledgerrptlistmodel> {
     return this.httpClient.post<Ledgerrptlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptList', filter, this.httpOptions);

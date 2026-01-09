@@ -23,6 +23,8 @@ namespace Shared.Repository
         Task<ResponseModel> GetServerDate(RequestModel request);
         Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails(RequestModel request);
         Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter);
+        Task<ResponseModel> GetGroupExcelReport(DataTable dt, string rptheader, string filter);
+        Task<ResponseModel> GetDualGroupExcelReport(DataTable dt, string rptheader, string filter);
         Task<List<DocRenewalModel>> GetDocRenewalDetails();
         Task<List<RequestModel>> GetDashboardCustomer(ReportRequestModel report);
         Task<ResponseModel> GetCustomerProfitLossRptExcel(ReportRequestModel report);
