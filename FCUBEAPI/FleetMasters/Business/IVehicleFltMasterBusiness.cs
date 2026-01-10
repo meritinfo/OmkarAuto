@@ -20,5 +20,8 @@ namespace FleetMasters.Business
         Task<List<DropDownListModel>> GetFinCompName();
         Task<List<DropDownListModel>> GetVehicalTypeFltGroupList();
         Task<List<DropDownListModel>> GetLoanLedgerAccountList();
+        Task<ResponseModel> GetVehicleMasterExcel(ReportRequestModel request);
+
+
     }
 }

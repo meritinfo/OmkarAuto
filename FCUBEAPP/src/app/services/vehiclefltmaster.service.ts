@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Reportmodel } from '../models/reportmodel';
 import { Vehiclefltmasterlistmodel } from '../models/vehiclefltmasterlistmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
@@ -39,6 +40,9 @@ export class VehicleFltMasterService {
   getVehicleFltMasterList(filter: Filtermodel): Observable<Vehiclefltmasterlistmodel> {
     return this.httpClient.post<Vehiclefltmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicleFltMasterList', filter, this.httpOptions);
   } 
+    getVehicleMasterExcel(filter: Reportmodel): Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicleMasterExcel', filter, this.httpOptions);
+    }  
    
   chkVehicalNoExist(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkVehicalNoExist', req, this.httpOptions);

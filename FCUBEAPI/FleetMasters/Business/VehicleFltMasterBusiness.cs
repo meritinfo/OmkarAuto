@@ -72,5 +72,9 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetLoanLedgerAccountList();
         }
+        public async Task<ResponseModel> GetVehicleMasterExcel(ReportRequestModel request)
+        {
+            return await vehicleFltMasterRepository.GetVehicleMasterExcel(request);
+        }
     }
 }

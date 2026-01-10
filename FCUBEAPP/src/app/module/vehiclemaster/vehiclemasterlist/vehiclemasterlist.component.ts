@@ -1,10 +1,13 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Vehiclefltmasterlistmodel  } from 'src/app/models/vehiclefltmasterlistmodel';
 import { Vehiclefltmastermodel } from 'src/app/models/vehiclefltmastermodel';
 import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
+import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -18,7 +21,14 @@ export class VehiclemasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+   dashboard: string ="";
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  year: string = '';
+  branch: string = '';
+
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -31,11 +41,12 @@ dashboard: string ="";
     sortOrder: 'asc',
     search: ''
   }
+  
 
   formFilter!: FormGroup;
 
-  constructor(private vehicleFltMasterService: VehicleFltMasterService,
-    private formBuilder: FormBuilder,
+  constructor(private vehicleFltMasterService: VehicleFltMasterService,private commonService: CommonService,
+    private formBuilder: FormBuilder, private toasterService: ToastrService, private reportmodel: Reportmodel,
     private sharedService: SharedService, private route: Router) {
   }
 
@@ -55,6 +66,19 @@ dashboard: string ="";
          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+        var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+      
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
+    
+    this.fromDate = this.minDate ;
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
         if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
           this.dashboard = dashboard;
@@ -140,6 +164,44 @@ dashboard: string ="";
     this.vehicleFltMasterService.setVehiclefltMasterDetails(Vehicletype);
     this.route.navigate(['/vehiclemasteredit']);
   } 
+
+  
+
+  excelDownload(): void {
+    var selecteddata = this.formFilter.getRawValue();
+    let frmdt = new Date(selecteddata.fromDate);
+    let todt = new Date(selecteddata.toDate);
+    let maxdt = new Date(this.loginDate);
+    let mindt = new Date(this.minDate);
+    if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+      this.toasterService.warning("From Date and To Date should be with in Fin Year");
+      return;
+    }
+   // this.reportmodel.fromDate = selecteddata.fromDate;
+  //  this.reportmodel.toDate = selecteddata.toDate;
+    this.reportmodel.filterStr = this.branch;
+    this.reportmodel.filterStr1 = this.year;
+   this.reportmodel.search = this.formFilter.value.vehicleNo;
+      
+    
+    this.vehicleFltMasterService.getVehicleMasterExcel(this.reportmodel).subscribe(resp => {
+      if(resp.status){      
+        let link = document.createElement("a");
+        link.download = "VehicleMasterReport" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
+  }
+
+
+
+
+
+  
 
   search(): void {
     this.filter.search = this.formFilter.value.vehicleNo;

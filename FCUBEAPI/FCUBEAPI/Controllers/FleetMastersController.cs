@@ -1235,7 +1235,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("GetVehicleMasterExcel")]
+        public async Task<IActionResult> GetVehicleMasterExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicleMasterExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost("TyrePositionMasterSave")]
