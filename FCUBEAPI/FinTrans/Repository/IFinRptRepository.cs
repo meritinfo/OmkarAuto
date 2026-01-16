@@ -44,5 +44,6 @@ namespace FinTrans.Repository
         Task<List<MenuReportAccessModel>> GetReportMenuList();
         Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetBalanceAsPerBooks(ReportRequestModel request);
+        Task<ResponseModel> GetMonthlyPerformanceExcel(ReportRequestModel request);
     }
 }

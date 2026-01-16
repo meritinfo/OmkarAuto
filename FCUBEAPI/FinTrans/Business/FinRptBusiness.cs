@@ -380,6 +380,10 @@ namespace FinTrans.Business
         {
             return await ledgerRptRepository.BankBookPrint(request);
         }
+        public async Task<ResponseModel> GetMonthlyPerformanceExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetMonthlyPerformanceExcel(request);
+        }
         public async Task<ResponseModel> GetBankBookRptPdf(ReportRequestModel request)
         {
             ResponseModel res = new ResponseModel();

@@ -30,6 +30,7 @@ namespace FinTrans.Business
         Task<ResponseModel> GetBankBookRptExcel(ReportRequestModel request);
         Task<ResponseModel> GetBRSRptExcel(ReportRequestModel request);
         Task<ResponseModel> BankBookPrint(ReportRequestModel request);
+        Task<ResponseModel> GetMonthlyPerformanceExcel(ReportRequestModel request);
 
         Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request);
         Task<ResponseModel> GetGstSalesRegisterRptExcel(ReportRequestModel request);

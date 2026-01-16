@@ -1348,5 +1348,206 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
+
+        public async Task<ResponseModel> GetMonthlyPerformanceExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@RptType",    request.FilterStr),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getMonthlyPerformanceRptExcel", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        response = await GetMonthlyPerReport(dataSet, request);
+                    }
+                    else
+                    {
+                        response.Status = false;
+                        response.Message = "No Data Found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+        public async Task<ResponseModel> GetMonthlyPerReport(DataSet ds, ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                responseModel = await sharedRepository.GetCompanyDetail();
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    int colcnt = ds.Tables[0].Columns.Count;
+                    var rptheader = "";
+                    var filter = "PERIOD FROM " + Convert.ToDateTime(request.FromDate).ToString("dd-MMMM-yyyy")
+                                    + " TO " + Convert.ToDateTime(request.ToDate).ToString("dd-MMMM-yyyy");
+
+
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = responseModel.Message;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+                    if (request.FilterStr == "M")
+                    {
+                        rptheader = "MONTH WISE - MONTHLY PERFORMANCE REPORT";
+                    }
+                    else if (request.FilterStr == "B")
+                    {
+                        rptheader = "BRANCH WISE - MONTHLY PERFORMANCE REPORT";
+                    }
+                    else 
+                    {
+                        rptheader = "BRANCH WISE - MONTHLY PERFORMANCE REPORT";
+                    }
+                    filter = "FROM THE MONTH " + Convert.ToDateTime(request.FromDate).ToString("MMMM-yyyy")
+                        + " TO " + Convert.ToDateTime(request.ToDate).ToString("MMMM-yyyy");
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = rptheader;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = filter;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    int j = 0, r = 5;
+                    System.Data.DataTable dt = new System.Data.DataTable();
+                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    {
+                        dt = ds.Tables[0];
+                    }
+
+                    ws.Range(r, 1, r + 1, 1).Merge();
+                    ws.Range(r, 1, r + 1, 1).Value = "SL.No";
+                    ws.Range(r, 2, r + 1, 2).Merge();
+                    ws.Range(r, 2, r + 1, 2).Value = dt.Columns[1].ColumnName;
+                    ws.Range(r, 3, r, 4).Merge();
+                    ws.Range(r, 3, r, 4).Value = "TOTAL BOOKING";
+                    ws.Range(r, 5, r, 6).Merge();
+                    ws.Range(r, 5, r, 6).Value = "OPRNL. COSTING";
+                    ws.Range(r, 7, r, 8).Merge();
+                    ws.Range(r, 7, r, 8).Value = "MARGIN AFTER 3 % BFD";
+                    ws.Range(r, 9, r, 10).Merge();
+                    ws.Range(r, 9, r, 10).Value = "TOTAL ADMN. EXPENSES";
+                    ws.Range(r, 11, r, 12).Merge();
+                    ws.Range(r, 11, r, 12).Value = "MARGIN / LOSS(Excluding  Income Tax &  Depreciation )";
+
+                    ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                    ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(r, 1, r, colcnt).Style.Font.FontColor = XLColor.Black;
+                    ws.Range(r, 1, r, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    r++;
+
+                    ws.Cell(r, 3).Value = "FREIGHT";
+                    ws.Cell(r, 4).Value = "NOS. OF GC NOTES";
+                    ws.Cell(r, 5).Value = "AMOUNT";
+                    ws.Cell(r, 6).Value = "% OVER FREIGHT AMT.";
+                    ws.Cell(r, 7).Value = "AMOUNT";
+                    ws.Cell(r, 8).Value = "% OVER FREIGHT AMT.";
+                    ws.Cell(r, 9).Value = "AMOUNT";
+                    ws.Cell(r, 10).Value = "% OVER FREIGHT AMT.";
+                    ws.Cell(r, 11).Value = "AMOUNT";
+                    ws.Cell(r, 12).Value = "% OVER FREIGHT AMT.";
+
+                    ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                    ws.Range(r, 1, r, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(r, 1, r, colcnt).Style.Font.FontColor = XLColor.Black;
+                    ws.Range(r, 1, r, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    r++;
+
+                    for (j = 0; j < dt.Rows.Count; j++)
+                    {
+                        if (dt.Rows[j][0].ToString() == "999" || dt.Rows[j][0].ToString() == "1000")
+                        {
+                            ws.Range(r, 1, r, 2).Merge();
+                            ws.Range(r, 1, r, 2).Value = dt.Rows[j][1].ToString();
+                            ws.Range(r, 1, r, colcnt).Style.Font.Bold = true;
+                        }
+                        else
+                        {
+                            ws.Cell(r, 1).Value = Convert.ToString(dt.Rows[j][0]);
+                            ws.Cell(r, 2).Value = Convert.ToString(dt.Rows[j][1]);
+                            if (request.FilterStr == "M")
+                                ws.Cell(r, 2).Style.NumberFormat.Format = "MMMM-yy";
+                        }
+                        for (int i = 2; i < colcnt; i++)
+                        {
+                            ws.Cell(r, i + 1).Value = Convert.ToString(dt.Rows[j][i]);
+                        }
+                        r++;
+                    }
+
+                    ws.Range(r, 1, r, colcnt).Merge();
+                    ws.Range(r, 1, r, colcnt).Value = "";
+                    r++;
+
+                    for (int k = 1; k <= colcnt; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+                    ws.Range(5, 1, r - 1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, r - 1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                    var foldername = System.IO.Path.Combine("Reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+                    var filePath = foldername + "//" + filename;
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
     }
 }

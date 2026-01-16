@@ -370,7 +370,8 @@ import { DieselstmtbpcllistComponent } from './module/dieselstmtbpcl/dieselstmtb
 import { DieselstmtbpcladdComponent } from './module/dieselstmtbpcl/dieselstmtbpcladd/dieselstmtbpcladd.component';
 import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/customerprofitlossrpt.component';
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
-import { BrsreportComponent } from './module/brsreport/brsreport/brsreport.component';
+import { BrsreportComponent } from './module/brsreport/brsreport.component';
+import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
 
 
 const routes: Routes = [
@@ -876,6 +877,7 @@ const routes: Routes = [
   { path: 'custprofitlossrpt', component: CustomerprofitlossrptComponent },  
   { path: 'costpervehiclerpt', component: CostpervehiclerptComponent }, 
   { path: 'bankrecorpt', component: BrsreportComponent }, 
+  { path: 'monthlyperrpt', component: MonthlyperformancerptComponent },  
 
  
 ];

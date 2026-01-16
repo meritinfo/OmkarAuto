@@ -806,6 +806,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetMonthlyPerformanceExcel")]
+        public async Task<IActionResult> GetMonthlyPerformanceExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetMonthlyPerformanceExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("GetBalanceAsPerBooks")]
         public async Task<IActionResult> GetBalanceAsPerBooks(ReportRequestModel request)
         {
