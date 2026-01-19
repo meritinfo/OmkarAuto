@@ -356,6 +356,7 @@ dashboard: string ="";
       oth2DedAmt :  ['', []],
       deductRemarks :  ['', []],
       benId :  ['', []],
+      extraRemarks :  ['', []],
     });
   }  
 
@@ -589,6 +590,7 @@ dashboard: string ="";
         this.formLhpmArray.controls[i].get("oth2DedAmt")?.setValue(res.lhpmList[i].oth2DedAmt);
         this.formLhpmArray.controls[i].get("deductRemarks")?.setValue(res.lhpmList[i].deductRemarks);
         this.formLhpmArray.controls[i].get("benId")?.setValue(res.lhpmList[i].benId);
+         this.formLhpmArray.controls[i].get("extraRemarks")?.setValue(res.lhpmList[i].extraRemarks);
         this.formLhpmArray.controls[i].get("pmtStation")?.disable();
         this.formLhpmArray.controls[i].get("pmtNo")?.disable();
         this.formLhpmArray.controls[i].get("pmtDate")?.disable();
@@ -607,6 +609,7 @@ dashboard: string ="";
         this.formLhpmArray.controls[i].get("oth2DedAmt")?.disable();
         this.formLhpmArray.controls[i].get("deductRemarks")?.disable();
         this.formLhpmArray.controls[i].get("benId")?.disable();
+        this.formLhpmArray.controls[i].get("extraRemarks")?.disable();
       }         
       
       for (var i = 0; i < res.billList.length; i++) {

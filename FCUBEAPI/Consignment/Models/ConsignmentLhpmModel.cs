@@ -22,5 +22,6 @@ namespace Consignment.Models
         public string? Oth2DedAmt { get; set; }
         public string? DeductRemarks { get; set; }
         public string? BenId { get; set; }
+        public string?  ExtraRemarks { get; set; }
     }
 }
