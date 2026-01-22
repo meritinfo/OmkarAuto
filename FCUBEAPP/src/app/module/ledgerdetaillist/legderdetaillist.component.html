@@ -30,7 +30,7 @@
                                         formControlName="toDate" class="form-control">
                                 </div>
                             </div>  
-                              <div class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Account </label>                                    
                                     <div class="ng-autocomplete">
@@ -63,14 +63,14 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                
+                </div>                
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
-                            <tr>                  
+                            <tr>                 
+                                <th>Action</th> 
                                 <th>billStmtNo</th>                             
                                 <th>billStmtDate</th>
                                 <th>fromDate</th>
@@ -81,10 +81,11 @@
                         <tbody *ngIf="allLedger.ledgerList?.length != 0">
                             <tr *ngFor="let dsl of allLedger.ledgerList">                      
                                 <td>
-                                    <button type="button" class="btn btn-edit" 
+                                    <button *ngIf="dsl.docType!=''" type="button" class="btn btn-edit" 
                                     (click)="getCashReceiptEntryDetails(dsl)"></button> 
                                 </td> 
-                                <td>{{ dsl.ftmDate}}</td>
+                                <td>{{ dsl.ftmDate}}</td>                            
+                                <td>{{ dsl.docNo}}</td>                       
                                 <td>{{ dsl.narration}}</td>
                                 <td>{{ dsl.drAmt}}</td> 
                                 <td>{{ dsl.crAmt}}</td> 
@@ -97,8 +98,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            
+            </div>            
         </div>
         <!-- container-fluid -->
     </div>

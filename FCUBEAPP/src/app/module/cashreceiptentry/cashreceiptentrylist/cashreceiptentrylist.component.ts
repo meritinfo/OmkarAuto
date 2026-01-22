@@ -240,27 +240,4 @@ export class CashreceiptentrylistComponent {
     });
   }
 
-  getEntryDetails(finTrans: bankreceiptentrymodel){       
-    var selecteddata = this.formFilter.getRawValue();
-    sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
-    sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
-    sessionStorage.setItem("ldgaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
-
-    this.filter.fromDate = selecteddata.fromDate;
-    this.filter.toDate = selecteddata.toDate;
-    this.filter.branch = "";
-    this.filter.search = finTrans.seriesDoc;
-    this.filter.yearId = this.year;
-    this.filter.receiptOrPayment = finTrans.docType;
-
-    this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
-      this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
-      if(finTrans.docType=="CP" || finTrans.docType =="CR")
-        this.route.navigate(['/cashreceiptentryedit']);
-      if(finTrans.docType=="BP" || finTrans.docType =="BR")
-        this.route.navigate(['/bankreceiptentryedit']);
-      if(finTrans.docType=="JV")
-        this.route.navigate(['/journalentryedit']);
-    });
-  }
 }

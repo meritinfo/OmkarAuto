@@ -372,7 +372,7 @@ import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/c
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
 import { BrsreportComponent } from './module/brsreport/brsreport.component';
 import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
-import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist/legderdetaillist.component';
+import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist.component';
 
 
 const routes: Routes = [
