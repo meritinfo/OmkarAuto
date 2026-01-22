@@ -389,6 +389,7 @@ import { Lrcostingrptmodel } from './models/lrcostingrptmodel';
 import { LrcostingrptComponent } from './module/lrcostingrpt/lrcostingrpt.component';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 import { Onaccountmrstatusrptmodel } from './models/onaccountmrstatusrptmodel';
+import { Ledgerdetaillistmodel } from './models/ledgerdetaillist';
 import { OnaccountmrstatusrptComponent } from './module/onaccountmrstatusrpt/onaccountmrstatusrpt.component';
 import { Addcostrecorveryrptmodel } from './models/addcostrecorveryrptmodel';
 import { AddcostrecorveryrptComponent } from './module/addcostrecorveryrpt/addcostrecorveryrpt.component';
@@ -568,6 +569,7 @@ import { CustomerprofitlossrptComponent } from './module/customerprofitlossrpt/c
 import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costpervehiclerpt.component';
 import { BrsreportComponent } from './module/brsreport/brsreport.component';
 import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
+import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist/legderdetaillist.component';
 
 
 @NgModule({
@@ -756,7 +758,8 @@ import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/m
     DashboardcustComponent,
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
-    MonthlyperformancerptComponent
+    MonthlyperformancerptComponent,
+    LegderdetaillistComponent
     
   ],
   
@@ -834,7 +837,7 @@ import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/m
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel
   ],
   bootstrap: [AppComponent]
 })

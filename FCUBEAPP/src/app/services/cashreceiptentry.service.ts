@@ -27,9 +27,13 @@ export class CashReceiptEntryService {
   setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrymodel) { 
       this.selectedCashreceiptentry = docrenewalmaster;  
   }  
+    setLedgerDetails(docrenewalmaster: bankreceiptentrymodel) { 
+      this.selectedCashreceiptentry = docrenewalmaster;  
+  }  
   getCashReceiptEntryDetails() {
     return this.selectedCashreceiptentry;
   }
+  
   clearCashReceiptEntryDetails() {
     this.selectedCashreceiptentry = new bankreceiptentrymodel();
   }

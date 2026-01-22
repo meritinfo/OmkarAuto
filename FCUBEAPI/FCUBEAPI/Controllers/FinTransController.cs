@@ -96,6 +96,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLedgerDetailList")]
+        public async Task<IActionResult> GetLedgerDetailList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetLedgerDetailList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetFinRefTypes")]
         public async Task<IActionResult> GetFinRefTypes()

@@ -254,6 +254,71 @@ namespace FinTrans.Repository
             }
             return CashRecPaymentsList;
         }
+        public async Task<LedgerDetailList> GetLedgerDetailList(ReportRequestModel request)
+        {
+            LedgerDetailList LedgerList = new();
+            List<LedgerDetailModel> ledgerDetaillist = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        //new SqlParameter("@PageNumber",         request.PageNumber),
+                        //new SqlParameter("@PageSize",           request.PageSize),
+                        //new SqlParameter("@SortColumn",         request.SortColumn),
+                        //new SqlParameter("@SortOrder",          request.SortOrder),
+                        //new SqlParameter("@Search",             request.Search),
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@AccountId",          request.FilterStr),
+                        new SqlParameter("@YearId",             request.FilterStr1),
+             
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerDetailsList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = dataSet.Tables[0].Rows.Count;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            ledgerDetaillist.Add(new LedgerDetailModel
+                            {
+                               
+                                FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
+                                DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
+                                Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                DrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DrAmt"]),
+                                CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
+                           
+                            });
+                        }
+
+                        LedgerList.LedgerList = ledgerDetaillist;
+
+                        LedgerList.PageMetaData = new PaginationMetaData
+                        {
+                           TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return LedgerList;
+        }
         public async Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req)
         {
             CashReceiptPaymentsModel cashReceiptPaymentsModel = new()
