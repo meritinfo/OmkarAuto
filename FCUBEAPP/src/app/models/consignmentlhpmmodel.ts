@@ -17,4 +17,5 @@ export class Consignmentlhpmmodel {
     oth2DedAmt : string = "";
     deductRemarks : string = "";
     benId : string = "";
+    extraRemarks : string = "";
 }

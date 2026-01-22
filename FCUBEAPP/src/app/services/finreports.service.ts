@@ -7,6 +7,7 @@ import { Reportmodel } from '../models/reportmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
 import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
+import { Ledgerdetaillistmodel } from 'src/app/models/ledgerdetaillist';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,9 @@ export class FinreportsService {
   }  
   getLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptExcel', filter, this.httpOptions);
+  } 
+  getLedgerDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
+    return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerDetailList', filter, this.httpOptions);
   } 
   getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);

@@ -1571,6 +1571,7 @@ namespace Consignment.Repository
                                 Oth2DedAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["Oth2DedAmt"]),
                                 DeductRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["DeductRemarks"]),
                                 BenId = Convert.ToString(dataSet.Tables[2].Rows[i]["BenId"]),
+                                ExtraRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["ExtraRemarks"]),
                             });
                         }
                         for (int i = 0; i < dataSet.Tables[3].Rows.Count; i++)
