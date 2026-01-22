@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using AdminMasters.Models;

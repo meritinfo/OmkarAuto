@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using AdminMasters.Models;
@@ -16,12 +15,6 @@ namespace AdminMasters.Repository
         {
             dbconnection = _dbconnection;
         }
-        /// <summary>
-        /// Service method for save role master details
-        /// </summary>
-        /// <param name="roleMasterModel"></param>
-        /// <returns>ResponseModel</returns>
-        /// 
         public async Task<RoleTypeList> GetRoleTypeList(PageRequest request)
         {
             RoleTypeList roleTypeList = new();

@@ -1,23 +1,10 @@
 ﻿using Consignment.Models;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
 using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Consignment.Repository
 {

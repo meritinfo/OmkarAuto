@@ -1,14 +1,10 @@
 ﻿using AdminMasters.Models;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Shared.Models;
 using Shared.Repository;
 using SqlHelper.Models;
-using System;
-using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Net.Http.Headers;
 
 namespace AdminMasters.Repository

@@ -2,15 +2,8 @@
 using FinTrans.Models;
 using Shared.Models;
 using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Shared.Repository;
-using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Wordprocessing;
 using System.Data;
 using ClosedXML.Excel;
 using Newtonsoft.Json;

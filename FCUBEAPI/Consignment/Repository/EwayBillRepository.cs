@@ -7,13 +7,6 @@ using Shared.Repository;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
-using System;
-using System.Data;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using System.Transactions;
-using System.Net.Http;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using Newtonsoft.Json.Linq;
 
 namespace Consignment.Repository
 {

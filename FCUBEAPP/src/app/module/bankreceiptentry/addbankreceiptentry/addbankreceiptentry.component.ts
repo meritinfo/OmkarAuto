@@ -22,6 +22,7 @@ export class AddbankreceiptentryComponent {
   formSubmitted = false;
   branchname: string = '';
   branch: string = '';
+  ldgaccountID: string = '';
   year: string = '';
   loginDate: string = '';
   locationList: Dropdownmodel[] = [];
@@ -109,6 +110,10 @@ export class AddbankreceiptentryComponent {
     }
     else {
       this.route.navigate(['/']);
+    }
+    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
+    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
+      this.ldgaccountID = ldgaccountID;
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -431,7 +436,12 @@ export class AddbankreceiptentryComponent {
           if(this.responseDetails.status){
             this.toasterService.success(this.responseDetails.message); 
             this.formBankRecEntry.reset();
-            this.route.navigate(['/bankreceiptentrylist']);
+            if(this.ldgaccountID==""){
+              this.route.navigate(['/bankreceiptentrylist']);
+            }
+            else{            
+              this.route.navigate(['/acledgersum']);
+            }
           }
           else{
             this.toasterService.warning(this.responseDetails.message);        
@@ -443,7 +453,12 @@ export class AddbankreceiptentryComponent {
     }
   }
   exit(): void {
-    this.route.navigate(['/bankreceiptentrylist']);
+    if(this.ldgaccountID==""){
+      this.route.navigate(['/bankreceiptentrylist']);
+    }
+    else{            
+      this.route.navigate(['/acledgersum']);
+    }
   }
   
   //Submit user form details //
@@ -599,7 +614,12 @@ export class AddbankreceiptentryComponent {
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formBankRecEntry.reset();
-        this.route.navigate(['/bankreceiptentrylist']);
+        if(this.ldgaccountID==""){
+          this.route.navigate(['/bankreceiptentrylist']);
+        }
+        else{            
+          this.route.navigate(['/acledgersum']);
+        }
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

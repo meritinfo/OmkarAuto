@@ -27,6 +27,7 @@ export class AddjournalentryComponent{
   viewStatus = false; 
   dashboard: string ="";
   branchname: string = '';
+  ldgaccountID: string = '';
   loginDate: string = '';
   year: string = '';
   createdBy:string = "";
@@ -100,7 +101,11 @@ export class AddjournalentryComponent{
     else {
       this.route.navigate(['/']);
     }
-
+    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
+    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
+      this.ldgaccountID = ldgaccountID;
+    }
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -136,7 +141,6 @@ export class AddjournalentryComponent{
     
     setTimeout(() => {
       if (this.selectedJournalEntryDetails.ftmID != '') {        
-        var selectedDataValue = this.formJournalEntry.getRawValue();
         this.formJournalEntry.patchValue(this.selectedJournalEntryDetails); 
         this.formJournalEntry.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedJournalEntryDetails.ftmDate),
@@ -356,7 +360,12 @@ export class AddjournalentryComponent{
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message); 
               this.formJournalEntry.reset();
-              this.route.navigate(['/journalentrylist']);
+              if(this.ldgaccountID==""){
+                this.route.navigate(['/journalentrylist']);
+              }
+              else{            
+                this.route.navigate(['/acledgersum']);
+              }
             }
             else{
               this.toasterService.warning(this.responseDetails.message);        
@@ -368,7 +377,12 @@ export class AddjournalentryComponent{
   }
 
   exit(): void {
-    this.route.navigate(['/journalentrylist']);
+    if(this.ldgaccountID==""){
+      this.route.navigate(['/journalentrylist']);
+    }
+    else{            
+      this.route.navigate(['/acledgersum']);
+    }
   }
     
     //Submit user form details //
@@ -477,7 +491,12 @@ export class AddjournalentryComponent{
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formJournalEntry.reset();
-        this.route.navigate(['/journalentrylist']);
+        if(this.ldgaccountID==""){
+          this.route.navigate(['/journalentrylist']);
+        }
+        else{            
+          this.route.navigate(['/acledgersum']);
+        }
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

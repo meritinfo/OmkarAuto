@@ -3,18 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml.VariantTypes;
-using System.Data.Common;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using Shared.Repository;
-using System.Data;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Runtime.Intrinsics.X86;
 
 namespace Consignment.Repository
 {

@@ -14,7 +14,6 @@ import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { Constants } from 'src/app/common/constants';
 
-
 @Component({
   selector: 'app-generatetempgcedit',
   templateUrl: './generatetempgcedit.component.html',
@@ -31,7 +30,7 @@ export class GeneratetempgceditComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -43,7 +42,7 @@ dashboard: string ="";
   locationList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
   cnorCneeList: Dropdownmodel[] = [];
-    cnorList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -119,16 +118,16 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -146,15 +145,10 @@ dashboard: string ="";
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
-    }
-
-      
+    }      
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
-    
+    this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();    
     this.fromDate = this.minDate ;
-
-
     var dprid = sessionStorage.getItem('dprid')?.toString();
     if (typeof dprid !== 'undefined' && dprid !== null && dprid !== '') {
       this.dprid = dprid;

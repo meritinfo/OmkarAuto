@@ -105,6 +105,7 @@ export class BankreceiptentrylistComponent {
     this.fromDate = this.minDate ;
     this.getFinRefTypes();
 
+    sessionStorage.setItem("ldgaccountID", "");
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
 
     this.formFilter = this.formBuilder.group({

@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using FleetMasters.Business;
-using Consignment.Business;
 
 
 namespace FCUBEAPI.Controllers

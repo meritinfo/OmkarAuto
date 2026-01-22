@@ -59,7 +59,6 @@ export class CashreceiptentrylistComponent {
   }
 
   ngOnInit(): void {   
-
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -103,6 +102,8 @@ export class CashreceiptentrylistComponent {
     
     this.fromDate = this.minDate ; 
     this.getFinRefTypes();
+    
+    sessionStorage.setItem("ldgaccountID", "");
 
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
     this.formFilter = this.formBuilder.group({
@@ -151,13 +152,13 @@ export class CashreceiptentrylistComponent {
             data: []
           });
           this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
-             this.allCashReceiptEntry = resp;
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
+            this.allCashReceiptEntry = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
             });
+          });
         },
         columns: [ 
           {
@@ -236,6 +237,30 @@ export class CashreceiptentrylistComponent {
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
+    });
+  }
+
+  getEntryDetails(finTrans: bankreceiptentrymodel){       
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
+    sessionStorage.setItem("ldgaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    this.filter.branch = "";
+    this.filter.search = finTrans.seriesDoc;
+    this.filter.yearId = this.year;
+    this.filter.receiptOrPayment = finTrans.docType;
+
+    this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
+      this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
+      if(finTrans.docType=="CP" || finTrans.docType =="CR")
+        this.route.navigate(['/cashreceiptentryedit']);
+      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+        this.route.navigate(['/bankreceiptentryedit']);
+      if(finTrans.docType=="JV")
+        this.route.navigate(['/journalentryedit']);
     });
   }
 }

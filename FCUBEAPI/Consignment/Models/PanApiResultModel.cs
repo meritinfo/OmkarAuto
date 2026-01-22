@@ -1,8 +1,5 @@
 ﻿namespace Consignment.Models
 {
-    /// <summary>
-    ///Eway Bill details parameter
-    /// </summary>
     public class PanApiResultModel
     {
         public Reslt result { get; set; }

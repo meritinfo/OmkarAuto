@@ -3,9 +3,6 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 

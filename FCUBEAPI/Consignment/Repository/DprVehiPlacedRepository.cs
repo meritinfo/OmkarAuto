@@ -3,11 +3,9 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing;
 using Newtonsoft.Json;
 using Shared.Repository;
 using System.Net.Http.Headers;
-using System.Transactions;
 
 namespace Consignment.Repository
 {

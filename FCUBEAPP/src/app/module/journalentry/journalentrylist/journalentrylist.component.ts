@@ -104,11 +104,9 @@ export class JournalentrylistComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-
-
-  
+    this.fromDate = this.minDate ;  
     this.getFinRefTypes();
+    sessionStorage.setItem("ldgaccountID", "");
 
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
     this.formFilter = this.formBuilder.group({
@@ -145,7 +143,6 @@ export class JournalentrylistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        // this.filter.search = dataTablesParameters.search.value;
         this.filter.receiptOrPayment = 'JV';
         callback({
           recordsTotal: 0,

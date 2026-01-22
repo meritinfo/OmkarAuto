@@ -1,13 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Consignment.Business
 {

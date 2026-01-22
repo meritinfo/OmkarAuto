@@ -33,7 +33,7 @@ export class GeneratetempgcaddComponent {
   deleteStatus = false;
   viewStatus = false; 
   gstApi = true; 
-dashboard: string ="";
+  dashboard: string ="";
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
@@ -158,8 +158,6 @@ dashboard: string ="";
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;
-
-
     var dprid = sessionStorage.getItem('dprid')?.toString();
     if (typeof dprid !== 'undefined' && dprid !== null && dprid !== '') {
       this.dprid = dprid;

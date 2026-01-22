@@ -4,22 +4,6 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using Shared.Repository;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Newtonsoft.Json;
-using System;
-using System.Data;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using System.Transactions;
-using System.Net.Http;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using Newtonsoft.Json.Linq;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.VariantTypes;
-using System.Net.NetworkInformation;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Spreadsheet;
-using System.Drawing.Imaging;
 
 namespace Consignment.Repository
 {

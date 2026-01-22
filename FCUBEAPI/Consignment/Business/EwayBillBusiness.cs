@@ -1,7 +1,5 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace Consignment.Business

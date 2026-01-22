@@ -1,13 +1,5 @@
 ﻿using Consignment.Models;
-using Microsoft.Extensions.Options;
 using Shared.Models;
-using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {

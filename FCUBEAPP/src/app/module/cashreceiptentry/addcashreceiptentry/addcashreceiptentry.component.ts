@@ -34,6 +34,7 @@ export class AddcashreceiptentryComponent {
   modifiedBy:string = "";
   minDate:string = "";
   maxDate:string = "";
+  ldgaccountID :string = "";
 
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -111,6 +112,11 @@ export class AddcashreceiptentryComponent {
     else {
       this.route.navigate(['/']);
     }
+    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
+    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
+      this.ldgaccountID = ldgaccountID;
+    }
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -368,7 +374,12 @@ export class AddcashreceiptentryComponent {
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message); 
               this.formCashRRecEntry.reset();
-              this.route.navigate(['/cashreceiptentrylist']);
+              if(this.ldgaccountID==""){
+                this.route.navigate(['/cashreceiptentrylist']);
+              }
+              else{            
+                this.route.navigate(['/acledgersum']);
+              }
             }
             else{
               this.toasterService.warning(this.responseDetails.message);        
@@ -380,7 +391,12 @@ export class AddcashreceiptentryComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/cashreceiptentrylist']);
+    if(this.ldgaccountID==""){
+      this.route.navigate(['/cashreceiptentrylist']);
+    }
+    else{            
+      this.route.navigate(['/acledgersum']);
+    }
   }
 
   //Submit user form details //
@@ -516,7 +532,12 @@ export class AddcashreceiptentryComponent {
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formCashRRecEntry.reset();
-        this.route.navigate(['/cashreceiptentrylist']);
+        if(this.ldgaccountID==""){
+          this.route.navigate(['/cashreceiptentrylist']);
+        }
+        else{            
+          this.route.navigate(['/acledgersum']);
+        }
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

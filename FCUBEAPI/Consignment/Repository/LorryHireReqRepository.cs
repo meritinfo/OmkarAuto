@@ -3,10 +3,6 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Consignment.Repository
 {

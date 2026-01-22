@@ -1,14 +1,11 @@
-﻿using Consignment.Business;
-using FleetMasters.Business;
+﻿using FleetMasters.Business;
 using FleetMasters.Models;
-using FleetTrans;
 using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Ocsp;
 using Shared.Models;
 using SqlHelper.Models;
 using System;

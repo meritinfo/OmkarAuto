@@ -3,9 +3,6 @@ using Shared.Models;
 
 namespace Consignment.Business
 {
-    /// <summary>
-    /// Consignment business interface methods
-    /// </summary>
     public interface IDoTempGcBusiness
     {
         Task<DoTempGcListModel> GetDoTempgcList(RepReqModel request);

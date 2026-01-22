@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-
+﻿
 namespace Consignment.Models
 {
     public class DoVehicleInModel

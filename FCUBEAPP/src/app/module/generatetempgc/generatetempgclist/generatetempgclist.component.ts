@@ -55,7 +55,7 @@ export class GeneratetempgclistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   formSubmitted = false;
   loggedInUserID: string = '';
 
@@ -359,8 +359,7 @@ dashboard: string ="";
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  gettempgcDetails(tempgc: Tempgcmodel): void {
-            
+  gettempgcDetails(tempgc: Tempgcmodel): void {            
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("gcfromDate", selecteddata.fromDate);
     sessionStorage.setItem("gctoDate", selecteddata.toDate);
@@ -381,8 +380,7 @@ dashboard: string ="";
   } 
   
   
-  genMainLrDetails(tempgc: Tempgcmodel): void {
-      
+  genMainLrDetails(tempgc: Tempgcmodel): void {      
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("gcfromDate", selecteddata.fromDate);
     sessionStorage.setItem("gctoDate", selecteddata.toDate);

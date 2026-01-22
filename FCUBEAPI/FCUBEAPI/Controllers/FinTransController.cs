@@ -1,16 +1,13 @@
 ﻿using FinTrans.Business;
 using FinTrans.Models;
 using FleetMasters.Business;
-using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Ocsp;
 using Shared.Models;
 using SqlHelper.Models;
 using System;
-using System.Data.Common;
 using System.IO;
 using System.Threading.Tasks;
 

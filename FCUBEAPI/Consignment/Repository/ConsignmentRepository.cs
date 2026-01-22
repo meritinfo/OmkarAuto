@@ -3,14 +3,8 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.Presentation;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.ComponentModel;
 
 namespace Consignment.Repository
 {

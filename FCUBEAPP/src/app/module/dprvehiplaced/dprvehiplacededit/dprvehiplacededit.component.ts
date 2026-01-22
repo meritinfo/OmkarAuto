@@ -32,7 +32,7 @@ export class DprvehiplacededitComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string ="";
+  dashboard: string ="";
   addlr= false;
   updAdv= false;
   updPrepBy= false;
@@ -83,16 +83,15 @@ dashboard: string ="";
       }
     }
     var dashboard = sessionStorage.getItem('dashboard')?.toString();
-        if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
-          this.dashboard = dashboard;
-        }
-        if(!this.viewStatus){      
-          this.route.navigate([this.dashboard]);
-        }
-
+    if (typeof dashboard !== 'undefined' && dashboard !== null && dashboard !== '') {
+      this.dashboard = dashboard;
+    }
+    if(!this.viewStatus){      
+      this.route.navigate([this.dashboard]);
+    }
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -284,18 +283,17 @@ dashboard: string ="";
       this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId ;
       this.requestmodel.strRequest1 = selectedDataVal.assignToStaff ;
       this.requestmodel.strRequest2= selectedDataVal.vehicleEngagedBy ;
-        this.dprvehiplacedService.updateAssign(this.requestmodel).subscribe((res: Responsemodel) => {
-          this.responseDetails = res;
-          if(this.responseDetails.status){
-            this.toasterService.success(this.responseDetails.message);
-           // this.formUser.reset();
-          // this.route.navigate(['/dprvehplacedlist']);
-          }
-          else{
-            this.toasterService.warning(this.responseDetails.message);        
-          }   
-        });
-       
+      this.dprvehiplacedService.updateAssign(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          this.toasterService.success(this.responseDetails.message);
+         // this.formUser.reset();
+        // this.route.navigate(['/dprvehplacedlist']);
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);        
+        }   
+      });      
       
     }
   }

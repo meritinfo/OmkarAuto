@@ -10,7 +10,6 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FleetMasters.Business;
-using FleetMasters.Models;
 
 
 namespace FCUBEAPI.Controllers

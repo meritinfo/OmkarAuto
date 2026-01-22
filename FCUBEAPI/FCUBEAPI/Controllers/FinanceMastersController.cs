@@ -8,16 +8,10 @@ using Shared.Models;
 using FinanceMaster.Business;
 using FinanceMaster.Models;
 using FreightMasters.Models;
-using FleetTrans.Models;
 using Newtonsoft.Json;
-using System.Data.Common;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using FleetTrans.Business;
-using Org.BouncyCastle.Ocsp;
-using System.Collections.Generic;
-using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {

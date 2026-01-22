@@ -10,9 +10,6 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
-using FleetMasters.Business;
-using System.Net.Mail;
-using System.Collections.Generic;
 
 
 namespace FCUBEAPI.Controllers

@@ -1,8 +1,5 @@
 ﻿namespace Consignment.Models
 {
-    /// <summary>
-    ///GST COnfiguration details parameter
-    /// </summary>
     public class GSTConfigurationModel
     {
         public string Username { get; set; }
