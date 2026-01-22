@@ -1,4 +1,3 @@
-
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -14,6 +13,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ledgerdetaillistmodel } from 'src/app/models/ledgerdetaillist';
 import { Ledgerdetailmodel } from 'src/app/models/ledgerdetailmodel';
 import { ToastrService } from 'ngx-toastr';
+import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 
 
 @Component({
@@ -22,53 +22,69 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./legderdetaillist.component.css']
 })
 export class LegderdetaillistComponent {
-    formSubmitted = false;
-    loggedInUserID: string = '';
-    createStatus = false;
-    editStatus = false;
-    deleteStatus = false;
-    viewStatus = false; 
-      year: string = '';
-      branch: string = '';
+  formSubmitted = false;
+  loggedInUserID: string = '';
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+  ldgfromDate:string = '';
+  ldgtoDate:string = '';
+  ldgaccountID:string = '';
+  year: string = '';
+  branch: string = '';
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-    dashboard: string =""; 
-   formFilter!: FormGroup;
-    accountList: Dropdownmodel[] = [];
-    branchList: Dropdownmodel[] = [];
-    keywordLocation = 'dataName';
+  dashboard: string =""; 
+  formFilter!: FormGroup;
+  accountList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
   
-    dtOptions: DataTables.Settings = {};
-    @ViewChild(DataTableDirective)
-    dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
     
 
-      allLedger: Ledgerdetaillistmodel = new Ledgerdetaillistmodel();
-      filter: Reportmodel = {
-        pageNumber: 1,
-        pageSize: 10,
-        sortColumn: 'vendor',
-        sortOrder: 'asc',
-        search: '',
-        fromDate: '',
-        toDate: '',
-        filterStr: '',
-        filterStr1: '',
-        filterStr2:'',
-        filterStr3:''
-      }
-    responseDetails = new Responsemodel();
+  allLedger: Ledgerdetaillistmodel = new Ledgerdetaillistmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'vendor',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
+  }
+  cashFilter: Cashbankfiltermodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'docNo',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    branch:'',
+    receiptOrPayment: '',
+    refType:'',
+    yearId:"",
+  }
+  responseDetails = new Responsemodel();
   
-    constructor(private ledgerrptService: FinreportsService, private cashReceiptEntryService: CashReceiptEntryService, 
-      private excelService: ExcelService,private toastrService:ToastrService,
-      private formBuilder: FormBuilder,  private sharedService: SharedService,
-      private commonService: CommonService, 
-      private route: Router) {
+  constructor(private ledgerrptService: FinreportsService, private cashReceiptEntryService: CashReceiptEntryService, 
+    private excelService: ExcelService,private toastrService:ToastrService,
+    private formBuilder: FormBuilder,  private sharedService: SharedService,
+    private commonService: CommonService, 
+    private route: Router) {
+  }
 
-}
- ngOnInit(): void {     
+  ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -111,30 +127,51 @@ export class LegderdetaillistComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
-    this.fromDate = this.minDate ;
-  
-    this.sharedService.loading=true;
-    this.getBranchList();
-     this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-     this.filter.filterStr = '';
-    this.filter.filterStr1 = '';
-    this.ledgerDetailList();
+    this.fromDate = this.minDate ;  
     this.getAccountList();  
-    this.sharedService.loading=false;
+
+    var ldgfromDate = sessionStorage.getItem('ldgfromDate')?.toString();
+    if (typeof ldgfromDate !== 'undefined' && ldgfromDate !== null && ldgfromDate !== '') {
+      this.ldgfromDate = ldgfromDate;
+    }
+    else{
+      this.ldgfromDate = this.fromDate;
+    }
+    var ldgtoDate = sessionStorage.getItem('ldgtoDate')?.toString();
+    if (typeof ldgtoDate !== 'undefined' && ldgtoDate !== null && ldgtoDate !== '') {
+      this.ldgtoDate = ldgtoDate;
+    }
+    else{
+      this.ldgtoDate = this.loginDate;
+    } 
+    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
+    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
+      this.ldgaccountID = ldgaccountID;
+    }
+
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       accountID: new FormControl('',[Validators.required]),
-    });
+    });    
+
+    setTimeout(() => {      
+      this.formFilter.patchValue({
+        fromDate: this.ldgfromDate,
+        toDate: this.ldgtoDate,
+        accountID:this.accountList.find(e => e.dataId == this.ldgaccountID), 
+      })
+    }, 2000);
+
     
-    this.formFilter.controls['branch'].disable();  
-  }
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
+    this.filter.fromDate = this.ldgfromDate;
+    this.filter.toDate = this.ldgtoDate;
+    this.filter.filterStr = this.ldgaccountID;
+    this.filter.filterStr1 = this.year;
+
+    this.ledgerDetailList();
+
   }
 
   getAccountList(): void {
@@ -142,7 +179,6 @@ export class LegderdetaillistComponent {
       this.accountList = res;
     });
   }
-
   
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -160,10 +196,10 @@ export class LegderdetaillistComponent {
   
   get f() { return this.formFilter.controls; }
 
-ledgerDetailList() {
+  ledgerDetailList() {
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 50,
+      paging: false,
+      info: false,
       serverSide: true,
       processing: true,
       searching: false,     
@@ -176,7 +212,6 @@ ledgerDetailList() {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = "";
         callback({
           recordsTotal: 0,
           recordsFiltered: 0,
@@ -199,7 +234,11 @@ ledgerDetailList() {
         },
         {
           title: 'Ftm Date ',
-          data: 'FtmDate',
+          data: 'ftmDate',
+        },
+        {
+          title: 'Doc No ',
+          data: 'docNo',
         },
         {
           title: 'Narration ',
@@ -218,13 +257,32 @@ ledgerDetailList() {
   }
 
 
-      getCashReceiptEntryDetails(Docrenewal: Ledgerdetailmodel): void {
-       // this.cashReceiptEntryService.setLedgerDetails(Docrenewal);
-       // this.route.navigate(['/cashreceiptentryedit']);
-      }
+  getCashReceiptEntryDetails(finTrans: Ledgerdetailmodel): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
+    sessionStorage.setItem("ldgaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+
+    this.cashFilter.fromDate = selecteddata.fromDate;
+    this.cashFilter.toDate = selecteddata.toDate;
+    this.cashFilter.branch = "";
+    this.cashFilter.search = finTrans.docNo;
+    this.cashFilter.yearId = this.year;
+    this.cashFilter.receiptOrPayment = finTrans.docType;
+
+    this.cashReceiptEntryService.getCashReceiptEntryList(this.cashFilter).subscribe(resp => {
+      this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
+      if(finTrans.docType=="CP" || finTrans.docType =="CR")
+        this.route.navigate(['/cashreceiptentryedit']);
+      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+        this.route.navigate(['/bankreceiptentryedit']);
+      if(finTrans.docType=="JV")
+        this.route.navigate(['/journalentryedit']);
+    });
+  }
     
   search(): void {
-     var selectedDataVal=this.formFilter.getRawValue();
+    var selectedDataVal=this.formFilter.getRawValue();
     let frmdt = new Date(selectedDataVal.fromDate);
     let todt = new Date(selectedDataVal.toDate);
     let maxdt = new Date(this.loginDate);
@@ -234,9 +292,9 @@ ledgerDetailList() {
       this.toastrService.warning("From Date and To Date should be with in Fin Year");
       return;
     }
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.filterStr= this.formFilter.value.accountID.dataId;
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
+    this.filter.filterStr= selectedDataVal.accountID.dataId;
     this.filter.filterStr1 = this.year;
     this.sharedService.loading=true;
     this.ledgerDetailList();

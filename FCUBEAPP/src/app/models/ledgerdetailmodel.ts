@@ -2,9 +2,7 @@ export class Ledgerdetailmodel {
     ftmDate: string = '';
     docType: string = '';
     docNo: string = '';
-    narration: string = '';
- 
+    narration: string = ''; 
     drAmt : string = '';
-    crAmt : string = '';
-    
+    crAmt : string = '';    
 }
