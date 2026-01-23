@@ -252,6 +252,10 @@ export class LegderdetaillistComponent {
           title: 'Cr Amt',
           data: 'crAmt',
         },
+        {
+          title: 'Balance',
+          data: 'balAmt',
+        },
       ],
     };
   }

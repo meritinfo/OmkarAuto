@@ -76,6 +76,7 @@
                                 <th>fromDate</th>
                                 <th>location</th>
                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allLedger.ledgerList?.length != 0">
@@ -89,6 +90,7 @@
                                 <td>{{ dsl.narration}}</td>
                                 <td>{{ dsl.drAmt}}</td> 
                                 <td>{{ dsl.crAmt}}</td> 
+                                <td>{{ dsl.balAmt}}-</td> 
                             </tr>
                         </tbody>
                         <tbody *ngIf="allLedger.ledgerList?.length == 0">
