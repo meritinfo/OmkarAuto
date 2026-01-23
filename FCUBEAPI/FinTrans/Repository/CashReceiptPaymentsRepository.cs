@@ -575,6 +575,8 @@ namespace FinTrans.Repository
                                 DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
                                 DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
                                 Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                CheqDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqDtls"]),
+                                ReferenceDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ReferenceDesc"]),
                                 DrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DrAmt"]),
                                 CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
                                 BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),

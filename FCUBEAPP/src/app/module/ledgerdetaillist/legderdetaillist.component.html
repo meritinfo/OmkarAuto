@@ -65,36 +65,40 @@
                     </form>
                 </div>                
             </div>
-            <div  style=" max-height: 350px;
-  overflow-y: auto;" id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-              <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-
-                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+            <h6>Note:-<span style="color: red"> Only Ref Type = 'OTHERS' can be editable </span></h6>
+            <div  style=" max-height: 350px; overflow-y: auto;" id="datatable_wrapper" 
+                class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
                             <tr style="position: sticky; top: 0; background: #fff; z-index: 10; border-bottom: 2px solid #ccc;">                 
-                                <th>Action</th> 
-                                <th>billStmtNo</th>                             
-                                <th>billStmtDate</th>
-                                <th>fromDate</th>
+                                <th style="width: 15px;">edit</th> 
+                                <th style="width: 20px;">billStmtNo</th>                             
+                                <th style="width: 20px;">billStmtDate</th>
+                                <th style="width: 20px;">fromDate</th>
                                 <th>location</th>
-                                <th>location</th>
-                                <th>Action</th>
-                                <th>Action</th>
+                                <th style="width: 20px;">location</th>
+                                <th style="width: 20px;">Action</th>
+                                <th style="width: 20px;">Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allLedger.ledgerList?.length != 0">
                             <tr *ngFor="let dsl of allLedger.ledgerList">                      
-                                <td>
-                                    <button *ngIf="dsl.docType!=''" type="button" class="btn btn-edit" 
+                                <td style="width: 15px;">
+                                    <button *ngIf="dsl.docType!='' && dsl.refType=='OTHERS'" type="button" class="btn btn-edit" 
                                     (click)="getCashReceiptEntryDetails(dsl)"></button> 
                                 </td> 
-                                <td>{{ dsl.ftmDate}}</td>                            
-                                <td>{{ dsl.docNo}}</td> 
-                                <td>{{ dsl.refType}}</td>                       
-                                <td>{{ dsl.narration}}</td>
-                                <td>{{ dsl.drAmt}}</td> 
-                                <td>{{ dsl.crAmt}}</td> 
-                                <td>{{ dsl.balAmt}}-</td> 
+                                <td style="width: 20px;">{{ dsl.ftmDate}}</td>                            
+                                <td style="width: 20px;">{{ dsl.docNo}}</td> 
+                                <td style="width: 20px;">{{ dsl.refType}}</td>                       
+                                <td style="word-break:normal; word-wrap: break-word;">
+                                    <div>{{ dsl.narration }}</div>
+                                    <div *ngIf="dsl.cheqDtls!=''">{{ dsl.cheqDtls }}</div>
+                                    <div *ngIf="dsl.referenceDesc!=''">{{ dsl.referenceDesc }}</div>
+                                </td>
+                                <td style="width: 20px;">{{ dsl.drAmt}}</td> 
+                                <td style="width: 20px;">{{ dsl.crAmt}}</td> 
+                                <td style="width: 20px;">{{ dsl.balAmt}}</td> 
                             </tr>
                         </tbody>
                         <tbody *ngIf="allLedger.ledgerList?.length == 0">

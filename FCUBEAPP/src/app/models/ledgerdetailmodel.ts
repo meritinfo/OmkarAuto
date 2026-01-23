@@ -3,8 +3,10 @@ export class Ledgerdetailmodel {
     docType: string = '';
     docNo: string = '';
     narration: string = ''; 
+    cheqDtls: string = ''; 
+    referenceDesc: string = '';      
+    refType  : string = '';  
     drAmt : string = '';
     crAmt : string = '';  
     balAmt : string = ''; 
-    refType  : string = '';  
 }

@@ -231,7 +231,7 @@ export class LegderdetaillistComponent {
       },
       columns: [
         {
-          title: 'Action',
+          title: 'Edit',
           data: 'masterId',
         },
         {
@@ -242,7 +242,7 @@ export class LegderdetaillistComponent {
           title: 'Doc No ',
           data: 'docNo',
         },
-         {
+        {
           title: 'Ref Type',
           data: 'refType',
         },

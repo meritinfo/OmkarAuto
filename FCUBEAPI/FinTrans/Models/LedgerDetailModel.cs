@@ -11,10 +11,12 @@ namespace FinTrans.Models
         public string? FtmDate { get; set; }
         public string? DocType { get; set; } 
         public string? DocNo { get; set; }
+        public string? Narration { get; set; }
+        public string? CheqDtls { get; set; }
+        public string? ReferenceDesc { get; set; }        
+        public string? RefType { get; set; }
         public string? DrAmt { get; set; }
         public string? CrAmt { get; set; }
-        public string? BalAmt { get; set; }        
-        public string? Narration { get; set; }
-        public string? RefType { get; set; }
+        public string? BalAmt { get; set; }    
     }
 }

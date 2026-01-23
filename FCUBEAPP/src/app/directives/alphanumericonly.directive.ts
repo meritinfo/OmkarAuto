@@ -12,17 +12,17 @@ export class AlphanumericonlyDirective {
     return new RegExp(this.regexStr).test(event.key);
   }
 
-  @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
-    this.validateFields(event);
-  }
+  // @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
+  //   this.validateFields(event);
+  // }
 
-  validateFields(event: any) {
-    console.log(event.target.value);
-    setTimeout(() => {
-      this.el.nativeElement.value = this.el.nativeElement.value
-        .replace(/[^A-Za-z ]/g, '')
-        .replace(/\s/g, '');
-      event.preventDefault();
-    }, 100);
-  }
+  // validateFields(event: any) {
+  //   console.log(event.target.value);
+  //   setTimeout(() => {
+  //     this.el.nativeElement.value = this.el.nativeElement.value
+  //       .replace(/[^A-Za-z ]/g, '')
+  //       .replace(/\s/g, '');
+  //     event.preventDefault();
+  //   }, 100);
+  // }
 }
