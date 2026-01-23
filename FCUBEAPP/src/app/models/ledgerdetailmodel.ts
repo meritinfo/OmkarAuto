@@ -5,7 +5,6 @@ export class Ledgerdetailmodel {
     narration: string = ''; 
     drAmt : string = '';
     crAmt : string = '';  
-    balAmt : string = '';    
-    crAmt : string = '';  
+    balAmt : string = ''; 
     refType  : string = '';  
 }
