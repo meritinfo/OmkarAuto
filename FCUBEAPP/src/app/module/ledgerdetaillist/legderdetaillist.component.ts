@@ -43,7 +43,9 @@ export class LegderdetaillistComponent {
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   
-  dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings = {
+   
+  };
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
     
@@ -239,6 +241,10 @@ export class LegderdetaillistComponent {
         {
           title: 'Doc No ',
           data: 'docNo',
+        },
+         {
+          title: 'Ref Type',
+          data: 'refType',
         },
         {
           title: 'Narration ',

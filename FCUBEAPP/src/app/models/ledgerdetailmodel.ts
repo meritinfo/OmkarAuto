@@ -6,4 +6,6 @@ export class Ledgerdetailmodel {
     drAmt : string = '';
     crAmt : string = '';  
     balAmt : string = '';    
+    crAmt : string = '';  
+    refType  : string = '';  
 }

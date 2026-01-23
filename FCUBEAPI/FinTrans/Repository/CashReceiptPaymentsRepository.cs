@@ -578,6 +578,7 @@ namespace FinTrans.Repository
                                 DrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DrAmt"]),
                                 CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
                                 BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                                RefType= Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
                             });
                         }
 
