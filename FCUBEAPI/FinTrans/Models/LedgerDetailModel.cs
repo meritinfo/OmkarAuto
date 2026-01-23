@@ -15,5 +15,6 @@ namespace FinTrans.Models
         public string? DrAmt { get; set; }
         public string? CrAmt { get; set; }
         public string? Narration { get; set; }
+        public string? RefType { get; set; }
     }
 }

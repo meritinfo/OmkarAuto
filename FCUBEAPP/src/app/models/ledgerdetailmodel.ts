@@ -4,5 +4,6 @@ export class Ledgerdetailmodel {
     docNo: string = '';
     narration: string = ''; 
     drAmt : string = '';
-    crAmt : string = '';    
+    crAmt : string = '';  
+    refType  : string = '';  
 }
