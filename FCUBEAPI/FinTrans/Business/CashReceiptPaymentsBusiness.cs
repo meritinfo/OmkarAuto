@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FinTrans.Models;
 using FinTrans.Repository;
 using iText.Kernel.Colors;
@@ -90,6 +91,14 @@ namespace FinTrans.Business
         public async Task<LedgerDetailList> GetLedgerDetailList(ReportRequestModel request)
         {
             return await cashReceiptPaymentsRepository.GetLedgerDetailList(request);
+        }
+        public async Task<LedgerDetailList> GetCashBookDetailList(ReportRequestModel request)
+        {
+            return await cashReceiptPaymentsRepository.GetCashBookDetailList(request);
+        }
+        public async Task<LedgerDetailList> GetBankBookDetailList(ReportRequestModel request)
+        {
+            return await cashReceiptPaymentsRepository.GetBankBookDetailList(request);
         }
 
         public async Task<ResponseModel> CashBookReport(ReportRequestModel request)

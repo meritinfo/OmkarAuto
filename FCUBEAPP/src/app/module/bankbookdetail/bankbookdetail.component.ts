@@ -1,3 +1,4 @@
+
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -12,88 +13,91 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ledgerdetaillistmodel } from 'src/app/models/ledgerdetaillist';
 import { Ledgerdetailmodel } from 'src/app/models/ledgerdetailmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 
-
 @Component({
-  selector: 'app-legderdetaillist',
-  templateUrl: './legderdetaillist.component.html',
-  styleUrls: ['./legderdetaillist.component.css']
+  selector: 'app-bankbookdetail',
+  templateUrl: './bankbookdetail.component.html',
+  styleUrls: ['./bankbookdetail.component.css']
 })
-export class LegderdetaillistComponent {
-  formSubmitted = false;
-  loggedInUserID: string = '';
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false; 
-  ldgfromDate:string = '';
-  ldgtoDate:string = '';
-  ldgaccountID:string = '';
-  year: string = '';
-  branch: string = '';
-  loginDate: string = '';
-  fromDate: string = '';
-  maxDate: string = '';
-  minDate: string = '';
-  dashboard: string =""; 
-  formFilter!: FormGroup;
-  accountList: Dropdownmodel[] = [];
-  branchList: Dropdownmodel[] = [];
-  keywordLocation = 'dataName';
-  
-  dtOptions: DataTables.Settings = {
-   
-  };
-  @ViewChild(DataTableDirective)
-  dtElement!: DataTableDirective;
+export class BankbookdetailComponent {
+    formSubmitted = false;
+    loggedInUserID: string = '';
+    createStatus = false;
+    editStatus = false;
+    deleteStatus = false;
+    viewStatus = false; 
+    bbfromDate:string = '';
+  bbtoDate:string = '';
+   creditacList: Dropdownmodel[] = [];
+  bbaccountID:string = '';
+    requestmodel = new Requestmodel();
+    year: string = '';
+    branch: string = '';
+    loginDate: string = '';
+    fromDate: string = '';
+    maxDate: string = '';
+    minDate: string = '';
+    dashboard: string =""; 
+    formFilter!: FormGroup;
+    accountList: Dropdownmodel[] = [];
+    branchList: Dropdownmodel[] = [];
+    keywordLocation = 'dataName';
     
-
-  allLedger: Ledgerdetaillistmodel = new Ledgerdetaillistmodel();
-  filter: Reportmodel = {
-    pageNumber: 1,
-    pageSize: 10,
-    sortColumn: 'vendor',
-    sortOrder: 'asc',
-    search: '',
-    fromDate: '',
-    toDate: '',
-    filterStr: '',
-    filterStr1: '',
-    filterStr2:'',
-    filterStr3:''
-  }
-  cashFilter: Cashbankfiltermodel = {
-    pageNumber: 1,
-    pageSize: 10,
-    sortColumn: 'docNo',
-    sortOrder: 'asc',
-    search: '',
-    fromDate: '',
-    toDate: '',
-    branch:'',
-    receiptOrPayment: '',
-    refType:'',
-    yearId:"",
-  }
-  responseDetails = new Responsemodel();
+    dtOptions: DataTables.Settings = {
+     
+    };
+    @ViewChild(DataTableDirective)
+    dtElement!: DataTableDirective;
+      
   
-  constructor(private ledgerrptService: FinreportsService, private cashReceiptEntryService: CashReceiptEntryService, 
-    private excelService: ExcelService,private toastrService:ToastrService,
-    private formBuilder: FormBuilder,  private sharedService: SharedService,
-    private commonService: CommonService, 
-    private route: Router) {
-  }
+    allLedger: Ledgerdetaillistmodel = new Ledgerdetaillistmodel();
+    filter: Reportmodel = {
+      pageNumber: 1,
+      pageSize: 10,
+      sortColumn: 'vendor',
+      sortOrder: 'asc',
+      search: '',
+      fromDate: '',
+      toDate: '',
+      filterStr: '',
+      filterStr1: '',
+      filterStr2:'',
+      filterStr3:''
+    }
+    cashFilter: Cashbankfiltermodel = {
+      pageNumber: 1,
+      pageSize: 10,
+      sortColumn: 'docNo',
+      sortOrder: 'asc',
+      search: '',
+      fromDate: '',
+      toDate: '',
+      branch:'',
+      receiptOrPayment: '',
+      refType:'',
+      yearId:"",
+    }
+    responseDetails = new Responsemodel();
+    
+    constructor(private ledgerrptService: FinreportsService, private cashReceiptEntryService: CashReceiptEntryService, 
+      private excelService: ExcelService,private toastrService:ToastrService,
+      private formBuilder: FormBuilder,  private sharedService: SharedService,
+      private commonService: CommonService, 
+      private route: Router) {
+  
 
-  ngOnInit(): void {     
+}
+ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Accounts Ledger Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Bank Book Summary");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -130,57 +134,53 @@ export class LegderdetaillistComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;  
-    this.getAccountList();  
+  
+    this.getAccountList(); 
 
-    var ldgfromDate = sessionStorage.getItem('ldgfromDate')?.toString();
-    if (typeof ldgfromDate !== 'undefined' && ldgfromDate !== null && ldgfromDate !== '') {
-      this.ldgfromDate = ldgfromDate;
+    var bbfromDate = sessionStorage.getItem('bbfromDate')?.toString();
+    if (typeof bbfromDate !== 'undefined' && bbfromDate !== null && bbfromDate !== '') {
+      this.bbfromDate = bbfromDate;
     }
     else{
-      this.ldgfromDate = this.fromDate;
+      this.bbfromDate = this.fromDate;
     }
-    var ldgtoDate = sessionStorage.getItem('ldgtoDate')?.toString();
-    if (typeof ldgtoDate !== 'undefined' && ldgtoDate !== null && ldgtoDate !== '') {
-      this.ldgtoDate = ldgtoDate;
+    var bbtoDate = sessionStorage.getItem('bbtoDate')?.toString();
+    if (typeof bbtoDate !== 'undefined' && bbtoDate !== null && bbtoDate !== '') {
+      this.bbtoDate = bbtoDate;
     }
     else{
-      this.ldgtoDate = this.loginDate;
+      this.bbtoDate = this.loginDate;
     } 
-    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
-    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
-      this.ldgaccountID = ldgaccountID;
+    var bbaccountID = sessionStorage.getItem('bbaccountID')?.toString();
+    if (typeof bbaccountID !== 'undefined' && bbaccountID !== null && bbaccountID !== '') {
+      this.bbaccountID = bbaccountID;
     }
 
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountID: new FormControl('',[Validators.required]),
+      accountId: new FormControl('',[Validators.required]),
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
-        fromDate: this.ldgfromDate,
-        toDate: this.ldgtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.ldgaccountID), 
+        fromDate: this.bbfromDate,
+        toDate: this.bbtoDate,
+        accountID:this.accountList.find(e => e.dataId == this.bbaccountID), 
       })
     }, 2000);
 
-    
-    this.filter.fromDate = this.ldgfromDate;
-    this.filter.toDate = this.ldgtoDate;
-    this.filter.filterStr = this.ldgaccountID;
+this.filter.fromDate = this.bbfromDate;
+    this.filter.toDate = this.bbtoDate;
+    this.filter.filterStr = this.bbaccountID;
     this.filter.filterStr1 = this.year;
 
-    this.ledgerDetailList();
+    this.bankbookDetailList();
 
   }
 
-  getAccountList(): void {
-    this.ledgerrptService.getLedgerList().subscribe((res) => {
-      this.accountList = res;
-    });
-  }
+
   
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -195,10 +195,9 @@ export class LegderdetaillistComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  
-  get f() { return this.formFilter.controls; }
 
-  ledgerDetailList() {
+  get f() { return this.formFilter.controls; } 
+  bankbookDetailList() {
     this.dtOptions = {
       paging: false,
       info: false,
@@ -219,7 +218,7 @@ export class LegderdetaillistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.ledgerrptService.getLedgerDetailList(this.filter)
+        this.ledgerrptService.getBankBookDetailList(this.filter)
           .subscribe(resp => {
             this.allLedger = resp;
             callback({
@@ -266,12 +265,18 @@ export class LegderdetaillistComponent {
     };
   }
 
+   getAccountList(): void {
+    this.requestmodel.strRequest="B"
+    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.accountList = res;
+    });
+  }
 
   getCashReceiptEntryDetails(finTrans: Ledgerdetailmodel): void {
     var selecteddata = this.formFilter.getRawValue();
-    sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
-    sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
-    sessionStorage.setItem("ldgaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+    sessionStorage.setItem("bbfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("bbtoDate", selecteddata.toDate);
+    sessionStorage.setItem("bbaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
@@ -306,12 +311,12 @@ export class LegderdetaillistComponent {
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr= selectedDataVal.accountID.dataId;
     this.filter.filterStr1 = this.year;
-    this.filter.filterStr2 = this.branch;
     this.sharedService.loading=true;
-    this.ledgerDetailList();
+    this.bankbookDetailList();
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
     });
   }
 }
+

@@ -1,3 +1,4 @@
+
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -12,25 +13,27 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ledgerdetaillistmodel } from 'src/app/models/ledgerdetaillist';
 import { Ledgerdetailmodel } from 'src/app/models/ledgerdetailmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 
-
 @Component({
-  selector: 'app-legderdetaillist',
-  templateUrl: './legderdetaillist.component.html',
-  styleUrls: ['./legderdetaillist.component.css']
+  selector: 'app-cashbookdetail',
+  templateUrl: './cashbookdetail.component.html',
+  styleUrls: ['./cashbookdetail.component.css']
 })
-export class LegderdetaillistComponent {
-  formSubmitted = false;
+export class CashbookdetailComponent {
+   formSubmitted = false;
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  ldgfromDate:string = '';
-  ldgtoDate:string = '';
-  ldgaccountID:string = '';
+  cbfromDate:string = '';
+  cbtoDate:string = '';
+   creditacList: Dropdownmodel[] = [];
+  cbaccountID:string = '';
+  requestmodel = new Requestmodel();
   year: string = '';
   branch: string = '';
   loginDate: string = '';
@@ -84,16 +87,16 @@ export class LegderdetaillistComponent {
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-  }
 
-  ngOnInit(): void {     
+}
+ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Accounts Ledger Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Cash Book Summary");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -130,57 +133,53 @@ export class LegderdetaillistComponent {
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
     this.fromDate = this.minDate ;  
-    this.getAccountList();  
+  
+    this.getPaymentCreditAcList(); 
 
-    var ldgfromDate = sessionStorage.getItem('ldgfromDate')?.toString();
-    if (typeof ldgfromDate !== 'undefined' && ldgfromDate !== null && ldgfromDate !== '') {
-      this.ldgfromDate = ldgfromDate;
+    var cbfromDate = sessionStorage.getItem('cbfromDate')?.toString();
+    if (typeof cbfromDate !== 'undefined' && cbfromDate !== null && cbfromDate !== '') {
+      this.cbfromDate = cbfromDate;
     }
     else{
-      this.ldgfromDate = this.fromDate;
+      this.cbfromDate = this.fromDate;
     }
-    var ldgtoDate = sessionStorage.getItem('ldgtoDate')?.toString();
-    if (typeof ldgtoDate !== 'undefined' && ldgtoDate !== null && ldgtoDate !== '') {
-      this.ldgtoDate = ldgtoDate;
+    var cbtoDate = sessionStorage.getItem('cbtoDate')?.toString();
+    if (typeof cbtoDate !== 'undefined' && cbtoDate !== null && cbtoDate !== '') {
+      this.cbtoDate = cbtoDate;
     }
     else{
-      this.ldgtoDate = this.loginDate;
+      this.cbtoDate = this.loginDate;
     } 
-    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
-    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
-      this.ldgaccountID = ldgaccountID;
+    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
+    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
+      this.cbaccountID = cbaccountID;
     }
 
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountID: new FormControl('',[Validators.required]),
+      accountId: new FormControl('',[Validators.required]),
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
-        fromDate: this.ldgfromDate,
-        toDate: this.ldgtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.ldgaccountID), 
+        fromDate: this.cbfromDate,
+        toDate: this.cbtoDate,
+        accountID:this.accountList.find(e => e.dataId == this.cbaccountID), 
       })
     }, 2000);
 
-    
-    this.filter.fromDate = this.ldgfromDate;
-    this.filter.toDate = this.ldgtoDate;
-    this.filter.filterStr = this.ldgaccountID;
+this.filter.fromDate = this.cbfromDate;
+    this.filter.toDate = this.cbtoDate;
+    this.filter.filterStr = this.cbaccountID;
     this.filter.filterStr1 = this.year;
 
-    this.ledgerDetailList();
+    this.cashbookDetailList();
 
   }
 
-  getAccountList(): void {
-    this.ledgerrptService.getLedgerList().subscribe((res) => {
-      this.accountList = res;
-    });
-  }
+
   
   onChangeSearch(search: string) {
     // fetch remote data from here
@@ -198,7 +197,7 @@ export class LegderdetaillistComponent {
   
   get f() { return this.formFilter.controls; }
 
-  ledgerDetailList() {
+  cashbookDetailList() {
     this.dtOptions = {
       paging: false,
       info: false,
@@ -219,7 +218,7 @@ export class LegderdetaillistComponent {
           recordsFiltered: 0,
           data: []
         });
-        this.ledgerrptService.getLedgerDetailList(this.filter)
+        this.ledgerrptService.getCashBookDetailList(this.filter)
           .subscribe(resp => {
             this.allLedger = resp;
             callback({
@@ -266,12 +265,19 @@ export class LegderdetaillistComponent {
     };
   }
 
+   getPaymentCreditAcList(){
+    this.requestmodel.strRequest = "M";
+    this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+      this.creditacList = res;
+    });
+  }
+
 
   getCashReceiptEntryDetails(finTrans: Ledgerdetailmodel): void {
     var selecteddata = this.formFilter.getRawValue();
-    sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
-    sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
-    sessionStorage.setItem("ldgaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+    sessionStorage.setItem("cbfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("cbtoDate", selecteddata.toDate);
+    sessionStorage.setItem("cbaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
@@ -306,9 +312,8 @@ export class LegderdetaillistComponent {
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr= selectedDataVal.accountID.dataId;
     this.filter.filterStr1 = this.year;
-    this.filter.filterStr2 = this.branch;
     this.sharedService.loading=true;
-    this.ledgerDetailList();
+    this.cashbookDetailList();
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
