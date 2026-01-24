@@ -37,8 +37,7 @@ namespace FreightMasters.Repository
                              new SqlParameter("@SeriesCode" , lRBillSeriesModel.SeriesCode  ),
                              new SqlParameter("@LR_Bill_type" , lRBillSeriesModel.LR_Bill_type ),
                              new SqlParameter("@BranchCode" , lRBillSeriesModel.BranchCode  ),
-                              new SqlParameter("@IsActive" , lRBillSeriesModel.IsActive   ),
-
+                             new SqlParameter("@IsActive" , lRBillSeriesModel.IsActive   ),
                              new SqlParameter("@LoggedInUser" , lRBillSeriesModel.LoggedInUser ),
 
                         };

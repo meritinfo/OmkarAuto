@@ -6,11 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">
-                            Lr bill series Master</h4>
-
-                        
-
+                        <h4 class="mb-sm-0 font-size-18">Lr bill series Master</h4>
                     </div>
                 </div>
             </div>
@@ -23,23 +19,19 @@
                             <div class="mb-3">
                                 <label for="basicpill-lastname-input" class="form-label">lR Bill type</label><span style="color:red">*</span>
                                 <select id="formrow-inputState" 
-                                             class="form-control form-select ng-pristine ng-touched"
-                                                 formControlName="lR_Bill_type">
-                                                
-                                                 <option value="">Choose...</option>
-                                                 <option value="L">LR</option>
-                                                 <option value="B">BILL</option>
-                                                
-                                           </select>
+                                 class="form-control form-select ng-pristine ng-touched"
+                                     formControlName="lR_Bill_type">                                    
+                                     <option value="">Choose...</option>
+                                     <option value="L">LR</option>
+                                     <option value="B">BILL</option>                                    
+                                </select>
                             </div>
                         </div>
                     <div class="col-md-2">
                         <div class="mb-3">
                             <label for="formrow-inputState">Branch</label>
-                          
                             <select class="form-control form-select ng-pristine ng-touched"autoclose="false" 
-                            formControlName="branchCode" 
-                           >
+                            formControlName="branchCode" >
                             <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                 {{branch.dataName}}
                             </option>

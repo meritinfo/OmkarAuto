@@ -23,11 +23,8 @@ export class LRBillSeriesService {
   }
   selectedLrbillseries = new Lrbillseriesmodel();
   constructor(private httpClient: HttpClient) { }
-  setLrBillSeriesDetails(lrbillseries: Lrbillseriesmodel) {
- 
-      this.selectedLrbillseries = lrbillseries;
-    
-  
+  setLrBillSeriesDetails(lrbillseries: Lrbillseriesmodel) { 
+    this.selectedLrbillseries = lrbillseries;   
   }
   getLrbillSeriesDetails() {
     return this.selectedLrbillseries;
@@ -38,8 +35,7 @@ export class LRBillSeriesService {
 
   checkDuplicateDesc(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateSeriesCode', req, this.httpOptions);
-  }
-  
+  }  
   billSeriesDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillSeriesMasterDelete', req, this.httpOptions);
   }

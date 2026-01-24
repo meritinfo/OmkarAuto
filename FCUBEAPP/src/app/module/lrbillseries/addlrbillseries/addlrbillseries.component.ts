@@ -208,11 +208,9 @@ checkDuplicateDesc(){
         this.toasterService.warning(this.responseDetails.message);
         this.formUser.patchValue({
           seriesCode: ''  
-        });
-        
+        });        
       }
-    });
-    
+    });    
 }
 
 //Submit user form details //
