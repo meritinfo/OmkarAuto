@@ -373,6 +373,8 @@ import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costperve
 import { BrsreportComponent } from './module/brsreport/brsreport.component';
 import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
 import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist.component';
+import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
+import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
 
 
 const routes: Routes = [
@@ -880,6 +882,8 @@ const routes: Routes = [
   { path: 'bankrecorpt', component: BrsreportComponent }, 
   { path: 'monthlyperrpt', component: MonthlyperformancerptComponent },  
   { path: 'acledgersum', component: LegderdetaillistComponent },  
+  { path: 'cashbooksum', component: CashbookdetailComponent }, 
+  { path: 'bankbooksum', component: BankbookdetailComponent }, 
 
  
 ];

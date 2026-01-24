@@ -58,6 +58,12 @@ export class FinreportsService {
   getLedgerDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
     return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerDetailList', filter, this.httpOptions);
   } 
+  getCashBookDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
+    return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashBookDetailList', filter, this.httpOptions);
+  } 
+   getBankBookDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
+    return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankBookDetailList', filter, this.httpOptions);
+  } 
   getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
   } 

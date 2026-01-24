@@ -93,6 +93,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCashBookDetailList")]
+        public async Task<IActionResult> GetCashBookDetailList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashBookDetailList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBankBookDetailList")]
+        public async Task<IActionResult> GetBankBookDetailList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetBankBookDetailList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetLedgerDetailList")]
         public async Task<IActionResult> GetLedgerDetailList(ReportRequestModel request)
         {
@@ -111,6 +147,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("GetFinRefTypes")]
         public async Task<IActionResult> GetFinRefTypes()

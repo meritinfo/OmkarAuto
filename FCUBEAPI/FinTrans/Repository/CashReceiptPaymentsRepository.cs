@@ -560,6 +560,7 @@ namespace FinTrans.Repository
                         new SqlParameter("@ToDate",             request.ToDate),
                         new SqlParameter("@AccountId",          request.FilterStr),
                         new SqlParameter("@YearId",             request.FilterStr1),
+                        new SqlParameter("@Branch",             request.FilterStr2),
 
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerDetailsList", param);
@@ -581,6 +582,112 @@ namespace FinTrans.Repository
                                 CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
                                 BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
                                 RefType= Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
+                            });
+                        }
+
+                        LedgerList.LedgerList = ledgerDetaillist;
+
+                        LedgerList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return LedgerList;
+        }
+        public async Task<LedgerDetailList> GetCashBookDetailList(ReportRequestModel request)
+        {
+            LedgerDetailList LedgerList = new();
+            List<LedgerDetailModel> ledgerDetaillist = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@AccountId",          request.FilterStr),
+                        new SqlParameter("@YearId",             request.FilterStr1),
+
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashBookDetailsList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = dataSet.Tables[0].Rows.Count;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            ledgerDetaillist.Add(new LedgerDetailModel
+                            {
+                                FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
+                                DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
+                                DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
+                                Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                CheqDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqDtls"]),
+                                ReferenceDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ReferenceDesc"]),
+                                DrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DrAmt"]),
+                                CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
+                                BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                                RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
+                            });
+                        }
+
+                        LedgerList.LedgerList = ledgerDetaillist;
+
+                        LedgerList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return LedgerList;
+        }
+        public async Task<LedgerDetailList> GetBankBookDetailList(ReportRequestModel request)
+        {
+            LedgerDetailList LedgerList = new();
+            List<LedgerDetailModel> ledgerDetaillist = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@AccountId",          request.FilterStr),
+                        new SqlParameter("@YearId",             request.FilterStr1),
+
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBankBookDetailsList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = dataSet.Tables[0].Rows.Count;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            ledgerDetaillist.Add(new LedgerDetailModel
+                            {
+                                FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
+                                DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
+                                DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
+                                Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                CheqDtls = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqDtls"]),
+                                ReferenceDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ReferenceDesc"]),
+                                DrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DrAmt"]),
+                                CrAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CrAmt"]),
+                                BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                                RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
                             });
                         }
 

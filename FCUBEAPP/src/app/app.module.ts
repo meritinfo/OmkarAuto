@@ -571,6 +571,9 @@ import { BrsreportComponent } from './module/brsreport/brsreport.component';
 import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
 import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist.component';
 
+import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
+import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
+
 
 @NgModule({
   declarations: [
@@ -759,7 +762,9 @@ import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetai
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
     MonthlyperformancerptComponent,
-    LegderdetaillistComponent
+    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent
+  
+   
     
   ],
   
