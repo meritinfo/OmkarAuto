@@ -41,7 +41,6 @@
                     </form>
                 </div>                
             </div>
-            <h6>Note:-<span style="color: red"> Only Ref Type = 'OTHERS' can be editable </span></h6>
             <div  style=" max-height: 350px; overflow-y: auto;" id="datatable_wrapper" 
                 class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -61,15 +60,14 @@
                             <tr *ngFor="let dsl of allTrail.trailList">                      
                                 <td style="width: 15px;">
                                     <button  type="button" class="btn btn-edit" 
-                                    (click)="getCashReceiptEntryDetails(dsl)"></button> 
+                                    (click)="getLdgCbBbDetails(dsl)"></button> 
                                 </td> 
                                 <td style="width: 20px;">{{ dsl.mainGroup}}</td>                            
                                 <td style="width: 20px;">{{ dsl.subGroup}}</td> 
-                                 <td style="width: 20px;">{{ dsl.accountName}}</td> 
+                                <td style="width: 20px;">{{ dsl.accountName}}</td> 
                                 <td style="width: 20px;">{{ dsl.debit}}</td>   
-                                 <td style="width: 20px;">{{ dsl.credit}}</td>   
-                                      <td style="width: 20px;">{{ dsl.balAmt}}</td>                     
-                           
+                                <td style="width: 20px;">{{ dsl.credit}}</td>   
+                                <td style="width: 20px;">{{ dsl.balAmt}}</td>   
                             </tr>
                         </tbody>
                         <tbody *ngIf="allTrail.trailList?.length == 0">

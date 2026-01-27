@@ -8,15 +8,11 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { FinreportsService } from 'src/app/services/finreports.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
-import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Trailballist } from 'src/app/models/trailballist';
 import { Trailbalmodel } from 'src/app/models/trailbalmodel';
-import { Ledgerdetailmodel } from 'src/app/models/ledgerdetailmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
-import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 
 @Component({
   selector: 'app-trailballist',
@@ -30,10 +26,8 @@ export class TrailballistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  cbfromDate:string = '';
-  cbtoDate:string = '';
-   creditacList: Dropdownmodel[] = [];
-  cbaccountID:string = '';
+  tbfromDate:string = '';
+  tbtoDate:string = '';
   requestmodel = new Requestmodel();
   year: string = '';
   branch: string = '';
@@ -68,7 +62,7 @@ export class TrailballistComponent {
     filterStr2:'',
     filterStr3:''
   }
-  cashFilter: Cashbankfiltermodel = {
+  cashFilter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'docNo',
@@ -76,23 +70,19 @@ export class TrailballistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch:'',
-    receiptOrPayment: '',
-    refType:'',
-    yearId:"",
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   responseDetails = new Responsemodel();
   
-  constructor(private ledgerrptService: FinreportsService, private cashReceiptEntryService: CashReceiptEntryService, 
-    private excelService: ExcelService,private toastrService:ToastrService,
+  constructor(private ledgerrptService: FinreportsService, private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
-
-  
-
-}
-ngOnInit(): void {     
+  }
+  ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -137,67 +127,55 @@ ngOnInit(): void {
     
     this.fromDate = this.minDate ;  
 
-    var cbfromDate = sessionStorage.getItem('cbfromDate')?.toString();
-    if (typeof cbfromDate !== 'undefined' && cbfromDate !== null && cbfromDate !== '') {
-      this.cbfromDate = cbfromDate;
+    var tbfromDate = sessionStorage.getItem('tbfromDate')?.toString();
+    if (typeof tbfromDate !== 'undefined' && tbfromDate !== null && tbfromDate !== '') {
+      this.tbfromDate = tbfromDate;
     }
     else{
-      this.cbfromDate = this.fromDate;
+      this.tbfromDate = this.fromDate;
     }
-    var cbtoDate = sessionStorage.getItem('cbtoDate')?.toString();
-    if (typeof cbtoDate !== 'undefined' && cbtoDate !== null && cbtoDate !== '') {
-      this.cbtoDate = cbtoDate;
+    var tbtoDate = sessionStorage.getItem('tbtoDate')?.toString();
+    if (typeof tbtoDate !== 'undefined' && tbtoDate !== null && tbtoDate !== '') {
+      this.tbtoDate = tbtoDate;
     }
     else{
-      this.cbtoDate = this.loginDate;
-    } 
-    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
-    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
-      this.cbaccountID = cbaccountID;
-    }
-
+      this.tbtoDate = this.loginDate;
+    }     
+    
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
+    sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
-      toDate: new FormControl(this.loginDate,[Validators.required]),
-    
+      toDate: new FormControl(this.loginDate,[Validators.required]),    
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
-        fromDate: this.cbfromDate,
-        toDate: this.cbtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.cbaccountID), 
+        fromDate: this.tbfromDate,
+        toDate: this.tbtoDate,
       })
     }, 2000);
 
-this.filter.fromDate = this.cbfromDate;
-    this.filter.toDate = this.cbtoDate;
+    this.filter.fromDate = this.tbfromDate;
+    this.filter.toDate = this.tbtoDate;
     this.filter.filterStr = this.branch;
     this.filter.filterStr1 = this.year;
 
     this.trailBalDetailList();
-
   }
 
-  
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-
-  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
-
-  
+    
   get f() { return this.formFilter.controls; }
 
-trailBalDetailList() {
+  trailBalDetailList() {
     this.dtOptions = {
       paging: false,
       info: false,
@@ -262,32 +240,35 @@ trailBalDetailList() {
     };
   }
 
-  
+  getLdgCbBbDetails(finTrans: Trailbalmodel): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("tbfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("tbtoDate", selecteddata.toDate);
 
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    this.filter.filterStr = finTrans.accountID;
+    this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
-  getCashReceiptEntryDetails(finTrans: Trailbalmodel): void {
-    // var selecteddata = this.formFilter.getRawValue();
-    // sessionStorage.setItem("cbfromDate", selecteddata.fromDate);
-    // sessionStorage.setItem("cbtoDate", selecteddata.toDate);
-    // sessionStorage.setItem("cbaccountID", selecteddata.accountID?selecte
-    // .ddata.accountID.dataId:"");
-
-    // this.cashFilter.fromDate = selecteddata.fromDate;
-    // this.cashFilter.toDate = selecteddata.toDate;
-    // this.cashFilter.branch = "";
-    // this.cashFilter.search = finTrans.docNo;
-    // this.cashFilter.yearId = this.year;
-    // this.cashFilter.receiptOrPayment = finTrans.docType;
-
-    // this.cashReceiptEntryService.getCashReceiptEntryList(this.cashFilter).subscribe(resp => {
-    //   this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
-    //   if(finTrans.docType=="CP" || finTrans.docType =="CR")
-    //     this.route.navigate(['/cashreceiptentryedit']);
-    //   if(finTrans.docType=="BP" || finTrans.docType =="BR")
-    //     this.route.navigate(['/bankreceiptentryedit']);
-    //   if(finTrans.docType=="JV")
-    //     this.route.navigate(['/journalentryedit']);
-    // });
+    if(finTrans.accountLedgerType=="M"){   
+      sessionStorage.setItem("cbfromDate", selecteddata.fromDate);
+      sessionStorage.setItem("cbtoDate", selecteddata.toDate);
+      sessionStorage.setItem("cbaccountID", finTrans.accountID);
+      this.route.navigate(['/cashbooksum']);  
+    }
+    else if(finTrans.accountLedgerType=="B"){   
+      sessionStorage.setItem("bbfromDate", selecteddata.fromDate);
+      sessionStorage.setItem("bbtoDate", selecteddata.toDate);
+      sessionStorage.setItem("bbaccountID", finTrans.accountID);
+      this.route.navigate(['/bankbooksum']);  
+    }
+    else{   
+      sessionStorage.setItem("ldgfromDate", selecteddata.fromDate);
+      sessionStorage.setItem("ldgtoDate", selecteddata.toDate);
+      sessionStorage.setItem("ldgaccountID", finTrans.accountID);
+      this.route.navigate(['/acledgersum']);  
+    }
   }
     
   search(): void {
