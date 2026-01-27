@@ -624,7 +624,14 @@ export class AddbankreceiptentryComponent {
     if(this.bankreceiptentryModel.detailList.length<2){
       this.toasterService.warning("Grid Should Not be Empty");
       return;
-    }    
+    }   
+
+    if(this.selectedBankReceiptEntryDetails.ftmID!=""){
+      if(selectedDataValue.modifyRemarks.toString().length < 10){
+        this.toasterService.warning("Modify Remarks should be atleast 10 characters");
+        return;
+      }
+    }   
 
     this.formSubmitted = true;
 
