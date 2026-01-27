@@ -98,6 +98,16 @@ export class BankcashcontralistComponent {
       this.loginDate = loginDate;
     }
     
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
+    sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     

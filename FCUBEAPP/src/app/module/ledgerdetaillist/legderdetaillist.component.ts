@@ -150,6 +150,12 @@ export class LegderdetaillistComponent {
     if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
       this.ldgaccountID = ldgaccountID;
     }
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
 
     
     this.formFilter = this.formBuilder.group({
@@ -166,11 +172,11 @@ export class LegderdetaillistComponent {
       })
     }, 2000);
 
-    
     this.filter.fromDate = this.ldgfromDate;
     this.filter.toDate = this.ldgtoDate;
     this.filter.filterStr = this.ldgaccountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
     this.ledgerDetailList();
 
@@ -284,11 +290,17 @@ export class LegderdetaillistComponent {
       this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
       if(finTrans.docType=="CP" || finTrans.docType =="CR")
         this.route.navigate(['/cashreceiptentryedit']);
-      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+      else if(finTrans.docType=="BP" || finTrans.docType =="BR")
         this.route.navigate(['/bankreceiptentryedit']);
-      if(finTrans.docType=="JV")
+      else if(finTrans.docType=="JV")
         this.route.navigate(['/journalentryedit']);
+      else if(finTrans.docType=="BC")
+        this.route.navigate(['/bankcashcontraedit']);
     });
+  }
+
+  openTrail(){
+    this.route.navigate(['/trailbalsum']);
   }
     
   search(): void {

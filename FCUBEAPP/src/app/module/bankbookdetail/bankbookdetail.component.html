@@ -14,7 +14,7 @@
                 <div class="col-sm-12 col-md-12">
                     <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
@@ -22,7 +22,7 @@
                                         formControlName="fromDate" class="form-control">
                                 </div>
                             </div>       
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">To Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
@@ -30,21 +30,28 @@
                                         formControlName="toDate" class="form-control">
                                 </div>
                             </div>  
-                                 <div class="col-md-3">
+                                <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Account</label>
-                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="accountId" 
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['accountId'].invalid) }">
+                                    <select class="form-control form-select ng-pristine ng-touched"
+                                    formControlName="accountID" 
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['accountID'].invalid) }">
                                         <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
                                     </select>
                                 </div>
-                            </div>        
+                            </div>                          
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary"   
                                     (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>                      
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="openTrail()"><span>Open Trail Bal</span></button>
                                 </div>
                             </div>
                         </div>

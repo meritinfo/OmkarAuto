@@ -154,26 +154,34 @@ ngOnInit(): void {
     if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
       this.cbaccountID = cbaccountID;
     }
+    
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
+    sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
 
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountId: new FormControl('',[Validators.required]),
+      accountID: new FormControl('',[Validators.required]),
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
         fromDate: this.cbfromDate,
         toDate: this.cbtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.cbaccountID), 
+        accountID:this.cbaccountID, 
       })
     }, 2000);
 
-this.filter.fromDate = this.cbfromDate;
+    this.filter.fromDate = this.cbfromDate;
     this.filter.toDate = this.cbtoDate;
     this.filter.filterStr = this.cbaccountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
     this.cashbookDetailList();
 
@@ -277,7 +285,7 @@ this.filter.fromDate = this.cbfromDate;
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("cbfromDate", selecteddata.fromDate);
     sessionStorage.setItem("cbtoDate", selecteddata.toDate);
-    sessionStorage.setItem("cbaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+    sessionStorage.setItem("cbaccountID", selecteddata.accountID);
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
@@ -290,13 +298,19 @@ this.filter.fromDate = this.cbfromDate;
       this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
       if(finTrans.docType=="CP" || finTrans.docType =="CR")
         this.route.navigate(['/cashreceiptentryedit']);
-      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+      else if(finTrans.docType=="BP" || finTrans.docType =="BR")
         this.route.navigate(['/bankreceiptentryedit']);
-      if(finTrans.docType=="JV")
+      else if(finTrans.docType=="JV")
         this.route.navigate(['/journalentryedit']);
+      else if(finTrans.docType=="BC")
+        this.route.navigate(['/bankcashcontraedit']);
     });
   }
     
+  openTrail(){
+    this.route.navigate(['/trailbalsum']);
+  }
+
   search(): void {
     var selectedDataVal=this.formFilter.getRawValue();
     let frmdt = new Date(selectedDataVal.fromDate);
@@ -310,8 +324,9 @@ this.filter.fromDate = this.cbfromDate;
     }
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr= selectedDataVal.accountID.dataId;
+    this.filter.filterStr= selectedDataVal.accountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
     this.sharedService.loading=true;
     this.cashbookDetailList();
     this.sharedService.loading=false;

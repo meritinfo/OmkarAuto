@@ -106,7 +106,15 @@ export class JournalentrylistComponent {
     
     this.fromDate = this.minDate ;  
     this.getFinRefTypes();
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
     sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
 
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
     this.formFilter = this.formBuilder.group({
@@ -158,33 +166,33 @@ export class JournalentrylistComponent {
               });
           });
       },
-        columns: [    
-          {
-            title: 'Action',
-            data: 'ftmID',
-          },     
-          {
-            title: 'Doc Series No ',
-            data: 'seriesDoc',
-          },    
-          {
-            title: 'Date',
-            data: 'ftmDate',
-          },     
-          {
-            title: 'Amount',
-            data: 'docAmount',
-          },
-          {
-            title: 'Ref.Type',
-            data: 'refType',
-          },
-          {
-            title: 'Ref.No',
-            data: 'refNo',
-          },
-         
-        ],
+      columns: [    
+        {
+          title: 'Action',
+          data: 'ftmID',
+        },     
+        {
+          title: 'Doc Series No ',
+          data: 'seriesDoc',
+        },    
+        {
+          title: 'Date',
+          data: 'ftmDate',
+        },     
+        {
+          title: 'Amount',
+          data: 'docAmount',
+        },
+        {
+          title: 'Ref.Type',
+          data: 'refType',
+        },
+        {
+          title: 'Ref.No',
+          data: 'refNo',
+        },
+       
+      ],
     };
   }
   

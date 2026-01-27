@@ -105,7 +105,16 @@ export class BankreceiptentrylistComponent {
     this.fromDate = this.minDate ;
     this.getFinRefTypes();
 
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
     sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
+
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
 
     this.formFilter = this.formBuilder.group({
