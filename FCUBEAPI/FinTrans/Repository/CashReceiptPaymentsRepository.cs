@@ -708,6 +708,59 @@ namespace FinTrans.Repository
             }
             return LedgerList;
         }
+        public async Task<TrailBalList> GetTrailBalDetailList(ReportRequestModel request)
+        {
+            TrailBalList trailList = new();
+            List<TrailBalModel> trailDetaillist = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@YearId",             request.FilterStr1),
+                        new SqlParameter("@Branch",          request.FilterStr),
+
+                    };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTrailBalDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = dataSet.Tables[0].Rows.Count;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            trailDetaillist.Add(new TrailBalModel
+                            {
+                                AccountID = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountID"]),
+                                AccountLedgerType = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountLedgerType"]),
+                                MainGroup = Convert.ToString(dataSet.Tables[0].Rows[i]["MainGroup"]),
+                                SubGroup = Convert.ToString(dataSet.Tables[0].Rows[i]["SubGroup"]),
+                                AccountName = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountName"]),
+                                DEBIT = Convert.ToString(dataSet.Tables[0].Rows[i]["DEBIT"]),
+                                CREDIT= Convert.ToString(dataSet.Tables[0].Rows[i]["CREDIT"]),
+                                BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                            });
+                        }
+
+                        trailList.TrailList = trailDetaillist;
+
+                        trailList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return trailList;
+        }
+
+
 
 
 

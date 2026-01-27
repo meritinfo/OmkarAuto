@@ -100,6 +100,10 @@ namespace FinTrans.Business
         {
             return await cashReceiptPaymentsRepository.GetBankBookDetailList(request);
         }
+        public async Task<TrailBalList> GetTrailBalDetailList(ReportRequestModel request)
+        {
+            return await cashReceiptPaymentsRepository.GetTrailBalDetailList(request);
+        }
 
         public async Task<ResponseModel> CashBookReport(ReportRequestModel request)
         {

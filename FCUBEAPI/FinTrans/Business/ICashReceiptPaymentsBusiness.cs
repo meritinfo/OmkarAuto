@@ -22,5 +22,6 @@ namespace FinTrans.Business
         Task<LedgerDetailList> GetLedgerDetailList(ReportRequestModel request);
         Task<LedgerDetailList> GetCashBookDetailList(ReportRequestModel request);
         Task<LedgerDetailList> GetBankBookDetailList(ReportRequestModel request);
+        Task<TrailBalList> GetTrailBalDetailList(ReportRequestModel request);
     }
 }

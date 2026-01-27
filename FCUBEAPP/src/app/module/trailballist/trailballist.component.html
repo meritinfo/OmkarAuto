@@ -1,0 +1,91 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Trail Balance Summary</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                          min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="fromDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                          min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="toDate" class="form-control">
+                                </div>
+                            </div>  
+                                    
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary"   
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>                
+            </div>
+            <h6>Note:-<span style="color: red"> Only Ref Type = 'OTHERS' can be editable </span></h6>
+            <div  style=" max-height: 350px; overflow-y: auto;" id="datatable_wrapper" 
+                class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                        <thead>
+                            <tr style="position: sticky; top: 0; background: #fff; z-index: 10; border-bottom: 2px solid #ccc;">                 
+                                <th style="width: 15px;">edit</th> 
+                                <th style="width: 20px;">billStmtNo</th>                             
+                                <th style="width: 20px;">billStmtDate</th>
+                                <th style="width: 20px;">fromDate</th>
+                                <th style="width: 20px;">location</th>
+                                <th style="width: 20px;">Action</th>
+                                <th style="width: 20px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allTrail.trailList?.length != 0">
+                            <tr *ngFor="let dsl of allTrail.trailList">                      
+                                <td style="width: 15px;">
+                                    <button  type="button" class="btn btn-edit" 
+                                    (click)="getCashReceiptEntryDetails(dsl)"></button> 
+                                </td> 
+                                <td style="width: 20px;">{{ dsl.mainGroup}}</td>                            
+                                <td style="width: 20px;">{{ dsl.subGroup}}</td> 
+                                 <td style="width: 20px;">{{ dsl.accountName}}</td> 
+                                <td style="width: 20px;">{{ dsl.debit}}</td>   
+                                 <td style="width: 20px;">{{ dsl.credit}}</td>   
+                                      <td style="width: 20px;">{{ dsl.balAmt}}</td>                     
+                           
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allTrail.trailList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
