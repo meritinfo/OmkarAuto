@@ -28,6 +28,8 @@ export class AddjournalentryComponent{
   dashboard: string ="";
   branchname: string = '';
   ldgaccountID: string = '';
+  cbaccountID : string = '';
+  bbaccountID : string = '';
   loginDate: string = '';
   year: string = '';
   createdBy:string = "";
@@ -104,6 +106,14 @@ export class AddjournalentryComponent{
     var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
     if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
       this.ldgaccountID = ldgaccountID;
+    }
+    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
+    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
+      this.cbaccountID = cbaccountID;
+    }
+    var bbaccountID = sessionStorage.getItem('bbaccountID')?.toString();
+    if (typeof bbaccountID !== 'undefined' && bbaccountID !== null && bbaccountID !== '') {
+      this.bbaccountID = bbaccountID;
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -360,11 +370,17 @@ export class AddjournalentryComponent{
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message); 
               this.formJournalEntry.reset();
-              if(this.ldgaccountID==""){
-                this.route.navigate(['/journalentrylist']);
-              }
-              else{            
+              if(this.ldgaccountID!=""){     
                 this.route.navigate(['/acledgersum']);
+              }
+              else if(this.cbaccountID!=""){    
+                this.route.navigate(['/cashbooksum']);   
+              }
+              else if(this.bbaccountID!=""){    
+                this.route.navigate(['/bankbooksum']);   
+              }
+              else{
+                this.route.navigate(['/journalentrylist']);
               }
             }
             else{
@@ -377,11 +393,17 @@ export class AddjournalentryComponent{
   }
 
   exit(): void {
-    if(this.ldgaccountID==""){
-      this.route.navigate(['/journalentrylist']);
-    }
-    else{            
+    if(this.ldgaccountID!=""){     
       this.route.navigate(['/acledgersum']);
+    }
+    else if(this.cbaccountID!=""){    
+      this.route.navigate(['/cashbooksum']);   
+    }
+    else if(this.bbaccountID!=""){    
+      this.route.navigate(['/bankbooksum']);   
+    }
+    else{
+      this.route.navigate(['/journalentrylist']);
     }
   }
     
@@ -491,11 +513,17 @@ export class AddjournalentryComponent{
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formJournalEntry.reset();
-        if(this.ldgaccountID==""){
-          this.route.navigate(['/journalentrylist']);
-        }
-        else{            
+        if(this.ldgaccountID!=""){     
           this.route.navigate(['/acledgersum']);
+        }
+        else if(this.cbaccountID!=""){    
+          this.route.navigate(['/cashbooksum']);   
+        }
+        else if(this.bbaccountID!=""){    
+          this.route.navigate(['/bankbooksum']);   
+        }
+        else{
+          this.route.navigate(['/journalentrylist']);
         }
       }
       else{

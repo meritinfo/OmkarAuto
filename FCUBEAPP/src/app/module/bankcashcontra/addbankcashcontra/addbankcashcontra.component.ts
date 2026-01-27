@@ -24,6 +24,9 @@ export class AddbankcashcontraComponent {
   branchname: string = '';
   year: string = '';
   loginDate: string = '';
+  ldgaccountID : string = '';
+  cbaccountID : string = '';
+  bbaccountID : string = '';
   keywordLocation = 'dataName';
   locationList: Dropdownmodel[] = [];
   ledgerList: Dropdownmodel[] = [];
@@ -76,8 +79,8 @@ export class AddbankcashcontraComponent {
     }
 
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -99,7 +102,19 @@ export class AddbankcashcontraComponent {
     else {
       this.route.navigate(['/']);
     }
-    
+    var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
+    if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
+      this.ldgaccountID = ldgaccountID;
+    }
+    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
+    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
+      this.cbaccountID = cbaccountID;
+    }
+    var bbaccountID = sessionStorage.getItem('bbaccountID')?.toString();
+    if (typeof bbaccountID !== 'undefined' && bbaccountID !== null && bbaccountID !== '') {
+      this.bbaccountID = bbaccountID;
+    }
+       
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date(this.loginDate).toLocaleDateString('en-CA').toString();
     
@@ -262,25 +277,46 @@ export class AddbankcashcontraComponent {
       this.sharedService.loading=true;
       this.requestmodel.strRequest =this.selectedBankCashContraDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
-            this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if(this.responseDetails.status){
-              this.toasterService.success(this.responseDetails.message);
-              this.formBankContra.reset();
-              this.route.navigate(['/bankcashcontralist']);
+        this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
+            this.formBankContra.reset();
+            if(this.ldgaccountID!=""){     
+              this.route.navigate(['/acledgersum']);
+            }
+            else if(this.cbaccountID!=""){    
+              this.route.navigate(['/cashbooksum']);   
+            }
+            else if(this.bbaccountID!=""){    
+              this.route.navigate(['/bankbooksum']);   
             }
             else{
-              this.toasterService.warning(this.responseDetails.message);        
-            }  
+              this.route.navigate(['/bankcashcontralist']);
+            }
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }  
         });
-      }
-      
+      }      
       this.sharedService.loading=false;
     }
   }
 
   exit(): void {
-    this.route.navigate(['/bankcashcontralist']);
+    if(this.ldgaccountID!=""){     
+      this.route.navigate(['/acledgersum']);
+    }
+    else if(this.cbaccountID!=""){    
+      this.route.navigate(['/cashbooksum']);   
+    }
+    else if(this.bbaccountID!=""){    
+      this.route.navigate(['/bankbooksum']);   
+    }
+    else{
+      this.route.navigate(['/bankcashcontralist']);
+    }
   }
   
   //Submit user form details //
@@ -366,7 +402,18 @@ export class AddbankcashcontraComponent {
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formBankContra.reset();
-        this.route.navigate(['/bankcashcontralist']);
+        if(this.ldgaccountID!=""){     
+          this.route.navigate(['/acledgersum']);
+        }
+        else if(this.cbaccountID!=""){    
+          this.route.navigate(['/cashbooksum']);   
+        }
+        else if(this.bbaccountID!=""){    
+          this.route.navigate(['/bankbooksum']);   
+        }
+        else{
+          this.route.navigate(['/bankcashcontralist']);
+        }
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

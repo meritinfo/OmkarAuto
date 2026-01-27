@@ -35,6 +35,8 @@ export class AddcashreceiptentryComponent {
   minDate:string = "";
   maxDate:string = "";
   ldgaccountID :string = "";
+  cbaccountID : string = '';
+  bbaccountID : string = '';
 
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -115,6 +117,14 @@ export class AddcashreceiptentryComponent {
     var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
     if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
       this.ldgaccountID = ldgaccountID;
+    }
+    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
+    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
+      this.cbaccountID = cbaccountID;
+    }
+    var bbaccountID = sessionStorage.getItem('bbaccountID')?.toString();
+    if (typeof bbaccountID !== 'undefined' && bbaccountID !== null && bbaccountID !== '') {
+      this.bbaccountID = bbaccountID;
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -374,11 +384,17 @@ export class AddcashreceiptentryComponent {
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message); 
               this.formCashRRecEntry.reset();
-              if(this.ldgaccountID==""){
-                this.route.navigate(['/cashreceiptentrylist']);
-              }
-              else{            
+              if(this.ldgaccountID!=""){     
                 this.route.navigate(['/acledgersum']);
+              }
+              else if(this.cbaccountID!=""){    
+                this.route.navigate(['/cashbooksum']);   
+              }
+              else if(this.bbaccountID!=""){    
+                this.route.navigate(['/bankbooksum']);   
+              }
+              else{
+                this.route.navigate(['/cashreceiptentrylist']);
               }
             }
             else{
@@ -391,11 +407,17 @@ export class AddcashreceiptentryComponent {
   }
 
   exit(): void {
-    if(this.ldgaccountID==""){
-      this.route.navigate(['/cashreceiptentrylist']);
-    }
-    else{            
+    if(this.ldgaccountID!=""){     
       this.route.navigate(['/acledgersum']);
+    }
+    else if(this.cbaccountID!=""){    
+      this.route.navigate(['/cashbooksum']);   
+    }
+    else if(this.bbaccountID!=""){    
+      this.route.navigate(['/bankbooksum']);   
+    }
+    else{
+      this.route.navigate(['/cashreceiptentrylist']);
     }
   }
 
@@ -532,11 +554,17 @@ export class AddcashreceiptentryComponent {
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formCashRRecEntry.reset();
-        if(this.ldgaccountID==""){
-          this.route.navigate(['/cashreceiptentrylist']);
-        }
-        else{            
+        if(this.ldgaccountID!=""){     
           this.route.navigate(['/acledgersum']);
+        }
+        else if(this.cbaccountID!=""){    
+          this.route.navigate(['/cashbooksum']);   
+        }
+        else if(this.bbaccountID!=""){    
+          this.route.navigate(['/bankbooksum']);   
+        }
+        else{
+          this.route.navigate(['/cashreceiptentrylist']);
         }
       }
       else{

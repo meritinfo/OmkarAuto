@@ -154,6 +154,13 @@ ngOnInit(): void {
     if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
       this.cbaccountID = cbaccountID;
     }
+    
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
+    sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("bbfromDate", "");
+    sessionStorage.setItem("bbtoDate", "");
+    sessionStorage.setItem("bbaccountID", "");
 
     
     this.formFilter = this.formBuilder.group({
@@ -170,7 +177,7 @@ ngOnInit(): void {
       })
     }, 2000);
 
-this.filter.fromDate = this.cbfromDate;
+    this.filter.fromDate = this.cbfromDate;
     this.filter.toDate = this.cbtoDate;
     this.filter.filterStr = this.cbaccountID;
     this.filter.filterStr1 = this.year;
@@ -290,13 +297,19 @@ this.filter.fromDate = this.cbfromDate;
       this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
       if(finTrans.docType=="CP" || finTrans.docType =="CR")
         this.route.navigate(['/cashreceiptentryedit']);
-      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+      else if(finTrans.docType=="BP" || finTrans.docType =="BR")
         this.route.navigate(['/bankreceiptentryedit']);
-      if(finTrans.docType=="JV")
+      else if(finTrans.docType=="JV")
         this.route.navigate(['/journalentryedit']);
+      else if(finTrans.docType=="BC")
+        this.route.navigate(['/bankcashcontraedit']);
     });
   }
     
+  openTrail(){
+    this.route.navigate(['/trailbalsum']);
+  }
+  
   search(): void {
     var selectedDataVal=this.formFilter.getRawValue();
     let frmdt = new Date(selectedDataVal.fromDate);

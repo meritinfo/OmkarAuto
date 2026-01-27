@@ -23,6 +23,8 @@ export class AddbankreceiptentryComponent {
   branchname: string = '';
   branch: string = '';
   ldgaccountID: string = '';
+  cbaccountID: string = '';
+  bbaccountID: string = '';
   year: string = '';
   loginDate: string = '';
   locationList: Dropdownmodel[] = [];
@@ -77,11 +79,9 @@ export class AddbankreceiptentryComponent {
     if(!this.viewStatus){      
       this.route.navigate([this.dashboard]);
     }
-
-
     
-      this.sharedService.loggedInStatus = true;
-        var userData = sessionStorage.getItem('uid')?.toString();
+    this.sharedService.loggedInStatus = true;
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -114,6 +114,14 @@ export class AddbankreceiptentryComponent {
     var ldgaccountID = sessionStorage.getItem('ldgaccountID')?.toString();
     if (typeof ldgaccountID !== 'undefined' && ldgaccountID !== null && ldgaccountID !== '') {
       this.ldgaccountID = ldgaccountID;
+    }
+    var cbaccountID = sessionStorage.getItem('cbaccountID')?.toString();
+    if (typeof cbaccountID !== 'undefined' && cbaccountID !== null && cbaccountID !== '') {
+      this.cbaccountID = cbaccountID;
+    }
+    var bbaccountID = sessionStorage.getItem('bbaccountID')?.toString();
+    if (typeof bbaccountID !== 'undefined' && bbaccountID !== null && bbaccountID !== '') {
+      this.bbaccountID = bbaccountID;
     }
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -436,11 +444,17 @@ export class AddbankreceiptentryComponent {
           if(this.responseDetails.status){
             this.toasterService.success(this.responseDetails.message); 
             this.formBankRecEntry.reset();
-            if(this.ldgaccountID==""){
-              this.route.navigate(['/bankreceiptentrylist']);
-            }
-            else{            
+            if(this.ldgaccountID!=""){     
               this.route.navigate(['/acledgersum']);
+            }
+            else if(this.cbaccountID!=""){    
+              this.route.navigate(['/cashbooksum']);   
+            }
+            else if(this.bbaccountID!=""){    
+              this.route.navigate(['/bankbooksum']);   
+            }
+            else{
+              this.route.navigate(['/bankreceiptentrylist']);
             }
           }
           else{
@@ -453,11 +467,17 @@ export class AddbankreceiptentryComponent {
     }
   }
   exit(): void {
-    if(this.ldgaccountID==""){
-      this.route.navigate(['/bankreceiptentrylist']);
-    }
-    else{            
+    if(this.ldgaccountID!=""){     
       this.route.navigate(['/acledgersum']);
+    }
+    else if(this.cbaccountID!=""){    
+      this.route.navigate(['/cashbooksum']);   
+    }
+    else if(this.bbaccountID!=""){    
+      this.route.navigate(['/bankbooksum']);   
+    }
+    else{
+      this.route.navigate(['/bankreceiptentrylist']);
     }
   }
   
@@ -614,11 +634,17 @@ export class AddbankreceiptentryComponent {
       if(this.responseDetails.status){
         this.toasterService.success("Saved Successfully"); 
         this.formBankRecEntry.reset();
-        if(this.ldgaccountID==""){
-          this.route.navigate(['/bankreceiptentrylist']);
-        }
-        else{            
+        if(this.ldgaccountID!=""){     
           this.route.navigate(['/acledgersum']);
+        }
+        else if(this.cbaccountID!=""){    
+          this.route.navigate(['/cashbooksum']);   
+        }
+        else if(this.bbaccountID!=""){    
+          this.route.navigate(['/bankbooksum']);   
+        }
+        else{
+          this.route.navigate(['/bankreceiptentrylist']);
         }
       }
       else{

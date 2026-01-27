@@ -30,9 +30,9 @@ export class BankbookdetailComponent {
     deleteStatus = false;
     viewStatus = false; 
     bbfromDate:string = '';
-  bbtoDate:string = '';
-   creditacList: Dropdownmodel[] = [];
-  bbaccountID:string = '';
+    bbtoDate:string = '';
+    bbaccountID:string = '';
+    creditacList: Dropdownmodel[] = [];
     requestmodel = new Requestmodel();
     year: string = '';
     branch: string = '';
@@ -95,8 +95,8 @@ ngOnInit(): void {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Bank Book Summary");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -156,6 +156,12 @@ ngOnInit(): void {
       this.bbaccountID = bbaccountID;
     }
 
+    sessionStorage.setItem("ldgfromDate", "");
+    sessionStorage.setItem("ldgtoDate", "");
+    sessionStorage.setItem("ldgaccountID", "");
+    sessionStorage.setItem("cbfromDate", "");
+    sessionStorage.setItem("cbtoDate", "");
+    sessionStorage.setItem("cbaccountID", "");
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
@@ -171,7 +177,7 @@ ngOnInit(): void {
       })
     }, 2000);
 
-this.filter.fromDate = this.bbfromDate;
+    this.filter.fromDate = this.bbfromDate;
     this.filter.toDate = this.bbtoDate;
     this.filter.filterStr = this.bbaccountID;
     this.filter.filterStr1 = this.year;
@@ -289,11 +295,17 @@ this.filter.fromDate = this.bbfromDate;
       this.cashReceiptEntryService.setCashReceiptEntryDetails(resp.recPaymentsList[0]);
       if(finTrans.docType=="CP" || finTrans.docType =="CR")
         this.route.navigate(['/cashreceiptentryedit']);
-      if(finTrans.docType=="BP" || finTrans.docType =="BR")
+      else if(finTrans.docType=="BP" || finTrans.docType =="BR")
         this.route.navigate(['/bankreceiptentryedit']);
-      if(finTrans.docType=="JV")
+      else if(finTrans.docType=="JV")
         this.route.navigate(['/journalentryedit']);
+      else if(finTrans.docType=="BC")
+        this.route.navigate(['/bankcashcontraedit']);
     });
+  }
+  
+  openTrail(){
+    this.route.navigate(['/trailbalsum']);
   }
     
   search(): void {
