@@ -614,6 +614,7 @@ namespace FinTrans.Repository
                         new SqlParameter("@ToDate",             request.ToDate),
                         new SqlParameter("@AccountId",          request.FilterStr),
                         new SqlParameter("@YearId",             request.FilterStr1),
+                        new SqlParameter("@Branch",             request.FilterStr2),
 
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashBookDetailsList", param);
@@ -667,6 +668,7 @@ namespace FinTrans.Repository
                         new SqlParameter("@ToDate",             request.ToDate),
                         new SqlParameter("@AccountId",          request.FilterStr),
                         new SqlParameter("@YearId",             request.FilterStr1),
+                        new SqlParameter("@Branch",             request.FilterStr2),
 
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBankBookDetailsList", param);

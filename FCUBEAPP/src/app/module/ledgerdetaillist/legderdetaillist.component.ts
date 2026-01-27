@@ -172,11 +172,11 @@ export class LegderdetaillistComponent {
       })
     }, 2000);
 
-    
     this.filter.fromDate = this.ldgfromDate;
     this.filter.toDate = this.ldgtoDate;
     this.filter.filterStr = this.ldgaccountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
     this.ledgerDetailList();
 
@@ -298,7 +298,7 @@ export class LegderdetaillistComponent {
         this.route.navigate(['/bankcashcontraedit']);
     });
   }
-  
+
   openTrail(){
     this.route.navigate(['/trailbalsum']);
   }

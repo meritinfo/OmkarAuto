@@ -166,14 +166,14 @@ ngOnInit(): void {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountId: new FormControl('',[Validators.required]),
+      accountID: new FormControl('',[Validators.required]),
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
         fromDate: this.cbfromDate,
         toDate: this.cbtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.cbaccountID), 
+        accountID:this.cbaccountID, 
       })
     }, 2000);
 
@@ -181,6 +181,7 @@ ngOnInit(): void {
     this.filter.toDate = this.cbtoDate;
     this.filter.filterStr = this.cbaccountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
     this.cashbookDetailList();
 
@@ -284,7 +285,7 @@ ngOnInit(): void {
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("cbfromDate", selecteddata.fromDate);
     sessionStorage.setItem("cbtoDate", selecteddata.toDate);
-    sessionStorage.setItem("cbaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+    sessionStorage.setItem("cbaccountID", selecteddata.accountID);
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
@@ -309,7 +310,7 @@ ngOnInit(): void {
   openTrail(){
     this.route.navigate(['/trailbalsum']);
   }
-  
+
   search(): void {
     var selectedDataVal=this.formFilter.getRawValue();
     let frmdt = new Date(selectedDataVal.fromDate);
@@ -323,8 +324,9 @@ ngOnInit(): void {
     }
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr= selectedDataVal.accountID.dataId;
+    this.filter.filterStr= selectedDataVal.accountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
     this.sharedService.loading=true;
     this.cashbookDetailList();
     this.sharedService.loading=false;

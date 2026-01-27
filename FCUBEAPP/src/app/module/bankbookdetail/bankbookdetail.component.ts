@@ -87,10 +87,10 @@ export class BankbookdetailComponent {
       private formBuilder: FormBuilder,  private sharedService: SharedService,
       private commonService: CommonService, 
       private route: Router) {
-  
+    
 
-}
-ngOnInit(): void {     
+  }
+  ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -166,14 +166,14 @@ ngOnInit(): void {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountId: new FormControl('',[Validators.required]),
+      accountID: new FormControl('',[Validators.required]),
     });    
 
     setTimeout(() => {      
       this.formFilter.patchValue({
         fromDate: this.bbfromDate,
         toDate: this.bbtoDate,
-        accountID:this.accountList.find(e => e.dataId == this.bbaccountID), 
+        accountID: this.bbaccountID, 
       })
     }, 2000);
 
@@ -181,28 +181,14 @@ ngOnInit(): void {
     this.filter.toDate = this.bbtoDate;
     this.filter.filterStr = this.bbaccountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
 
     this.bankbookDetailList();
-
   }
-
-
-  
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-
-  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
 
 
   get f() { return this.formFilter.controls; } 
+  
   bankbookDetailList() {
     this.dtOptions = {
       paging: false,
@@ -271,10 +257,10 @@ ngOnInit(): void {
     };
   }
 
-   getAccountList(): void {
+  getAccountList(): void {
     this.requestmodel.strRequest="B"
     this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.accountList = res;
+      this.creditacList = res;
     });
   }
 
@@ -282,7 +268,7 @@ ngOnInit(): void {
     var selecteddata = this.formFilter.getRawValue();
     sessionStorage.setItem("bbfromDate", selecteddata.fromDate);
     sessionStorage.setItem("bbtoDate", selecteddata.toDate);
-    sessionStorage.setItem("bbaccountID", selecteddata.accountID?selecteddata.accountID.dataId:"");
+    sessionStorage.setItem("bbaccountID", selecteddata.accountID);
 
     this.cashFilter.fromDate = selecteddata.fromDate;
     this.cashFilter.toDate = selecteddata.toDate;
@@ -303,7 +289,7 @@ ngOnInit(): void {
         this.route.navigate(['/bankcashcontraedit']);
     });
   }
-  
+
   openTrail(){
     this.route.navigate(['/trailbalsum']);
   }
@@ -321,8 +307,9 @@ ngOnInit(): void {
     }
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr= selectedDataVal.accountID.dataId;
+    this.filter.filterStr= selectedDataVal.accountID;
     this.filter.filterStr1 = this.year;
+    this.filter.filterStr2 = this.branch;
     this.sharedService.loading=true;
     this.bankbookDetailList();
     this.sharedService.loading=false;
