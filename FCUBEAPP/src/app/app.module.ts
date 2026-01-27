@@ -573,6 +573,7 @@ import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetai
 
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
+import { TrailballistComponent } from './module/trailballist/trailballist.component';
 
 
 @NgModule({
@@ -762,7 +763,7 @@ import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
     MonthlyperformancerptComponent,
-    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent
+    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent
   
    
     

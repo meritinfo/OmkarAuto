@@ -375,6 +375,7 @@ import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/m
 import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist.component';
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
+import { TrailballistComponent } from './module/trailballist/trailballist.component';
 
 
 const routes: Routes = [
@@ -884,6 +885,7 @@ const routes: Routes = [
   { path: 'acledgersum', component: LegderdetaillistComponent },  
   { path: 'cashbooksum', component: CashbookdetailComponent }, 
   { path: 'bankbooksum', component: BankbookdetailComponent }, 
+  { path: 'trailbalsum', component: TrailballistComponent }, 
 
  
 ];

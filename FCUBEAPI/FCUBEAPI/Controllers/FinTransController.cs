@@ -111,6 +111,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTrailBalDetailList")]
+        public async Task<IActionResult> GetTrailBalDetailList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetTrailBalDetailList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBankBookDetailList")]
         public async Task<IActionResult> GetBankBookDetailList(ReportRequestModel request)
         {
