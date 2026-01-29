@@ -65,7 +65,7 @@ export class FinreportsService {
    getTrailBalDetailList(filter: Reportmodel): Observable<Trailballist> {
     return this.httpClient.post<Trailballist>(Constants.API_ENDPOINT + 'FinTrans/GetTrailBalDetailList', filter, this.httpOptions);
   } 
-   getBankBookDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
+   
   getBankBookDetailList(filter: Reportmodel): Observable<Ledgerdetaillistmodel> {
     return this.httpClient.post<Ledgerdetaillistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankBookDetailList', filter, this.httpOptions);
   } 
