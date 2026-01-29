@@ -396,6 +396,13 @@ export class AddbankcashcontraComponent {
       'cnRefNo': ""
     })
     
+    if(this.selectedBankCashContraDetails.ftmID!=""){
+      if(selectedDataValue.modifyRemarks.toString().length < 10){
+        this.toasterService.warning("Modify Remarks should be atleast 10 characters");
+        return;
+      }
+    }   
+
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
