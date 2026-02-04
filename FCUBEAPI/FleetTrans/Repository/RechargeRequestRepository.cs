@@ -35,7 +35,6 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param = { };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetCardList", param);
-
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
