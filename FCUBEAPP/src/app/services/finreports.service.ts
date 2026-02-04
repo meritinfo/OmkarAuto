@@ -9,6 +9,7 @@ import { Trailballist } from 'src/app/models/trailballist';
 import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
 import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
 import { Ledgerdetaillistmodel } from 'src/app/models/ledgerdetaillist';
+import { Repreqmodel } from '../models/repreqmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -71,13 +72,13 @@ export class FinreportsService {
   getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
   } 
-  getMultipleLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+  getMultipleLedgerrptExcel(filter: Repreqmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptExcel', filter, this.httpOptions);
   } 
    getAnnexurerptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetAnnexureRptExcel', filter, this.httpOptions);
   } 
-   getMultipleLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
+   getMultipleLedgerrptPdf(filter: Repreqmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetMultipleLedgerRptPdf', filter, this.httpOptions);
   } 
   getAnnexurerrptPdf(filter: Reportmodel): Observable<Responsemodel> {

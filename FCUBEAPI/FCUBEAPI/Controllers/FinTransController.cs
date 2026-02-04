@@ -714,7 +714,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetMultipleLedgerRptExcel")]
-        public async Task<IActionResult> GetMultipleLedgerRptExcel(ReportRequestModel req)
+        public async Task<IActionResult> GetMultipleLedgerRptExcel(RepReqModel req)
         {
             if (req == null)
             {
@@ -770,7 +770,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetMultipleLedgerRptPdf")]
-        public async Task<IActionResult> GetMultipleLedgerRptPdf(ReportRequestModel req)
+        public async Task<IActionResult> GetMultipleLedgerRptPdf(RepReqModel req)
         {
             if (req == null)
             {

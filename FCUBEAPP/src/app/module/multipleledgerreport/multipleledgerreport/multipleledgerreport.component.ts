@@ -1,13 +1,12 @@
 
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Repreqmodel } from 'src/app/models/repreqmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
 import { FinreportsService } from 'src/app/services/finreports.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Menureportaccessrightsmodel } from 'src/app/models/menureportaccessmodel';
@@ -20,14 +19,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./multipleledgerreport.component.css']
 })
 export class MultipleledgerreportComponent {
-   loggedInUserID: string = '';
+  loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-dashboard: string =""; 
+  dashboard: string =""; 
 
-  accountList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   menuList: Menureportaccessrightsmodel[] = [];
@@ -37,7 +35,7 @@ dashboard: string ="";
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  filter: Reportmodel = {
+  filter: Repreqmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'fromPlace',
@@ -49,6 +47,9 @@ dashboard: string ="";
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+    filterStr4:'',
+    filterStr5:'',
+    filterStr6:'',
   }
 
   formFilter!: FormGroup;
@@ -122,7 +123,6 @@ dashboard: string ="";
   
     this.sharedService.loading=true;
     this.getBranchList();
-    this.getAccountList();  
     this.sharedService.loading=false;
     
     this.formFilter = this.formBuilder.group({
@@ -142,12 +142,6 @@ dashboard: string ="";
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
-    });
-  }
-
-  getAccountList(): void {
-    this.ledgerrptService.getLedgerList().subscribe((res) => {
-      this.accountList = res;
     });
   }
   
@@ -315,20 +309,22 @@ dashboard: string ="";
 
     var selectedIdsArray = this.getSelectedIds(this.menuList);
     var selectedIds = selectedIdsArray.join(',');
+    var selectedIds1 = "17,24";
 
-    if(selectedIds.length>1500){
+    if(selectedIds.length>3000){
       this.toastrService.warning("Please select less number of Accounts");
       return;
+      //selectedIds1 = selectedIds.substring(3000);
     }
 
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
     this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = selectedIds//selectedDataVal.accountID.dataId;
-     
-    this.filter.sortColumn = selectedDataVal.subType.toString().toUpperCase();
-    this.filter.sortOrder = selectedDataVal.subLedger;
+    this.filter.filterStr2    = selectedIds.substring(0,3000)//selectedDataVal.accountID.dataId;
+    this.filter.filterStr6    = selectedIds1;
+    this.filter.sortColumn    = selectedDataVal.subType.toString().toUpperCase();
+    this.filter.sortOrder     = selectedDataVal.subLedger;
 
     if(selectedDataVal.branchorCon == "C"){
       this.filter.filterStr3    = "C";

@@ -715,6 +715,7 @@ namespace FinTrans.Repository
                                     "&Branch=" + request.FilterStr +
                                     "&YearId=" + request.FilterStr1 +
                                     "&AccountID=" + request.FilterStr2 +
+                                    //"&AccountID1=" + request.FilterStr6 +
                                     "&RptType=" + request.FilterStr3 +
                                     "&SubType=" + request.SortColumn +
                                     "&SubLedger=" + request.SortOrder +
