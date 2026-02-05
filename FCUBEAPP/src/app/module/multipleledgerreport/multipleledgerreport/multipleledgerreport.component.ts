@@ -343,7 +343,10 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
     // var selectedIds1 = "17,24";
 
     var selectedIdsArray = this.saveSelectedIds();
-    var parentIdsStr = selectedIdsArray.parents.join(',') +  ',' + selectedIdsArray.children.join(',');
+   const parentIdsStr = [
+    ...(selectedIdsArray.parents || []),
+    ...(selectedIdsArray.children || [])
+  ].join(',');
    // var childIdsStr = selectedIdsArray.children.join(',');
 
 
