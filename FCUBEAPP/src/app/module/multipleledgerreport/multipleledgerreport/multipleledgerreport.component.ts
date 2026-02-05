@@ -343,8 +343,8 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
     // var selectedIds1 = "17,24";
 
     var selectedIdsArray = this.saveSelectedIds();
-    var parentIdsStr = selectedIdsArray.parents.join(',');
-    var childIdsStr = selectedIdsArray.children.join(',');
+    var parentIdsStr = selectedIdsArray.parents.join(',') +  ',' + selectedIdsArray.children.join(',');
+   // var childIdsStr = selectedIdsArray.children.join(',');
 
 
     // if(selectedIds.length>3000){
@@ -357,8 +357,8 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
     this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = childIdsStr.toString();
-    this.filter.filterStr6    = parentIdsStr.toString();
+    this.filter.filterStr2    = parentIdsStr.toString();
+    this.filter.filterStr6    = "";
     this.filter.sortColumn    = selectedDataVal.subType.toString().toUpperCase();
     this.filter.sortOrder     = selectedDataVal.subLedger;
 
