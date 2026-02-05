@@ -338,16 +338,9 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
       return;
     }
 
-    // var selectedIdsArray = this.getSelectedIds(this.menuList);
-    // var selectedIds = selectedIdsArray.join(',');
-    // var selectedIds1 = "17,24";
-
     var selectedIdsArray = this.saveSelectedIds();
-   const parentIdsStr = [
-    ...(selectedIdsArray.parents || []),
-    ...(selectedIdsArray.children || [])
-  ].join(',');
-   // var childIdsStr = selectedIdsArray.children.join(',');
+    selectedIdsArray.parents = selectedIdsArray.parents.concat(selectedIdsArray.children)
+    var childIdsStr = selectedIdsArray.parents.join(',');
 
 
     // if(selectedIds.length>3000){
@@ -360,7 +353,7 @@ updateIds(items: Menureportaccessrightsmodel[]): void {
     this.filter.toDate        = selectedDataVal.toDate;
     this.filter.filterStr     = selectedDataVal.branch==""?"0":selectedDataVal.branch;
     this.filter.filterStr1    = this.year;
-    this.filter.filterStr2    = parentIdsStr.toString();
+    this.filter.filterStr2    = childIdsStr.toString();
     this.filter.filterStr6    = "";
     this.filter.sortColumn    = selectedDataVal.subType.toString().toUpperCase();
     this.filter.sortOrder     = selectedDataVal.subLedger;
