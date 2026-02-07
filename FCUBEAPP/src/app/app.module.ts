@@ -574,6 +574,12 @@ import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetai
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
 import { TrailballistComponent } from './module/trailballist/trailballist.component';
+import { FleetcardreturntransferaddComponent } from './module/fleetcardreturntransfer/fleetcardreturntransferadd/fleetcardreturntransferadd.component';
+import { FleetcardreturntransferlistComponent } from './module/fleetcardreturntransfer/fleetcardreturntransferlist/fleetcardreturntransferlist.component';
+
+import { Fleetcardreturntransfermodel } from "./models/fleetcardreturntransfermodel";
+import { Fleetcardmasterlistmodel } from "./models/fleetcardmasterlistmodel";
+
 
 
 @NgModule({
@@ -763,7 +769,7 @@ import { TrailballistComponent } from './module/trailballist/trailballist.compon
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
     MonthlyperformancerptComponent,
-    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent
+    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, FleetcardreturntransferaddComponent, FleetcardreturntransferlistComponent
   
    
     
@@ -843,7 +849,8 @@ import { TrailballistComponent } from './module/trailballist/trailballist.compon
     Directpmtlistmodel, Directpmtmodel,VehicleadvbalreceiptModelLLP,Tripoutstandingrptbrplmodel,
     Unbilledprovisionmstmodel,Menureportaccessrightsmodel,Driversalaryentrymodel,
     Vendorpmtmodel,Fleetgroupmastermodel,Vehiclemfrmastermodel,Vehiclefincompmastermodel,Vehicleflttypemstmodel,
-    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel
+    Rechargerequestmodel,Rechargerequestlist,Pltransfermodel,Fleetgodownmastermodel,Godownstockmodel,Ledgerdetaillistmodel,Fleetcardreturntransfermodel,
+    Fleetcardmasterlistmodel
   ],
   bootstrap: [AppComponent]
 })

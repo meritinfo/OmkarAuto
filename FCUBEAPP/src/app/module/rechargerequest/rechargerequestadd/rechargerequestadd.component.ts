@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { RechargerequestService } from 'src/app/services/rechargerequest.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Constants } from 'src/app/common/constants';
-
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
   selector: 'app-rechargerequestadd',
@@ -26,7 +26,7 @@ export class RechargerequestaddComponent {
   @ViewChild('Attach1Input', {
     static: true
   }) Attach1Input: any;
-
+  balanceAmt      : string = '';
   formSubmitted   = false;
   responseDetails = new Responsemodel();
   editMode        = false;
@@ -49,6 +49,7 @@ export class RechargerequestaddComponent {
   selectedRechargerequestmodel = new Rechargerequestmodel();
 
   constructor(
+     private reportmodel:Reportmodel,
     private route: Router, 
     private formBuilder: FormBuilder, 
     private rechargerequestmodel: Rechargerequestmodel,
@@ -164,18 +165,27 @@ export class RechargerequestaddComponent {
   }
     
   selectEvent(item: any) {
+    debugger
     this.requestmodel.strRequest = item.dataName;
     this.rechargerequestService.getVehiBpclCardDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       if (res.status) {
         this.formRequestRecharge.patchValue({        
           reqCard: this.fleetCardList.find(e => e.dataId == res.message),
         });  
+        var reqCard = this.fleetCardList.find(e => e.dataId == res.message)?.dataName;
+        this.requestmodel.strRequest1 = reqCard? reqCard : "";
+        this.rechargerequestService.getBpclCardBalAmount(this.requestmodel).subscribe((res) => {
+          if(res.status){
+            this.balanceAmt = res.message;
+          }
+        });
         this.formRequestRecharge.controls["vehicleMasterId"].disable();
       }
       else {
         this.toasterService.warning(res.message);
       }
     });
+    
   }
 
   startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
@@ -195,7 +205,7 @@ export class RechargerequestaddComponent {
           if (this.responseDetails.status) {
             this.toasterService.success(this.responseDetails.message);
             this.formRequestRecharge.reset();
-            this.route.navigate(['/FleetCardRechargeReq']);
+            this.route.navigate(['/fleetcardrechargereq']);
           }
           else {
             this.toasterService.warning(this.responseDetails.message);
@@ -206,7 +216,7 @@ export class RechargerequestaddComponent {
   }
   
   exit(): void {
-    this.route.navigate(['/FleetCardRechargeReq']);
+    this.route.navigate(['/fleetcardrechargereq']);
   } 
 
   rechargeRequestSave(): void {    
@@ -240,7 +250,7 @@ export class RechargerequestaddComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formRequestRecharge.reset();
-        this.route.navigate(['/FleetCardRechargeReq']);
+        this.route.navigate(['/fleetcardrechargereq']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

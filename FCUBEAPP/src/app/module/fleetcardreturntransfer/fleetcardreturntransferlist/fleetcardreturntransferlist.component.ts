@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Rechargerequestmodel  } from 'src/app/models/rechargerequestmodel';
-import { Rechargerequestlist } from 'src/app/models/rechargerequestlist';
+import { Fleetcardreturntransfermodel  } from 'src/app/models/fleetcardreturntransfermodel';
+import { Fleetcardreturntransferlist } from 'src/app/models/fleetcardreturntransferlist';
 import { RechargerequestService } from 'src/app/services/rechargerequest.service';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
@@ -10,12 +10,13 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
-  selector: 'app-rechargerequestlist',
-  templateUrl: './rechargerequestlist.component.html',
-  styleUrls: ['./rechargerequestlist.component.css']
+  selector: 'app-fleetcardreturntransferlist',
+  templateUrl: './fleetcardreturntransferlist.component.html',
+  styleUrls: ['./fleetcardreturntransferlist.component.css']
 })
-export class RechargerequestlistComponent {
+export class FleetcardreturntransferlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -26,38 +27,36 @@ export class RechargerequestlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
-    allRechargerequestlist: Rechargerequestlist = new Rechargerequestlist();
-     filter: Pagerequestwithdatesmodel = {
-       pageNumber: 1,
-       pageSize: 10,
-       sortColumn: '',
-       sortOrder: 'asc',
-       search: '',
-       fromDate:'',
-       toDate:'',
-       strRequest:''
-     }
-     
-    
-    formFilter!: FormGroup;
-    year: string = '';
-    loginDate: string = '';
-    fromDate: string = '';
-    maxDate: string = '';
-    minDate: string = '';
-    branch:string ='';
-  
-  
-    constructor(
-      private rechargerequestService: RechargerequestService, 
-      private formBuilder: FormBuilder,
-      private sharedService: SharedService,
-      private commonService: CommonService,
-      private toasterService: ToastrService, 
-      private route: Router) {
-    }
+  allFleetcardreturntransferlist: Fleetcardreturntransferlist = new Fleetcardreturntransferlist();
+  filter: Pagerequestwithdatesmodel = {
+   pageNumber: 1,
+   pageSize: 10,
+   sortColumn: '',
+   sortOrder: 'asc',
+   search: '',
+   fromDate:'',
+   toDate:'',
+   strRequest:''
+  }
 
-    ngOnInit(): void {
+  formFilter!: FormGroup;
+  year       : string = '';
+  loginDate  : string = '';
+  fromDate   : string = '';
+  maxDate    : string = '';
+  minDate    : string = '';
+  branch     : string ='';
+
+  constructor(
+    private rechargerequestService: RechargerequestService, 
+    private formBuilder: FormBuilder,
+    private sharedService: SharedService,
+    private commonService: CommonService,
+    private toasterService: ToastrService, 
+    private route: Router) {
+  }
+
+  ngOnInit(): void {
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
@@ -94,12 +93,11 @@ export class RechargerequestlistComponent {
       this.sharedService.loading=true;   
       this.filter.fromDate = this.fromDate;
       this.filter.toDate = this.loginDate;
-      this.getRechargeRequestList();
+      this.getFleetCardReturnTransferList();
       this.sharedService.loading=false;
-    }
+  }
 
-
-   getRechargeRequestList() {
+  getFleetCardReturnTransferList() {
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 50,
@@ -121,8 +119,8 @@ export class RechargerequestlistComponent {
             recordsFiltered: 0,
             data: []
           });
-          this.rechargerequestService.getRechargeRequestList(this.filter).subscribe(resp => {
-            this.allRechargerequestlist = resp;
+          this.rechargerequestService.getFleetCardReturnTransferList(this.filter).subscribe(resp => {
+            this.allFleetcardreturntransferlist = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,
@@ -131,69 +129,60 @@ export class RechargerequestlistComponent {
             });
         },
         columns: [ 
+          // {
+          //   title: 'Action',
+          //   data: 'reqId',
+          // },  
           {
-            title: 'Action',
-            data: 'reqId',
-          },  
-          {
-            title: 'Req Date',
-            data: 'reqDate',
+            title: 'Return Date',
+            data: 'returnDate',
           },
-          {
-            title: 'Req Card',
-            data: 'reqCard',
-          },
-         
-          {
+           {
             title: 'Vehicle No',
-            data: 'vehicleMasterId',
+            data: 'vehicleNo',
           }, 
           {
-            title: 'Amount',
-            data: 'reqAmt',
-          }, 
-          {
-            title: 'Status',
-           
+            title: 'Return Card',
+            data: 'cardNo',
           },
-    
-          
+          {
+            title: 'Return Amount',
+            data: 'returnAmt',
+          }, 
+
         ],
       };
     }
-    
-    rechargeRequestAdd(): void {
-      this.route.navigate(['/fleetcardrechargereqadd']);
-    } 
-    
-    //Open user details screen
-    getRechargeRequestDetails(obj: Rechargerequestmodel): void {
-      this.rechargerequestService.getRechargeRequestDetails(obj);
-      this.route.navigate(['/fleetcardrechargereqedit']);
-    }
-    
-    search(): void {
-      var selecteddata = this.formFilter.getRawValue();
-      var selectedDataVal=this.formFilter.getRawValue();
-    
-        let frmdt = new Date(selectedDataVal.fromDate);
-        let todt = new Date(selectedDataVal.toDate);
-        let maxdt = new Date(this.loginDate);
-        let mindt = new Date(this.minDate);
-    
-        if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
-          this.toasterService.warning("From Date and To Date should be with in Fin Year");
-          return;
-        }
-      this.filter.fromDate = selecteddata.fromDate;
-      this.filter.toDate = selecteddata.toDate;
-      this.sharedService.loading=true;
-      this.getRechargeRequestList();
-      this.sharedService.loading=false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload();
-      });
-    }
 
+  fleetCardAmtRtrAdd(): void {
+      this.route.navigate(['/fleetcardamtrtrnadd']);
+  } 
 
+  getFleetcardreturntransferDetails(obj: Fleetcardreturntransfermodel): void {
+    this.rechargerequestService.getFleetcardreturntransferDetails(obj);
+    this.route.navigate(['/fleetcardamtrtrnedit']);
+  }
+        
+  search(): void {
+    var selecteddata = this.formFilter.getRawValue();
+    var selectedDataVal=this.formFilter.getRawValue();
+  
+      let frmdt = new Date(selectedDataVal.fromDate);
+      let todt = new Date(selectedDataVal.toDate);
+      let maxdt = new Date(this.loginDate);
+      let mindt = new Date(this.minDate);
+  
+      if (maxdt<frmdt || frmdt<mindt || maxdt<todt || todt<mindt) {
+        this.toasterService.warning("From Date and To Date should be with in Fin Year");
+        return;
+      }
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    this.sharedService.loading=true;
+    this.getFleetCardReturnTransferList();
+    this.sharedService.loading=false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
 }

@@ -376,6 +376,9 @@ import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetai
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
 import { TrailballistComponent } from './module/trailballist/trailballist.component';
+import { FleetcardreturntransferlistComponent} from './module/fleetcardreturntransfer/fleetcardreturntransferlist/fleetcardreturntransferlist.component';
+import { FleetcardreturntransferaddComponent} from './module/fleetcardreturntransfer/fleetcardreturntransferadd/fleetcardreturntransferadd.component';
+
 
 
 const routes: Routes = [
@@ -862,10 +865,10 @@ const routes: Routes = [
   { path: 'tripsheetgsafe',component: TripsheetgsafelistComponent },
   { path: 'tripsheetgsafeadd', component: TripsheetgsafeaddComponent },
   { path: 'tripsheetgsafeedit', component: TripsheetgsafeaddComponent },
-  { path: 'FleetCardRechargeReq', component: RechargerequestlistComponent },
-  { path: 'FleetCardRechargeReqadd', component: RechargerequestaddComponent },
-  { path: 'FleetCardRechargeReqedit', component: RechargerequestaddComponent },
-  { path: 'FleetCardRechargeApp', component: RechargerequestapproveaddComponent },
+  { path: 'fleetcardrechargereq', component: RechargerequestlistComponent },
+  { path: 'fleetcardrechargereqadd', component: RechargerequestaddComponent },
+  { path: 'fleetcardrechargereqedit', component: RechargerequestaddComponent },
+  { path: 'fleetcardrechargeapp', component: RechargerequestapproveaddComponent },
   { path: 'pltransfer', component: PltransferComponent },
   { path: 'fltgodownlist', component: FleetgodownmasterlistComponent },
   { path: 'fltgodownlistadd', component: FleetgodownmasteraddComponent },
@@ -886,8 +889,9 @@ const routes: Routes = [
   { path: 'cashbooksum', component: CashbookdetailComponent }, 
   { path: 'bankbooksum', component: BankbookdetailComponent }, 
   { path: 'trailbalsum', component: TrailballistComponent }, 
-
- 
+  { path: 'fleetcardamtrtrn', component: FleetcardreturntransferlistComponent }, 
+  { path: 'fleetcardamtrtrnadd', component: FleetcardreturntransferaddComponent }, 
+  { path: 'fleetcardamtrtrnedit', component: FleetcardreturntransferaddComponent }, 
 ];
 
 

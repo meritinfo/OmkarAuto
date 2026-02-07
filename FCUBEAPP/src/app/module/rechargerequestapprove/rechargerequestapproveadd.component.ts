@@ -69,6 +69,7 @@ export class RechargerequestapproveaddComponent {
 
   constructor(
     private route: Router, 
+    private requestmodel:Requestmodel,
     private formBuilder: FormBuilder, private reportmodel:Reportmodel,
     private rechargerequestService: RechargerequestService, 
     private commonService: CommonService,private toasterService: ToastrService ,
@@ -141,6 +142,7 @@ export class RechargerequestapproveaddComponent {
       selectedAll    : new FormControl(''),
       arrayList      : this.formBuilder.array([this.createInitialArray()]),
     });
+    this.formRequestRecharge.controls['reqCard'].disable();   
     this.getBranchList();
     this.getFleetCardList();
     this.getVehicleNoList();
@@ -157,6 +159,21 @@ export class RechargerequestapproveaddComponent {
   getFleetCardList(): void {
     this.rechargerequestService.getFleetCardList().subscribe((res) => {
       this.fleetCardList = res;
+    });
+  }
+
+    selectEvent(item: any) {
+    this.requestmodel.strRequest = item.dataName;
+    this.rechargerequestService.getVehiBpclCardDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      if (res.status) {
+        this.formRequestRecharge.patchValue({        
+          reqCard: this.fleetCardList.find(e => e.dataId == res.message),
+        });  
+        this.formRequestRecharge.controls["vehicleMasterId"].disable();
+      }
+      else {
+        this.toasterService.warning(res.message);
+      }
     });
   }
 

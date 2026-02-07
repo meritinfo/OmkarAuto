@@ -493,5 +493,160 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetBpclCardBalAmount(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            BpclCardBalResponse balance = new();
+            RequestModel requestModel = new RequestModel();
+            try
+            {
+
+                EWayAPIConfigurationModel ewayapiConfigurtion = new();
+
+                requestModel = await sharedRepository.GetBpclAccessParentToken();
+
+                string baseUrl = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/register/searchFleetCards";
+
+                string UrlParam = "?q=" + request.strRequest +
+                                "&program=smartfleet" +
+                                "&channel=Web" +
+                                "&accountId="+ requestModel.strRequest1;
+
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains(request.strRequest1))
+                    {
+                        balance = JsonConvert.DeserializeObject<BpclCardBalResponse>(result);
+                        for (int i = 0; i < balance.fleetCards.Count; i++) {
+                            if (balance.fleetCards[i].fleetCardId == request.strRequest1)
+                            {
+                                responseModel.Message=Convert.ToString(balance.fleetCards[i].cardWalletBalance);
+                                responseModel.Status=true;
+                                break;
+                            }
+                        }
+                        
+                    }
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> FleetCardReturnTransferSave(FleetCardReturnTransferModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ReturnId", request.ReturnId),
+                            new SqlParameter("@ReturnBranch", request.ReturnBranch),
+                            new SqlParameter("@ReturnDate", request.ReturnDate),
+                            new SqlParameter("@FleetCard", request.FleetCard),
+                            new SqlParameter("@ReturnAmt", request.ReturnAmt),
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                            new SqlParameter("@Remarks", request.Remarks),
+                            new SqlParameter("@LoggedInUser", request.LoggedInUser)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardReturnTransferSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+
+        public async Task<FleetCardReturnTransferList> GetFleetCardReturnTransferList(ReportRequestModel request)
+        {
+            FleetCardReturnTransferList fleetCardReturnTransferList = new();
+            List<FleetCardReturnTransferModel> fleetCardReturnTransferModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate)
+
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFleetCardReturnTransferList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            fleetCardReturnTransferModel.Add(new FleetCardReturnTransferModel
+                            {
+                                ReturnId        = Convert.ToString(dataSet.Tables[0].Rows[i]["ReturnId"]),
+                                ReturnBranch    = Convert.ToString(dataSet.Tables[0].Rows[i]["ReturnBranch"]),
+                                ReturnDate      = Convert.ToString(dataSet.Tables[0].Rows[i]["ReturnDate"]),
+                                FleetCard       = Convert.ToString(dataSet.Tables[0].Rows[i]["FleetCard"]),
+                                CardNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["CardNo"]),
+                                ReturnAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["ReturnAmt"]),
+                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                            });
+                        }
+
+                        fleetCardReturnTransferList.FleetCardReturnTransferLst = fleetCardReturnTransferModel;
+
+                        fleetCardReturnTransferList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return fleetCardReturnTransferList;
+        }
     }
 }

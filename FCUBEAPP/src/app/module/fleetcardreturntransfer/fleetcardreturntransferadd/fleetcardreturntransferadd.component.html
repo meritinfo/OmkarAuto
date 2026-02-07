@@ -1,3 +1,4 @@
+
 <div class="main-content">
    <div class="page-content">
       <div class="container-fluid">
@@ -19,8 +20,8 @@
                            <div class="col-lg-3">
                               <div class="mb-3">
                                  <label for="basicpill-phoneno-input">Branch</label><span style="color: red">*</span>
-                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="reqBranch" 
-                                       [ngClass]="{ 'is-invalid': formSubmitted && (f['reqBranch'].invalid) }" >
+                                    <select class="form-control form-select ng-pristine ng-touched"formControlName="returnBranch" 
+                                       [ngClass]="{ 'is-invalid': formSubmitted && (f['returnBranch'].invalid) }" >
                                           <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                               {{branch.dataName}}
                                           </option>
@@ -30,9 +31,9 @@
                            <div class="col-lg-3">
                               <div class="mb-3">
                                  <label for="basicpill-phoneno-input">Date </label><span style="color: red">*</span>
-                                 <input type="date" class="form-control" formControlName="reqDate"
+                                 <input type="date" class="form-control" formControlName="returnDate"
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['reqDate'].invalid) }" >
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['returnDate'].invalid) }" >
                               </div>
                            </div>
                            <div class="col-lg-3">
@@ -60,11 +61,11 @@
                         <div class="row">  
                            <div class="col-lg-3">
                               <div class="mb-3">
-                                 <label for="basicpill-phoneno-input">Req Card </label>
+                                 <label for="basicpill-phoneno-input">Fleet Card </label>
                                  <div class="ng-autocomplete">
                                     <ng-autocomplete [data]="fleetCardList"
                                         [searchKeyword]="keywordLocation"  
-                                        formControlName="reqCard"
+                                        formControlName="fleetCard"
                                         [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate"
                                         [customFilter]="endWithFilter">
@@ -86,8 +87,8 @@
                               <div class="mb-3">
                                  <label for="basicpill-phoneno-input">Amount</label><span style="color: red">*</span>
                                  <input type="text" class="form-control" decimalonly 
-                                   formControlName="reqAmt" 
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['reqAmt'].invalid) }" >
+                                   formControlName="returnAmt"  (change)="CardBalCheck($event)"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['returnAmt'].invalid) }" >
                               </div>
                            </div>
                         </div>
@@ -101,17 +102,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="row">
-                           <div class="col-lg-6">
-                              <div class="mb-3">
-                                 <label for="attachPath" class="col-form-label">Attachment</label>
-                                    <input #Attach1Input class="form-control" type="file"
-                                    id="attachPath" >
-                                 <a *ngIf="selectedRechargerequestmodel.attachPath"   target="_blank"
-                                    href={{attachPath}}>Download</a>
-                              </div>
-                           </div>
-                        </div>
+                       
                      </div>
                       <!-- end card body -->
                   </div>
@@ -122,10 +113,8 @@
                <div class="col-lg-12">
                   <div class="tex">
                      <button class="btn btn-primary w-md" 
-                        *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
-                        (click)="rechargeRequestSave()">Save</button>
-                     <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                        (click)="RechargeRequestDelete()" >Delete</button> 
+                        *ngIf="((!editMode && createStatus)) && !formSubmitted"
+                        (click)="fleetCardReturnTransferSave()">Save</button>
                       <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                   </div>
                </div>
