@@ -546,11 +546,8 @@ import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/cou
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
 import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
 import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
-import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
-import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
 import { Rechargerequestmodel } from "./models/rechargerequestmodel";
 import { Rechargerequestlist } from "./models/rechargerequestlist";
-import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 import { UnbilledprovisionmstaddComponent } from './module/unbilledprovisionmst/unbilledprovisionmstadd/unbilledprovisionmstadd.component';
 import { UnbilledprovisionmstlistComponent } from './module/unbilledprovisionmst/unbilledprovisionmstlist/unbilledprovisionmstlist.component';
 import { PltransferComponent } from './module/pltransfer/pltransfer.component';
@@ -570,15 +567,16 @@ import { CostpervehiclerptComponent } from './module/costpervehiclerpt/costperve
 import { BrsreportComponent } from './module/brsreport/brsreport.component';
 import { MonthlyperformancerptComponent } from './module/monthlyperformancerpt/monthlyperformancerpt.component';
 import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetaillist.component';
-
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
 import { TrailballistComponent } from './module/trailballist/trailballist.component';
-import { FleetcardreturntransferaddComponent } from './module/fleetcardreturntransfer/fleetcardreturntransferadd/fleetcardreturntransferadd.component';
-import { FleetcardreturntransferlistComponent } from './module/fleetcardreturntransfer/fleetcardreturntransferlist/fleetcardreturntransferlist.component';
-
 import { Fleetcardreturntransfermodel } from "./models/fleetcardreturntransfermodel";
 import { Fleetcardmasterlistmodel } from "./models/fleetcardmasterlistmodel";
+import { BpclcardrechargereqlistComponent } from './module/bpclcardrechargereq/bpclcardrechargereqlist/bpclcardrechargereqlist.component';
+import { BpclcardrechargereqaddComponent } from './module/bpclcardrechargereq/bpclcardrechargereqadd/bpclcardrechargereqadd.component';
+import { BpclcardrechargeappComponent } from './module/bpclcardrechargeapp/bpclcardrechargeapp.component';
+import { BpclcardreturnlistComponent } from './module/bpclcardreturn/bpclcardreturnlist/bpclcardreturnlist.component';
+import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardreturnadd/bpclcardreturnadd.component';
 
 
 
@@ -759,7 +757,6 @@ import { Fleetcardmasterlistmodel } from "./models/fleetcardmasterlistmodel";
     TripmarginsummaryrptComponent, VehicleprofitlossstatementrptComponent, 
     CountofdocenteredrptComponent, VehiclelasttransdaterptComponent, 
     TripsheetgsafelistComponent, TripsheetgsafeaddComponent, 
-    RechargerequestaddComponent, RechargerequestlistComponent, RechargerequestapproveaddComponent,
     UnbilledprovisionmstaddComponent, UnbilledprovisionmstlistComponent,
     PltransferComponent,
     FleetgodownmasteraddComponent,FleetgodownmasterlistComponent,
@@ -769,7 +766,9 @@ import { Fleetcardmasterlistmodel } from "./models/fleetcardmasterlistmodel";
     TrippaymentsbrpladdComponent, TrippaymentsbrpllistComponent,
     CustomerprofitlossrptComponent, CostpervehiclerptComponent, BrsreportComponent,
     MonthlyperformancerptComponent,
-    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, FleetcardreturntransferaddComponent, FleetcardreturntransferlistComponent
+    LegderdetaillistComponent, CashbookdetailComponent, BankbookdetailComponent, TrailballistComponent, 
+    BpclcardrechargereqlistComponent, BpclcardrechargereqaddComponent, BpclcardrechargeappComponent, 
+    BpclcardreturnlistComponent, BpclcardreturnaddComponent
   
    
     

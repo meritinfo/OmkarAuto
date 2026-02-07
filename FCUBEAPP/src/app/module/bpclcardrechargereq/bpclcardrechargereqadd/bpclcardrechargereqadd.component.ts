@@ -13,11 +13,11 @@ import { Constants } from 'src/app/common/constants';
 import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
-  selector: 'app-rechargerequestadd',
-  templateUrl: './rechargerequestadd.component.html',
-  styleUrls: ['./rechargerequestadd.component.css']
+  selector: 'app-bpclcardrechargereqadd',
+  templateUrl: './bpclcardrechargereqadd.component.html',
+  styleUrls: ['./bpclcardrechargereqadd.component.css']
 })
-export class RechargerequestaddComponent {
+export class BpclcardrechargereqaddComponent {
   branchList     : Dropdownmodel[] = [];
   fleetCardList     : Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -48,13 +48,9 @@ export class RechargerequestaddComponent {
   
   selectedRechargerequestmodel = new Rechargerequestmodel();
 
-  constructor(
-     private reportmodel:Reportmodel,
-    private route: Router, 
-    private formBuilder: FormBuilder, 
-    private rechargerequestmodel: Rechargerequestmodel,
-    private requestmodel:Requestmodel,
-     private rechargerequestService: RechargerequestService, 
+  constructor(private reportmodel:Reportmodel, private route: Router, 
+    private formBuilder: FormBuilder, private rechargerequestmodel: Rechargerequestmodel,
+    private requestmodel:Requestmodel, private rechargerequestService: RechargerequestService, 
     private commonService: CommonService,private toasterService: ToastrService ,
     private sharedService: SharedService,) {
     this.rechargerequestmodel = new Rechargerequestmodel();
@@ -66,7 +62,7 @@ export class RechargerequestaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Fleet Card Recharge Request"));      
+      .find((( aa: { menuName: string; }) => aa.menuName === "BPCL Card Recharge Request"));      
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -164,8 +160,7 @@ export class RechargerequestaddComponent {
     });
   }
     
-  selectEvent(item: any) {
-    debugger
+  selectEvent(item: any) {    
     this.requestmodel.strRequest = item.dataName;
     this.rechargerequestService.getVehiBpclCardDetails(this.requestmodel).subscribe((res: Responsemodel) => {
       if (res.status) {
@@ -205,7 +200,7 @@ export class RechargerequestaddComponent {
           if (this.responseDetails.status) {
             this.toasterService.success(this.responseDetails.message);
             this.formRequestRecharge.reset();
-            this.route.navigate(['/fleetcardrechargereq']);
+            this.route.navigate(['/bpclcardrechargereq']);
           }
           else {
             this.toasterService.warning(this.responseDetails.message);
@@ -216,7 +211,7 @@ export class RechargerequestaddComponent {
   }
   
   exit(): void {
-    this.route.navigate(['/fleetcardrechargereq']);
+    this.route.navigate(['/bpclcardrechargereq']);
   } 
 
   rechargeRequestSave(): void {    
@@ -239,8 +234,7 @@ export class RechargerequestaddComponent {
     this.rechargerequestmodel.vehicleMasterId = selectedDataVal.vehicleMasterId.dataId.toString();
     this.rechargerequestmodel.loggedInUser = this.loggedInUserID;
     this.rechargerequestmodel.remarks   = selectedDataVal.remarks.toUpperCase().toString();
-    this.rechargerequestmodel.attachPath = selectedDataVal.attachPath;
-  
+    this.rechargerequestmodel.attachPath = selectedDataVal.attachPath;  
     
     let formData = new FormData();       
     formData.append('attachPath', this.Attach1Input.nativeElement.files[0]);
@@ -250,7 +244,7 @@ export class RechargerequestaddComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formRequestRecharge.reset();
-        this.route.navigate(['/fleetcardrechargereq']);
+        this.route.navigate(['/bpclcardrechargereq']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);
@@ -259,5 +253,4 @@ export class RechargerequestaddComponent {
     this.sharedService.loading = false;
   }
   
-
 }

@@ -1,5 +1,3 @@
-
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -7,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Recharge Request</h4>
+                        <h4 class="mb-sm-0 font-size-18">BPCL Card Recharge Request</h4>
                     </div>
                 </div>
             </div>
@@ -42,35 +40,37 @@
                 <div class="row top-controls">
                     <div class="col-sm-12 col-md-12 text-right">
                         <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus"
-                            (click)="fleetCardAmtRtrAdd()"><span>New</span></button>
+                            (click)="rechargeRequestAdd()"><span>New</span></button>
                     </div>
                 </div>
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                         <thead>
                             <tr>
-                                <!-- <th>Action</th>                       -->
-                                <th>Return Date </th>  
-                                <th>Vehicle No </th>     
-                                <th>Return Card </th>                      
-                                <th>Return Amount</th> 
-                                          
+                                <th>Action</th>                      
+                                <th>Req Date </th>  
+                                <th>Req Card </th>                      
+                                <th>Vehicle No </th>                         
+                                <th>Amount</th> 
+                                 <th>Status</th>                   
                               
                             </tr>
                         </thead>
-                        <tbody *ngIf="allFleetcardreturntransferlist.fleetCardReturnTransferLst?.length!= 0">
-                            <tr *ngFor="let br of allFleetcardreturntransferlist.fleetCardReturnTransferLst">                     
-                                <!-- <td>
+                        <tbody *ngIf="allRechargerequestlist.rechargeRequestLst?.length!= 0">
+                            <tr *ngFor="let br of allRechargerequestlist.rechargeRequestLst">                     
+                                <td>
                                     <button type="button" class="btn btn-edit" 
-                                    (click)="getFleetcardreturntransferDetails(br)" ></button>             
-                                </td>  -->
-                                <td>{{ br.returnDate }}</td>                    
+                                    (click)="getRechargeRequestDetails(br)" ></button>             
+                                </td> 
+                                <td>{{ br.reqDate }}</td>                    
                                 <td>{{ br.vehicleNo }}</td>                   
                                 <td>{{ br.cardNo }}</td>                   
-                                <td>{{ br.returnAmt }}</td>   
+                                <td>{{ br.reqAmt }}</td>   
+                                <td>{{ br.approvedYN }}</td>                   
+
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allFleetcardreturntransferlist.fleetCardReturnTransferLst?.length == 0">
+                        <tbody *ngIf="allRechargerequestlist.rechargeRequestLst?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
@@ -86,3 +86,5 @@
 
 
 
+
+ 

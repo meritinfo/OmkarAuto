@@ -16,6 +16,7 @@ namespace FleetTrans.Models
         public string? ReturnAmt { get; set; }
         public string? VehicleMasterId { get; set; }
         public string? VehicleNo { get; set; }
+        public string? TransactionId { get; set; }
         public string? Remarks { get; set; }
         public string? LoggedInUser { get; set; }
 

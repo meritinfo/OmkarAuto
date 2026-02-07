@@ -209,13 +209,13 @@ export class DieselstmtbpcllistComponent {
   };
 
   dieselStatementAdd(): void {
-    this.route.navigate(['/dieselbpcladd']);
+    this.route.navigate(['/bpcldieselimpadd']);
   }
 
   //Open user details screen
   getDieselStatementDetails(dieselstmt: Dieselstatementmodel): void {
     this.dieselStatementService.setDieselImportDetails(dieselstmt);
-    this.route.navigate(['/dieselbpcledit']);
+    this.route.navigate(['/bpcldieselimpedit']);
   }
 
   search(): void {

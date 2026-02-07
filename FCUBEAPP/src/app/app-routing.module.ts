@@ -356,9 +356,6 @@ import { CountofdocenteredrptComponent } from './module/countofdocenteredrpt/cou
 import { VehiclelasttransdaterptComponent } from './module/vehiclelasttransdate/vehiclelasttransdaterpt/vehiclelasttransdaterpt.component';
 import { TripsheetgsafelistComponent } from './module/tripsheetgsafe/tripsheetgsafelist/tripsheetgsafelist.component';
 import { TripsheetgsafeaddComponent } from './module/tripsheetgsafe/tripsheetgsafeadd/tripsheetgsafeadd.component';
-import { RechargerequestaddComponent } from './module/rechargerequest/rechargerequestadd/rechargerequestadd.component';
-import { RechargerequestlistComponent } from './module/rechargerequest/rechargerequestlist/rechargerequestlist.component';
-import { RechargerequestapproveaddComponent } from './module/rechargerequestapprove/rechargerequestapproveadd.component';
 import { PltransferComponent } from './module/pltransfer/pltransfer.component';
 import { FleetgodownmasterlistComponent } from './module/fleetgodownmaster/fleetgodownmasterlist/fleetgodownmasterlist.component';
 import { FleetgodownmasteraddComponent } from './module/fleetgodownmaster/fleetgodownmasteradd/fleetgodownmasteradd.component';
@@ -376,9 +373,11 @@ import { LegderdetaillistComponent } from './module/ledgerdetaillist/legderdetai
 import { CashbookdetailComponent } from './module/cashbookdetail/cashbookdetail.component';
 import { BankbookdetailComponent } from './module/bankbookdetail/bankbookdetail.component';
 import { TrailballistComponent } from './module/trailballist/trailballist.component';
-import { FleetcardreturntransferlistComponent} from './module/fleetcardreturntransfer/fleetcardreturntransferlist/fleetcardreturntransferlist.component';
-import { FleetcardreturntransferaddComponent} from './module/fleetcardreturntransfer/fleetcardreturntransferadd/fleetcardreturntransferadd.component';
-
+import { BpclcardrechargereqlistComponent } from './module/bpclcardrechargereq/bpclcardrechargereqlist/bpclcardrechargereqlist.component';
+import { BpclcardrechargereqaddComponent } from './module/bpclcardrechargereq/bpclcardrechargereqadd/bpclcardrechargereqadd.component';
+import { BpclcardrechargeappComponent } from './module/bpclcardrechargeapp/bpclcardrechargeapp.component';
+import { BpclcardreturnlistComponent } from './module/bpclcardreturn/bpclcardreturnlist/bpclcardreturnlist.component';
+import { BpclcardreturnaddComponent } from './module/bpclcardreturn/bpclcardreturnadd/bpclcardreturnadd.component';
 
 
 const routes: Routes = [
@@ -865,10 +864,10 @@ const routes: Routes = [
   { path: 'tripsheetgsafe',component: TripsheetgsafelistComponent },
   { path: 'tripsheetgsafeadd', component: TripsheetgsafeaddComponent },
   { path: 'tripsheetgsafeedit', component: TripsheetgsafeaddComponent },
-  { path: 'fleetcardrechargereq', component: RechargerequestlistComponent },
-  { path: 'fleetcardrechargereqadd', component: RechargerequestaddComponent },
-  { path: 'fleetcardrechargereqedit', component: RechargerequestaddComponent },
-  { path: 'fleetcardrechargeapp', component: RechargerequestapproveaddComponent },
+  { path: 'bpclcardrechargereq', component: BpclcardrechargereqlistComponent },
+  { path: 'bpclcardrechargereqadd', component: BpclcardrechargereqaddComponent },
+  { path: 'bpclcardrechargereqedit', component: BpclcardrechargereqaddComponent },
+  { path: 'bpclcardrechargeapp', component: BpclcardrechargeappComponent },
   { path: 'pltransfer', component: PltransferComponent },
   { path: 'fltgodownlist', component: FleetgodownmasterlistComponent },
   { path: 'fltgodownlistadd', component: FleetgodownmasteraddComponent },
@@ -878,9 +877,9 @@ const routes: Routes = [
   { path: 'trippaymentlistbrpl', component: TrippaymentsbrpllistComponent }, 
   { path: 'trippaymentlistbrpladd', component: TrippaymentsbrpladdComponent }, 
   { path: 'trippaymentlistbrpledit', component: TrippaymentsbrpladdComponent }, 
-  { path: 'dieselbpcllist', component: DieselstmtbpcllistComponent }, 
-  { path: 'dieselbpcladd', component: DieselstmtbpcladdComponent }, 
-  { path: 'dieselbpcledit', component: DieselstmtbpcladdComponent }, 
+  { path: 'bpcldieselimplist', component: DieselstmtbpcllistComponent }, 
+  { path: 'bpcldieselimpadd', component: DieselstmtbpcladdComponent }, 
+  { path: 'bpcldieselimpedit', component: DieselstmtbpcladdComponent }, 
   { path: 'custprofitlossrpt', component: CustomerprofitlossrptComponent },  
   { path: 'costpervehiclerpt', component: CostpervehiclerptComponent }, 
   { path: 'bankrecorpt', component: BrsreportComponent }, 
@@ -889,9 +888,9 @@ const routes: Routes = [
   { path: 'cashbooksum', component: CashbookdetailComponent }, 
   { path: 'bankbooksum', component: BankbookdetailComponent }, 
   { path: 'trailbalsum', component: TrailballistComponent }, 
-  { path: 'fleetcardamtrtrn', component: FleetcardreturntransferlistComponent }, 
-  { path: 'fleetcardamtrtrnadd', component: FleetcardreturntransferaddComponent }, 
-  { path: 'fleetcardamtrtrnedit', component: FleetcardreturntransferaddComponent }, 
+  { path: 'bpclcardamtreturn', component: BpclcardreturnlistComponent }, 
+  { path: 'bpclcardamtreturnadd', component: BpclcardreturnaddComponent }, 
+  { path: 'bpclcardamtreturnedit', component: BpclcardreturnaddComponent }, 
 ];
 
 

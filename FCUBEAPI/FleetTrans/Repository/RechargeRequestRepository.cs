@@ -388,7 +388,6 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> RechargeDetailSave(SqlTransaction transaction, RechargeRequestModel req)
         {
             ResponseModel responseModel = new();
@@ -424,8 +423,7 @@ namespace FleetTrans.Repository
 
             }
             return responseModel;
-        }
-        
+        }       
         public async Task<ResponseModel> RechargeRequestDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -543,8 +541,38 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> FleetCardReturnTransferSave(FleetCardReturnTransferModel fleetCardReturn)
+        {
+            ResponseModel responseModel = new();
+            RequestModel request = new RequestModel();
+            BrplTransferModel transfer = new();
+            try
+            {
+                request.strRequest = fleetCardReturn.CardNo;
+                request.strRequest1 = fleetCardReturn.ReturnAmt;
+                transfer = await BpclAmountTransferToWallet(request);
 
-        public async Task<ResponseModel> FleetCardReturnTransferSave(FleetCardReturnTransferModel request)
+                if (transfer != null)
+                {
+                    fleetCardReturn.TransactionId = transfer.transactionId;
+                    responseModel = await CardAmtReturnTransferSave(fleetCardReturn);                   
+                }
+                else
+                {
+                    responseModel.Status = false;
+                    responseModel.Message = "Transfer Failed";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> CardAmtReturnTransferSave(FleetCardReturnTransferModel request)
         {
             ResponseModel responseModel = new();
 
@@ -565,6 +593,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ReturnAmt", request.ReturnAmt),
                             new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
                             new SqlParameter("@Remarks", request.Remarks),
+                            new SqlParameter("@TransactionId", request.TransactionId),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FleetCardReturnTransferSave", param);
@@ -589,7 +618,61 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<BrplTransferModel> BpclAmountTransferToWallet(RequestModel request)
+        {
+            BrplTransferModel transfer = new();
+            RequestModel requestModel = new RequestModel();
 
+            try
+            {
+                string URL = "https://api.cep.bpcl.in/retail/v2/bpcl/smartfleet/";
+                requestModel = await sharedRepository.GetBpclAccessParentToken();
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + requestModel.strRequest);
+                client.DefaultRequestHeaders.Add("Cookie", "ROUTE=.api-7f4488bdbd-qgbdp");
+
+                var data = new
+                {
+                    cards = new[]
+                    {
+                        new {
+                            cardId = request.strRequest,
+                            transfer = "CARD_WALLET_TO_CMS",
+                            amount = request.strRequest1,
+                            cardWalletBalance = 5020
+                        }
+                    },
+                    remarks = "",
+                    channel = "Web",
+                    accountId = requestModel.strRequest1
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(data);
+
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PostAsync("wallet/transfer", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    if (result.Contains("successfully transferred"))
+                    {
+                        transfer = JsonConvert.DeserializeObject<BrplTransferModel>(result);
+                    }
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return transfer;
+        }
 
         public async Task<FleetCardReturnTransferList> GetFleetCardReturnTransferList(ReportRequestModel request)
         {
